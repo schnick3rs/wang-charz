@@ -5,15 +5,18 @@ import VueRouter from "vue-router";
 import Home from "./components/Home";
 import SpeciesSelection from "./components/SpeciesSelection";
 import ArchetypeSelection from "./components/ArchetypeSelection";
+import AttributeSelection from "./components/AttributeSelection";
+import SettingSelection from "./components/SettingSelection";
 
 Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 
 const routes = [
-  { path: '/', component: Home},
+  { path: '/', component: SettingSelection},
   { path: '/char/species', component: SpeciesSelection},
-  { path: '/char/archetype', component: ArchetypeSelection}
+  { path: '/char/archetype', component: ArchetypeSelection},
+  { path: '/char/attributes', component: AttributeSelection},
 ]
 
 const router = new VueRouter({
