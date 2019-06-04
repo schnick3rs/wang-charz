@@ -16,7 +16,11 @@
               <v-list-tile-title>{{key}}</v-list-tile-title>
 
               <v-list-tile-content>
-                <v-text-field box="true" v-model="attributes[key]" type="number" ></v-text-field>
+                <v-text-field
+                        box="true"
+                        v-model="attributes[key]"
+                        type="number"
+                ></v-text-field>
               </v-list-tile-content>
 
             </v-list-tile>

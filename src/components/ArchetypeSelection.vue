@@ -1,50 +1,50 @@
-<template lang="html">
+<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
   <section class="archetype-selection">
     <h1>archetype-selection Component</h1>
 
     <v-container grid-list-md>
 
-      <v-layout>
-        <v-flex>
-          <v-icon color="lighten-1">filter_list</v-icon>
-          <v-btn round>Militarum</v-btn>
-          <v-btn round>Ministorum</v-btn>
-          <v-btn round>Astartes</v-btn>
-          <v-btn round>Heretec</v-btn>
-          <v-btn round disabled>Ork</v-btn>
-          <v-btn round disabled>Eldar</v-btn>
-          <v-btn color="orange"><v-icon color="lighten-1">clear</v-icon> Clear</v-btn>
-        </v-flex>
-      </v-layout>
-
       <v-layout row flex>
 
-        <v-flex xs6>
+        <v-flex xs12 sm6 md4 lg3>
           <div class="species-selection__list">
+
             <v-list two-line>
 
-              <v-list-tile
-                      v-for="item in archetypeOptions"
-                      avatar
-                      @click="selectedArchetype = item"
-              >
-                <v-list-tile-avatar tile>
-                  <img :src="item.avatar" />
-                </v-list-tile-avatar>
+              <v-list-group v-for="(group, key) in archetypeGroups">
 
-                <v-list-tile-content>
-                  <v-list-tile-title>{{item.label}} - {{item.group}}</v-list-tile-title>
-                  <v-list-tile-sub-title>{{item.description}}</v-list-tile-sub-title>
-                </v-list-tile-content>
+                  <template v-slot:activator>
+                      <v-list-tile>
+                          <v-list-tile-avatar tile>
+                              <img src="http://www.nomta.org/wp-content/uploads/2013/01/Fleur-de-lis-fill.svg_1.png" />
+                          </v-list-tile-avatar>
+                          <v-list-tile>{{group}}</v-list-tile>
+                      </v-list-tile>
+                  </template>
 
-                <v-list-tile-action>
-                  <v-btn icon ripple>
-                    <v-icon color="grey lighten-1">info</v-icon>
-                  </v-btn>
-                </v-list-tile-action>
+                  <v-list-tile
+                          v-for="item in archetypesByGroup(group)"
+                          avatar
+                          @click="selectedArchetype = item"
+                  >
+                      <v-list-tile-avatar tile>
+                          <img :src="item.avatar" />
+                      </v-list-tile-avatar>
 
-              </v-list-tile>
+                      <v-list-tile-content>
+                          <v-list-tile-title>{{item.name}}</v-list-tile-title>
+                      </v-list-tile-content>
+
+                      <v-list-tile-action>
+                          <v-btn icon ripple>
+                              <v-icon color="grey lighten-1">info</v-icon>
+                          </v-btn>
+                      </v-list-tile-action>
+
+                  </v-list-tile>
+
+              </v-list-group>
 
             </v-list>
           </div>
@@ -53,10 +53,10 @@
         <v-flex xs6>
 
           <v-card v-if="selectedArchetype">
-            <v-img :src="selectedArchetype.avatar" height="200px"></v-img>
+            <v-img :src="selectedArchetype.theme" height="200px" position="top, center"></v-img>
             <v-card-title primary-title>
               <div>
-                <h3 class="headline md0">{{selectedArchetype.label}}</h3>
+                <h3 class="headline md0">{{selectedArchetype.name}}</h3>
               </div>
             </v-card-title>
             <v-card-text>{{selectedArchetype.description}}</v-card-text>
@@ -87,35 +87,35 @@
 </template>
 
 <script lang="js">
-  export default  {
+    import axios from "axios";
+
+    export default  {
     name: 'archetype-selection',
     props: [],
     mounted() {
-
+        axios.get('https://api.sheety.co/e39d8899-85e5-4281-acf4-4d854bd39994')
+                .then((response) => {
+                  this.archetypeRepository = response.data; // all archetypes;
+                })
     },
     data() {
       return {
-        archetypeGroups: [
-          { label: 'Militarum', species: ['human'] },
-          { label: 'Agents', species: ['human'] },
-          { label: 'Aeldary', species: ['eldar'] },
-          { label: 'heretec', species: ['human', 'astartes'] },
-          { label: 'Astartes', species: ['astartes', 'primaris'] },
-        ],
-        archetypeOptions: [
-          { group: 'Adepta Soroitas', label: 'Sister of Battle', tier: 2, species: 'human', attributes: {strength:3, agility:3, toughness:3, willpower:3}, skills: {scholar:1, 'ballistic Skill':2, 'weapon Skill':2}, description: 'As the militant arm of the of the Adeptus Ministorum, the Sisters of Battle are equipped to engage any who would dare to oppose the Imperial Creed. It is their sacred duty to cleanse the galaxy of heresy and corruption, wherever they should fi nd it, including within the various organisations of the Imperium of Man. Due to their shared goals, the Orders Militant often work in conjunction with the Imperial Inquisition, though they remain distinct organisations. Many of the orders maintain convents on Shrine Worlds, so that they can more easily defend those places most blessed to the Imperial Creed', avatar: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrrCEl2BdBEHp_7h8k9aenXxDlhqNeLRwtzcvRv-XLMKgSpHOi' },
-          { label: 'Tactical Marine', description: '', tier: 2, group: 'Adeptus Ministorum', avatar: 'https://warhammerart.com/wp-content/uploads/2015/10/space-marines-codex-800x1200.jpg' },
-          { label: 'Imperial Guardsman', description: '', tier: 2, group: 'Adeptus Ministorum', avatar: 'https://warhammerart.com/wp-content/uploads/2015/10/space-marines-codex-800x1200.jpg' },
-          { label: 'Inquisitional Akolyth', description: '', tier: 2, group: 'Adeptus Ministorum', avatar: 'https://warhammerart.com/wp-content/uploads/2015/10/space-marines-codex-800x1200.jpg' },
-        ],
+        archetypeRepository: undefined,
         selectedArchetype: null
       }
     },
     methods: {
-
+        archetypesByGroup: function(groupName) {
+            return this.archetypeRepository.filter( a => a.group == groupName )
+        }
     },
     computed: {
-
+      archetypeGroups: function() {
+        if ( this.archetypeRepository !== undefined ) {
+          return [...new Set(this.archetypeRepository.map(item => item.group))]
+        }
+        return []
+      }
     },
     filters: {
       capitalize: function (value) {
