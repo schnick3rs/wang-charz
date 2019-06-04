@@ -1,13 +1,15 @@
 // server.js
-var express = require('express');
-var path = require('path');
-var serveStatic = require('serve-static');
+// see https://medium.com/js-dojo/how-i-deployed-my-vue-spa-on-heroku-4884fb81d73e
 
-app = express();
-app.use(serveStatic(__dirname + "/dist"));
+const express = require('express');
+const serveStatic = require('serve-static');
+const path = require('path');
+
+const app = express();
+app.use(serveStatic(path.join(_dirname, "/dist")));
 
 
-var port = process.env.PORT || 5000;
+const port = process.env.PORT || 80;
 app.listen(port);
 
 console.log('server started http://localhost:'+ port);
