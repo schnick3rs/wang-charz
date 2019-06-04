@@ -28,13 +28,18 @@
     <v-content>
       <router-view></router-view>
     </v-content>
+
+    <v-footer :app="true">
+      {{spendBuildPoints}} / {{totalBuildPoints}}
+    </v-footer>
+
   </v-app>
 </template>
 
 <script>
-import SpeciesSelection from "./components/SpeciesSelection";
+  import SpeciesSelection from "./components/SpeciesSelection";
 
-export default {
+  export default {
   name: 'App',
   components: {
     SpeciesSelection
@@ -43,6 +48,10 @@ export default {
     return {
       //
     }
+  },
+  computed:{
+    totalBuildPoints() { return this.$store.getters.settingTier * 100; },
+    spendBuildPoints() { return this.$store.getters.getSpendBuildingPoints; }
   }
 }
 </script>

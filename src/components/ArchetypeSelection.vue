@@ -7,7 +7,7 @@
 
       <v-layout row flex>
 
-        <v-flex xs12 sm6 md4 lg3>
+        <v-flex xs12 sm6 md6 lg6>
           <div class="species-selection__list">
 
             <v-list two-line>
@@ -37,9 +37,16 @@
                       </v-list-tile-content>
 
                       <v-list-tile-action>
-                          <v-btn icon ripple>
-                              <v-icon color="grey lighten-1">info</v-icon>
-                          </v-btn>
+                          <v-chip color="green" text-color="white">
+                              <v-avatar class="green darken-4">{{item.cost}}</v-avatar>
+                              <v-icon>attach_money</v-icon>
+                          </v-chip>
+                      </v-list-tile-action>
+                      <v-list-tile-action>
+                          <v-chip color="red" text-color="white">
+                              <v-avatar class="red darken-4">{{item.tier}}</v-avatar>
+                              <v-icon >account_balance</v-icon>
+                          </v-chip>
                       </v-list-tile-action>
 
                   </v-list-tile>
@@ -72,7 +79,7 @@
               </ul>
             </v-card-text>
             <v-card-actions>
-              <v-btn color="primary">Select Archetype</v-btn>
+              <v-btn color="primary" @click="selectArchetypeForChar(selectedArchetype)" >Select Archetype</v-btn>
             </v-card-actions>
           </v-card>
 
@@ -101,13 +108,16 @@
     data() {
       return {
         archetypeRepository: undefined,
-        selectedArchetype: null
+        selectedArchetype: null,
       }
     },
     methods: {
         archetypesByGroup: function(groupName) {
             return this.archetypeRepository.filter( a => a.group == groupName )
-        }
+        },
+        selectArchetypeForChar: function(item) {
+            this.$store.commit('setArchetype', { value: item.name, cost: item.cost });
+        },
     },
     computed: {
       archetypeGroups: function() {
