@@ -27,6 +27,7 @@
                           v-for="item in archetypesByGroup(group)"
                           avatar
                           @click="selectedArchetype = item"
+                          v-if="item.species === characterSpecies"
                   >
                       <v-list-tile-avatar tile>
                           <img :src="item.avatar" />
@@ -113,13 +114,16 @@
     },
     methods: {
         archetypesByGroup: function(groupName) {
-            return this.archetypeRepository.filter( a => a.group == groupName )
+            return this.archetypeRepository
+                //.filter( a => a.species === this.characterSpecies )
+                .filter( a => a.group === groupName );
         },
         selectArchetypeForChar: function(item) {
             this.$store.commit('setArchetype', { value: item.name, cost: item.cost });
         },
     },
     computed: {
+      characterSpecies() { return this.$store.getters.species; },
       archetypeGroups: function() {
         if ( this.archetypeRepository !== undefined ) {
           return [...new Set(this.archetypeRepository.map(item => item.group))]

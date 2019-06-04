@@ -17,7 +17,6 @@
 
               <v-list-tile-content>
                 <v-text-field
-                        box="true"
                         v-model="attributes[key]"
                         type="number"
                 ></v-text-field>
@@ -35,17 +34,17 @@
 
             <v-list-tile>
               <v-list-tile-title>Defence</v-list-tile-title>
-              <v-list-tile-content><v-text-field readonly box="true" v-model="defenceValue" type="number" ></v-text-field></v-list-tile-content>
+              <v-list-tile-content><v-text-field readonly :box="true" v-model="defenceValue" type="number" ></v-text-field></v-list-tile-content>
             </v-list-tile>
 
             <v-list-tile>
               <v-list-tile-title>Influence</v-list-tile-title>
-              <v-list-tile-content><v-text-field readonly box="true" v-model="influenceValue" type="number" ></v-text-field></v-list-tile-content>
+              <v-list-tile-content><v-text-field readonly :box="true" v-model="influenceValue" type="number" ></v-text-field></v-list-tile-content>
             </v-list-tile>
 
             <v-list-tile>
               <v-list-tile-title>Wealth</v-list-tile-title>
-              <v-list-tile-content><v-text-field readonly box="true" v-model="wealthValue" type="number" ></v-text-field></v-list-tile-content>
+              <v-list-tile-content><v-text-field readonly :box="true" v-model="wealthValue" type="number" ></v-text-field></v-list-tile-content>
             </v-list-tile>
 
           </v-list>
@@ -72,14 +71,6 @@
         campaign: {
           tier: 3
         },
-        attributes: {
-          strength: 4,
-          agility: 3,
-          toughness: 5,
-          fellowship: 4,
-          intellect: 4,
-          initiative: 4,
-        },
         traits: [
           "defence"
         ]
@@ -88,6 +79,7 @@
     methods: {
     },
     computed: {
+      attributes() { return this.$store.getters.attributes; },
       defenceValue: function() { return this.attributes.initiative - 1 },
       influenceValue: function() { return this.attributes.fellowship - 1 },
       wealthValue: function() { return this.campaign.tier },
