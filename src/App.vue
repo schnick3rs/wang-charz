@@ -1,20 +1,33 @@
 <template>
   <v-app dark>
+
+    <v-navigation-drawer app clipped mini-variant>
+
+        <v-list class="pt-0" dense>
+
+          <router-link v-for="route in routes" :key="route.name" :to="route">
+            <v-list-tile @click="">
+
+              <v-list-tile-action>{{route.name}}</v-list-tile-action>
+
+              <v-list-tile-content>
+
+                <v-list-tile-title>{{route.name}}</v-list-tile-title>
+
+              </v-list-tile-content>
+
+            </v-list-tile>
+          </router-link>
+
+        </v-list>
+
+    </v-navigation-drawer>
+
     <v-toolbar app>
       <v-toolbar-title class="headline text-uppercase">
         <span>W&G </span>
         Charz
       </v-toolbar-title>
-      <v-btn><router-link to="/">Setting</router-link></v-btn>
-      <v-btn><router-link to="/char/species">Species</router-link></v-btn>
-      <v-btn><router-link to="/char/archetype">Archetype</router-link></v-btn>
-      <v-btn><router-link to="/char/attributes">Attributes</router-link></v-btn>
-      <v-btn><router-link to="/char/archetype">Skills</router-link></v-btn>
-      <v-btn><router-link to="/char/archetype">Talents</router-link></v-btn>
-      <v-btn><router-link to="/char/archetype">Background</router-link></v-btn>
-      <v-btn><router-link to="/char/archetype">Ascension</router-link></v-btn>
-      <v-btn><router-link to="/char/archetype">Powers</router-link></v-btn>
-      <v-btn><router-link to="/char/archetype">Wargear</router-link></v-btn>
       <v-spacer></v-spacer>
       <v-btn
         flat
@@ -46,10 +59,14 @@
   },
   data () {
     return {
-      //
+      navigation: [
+          { title: 'Setting', icon: 'dashboard' },
+          { title: 'Species', icon: 'dashboard' },
+      ]
     }
   },
   computed:{
+    routes() { return this.$router.options.routes },
     totalBuildPoints() { return this.$store.getters.settingTier * 100; },
     spendBuildPoints() { return this.$store.getters.getSpendBuildingPoints; }
   }

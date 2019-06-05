@@ -8,6 +8,9 @@ import SpeciesSelection from "./components/SpeciesSelection";
 import ArchetypeSelection from "./components/ArchetypeSelection";
 import AttributeSelection from "./components/AttributeSelection";
 import SettingSelection from "./components/SettingSelection";
+import BackgroundSelection from "./components/BackgroundSelection";
+import TalentSelection from "./components/TalentSelection";
+import SkillSelection from "./components/SkillSelection";
 
 Vue.config.productionTip = false;
 
@@ -15,10 +18,16 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const routes = [
-  { path: '/', component: SettingSelection},
-  { path: '/char/species', component: SpeciesSelection},
-  { path: '/char/archetype', component: ArchetypeSelection},
-  { path: '/char/attributes', component: AttributeSelection},
+  { path: '/', name: 'Home', component: SettingSelection },
+  { path: '/setting', name: 'Setting', component: SettingSelection },
+  { path: '/char/species', name: 'Species', component: SpeciesSelection },
+  { path: '/char/archetype', name: 'Archetype', component: ArchetypeSelection },
+  { path: '/char/attributes', name: 'Attributes', component: AttributeSelection },
+  { path: '/char/skills', name: 'Skills', component: SkillSelection },
+  { path: '/char/talent', name: 'Talents', component: TalentSelection },
+  { path: '/char/background', name: 'Background', component: BackgroundSelection },
+  { path: '/char/skills', name: 'Ascension', component: AttributeSelection },
+  { path: '/char/skills', name: 'Wargear', component: AttributeSelection },
 ];
 
 const router = new VueRouter({
@@ -49,7 +58,7 @@ const store = new Vuex.Store({
       let spend = 0;
       spend += state.species.cost;
       spend += state.archetype.cost;
-      let attributeCost = [0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
+      const attributeCost = [0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
       Object.keys(state.attributes).forEach( (key) => {
           spend += attributeCost[ state.attributes[key]-1 ];
       });
@@ -57,15 +66,19 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    setSpecies (state, payload) {
+    setSettingTier(state, payload) {
+      console.log(payload);
+      state.settingTier = payload.amount;
+    },
+    setSpecies(state, payload) {
       console.log(payload);
       state.species = payload;
     },
-    setArchetype (state, payload) {
+    setArchetype(state, payload) {
       console.log(payload);
       state.archetype = payload;
     },
-    setAttribute (state, payload) {
+    setAttribute(state, payload) {
       console.log(payload);
       state.archetype = payload;
     },
