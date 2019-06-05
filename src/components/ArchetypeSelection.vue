@@ -95,9 +95,9 @@
 </template>
 
 <script lang="js">
-    import axios from "axios";
+  import axios from "axios";
 
-    export default  {
+  export default  {
     name: 'archetype-selection',
     props: [],
     mounted() {
@@ -109,7 +109,7 @@
     data() {
       return {
         archetypeRepository: undefined,
-        selectedArchetype: null,
+        selectedArchetype: undefined,
       }
     },
     methods: {

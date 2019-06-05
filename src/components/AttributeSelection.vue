@@ -18,7 +18,9 @@
               <v-list-tile-content>
                 <v-text-field
                         v-model="attributes[key]"
+                        box="true"
                         type="number"
+                        mask="##"
                 ></v-text-field>
               </v-list-tile-content>
 

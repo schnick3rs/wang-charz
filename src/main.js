@@ -37,31 +37,42 @@ const router = new VueRouter({
 const store = new Vuex.Store({
   state: {
     setting: undefined,
-    settingTier: 1,
+    settingTier: 3,
     species: { value: "Human", cost: 0 },
     archetype: { value: "Imperial Guardsman", cost: 0 },
     attributes: {
-      strength: 1,
-      agility: 1,
-      toughness: 1,
-      intellect: 1,
-      fellowship: 1,
-      initiative: 1,
+      strength: 2,
+      agility: 2,
+      toughness: 2,
+      intellect: 2,
+      fellowship: 2,
+      initiative: 2,
     },
   },
   getters: {
     settingTier(state) { return state.settingTier },
     species(state) { return state.species.value; },
     attributes(state) { return state.attributes; },
-    remainingBuildPoints(state) { return (state.settingTier * 100) - state.getSpendBuildingPoints; },
+    remainingBuildPoints(state, getters) {
+      let remaining = 0;
+      remaining = state.settingTier*100
+      console.log(`Setting tier: ${state.settingTier}.`);
+      console.log(`Points spend: ${getters.getSpendBuildingPoints}.`);
+      return (state.settingTier * 100) - getters.getSpendBuildingPoints;
+    },
     getSpendBuildingPoints(state) {
       let spend = 0;
+      console.log(`Spend ${state.species.cost} for being ${state.species.value}`);
       spend += state.species.cost;
+      console.log(`Spend ${state.archetype.cost} for being ${state.archetype.value}`);
       spend += state.archetype.cost;
       const attributeCost = [0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
       Object.keys(state.attributes).forEach( (key) => {
-          spend += attributeCost[ state.attributes[key]-1 ];
+        let spending = attributeCost[ state.attributes[key]-1 ];
+        console.log(`Spend ${spending} for ${key}`);
+        spend += spending;
       });
+      console.log(`Spend ${spend} in total.`);
       return spend;
     }
   },

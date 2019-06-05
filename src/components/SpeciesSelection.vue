@@ -102,6 +102,13 @@
       }
     },
     methods: {
+      resolveImage(group, value, type) {
+        // require(`../assets/species_${item.name}_avatar.svg`)
+        group = group || "species";
+        value = value.toLowerCase();
+        //return require('../assets/'+group+'_'+value+'_'+type+'.png');
+        return '@/assets/'+group+'_'+value+'_'+type+'.png';
+      },
       updatePreview: function(item) {
         this.previewSpeciesArchetypeOptions = [];
         this.selectedSpecies = item;

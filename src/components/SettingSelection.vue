@@ -7,6 +7,21 @@
 
       <v-layout row wrap>
 
+        <v-flex xs12>
+          <v-slider
+                  label="Campaign Tier"
+                  min="1" max="5"
+                  :value="settingTier"
+                  step="1"
+                  ticks
+                  tick-size="3"
+                  :tick-labels="['One among billions','stalwart Defenders','Elite Guardians','Heroic Operatives','Agents of Fate']"
+                  thumb-label="always"
+                  @change="setSettingTier"
+          >
+          </v-slider>
+        </v-flex>
+
         <v-flex xs12 sm6 md4 lg2 v-if="currentPage === 1" v-for="item in settingTemplateOptions">
 
           <v-card>
@@ -47,7 +62,7 @@
         currentPage: 1,
         setting: {
           name: '',
-          tier: 1,
+          tier: 3,
           species: { exclude: [] },
           archetypes: { exclude: [] },
         },
@@ -62,10 +77,12 @@
       }
     },
     methods: {
-
+      setSettingTier(event) {
+        this.$store.commit('setSettingTier', {amount: event});
+      }
     },
     computed: {
-
+      settingTier() { return this.$store.getters.settingTier; },
     }
 }
 </script>
