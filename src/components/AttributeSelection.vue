@@ -11,14 +11,13 @@
 
           <v-list >
 
-            <v-list-tile v-for="(item, key) in attributes" >
+            <v-list-tile v-for="(item, key) in attributesEnhanced" >
 
               <v-list-tile-title>{{key}}</v-list-tile-title>
 
               <v-list-tile-content>
                 <v-text-field
                         v-model="attributes[key]"
-                        box="true"
                         type="number"
                         mask="##"
                 ></v-text-field>
@@ -81,10 +80,11 @@
     methods: {
     },
     computed: {
-      attributes() { return this.$store.getters.attributes; },
-      defenceValue: function() { return this.attributes.initiative - 1 },
-      influenceValue: function() { return this.attributes.fellowship - 1 },
-      wealthValue: function() { return this.campaign.tier },
+      attributes() {      return this.$store.getters.attributes; },
+      attributesEnhanced() {      return this.$store.getters.attributesEnhanced; },
+      defenceValue() {    return this.attributes.initiative - 1 },
+      influenceValue() {  return this.attributes.fellowship - 1 },
+      wealthValue() {     return this.campaign.tier },
     }
 }
 </script>

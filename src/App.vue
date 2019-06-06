@@ -1,14 +1,19 @@
 <template>
   <v-app dark>
 
-    <v-navigation-drawer app clipped mini-variant>
+    <v-navigation-drawer
+      app
+      :clipped="drawer.clipped"
+      :fixed="drawer.fixed"
+      :permanent="drawer.permanent"
+      :mini-variant="drawer.mini"
+      v-model="drawer.open"
+      width="180"
+    >
 
-        <v-list class="pt-0" dense>
+        <v-list class="pt-0">
 
-          <router-link v-for="route in routes" :key="route.name" :to="route">
-            <v-list-tile @click="">
-
-              <v-list-tile-action>{{route.name}}</v-list-tile-action>
+            <v-list-tile v-for="route in routes" @click="navigateTo(route)">
 
               <v-list-tile-content>
 
@@ -17,13 +22,18 @@
               </v-list-tile-content>
 
             </v-list-tile>
-          </router-link>
 
         </v-list>
 
     </v-navigation-drawer>
 
-    <v-toolbar app>
+    <v-toolbar app
+               :fixed="toolbar.fixed"
+               :clipped-left="toolbar.clippedLeft"
+    >
+      <v-toolbar-side-icon
+              @click.stop="toggleDrawer"
+      ></v-toolbar-side-icon>
       <v-toolbar-title class="headline text-uppercase">
         <span>W&G </span>
         Charz
@@ -62,8 +72,61 @@
       navigation: [
           { title: 'Setting', icon: 'dashboard' },
           { title: 'Species', icon: 'dashboard' },
-      ]
+      ],
+      drawer: {
+        // sets the open status of the drawer
+        open: true,
+        // sets if the drawer is shown above (false) or below (true) the toolbar
+        clipped: true,
+        // sets if the drawer is CSS positioned as 'fixed'
+        fixed: false,
+        // sets if the drawer remains visible all the time (true) or not (false)
+        permanent: false,
+        // sets the drawer to the mini variant, showing only icons, of itself (true)
+        // or showing the full drawer (false)
+        mini: false
+      },
+      toolbar: {
+        //
+        fixed: true,
+        // sets if the toolbar contents is leaving space for drawer (false) or not (true)
+        clippedLeft: true
+      },
+      footer: {
+        // sets the CSS position of the footer
+        fixed: true,
+        // sets if the footer is full width (true) or gives space to the drawer (false)
+        clippedLeft: true
+      }
     }
+  },
+  methods: {
+    // changes the drawer to permanent
+    makeDrawerPermanent () {
+      this.drawer.permanent = true
+      // set the clipped state of the drawer and toolbar
+      this.drawer.clipped = false
+      this.toolbar.clippedLeft = false
+    },
+    // toggles the drawer variant (mini/full)
+    toggleMiniDrawer () {
+      this.drawer.mini = !this.drawer.mini
+    },
+    // toggles the drawer type (permanent vs temporary) or shows/hides the drawer
+    toggleDrawer () {
+      if (this.drawer.permanent) {
+        this.drawer.permanent = !this.drawer.permanent
+        // set the clipped state of the drawer and toolbar
+        this.drawer.clipped = true
+        this.toolbar.clippedLeft = true
+      } else {
+        // normal drawer
+        this.drawer.open = !this.drawer.open
+      }
+    },
+    navigateTo(route) {
+      this.$router.push(route);
+    },
   },
   computed:{
     routes() { return this.$router.options.routes },

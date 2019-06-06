@@ -18,16 +18,17 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const routes = [
-  { path: '/', name: 'Home', component: SettingSelection },
-  { path: '/setting', name: 'Setting', component: SettingSelection },
+  { path: '/', name: 'Home', component: SettingSelection, icon: 'account_balance'},
+  { path: '/setting', name: 'Setting', component: SettingSelection, icon: '' },
   { path: '/char/species', name: 'Species', component: SpeciesSelection },
   { path: '/char/archetype', name: 'Archetype', component: ArchetypeSelection },
   { path: '/char/attributes', name: 'Attributes', component: AttributeSelection },
   { path: '/char/skills', name: 'Skills', component: SkillSelection },
-  { path: '/char/talent', name: 'Talents', component: TalentSelection },
+  { path: '/char/talents', name: 'Talents', component: TalentSelection },
   { path: '/char/background', name: 'Background', component: BackgroundSelection },
-  { path: '/char/skills', name: 'Ascension', component: AttributeSelection },
-  { path: '/char/skills', name: 'Wargear', component: AttributeSelection },
+  { path: '/char/wargear', name: 'Wargear', component: AttributeSelection },
+  { path: '/char/ascension', name: 'Ascension', component: AttributeSelection },
+  { path: '/char/psychic-powers', name: 'Psychic Powers', component: AttributeSelection },
 ];
 
 const router = new VueRouter({
@@ -45,6 +46,7 @@ const store = new Vuex.Store({
       agility: 2,
       toughness: 2,
       intellect: 2,
+      willpower: 2,
       fellowship: 2,
       initiative: 2,
     },
@@ -68,12 +70,40 @@ const store = new Vuex.Store({
       tech: 0,
       weaponSkill: 0,
     },
+    enhancements: [
+      { targetGroup: 'attributes', targetValue: 'strength', modifier: 1, hint: 'Astartes Physiology' },
+    ],
   },
   getters: {
     settingTier(state) { return state.settingTier },
     species(state) { return state.species.value; },
     attributes(state) { return state.attributes; },
+    attributesEnhanced(state) {
+      let enhanced = state.attributes;
+      let attributeEnhancements = state.enhancements.filter( e => { return e.targetGroup === 'attributes' } );
+      attributeEnhancements.forEach( m => {
+        console.info(`Enhance ${m.targetValue} my ${m.modifier} due to ${m.hint}.`);
+        enhanced[m.targetValue] += m.modifier;
+      });
+      return enhanced;
+    },
     skills(state) { return state.skills; },
+    traits(state) {
+      let traits = {};
+      traits['defence'] = state.attributes.initiative-1;
+      traits['resilience'] = state.attributes.toughness+1;
+      traits['soak'] = state.attributes.toughness;
+      traits['wounds'] = state.attributes.toughness+state.settingTier;
+      traits['shock'] = state.attributes.willpower+state.settingTier;
+      traits['resolve'] = state.attributes.willpower-1;
+      traits['conviction'] = state.attributes.willpower;
+      traits['passiveAwareness'] = Math.round((state.attributes.intellect+state.skills.awareness)/2);
+      traits['influence'] = state.attributes.fellowship-1;
+      traits['wealth'] = state.settingTier;
+      traits['speed'] = 6;
+      traits['corruption'] = 0;
+      return traits;
+    },
     remainingBuildPoints(state, getters) {
       let remaining = 0;
       remaining = state.settingTier*100
@@ -90,17 +120,15 @@ const store = new Vuex.Store({
       console.log(`Spend ${state.archetype.cost} for being ${state.archetype.value}`);
       spend += state.archetype.cost;
 
-      const attributeCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
+      const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
       Object.keys(state.attributes).forEach( (key) => {
-        let spending = attributeCost[ state.attributes[key] ];
-        console.log(`Spend ${spending} for ${key}`);
+        let spending = attributeTotalCost[ state.attributes[key] ];
         spend += spending;
       });
 
-      const skillTotelCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
+      const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
       Object.keys(state.skills).forEach( (key) => {
-        let spending = skillTotelCost[ state.skills[key] ];
-        console.log(`Spend ${spending} for ${key}`);
+        let spending = skillTotalCost[ state.skills[key] ];
         spend += spending;
       });
 

@@ -11,16 +11,16 @@
 
           <v-card >
 
-            <v-card-title>{{attribute}}</v-card-title>
+            <v-card-title>{{attribute.name}} - [{{characterAttributes[attribute.key]}}]</v-card-title>
 
             <v-card-text>
 
-              <v-divider></v-divider>
+              <v-divider v-if="skillsByAttribute(attribute.name).length > 0"></v-divider>
 
-              <v-list dense subheader two-line>
+              <v-list dense subheader two-line v-if="skillsByAttribute(attribute.name).length > 0">
                 <v-subheader>Skills</v-subheader>
 
-                <v-list-tile v-for="skill in skillsByAttribute(attribute)" @click="">
+                <v-list-tile v-for="skill in skillsByAttribute(attribute.name)" @click="">
                   <v-list-tile-content>
                     <v-list-tile-title>{{skill.name}}</v-list-tile-title>
                     <v-list-tile-sub-title>{{skill.description}}</v-list-tile-sub-title>
@@ -42,11 +42,24 @@
 
               </v-list>
 
-              <v-divider v-if="traitsByAttribute(attribute).length > 0"></v-divider>
+              <v-divider v-if="traitsByAttribute(attribute.name).length > 0"></v-divider>
 
-              <v-list dense subheader>
+              <v-list dense subheader v-if="traitsByAttribute(attribute.name).length > 0">
                 <v-subheader>Traits</v-subheader>
-                <v-list-tile v-for="trait in traitsByAttribute(attribute)">{{trait.name}}</v-list-tile>
+                <v-list-tile v-for="trait in traitsByAttribute(attribute.name)">
+
+                  <v-list-tile-content>
+                    <v-list-tile-title>{{trait.name}}</v-list-tile-title>
+                    <v-list-tile-sub-title>{{trait.description}}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+
+                  <v-list-tile-action>
+                    <v-avatar color="blue" tile size="24">
+                      <span class="white--text headline">{{characterTraits[trait.key]}}</span>
+                    </v-avatar>
+                  </v-list-tile-action>
+
+                </v-list-tile>
               </v-list>
 
             </v-card-text>
@@ -70,22 +83,28 @@
   name: 'skill-selection',
   props: [],
   mounted() {
-    console.info('Fetching from sheety...');
-     axios.get('https://api.sheety.co/669365df-fa15-4003-ad7d-21d86e11b69a')
+    console.info('Fetching from sheety.co ...');
+    axios.get('https://api.sheety.co/ff93c641-c553-4379-85c0-ca2acd417333')
       .then((response) => {
-        this.skillRepository = response.data; // all talents;
-        console.log('Fetched skills.')
+        this.attributeRepository = response.data; // all attributes;
+        console.log('Fetched attributes.')
       });
     axios.get('https://api.sheety.co/2d702477-7a22-4d71-9c25-6119ee216253')
       .then((response) => {
-        this.traitRepository = response.data; // all talents;
+        this.traitRepository = response.data; // all traits;
         console.log('Fetched traits.')
+      });
+    axios.get('https://api.sheety.co/669365df-fa15-4003-ad7d-21d86e11b69a')
+      .then((response) => {
+        this.skillRepository = response.data; // all skills;
+        console.log('Fetched skills.')
       });
   },
   data() {
     return {
-      skillRepository: undefined,
+      attributeRepository: undefined,
       traitRepository: undefined,
+      skillRepository: undefined,
     }
   },
   methods: {
@@ -113,13 +132,15 @@
   },
   computed: {
     remainingBuildPoints() { return this.$store.getters.remainingBuildPoints; },
+    characterAttributes() { return this.$store.getters.attributes; },
     characterSkills() { return this.$store.getters.skills; },
-    attributes: function() {
-      if ( this.skillRepository !== undefined ) {
-        return [...new Set(this.skillRepository.map(item => item.attribute))]
+    characterTraits() { return this.$store.getters.traits; },
+    attributes() {
+      if ( this.attributeRepository !== undefined ) {
+        return this.attributeRepository;
       }
       return []
-    }
+    },
   }
 }
 </script>

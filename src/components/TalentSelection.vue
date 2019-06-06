@@ -64,9 +64,11 @@
     name: 'talent-selection',
     props: [],
     mounted() {
+      console.info('Fetching from sheety.co ...');
       axios.get('https://api.sheety.co/060cab8e-6b58-421f-9322-8274946b12b7')
         .then((response) => {
           this.talentRepository = response.data; // all talents;
+          console.log(`Fetched ${this.talentRepository.length} talents.`);
         })
     },
     data() {
