@@ -48,11 +48,32 @@ const store = new Vuex.Store({
       fellowship: 2,
       initiative: 2,
     },
+    skills: {
+      athletics: 0,
+      awareness: 0,
+      ballisticSkill: 0,
+      cunning: 0,
+      deception: 0,
+      insight: 0,
+      intimidation: 0,
+      investigation: 0,
+      leadership: 0,
+      medicae: 0,
+      persuasion: 0,
+      pilot: 0,
+      psychicMastery: 0,
+      scholar: 0,
+      stealth: 0,
+      survival: 0,
+      tech: 0,
+      weaponSkill: 0,
+    },
   },
   getters: {
     settingTier(state) { return state.settingTier },
     species(state) { return state.species.value; },
     attributes(state) { return state.attributes; },
+    skills(state) { return state.skills; },
     remainingBuildPoints(state, getters) {
       let remaining = 0;
       remaining = state.settingTier*100
@@ -69,14 +90,19 @@ const store = new Vuex.Store({
       console.log(`Spend ${state.archetype.cost} for being ${state.archetype.value}`);
       spend += state.archetype.cost;
 
-      const attributeCost = [0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
+      const attributeCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
       Object.keys(state.attributes).forEach( (key) => {
-        let spending = attributeCost[ state.attributes[key]-1 ];
+        let spending = attributeCost[ state.attributes[key] ];
         console.log(`Spend ${spending} for ${key}`);
         spend += spending;
       });
 
-      const skillCost = [1, 3, 6, 10, 20, 32];
+      const skillTotelCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
+      Object.keys(state.skills).forEach( (key) => {
+        let spending = skillTotelCost[ state.skills[key] ];
+        console.log(`Spend ${spending} for ${key}`);
+        spend += spending;
+      });
 
       console.log(`Spend ${spend} in total.`);
       return spend;
@@ -98,6 +124,10 @@ const store = new Vuex.Store({
     setAttribute(state, payload) {
       console.log(payload);
       state.archetype = payload;
+    },
+    setSkill(state, payload) {
+      console.log(payload);
+      state.skills[payload.key] = payload.value;
     },
   }
 });

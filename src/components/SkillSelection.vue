@@ -25,6 +25,19 @@
                     <v-list-tile-title>{{skill.name}}</v-list-tile-title>
                     <v-list-tile-sub-title>{{skill.description}}</v-list-tile-sub-title>
                   </v-list-tile-content>
+
+                  <v-list-tile-action>
+                    <v-avatar color="blue" tile size="24">
+                      <span class="white--text headline">{{characterSkills[skill.key]}}</span>
+                    </v-avatar>
+                  </v-list-tile-action>
+
+                  <v-list-tile-action>
+                    <v-btn icon @click="incrementSkill(skill.key)" :disabled=" characterSkills[skill.key] >= 8">
+                      <v-icon :color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
+                    </v-btn>
+                  </v-list-tile-action>
+
                 </v-list-tile>
 
               </v-list>
@@ -57,13 +70,16 @@
   name: 'skill-selection',
   props: [],
   mounted() {
+    console.info('Fetching from sheety...');
      axios.get('https://api.sheety.co/669365df-fa15-4003-ad7d-21d86e11b69a')
       .then((response) => {
         this.skillRepository = response.data; // all talents;
+        console.log('Fetched skills.')
       });
     axios.get('https://api.sheety.co/2d702477-7a22-4d71-9c25-6119ee216253')
       .then((response) => {
         this.traitRepository = response.data; // all talents;
+        console.log('Fetched traits.')
       });
   },
   data() {
@@ -73,6 +89,10 @@
     }
   },
   methods: {
+    incrementSkill(skill) {
+      let newValue = this.characterSkills[skill] + 1;
+      this.$store.commit('setSkill', {key: skill, value: newValue});
+    },
     skillsByAttribute(attribute) {
       if ( this.skillRepository !== undefined ) {
         return this.skillRepository.filter(s => s.attribute === attribute);
@@ -85,8 +105,15 @@
       }
       return []
     },
+    affordableSkillColor(currentSkillValue) {
+      const skillNewValueCost = [0, 1, 2, 3, 4, 10, 12, 14, 24];
+      let cost = skillNewValueCost[currentSkillValue+1];
+      return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
+    },
   },
   computed: {
+    remainingBuildPoints() { return this.$store.getters.remainingBuildPoints; },
+    characterSkills() { return this.$store.getters.skills; },
     attributes: function() {
       if ( this.skillRepository !== undefined ) {
         return [...new Set(this.skillRepository.map(item => item.attribute))]

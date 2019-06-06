@@ -103,9 +103,7 @@
         console.log(`Returning ${filteredTalents.length} entries.`);
         return filteredTalents;
       },
-      remainingBuildPoints() {
-        return this.$store.getters.remainingBuildPoints;
-      },
+      remainingBuildPoints() { return this.$store.getters.remainingBuildPoints; },
       //TODO
       characterKeywords() {
         return ['Adepta Sororitas', 'Imperium'];
