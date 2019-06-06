@@ -62,16 +62,22 @@ const store = new Vuex.Store({
     },
     getSpendBuildingPoints(state) {
       let spend = 0;
+
       console.log(`Spend ${state.species.cost} for being ${state.species.value}`);
       spend += state.species.cost;
+
       console.log(`Spend ${state.archetype.cost} for being ${state.archetype.value}`);
       spend += state.archetype.cost;
+
       const attributeCost = [0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
       Object.keys(state.attributes).forEach( (key) => {
         let spending = attributeCost[ state.attributes[key]-1 ];
         console.log(`Spend ${spending} for ${key}`);
         spend += spending;
       });
+
+      const skillCost = [1, 3, 6, 10, 20, 32];
+
       console.log(`Spend ${spend} in total.`);
       return spend;
     }
