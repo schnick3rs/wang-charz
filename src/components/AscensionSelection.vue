@@ -6,7 +6,7 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs6 md6 lg4
+        <v-flex xs12 sm10 md6 lg6
                 v-for="ascension in ascensionRepository"
                 :key="ascension.key"
         >
@@ -15,8 +15,8 @@
 
             <v-card-title primary-title>
               <div>
-              <div class="headline">{{ ascension.name }}</div>
-              <span class="grey--text">{{ ascension.teaser }}</span>
+                <div class="headline">{{ ascension.name }}</div>
+                <span class="grey--text">{{ ascension.teaser }}</span>
               </div>
             </v-card-title>
 
@@ -33,7 +33,35 @@
               <v-divider class="mb-2"></v-divider>
 
               <p class="text-lg-justify"><strong>Keywords:</strong> {{ ascension.keywords.join(', ') }}</p>
-              <v-select v-for="keyword in ascension.keywords" v-if="keyword.indexOf('<')>=0" box dense :label="keyword +' Keyword'" :items="keywordOptions(keyword).map( i => i.text )"></v-select>
+              <v-select
+                      v-model="ascension['selected']"
+                      v-if="keyword.indexOf('<')>=0"
+                      v-for="keyword in ascension.keywords"
+                      :label="keyword +' Keyword'"
+                      :items="keywordOptions(keyword)"
+                      item-text="name"
+                      item-value="name"
+                      :hint=" ascension['selected'] ? keywordRepository.find( k => k.name === ascension['selected'] ).description : ''"
+                      persistent-hint
+                      box
+                      dense
+              ></v-select>
+
+              <v-select
+                      v-model="ascension['subSelected']"
+                      v-if="ascension['selected'] && ascension['selected'].indexOf('<') >= 0"
+                      label="Select sub keywords"
+                      :items="subKeywordOptions(ascension['selected'])"
+                      item-text="name"
+                      item-value="name"
+                      :hint=" ascension['subSelected'] ? keywordSubwordRepository.find( k => k.name === ascension['subSelected'] ).description : ''"
+                      persistent-hint
+                      box
+                      dense
+              >
+              </v-select>
+
+              <!-- selection for the sub keyword -->
 
               <p class="text-lg-justify"><strong>Influence Bonus:</strong> {{ ascension.influencePerTier }} per Tier ascended</p>
 
@@ -62,67 +90,30 @@
 </template>
 
 <script lang="js">
+  import AscensionRepositoryMixin from '../mixins/AscensionRepositoryMixin';
+  import KeywordRepositoryMixin from '../mixins/KeywordRepositoryMixin';
+
   export default  {
     name: 'ascension-selection',
     props: [],
-    mounted() {
-
-    },
+    mixins: [
+      AscensionRepositoryMixin,
+      KeywordRepositoryMixin,
+    ],
     data() {
-      return {
-        ascensionRepository: [
-          {
-            key: 'stayTheCourse',
-            name: 'Stay The Course',
-            teaser: 'Overcome struggles, build alliances, acquire equipment.',
-            cost: 10,
-            minimumCampaignTier: 2,
-            attributePrerequisites: [],
-            skillPrerequisites: [ 'required +1' ],
-            keywords: [ '<Any>', '<Ordo>' ],
-            influencePerTier: 1,
-            storyElementText: 'The character gains their choice of either 3 Corruption points or a Memorable Injury (see page 233) of their choice and the +1D Bonus to Intimidation that comes with it from the Table 4-4: Memorable Injury.',
-            storyElementOptions: [
-              { text: '3 Corruption Points' },
-              { text: 'Memorable Injury' }
-            ],
-            wargearText: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3 + the new Tier. This may include cybernetics.',
-            wargearOptions: [
-              { text: 'two items of Rare Wargear' },
-              { text: 'one item of Very Rare Wargear' }
-            ],
-          },
-          {
-            key: 'psychicRevelations',
-            name: 'Psychic Revelations',
-            teaser: 'Tap into the warp, awaken powers, lure the Immaterium.',
-            cost: 10,
-            minimumCampaignTier: 2,
-            attributePrerequisites: [ 'Willpower 3' ],
-            skillPrerequisites: [],
-            keywords: [ 'Psyker' ],
-            influencePerTier: 1,
-            storyElementText: 'The character gains the smite psychic power. They also may choose one Minor Psychic power per Tier ascended and may purchase powers from one Discipline of their choice. The character must purchase the Psychic Mastery Skill.',
-            storyElementOptions: [],
-            wargearText: 'None',
-            wargearOptions: [],
-          },
-        ],
-        keywordRepository: [
-          { text: 'Ordo Maleus', wildcard: '<Ordo>' },
-          { text: 'Ordo Hereticus', wildcard: '<Ordo>' },
-          { text: 'Blood Angles', wildcard: '<Chapter>' },
-        ]
-      }
+      return {}
     },
     methods: {
       keywordOptions(wildcard) {
-
         if ( wildcard === '<Any>' ) {
-          return this.keywordRepository;
+          // return all but the any keyword
+          return this.keywordRepository.filter( k => k.name !== '<Any>' );
         } else {
-          return this.keywordRepository.filter( k => k.wildcard === wildcard );
+          return this.keywordRepository.filter( k => k.name === wildcard );
         }
+      },
+      subKeywordOptions(placeholder) {
+        return this.keywordSubwordRepository.filter( k => k.placeholder === placeholder );
       },
     },
     computed: {

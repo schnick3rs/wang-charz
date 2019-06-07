@@ -77,35 +77,20 @@
 </template>
 
 <script lang="js">
-  import axios from 'axios';
+  import AttributeRepositoryMixin from '../mixins/AttributeRepositoryMixin';
+  import TraitRepositoryMixin from '../mixins/TraitRepositoryMixin';
+  import SkillRepositoryMixin from '../mixins/SkillRepositoryMixin';
 
   export default  {
   name: 'skill-selection',
   props: [],
-  mounted() {
-    console.info('Fetching from sheety.co ...');
-    axios.get('https://api.sheety.co/ff93c641-c553-4379-85c0-ca2acd417333')
-      .then((response) => {
-        this.attributeRepository = response.data; // all attributes;
-        console.log('Fetched attributes.')
-      });
-    axios.get('https://api.sheety.co/2d702477-7a22-4d71-9c25-6119ee216253')
-      .then((response) => {
-        this.traitRepository = response.data; // all traits;
-        console.log('Fetched traits.')
-      });
-    axios.get('https://api.sheety.co/669365df-fa15-4003-ad7d-21d86e11b69a')
-      .then((response) => {
-        this.skillRepository = response.data; // all skills;
-        console.log('Fetched skills.')
-      });
-  },
+  mixins: [
+    AttributeRepositoryMixin,
+    TraitRepositoryMixin,
+    SkillRepositoryMixin,
+  ],
   data() {
-    return {
-      attributeRepository: undefined,
-      traitRepository: undefined,
-      skillRepository: undefined,
-    }
+    return {}
   },
   methods: {
     incrementSkill(skill) {

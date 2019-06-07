@@ -11,7 +11,7 @@
           <div class="species-selection__list">
 
             <v-card v-if="!loaded" height="50%">
-              <v-card-text class="text-lg-center">
+              <v-card-text class="text-xs-center">
                 <v-progress-circular indeterminate size="64"></v-progress-circular>
               </v-card-text>
             </v-card>
@@ -88,36 +88,23 @@
 </template>
 
 <script lang="js">
-  import axios from "axios";
+  import SpeciesRepositoryMixin from '../mixins/SpeciesRepositoryMixin';
+  import ArchetypeRepositoryMixin from '../mixins/ArchetypeRepositoryMixin';
 
   export default  {
     name: 'species-selection',
     props: [],
-    mounted() {
-      axios.get('https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151')
-        .then((response) => {
-          this.speciesRepository = response.data; // all archetypes;
-          this.loaded = true;
-        })
-    },
+    mixins: [ SpeciesRepositoryMixin, ArchetypeRepositoryMixin, ],
     data() {
       return {
-        loaded: false,
+        //loaded: false,
         publicPath: process.env.BASE_URL,
-        speciesRepository: undefined,
         selectedSpecies: undefined,
         //previewSpeciesArchetypeOptions: null,
         previewSpeciesArchetypeOptions: []
       }
     },
     methods: {
-      resolveImage(group, value, type) {
-        // require(`../assets/species_${item.name}_avatar.svg`)
-        group = group || "species";
-        value = value.toLowerCase();
-        //return require('../assets/'+group+'_'+value+'_'+type+'.png');
-        return '@/assets/'+group+'_'+value+'_'+type+'.png';
-      },
       updatePreview: function(item) {
         this.previewSpeciesArchetypeOptions = [];
         this.selectedSpecies = item;
@@ -127,13 +114,13 @@
         this.$store.commit('setSpecies', { value: item.name, cost: item.cost });
       },
       getArchetypesBySpecies: function(speciesName) {
-        axios.get('https://api.sheety.co/e39d8899-85e5-4281-acf4-4d854bd39994')
-                .then((response) => {
-                  this.previewSpeciesArchetypeOptions = response.data.filter( i => i.species == speciesName )
-                })
+        return this.previewSpeciesArchetypeOptions = this.archetypeRepository.filter( i => i.species === speciesName );
       }
     },
     computed: {
+      loaded() {
+        return this.speciesRepository && this.archetypeRepository;
+      },
       settingTier() { return this.$store.getters.settingTier; },
     }
 }

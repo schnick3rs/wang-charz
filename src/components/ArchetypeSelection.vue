@@ -95,17 +95,12 @@
 </template>
 
 <script lang="js">
-  import axios from "axios";
+  import ArchetypeRepository from '../mixins/ArchetypeRepositoryMixin';
 
   export default  {
     name: 'archetype-selection',
     props: [],
-    mounted() {
-        axios.get('https://api.sheety.co/e39d8899-85e5-4281-acf4-4d854bd39994')
-                .then((response) => {
-                  this.archetypeRepository = response.data; // all archetypes;
-                })
-    },
+    mixins: [ ArchetypeRepository ],
     data() {
       return {
         archetypeRepository: undefined,
