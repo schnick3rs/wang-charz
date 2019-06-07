@@ -6,10 +6,53 @@
 
     <v-container grid-list-md>
 
-      <v-layout row>
+      <v-layout justify-center row wrap>
 
-        <v-flex xs6>
+        <v-flex xs6 md6 lg4>
+
           <div class="species-selection__list">
+
+            <v-list>
+
+              <v-list-group
+                      v-for="species in speciesRepository"
+                      :key="species.key"
+                      v-model="species.active"
+                      no-action
+              >
+
+                <template v-slot:activator>
+                  <v-list-tile>
+                    <v-list-tile-content>
+                      <v-list-tile-title>{{ species.name }}</v-list-tile-title>
+                    </v-list-tile-content>
+                  </v-list-tile>
+                </template>
+
+                <v-card>
+                  <v-img :src="`${publicPath}species_human.jpg`" height="200px"></v-img>
+                  <v-card-title primary-title>
+                    <div>
+                      <h3 class="headline md0">{{species.name}}</h3>
+                    </div>
+                  </v-card-title>
+                  <v-card-text>{{species.description}}</v-card-text>
+                  <v-card-text>
+                    <ul>
+                      <li v-for="item in previewSpeciesArchetypeOptions">
+                        {{ item.name }}
+                      </li>
+                    </ul>
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-btn color="primary" @click="selectSpeciesForChar(species)" >Select Species</v-btn>
+                  </v-card-actions>
+                </v-card>
+
+              </v-list-group>
+
+            </v-list>
+
             <v-list >
 
               <v-list-tile
@@ -95,6 +138,7 @@
     },
     data() {
       return {
+        publicPath: process.env.BASE_URL,
         speciesRepository: undefined,
         selectedSpecies: undefined,
         //previewSpeciesArchetypeOptions: null,

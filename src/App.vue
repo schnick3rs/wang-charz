@@ -41,6 +41,14 @@
       <v-spacer></v-spacer>
       <v-btn
         flat
+        href="https://github.com/schnick3rs/wang-charz"
+      >
+        <v-icon class="mr-2">code</v-icon>
+        <span>GitHub</span>
+      </v-btn>
+
+      <v-btn
+        flat
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
         target="_blank"
       >
@@ -60,12 +68,10 @@
 </template>
 
 <script>
-  import SpeciesSelection from "./components/SpeciesSelection";
 
-  export default {
+export default {
   name: 'App',
   components: {
-    SpeciesSelection
   },
   data () {
     return {
@@ -135,3 +141,7 @@
   }
 }
 </script>
+
+<style scoped lang="css">
+
+</style>
