@@ -12,6 +12,7 @@ import BackgroundSelection from "./components/BackgroundSelection";
 import TalentSelection from "./components/TalentSelection";
 import SkillSelection from "./components/SkillSelection";
 import AscensionSelection from "./components/AscensionSelection";
+import WargearSelection from "./components/WargearSelection";
 
 Vue.config.productionTip = false;
 
@@ -27,7 +28,7 @@ const routes = [
   { path: '/char/skills', name: 'Skills', component: SkillSelection },
   { path: '/char/talents', name: 'Talents', component: TalentSelection },
   { path: '/char/background', name: 'Background', component: BackgroundSelection },
-  { path: '/char/wargear', name: 'Wargear', component: AttributeSelection },
+  { path: '/char/wargear', name: 'Wargear', component: WargearSelection },
   { path: '/char/ascension', name: 'Ascension', component: AscensionSelection },
   { path: '/char/psychic-powers', name: 'Psychic Powers', component: AttributeSelection },
 ];

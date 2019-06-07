@@ -43,7 +43,7 @@
                       item-value="name"
                       :hint=" ascension['selected'] ? keywordRepository.find( k => k.name === ascension['selected'] ).description : ''"
                       persistent-hint
-                      box
+                      solo
                       dense
               ></v-select>
 
@@ -56,20 +56,28 @@
                       item-value="name"
                       :hint=" ascension['subSelected'] ? keywordSubwordRepository.find( k => k.name === ascension['subSelected'] ).description : ''"
                       persistent-hint
-                      box
+                      solo
                       dense
               >
               </v-select>
 
               <!-- selection for the sub keyword -->
 
+              <v-divider class="mb-2"></v-divider>
+
               <p class="text-lg-justify"><strong>Influence Bonus:</strong> {{ ascension.influencePerTier }} per Tier ascended</p>
 
+              <v-divider class="mb-2"></v-divider>
+
               <p class="text-lg-justify"><strong>Story Element:</strong> {{ ascension.storyElementText }}</p>
-              <v-select v-if="ascension.storyElementOptions.length > 0" box dense label="Story Element" :items="ascension.storyElementOptions.map( i => i.text )"></v-select>
+              <v-select v-if="ascension.storyElementOptions.length > 0" solo dense label="Story Element" :items="ascension.storyElementOptions.map( i => i.text )"></v-select>
+
+              <v-divider class="mb-2"></v-divider>
 
               <p class="text-lg-justify"><strong>Wargear:</strong> {{ ascension.wargearText }}</p>
-              <v-select v-if="ascension.wargearOptions.length > 0" box dense label="Wargear" :items="ascension.wargearOptions.map( i => i.text )"></v-select>
+              <v-select v-if="ascension.wargearOptions.length > 0" solo dense label="Wargear" :items="ascension.wargearOptions.map( i => i.text )"></v-select>
+
+              <v-divider class="mb-2"></v-divider>
 
             </v-card-text>
 
