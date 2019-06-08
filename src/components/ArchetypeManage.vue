@@ -10,10 +10,6 @@
 
           <v-card>
 
-            <v-responsive v-if="archetype.theme">
-              <v-img :src="archetype.theme" height="200px" position="center, center"></v-img>
-            </v-responsive>
-
             <v-card-title primary-title v-if="archetype">
               <div>
                 <div class="headline">{{ archetype.name }}</div>
@@ -35,11 +31,10 @@
               <v-divider class="mb-2"></v-divider>
               <p class="text-lg-justify"><strong>Keywords:</strong> {{ archetype.keywords }}</p>
 
-              <div v-if="archetype">
               <v-select
-                      v-model="archetype['selected']"
-                      v-if="keyword.indexOf('<')>=0"
                       v-for="keyword in archetype.keywords.split(',')"
+                      v-if="keyword.indexOf('<')>=0"
+                      v-model="archetype['selected']"
                       :label="keyword +' Keyword'"
                       :items="subKeywordOptions(keyword)"
                       item-text="name"
@@ -49,7 +44,12 @@
                       solo
                       dense
               ></v-select>
-              </div>
+
+              <p class="text-lg-justify"><strong>Influence Bonus:</strong> +{{ archetype.influence }}</p>
+
+              <p class="text-lg-justify" v-if="archetype.abilities"><strong>{{ archetype.abilities }}:</strong></p>
+
+              <p class="text-lg-justify"><strong>Wargear:</strong> {{ archetype.wargear }}</p>
 
             </v-card-text>
 

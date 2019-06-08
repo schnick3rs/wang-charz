@@ -11,37 +11,37 @@ export default {
         { name: 'Anhrathe',     type: 'Species', parentKeyword: undefined,  description: 'Eldar Corsairs, spacefaring pirates and raiders.'},
         { name: '<Coterie>',    type: 'Species', parentKeyword: 'Anhrathe', description: 'A specific Eldar Corsair band (replaces this keyword when chosen).'},
         { name: 'Asuryani',     type: 'Species', parentKeyword: undefined,  description: 'Eldar of the Craftworlds.'},
-        { name: '<Craftworld>', type: 'Species', parentKeyword: 'Asuryani', description: 'A specifi c Eldar Craftworld (replaces this keyword when chosen).'},
+        { name: '<Craftworld>', type: 'Species', parentKeyword: 'Asuryani', description: 'A specific Eldar Craftworld (replaces this keyword when chosen).'},
         { name: 'Ork',          type: 'Species', parentKeyword: undefined,  description: 'The Ork race.'},
-        { name: '<Clan>',       type: 'Species', parentKeyword: 'Ork',      description: 'A specifi c Ork clan (replaces this keyword when chosen).'},
+        { name: '<Clan>',       type: 'Species', parentKeyword: 'Ork',      description: 'A specific Ork clan (replaces this keyword when chosen).'},
 
         // Imperium Keywords
         { name: 'Adepta Sororitas',   type: 'Imperium', parentKeyword: undefined,             description: 'The Sisters of Battle, warriors of the Ecclesiarchy.'},
-        { name: '<Order>',            type: 'Imperium', parentKeyword: 'Adepta Sororitas',    description: 'A specifi c Adepta Sororitas Order (replaces this keyword when chosen).'},
+        { name: '<Order>',            type: 'Imperium', parentKeyword: 'Adepta Sororitas',    description: 'A specific Adepta Sororitas Order (replaces this keyword when chosen).'},
         { name: 'Adeptus Astartes',   type: 'Imperium', parentKeyword: undefined,             description: 'The Space Marines, superhuman elite warriors of the Imperium.'},
-        { name: '<Chapter>',          type: 'Imperium', parentKeyword: 'Adeptus Astartes',    description: 'A specifi c Adeptus Astartes Chapter (replaces this keyword when chosen).'},
+        { name: '<Chapter>',          type: 'Imperium', parentKeyword: 'Adeptus Astartes',    description: 'A specific Adeptus Astartes Chapter (replaces this keyword when chosen).'},
         { name: 'Adeptus Astra Telepathica',   type: 'Imperium', parentKeyword: undefined,    description: 'They administrate the role of psykers in the Imperium.'},
         { name: 'Adeptus Mechanicus', type: 'Imperium', parentKeyword: undefined,             description: 'The Tech-Priesthood of Mars, they are entrusted with the secrets of tech-nology; allied to the Imperium.'},
-        { name: '<Forge World>',      type: 'Imperium', parentKeyword: 'Adeptus Mechanicus',  description: 'A specifi c Adeptus Mechanicus Forge World (replaces this keyword when chosen).'},
+        { name: '<Forge World>',      type: 'Imperium', parentKeyword: 'Adeptus Mechanicus',  description: 'A specific Adeptus Mechanicus Forge World (replaces this keyword when chosen).'},
         { name: 'Adeptus Ministorum', type: 'Imperium', parentKeyword: undefined,             description: 'Those who preach the Imperial Creed.'},
         { name: 'Astra Militarum',    type: 'Imperium', parentKeyword: undefined,             description: 'The Imperial Guard, soldiers of the Imperium’s main ground forces.'},
-        { name: '<Regiment>',         type: 'Imperium', parentKeyword: 'Astra Militarum',     description: 'A specifi c Astra Militarum Regiment (replaces this keyword when chosen).'},
+        { name: '<Regiment>',         type: 'Imperium', parentKeyword: 'Astra Militarum',     description: 'A specific Astra Militarum Regiment (replaces this keyword when chosen).'},
         { name: 'Cult Mechanicus',    type: 'Imperium', parentKeyword: undefined,             description: 'The Priesthood of the Omnissiah, a subset of the Adeptus Mechanicus.'},
         { name: 'Imperium',           type: 'Imperium', parentKeyword: undefined,             description: 'The Imperium of Man, a galaxy-spanning civilisation 10,000 years old.'},
         { name: 'Inquisition',        type: 'Imperium', parentKeyword: undefined,             description: 'Investigators and questioners, they wield great authority to root out threats to the Imperium.'},
-        { name: '<Ordo>',             type: 'Imperium', parentKeyword: 'Inquisition',         description: 'A specifi c Ordo of the Inquisition (replaces this keyword when chosen).'},
+        { name: '<Ordo>',             type: 'Imperium', parentKeyword: 'Inquisition',         description: 'A specific Ordo of the Inquisition (replaces this keyword when chosen).'},
         { name: 'Militarum Tempestus',type: 'Imperium', parentKeyword: undefined,             description: 'Elite, specially-trained and equipped soldiers of the Astra Militarum.'},
         { name: 'Officio Prefectus',  type: 'Imperium', parentKeyword: undefined,             description: 'Elite leaders and disciplinarians of the Imperium’s military.'},
         { name: 'Primaris',           type: 'Imperium', parentKeyword: undefined,             description: 'A new, improved breed of Space Marine.'},
         { name: 'Rogue Trader',       type: 'Imperium', parentKeyword: undefined,             description: 'Space-faring merchant princes and explorers, granted great authority to expand the Imperium’s borders.'},
-        { name: '<Dynasty>',          type: 'Imperium', parentKeyword: 'Rogue Trader',        description: 'A specifi c Rogue Trader Dynasty (replaces this keyword when chosen).'},
+        { name: '<Dynasty>',          type: 'Imperium', parentKeyword: 'Rogue Trader',        description: 'A specific Rogue Trader Dynasty (replaces this keyword when chosen).'},
         { name: 'Scholastica Psycana',type: 'Imperium', parentKeyword: undefined,             description: 'A subset of the Adeptus Astra Telepathica, they train psykers in the use of their powers.'},
         { name: 'Scum',               type: 'Imperium', parentKeyword: undefined,             description: 'Those who live upon the fringes of Imperial society, often in the underhive or criminal syndicates.'},
         { name: 'Skitarii',           type: 'Imperium', parentKeyword: undefined,             description: 'The warriors of the Omnissiah, devout troops who wield ancient technology.'},
 
         // Renegade and Heretic Keywords
         { name: 'Chaos',            type: 'Renegade', parentKeyword: undefined, description: 'Those who serve the Dark Gods, knowingly or otherwise.'},
-        { name: '<Mark of Chaos>',  type: 'Renegade', parentKeyword: undefined, description: 'A specifi c Chaos God (replaces this keyword when chosen).'},
+        { name: '<Mark of Chaos>',  type: 'Renegade', parentKeyword: undefined, description: 'A specific Chaos God (replaces this keyword when chosen).'},
         { name: 'Dark Mechanicus',  type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.'},
         { name: 'Heretic',          type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.'},
       ],
@@ -56,7 +56,8 @@ export default {
         { placeholder: '<Order>', name: 'Order of the Agent Shroud', description: 'This order is famed for their righteous fury and selfl ess acts of heroism. Their founder seldom spoke, believing that deeds proved more devotion than words.' },
 
         // Regiments of the Astra Militarum
-        { placeholder: '<Regiment>', name: 'Death Korps of Krieg', description: '', modification: {  } },
+        // (i) Characters with the <Regiment> keyword must have the Astra Militarum keyword as well.
+        { placeholder: '<Regiment>', name: 'Death Korps of Krieg', description: 'Founded on the toxic, radioactive world of Krieg, these soldiers are grim and disciplined, accepting even the most dangerous missions.', modification: {  } },
         { placeholder: '<Regiment>', name: 'Cadian Shock Troopers', description: '', modification: {  } },
         { placeholder: '<Regiment>', name: 'Catachan Jungle Fighters', description: '', modification: {  } },
         { placeholder: '<Regiment>', name: 'Armageddon Steel Legion', description: '', modification: {  } },
@@ -64,14 +65,16 @@ export default {
         { placeholder: '<Regiment>', name: 'Valhallan Ice Warriors', description: '', modification: {  } },
         { placeholder: '<Regiment>', name: 'Tallarn Desert Raiders', description: '', modification: {  } },
 
-        // Ordos of the Inquisitor - Characters with the <Ordo> keyword must have the Inquisition keyword as well.
+        // Ordos of the Inquisitor
+        // (i) Characters with the <Ordo> keyword must have the Inquisition keyword as well.
         { placeholder: '<Ordo>', name: 'Ordo Hereticus', description: '', modification: {  } },
         { placeholder: '<Ordo>', name: 'Ordo Xenos', description: '', modification: {  } },
         { placeholder: '<Ordo>', name: 'Ordo Malleus', description: '', modification: {  } },
         { placeholder: '<Ordo>', name: 'Other Ordo', description: '', modification: {  } },
         { placeholder: '<Ordo>', name: 'No Ordo', description: '', modification: {  } },
 
-        // Rogue Trader Dystanies - Characters with the <Dynasty> keyword must have the Rogue Trader keyword as well.
+        // Rogue Trader Dystanies
+        // (i) Characters with the <Dynasty> keyword must have the Rogue Trader keyword as well.
         { placeholder: '<Dystany>', name: 'Your Rogue Trader House', description: '' },
 
         // Forge Worlds of the Adeptus Mechanicus

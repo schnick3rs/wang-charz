@@ -41,7 +41,7 @@
                       :items="keywordOptions(keyword)"
                       item-text="name"
                       item-value="name"
-                      :hint=" ascension['selected'] ? keywordRepository.find( k => k.name === ascension['selected'] ).description : ''"
+                      :hint="ascension['selected'] ? keywordRepository.find( k => k.name === ascension['selected'] ).description : ''"
                       persistent-hint
                       solo
                       dense
@@ -54,7 +54,7 @@
                       :items="subKeywordOptions(ascension['selected'])"
                       item-text="name"
                       item-value="name"
-                      :hint=" ascension['subSelected'] ? keywordSubwordRepository.find( k => k.name === ascension['subSelected'] ).description : ''"
+                      :hint="ascension['subSelected'] ? keywordSubwordRepository.find( k => k.name === ascension['subSelected'] ).description : ''"
                       persistent-hint
                       solo
                       dense
