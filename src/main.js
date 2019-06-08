@@ -14,6 +14,7 @@ import SkillSelection from "./components/SkillSelection";
 import AscensionSelection from "./components/AscensionSelection";
 import WargearSelection from "./components/WargearSelection";
 import ArchetypeManage from "./components/ArchetypeManage";
+import About from "./components/page/About";
 
 Vue.config.productionTip = false;
 
@@ -21,8 +22,8 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const routes = [
-  { path: '/', name: 'Home', component: SettingSelection, icon: 'account_balance'},
-  { path: '/setting', name: 'Setting', component: SettingSelection, icon: '' },
+  { path: '/', name: 'Home', component: SettingSelection, },
+  { path: '/setting', name: 'Setting', component: SettingSelection, },
   { path: '/char/species', name: 'Species', component: SpeciesSelection },
   { path: '/char/archetype/select', name: 'Archetype', component: ArchetypeSelection },
   { path: '/char/archetype/manage', name: 'Manage Archetype', component: ArchetypeManage },
@@ -33,6 +34,7 @@ const routes = [
   { path: '/char/wargear', name: 'Wargear', component: WargearSelection },
   { path: '/char/ascension', name: 'Ascension', component: AscensionSelection },
   { path: '/char/psychic-powers', name: 'Psychic Powers', component: AttributeSelection },
+  { path: '/about', name: 'About', component: About, },
 ];
 
 const router = new VueRouter({

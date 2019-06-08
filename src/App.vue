@@ -31,29 +31,33 @@
                :fixed="toolbar.fixed"
                :clipped-left="toolbar.clippedLeft"
     >
-      <v-toolbar-side-icon
-              @click.stop="toggleDrawer"
-      ></v-toolbar-side-icon>
+      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
+
       <v-toolbar-title class="headline text-uppercase">
         <span>W&G </span>
         Charz
       </v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-btn
-        flat
-        href="https://github.com/schnick3rs/wang-charz"
-      >
-        <v-icon class="mr-2">mdi_github_circle</v-icon>
-        <span>GitHub</span>
-      </v-btn>
 
-      <v-btn
-        flat
-        href="https://github.com/vuetifyjs/vuetify/releases/latest"
-        target="_blank"
-      >
-        <span class="mr-2">Quick Reference</span>
-      </v-btn>
+      <v-spacer></v-spacer>
+
+      <v-toolbar-items>
+        <v-btn
+                flat
+                href="https://github.com/schnick3rs/wang-charz"
+        >
+          <v-icon class="mr-2">code</v-icon>
+          <span>GitHub</span>
+        </v-btn>
+
+        <v-btn
+                flat
+                href="https://github.com/vuetifyjs/vuetify/releases/latest"
+                target="_blank"
+        >
+          <span class="mr-2">Quick Reference</span>
+        </v-btn>
+      </v-toolbar-items>
+
     </v-toolbar>
 
     <v-content>

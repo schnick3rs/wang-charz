@@ -6,8 +6,9 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs6 md6 lg4>
+        <v-flex xs12 sm10 md8 lg8 v-if="!selectedSpecies">
 
+          <v-card>
           <div class="species-selection__list">
 
             <v-card v-if="!loaded" height="50%">
@@ -53,27 +54,64 @@
 
             </v-list>
           </div>
+          </v-card>
         </v-flex>
 
-        <v-flex xs6>
+        <v-flex xs12 sm10 md8 lg8 v-if="selectedSpecies">
 
-          <v-card v-if="selectedSpecies">
-            <v-img :src="selectedSpecies.cover" height="200px"></v-img>
+          <v-card >
+
             <v-card-title primary-title>
               <div>
-                <h3 class="headline md0">{{selectedSpecies.name}}</h3>
+                <h3 class="headline md0">{{ selectedSpecies.name }}</h3>
+                <span class="subheading">{{ selectedSpecies.hint }}</span>
               </div>
             </v-card-title>
-            <v-card-text>{{selectedSpecies.description}}</v-card-text>
+
             <v-card-text>
-              <ul>
-                <li v-for="item in previewSpeciesArchetypeOptions">
-                  {{ item.name }}
-                </li>
-              </ul>
+              <p class="text-lg-justify"><strong>Build Point Cost:</strong> {{ selectedSpecies.cost }}</p>
+
+              <p><v-divider></v-divider></p>
+
+              <p class="text-lg-justify"><strong>Base Tier:</strong> {{ selectedSpecies.baseTier }}</p>
+              <p class="text-lg-justify"><strong>Speed:</strong> {{ selectedSpecies.speed }}</p>
+              <p class="text-lg-justify"><strong>Modifications:</strong> {{ selectedSpecies.attributes }}</p>
+              <p class="text-lg-justify"><strong>Abilities:</strong> {{ selectedSpecies.abilities }}</p>
+
+              <p v-if="selectedSpecies.abilities"><v-divider></v-divider></p>
+
+              <div v-if="selectedSpecies.abilities"
+                 v-for="ability in getAbilitiesForSpecies(selectedSpecies)"
+                 class="text-lg-justify"
+              >
+                <p><strong>{{ ability.name }}:</strong> {{ ability.effect}}</p>
+
+                <v-select
+                        v-model="selectedSpecies['chapter']"
+                        v-if="ability.name === 'Honour the Chapter'"
+                        label="Select your Chapter"
+                        dense
+                        solo
+                        :items="astartesChapterRepository"
+                        item-text="name"
+                        item-value="name"
+                ></v-select>
+
+                <p v-if="ability.name === 'Honour the Chapter' && selectedSpecies['chapter']"
+                   v-for="tradition in getChapterTraditions(selectedSpecies['chapter'])"
+                >
+                  <strong>{{ tradition.name }}:</strong> {{ tradition.effect }}
+                </p>
+
+              </div>
+
+              <p><v-divider></v-divider></p>
+              <p>{{ selectedSpecies.description }}</p>
             </v-card-text>
+
             <v-card-actions>
               <v-btn color="primary" @click="selectSpeciesForChar(selectedSpecies)" >Select Species</v-btn>
+              <v-btn color="red" @click="selectedSpecies = undefined" >Cancle selection</v-btn>
             </v-card-actions>
           </v-card>
 
@@ -115,7 +153,18 @@
       },
       getArchetypesBySpecies: function(speciesName) {
         return this.previewSpeciesArchetypeOptions = this.archetypeRepository.filter( i => i.species === speciesName );
-      }
+      },
+      getAbilitiesForSpecies(species) {
+        let abilities = species.abilities ? species.abilities.split(',') : [];
+        return this.speciesAbilitiesRepository.filter( a => abilities.includes(a.name) );
+      },
+      getChapterTraditions(chapterName) {
+        let chapter = this.astartesChapterRepository.find(a=>a.name === chapterName) || [];
+        if ( chapter ) {
+         return chapter.beliefsAndTraditions;
+        }
+        return [];
+      },
     },
     computed: {
       loaded() {
@@ -127,17 +176,4 @@
 </script>
 
 <style scoped lang="css">
-  .species-selection {}
-  .species-selection__list {}
-  .species-selection__list-item {
-    width: 50%;
-    border: 1px grey solid;
-    border-radius: 15px;
-    padding: 10px;
-  }
-  .species-selection__list-item:hover {
-    background-color: lightblue;
-  }
-  .species-selection__list-item-name {}
-  .species-selection__list-item-text {}
 </style>
