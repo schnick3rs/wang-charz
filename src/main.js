@@ -13,6 +13,7 @@ import TalentSelection from "./components/TalentSelection";
 import SkillSelection from "./components/SkillSelection";
 import AscensionSelection from "./components/AscensionSelection";
 import WargearSelection from "./components/WargearSelection";
+import ArchetypeManage from "./components/ArchetypeManage";
 
 Vue.config.productionTip = false;
 
@@ -23,7 +24,8 @@ const routes = [
   { path: '/', name: 'Home', component: SettingSelection, icon: 'account_balance'},
   { path: '/setting', name: 'Setting', component: SettingSelection, icon: '' },
   { path: '/char/species', name: 'Species', component: SpeciesSelection },
-  { path: '/char/archetype', name: 'Archetype', component: ArchetypeSelection },
+  { path: '/char/archetype/select', name: 'Archetype', component: ArchetypeSelection },
+  { path: '/char/archetype/manage', name: 'Manage Archetype', component: ArchetypeManage },
   { path: '/char/attributes', name: 'Attributes', component: AttributeSelection },
   { path: '/char/skills', name: 'Skills', component: SkillSelection },
   { path: '/char/talents', name: 'Talents', component: TalentSelection },
@@ -79,6 +81,7 @@ const store = new Vuex.Store({
   getters: {
     settingTier(state) { return state.settingTier },
     species(state) { return state.species.value; },
+    archetype(state) { return state.archetype.value; },
     attributes(state) { return state.attributes; },
     attributesEnhanced(state) {
       let enhanced = state.attributes;
