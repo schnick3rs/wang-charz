@@ -43,7 +43,7 @@
         flat
         href="https://github.com/schnick3rs/wang-charz"
       >
-        <v-icon class="mr-2">code</v-icon>
+        <v-icon class="mr-2">mdi_github_circle</v-icon>
         <span>GitHub</span>
       </v-btn>
 

@@ -6,7 +6,7 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm10 md8 lg8 >
+        <v-flex xs12 sm10 md8 lg8>
 
           <v-card
                   v-for="gear in characterWargear"

@@ -11,7 +11,7 @@
 
           <v-card >
 
-            <v-card-title>{{attribute.name}} - [{{characterAttributes[attribute.key]}}]</v-card-title>
+            <v-card-title>{{attribute.name}} - [{{characterAttributesEnhanced[attribute.key]}}]</v-card-title>
 
             <v-card-text>
 
@@ -118,6 +118,7 @@
   computed: {
     remainingBuildPoints() { return this.$store.getters.remainingBuildPoints; },
     characterAttributes() { return this.$store.getters.attributes; },
+    characterAttributesEnhanced() {      return this.$store.getters.attributesEnhanced; },
     characterSkills() { return this.$store.getters.skills; },
     characterTraits() { return this.$store.getters.traits; },
     attributes() {

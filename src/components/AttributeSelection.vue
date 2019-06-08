@@ -11,7 +11,7 @@
 
           <v-list >
 
-            <v-list-tile v-for="(item, key) in attributesEnhanced" >
+            <v-list-tile v-for="(item, key) in attributes" >
 
               <v-list-tile-title>{{key}}</v-list-tile-title>
 

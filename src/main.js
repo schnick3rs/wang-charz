@@ -74,6 +74,7 @@ const store = new Vuex.Store({
       tech: 0,
       weaponSkill: 0,
     },
+    ascensions: [],
     enhancements: [
       { targetGroup: 'attributes', targetValue: 'strength', modifier: 1, hint: 'Astartes Physiology' },
     ],
@@ -111,31 +112,34 @@ const store = new Vuex.Store({
     },
     remainingBuildPoints(state, getters) {
       let remaining = 0;
-      remaining = state.settingTier*100
-      console.log(`Setting tier: ${state.settingTier}.`);
+      remaining = state.settingTier*100;
       console.log(`Points spend: ${getters.getSpendBuildingPoints}.`);
       return (state.settingTier * 100) - getters.getSpendBuildingPoints;
     },
     getSpendBuildingPoints(state) {
       let spend = 0;
 
-      console.log(`Spend ${state.species.cost} for being ${state.species.value}`);
+      console.debug(` Spend ${state.species.cost} for being ${state.species.value}`);
       spend += state.species.cost;
 
-      console.log(`Spend ${state.archetype.cost} for being ${state.archetype.value}`);
+      console.debug(` Spend ${state.archetype.cost} for being ${state.archetype.value}`);
       spend += state.archetype.cost;
 
       const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
+      let attributesSpending = 0;
       Object.keys(state.attributes).forEach( (key) => {
-        let spending = attributeTotalCost[ state.attributes[key] ];
-        spend += spending;
+        attributesSpending += attributeTotalCost[ state.attributes[key] ];
       });
+      console.debug(` Spend ${attributesSpending} for for attributes.`);
+      spend += attributesSpending;
 
       const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
+      let skillSpending = 0;
       Object.keys(state.skills).forEach( (key) => {
-        let spending = skillTotalCost[ state.skills[key] ];
-        spend += spending;
+        skillSpending += skillTotalCost[ state.skills[key] ];
       });
+      console.debug(` Spend ${skillSpending} for for skills.`);
+      spend += skillSpending;
 
       console.log(`Spend ${spend} in total.`);
       return spend;
