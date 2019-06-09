@@ -32,3 +32,4 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Credits
 
 * https://favicon.io/favicon-generator/
+* https://www.games-workshop.com/en-WW/Intellectual-Property-Policy
