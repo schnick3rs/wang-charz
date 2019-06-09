@@ -16,4 +16,9 @@ export default {
       skillRepository: undefined,
     }
   },
+  methods: {
+    skillMaximumBy(tier) {
+      return 3+tier;
+    },
+  }
 }

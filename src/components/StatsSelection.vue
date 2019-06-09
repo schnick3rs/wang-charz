@@ -6,17 +6,21 @@
 
       <v-layout row wrap>
 
+        <v-flex xs12>
+            <v-alert :value="!treeOfLearningValid" type="warning">Tree of Learning violated. You must have at least as many skills learned as your highest skill value.</v-alert>
+        </v-flex>
+
         <v-flex xs12 sm6 md4 lg4 v-for="attribute in attributes">
 
           <v-card >
 
             <v-card-title>
-              <h4>{{attribute.name}}</h4>
+              <h4>{{ attribute.name }}</h4>
               <v-spacer></v-spacer>
               <v-btn icon @click="decrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] <= 1">
                 <v-icon>remove_circle</v-icon>
               </v-btn>
-              <v-btn icon @click="incrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] >= 12">
+              <v-btn icon @click="incrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.key)">
                 <v-icon>add_circle</v-icon>
               </v-btn>
               <h4><span class="align-end">{{ characterAttributes[attribute.key] }} / {{ characterAttributesEnhanced[attribute.key] }}</span></h4>
@@ -34,7 +38,7 @@
                     </v-btn>
                   </v-list-tile-action>
                   <v-list-tile-action>
-                    <v-btn icon @click="incrementSkill(skill.key)" :disabled="characterSkills[skill.key] >= 8">
+                    <v-btn icon @click="incrementSkill(skill.key)" :disabled="characterSkills[skill.key] >= skillMaximum">
                       <v-icon :color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
                     </v-btn>
                   </v-list-tile-action>
@@ -116,8 +120,28 @@
       let cost = skillNewValueCost[currentSkillValue+1];
       return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
     },
+    attributeMaximumFor(attribute) {
+      return 8;
+    },
   },
   computed: {
+    treeOfLearningValid(){
+      let valueOfhighestKey = 0;
+      let numberOfLearendSkills = 0;
+      for (var key in this.characterSkills) {
+        if ( this.characterSkills[key] > valueOfhighestKey ) {
+          valueOfhighestKey = this.characterSkills[key];
+        }
+        if ( this.characterSkills[key] > 0 ) {
+          numberOfLearendSkills++;
+        }
+      }
+      return numberOfLearendSkills >= valueOfhighestKey;
+    },
+    skillMaximum() {
+      return this.skillMaximumBy( this.settingTier );
+    },
+    settingTier() { return this.$store.getters.settingTier; },
     remainingBuildPoints() { return this.$store.getters.remainingBuildPoints; },
     characterAttributes() { return this.$store.getters.attributes; },
     characterAttributesEnhanced() {      return this.$store.getters.attributesEnhanced; },
