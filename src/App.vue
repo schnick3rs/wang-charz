@@ -67,15 +67,15 @@
 
     <v-content>
 
-      <v-toolbar dense v-if="isBuilderPage">
+      <v-toolbar dense v-if="isBuilderPage" style="overflow: auto">
         <v-toolbar-items>
-          <v-btn flat small :class="hideOnXs('Setting')" :to="{ name: 'Setting' }" >Setting</v-btn>
-          <v-btn flat small :class="hideOnXs('Species')" :to="{ name: 'Species' }"     :disabled="!settingSelected">1. Species</v-btn>
-          <v-btn flat small :class="hideOnXs('Archetype')" :to="{ name: 'Archetype' }"   :disabled="!settingSelected">2. Archetype</v-btn>
-          <v-btn flat small :class="hideOnXs('Stats')" :to="{ name: 'Stats' }"       :disabled="!settingSelected">3. Stats</v-btn>
-          <v-btn flat small :class="hideOnXs('Ascension')" :to="{ name: 'Ascension' }"   :disabled="!settingSelected">4. Ascension</v-btn>
-          <v-btn flat small :class="hideOnXs('Wargear')" :to="{ name: 'Wargear' }"     :disabled="!settingSelected">5. Wargear</v-btn>
-          <v-btn flat small :class="hideOnXs('Background')" :to="{ name: 'Background' }"  :disabled="!settingSelected">6. Background</v-btn>
+          <v-btn flat small :to="{ name: 'Setting' }" >Setting</v-btn>
+          <v-btn flat small :to="{ name: 'Species' }"     :disabled="!settingSelected">1. Species</v-btn>
+          <v-btn flat small :to="{ name: 'Archetype' }"   :disabled="!settingSelected">2. Archetype</v-btn>
+          <v-btn flat small :to="{ name: 'Stats' }"       :disabled="!settingSelected">3. Stats</v-btn>
+          <v-btn flat small :to="{ name: 'Ascension' }"   :disabled="!settingSelected">4. Ascension</v-btn>
+          <v-btn flat small :to="{ name: 'Wargear' }"     :disabled="!settingSelected">5. Wargear</v-btn>
+          <v-btn flat small :to="{ name: 'Background' }"  :disabled="!settingSelected">6. Background</v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
@@ -160,19 +160,6 @@ export default {
     },
     navigateTo(route) {
       this.$router.push(route);
-    },
-    hideOnXs(routeName) {
-      let builderNavigationRoutes = ['Setting', 'Species', 'Archetype', 'Stats', 'Ascension', 'Wargear', 'Background'];
-      let index = builderNavigationRoutes.indexOf(routeName);
-      let currentRouteIndex = builderNavigationRoutes.indexOf(this.$route.name);
-
-      console.log(Math.abs(currentRouteIndex - index));
-
-      let css = '';
-      css += Math.abs( currentRouteIndex - index ) > 4 ? ' hidden-sm-and-down' : '';
-      css += Math.abs( currentRouteIndex - index ) > 1 ? ' hidden-xs-only' : '';
-      console.info(css)
-      return css;
     },
   },
   computed:{
