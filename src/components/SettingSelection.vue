@@ -88,7 +88,7 @@
         <v-flex xs12 sm6 md4 lg2 v-if="currentPage === 1" v-for="item in settingTemplateOptions">
 
           <v-card>
-            <v-img :src="item.cover" height="150"></v-img>
+            <v-img v-if="false" :src="item.cover" height="150"></v-img>
             <v-card-title primary-title>
               <h3 class="title">{{item.name}}</h3>
             </v-card-title>
