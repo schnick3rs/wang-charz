@@ -13,7 +13,12 @@
 
         <v-list class="pt-0">
 
-            <v-list-tile v-for="route in routes" @click="navigateTo(route)">
+            <v-list-tile
+                    v-for="route in routes.filter(r=>r.meta.type==='page'||r.meta.type==='builder')"
+                    @click="navigateTo(route)"
+                    :to="{ name: route.name }"
+                    :disabled="route.name !== 'Setting' && route.meta.type === 'builder' && !settingSelected"
+            >
 
               <v-list-tile-content>
 
@@ -27,13 +32,13 @@
 
     </v-navigation-drawer>
 
-    <v-toolbar app
+    <v-toolbar app dense
                :fixed="toolbar.fixed"
                :clipped-left="toolbar.clippedLeft"
     >
       <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
 
-      <v-toolbar-title class="headline text-uppercase">
+      <v-toolbar-title class="headline text-uppercase" @click="navigateTo({name:'Setting'})">
         <span>W&G </span>
         Charz
       </v-toolbar-title>
@@ -62,15 +67,15 @@
 
     <v-content>
 
-      <v-toolbar dense class="hidden-xs-only">
+      <v-toolbar dense class="hidden-xs-only" v-if="isBuilderPage">
         <v-toolbar-items>
-          <v-btn flat small>Setting</v-btn>
-          <v-btn flat small>1. Species</v-btn>
-          <v-btn flat small>2. Archetype</v-btn>
-          <v-btn flat small>3. Stats</v-btn>
-          <v-btn flat small>4. Ascension</v-btn>
-          <v-btn flat small>5. Wargear</v-btn>
-          <v-btn flat small>6. Background</v-btn>
+          <v-btn flat small :to="{ name: 'Setting' }" >Setting</v-btn>
+          <v-btn flat small :to="{ name: 'Species' }"     :disabled="!settingSelected">1. Species</v-btn>
+          <v-btn flat small :to="{ name: 'Archetype' }"   :disabled="!settingSelected">2. Archetype</v-btn>
+          <v-btn flat small :to="{ name: 'Stats' }"       :disabled="!settingSelected">3. Stats</v-btn>
+          <v-btn flat small :to="{ name: 'Ascension' }"   :disabled="!settingSelected">4. Ascension</v-btn>
+          <v-btn flat small :to="{ name: 'Wargear' }"     :disabled="!settingSelected">5. Wargear</v-btn>
+          <v-btn flat small :to="{ name: 'Background' }"  :disabled="!settingSelected">6. Background</v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
@@ -89,6 +94,12 @@
 export default {
   name: 'App',
   components: {
+  },
+  beforeMount() {
+    if ( !this.settingSelected && this.$route.meta.type === 'builder' ) {
+      console.warn("No setting selected, redirecting to setting view.")
+      this.$router.push({ name: "Setting" });
+    }
   },
   data () {
     return {
@@ -152,6 +163,10 @@ export default {
     },
   },
   computed:{
+    isBuilderPage() {
+      return this.$route.meta.type === 'builder';
+    },
+    settingSelected() { return this.$store.getters.settingSelected; },
     routes() { return this.$router.options.routes },
     totalBuildPoints() { return this.$store.getters.settingTier * 100; },
     spendBuildPoints() { return this.$store.getters.getSpendBuildingPoints; }

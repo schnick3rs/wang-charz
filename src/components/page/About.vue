@@ -11,7 +11,7 @@
           <h1>About this page</h1>
 
           <p>
-            This page is an <stong>inofficial</stong> online character generator for the Warhammer 40k Role Playing Game Wrath & Glory.
+            This page is an <strong>inofficial</strong> online character generator for the Warhammer 40k Role Playing Game Wrath & Glory.
             The game is currently published by <a href="https://www.cubicle7games.com/?p=3870">Cubical 7</a>.
           </p>
 

@@ -1,7 +1,6 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
   <section class="archetype-selection">
-    <h1>archetype-selection Component</h1>
 
     <v-container grid-list-md>
 

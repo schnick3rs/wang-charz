@@ -1,7 +1,21 @@
 <template lang="html">
 
   <section class="home">
-    <h1>home Component</h1>
+
+    <v-container grid-list-md>
+
+      <v-layout justify-center row wrap>
+
+        <v-flex xs12 sm10 md8 lg8>
+
+
+
+        </v-flex>
+
+      </v-layout>
+
+    </v-container>
+
   </section>
 
 </template>

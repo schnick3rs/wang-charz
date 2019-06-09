@@ -15,6 +15,7 @@ import AscensionSelection from "./components/AscensionSelection";
 import WargearSelection from "./components/WargearSelection";
 import ArchetypeManage from "./components/ArchetypeManage";
 import About from "./components/page/About";
+import Home from "./components/page/Home";
 
 Vue.config.productionTip = false;
 
@@ -22,18 +23,18 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const routes = [
-  { path: '/', name: 'Home', component: SettingSelection, },
-  { path: '/setting', name: 'Setting', component: SettingSelection, },
-  { path: '/char/species', name: 'Species', component: SpeciesSelection },
-  { path: '/char/archetype/select', name: 'Archetype', component: ArchetypeSelection },
-  { path: '/char/archetype/manage', name: 'Manage Archetype', component: ArchetypeManage },
-  { path: '/char/stats', name: 'Stats', component: StatsSelection },
-  { path: '/char/talents', name: 'Talents', component: TalentSelection },
-  { path: '/char/background', name: 'Background', component: BackgroundSelection },
-  { path: '/char/wargear', name: 'Wargear', component: WargearSelection },
-  { path: '/char/ascension', name: 'Ascension', component: AscensionSelection },
-  { path: '/char/psychic-powers', name: 'Psychic Powers', component: AttributeSelection },
-  { path: '/about', name: 'About', component: About, },
+  { path: '/', name: 'Home', component: Home, meta: { type: 'home' } },
+  { path: '/setting', name: 'Setting', meta: { type: 'builder' }, component: SettingSelection, },
+  { path: '/char/species', name: 'Species', meta: { type: 'builder' }, component: SpeciesSelection },
+  { path: '/char/archetype/select', name: 'Archetype', meta: { type: 'builder' }, component: ArchetypeSelection },
+  { path: '/char/archetype/manage', name: 'Manage Archetype', meta: { type: 'builder' }, component: ArchetypeManage },
+  { path: '/char/stats', name: 'Stats', meta: { type: 'builder' }, component: StatsSelection },
+  { path: '/char/talents', name: 'Talents', meta: { type: 'builder' }, component: TalentSelection },
+  { path: '/char/background', name: 'Background', meta: { type: 'builder' }, component: BackgroundSelection },
+  { path: '/char/wargear', name: 'Wargear', meta: { type: 'builder' }, component: WargearSelection },
+  { path: '/char/ascension', name: 'Ascension', meta: { type: 'builder' }, component: AscensionSelection },
+  { path: '/char/psychic-powers', name: 'Psychic Powers', meta: { type: 'builder' }, component: AttributeSelection },
+  { path: '/about', name: 'About', meta: { type: 'page' }, component: About, },
 ];
 
 const router = new VueRouter({
@@ -43,6 +44,7 @@ const router = new VueRouter({
 const store = new Vuex.Store({
   state: {
     setting: undefined,
+    settingSelected: false,
     settingTier: 3,
     species: { value: "Human", cost: 0 },
     archetype: { value: "Sister of Battle", cost: 40 },
@@ -88,7 +90,9 @@ const store = new Vuex.Store({
     ],
   },
   getters: {
-    settingTier(state) { return state.settingTier },
+    setting(state) { return state.setting; },
+    settingSelected(state) { return state.settingSelected; },
+    settingTier(state) { return state.settingTier; },
     species(state) { return state.species.value; },
     archetype(state) { return state.archetype.value; },
     attributes(state) { return state.attributes; },
@@ -154,24 +158,29 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
+    setSetting(state, payload) {
+      console.debug(payload);
+      state.setting = payload.setting;
+      state.settingSelected = true;
+    },
     setSettingTier(state, payload) {
-      console.log(payload);
+      console.debug(payload);
       state.settingTier = payload.amount;
     },
     setSpecies(state, payload) {
-      console.log(payload);
+      console.debug(payload);
       state.species = payload;
     },
     setArchetype(state, payload) {
-      console.log(payload);
+      console.debug(payload);
       state.archetype = payload;
     },
     setAttribute(state, payload) {
-      console.log(payload);
+      console.debug(payload);
       state.attributes[payload.key] = payload.value;
     },
     setSkill(state, payload) {
-      console.log(payload);
+      console.debug(payload);
       state.skills[payload.key] = payload.value;
     },
   }

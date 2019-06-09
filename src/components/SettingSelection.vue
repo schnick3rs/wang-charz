@@ -78,6 +78,12 @@
 
             </v-card-text>
 
+            <v-card-actions>
+              <v-btn color="primary" @click="applySetting()">
+                Select Setting
+              </v-btn>
+            </v-card-actions>
+
           </v-card>
 
         </v-flex>
@@ -163,7 +169,10 @@
     methods: {
       setSettingTier(event) {
         this.$store.commit('setSettingTier', {amount: event});
-      }
+      },
+      applySetting(){
+        this.$store.commit('setSetting', {setting: this.setting} );
+      },
     },
     computed: {
       species() {
