@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-app>
 
     <v-navigation-drawer
@@ -61,6 +61,19 @@
     </v-toolbar>
 
     <v-content>
+
+      <v-toolbar dense class="hidden-xs-only">
+        <v-toolbar-items>
+          <v-btn flat small>Setting</v-btn>
+          <v-btn flat small>1. Species</v-btn>
+          <v-btn flat small>2. Archetype</v-btn>
+          <v-btn flat small>3. Stats</v-btn>
+          <v-btn flat small>4. Ascension</v-btn>
+          <v-btn flat small>5. Wargear</v-btn>
+          <v-btn flat small>6. Background</v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+
       <router-view></router-view>
     </v-content>
 

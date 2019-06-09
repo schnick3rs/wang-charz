@@ -1,7 +1,6 @@
 <template lang="html">
 
   <section class="skill-selection">
-    <h1>skill-selection Component</h1>
 
     <v-container grid-list-md text-xs-center>
 
@@ -11,58 +10,49 @@
 
           <v-card >
 
-            <v-card-title>{{attribute.name}} - [{{characterAttributesEnhanced[attribute.key]}}]</v-card-title>
+            <v-card-title>
+              <h4>{{attribute.name}}</h4>
+              <v-spacer></v-spacer>
+              <v-btn icon @click="decrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] <= 1">
+                <v-icon>remove_circle</v-icon>
+              </v-btn>
+              <v-btn icon @click="incrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] >= 12">
+                <v-icon>add_circle</v-icon>
+              </v-btn>
+              <h4><span class="align-end">{{ characterAttributes[attribute.key] }} / {{ characterAttributesEnhanced[attribute.key] }}</span></h4>
+            </v-card-title>
 
-            <v-card-text>
+            <v-divider></v-divider>
 
-              <v-divider v-if="skillsByAttribute(attribute.name).length > 0"></v-divider>
-
-              <v-list dense subheader two-line v-if="skillsByAttribute(attribute.name).length > 0">
-                <v-subheader>Skills</v-subheader>
-
-                <v-list-tile v-for="skill in skillsByAttribute(attribute.name)" @click="">
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{skill.name}}</v-list-tile-title>
-                    <v-list-tile-sub-title>{{skill.description}}</v-list-tile-sub-title>
-                  </v-list-tile-content>
-
+            <v-list dense>
+              <div v-for="skill in skillsByAttribute(attribute.name)">
+                <v-list-tile >
+                  <v-list-tile-content>{{skill.name}}:</v-list-tile-content>
                   <v-list-tile-action>
-                    <v-avatar color="blue" tile size="24">
-                      <span class="white--text headline">{{characterSkills[skill.key]}}</span>
-                    </v-avatar>
+                    <v-btn icon @click="decrementSkill(skill.key)" :disabled="characterSkills[skill.key] <= 0">
+                      <v-icon color="red">remove_circle</v-icon>
+                    </v-btn>
                   </v-list-tile-action>
-
                   <v-list-tile-action>
-                    <v-btn icon @click="incrementSkill(skill.key)" :disabled=" characterSkills[skill.key] >= 8">
+                    <v-btn icon @click="incrementSkill(skill.key)" :disabled="characterSkills[skill.key] >= 8">
                       <v-icon :color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
                     </v-btn>
                   </v-list-tile-action>
-
+                  <v-list-tile-action>{{characterSkills[skill.key]}}</v-list-tile-action>
                 </v-list-tile>
+              </div>
+            </v-list>
 
-              </v-list>
+            <v-divider></v-divider>
 
-              <v-divider v-if="traitsByAttribute(attribute.name).length > 0"></v-divider>
-
-              <v-list dense subheader v-if="traitsByAttribute(attribute.name).length > 0">
-                <v-subheader>Traits</v-subheader>
-                <v-list-tile v-for="trait in traitsByAttribute(attribute.name)">
-
-                  <v-list-tile-content>
-                    <v-list-tile-title>{{trait.name}}</v-list-tile-title>
-                    <v-list-tile-sub-title>{{trait.description}}</v-list-tile-sub-title>
-                  </v-list-tile-content>
-
-                  <v-list-tile-action>
-                    <v-avatar color="blue" tile size="24">
-                      <span class="white--text headline">{{characterTraits[trait.key]}}</span>
-                    </v-avatar>
-                  </v-list-tile-action>
-
+            <v-list dense>
+              <div v-for="trait in traitsByAttribute(attribute.name)">
+                <v-list-tile >
+                  <v-list-tile-content>{{trait.name}}:</v-list-tile-content>
+                  <v-list-tile-action>{{characterTraits[trait.key]}}</v-list-tile-action>
                 </v-list-tile>
-              </v-list>
-
-            </v-card-text>
+              </div>
+            </v-list>
 
           </v-card>
 
@@ -96,6 +86,18 @@
     incrementSkill(skill) {
       let newValue = this.characterSkills[skill] + 1;
       this.$store.commit('setSkill', {key: skill, value: newValue});
+    },
+    decrementSkill(skill) {
+      let newValue = this.characterSkills[skill] - 1;
+      this.$store.commit('setSkill', {key: skill, value: newValue});
+    },
+    incrementAttribute(attribute) {
+      let newValue = this.characterAttributes[attribute] + 1;
+      this.$store.commit('setAttribute', {key: attribute, value: newValue});
+    },
+    decrementAttribute(attribute) {
+      let newValue = this.characterAttributes[attribute] - 1;
+      this.$store.commit('setAttribute', {key: attribute, value: newValue});
     },
     skillsByAttribute(attribute) {
       if ( this.skillRepository !== undefined ) {

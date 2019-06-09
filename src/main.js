@@ -10,7 +10,7 @@ import AttributeSelection from "./components/AttributeSelection";
 import SettingSelection from "./components/SettingSelection";
 import BackgroundSelection from "./components/BackgroundSelection";
 import TalentSelection from "./components/TalentSelection";
-import SkillSelection from "./components/SkillSelection";
+import StatsSelection from "./components/StatsSelection";
 import AscensionSelection from "./components/AscensionSelection";
 import WargearSelection from "./components/WargearSelection";
 import ArchetypeManage from "./components/ArchetypeManage";
@@ -27,8 +27,7 @@ const routes = [
   { path: '/char/species', name: 'Species', component: SpeciesSelection },
   { path: '/char/archetype/select', name: 'Archetype', component: ArchetypeSelection },
   { path: '/char/archetype/manage', name: 'Manage Archetype', component: ArchetypeManage },
-  { path: '/char/attributes', name: 'Attributes', component: AttributeSelection },
-  { path: '/char/skills', name: 'Skills', component: SkillSelection },
+  { path: '/char/stats', name: 'Stats', component: StatsSelection },
   { path: '/char/talents', name: 'Talents', component: TalentSelection },
   { path: '/char/background', name: 'Background', component: BackgroundSelection },
   { path: '/char/wargear', name: 'Wargear', component: WargearSelection },
@@ -87,7 +86,7 @@ const store = new Vuex.Store({
     archetype(state) { return state.archetype.value; },
     attributes(state) { return state.attributes; },
     attributesEnhanced(state) {
-      let enhanced = state.attributes;
+      let enhanced = Object.assign({}, state.attributes);
       let attributeEnhancements = state.enhancements.filter( e => { return e.targetGroup === 'attributes' } );
       attributeEnhancements.forEach( m => {
         console.info(`Enhance ${m.targetValue} my ${m.modifier} due to ${m.hint}.`);
@@ -162,7 +161,7 @@ const store = new Vuex.Store({
     },
     setAttribute(state, payload) {
       console.log(payload);
-      state.archetype = payload;
+      state.attributes[payload.key] = payload.value;
     },
     setSkill(state, payload) {
       console.log(payload);

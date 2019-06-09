@@ -88,7 +88,7 @@
 
                 <v-select
                         v-model="selectedSpecies['chapter']"
-                        v-if="ability.name === 'Honour the Chapter'"
+                        v-if="ability.name.indexOf('Honour the Chapter') >= 0"
                         label="Select your Chapter"
                         dense
                         solo
@@ -97,7 +97,7 @@
                         item-value="name"
                 ></v-select>
 
-                <p v-if="ability.name === 'Honour the Chapter' && selectedSpecies['chapter']"
+                <p v-if="ability.name.indexOf('Honour the Chapter') >= 0 && selectedSpecies['chapter']"
                    v-for="tradition in getChapterTraditions(selectedSpecies['chapter'])"
                 >
                   <strong>{{ tradition.name }}:</strong> {{ tradition.effect }}
@@ -168,7 +168,7 @@
     },
     computed: {
       loaded() {
-        return this.speciesRepository && this.archetypeRepository;
+        return this.speciesRepository !== undefined && this.archetypeRepository !== undefined;
       },
       settingTier() { return this.$store.getters.settingTier; },
     }

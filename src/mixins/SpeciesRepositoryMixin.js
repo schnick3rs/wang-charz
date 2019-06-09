@@ -4,16 +4,16 @@ const apiBaseUrl = 'https://api.sheety.co';
 
 export default {
   mounted() {
-    console.info('Fetching species from sheety.co ...');
+    console.debug('Fetching species from sheety.co ...');
     axios.get(`${apiBaseUrl}/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
       .then((response) => {
         this.speciesRepository = response.data;
-        console.log(`Fetched ${this.speciesRepository .length} species.`);
+        console.info(`Fetched ${this.speciesRepository .length} species.`);
       });
     axios.get(`${apiBaseUrl}/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
       .then((response) => {
         this.speciesAbilitiesRepository = response.data;
-        console.log(`Fetched ${this.speciesAbilitiesRepository .length} species abilities.`);
+        console.info(`Fetched ${this.speciesAbilitiesRepository .length} species abilities.`);
       });
   },
   data: function() {
