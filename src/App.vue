@@ -32,15 +32,14 @@
 
     </v-navigation-drawer>
 
-    <v-toolbar app dense
+    <v-toolbar app dense dark
                :fixed="toolbar.fixed"
                :clipped-left="toolbar.clippedLeft"
     >
       <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
 
-      <v-toolbar-title class="headline text-uppercase" @click="navigateTo({name:'Setting'})">
-        <span>W&G </span>
-        Charz
+      <v-toolbar-title class="headline text-uppercase hover" @click="navigateTo({name:'Home'})">
+        <span>Charz</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -84,8 +83,10 @@
       <router-view></router-view>
     </v-content>
 
-    <v-footer :app="true">
-      {{spendBuildPoints}} / {{totalBuildPoints}}
+    <v-footer :app="true" class="pa-2" dark>
+      <div>{{spendBuildPoints}} / {{totalBuildPoints}} BP</div>
+      <v-spacer></v-spacer>
+      <div>&copy; {{ new Date().getFullYear() }}</div>
     </v-footer>
 
   </v-app>
@@ -177,5 +178,7 @@ export default {
 </script>
 
 <style scoped lang="css">
-
+    .hover:hover {
+      cursor: pointer;
+    }
 </style>
