@@ -2,13 +2,9 @@
 
   <v-container grid-list-md>
 
-    <section class="talent-selection">
-      <h1>talent-selection Component</h1>
-    </section>
+    <v-layout justify-center row wrap>
 
-    <v-layout row>
-
-      <v-flex xs12>
+      <v-flex xs10>
 
         <v-card>
 
@@ -22,28 +18,38 @@
             ></v-text-field>
           </v-card-title>
 
-          <v-data-table
+          <v-data-table :loading="!loaded"
                   :items="filteredTalentRepository"
                   :search="searchQuery"
                   :headers="headers"
           >
             <template v-slot:no-data>
-              <v-alert :value="true" color="error" icon="warning">
-                Sorry, nothing to display here :(
-              </v-alert>
             </template>
             <template v-slot:items="props">
               <td>{{props.item.name}}</td>
-              <td class="text-xs-right" >{{props.item.cost}}</td>
+              <td class="text-xs-center" >{{props.item.cost}}</td>
               <td>{{props.item.prerequisites}}</td>
               <td>{{props.item.type}}</td>
-              <td>{{props.item.effect}}</td>
-              <td><v-btn icon><v-icon :color="affordableColor(props.item.cost)">add_circle</v-icon></v-btn></td>
+              <td>
+
+                <v-tooltip bottom>
+                  <template v-slot:activator="{ on }">
+                    <v-icon class="hidden-md-and-up" v-on="on" color="primary">help</v-icon>
+                  </template>
+                  <span>{{props.item.effect}}</span>
+                </v-tooltip>
+                <span class="hidden-sm-and-down">{{props.item.effect}}</span>
+              </td>
+              <td>
+                <v-btn icon
+                  @click="addTalent(props.item)"
+                >
+                  <v-icon :color="affordableColor(props.item.cost)">add_circle</v-icon>
+                </v-btn>
+              </td>
             </template>
             <template v-slot:no-results>
-              <v-alert :value="true" color="error" icon="warning">
-                Your search for "{{ searchQuery }}" found no results.
-              </v-alert>
+              <div class="text-lg-center">Your search for "{{ searchQuery }}" found no results.</div>
             </template>
           </v-data-table>
 
@@ -89,8 +95,13 @@
       affordableColor(cost) {
         return (cost <= this.remainingBuildPoints) ? 'green' : 'grey';
       },
+      addTalent(talent) {
+        this.$store.commit('addTalent', { name: talent.name, cost: talent.cost });
+      },
     },
     computed: {
+      loaded() { return this.talentRepository !== undefined; },
+      characterTalents() { return this.$store.getters.talents },
       filteredTalentRepository() {
         console.log('filter talent repository...');
         if ( this.talentRepository === undefined ) {

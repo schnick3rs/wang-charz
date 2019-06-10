@@ -60,13 +60,13 @@ const store = new Vuex.Store({
     species: { value: undefined, cost: 0 },
     archetype: { value: undefined, cost: 0 },
     attributes: {
-      strength: 2,
-      agility: 2,
-      toughness: 2,
-      intellect: 2,
-      willpower: 2,
-      fellowship: 2,
-      initiative: 2,
+      strength: 1,
+      agility: 1,
+      toughness: 1,
+      intellect: 1,
+      willpower: 1,
+      fellowship: 1,
+      initiative: 1,
     },
     skills: {
       athletics: 0,
@@ -95,6 +95,7 @@ const store = new Vuex.Store({
       { name: 'order of Our Martyred Lady', source: 'archetype' },
       { name: 'Inquisition', source: 'ascension' },
     ],
+    talents: [],
     ascensions: [],
     enhancements: [
       { targetGroup: 'attributes', targetValue: 'strength', modifier: 1, hint: 'Astartes Physiology' },
@@ -133,6 +134,9 @@ const store = new Vuex.Store({
       traits['corruption'] = 0;
       return traits;
     },
+    talents(state) {
+      return state.talents.map(t => t.name);
+    },
     remainingBuildPoints(state, getters) {
       let remaining = 0;
       remaining = state.settingTier*100;
@@ -160,6 +164,13 @@ const store = new Vuex.Store({
       });
       console.debug(` Spend ${skillSpending} for for skills.`);
       spend += skillSpending;
+
+      let talentSpending = 0;
+      state.talents.forEach( t => {
+        talentSpending += t.cost;
+      });
+      console.debug(` Spend ${talentSpending} for for talents.`);
+      spend += talentSpending;
 
       console.log(`Spend ${spend} in total.`);
       return spend;
@@ -190,6 +201,13 @@ const store = new Vuex.Store({
     setSkill(state, payload) {
       console.debug(payload);
       state.skills[payload.key] = payload.value;
+    },
+    addTalent(state, payload) {
+      console.debug(payload);
+      let hasTalent = state.talents.find( t => t.name === payload.name ) !== undefined;
+      if ( !hasTalent ) {
+        state.talents.push( { name: payload.name, cost: payload.cost } );
+      }
     },
   }
 });

@@ -120,7 +120,7 @@
       },
       getSpeciesBy(name) {
         if ( this.speciesRepository ) {
-          return this.speciesRepository.find( s => s.name == name );
+          return this.speciesRepository.find( s => s.name === name );
         }
         return undefined;
       },

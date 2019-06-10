@@ -8,10 +8,19 @@
 
         <v-flex xs12 sm10 md8 lg8>
 
+          <v-flex xs12 sm10 md8 lg8 v-if="!loaded">
+
+            <v-card height="50%">
+              <v-card-text class="text-xs-center">
+                <v-progress-circular indeterminate size="64"></v-progress-circular>
+              </v-card-text>
+            </v-card>
+
+          </v-flex>
 
         </v-flex>
 
-        <v-flex xs12 sm10 md8 lg8 v-if="!selectedArchetype">
+        <v-flex xs12 sm10 md8 lg8 v-if="!(selectedArchetype || characterArchetype) && loaded">
 
           <v-card>
 
@@ -84,11 +93,24 @@
 
         </v-flex>
 
-        <v-flex xs12 sm10 md8 lg8 v-if="selectedArchetype">
+        <v-flex xs12 sm10 md8 lg8 v-if="characterArchetype">
+
+          <archetype-preview
+                  :item="characterArchetype"
+                  :actions="true"
+                  @select="selectArchetypeForChar"
+                  @reset="resetArchetype"
+          ></archetype-preview>
+
+        </v-flex>
+
+        <v-flex xs12 sm10 md8 lg8 v-if="selectedArchetype && !characterArchetype">
 
           <archetype-preview
                   :item="selectedArchetype"
                   :actions="true"
+                  @select="selectArchetypeForChar"
+                  @reset="resetArchetype"
           ></archetype-preview>
 
         </v-flex>
@@ -117,6 +139,12 @@
       }
     },
     methods: {
+      getArchetypeBy(name) {
+        if ( this.archetypeRepository ) {
+          return this.archetypeRepository.find( s => s.name === name );
+        }
+        return undefined;
+      },
       archetypesByGroup(groupName) {
         let archetypes = this.archetypeRepository;
 
@@ -142,13 +170,16 @@
       selectArchetypeForChar(item) {
           this.$store.commit('setArchetype', { value: item.name, cost: item.cost });
       },
+      resetArchetype() {
+        this.selectedArchetype = undefined;
+        this.$store.commit('setArchetype', { values: undefined, cost: 0} );
+      },
     },
     computed: {
       loaded() { return this.archetypeRepository !== undefined; },
+      characterArchetypeName() { return this.$store.getters.archetype; },
+      characterArchetype() { return this.getArchetypeBy(this.characterArchetypeName); },
       characterSpecies() { return this.$store.getters.species; },
-      archetypeList() {
-
-      },
       archetypeGroups: function() {
 
         if ( this.archetypeRepository !== undefined ) {

@@ -52,12 +52,16 @@
       <p class="text-lg-justify"><strong>Wargear:</strong> {{ item.wargear }}</p>
 
       <p><v-divider></v-divider></p>
-      <p>{{ item.description }}</p>
+      <blockquote class="blockquote font-italic">
+        <p>"{{ item.description }}"</p>
+        <span class="right">- from the Wrath & Glory Corerules -</span>
+      </blockquote>
+
 
     </v-card-text>
 
     <v-card-actions v-if="actions">
-      <v-btn color="primary" @click="$emit('select', archetype)" >Select Archetype</v-btn>
+      <v-btn color="primary" @click="$emit('select', item)" >Select Archetype</v-btn>
       <v-btn color="red" @click="$emit('reset')" >Cancel selection</v-btn>
     </v-card-actions>
   </v-card>

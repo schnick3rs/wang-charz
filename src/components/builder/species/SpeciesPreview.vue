@@ -47,7 +47,11 @@
       </div>
 
       <p><v-divider></v-divider></p>
-      <p>{{ species.description }}</p>
+      <blockquote class="blockquote font-italic">
+        <p>"{{ species.description }}"</p>
+        <span class="right">- from the Wrath & Glory Corerules -</span>
+      </blockquote>
+
     </v-card-text>
 
     <v-card-actions v-if="actions">

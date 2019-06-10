@@ -1,4 +1,4 @@
-<template lang="html">
+<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
   <section class="library">
 
@@ -6,7 +6,7 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm6 md5 lg4
+        <v-flex xs12 sm6 md5 lg5
           v-for="item in homebrewRepository"
         >
 
@@ -19,7 +19,15 @@
 
             <v-card-text>
               <p><strong>Credit:</strong> {{ item.credit }}</p>
-              <p><strong>Abstract:</strong> {{ item.abstract }}</p>
+              <p>{{ item.abstract }}</p>
+              <strong>Contains:</strong>
+              <ul>
+                <li v-for="parts in  item.contains">{{ parts }}</li>
+              </ul>
+            </v-card-text>
+
+            <v-card-text>
+
               <p><strong>Related Setting:</strong> {{ item.setting }}</p>
               <p><v-chip v-for="tag in  item.tags">{{ tag }}</v-chip></p>
             </v-card-text>
@@ -52,6 +60,23 @@
     },
     data() {
       return {
+        breadcrumbs: [
+          {
+            text: 'Dashboard',
+            disabled: false,
+            href: 'breadcrumbs_dashboard'
+          },
+          {
+            text: 'Link 1',
+            disabled: false,
+            href: 'breadcrumbs_link_1'
+          },
+          {
+            text: 'Link 2',
+            disabled: true,
+            href: 'breadcrumbs_link_2'
+          }
+        ],
       }
     },
     methods: {
