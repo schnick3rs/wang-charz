@@ -4,9 +4,9 @@
 
     <v-container grid-list-md>
 
-      <v-layout justify-center row>
+      <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm10 md6 lg4
+        <v-flex xs12 sm6 md5 lg4
           v-for="item in homebrewRepository"
         >
 
