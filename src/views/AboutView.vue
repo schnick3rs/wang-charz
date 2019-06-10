@@ -25,7 +25,7 @@
           <h2>Technology</h2>
 
           <p>
-            This website is build with <a href="">vue.js</a> using the <a href="">vuetify martial design</a>.
+            This website is build with <a href="https://vuejs.org/">Vue.js</a> using the <a href="https://vuetifyjs.com/">vuetify</a> martial design.
             The code is available on my <a href="https://github.com/schnick3rs/wang-charz">github repository</a>.
             The app itself is currently hosted via <a href="https://www.heroku.com/">heroku</a>, a web cloud service that
             I use to distribute sandbox projects or similar.

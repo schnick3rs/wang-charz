@@ -6,23 +6,23 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm6 md6 lg6>
+        <v-flex xs12 sm10 md8 lg6>
 
             <v-card @click="$router.push( { name: 'Setting'} )" class="hover-card">
 
-              <v-img src="/artwork_mechanicus_aertist-alexboca.jpg" >
+              <v-img src="/artwork_mechanicus_aertist-alexboca.jpg" height="300">
               </v-img>
               <v-layout pa-2 column fill-height class="lightbox text-lg-right">
-                  <div class="subheading">
-                    ©
-                    <a target="_blank" href="https://www.deviantart.com/alexboca/art/Warhammer-40k-526852492">Artwork</a>
-                    by
-                    <a target="_blank" href="https://www.deviantart.com/alexboca">AlexBoca</a>
-                  </div>
+                <div class="subheading">
+                  ©
+                  <a target="_blank" href="https://www.deviantart.com/alexboca/art/Warhammer-40k-526852492">Artwork</a>
+                  by
+                  <a target="_blank" href="https://www.deviantart.com/alexboca">AlexBoca</a>
+                </div>
               </v-layout>
 
               <v-card-title>
-                <h1 class="headline">Wrath & Glory - Character Builder</h1>
+                <h1 class="headline">Charz - Character Builder</h1>
               </v-card-title>
 
               <v-card-text>
@@ -30,6 +30,54 @@
               </v-card-text>
 
             </v-card>
+
+        </v-flex>
+
+        <v-flex xs12 sm10 md8 lg6>
+
+          <v-card @click="$router.push( { name: 'Vault'} )" class="hover-card">
+
+            <v-img src="/artwork_forge.jpg" height="300" >
+            </v-img>
+            <v-layout pa-2 column fill-height class="lightbox text-lg-right">
+              <div class="subheading">
+                ©
+                Unknown
+                found at
+                <a target="_blank" href="https://warhammer40k.fandom.com/wiki/Hell-Forge">warhammer40k.fandom.com</a>
+              </div>
+            </v-layout>
+
+            <v-card-title>
+              <h1 class="headline">Vault - Collection of homebrews</h1>
+            </v-card-title>
+
+            <v-card-text>
+              All the homebrews I could find in the webs.
+            </v-card-text>
+
+          </v-card>
+
+        </v-flex>
+
+        <v-flex xs12 sm10 md4 lg4 v-if="false">
+
+          <v-card @click="$router.push( { name: 'Setting'} )" class="hover-card" dark>
+
+            <v-img src="/artwork_mechanicus_aertist-alexboca.jpg" >
+            </v-img>
+
+
+
+            <v-card-title>
+              <h1 class="headline">Library - Rules References</h1>
+            </v-card-title>
+
+            <v-card-text>
+              The library contains references for all gear, talents and psychic powers.
+            </v-card-text>
+
+          </v-card>
 
         </v-flex>
 

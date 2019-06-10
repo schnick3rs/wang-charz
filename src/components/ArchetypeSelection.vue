@@ -43,11 +43,11 @@
 
             <div v-for="(group, key) in archetypeGroups">
 
-            <v-divider></v-divider>
+              <v-divider></v-divider>
 
-            <v-list subheader v-if="archetypesByGroup(group).length > 0">
+              <v-list subheader v-if="archetypesByGroup(group).length > 0">
 
-              <v-subheader>{{ group }}</v-subheader>
+                <v-subheader>{{ group }}</v-subheader>
 
                   <v-list-tile
                           two-line
@@ -57,27 +57,28 @@
                           :disabled="item.species !== characterSpecies"
                   >
 
-                      <v-list-tile-content>
-                          <v-list-tile-title>{{item.name}}</v-list-tile-title>
-                          <v-list-tile-sub-title>{{item.hint}}</v-list-tile-sub-title>
-                      </v-list-tile-content>
+                  <v-list-tile-content>
+                      <v-list-tile-title>{{item.name}}</v-list-tile-title>
+                      <v-list-tile-sub-title>{{item.hint}}</v-list-tile-sub-title>
+                  </v-list-tile-content>
 
-                      <v-list-tile-action>
-                          <v-chip color="green" text-color="white">
-                              <v-avatar class="green darken-4">{{item.cost}}</v-avatar>
-                              <v-icon>attach_money</v-icon>
-                          </v-chip>
-                      </v-list-tile-action>
-                      <v-list-tile-action>
-                          <v-chip color="red" text-color="white">
-                              <v-avatar class="red darken-4">{{item.tier}}</v-avatar>
-                              <v-icon >account_balance</v-icon>
-                          </v-chip>
-                      </v-list-tile-action>
+                  <v-list-tile-action>
+                      <v-chip color="green" text-color="white">
+                          <v-avatar class="green darken-4">{{item.cost}}</v-avatar>
+                          <v-icon>attach_money</v-icon>
+                      </v-chip>
+                  </v-list-tile-action>
+                  <v-list-tile-action>
+                      <v-chip color="red" text-color="white">
+                          <v-avatar class="red darken-4">{{item.tier}}</v-avatar>
+                          <v-icon >account_balance</v-icon>
+                      </v-chip>
+                  </v-list-tile-action>
 
-                  </v-list-tile>
+                </v-list-tile>
 
-            </v-list>
+              </v-list>
+
             </div>
           </v-card>
 

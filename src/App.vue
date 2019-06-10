@@ -14,7 +14,7 @@
         <v-list class="pt-0">
 
             <v-list-tile
-                    v-for="route in routes.filter(r=>r.meta.type==='page'||r.meta.type==='builder')"
+                    v-for="route in routes"
                     @click="navigateTo(route)"
                     :to="{ name: route.name }"
                     :disabled="route.name !== 'Setting' && route.meta.type === 'builder' && !settingSelected"
@@ -42,24 +42,23 @@
         <span>Charz</span>
       </v-toolbar-title>
 
+      <v-toolbar-title v-if="$router.currentRoute.name !== 'Home'">
+        <span> {{ $router.currentRoute.name }}</span>
+      </v-toolbar-title>
+
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn
-                flat
-                href="https://github.com/schnick3rs/wang-charz"
-        >
-          <v-icon class="mr-2">code</v-icon>
-          <span>GitHub</span>
-        </v-btn>
 
         <v-btn
-                flat
-                href="https://github.com/vuetifyjs/vuetify/releases/latest"
-                target="_blank"
+          flat
+          target="_blank"
+          href="https://github.com/schnick3rs/wang-charz"
         >
-          <span class="mr-2">Quick Reference</span>
+          <span class="hidden-sm-and-down mr-1">Quick Reference</span>
+          <v-icon class="hidden-md-and-up">help</v-icon>
         </v-btn>
+
       </v-toolbar-items>
 
     </v-toolbar>
@@ -72,9 +71,10 @@
           <v-btn flat small :to="{ name: 'Species' }"     :disabled="!settingSelected">1. Species</v-btn>
           <v-btn flat small :to="{ name: 'Archetype' }"   :disabled="!settingSelected">2. Archetype</v-btn>
           <v-btn flat small :to="{ name: 'Stats' }"       :disabled="!settingSelected">3. Stats</v-btn>
-          <v-btn flat small :to="{ name: 'Ascension' }"   :disabled="!settingSelected">4. Ascension</v-btn>
-          <v-btn flat small :to="{ name: 'Wargear' }"     :disabled="!settingSelected">5. Wargear</v-btn>
-          <v-btn flat small :to="{ name: 'Background' }"  :disabled="!settingSelected">6. Background</v-btn>
+          <v-btn flat small :to="{ name: 'Talents' }"     :disabled="!settingSelected">4. Talents</v-btn>
+          <v-btn flat small :to="{ name: 'Ascension' }"   :disabled="!settingSelected">5. Ascension</v-btn>
+          <v-btn flat small :to="{ name: 'Wargear' }"     :disabled="!settingSelected">6. Wargear</v-btn>
+          <v-btn flat small :to="{ name: 'Background' }"  :disabled="!settingSelected">7. Background</v-btn>
           <v-btn v-if="false" flat small icon :to="{ name: 'About' }" :disabled="!settingSelected"><v-icon>picture_as_pdf</v-icon></v-btn>
           <v-btn flat small icon :to="{ name: 'About' }" :disabled="!settingSelected"><v-icon>description</v-icon></v-btn>
         </v-toolbar-items>
@@ -86,6 +86,7 @@
     <v-footer :app="true" class="pa-2" dark>
       <div>{{spendBuildPoints}} / {{totalBuildPoints}} BP</div>
       <v-spacer></v-spacer>
+      <v-btn :to="{name: 'About'}">About</v-btn>
       <div>&copy; {{ new Date().getFullYear() }}</div>
     </v-footer>
 

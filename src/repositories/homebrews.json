@@ -1,0 +1,30 @@
+[
+  {
+    "name": "Agents of the Golden Throne",
+    "hint": "A Homebrew Wrath and Glory Supplement for the Inquisition",
+    "abstract": "Contains an ascension package to join the inquisitional cause. Also adds archetypes for Assassins and Grey Knights, including their very extended armoury. The Grey Knights have access to the Daemonology Disciplines.",
+    "setting": "Dark Heresy",
+    "content": {
+      "archetypes": ["Assassins", "Grey Knights"],
+      "ascension": ["Rosette in Hand"],
+      "gear": ["Reliquary of the Inquisition"],
+      "psychicPowers": ["Daemonology"]
+    },
+    "tags": [ "Dark Heresy", "Inquisition" ],
+    "url": "https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit",
+    "credit" : "unknown, maybe u/kjdavid from reddit",
+    "coverImage": ""
+  },
+  {
+    "name": "The Emperor’s Angels",
+    "hint": "A Homebrew Supplement for Wrath and Glory for the Adeptus Astartes",
+    "abstract": "Contains many chapters, additional archetypes for regular Astartes and Primaris and Distinctions (some sort of talents). Also includes additional Wargear and Psychci Powers. Finally, rules for dreadnoughts as vehicles.",
+    "setting": "Deathwatch",
+    "content": {
+    },
+    "tags": [ "Adeptus Astartes", "Deathwatch" ],
+    "url": "https://docs.google.com/document/d/1BMmNJvQEr515FLzoTXKDDm6b9MYGzczGY6p-uozqy-0/edit",
+    "credit" : "unknown",
+    "coverImage": ""
+  }
+]
