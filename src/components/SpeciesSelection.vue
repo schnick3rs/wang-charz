@@ -6,18 +6,21 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm10 md8 lg8 v-if="!selectedSpecies">
+        <v-flex xs12 sm10 md8 lg8 v-if="!loaded">
+
+          <v-card height="50%">
+            <v-card-text class="text-xs-center">
+              <v-progress-circular indeterminate size="64"></v-progress-circular>
+            </v-card-text>
+          </v-card>
+
+        </v-flex>
+
+        <v-flex xs12 sm10 md8 lg8 v-if="!(selectedSpecies || characterSpecies ) && loaded">
 
           <v-card>
-          <div class="species-selection__list">
 
-            <v-card v-if="!loaded" height="50%">
-              <v-card-text class="text-xs-center">
-                <v-progress-circular indeterminate size="64"></v-progress-circular>
-              </v-card-text>
-            </v-card>
-
-            <v-list v-if="loaded">
+            <v-list>
 
               <v-list-tile
                       v-for="item in speciesRepository"
@@ -53,67 +56,30 @@
               </v-list-tile>
 
             </v-list>
-          </div>
+
           </v-card>
+
         </v-flex>
 
-        <v-flex xs12 sm10 md8 lg8 v-if="selectedSpecies">
+        <v-flex xs12 sm10 md8 lg8 v-if="characterSpecies">
 
-          <v-card >
+          <species-preview
+                  :species="characterSpecies"
+                  :actions="true"
+                  @select="selectSpeciesForChar"
+                  @reset="resetSpecies"
+          ></species-preview>
 
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline md0">{{ selectedSpecies.name }}</h3>
-                <span class="subheading">{{ selectedSpecies.hint }}</span>
-              </div>
-            </v-card-title>
+        </v-flex>
 
-            <v-card-text>
-              <p class="text-lg-justify"><strong>Build Point Cost:</strong> {{ selectedSpecies.cost }}</p>
+        <v-flex xs12 sm10 md8 lg8 v-if="selectedSpecies && !characterSpecies">
 
-              <p><v-divider></v-divider></p>
-
-              <p class="text-lg-justify"><strong>Base Tier:</strong> {{ selectedSpecies.baseTier }}</p>
-              <p class="text-lg-justify"><strong>Speed:</strong> {{ selectedSpecies.speed }}</p>
-              <p class="text-lg-justify"><strong>Modifications:</strong> {{ selectedSpecies.attributes }}</p>
-              <p class="text-lg-justify"><strong>Abilities:</strong> {{ selectedSpecies.abilities }}</p>
-
-              <p v-if="selectedSpecies.abilities"><v-divider></v-divider></p>
-
-              <div v-if="selectedSpecies.abilities"
-                 v-for="ability in getAbilitiesForSpecies(selectedSpecies)"
-                 class="text-lg-justify"
-              >
-                <p><strong>{{ ability.name }}:</strong> {{ ability.effect}}</p>
-
-                <v-select
-                        v-model="selectedSpecies['chapter']"
-                        v-if="ability.name.indexOf('Honour the Chapter') >= 0"
-                        label="Select your Chapter"
-                        dense
-                        solo
-                        :items="astartesChapterRepository"
-                        item-text="name"
-                        item-value="name"
-                ></v-select>
-
-                <p v-if="ability.name.indexOf('Honour the Chapter') >= 0 && selectedSpecies['chapter']"
-                   v-for="tradition in getChapterTraditions(selectedSpecies['chapter'])"
-                >
-                  <strong>{{ tradition.name }}:</strong> {{ tradition.effect }}
-                </p>
-
-              </div>
-
-              <p><v-divider></v-divider></p>
-              <p>{{ selectedSpecies.description }}</p>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn color="primary" @click="selectSpeciesForChar(selectedSpecies)" >Select Species</v-btn>
-              <v-btn color="red" @click="selectedSpecies = undefined" >Cancle selection</v-btn>
-            </v-card-actions>
-          </v-card>
+          <species-preview
+                  :species="selectedSpecies"
+                  :actions="true"
+                  @select="selectSpeciesForChar"
+                  @reset="resetSpecies"
+          ></species-preview>
 
         </v-flex>
 
@@ -127,52 +93,52 @@
 
 <script lang="js">
   import SpeciesRepositoryMixin from '../mixins/SpeciesRepositoryMixin';
-  import ArchetypeRepositoryMixin from '../mixins/ArchetypeRepositoryMixin';
+  import SpeciesPreview from './builder/species/SpeciesPreview';
 
   export default  {
     name: 'species-selection',
     props: [],
-    mixins: [ SpeciesRepositoryMixin, ArchetypeRepositoryMixin, ],
+    components: { SpeciesPreview },
+    mixins: [ SpeciesRepositoryMixin ],
     data() {
       return {
-        //loaded: false,
         publicPath: process.env.BASE_URL,
         selectedSpecies: undefined,
-        //previewSpeciesArchetypeOptions: null,
         previewSpeciesArchetypeOptions: []
       }
     },
     methods: {
       updatePreview: function(item) {
-        this.previewSpeciesArchetypeOptions = [];
         this.selectedSpecies = item;
-        this.getArchetypesBySpecies(this.selectedSpecies.name);
       },
-      selectSpeciesForChar: function(item) {
-        this.$store.commit('setSpecies', { value: item.name, cost: item.cost });
+      selectSpeciesForChar: function(species) {
+        this.$store.commit('setSpecies', { value: species.name, cost: species.cost });
       },
-      getArchetypesBySpecies: function(speciesName) {
-        return this.previewSpeciesArchetypeOptions = this.archetypeRepository.filter( i => i.species === speciesName );
+      resetSpecies() {
+        this.selectedSpecies = undefined;
+        this.$store.commit('setSpecies', { values: undefined, cost: 0} );
       },
-      getAbilitiesForSpecies(species) {
-        let abilities = species.abilities ? species.abilities.split(',') : [];
-        return this.speciesAbilitiesRepository.filter( a => abilities.includes(a.name) );
+      getSpeciesBy(name) {
+        if ( this.speciesRepository ) {
+          return this.speciesRepository.find( s => s.name == name );
+        }
+        return undefined;
       },
       getChapterTraditions(chapterName) {
         let chapter = this.astartesChapterRepository.find(a=>a.name === chapterName) || [];
         if ( chapter ) {
-         return chapter.beliefsAndTraditions;
+          return chapter.beliefsAndTraditions;
         }
         return [];
       },
     },
     computed: {
-      loaded() {
-        return this.speciesRepository !== undefined && this.archetypeRepository !== undefined;
-      },
+      loaded() { return this.speciesRepository !== undefined; },
       settingTier() { return this.$store.getters.settingTier; },
+      characterSpecies() { return this.getSpeciesBy(this.characterSpeciesName); },
+      characterSpeciesName() { return this.$store.getters.species; },
     }
-}
+  }
 </script>
 
 <style scoped lang="css">

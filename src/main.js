@@ -44,16 +44,16 @@ const router = new VueRouter({
 const store = new Vuex.Store({
   state: {
     setting: undefined,
-    settingSelected: false,
+    settingSelected: true,
     settingTier: 3,
-    species: { value: "Human", cost: 0 },
-    archetype: { value: "Sister of Battle", cost: 40 },
+    species: { value: undefined, cost: 0 },
+    archetype: { value: undefined, cost: 0 },
     attributes: {
-      strength: 3,
-      agility: 3,
-      toughness: 3,
+      strength: 2,
+      agility: 2,
+      toughness: 2,
       intellect: 2,
-      willpower: 3,
+      willpower: 2,
       fellowship: 2,
       initiative: 2,
     },
@@ -131,11 +131,8 @@ const store = new Vuex.Store({
     getSpendBuildingPoints(state) {
       let spend = 0;
 
-      console.debug(` Spend ${state.species.cost} for being ${state.species.value}`);
-      spend += state.species.cost;
-
-      console.debug(` Spend ${state.archetype.cost} for being ${state.archetype.value}`);
-      spend += state.archetype.cost;
+      spend += state.species ? state.species.cost : 0;
+      spend += state.archetype ? state.archetype.cost : 0;
 
       const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
       let attributesSpending = 0;

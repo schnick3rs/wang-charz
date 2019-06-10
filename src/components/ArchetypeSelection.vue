@@ -4,36 +4,62 @@
 
     <v-container grid-list-md>
 
-      <v-layout row flex>
+      <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm6 md6 lg6>
-          <div class="species-selection__list">
+        <v-flex xs12 sm10 md8 lg8>
 
-            <v-list two-line>
 
-              <v-list-group v-for="(group, key) in archetypeGroups">
+        </v-flex>
 
-                  <template v-slot:activator>
-                      <v-list-tile>
-                          <v-list-tile-avatar tile>
-                              <img src="http://www.nomta.org/wp-content/uploads/2013/01/Fleur-de-lis-fill.svg_1.png" />
-                          </v-list-tile-avatar>
-                          <v-list-tile>{{group}}</v-list-tile>
-                      </v-list-tile>
-                  </template>
+        <v-flex xs12 sm10 md8 lg8 v-if="!selectedArchetype">
+
+          <v-card>
+
+            <v-card-text>
+
+              <v-text-field
+                      solo
+                      placeholder="Search..."
+                      v-model="searchQuery"
+                      prepend-inner-icon="search"
+                      clearable
+              ></v-text-field>
+
+            </v-card-text>
+
+          </v-card>
+
+          <v-card>
+
+            <v-card v-if="!loaded" height="50%">
+              <v-card-text class="text-xs-center">
+                <v-progress-circular indeterminate size="64"></v-progress-circular>
+              </v-card-text>
+            </v-card>
+
+          </v-card>
+
+          <v-card v-if="loaded">
+
+            <div v-for="(group, key) in archetypeGroups">
+
+            <v-divider></v-divider>
+
+            <v-list subheader v-if="archetypesByGroup(group).length > 0">
+
+              <v-subheader>{{ group }}</v-subheader>
 
                   <v-list-tile
+                          two-line
                           v-for="item in archetypesByGroup(group)"
                           avatar
                           @click="selectedArchetype = item"
-                          v-if="item.species === characterSpecies"
+                          :disabled="item.species !== characterSpecies"
                   >
-                      <v-list-tile-avatar tile>
-                          <img :src="item.avatar" />
-                      </v-list-tile-avatar>
 
                       <v-list-tile-content>
                           <v-list-tile-title>{{item.name}}</v-list-tile-title>
+                          <v-list-tile-sub-title>{{item.hint}}</v-list-tile-sub-title>
                       </v-list-tile-content>
 
                       <v-list-tile-action>
@@ -51,37 +77,18 @@
 
                   </v-list-tile>
 
-              </v-list-group>
-
             </v-list>
-          </div>
+            </div>
+          </v-card>
+
         </v-flex>
 
-        <v-flex xs6>
+        <v-flex xs12 sm10 md8 lg8 v-if="selectedArchetype">
 
-          <v-card v-if="selectedArchetype">
-            <v-img :src="selectedArchetype.theme" height="200px" position="top, center"></v-img>
-            <v-card-title primary-title>
-              <div>
-                <h3 class="headline md0">{{selectedArchetype.name}}</h3>
-              </div>
-            </v-card-title>
-            <v-card-text>{{selectedArchetype.description}}</v-card-text>
-            <v-card-text>
-              <h4 class="title md0">Prerequisites</h4>
-              <h5 class="subheading md0">Attributes</h5>
-              <ul v-for="(value, key) in selectedArchetype.attributes">
-                <li>{{key | capitalize}}: {{value}}</li>
-              </ul>
-              <h5 class="subheading md0">Skills</h5>
-              <ul v-for="(value, key) in selectedArchetype.skills">
-                <li>{{key | capitalize}}: {{value}}</li>
-              </ul>
-            </v-card-text>
-            <v-card-actions>
-              <v-btn color="primary" @click="selectArchetypeForChar(selectedArchetype)" >Select Archetype</v-btn>
-            </v-card-actions>
-          </v-card>
+          <archetype-preview
+                  :item="selectedArchetype"
+                  :actions="true"
+          ></archetype-preview>
 
         </v-flex>
 
@@ -95,33 +102,65 @@
 
 <script lang="js">
   import ArchetypeRepository from '../mixins/ArchetypeRepositoryMixin';
+  import ArchetypePreview from './builder/species/ArchetypePreview';
 
   export default  {
     name: 'archetype-selection',
     props: [],
+    components: { ArchetypePreview },
     mixins: [ ArchetypeRepository ],
     data() {
       return {
-        archetypeRepository: undefined,
+        searchQuery: '',
         selectedArchetype: undefined,
       }
     },
     methods: {
-        archetypesByGroup: function(groupName) {
-            return this.archetypeRepository
-                //.filter( a => a.species === this.characterSpecies )
-                .filter( a => a.group === groupName );
-        },
-        selectArchetypeForChar: function(item) {
-            this.$store.commit('setArchetype', { value: item.name, cost: item.cost });
-        },
+      archetypesByGroup(groupName) {
+        let archetypes = this.archetypeRepository;
+
+        /* filter by archetype group */
+        archetypes = archetypes.filter( a => a.group === groupName );
+
+        /* filter by  */
+        if ( this.characterSpecies ) {
+          archetypes = archetypes.filter( a => a.species === this.characterSpecies )
+        }
+
+        /* filter by search query */
+        if ( this.searchQuery ) {
+          archetypes = archetypes.filter( a => {
+            let lowerCaseArchetype = a.name.toLowerCase();
+            let lowerCaseSearchQuery = this.searchQuery.toLowerCase();
+            return lowerCaseArchetype.indexOf(lowerCaseSearchQuery) >= 0;
+          } );
+        }
+
+        return archetypes;
+      },
+      selectArchetypeForChar(item) {
+          this.$store.commit('setArchetype', { value: item.name, cost: item.cost });
+      },
     },
     computed: {
+      loaded() { return this.archetypeRepository !== undefined; },
       characterSpecies() { return this.$store.getters.species; },
+      archetypeList() {
+
+      },
       archetypeGroups: function() {
+
         if ( this.archetypeRepository !== undefined ) {
-          return [...new Set(this.archetypeRepository.map(item => item.group))]
+
+          let archetypes = this.archetypeRepository;
+
+          if ( this.characterSpecies !== undefined ) {
+            archetypes = archetypes.filter( a => a.species === this.characterSpecies );
+          }
+
+          return [...new Set(archetypes.map(item => item.group))]
         }
+
         return []
       }
     },

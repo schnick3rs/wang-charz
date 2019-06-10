@@ -6,7 +6,7 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm10 md6 lg6
+        <v-flex xs12 sm10 md8 lg8
                 v-for="ascension in ascensionRepository"
                 :key="ascension.key"
         >

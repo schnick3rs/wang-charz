@@ -24,18 +24,6 @@
               >
               </v-select>
 
-              <v-slider
-                      label="Campaign Tier"
-                      min="1" max="5"
-                      :value="settingTier"
-                      step="1"
-                      ticks
-                      tick-size="3"
-                      thumb-label="always"
-                      @change="setSettingTier"
-              >
-              </v-slider>
-
               <v-select
                       label="Allowed Species"
                       :value="species.map( s => s.name )"

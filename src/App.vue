@@ -76,6 +76,8 @@
           <v-btn flat small :to="{ name: 'Ascension' }"   :disabled="!settingSelected">4. Ascension</v-btn>
           <v-btn flat small :to="{ name: 'Wargear' }"     :disabled="!settingSelected">5. Wargear</v-btn>
           <v-btn flat small :to="{ name: 'Background' }"  :disabled="!settingSelected">6. Background</v-btn>
+          <v-btn v-if="false" flat small icon :to="{ name: 'About' }" :disabled="!settingSelected"><v-icon>picture_as_pdf</v-icon></v-btn>
+          <v-btn flat small icon :to="{ name: 'About' }" :disabled="!settingSelected"><v-icon>description</v-icon></v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
