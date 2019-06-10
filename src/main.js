@@ -203,10 +203,15 @@ const store = new Vuex.Store({
       state.skills[payload.key] = payload.value;
     },
     addTalent(state, payload) {
-      console.debug(payload);
       let hasTalent = state.talents.find( t => t.name === payload.name ) !== undefined;
       if ( !hasTalent ) {
         state.talents.push( { name: payload.name, cost: payload.cost } );
+      }
+    },
+    removeTalent(state, payload) {
+      let hasTalent = state.talents.find( t => t.name === payload.name ) !== undefined;
+      if ( hasTalent ) {
+        state.talents = state.talents.filter( t => t.name !== payload.name );
       }
     },
   }

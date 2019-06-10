@@ -7,6 +7,16 @@
       <v-flex xs10>
 
         <v-card>
+          <v-card-text>
+            <v-chip v-for="talent in characterTalents" close @input="removeTalent(talent)" >{{talent}}</v-chip>
+          </v-card-text>
+        </v-card>
+
+      </v-flex>
+
+      <v-flex xs10>
+
+        <v-card>
 
           <v-card-title>
             <v-text-field
@@ -98,12 +108,15 @@
       addTalent(talent) {
         this.$store.commit('addTalent', { name: talent.name, cost: talent.cost });
       },
+      removeTalent(talent) {
+        this.$store.commit('removeTalent', { name: talent } );
+      }
     },
     computed: {
       loaded() { return this.talentRepository !== undefined; },
       characterTalents() { return this.$store.getters.talents },
       filteredTalentRepository() {
-        console.log('filter talent repository...');
+
         if ( this.talentRepository === undefined ) {
           return [];
         }
@@ -113,7 +126,8 @@
             t.prerequisitesKeywords.split(',').some((r)=>this.characterKeywords.indexOf(r) >= 0) );
         });
 
-        console.log(`Returning ${filteredTalents.length} entries.`);
+        filteredTalents = filteredTalents.filter( t => !this.characterTalents.includes(t.name) );
+
         return filteredTalents;
       },
       remainingBuildPoints() { return this.$store.getters.remainingBuildPoints; },
