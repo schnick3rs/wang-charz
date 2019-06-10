@@ -23,7 +23,7 @@
     "name": "The Emperor’s Angels",
     "hint": "A Homebrew Supplement for Wrath and Glory for the Adeptus Astartes",
     "abstract": "Contains many chapters, additional archetypes for regular Astartes and Primaris and Distinctions (some sort of talents). Also includes additional Wargear and Psychci Powers. Finally, rules for dreadnoughts as vehicles.",
-    "setting": "Deathwatch",
+    "setting": "Any, that allows Astartes",
     "contains": [ "Archetypes", "Talents", "Wargear", "Psychic Powers", "Vehicles"],
     "content": {
     },
@@ -59,7 +59,7 @@
     "contains": [ "Ascension Packages", "Talents", "Keywords", "Talents", "Wargear", "Veicles", "Threats" ],
     "content": {
     },
-    "tags": [ "Black Crusade", "Chaos" ],
+    "tags": [ "Adeptus Mechanicus" ],
     "url": "https://docs.google.com/document/d/1BdZan0zmB51NDYDjLYvaxsB6e3zHGs8k4LD6hAtmO4o/edit",
     "author" : "u/SendInTheNextWave (reddit)",
     "credit" : "SendInTheNextWave",
@@ -75,7 +75,7 @@
     "contains": [ "Ascension Packages", "Wargear", "Threats"],
     "content": {
     },
-    "tags": [ "Deathwatch" ],
+    "tags": [ "Deathwatch", "Adeptus Astartes" ],
     "url": "https://docs.google.com/document/d/18ZH7EUvTq8SycJdaiSL6SV6fZJP4GSA60HlBS7NQ3lg/edit",
     "author" : "u/therealbarbarian (reddit)",
     "credit" : "therealbarbarian",

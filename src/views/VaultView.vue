@@ -6,7 +6,7 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm6 md5 lg5
+        <v-flex xs12 sm6 md5 lg4
           v-for="item in homebrewRepository"
         >
 
@@ -18,7 +18,7 @@
             </v-card-title>
 
             <v-card-text>
-              <p><strong>Credit:</strong> {{ item.credit }}</p>
+              <p><strong>Author:</strong> {{ item.author }}</p>
               <p>{{ item.abstract }}</p>
               <strong>Contains:</strong>
               <ul>
