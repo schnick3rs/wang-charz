@@ -49,6 +49,42 @@
 
         </v-flex>
 
+        <v-flex xs12 sm12 lg12 xl10>
+
+          <v-layout text-xs-center>
+
+            <v-flex xs10 sm5 md5 lg5><strong>Name</strong></v-flex>
+
+            <v-flex xs3 sm3 md3 lg3 class="hidden-xs-only"><strong>Setting</strong></v-flex>
+
+            <v-flex xs3 sm3 md3 lg3 class="hidden-xs-only"><strong>Author</strong></v-flex>
+
+            <v-flex xs1 sm1 md1 lg1><strong>Actions</strong></v-flex>
+
+          </v-layout>
+
+        </v-flex>
+
+        <v-flex xs12 sm12 lg12 xl10>
+
+          <v-card v-for="item in searchResults" :key="item.name">
+
+              <v-layout align-center>
+
+                <v-flex xs10 sm5 md5 lg5><v-card-title><div class="subheading">{{item.name}}</div></v-card-title></v-flex>
+
+                <v-flex xs3 sm3 md3 lg3 class="hidden-xs-only"><v-card-title>{{item.setting}}</v-card-title></v-flex>
+
+                <v-flex xs3 sm3 md3 lg3 class="hidden-xs-only"><v-card-title>{{item.author}}</v-card-title></v-flex>
+
+                <v-flex xs1 sm1 md1 lg1><v-card-actions><v-btn icon><v-icon color="blue">info</v-icon></v-btn></v-card-actions></v-flex>
+
+              </v-layout>
+
+          </v-card>
+
+        </v-flex>
+
         <v-flex xs12 sm6 md5 lg4
             v-for="item in searchResults"
         >
