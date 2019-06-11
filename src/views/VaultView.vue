@@ -6,8 +6,51 @@
 
       <v-layout justify-center row wrap>
 
+        <v-flex xs10>
+
+          <v-card>
+            <v-card-title>Hombrew Vault</v-card-title>
+
+            <v-card-text>
+
+              <v-layout>
+
+                <v-flex xs4>
+                  <v-text-field box dense clearable
+                    label="Search"
+                    v-model="searchQuery"
+                  >
+                  </v-text-field>
+                </v-flex>
+
+                <v-flex xs4>
+                  <v-combobox box dense clearable multiple chips deletable-chips single-line
+                    label="Filter by Setting"
+                    :items="settingOptions"
+                    v-model="settingFilter"
+                  >
+                  </v-combobox>
+                </v-flex>
+
+                <v-flex xs4>
+                  <v-combobox box dense clearable multiple chips deletable-chips single-line
+                    label="Filter by Content"
+                    :items="contentOptions"
+                    v-model="contentFilter"
+                  >
+                  </v-combobox>
+                </v-flex>
+
+              </v-layout>
+
+            </v-card-text>
+
+          </v-card>
+
+        </v-flex>
+
         <v-flex xs12 sm6 md5 lg4
-          v-for="item in homebrewRepository"
+            v-for="item in searchResults"
         >
 
           <v-card >
@@ -60,30 +103,38 @@
     },
     data() {
       return {
-        breadcrumbs: [
-          {
-            text: 'Dashboard',
-            disabled: false,
-            href: 'breadcrumbs_dashboard'
-          },
-          {
-            text: 'Link 1',
-            disabled: false,
-            href: 'breadcrumbs_link_1'
-          },
-          {
-            text: 'Link 2',
-            disabled: true,
-            href: 'breadcrumbs_link_2'
-          }
-        ],
+        searchQuery: '',
+        settingFilter: [],
+        contentFilter: [],
       }
     },
     methods: {
 
     },
     computed: {
+      settingOptions() {
+        return this.homebrewRepository.map( h => h.setting ).filter( i => i !== '');
+      },
+      contentOptions() {
+        return this.homebrewRepository.map( h => h.contains );
+      },
+      searchResults() {
+        let filteredResults = this.homebrewRepository;
 
+        if ( this.searchQuery !== '' ) {
+          filteredResults = filteredResults.filter( h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0) );
+        }
+
+        if ( this.settingFilter.length > 0 ) {
+          filteredResults = filteredResults.filter( h => this.settingFilter.includes(h.setting) );
+        }
+
+        if ( this.contentFilter.length > 0 ) {
+          filteredResults = filteredResults.filter( h => this.contentFilter.includes(h.contains) );
+        }
+
+        return filteredResults;
+      }
     }
   }
 </script>
