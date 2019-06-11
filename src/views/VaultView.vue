@@ -6,16 +6,16 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs10>
+        <v-flex xs12 sm10>
 
           <v-card>
             <v-card-title>Hombrew Vault</v-card-title>
 
             <v-card-text>
 
-              <v-layout>
+              <v-layout justify-center row wrap>
 
-                <v-flex xs4>
+                <v-flex xs12 sm4>
                   <v-text-field box dense clearable
                     label="Search"
                     v-model="searchQuery"
@@ -23,7 +23,7 @@
                   </v-text-field>
                 </v-flex>
 
-                <v-flex xs4>
+                <v-flex xs12 sm4>
                   <v-combobox box dense clearable multiple chips deletable-chips single-line
                     label="Filter by Setting"
                     :items="settingOptions"
@@ -32,7 +32,7 @@
                   </v-combobox>
                 </v-flex>
 
-                <v-flex xs4>
+                <v-flex xs12 sm4>
                   <v-combobox box dense clearable multiple chips deletable-chips single-line
                     label="Filter by Content"
                     :items="contentOptions"
@@ -121,7 +121,7 @@
       searchResults() {
         let filteredResults = this.homebrewRepository;
 
-        if ( this.searchQuery !== '' ) {
+        if ( this.searchQuery ) {
           filteredResults = filteredResults.filter( h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0) );
         }
 
