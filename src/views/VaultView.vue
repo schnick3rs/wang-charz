@@ -24,21 +24,21 @@
                 </v-flex>
 
                 <v-flex xs12 sm4>
-                  <v-combobox box dense clearable multiple chips deletable-chips single-line
+                  <v-select box dense clearable multiple chips deletable-chips single-line
                     label="Filter by Setting"
                     :items="settingOptions"
                     v-model="settingFilter"
                   >
-                  </v-combobox>
+                  </v-select>
                 </v-flex>
 
                 <v-flex xs12 sm4>
-                  <v-combobox box dense clearable multiple chips deletable-chips single-line
+                  <v-select box dense clearable multiple chips deletable-chips single-line
                     label="Filter by Content"
                     :items="contentOptions"
                     v-model="contentFilter"
                   >
-                  </v-combobox>
+                  </v-select>
                 </v-flex>
 
               </v-layout>
