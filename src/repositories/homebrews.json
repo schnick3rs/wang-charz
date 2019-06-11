@@ -68,7 +68,7 @@
     "color": "red"
   },
   {
-    "name": "The Deathwatch - Slayers of the Alien Horde\n",
+    "name": "The Deathwatch - Slayers of the Alien Horde",
     "hint": "A Homebrew Supplement for Wrath and Glory for the Deathwatch",
     "abstract": "Bring the death in Watch & Glory",
     "setting": "Deathwatch",
@@ -79,6 +79,121 @@
     "url": "https://docs.google.com/document/d/18ZH7EUvTq8SycJdaiSL6SV6fZJP4GSA60HlBS7NQ3lg/edit",
     "author" : "u/therealbarbarian (reddit)",
     "credit" : "therealbarbarian",
+    "coverImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
+    "name": "Hesperax’s Vault",
+    "hint": "A supplement for Dark Eldar Characters & NPCs",
+    "abstract": "",
+    "setting": "",
+    "contains": [ "Species", "Archetypes", "Talents", "Wargear" ],
+    "content": {
+    },
+    "tags": [ "Drukhari", "Dark Eldar", "Xenos" ],
+    "version": "v0.3",
+    "url": "https://cicatrixmaledictum.files.wordpress.com/2019/05/wg-hesperaxs-vault-v0.3-1.pdf",
+    "author" : "ELH",
+    "links": [
+      { "name": "Cicatrix Maledictum (Fan Site)", "url": "https://cicatrixmaledictum.wordpress.com" }
+    ],
+    "credit" : "",
+    "coverImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
+    "name": "Expanded Voidship Combat Rules",
+    "hint": "A supplement for fighting between the stars",
+    "abstract": "",
+    "setting": "Rogue Trader",
+    "contains": [ "Voidship Combar" ],
+    "content": {
+    },
+    "tags": [ "Void Ships", "Rogue Trader" ],
+    "version": "v1.0",
+    "url": "https://cicatrixmaledictum.files.wordpress.com/2018/12/Expanded-Voidship-Combat-pf-v1.0.pdf",
+    "author" : "ELH",
+    "credit" : "",
+    "coverImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
+    "name": "Tome of Glory",
+    "hint": "A supplement for Dark Eldar Characters & NPCs",
+    "abstract": "",
+    "setting": "Black Crusade",
+    "contains": [ "Archetypes", "Talents", "Ascension Packages", "Ritual" ],
+    "content": {
+    },
+    "tags": [ "Chaos", "Renegades" ],
+    "version": "v1.5",
+    "url": "https://drive.google.com/file/d/1lxIeCd91u9SxCyubigeTSGaJrTS7rgxS/view",
+    "author" : "Matthew Malis",
+    "links": [
+      { "name": "Patreaon", "url": "https://www.patreon.com/eightpointedstar" },
+      { "name": "Twitter", "url": "https://twitter.com/bioimportance" }
+    ],
+    "credit" : "",
+    "coverImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
+    "name": "God Engines",
+    "hint": "Ordo Discordia",
+    "abstract": "",
+    "setting": "",
+    "contains": [ "Archetypes", "Ascension Packages", "Titan Combat", "Wargear", "Psychic Powers" ],
+    "content": {
+    },
+    "tags": [ "" ],
+    "version": "v1.2",
+    "url": "https://drive.google.com/file/d/1WAYhx7n1VP8AEwRI9NVsSdV84nhrGK5S/view",
+    "author" : "",
+    "links": [
+    ],
+    "credit" : "",
+    "coverImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
+    "name": "Legacy of the Necrontyr",
+    "hint": "A Homebrew Wrath and Glory Supplement for the Necrons",
+    "abstract": "",
+    "setting": "Necron Campaign",
+    "contains": [ "Setting", "Species", "Archetypes", "Wargear", "Threats" ],
+    "content": {
+    },
+    "tags": [ "" ],
+    "version": "",
+    "url": "https://docs.google.com/document/d/1pKTBeF0xa7aAjczuhnz7UQYBZ51dO8LT0g78QSg5paU/edit",
+    "author" : "",
+    "links": [
+    ],
+    "credit" : "",
+    "coverImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
+    "name": "Tyranids",
+    "hint": "",
+    "abstract": "",
+    "setting": "",
+    "contains": [ "Threats" ],
+    "content": {
+    },
+    "tags": [ "Tyranids", "Threats" ],
+    "version": "",
+    "url": "http://www.ulisses-us.com/forum/viewtopic.php?t=2999&p=28882#p28877",
+    "author" : "Timberboar and gribble",
+    "links": [
+    ],
+    "credit" : "",
     "coverImage": "",
     "avatar": "",
     "color": "red"
