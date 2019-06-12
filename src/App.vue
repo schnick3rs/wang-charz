@@ -39,7 +39,7 @@
       <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
 
       <v-toolbar-title class="headline text-uppercase hover" @click="navigateTo({name:'Home'})">
-        <span>Charz</span>
+        <span>Doctors of Doom</span>
       </v-toolbar-title>
 
       <v-toolbar-title v-if="$router.currentRoute.name !== 'Home'">

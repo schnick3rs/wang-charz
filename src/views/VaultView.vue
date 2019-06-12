@@ -69,6 +69,7 @@
                   <!--<v-icon >public</v-icon> for official -->
                   {{props.item.name}}
                   <v-chip v-if="props.item.version === 'draft'" color="orange" text-color="white" tags small label>{{props.item.version}}</v-chip>
+                  <v-chip v-else-if="props.item.version !== undefined && props.item.version.indexOf('v0') >= 0" color="orange" text-color="white" tags small label>{{props.item.version}}</v-chip>
                 </td>
                 <td>
                   <span>{{props.item.author}}</span>
@@ -92,23 +93,29 @@
 
                 <v-card-title>
                   <h2 class="headline">{{ props.item.name }}</h2>
-                  <span class="grey--text">{{ props.item.hint }}</span>
+                  <span class="grey--text">{{ props.item.subtitle }}</span>
                 </v-card-title>
 
-                <v-card-text>
-                  <p><strong>Author:</strong> {{ props.item.author }}</p>
-                  <p>{{ props.item.abstract }}</p>
-                  <strong>Contains:</strong>
-                  <ul>
-                    <li v-for="parts in  props.item.contains">{{ parts }}</li>
-                  </ul>
-                </v-card-text>
+                <v-layout>
+                  <v-flex xs12 md6>
+                    <v-card-text>
+                      <p><strong>Related Setting:</strong> {{ props.item.setting }}</p>
+                      <p><strong>Author:</strong> {{ props.item.author }}</p>
+                      <p>{{ props.item.abstract }}</p>
+                    </v-card-text>
+                  </v-flex>
+                  <v-flex xs12 md6>
+                    <v-card-text>
+                      <strong>Contains:</strong>
+                      <ul>
+                        <li v-for="parts in  props.item.contains">{{ parts }}</li>
+                      </ul>
+                      <p v-if="props.item.tags"><v-chip v-for="tag in  props.item.tags">{{ tag }}</v-chip></p>
+                    </v-card-text>
+                  </v-flex>
 
-                <v-card-text>
+                </v-layout>
 
-                  <p><strong>Related Setting:</strong> {{ props.item.setting }}</p>
-                  <p><v-chip v-for="tag in  props.item.tags">{{ tag }}</v-chip></p>
-                </v-card-text>
 
                 <v-card-actions>
                   <v-btn color="primary" :href="props.item.url">Visit the document</v-btn>

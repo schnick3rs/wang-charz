@@ -157,7 +157,7 @@
     "Subtitle": "Ordo Discordia",
     "hint": "Supplement for Titan Combat",
     "abstract": "",
-    "setting": "Titan Crew",
+    "setting": "Custom",
     "contains": [ "Archetypes", "Ascension Packages", "Titan Combat", "Wargear", "Psychic Powers" ],
     "content": {
     },
