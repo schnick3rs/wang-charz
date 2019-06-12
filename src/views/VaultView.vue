@@ -55,6 +55,7 @@
           <v-data-table
                   :headers="headers"
                   :items="searchResults"
+
                   item-key="name"
                   :pagination.sync="pagination"
                   :expand="expand"

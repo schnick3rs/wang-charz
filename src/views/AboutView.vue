@@ -22,18 +22,6 @@
           <p>Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
             and draw inspiration how to organise the layout.</p>
 
-          <h2>Technology</h2>
-
-          <p>
-            This website is build with <a href="https://vuejs.org/">Vue.js</a> using the <a href="https://vuetifyjs.com/">vuetify</a> martial design.
-            The code is available on my <a href="https://github.com/schnick3rs/wang-charz">github repository</a>.
-            The app itself is currently hosted via <a href="https://www.heroku.com/">heroku</a>, a web cloud service that
-            I use to distribute sandbox projects or similar.
-            I also use <a href="https://sheety.co">Sheety</a> during development. It allows to read google sheets using
-            a REST call that returns the sheets content as JSON. I will switch to a database soon, but this allows me to
-            quickly use some data without having the hazzle of setting up a database and respective connections.
-          </p>
-
           <h2>Disclaimer</h2>
 
           <p>
@@ -41,7 +29,7 @@
             Warhammer 40k Roleplaying community.
           </p>
 
-          <p>https://www.games-workshop.com</p>
+          <p>This page is not endorsed, sponsored, or affiliated with Games Workshop Ltd., Ulisses Spiele, Cubical 7, or the WARHAMMER 40,000 franchise.</p>
 
         </v-flex>
 

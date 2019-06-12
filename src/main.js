@@ -28,7 +28,7 @@ Vue.use(Vuex);
 
 const routes = [
   { path: '/', name: 'Home', component: Home, meta: { type: 'home' } },
-  { path: '/about', name: 'About', meta: { type: 'page' }, component: AboutView, },
+  { path: '/about', name: 'About', meta: { type: 'about' }, component: AboutView, },
 
 
   // Builder

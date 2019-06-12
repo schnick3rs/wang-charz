@@ -38,26 +38,17 @@
     >
       <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
 
-      <v-toolbar-title class="headline text-uppercase hover" @click="navigateTo({name:'Home'})">
+      <v-toolbar-title class="headline hover" @click="navigateTo({name:'Home'})">
         <span>Doctors of Doom</span>
       </v-toolbar-title>
 
       <v-toolbar-title v-if="$router.currentRoute.name !== 'Home'">
-        <span> {{ $router.currentRoute.name }}</span>
+        <span class="text-capitalize">{{ $router.currentRoute.meta.type }}</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-
-        <v-btn
-          flat
-          target="_blank"
-          href="https://github.com/schnick3rs/wang-charz"
-        >
-          <span class="hidden-sm-and-down mr-1">Quick Reference</span>
-          <v-icon class="hidden-md-and-up">help</v-icon>
-        </v-btn>
 
       </v-toolbar-items>
 
