@@ -6,7 +6,7 @@
 
       <v-layout justify-center row wrap>
 
-        <v-flex xs12 sm10>
+        <v-flex xs12>
 
           <v-card>
             <v-card-title>Hombrew Vault</v-card-title>
@@ -49,71 +49,68 @@
 
         </v-flex>
 
-        <v-flex xs12 sm12 lg12 xl10>
+        <v-flex xs12>
 
-          <v-layout text-xs-center>
+          <v-card>
 
-            <v-flex xs10 sm5 md5 lg5><strong>Name</strong></v-flex>
+          <v-data-table
+                  :headers="headers"
+                  :items="searchResults"
+                  item-key="name"
+                  :pagination.sync="pagination"
+                  :expand="expand"
+                  hide-actions
+          >
 
-            <v-flex xs3 sm3 md3 lg3 class="hidden-xs-only"><strong>Setting</strong></v-flex>
+            <template v-slot:items="props">
+              <tr @click="props.expanded = !props.expanded" >
+                <td>{{props.item.name}}</td>
+                <td>{{props.item.hint}}</td>
+                <td>{{props.item.author}}</td>
+                <td>
+                  <v-btn icon :href="props.item.url" target="_blank">
+                    <v-icon color="blue">launch</v-icon>
+                  </v-btn>
+                </td>
+              </tr>
+            </template>
 
-            <v-flex xs3 sm3 md3 lg3 class="hidden-xs-only"><strong>Author</strong></v-flex>
+            <template v-slot:expand="props">
+              <v-card>
 
-            <v-flex xs1 sm1 md1 lg1><strong>Actions</strong></v-flex>
+                <v-card-title>
+                  <h2 class="headline">{{ props.item.name }}</h2>
+                  <span class="grey--text">{{ props.item.hint }}</span>
+                </v-card-title>
 
-          </v-layout>
+                <v-card-text>
+                  <p><strong>Author:</strong> {{ props.item.author }}</p>
+                  <p>{{ props.item.abstract }}</p>
+                  <strong>Contains:</strong>
+                  <ul>
+                    <li v-for="parts in  props.item.contains">{{ parts }}</li>
+                  </ul>
+                </v-card-text>
 
-        </v-flex>
+                <v-card-text>
 
-        <v-flex xs12 sm12 lg12 xl10>
+                  <p><strong>Related Setting:</strong> {{ props.item.setting }}</p>
+                  <p><v-chip v-for="tag in  props.item.tags">{{ tag }}</v-chip></p>
+                </v-card-text>
 
-          <v-card v-for="item in searchResults" :key="item.name">
+                <v-card-actions>
+                  <v-btn color="primary" :href="props.item.url">Visit the document</v-btn>
+                </v-card-actions>
 
-              <v-layout align-center>
+              </v-card>
+            </template>
 
-                <v-flex xs10 sm5 md5 lg5><v-card-title><div class="subheading">{{item.name}}</div></v-card-title></v-flex>
+          </v-data-table>
 
-                <v-flex xs3 sm3 md3 lg3 class="hidden-xs-only"><v-card-title>{{item.setting}}</v-card-title></v-flex>
 
-                <v-flex xs3 sm3 md3 lg3 class="hidden-xs-only"><v-card-title>{{item.author}}</v-card-title></v-flex>
-
-                <v-flex xs1 sm1 md1 lg1><v-card-actions><v-btn icon><v-icon color="blue">info</v-icon></v-btn></v-card-actions></v-flex>
-
-              </v-layout>
-
-          </v-card>
-
-        </v-flex>
-
-        <v-flex xs12 sm6 md5 lg4
-            v-for="item in searchResults"
-        >
-
-          <v-card >
-
-            <v-card-title>
-              <h2 class="headline">{{ item.name }}</h2>
-              <span class="grey--text">{{ item.hint }}</span>
-            </v-card-title>
-
-            <v-card-text>
-              <p><strong>Author:</strong> {{ item.author }}</p>
-              <p>{{ item.abstract }}</p>
-              <strong>Contains:</strong>
-              <ul>
-                <li v-for="parts in  item.contains">{{ parts }}</li>
-              </ul>
-            </v-card-text>
-
-            <v-card-text>
-
-              <p><strong>Related Setting:</strong> {{ item.setting }}</p>
-              <p><v-chip v-for="tag in  item.tags">{{ tag }}</v-chip></p>
-            </v-card-text>
-
-            <v-card-actions>
-              <v-btn color="primary" :href="item.url">Visit the document</v-btn>
-            </v-card-actions>
+          <div class="text-xs-center pt-2">
+            <v-pagination v-model="pagination.page" :length="pages"></v-pagination>
+          </div>
 
           </v-card>
 
@@ -142,6 +139,14 @@
         searchQuery: '',
         settingFilter: [],
         contentFilter: [],
+        pagination: {},
+        headers: [
+          { text: 'Name', align: 'left', value: 'name' },
+          { text: 'Hint', align: 'left', value: 'Hint' },
+          { text: 'Author', align: 'center', value: 'author' },
+          { text: 'Actions', align: 'center', value: 'author' },
+        ],
+        expand: false,
       }
     },
     methods: {
@@ -170,7 +175,24 @@
         }
 
         return filteredResults;
-      }
+      },
+      searchResultsForTable() {
+        return this.searchResults.map( r => {
+          return {
+            name: r.name,
+            hint: r.hint,
+            author: r.author,
+            setting: r.setting,
+          };
+        });
+      },
+      pages () {
+        if (this.pagination.rowsPerPage == null ||
+          this.pagination.totalItems == null
+        ) return 0
+
+        return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
+      },
     }
   }
 </script>
