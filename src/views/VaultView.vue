@@ -64,9 +64,10 @@
             <template v-slot:items="props">
               <tr @click="props.expanded = !props.expanded" >
                 <td>{{props.item.name}}</td>
-                <td>{{props.item.hint}}</td>
                 <td>{{props.item.author}}</td>
-                <td>
+                <td>{{props.item.setting}}</td>
+                <td>{{props.item.hint}}</td>
+                <td class="text-lg-center">
                   <v-btn icon :href="props.item.url" target="_blank">
                     <v-icon color="blue">launch</v-icon>
                   </v-btn>
@@ -137,12 +138,13 @@
         searchQuery: '',
         settingFilter: [],
         contentFilter: [],
-        pagination: {},
+        pagination: { rowsPerPage: -1},
         headers: [
           { text: 'Name', align: 'left', value: 'name' },
-          { text: 'Hint', align: 'left', value: 'Hint' },
-          { text: 'Author', align: 'center', value: 'author' },
-          { text: 'Actions', align: 'center', value: 'author' },
+          { text: 'Author', align: 'left', value: 'author' },
+          { text: 'Setting', align: 'left', value: 'setting' },
+          { text: 'Hint', align: 'left', value: 'hint' },
+          { text: 'Actions', align: 'center', value: 'actions' },
         ],
         expand: false,
       }
@@ -155,7 +157,9 @@
         return this.homebrewRepository.map( h => h.setting ).filter( i => i !== '');
       },
       contentOptions() {
-        return this.homebrewRepository.map( h => h.contains );
+        let contentOptions = [];
+        this.homebrewRepository.forEach( h => contentOptions = [ ...contentOptions, ...h.contains] );
+        return [ ...new Set(contentOptions)];
       },
       searchResults() {
         let filteredResults = this.homebrewRepository;
@@ -169,7 +173,7 @@
         }
 
         if ( this.contentFilter.length > 0 ) {
-          filteredResults = filteredResults.filter( h => this.contentFilter.includes(h.contains) );
+          filteredResults = filteredResults.filter( h => h.contains.some( c => this.contentFilter.includes(c) ) );
         }
 
         return filteredResults;

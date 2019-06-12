@@ -23,7 +23,7 @@
     "name": "The Emperor’s Angels",
     "hint": "A Homebrew Supplement for Wrath and Glory for the Adeptus Astartes",
     "abstract": "Contains many chapters, additional archetypes for regular Astartes and Primaris and Distinctions (some sort of talents). Also includes additional Wargear and Psychci Powers. Finally, rules for dreadnoughts as vehicles.",
-    "setting": "Any, that allows Astartes",
+    "setting": "Adeptus Astartes",
     "contains": [ "Archetypes", "Talents", "Wargear", "Psychic Powers", "Vehicles"],
     "content": {
     },
@@ -87,7 +87,7 @@
     "name": "Hesperax’s Vault",
     "hint": "A supplement for Dark Eldar Characters & NPCs",
     "abstract": "",
-    "setting": "",
+    "setting": "Dark Eldar",
     "contains": [ "Species", "Archetypes", "Talents", "Wargear" ],
     "content": {
     },
@@ -122,7 +122,7 @@
   },
   {
     "name": "Tome of Glory",
-    "hint": "A supplement for Dark Eldar Characters & NPCs",
+    "hint": "",
     "abstract": "",
     "setting": "Black Crusade",
     "contains": [ "Archetypes", "Talents", "Ascension Packages", "Ritual" ],
@@ -145,7 +145,7 @@
     "name": "God Engines",
     "hint": "Ordo Discordia",
     "abstract": "",
-    "setting": "",
+    "setting": "Titan Crew",
     "contains": [ "Archetypes", "Ascension Packages", "Titan Combat", "Wargear", "Psychic Powers" ],
     "content": {
     },
@@ -164,7 +164,7 @@
     "name": "Legacy of the Necrontyr",
     "hint": "A Homebrew Wrath and Glory Supplement for the Necrons",
     "abstract": "",
-    "setting": "Necron Campaign",
+    "setting": "Necron Warband",
     "contains": [ "Setting", "Species", "Archetypes", "Wargear", "Threats" ],
     "content": {
     },
@@ -184,7 +184,7 @@
     "name": "Tyranids",
     "hint": "",
     "abstract": "",
-    "setting": "",
+    "setting": "Tyranid Threats",
     "contains": [ "Threats" ],
     "content": {
     },
