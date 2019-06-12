@@ -140,7 +140,7 @@ const store = new Vuex.Store({
     remainingBuildPoints(state, getters) {
       let remaining = 0;
       remaining = state.settingTier*100;
-      console.log(`Points spend: ${getters.getSpendBuildingPoints}.`);
+      console.info(`Points spend: ${getters.getSpendBuildingPoints}.`);
       return (state.settingTier * 100) - getters.getSpendBuildingPoints;
     },
     getSpendBuildingPoints(state) {
@@ -172,34 +172,28 @@ const store = new Vuex.Store({
       console.debug(` Spend ${talentSpending} for for talents.`);
       spend += talentSpending;
 
-      console.log(`Spend ${spend} in total.`);
+      console.info(`Spend ${spend} in total.`);
       return spend;
     }
   },
   mutations: {
     setSetting(state, payload) {
-      console.debug(payload);
       state.setting = payload.setting;
       state.settingSelected = true;
     },
     setSettingTier(state, payload) {
-      console.debug(payload);
       state.settingTier = payload.amount;
     },
     setSpecies(state, payload) {
-      console.debug(payload);
       state.species = payload;
     },
     setArchetype(state, payload) {
-      console.debug(payload);
       state.archetype = payload;
     },
     setAttribute(state, payload) {
-      console.debug(payload);
       state.attributes[payload.key] = payload.value;
     },
     setSkill(state, payload) {
-      console.debug(payload);
       state.skills[payload.key] = payload.value;
     },
     addTalent(state, payload) {

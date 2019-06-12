@@ -63,8 +63,19 @@
 
             <template v-slot:items="props">
               <tr @click="props.expanded = !props.expanded" >
-                <td>{{props.item.name}}</td>
-                <td>{{props.item.author}}</td>
+                <td>
+                  <!--<v-icon outlined>home</v-icon> for homebrew drafts -->
+                  <!--<v-icon home></v-icon> for homebrew released -->
+                  <!--<v-icon >public</v-icon> for official -->
+                  {{props.item.name}}
+                </td>
+                <td class="text-lg-center">
+                  <v-chip v-if="props.item.version" color="green" text-color="white" tags small label>{{props.item.version}}</v-chip>
+                </td>
+                <td>
+                  {{props.item.author}}
+                  <v-btn icon><v-icon color="orange">r</v-icon></v-btn>
+                </td>
                 <td>{{props.item.setting}}</td>
                 <td>{{props.item.hint}}</td>
                 <td class="text-lg-center">
@@ -141,6 +152,7 @@
         pagination: { rowsPerPage: -1},
         headers: [
           { text: 'Name', align: 'left', value: 'name' },
+          { text: 'Version', align: 'center', value: 'name' },
           { text: 'Author', align: 'left', value: 'author' },
           { text: 'Setting', align: 'left', value: 'setting' },
           { text: 'Hint', align: 'left', value: 'hint' },

@@ -1,6 +1,7 @@
 [
   {
     "name": "Agents of the Golden Throne",
+    "subtitle": "A Homebrew Wrath and Glory Supplement for the Inquisition",
     "hint": "A Homebrew Wrath and Glory Supplement for the Inquisition",
     "abstract": "Contains an ascension package to join the inquisitional cause. Also adds archetypes for Assassins and Grey Knights, including their very extended armoury. The Grey Knights have access to the Daemonology Disciplines.",
     "setting": "Dark Heresy",
@@ -40,7 +41,7 @@
     "hint": "A Homebrew Wrath & Glory Supplement for the Forces of Chaos",
     "abstract": "Contains the path to the dark side. Choose heretic archetypes, chapters and talents to please the dark goods. Tap into the custom 'Path to Power', become possessed and unlock corrupted powers. Learn and perform the dark rituals. Bind deamons wargear and equipment (sick!) and if that's not enough, learn ne powers to plague the loyalists. Have I mentioned that there is also additional gar? Enjoy. .... Wait, there is more: Vehicles and threats to crush the player characters.",
     "setting": "Black Crusade",
-    "contains": [ "Ascension Packages", "Chapters", "Archetypes", "Talents", "Veicles", "Threats" ],
+    "contains": [ "Ascension Packages", "Keywords", "Archetypes", "Talents", "Veicles", "Threats", "Chaos Rituals" ],
     "content": {
     },
     "tags": [ "Black Crusade", "Chaos" ],
@@ -108,7 +109,7 @@
     "hint": "A supplement for fighting between the stars",
     "abstract": "",
     "setting": "Rogue Trader",
-    "contains": [ "Voidship Combar" ],
+    "contains": [ "Voidships" ],
     "content": {
     },
     "tags": [ "Void Ships", "Rogue Trader" ],
@@ -125,7 +126,7 @@
     "hint": "",
     "abstract": "",
     "setting": "Black Crusade",
-    "contains": [ "Archetypes", "Talents", "Ascension Packages", "Ritual" ],
+    "contains": [ "Archetypes", "Talents", "Ascension Packages", "Chaos Rituals" ],
     "content": {
     },
     "tags": [ "Chaos", "Renegades" ],
@@ -189,7 +190,7 @@
     "content": {
     },
     "tags": [ "Tyranids", "Threats" ],
-    "version": "",
+    "version": "draft",
     "url": "http://www.ulisses-us.com/forum/viewtopic.php?t=2999&p=28882#p28877",
     "author" : "Timberboar and gribble",
     "links": [
