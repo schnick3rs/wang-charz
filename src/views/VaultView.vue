@@ -68,13 +68,14 @@
                   <!--<v-icon home></v-icon> for homebrew released -->
                   <!--<v-icon >public</v-icon> for official -->
                   {{props.item.name}}
-                </td>
-                <td class="text-lg-center">
-                  <v-chip v-if="props.item.version" color="green" text-color="white" tags small label>{{props.item.version}}</v-chip>
+                  <v-chip v-if="props.item.version === 'draft'" color="orange" text-color="white" tags small label>{{props.item.version}}</v-chip>
                 </td>
                 <td>
-                  {{props.item.author}}
-                  <v-btn icon><v-icon color="orange">r</v-icon></v-btn>
+                  <span>{{props.item.author}}</span>
+                  <span v-for="link in props.item.links">
+                    <v-btn small v-if="link.icon" icon target="_blank" :href="link.url"><v-icon small color="blue">{{link.icon}}</v-icon></v-btn>
+                    <a class="mr-2" v-else :href="link.url" target="_blank">{{link.name}}</a>
+                  </span>
                 </td>
                 <td>{{props.item.setting}}</td>
                 <td>{{props.item.hint}}</td>
@@ -152,7 +153,6 @@
         pagination: { rowsPerPage: -1},
         headers: [
           { text: 'Name', align: 'left', value: 'name' },
-          { text: 'Version', align: 'center', value: 'name' },
           { text: 'Author', align: 'left', value: 'author' },
           { text: 'Setting', align: 'left', value: 'setting' },
           { text: 'Hint', align: 'left', value: 'hint' },
