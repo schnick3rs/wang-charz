@@ -9,7 +9,6 @@
         <v-flex xs12>
 
           <v-card>
-            <v-card-title>Hombrew Vault</v-card-title>
 
             <v-card-text>
 
@@ -106,7 +105,6 @@
             </template>
 
           </v-data-table>
-
 
           <div class="text-xs-center pt-2">
             <v-pagination v-model="pagination.page" :length="pages"></v-pagination>

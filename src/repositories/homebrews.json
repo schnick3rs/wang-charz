@@ -173,6 +173,7 @@
     "url": "https://docs.google.com/document/d/1pKTBeF0xa7aAjczuhnz7UQYBZ51dO8LT0g78QSg5paU/edit",
     "author" : "SendInTheNextWave",
     "links": [
+      { "name": "Reddit", "url": "https://www.reddit.com/user/SendInTheNextWave", "icon": "reddit" }
     ],
     "credit" : "",
     "coverImage": "",
