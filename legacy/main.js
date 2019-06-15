@@ -18,7 +18,6 @@ import WargearSelection from "./components/WargearSelection";
 import ArchetypeManage from "./components/ArchetypeManage";
 
 import AboutView from "./views/AboutView";
-import LibraryView from "./views/LibraryView";
 import VaultView from "./views/VaultView";
 
 Vue.config.productionTip = false;
@@ -45,7 +44,6 @@ const routes = [
 
   // Library
   { path: '/vault', name: 'Vault', meta: { type: 'vault' }, component: VaultView, },
-  { path: '/library', name: 'Library', meta: { type: 'library' }, component: LibraryView, },
 ];
 
 const router = new VueRouter({

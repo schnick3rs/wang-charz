@@ -8,5 +8,31 @@ export default {
       speciesRepository: speciesResponse.data || [],
       speciesAbilitiesRepository: speciesAbilitiesResponse.data || []
     }
+  },
+  data: function() {
+    return {
+      astartesChapterRepository: [
+        {
+          key: 'bloodAngles', name: 'Blood Angels', beliefsAndTraditions: [
+            {
+              name: 'Blood Frenzy',
+              effect: 'When attacking in melee combat, a Blood Angels Space Marine may reroll up to Rank damage dice on every attack.'
+            },
+            {
+              name: 'The Red Thirst',
+              effect: 'After engaging in melee combat, Blood Angels must pass a Willpower test (DN 3). On a failure, the Blood Angels Space Marine feels a strong urge to drink the blood of the fallen—the player may choose how to respond to this urge. If the failure involves a complication, the Blood Angels Space Marine may not resist this urge. The Game Master may alter the DN based on how long it has been since the character has tasted blood.'
+            },]
+        },
+        {
+          key: 'darkAngles', name: 'Dark Angels', beliefsAndTraditions: []
+        },
+        {
+          key: 'imperialFists', name: 'Imperial Fists', beliefsAndTraditions: [
+            {name: 'Blood Frenzy', effect: ''},
+            {name: 'The Red Thirst', effect: ''},
+          ]
+        },
+      ],
+    }
   }
 }
