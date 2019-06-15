@@ -7,9 +7,9 @@
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
-      <v-toolbar-title class="headline hover" >
-        <span>Doctors of Doom</span>
-      </v-toolbar-title>
+      <v-toolbar-items>
+        <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
+      </v-toolbar-items>
 
       <v-toolbar-title >
         <span class="text-capitalize">Vault</span>

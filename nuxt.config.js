@@ -49,10 +49,11 @@ module.exports = {
     // '@nuxtjs/eslint-module'
     // Simple usage
     ['@nuxtjs/google-analytics', {
-      id: 'UA-141676237-1'
+      id: 'UA-141676237-2',
+      disabled: true
     }]
   ],
-  /*
+  /*un
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */

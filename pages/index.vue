@@ -1,12 +1,12 @@
 <template lang="html">
   <v-layout justify-center row wrap>
     <v-flex xs12 sm10 md8 lg6>
-      <v-card nuxt to="/vault/" class="hover-card">
+      <v-card class="hover-card--">
         <v-img src="/img/artwork_forge.jpg" height="250" />
 
-        <v-card-actions>
-          <v-spacer /><span>© unknown from warhammer40k.fandom.com</span>
-        </v-card-actions>
+        <v-card-text>
+          <v-spacer /><span>© unknown, found at warhammer40k.fandom.com</span>
+        </v-card-text>
 
         <v-card-title>
           <h2 class="headline">
@@ -17,9 +17,11 @@
         <v-card-text>
           <p>
             An expanding collection of <strong>homebrews from fans</strong> of the Wrath & Glory RPG. Extend your known settings like the
-            Inquisition or explore the life of a Titan crew. Enter the <strong>Vault</strong> to find out more...
+            Inquisition or explore new ones, for example, the life of a Titan crew. Enter the <strong>Vault</strong> to find out more...
           </p>
         </v-card-text>
+
+        <v-card-actions><v-btn nuxt to="/vault/" color="green">To the Vault</v-btn></v-card-actions>
       </v-card>
     </v-flex>
 
