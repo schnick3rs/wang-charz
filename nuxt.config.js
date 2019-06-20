@@ -83,5 +83,6 @@ module.exports = {
     */
     extend(config, ctx) {
     }
-  }
+  },
+  serverMiddleware: ['redirect-ssl']
 }
