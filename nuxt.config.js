@@ -52,9 +52,22 @@ module.exports = {
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
       disabled: true
-    }]
+    }],
+    // create a dynamic sitemap
+    '@nuxtjs/sitemap'
   ],
-  /*un
+  /*
+   * Sitemap module configuration
+   */
+  sitemap: {
+    hostname: 'https://www.doctors-of-doom.com',
+    gzip: true,
+    exclude: [
+      '/builder/**',
+      '/old/**'
+    ]
+  },
+  /*
   ** Axios module configuration
   ** See https://axios.nuxtjs.org/options
   */
