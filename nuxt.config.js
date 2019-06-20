@@ -13,8 +13,8 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'robots', name: 'robots', content: 'index,follow' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
-      { hid: 'keywords', name: 'keywords', content: 'Wrath ang Glory,Wrath & Glory,W&G,Hombrew,40k,Warhammer,Roleplaying Game' }
-      { hid: 'google-site-verification', name: 'google-site-verification', content: '5Eig5Vs_1-k3HAZdkGwTDu4Tu94AM9H-xny9n80IgJ0' }
+      { hid: 'keywords', name: 'keywords', content: 'Wrath ang Glory,Wrath & Glory,W&G,Hombrew,40k,Warhammer,Roleplaying Game' },
+      { hid: 'google-site-verification', name: 'google-site-verification', content: '5Eig5Vs_1-k3HAZdkGwTDu4Tu94AM9H-xny9n80IgJ0' },
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
