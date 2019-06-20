@@ -179,8 +179,8 @@
         {
           hid: 'description',
           name: 'description',
-          content: 'The Doctors of Doom Vault contains a curated collection of homebrews and houserules Wrath & Glory, the ' +
-            'latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.'
+          content: 'The Doctors of Doom Vault contains a curated collection of homebrews and houserules for Wrath & Glory,' +
+            ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.'
         }
       ]
     }
