@@ -4,7 +4,7 @@
       <v-card>
         <v-card-text>
           <v-layout justify-center row wrap>
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm6>
               <v-text-field
                 v-model="searchQuery"
                 box
@@ -13,7 +13,7 @@
                 label="Search"></v-text-field>
             </v-flex>
 
-            <v-flex xs12 sm4>
+            <v-flex xs12 sm6>
               <v-select
                 box
                 dense
@@ -40,6 +40,7 @@
           item-key="name"
           :pagination.sync="pagination"
           :expand="expand"
+          :search="searchQuery"
           hide-actions
         >
           <template v-slot:headers="props">
@@ -48,7 +49,7 @@
                 v-for="header in props.headers"
                 :key="header.text"
                 :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '', header.class]"
-
+                @click="changeSort(header.value)"
               >
                 <v-icon small>arrow_upward</v-icon>
                 {{ header.text }}
@@ -191,7 +192,10 @@
       searchQuery: '',
       settingFilter: [],
       contentFilter: [],
-      pagination: { rowsPerPage: -1 },
+      pagination: {
+        sortBy: 'name',
+        rowsPerPage: -1,
+      },
       headers: [
         { text: 'Name', align: 'left', value: 'name', class: '' },
         { text: 'Hint', align: 'left', value: 'hint', class: 'hidden-xs-only' },
@@ -215,34 +219,15 @@
       let filteredResults = this.homebrewRepository
 
       if (this.searchQuery) {
-        filteredResults = filteredResults.filter(h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
+        //filteredResults = filteredResults.filter(h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
       }
 
       if (this.contentFilter.length > 0) {
-        //filteredResults = filteredResults.filter(h => h.topics.some(c => this.contentFilter.includes(c)))
         filteredResults = filteredResults.filter(h => [...h.topics, ...h.keywords]
           .some(c => this.contentFilter.includes(c)))
       }
 
       return filteredResults
-    },
-    searchResultsForTable() {
-      return this.searchResults.map((r) => {
-        return {
-          name: r.name,
-          hint: r.hint,
-          keywords: r.keywords,
-          author: r.author,
-        }
-      })
-    },
-    changeSort (column) {
-      if (this.pagination.sortBy === column) {
-        this.pagination.descending = !this.pagination.descending
-      } else {
-        this.pagination.sortBy = column
-        this.pagination.descending = false
-      }
     },
     pages() {
       if (this.pagination.rowsPerPage == null ||
@@ -251,6 +236,16 @@
 
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
     }
-  }
+  },
+  methods: {
+      changeSort(column) {
+        if (this.pagination.sortBy === column) {
+          this.pagination.descending = !this.pagination.descending
+        } else {
+          this.pagination.sortBy = column
+          this.pagination.descending = false
+        }
+      },
+    }
 }
 </script>
