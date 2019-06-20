@@ -41,6 +41,13 @@
 
 <script>
 export default {
+  head() {
+    return {
+      link: [
+        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` }
+      ]
+    }
+  },
   data() {
     return {
       drawer: {

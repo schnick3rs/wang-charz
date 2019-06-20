@@ -54,13 +54,14 @@ export default {
   components: {},
   head: function () {
     return {
-      title: 'Homepage | A Wrath & Glory Fanpage',
+      titleTemplate: '%s',
+      title: 'Doctors of Doom | A Wrath & Glory fan page',
       meta: [
         {
           hid: 'description',
           name: 'description',
           content: 'Within the Warhammer 40k Universe, the Doctors of Doom are serving the community for Wrath & Glory ' +
-            'roleplaying game.'
+            'roleplaying game. Here you can find homebrews and (in the future) other W&G related stuff.'
         }
       ]
     }
