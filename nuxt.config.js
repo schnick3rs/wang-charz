@@ -1,4 +1,4 @@
-const colors = require('vuetify/es5/util/colors').default
+const colors = require('vuetify/es5/util/colors').default;
 
 module.exports = {
   mode: 'universal',
@@ -11,6 +11,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+      { hid: 'robots', name: 'robots', content: 'index,follow' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' }
     ],
     link: [
@@ -20,8 +21,7 @@ module.exports = {
       { rel: 'manifest', href: '/site.webmanifest' },
       {
         rel: 'stylesheet',
-        href:
-          'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
+        href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
       }
     ]
   },

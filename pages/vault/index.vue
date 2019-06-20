@@ -17,20 +17,6 @@
               <v-select
                 box
                 dense
-                v-model="settingFilter"
-                clearable
-                multiple
-                chips
-                deletable-chips
-                single-line
-                label="Filter by Setting"
-                :items="settingOptions"></v-select>
-            </v-flex>
-
-            <v-flex xs12 sm4>
-              <v-select
-                box
-                dense
                 v-model="contentFilter"
                 clearable
                 multiple
@@ -93,6 +79,10 @@
                   {{ props.item.version }}
                 </v-chip>
               </td>
+              <td class="hidden-xs-only">{{ props.item.hint }}</td>
+              <td>
+                <v-chip v-for="keyword in props.item.keywords" :key="keyword" small>{{ keyword }}</v-chip>
+              </td>
               <td class="hidden-sm-and-down">
                 <span>{{ props.item.author }}</span>
                 <span v-for="link in props.item.links" :key="link.name">
@@ -100,8 +90,6 @@
                   <a v-else class="mr-2" :href="link.url" target="_blank">{{ link.name }}</a>
                 </span>
               </td>
-              <td>{{ props.item.setting }}</td>
-              <td class="hidden-xs-only">{{ props.item.hint }}</td>
               <td class="text-lg-center hidden-xs-only">
                 <v-btn icon :href="props.item.url" target="_blank">
                   <v-icon color="blue">
@@ -124,24 +112,23 @@
               <v-layout row wrap>
                 <v-flex xs12 sm6>
                   <v-card-text>
-                    <p><strong>Related Setting:</strong> {{ props.item.setting }}</p>
                     <p><strong>Author:</strong> {{ props.item.author }}</p>
                     <p>{{ props.item.abstract }}</p>
+                     <p v-if="props.item.keywords">
+                      <v-chip v-for="keyword in props.item.keywords" :key="keyword">
+                        {{ keyword }}
+                      </v-chip>
+                    </p>
                   </v-card-text>
                 </v-flex>
                 <v-flex xs12 sm6>
                   <v-card-text>
-                    <strong>Contains:</strong>
+                    <strong>Topics:</strong>
                     <ul>
-                      <li v-for="parts in props.item.contains">
+                      <li v-for="parts in props.item.topics">
                         {{ parts }}
                       </li>
                     </ul>
-                    <p v-if="props.item.tags">
-                      <v-chip v-for="tag in props.item.tags" :key="tag">
-                        {{ tag }}
-                      </v-chip>
-                    </p>
                   </v-card-text>
                 </v-flex>
               </v-layout>
@@ -161,13 +148,17 @@
       </v-card>
     </v-flex>
 
-    <v-flex xs12 v-if="false">
+    <v-flex xs12>
 
       <v-card>
         <v-card-text>
           <h1>Search the Vault for precious, fanmade hombrews</h1>
-          <p>Greeting</p>
-          <h2></h2>
+          <p>
+            This is a curated list of homebrews from fans, found in the internet. I credit the author and link to their
+            community pages, as good as I could, if I find them either in the document found or on their respective page. If you like your
+            content to be added or removed from this list, or if you want to propose changes regarding content or links
+            you can PM me on <a href="https://www.reddit.com/user/schnick3rs">reddit (u/schnick3rs)</a>.
+           </p>
         </v-card-text>
       </v-card>
 
@@ -203,9 +194,9 @@
       pagination: { rowsPerPage: -1 },
       headers: [
         { text: 'Name', align: 'left', value: 'name', class: '' },
-        { text: 'Author', align: 'left', value: 'author', class: 'hidden-sm-and-down' },
-        { text: 'Setting', align: 'left', value: 'setting', class: '' },
         { text: 'Hint', align: 'left', value: 'hint', class: 'hidden-xs-only' },
+        { text: 'Keywords', align: 'left', value: 'keywords', class: '' },
+        { text: 'Author', align: 'left', value: 'author', class: 'hidden-sm-and-down' },
         { text: 'Actions', align: 'center', value: 'actions', class: 'hidden-xs-only' }
       ],
       expand: false
@@ -217,8 +208,8 @@
     },
     contentOptions() {
       let contentOptions = []
-      this.homebrewRepository.forEach(h => contentOptions = [ ...contentOptions, ...h.contains])
-      return [ ...new Set(contentOptions)]
+      this.homebrewRepository.forEach(h => contentOptions = [ ...contentOptions, ...h.topics, ...h.keywords])
+      return [ ...new Set(contentOptions)].sort()
     },
     searchResults() {
       let filteredResults = this.homebrewRepository
@@ -227,12 +218,10 @@
         filteredResults = filteredResults.filter(h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
       }
 
-      if (this.settingFilter.length > 0) {
-        filteredResults = filteredResults.filter(h => this.settingFilter.includes(h.setting))
-      }
-
       if (this.contentFilter.length > 0) {
-        filteredResults = filteredResults.filter(h => h.contains.some(c => this.contentFilter.includes(c)))
+        //filteredResults = filteredResults.filter(h => h.topics.some(c => this.contentFilter.includes(c)))
+        filteredResults = filteredResults.filter(h => [...h.topics, ...h.keywords]
+          .some(c => this.contentFilter.includes(c)))
       }
 
       return filteredResults
@@ -242,8 +231,8 @@
         return {
           name: r.name,
           hint: r.hint,
+          keywords: r.keywords,
           author: r.author,
-          setting: r.setting
         }
       })
     },
