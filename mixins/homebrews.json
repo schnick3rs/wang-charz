@@ -181,5 +181,37 @@
     "teaserImage": "",
     "avatar": "",
     "color": "red"
+  },
+  {
+    "name": "Expanded armoury",
+    "subtitle": "",
+    "hint": "Multiple patterns and weapons",
+    "abstract": "An expanded array of weapons for: Imperium, Tau and Astartes.",
+    "keywords": [ "Imperium", "Tau", "Adeptus Astartes" ],
+    "topics": [ "Wargear" ],
+    "content": {},
+    "version": "",
+    "url": "https://www.ulisses-us.com/forum/viewtopic.php?f=45&t=3097&sid=f5d7d197f0d368356adf4388df2ded28",
+    "author" : "Soviet Conscript",
+    "links": [],
+    "teaserImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
+    "name": "Powered Armour Marks",
+    "subtitle": "",
+    "hint": "Additional Variants for the Astartes",
+    "abstract": "Check out these rules for MK 1 to 8. Including granular rules and values for armour, stealth penalties, power and speed.",
+    "keywords": [ "Adeptus Astartes" ],
+    "topics": [ "Wargear" ],
+    "content": {},
+    "version": "",
+    "url": "https://www.ulisses-us.com/forum/viewtopic.php?f=45&t=3224&hilit=homebrew%2F%2F",
+    "author" : "quindraco",
+    "links": [],
+    "teaserImage": "",
+    "avatar": "",
+    "color": "red"
   }
 ]
