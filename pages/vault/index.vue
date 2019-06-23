@@ -141,7 +141,7 @@
               </v-layout>
 
               <v-card-actions>
-                <v-btn color="primary" :href="props.item.url">Visit the document</v-btn>
+                <v-btn color="primary" :href="props.item.url" target="_blank">View the document <v-icon right dark>launch</v-icon></v-btn>
                 <v-btn color="green" nuxt :to="'/vault/'+slugBy(props.item.name)">Show Details</v-btn>
               </v-card-actions>
             </v-card>
