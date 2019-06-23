@@ -66,7 +66,22 @@ module.exports = {
     exclude: [
       '/builder/**',
       '/old/**'
-    ]
+    ],
+    routes() {
+      return [
+        `/vault/agents-of-the-golden-throne`,
+        `/vault/expanded-voidship-combat-rules`,
+        `/vault/god-engines`,
+        `/vault/hesperaxs-vault`,
+        `/vault/legacy-of-the-necrontyr`,
+        `/vault/let-the-galaxy-burn`,
+        `/vault/the-deathwatch---slayers-of-the-alien-horde`,
+        `/vault/the-emperors-angels`,
+        `/vault/the-high-altar-of-technology`,
+        `/vault/tome-of-glory`,
+        `/vault/tyranids`,
+      ];
+    }
   },
   /*
   ** Axios module configuration
