@@ -163,7 +163,7 @@
             This is a curated list of homebrews from fans, found in the internet. I credit the author and link to their
             community pages, as good as I could, if I find them either in the document found or on their respective page.
             If want to add, remove or change your homebrew content or if you want to propose changes regarding links,
-            you can PM me on <a href="https://www.reddit.com/user/schnick3rs">reddit (u/schnick3rs)</a>.
+            you can mail me to <a href="mailto:docsofdoom+vault@gmail.com?subject=Vault Request">docsofdoom+vault(at)gmail.com</a>.
            </p>
         </v-card-text>
       </v-card>
