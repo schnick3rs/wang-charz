@@ -21,7 +21,7 @@
           </p>
         </v-card-text>
 
-        <v-card-actions><v-btn nuxt to="/vault/" color="green">To the Vault</v-btn></v-card-actions>
+        <v-card-actions><v-btn nuxt to="/vault" color="green">To the Vault</v-btn></v-card-actions>
       </v-card>
     </v-flex>
 

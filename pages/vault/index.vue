@@ -1,5 +1,20 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+
+  <div>
+    <div class="elevation-4 mb-4 p-0">
+      <ul class="v-breadcrumbs theme--light">
+        <li class="v-breadcrumbs__item">
+          <nuxt-link to="/" class="v-breadcrumbs__item"><img src="/favicon-16x16.png" /></nuxt-link>
+        </li>
+        <li class="v-breadcrumbs__divider">/</li>
+        <li class="v-breadcrumbs__item">
+          <nuxt-link to="/vault" class="v-breadcrumbs__item--disabled v-breadcrumbs__item">Vault</nuxt-link>
+        </li>
+      </ul>
+    </div>
+
   <v-layout justify-center row wrap>
+
     <v-flex xs12>
       <v-card>
         <v-card-text>
@@ -86,17 +101,10 @@
               </td>
               <td class="hidden-sm-and-down">
                 <span>{{ props.item.author }}</span>
-                <span v-for="link in props.item.links" :key="link.name">
-                  <v-btn v-if="link.icon" small icon target="_blank" :href="link.url"><v-icon small color="blue">{{ link.icon }}</v-icon></v-btn>
-                  <a v-else class="mr-2" :href="link.url" target="_blank">{{ link.name }}</a>
-                </span>
               </td>
               <td class="text-lg-center hidden-xs-only">
-                <v-btn icon :href="props.item.url" target="_blank">
-                  <v-icon color="blue">
-                    launch
-                  </v-icon>
-                </v-btn>
+                <v-icon v-if="!props.expanded">expand_more</v-icon>
+                <v-icon v-else-if="props.expanded">expand_less</v-icon>
               </td>
             </tr>
           </template>
@@ -104,9 +112,7 @@
           <template v-slot:expand="props">
             <v-card>
               <v-card-title>
-                <h2 class="headline">
-                  {{ props.item.name }}
-                </h2>
+                <h3 class="headline">{{ props.item.name }}</h3>
                 <span class="grey--text">{{ props.item.subtitle }}</span>
               </v-card-title>
 
@@ -135,9 +141,8 @@
               </v-layout>
 
               <v-card-actions>
-                <v-btn color="primary" :href="props.item.url">
-                  Visit the document
-                </v-btn>
+                <v-btn color="primary" :href="props.item.url">Visit the document</v-btn>
+                <v-btn color="green" nuxt :to="'/vault/'+slugBy(props.item.name)">Show Details</v-btn>
               </v-card-actions>
             </v-card>
           </template>
@@ -156,8 +161,8 @@
           <h1>Search the Vault for precious, fanmade hombrews</h1>
           <p>
             This is a curated list of homebrews from fans, found in the internet. I credit the author and link to their
-            community pages, as good as I could, if I find them either in the document found or on their respective page. If you like your
-            content to be added or removed from this list, or if you want to propose changes regarding content or links
+            community pages, as good as I could, if I find them either in the document found or on their respective page.
+            If want to add, remove or change your homebrew content or if you want to propose changes regarding links,
             you can PM me on <a href="https://www.reddit.com/user/schnick3rs">reddit (u/schnick3rs)</a>.
            </p>
         </v-card-text>
@@ -165,6 +170,9 @@
 
     </v-flex>
   </v-layout>
+  </div>
+
+
 </template>
 
 <script>
@@ -201,12 +209,18 @@
         { text: 'Hint', align: 'left', value: 'hint', class: 'hidden-xs-only' },
         { text: 'Keywords', align: 'left', value: 'keywords', class: '' },
         { text: 'Author', align: 'left', value: 'author', class: 'hidden-sm-and-down' },
-        { text: 'Actions', align: 'center', value: 'actions', class: 'hidden-xs-only' }
+        { text: '', sortable: false, align: 'right', value: 'actions', class: 'hidden-xs-only' }
       ],
       expand: false
     }
   },
   computed: {
+    breadcrumbItems() {
+      return [
+        {text: 'D', disabled: false, nuxt: true, exact: true, to: '/',},
+        {text: 'Vault', disabled: false, nuxt: true, exact: true, to: '/vault'},
+      ];
+    },
     settingOptions() {
       return this.homebrewRepository.map(h => h.setting).filter(i => i !== '')
     },
@@ -238,14 +252,23 @@
     }
   },
   methods: {
-      changeSort(column) {
-        if (this.pagination.sortBy === column) {
-          this.pagination.descending = !this.pagination.descending
-        } else {
-          this.pagination.sortBy = column
-          this.pagination.descending = false
-        }
-      },
-    }
+    slugBy(name) {
+      return name.toLowerCase().replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-');
+    },
+    changeSort(column) {
+      if (this.pagination.sortBy === column) {
+        this.pagination.descending = !this.pagination.descending
+      } else {
+        this.pagination.sortBy = column
+        this.pagination.descending = false
+      }
+    },
+  }
 }
 </script>
+
+<style scoped lang="css">
+  tr:hover {
+    cursor: pointer;
+  }
+</style>
