@@ -150,11 +150,42 @@
     "color": "red"
   },
   {
+    "name": "Pax Imperialis",
+    "Subtitle": "Ordo Discordia",
+    "hint": "Supplement for the Imperium",
+    "abstract": "Missing something, check this out. What is it? well just over 250! pages of stuff for the Imperium It contains ALOT of archetypes and related stuff. And Wargear, oh my!. It focus on 'Adeptus Administratum, Arbites, Ministorum, as well as the Astropathic Choirs of the Adeptus Astra Telepathica.' Wow! ",
+    "keywords": [ "Imperium" ],
+    "topics": [ "Keywords", "Species", "Archetypes", "Navigator Powers", "Skills", "Combat Rules", "Voidship Combat", "Hacking", "Wargear", "Bestiary", "Vehicles" ],
+    "content": {},
+    "version": "draft",
+    "url": "https://www.mediafire.com/file/7s1f64wp8s7n3l7/Pax+Imperialis+Draft+2.pdf",
+    "author" : "Messiahcide",
+    "links": [],
+    "teaserImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
+    "name": "Chase & Pursuits",
+    "Subtitle": "Ordo Discordia",
+    "hint": "Expanded Rules for chasing",
+    "abstract": "",
+    "keywords": [ "Any" ],
+    "topics": [ "" ],
+    "content": {},
+    "version": "draft",
+    "url": "https://www.mediafire.com/file/0w246hdkzhj4d8l/Chase_and_Pursuits_-_Draft_1.pdf",
+    "author" : "Messiahcide",
+    "links": [],
+    "teaserImage": "",
+    "avatar": "",
+    "color": "red"
+  },
+  {
     "name": "Legacy of the Necrontyr",
     "subtitle": "A Homebrew Wrath and Glory Supplement for the Necrons",
     "hint": "Supplement for the Necrons",
     "abstract": "The crypt awaits... Play some high tier (3-5) games by picking your favourite undead, skeletoniesk, mankind terminating and gauss flaying chassis; be it Warrior, Immortal, Deathmark or more. Take those juicy wargear and start killn. Alternatively, pick some necron threats from the bestiary and ambush the players.",
-
     "keywords": [ "Necrons", "Xenos" ],
     "topics": [ "Setting", "Species", "Archetypes", "Wargear", "Bestiary", "Threats" ],
     "content": {    },
@@ -201,7 +232,7 @@
   {
     "name": "Powered Armour Marks",
     "subtitle": "",
-    "hint": "Additional Variants for the Astartes",
+    "hint": "Additional Power Armour variants for the Astartes",
     "abstract": "Check out these rules for MK 1 to 8. Including granular rules and values for armour, stealth penalties, power and speed.",
     "keywords": [ "Adeptus Astartes" ],
     "topics": [ "Wargear" ],
