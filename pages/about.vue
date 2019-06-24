@@ -22,8 +22,21 @@
           <p v-if="false">Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
             and draw inspiration how to organise the layout.</p>
 
-          <h2>Disclaimer</h2>
 
+          <h2>Contact</h2>
+          <p>
+            You can reach out to via mail by <a href="mailto:docsofdoom+contact@gmail.com?subject=Contact">docsofdoom+contact(at)gmail.com</a>.
+          </p>
+
+
+          <h2>Private Policy Information</h2>
+          <p>
+            The Doctors-of-Doom website uses Google Analytics (and thus, the <em>_GA</em> cookie) with anonymized IP to improve user experience and check if anybody is visiting the page at all.
+            You can use the <a href="https://tools.google.com/dlpage/gaoptout?hl=de">Google Analytics Opt-out Browser Add-on</a> from Google to "to prevent their [your] data from being used by Google Analytics".
+          </p>
+
+
+          <h2>Disclaimer</h2>
           <p>
             I'm not associated to Cubical 7 or Games Workshop. I'm an enthusiastic fan that wants to support the
             Warhammer 40k Roleplaying community.

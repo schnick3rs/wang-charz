@@ -52,7 +52,13 @@ module.exports = {
     // Simple usage
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
-      disabled: true
+      disabled: false,
+      set: [
+        { field: 'anonymizeIp', value: true },
+      ],
+      debug: {
+        sendHitTask: process.env.NODE_ENV === 'production'
+      }
     }],
     // create a dynamic sitemap
     '@nuxtjs/sitemap'
