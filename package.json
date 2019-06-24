@@ -1,6 +1,6 @@
 {
   "name": "doctors-of-doom",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "The sphere of influence of the Doctors of Doom Astartes Chapter.",
   "author": "Moritz Orth",
   "private": true,
@@ -12,7 +12,7 @@
     "startProd": "cross-env NODE_ENV=production node server/index.js",
     "start": "nuxt start",
     "generate": "nuxt generate",
-    "postVersion": "git push && git push --tags"
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
