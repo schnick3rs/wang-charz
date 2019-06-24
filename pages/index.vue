@@ -2,7 +2,7 @@
   <v-layout justify-center row wrap>
     <v-flex xs12 sm10 md8 lg6>
       <v-card class="hover-card--">
-        <v-img src="/img/artwork_forge.jpg" height="250" />
+        <v-img src="/img/artwork_forge_mozjpeg.jpg" height="250" />
 
         <v-card-text>
           <v-spacer /><span>© unknown, found at warhammer40k.fandom.com</span>
