@@ -72,7 +72,7 @@
             </tr>
           </template>
           <template v-slot:items="props">
-            <tr @click="props.expanded = !props.expanded">
+            <tr @click="toggle(props)">
               <td>{{ props.item.name }}
                 <v-chip
                   v-if="props.item.version === 'draft'"
@@ -141,7 +141,7 @@
               </v-layout>
 
               <v-card-actions>
-                <v-btn color="primary" :href="props.item.url" target="_blank">View the document <v-icon right dark>launch</v-icon></v-btn>
+                <v-btn color="primary" :href="props.item.url" target="_blank" @click="trackEvent(props.item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
                 <v-btn color="green" nuxt :to="'/vault/'+slugBy(props.item.name)">Show Details</v-btn>
               </v-card-actions>
             </v-card>
@@ -262,6 +262,13 @@
         this.pagination.sortBy = column
         this.pagination.descending = false
       }
+    },
+    toggle(props) {
+      this.$ga.event('Row', 'expand', props.item.name, 0);
+      props.expanded = !props.expanded;
+    },
+    trackEvent(url) {
+      this.$ga.event('Button', 'visit', url, 0);
     },
   }
 }
