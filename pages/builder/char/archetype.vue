@@ -29,7 +29,10 @@
 
       <v-card v-if="loaded">
 
-        <div v-for="(group, key) in archetypeGroups">
+        <div
+          v-for="(group, key) in archetypeGroups"
+          :key="key"
+        >
 
           <v-divider></v-divider>
 
@@ -40,6 +43,7 @@
             <v-list-tile
               two-line
               v-for="item in archetypesByGroup(group)"
+              :key="item.key"
               avatar
               @click.stop="updatePreview(item)"
               :disabled="item.species !== characterSpecies"

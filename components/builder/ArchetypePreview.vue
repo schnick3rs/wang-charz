@@ -34,6 +34,7 @@
               v-model="item['selected']"
               v-for="keyword in item.keywords.split(',')"
               v-if="keyword.indexOf('<')>=0"
+              :key="keyword.key"
               :label="keyword +' Keyword'"
               :items="keywordOptions(keyword)"
               item-text="name"

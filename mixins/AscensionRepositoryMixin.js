@@ -1,5 +1,3 @@
-const apiBaseUrl = 'https://api.sheety.co';
-
 export default {
   data: function() {
     return {

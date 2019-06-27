@@ -8,7 +8,14 @@
 
         <v-card>
           <v-card-text>
-            <v-chip v-for="talent in characterTalents" close @input="removeTalent(talent)" >{{talent}}</v-chip>
+            <v-chip
+              v-for="talent in characterTalents"
+              :key="talent.key"
+              close
+              @input="removeTalent(talent)"
+            >
+              {{talent}}
+            </v-chip>
           </v-card-text>
         </v-card>
 

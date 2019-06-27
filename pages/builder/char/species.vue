@@ -24,7 +24,6 @@
             :key="item.name"
             avatar
             @click.stop="updatePreview(item)"
-
           >
             <v-list-tile-avatar tile>
               <img :src="item.avatar">

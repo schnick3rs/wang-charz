@@ -2,7 +2,11 @@
 
   <v-layout justify-center row wrap>
 
-    <v-flex xs12 sm6 md4 lg4 v-for="attribute in attributeRepository">
+    <v-flex
+      xs12 sm6 md4 lg4
+      v-for="attribute in attributeRepository"
+      :key="attribute.key"
+    >
 
       <v-card >
 
