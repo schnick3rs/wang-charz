@@ -7,12 +7,12 @@
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
-      <v-toolbar-title class="headline hover" @click="$nuxt.router.push('/')">
-        <span>Doctors of Doom</span>
-      </v-toolbar-title>
+      <v-toolbar-items>
+        <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
+      </v-toolbar-items>
 
       <v-toolbar-title >
-        <span class="text-capitalize">routy</span>
+        <span class="text-capitalize">Forge</span>
       </v-toolbar-title>
 
       <v-spacer></v-spacer>
@@ -33,7 +33,8 @@
           <v-btn flat small nuxt to="/builder/char/talents" :disabled="!settingSelected">4. Talents</v-btn>
           <v-btn flat small nuxt to="/builder/char/ascension" :disabled="!settingSelected">5. Ascension</v-btn>
           <v-btn flat small nuxt to="/builder/char/wargear" :disabled="!settingSelected">6. Wargear</v-btn>
-          <v-btn flat small nuxt to="/builder/char/background" :disabled="!settingSelected">7. Background</v-btn>
+          <v-btn flat small nuxt to="/builder/char/psychic-powers" :disabled="!settingSelected">7. Psychic Powers</v-btn>
+          <v-btn flat small nuxt to="/builder/char/background" :disabled="!settingSelected">8. Background</v-btn>
           <v-btn
             flat
             small
@@ -48,7 +49,11 @@
       </v-toolbar>
 
       <v-container grid-list-md>
-        <nuxt />
+        <v-layout justify-center>
+          <v-flex xs12 sm10 md9 lg8 xl7>
+            <nuxt />
+          </v-flex>
+        </v-layout>
       </v-container>
 
     </v-content>
@@ -64,13 +69,19 @@
 </template>
 
 <script>
-export default {
+  import DefaultFooter from '~/components/DefaultFooter'
+
+  export default {
+  components: { DefaultFooter },
+  head() {
+    return {
+      link: [
+        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` }
+      ]
+    }
+  },
   data() {
     return {
-      navigation: [
-        { title: 'Setting', icon: 'dashboard' },
-        { title: 'Species', icon: 'dashboard' },
-      ],
       drawer: {
         // sets the open status of the drawer
         open: false,
@@ -100,7 +111,7 @@ export default {
   computed: {
     settingSelected() { return this.$store.state.settingSelected; },
     totalBuildPoints() { return this.$store.state.settingTier * 100; },
-    spendBuildPoints() { return this.$store.state.spendBuildingPoints; },
+    spendBuildPoints() { return this.$store.getters['spendBuildingPoints']; },
   }
 }
 </script>

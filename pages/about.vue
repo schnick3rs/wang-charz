@@ -22,6 +22,9 @@
           <p v-if="false">Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
             and draw inspiration how to organise the layout.</p>
 
+          <p v-if="false">
+            And, let me point you to another online character generator for Wrath & Glory: http://wagce.eu-west-2.elasticbeanstalk.com/.
+          </p>
 
           <h2>Contact</h2>
           <p>

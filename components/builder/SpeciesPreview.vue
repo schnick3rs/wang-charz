@@ -4,6 +4,9 @@
       <div>
         <h3 class="headline md0">
           {{ species.name }}
+          <v-btn v-if="manageMode" flat icon @click="$emit('changeSpecies')">
+            <v-icon>settings</v-icon>
+          </v-btn>
         </h3>
         <span class="subheading">{{ species.hint }}</span>
       </div>
@@ -59,19 +62,22 @@
         </p>
       </div>
 
-      <p><v-divider /></p>
-      <blockquote class="blockquote font-italic">
-        <p>"{{ species.description }}"</p>
-        <span class="right">- from the Wrath & Glory Corerules -</span>
-      </blockquote>
+      <div v-if="false">
+        <p><v-divider /></p>
+        <blockquote class="blockquote font-italic" >
+          <p>"{{ species.description }}"</p>
+          <span class="right">- from the Wrath & Glory Corerules -</span>
+        </blockquote>
+      </div>
+
     </v-card-text>
 
-    <v-card-actions v-if="actions">
-      <v-btn color="primary" @click="$emit('select', species);">
+    <v-card-actions v-if="chooseMode">
+      <v-btn color="green" block @click="$emit('select', species);">
         Select Species
       </v-btn>
-      <v-btn color="red" @click="$emit('reset')">
-        Cancel selection
+      <v-btn color="red"  block @click="$emit('cancel')">
+        Cancel
       </v-btn>
     </v-card-actions>
   </v-card>
@@ -79,23 +85,27 @@
 
 <script lang="js">
   import axios from 'axios'
-  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin'
 
   export default {
   name: 'SpeciesPreview',
-  mixins: [ SpeciesRepositoryMixin ],
   props: {
     species: {
       type: Object,
       required: true
     },
-    actions: {
+    manageMode: {
       type: Boolean,
-      default: true
-    }
+      default: false
+    },
+    chooseMode: {
+      type: Boolean,
+      default: false
+    },
   },
   data() {
     return {
+      speciesRepository: [],
+      speciesAbilitiesRepository: [],
       astartesChapterRepository: [
         { key: 'bloodAngles',
           name: 'Blood Angels',
@@ -128,13 +138,15 @@
       return []
     }
   },
-  async asyncData({ params }) {
-    const speciesResponse = await axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
-    const speciesAbilitiesResponse = await axios.get(`https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
-    return {
-      speciesRepository: speciesResponse.data || [],
-      speciesAbilitiesRepository: speciesAbilitiesResponse.data || []
-    }
+  mounted() {
+    axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
+      .then( (response) => {
+        this.speciesRepository = response.data;
+      });
+    axios.get(`https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
+      .then( (response) => {
+        this.speciesAbilitiesRepository = response.data;
+      });
   },
   methods: {
     getChapterTraditions(chapterName) {

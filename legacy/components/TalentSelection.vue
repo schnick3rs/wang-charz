@@ -2,72 +2,7 @@
 
   <v-container grid-list-md>
 
-    <v-layout justify-center row wrap>
 
-      <v-flex xs10>
-
-        <v-card>
-          <v-card-text>
-            <v-chip v-for="talent in characterTalents" close @input="removeTalent(talent)" >{{talent}}</v-chip>
-          </v-card-text>
-        </v-card>
-
-      </v-flex>
-
-      <v-flex xs10>
-
-        <v-card>
-
-          <v-card-title>
-            <v-text-field
-                    v-model="searchQuery"
-                    append-icon="search"
-                    label="Search"
-                    single-line
-                    hide-details
-            ></v-text-field>
-          </v-card-title>
-
-          <v-data-table :loading="!loaded"
-                  :items="filteredTalentRepository"
-                  :search="searchQuery"
-                  :headers="headers"
-          >
-            <template v-slot:no-data>
-            </template>
-            <template v-slot:items="props">
-              <td>{{props.item.name}}</td>
-              <td class="text-xs-center" >{{props.item.cost}}</td>
-              <td>{{props.item.prerequisites}}</td>
-              <td>{{props.item.type}}</td>
-              <td>
-
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-icon class="hidden-md-and-up" v-on="on" color="primary">help</v-icon>
-                  </template>
-                  <span>{{props.item.effect}}</span>
-                </v-tooltip>
-                <span class="hidden-sm-and-down">{{props.item.effect}}</span>
-              </td>
-              <td>
-                <v-btn icon
-                  @click="addTalent(props.item)"
-                >
-                  <v-icon :color="affordableColor(props.item.cost)">add_circle</v-icon>
-                </v-btn>
-              </td>
-            </template>
-            <template v-slot:no-results>
-              <div class="text-lg-center">Your search for "{{ searchQuery }}" found no results.</div>
-            </template>
-          </v-data-table>
-
-        </v-card>
-
-      </v-flex>
-
-    </v-layout>
 
   </v-container>
 

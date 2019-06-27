@@ -1,21 +1,30 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <v-layout justify-center row wrap>
-    <v-flex v-if="!loaded" xs12 sm10 md8 lg8>
-      <v-card height="50%">
-        <v-card-text class="text-xs-center">
-          <v-progress-circular indeterminate size="64" />
-        </v-card-text>
-      </v-card>
-    </v-flex>
 
-    <v-flex v-if="!(selectedSpecies || characterSpecies ) && loaded" xs12 sm10 md8 lg8>
+  <v-layout justify-center row wrap>
+
+    <v-dialog
+      v-model="speciesDialog"
+      width="600px"
+      scrollable
+    >
+      <species-preview
+        v-if="selectedSpecies"
+        :species="selectedSpecies"
+        chooseMode
+        @select="selectSpeciesForChar"
+        @cancel="speciesDialog = false"
+      />
+    </v-dialog>
+
+    <v-flex v-if="!characterSpecies || changeSpeciesMode" xs12>
       <v-card>
         <v-list>
           <v-list-tile
             v-for="item in speciesRepository"
             :key="item.name"
             avatar
-            @click="updatePreview(item)"
+            @click.stop="updatePreview(item)"
+
           >
             <v-list-tile-avatar tile>
               <img :src="item.avatar">
@@ -50,29 +59,22 @@
       </v-card>
     </v-flex>
 
-    <v-flex v-if="characterSpecies" xs12 sm10 md8 lg8>
+    <v-flex v-if="characterSpecies && !changeSpeciesMode" xs12>
       <species-preview
         :species="characterSpecies"
-        :actions="true"
+        manageMode
+        @changeSpecies="doChangeSpeciesMode"
         @select="selectSpeciesForChar"
         @reset="resetSpecies"
       />
     </v-flex>
 
-    <v-flex v-if="selectedSpecies && !characterSpecies" xs12 sm10 md8 lg8>
-      <species-preview
-        :species="selectedSpecies"
-        :actions="true"
-        @select="selectSpeciesForChar"
-        @reset="resetSpecies"
-      />
-    </v-flex>
   </v-layout>
 </template>
 
 <script lang="js">
   import axios from 'axios'
-  import SpeciesPreview from '~/components/SpeciesPreview'
+  import SpeciesPreview from '~/components/builder/SpeciesPreview'
 
   export default {
   name: 'SpeciesSelection',
@@ -82,6 +84,8 @@
   props: [],
   data() {
     return {
+      changeSpeciesMode: false,
+      speciesDialog: false,
       selectedSpecies: undefined,
       previewSpeciesArchetypeOptions: []
     }
@@ -90,7 +94,7 @@
     loaded() { return this.speciesRepository !== undefined },
     settingTier() { return this.$store.state.settingTier },
     characterSpecies() { return this.getSpeciesBy(this.characterSpeciesName) },
-    characterSpeciesName() { return this.$store.state.species }
+    characterSpeciesName() { return this.$store.state.species.value }
   },
   async asyncData({ params }) {
     const speciesResponse = await axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
@@ -101,11 +105,17 @@
     }
   },
   methods: {
+    doChangeSpeciesMode() {
+      this.changeSpeciesMode = true;
+    },
     updatePreview: function (item) {
-      this.selectedSpecies = item
+      this.selectedSpecies = item;
+      this.speciesDialog = true;
     },
     selectSpeciesForChar(species) {
       this.$store.commit('setSpecies', { value: species.name, cost: species.cost })
+      this.speciesDialog = false;
+      this.changeSpeciesMode = false;
     },
     resetSpecies() {
       this.selectedSpecies = undefined

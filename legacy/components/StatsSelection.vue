@@ -7,7 +7,7 @@
       <v-layout row wrap>
 
         <v-flex xs12>
-            <v-alert :value="!treeOfLearningValid" type="warning">Tree of Learning violated. You must have at least as many skills learned as your highest skill value.</v-alert>
+          <v-alert :value="!treeOfLearningValid" type="warning">Tree of Learning violated. You must have at least as many skills learned as your highest skill value.</v-alert>
         </v-flex>
 
         <v-flex xs12 sm6 md4 lg4 v-for="attribute in attributes">

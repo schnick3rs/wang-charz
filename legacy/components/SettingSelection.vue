@@ -42,11 +42,13 @@
                       :items="archetypeRepository"
                       item-text="name"
                       item-value="name"
-                      chips
                       dense
                       box
                       multiple
+                      chips
                       deletable-chips
+                      hint="Select Archetypes that are not allowed to pick."
+                      persistent-hint="true"
               ></v-select>
 
               <v-switch v-if="false"

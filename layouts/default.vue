@@ -26,18 +26,16 @@
 
     </v-content>
 
-    <v-footer :app="true" class="pa-2" dark>
-      <v-spacer></v-spacer>
-      <v-btn v-if="false" nuxt to="/private-policy">Private Policy</v-btn>
-      <v-btn nuxt to="/about">About</v-btn>
-      <div>&copy; {{ new Date().getFullYear() }} Doctors of Doom</div>
-    </v-footer>
+    <default-footer />
 
   </v-app>
 </template>
 
 <script>
-export default {
+  import DefaultFooter from '~/components/DefaultFooter'
+
+  export default {
+  components: { DefaultFooter },
   head() {
     return {
       link: [

@@ -56,7 +56,7 @@
 
     <v-card-actions v-if="actions">
       <v-btn color="primary" @click="$emit('select', species);" >Select Species</v-btn>
-      <v-btn color="red" @click="$emit('reset')" >Cancel selection</v-btn>
+      <v-btn color="red" @click="$emit('cancel')" >Cancel</v-btn>
     </v-card-actions>
   </v-card>
 

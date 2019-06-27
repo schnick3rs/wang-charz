@@ -1,10 +1,15 @@
 <template lang="html">
 
-  <v-card v-if="loaded && item">
+  <v-card v-if="item">
 
     <v-card-title primary-title>
       <div>
-        <h3 class="headline md0">{{ item.name }}</h3>
+        <h3 class="headline md0">
+          {{ item.name }}
+          <v-btn v-if="manageMode" flat icon @click="$emit('change')">
+            <v-icon>settings</v-icon>
+          </v-btn>
+        </h3>
         <span class="subheading">{{ item.hint }}</span>
       </div>
     </v-card-title>
@@ -51,26 +56,27 @@
 
       <p class="text-lg-justify"><strong>Wargear:</strong> {{ item.wargear }}</p>
 
-      <p><v-divider></v-divider></p>
-      <blockquote class="blockquote font-italic">
-        <p>"{{ item.description }}"</p>
-        <span class="right">- from the Wrath & Glory Corerules -</span>
-      </blockquote>
-
+      <div v-if="false">
+        <p><v-divider></v-divider></p>
+        <blockquote class="blockquote font-italic">
+          <p>"{{ item.description }}"</p>
+          <span class="right">- from the Wrath & Glory Corerules -</span>
+        </blockquote>
+      </div>
 
     </v-card-text>
 
-    <v-card-actions v-if="actions">
-      <v-btn color="primary" @click="$emit('select', item)" >Select Archetype</v-btn>
-      <v-btn color="red" @click="$emit('reset')" >Cancel selection</v-btn>
+    <v-card-actions v-if="chooseMode">
+      <v-btn block color="green" @click="$emit('select', item)" >Select Archetype</v-btn>
+      <v-btn block color="red" @click="$emit('cancel')" >Cancel</v-btn>
     </v-card-actions>
   </v-card>
 
 </template>
 
 <script lang="js">
-  import ArchetypeRepository from '../../../mixins/ArchetypeRepositoryMixin';
-  import KeywordRepository from '../../../mixins/KeywordRepositoryMixin';
+  import ArchetypeRepository from '~/mixins/ArchetypeRepositoryMixin';
+  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
   export default  {
     name: 'archetype-preview',
@@ -80,9 +86,13 @@
         type: Object,
         required: true,
       },
-      actions: {
+      manageMode: {
         type: Boolean,
-        default: true,
+        default: false
+      },
+      chooseMode: {
+        type: Boolean,
+        default: false
       },
     },
     data() {
@@ -118,11 +128,7 @@
       },
     },
     computed: {
-      loaded() { return (
-        this.archetypeRepository !== undefined &&
-        this.keywordRepository !== undefined &&
-        this.keywordSubwordRepository !== undefined
-      )},
+      loaded() { return true; },
       abilityObjects() {
         if ( this.archetypeAbilityRepository ) {
           let abilities = this.item.abilities ? this.item.abilities.split(',') : [];

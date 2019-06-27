@@ -1,72 +1,70 @@
 <template lang="html">
+
   <v-layout justify-center row wrap>
-    <v-flex xs12 sm10 md8 lg8>
-      <v-card>
-        <v-card-text>
-          <p class="head">
-            Setting Tier
-          </p>
 
-          <v-select
-            label="Select a fitting tier"
-            :value="settingTier"
-            :items="tierSelect.options"
-            solo
-            dense
-            @change="setSettingTier"
-          />
+    <v-flex xs12>
 
-          <v-select
-            label="Allowed Species"
-            :value="speciesRepository.map( s => s.name )"
-            :items="speciesRepository"
-            item-text="name"
-            item-value="name"
-            chips
-            dense
-            box
-            multiple
-            deletable-chips
-          />
+      <h1 class="display-1">Setting Tier</h1>
 
-          <v-select
-            label="Excluded Archetypes"
-            :items="archetypeRepository"
-            item-text="name"
-            item-value="name"
-            chips
-            dense
-            box
-            multiple
-            deletable-chips
-          />
+      <p>Define your campaign framework.</p>
 
-          <v-switch
-            v-if="false"
-            v-model="setting.sources.isAllowHomebrews"
-            label="Allow homebrew content"
-            color="red"
-          />
+      <v-select
+        label="Select a fitting tier"
+        :value="settingTier"
+        :items="tierSelect.options"
+        box
+        dense
+        @change="setSettingTier"
+      />
 
-          <v-switch
-            v-if="false"
-            v-model="setting.sources.content.allowAgentsOfTheThrone"
-            :disabled="!setting.sources.isAllowHomebrews"
-            label="'Agents of the Golden Throne' fan content"
-            color="red"
-          />
-          <a v-if="false" href="https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit">Agents of the Golden Throne Homebrew</a>
-        </v-card-text>
+      <v-select
+        label="Allowed Species"
+        :value="speciesRepository.map( s => s.name )"
+        :items="speciesRepository"
+        item-text="name"
+        item-value="name"
+        dense
+        box
+        multiple
+        chips
+        deletable-chips
+        hint="Select at least one species"
+      />
 
-        <v-card-actions>
-          <v-btn color="primary" @click="applySetting()">
-            Select Setting
-          </v-btn>
-        </v-card-actions>
-      </v-card>
+      <v-select
+        label="Excluded Archetypes"
+        :items="archetypeRepository"
+        item-text="name"
+        item-value="name"
+        chips
+        dense
+        box
+        multiple
+        deletable-chips
+        disabled
+        hint="Select Archetypes that are not allowed to pick."
+        persistent-hint
+      />
+
+      <h2 class="headline">Homebrews</h2>
+
+      <p>Allow specific hombrew content.</p>
+
+      <v-switch
+        v-model="setting.sources.content.allowAgentsOfTheThrone"
+        label="'Agents of the Golden Throne' fan supplement"
+        color="primary"
+      />
+      <a v-if="false" href="https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit">Agents of the Golden Throne Homebrew</a>
+
+      <v-card-actions>
+        <v-btn block color="green" @click="applySetting()">
+          Select Setting
+        </v-btn>
+      </v-card-actions>
     </v-flex>
 
-    <v-flex
+    <v-flex v-if="false"
       v-for="item in settingTemplateOptions"
       :key="item.name"
       xs12
@@ -156,7 +154,9 @@
       this.$store.commit('setSettingTier', { amount: event })
     },
     applySetting() {
-      this.$store.commit('setSetting', { setting: this.setting })
+      this.$store.commit('setSetting', { setting: this.setting });
+      this.$router.push({ name: 'builder-char-species' });
+
     }
   }
 }

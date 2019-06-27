@@ -13,6 +13,31 @@ export const state = () => ({
     fellowship: 1,
     initiative: 1,
   },
+  attributesEnhanced() {
+    let enhanced = Object.assign({}, this.attributes);
+    let attributeEnhancements = this.enhancements.filter( e => { return e.targetGroup === 'attributes' } );
+    attributeEnhancements.forEach( m => {
+      console.info(`Enhance ${m.targetValue} my ${m.modifier} due to ${m.hint}.`);
+      enhanced[m.targetValue] += m.modifier;
+    });
+    return enhanced;
+  },
+  traits() {
+    let traits = {};
+    traits['defence'] = this.attributes.initiative-1;
+    traits['resilience'] = this.attributes.toughness+1;
+    traits['soak'] = this.attributes.toughness;
+    traits['wounds'] = this.attributes.toughness+this.settingTier;
+    traits['shock'] = this.attributes.willpower+this.settingTier;
+    traits['resolve'] = this.attributes.willpower-1;
+    traits['conviction'] = this.attributes.willpower;
+    traits['passiveAwareness'] = Math.round((this.attributes.intellect+this.skills.awareness)/2);
+    traits['influence'] = this.attributes.fellowship-1;
+    traits['wealth'] = this.settingTier;
+    traits['speed'] = 6;
+    traits['corruption'] = 0;
+    return traits;
+  },
   skills: {
     athletics: 0,
     awareness: 0,
