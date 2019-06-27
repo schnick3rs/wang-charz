@@ -29,18 +29,17 @@
           </v-card-title>
 
           <v-data-table
-            :items="filteredTalentRepository"
+            :items="talents"
             :search="searchQuery"
             :headers="headers"
           >
             <template v-slot:no-data>
             </template>
             <template v-slot:items="props">
-              <td>{{props.item.name}}</td>
-              <td class="text-xs-center" >{{props.item.cost}}</td>
-              <td>{{props.item.prerequisites}}</td>
-              <td>
-
+              <td class="caption">{{props.item.name}}</td>
+              <td class="caption text-xs-center" >{{props.item.cost}}</td>
+              <td class="caption" v-html="prerequisitesToText(props.item).join(', ')"></td>
+              <td class="caption">
                 <v-tooltip bottom>
                   <template v-slot:activator="{ on }">
                     <v-icon class="hidden-md-and-up" v-on="on" color="primary">help</v-icon>
@@ -100,9 +99,9 @@
           name: 'Acts of Faith',
           cost: 40,
           prerequisites: [
-            { condition: 'must', type: 'keyword', value: [ 'Adeptus Ministorum', 'Adepta Sororitas' ], modifier: 'OR' },
-            { condition: 'must', type: 'attribute', value: 'Willpower', modifier: '3+' },
-            { condition: 'mustNot', type: 'keyword', value: 'chaos' },
+            { condition: 'must', type: 'keyword', key: [ 'Adeptus Ministorum', 'Adepta Sororitas' ] },
+            { condition: 'must', type: 'attribute', key: 'Willpower', value: '3+' },
+            { condition: 'mustNot', type: 'keyword', key: ['chaos'] },
           ],
           effect: 'Grants Faith and bonuses with various options.',
           source: {
@@ -118,7 +117,7 @@
           name: 'Marksman',
           cost: 20,
           prerequisites: [
-            { condition: 'must', type: 'skill', value: 'Ballistic Skill', modifier: '3+' },
+            { condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '3+' },
           ],
           effect: 'Aim may reduce Called Shot DN.',
           source: {
@@ -140,7 +139,7 @@
           name: 'Sidestep',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'attribute', value: 'Initiative', modifier: '3+' },
+            { condition: 'must', type: 'attribute', key: 'Initiative', value: '3+' },
           ],
           effect: 'Sacrifice move to gain +Rank Defence and +Rank resilience vs. one attack.',
           source: {
@@ -197,6 +196,34 @@
     },
     removeTalent(talent) {
       this.$store.commit('removeTalent', { name: talent } );
+    },
+    prerequisitesToText(item) {
+      let texts = [];
+
+      item.prerequisites.forEach( p => {
+        let text = '';
+
+        switch (p.type) {
+          case 'keyword':
+            if ( p.condition === 'mustNot' ) {
+              text = `<strong>must not</strong> possess the ${p.key.join(' or ')} keyword`;
+            } else {
+              text = `${p.key.join(' or ')}`;
+            }
+            break;
+
+          case 'attribute':
+          case 'skill':
+            text = `${p.key} ${p.value}`;
+            break;
+
+          default:
+            text = `${p.key}`
+        }
+        texts.push(text);
+      });
+
+      return texts;
     }
   }
 }

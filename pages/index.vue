@@ -71,7 +71,7 @@ export default {
           imageCredit: 'Artwork by AlexBoca (DevianArt)',
           htmlText: 'Define the setting and tier of your campaign and start building a Wrath & Glory Character for your session.',
           link: { text: 'To the Forge', route: '/builder/setting' },
-          isActive: true,
+          isActive: false,
         },
       ]
     }
