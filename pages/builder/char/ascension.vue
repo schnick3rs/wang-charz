@@ -17,11 +17,14 @@
       ></ascension-preview>
     </v-dialog>
 
+    <v-flex v-if="chooseMode">
+      <h1 class="headline">Select an Ascension Package</h1>
+    </v-flex>
+
     <v-flex
       xs12
       v-if="chooseMode"
     >
-      <h2 class="display-2 font-weight-light mb-4">Choose an Ascension Package</h2>
 
       <v-card
         v-for="ascension in ascensionRepository"
@@ -31,7 +34,7 @@
         @click.stop="openDialog(ascension)"
       >
 
-        <v-card-title class="title">
+        <v-card-title class="subheading">
           {{ascension.name}}
           <v-spacer></v-spacer>
           <v-btn dense icon>

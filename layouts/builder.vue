@@ -49,11 +49,40 @@
       </v-toolbar>
 
       <v-container grid-list-md>
+
         <v-layout justify-center>
+
+          <v-flex v-if="true" md3>
+
+            <v-card>
+
+              <v-list two-line subheader>
+
+                <v-list-tile
+                  v-for="entry in helperBox"
+                  :key="entry.key"
+                  avatar
+                  nuxt
+                  :to="entry.path"
+                >
+                  <v-list-tile-content >
+                    <v-list-tile-title>{{entry.text}}</v-list-tile-title>
+                    <v-list-tile-sub-title>{{entry.hint}}</v-list-tile-sub-title>
+                  </v-list-tile-content>
+                </v-list-tile>
+
+              </v-list>
+
+            </v-card>
+
+          </v-flex>
+
           <v-flex xs12 sm10 md9 lg8 xl7>
             <nuxt />
           </v-flex>
+
         </v-layout>
+
       </v-container>
 
     </v-content>
@@ -109,9 +138,25 @@
     }
   },
   computed: {
+    helperBox() {
+      return [
+        { path: '/builder/setting', hint: 'Framework', text: `Campaign Tier: ${this.settingTier}` },
+        { path: '/builder/char/species', hint: 'Species', text: this.characterSpecies },
+        { path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype},
+        { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension},
+        { path: '/builder/char/background', hint: 'Background', text: this.characterBackground},
+      ];
+    },
+
     settingSelected() { return this.$store.state.settingSelected; },
+    settingTier() { return this.$store.state.settingTier; },
     totalBuildPoints() { return this.$store.state.settingTier * 100; },
     spendBuildPoints() { return this.$store.getters['spendBuildingPoints']; },
+
+    characterSpecies() { return this.$store.state.species.value; },
+    characterArchetype() { return this.$store.state.archetype.value; },
+    characterAscension() { return "Stay the course"; },
+    characterBackground() { return "Origin (+3 Shock)"; },
   }
 }
 </script>

@@ -15,6 +15,15 @@
       ></archetype-preview>
     </v-dialog>
 
+    <v-flex v-if="!characterArchetype || changeMode">
+      <h1 class="headline">Select an Archetype</h1>
+
+      <v-alert
+        :value="!characterSpecies"
+        type="warning"
+      >You need to select a Species first.</v-alert>
+    </v-flex>
+
     <v-flex xs12 v-if="!characterArchetype || changeMode">
       <v-text-field
         solo
@@ -46,7 +55,7 @@
               :key="item.key"
               avatar
               @click.stop="updatePreview(item)"
-              :disabled="item.species !== characterSpecies"
+              :disabled="item.species !== characterSpecies || item.tier > settingTier"
             >
 
               <v-list-tile-content>
@@ -138,12 +147,16 @@
           archetypes = archetypes.filter( a => a.species === this.characterSpecies )
         }
 
+        if ( this.settingTier !== undefined ) {
+          archetypes = archetypes.filter( a => a.tier <= this.settingTier );
+        }
+
         /* filter by search query */
         if ( this.searchQuery ) {
           let lowerCaseSearchQuery = this.searchQuery.toLowerCase();
           archetypes = archetypes.filter( a => {
             let lowerCaseArchetype = a.name.toLowerCase();
-            return lowerCaseArchetype.indexOf(lowerCaseSearchQuery) >= 0;
+            return lowerCaseArchetype.startsWith(lowerCaseSearchQuery);
           } );
         }
 
@@ -165,6 +178,7 @@
     },
     computed: {
       loaded() { return this.archetypeRepository !== undefined; },
+      settingTier() { return this.$store.state.settingTier },
       characterArchetypeName() { return this.$store.getters.archetype; },
       characterArchetype() { return this.getArchetypeBy(this.characterArchetypeName); },
       characterSpecies() { return this.$store.getters.species; },
@@ -176,6 +190,10 @@
 
           if ( this.characterSpecies !== undefined ) {
             archetypes = archetypes.filter( a => a.species === this.characterSpecies );
+          }
+
+          if ( this.settingTier !== undefined ) {
+            archetypes = archetypes.filter( a => a.tier <= this.settingTier );
           }
 
           return [...new Set(archetypes.map(item => item.group))]

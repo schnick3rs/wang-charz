@@ -2,6 +2,10 @@
 
   <v-layout justify-center row wrap>
 
+    <v-flex xs12 >
+      <h1 class="headline">Select a Attributes & Skills</h1>
+    </v-flex>
+
     <v-flex
       xs12 sm6 md4 lg4
       v-for="attribute in attributeRepository"

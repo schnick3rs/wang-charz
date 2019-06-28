@@ -4,8 +4,7 @@
 
     <v-flex xs12>
 
-      <h1 class="display-1">Setting Tier</h1>
-
+      <h1 class="headline">Campaign Tier</h1>
       <p>Define your campaign framework.</p>
 
       <v-select

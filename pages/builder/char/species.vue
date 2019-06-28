@@ -2,6 +2,10 @@
 
   <v-layout justify-center row wrap>
 
+    <v-flex v-if="!characterSpecies || changeSpeciesMode">
+      <h1 class="headline">Select a Species</h1>
+    </v-flex>
+
     <v-dialog
       v-model="speciesDialog"
       width="600px"
@@ -23,6 +27,7 @@
             v-for="item in speciesRepository"
             :key="item.name"
             avatar
+            :disabled="item.baseTier > settingTier"
             @click.stop="updatePreview(item)"
           >
             <v-list-tile-avatar tile>
@@ -31,28 +36,23 @@
 
             <v-list-tile-content>
               <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{item.hint}}</v-list-tile-sub-title>
             </v-list-tile-content>
 
-            <v-list-tile-action>
-              <v-badge overlap color="green" :disabled="item.baseTier <= settingTier">
-                <template v-slot:badge>
-                  <span>{{ item.cost }}</span>
-                </template>
-                <v-icon color="grey">
-                  attach_money
-                </v-icon>
-              </v-badge>
+            <v-list-tile-action >
+              <v-chip color="green" text-color="white">
+                <v-avatar class="green darken-4">{{item.cost}}</v-avatar>
+                <v-icon>attach_money</v-icon>
+              </v-chip>
             </v-list-tile-action>
+
             <v-list-tile-action>
-              <v-badge overlap color="red" :disabled="item.baseTier <= settingTier">
-                <template v-slot:badge>
-                  <span>{{ item.baseTier }}</span>
-                </template>
-                <v-icon color="grey">
-                  account_balance
-                </v-icon>
-              </v-badge>
+              <v-chip color="red" text-color="white">
+                <v-avatar class="red darken-4">{{item.baseTier}}</v-avatar>
+                <v-icon >account_balance</v-icon>
+              </v-chip>
             </v-list-tile-action>
+
           </v-list-tile>
         </v-list>
       </v-card>

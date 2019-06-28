@@ -1,6 +1,11 @@
 <template lang="html">
   <v-card>
-    <v-card-title primary-title>
+
+    <v-toolbar dense dark color="primary" v-if="chooseMode">
+      <v-toolbar-title class="text-xs-center">{{ species.name }}</v-toolbar-title>
+    </v-toolbar>
+
+    <v-card-title primary-title v-if="manageMode">
       <div>
         <h3 class="headline md0">
           {{ species.name }}
