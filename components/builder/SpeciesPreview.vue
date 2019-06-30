@@ -1,7 +1,7 @@
 <template lang="html">
   <v-card>
 
-    <v-toolbar dense dark color="primary" v-if="chooseMode">
+    <v-toolbar dense dark v-if="chooseMode">
       <v-toolbar-title class="text-xs-center">{{ species.name }}</v-toolbar-title>
     </v-toolbar>
 
@@ -9,8 +9,14 @@
       <div>
         <h3 class="headline md0">
           {{ species.name }}
-          <v-btn v-if="manageMode" flat icon @click="$emit('changeSpecies')">
+          <v-btn
+            v-if="manageMode"
+            flat
+            color="primary"
+            @click="$emit('changeSpecies')"
+          >
             <v-icon>settings</v-icon>
+            change species
           </v-btn>
         </h3>
         <span class="subheading">{{ species.hint }}</span>

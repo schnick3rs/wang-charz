@@ -1,4 +1,4 @@
-<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template lang="html">
 
   <v-layout justify-center row wrap>
 
@@ -19,6 +19,11 @@
 
     <v-flex v-if="chooseMode">
       <h1 class="headline">Select an Ascension Package</h1>
+
+      <v-alert
+        :value="!characterArchetype"
+        type="warning"
+      >You need to select an Archetype first.</v-alert>
     </v-flex>
 
     <v-flex
@@ -48,15 +53,29 @@
 
     <v-flex
       xs12
-      v-if="characterAscension && manageMode"
+      v-if="characterAscensionPackages.length > 0"
     >
 
-      <v-card class="mb-2">
+      <v-card
+        v-for="characterAscension in characterAscensionPackages"
+        class="mb-2"
+      >
 
         <v-card-title primary-title>
           <div>
             <div class="headline">{{ characterAscension.name }}</div>
             <span class="grey--text">{{ characterAscension.teaser }}</span>
+          </div>
+          <div>
+            <v-btn
+              v-if="manageMode"
+              flat
+              color="red"
+              @click="$emit('change')"
+            >
+              <v-icon>remove_circle</v-icon>
+              remove package
+            </v-btn>
           </div>
         </v-card-title>
 
@@ -145,7 +164,7 @@
   import AscensionPreview from '~/components/builder/AscensionPreview.vue';
 
   export default {
-  name: 'Archetype',
+  name: 'Ascension',
   layout: 'builder',
   props: [],
   mixins: [ AscensionRepositoryMixin, KeywordRepositoryMixin ],
@@ -156,10 +175,17 @@
       selectedPreview: undefined,
       chooseMode: true,
       manageMode: false,
-      characterAscension: undefined,
     }
   },
   computed: {
+    characterAscensionPackages() {
+      return this.$store.state.ascensionPackages.map( i => {
+        return this.ascensionRepository.find( j => j.name = i.value);
+      });
+    },
+    characterArchetype() {
+      return this.$store.state.archetype.value;
+      },
   },
   methods: {
     openDialog(item) {

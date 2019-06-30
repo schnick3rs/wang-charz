@@ -6,31 +6,52 @@
       <h1 class="headline">Select a Attributes & Skills</h1>
     </v-flex>
 
-    <v-flex
-      xs12 sm6 md4 lg4
-      v-for="attribute in attributeRepository"
-      :key="attribute.key"
-    >
+    <v-flex xs3>
 
       <v-card >
 
+        <v-list>
+
+          <v-list-tile
+            v-for="attribute in attributeRepository"
+            :key="attribute.key"
+            @click="selectedAttribute = attribute"
+          >
+            {{attribute.name}}
+          </v-list-tile>
+
+        </v-list>
+
+      </v-card>
+
+    </v-flex>
+
+    <v-flex xs5>
+
+      <v-card v-if="selectedAttribute" dense>
+
         <v-card-title>
-          <h4>{{ attribute.name }}</h4>
+
+          <h4>{{ selectedAttribute.name }}</h4>
           <v-spacer></v-spacer>
-          <v-btn icon @click="decrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] <= 1">
+          <v-btn icon @click="decrementAttribute(selectedAttribute.key)" :disabled="characterAttributes[selectedAttribute.key] <= 1">
             <v-icon>remove_circle</v-icon>
           </v-btn>
-          <v-btn icon @click="incrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.key)">
+          <v-btn icon @click="incrementAttribute(selectedAttribute.key)" :disabled="characterAttributes[selectedAttribute.key] >= attributeMaximumFor(selectedAttribute.key)">
             <v-icon>add_circle</v-icon>
           </v-btn>
-          <h4><span class="align-end">{{ characterAttributes[attribute.key] }} / {{ characterAttributesEnhanced[attribute.key] }}</span></h4>
+          <h4><span class="align-end">{{ characterAttributes[selectedAttribute.key] }} / {{ characterAttributesEnhanced[selectedAttribute.key] }}</span></h4>
         </v-card-title>
 
         <v-divider></v-divider>
 
         <v-list dense>
-          <div v-for="skill in skillsByAttribute(attribute.name)">
-            <v-list-tile >
+
+          <v-list-tile
+            v-for="skill in skillsByAttribute(selectedAttribute.name)"
+            :key="skill.key"
+          >
+
               <v-list-tile-content>{{skill.name}}:</v-list-tile-content>
               <v-list-tile-action>
                 <v-btn icon @click="decrementSkill(skill.key)" :disabled="characterSkills[skill.key] <= 0">
@@ -43,19 +64,31 @@
                 </v-btn>
               </v-list-tile-action>
               <v-list-tile-action>{{characterSkills[skill.key]}}</v-list-tile-action>
-            </v-list-tile>
-          </div>
+
+          </v-list-tile>
+
         </v-list>
 
-        <v-divider></v-divider>
+      </v-card>
 
-        <v-list dense>
-          <div v-for="trait in traitsByAttribute(attribute.name)">
-            <v-list-tile >
-              <v-list-tile-content>{{trait.name}}:</v-list-tile-content>
-              <v-list-tile-action>{{characterTraits[trait.key]}}</v-list-tile-action>
-            </v-list-tile>
-          </div>
+    </v-flex>
+
+    <v-flex xs4>
+
+      <v-card v-if="selectedAttribute" dense>
+
+        <v-list>
+
+          <v-list-tile
+            v-for="trait in traitsByAttribute(selectedAttribute.name)"
+            :key="trait.key"
+          >
+                <v-list-tile-content>{{trait.name}}:</v-list-tile-content>
+                <v-list-tile-action>{{characterTraits[trait.key]}}</v-list-tile-action>
+
+          </v-list-tile>
+
+
         </v-list>
 
       </v-card>
@@ -74,7 +107,7 @@
   import axios from "axios";
 
   export default {
-  name: 'Archetype',
+  name: 'Stats',
   layout: 'builder',
   props: [],
   async asyncData({ params }) {
@@ -89,6 +122,7 @@
   },
   data() {
     return {
+      selectedAttribute: undefined,
     }
   },
   methods: {

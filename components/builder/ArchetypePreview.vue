@@ -6,8 +6,14 @@
       <div>
         <h3 class="headline md0">
           {{ item.name }}
-          <v-btn v-if="manageMode" flat icon @click="$emit('change')">
+          <v-btn
+            v-if="manageMode"
+            flat
+            color="primary"
+            @click="$emit('change')"
+          >
             <v-icon>settings</v-icon>
+            change archetype
           </v-btn>
         </h3>
         <span class="subheading">{{ item.hint }}</span>

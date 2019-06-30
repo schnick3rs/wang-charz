@@ -73,7 +73,7 @@
 
 <script lang="js">
   import axios from 'axios'
-  import SpeciesPreview from '~/components/builder/SpeciesPreview'
+  import SpeciesPreview from '~/components/builder/SpeciesPreview.vue';
 
   export default {
   name: 'SpeciesSelection',

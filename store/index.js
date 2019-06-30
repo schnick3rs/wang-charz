@@ -214,7 +214,13 @@ export const mutations = {
     state.ascensionPackages.push( { value: payload.value, cost: payload.cost, targetTier: payload.targetTier } );
   },
   addWargear(state, payload) {
-    state.wargear.push( payload.name );
+    state.wargear.push( {name: payload.name } );
+  },
+  removeWargear(state, payload) {
+    let hasWargear = state.wargear.find( t => t.name === payload.name ) !== undefined;
+    if ( hasWargear ) {
+      state.wargear = state.wargear.filter( t => t.name !== payload.name );
+    }
   },
   setBackground(state, payload) {
     state.background = payload.name;

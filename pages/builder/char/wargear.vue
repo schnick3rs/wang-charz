@@ -65,14 +65,17 @@
 
         <v-list-tile
           v-for="gear in characterWargear"
-          @click=""
+
         >
 
           <v-list-tile-content>
             <v-list-tile-title>{{gear}}</v-list-tile-title>
-            <v-list-tile-sub-title>some • gear • text</v-list-tile-sub-title>
+            <v-list-tile-sub-title>{{wargearSubtitle(gear)}}</v-list-tile-sub-title>
           </v-list-tile-content>
 
+          <v-list-tile-action>
+            <v-btn flat small color="red" @click="remove(gear)">Remove</v-btn>
+          </v-list-tile-action>
 
         </v-list-tile>
 
@@ -132,7 +135,7 @@
         {
           name: 'Commissar',
           options: [
-            { name: 'Flak coat', },
+            { name: 'Flak Coat', },
             { name: 'Bold pistol', },
             { name: 'Chain Sword', },
             { name: 'Guard issue mess kit', },
@@ -167,7 +170,8 @@
                     return (
                       item.value <=5 &&
                       ['Uncommon'].includes(item.rarity) &&
-                      item.keywords.split(',').includes('Imperium')
+                      item.keywords.split(',').includes('Imperium') &&
+                      item.type === 'Ranged'
                     );
                   }
                 },
@@ -191,10 +195,10 @@
           name: 'Inquisitor',
           options: [
             {
-              name: 'Choice of Flak coat, Ignatus Power Armour or Light Power Armour',
+              name: 'Choice of Flak Coat, Ignatus Power Armour or Light Power Armour',
               selected: undefined,
               options: [
-                { name: 'Flak coat' },
+                { name: 'Flak Coat' },
                 { name: 'Ignatus Power Armour' },
                 { name: 'Light Power Armour' },
               ],
@@ -208,7 +212,7 @@
                     return (
                       item.value <= 7 &&
                       ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity) &&
-                      item.group.includes('Ranged')
+                      item.type.includes('Ranged')
                     );
                   }
                 },
@@ -223,13 +227,58 @@
                     return (
                       item.value <= 7 &&
                       ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity) &&
-                      item.group.includes('Melee')
+                      item.type.includes('Melee')
                     );
                   }
                 },
               ],
             },
             { name: 'Symbol of authority', },
+          ],
+        },
+        {
+          name: 'Rogue Trader',
+          options: [
+            {
+              name: 'Choice of Flak Coat, carapace armour or Light Power Armour',
+              selected: undefined,
+              options: [
+                { name: 'Flak Coat' },
+                { name: 'Carapace Armour' },
+                { name: 'Light Power Armour' },
+              ],
+            },
+            {
+              name: 'Ranged weapon up to value Tier+4 and rarity Rare.',
+              selected: undefined,
+              options: [
+                {
+                  query: (item) => {
+                    return (
+                      item.value <= this.settingTier+4 &&
+                      ['Uncommon', 'Common', 'Rare'].includes(item.rarity) &&
+                      item.type.includes('Ranged')
+                    );
+                  }
+                },
+              ],
+            },
+            {
+              name: 'Melee weapon up to value Tier+4 and rarity Rare.',
+              selected: undefined,
+              options: [
+                {
+                  query: (item) => {
+                    return (
+                      item.value <= this.settingTier+4 &&
+                      ['Uncommon', 'Common', 'Rare'].includes(item.rarity) &&
+                      item.type.includes('Melee')
+                    );
+                  }
+                },
+              ],
+            },
+            { name: 'Imperial Frigate', },
           ],
         },
       ],
@@ -242,7 +291,7 @@
       return this.archetypeWargearRepository.find( i => i.name === this.characterArchetypeName );
     },
     characterWargear() {
-      return this.$store.state.wargear || [];
+      return this.$store.state.wargear.map( i => i.name );
     },
   },
   methods: {
@@ -250,13 +299,15 @@
       let finalWargear = [];
 
       wargearOptions.forEach( i => {
-        if ( i.selected ) {
-          if ( i.selected.indexOf(' and ') > 0 ) {
-            i.selected.split(' and ').forEach( o => {
-              finalWargear.push(o);
-            })
-          } else {
-            finalWargear.push(i.selected);
+        if ( i.options ) {
+          if ( i.selected ) {
+            if ( i.selected.indexOf(' and ') > 0 ) {
+              i.selected.split(' and ').forEach( o => {
+                finalWargear.push(o);
+              })
+            } else {
+              finalWargear.push(i.selected);
+            }
           }
         } else {
           finalWargear.push(i.name);
@@ -265,7 +316,17 @@
       finalWargear.forEach( w => {
         this.$store.commit('addWargear', { name: w } );
       });
-    }
+    },
+    wargearSubtitle(gear) {
+      let item = this.wargearRepository.find( i => i.name === gear);
+      if ( item ) {
+        return item.type + ' • ' + item.keywords.split(',').join(' • ');
+      }
+      return '';
+    },
+    remove(gear) {
+      this.$store.commit('removeWargear', { name: gear} );
+    },
   }
 }
 </script>
