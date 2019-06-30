@@ -170,6 +170,7 @@
       let payload = {
         value: ascensionPackage.name,
         cost: ascensionPackage.cost * targetTier,
+        targetTier: targetTier,
       };
       this.$store.commit('addAscension', payload);
 

@@ -124,5 +124,8 @@ module.exports = {
     extend(config, ctx) {
     }
   },
-  serverMiddleware: ['redirect-ssl']
-}
+  serverMiddleware: [
+    'redirect-ssl',
+    //'~/api/index.js'
+  ],
+};

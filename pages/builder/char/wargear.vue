@@ -16,9 +16,22 @@
           <span class="mb-0">{{ gear.name }}</span>
         </v-card-title>
 
-        <v-card-text v-if="gear.options">
+        <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query">
+          <v-select
+            :items="wargearRepository.filter(gear.options[0].query)"
+            v-model="gear.selected"
+            item-value="name"
+            item-text="name"
+          ></v-select>
 
-          <v-radio-group v-model="gear.selected" class="mt-0">
+        </v-card-text>
+
+        <v-card-text v-else-if="gear.options">
+
+          <v-radio-group
+            v-model="gear.selected"
+            class="mt-0"
+          >
             <v-radio
               v-for="option in gear.options"
               :key="option.key"
@@ -127,6 +140,96 @@
             { name: 'Grooming kit', },
             { name: 'Uplifting Primer', },
             { name: 'Ration Packs', amount: 3, },
+          ],
+        },
+        {
+          name: 'Imperial Guardsman',
+          options: [
+            { name: 'Flak Armour', },
+            { name: 'Lasgun', },
+            { name: 'Knife', },
+            { name: 'Guard issue mess kit', },
+            { name: 'Blanket', },
+            { name: 'Grooming kit', },
+            { name: 'Uplifting Primer', },
+            { name: 'Ration Packs', amount: 3, },
+          ],
+        },
+        {
+          name: 'Inquisitorial Acolyte',
+          options: [
+            { name: 'Flak Armour', },
+            {
+              name: 'Range weapon of value 5 or less of up to Uncommon rarity (must have the Imperium keyword',
+              selected: undefined,
+              options: [
+                { query: (item) => {
+                    return (
+                      item.value <=5 &&
+                      ['Uncommon'].includes(item.rarity) &&
+                      item.keywords.split(',').includes('Imperium')
+                    );
+                  }
+                },
+              ],
+            },
+            { name: 'Knife', },
+          ],
+        },
+        {
+          name: 'Inquisitorial Adept',
+          options: [
+            { name: 'Flak Armour', },
+            { name: 'Laspistol', },
+            { name: 'Knife', },
+            { name: 'Auto quill', },
+            { name: 'Data-slate', },
+            { name: 'Ancient Records', amount: 3, },
+          ],
+        },
+        {
+          name: 'Inquisitor',
+          options: [
+            {
+              name: 'Choice of Flak coat, Ignatus Power Armour or Light Power Armour',
+              selected: undefined,
+              options: [
+                { name: 'Flak coat' },
+                { name: 'Ignatus Power Armour' },
+                { name: 'Light Power Armour' },
+              ],
+            },
+            {
+              name: 'Ranged weapon up to availability 7 and rarity Very Rare.',
+              selected: undefined,
+              options: [
+                {
+                  query: (item) => {
+                    return (
+                      item.value <= 7 &&
+                      ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity) &&
+                      item.group.includes('Ranged')
+                    );
+                  }
+                },
+              ],
+            },
+            {
+              name: 'Melee weapon up to availability 7 and rarity Very Rare.',
+              selected: undefined,
+              options: [
+                {
+                  query: (item) => {
+                    return (
+                      item.value <= 7 &&
+                      ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity) &&
+                      item.group.includes('Melee')
+                    );
+                  }
+                },
+              ],
+            },
+            { name: 'Symbol of authority', },
           ],
         },
       ],

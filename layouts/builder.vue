@@ -204,9 +204,9 @@
         { path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost },
         { path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost },
         { path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts+this.skillCosts },
-        { path: '/builder/char/talents', hint: 'Talents', text: `${this.characterTalents.length} Powers learned`, cost: this.talentCosts },
-        { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: 0 },
-        { path: '/builder/char/psychic-powers', hint: 'Psychic Powers', text: `${this.characterPsychicPowers.length} Talents learned`, cost: this.psychicPowerCosts },
+        { path: '/builder/char/talents', hint: 'Talents', text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
+        { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts },
+        { path: '/builder/char/psychic-powers', hint: 'Psychic Powers', text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
         { divider: true },
         { path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined },
         { path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined },
@@ -222,13 +222,19 @@
     skillCosts() { return this.$store.getters['skillCosts']; },
     talentCosts() { return this.$store.getters['talentCost']; },
     psychicPowerCosts() { return this.$store.getters['psychicPowerCost']; },
+    ascensionCosts() { return this.$store.getters['ascensionCost']; },
 
     characterSpecies() { return this.$store.state.species.value; },
     characterArchetype() { return this.$store.state.archetype.value; },
     characterTalents() { return this.$store.state.talents; },
     characterPsychicPowers() { return this.$store.state.psychicPowers; },
-    characterAscension() { return "Stay the course"; },
-    characterBackground() { return "Origin (+3 Shock)"; },
+    characterAscension() {
+      if ( this.$store.state.ascensionPackages.length > 0 ) {
+        return this.$store.state.ascensionPackages[0].value;
+      }
+      return '';
+    },
+    characterBackground() { return this.$store.state.background; },
   }
 }
 </script>

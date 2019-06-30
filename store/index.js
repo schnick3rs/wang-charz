@@ -67,8 +67,9 @@ export const state = () => ({
   ],
   talents: [],
   psychicPowers: [],
-  ascensions: [],
+  ascensionPackages: [],
   wargear: [],
+  background: undefined,
   enhancements: [
     { targetGroup: 'attributes', targetValue: 'strength', modifier: 1, hint: 'Astartes Physiology' },
   ],
@@ -133,8 +134,13 @@ export const getters = {
   },
   talentCost(state) {
     let spending = 0;
-    state.talents.forEach( talent => {
-      spending += talent.cost;
+    state.talents.forEach( talent => { spending += talent.cost; });
+    return spending;
+  },
+  ascensionCost(state) {
+    let spending = 0;
+    state.ascensionPackages.forEach( ascensionPackage => {
+      spending += ascensionPackage.cost;
     });
     return spending;
   },
@@ -145,34 +151,16 @@ export const getters = {
     });
     return spending;
   },
-  spendBuildingPoints(state) {
+  spendBuildingPoints(state, getters) {
     let spend = 0;
 
     spend += state.species ? state.species.cost : 0;
     spend += state.archetype ? state.archetype.cost : 0;
-
-    const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
-    let attributesSpending = 0;
-    Object.keys(state.attributes).forEach( (key) => {
-      attributesSpending += attributeTotalCost[ state.attributes[key] ];
-    });
-    console.debug(` Spend ${attributesSpending} for for attributes.`);
-    spend += attributesSpending;
-
-    const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
-    let skillSpending = 0;
-    Object.keys(state.skills).forEach( (key) => {
-      skillSpending += skillTotalCost[ state.skills[key] ];
-    });
-    console.debug(` Spend ${skillSpending} for for skills.`);
-    spend += skillSpending;
-
-    let talentSpending = 0;
-    state.talents.forEach( t => {
-      talentSpending += t.cost;
-    });
-    console.debug(` Spend ${talentSpending} for for talents.`);
-    spend += talentSpending;
+    spend += getters.attributeCosts;
+    spend += getters.skillCosts;
+    spend += getters.talentCost;
+    spend += getters.ascensionCost;
+    spend += getters.psychicPowerCost;
 
     return spend;
   }
@@ -222,7 +210,13 @@ export const mutations = {
       state.psychicPowers = state.psychicPowers.filter( t => t.name !== payload.name );
     }
   },
+  addAscension(state, payload) {
+    state.ascensionPackages.push( { value: payload.value, cost: payload.cost, targetTier: payload.targetTier } );
+  },
   addWargear(state, payload) {
     state.wargear.push( payload.name );
+  },
+  setBackground(state, payload) {
+    state.background = payload.name;
   },
 }
