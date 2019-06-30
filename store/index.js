@@ -81,6 +81,16 @@ export const getters = {
   settingTier(state) { return state.settingTier; },
   species(state) { return state.species.value; },
   archetype(state) { return state.archetype.value; },
+  effectiveCharacterTier(state) {
+    let archetypeTier = state.archetype.tier || 0;
+    let ascensionTier = 0;
+    state.ascensionPackages.forEach( (i) => {
+      if ( i.targetTier > ascensionTier ) {
+        ascensionTier = i.targetTier
+      }
+    });
+    return Math.max(archetypeTier,ascensionTier);
+  },
   attributes(state) { return state.attributes; },
   attributesEnhanced(state) {
     let enhanced = Object.assign({}, state.attributes);

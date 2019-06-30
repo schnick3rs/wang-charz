@@ -21,14 +21,17 @@
       <h1 class="headline">Select an Ascension Package</h1>
 
       <v-alert
-        :value="!characterArchetype"
-        type="warning"
-      >You need to select an Archetype first.</v-alert>
+        v-for="alert in alerts"
+        :key="alert.key"
+        :value="true"
+        :type="alert.type"
+      >{{alert.text}}</v-alert>
+
     </v-flex>
 
     <v-flex
       xs12
-      v-if="chooseMode"
+      v-if="chooseMode && alerts.length === 0"
     >
 
       <v-card
@@ -178,6 +181,16 @@
     }
   },
   computed: {
+    alerts() {
+      let alerts = [];
+      if ( !this.characterArchetype ) {
+        alerts.push( {type: 'warning', text: 'You need to select an Archetype first.'} );
+      }
+      if ( this.effectiveCharacterTier >= this.settingTier) {
+        alerts.push( {type: 'warning', text: 'Your character already has reached a tier sufficient for the Campaign Tier.'} );
+      }
+      return alerts;
+    },
     characterAscensionPackages() {
       return this.$store.state.ascensionPackages.map( i => {
         return this.ascensionRepository.find( j => j.name = i.value);
@@ -186,6 +199,12 @@
     characterArchetype() {
       return this.$store.state.archetype.value;
       },
+    effectiveCharacterTier() {
+      return this.$store.getters['effectiveCharacterTier'];
+    },
+    settingTier() {
+      return this.$store.state.settingTier;
+    },
   },
   methods: {
     openDialog(item) {

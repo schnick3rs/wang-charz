@@ -163,7 +163,7 @@
         return archetypes;
       },
       selectArchetypeForChar(item) {
-        this.$store.commit('setArchetype', { value: item.name, cost: item.cost });
+        this.$store.commit('setArchetype', { value: item.name, cost: item.cost, tier: item.tier });
         this.dialog = false;
         this.changeMode = false;
       },
