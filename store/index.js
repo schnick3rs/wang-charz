@@ -66,7 +66,9 @@ export const state = () => ({
     { name: 'Inquisition', source: 'ascension' },
   ],
   talents: [],
+  psychicPowers: [],
   ascensions: [],
+  wargear: [],
   enhancements: [
     { targetGroup: 'attributes', targetValue: 'strength', modifier: 1, hint: 'Astartes Physiology' },
   ],
@@ -112,6 +114,36 @@ export const getters = {
     let remaining = 0;
     remaining = state.settingTier*100;
     return (state.settingTier * 100) - getters.spendBuildingPoints;
+  },
+  attributeCosts(state) {
+    const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
+    let attributesSpending = 0;
+    Object.keys(state.attributes).forEach( (key) => {
+      attributesSpending += attributeTotalCost[ state.attributes[key] ];
+    });
+    return attributesSpending;
+  },
+  skillCosts(state) {
+    const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
+    let skillSpending = 0;
+    Object.keys(state.skills).forEach( (key) => {
+      skillSpending += skillTotalCost[ state.skills[key] ];
+    });
+    return skillSpending;
+  },
+  talentCost(state) {
+    let spending = 0;
+    state.talents.forEach( talent => {
+      spending += talent.cost;
+    });
+    return spending;
+  },
+  psychicPowerCost(state) {
+    let spending = 0;
+    state.psychicPowers.forEach( psychicPower => {
+      spending += psychicPower.cost;
+    });
+    return spending;
   },
   spendBuildingPoints(state) {
     let spend = 0;
@@ -177,5 +209,20 @@ export const mutations = {
     if ( hasTalent ) {
       state.talents = state.talents.filter( t => t.name !== payload.name );
     }
+  },
+  addPower(state, payload) {
+    let hasPower = state.psychicPowers.find( t => t.name === payload.name ) !== undefined;
+    if ( !hasPower ) {
+      state.psychicPowers.push( { name: payload.name, cost: payload.cost } );
+    }
+  },
+  removePower(state, payload) {
+    let hasPower = state.psychicPowers.find( t => t.name === payload.name ) !== undefined;
+    if ( hasPower ) {
+      state.psychicPowers = state.psychicPowers.filter( t => t.name !== payload.name );
+    }
+  },
+  addWargear(state, payload) {
+    state.wargear.push( payload.name );
   },
 }

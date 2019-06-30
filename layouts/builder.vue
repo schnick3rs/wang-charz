@@ -1,5 +1,62 @@
 <template>
   <v-app>
+
+    <v-navigation-drawer
+      app
+      :clipped="drawer.clipped"
+      :fixed="drawer.fixed"
+      :permanent="drawer.permanent"
+      :mini-variant="drawer.mini"
+      v-model="drawer.open"
+      width="220"
+    >
+      <v-list two-line subheader dense>
+
+        <v-list-tile
+          nuxt
+          to="/builder/setting"
+        >
+          <v-list-tile-content >
+            <v-list-tile-title>Tier {{settingTier}} Campaign</v-list-tile-title>
+            <v-list-tile-sub-title>Framework</v-list-tile-sub-title>
+          </v-list-tile-content>
+
+          <v-list-tile-action>
+            <span>{{spendBuildPoints}} / {{totalBuildPoints}} BP</span>
+          </v-list-tile-action>
+
+        </v-list-tile>
+
+        <div
+          v-for="entry in helperBox"
+          :key="entry.key"
+        >
+          <v-divider v-if="entry.divider"></v-divider>
+
+          <v-list-tile
+            v-else
+            avatar
+            nuxt
+            :to="entry.path"
+          >
+            <v-list-tile-content >
+              <v-list-tile-title>{{entry.text}}</v-list-tile-title>
+              <v-list-tile-sub-title>{{entry.hint}}</v-list-tile-sub-title>
+            </v-list-tile-content>
+
+            <v-list-tile-action>
+              <span v-if="entry.text">{{entry.cost}} BP</span>
+              <v-icon v-else>info</v-icon>
+            </v-list-tile-action>
+
+          </v-list-tile>
+
+        </div>
+
+      </v-list>
+
+    </v-navigation-drawer>
+
     <v-toolbar
       app
       dense
@@ -7,6 +64,8 @@
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
+      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
+
       <v-toolbar-items>
         <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
       </v-toolbar-items>
@@ -52,31 +111,6 @@
 
         <v-layout justify-center>
 
-          <v-flex v-if="true" md3>
-
-            <v-card>
-
-              <v-list two-line subheader>
-
-                <v-list-tile
-                  v-for="entry in helperBox"
-                  :key="entry.key"
-                  avatar
-                  nuxt
-                  :to="entry.path"
-                >
-                  <v-list-tile-content >
-                    <v-list-tile-title>{{entry.text}}</v-list-tile-title>
-                    <v-list-tile-sub-title>{{entry.hint}}</v-list-tile-sub-title>
-                  </v-list-tile-content>
-                </v-list-tile>
-
-              </v-list>
-
-            </v-card>
-
-          </v-flex>
-
           <v-flex xs12 sm10 md9 lg8 xl7>
             <nuxt />
           </v-flex>
@@ -113,7 +147,7 @@
     return {
       drawer: {
         // sets the open status of the drawer
-        open: false,
+        open: true,
         // sets if the drawer is shown above (false) or below (true) the toolbar
         clipped: true,
         // sets if the drawer is CSS positioned as 'fixed'
@@ -137,14 +171,45 @@
       }
     }
   },
+  methods: {
+    // changes the drawer to permanent
+    makeDrawerPermanent () {
+      this.drawer.permanent = true
+      // set the clipped state of the drawer and toolbar
+      this.drawer.clipped = false
+      this.toolbar.clippedLeft = false
+    },
+    // toggles the drawer variant (mini/full)
+    toggleMiniDrawer () {
+      this.drawer.mini = !this.drawer.mini
+    },
+    // toggles the drawer type (permanent vs temporary) or shows/hides the drawer
+    toggleDrawer () {
+      if (this.drawer.permanent) {
+        this.drawer.permanent = !this.drawer.permanent
+        // set the clipped state of the drawer and toolbar
+        this.drawer.clipped = true
+        this.toolbar.clippedLeft = true
+      } else {
+        // normal drawer
+        this.drawer.open = !this.drawer.open
+      }
+    },
+  },
   computed: {
     helperBox() {
       return [
-        { path: '/builder/setting', hint: 'Framework', text: `Campaign Tier: ${this.settingTier}` },
-        { path: '/builder/char/species', hint: 'Species', text: this.characterSpecies },
-        { path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype},
-        { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension},
-        { path: '/builder/char/background', hint: 'Background', text: this.characterBackground},
+        //{ path: '/builder/setting', hint: 'Framework', text: `Tier ${this.settingTier} Campaign`, cost: this.settingTier*100 },
+        { divider: true },
+        { path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost },
+        { path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost },
+        { path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts+this.skillCosts },
+        { path: '/builder/char/talents', hint: 'Talents', text: `${this.characterTalents.length} Powers learned`, cost: this.talentCosts },
+        { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: 0 },
+        { path: '/builder/char/psychic-powers', hint: 'Psychic Powers', text: `${this.characterPsychicPowers.length} Talents learned`, cost: this.psychicPowerCosts },
+        { divider: true },
+        { path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined },
+        { path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined },
       ];
     },
 
@@ -153,8 +218,15 @@
     totalBuildPoints() { return this.$store.state.settingTier * 100; },
     spendBuildPoints() { return this.$store.getters['spendBuildingPoints']; },
 
+    attributeCosts() { return this.$store.getters['attributeCosts']; },
+    skillCosts() { return this.$store.getters['skillCosts']; },
+    talentCosts() { return this.$store.getters['talentCost']; },
+    psychicPowerCosts() { return this.$store.getters['psychicPowerCost']; },
+
     characterSpecies() { return this.$store.state.species.value; },
     characterArchetype() { return this.$store.state.archetype.value; },
+    characterTalents() { return this.$store.state.talents; },
+    characterPsychicPowers() { return this.$store.state.psychicPowers; },
     characterAscension() { return "Stay the course"; },
     characterBackground() { return "Origin (+3 Shock)"; },
   }
