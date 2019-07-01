@@ -99,7 +99,7 @@
             small
             nuxt
             icon
-            to="/builder/char/export"
+            to="/builder/char/print"
             :disabled="!settingSelected"
           >
             <v-icon>description</v-icon>
@@ -204,9 +204,9 @@
         { path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost },
         { path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost },
         { path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts+this.skillCosts },
-        { path: '/builder/char/talents', hint: 'Talents', text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
+        { path: '/builder/char/talents', hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
         { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts },
-        { path: '/builder/char/psychic-powers', hint: 'Psychic Powers', text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
+        { path: '/builder/char/psychic-powers', hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
         { divider: true },
         { path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined },
         { path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined },
@@ -217,6 +217,9 @@
     settingTier() { return this.$store.state.settingTier; },
     totalBuildPoints() { return this.$store.state.settingTier * 100; },
     spendBuildPoints() { return this.$store.getters['spendBuildingPoints']; },
+
+    maximumStartingTalents() { return Math.min(5,this.settingTier+1); },
+    maximumPsychicPowers() { return this.settingTier+3; },
 
     attributeCosts() { return this.$store.getters['attributeCosts']; },
     skillCosts() { return this.$store.getters['skillCosts']; },

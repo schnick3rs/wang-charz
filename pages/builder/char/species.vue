@@ -30,6 +30,7 @@
             :disabled="item.baseTier > settingTier"
             @click.stop="updatePreview(item)"
           >
+
             <v-list-tile-avatar tile>
               <img :src="item.avatar">
             </v-list-tile-avatar>

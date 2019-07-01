@@ -18,7 +18,7 @@
 
       <v-select
         label="Allowed Species"
-        :value="speciesRepository.map( s => s.name )"
+        :value="speciesRepository.map( s => s.name ).filter( s => s === 'Human')"
         :items="speciesRepository"
         item-text="name"
         item-value="name"
@@ -27,10 +27,12 @@
         multiple
         chips
         deletable-chips
+        readonly
         hint="Select at least one species"
       />
 
       <v-select
+        v-if="false"
         label="Excluded Archetypes"
         :items="archetypeRepository"
         item-text="name"
@@ -45,6 +47,8 @@
         persistent-hint
       />
 
+      <div v-if="false">
+
       <h2 class="headline">Homebrews</h2>
 
       <p>Allow specific hombrew content.</p>
@@ -56,6 +60,8 @@
       />
       <a v-if="false" href="https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit">Agents of the Golden Throne Homebrew</a>
 
+      </div>
+
       <v-card-actions>
         <v-btn block color="green" @click="applySetting()">
           Select Setting
@@ -63,7 +69,8 @@
       </v-card-actions>
     </v-flex>
 
-    <v-flex v-if="false"
+    <v-flex
+      v-if="false"
       v-for="item in settingTemplateOptions"
       :key="item.name"
       xs12

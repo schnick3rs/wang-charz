@@ -61,6 +61,7 @@
 
       <v-card
         v-for="characterAscension in characterAscensionPackages"
+        :key="characterAscension.key"
         class="mb-2"
       >
 

@@ -65,7 +65,7 @@
 
         <v-list-tile
           v-for="gear in characterWargear"
-
+          :key="gear.key"
         >
 
           <v-list-tile-content>

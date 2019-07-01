@@ -58,21 +58,30 @@
               :disabled="item.species !== characterSpecies || item.tier > settingTier"
             >
 
+              <v-list-tile-avatar tile>
+                <img :src="item.avatar">
+              </v-list-tile-avatar>
+
               <v-list-tile-content>
                 <v-list-tile-title>{{item.name}}</v-list-tile-title>
                 <v-list-tile-sub-title>{{item.hint}}</v-list-tile-sub-title>
               </v-list-tile-content>
 
-              <v-list-tile-action>
+              <v-list-tile-action class="hidden-sm-and-up">
+                <v-btn dense icon>
+                  <v-icon color="primary">arrow_forward_ios</v-icon>
+                </v-btn>
+              </v-list-tile-action>
+              <v-list-tile-action class="hidden-xs-only">
                 <v-chip color="green" text-color="white">
                   <v-avatar class="green darken-4">{{item.cost}}</v-avatar>
-                  <v-icon>attach_money</v-icon>
+                  BP
                 </v-chip>
               </v-list-tile-action>
-              <v-list-tile-action>
+              <v-list-tile-action class="hidden-xs-only">
                 <v-chip color="red" text-color="white">
                   <v-avatar class="red darken-4">{{item.tier}}</v-avatar>
-                  <v-icon >account_balance</v-icon>
+                  Tier
                 </v-chip>
               </v-list-tile-action>
 
@@ -160,7 +169,7 @@
           } );
         }
 
-        return archetypes;
+        return archetypes.sort( (a,b) => { if (a.tier > b.tier){return 1;} if (b.tier > a.tier){return -1;} return 0; } );
       },
       selectArchetypeForChar(item) {
         this.$store.commit('setArchetype', { value: item.name, cost: item.cost, tier: item.tier });
