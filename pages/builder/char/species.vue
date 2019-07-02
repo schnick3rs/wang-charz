@@ -73,8 +73,8 @@
 </template>
 
 <script lang="js">
-  import axios from 'axios'
   import SpeciesPreview from '~/components/builder/SpeciesPreview.vue';
+  import SpeciesRepository from '~/mixins/SpeciesRepository.json';
 
   export default {
   name: 'SpeciesSelection',
@@ -87,7 +87,8 @@
       changeSpeciesMode: false,
       speciesDialog: false,
       selectedSpecies: undefined,
-      previewSpeciesArchetypeOptions: []
+      previewSpeciesArchetypeOptions: [],
+      speciesRepository: SpeciesRepository,
     }
   },
   computed: {
@@ -97,11 +98,11 @@
     characterSpeciesName() { return this.$store.state.species.value }
   },
   async asyncData({ params }) {
-    const speciesResponse = await axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
-    const speciesAbilitiesResponse = await axios.get(`https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
+    //const speciesResponse = await axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
+    //const speciesAbilitiesResponse = await axios.get(`https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
     return {
-      speciesRepository: speciesResponse.data || [],
-      speciesAbilitiesRepository: speciesAbilitiesResponse.data || []
+      //speciesRepository: speciesResponse.data || [],
+      //speciesAbilitiesRepository: speciesAbilitiesResponse.data || []
     }
   },
   methods: {
@@ -112,8 +113,9 @@
       this.selectedSpecies = item;
       this.speciesDialog = true;
     },
-    selectSpeciesForChar(species) {
+    selectSpeciesForChar: function (species) {
       this.$store.commit('setSpecies', { value: species.name, cost: species.cost })
+      this.$store.commit('setSpeciesModifications', { modifications: species.modifications} );
       this.speciesDialog = false;
       this.changeSpeciesMode = false;
     },

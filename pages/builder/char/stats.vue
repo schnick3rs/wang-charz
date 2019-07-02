@@ -40,7 +40,14 @@
           <v-btn icon @click="incrementAttribute(selectedAttribute.key)" :disabled="characterAttributes[selectedAttribute.key] >= attributeMaximumFor(selectedAttribute.key)">
             <v-icon>add_circle</v-icon>
           </v-btn>
-          <h4><span class="align-end">{{ characterAttributes[selectedAttribute.key] }} / {{ characterAttributesEnhanced[selectedAttribute.key] }}</span></h4>
+          <h4>
+            <span class="align-end">
+              <span>{{ characterAttributes[selectedAttribute.key] }}</span>
+              <span v-if="characterAttributesEnhanced[selectedAttribute.key] !== characterAttributes[selectedAttribute.key]">
+                ({{ characterAttributesEnhanced[selectedAttribute.key] }})
+              </span>
+            </span>
+          </h4>
         </v-card-title>
 
         <v-divider></v-divider>
@@ -77,14 +84,15 @@
 
       <v-card v-if="selectedAttribute" dense>
 
-        <v-list>
+        <v-list dense>
 
           <v-list-tile
             v-for="trait in traitsByAttribute(selectedAttribute.name)"
             :key="trait.key"
+
           >
                 <v-list-tile-content>{{trait.name}}:</v-list-tile-content>
-                <v-list-tile-action>{{characterTraits[trait.key]}}</v-list-tile-action>
+                <v-list-tile-action>{{characterTraitsEnhanced[trait.key]}}</v-list-tile-action>
 
           </v-list-tile>
 
@@ -187,6 +195,7 @@
     remainingBuildPoints() { return this.$store.getters['remainingBuildPoints']; },
     characterAttributes() { return this.$store.state.attributes; },
     characterAttributesEnhanced() {      return this.$store.getters['attributesEnhanced']; },
+    characterTraitsEnhanced() {      return this.$store.getters['traitsEnhanced']; },
     characterSkills() { return this.$store.state.skills; },
     characterTraits() { return this.$store.getters['traits']; },
   }

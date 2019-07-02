@@ -70,9 +70,7 @@ export const state = () => ({
   ascensionPackages: [],
   wargear: [],
   background: undefined,
-  enhancements: [
-    { targetGroup: 'attributes', targetValue: 'strength', modifier: 1, hint: 'Astartes Physiology' },
-  ],
+  enhancements: [],
 })
 
 export const getters = {
@@ -96,7 +94,7 @@ export const getters = {
     let enhanced = Object.assign({}, state.attributes);
     let attributeEnhancements = state.enhancements.filter( e => { return e.targetGroup === 'attributes' } );
     attributeEnhancements.forEach( m => {
-      console.info(`Enhance ${m.targetValue} my ${m.modifier} due to ${m.hint}.`);
+      console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}.`);
       enhanced[m.targetValue] += m.modifier;
     });
     return enhanced;
@@ -117,6 +115,15 @@ export const getters = {
     traits['speed'] = 6;
     traits['corruption'] = 0;
     return traits;
+  },
+  traitsEnhanced(state, getters) {
+    let enhanced = Object.assign({}, getters.traits);
+    let traitEnhancements = state.enhancements.filter( e => { return e.targetGroup === 'traits' } );
+    traitEnhancements.forEach( m => {
+      console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}.`);
+      enhanced[m.targetValue] += m.modifier;
+    });
+    return enhanced;
   },
   talents(state) {
     return state.talents.map(t => t.name);
@@ -187,6 +194,14 @@ export const mutations = {
   setSpecies(state, payload) {
     state.species = payload;
   },
+  setSpeciesModifications(state, payload) {
+    state.enhancements = state.enhancements.filter( e => { return e.source !== 'species'; } )
+
+    payload.modifications.forEach( item => {
+      item.source = 'species';
+      state.enhancements.push(item);
+    });
+  },
   setArchetype(state, payload) {
     state.archetype = payload;
   },
@@ -223,6 +238,15 @@ export const mutations = {
   addAscension(state, payload) {
     state.ascensionPackages.push( { value: payload.value, cost: payload.cost, targetTier: payload.targetTier } );
   },
+  removeAscension(state, payload) {
+    // remove the package from the ascension stacks
+    state.ascensionPackages = state.ascensionPackages.filter( a => { return ( a.value !== payload.value ); });
+
+    // remove all enhancements that are related to the package
+    state.enhancements = state.enhancements.filter( e => { return e.source !== `ascension/${payload.value}`; } )
+
+    // ToDo: remove all wargear that is related to the package
+  },
   addWargear(state, payload) {
     state.wargear.push( {name: payload.name } );
   },
@@ -234,5 +258,12 @@ export const mutations = {
   },
   setBackground(state, payload) {
     state.background = payload.name;
+  },
+  setBackgroundModifications(state, payload) {
+    state.enhancements = state.enhancements.filter( e => { return e.source !== 'background'; } )
+
+    payload.modifications.forEach( item => {
+      state.enhancements.push(item);
+    });
   },
 }

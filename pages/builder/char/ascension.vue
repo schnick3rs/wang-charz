@@ -75,7 +75,7 @@
               v-if="manageMode"
               flat
               color="red"
-              @click="$emit('change')"
+              @click="removePackage(characterAscension)"
             >
               <v-icon>remove_circle</v-icon>
               remove package
@@ -227,6 +227,15 @@
       this.chooseMode = false;
       this.manageMode = true;
       this.dialog = false;
+    },
+    removePackage(ascensionPackage) {
+      let payload = {
+        value: ascensionPackage.name,
+        sourceTier: ascensionPackage.sourceTier,
+        targetTier: ascensionPackage.targetTier,
+      };
+      this.$store.commit('removeAscension', payload);
+      this.chooseMode = (this.characterAscension.length <= 0);
     },
     keywordOptions(wildcard) {
       if ( wildcard === '<Any>' ) {

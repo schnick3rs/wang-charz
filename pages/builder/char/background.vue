@@ -80,7 +80,7 @@ export default {
           name: 'Origin (Shock)',
           hint: '+3 Shock',
           crunch:  {
-            targetGroup: 'trait',
+            targetGroup: 'traits',
             targetValue: 'shock',
             modifier: 3,
             hint: 'Origin as Background',
@@ -91,7 +91,7 @@ export default {
           name: 'Origin (Wounds)',
           hint: '+1 Wound',
           crunch:  {
-            targetGroup: 'trait',
+            targetGroup: 'traits',
             targetValue: 'wounds',
             modifier: 1,
             hint: 'Origin as Background',
@@ -112,7 +112,7 @@ export default {
           name: 'Accomplishment (Influence)',
           hint: '+1 Influence',
           crunch:  {
-            targetGroup: 'trait',
+            targetGroup: 'traits',
             targetValue: 'influence',
             modifier: 1,
             hint: 'Accomplishment as Background',
@@ -123,7 +123,7 @@ export default {
           name: 'Accomplishment (Wealth)',
           hint: '+2 Wealth',
           crunch:  {
-            targetGroup: 'trait',
+            targetGroup: 'traits',
             targetValue: 'wealth',
             modifier: 2,
             hint: 'Accomplishment as Background',
@@ -156,6 +156,7 @@ export default {
   methods: {
     select(item) {
       this.$store.commit('setBackground', { name: item.name} );
+      this.$store.commit('setBackgroundModifications', { modifications: [item.crunch] });
       this.selectedBackground = item;
     },
   }
