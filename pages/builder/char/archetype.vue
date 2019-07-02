@@ -59,7 +59,7 @@
             >
 
               <v-list-tile-avatar tile>
-                <img :src="'/img/icon/archetype_'+item.name.toLowerCase().replace(' ','-')+'_avatar.png'">
+                <img :src="getAvatar(item.name)">
               </v-list-tile-avatar>
 
               <v-list-tile-content>
@@ -136,6 +136,10 @@
       }
     },
     methods: {
+      getAvatar(name) {
+        let slug = name.toLowerCase().replace(/\s/gm, '-');
+        return `/img/icon/archetype_${slug}_avatar.png`;
+      },
       doChangeMode() {
         this.changeMode = true;
       },
@@ -191,7 +195,7 @@
       characterArchetypeName() { return this.$store.getters.archetype; },
       characterArchetype() { return this.getArchetypeBy(this.characterArchetypeName); },
       characterSpecies() { return this.$store.getters.species; },
-      archetypeGroups: function() {
+      archetypeGroups() {
 
         if ( this.archetypeRepository !== undefined ) {
 
@@ -209,7 +213,7 @@
         }
 
         return []
-      }
+      },
     },
   }
 </script>

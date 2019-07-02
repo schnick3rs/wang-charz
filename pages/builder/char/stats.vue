@@ -6,19 +6,50 @@
       <h1 class="headline">Select a Attributes & Skills</h1>
     </v-flex>
 
-    <v-flex xs3>
+    <v-flex xs12 md6>
 
-      <v-card >
+      <v-card>
 
-        <v-list>
+        <v-list dense>
 
           <v-list-tile
             v-for="attribute in attributeRepository"
             :key="attribute.key"
-            @click="selectedAttribute = attribute"
           >
-            {{attribute.name}}
+
+            <v-list-tile-content>{{attribute.name}}:</v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon @click="decrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] <= 1">
+                <v-icon color="red">remove_circle</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+            <v-list-tile-action>
+              <v-btn icon @click="incrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.key)">
+                <v-icon color="green">add_circle</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+            <v-list-tile-action>
+              {{ characterAttributes[attribute.key] }}
+            </v-list-tile-action>
+            <v-list-tile-action>
+              {{ characterAttributesEnhanced[attribute.key] }}
+            </v-list-tile-action>
+
           </v-list-tile>
+
+          <v-divider></v-divider>
+
+            <v-list-tile
+              v-for="trait in traitRepository"
+              :key="trait.key"
+
+            >
+              <v-list-tile-content>{{trait.name}}:</v-list-tile-content>
+              <v-list-tile-action>{{characterTraits[trait.key]}}</v-list-tile-action>
+              <v-list-tile-action>{{characterTraitsEnhanced[trait.key]}}</v-list-tile-action>
+
+            </v-list-tile>
+
 
         </v-list>
 
@@ -26,36 +57,14 @@
 
     </v-flex>
 
-    <v-flex xs5>
+    <v-flex xs12 md6>
 
-      <v-card v-if="selectedAttribute" dense>
-
-        <v-card-title>
-
-          <h4>{{ selectedAttribute.name }}</h4>
-          <v-spacer></v-spacer>
-          <v-btn icon @click="decrementAttribute(selectedAttribute.key)" :disabled="characterAttributes[selectedAttribute.key] <= 1">
-            <v-icon>remove_circle</v-icon>
-          </v-btn>
-          <v-btn icon @click="incrementAttribute(selectedAttribute.key)" :disabled="characterAttributes[selectedAttribute.key] >= attributeMaximumFor(selectedAttribute.key)">
-            <v-icon>add_circle</v-icon>
-          </v-btn>
-          <h4>
-            <span class="align-end">
-              <span>{{ characterAttributes[selectedAttribute.key] }}</span>
-              <span v-if="characterAttributesEnhanced[selectedAttribute.key] !== characterAttributes[selectedAttribute.key]">
-                ({{ characterAttributesEnhanced[selectedAttribute.key] }})
-              </span>
-            </span>
-          </h4>
-        </v-card-title>
-
-        <v-divider></v-divider>
+      <v-card>
 
         <v-list dense>
 
           <v-list-tile
-            v-for="skill in skillsByAttribute(selectedAttribute.name)"
+            v-for="skill in skillRepository"
             :key="skill.key"
           >
 
@@ -73,29 +82,6 @@
               <v-list-tile-action>{{characterSkills[skill.key]}}</v-list-tile-action>
 
           </v-list-tile>
-
-        </v-list>
-
-      </v-card>
-
-    </v-flex>
-
-    <v-flex xs4>
-
-      <v-card v-if="selectedAttribute" dense>
-
-        <v-list dense>
-
-          <v-list-tile
-            v-for="trait in traitsByAttribute(selectedAttribute.name)"
-            :key="trait.key"
-
-          >
-                <v-list-tile-content>{{trait.name}}:</v-list-tile-content>
-                <v-list-tile-action>{{characterTraitsEnhanced[trait.key]}}</v-list-tile-action>
-
-          </v-list-tile>
-
 
         </v-list>
 
