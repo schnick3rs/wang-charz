@@ -59,7 +59,7 @@
             >
 
               <v-list-tile-avatar tile>
-                <img :src="item.avatar">
+                <img :src="'/img/icon/archetype_'+item.name.toLowerCase().replace(' ','-')+'_avatar.png'">
               </v-list-tile-avatar>
 
               <v-list-tile-content>

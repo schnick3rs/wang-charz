@@ -33,52 +33,54 @@
       <p class="text-lg-justify">
         <strong>Base Tier:</strong> {{ species.baseTier }}
       </p>
+
       <p class="text-lg-justify">
         <strong>Speed:</strong> {{ species.speed }}
       </p>
+
       <p class="text-lg-justify">
-        <strong>Modifications:</strong> {{ species.attributes }}
-      </p>
-      <p class="text-lg-justify">
-        <strong>Abilities:</strong> {{ species.abilities }}
+        <strong>Attribute Modifications:</strong> {{ species.attributes || 'None' }}
       </p>
 
-      <p v-if="species.abilities">
-        <v-divider />
-      </p>
+      <div v-if="species.abilities">
 
-      <div
-        v-for="ability in abilityObjects"
-        v-if="species.abilities"
-        class="text-lg-justify"
-      >
-        <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
+        <span class="mt-2 grey--text">Abilities</span>
+        <p><v-divider></v-divider></p>
 
-        <v-select
-          v-if="ability.name.indexOf('Honour the Chapter') >= 0"
-          v-model="species['chapter']"
-          label="Select your Chapter"
-          dense
-          solo
-          :items="astartesChapterRepository"
-          item-text="name"
-          item-value="name"
-        />
-
-        <p
-          v-for="tradition in getChapterTraditions(species['chapter'])"
-          v-if="ability.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
+        <div
+          v-for="ability in abilityObjects"
+          v-if="species.abilities"
+          class="text-lg-justify"
         >
-          <strong>{{ tradition.name }}:</strong> {{ tradition.effect }}
-        </p>
-      </div>
+          <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
 
-      <div v-if="false">
-        <p><v-divider /></p>
-        <blockquote class="blockquote font-italic" >
-          <p>"{{ species.description }}"</p>
-          <span class="right">- from the Wrath & Glory Corerules -</span>
-        </blockquote>
+          <v-select
+            v-if="ability.name.indexOf('Honour the Chapter') >= 0"
+            v-model="species['chapter']"
+            label="Select your Chapter"
+            dense
+            solo
+            :items="astartesChapterRepository"
+            item-text="name"
+            item-value="name"
+          />
+
+          <p
+            v-for="tradition in getChapterTraditions(species['chapter'])"
+            v-if="ability.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
+          >
+            <strong>{{ tradition.name }}:</strong> {{ tradition.effect }}
+          </p>
+        </div>
+
+        <div v-if="false">
+          <p><v-divider /></p>
+          <blockquote class="blockquote font-italic" >
+            <p>"{{ species.description }}"</p>
+            <span class="right">- from the Wrath & Glory Corerules -</span>
+          </blockquote>
+        </div>
+
       </div>
 
     </v-card-text>
