@@ -36,37 +36,37 @@
 </template>
 
 <script lang="js">
-  export default  {
-    name: 'background-selection',
-    props: [],
-    mounted() {
+export default {
+  name: 'background-selection',
+  props: [],
+  mounted() {
 
+  },
+  data() {
+    return {
+      backgroundSelect: {
+        label: 'Select a background',
+        selected: undefined,
+        options: [
+          { text: 'Origin - +3 Shock', value: 'origin-shock', hint: 'A hero’s home may be their defining trait.' },
+          { text: 'Origin - +1 Wound', value: 'origin-wounds', hint: 'A hero’s home may be their defining trait.' },
+          { text: 'Keyword - Close connections and valuable contacts', value: 'keyword', hint: '' },
+          { text: 'Accomplishment - +1 Influence', value: 'accomplishment-influence', hint: '' },
+          { text: 'Accomplishment - +2 Wealth', value: 'accomplishment-wealth', hint: '' },
+          { text: 'Goal - Gain glory fo objectives', value: 'goal', hint: '' },
+        ],
+      },
+    };
+  },
+  methods: {
+    subSelection(background) {
+      return this[background].options;
     },
-    data() {
-      return {
-        backgroundSelect: {
-          label: 'Select a background',
-          selected: undefined,
-          options: [
-            { text: 'Origin - +3 Shock', value: 'origin-shock', hint: 'A hero’s home may be their defining trait.' },
-            { text: 'Origin - +1 Wound', value: 'origin-wounds', hint: 'A hero’s home may be their defining trait.' },
-            { text: 'Keyword - Close connections and valuable contacts', value: 'keyword', hint: '' },
-            { text: 'Accomplishment - +1 Influence', value: 'accomplishment-influence', hint: '' },
-            { text: 'Accomplishment - +2 Wealth', value: 'accomplishment-wealth', hint: '' },
-            { text: 'Goal - Gain glory fo objectives', value: 'goal', hint: '' },
-          ]
-        },
-      }
-    },
-    methods: {
-      subSelection(background) {
-        return this[background].options;
-      }
-    },
-    computed: {
+  },
+  computed: {
 
-    }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

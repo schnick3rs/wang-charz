@@ -95,50 +95,50 @@
   import SpeciesRepositoryMixin from '../mixins/SpeciesRepositoryMixin';
   import SpeciesPreview from './builder/species/SpeciesPreview';
 
-  export default  {
-    name: 'species-selection',
-    props: [],
-    components: { SpeciesPreview },
-    mixins: [ SpeciesRepositoryMixin ],
-    data() {
-      return {
-        publicPath: process.env.BASE_URL,
-        selectedSpecies: undefined,
-        previewSpeciesArchetypeOptions: []
+  export default {
+  name: 'species-selection',
+  props: [],
+  components: { SpeciesPreview },
+  mixins: [SpeciesRepositoryMixin],
+  data() {
+    return {
+      publicPath: process.env.BASE_URL,
+      selectedSpecies: undefined,
+      previewSpeciesArchetypeOptions: [],
+    };
+  },
+  methods: {
+    updatePreview(item) {
+      this.selectedSpecies = item;
+    },
+    selectSpeciesForChar(species) {
+      this.$store.commit('setSpecies', { value: species.name, cost: species.cost });
+    },
+    resetSpecies() {
+      this.selectedSpecies = undefined;
+      this.$store.commit('setSpecies', { values: undefined, cost: 0 });
+    },
+    getSpeciesBy(name) {
+      if (this.speciesRepository) {
+        return this.speciesRepository.find(s => s.name === name);
       }
+      return undefined;
     },
-    methods: {
-      updatePreview: function(item) {
-        this.selectedSpecies = item;
-      },
-      selectSpeciesForChar: function(species) {
-        this.$store.commit('setSpecies', { value: species.name, cost: species.cost });
-      },
-      resetSpecies() {
-        this.selectedSpecies = undefined;
-        this.$store.commit('setSpecies', { values: undefined, cost: 0} );
-      },
-      getSpeciesBy(name) {
-        if ( this.speciesRepository ) {
-          return this.speciesRepository.find( s => s.name === name );
-        }
-        return undefined;
-      },
-      getChapterTraditions(chapterName) {
-        let chapter = this.astartesChapterRepository.find(a=>a.name === chapterName) || [];
-        if ( chapter ) {
-          return chapter.beliefsAndTraditions;
-        }
-        return [];
-      },
+    getChapterTraditions(chapterName) {
+      const chapter = this.astartesChapterRepository.find(a => a.name === chapterName) || [];
+      if (chapter) {
+        return chapter.beliefsAndTraditions;
+      }
+      return [];
     },
-    computed: {
-      loaded() { return this.speciesRepository !== undefined; },
-      settingTier() { return this.$store.getters.settingTier; },
-      characterSpecies() { return this.getSpeciesBy(this.characterSpeciesName); },
-      characterSpeciesName() { return this.$store.getters.species; },
-    }
-  }
+  },
+  computed: {
+    loaded() { return this.speciesRepository !== undefined; },
+    settingTier() { return this.$store.getters.settingTier; },
+    characterSpecies() { return this.getSpeciesBy(this.characterSpeciesName); },
+    characterSpeciesName() { return this.$store.getters.species; },
+  },
+};
 </script>
 
 <style scoped lang="css">

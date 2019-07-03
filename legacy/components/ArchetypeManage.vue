@@ -69,45 +69,44 @@
   import ArchetypeRepositoryMixin from '../mixins/ArchetypeRepositoryMixin';
   import KeywordRepositoryMixin from '../mixins/KeywordRepositoryMixin';
 
-  export default  {
-    name: 'archetype-manage',
-    props: [],
-    mixins: [ ArchetypeRepositoryMixin, KeywordRepositoryMixin ],
-    data() {
-      return {
-        publicPath: process.env.BASE_URL,
+  export default {
+  name: 'archetype-manage',
+  props: [],
+  mixins: [ArchetypeRepositoryMixin, KeywordRepositoryMixin],
+  data() {
+    return {
+      publicPath: process.env.BASE_URL,
+    };
+  },
+  methods: {
+    keywordOptions(wildcard) {
+      if (wildcard === '<Any>') {
+        // return all but the any keyword
+        return this.keywordRepository.filter(k => k.name !== '<Any>');
       }
+      return this.keywordRepository.filter(k => k.name === wildcard);
     },
-    methods: {
-      keywordOptions(wildcard) {
-        if ( wildcard === '<Any>' ) {
-          // return all but the any keyword
-          return this.keywordRepository.filter( k => k.name !== '<Any>' );
-        } else {
-          return this.keywordRepository.filter( k => k.name === wildcard );
-        }
-      },
-      subKeywordOptions(placeholder) {
-        return this.keywordSubwordRepository.filter( k => k.placeholder === placeholder );
-      },
+    subKeywordOptions(placeholder) {
+      return this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
     },
-    computed: {
-      characterArchetype() { return this.$store.getters.archetype; },
-      archetype() {
-        if ( this.archetypeRepository !== undefined ) {
-          return this.archetypeRepository.find( a => a.name === this.characterArchetype );
-        }
-        return {};
-      },
-    },
-    filters: {
-      capitalize: function (value) {
-        if (!value) return ''
-        value = value.toString()
-        return value.charAt(0).toUpperCase() + value.slice(1)
+  },
+  computed: {
+    characterArchetype() { return this.$store.getters.archetype; },
+    archetype() {
+      if (this.archetypeRepository !== undefined) {
+        return this.archetypeRepository.find(a => a.name === this.characterArchetype);
       }
-    }
-}
+      return {};
+    },
+  },
+  filters: {
+    capitalize(value) {
+      if (!value) return '';
+      value = value.toString();
+      return value.charAt(0).toUpperCase() + value.slice(1);
+    },
+  },
+};
 </script>
 
 <style scoped lang="css">

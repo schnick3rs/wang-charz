@@ -80,30 +80,29 @@
 </template>
 
 <script lang="js">
-  import axios from "axios";
+  import axios from 'axios';
 
   export default {
   name: 'Talents',
   layout: 'builder',
   props: [],
   async asyncData({ params }) {
-    const talentResponse = await axios.get(`https://api.sheety.co/060cab8e-6b58-421f-9322-8274946b12b7`);
+    const talentResponse = await axios.get('https://api.sheety.co/060cab8e-6b58-421f-9322-8274946b12b7');
     return {
       talentRepository: talentResponse.data || [],
     };
   },
   data() {
-
-    const talentSuperhumanAttribute =
-      ['Strength', 'Agility', 'Toughness', 'Fellowship', 'Intellect', 'Initiative', 'Willpower']
+    const talentSuperhumanAttribute = ['Strength', 'Agility', 'Toughness', 'Fellowship', 'Intellect', 'Initiative', 'Willpower']
       .sort()
       .map(
-      (attribute) => {
-        return {
+        attribute => ({
           name: `Superhuman ${attribute}`,
           cost: 60,
           prerequisites: [
-            { condition: 'must', type: 'attribute', key: attribute, value: '5+' },
+            {
+              condition: 'must', type: 'attribute', key: attribute, value: '5+',
+            },
           ],
           effect: `+Rank to all dice pools that incorporate ${attribute}.`,
           source: {
@@ -112,22 +111,21 @@
             page: '180',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
-        }
-      }
-    );
+        }),
+      );
 
-    const talentSurpremePresence =
-      ['Athletics', 'Deception', 'Intimidation', 'Persuasion', 'Tech']
+    const talentSurpremePresence = ['Athletics', 'Deception', 'Intimidation', 'Persuasion', 'Tech']
       .sort()
       .map(
-      (skill) => {
-        return {
+        skill => ({
           name: `Surpreme Presence ${skill}`,
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: skill, value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: skill, value: '4+',
+            },
           ],
           effect: `May target Rank +1 or one mob of troops without penalty for Interaction attacks using ${skill}.`,
           source: {
@@ -136,18 +134,15 @@
             page: '180',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
-        }
-      }
-    );
+        }),
+      );
 
-    const talentUncannyTrait =
-      ['Conviction', 'Defence', 'Resilience', 'Resolve', 'Shock', 'Soak', 'Speed', 'Wounds' ]
+    const talentUncannyTrait = ['Conviction', 'Defence', 'Resilience', 'Resolve', 'Shock', 'Soak', 'Speed', 'Wounds']
       .sort()
       .map(
-      (trait) => {
-        return {
+        trait => ({
           name: `Uncanny ${trait}`,
           cost: 40,
           prerequisites: [],
@@ -158,17 +153,20 @@
             page: '181',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
-        }
-      }
-    );
+        }),
+      );
 
     return {
       searchQuery: '',
       headers: [
-        { text: 'Name', value: 'name', align: 'left', sortable: true },
-        { text: 'Cost', value: 'cost', align: 'center', sortable: true },
+        {
+          text: 'Name', value: 'name', align: 'left', sortable: true,
+        },
+        {
+          text: 'Cost', value: 'cost', align: 'center', sortable: true,
+        },
         { text: 'Prerequisites', value: 'prerequisites', sortable: false },
         { text: 'Effect', value: 'effect', sortable: false },
         { text: 'Buy', align: 'center', sortable: false },
@@ -178,8 +176,10 @@
           name: 'Acts of Faith',
           cost: 40,
           prerequisites: [
-            { condition: 'must', type: 'keyword', key: [ 'Adeptus Ministorum', 'Adepta Sororitas' ] },
-            { condition: 'must', type: 'attribute', key: 'Willpower', value: '3+' },
+            { condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'] },
+            {
+              condition: 'must', type: 'attribute', key: 'Willpower', value: '3+',
+            },
             { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
           ],
           effect: 'Grants Faith and bonuses with various options.',
@@ -189,14 +189,16 @@
             page: '171',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Cybernetic Reconstruction',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'character', key: 'Tier', value: '2+' },
+            {
+              condition: 'must', type: 'character', key: 'Tier', value: '2+',
+            },
           ],
           effect: 'Does not bleed or breathe. +1/2 Rank to Tech and Soak tests. +2DN to Persuasion tests.',
           source: {
@@ -205,14 +207,16 @@
             page: '171',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Betrayer',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'character', key: 'Rank', value: '2+' },
+            {
+              condition: 'must', type: 'character', key: 'Rank', value: '2+',
+            },
             { condition: 'must', type: 'keyword', key: ['Chaos'] },
             { condition: 'must', type: 'talent', key: ['Devotees'] },
           ],
@@ -223,14 +227,18 @@
             page: '172',
           },
           crunch: [
-            { type: 'modification', targetGroup: 'trait', targetValue: 'Corruption', value: 1 }
+            {
+              type: 'modification', targetGroup: 'trait', targetValue: 'Corruption', value: 1,
+            },
           ],
         },
         {
           name: 'Bombardment',
           cost: 40,
           prerequisites: [
-            { condition: 'must', type: 'character', key: 'Rank', value: '3+' },
+            {
+              condition: 'must', type: 'character', key: 'Rank', value: '3+',
+            },
             { condition: 'must', type: 'keyword', key: ['Aeldari', 'Astra Militarum', 'Chaos', 'Ork', 'Rogue Trader', 'Adeptus Astartes'] },
           ],
           effect: '...',
@@ -240,7 +248,7 @@
             page: '173',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -256,14 +264,16 @@
             page: '173',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Counterstrike',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Weapon Skill', value: '5+' },
+            {
+              condition: 'must', type: 'skill', key: 'Weapon Skill', value: '5+',
+            },
           ],
           effect: '...',
           source: {
@@ -272,7 +282,7 @@
             page: '173',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -288,14 +298,16 @@
             page: '174',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Devotees',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Leadership', value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: 'Leadership', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -304,14 +316,16 @@
             page: '174',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Dual Wielder (Ballistic Skill)',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -320,14 +334,16 @@
             page: '174',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Dual Wielder (Weapon Skill)',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -336,7 +352,7 @@
             page: '174',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -352,14 +368,16 @@
             page: '174',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Fearless',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'attribute', key: 'Willpower', value: '5+' },
+            {
+              condition: 'must', type: 'attribute', key: 'Willpower', value: '5+',
+            },
           ],
           effect: '...',
           source: {
@@ -368,14 +386,16 @@
             page: '175',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Hammer Blow',
           cost: 20,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Weapon Skill', value: '3+' },
+            {
+              condition: 'must', type: 'skill', key: 'Weapon Skill', value: '3+',
+            },
           ],
           effect: '...',
           source: {
@@ -384,14 +404,16 @@
             page: '175',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Hardy',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'attribute', key: 'Toughness', value: '3+' },
+            {
+              condition: 'must', type: 'attribute', key: 'Toughness', value: '3+',
+            },
           ],
           effect: '...',
           source: {
@@ -400,14 +422,16 @@
             page: '175',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Hatred <Keyword>',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Weapon Skill', value: '3+' },
+            {
+              condition: 'must', type: 'skill', key: 'Weapon Skill', value: '3+',
+            },
           ],
           effect: '...',
           source: {
@@ -416,15 +440,19 @@
             page: '175',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Heroic Charge',
           cost: 20,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Athletics', value: '2+' },
-            { condition: 'must', type: 'skill', key: 'Weapon Skill', value: '2+' },
+            {
+              condition: 'must', type: 'skill', key: 'Athletics', value: '2+',
+            },
+            {
+              condition: 'must', type: 'skill', key: 'Weapon Skill', value: '2+',
+            },
           ],
           effect: '...',
           source: {
@@ -433,14 +461,14 @@
             page: '175',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Inspired Blessing',
           cost: 25,
           prerequisites: [
-            { condition: 'must', type: 'keyword', key: [ 'Adeptus Ministorum' ] },
+            { condition: 'must', type: 'keyword', key: ['Adeptus Ministorum'] },
             { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
           ],
           effect: '...',
@@ -450,14 +478,14 @@
             page: '176',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Legacy of Sorrow',
           cost: 20,
           prerequisites: [
-            { condition: 'must', type: 'keyword', key: [ 'Aeldari' ] },
+            { condition: 'must', type: 'keyword', key: ['Aeldari'] },
           ],
           effect: '...',
           source: {
@@ -466,14 +494,14 @@
             page: '176',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Let the Galaxy Burn',
           cost: 20,
           prerequisites: [
-            { condition: 'must', type: 'keyword', key: [ 'Chaos' ] },
+            { condition: 'must', type: 'keyword', key: ['Chaos'] },
           ],
           effect: '...',
           source: {
@@ -482,14 +510,16 @@
             page: '176',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Loremaster <Keyword>',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Scholar', value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: 'Scholar', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -498,7 +528,7 @@
             page: '176',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -514,7 +544,7 @@
             page: '177',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -530,7 +560,7 @@
             page: '177',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -546,7 +576,7 @@
             page: '177',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -562,7 +592,7 @@
             page: '177',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -578,14 +608,16 @@
             page: '177',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Marksman',
           cost: 20,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '3+' },
+            {
+              condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '3+',
+            },
           ],
           effect: 'Aim may reduce Called Shot DN.',
           source: {
@@ -596,11 +628,11 @@
           crunch: [
             {
               type: 'hint',
-              hooks: [ 'Ballistic Skill' ],
-              text: 'If a Marksman takes the Aim option, instead of taking its normal bonus, ' +
-                'they may reduce the Difficulty Number increase for a Called Shot option by +1/2 ' +
-                'Rank, to a minimum increase of 0.'
-            }
+              hooks: ['Ballistic Skill'],
+              text: 'If a Marksman takes the Aim option, instead of taking its normal bonus, '
+                + 'they may reduce the Difficulty Number increase for a Called Shot option by +1/2 '
+                + 'Rank, to a minimum increase of 0.',
+            },
           ],
         },
         {
@@ -616,7 +648,7 @@
             page: '177',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -632,14 +664,16 @@
             page: '178',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Peer',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Persuasion', value: '3+' },
+            {
+              condition: 'must', type: 'skill', key: 'Persuasion', value: '3+',
+            },
           ],
           effect: '...',
           source: {
@@ -648,7 +682,7 @@
             page: '178',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -664,7 +698,7 @@
             page: '178',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -680,7 +714,7 @@
             page: '178',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -696,7 +730,7 @@
             page: '178',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -712,7 +746,7 @@
             page: '179',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -728,14 +762,16 @@
             page: '179',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Sidestep',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'attribute', key: 'Initiative', value: '3+' },
+            {
+              condition: 'must', type: 'attribute', key: 'Initiative', value: '3+',
+            },
           ],
           effect: 'Sacrifice move to gain +Rank Defence and +Rank resilience vs. one attack.',
           source: {
@@ -746,22 +782,24 @@
           crunch: [
             {
               type: 'hint',
-              hooks: [ 'Defence', 'Resilience' ],
-              text: 'A defending character may take a Sidestep any time they are attacked in ' +
-                'melee and are aware of the attacker. This action must be taken after the ' +
-                'attacker declares the attack, but before the dice are rolled. The defending ' +
-                'character must sacrifice their next move action (either from this combat round ' +
-                'or the next one) to gain +Rank Defence and +Rank Resilience for resolving this ' +
-                'attack. Note that a Sidestep may only be taken once per round and only applies ' +
-                'to a single attack.'
-            }
+              hooks: ['Defence', 'Resilience'],
+              text: 'A defending character may take a Sidestep any time they are attacked in '
+                + 'melee and are aware of the attacker. This action must be taken after the '
+                + 'attacker declares the attack, but before the dice are rolled. The defending '
+                + 'character must sacrifice their next move action (either from this combat round '
+                + 'or the next one) to gain +Rank Defence and +Rank Resilience for resolving this '
+                + 'attack. Note that a Sidestep may only be taken once per round and only applies '
+                + 'to a single attack.',
+            },
           ],
         },
         {
           name: 'Special Weapons Trooper',
           cost: 20,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '3+' },
+            {
+              condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '3+',
+            },
             { condition: 'must', type: 'keyword', key: ['Imperial Guardsman', 'Tempestus Scion'] },
           ],
           effect: '...',
@@ -771,14 +809,16 @@
             page: '179',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Steel and Doom',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'character', key: 'Rank', value: '3+' },
+            {
+              condition: 'must', type: 'character', key: 'Rank', value: '3+',
+            },
             { condition: 'must', type: 'keyword', key: ['Adeptus Astartes'] },
           ],
           effect: '...',
@@ -788,14 +828,16 @@
             page: '180',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Storm of Death',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -804,7 +846,7 @@
             page: '180',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         ...talentSuperhumanAttribute,
@@ -813,7 +855,7 @@
           name: 'The Emperor\'s Light',
           cost: 25,
           prerequisites: [
-            { condition: 'must', type: 'keyword', key: [ 'Adeptus Ministorum' ] },
+            { condition: 'must', type: 'keyword', key: ['Adeptus Ministorum'] },
             { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
           ],
           effect: '...',
@@ -823,7 +865,7 @@
             page: '181',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
@@ -837,14 +879,16 @@
             page: '181',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Trademark Weapon: (Ranged <Weapon>)',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -853,14 +897,16 @@
             page: '181',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Trademark Weapon: (Melee <Weapon>)',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -869,14 +915,16 @@
             page: '181',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'True Grit',
           cost: 40,
           prerequisites: [
-            { condition: 'must', type: 'attribute', key: 'Toughness', value: '4+' },
+            {
+              condition: 'must', type: 'attribute', key: 'Toughness', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -885,7 +933,7 @@
             page: '181',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         ...talentUncannyTrait,
@@ -893,7 +941,9 @@
           name: 'Unnatural <Skill>',
           cost: 60,
           prerequisites: [
-            { condition: 'must', type: 'skill', key: 'Skill', value: '4+' },
+            {
+              condition: 'must', type: 'skill', key: 'Skill', value: '4+',
+            },
           ],
           effect: '...',
           source: {
@@ -902,14 +952,16 @@
             page: '182',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
         {
           name: 'Unquestioning Faith',
           cost: 20,
           prerequisites: [
-            { condition: 'must', type: 'attribute', key: 'Willpower', value: '3+' },
+            {
+              condition: 'must', type: 'attribute', key: 'Willpower', value: '3+',
+            },
             { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
           ],
           effect: '...',
@@ -919,26 +971,23 @@
             page: '182',
           },
           crunch: [
-            { type: 'ability' }
+            { type: 'ability' },
           ],
         },
       ],
-    }
+    };
   },
   computed: {
-    characterTalents() { return this.$store.getters.talents },
+    characterTalents() { return this.$store.getters.talents; },
     filteredTalentRepository() {
-
-      if ( this.talentRepository === undefined ) {
+      if (this.talentRepository === undefined) {
         return [];
       }
 
-      let filteredTalents = this.talentRepository.filter((t) => {
-        return ( !t.prerequisitesKeywords ||
-          t.prerequisitesKeywords.split(',').some((r)=>this.characterKeywords.indexOf(r) >= 0) );
-      });
+      let filteredTalents = this.talentRepository.filter(t => (!t.prerequisitesKeywords
+          || t.prerequisitesKeywords.split(',').some(r => this.characterKeywords.indexOf(r) >= 0)));
 
-      filteredTalents = filteredTalents.filter( t => !this.characterTalents.includes(t.name) );
+      filteredTalents = filteredTalents.filter(t => !this.characterTalents.includes(t.name));
 
       return filteredTalents;
     },
@@ -957,22 +1006,22 @@
       this.$store.commit('addTalent', { name: talent.name, cost: talent.cost });
     },
     removeTalent(talent) {
-      this.$store.commit('removeTalent', { name: talent } );
+      this.$store.commit('removeTalent', { name: talent });
     },
     prerequisitesToText(item) {
-      let texts = [];
+      const texts = [];
 
-      if ( item.prerequisites.length <= 0 ) {
+      if (item.prerequisites.length <= 0) {
         return ['None'];
       }
 
-      item.prerequisites.forEach( p => {
+      item.prerequisites.forEach((p) => {
         let text = '';
 
         switch (p.type) {
           case 'keyword':
           case 'talent':
-            if ( p.condition === 'mustNot' ) {
+            if (p.condition === 'mustNot') {
               text = `<strong>must not</strong> possess the ${p.key.join(' or ')} ${p.type}`;
             } else {
               text = `${p.key.join(' or ')}`;
@@ -986,15 +1035,15 @@
             break;
 
           default:
-            text = `${p.key}`
+            text = `${p.key}`;
         }
         texts.push(text);
       });
 
       return texts;
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped lang="css">

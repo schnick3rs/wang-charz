@@ -85,66 +85,65 @@
   import ArchetypeRepository from '~/mixins/ArchetypeRepositoryMixin';
   import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
-  export default  {
-    name: 'archetype-preview',
-    mixins: [ ArchetypeRepository, KeywordRepository ],
-    props: {
-      item: {
-        type: Object,
-        required: true,
-      },
-      manageMode: {
-        type: Boolean,
-        default: false
-      },
-      chooseMode: {
-        type: Boolean,
-        default: false
-      },
+  export default {
+  name: 'archetype-preview',
+  mixins: [ArchetypeRepository, KeywordRepository],
+  props: {
+    item: {
+      type: Object,
+      required: true,
     },
-    data() {
-      return {
+    manageMode: {
+      type: Boolean,
+      default: false,
+    },
+    chooseMode: {
+      type: Boolean,
+      default: false,
+    },
+  },
+  data() {
+    return {
 
+    };
+  },
+  methods: {
+    keywordOptions(wildcard) {
+      if (wildcard === '<Any>') {
+        // return all but the any keyword
+        return this.keywordRepository.filter(k => k.name !== '<Any>');
       }
+
+      return this.keywordSubwordRepository.filter(k => k.placeholder === wildcard);
     },
-    methods: {
-      keywordOptions(wildcard) {
-        if ( wildcard === '<Any>' ) {
-          // return all but the any keyword
-          return this.keywordRepository.filter( k => k.name !== '<Any>' );
+    keywordHint(keyword, parentKeyword) {
+      if (this.loaded) {
+        const mergedKeywords = [...this.keywordRepository, ...this.keywordSubwordRepository];
+
+        let foundKeyword = mergedKeywords.find(k => k.name === keyword);
+        if (foundKeyword !== undefined) {
+          return foundKeyword.description;
         }
 
-        return this.keywordSubwordRepository.filter( k => k.placeholder === wildcard );
-      },
-      keywordHint(keyword, parentKeyword) {
-        if ( this.loaded ) {
-          let mergedKeywords = [ ...this.keywordRepository, ...this.keywordSubwordRepository ];
-
-          let foundKeyword = mergedKeywords.find( k => k.name === keyword );
-          if ( foundKeyword !== undefined ) {
-            return foundKeyword.description;
-          }
-
-          foundKeyword = mergedKeywords.find( k => k.name === parentKeyword );
-          if ( foundKeyword !== undefined ) {
-            return foundKeyword.description;
-          }
-
+        foundKeyword = mergedKeywords.find(k => k.name === parentKeyword);
+        if (foundKeyword !== undefined) {
+          return foundKeyword.description;
         }
-        return '';
-      },
-    },
-    computed: {
-      loaded() { return true; },
-      abilityObjects() {
-        if ( this.archetypeAbilityRepository ) {
-          let abilities = this.item.abilities ? this.item.abilities.split(',') : [];
-          return this.archetypeAbilityRepository.filter( a => abilities.includes(a.name) );
-        }
-        return [];
       }
-    }
-  }
+      return '';
+    },
+  },
+  computed: {
+    loaded() { return true; },
+    abilityObjects() {
+      if (this.archetypeAbilityRepository) {
+        const abilities = this.item.abilities ? this.item.abilities.split(',') : [];
+        return this.archetypeAbilityRepository.filter(a => abilities.includes(a.name));
+      }
+      return [];
+    },
+  },
+};
 </script>
 
 <style scoped lang="css">

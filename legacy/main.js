@@ -1,24 +1,24 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 import './plugins/vuetify';
+import VueRouter from 'vue-router';
 import App from './App.vue';
-import VueRouter from "vue-router";
 
-import Home from "./components/page/Home";
+import Home from './components/page/Home';
 
-import SpeciesSelection from "./components/SpeciesSelection";
-import ArchetypeSelection from "./components/ArchetypeSelection";
-import AttributeSelection from "./components/AttributeSelection";
-import SettingSelection from "./components/SettingSelection";
-import BackgroundSelection from "./components/BackgroundSelection";
-import TalentSelection from "./components/TalentSelection";
-import StatsSelection from "./components/StatsSelection";
-import AscensionSelection from "./components/AscensionSelection";
-import WargearSelection from "./components/WargearSelection";
-import ArchetypeManage from "./components/ArchetypeManage";
+import SpeciesSelection from './components/SpeciesSelection';
+import ArchetypeSelection from './components/ArchetypeSelection';
+import AttributeSelection from './components/AttributeSelection';
+import SettingSelection from './components/SettingSelection';
+import BackgroundSelection from './components/BackgroundSelection';
+import TalentSelection from './components/TalentSelection';
+import StatsSelection from './components/StatsSelection';
+import AscensionSelection from './components/AscensionSelection';
+import WargearSelection from './components/WargearSelection';
+import ArchetypeManage from './components/ArchetypeManage';
 
-import AboutView from "./views/AboutView";
-import VaultView from "./views/VaultView";
+import AboutView from './views/AboutView';
+import VaultView from './views/VaultView';
 
 Vue.config.productionTip = false;
 
@@ -26,28 +26,54 @@ Vue.use(VueRouter);
 Vue.use(Vuex);
 
 const routes = [
-  { path: '/', name: 'Home', component: Home, meta: { type: 'home' } },
-  { path: '/about', name: 'About', meta: { type: 'about' }, component: AboutView, },
+  {
+    path: '/', name: 'Home', component: Home, meta: { type: 'home' },
+  },
+  {
+    path: '/about', name: 'About', meta: { type: 'about' }, component: AboutView,
+  },
 
 
   // Builder
-  { path: '/setting', name: 'Setting', meta: { type: 'builder' }, component: SettingSelection, },
-  { path: '/char/species', name: 'Species', meta: { type: 'builder' }, component: SpeciesSelection },
-  { path: '/char/archetype/select', name: 'Archetype', meta: { type: 'builder' }, component: ArchetypeSelection },
-  { path: '/char/archetype/manage', name: 'Manage Archetype', meta: { type: 'builder' }, component: ArchetypeManage },
-  { path: '/char/stats', name: 'Stats', meta: { type: 'builder' }, component: StatsSelection },
-  { path: '/char/talents', name: 'Talents', meta: { type: 'builder' }, component: TalentSelection },
-  { path: '/char/background', name: 'Background', meta: { type: 'builder' }, component: BackgroundSelection },
-  { path: '/char/wargear', name: 'Wargear', meta: { type: 'builder' }, component: WargearSelection },
-  { path: '/char/ascension', name: 'Ascension', meta: { type: 'builder' }, component: AscensionSelection },
-  { path: '/char/psychic-powers', name: 'Psychic Powers', meta: { type: 'builder' }, component: AttributeSelection },
+  {
+    path: '/setting', name: 'Setting', meta: { type: 'builder' }, component: SettingSelection,
+  },
+  {
+    path: '/char/species', name: 'Species', meta: { type: 'builder' }, component: SpeciesSelection,
+  },
+  {
+    path: '/char/archetype/select', name: 'Archetype', meta: { type: 'builder' }, component: ArchetypeSelection,
+  },
+  {
+    path: '/char/archetype/manage', name: 'Manage Archetype', meta: { type: 'builder' }, component: ArchetypeManage,
+  },
+  {
+    path: '/char/stats', name: 'Stats', meta: { type: 'builder' }, component: StatsSelection,
+  },
+  {
+    path: '/char/talents', name: 'Talents', meta: { type: 'builder' }, component: TalentSelection,
+  },
+  {
+    path: '/char/background', name: 'Background', meta: { type: 'builder' }, component: BackgroundSelection,
+  },
+  {
+    path: '/char/wargear', name: 'Wargear', meta: { type: 'builder' }, component: WargearSelection,
+  },
+  {
+    path: '/char/ascension', name: 'Ascension', meta: { type: 'builder' }, component: AscensionSelection,
+  },
+  {
+    path: '/char/psychic-powers', name: 'Psychic Powers', meta: { type: 'builder' }, component: AttributeSelection,
+  },
 
   // Library
-  { path: '/vault', name: 'Vault', meta: { type: 'vault' }, component: VaultView, },
+  {
+    path: '/vault', name: 'Vault', meta: { type: 'vault' }, component: VaultView,
+  },
 ];
 
 const router = new VueRouter({
-  routes
+  routes,
 });
 
 const store = new Vuex.Store({
@@ -96,7 +122,9 @@ const store = new Vuex.Store({
     talents: [],
     ascensions: [],
     enhancements: [
-      { targetGroup: 'attributes', targetValue: 'strength', modifier: 1, hint: 'Astartes Physiology' },
+      {
+        targetGroup: 'attributes', targetValue: 'strength', modifier: 1, hint: 'Astartes Physiology',
+      },
     ],
   },
   getters: {
@@ -107,9 +135,9 @@ const store = new Vuex.Store({
     archetype(state) { return state.archetype.value; },
     attributes(state) { return state.attributes; },
     attributesEnhanced(state) {
-      let enhanced = Object.assign({}, state.attributes);
-      let attributeEnhancements = state.enhancements.filter( e => { return e.targetGroup === 'attributes' } );
-      attributeEnhancements.forEach( m => {
+      const enhanced = Object.assign({}, state.attributes);
+      const attributeEnhancements = state.enhancements.filter(e => e.targetGroup === 'attributes');
+      attributeEnhancements.forEach((m) => {
         console.info(`Enhance ${m.targetValue} my ${m.modifier} due to ${m.hint}.`);
         enhanced[m.targetValue] += m.modifier;
       });
@@ -117,19 +145,19 @@ const store = new Vuex.Store({
     },
     skills(state) { return state.skills; },
     traits(state) {
-      let traits = {};
-      traits['defence'] = state.attributes.initiative-1;
-      traits['resilience'] = state.attributes.toughness+1;
-      traits['soak'] = state.attributes.toughness;
-      traits['wounds'] = state.attributes.toughness+state.settingTier;
-      traits['shock'] = state.attributes.willpower+state.settingTier;
-      traits['resolve'] = state.attributes.willpower-1;
-      traits['conviction'] = state.attributes.willpower;
-      traits['passiveAwareness'] = Math.round((state.attributes.intellect+state.skills.awareness)/2);
-      traits['influence'] = state.attributes.fellowship-1;
-      traits['wealth'] = state.settingTier;
-      traits['speed'] = 6;
-      traits['corruption'] = 0;
+      const traits = {};
+      traits.defence = state.attributes.initiative - 1;
+      traits.resilience = state.attributes.toughness + 1;
+      traits.soak = state.attributes.toughness;
+      traits.wounds = state.attributes.toughness + state.settingTier;
+      traits.shock = state.attributes.willpower + state.settingTier;
+      traits.resolve = state.attributes.willpower - 1;
+      traits.conviction = state.attributes.willpower;
+      traits.passiveAwareness = Math.round((state.attributes.intellect + state.skills.awareness) / 2);
+      traits.influence = state.attributes.fellowship - 1;
+      traits.wealth = state.settingTier;
+      traits.speed = 6;
+      traits.corruption = 0;
       return traits;
     },
     talents(state) {
@@ -137,7 +165,7 @@ const store = new Vuex.Store({
     },
     remainingBuildPoints(state, getters) {
       let remaining = 0;
-      remaining = state.settingTier*100;
+      remaining = state.settingTier * 100;
       console.info(`Points spend: ${getters.getSpendBuildingPoints}.`);
       return (state.settingTier * 100) - getters.getSpendBuildingPoints;
     },
@@ -149,22 +177,22 @@ const store = new Vuex.Store({
 
       const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
       let attributesSpending = 0;
-      Object.keys(state.attributes).forEach( (key) => {
-        attributesSpending += attributeTotalCost[ state.attributes[key] ];
+      Object.keys(state.attributes).forEach((key) => {
+        attributesSpending += attributeTotalCost[state.attributes[key]];
       });
       console.debug(` Spend ${attributesSpending} for for attributes.`);
       spend += attributesSpending;
 
       const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
       let skillSpending = 0;
-      Object.keys(state.skills).forEach( (key) => {
-        skillSpending += skillTotalCost[ state.skills[key] ];
+      Object.keys(state.skills).forEach((key) => {
+        skillSpending += skillTotalCost[state.skills[key]];
       });
       console.debug(` Spend ${skillSpending} for for skills.`);
       spend += skillSpending;
 
       let talentSpending = 0;
-      state.talents.forEach( t => {
+      state.talents.forEach((t) => {
         talentSpending += t.cost;
       });
       console.debug(` Spend ${talentSpending} for for talents.`);
@@ -172,7 +200,7 @@ const store = new Vuex.Store({
 
       console.info(`Spend ${spend} in total.`);
       return spend;
-    }
+    },
   },
   mutations: {
     setSetting(state, payload) {
@@ -195,18 +223,18 @@ const store = new Vuex.Store({
       state.skills[payload.key] = payload.value;
     },
     addTalent(state, payload) {
-      let hasTalent = state.talents.find( t => t.name === payload.name ) !== undefined;
-      if ( !hasTalent ) {
-        state.talents.push( { name: payload.name, cost: payload.cost } );
+      const hasTalent = state.talents.find(t => t.name === payload.name) !== undefined;
+      if (!hasTalent) {
+        state.talents.push({ name: payload.name, cost: payload.cost });
       }
     },
     removeTalent(state, payload) {
-      let hasTalent = state.talents.find( t => t.name === payload.name ) !== undefined;
-      if ( hasTalent ) {
-        state.talents = state.talents.filter( t => t.name !== payload.name );
+      const hasTalent = state.talents.find(t => t.name === payload.name) !== undefined;
+      if (hasTalent) {
+        state.talents = state.talents.filter(t => t.name !== payload.name);
       }
     },
-  }
+  },
 });
 
 new Vue({

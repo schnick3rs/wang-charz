@@ -11,9 +11,9 @@ export default {
         console.log(`Fetched ${this.wargearRepository.length} wargear entries.`);
       });
   },
-  data: function() {
+  data() {
     return {
       wargearRepository: undefined,
-    }
+    };
   },
-}
+};

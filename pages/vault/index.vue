@@ -176,25 +176,25 @@
 </template>
 
 <script>
-  import HomebrewRepositoryMixin from '~/mixins/HomebrewRepositoryMixin'
+  import HomebrewRepositoryMixin from '~/mixins/HomebrewRepositoryMixin';
 
   export default {
   components: {},
-  head: function () {
+  head() {
     return {
       title: 'Collection of Wrath & Glory Homebrews | Vault',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'The Doctors of Doom Vault contains a curated collection of homebrews and houserules for Wrath & Glory,' +
-            ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.'
-        }
-      ]
-    }
+          content: 'The Doctors of Doom Vault contains a curated collection of homebrews and houserules for Wrath & Glory,'
+            + ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.',
+        },
+      ],
+    };
   },
   layout: 'vault',
-  mixins: [ HomebrewRepositoryMixin ],
+  mixins: [HomebrewRepositoryMixin],
   data() {
     return {
       searchQuery: '',
@@ -205,51 +205,65 @@
         rowsPerPage: -1,
       },
       headers: [
-        { text: 'Name', align: 'left', value: 'name', class: '' },
-        { text: 'Hint', align: 'left', value: 'hint', class: 'hidden-xs-only' },
-        { text: 'Keywords', align: 'left', value: 'keywords', class: '' },
-        { text: 'Author', align: 'left', value: 'author', class: 'hidden-sm-and-down' },
-        { text: '', sortable: false, align: 'right', value: 'actions', class: 'hidden-xs-only' }
+        {
+          text: 'Name', align: 'left', value: 'name', class: '',
+        },
+        {
+          text: 'Hint', align: 'left', value: 'hint', class: 'hidden-xs-only',
+        },
+        {
+          text: 'Keywords', align: 'left', value: 'keywords', class: '',
+        },
+        {
+          text: 'Author', align: 'left', value: 'author', class: 'hidden-sm-and-down',
+        },
+        {
+          text: '', sortable: false, align: 'right', value: 'actions', class: 'hidden-xs-only',
+        },
       ],
-      expand: false
-    }
+      expand: false,
+    };
   },
   computed: {
     breadcrumbItems() {
       return [
-        {text: 'D', disabled: false, nuxt: true, exact: true, to: '/',},
-        {text: 'Vault', disabled: false, nuxt: true, exact: true, to: '/vault'},
+        {
+          text: 'D', disabled: false, nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Vault', disabled: false, nuxt: true, exact: true, to: '/vault',
+        },
       ];
     },
     settingOptions() {
-      return this.homebrewRepository.map(h => h.setting).filter(i => i !== '')
+      return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
     },
     contentOptions() {
-      let contentOptions = []
-      this.homebrewRepository.forEach(h => contentOptions = [ ...contentOptions, ...h.topics, ...h.keywords])
-      return [ ...new Set(contentOptions)].sort()
+      let contentOptions = [];
+      this.homebrewRepository.forEach(h => contentOptions = [...contentOptions, ...h.topics, ...h.keywords]);
+      return [...new Set(contentOptions)].sort();
     },
     searchResults() {
-      let filteredResults = this.homebrewRepository
+      let filteredResults = this.homebrewRepository;
 
       if (this.searchQuery) {
-        //filteredResults = filteredResults.filter(h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
+        // filteredResults = filteredResults.filter(h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
       }
 
       if (this.contentFilter.length > 0) {
         filteredResults = filteredResults.filter(h => [...h.topics, ...h.keywords]
-          .some(c => this.contentFilter.includes(c)))
+          .some(c => this.contentFilter.includes(c)));
       }
 
-      return filteredResults
+      return filteredResults;
     },
     pages() {
-      if (this.pagination.rowsPerPage == null ||
-        this.pagination.totalItems == null
-      ) return 0
+      if (this.pagination.rowsPerPage == null
+        || this.pagination.totalItems == null
+      ) return 0;
 
-      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage)
-    }
+      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
+    },
   },
   methods: {
     slugBy(name) {
@@ -257,10 +271,10 @@
     },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
-        this.pagination.descending = !this.pagination.descending
+        this.pagination.descending = !this.pagination.descending;
       } else {
-        this.pagination.sortBy = column
-        this.pagination.descending = false
+        this.pagination.sortBy = column;
+        this.pagination.descending = false;
       }
     },
     toggle(props) {
@@ -270,8 +284,8 @@
     trackEvent(url) {
       this.$ga.event('Outbound Link', 'click', url, 0);
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

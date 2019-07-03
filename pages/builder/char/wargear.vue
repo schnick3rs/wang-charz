@@ -95,10 +95,10 @@
   layout: 'builder',
   props: [],
   async asyncData({ params }) {
-    const wargearResponse = await axios.get(`https://api.sheety.co/cd93dfab-c658-4099-8a93-e6cc202b3488`);
+    const wargearResponse = await axios.get('https://api.sheety.co/cd93dfab-c658-4099-8a93-e6cc202b3488');
     return {
       wargearRepository: wargearResponse.data || [],
-    }
+    };
   },
   data() {
     return {
@@ -106,89 +106,88 @@
         {
           name: 'Sister of Battle',
           options: [
-            { name: 'Sororitas Power Armour', } ,
-            { name: 'Chaplet Ecclisiasticus', },
+            { name: 'Sororitas Power Armour' },
+            { name: 'Chaplet Ecclisiasticus' },
             {
               name: 'Either a boltgun OR a chainsword and bolt pistol.',
               selected: 'Boltgun',
               options: [
-                { name: 'Boltgun', },
-                { name: 'Chainsword and Bold pistol',  },
+                { name: 'Boltgun' },
+                { name: 'Chainsword and Bold pistol' },
               ],
             },
-            { name: 'Clothing (Sororitas vestments)'},
-            { name: 'Writing kit'},
-            { name: 'Copy of the Rule of the Soroitas'},
+            { name: 'Clothing (Sororitas vestments)' },
+            { name: 'Writing kit' },
+            { name: 'Copy of the Rule of the Soroitas' },
           ],
         },
         {
           name: 'Death Cult Assassin',
           options: [
-            { name: 'Bodyglove', },
-            { name: 'Death Cult Powerblade', },
-            { name: 'Death Cult Powerblade', },
-            { name: 'Knife', },
-            { name: 'Laspistol', },
-            { name: 'Doses of stimm', amount: 3, },
+            { name: 'Bodyglove' },
+            { name: 'Death Cult Powerblade' },
+            { name: 'Death Cult Powerblade' },
+            { name: 'Knife' },
+            { name: 'Laspistol' },
+            { name: 'Doses of stimm', amount: 3 },
           ],
         },
         {
           name: 'Commissar',
           options: [
-            { name: 'Flak Coat', },
-            { name: 'Bold pistol', },
-            { name: 'Chain Sword', },
-            { name: 'Guard issue mess kit', },
-            { name: 'Blanket', },
-            { name: 'Grooming kit', },
-            { name: 'Uplifting Primer', },
-            { name: 'Ration Packs', amount: 3, },
+            { name: 'Flak Coat' },
+            { name: 'Bold pistol' },
+            { name: 'Chain Sword' },
+            { name: 'Guard issue mess kit' },
+            { name: 'Blanket' },
+            { name: 'Grooming kit' },
+            { name: 'Uplifting Primer' },
+            { name: 'Ration Packs', amount: 3 },
           ],
         },
         {
           name: 'Imperial Guardsman',
           options: [
-            { name: 'Flak Armour', },
-            { name: 'Lasgun', },
-            { name: 'Knife', },
-            { name: 'Guard issue mess kit', },
-            { name: 'Blanket', },
-            { name: 'Grooming kit', },
-            { name: 'Uplifting Primer', },
-            { name: 'Ration Packs', amount: 3, },
+            { name: 'Flak Armour' },
+            { name: 'Lasgun' },
+            { name: 'Knife' },
+            { name: 'Guard issue mess kit' },
+            { name: 'Blanket' },
+            { name: 'Grooming kit' },
+            { name: 'Uplifting Primer' },
+            { name: 'Ration Packs', amount: 3 },
           ],
         },
         {
           name: 'Inquisitorial Acolyte',
           options: [
-            { name: 'Flak Armour', },
+            { name: 'Flak Armour' },
             {
               name: 'Range weapon of value 5 or less of up to Uncommon rarity (must have the Imperium keyword',
               selected: undefined,
               options: [
-                { query: (item) => {
-                    return (
-                      item.value <=5 &&
-                      ['Uncommon'].includes(item.rarity) &&
-                      item.keywords.split(',').includes('Imperium') &&
-                      item.type === 'Ranged'
-                    );
-                  }
+                {
+                  query: item => (
+                    item.value <= 5
+                      && ['Uncommon'].includes(item.rarity)
+                      && item.keywords.split(',').includes('Imperium')
+                      && item.type === 'Ranged'
+                  ),
                 },
               ],
             },
-            { name: 'Knife', },
+            { name: 'Knife' },
           ],
         },
         {
           name: 'Inquisitorial Adept',
           options: [
-            { name: 'Flak Armour', },
-            { name: 'Laspistol', },
-            { name: 'Knife', },
-            { name: 'Auto quill', },
-            { name: 'Data-slate', },
-            { name: 'Ancient Records', amount: 3, },
+            { name: 'Flak Armour' },
+            { name: 'Laspistol' },
+            { name: 'Knife' },
+            { name: 'Auto quill' },
+            { name: 'Data-slate' },
+            { name: 'Ancient Records', amount: 3 },
           ],
         },
         {
@@ -208,13 +207,11 @@
               selected: undefined,
               options: [
                 {
-                  query: (item) => {
-                    return (
-                      item.value <= 7 &&
-                      ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity) &&
-                      item.type.includes('Ranged')
-                    );
-                  }
+                  query: item => (
+                    item.value <= 7
+                      && ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity)
+                      && item.type.includes('Ranged')
+                  ),
                 },
               ],
             },
@@ -223,17 +220,15 @@
               selected: undefined,
               options: [
                 {
-                  query: (item) => {
-                    return (
-                      item.value <= 7 &&
-                      ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity) &&
-                      item.type.includes('Melee')
-                    );
-                  }
+                  query: item => (
+                    item.value <= 7
+                      && ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity)
+                      && item.type.includes('Melee')
+                  ),
                 },
               ],
             },
-            { name: 'Symbol of authority', },
+            { name: 'Symbol of authority' },
           ],
         },
         {
@@ -253,13 +248,11 @@
               selected: undefined,
               options: [
                 {
-                  query: (item) => {
-                    return (
-                      item.value <= this.settingTier+4 &&
-                      ['Uncommon', 'Common', 'Rare'].includes(item.rarity) &&
-                      item.type.includes('Ranged')
-                    );
-                  }
+                  query: item => (
+                    item.value <= this.settingTier + 4
+                      && ['Uncommon', 'Common', 'Rare'].includes(item.rarity)
+                      && item.type.includes('Ranged')
+                  ),
                 },
               ],
             },
@@ -268,43 +261,41 @@
               selected: undefined,
               options: [
                 {
-                  query: (item) => {
-                    return (
-                      item.value <= this.settingTier+4 &&
-                      ['Uncommon', 'Common', 'Rare'].includes(item.rarity) &&
-                      item.type.includes('Melee')
-                    );
-                  }
+                  query: item => (
+                    item.value <= this.settingTier + 4
+                      && ['Uncommon', 'Common', 'Rare'].includes(item.rarity)
+                      && item.type.includes('Melee')
+                  ),
                 },
               ],
             },
-            { name: 'Imperial Frigate', },
+            { name: 'Imperial Frigate' },
           ],
         },
       ],
-    }
+    };
   },
   computed: {
-    settingTier() { return this.$store.state.settingTier },
+    settingTier() { return this.$store.state.settingTier; },
     characterArchetypeName() { return this.$store.state.archetype.value; },
     startingWargear() {
-      return this.archetypeWargearRepository.find( i => i.name === this.characterArchetypeName );
+      return this.archetypeWargearRepository.find(i => i.name === this.characterArchetypeName);
     },
     characterWargear() {
-      return this.$store.state.wargear.map( i => i.name );
+      return this.$store.state.wargear.map(i => i.name);
     },
   },
   methods: {
     addWargearToCharacter(wargearOptions) {
-      let finalWargear = [];
+      const finalWargear = [];
 
-      wargearOptions.forEach( i => {
-        if ( i.options ) {
-          if ( i.selected ) {
-            if ( i.selected.indexOf(' and ') > 0 ) {
-              i.selected.split(' and ').forEach( o => {
+      wargearOptions.forEach((i) => {
+        if (i.options) {
+          if (i.selected) {
+            if (i.selected.indexOf(' and ') > 0) {
+              i.selected.split(' and ').forEach((o) => {
                 finalWargear.push(o);
-              })
+              });
             } else {
               finalWargear.push(i.selected);
             }
@@ -313,22 +304,22 @@
           finalWargear.push(i.name);
         }
       });
-      finalWargear.forEach( w => {
-        this.$store.commit('addWargear', { name: w } );
+      finalWargear.forEach((w) => {
+        this.$store.commit('addWargear', { name: w });
       });
     },
     wargearSubtitle(gear) {
-      let item = this.wargearRepository.find( i => i.name === gear);
-      if ( item ) {
-        return item.type + ' • ' + item.keywords.split(',').join(' • ');
+      const item = this.wargearRepository.find(i => i.name === gear);
+      if (item) {
+        return `${item.type} • ${item.keywords.split(',').join(' • ')}`;
       }
       return '';
     },
     remove(gear) {
-      this.$store.commit('removeWargear', { name: gear} );
+      this.$store.commit('removeWargear', { name: gear });
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

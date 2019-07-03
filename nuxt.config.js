@@ -7,7 +7,7 @@ module.exports = {
   */
   head: {
     htmlAttrs: {
-      lang: 'en'
+      lang: 'en',
     },
     titleTemplate: '%s - Doctors of Doom',
     title: 'Doctors of Doom' || '',
@@ -21,15 +21,21 @@ module.exports = {
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-      { rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png' },
-      { rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png' },
-      { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png' },
+      {
+        rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png',
+      },
+      {
+        rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png',
+      },
+      {
+        rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png',
+      },
       { rel: 'manifest', href: '/site.webmanifest' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons'
-      }
-    ]
+        href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
+      },
+    ],
   },
   /*
   ** Customize the progress-bar color
@@ -61,11 +67,11 @@ module.exports = {
         { field: 'anonymizeIp', value: true },
       ],
       debug: {
-        sendHitTask: process.env.NODE_ENV === 'production'
-      }
+        sendHitTask: process.env.NODE_ENV === 'production',
+      },
     }],
     // create a dynamic sitemap
-    '@nuxtjs/sitemap'
+    '@nuxtjs/sitemap',
   ],
   /*
    * Sitemap module configuration
@@ -75,23 +81,23 @@ module.exports = {
     gzip: true,
     exclude: [
       '/builder/**',
-      '/old/**'
+      '/old/**',
     ],
     routes() {
       return [
-        `/vault/agents-of-the-golden-throne`,
-        `/vault/expanded-voidship-combat-rules`,
-        `/vault/god-engines`,
-        `/vault/hesperaxs-vault`,
-        `/vault/legacy-of-the-necrontyr`,
-        `/vault/let-the-galaxy-burn`,
-        `/vault/the-deathwatch---slayers-of-the-alien-horde`,
-        `/vault/the-emperors-angels`,
-        `/vault/the-high-altar-of-technology`,
-        `/vault/tome-of-glory`,
-        `/vault/tyranids`,
+        '/vault/agents-of-the-golden-throne',
+        '/vault/expanded-voidship-combat-rules',
+        '/vault/god-engines',
+        '/vault/hesperaxs-vault',
+        '/vault/legacy-of-the-necrontyr',
+        '/vault/let-the-galaxy-burn',
+        '/vault/the-deathwatch---slayers-of-the-alien-horde',
+        '/vault/the-emperors-angels',
+        '/vault/the-high-altar-of-technology',
+        '/vault/tome-of-glory',
+        '/vault/tyranids',
       ];
-    }
+    },
   },
   /*
   ** Axios module configuration
@@ -111,8 +117,8 @@ module.exports = {
       info: colors.teal.lighten1,
       warning: colors.amber.base,
       error: colors.deepOrange.accent4,
-      success: colors.green.accent3
-    }
+      success: colors.green.accent3,
+    },
   },
   /*
   ** Build configuration
@@ -122,10 +128,10 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
-    }
+    },
   },
   serverMiddleware: [
     'redirect-ssl',
-    //'~/api/index.js'
+    // '~/api/index.js'
   ],
 };

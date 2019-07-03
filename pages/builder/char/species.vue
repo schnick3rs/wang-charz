@@ -80,7 +80,7 @@
   name: 'SpeciesSelection',
   layout: 'builder',
   components: { SpeciesPreview },
-  mixins: [ ],
+  mixins: [],
   props: [],
   data() {
     return {
@@ -89,52 +89,52 @@
       selectedSpecies: undefined,
       previewSpeciesArchetypeOptions: [],
       speciesRepository: SpeciesRepository,
-    }
+    };
   },
   computed: {
-    loaded() { return this.speciesRepository !== undefined },
-    settingTier() { return this.$store.state.settingTier },
-    characterSpecies() { return this.getSpeciesBy(this.characterSpeciesName) },
-    characterSpeciesName() { return this.$store.state.species.value }
+    loaded() { return this.speciesRepository !== undefined; },
+    settingTier() { return this.$store.state.settingTier; },
+    characterSpecies() { return this.getSpeciesBy(this.characterSpeciesName); },
+    characterSpeciesName() { return this.$store.state.species.value; },
   },
   async asyncData({ params }) {
-    //const speciesResponse = await axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
-    //const speciesAbilitiesResponse = await axios.get(`https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
+    // const speciesResponse = await axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
+    // const speciesAbilitiesResponse = await axios.get(`https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
     return {
-      //speciesRepository: speciesResponse.data || [],
-      //speciesAbilitiesRepository: speciesAbilitiesResponse.data || []
-    }
+      // speciesRepository: speciesResponse.data || [],
+      // speciesAbilitiesRepository: speciesAbilitiesResponse.data || []
+    };
   },
   methods: {
     doChangeSpeciesMode() {
       this.changeSpeciesMode = true;
     },
-    updatePreview: function (item) {
+    updatePreview(item) {
       this.selectedSpecies = item;
       this.speciesDialog = true;
     },
-    selectSpeciesForChar: function (species) {
-      this.$store.commit('setSpecies', { value: species.name, cost: species.cost })
-      this.$store.commit('setSpeciesModifications', { modifications: species.modifications} );
+    selectSpeciesForChar(species) {
+      this.$store.commit('setSpecies', { value: species.name, cost: species.cost });
+      this.$store.commit('setSpeciesModifications', { modifications: species.modifications });
       this.speciesDialog = false;
       this.changeSpeciesMode = false;
     },
     resetSpecies() {
-      this.selectedSpecies = undefined
-      this.$store.commit('setSpecies', { values: undefined, cost: 0 })
+      this.selectedSpecies = undefined;
+      this.$store.commit('setSpecies', { values: undefined, cost: 0 });
     },
     getSpeciesBy(name) {
-      return this.speciesRepository.find(s => s.name === name)
+      return this.speciesRepository.find(s => s.name === name);
     },
     getChapterTraditions(chapterName) {
-      const chapter = this.astartesChapterRepository.find(a => a.name === chapterName) || []
+      const chapter = this.astartesChapterRepository.find(a => a.name === chapterName) || [];
       if (chapter) {
-        return chapter.beliefsAndTraditions
+        return chapter.beliefsAndTraditions;
       }
-      return []
-    }
-  }
-}
+      return [];
+    },
+  },
+};
 </script>
 
 <style scoped lang="css">

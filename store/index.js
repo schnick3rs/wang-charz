@@ -14,9 +14,9 @@ export const state = () => ({
     initiative: 1,
   },
   attributesEnhanced() {
-    let enhanced = Object.assign({}, this.attributes);
-    let attributeEnhancements = this.enhancements.filter( e => { return e.targetGroup === 'attributes' } );
-    attributeEnhancements.forEach( m => {
+    const enhanced = Object.assign({}, this.attributes);
+    const attributeEnhancements = this.enhancements.filter(e => e.targetGroup === 'attributes');
+    attributeEnhancements.forEach((m) => {
       console.info(`Enhance ${m.targetValue} my ${m.modifier} due to ${m.hint}.`);
       enhanced[m.targetValue] += m.modifier;
     });
@@ -71,7 +71,7 @@ export const state = () => ({
   wargear: [],
   background: undefined,
   enhancements: [],
-})
+});
 
 export const getters = {
   setting(state) { return state.setting; },
@@ -80,20 +80,20 @@ export const getters = {
   species(state) { return state.species.value; },
   archetype(state) { return state.archetype.value; },
   effectiveCharacterTier(state) {
-    let archetypeTier = state.archetype.tier || 0;
+    const archetypeTier = state.archetype.tier || 0;
     let ascensionTier = 0;
-    state.ascensionPackages.forEach( (i) => {
-      if ( i.targetTier > ascensionTier ) {
-        ascensionTier = i.targetTier
+    state.ascensionPackages.forEach((i) => {
+      if (i.targetTier > ascensionTier) {
+        ascensionTier = i.targetTier;
       }
     });
-    return Math.max(archetypeTier,ascensionTier);
+    return Math.max(archetypeTier, ascensionTier);
   },
   attributes(state) { return state.attributes; },
   attributesEnhanced(state) {
-    let enhanced = Object.assign({}, state.attributes);
-    let attributeEnhancements = state.enhancements.filter( e => { return e.targetGroup === 'attributes' } );
-    attributeEnhancements.forEach( m => {
+    const enhanced = Object.assign({}, state.attributes);
+    const attributeEnhancements = state.enhancements.filter(e => e.targetGroup === 'attributes');
+    attributeEnhancements.forEach((m) => {
       console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}.`);
       enhanced[m.targetValue] += m.modifier;
     });
@@ -117,9 +117,9 @@ export const getters = {
     return traits;
   },
   traitsEnhanced(state, getters) {
-    let enhanced = Object.assign({}, getters.traits);
-    let traitEnhancements = state.enhancements.filter( e => { return e.targetGroup === 'traits' } );
-    traitEnhancements.forEach( m => {
+    const enhanced = Object.assign({}, getters.traits);
+    const traitEnhancements = state.enhancements.filter(e => e.targetGroup === 'traits');
+    traitEnhancements.forEach((m) => {
       console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}.`);
       enhanced[m.targetValue] += m.modifier;
     });
@@ -130,40 +130,40 @@ export const getters = {
   },
   remainingBuildPoints(state, getters) {
     let remaining = 0;
-    remaining = state.settingTier*100;
+    remaining = state.settingTier * 100;
     return (state.settingTier * 100) - getters.spendBuildingPoints;
   },
   attributeCosts(state) {
     const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
     let attributesSpending = 0;
-    Object.keys(state.attributes).forEach( (key) => {
-      attributesSpending += attributeTotalCost[ state.attributes[key] ];
+    Object.keys(state.attributes).forEach((key) => {
+      attributesSpending += attributeTotalCost[state.attributes[key]];
     });
     return attributesSpending;
   },
   skillCosts(state) {
     const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
     let skillSpending = 0;
-    Object.keys(state.skills).forEach( (key) => {
-      skillSpending += skillTotalCost[ state.skills[key] ];
+    Object.keys(state.skills).forEach((key) => {
+      skillSpending += skillTotalCost[state.skills[key]];
     });
     return skillSpending;
   },
   talentCost(state) {
     let spending = 0;
-    state.talents.forEach( talent => { spending += talent.cost; });
+    state.talents.forEach((talent) => { spending += talent.cost; });
     return spending;
   },
   ascensionCost(state) {
     let spending = 0;
-    state.ascensionPackages.forEach( ascensionPackage => {
+    state.ascensionPackages.forEach((ascensionPackage) => {
       spending += ascensionPackage.cost;
     });
     return spending;
   },
   psychicPowerCost(state) {
     let spending = 0;
-    state.psychicPowers.forEach( psychicPower => {
+    state.psychicPowers.forEach((psychicPower) => {
       spending += psychicPower.cost;
     });
     return spending;
@@ -180,8 +180,8 @@ export const getters = {
     spend += getters.psychicPowerCost;
 
     return spend;
-  }
-}
+  },
+};
 
 export const mutations = {
   setSetting(state, payload) {
@@ -195,9 +195,9 @@ export const mutations = {
     state.species = payload;
   },
   setSpeciesModifications(state, payload) {
-    state.enhancements = state.enhancements.filter( e => { return e.source !== 'species'; } )
+    state.enhancements = state.enhancements.filter(e => e.source !== 'species');
 
-    payload.modifications.forEach( item => {
+    payload.modifications.forEach((item) => {
       item.source = 'species';
       state.enhancements.push(item);
     });
@@ -212,58 +212,58 @@ export const mutations = {
     state.skills[payload.key] = payload.value;
   },
   addTalent(state, payload) {
-    let hasTalent = state.talents.find( t => t.name === payload.name ) !== undefined;
-    if ( !hasTalent ) {
-      state.talents.push( { name: payload.name, cost: payload.cost } );
+    const hasTalent = state.talents.find(t => t.name === payload.name) !== undefined;
+    if (!hasTalent) {
+      state.talents.push({ name: payload.name, cost: payload.cost });
     }
   },
   removeTalent(state, payload) {
-    let hasTalent = state.talents.find( t => t.name === payload.name ) !== undefined;
-    if ( hasTalent ) {
-      state.talents = state.talents.filter( t => t.name !== payload.name );
+    const hasTalent = state.talents.find(t => t.name === payload.name) !== undefined;
+    if (hasTalent) {
+      state.talents = state.talents.filter(t => t.name !== payload.name);
     }
   },
   addPower(state, payload) {
-    let hasPower = state.psychicPowers.find( t => t.name === payload.name ) !== undefined;
-    if ( !hasPower ) {
-      state.psychicPowers.push( { name: payload.name, cost: payload.cost } );
+    const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
+    if (!hasPower) {
+      state.psychicPowers.push({ name: payload.name, cost: payload.cost });
     }
   },
   removePower(state, payload) {
-    let hasPower = state.psychicPowers.find( t => t.name === payload.name ) !== undefined;
-    if ( hasPower ) {
-      state.psychicPowers = state.psychicPowers.filter( t => t.name !== payload.name );
+    const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
+    if (hasPower) {
+      state.psychicPowers = state.psychicPowers.filter(t => t.name !== payload.name);
     }
   },
   addAscension(state, payload) {
-    state.ascensionPackages.push( { value: payload.value, cost: payload.cost, targetTier: payload.targetTier } );
+    state.ascensionPackages.push({ value: payload.value, cost: payload.cost, targetTier: payload.targetTier });
   },
   removeAscension(state, payload) {
     // remove the package from the ascension stacks
-    state.ascensionPackages = state.ascensionPackages.filter( a => { return ( a.value !== payload.value ); });
+    state.ascensionPackages = state.ascensionPackages.filter(a => (a.value !== payload.value));
 
     // remove all enhancements that are related to the package
-    state.enhancements = state.enhancements.filter( e => { return e.source !== `ascension/${payload.value}`; } )
+    state.enhancements = state.enhancements.filter(e => e.source !== `ascension/${payload.value}`);
 
     // ToDo: remove all wargear that is related to the package
   },
   addWargear(state, payload) {
-    state.wargear.push( {name: payload.name } );
+    state.wargear.push({ name: payload.name });
   },
   removeWargear(state, payload) {
-    let hasWargear = state.wargear.find( t => t.name === payload.name ) !== undefined;
-    if ( hasWargear ) {
-      state.wargear = state.wargear.filter( t => t.name !== payload.name );
+    const hasWargear = state.wargear.find(t => t.name === payload.name) !== undefined;
+    if (hasWargear) {
+      state.wargear = state.wargear.filter(t => t.name !== payload.name);
     }
   },
   setBackground(state, payload) {
     state.background = payload.name;
   },
   setBackgroundModifications(state, payload) {
-    state.enhancements = state.enhancements.filter( e => { return e.source !== 'background'; } )
+    state.enhancements = state.enhancements.filter(e => e.source !== 'background');
 
-    payload.modifications.forEach( item => {
+    payload.modifications.forEach((item) => {
       state.enhancements.push(item);
     });
   },
-}
+};

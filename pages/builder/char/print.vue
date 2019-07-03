@@ -46,17 +46,17 @@ export default {
   layout: 'print',
   props: [],
   async asyncData({ params }) {
-    return {}
+    return {};
   },
   data() {
     return {
-    }
+    };
   },
   computed: {
   },
   methods: {
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

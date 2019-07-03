@@ -75,7 +75,7 @@
   import TraitRepositoryMixin from '../mixins/TraitRepositoryMixin';
   import SkillRepositoryMixin from '../mixins/SkillRepositoryMixin';
 
-  export default  {
+  export default {
   name: 'skill-selection',
   props: [],
   mixins: [
@@ -84,40 +84,40 @@
     SkillRepositoryMixin,
   ],
   data() {
-    return {}
+    return {};
   },
   methods: {
     incrementSkill(skill) {
-      let newValue = this.characterSkills[skill] + 1;
-      this.$store.commit('setSkill', {key: skill, value: newValue});
+      const newValue = this.characterSkills[skill] + 1;
+      this.$store.commit('setSkill', { key: skill, value: newValue });
     },
     decrementSkill(skill) {
-      let newValue = this.characterSkills[skill] - 1;
-      this.$store.commit('setSkill', {key: skill, value: newValue});
+      const newValue = this.characterSkills[skill] - 1;
+      this.$store.commit('setSkill', { key: skill, value: newValue });
     },
     incrementAttribute(attribute) {
-      let newValue = this.characterAttributes[attribute] + 1;
-      this.$store.commit('setAttribute', {key: attribute, value: newValue});
+      const newValue = this.characterAttributes[attribute] + 1;
+      this.$store.commit('setAttribute', { key: attribute, value: newValue });
     },
     decrementAttribute(attribute) {
-      let newValue = this.characterAttributes[attribute] - 1;
-      this.$store.commit('setAttribute', {key: attribute, value: newValue});
+      const newValue = this.characterAttributes[attribute] - 1;
+      this.$store.commit('setAttribute', { key: attribute, value: newValue });
     },
     skillsByAttribute(attribute) {
-      if ( this.skillRepository !== undefined ) {
+      if (this.skillRepository !== undefined) {
         return this.skillRepository.filter(s => s.attribute === attribute);
       }
-      return []
+      return [];
     },
     traitsByAttribute(attribute) {
-      if ( this.traitRepository !== undefined ) {
+      if (this.traitRepository !== undefined) {
         return this.traitRepository.filter(t => t.attribute === attribute);
       }
-      return []
+      return [];
     },
     affordableSkillColor(currentSkillValue) {
       const skillNewValueCost = [0, 1, 2, 3, 4, 10, 12, 14, 24];
-      let cost = skillNewValueCost[currentSkillValue+1];
+      const cost = skillNewValueCost[currentSkillValue + 1];
       return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
     },
     attributeMaximumFor(attribute) {
@@ -125,36 +125,36 @@
     },
   },
   computed: {
-    treeOfLearningValid(){
+    treeOfLearningValid() {
       let valueOfhighestKey = 0;
       let numberOfLearendSkills = 0;
-      for (var key in this.characterSkills) {
-        if ( this.characterSkills[key] > valueOfhighestKey ) {
+      for (const key in this.characterSkills) {
+        if (this.characterSkills[key] > valueOfhighestKey) {
           valueOfhighestKey = this.characterSkills[key];
         }
-        if ( this.characterSkills[key] > 0 ) {
+        if (this.characterSkills[key] > 0) {
           numberOfLearendSkills++;
         }
       }
       return numberOfLearendSkills >= valueOfhighestKey;
     },
     skillMaximum() {
-      return this.skillMaximumBy( this.settingTier );
+      return this.skillMaximumBy(this.settingTier);
     },
     settingTier() { return this.$store.getters.settingTier; },
     remainingBuildPoints() { return this.$store.getters.remainingBuildPoints; },
     characterAttributes() { return this.$store.getters.attributes; },
-    characterAttributesEnhanced() {      return this.$store.getters.attributesEnhanced; },
+    characterAttributesEnhanced() { return this.$store.getters.attributesEnhanced; },
     characterSkills() { return this.$store.getters.skills; },
     characterTraits() { return this.$store.getters.traits; },
     attributes() {
-      if ( this.attributeRepository !== undefined ) {
+      if (this.attributeRepository !== undefined) {
         return this.attributeRepository;
       }
-      return []
+      return [];
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

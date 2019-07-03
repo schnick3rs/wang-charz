@@ -61,32 +61,32 @@
 </template>
 
 <script lang="js">
-  export default  {
-    name: 'attribute-selection',
-    props: [],
-    mounted() {
+export default {
+  name: 'attribute-selection',
+  props: [],
+  mounted() {
 
-    },
-    data() {
-      return {
-        campaign: {
-          tier: 3
-        },
-        traits: [
-          "defence"
-        ]
-      }
-    },
-    methods: {
-    },
-    computed: {
-      attributes() {      return this.$store.getters.attributes; },
-      attributesEnhanced() {      return this.$store.getters.attributesEnhanced; },
-      defenceValue() {    return this.attributes.initiative - 1 },
-      influenceValue() {  return this.attributes.fellowship - 1 },
-      wealthValue() {     return this.campaign.tier },
-    }
-}
+  },
+  data() {
+    return {
+      campaign: {
+        tier: 3,
+      },
+      traits: [
+        'defence',
+      ],
+    };
+  },
+  methods: {
+  },
+  computed: {
+    attributes() { return this.$store.getters.attributes; },
+    attributesEnhanced() { return this.$store.getters.attributesEnhanced; },
+    defenceValue() { return this.attributes.initiative - 1; },
+    influenceValue() { return this.attributes.fellowship - 1; },
+    wealthValue() { return this.campaign.tier; },
+  },
+};
 </script>
 
 <style scoped lang="css">

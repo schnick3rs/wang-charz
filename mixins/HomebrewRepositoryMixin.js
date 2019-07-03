@@ -1,9 +1,9 @@
-import Homebrews from './homebrews.json'
+import Homebrews from './homebrews.json';
 
 export default {
   data() {
     return {
-      homebrewRepository: Homebrews
-    }
-  }
-}
+      homebrewRepository: Homebrews,
+    };
+  },
+};

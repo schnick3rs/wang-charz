@@ -46,42 +46,42 @@
 <script lang="js">
   import WargearRepositoryMixin from '../mixins/WargearRepositoryMixin';
 
-  export default  {
+  export default {
   name: 'wargear-selection',
   props: [],
-  mixins: [ WargearRepositoryMixin ],
+  mixins: [WargearRepositoryMixin],
   mounted() {
 
   },
   data() {
     return {
       characterWargear: [
-        { name: 'Sororitas Power Armour', },
-        { name: 'Chaplet Ecclisiasticus', },
+        { name: 'Sororitas Power Armour' },
+        { name: 'Chaplet Ecclisiasticus' },
         {
           name: 'Either a boltgun OR a chainsword and bolt pistol.',
           selected: 'Boltgun',
           options: [
-            { name: 'Boltgun', },
-            { name: 'Chainsword and bold pistol',  },
+            { name: 'Boltgun' },
+            { name: 'Chainsword and bold pistol' },
           ],
         },
-        { name: 'Clothing (Sororitas vestments)'},
-        { name: 'Writing kit'},
-        { name: 'Copy of the Rule of the Soroitas'},
+        { name: 'Clothing (Sororitas vestments)' },
+        { name: 'Writing kit' },
+        { name: 'Copy of the Rule of the Soroitas' },
       ],
       wargearSelectionOptions: [
-        {  },
+        { },
       ],
-    }
+    };
   },
   methods: {
 
   },
   computed: {
 
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

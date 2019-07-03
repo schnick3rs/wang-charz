@@ -79,90 +79,87 @@ export default {
         {
           name: 'Origin (Shock)',
           hint: '+3 Shock',
-          crunch:  {
+          crunch: {
             targetGroup: 'traits',
             targetValue: 'shock',
             modifier: 3,
             hint: 'Origin as Background',
-            source: 'background'
+            source: 'background',
           },
         },
         {
           name: 'Origin (Wounds)',
           hint: '+1 Wound',
-          crunch:  {
+          crunch: {
             targetGroup: 'traits',
             targetValue: 'wounds',
             modifier: 1,
             hint: 'Origin as Background',
-            source: 'background'
+            source: 'background',
           },
         },
         {
           name: 'Keyword',
           hint: 'Close connection to the organisation and valuable contacts.',
-          crunch:  {
-            effect: 'Send message. Access information, equipment and small favours once per ' +
-              'session.',
+          crunch: {
+            effect: 'Send message. Access information, equipment and small favours once per '
+              + 'session.',
             hint: 'Keyword as Background',
-            source: 'background'
-          }
+            source: 'background',
+          },
         },
         {
           name: 'Accomplishment (Influence)',
           hint: '+1 Influence',
-          crunch:  {
+          crunch: {
             targetGroup: 'traits',
             targetValue: 'influence',
             modifier: 1,
             hint: 'Accomplishment as Background',
-            source: 'background'
+            source: 'background',
           },
         },
         {
           name: 'Accomplishment (Wealth)',
           hint: '+2 Wealth',
-          crunch:  {
+          crunch: {
             targetGroup: 'traits',
             targetValue: 'wealth',
             modifier: 2,
             hint: 'Accomplishment as Background',
-            source: 'background'
-          }
+            source: 'background',
+          },
         },
         {
           name: 'Goal',
           hint: 'Additional Glory on accomplishing Objectives.',
-          crunch:  {
-            effect: 'Characters who choose a goal as their background gain +1 Glory in addition ' +
-              'to gaining +1 Wrath any time that they accomplish an Objective.',
+          crunch: {
+            effect: 'Characters who choose a goal as their background gain +1 Glory in addition '
+              + 'to gaining +1 Wrath any time that they accomplish an Objective.',
             hint: 'Goal as Background',
-            source: 'background'
-          }
+            source: 'background',
+          },
         },
       ],
-    }
+    };
   },
   computed: {
     characterBackgroundName() {
       return this.$store.state.background;
     },
     characterBackground() {
-      return this.backgroundRepository.find(i => {
-        return i.name === this.characterBackgroundName;
-      });
+      return this.backgroundRepository.find(i => i.name === this.characterBackgroundName);
     },
   },
   methods: {
     select(item) {
-      this.$store.commit('setBackground', { name: item.name} );
+      this.$store.commit('setBackground', { name: item.name });
       this.$store.commit('setBackgroundModifications', { modifications: [item.crunch] });
       this.selectedBackground = item;
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">
 </style>
-

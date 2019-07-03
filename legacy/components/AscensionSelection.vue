@@ -7,7 +7,6 @@
       <v-layout justify-center row wrap>
 
 
-
       </v-layout>
 
     </v-container>
@@ -20,33 +19,32 @@
   import AscensionRepositoryMixin from '../mixins/AscensionRepositoryMixin';
   import KeywordRepositoryMixin from '../mixins/KeywordRepositoryMixin';
 
-  export default  {
-    name: 'ascension-selection',
-    props: [],
-    mixins: [
-      AscensionRepositoryMixin,
-      KeywordRepositoryMixin,
-    ],
-    data() {
-      return {}
+  export default {
+  name: 'ascension-selection',
+  props: [],
+  mixins: [
+    AscensionRepositoryMixin,
+    KeywordRepositoryMixin,
+  ],
+  data() {
+    return {};
+  },
+  methods: {
+    keywordOptions(wildcard) {
+      if (wildcard === '<Any>') {
+        // return all but the any keyword
+        return this.keywordRepository.filter(k => k.name !== '<Any>');
+      }
+      return this.keywordRepository.filter(k => k.name === wildcard);
     },
-    methods: {
-      keywordOptions(wildcard) {
-        if ( wildcard === '<Any>' ) {
-          // return all but the any keyword
-          return this.keywordRepository.filter( k => k.name !== '<Any>' );
-        } else {
-          return this.keywordRepository.filter( k => k.name === wildcard );
-        }
-      },
-      subKeywordOptions(placeholder) {
-        return this.keywordSubwordRepository.filter( k => k.placeholder === placeholder );
-      },
+    subKeywordOptions(placeholder) {
+      return this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
     },
-    computed: {
+  },
+  computed: {
 
-    }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

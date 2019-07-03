@@ -132,16 +132,16 @@
 </template>
 
 <script>
-  import DefaultFooter from '~/components/DefaultFooter'
+  import DefaultFooter from '~/components/DefaultFooter';
 
   export default {
   components: { DefaultFooter },
   head() {
     return {
       link: [
-        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` }
-      ]
-    }
+        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
+      ],
+    };
   },
   data() {
     return {
@@ -156,60 +156,76 @@
         permanent: false,
         // sets the drawer to the mini variant, showing only icons, of itself (true)
         // or showing the full drawer (false)
-        mini: false
+        mini: false,
       },
       toolbar: {
         fixed: true,
         // sets if the toolbar contents is leaving space for drawer (false) or not (true)
-        clippedLeft: true
+        clippedLeft: true,
       },
       footer: {
         // sets the CSS position of the footer
         fixed: true,
         // sets if the footer is full width (true) or gives space to the drawer (false)
-        clippedLeft: true
-      }
-    }
+        clippedLeft: true,
+      },
+    };
   },
   methods: {
     // changes the drawer to permanent
-    makeDrawerPermanent () {
-      this.drawer.permanent = true
+    makeDrawerPermanent() {
+      this.drawer.permanent = true;
       // set the clipped state of the drawer and toolbar
-      this.drawer.clipped = false
-      this.toolbar.clippedLeft = false
+      this.drawer.clipped = false;
+      this.toolbar.clippedLeft = false;
     },
     // toggles the drawer variant (mini/full)
-    toggleMiniDrawer () {
-      this.drawer.mini = !this.drawer.mini
+    toggleMiniDrawer() {
+      this.drawer.mini = !this.drawer.mini;
     },
     // toggles the drawer type (permanent vs temporary) or shows/hides the drawer
-    toggleDrawer () {
+    toggleDrawer() {
       if (this.drawer.permanent) {
-        this.drawer.permanent = !this.drawer.permanent
+        this.drawer.permanent = !this.drawer.permanent;
         // set the clipped state of the drawer and toolbar
-        this.drawer.clipped = true
-        this.toolbar.clippedLeft = true
+        this.drawer.clipped = true;
+        this.toolbar.clippedLeft = true;
       } else {
         // normal drawer
-        this.drawer.open = !this.drawer.open
+        this.drawer.open = !this.drawer.open;
       }
     },
   },
   computed: {
     helperBox() {
       return [
-        //{ path: '/builder/setting', hint: 'Framework', text: `Tier ${this.settingTier} Campaign`, cost: this.settingTier*100 },
+        // { path: '/builder/setting', hint: 'Framework', text: `Tier ${this.settingTier} Campaign`, cost: this.settingTier*100 },
         { divider: true },
-        { path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost },
-        { path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost },
-        { path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts+this.skillCosts },
-        { path: '/builder/char/talents', hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
-        { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts },
-        { path: '/builder/char/psychic-powers', hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
+        {
+          path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost,
+        },
+        {
+          path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost,
+        },
+        {
+          path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts + this.skillCosts,
+        },
+        {
+          path: '/builder/char/talents', hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts,
+        },
+        {
+          path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts,
+        },
+        {
+          path: '/builder/char/psychic-powers', hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts,
+        },
         { divider: true },
-        { path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined },
-        { path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined },
+        {
+          path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined,
+        },
+        {
+          path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined,
+        },
       ];
     },
 
@@ -218,8 +234,8 @@
     totalBuildPoints() { return this.$store.state.settingTier * 100; },
     spendBuildPoints() { return this.$store.getters['spendBuildingPoints']; },
 
-    maximumStartingTalents() { return Math.min(5,this.settingTier+1); },
-    maximumPsychicPowers() { return this.settingTier+3; },
+    maximumStartingTalents() { return Math.min(5, this.settingTier + 1); },
+    maximumPsychicPowers() { return this.settingTier + 3; },
 
     attributeCosts() { return this.$store.getters['attributeCosts']; },
     skillCosts() { return this.$store.getters['skillCosts']; },
@@ -232,12 +248,12 @@
     characterTalents() { return this.$store.state.talents; },
     characterPsychicPowers() { return this.$store.state.psychicPowers; },
     characterAscension() {
-      if ( this.$store.state.ascensionPackages.length > 0 ) {
+      if (this.$store.state.ascensionPackages.length > 0) {
         return this.$store.state.ascensionPackages[0].value;
       }
       return '';
     },
     characterBackground() { return this.$store.state.background; },
-  }
-}
+  },
+};
 </script>

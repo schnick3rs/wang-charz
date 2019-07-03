@@ -41,33 +41,33 @@
 </template>
 
 <script lang="js">
-  export default  {
-    name: 'ascension-preview',
-    props: {
-      currentCharacterTier: {},
-      item: {
-        type: Object,
-        required: true,
-      },
-      manageMode: {
-        type: Boolean,
-        default: false
-      },
-      chooseMode: {
-        type: Boolean,
-        default: false
-      },
+export default {
+  name: 'ascension-preview',
+  props: {
+    currentCharacterTier: {},
+    item: {
+      type: Object,
+      required: true,
     },
-    data() {
-      return {
-        targetTier: 3,
-      }
+    manageMode: {
+      type: Boolean,
+      default: false,
     },
-    methods: {
+    chooseMode: {
+      type: Boolean,
+      default: false,
     },
-    computed: {
-    }
-  }
+  },
+  data() {
+    return {
+      targetTier: 3,
+    };
+  },
+  methods: {
+  },
+  computed: {
+  },
+};
 </script>
 
 <style scoped lang="css">

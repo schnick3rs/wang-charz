@@ -65,44 +65,44 @@
 <script lang="js">
   import SpeciesRepository from '../../../mixins/SpeciesRepositoryMixin';
 
-  export default  {
-    name: 'species-preview',
-    mixins: [ SpeciesRepository ],
-    props: {
-      species: {
-        type: Object,
-        required: true,
-      },
-      actions: {
-        type: Boolean,
-        default: true,
-      },
+  export default {
+  name: 'species-preview',
+  mixins: [SpeciesRepository],
+  props: {
+    species: {
+      type: Object,
+      required: true,
     },
-    data() {
-      return {
+    actions: {
+      type: Boolean,
+      default: true,
+    },
+  },
+  data() {
+    return {
 
+    };
+  },
+  methods: {
+    getChapterTraditions(chapterName) {
+      const chapter = this.astartesChapterRepository.find(a => a.name === chapterName) || [];
+      if (chapter) {
+        return chapter.beliefsAndTraditions;
       }
+      return [];
     },
-    methods: {
-      getChapterTraditions(chapterName) {
-        let chapter = this.astartesChapterRepository.find(a=>a.name === chapterName) || [];
-        if ( chapter ) {
-          return chapter.beliefsAndTraditions;
-        }
-        return [];
-      },
-    },
-    computed: {
-      loaded() { return this.speciesRepository !== undefined && this.speciesAbilitiesRepository !== undefined; },
-      abilityObjects() {
-        if ( this.speciesAbilitiesRepository ) {
-          let abilities = this.species.abilities ? this.species.abilities.split(',') : [];
-          return this.speciesAbilitiesRepository.filter( a => abilities.includes(a.name) );
-        }
-        return [];
+  },
+  computed: {
+    loaded() { return this.speciesRepository !== undefined && this.speciesAbilitiesRepository !== undefined; },
+    abilityObjects() {
+      if (this.speciesAbilitiesRepository) {
+        const abilities = this.species.abilities ? this.species.abilities.split(',') : [];
+        return this.speciesAbilitiesRepository.filter(a => abilities.includes(a.name));
       }
-    }
-  }
+      return [];
+    },
+  },
+};
 </script>
 
 <style scoped lang="css">

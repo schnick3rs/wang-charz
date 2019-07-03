@@ -97,14 +97,14 @@
 </template>
 
 <script lang="js">
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin'
+  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
 
-  import axios from 'axios'
+  import axios from 'axios';
 
   export default {
   name: 'Setting',
   layout: 'builder',
-  mixins: [ ArchetypeRepositoryMixin ],
+  mixins: [ArchetypeRepositoryMixin],
   props: [],
   data() {
     return {
@@ -117,9 +117,9 @@
         sources: {
           isAllowHomebrews: false,
           content: {
-            allowAgentsOfTheThrone: false
-          }
-        }
+            allowAgentsOfTheThrone: false,
+          },
+        },
       },
       tierSelect: {
         // One among billions','stalwart Defenders','Elite Guardians','Heroic Operatives','Agents of Fate
@@ -129,8 +129,8 @@
           { text: '2 - Stalwart Defenders', value: 2 },
           { text: '3 - Elite Guardians', value: 3 },
           { text: '4 - Heroic Operatives', value: 4 },
-          { text: '5 - Agents of Fate', value: 5 }
-        ]
+          { text: '5 - Agents of Fate', value: 5 },
+        ],
       },
       settingTemplateOptions: [
         { name: 'Custom', recommendedTiers: '1-5', cover: 'https://cdna.artstation.com/p/assets/images/images/011/151/588/large/diego-gisbert-llorens-b-g-cover-1-wip4a.jpg?1528118826' },
@@ -138,34 +138,33 @@
         { name: 'Dark Heresy', recommendedTiers: '1-3', cover: 'https://www.fantasyflightgames.com/media/ffg_content/Dark-Heresy-2nd/core-book-previews/preview-3/Dark_HeresyII_wip7-Web.jpg' },
         { name: 'Rogue Trader', recommendedTiers: '2-3', cover: 'https://i.pinimg.com/originals/4d/d9/ab/4dd9ab05a6c5dc62a09d61365303c34b.jpg' },
         { name: 'Deathwatch', recommendedTiers: '3-4', cover: 'https://i.pinimg.com/originals/be/09/17/be0917ae8414dbfde3f973d8ba2956bb.jpg' },
-        { name: 'Black Crusade', recommendedTiers: '3-4', cover: 'https://warhammerart.com/wp-content/uploads/2018/11/13TH-BLACK-CRUSADE-04.jpg' }
-      ]
-    }
+        { name: 'Black Crusade', recommendedTiers: '3-4', cover: 'https://warhammerart.com/wp-content/uploads/2018/11/13TH-BLACK-CRUSADE-04.jpg' },
+      ],
+    };
   },
   computed: {
-    settingTier() { return this.$store.state.settingTier }
+    settingTier() { return this.$store.state.settingTier; },
   },
   async asyncData({ params }) {
     const speciesResponse = await
-    axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
+    axios.get('https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151');
     const speciesAbilitiesResponse = await
-    axios.get(`https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
+    axios.get('https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0');
     return {
       speciesRepository: speciesResponse.data || [],
-      speciesAbilitiesRepository: speciesAbilitiesResponse.data || []
-    }
+      speciesAbilitiesRepository: speciesAbilitiesResponse.data || [],
+    };
   },
   methods: {
     setSettingTier(event) {
-      this.$store.commit('setSettingTier', { amount: event })
+      this.$store.commit('setSettingTier', { amount: event });
     },
     applySetting() {
       this.$store.commit('setSetting', { setting: this.setting });
       this.$router.push({ name: 'builder-char-species' });
-
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 <style scoped lang="css">

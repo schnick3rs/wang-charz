@@ -115,107 +115,105 @@
   import ArchetypePreview from '~/components/builder/ArchetypePreview';
 
   export default {
-    name: 'Archetype',
-    layout: 'builder',
-    components: { ArchetypePreview },
-    props: [],
-    data() {
-      return {
-        dialog: false,
-        changeMode: false,
-        searchQuery: '',
-        selectedArchetype: undefined,
-      }
+  name: 'Archetype',
+  layout: 'builder',
+  components: { ArchetypePreview },
+  props: [],
+  data() {
+    return {
+      dialog: false,
+      changeMode: false,
+      searchQuery: '',
+      selectedArchetype: undefined,
+    };
+  },
+  async asyncData({ params }) {
+    const archetypeResponse = await axios.get('https://api.sheety.co/e39d8899-85e5-4281-acf4-4d854bd39994');
+    const archetypeAbilityResponse = await axios.get('https://api.sheety.co/6790490e-d9cc-439f-839b-dec3f1f8edc0');
+    return {
+      archetypeRepository: archetypeResponse.data || [],
+      archetypeAbilityRepository: archetypeAbilityResponse.data || [],
+    };
+  },
+  methods: {
+    getAvatar(name) {
+      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      return `/img/icon/archetype_${slug}_avatar.png`;
     },
-    async asyncData({ params }) {
-      const archetypeResponse = await axios.get(`https://api.sheety.co/e39d8899-85e5-4281-acf4-4d854bd39994`);
-      const archetypeAbilityResponse = await axios.get(`https://api.sheety.co/6790490e-d9cc-439f-839b-dec3f1f8edc0`);
-      return {
-        archetypeRepository: archetypeResponse.data || [],
-        archetypeAbilityRepository: archetypeAbilityResponse.data || [],
-      }
+    doChangeMode() {
+      this.changeMode = true;
     },
-    methods: {
-      getAvatar(name) {
-        let slug = name.toLowerCase().replace(/\s/gm, '-');
-        return `/img/icon/archetype_${slug}_avatar.png`;
-      },
-      doChangeMode() {
-        this.changeMode = true;
-      },
-      getArchetypeBy(name) {
-        if ( this.archetypeRepository ) {
-          return this.archetypeRepository.find( s => s.name === name );
-        }
-        return undefined;
-      },
-      archetypesByGroup(groupName) {
+    getArchetypeBy(name) {
+      if (this.archetypeRepository) {
+        return this.archetypeRepository.find(s => s.name === name);
+      }
+      return undefined;
+    },
+    archetypesByGroup(groupName) {
+      let archetypes = this.archetypeRepository;
+
+      /* filter by archetype group */
+      archetypes = archetypes.filter(a => a.group === groupName);
+
+      /* filter by  */
+      if (this.characterSpecies) {
+        archetypes = archetypes.filter(a => a.species === this.characterSpecies);
+      }
+
+      if (this.settingTier !== undefined) {
+        archetypes = archetypes.filter(a => a.tier <= this.settingTier);
+      }
+
+      /* filter by search query */
+      if (this.searchQuery) {
+        const lowerCaseSearchQuery = this.searchQuery.toLowerCase();
+        archetypes = archetypes.filter((a) => {
+          const lowerCaseArchetype = a.name.toLowerCase();
+          return lowerCaseArchetype.startsWith(lowerCaseSearchQuery);
+        });
+      }
+
+      return archetypes.sort((a, b) => { if (a.tier > b.tier) { return 1; } if (b.tier > a.tier) { return -1; } return 0; });
+    },
+    selectArchetypeForChar(item) {
+      this.$store.commit('setArchetype', { value: item.name, cost: item.cost, tier: item.tier });
+      this.dialog = false;
+      this.changeMode = false;
+    },
+    resetArchetype() {
+      this.selectedArchetype = undefined;
+      this.$store.commit('setArchetype', { values: undefined, cost: 0 });
+    },
+    updatePreview(item) {
+      this.selectedArchetype = item;
+      this.dialog = true;
+    },
+  },
+  computed: {
+    loaded() { return this.archetypeRepository !== undefined; },
+    settingTier() { return this.$store.state.settingTier; },
+    characterArchetypeName() { return this.$store.getters.archetype; },
+    characterArchetype() { return this.getArchetypeBy(this.characterArchetypeName); },
+    characterSpecies() { return this.$store.getters.species; },
+    archetypeGroups() {
+      if (this.archetypeRepository !== undefined) {
         let archetypes = this.archetypeRepository;
 
-        /* filter by archetype group */
-        archetypes = archetypes.filter( a => a.group === groupName );
-
-        /* filter by  */
-        if ( this.characterSpecies ) {
-          archetypes = archetypes.filter( a => a.species === this.characterSpecies )
+        if (this.characterSpecies !== undefined) {
+          archetypes = archetypes.filter(a => a.species === this.characterSpecies);
         }
 
-        if ( this.settingTier !== undefined ) {
-          archetypes = archetypes.filter( a => a.tier <= this.settingTier );
+        if (this.settingTier !== undefined) {
+          archetypes = archetypes.filter(a => a.tier <= this.settingTier);
         }
 
-        /* filter by search query */
-        if ( this.searchQuery ) {
-          let lowerCaseSearchQuery = this.searchQuery.toLowerCase();
-          archetypes = archetypes.filter( a => {
-            let lowerCaseArchetype = a.name.toLowerCase();
-            return lowerCaseArchetype.startsWith(lowerCaseSearchQuery);
-          } );
-        }
+        return [...new Set(archetypes.map(item => item.group))];
+      }
 
-        return archetypes.sort( (a,b) => { if (a.tier > b.tier){return 1;} if (b.tier > a.tier){return -1;} return 0; } );
-      },
-      selectArchetypeForChar(item) {
-        this.$store.commit('setArchetype', { value: item.name, cost: item.cost, tier: item.tier });
-        this.dialog = false;
-        this.changeMode = false;
-      },
-      resetArchetype() {
-        this.selectedArchetype = undefined;
-        this.$store.commit('setArchetype', { values: undefined, cost: 0} );
-      },
-      updatePreview(item) {
-        this.selectedArchetype = item;
-        this.dialog = true;
-      },
+      return [];
     },
-    computed: {
-      loaded() { return this.archetypeRepository !== undefined; },
-      settingTier() { return this.$store.state.settingTier },
-      characterArchetypeName() { return this.$store.getters.archetype; },
-      characterArchetype() { return this.getArchetypeBy(this.characterArchetypeName); },
-      characterSpecies() { return this.$store.getters.species; },
-      archetypeGroups() {
-
-        if ( this.archetypeRepository !== undefined ) {
-
-          let archetypes = this.archetypeRepository;
-
-          if ( this.characterSpecies !== undefined ) {
-            archetypes = archetypes.filter( a => a.species === this.characterSpecies );
-          }
-
-          if ( this.settingTier !== undefined ) {
-            archetypes = archetypes.filter( a => a.tier <= this.settingTier );
-          }
-
-          return [...new Set(archetypes.map(item => item.group))]
-        }
-
-        return []
-      },
-    },
-  }
+  },
+};
 </script>
 
 <style scoped lang="css">

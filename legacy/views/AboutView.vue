@@ -42,24 +42,24 @@
 </template>
 
 <script lang="js">
-  export default  {
-    name: 'about',
-    props: [],
-    mounted() {
+export default {
+  name: 'about',
+  props: [],
+  mounted() {
 
-    },
-    data() {
-      return {
+  },
+  data() {
+    return {
 
-      }
-    },
-    methods: {
+    };
+  },
+  methods: {
 
-    },
-    computed: {
+  },
+  computed: {
 
-    }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

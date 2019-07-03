@@ -96,28 +96,32 @@
   export default {
   name: 'psychic-powers',
   layout: 'builder',
-  mixins: [ PsychicPowersRepositoryMixin ],
+  mixins: [PsychicPowersRepositoryMixin],
   props: [],
   data() {
     return {
       searchQuery: '',
       headers: [
-        { text: 'Name', value: 'name', align: 'left', sortable: true },
+        {
+          text: 'Name', value: 'name', align: 'left', sortable: true,
+        },
         { text: 'Discipline', value: 'discipline', sortable: true },
         { text: 'Effect', value: 'effect', sortable: false },
-        { text: 'Cost', value: 'cost', align: 'center', sortable: true },
+        {
+          text: 'Cost', value: 'cost', align: 'center', sortable: true,
+        },
         { text: 'Learn', align: 'center', sortable: false },
       ],
       disciplines: [
-        { name: 'Minor', },
-        { name: 'Universal', },
-        { name: 'Biomancy', },
-        { name: 'Divination', },
-        { name: 'Pyromancy', },
-        { name: 'Telekinesis', },
-        { name: 'Telepathy', },
-        { name: 'Maleficarum', },
-        { name: 'Runes of Battle', },
+        { name: 'Minor' },
+        { name: 'Universal' },
+        { name: 'Biomancy' },
+        { name: 'Divination' },
+        { name: 'Pyromancy' },
+        { name: 'Telekinesis' },
+        { name: 'Telepathy' },
+        { name: 'Maleficarum' },
+        { name: 'Runes of Battle' },
       ],
       selectedDisciplines: [],
       access: [
@@ -126,7 +130,7 @@
           disciplines: [],
           permission: [
             { type: 'Discipline', value: 'Minor' },
-          ]
+          ],
         },
         {
           source: 'Sanctioned Psyker',
@@ -134,7 +138,7 @@
           free: [
             { type: 'Power', value: 'Smite' },
             { type: 'Discipline', value: 'Minor' },
-          ]
+          ],
         },
         {
           source: 'Rogue Psyker',
@@ -142,7 +146,7 @@
           free: [
             { type: 'Power', value: 'Smite' },
             { type: 'Discipline', value: 'Minor' },
-          ]
+          ],
         },
         {
           source: 'Warlock',
@@ -150,7 +154,7 @@
           free: [
             { type: 'Power', value: 'Psyniscience' },
             { type: 'Power', value: 'Smite' },
-          ]
+          ],
         },
         {
           source: 'Psychic Revelations',
@@ -158,20 +162,20 @@
           free: [
             { type: 'Power', value: 'Smite' },
             { type: 'Discipline', value: 'Minor' },
-          ]
+          ],
         },
       ],
-    }
+    };
   },
   computed: {
     alerts() {
-      let alerts = [];
+      const alerts = [];
 
-      if ( !this.isPsychic ) {
-        let alert = {
+      if (!this.isPsychic) {
+        const alert = {
           type: 'warning',
-          text: 'You need to either possess the <strong>Psychic</strong> Keyword or have at ' +
-            'least learned one rank in the <strong>Psychc Mastery</strong> skill',
+          text: 'You need to either possess the <strong>Psychic</strong> Keyword or have at '
+            + 'least learned one rank in the <strong>Psychc Mastery</strong> skill',
         };
         alerts.push(alert);
       }
@@ -179,30 +183,27 @@
     },
     isPsychic() {
       const hasSkill = this.$store.state.skills.psychicMastery > 0;
-      const hasKeyword = this.$store.state.keywords.includes("Psychic");
-      return ( hasSkill || hasKeyword );
+      const hasKeyword = this.$store.state.keywords.includes('Psychic');
+      return (hasSkill || hasKeyword);
     },
     settingTier() { return this.$store.state.settingTier; },
     maximumMinorPowers() { return this.settingTier; },
-    maximumDisciplinePowers() { return Math.max(1,this.settingTier-1); },
-    maximumPsychicPowers() { return this.settingTier+3; },
-    characterPowers() { return this.$store.state.psychicPowers.map( p => p.name) },
+    maximumDisciplinePowers() { return Math.max(1, this.settingTier - 1); },
+    maximumPsychicPowers() { return this.settingTier + 3; },
+    characterPowers() { return this.$store.state.psychicPowers.map(p => p.name); },
     filteredPowers() {
-
-      if ( this.powers === undefined ) {
+      if (this.powers === undefined) {
         return [];
       }
 
       let filteredPowers = this.psychicPowersRepository;
 
       console.log(this.selectedDisciplines);
-      if ( this.selectedDisciplines.length > 0 ) {
-        filteredPowers = filteredPowers.filter((p) => {
-          return this.selectedDisciplines.includes(p.discipline)
-        });
+      if (this.selectedDisciplines.length > 0) {
+        filteredPowers = filteredPowers.filter(p => this.selectedDisciplines.includes(p.discipline));
       }
 
-      //filteredTalents = filteredTalents.filter( t => !this.characterTalents.includes(t.name) );
+      // filteredTalents = filteredTalents.filter( t => !this.characterTalents.includes(t.name) );
 
       return filteredPowers;
     },
@@ -216,17 +217,17 @@
       this.$store.commit('addPower', { name: power.name, cost: power.cost });
     },
     removePower(power) {
-      this.$store.commit('removePower', { name: power } );
+      this.$store.commit('removePower', { name: power });
     },
     toggleDisciplineFilter(name) {
-      if ( this.selectedDisciplines.includes(name) ) {
-        this.selectedDisciplines = this.selectedDisciplines.filter( d => d != name);
+      if (this.selectedDisciplines.includes(name)) {
+        this.selectedDisciplines = this.selectedDisciplines.filter(d => d != name);
       } else {
         this.selectedDisciplines.push(name);
       }
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

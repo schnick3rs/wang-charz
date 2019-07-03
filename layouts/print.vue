@@ -7,20 +7,20 @@
 </template>
 
 <script>
-  export default {
+export default {
   components: { },
   head() {
     return {
       link: [
-      ]
-    }
+      ],
+    };
   },
   data() {
-    return {}
+    return {};
   },
   methods: {
   },
   computed: {
-  }
-}
+  },
+};
 </script>

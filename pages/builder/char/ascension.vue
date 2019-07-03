@@ -171,7 +171,7 @@
   name: 'Ascension',
   layout: 'builder',
   props: [],
-  mixins: [ AscensionRepositoryMixin, KeywordRepositoryMixin ],
+  mixins: [AscensionRepositoryMixin, KeywordRepositoryMixin],
   components: { AscensionPreview },
   data() {
     return {
@@ -179,29 +179,27 @@
       selectedPreview: undefined,
       chooseMode: true,
       manageMode: false,
-    }
+    };
   },
   computed: {
     alerts() {
-      let alerts = [];
-      if ( !this.characterArchetype ) {
-        alerts.push( {type: 'warning', text: 'You need to select an Archetype first.'} );
+      const alerts = [];
+      if (!this.characterArchetype) {
+        alerts.push({ type: 'warning', text: 'You need to select an Archetype first.' });
       }
-      if ( this.effectiveCharacterTier >= this.settingTier) {
-        alerts.push( {type: 'warning', text: 'Your character already has reached a tier sufficient for the Campaign Tier.'} );
+      if (this.effectiveCharacterTier >= this.settingTier) {
+        alerts.push({ type: 'warning', text: 'Your character already has reached a tier sufficient for the Campaign Tier.' });
       }
       return alerts;
     },
     characterAscensionPackages() {
-      return this.$store.state.ascensionPackages.map( i => {
-        return this.ascensionRepository.find( j => j.name = i.value);
-      });
+      return this.$store.state.ascensionPackages.map(i => this.ascensionRepository.find(j => j.name = i.value));
     },
     characterArchetype() {
       return this.$store.state.archetype.value;
-      },
+    },
     effectiveCharacterTier() {
-      return this.$store.getters['effectiveCharacterTier'];
+      return this.$store.getters.effectiveCharacterTier;
     },
     settingTier() {
       return this.$store.state.settingTier;
@@ -212,16 +210,16 @@
       this.selectedPreview = item;
       this.dialog = true;
     },
-    selectPackageForChar(ascensionPackage, targetTier){
-      let payload = {
+    selectPackageForChar(ascensionPackage, targetTier) {
+      const payload = {
         value: ascensionPackage.name,
         cost: ascensionPackage.cost * targetTier,
-        targetTier: targetTier,
+        targetTier,
       };
       this.$store.commit('addAscension', payload);
 
-      ascensionPackage['sourceTier'] = 2;
-      ascensionPackage['targetTier'] = targetTier;
+      ascensionPackage.sourceTier = 2;
+      ascensionPackage.targetTier = targetTier;
       this.characterAscension = ascensionPackage;
 
       this.chooseMode = false;
@@ -229,7 +227,7 @@
       this.dialog = false;
     },
     removePackage(ascensionPackage) {
-      let payload = {
+      const payload = {
         value: ascensionPackage.name,
         sourceTier: ascensionPackage.sourceTier,
         targetTier: ascensionPackage.targetTier,
@@ -238,18 +236,17 @@
       this.chooseMode = (this.characterAscension.length <= 0);
     },
     keywordOptions(wildcard) {
-      if ( wildcard === '<Any>' ) {
+      if (wildcard === '<Any>') {
         // return all but the any keyword
-        return this.keywordRepository.filter( k => k.name !== '<Any>' );
-      } else {
-        return this.keywordRepository.filter( k => k.name === wildcard );
+        return this.keywordRepository.filter(k => k.name !== '<Any>');
       }
+      return this.keywordRepository.filter(k => k.name === wildcard);
     },
     subKeywordOptions(placeholder) {
-      return this.keywordSubwordRepository.filter( k => k.placeholder === placeholder );
+      return this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
     },
-  }
-}
+  },
+};
 </script>
 
 <style scoped lang="css">

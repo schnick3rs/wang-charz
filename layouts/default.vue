@@ -32,16 +32,16 @@
 </template>
 
 <script>
-  import DefaultFooter from '~/components/DefaultFooter'
+  import DefaultFooter from '~/components/DefaultFooter';
 
   export default {
   components: { DefaultFooter },
   head() {
     return {
       link: [
-        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` }
-      ]
-    }
+        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
+      ],
+    };
   },
   data() {
     return {
@@ -60,20 +60,20 @@
         permanent: false,
         // sets the drawer to the mini variant, showing only icons, of itself (true)
         // or showing the full drawer (false)
-        mini: false
+        mini: false,
       },
       toolbar: {
         fixed: true,
         // sets if the toolbar contents is leaving space for drawer (false) or not (true)
-        clippedLeft: true
+        clippedLeft: true,
       },
       footer: {
         // sets the CSS position of the footer
         fixed: true,
         // sets if the footer is full width (true) or gives space to the drawer (false)
-        clippedLeft: true
-      }
-    }
+        clippedLeft: true,
+      },
+    };
   },
-}
+};
 </script>

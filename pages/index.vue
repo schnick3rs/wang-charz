@@ -38,7 +38,7 @@
 <script lang="js">
 export default {
   components: {},
-  head: function () {
+  head() {
     return {
       titleTemplate: '%s',
       title: 'Doctors of Doom | A Wrath & Glory fan page',
@@ -46,11 +46,11 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Within the Warhammer 40k Universe, the Doctors of Doom are serving the community for Wrath & Glory ' +
-            'roleplaying game. Here you can find homebrews and (in the future) other W&G related stuff.'
-        }
-      ]
-    }
+          content: 'Within the Warhammer 40k Universe, the Doctors of Doom are serving the community for Wrath & Glory '
+            + 'roleplaying game. Here you can find homebrews and (in the future) other W&G related stuff.',
+        },
+      ],
+    };
   },
   data() {
     return {
@@ -73,10 +73,10 @@ export default {
           link: { text: 'To the Forge', route: '/builder/setting' },
           isActive: false,
         },
-      ]
-    }
+      ],
+    };
   },
-}
+};
 </script>
 
 <style scoped lang="css">
