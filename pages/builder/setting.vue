@@ -97,14 +97,13 @@
 </template>
 
 <script lang="js">
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
-
-  import axios from 'axios';
+  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
 
   export default {
   name: 'Setting',
   layout: 'builder',
-  mixins: [ArchetypeRepositoryMixin],
+  mixins: [SpeciesRepositoryMixin, ArchetypeRepositoryMixin],
   props: [],
   data() {
     return {
@@ -144,16 +143,6 @@
   },
   computed: {
     settingTier() { return this.$store.state.settingTier; },
-  },
-  async asyncData({ params }) {
-    const speciesResponse = await
-    axios.get('https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151');
-    const speciesAbilitiesResponse = await
-    axios.get('https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0');
-    return {
-      speciesRepository: speciesResponse.data || [],
-      speciesAbilitiesRepository: speciesAbilitiesResponse.data || [],
-    };
   },
   methods: {
     setSettingTier(event) {

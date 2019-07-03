@@ -1,42 +1,14 @@
-import axios from 'axios';
-
 export default {
   async asyncData({ params }) {
     //const speciesResponse = await axios.get('https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151');
-    const speciesAbilitiesResponse = await axios.get('https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0');
+    //const speciesAbilitiesResponse = await axios.get('https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0');
     return {
       //speciesRepository: speciesResponse.data || [],
-      speciesAbilitiesRepository: speciesAbilitiesResponse.data || [],
+      //speciesAbilitiesRepository: speciesAbilitiesResponse.data || [],
     };
   },
   data() {
     return {
-      astartesChapterRepository: [
-        {
-          key: 'bloodAngles',
-          name: 'Blood Angels',
-          beliefsAndTraditions: [
-            {
-              name: 'Blood Frenzy',
-              effect: 'When attacking in melee combat, a Blood Angels Space Marine may reroll up to Rank damage dice on every attack.',
-            },
-            {
-              name: 'The Red Thirst',
-              effect: 'After engaging in melee combat, Blood Angels must pass a Willpower test (DN 3). On a failure, the Blood Angels Space Marine feels a strong urge to drink the blood of the fallen—the player may choose how to respond to this urge. If the failure involves a complication, the Blood Angels Space Marine may not resist this urge. The Game Master may alter the DN based on how long it has been since the character has tasted blood.',
-            }],
-        },
-        {
-          key: 'darkAngles', name: 'Dark Angels', beliefsAndTraditions: [],
-        },
-        {
-          key: 'imperialFists',
-          name: 'Imperial Fists',
-          beliefsAndTraditions: [
-            { name: 'Blood Frenzy', effect: '' },
-            { name: 'The Red Thirst', effect: '' },
-          ],
-        },
-      ],
       speciesRepository: [
         {
           "name": "Human",
@@ -131,6 +103,88 @@ export default {
           "avatar": null,
           "theme": null
         }
+      ],
+      speciesAbilitiesRepository: [
+      {
+        "key": null,
+        "name": "Angel of Death",
+        "effect": "Space Marines add +1/2 Rank icons to any successful attack against a Mob.",
+        "description": null
+      },
+      {
+        "key": null,
+        "name": "Honour the Chapter",
+        "effect": "You are subject to the orders of your chapter master, and must honour both the beliefs and traditions of your chapter.",
+        "description": null
+      },
+      {
+        "key": null,
+        "name": "Space Marine Implants",
+        "effect": "Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifi er to any test if the Game Master deems it appropriate for one of the 19 implants.",
+        "description": null
+      },
+      {
+        "key": null,
+        "name": "Honour the Chapter (Primaris)",
+        "effect": "You are subject to the orders of your chapter master and the beliefs and traditions of your chapter. Primaris Space Marines gain the fi rst special rule from their Chapter and ignore any penalties or drawbacks from the second if it is marked as being related to the Chapter’s gene-seed.",
+        "description": null
+      },
+      {
+        "key": null,
+        "name": "Outsider",
+        "effect": "+2DN to all Interaction tests with those with the Keyword <Imperium>.",
+        "description": null
+      },
+      {
+        "key": null,
+        "name": "Orky",
+        "effect": "+1 to all Intimidation tests.",
+        "description": null
+      },
+      {
+        "key": null,
+        "name": "Bigger is Better",
+        "effect": "Orks calculate Infl uence using their Strength in place of Fellowship.",
+        "description": null
+      },
+      {
+        "key": null,
+        "name": "Intense Emotion",
+        "effect": "+1DN to all Resolve tests. Failing a Willpower-based test in a scene involving intense emotion grants the GM +1 Ruin.",
+        "description": null
+      },
+      {
+        "key": null,
+        "name": "Psychosensitive",
+        "effect": "All Eldar may purchase 1 Minor Psychic Power if they also purchase the Psychic Mastery skill. This purchase also gives them the Psyker keyword. In addition, the Tier Restriction for Maximum Psychic Powers for Eldar Characters is increased by 1 to accommodate this purchase.",
+        "description": null
+      }
+    ],
+      astartesChapterRepository: [
+        {
+          key: 'bloodAngles',
+          name: 'Blood Angels',
+          beliefsAndTraditions: [
+            {
+              name: 'Blood Frenzy',
+              effect: 'When attacking in melee combat, a Blood Angels Space Marine may reroll up to Rank damage dice on every attack.',
+            },
+            {
+              name: 'The Red Thirst',
+              effect: 'After engaging in melee combat, Blood Angels must pass a Willpower test (DN 3). On a failure, the Blood Angels Space Marine feels a strong urge to drink the blood of the fallen—the player may choose how to respond to this urge. If the failure involves a complication, the Blood Angels Space Marine may not resist this urge. The Game Master may alter the DN based on how long it has been since the character has tasted blood.',
+            }],
+        },
+        {
+          key: 'darkAngles', name: 'Dark Angels', beliefsAndTraditions: [],
+        },
+        {
+          key: 'imperialFists',
+          name: 'Imperial Fists',
+          beliefsAndTraditions: [
+            { name: 'Blood Frenzy', effect: '' },
+            { name: 'The Red Thirst', effect: '' },
+          ],
+        },
       ]
     };
   },

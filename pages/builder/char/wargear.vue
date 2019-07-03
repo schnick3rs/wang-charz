@@ -88,18 +88,13 @@
 </template>
 
 <script lang="js">
-  import axios from 'axios';
+  import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin.js';
 
   export default {
   name: 'Wargear',
   layout: 'builder',
   props: [],
-  async asyncData({ params }) {
-    const wargearResponse = await axios.get('https://api.sheety.co/cd93dfab-c658-4099-8a93-e6cc202b3488');
-    return {
-      wargearRepository: wargearResponse.data || [],
-    };
-  },
+  mixins: [WargearRepositoryMixin],
   data() {
     return {
       archetypeWargearRepository: [

@@ -98,22 +98,13 @@
 </template>
 
 <script lang="js">
-  import axios from 'axios';
+  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
   export default {
   name: 'Stats',
   layout: 'builder',
   props: [],
-  async asyncData({ params }) {
-    const attributeResponse = await axios.get('https://api.sheety.co/ff93c641-c553-4379-85c0-ca2acd417333');
-    const skillResponse = await axios.get('https://api.sheety.co/669365df-fa15-4003-ad7d-21d86e11b69a');
-    const traitResponse = await axios.get('https://api.sheety.co/2d702477-7a22-4d71-9c25-6119ee216253');
-    return {
-      attributeRepository: attributeResponse.data || [],
-      skillRepository: skillResponse.data || [],
-      traitRepository: traitResponse.data || [],
-    };
-  },
+  mixins: [StatRepositoryMixin],
   data() {
     return {
       selectedAttribute: undefined,

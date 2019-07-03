@@ -43,14 +43,14 @@
             <v-list-tile-action >
               <v-chip color="green" text-color="white">
                 <v-avatar class="green darken-4">{{item.cost}}</v-avatar>
-                <v-icon>attach_money</v-icon>
+                BP
               </v-chip>
             </v-list-tile-action>
 
             <v-list-tile-action>
               <v-chip color="red" text-color="white">
                 <v-avatar class="red darken-4">{{item.baseTier}}</v-avatar>
-                <v-icon >account_balance</v-icon>
+                Tier
               </v-chip>
             </v-list-tile-action>
 
@@ -95,14 +95,6 @@
     settingTier() { return this.$store.state.settingTier; },
     characterSpecies() { return this.getSpeciesBy(this.characterSpeciesName); },
     characterSpeciesName() { return this.$store.state.species.value; },
-  },
-  async asyncData({ params }) {
-    // const speciesResponse = await axios.get(`https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151`)
-    // const speciesAbilitiesResponse = await axios.get(`https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0`)
-    return {
-      // speciesRepository: speciesResponse.data || [],
-      // speciesAbilitiesRepository: speciesAbilitiesResponse.data || []
-    };
   },
   methods: {
     doChangeSpeciesMode() {

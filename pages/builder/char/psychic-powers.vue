@@ -60,6 +60,7 @@
           :items="filteredPowers"
           :search="searchQuery"
           :headers="headers"
+          hide-actions
         >
           <template v-slot:no-data>
           </template>
@@ -192,7 +193,7 @@
     maximumPsychicPowers() { return this.settingTier + 3; },
     characterPowers() { return this.$store.state.psychicPowers.map(p => p.name); },
     filteredPowers() {
-      if (this.powers === undefined) {
+      if (this.psychicPowersRepository === undefined) {
         return [];
       }
 
