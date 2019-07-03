@@ -74,13 +74,13 @@
 
 <script lang="js">
   import SpeciesPreview from '~/components/builder/SpeciesPreview.vue';
-  import SpeciesRepository from '~/mixins/SpeciesRepository.json';
+  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
 
   export default {
   name: 'SpeciesSelection',
   layout: 'builder',
   components: { SpeciesPreview },
-  mixins: [],
+  mixins: [ SpeciesRepositoryMixin ],
   props: [],
   data() {
     return {
@@ -88,7 +88,6 @@
       speciesDialog: false,
       selectedSpecies: undefined,
       previewSpeciesArchetypeOptions: [],
-      speciesRepository: SpeciesRepository,
     };
   },
   computed: {

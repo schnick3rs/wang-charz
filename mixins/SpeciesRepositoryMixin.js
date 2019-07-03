@@ -2,10 +2,10 @@ import axios from 'axios';
 
 export default {
   async asyncData({ params }) {
-    const speciesResponse = await axios.get('https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151');
+    //const speciesResponse = await axios.get('https://api.sheety.co/04c8f13a-c4ed-4f05-adad-7cf11db62151');
     const speciesAbilitiesResponse = await axios.get('https://api.sheety.co/a192e4d5-a73f-46c0-929e-f3eca3dde0a0');
     return {
-      speciesRepository: speciesResponse.data || [],
+      //speciesRepository: speciesResponse.data || [],
       speciesAbilitiesRepository: speciesAbilitiesResponse.data || [],
     };
   },
@@ -37,6 +37,101 @@ export default {
           ],
         },
       ],
+      speciesRepository: [
+        {
+          "name": "Human",
+          "cost": 0,
+          "baseTier": 1,
+          "speed": 6,
+          "attributes": "None",
+          "modifications": [],
+          "abilities": null,
+          "key": "human",
+          "hint": "The humble human",
+          "description": "Each human is just one of untold billions spread across the galaxy over millions of planets. Those in the Imperium live under the authority of the Emperor, but He has not stirred from His Golden Throne on Holy Terra for over ten thousand years. The remorseless government agencies of the Imperium use His authority to mercilessly rule Humanity according to their interpretations of the Emperor’s will. Every planet has its own culture and unique interpretations of the Imperium’s laws and sacred beliefs, but a few things are especially common.",
+          "avatar": null,
+          "theme": null
+        },
+        {
+          "name": "Eldar",
+          "cost": 10,
+          "baseTier": 1,
+          "speed": 8,
+          "attributes": "Agility +1",
+          "modifications": [
+            {
+              "targetGroup": "attributes",
+              "targetValue": "agility",
+              "modifier": 1
+            }
+          ],
+          "abilities": "Outsider,Intense Emotion,Psychosensitive",
+          "key": "eldar",
+          "hint": "The filthy xenos",
+          "description": "The Aeldari ruled the galaxy for millions of years. During their rise to power, this species uncovered secrets of the galaxy’s very essence, learning to create and shatter entire worlds. They discovered and developed the webway, enabling them to quickly travel across the galaxy without the risk of warp travel. Their collective knowledge eventually reached the point that any drive to learn dampened, as they could accomplish virtually any task they could imagine. The longlived Aeldari existed in luxury, pursuing whatever interests drew their attention. Eventually, such leisure led to increasingly hedonistic pursuits that spread in cults across their entire population. Those moral failings, over time, coalesced within the warp, giving birth to Slaanesh.",
+          "avatar": null,
+          "theme": null
+        },
+        {
+          "name": "Ork",
+          "cost": 10,
+          "baseTier": 1,
+          "speed": 6,
+          "attributes": "Toughness +1",
+          "modifications": [
+            {
+              "targetGroup": "attributes",
+              "targetValue": "toughness",
+              "modifier": 1
+            }
+          ],
+          "abilities": "Outsider,Orky,Bigger is Better",
+          "key": "ork",
+          "hint": "The savage brute",
+          "description": "Orks are ubiquitous throughout the galaxy. Their incomprehensible physiology and ecosystem is capable of actively proliferating in even the most hostile of environments—from ash wastes, to overgrown Death Worlds, to barren asteroids. Even a small tribe of a few dozen Orks can inexplicably grow into a force of tens of thousands in relatively short order. The biological mechanisms behind this growth and adaptability confound even the most accomplished scholars of the Adeptus Mechanicus. There are no consistent requirements for Orks to thrive within any climate. However, their functionality is clearly evident on the countless worlds they have subsumed.",
+          "avatar": null,
+          "theme": null
+        },
+        {
+          "name": "Adeptus Astartes",
+          "cost": 50,
+          "baseTier": 2,
+          "speed": 7,
+          "attributes": "Strength +1, Agility +1, Toughness +1, Resolve +1",
+          "modifications": [
+            { "targetGroup": "attributes", "targetValue": "strength", "modifier": 1 },
+            { "targetGroup": "attributes", "targetValue": "agility", "modifier": 1 },
+            { "targetGroup": "attributes", "targetValue": "toughness", "modifier": 1 },
+            { "targetGroup": "traits", "targetValue": "resolve", "modifier": 1 }
+          ],
+          "abilities": "Angel of Death,Honour the Chapter,Space Marine Implants",
+          "key": "adeptusAstartes",
+          "hint": "the sword of mankind",
+          "description": "Prior to launching the Great Crusade, the Emperor of Man created the Adeptus Astartes and assembled them into his legions. Each began as a mortal man, but a combination of genetic manipulations and physical implantations transformed each into a superhuman warrior—an Imperial Space Marine. The Emperor initially created twenty legions of Space Marines, each one containing vast numbers. All members of each of the twenty legions used a gene-seed developed from one of the twenty godlike Primarchs, whom the emperor also created. During the Great Crusade, Primarchs served as the generals of the Space Marine Legions, as the Emperor strove to reunify all lost human worlds, bringing the galaxy into Imperial Compliance.",
+          "avatar": null,
+          "theme": null
+        },
+        {
+          "name": "Primaris Astartes",
+          "cost": 100,
+          "baseTier": 4,
+          "speed": 7,
+          "attributes": "Strength +2, Agility +1,Toughness: +1, Resolve +1, Wounds +4",
+          "modifications": [
+            { "targetGroup": "attributes", "targetValue": "strength", "modifier": 2 },
+            { "targetGroup": "attributes", "targetValue": "agility", "modifier": 1 },
+            { "targetGroup": "attributes", "targetValue": "toughness", "modifier": 1 },
+            { "targetGroup": "traits", "targetValue": "resolve", "modifier": 1 },
+            { "targetGroup": "traits", "targetValue": "wound", "modifier": 4 }
+          ],
+          "abilities": "Angel of Death,Honour the Chapter (Primaris),Space Marine Implants",
+          "key": "primarisAstartes",
+          "hint": "the new breed",
+          "description": "In the wake of the Horus Heresy, after completing the Codex Astartes, Primarch Roboute Guilliman decided that the Adeptus Astartes needed further enhancements to better defend the Imperium from outside threats—including those Space Marines who had turned traitor. He assigned the job of improving them to Archmagos Dominus Belisarius Cawl of the Adeptus Mechanicus. To aid the Tech-Priest, Guilliman provided him with an archive of genetic material taken from his fellow Primarchs, called the Sangprimus Portum.",
+          "avatar": null,
+          "theme": null
+        }
+      ]
     };
   },
 };
