@@ -99,35 +99,6 @@
     return {
       archetypeWargearRepository: [
         {
-          name: 'Sister of Battle',
-          options: [
-            { name: 'Sororitas Power Armour' },
-            { name: 'Chaplet Ecclisiasticus' },
-            {
-              name: 'Either a boltgun OR a chainsword and bolt pistol.',
-              selected: 'Boltgun',
-              options: [
-                { name: 'Boltgun' },
-                { name: 'Chainsword and Bold pistol' },
-              ],
-            },
-            { name: 'Clothing (Sororitas vestments)' },
-            { name: 'Writing kit' },
-            { name: 'Copy of the Rule of the Soroitas' },
-          ],
-        },
-        {
-          name: 'Death Cult Assassin',
-          options: [
-            { name: 'Bodyglove' },
-            { name: 'Death Cult Powerblade' },
-            { name: 'Death Cult Powerblade' },
-            { name: 'Knife' },
-            { name: 'Laspistol' },
-            { name: 'Doses of stimm', amount: 3 },
-          ],
-        },
-        {
           name: 'Commissar',
           options: [
             { name: 'Flak Coat' },
@@ -145,6 +116,20 @@
           options: [
             { name: 'Flak Armour' },
             { name: 'Lasgun' },
+            { name: 'Knife' },
+            { name: 'Guard issue mess kit' },
+            { name: 'Blanket' },
+            { name: 'Grooming kit' },
+            { name: 'Uplifting Primer' },
+            { name: 'Ration Packs', amount: 3 },
+          ],
+        },
+        {
+          name: 'Tempestus Scion',
+          options: [
+            { name: 'Carapace Armour' },
+            { name: 'Hot-Shot Lasgun' },
+            { name: 'Grav-chute' },
             { name: 'Knife' },
             { name: 'Guard issue mess kit' },
             { name: 'Blanket' },
@@ -265,6 +250,47 @@
               ],
             },
             { name: 'Imperial Frigate' },
+          ],
+        },
+        {
+          name: 'Sanctioned Psyker',
+          options: [
+            { name: 'Laspistol' },
+            { name: 'Knife' },
+            { name: 'Guard issue mess kit' },
+            { name: 'Blanket' },
+            { name: 'Grooming kit' },
+            { name: 'Uplifting Primer' },
+            { name: 'Ration Packs', amount: 3 },
+          ],
+        },
+        {
+          name: 'Sister of Battle',
+          options: [
+            { name: 'Sororitas Power Armour' },
+            { name: 'Chaplet Ecclisiasticus' },
+            {
+              name: 'Either a boltgun OR a chainsword and bolt pistol.',
+              selected: 'Boltgun',
+              options: [
+                { name: 'Boltgun' },
+                { name: 'Chainsword and Bold pistol' },
+              ],
+            },
+            { name: 'Clothing (Sororitas vestments)' },
+            { name: 'Writing kit' },
+            { name: 'Copy of the Rule of the Soroitas' },
+          ],
+        },
+        {
+          name: 'Death Cult Assassin',
+          options: [
+            { name: 'Bodyglove' },
+            { name: 'Death Cult Powerblade' },
+            { name: 'Death Cult Powerblade' },
+            { name: 'Knife' },
+            { name: 'Laspistol' },
+            { name: 'Doses of stimm', amount: 3 },
           ],
         },
       ],
