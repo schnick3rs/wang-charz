@@ -100,7 +100,7 @@ export const getters = {
     return enhanced;
   },
   skills(state) { return state.skills; },
-  traits(state) {
+  traits(state, getters) {
     let traits = {};
     traits['defence'] = state.attributes.initiative-1;
     traits['resilience'] = state.attributes.toughness+1;
@@ -110,7 +110,15 @@ export const getters = {
     traits['resolve'] = state.attributes.willpower-1;
     traits['conviction'] = state.attributes.willpower;
     traits['passiveAwareness'] = Math.round((state.attributes.intellect+state.skills.awareness)/2);
+
     traits['influence'] = state.attributes.fellowship-1;
+    if ( getters.species && getters.species === 'Ork' ) {
+      traits['influence'] = state.attributes.strength-1;
+    }
+    if ( getters.archetype && getters.archetype === 'Tech-Priest' ) {
+      traits['influence'] = state.attributes.intellect-1;
+    }
+
     traits['wealth'] = state.settingTier;
     traits['speed'] = 6;
     traits['corruption'] = 0;
