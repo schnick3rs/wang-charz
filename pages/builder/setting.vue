@@ -18,7 +18,7 @@
 
       <v-select
         label="Allowed Species"
-        :value="speciesRepository.map( s => s.name ).filter( s => s === 'Human')"
+        :value="speciesRepository.map( s => s.name )"
         :items="speciesRepository"
         item-text="name"
         item-value="name"

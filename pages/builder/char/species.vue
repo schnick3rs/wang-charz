@@ -32,7 +32,7 @@
           >
 
             <v-list-tile-avatar tile>
-              <img :src="item.avatar">
+              <img :src="getAvatar(item.name)">
             </v-list-tile-avatar>
 
             <v-list-tile-content>
@@ -97,6 +97,10 @@
     characterSpeciesName() { return this.$store.state.species.value; },
   },
   methods: {
+    getAvatar(name) {
+      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      return `/img/icon/species_${slug}_avatar.png`;
+    },
     doChangeSpeciesMode() {
       this.changeSpeciesMode = true;
     },

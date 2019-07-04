@@ -170,6 +170,9 @@
     },
     selectArchetypeForChar(item) {
       this.$store.commit('setArchetype', { value: item.name, cost: item.cost, tier: item.tier });
+      const mods = [];
+      mods.push({ targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name});
+      this.$store.commit('setArchetypeModifications', { modifications: mods });
       this.dialog = false;
       this.changeMode = false;
     },

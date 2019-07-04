@@ -8,7 +8,7 @@ export default {
           "name": "Primaris Intercessor",
           "cost": 60,
           "tier": 4,
-          "species": "Adeptus Primaris",
+          "species": "Primaris Astartes",
           "influence": 1,
           "keywords": "Imperium",
           "bonus": null,
@@ -532,8 +532,8 @@ export default {
           "hint": "An unsanctioned bearer of psychic powers, wielding the warp’s power without discipline."
         },
         {
-          "label": "[1] Hive Ganger (0)",
-          "name": "Hive Ganger",
+          "label": "[1] Ganger (0)",
+          "name": "Ganger",
           "cost": 0,
           "tier": 1,
           "species": "Human",

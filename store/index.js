@@ -94,7 +94,7 @@ export const getters = {
     const enhanced = Object.assign({}, state.attributes);
     const attributeEnhancements = state.enhancements.filter(e => e.targetGroup === 'attributes');
     attributeEnhancements.forEach((m) => {
-      console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}.`);
+      console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}/${m.hint}.`);
       enhanced[m.targetValue] += m.modifier;
     });
     return enhanced;
@@ -212,6 +212,14 @@ export const mutations = {
   },
   setArchetype(state, payload) {
     state.archetype = payload;
+  },
+  setArchetypeModifications(state, payload) {
+    state.enhancements = state.enhancements.filter(e => e.source !== 'archetype');
+
+    payload.modifications.forEach((item) => {
+      item.source = 'archetype';
+      state.enhancements.push(item);
+    });
   },
   setAttribute(state, payload) {
     state.attributes[payload.key] = payload.value;

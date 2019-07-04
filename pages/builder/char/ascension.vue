@@ -33,22 +33,36 @@
       xs12
       v-if="chooseMode && alerts.length === 0"
     >
+      <v-card>
 
-      <v-card
-        v-for="ascension in ascensionRepository"
-        :key="ascension.key"
-        class="mb-4"
-        hover
-        @click.stop="openDialog(ascension)"
-      >
+        <v-list>
 
-        <v-card-title class="subheading">
-          {{ascension.name}}
-          <v-spacer></v-spacer>
-          <v-btn dense icon>
-            <v-icon color="primary">arrow_forward_ios</v-icon>
-          </v-btn>
-        </v-card-title>
+          <v-list-tile
+            two-line
+            v-for="item in ascensionRepository"
+            :key="item.key"
+            avatar
+            @click.stop="openDialog(item)"
+          >
+
+            <v-list-tile-avatar tile>
+              <img />
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>{{item.name}}</v-list-tile-title>
+              <v-list-tile-sub-title>{{item.teaser}}</v-list-tile-sub-title>
+            </v-list-tile-content>
+
+            <v-list-tile-action>
+              <v-btn dense icon>
+                <v-icon color="primary">arrow_forward_ios</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+
+          </v-list-tile>
+
+        </v-list>
 
       </v-card>
 
@@ -193,7 +207,8 @@
       return alerts;
     },
     characterAscensionPackages() {
-      return this.$store.state.ascensionPackages.map(i => this.ascensionRepository.find(j => j.name = i.value));
+      return this.$store.state.ascensionPackages
+      .map(packageName => this.ascensionRepository.find(j => j.name === packageName.value));
     },
     characterArchetype() {
       return this.$store.state.archetype.value;

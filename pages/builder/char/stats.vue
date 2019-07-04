@@ -23,17 +23,13 @@
                 <v-icon color="red">remove_circle</v-icon>
               </v-btn>
             </v-list-tile-action>
+            <v-list-tile-action>{{ characterAttributes[attribute.key] }}</v-list-tile-action>
             <v-list-tile-action>
               <v-btn icon @click="incrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.key)">
                 <v-icon color="green">add_circle</v-icon>
               </v-btn>
             </v-list-tile-action>
-            <v-list-tile-action>
-              {{ characterAttributes[attribute.key] }}
-            </v-list-tile-action>
-            <v-list-tile-action>
-              {{ characterAttributesEnhanced[attribute.key] }}
-            </v-list-tile-action>
+            <v-list-tile-action>{{ characterAttributesEnhanced[attribute.key] }}</v-list-tile-action>
 
           </v-list-tile>
 
@@ -68,18 +64,19 @@
             :key="skill.key"
           >
 
-              <v-list-tile-content>{{skill.name}}:</v-list-tile-content>
-              <v-list-tile-action>
-                <v-btn icon @click="decrementSkill(skill.key)" :disabled="characterSkills[skill.key] <= 0">
-                  <v-icon color="red">remove_circle</v-icon>
-                </v-btn>
-              </v-list-tile-action>
-              <v-list-tile-action>
-                <v-btn icon @click="incrementSkill(skill.key)" :disabled="characterSkills[skill.key] >= skillMaximum">
-                  <v-icon :color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
-                </v-btn>
-              </v-list-tile-action>
-              <v-list-tile-action>{{characterSkills[skill.key]}}</v-list-tile-action>
+            <v-list-tile-content>{{skill.name}}:</v-list-tile-content>
+            <v-list-tile-action>
+              <v-btn icon @click="decrementSkill(skill.key)" :disabled="characterSkills[skill.key] <= 0">
+                <v-icon color="red">remove_circle</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+            <v-list-tile-action>{{characterSkills[skill.key]}}</v-list-tile-action>
+            <v-list-tile-action>
+              <v-btn icon @click="incrementSkill(skill.key)" :disabled="characterSkills[skill.key] >= skillMaximum">
+                <v-icon :color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+            <v-list-tile-action>{{characterSkills[skill.key]+characterAttributesEnhanced[skill.attribute.toLowerCase()]}}</v-list-tile-action>
 
           </v-list-tile>
 

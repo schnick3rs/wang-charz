@@ -44,28 +44,21 @@
             <template v-slot:no-data>
             </template>
             <template v-slot:items="props">
-              <td class="caption">{{props.item.name}}</td>
-              <td class="caption text-xs-center" >{{props.item.cost}}</td>
-              <td class="caption" v-html="prerequisitesToText(props.item).join(', ')"></td>
               <td class="caption">
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                    <v-icon class="hidden-md-and-up" v-on="on" color="primary">help</v-icon>
-                  </template>
-                  <span>{{props.item.effect}}</span>
-                </v-tooltip>
-                <span class="hidden-sm-and-down">{{props.item.effect}}</span>
+                <span >{{props.item.name}}</span>
+                <span class="hidden-md-and-up" style="display:block; color:grey;">{{props.item.effect}}</span>
               </td>
-              <td>
-                <v-btn icon
-                       @click="addTalent(props.item)"
-                >
+              <td class="caption text-xs-center" >{{props.item.cost}}</td>
+              <td class="caption hidden-xs-and-down" v-html="prerequisitesToText(props.item).join(', ')"></td>
+              <td class="caption hidden-sm-and-down">{{props.item.effect}}</td>
+              <td class="text-xs-center">
+                <v-btn icon @click="addTalent(props.item)" >
                   <v-icon :color="affordableColor(props.item.cost)">add_circle</v-icon>
                 </v-btn>
               </td>
             </template>
             <template v-slot:no-results>
-              <div class="text-lg-center">Your search for "{{ searchQuery }}" found no results.</div>
+              <div class="text-xs-center">Your search for "{{ searchQuery }}" found no results.</div>
             </template>
           </v-data-table>
 
@@ -92,14 +85,34 @@
       searchQuery: '',
       headers: [
         {
-          text: 'Name', value: 'name', align: 'left', sortable: true,
+          text: 'Name',
+          value: 'name',
+          align: 'left',
+          sortable: true,
         },
         {
-          text: 'Cost', value: 'cost', align: 'center', sortable: true,
+          text: 'Cost',
+          value: 'cost',
+          align: 'center',
+          sortable: true,
         },
-        { text: 'Prerequisites', value: 'prerequisites', sortable: false },
-        { text: 'Effect', value: 'effect', sortable: false },
-        { text: 'Buy', align: 'center', sortable: false },
+        {
+          text: 'Prerequisites',
+          value: 'prerequisites',
+          sortable: false,
+          //class: 'hidden-sm-and-down',
+        },
+        {
+          text: 'Effect',
+          value: 'effect',
+          sortable: false,
+          class: 'hidden-sm-and-down',
+        },
+        {
+          text: 'Buy',
+          align: 'center',
+          sortable: false,
+        },
       ],
     };
   },
