@@ -131,7 +131,7 @@
   methods: {
     getAvatar(name) {
       const slug = name.toLowerCase().replace(/\s/gm, '-');
-      return `/img/icon/archetype_${slug}_avatar.png`;
+      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
     },
     doChangeMode() {
       this.changeMode = true;

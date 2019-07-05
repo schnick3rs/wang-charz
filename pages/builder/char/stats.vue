@@ -1,4 +1,4 @@
-<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template lang="html">
 
   <v-layout justify-center row wrap>
 
@@ -19,13 +19,21 @@
 
             <v-list-tile-content>{{attribute.name}}:</v-list-tile-content>
             <v-list-tile-action>
-              <v-btn icon @click="decrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] <= 1">
+              <v-btn
+                icon
+                @click="decrementAttribute(attribute.key)"
+                :disabled="characterAttributes[attribute.key] <= 1"
+              >
                 <v-icon color="red">remove_circle</v-icon>
               </v-btn>
             </v-list-tile-action>
             <v-list-tile-action>{{ characterAttributes[attribute.key] }}</v-list-tile-action>
             <v-list-tile-action>
-              <v-btn icon @click="incrementAttribute(attribute.key)" :disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.key)">
+              <v-btn
+                icon
+                @click="incrementAttribute(attribute.key)"
+                :disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"
+              >
                 <v-icon color="green">add_circle</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -72,7 +80,11 @@
             </v-list-tile-action>
             <v-list-tile-action>{{characterSkills[skill.key]}}</v-list-tile-action>
             <v-list-tile-action>
-              <v-btn icon @click="incrementSkill(skill.key)" :disabled="characterSkills[skill.key] >= skillMaximum">
+              <v-btn
+                icon
+                @click="incrementSkill(skill.key)"
+                :disabled="characterSkills[skill.key] >= skillMaximum"
+              >
                 <v-icon :color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
               </v-btn>
             </v-list-tile-action>
@@ -95,6 +107,7 @@
 </template>
 
 <script lang="js">
+  import { mapGetters } from 'vuex';
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
   export default {
@@ -141,8 +154,9 @@
       const cost = skillNewValueCost[currentSkillValue + 1];
       return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
     },
-    attributeMaximumFor(attribute) {
-      return 8;
+    attributeMaximumFor(attributeName) {
+      const usedSpecies = this.characterSpecies || 'Human';
+      return this.getAttributeMaximumForSpecies( usedSpecies, attributeName );
     },
     skillMaximumBy(tier) {
       return 3 + tier;
@@ -165,13 +179,18 @@
     skillMaximum() {
       return this.skillMaximumBy(this.settingTier);
     },
-    settingTier() { return this.$store.state.settingTier; },
-    remainingBuildPoints() { return this.$store.getters['remainingBuildPoints']; },
-    characterAttributes() { return this.$store.state.attributes; },
-    characterAttributesEnhanced() {      return this.$store.getters['attributesEnhanced']; },
-    characterTraitsEnhanced() {      return this.$store.getters['traitsEnhanced']; },
-    characterSkills() { return this.$store.state.skills; },
-    characterTraits() { return this.$store.getters['traits']; },
+    ...mapGetters([
+      'settingTier',
+      'remainingBuildPoints'
+    ]),
+    ...mapGetters({
+      characterSpecies: 'species',
+      characterAttributes: 'attributes',
+      characterAttributesEnhanced: 'attributesEnhanced',
+      characterTraits: 'traits',
+      characterTraitsEnhanced: 'traitsEnhanced',
+      characterSkills: 'skills',
+    }),
   }
 }
 </script>

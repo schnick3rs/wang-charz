@@ -10,7 +10,8 @@
       <ascension-preview
         v-if="selectedPreview"
         :item="selectedPreview"
-        currentCharacterTier="2"
+        :currentCharacterTier="effectiveCharacterTier"
+        :maxTargetTier="settingTier"
         chooseMode
         @select="selectPackageForChar"
         @cancel="dialog = false"
@@ -226,6 +227,9 @@
       this.dialog = true;
     },
     selectPackageForChar(ascensionPackage, targetTier) {
+      ascensionPackage.sourceTier = this.effectiveCharacterTier;
+      ascensionPackage.targetTier = targetTier;
+
       const payload = {
         value: ascensionPackage.name,
         cost: ascensionPackage.cost * targetTier,
@@ -233,8 +237,6 @@
       };
       this.$store.commit('addAscension', payload);
 
-      ascensionPackage.sourceTier = 2;
-      ascensionPackage.targetTier = targetTier;
       this.characterAscension = ascensionPackage;
 
       this.chooseMode = false;

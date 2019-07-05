@@ -91,7 +91,7 @@
   props: {
     item: {
       type: Object,
-      required: true,
+      required: false,
     },
     manageMode: {
       type: Boolean,

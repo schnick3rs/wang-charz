@@ -554,28 +554,6 @@ export default {
           "hint": "A resourceful and tenacious survivor from the depths of enormous industrial cities."
         },
         {
-          "label": "[2] Scum Psyker (50)",
-          "name": "Scum Psyker",
-          "cost": 50,
-          "tier": 2,
-          "species": "Human",
-          "influence": 0,
-          "keywords": "Imperium,Scum,Psyker",
-          "bonus": "Corruption,Corruption,Corruption",
-          "wargear": null,
-          "abilities": null,
-          "keywordOption": null,
-          "prerequisite": null,
-          "attributes": null,
-          "skills": null,
-          "group": "Scum",
-          "avatar": null,
-          "theme": null,
-          "key": "scumPsyker",
-          "description": null,
-          "hint": "A more or less unsanctioned psyker."
-        },
-        {
           "label": "[2] Skitarius (40)",
           "name": "Skitarius",
           "cost": 40,

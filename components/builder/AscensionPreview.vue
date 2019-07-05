@@ -32,6 +32,40 @@
 
     </v-card-text>
 
+    <v-card-actions>
+
+        <v-layout align-center justify-center >
+
+          <v-flex xs2 >
+            <v-select
+              :items="[currentCharacterTier]"
+              :value="currentCharacterTier"
+              label="Current Tier"
+              dense
+              disabled
+              readonly
+            ></v-select>
+          </v-flex>
+
+          <v-flex xs2 offset-xs1 class="align-center justify-center">
+            <v-avatar size="32" color="primary" >
+              <v-icon color="white">arrow_forward</v-icon>
+            </v-avatar>
+          </v-flex>
+
+          <v-flex xs2>
+            <v-select
+              :items="targetTierOptions"
+              v-model="targetTier"
+              dense
+              label="Target Tier"
+            ></v-select>
+          </v-flex>
+
+        </v-layout>
+
+    </v-card-actions>
+
     <v-card-actions v-if="chooseMode">
       <v-btn block color="green" @click="$emit('select', item, targetTier)" >Select Package</v-btn>
       <v-btn block color="red" @click="$emit('cancel')" >Cancel</v-btn>
@@ -44,7 +78,14 @@
 export default {
   name: 'ascension-preview',
   props: {
-    currentCharacterTier: {},
+    currentCharacterTier: {
+      type: Number,
+      required: true,
+    },
+    maxTargetTier: {
+      type: Number,
+      required: true,
+    },
     item: {
       type: Object,
       required: true,
@@ -60,12 +101,18 @@ export default {
   },
   data() {
     return {
-      targetTier: 3,
+      targetTier: this.maxTargetTier,
     };
   },
   methods: {
+    range(start, end) {
+      return Array(end - start + 1).fill().map((_, idx) => start + idx)
+    }
   },
   computed: {
+    targetTierOptions() {
+      return this.range(this.currentCharacterTier+1, this.maxTargetTier);
+    }
   },
 };
 </script>

@@ -59,17 +59,22 @@
 
       <v-list
         two-line
+        avatar
         dense
         v-if="characterWargear"
       >
 
         <v-list-tile
           v-for="gear in characterWargear"
-          :key="gear.key"
+          :key="gear.name"
         >
 
+          <v-list-tile-avatar tile>
+            <img />
+          </v-list-tile-avatar>
+
           <v-list-tile-content>
-            <v-list-tile-title>{{gear}}</v-list-tile-title>
+            <v-list-tile-title>{{gear.name}}</v-list-tile-title>
             <v-list-tile-sub-title>{{wargearSubtitle(gear)}}</v-list-tile-sub-title>
           </v-list-tile-content>
 
@@ -96,20 +101,34 @@
   props: [],
   mixins: [WargearRepositoryMixin],
   data() {
-    return {
-    };
+    return {};
   },
   computed: {
+
     settingTier() { return this.$store.state.settingTier; },
     characterArchetypeName() { return this.$store.state.archetype.value; },
     startingWargear() {
       return this.archetypeWargearRepository.find(i => i.name === this.characterArchetypeName);
     },
     characterWargear() {
-      return this.$store.state.wargear.map(i => i.name);
+      const characterWargear = [];
+      this.$store.state.wargear.forEach(chargear => {
+         this.wargearRepository.find(wargear => {
+           if ( wargear.name === chargear.name ) {
+             console.log(`Equip with ${wargear.name}`);
+             characterWargear.push(wargear);
+           }
+         });
+      });
+      console.log(characterWargear);
+      return characterWargear;
     },
   },
   methods: {
+    getAvatar(name) {
+      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      return `/img/icon/wargear/wargear_${slug}_avatar.png`;
+    },
     addWargearToCharacter(wargearOptions) {
       const finalWargear = [];
 
@@ -132,8 +151,8 @@
         this.$store.commit('addWargear', { name: w });
       });
     },
-    wargearSubtitle(gear) {
-      const item = this.wargearRepository.find(i => i.name === gear);
+    wargearSubtitle(item) {
+      //const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
         const tags = [
           item.type,
