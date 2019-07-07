@@ -18,57 +18,7 @@
       ></ascension-preview>
     </v-dialog>
 
-    <v-flex v-if="chooseMode">
-      <h1 class="headline">Select an Ascension Package</h1>
-
-      <v-alert
-        v-for="alert in alerts"
-        :key="alert.key"
-        :value="true"
-        :type="alert.type"
-      >{{alert.text}}</v-alert>
-
-    </v-flex>
-
-    <v-flex
-      xs12
-      v-if="chooseMode && alerts.length === 0"
-    >
-      <v-card>
-
-        <v-list>
-
-          <v-list-tile
-            two-line
-            v-for="item in ascensionRepository"
-            :key="item.key"
-            avatar
-            @click.stop="openDialog(item)"
-          >
-
-            <v-list-tile-avatar tile>
-              <img />
-            </v-list-tile-avatar>
-
-            <v-list-tile-content>
-              <v-list-tile-title>{{item.name}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{item.teaser}}</v-list-tile-sub-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-btn dense icon>
-                <v-icon color="primary">arrow_forward_ios</v-icon>
-              </v-btn>
-            </v-list-tile-action>
-
-          </v-list-tile>
-
-        </v-list>
-
-      </v-card>
-
-    </v-flex>
-
+    <!-- selected ascension -->
     <v-flex
       xs12
       v-if="characterAscensionPackages.length > 0"
@@ -87,7 +37,6 @@
           </div>
           <div>
             <v-btn
-              v-if="manageMode"
               flat
               color="red"
               @click="removePackage(characterAscension)"
@@ -165,19 +114,69 @@
 
       </v-card>
 
+    </v-flex>
+
+    <!--  -->
+    <v-flex>
+      <h1 class="headline">Select an Ascension Package</h1>
+
+      <v-alert
+        v-for="alert in alerts"
+        :key="alert.key"
+        :value="true"
+        :type="alert.type"
+      >{{alert.text}}</v-alert>
+
+    </v-flex>
+
+    <!-- ascension options -->
+    <v-flex
+      xs12
+      v-if="alerts.length === 0"
+    >
       <v-card>
-        <v-card-actions>
-          <v-btn block flat color="primary">+ add another ascension package</v-btn>
-        </v-card-actions>
+
+        <v-list>
+
+          <v-list-tile
+            two-line
+            v-for="item in ascensionRepository"
+            :key="item.key"
+            avatar
+            @click.stop="openDialog(item)"
+          >
+
+            <v-list-tile-avatar tile>
+              <img />
+            </v-list-tile-avatar>
+
+            <v-list-tile-content>
+              <v-list-tile-title>{{item.name}}</v-list-tile-title>
+              <v-list-tile-sub-title>{{item.teaser}}</v-list-tile-sub-title>
+            </v-list-tile-content>
+
+            <v-list-tile-action>
+              <v-btn dense icon>
+                <v-icon color="primary">arrow_forward_ios</v-icon>
+              </v-btn>
+            </v-list-tile-action>
+
+          </v-list-tile>
+
+        </v-list>
+
       </v-card>
 
     </v-flex>
+
+
 
   </v-layout>
 
 </template>
 
 <script lang="js">
+  import { mapGetters } from 'vuex';
   import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
   import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
   import AscensionPreview from '~/components/builder/AscensionPreview.vue';
@@ -192,8 +191,6 @@
     return {
       dialog: false,
       selectedPreview: undefined,
-      chooseMode: true,
-      manageMode: false,
     };
   },
   computed: {
@@ -208,17 +205,18 @@
       return alerts;
     },
     characterAscensionPackages() {
-      return this.$store.state.ascensionPackages
-      .map(packageName => this.ascensionRepository.find(j => j.name === packageName.value));
+      return this.$store.state.ascensionPackages.map(packageName => {
+        const characterPackage = this.ascensionRepository.find(j => {
+          return j.name === packageName.value;
+        })
+        characterPackage.sourceTier = packageName.sourceTier;
+        characterPackage.targetTier = packageName.targetTier;
+        return characterPackage;
+      });
     },
+    ...mapGetters(['settingTier', 'effectiveCharacterTier']),
     characterArchetype() {
       return this.$store.state.archetype.value;
-    },
-    effectiveCharacterTier() {
-      return this.$store.getters.effectiveCharacterTier;
-    },
-    settingTier() {
-      return this.$store.state.settingTier;
     },
   },
   methods: {
@@ -233,14 +231,13 @@
       const payload = {
         value: ascensionPackage.name,
         cost: ascensionPackage.cost * targetTier,
-        targetTier,
+        sourceTier: ascensionPackage.sourceTier,
+        targetTier: targetTier,
       };
       this.$store.commit('addAscension', payload);
 
       this.characterAscension = ascensionPackage;
 
-      this.chooseMode = false;
-      this.manageMode = true;
       this.dialog = false;
     },
     removePackage(ascensionPackage) {
@@ -250,7 +247,6 @@
         targetTier: ascensionPackage.targetTier,
       };
       this.$store.commit('removeAscension', payload);
-      this.chooseMode = (this.characterAscension.length <= 0);
     },
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {

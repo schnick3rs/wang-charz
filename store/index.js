@@ -221,7 +221,12 @@ export const mutations = {
     }
   },
   addAscension(state, payload) {
-    state.ascensionPackages.push({ value: payload.value, cost: payload.cost, targetTier: payload.targetTier });
+    state.ascensionPackages.push({
+      value: payload.value,
+      cost: payload.cost,
+      sourceTier: payload.sourceTier,
+      targetTier: payload.targetTier,
+    });
   },
   removeAscension(state, payload) {
     // remove the package from the ascension stacks
