@@ -19,7 +19,7 @@
             change species
           </v-btn>
         </h3>
-        <span class="subheading">{{ species.hint }}</span>
+        <span class="grey--text">{{ species.hint }}</span>
       </div>
     </v-card-title>
 

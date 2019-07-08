@@ -4,29 +4,28 @@ export default {
       // https://api.sheety.co/e39d8899-85e5-4281-acf4-4d854bd39994
       archetypeRepository: [
         {
-          "label": "[4] Primaris Intercessor (60)",
           "name": "Primaris Intercessor",
+          "key": "primarisIntercessor",
           "cost": 60,
           "tier": 4,
           "species": "Primaris Astartes",
           "influence": 1,
-          "keywords": "Imperium",
+          "keywords": "Imperium, Adeptus Astartes, Primaris, <Chapter>",
           "bonus": null,
-          "wargear": null,
-          "abilities": null,
-          "keywordOption": null,
+          "wargear": "Mark X Tacticus Armour, bolt rifle, heavy bolt pistol, Astartes combat knife, " +
+            "3 frak and krak grenades.",
+          "abilities": "Intercessor Focus",
+          "keywordOption": "<Chapter>",
           "prerequisite": null,
-          "attributes": null,
-          "skills": null,
+          "attributes": "Strength 3, Agility 4, Toughness 4",
+          "skills": "Ballistic Skill (4), Weapon Skill (4)",
           "group": "Adeptus Astartes",
           "avatar": null,
           "theme": "https://i.pinimg.com/originals/b6/ce/a4/b6cea48762622a3358b7fa0b8298a290.jpg",
-          "key": "primarisIntercessor",
           "description": " ",
           "hint": "A skilled and focused warrior, adept at bringing death at range."
         },
         {
-          "label": "[2] Space Marine Scout (20)",
           "name": "Space Marine Scout",
           "cost": 20,
           "tier": 2,
@@ -38,8 +37,8 @@ export default {
           "abilities": "Use the Terrain",
           "keywordOption": "<Chapter>",
           "prerequisite": "Strength:3,Agility:3,Toughness:3,Ballistic Skill:2,Weapons Skill:2",
-          "attributes": null,
-          "skills": null,
+          "attributes": "Strength 4, Agility 4, Toughness 4",
+          "skills": "Ballsitic Skill (3), Weapon Skill (3)",
           "group": "Adeptus Astartes",
           "avatar": null,
           "theme": null,
@@ -48,7 +47,6 @@ export default {
           "hint": "A stealthy warrior adept at reconnaissance."
         },
         {
-          "label": "[3] Tactical Space Marine (50)",
           "name": "Tactical Space Marine",
           "cost": 50,
           "tier": 3,
@@ -60,8 +58,8 @@ export default {
           "abilities": "Tactile versatility",
           "keywordOption": "<Chapter>",
           "prerequisite": null,
-          "attributes": null,
-          "skills": null,
+          "attributes": "Strength 3, Agility 3, Toughness 3",
+          "skills": "Ballsitic Skill (2), Weapon Skill (2)",
           "group": "Adeptus Astartes",
           "avatar": null,
           "theme": "https://warhammerart.com/wp-content/uploads/2015/10/space-marines-codex-800x1200.jpg",
@@ -78,7 +76,7 @@ export default {
           "influence": 2,
           "keywords": "Imperium,Adeptus Mechanicus,Cult Mechanicus,<Forge World>",
           "bonus": null,
-          "wargear": "Omnissian Axe,Laspistol,Augmentic aervo-arm,<augmentic>,<augmentic>,Light power Armour",
+          "wargear": "Omnissian Axe,Laspistol,Augmetic aervo-arm,<augmetic>,<augmetic>,Light power Armour",
           "abilities": "Rite of Repair",
           "keywordOption": "<Forge World>",
           "prerequisite": "Intellect:3,Tech:3,Scholar:1",
@@ -549,7 +547,7 @@ export default {
           "group": "Scum",
           "avatar": null,
           "theme": null,
-          "key": "hiveGanger",
+          "key": "ganger",
           "description": null,
           "hint": "A resourceful and tenacious survivor from the depths of enormous industrial cities."
         },
@@ -695,6 +693,14 @@ export default {
           "rules": "Sisters of Battle and any allies within 15 meters and line of sight add +Rank to Corruption Tests. Sisters of Battle gain +Rank to any dice pool to resist psychic powers and effects.",
           "affects": "Corruption Tests",
           "effect": "Sisters of Battle and any allies within 15 meters and line of sight add +Rank to Corruption Tests. Sisters of Battle gain +Rank to any dice pool to resist psychic powers and effects."
+        },
+        {
+          "label": "Intercessor Focus",
+          "name": "Intercessor Focus",
+          "archetype": "Primaris Intercessor",
+          "rules": "",
+          "affects": "Corruption Tests",
+          "effect": "When firing a bolt rifle of heavy bolt pistol, they gain +Rank bonus to attack rolls."
         },
         {
           "label": "Inquisitorial Decree",

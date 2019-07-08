@@ -67,14 +67,17 @@
           <template v-slot:items="props">
             <td class="caption">{{props.item.name}}</td>
             <td class="caption">{{props.item.discipline}}</td>
-            <td class="caption"><span class="hidden-sm-and-down">{{props.item.effect}}</span></td>
+            <td class="caption hidden-sm-and-down">{{props.item.effect}}</td>
             <td class="caption text-xs-center" >{{props.item.cost}}</td>
             <td>
               <v-btn
                 icon
                 @click="addPower(props.item)"
+                :disabled="characterPowers.includes(props.item.name)"
               >
-                <v-icon :color="affordableColor(props.item.cost)">add_circle</v-icon>
+                <v-icon
+                  :color="affordableColor(props.item.cost)"
+                >add_circle</v-icon>
               </v-btn>
             </td>
           </template>
@@ -104,14 +107,33 @@
       searchQuery: '',
       headers: [
         {
-          text: 'Name', value: 'name', align: 'left', sortable: true,
+          text: 'Name',
+          value: 'name',
+          align: 'left',
+          sortable: true,
         },
-        { text: 'Discipline', value: 'discipline', sortable: true },
-        { text: 'Effect', value: 'effect', sortable: false },
         {
-          text: 'Cost', value: 'cost', align: 'center', sortable: true,
+          text: 'Discipline',
+          value: 'discipline',
+          sortable: true,
         },
-        { text: 'Learn', align: 'center', sortable: false },
+        {
+          text: 'Effect',
+          value: 'effect',
+          sortable: false,
+          class: 'hidden-sm-and-down',
+        },
+        {
+          text: 'Cost',
+          value: 'cost',
+          align: 'center',
+          sortable: true,
+        },
+        {
+          text: 'Learn',
+          align: 'center',
+          sortable: false,
+        },
       ],
       disciplines: [
         { name: 'Minor' },

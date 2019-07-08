@@ -52,7 +52,11 @@
               <td class="caption hidden-xs-and-down" v-html="prerequisitesToText(props.item).join(', ')"></td>
               <td class="caption hidden-sm-and-down">{{props.item.effect}}</td>
               <td class="text-xs-center">
-                <v-btn icon @click="addTalent(props.item)" >
+                <v-btn
+                  icon
+                  @click="addTalent(props.item)"
+                  :disabled="characterTalents.includes(props.item.name)"
+                >
                   <v-icon :color="affordableColor(props.item.cost)">add_circle</v-icon>
                 </v-btn>
               </td>

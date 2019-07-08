@@ -212,8 +212,8 @@
       return this.skillRepository.map( s => {
         return {
           ...s,
-          value: this.charSkills[s.name.toLowerCase()],
-          enhancedValue: this.charSkills[s.name.toLowerCase()],
+          value: this.charSkills[s.key],
+          enhancedValue: this.charSkills[s.key],
         }
       });
     },

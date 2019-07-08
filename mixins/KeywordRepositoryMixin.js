@@ -184,6 +184,17 @@ export default {
         { placeholder: '<Forge World>', name: 'Voss Prime', description: 'The Right Hand of Mars: Modelled after Mars, Voss Prime is second only to that world in production of armaments for the Imperium. The Forge World’s vaunted capacity has gai-ned them praise for Vosspattern vehicles, but they have struggled to master replicating plasma technology.' },
         { placeholder: '<Forge World>', name: 'Gryphonne IV', description: 'The Lost Forge: The formidable defences of this Forge World were overrun by the assault of Hive Fleet Leviathan. Certain that their fortifi cations would ensure victory, the defenders fought with valour and skill. However, the Tyranids shattered Gryphonne IV’s armies and laid waste to the world. Only a relative handful of survivors escaped.' },
 
+        // Astartes Chapters
+        { placeholder: '<Chapter>', name: 'Blood Angles', description: '' },
+        { placeholder: '<Chapter>', name: 'Dark Angles', description: '' },
+        { placeholder: '<Chapter>', name: 'Imperial Fists', description: '' },
+        { placeholder: '<Chapter>', name: 'Iron Hands', description: '' },
+        { placeholder: '<Chapter>', name: 'Raven Guard', description: '' },
+        { placeholder: '<Chapter>', name: 'Salamanders', description: '' },
+        { placeholder: '<Chapter>', name: 'Space Wolves', description: '' },
+        { placeholder: '<Chapter>', name: 'Ultramarines', description: '' },
+        { placeholder: '<Chapter>', name: 'Other', description: '' },
+
         // Marks of the Chaos Goods
         { placeholder: '<Mark of Chaos>', name: 'Mark of Khorne', description: '' },
         { placeholder: '<Mark of Chaos>', name: 'Mark of Tzzeench', description: '' },

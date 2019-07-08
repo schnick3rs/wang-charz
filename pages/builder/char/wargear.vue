@@ -2,7 +2,7 @@
 
   <v-layout justify-center row wrap>
 
-    <v-flex xs12 v-if="startingWargear">
+    <v-flex xs12 v-if="startingWargear && characterWargear.length <= 0">
 
       <h1 class="headline">Select starting Wargear</h1>
 
@@ -104,7 +104,6 @@
     return {};
   },
   computed: {
-
     settingTier() { return this.$store.state.settingTier; },
     characterArchetypeName() { return this.$store.state.archetype.value; },
     startingWargear() {
@@ -113,14 +112,18 @@
     characterWargear() {
       const characterWargear = [];
       this.$store.state.wargear.forEach(chargear => {
-         this.wargearRepository.find(wargear => {
-           if ( wargear.name === chargear.name ) {
-             console.log(`Equip with ${wargear.name}`);
-             characterWargear.push(wargear);
-           }
-         });
+         const gear = this.wargearRepository.find(wargear => wargear.name === chargear.name);
+         if ( gear ) {
+           gear['id'] = chargear.id;
+           characterWargear.push(gear);
+         } else {
+           characterWargear.push( {
+             id: chargear.id,
+             name: chargear.name,
+             type: 'Misc',
+           });
+         }
       });
-      console.log(characterWargear);
       return characterWargear;
     },
   },
@@ -151,20 +154,25 @@
         this.$store.commit('addWargear', { name: w });
       });
     },
+    remove(gear) {
+      this.$store.commit('removeWargear', { id: gear.id });
+    },
     wargearSubtitle(item) {
       //const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
-        const tags = [
+        let tags = [
           item.type,
           item.subtype,
-          ...item.keywords.split(',')
         ];
-        return tags.join(' • ');
+        if ( item.keywords ) {
+          tags = [
+            ...tags,
+            ...item.keywords.split(','),
+          ]
+        }
+        return tags.filter(t=> t!== undefined).join(' • ');
       }
       return '';
-    },
-    remove(gear) {
-      this.$store.commit('removeWargear', { name: gear });
     },
   },
 };

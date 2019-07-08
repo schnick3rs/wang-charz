@@ -16,7 +16,7 @@
             change archetype
           </v-btn>
         </h3>
-        <span class="subheading">{{ item.hint }}</span>
+        <span class="grey--text">{{ item.hint }}</span>
       </div>
     </v-card-title>
 
@@ -38,8 +38,7 @@
 
       <v-select
               v-model="item['selected']"
-              v-for="keyword in item.keywords.split(',')"
-              v-if="keyword.indexOf('<')>=0"
+              v-for="keyword in item.keywords.split(',').filter( (k) => { return k.indexOf('<')>=0; })"
               :key="keyword.key"
               :label="keyword +' Keyword'"
               :items="keywordOptions(keyword)"

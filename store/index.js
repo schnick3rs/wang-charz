@@ -238,12 +238,21 @@ export const mutations = {
     // ToDo: remove all wargear that is related to the package
   },
   addWargear(state, payload) {
-    state.wargear.push({ name: payload.name });
+
+    const length = 8;
+    let result = '';
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++ ) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    state.wargear.push({ id: result, name: payload.name });
   },
   removeWargear(state, payload) {
-    const hasWargear = state.wargear.find(t => t.name === payload.name) !== undefined;
+    const hasWargear = state.wargear.find(t => t.id === payload.id) !== undefined;
     if (hasWargear) {
-      state.wargear = state.wargear.filter(t => t.name !== payload.name);
+      state.wargear = state.wargear.filter(t => t.id !== payload.id);
     }
   },
   setBackground(state, payload) {
