@@ -28,8 +28,8 @@
 
       <p class="text-lg-justify"><strong>Tier:</strong> {{ item.tier }}</p>
       <p class="text-lg-justify"><strong>Species:</strong> {{ item.species }}</p>
-      <p class="text-lg-justify"><strong>Attributes:</strong> {{ item.attributes }}</p>
-      <p class="text-lg-justify"><strong>Skills:</strong> {{ item.skills }}</p>
+      <p class="text-lg-justify"><strong>Attributes:</strong> {{ attributePrerequisites }}</p>
+      <p class="text-lg-justify"><strong>Skills:</strong> {{ skillPrerequisites }}</p>
 
       <span class="mt-2 grey--text">Benefits</span>
       <p><v-divider ></v-divider></p>
@@ -60,7 +60,7 @@
 
       </div>
 
-      <p class="text-lg-justify"><strong>Wargear:</strong> {{ item.wargear }}</p>
+      <p class="text-lg-justify"><strong>Wargear:</strong> {{ wargearText }}</p>
 
       <div v-if="false">
         <p><v-divider></v-divider></p>
@@ -83,10 +83,12 @@
 <script lang="js">
   import ArchetypeRepository from '~/mixins/ArchetypeRepositoryMixin';
   import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+  import StatRepository from '~/mixins/StatRepositoryMixin';
+  import WargearRepository from '~/mixins/WargearRepositoryMixin';
 
   export default {
   name: 'archetype-preview',
-  mixins: [ArchetypeRepository, KeywordRepository],
+  mixins: [ArchetypeRepository, KeywordRepository, StatRepository, WargearRepository],
   props: {
     item: {
       type: Object,
@@ -133,13 +135,48 @@
     },
   },
   computed: {
-    loaded() { return true; },
+    attributePrerequisites() {
+      if ( this.item.prerequisites ) {
+        return this.item.prerequisites
+        .filter( p => p.group === 'attributes' )
+        .map( a => `${this.getAttributeByKey(a.value).name} ${a.threshold}` )
+        .join(", ");
+      }
+      return this.item.attributes;
+    },
+    skillPrerequisites() {
+      if ( this.item.prerequisites ) {
+        return this.item.prerequisites
+        .filter(p => p.group === 'skills')
+        .map(a => `${this.getSkillByKey(a.value).name} (${a.threshold})`)
+        .join(", ");
+      }
+      return this.item.skills;
+    },
     abilityObjects() {
+      if ( this.item.abilities instanceof Array) {
+        return this.item.abilities;
+      }
+      // fallback
       if (this.archetypeAbilityRepository) {
-        const abilities = this.item.abilities ? this.item.abilities.split(',') : [];
-        return this.archetypeAbilityRepository.filter(a => abilities.includes(a.name));
+        if ( this.item.abilities ) {
+          const abilities = this.item.abilities.split(',');
+          return this.archetypeAbilityRepository.filter(a => abilities.includes(a.name));
+        }
       }
       return [];
+    },
+    wargearText() {
+      const charGear = this.archetypeWargearRepository.find(a => a.name === this.item.name);
+      if ( charGear ) {
+        return charGear.options.map( g => {
+          if ( g.amount ) {
+            return `${g.amount}x ${g.name}`;
+          }
+          return `${g.name}`;
+        }).join(', ');
+      }
+      return this.item.wargear;
     },
   },
 };

@@ -324,6 +324,12 @@ export default {
     }
   },
   methods: {
+    getAttributeByKey(key) {
+      return this.attributeRepository.find(a => a.key === key);
+    },
+    getSkillByKey(key) {
+      return this.skillRepository.find(s => s.key === key);
+    },
     getAttributeMaximumForSpecies(speciesName, attributeName) {
       const species = this.maximumBySpeciesRepository.find( species => species.name === speciesName );
       const maximum = species.attributeMaximums.find( attribute => attribute.name === attributeName );
