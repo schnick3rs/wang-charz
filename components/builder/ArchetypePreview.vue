@@ -36,19 +36,31 @@
 
       <p class="text-lg-justify"><strong>Keywords:</strong> {{ item.keywords.split(',').join(', ') }}</p>
 
-      <v-select
-              v-model="item['selected']"
-              v-for="keyword in item.keywords.split(',').filter( (k) => { return k.indexOf('<')>=0; })"
-              :key="keyword.key"
-              :label="keyword +' Keyword'"
-              :items="keywordOptions(keyword)"
-              item-text="name"
-              item-value="name"
-              :hint="keywordHint(item['selected'], keyword)"
-              persistent-hint
-              solo
-              dense
-      ></v-select>
+      <div
+        v-for="placeholder in itemKeywordPlaceholders"
+        :key="placeholder.key"
+      >
+
+        <v-select
+          v-model="selectedKeywords[placeholder.name]"
+          :label="placeholder.name +' Keyword'"
+          :items="placeholder.options"
+          item-text="name"
+          item-value="name"
+          :hint="keywordHint(selectedKeywords[placeholder.name], placeholder)"
+          persistent-hint
+          solo
+          dense
+        ></v-select>
+
+        <p
+          v-if="selectedKeywords[placeholder.name]"
+          class="ma-4"
+        >
+          {{keywordEffect(selectedKeywords[placeholder.name])}}
+        </p>
+
+      </div>
 
       <p class="text-lg-justify"><strong>Influence Bonus:</strong> {{ item.influence }}</p>
 
@@ -81,14 +93,13 @@
 </template>
 
 <script lang="js">
-  import ArchetypeRepository from '~/mixins/ArchetypeRepositoryMixin';
   import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
   import StatRepository from '~/mixins/StatRepositoryMixin';
   import WargearRepository from '~/mixins/WargearRepositoryMixin';
 
   export default {
   name: 'archetype-preview',
-  mixins: [ArchetypeRepository, KeywordRepository, StatRepository, WargearRepository],
+  mixins: [KeywordRepository, StatRepository, WargearRepository],
   props: {
     item: {
       type: Object,
@@ -105,7 +116,7 @@
   },
   data() {
     return {
-
+      selectedKeywords: {}
     };
   },
   methods: {
@@ -117,24 +128,49 @@
 
       return this.keywordSubwordRepository.filter(k => k.placeholder === wildcard);
     },
-    keywordHint(keyword, parentKeyword) {
-      if (this.loaded) {
-        const mergedKeywords = [...this.keywordRepository, ...this.keywordSubwordRepository];
-
-        let foundKeyword = mergedKeywords.find(k => k.name === keyword);
-        if (foundKeyword !== undefined) {
-          return foundKeyword.description;
-        }
-
-        foundKeyword = mergedKeywords.find(k => k.name === parentKeyword);
-        if (foundKeyword !== undefined) {
-          return foundKeyword.description;
-        }
+    keywordEffect(keyword) {
+      const mergedKeywords = [...this.keywordSubwordRepository];
+      let foundKeyword = mergedKeywords.find(k => k.name === keyword);
+      if (foundKeyword !== undefined) {
+        return foundKeyword.effect;
       }
+    },
+    keywordHint(keyword, parentKeyword) {
+
+      let foundKeyword = this.mergedKeywords.find(k => k.name === keyword);
+      if (foundKeyword !== undefined) {
+        return foundKeyword.description;
+      }
+
+      foundKeyword = this.mergedKeywords.find(k => k.name === parentKeyword);
+      if (foundKeyword !== undefined) {
+        return foundKeyword.description;
+      }
+
       return '';
     },
   },
   computed: {
+    mergedKeywords() {
+      return [...this.keywordRepository, ...this.keywordSubwordRepository];
+    },
+    itemKeywordPlaceholders() {
+      const placeholderKeywords = this.item.keywords.split(',').filter( (k) => { return k.indexOf('<')>=0; } );
+
+      let placeholderSet = [];
+
+      placeholderKeywords.forEach(placeholder => {
+        if ( placeholder.toLowerCase() === '<any>' ) {
+          const levelOneKeywords = this.keywordRepository.filter(k => k.name.toLowerCase() !== placeholder.toLowerCase());
+          placeholderSet.push({ name: placeholder, options: levelOneKeywords });
+        } else {
+          const subKeywords = this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
+          placeholderSet.push({ name: placeholder, options: subKeywords });
+        }
+      });
+
+      return placeholderSet;
+    },
     attributePrerequisites() {
       if ( this.item.prerequisites ) {
         return this.item.prerequisites
@@ -156,13 +192,6 @@
     abilityObjects() {
       if ( this.item.abilities instanceof Array) {
         return this.item.abilities;
-      }
-      // fallback
-      if (this.archetypeAbilityRepository) {
-        if ( this.item.abilities ) {
-          const abilities = this.item.abilities.split(',');
-          return this.archetypeAbilityRepository.filter(a => abilities.includes(a.name));
-        }
       }
       return [];
     },

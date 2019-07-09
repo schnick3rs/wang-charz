@@ -131,40 +131,79 @@ export default {
           placeholder: '<Regiment>', name: 'Death Korps of Krieg', description: 'Founded on the toxic, radioactive world of Krieg, these soldiers are grim and disciplined, accepting even the most dangerous missions.', modification: { },
         },
         {
-          placeholder: '<Regiment>', name: 'Cadian Shock Troopers', description: '', modification: { },
+          placeholder: '<Regiment>', name: 'Cadian Shock Troopers', description: 'Founded on the Fortress World of Cadia, these disciplined soldiers suffered greatly when their home world was overwhelmed and razed by the forces of Chaos.', modification: { },
         },
         {
-          placeholder: '<Regiment>', name: 'Catachan Jungle Fighters', description: '', modification: { },
+          placeholder: '<Regiment>', name: 'Catachan Jungle Fighters', description: 'Founded on the incredibly lethal Death World of Catachan, these warriors are famed for their resourcefulness and ability to survive in nearly any battlefi eld.', modification: { },
         },
         {
-          placeholder: '<Regiment>', name: 'Armageddon Steel Legion', description: '', modification: { },
+          placeholder: '<Regiment>', name: 'Armageddon Steel Legion', description: 'Founded upon the war-torn world of Armageddon, the Steel Legion commonly ride to war through the polluted wastes of their planet inside armoured vehicles.', modification: { },
         },
         {
-          placeholder: '<Regiment>', name: 'Vostroyan Firstborn', description: '', modification: { },
+          placeholder: '<Regiment>', name: 'Vostroyan Firstborn', description: 'Founded on the Hive World of Vostroya, this regiment is made up of the fi rstborn sons of every family. This tradition was born from an ancient refusal to tithe soldiers to the Imperium, a mistake they have atoned for ever since. Offi cers are of noble birth, while common soldiery are made up of worker families.', modification: { },
         },
         {
-          placeholder: '<Regiment>', name: 'Valhallan Ice Warriors', description: '', modification: { },
+          placeholder: '<Regiment>', name: 'Valhallan Ice Warriors', description: 'Founded on the desolate Ice World of Valhalla, this regiment is made up of stern, stubborn soldiers who are all but impervious to harsh conditions.', modification: { },
         },
         {
-          placeholder: '<Regiment>', name: 'Tallarn Desert Raiders', description: '', modification: { },
+          placeholder: '<Regiment>', name: 'Tallarn Desert Raiders', description: 'Founded on the Desert World of Tallarn, this regiment is highly skilled at mobile warfare. Patient and determined, Tallarn soldiers are ferocious in pursuit of their enemies.', modification: { },
         },
 
         // Ordos of the Inquisitor
         // (i) Characters with the <Ordo> keyword must have the Inquisition keyword as well.
         {
-          placeholder: '<Ordo>', name: 'Ordo Hereticus', description: '', modification: { },
+          placeholder: '<Ordo>',
+          name: 'Ordo Hereticus',
+          description: 'The Ordo Hereticus hunts down heretics, mutants, and rogue psykers. It ' +
+            'is their responsibility to police the Adeptus Ministorum. Their most common ally is ' +
+            'the Order Militant of the Ecclesiarchy, the Sisters of Battle.',
+          effect: 'Choose one: You gain +2 bonus dice to resist psychic powers, or you gain +2 ' +
+            'bonus dice to resist Corruption tests.',
+          modification: { },
         },
         {
-          placeholder: '<Ordo>', name: 'Ordo Xenos', description: '', modification: { },
+          placeholder: '<Ordo>',
+          name: 'Ordo Xenos',
+          description: 'The Ordo Xenos is tasked with defeating the alien in all its loathsome ' +
+            'forms. They study their foe, always probing for more information about the ' +
+            'weaknesses of alien species and civilisations. It is their duty to investigate ' +
+            'xenos influence over Imperial domains. Their operations often see them working ' +
+            'alongside the Space Marines of the Deathwatch.',
+          effect: 'The character is fluent in one alien language; choose an alien species and ' +
+            'write it down on the character sheet. In addition, the character gains +2 bonus ' +
+            'dice for any Scholar or Investigation tests related to xenos.',
+          modification: { },
         },
         {
-          placeholder: '<Ordo>', name: 'Ordo Malleus', description: '', modification: { },
+          placeholder: '<Ordo>',
+          name: 'Ordo Malleus',
+          description: 'The Ordo Malleus were established to fi ght against mankind’s greatest ' +
+            'menace the corrupting influence of Chaos. The Chamber Militant of the Ordo Malleus ' +
+            'are the Grey Knights, and they sometimes campaign together under a dual command ' +
+            'structure.',
+          effect: 'Either the character gains 2 Corruption points, or gain +2 bonus dice for any ' +
+            'Scholar or Investigation tests related to daemons and the warp.',
+          modification: { },
         },
         {
-          placeholder: '<Ordo>', name: 'Other Ordo', description: '', modification: { },
+          placeholder: '<Ordo>',
+          name: 'Other Ordo',
+          description: 'Inquisitors are as varied in appearance, manner and method as the worlds ' +
+            'of the Imperium they strive to protect.',
+          effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, ' +
+            'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. ' +
+            'Gain +1/2 Rank bonus dice with that skill.',
+          modification: { },
         },
         {
-          placeholder: '<Ordo>', name: 'No Ordo', description: '', modification: { },
+          placeholder: '<Ordo>',
+          name: 'No Ordo',
+          description: 'Inquisitors are as varied in appearance, manner and method as the worlds ' +
+            'of the Imperium they strive to protect.',
+          effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, ' +
+            'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. ' +
+            'Gain +1/2 Rank bonus dice with that skill.',
+          modification: { },
         },
 
         // Rogue Trader Dystanies
