@@ -164,12 +164,6 @@
           item.type,
           item.subtype,
         ];
-        if ( item.keywords ) {
-          tags = [
-            ...tags,
-            ...item.keywords.split(','),
-          ]
-        }
         return tags.filter(t=> t!== undefined).join(' • ');
       }
       return '';

@@ -13,6 +13,16 @@
             <div class="headline">{{ characterBackground.name }}</div>
             <span class="grey--text">{{ characterBackground.hint}}</span>
           </div>
+          <div>
+            <v-btn
+              flat
+              color="red"
+              @click="removeBackground(characterBackground)"
+            >
+              <v-icon>remove_circle</v-icon>
+              remove background
+            </v-btn>
+          </div>
         </v-card-title>
 
         <v-card-text>
@@ -157,6 +167,11 @@ export default {
       this.$store.commit('setBackgroundModifications', { modifications: [item.crunch] });
       this.selectedBackground = item;
     },
+    removeBackground() {
+      this.$store.commit('setBackground', { name: undefined });
+      this.$store.commit('clearEnhancementsBySource', { source: 'background' });
+      this.selectedBackground = undefined;
+    }
   },
 };
 </script>

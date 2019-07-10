@@ -63,8 +63,19 @@
       </div>
 
       <v-card-actions>
-        <v-btn block color="green" @click="applySetting()">
+        <v-btn
+          block
+          color="green"
+          @click="applySetting()"
+        >
           Select Setting
+        </v-btn>
+        <v-btn
+          block
+          color="red"
+          @click="clearState()"
+        >
+          Fresh Character
         </v-btn>
       </v-card-actions>
     </v-flex>
@@ -152,6 +163,9 @@
       this.$store.commit('setSetting', { setting: this.setting });
       this.$router.push({ name: 'builder-char-species' });
     },
+    clearState() {
+      this.$store.commit('resetState');
+    }
   },
 };
 </script>

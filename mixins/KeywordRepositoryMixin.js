@@ -224,8 +224,8 @@ export default {
         { placeholder: '<Forge World>', name: 'Gryphonne IV', description: 'The Lost Forge: The formidable defences of this Forge World were overrun by the assault of Hive Fleet Leviathan. Certain that their fortifi cations would ensure victory, the defenders fought with valour and skill. However, the Tyranids shattered Gryphonne IV’s armies and laid waste to the world. Only a relative handful of survivors escaped.' },
 
         // Astartes Chapters
-        { placeholder: '<Chapter>', name: 'Blood Angles', description: '' },
-        { placeholder: '<Chapter>', name: 'Dark Angles', description: '' },
+        { placeholder: '<Chapter>', name: 'Blood Angles', description: 'Masters of melee combat, the Blood Angels readily charge into hordes of even the most capable foes, often overcoming terrible odds. Horus slew Sanguinius during the attack on blessed Terra, and visions of that death haunt the minds of every battle brother. Fury from that tragedy keeps all Blood Angels on the verge of complete loss of control.' },
+        { placeholder: '<Chapter>', name: 'Dark Angles', description: 'The Dark Angels demonstrate no emotion when they engage their opponents. They have no mercy for the Imperium’s foes, nor do they take pride in even their greatest triumphs. Their darkest secret is that members of the founding Legion turned against the Imperium—though this is known only to the highest-ranking members of the chapter. The Dark Angels and their successors strive endlessly to fi nd and eliminate their Fallen brethren.' },
         { placeholder: '<Chapter>', name: 'Imperial Fists', description: '' },
         { placeholder: '<Chapter>', name: 'Iron Hands', description: '' },
         { placeholder: '<Chapter>', name: 'Raven Guard', description: '' },
@@ -250,25 +250,65 @@ export default {
 
         // Ork Clans
         {
-          placeholder: '<Clan>', name: 'Goffs', description: 'Goffs have a prominent place in the battle line and can usually be found where the fi ghting is thickest. Goffs consider massed infantry charges the only true way for Orks to fi ght, declaring anything else to be “muckin’ about.”', modification: {},
+          placeholder: '<Clan>',
+          name: 'Goffs',
+          description: 'Goffs have a prominent place in the battle line and can usually be found ' +
+            'where the fi ghting is thickest. Goffs consider massed infantry charges the only ' +
+            'true way for Orks to fi ght, declaring anything else to be “muckin’ about.”',
+          effect: '+1 bonus dice to melee attacks when charging (see page 221).',
+          modification: {},
         },
         {
-          placeholder: '<Clan>', name: 'Evil Sunz', description: 'The Evil Sunz Clan embodies the Orks’ obsessive love for speed. Evil Sunz typically pile aboard the fastest vehicles they can fi nd to hurtle into battle at the vanguard of the Waaagh!', modification: {},
+          placeholder: '<Clan>',
+          name: 'Evil Sunz',
+          description: 'The Evil Sunz Clan embodies the Orks’ obsessive love for speed. Evil ' +
+            'Sunz typically pile aboard the fastest vehicles they can fi nd to hurtle into battle ' +
+            'at the vanguard of the Waaagh!',
+          effect: '+1d3 bonus dice to Piloting tests when the vehicle is moving as fast as ' +
+            'possible. Roll to see how many bonus dice you receive at the beginning of each round.',
+          modification: {},
         },
         {
-          placeholder: '<Clan>', name: 'Bad Moons', description: 'The Bad Moons Clan is the richest of their kind, for their teeth—the basis of Ork economy—grow at twice the normal rate. Because of their wealth, Bad Moons possess the best and shiniest gear, and are not shy about bragging about it.', modification: {},
+          placeholder: '<Clan>',
+          name: 'Bad Moons',
+          description: 'The Bad Moons Clan is the richest of their kind, for their teeth the ' +
+            'basis of Ork economy grow at twice the normal rate. Because of their wealth, Bad ' +
+            'Moons possess the best and shiniest gear, and are not shy about bragging about it.',
+          effect: '+2 Wealth',
+          modification: {},
         },
         {
-          placeholder: '<Clan>', name: 'Deathskulls', description: 'Deathskulls are light-fi ngered thieves who share an almost Mekboylike knack for tinkering with Ork technology. Though Deathskulls enjoy a good fi ght as much as the next Ork, their innate kleptomania makes them see every battle as an excuse to scavenge or loot anything they can get their hands on.', modification: {},
+          placeholder: '<Clan>',
+          name: 'Deathskulls',
+          description: 'Deathskulls are light-fi ngered thieves who share an almost Mekboylike ' +
+            'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as ' +
+            'much as the next Ork, their innate kleptomania makes them see every battle as an ' +
+            'excuse to scavenge or loot anything they can get their hands on.',
+          effect: '+1 bonus dice to Tech tests and Infl uence tests to acquire items.',
+          modification: {},
         },
         {
-          placeholder: '<Clan>', name: 'Blood Axe', description: 'The Blood Axe Clan is unique amongst orks for their belief that battles should be fought according to an actual plan. Blood Axes are not less courageous or violent, they simply possess a rudimentary comprehension of strategy, tactics, and stealth.', modification: {},
+          placeholder: '<Clan>',
+          name: 'Blood Axe',
+          description: 'The Blood Axe Clan is unique amongst orks for their belief that battles ' +
+            'should be fought according to an actual plan. Blood Axes are not less courageous or ' +
+            'violent, they simply possess a rudimentary comprehension of strategy, tactics, and ' +
+            'stealth.',
+          effect: '+1 bonus dice to Leadership or Stealth tests.',
+          modification: {},
         },
         {
-          placeholder: '<Clan>', name: 'Snakebites', description: 'Snakebites see themselves as staunch traditionalists, caring little that the other clans mock them for their backward ways. Snakebites specialise in the breeding of squigs (or squiggly beasts), the strange fungoid monsters that make up much of the Orks’ bizarre ecosystem.', modification: {},
+          placeholder: '<Clan>',
+          name: 'Snakebites',
+          description: 'Snakebites see themselves as staunch traditionalists, caring little that ' +
+            'the other clans mock them for their backward ways. Snakebites specialise in the ' +
+            'breeding of squigs (or squiggly beasts), the strange fungoid monsters that make up ' +
+            'much of the Orks’ bizarre ecosystem.',
+          effect: '+2 bonus dice to Survival tests.',
+          modification: {},
         },
 
-        { placeholder: '<>', name: '', description: '' },
+        //{ placeholder: '<>', name: '', description: '' },
       ],
     };
   },

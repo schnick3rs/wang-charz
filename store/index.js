@@ -1,4 +1,4 @@
-export const state = () => ({
+const getDefaultState = () => ({
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
@@ -41,6 +41,8 @@ export const state = () => ({
   background: undefined,
   enhancements: [],
 });
+
+export const state = getDefaultState();
 
 export const getters = {
   setting(state) { return state.setting; },
@@ -161,6 +163,11 @@ export const getters = {
 };
 
 export const mutations = {
+  resetState (state) {
+    // Merge rather than replace so we don't lose observers
+    // https://github.com/vuejs/vuex/issues/1118
+    Object.assign(state, getDefaultState())
+  },
   setSetting(state, payload) {
     state.setting = payload.setting;
     state.settingSelected = true;
@@ -265,4 +272,7 @@ export const mutations = {
       state.enhancements.push(item);
     });
   },
+  clearEnhancementsBySource(state, payload) {
+    state.enhancements = state.enhancements.filter(e => e.source !== payload.source);
+  }
 };

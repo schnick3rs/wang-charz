@@ -54,23 +54,33 @@
         >
           <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
 
-          <v-select
-            v-if="ability.name.indexOf('Honour the Chapter') >= 0"
-            v-model="species['chapter']"
-            label="Select your Chapter"
-            dense
-            solo
-            :items="astartesChapterRepository"
-            item-text="name"
-            item-value="name"
-          />
-
-          <p
-            v-for="tradition in getChapterTraditions(species['chapter'])"
-            v-if="ability.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
+          <div
+            v-if="manageMode && ability.name.indexOf('Honour the Chapter') >= 0"
           >
-            <strong>{{ tradition.name }}:</strong> {{ tradition.effect }}
-          </p>
+
+            <v-select
+              v-model="species['chapter']"
+              label="Select your Chapter"
+              dense
+              solo
+              :items="astartesChapterRepository"
+              item-text="name"
+              item-value="name"
+              class="ml-2 mr-2"
+            />
+
+            <p
+              v-if="ability.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
+              v-for="tradition in getChapterTraditions(species['chapter'])"
+              v-bind:key="tradition.key"
+              class="ml-4 mr-4"
+            >
+              <strong>{{ tradition.name }} <span v-if="tradition.origin">({{tradition.origin}})</span>:</strong>
+              {{ tradition.effect }}
+            </p>
+
+          </div>
+
         </div>
 
         <div v-if="false">

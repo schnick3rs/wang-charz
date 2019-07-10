@@ -37,6 +37,7 @@
       <p class="text-lg-justify"><strong>Keywords:</strong> {{ item.keywords.split(',').join(', ') }}</p>
 
       <div
+        v-if="manageMode"
         v-for="placeholder in itemKeywordPlaceholders"
         :key="placeholder.key"
       >
