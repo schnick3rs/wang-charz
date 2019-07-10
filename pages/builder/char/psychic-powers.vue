@@ -32,14 +32,6 @@
 
     <v-flex xs12>
 
-      <v-text-field
-        solo
-        placeholder="Search..."
-        v-model="searchQuery"
-        prepend-inner-icon="search"
-        clearable
-      ></v-text-field>
-
       <v-chip
         v-for="discipline in disciplines"
         :key="discipline.key"
@@ -55,6 +47,16 @@
     <v-flex xs12>
 
       <v-card>
+
+        <v-card-title>
+          <v-text-field
+            v-model="searchQuery"
+            append-icon="search"
+            label="Search"
+            single-line
+            hide-details
+          ></v-text-field>
+        </v-card-title>
 
         <v-data-table
           :items="filteredPowers"

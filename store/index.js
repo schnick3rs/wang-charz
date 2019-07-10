@@ -2,6 +2,7 @@ const getDefaultState = () => ({
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
+  settingHomebrewContent: [],
   species: { value: undefined, cost: 0 },
   archetype: { value: undefined, cost: 0 },
   attributes: {
@@ -48,6 +49,7 @@ export const getters = {
   setting(state) { return state.setting; },
   settingSelected(state) { return state.settingSelected; },
   settingTier(state) { return state.settingTier; },
+  settingHomebrewContent(state) { return state.settingHomebrewContent; },
   species(state) { return state.species.value; },
   archetype(state) { return state.archetype.value; },
   effectiveCharacterTier(state) {
@@ -174,6 +176,12 @@ export const mutations = {
   },
   setSettingTier(state, payload) {
     state.settingTier = payload.amount;
+  },
+  addHomebrewContent(state, payload){
+    state.settingHomebrewContent.push(payload.key);
+  },
+  removeHomebrewContent(state, payload){
+    state.settingHomebrewContent = state.settingHomebrewContent.filter(c => c !== payload.key);
   },
   setSpecies(state, payload) {
     state.species = payload;

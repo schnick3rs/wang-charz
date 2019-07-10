@@ -49,16 +49,25 @@
 
       <div v-if="false">
 
-      <h2 class="headline">Homebrews</h2>
+        <h2 class="title">Homebrews</h2>
 
-      <p>Allow specific hombrew content.</p>
+        <p>Allow specific hombrew content.</p>
 
-      <v-switch
-        v-model="setting.sources.content.allowAgentsOfTheThrone"
-        label="'Agents of the Golden Throne' fan supplement"
-        color="primary"
-      />
-      <a v-if="false" href="https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit">Agents of the Golden Throne Homebrew</a>
+        <div
+          v-for="homebrew in settingHomebrewOptions"
+          v-bind:key="homebrew.key"
+        >
+
+          <v-switch
+            v-model="enabledHomebrews"
+            v-bind:label="homebrew.name"
+            v-bind:value="homebrew.key"
+            v-on:change="updateHomebrew(homebrew)"
+            color="primary"
+            class="mt-0 mb-0"
+          />
+
+        </div>
 
       </div>
 
@@ -126,9 +135,6 @@
         archetypes: { exclude: [] },
         sources: {
           isAllowHomebrews: false,
-          content: {
-            allowAgentsOfTheThrone: false,
-          },
         },
       },
       tierSelect: {
@@ -150,6 +156,24 @@
         { name: 'Deathwatch', recommendedTiers: '3-4', cover: 'https://i.pinimg.com/originals/be/09/17/be0917ae8414dbfde3f973d8ba2956bb.jpg' },
         { name: 'Black Crusade', recommendedTiers: '3-4', cover: 'https://warhammerart.com/wp-content/uploads/2018/11/13TH-BLACK-CRUSADE-04.jpg' },
       ],
+      settingHomebrewOptions: [
+        {
+          active: true,
+          key: 'dodScumPsyker',
+          name: 'Scum Psyker (Doctors of Doom Homebrew)',
+          enabled: false,
+          source: undefined,
+        },
+        {
+          active: true,
+          key: 'agentsOfTheGoldenThrone',
+          name: '\'Agents of the Golden Throne\' content (Fan supplement)',
+          enabled: false,
+          nuxt: '/vault/agents-of-the-golden-throne',
+          source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
+        },
+      ],
+      enabledHomebrews: [],
     };
   },
   computed: {
@@ -165,7 +189,15 @@
     },
     clearState() {
       this.$store.commit('resetState');
-    }
+    },
+    updateHomebrew(homebrew) {
+      const enabled = this.enabledHomebrews.includes(homebrew.key);
+      if ( enabled ) {
+        this.$store.commit('addHomebrewContent', { key: homebrew.key});
+      } else {
+        this.$store.commit('removeHomebrewContent', { key: homebrew.key});
+      }
+    },
   },
 };
 </script>

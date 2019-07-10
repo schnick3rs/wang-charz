@@ -138,6 +138,16 @@
   components: { DefaultFooter },
   head() {
     return {
+      title: 'Create your Character | W&G Builder',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Build you Wrath & Glory Character and explore the Warhammer 40k Universe. ' +
+            'Select Species and Archetype, learn some Talents, acquire Wargear and (if needed) ' +
+            'tap into the warp powers.',
+        },
+      ],
       link: [
         { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
       ],
