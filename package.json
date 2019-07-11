@@ -1,6 +1,9 @@
 {
   "name": "doctors-of-doom",
-  "version": "1.21.1",
+  "version": "1.21.2",
+  "engines": {
+    "node": "10.3.0"
+  },
   "description": "The sphere of influence of the Doctors of Doom Astartes Chapter.",
   "author": "Moritz Orth",
   "private": true,
