@@ -9,12 +9,12 @@
     >
       <ascension-preview
         v-if="selectedPreview"
-        :item="selectedPreview"
-        :currentCharacterTier="effectiveCharacterTier"
-        :maxTargetTier="settingTier"
+        v-bind:item="selectedPreview"
+        v-bind:currentCharacterTier="effectiveCharacterTier"
+        v-bind:maxTargetTier="settingTier"
+        v-on:select="selectPackageForChar"
+        v-on:cancel="dialog = false"
         chooseMode
-        @select="selectPackageForChar"
-        @cancel="dialog = false"
       ></ascension-preview>
     </v-dialog>
 
@@ -65,12 +65,12 @@
             v-model="characterAscension['selected']"
             v-if="keyword.indexOf('<')>=0"
             v-for="keyword in characterAscension.keywords"
-            :key="keyword.key"
-            :label="keyword +' Keyword'"
-            :items="keywordOptions(keyword)"
+            v-bind:key="keyword.key"
+            v-bind::label="keyword +' Keyword'"
+            v-bind:items="keywordOptions(keyword)"
             item-text="name"
             item-value="name"
-            :hint="characterAscension['selected'] ? keywordRepository.find( k => k.name === characterAscension['selected'] ).description : ''"
+            v-bind:hint="characterAscension['selected'] ? keywordRepository.find( k => k.name === characterAscension['selected'] ).description : ''"
             persistent-hint
             solo
             dense
@@ -236,9 +236,39 @@
       };
       this.$store.commit('addAscension', payload);
 
+      if ( ascensionPackage.keywords ) {
+        ascensionPackage.keywords.forEach(keyword => {
+          const payload = {
+            name: keyword,
+            source: 'archetype',
+            type: (keyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
+            replacement: undefined,
+          };
+          this.$store.commit('addKeyword', payload);
+        });
+      }
+
       this.characterAscension = ascensionPackage;
 
       this.dialog = false;
+    },
+    /**
+     *
+     * @param placeholder {name:String, options:[]}
+     * @param selection String
+     */
+    updateKeyword(placeholder, selection) {
+      console.log(`selected ${selection} for ${placeholder.name}`);
+
+      this.$store.commit('replaceKeyword', {
+        // the name of the keyword to be replaced
+        placeholder: placeholder.name,
+        // the new selected choice
+        replacement: selection,
+        // the source of the keyword
+        source: 'archetype',
+      });
+      placeholder.selected = selection;
     },
     removePackage(ascensionPackage) {
       const payload = {

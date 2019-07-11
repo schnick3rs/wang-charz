@@ -177,9 +177,11 @@
   computed: {
     selectedKeywords(){
       let selectedKeywords = {};
-      this.keywords.filter(k=> (k.replacement)).forEach(r=>{
-        selectedKeywords[r.name] = r.replacement
-      })
+      if ( this.keywords) {
+        this.keywords.filter(k=> (k.replacement)).forEach(r=>{
+          selectedKeywords[r.name] = r.replacement
+        });
+      }
       console.log(selectedKeywords)
       return selectedKeywords;
     },
@@ -198,7 +200,7 @@
           wordy = { name: placeholder, options: levelOneKeywords, selected: '', };
         } else {
           const subKeywords = this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
-          wordy = { name: placeholder, options: subKeywords, selected: 'Armageddon Steel Legion', };
+          wordy = { name: placeholder, options: subKeywords, selected: '', };
         }
         console.log(this.selectedKeywords[placeholder]);
         if ( this.selectedKeywords[placeholder] ){

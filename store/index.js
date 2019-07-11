@@ -43,7 +43,50 @@ const getDefaultState = () => ({
   enhancements: [],
 });
 
-export const state = getDefaultState();
+export const state = () => ({
+  setting: undefined,
+  settingSelected: true,
+  settingTier: 3,
+  settingHomebrewContent: [],
+  species: { value: undefined, cost: 0 },
+  archetype: { value: undefined, cost: 0 },
+  attributes: {
+    strength: 1,
+    agility: 1,
+    toughness: 1,
+    intellect: 1,
+    willpower: 1,
+    fellowship: 1,
+    initiative: 1,
+  },
+  skills: {
+    athletics: 0,
+    awareness: 0,
+    ballisticSkill: 0,
+    cunning: 0,
+    deception: 0,
+    insight: 0,
+    intimidation: 0,
+    investigation: 0,
+    leadership: 0,
+    medicae: 0,
+    persuasion: 0,
+    pilot: 0,
+    psychicMastery: 0,
+    scholar: 0,
+    stealth: 0,
+    survival: 0,
+    tech: 0,
+    weaponSkill: 0,
+  },
+  keywords: [],
+  talents: [],
+  psychicPowers: [],
+  ascensionPackages: [],
+  wargear: [],
+  background: undefined,
+  enhancements: [],
+});
 
 export const getters = {
   setting(state) { return state.setting; },
