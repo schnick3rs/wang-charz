@@ -60,13 +60,14 @@
 
             <v-select
               v-model="species['chapter']"
+              v-bind:items="astartesChapterRepository"
+              v-on:change="$emit('changeChapter', species['chapter'])"
               label="Select your Chapter"
+              item-value="name"
+              item-text="name"
+              class="ml-2 mr-2"
               dense
               solo
-              :items="astartesChapterRepository"
-              item-text="name"
-              item-value="name"
-              class="ml-2 mr-2"
             />
 
             <p

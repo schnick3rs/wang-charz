@@ -61,11 +61,12 @@
 
     <v-flex v-if="characterSpecies && !changeSpeciesMode" xs12>
       <species-preview
-        :species="characterSpecies"
+        v-bind:species="characterSpecies"
+        v-on:changeSpecies="doChangeSpeciesMode"
+        v-on:select="selectSpeciesForChar"
+        v-on:reset="resetSpecies"
+        v-on:changeChapter="updateAstartesChapter"
         manageMode
-        @changeSpecies="doChangeSpeciesMode"
-        @select="selectSpeciesForChar"
-        @reset="resetSpecies"
       />
     </v-flex>
 
@@ -75,6 +76,7 @@
 <script lang="js">
   import SpeciesPreview from '~/components/builder/SpeciesPreview.vue';
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+  import { mapGetters } from 'Vuex';
 
   export default {
   name: 'SpeciesSelection',
@@ -92,11 +94,25 @@
   },
   computed: {
     loaded() { return this.speciesRepository !== undefined; },
-    settingTier() { return this.$store.state.settingTier; },
-    characterSpecies() { return this.getSpeciesBy(this.characterSpeciesName); },
+    ...mapGetters([
+      'settingTier',
+      'speciesAstartesChapter',
+    ]),
     characterSpeciesName() { return this.$store.state.species.value; },
+    characterSpecies() {
+      const species = this.getSpeciesBy(this.characterSpeciesName);
+      const chapter = this.speciesAstartesChapter;
+      if(chapter) {
+        species['chapter'] = chapter;
+      }
+      return species;
+    },
   },
   methods: {
+    updateAstartesChapter(chapterName){
+      console.log(`Changing Astartes Chapter ${chapterName}`);
+      this.$store.commit('setSpeciesAstartesChapter', { name: chapterName });
+    },
     getAvatar(name) {
       const slug = name.toLowerCase().replace(/\s/gm, '-');
       return `/img/icon/species/species_${slug}_avatar.png`;

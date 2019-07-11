@@ -4,6 +4,7 @@ const getDefaultState = () => ({
   settingTier: 3,
   settingHomebrewContent: [],
   species: { value: undefined, cost: 0 },
+  speciesAstartesChapter: undefined,
   archetype: { value: undefined, cost: 0 },
   attributes: {
     strength: 1,
@@ -49,6 +50,7 @@ export const state = () => ({
   settingTier: 3,
   settingHomebrewContent: [],
   species: { value: undefined, cost: 0 },
+  speciesAstartesChapter: undefined,
   archetype: { value: undefined, cost: 0 },
   attributes: {
     strength: 1,
@@ -94,6 +96,7 @@ export const getters = {
   settingTier(state) { return state.settingTier; },
   settingHomebrewContent(state) { return state.settingHomebrewContent; },
   species(state) { return state.species.value; },
+  speciesAstartesChapter(state) { return state.speciesAstartesChapter; },
   archetype(state) { return state.archetype.value; },
   keywords(state) { return state.keywords; },
   finalKeywords(state) { return state.keywords.map(k => k.replacement ? k.replacement : k.name); },
@@ -238,6 +241,9 @@ export const mutations = {
       item.source = 'species';
       state.enhancements.push(item);
     });
+  },
+  setSpeciesAstartesChapter(state, payload) {
+    state.speciesAstartesChapter = payload.name;
   },
   setArchetype(state, payload) {
     state.archetype = payload;
