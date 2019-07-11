@@ -2466,12 +2466,13 @@ export default {
               selected: undefined,
               options: [
                 {
-                  query: item => (
-                    item.value <= 5
-                    && ['Uncommon'].includes(item.rarity)
-                    && item.keywords.split(',').includes('Imperium')
-                    && item.type === 'Ranged Weapon'
-                  ),
+                  query: (item) => {
+                    const valueReq = item.value <= 5;
+                    const rarityReq = ['Uncommon'].includes(item.rarity);
+                    const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
+                    const typeReq = item.type === 'Ranged Weapon';
+                    return (valueReq && rarityReq && keywordReq && typeReq);
+                  },
                 },
               ],
             },
