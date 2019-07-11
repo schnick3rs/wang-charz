@@ -110,7 +110,6 @@
   },
   methods: {
     updateAstartesChapter(chapterName){
-      console.log(`Changing Astartes Chapter ${chapterName}`);
       this.$store.commit('setSpeciesAstartesChapter', { name: chapterName });
     },
     getAvatar(name) {
