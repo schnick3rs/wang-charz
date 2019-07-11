@@ -61,35 +61,19 @@
           <v-divider class="mb-2"></v-divider>
 
           <p class="text-lg-justify"><strong>Keywords:</strong> {{ characterAscension.keywords.join(', ') }}</p>
-          <v-select
-            v-if="keyword.indexOf('<')>=0"
-            v-for="keyword in characterAscensionKeywordPlaceholders"
-            v-model="characterAscension['selected']"
-            v-bind:key="keyword.key"
-            v-bind:label="keyword +' Keyword'"
-            v-bind:items="keywordOptions(keyword)"
-            v-bind:hint="characterAscension['selected'] ? keywordRepository.find( k => k.name === characterAscension['selected'] ).description : ''"
-            v-on:change="updateKeyword(keyword, characterAscension['selected'])"
-            item-text="name"
-            item-value="name"
-            persistent-hint
-            solo
-            dense
-          ></v-select>
 
-          <v-select
-            v-model="characterAscension['subSelected']"
-            v-if="characterAscension['selected'] && characterAscension['selected'].indexOf('<') >= 0"
-            label="Select sub keywords"
-            :items="subKeywordOptions(characterAscension['selected'])"
-            item-text="name"
-            item-value="name"
-            :hint="characterAscension['subSelected'] ? keywordSubwordRepository.find( k => k.name === characterAscension['subSelected'] ).description : ''"
-            persistent-hint
-            solo
-            dense
+          <div
+            v-for="placeholderName in characterAscension.keywords.filter(k=>k.indexOf('<')>=0)"
+            v-bind:key="placeholderName.key"
           >
-          </v-select>
+            <keyword-select
+              v-bind:placeholder="placeholderName"
+              v-bind:selection="'Imperium'"
+              v-bind:exclude="finalKeywords.filter(k=>k.indexOf('<')<0)"
+              v-on:changeKeyword="updateKeyword"
+            ></keyword-select>
+
+          </div>
 
           <!-- selection for the sub keyword -->
 
@@ -181,13 +165,14 @@
   import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
   import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
   import AscensionPreview from '~/components/builder/AscensionPreview.vue';
+  import KeywordSelect from '~/components/builder/KeywordSelect.vue';
 
   export default {
   name: 'Ascension',
   layout: 'builder',
   props: [],
   mixins: [AscensionRepositoryMixin, KeywordRepositoryMixin],
-  components: { AscensionPreview },
+  components: { AscensionPreview, KeywordSelect },
   data() {
     return {
       dialog: false,
@@ -215,7 +200,11 @@
         return characterPackage;
       });
     },
-    ...mapGetters(['settingTier', 'effectiveCharacterTier']),
+    ...mapGetters([
+      'settingTier',
+      'effectiveCharacterTier',
+      'finalKeywords',
+    ]),
     characterArchetype() {
       return this.$store.state.archetype.value;
     },
@@ -265,7 +254,7 @@
         ascensionPackage.keywords.forEach(keyword => {
           const payload = {
             name: keyword,
-            source: 'archetype',
+            source: 'ascension',
             type: (keyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
             replacement: undefined,
           };
@@ -282,17 +271,17 @@
      * @param selection String
      */
     updateKeyword(placeholder, selection) {
-      console.log(`selected ${selection} for ${placeholder.name}`);
+      console.log(`selected ${selection} for ${placeholder}`);
 
       this.$store.commit('replaceKeyword', {
         // the name of the keyword to be replaced
-        placeholder: placeholder.name,
+        placeholder: placeholder,
         // the new selected choice
         replacement: selection,
         // the source of the keyword
         source: 'ascension',
       });
-      placeholder.selected = selection;
+
     },
     removePackage(ascensionPackage) {
       const payload = {
