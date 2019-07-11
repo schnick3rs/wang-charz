@@ -67,10 +67,11 @@
             v-bind:key="placeholderName.key"
           >
             <keyword-select
+              v-model="characterAscension.selected"
               v-bind:placeholder="placeholderName"
-              v-bind:selection="'Imperium'"
+              v-bind:selection="characterAscension.selected"
               v-bind:exclude="finalKeywords.filter(k=>k.indexOf('<')<0)"
-              v-on:changeKeyword="updateKeyword"
+              v-on:input="updateKeyword($event, placeholderName, characterAscension)"
             ></keyword-select>
 
           </div>
@@ -180,6 +181,12 @@
     };
   },
   computed: {
+    ...mapGetters([
+      'settingTier',
+      'effectiveCharacterTier',
+      'keywords',
+      'finalKeywords',
+    ]),
     alerts() {
       const alerts = [];
       if (!this.characterArchetype) {
@@ -197,14 +204,17 @@
         })
         characterPackage.sourceTier = packageName.sourceTier;
         characterPackage.targetTier = packageName.targetTier;
+
+        const packageKeyword = this.keywords.find(k => k.source === `ascension.${characterPackage.key}`);
+        if(packageKeyword && packageKeyword.replacement) {
+          characterPackage.selected = packageKeyword.replacement;
+        } else {
+          characterPackage.selected = '';
+        }
+
         return characterPackage;
       });
     },
-    ...mapGetters([
-      'settingTier',
-      'effectiveCharacterTier',
-      'finalKeywords',
-    ]),
     characterArchetype() {
       return this.$store.state.archetype.value;
     },
@@ -222,10 +232,6 @@
         } else {
           const subKeywords = this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
           wordy = { name: placeholder, options: subKeywords, selected: '', };
-        }
-        console.log(this.selectedKeywords[placeholder]);
-        if ( this.selectedKeywords[placeholder] ){
-          wordy.selected = this.selectedKeywords[placeholder];
         }
         placeholderSet.push(wordy);
       });
@@ -254,7 +260,7 @@
         ascensionPackage.keywords.forEach(keyword => {
           const payload = {
             name: keyword,
-            source: 'ascension',
+            source: `ascension.${ascensionPackage.key}`,
             type: (keyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
             replacement: undefined,
           };
@@ -270,18 +276,19 @@
      * @param placeholder {name:String, options:[]}
      * @param selection String
      */
-    updateKeyword(placeholder, selection) {
-      console.log(`selected ${selection} for ${placeholder}`);
+    updateKeyword(selected, placeholder, ascensionPackage) {
+      console.log(`selected ${selected} for ${placeholder}`);
 
       this.$store.commit('replaceKeyword', {
         // the name of the keyword to be replaced
         placeholder: placeholder,
         // the new selected choice
-        replacement: selection,
+        replacement: selected,
         // the source of the keyword
-        source: 'ascension',
+        source: `ascension.${ascensionPackage.key}`,
       });
 
+      ascensionPackage.selected = selected;
     },
     removePackage(ascensionPackage) {
       const payload = {

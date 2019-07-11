@@ -3,11 +3,11 @@
   <div>
 
     <v-select
-      v-model="selected"
+      :value="value"
+      @input="$emit('input', $event)"
       v-bind:label="label"
       v-bind:items="options"
       v-bind:hint="hint"
-      v-on:change="updateKeyword"
       item-text="name"
       item-value="name"
       persistent-hint
@@ -33,6 +33,7 @@
   name: 'keyword-select',
   mixins: [KeywordRepository],
   props: {
+    value: String,
     // the placeholderString or wildcard like <Any> or <Chapter> that defines the options
     placeholder: {
       type: String,
@@ -53,18 +54,15 @@
   },
   data() {
     return {
-      selectedy: undefined,
+      selected: undefined,
     };
   },
   methods: {
     updateKeyword() {
-      this.$emit('changeKeyword', this.placeholder, this.selected);
+      //this.$emit('changeKeyword', { placeholder: this.placeholder, selected: this.selected });
     },
   },
   computed: {
-    selected(){
-      return this.selection || undefined;
-    },
     // helper
     mergedKeywords() {
       return [...this.keywordRepository, ...this.keywordSubwordRepository];
@@ -90,9 +88,9 @@
       return `${this.placeholder} Keyword`;
     },
     hint() {
-      if (this.selected) {
+      if (this.value) {
 
-        const keyword = this.selected;
+        const keyword = this.value;
         const parentKeyword = this.placeholder;
 
         let foundKeyword = this.mergedKeywords.find(k => k.name === keyword);
@@ -109,8 +107,8 @@
       return '';
     },
     effects() {
-      if (this.selected) {
-        let foundKeyword = this.keywordSubwordRepository.find(k => k.name === this.selected);
+      if (this.value) {
+        let foundKeyword = this.keywordSubwordRepository.find(k => k.name === this.value);
         if (foundKeyword !== undefined) {
           return foundKeyword.effect;
         }

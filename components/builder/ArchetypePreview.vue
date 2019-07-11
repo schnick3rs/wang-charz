@@ -182,6 +182,7 @@
           selectedKeywords[r.name] = r.replacement
         });
       }
+      console.log('selectedKeywords')
       console.log(selectedKeywords)
       return selectedKeywords;
     },
