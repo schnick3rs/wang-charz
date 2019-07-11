@@ -176,7 +176,7 @@
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'vuex';
+  import { mapGetters } from 'Vuex';
   import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
   import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
   import AscensionPreview from '~/components/builder/AscensionPreview.vue';

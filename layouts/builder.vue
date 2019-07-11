@@ -22,7 +22,7 @@
           </v-list-tile-content>
 
           <v-list-tile-action>
-            <span>{{spendBuildPoints}} / {{totalBuildPoints}} BP</span>
+            <span>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</span>
           </v-list-tile-action>
 
         </v-list-tile>
@@ -122,7 +122,9 @@
     </v-content>
 
     <v-footer :app="true" class="pa-2" dark>
-      <div>{{spendBuildPoints}} / {{totalBuildPoints}} BP</div>
+      <div>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</div>
+      <v-spacer></v-spacer>
+      <div>{{finalKeywords.join(' - ')}}</div>
       <v-spacer></v-spacer>
       <v-btn nuxt to="/about">About</v-btn>
       <div>&copy; {{ new Date().getFullYear() }}</div>
@@ -133,6 +135,7 @@
 
 <script>
   import DefaultFooter from '~/components/DefaultFooter';
+  import { mapGetters } from 'Vuex';
 
   export default {
   components: { DefaultFooter },
@@ -239,19 +242,27 @@
       ];
     },
 
-    settingSelected() { return this.$store.state.settingSelected; },
-    settingTier() { return this.$store.state.settingTier; },
+    ...mapGetters([
+      // setting
+      'settingSelected',
+      'settingTier',
+      // spending
+      'spendBuildingPoints',
+      // costs
+      'attributeCosts',
+      'skillCosts',
+      'talentCosts',
+      'psychicPowerCosts',
+      'ascensionCosts',
+      // misc
+      'keywords',
+      'finalKeywords',
+    ]),
+
     totalBuildPoints() { return this.$store.state.settingTier * 100; },
-    spendBuildPoints() { return this.$store.getters['spendBuildingPoints']; },
 
     maximumStartingTalents() { return Math.min(5, this.settingTier + 1); },
     maximumPsychicPowers() { return this.settingTier + 3; },
-
-    attributeCosts() { return this.$store.getters['attributeCosts']; },
-    skillCosts() { return this.$store.getters['skillCosts']; },
-    talentCosts() { return this.$store.getters['talentCost']; },
-    psychicPowerCosts() { return this.$store.getters['psychicPowerCost']; },
-    ascensionCosts() { return this.$store.getters['ascensionCost']; },
 
     characterSpecies() { return this.$store.state.species.value; },
     characterArchetype() { return this.$store.state.archetype.value; },

@@ -39,16 +39,17 @@
       <div
         v-if="manageMode"
         v-for="placeholder in itemKeywordPlaceholders"
-        :key="placeholder.key"
+        v-bind:key="placeholder.key"
       >
 
         <v-select
-          v-model="selectedKeywords[placeholder.name]"
-          :label="placeholder.name +' Keyword'"
-          :items="placeholder.options"
+          v-model="placeholder.selected"
+          v-bind:label="placeholder.name +' Keyword'"
+          v-bind:items="placeholder.options"
+          v-bind:hint="keywordHint(placeholder.selected, placeholder)"
+          v-on:change="updateKeyword(placeholder, placeholder.selected)"
           item-text="name"
           item-value="name"
-          :hint="keywordHint(selectedKeywords[placeholder.name], placeholder)"
           persistent-hint
           solo
           dense
@@ -104,6 +105,10 @@
   props: {
     item: {
       type: Object,
+      required: true,
+    },
+    keywords: {
+      type: Array,
       required: false,
     },
     manageMode: {
@@ -117,7 +122,7 @@
   },
   data() {
     return {
-      selectedKeywords: {}
+
     };
   },
   methods: {
@@ -150,8 +155,34 @@
 
       return '';
     },
+    /**
+     *
+     * @param placeholder {name:String, options:[]}
+     * @param selection String
+     */
+    updateKeyword(placeholder, selection) {
+      console.log(`selected ${selection} for ${placeholder.name}`);
+
+      this.$store.commit('replaceKeyword', {
+        // the name of the keyword to be replaced
+        placeholder: placeholder.name,
+        // the new selected choice
+        replacement: selection,
+        // the source of the keyword
+        source: 'archetype',
+      });
+      placeholder.selected = selection;
+    }
   },
   computed: {
+    selectedKeywords(){
+      let selectedKeywords = {};
+      this.keywords.filter(k=> (k.replacement)).forEach(r=>{
+        selectedKeywords[r.name] = r.replacement
+      })
+      console.log(selectedKeywords)
+      return selectedKeywords;
+    },
     mergedKeywords() {
       return [...this.keywordRepository, ...this.keywordSubwordRepository];
     },
@@ -161,13 +192,19 @@
       let placeholderSet = [];
 
       placeholderKeywords.forEach(placeholder => {
+        let wordy= {};
         if ( placeholder.toLowerCase() === '<any>' ) {
           const levelOneKeywords = this.keywordRepository.filter(k => k.name.toLowerCase() !== placeholder.toLowerCase());
-          placeholderSet.push({ name: placeholder, options: levelOneKeywords });
+          wordy = { name: placeholder, options: levelOneKeywords, selected: '', };
         } else {
           const subKeywords = this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
-          placeholderSet.push({ name: placeholder, options: subKeywords });
+          wordy = { name: placeholder, options: subKeywords, selected: 'Armageddon Steel Legion', };
         }
+        console.log(this.selectedKeywords[placeholder]);
+        if ( this.selectedKeywords[placeholder] ){
+          wordy.selected = this.selectedKeywords[placeholder];
+        }
+        placeholderSet.push(wordy);
       });
 
       return placeholderSet;

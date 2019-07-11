@@ -8,10 +8,11 @@
       scrollable
     >
       <archetype-preview
-        :item="selectedArchetype"
+        v-if="selectedArchetype"
+        v-bind:item="selectedArchetype"
+        v-on:select="selectArchetypeForChar"
+        v-on:cancel="dialog = false"
         chooseMode
-        @select="selectArchetypeForChar"
-        @cancel="dialog = false"
       ></archetype-preview>
     </v-dialog>
 
@@ -97,11 +98,12 @@
     <v-flex xs12 v-if="characterArchetype && !changeMode">
 
       <archetype-preview
-        :item="characterArchetype"
+        v-bind:item="characterArchetype"
+        v-bind:keywords="keywords"
+        v-on:change="doChangeMode"
+        v-on:select="selectArchetypeForChar"
+        v-on:reset="resetArchetype"
         manageMode
-        @change="doChangeMode"
-        @select="selectArchetypeForChar"
-        @reset="resetArchetype"
       ></archetype-preview>
 
     </v-flex>
@@ -113,6 +115,7 @@
 <script lang="js">
   import ArchetypePreview from '~/components/builder/ArchetypePreview';
   import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+  import { mapGetters } from 'Vuex';
 
   export default {
   name: 'Archetype',
@@ -170,9 +173,27 @@
     },
     selectArchetypeForChar(item) {
       this.$store.commit('setArchetype', { value: item.name, cost: item.cost, tier: item.tier });
+
       const mods = [];
       mods.push({ targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name});
       this.$store.commit('setArchetypeModifications', { modifications: mods });
+
+      this.$store.commit('clearKeywordsBySource', { source: 'archetype' });
+      // keywords = String[]
+      if ( item.keywords ) {
+        const itemKeywords = item.keywords.split(',');
+        itemKeywords.forEach(keyword => {
+          const payload = {
+            name: keyword,
+            source: 'archetype',
+            type: (keyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
+            replacement: undefined,
+          };
+          this.$store.commit('addKeyword', payload);
+        });
+      }
+
+
       this.dialog = false;
       this.changeMode = false;
     },
@@ -187,7 +208,10 @@
   },
   computed: {
     loaded() { return this.archetypeRepository !== undefined; },
-    settingTier() { return this.$store.state.settingTier; },
+    ...mapGetters([
+      'settingTier',
+      'keywords',
+    ]),
     characterArchetypeName() { return this.$store.getters.archetype; },
     characterArchetype() { return this.getArchetypeBy(this.characterArchetypeName); },
     characterSpecies() { return this.$store.getters.species; },

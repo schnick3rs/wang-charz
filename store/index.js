@@ -52,6 +52,8 @@ export const getters = {
   settingHomebrewContent(state) { return state.settingHomebrewContent; },
   species(state) { return state.species.value; },
   archetype(state) { return state.archetype.value; },
+  keywords(state) { return state.keywords; },
+  finalKeywords(state) { return state.keywords.map(k => k.replacement ? k.replacement : k.name); },
   effectiveCharacterTier(state) {
     const archetypeTier = state.archetype.tier || 0;
     let ascensionTier = 0;
@@ -130,19 +132,19 @@ export const getters = {
     });
     return skillSpending;
   },
-  talentCost(state) {
+  talentCosts(state) {
     let spending = 0;
     state.talents.forEach((talent) => { spending += talent.cost; });
     return spending;
   },
-  ascensionCost(state) {
+  ascensionCosts(state) {
     let spending = 0;
     state.ascensionPackages.forEach((ascensionPackage) => {
       spending += ascensionPackage.cost;
     });
     return spending;
   },
-  psychicPowerCost(state) {
+  psychicPowerCosts(state) {
     let spending = 0;
     state.psychicPowers.forEach((psychicPower) => {
       spending += psychicPower.cost;
@@ -156,9 +158,9 @@ export const getters = {
     spend += state.archetype ? state.archetype.cost : 0;
     spend += getters.attributeCosts;
     spend += getters.skillCosts;
-    spend += getters.talentCost;
-    spend += getters.ascensionCost;
-    spend += getters.psychicPowerCost;
+    spend += getters.talentCosts;
+    spend += getters.ascensionCosts;
+    spend += getters.psychicPowerCosts;
 
     return spend;
   },
@@ -204,6 +206,40 @@ export const mutations = {
       item.source = 'archetype';
       state.enhancements.push(item);
     });
+  },
+  /**
+   * @param payload { source:String }
+   */
+  clearKeywordsBySource(state, payload) {
+    if ( state.keywords.length > 0 ) {
+      console.log(`found ${state.keywords.length} keywods, clearing with source ${payload.source}...`);
+      state.keywords = state.keywords.filter( k => k.source !== payload.source );
+      console.log(`${state.keywords.length} keywords remaining`);
+    }
+  },
+  /**
+   * @param payload { name:String, source:String, type:String, replacement:undefined/String }
+   */
+  addKeyword(state, payload) {
+    console.log(`Adding keyword ${payload.name} of type ${payload.type}.`);
+    state.keywords.push(payload);
+  },
+  /**
+   * keyword { name:String, source:String, type:String, replacement:undefined/String }
+   * @param payload { placeholder:String, replacement:String, source:String}
+   */
+  replaceKeyword(state, payload) {
+    if ( state.keywords.length > 0) {
+      let placeholderKeyword = state.keywords.find(k => {
+        return (k.source === payload.source && k.name === payload.placeholder);
+      });
+      if ( placeholderKeyword ) {
+        placeholderKeyword.replacement = payload.replacement;
+        state.keywords = state.keywords
+          .filter( k => !(k.source === payload.source && k.name === payload.placeholder) )
+        state.keywords.push(placeholderKeyword);
+      };
+    }
   },
   setAttribute(state, payload) {
     state.attributes[payload.key] = payload.value;
