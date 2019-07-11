@@ -62,15 +62,16 @@
 
           <p class="text-lg-justify"><strong>Keywords:</strong> {{ characterAscension.keywords.join(', ') }}</p>
           <v-select
-            v-model="characterAscension['selected']"
             v-if="keyword.indexOf('<')>=0"
-            v-for="keyword in characterAscension.keywords"
+            v-for="keyword in characterAscensionKeywordPlaceholders"
+            v-model="characterAscension['selected']"
             v-bind:key="keyword.key"
-            v-bind::label="keyword +' Keyword'"
+            v-bind:label="keyword +' Keyword'"
             v-bind:items="keywordOptions(keyword)"
+            v-bind:hint="characterAscension['selected'] ? keywordRepository.find( k => k.name === characterAscension['selected'] ).description : ''"
+            v-on:change="updateKeyword(keyword, characterAscension['selected'])"
             item-text="name"
             item-value="name"
-            v-bind:hint="characterAscension['selected'] ? keywordRepository.find( k => k.name === characterAscension['selected'] ).description : ''"
             persistent-hint
             solo
             dense
@@ -176,7 +177,7 @@
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'Vuex';
+  import { mapGetters } from 'vuex';
   import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
   import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
   import AscensionPreview from '~/components/builder/AscensionPreview.vue';
@@ -218,6 +219,30 @@
     characterArchetype() {
       return this.$store.state.archetype.value;
     },
+    characterAscensionKeywordPlaceholders(){
+      let placeholderSet = [];
+
+      this.characterAscensionPackages()
+
+      const placeholderKeywords = this.item.keywords.split(',').filter( (k) => { return k.indexOf('<')>=0; } );
+      placeholderKeywords.forEach(placeholder => {
+        let wordy= {};
+        if ( placeholder.toLowerCase() === '<any>' ) {
+          const levelOneKeywords = this.keywordRepository.filter(k => k.name.toLowerCase() !== placeholder.toLowerCase());
+          wordy = { name: placeholder, options: levelOneKeywords, selected: '', };
+        } else {
+          const subKeywords = this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
+          wordy = { name: placeholder, options: subKeywords, selected: '', };
+        }
+        console.log(this.selectedKeywords[placeholder]);
+        if ( this.selectedKeywords[placeholder] ){
+          wordy.selected = this.selectedKeywords[placeholder];
+        }
+        placeholderSet.push(wordy);
+      });
+
+      return placeholderSet;
+    },
   },
   methods: {
     openDialog(item) {
@@ -253,7 +278,6 @@
       this.dialog = false;
     },
     /**
-     *
      * @param placeholder {name:String, options:[]}
      * @param selection String
      */
@@ -266,7 +290,7 @@
         // the new selected choice
         replacement: selection,
         // the source of the keyword
-        source: 'archetype',
+        source: 'ascension',
       });
       placeholder.selected = selection;
     },

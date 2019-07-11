@@ -115,7 +115,7 @@
 <script lang="js">
   import ArchetypePreview from '~/components/builder/ArchetypePreview';
   import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import { mapGetters } from 'Vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
   name: 'Archetype',

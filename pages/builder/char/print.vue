@@ -162,7 +162,7 @@
 
 <script lang="js">
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
-  import { mapGetters } from 'Vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
   name: 'Print',

@@ -107,7 +107,7 @@
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'Vuex';
+  import { mapGetters } from 'vuex';
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
   export default {

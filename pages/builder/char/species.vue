@@ -76,7 +76,7 @@
 <script lang="js">
   import SpeciesPreview from '~/components/builder/SpeciesPreview.vue';
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-  import { mapGetters } from 'Vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
   name: 'SpeciesSelection',

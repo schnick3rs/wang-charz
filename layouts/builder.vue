@@ -135,7 +135,7 @@
 
 <script>
   import DefaultFooter from '~/components/DefaultFooter';
-  import { mapGetters } from 'Vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
   components: { DefaultFooter },
