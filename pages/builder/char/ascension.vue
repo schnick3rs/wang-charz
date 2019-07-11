@@ -293,6 +293,7 @@
     removePackage(ascensionPackage) {
       const payload = {
         value: ascensionPackage.name,
+        key: ascensionPackage.key,
         sourceTier: ascensionPackage.sourceTier,
         targetTier: ascensionPackage.targetTier,
       };

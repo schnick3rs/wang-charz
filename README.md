@@ -5,10 +5,10 @@
 What are the next steps to implement
 
 ### Beta
-* Ascension: Persist Keyword (choice)
+* ✓ Ascension: Persist Keyword (choice)
+* ✓ Species.Astartes: Persist Chapter Choice
 * Ascension.StayTheCourse: Persist Scar Choice
 * Ascension.StayTheCourse: Handle Wargear Options
-* Species.Astartes: Persist Chapter Choice
 
 ### Release
 * Basic PDF View/Export

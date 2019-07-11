@@ -335,6 +335,8 @@ export const mutations = {
     // remove all enhancements that are related to the package
     state.enhancements = state.enhancements.filter(e => e.source !== `ascension/${payload.value}`);
 
+    state.keywords = state.keywords.filter( k => k.source !== `ascension.${payload.key}`);
+
     // ToDo: remove all wargear that is related to the package
   },
   addWargear(state, payload) {
