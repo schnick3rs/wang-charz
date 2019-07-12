@@ -354,6 +354,17 @@ export const mutations = {
       state.ascensionPackages[index].storyElementChoice = payload.ascensionPackageStoryElementKey;
     }
   },
+  setAscensionPackageWargearOption(state, payload){
+    console.info(`Set Ascension WargearOption to ${payload.ascensionPackageWargearOptionKey}`);
+    // find package by payload.ascensionPackageKey and payload.ascensionPackage
+    const index = state.ascensionPackages.findIndex(a => (
+      a.key === payload.ascensionPackageKey &&
+      a.targetTier === payload.ascensionPackageTargetTier
+    ));
+    if (index >= 0) {
+      state.ascensionPackages[index].wargearChoice = payload.ascensionPackageWargearOptionKey;
+    }
+  },
   setAscensionModifications(state, payload) {
     console.info(payload);
     // remove previous choice
@@ -369,8 +380,8 @@ export const mutations = {
     for (let i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-
-    state.wargear.push({ id: result, name: payload.name });
+    console.info(`Adding '${payload.name}' by '${payload.source}'`)
+    state.wargear.push({ id: result, name: payload.name, source: payload.source });
   },
   removeWargear(state, payload) {
     const hasWargear = state.wargear.find(t => t.id === payload.id) !== undefined;

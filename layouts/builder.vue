@@ -121,12 +121,17 @@
 
     </v-content>
 
-    <v-footer :app="true" class="pa-2" dark>
+    <v-footer
+      v-bind:app="true"
+      v-bind:color="(spendBuildingPoints > totalBuildPoints) ? 'error' : ''"
+      class="pa-2"
+      dark
+    >
       <div>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</div>
+      <v-spacer class="hidden-xs-only"></v-spacer>
+      <div class="hidden-xs-only">{{finalKeywords.join(' • ')}}</div>
       <v-spacer></v-spacer>
-      <div>{{finalKeywords.join(' • ')}}</div>
-      <v-spacer></v-spacer>
-      <v-btn nuxt to="/about">About</v-btn>
+      <v-btn nuxt to="/about" >About</v-btn>
       <div>&copy; {{ new Date().getFullYear() }}</div>
     </v-footer>
 

@@ -39,9 +39,59 @@ export default {
           ],
           storyElementChoice: '',
           wargearText: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3 + the new Tier. This may include cybernetics.',
+          wargearChoice: undefined,
           wargearOptions: [
-            { text: 'two items of Rare Wargear' },
-            { text: 'one item of Very Rare Wargear' },
+            {
+              key: 'twoRareItems',
+              text: 'two items of Rare Wargear',
+              selectList: [
+                {
+                  key: 'firstItem',
+                  text: 'Select on fitting item',
+                  itemChoice: undefined,
+                  query: (tier) => {
+                    return (item) => {
+                      const valueReq = item.value <= 3 + tier;
+                      const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(item.rarity);
+                      //const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
+                      return (valueReq && rarityReq);
+                    }
+                  },
+                },
+                {
+                  key: 'secondItem',
+                  text: 'Select on fitting item',
+                  itemChoice: undefined,
+                  query: (tier) => {
+                    return (item) => {
+                      const valueReq = item.value <= 3 + tier;
+                      const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(item.rarity);
+                      //const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
+                      return (valueReq && rarityReq);
+                    }
+                  },
+                },
+              ],
+            },
+            {
+              key: 'oneVeryRareItem',
+              text: 'one item of Very Rare Wargear',
+              selectList: [
+                {
+                  key: 'firstItem',
+                  text: 'Select on fitting item',
+                  itemChoice: undefined,
+                  query: (tier) => {
+                    return (item) => {
+                      const valueReq = item.value <= 3 + tier;
+                      const rarityReq = ['Common', 'Uncommon', 'Rare', 'Very Rare'].includes(item.rarity);
+                      //const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
+                      return (valueReq && rarityReq);
+                    }
+                  },
+                },
+              ],
+            },
           ],
         },
         {
@@ -59,6 +109,7 @@ export default {
           storyElementChoice: '',
           wargearText: 'None',
           wargearOptions: [],
+          wargearChoice: undefined,
         },
       ],
     };

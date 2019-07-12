@@ -2,7 +2,7 @@
 
   <v-layout justify-center row wrap>
 
-    <v-flex xs12 v-if="startingWargear && characterWargear.length <= 0">
+    <v-flex xs12 v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0">
 
       <h1 class="headline">Select starting Wargear</h1>
 
@@ -112,15 +112,17 @@
     characterWargear() {
       const characterWargear = [];
       this.$store.state.wargear.forEach(chargear => {
-         const gear = this.wargearRepository.find(wargear => wargear.name === chargear.name);
+         let gear = this.wargearRepository.find(wargear => wargear.name === chargear.name);
          if ( gear ) {
-           gear['id'] = chargear.id;
+           gear.id = chargear.id;
+           gear.source = chargear.source;
            characterWargear.push(gear);
          } else {
            characterWargear.push( {
              id: chargear.id,
              name: chargear.name,
              type: 'Misc',
+             source: chargear.source,
            });
          }
       });
@@ -151,7 +153,7 @@
         }
       });
       finalWargear.forEach((w) => {
-        this.$store.commit('addWargear', { name: w });
+        this.$store.commit('addWargear', { name: w, source: 'archetype' });
       });
     },
     remove(gear) {

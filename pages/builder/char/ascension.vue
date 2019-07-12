@@ -104,7 +104,43 @@
           <v-divider class="mb-2"></v-divider>
 
           <p class="text-lg-justify"><strong>Wargear:</strong> {{ characterAscension.wargearText }}</p>
-          <v-select v-if="characterAscension.wargearOptions.length > 0" solo dense label="Wargear" :items="characterAscension.wargearOptions.map( i => i.text )"></v-select>
+
+          <div class="ml-2 mr-2">
+
+            <v-select
+              v-if="characterAscension.wargearOptions.length > 0"
+              v-model="characterAscension.wargearChoice"
+              v-bind:items="characterAscension.wargearOptions"
+              v-on:input="updateAscensionPackageWargearOption($event, characterAscension)"
+              item-text="text"
+              item-value="key"
+              label="Wargear Options"
+              solo
+              dense
+            ></v-select>
+
+            <div
+              v-if="characterAscension.wargearChoice"
+              class="ml-2 mr-2"
+            >
+              <div
+                v-for="selectItem in characterAscension.wargearOptions.find( o => o.key === characterAscension.wargearChoice ).selectList"
+              >
+                <v-select
+                  v-model="selectItem.itemChoice"
+                  v-bind:items="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
+                  v-on:input="updateAscensionPackageWargearOptionChoice($event, selectItem.key, characterAscension)"
+                  item-value="name"
+                  item-text="name"
+                  label="Item Option"
+                  solo
+                  dense
+                ></v-select>
+              </div>
+
+            </div>
+
+          </div>
 
         </v-card-text>
 
@@ -175,15 +211,17 @@
   import { mapGetters } from 'vuex';
   import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
   import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
+  import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin';
   import AscensionPreview from '~/components/builder/AscensionPreview.vue';
   import KeywordSelect from '~/components/builder/KeywordSelect.vue';
+  import WargearSelect from '~/components/builder/WargearSelect.vue';
 
   export default {
   name: 'Ascension',
   layout: 'builder',
   props: [],
-  mixins: [AscensionRepositoryMixin, KeywordRepositoryMixin],
-  components: { AscensionPreview, KeywordSelect },
+  mixins: [AscensionRepositoryMixin, KeywordRepositoryMixin, WargearRepositoryMixin],
+  components: { AscensionPreview, KeywordSelect, WargearSelect },
   data() {
     return {
       dialog: false,
@@ -215,6 +253,19 @@
         characterPackage.sourceTier = packageName.sourceTier;
         characterPackage.targetTier = packageName.targetTier;
         characterPackage.storyElementChoice = packageName.storyElementChoice;
+        characterPackage.wargearChoice = packageName.wargearChoice;
+
+        const sourceKey = `ascension.${characterPackage.key}.${characterPackage.wargearChoice}`;
+        const gear = this.$store.state.wargear
+          .filter(gear => gear.source && gear.source.startsWith(sourceKey));
+        if (gear) {
+          gear.forEach(g=>{
+            characterPackage
+              .wargearOptions.find(o=>o.key === characterPackage.wargearChoice)
+              .selectList.find(s=> g.source.endsWith(s.key))
+              .itemChoice = g.name
+          });
+        }
 
         const packageKeyword = this.keywords.find(k => k.source === `ascension.${characterPackage.key}`);
         if(packageKeyword && packageKeyword.replacement) {
@@ -318,6 +369,23 @@
         ascensionPackageStoryElementKey: storyElementOption.key,
       };
       this.$store.commit('setAscensionPackageStoryElement', storyPayload);
+    },
+    updateAscensionPackageWargearOption(choiceValue, ascensionObject){
+      const wargearOption = ascensionObject.wargearOptions.find(o => o.key === choiceValue);
+      const wargearOptionPayload = {
+        ascensionPackageKey: ascensionObject.key,
+        ascensionPackageTargetTier: ascensionObject.targetTier,
+        ascensionPackageWargearOptionKey: wargearOption.key,
+      };
+      this.$store.commit('setAscensionPackageWargearOption', wargearOptionPayload);
+    },
+    updateAscensionPackageWargearOptionChoice(choiceValue, itemKey, ascensionObject){
+      const wargearOption = ascensionObject.wargearOptions.find(o => o.key === ascensionObject.wargearChoice);
+      const payload = {
+        name: choiceValue,
+        source: `ascension.${ascensionObject.key}.${wargearOption.key}.${itemKey}`
+      };
+      this.$store.commit('addWargear', payload);
     },
     removePackage(ascensionPackage) {
       const payload = {
