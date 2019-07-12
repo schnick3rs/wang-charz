@@ -89,7 +89,17 @@
           <v-divider class="mb-2"></v-divider>
 
           <p class="text-lg-justify"><strong>Story Element:</strong> {{ characterAscension.storyElementText }}</p>
-          <v-select v-if="characterAscension.storyElementOptions.length > 0" solo dense label="Story Element" :items="characterAscension.storyElementOptions.map( i => i.text )"></v-select>
+          <v-select
+            v-if="characterAscension.storyElementOptions.length > 0"
+            v-model="characterAscension.storyElementChoice"
+            v-bind:items="characterAscension.storyElementOptions"
+            v-on:input="updateAscensionPackageStoryElement($event, characterAscension)"
+            item-text="text"
+            item-value="key"
+            label="Story Element"
+            solo
+            dense
+          ></v-select>
 
           <v-divider class="mb-2"></v-divider>
 
@@ -204,6 +214,7 @@
         })
         characterPackage.sourceTier = packageName.sourceTier;
         characterPackage.targetTier = packageName.targetTier;
+        characterPackage.storyElementChoice = packageName.storyElementChoice;
 
         const packageKeyword = this.keywords.find(k => k.source === `ascension.${characterPackage.key}`);
         if(packageKeyword && packageKeyword.replacement) {
@@ -249,6 +260,7 @@
       ascensionPackage.targetTier = targetTier;
 
       const payload = {
+        key: ascensionPackage.key,
         value: ascensionPackage.name,
         cost: ascensionPackage.cost * targetTier,
         sourceTier: ascensionPackage.sourceTier,
@@ -289,6 +301,23 @@
       });
 
       ascensionPackage.selected = selected;
+    },
+    /**
+     * @param modificationList [ {} ]
+     */
+    updateAscensionPackageStoryElement(choiceValue, ascensionObject){
+      const storyElementOption = ascensionObject.storyElementOptions.find(o => o.key === choiceValue);
+      const payload = {
+        ...storyElementOption.modifications[0],
+        source: `ascension.${ascensionObject.key}.storyElement`,
+      };
+      this.$store.commit('setAscensionModifications', payload);
+      const storyPayload = {
+        ascensionPackageKey: ascensionObject.key,
+        ascensionPackageTargetTier: ascensionObject.targetTier,
+        ascensionPackageStoryElementKey: storyElementOption.key,
+      };
+      this.$store.commit('setAscensionPackageStoryElement', storyPayload);
     },
     removePackage(ascensionPackage) {
       const payload = {

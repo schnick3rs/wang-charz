@@ -7,19 +7,19 @@ What are the next steps to implement
 ### Beta
 * ✓ Ascension: Persist Keyword (choice)
 * ✓ Species.Astartes: Persist Chapter Choice
-* Ascension.StayTheCourse: Persist Scar Choice
+* ✓ Ascension.StayTheCourse: Persist Story Element
 * Ascension.StayTheCourse: Handle Wargear Options
 
 ### Release
 * Basic PDF View/Export
 
 ### Follow Up
-* Persist multiple Characters
-* Persist Character (needs refinement)
+* Persist Character (needs refinement, cloud, local)
 * Allow for the Optional Wargear Rules
 * Astartes: Default Archetype Chapter Keyword derived from Species selection (and vice versa)
 
 ### Backlog
+* Persist multiple Characters
 * (?) Keyword overview tab
 * Sharable Campaign Framework
 * Mobile/Desktop Character View

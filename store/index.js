@@ -1,4 +1,5 @@
 const getDefaultState = () => ({
+  id: -1,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
@@ -45,6 +46,7 @@ const getDefaultState = () => ({
 });
 
 export const state = () => ({
+  id: -1,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
@@ -322,8 +324,10 @@ export const mutations = {
   },
   addAscension(state, payload) {
     state.ascensionPackages.push({
+      key: payload.key,
       value: payload.value,
       cost: payload.cost,
+      storyElementChoice: undefined,
       sourceTier: payload.sourceTier,
       targetTier: payload.targetTier,
     });
@@ -333,11 +337,28 @@ export const mutations = {
     state.ascensionPackages = state.ascensionPackages.filter(a => (a.value !== payload.value));
 
     // remove all enhancements that are related to the package
-    state.enhancements = state.enhancements.filter(e => e.source !== `ascension/${payload.value}`);
+    state.enhancements = state.enhancements.filter(e => !e.source.startsWith(`ascension.${payload.value}`));
 
     state.keywords = state.keywords.filter( k => k.source !== `ascension.${payload.key}`);
 
     // ToDo: remove all wargear that is related to the package
+  },
+  setAscensionPackageStoryElement(state, payload){
+    console.info(payload);
+    // find package by payload.ascensionPackageKey and payload.ascensionPackage
+    const index = state.ascensionPackages.findIndex(a => (
+      a.key === payload.ascensionPackageKey &&
+      a.targetTier === payload.ascensionPackageTargetTier
+    ));
+    if (index >= 0) {
+      state.ascensionPackages[index].storyElementChoice = payload.ascensionPackageStoryElementKey;
+    }
+  },
+  setAscensionModifications(state, payload) {
+    console.info(payload);
+    // remove previous choice
+    state.enhancements = state.enhancements.filter(e => e.source !== payload.source);
+    state.enhancements.push(payload);
   },
   addWargear(state, payload) {
 

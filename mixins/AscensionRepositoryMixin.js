@@ -14,9 +14,30 @@ export default {
           influencePerTier: 1,
           storyElementText: 'The character gains their choice of either 3 Corruption points or a Memorable Injury (see page 233) of their choice and the +1D Bonus to Intimidation that comes with it from the Table 4-4: Memorable Injury.',
           storyElementOptions: [
-            { text: '3 Corruption Points' },
-            { text: 'Memorable Injury' },
+            {
+              key: 'corruption',
+              text: '3 Corruption Points',
+              modifications: [
+                {
+                  targetGroup: 'traits',
+                  targetValue: 'corruption',
+                  modifier: 3
+                },
+              ],
+            },
+            {
+              key: 'memorableInjury',
+              text: 'Memorable Injury',
+              modifications: [
+                {
+                  targetGroup: 'abilities',
+                  targetValue: '',
+                  effect: '+1 dice to Intimidation Tests.'
+                },
+              ],
+            },
           ],
+          storyElementChoice: '',
           wargearText: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3 + the new Tier. This may include cybernetics.',
           wargearOptions: [
             { text: 'two items of Rare Wargear' },
@@ -35,6 +56,7 @@ export default {
           influencePerTier: 1,
           storyElementText: 'The character gains the smite psychic power. They also may choose one Minor Psychic power per Tier ascended and may purchase powers from one Discipline of their choice. The character must purchase the Psychic Mastery Skill.',
           storyElementOptions: [],
+          storyElementChoice: '',
           wargearText: 'None',
           wargearOptions: [],
         },
