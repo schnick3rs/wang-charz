@@ -2361,7 +2361,7 @@ export default {
       archetypeWargearRepository: [
         // Imperium
         {
-          name: 'Ministorium Prist',
+          name: 'Ministorum Priest',
           options: [
             { name: 'Laspistol' },
             { name: 'Rosarius' },
