@@ -60,11 +60,21 @@
 </template>
 
 <script lang="js">
-
+export default {
+  head() {
+    return {
+      title: 'About the Doctors of Doom',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'A fan page for the Warhammer 40k universe, especially the Wrath & Glory Role Playing game.',
+        },
+      ],
+    }
+  },
+}
 </script>
 
 <style scoped lang="css">
-  .about {
-
-  }
 </style>
