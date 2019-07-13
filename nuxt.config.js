@@ -81,8 +81,7 @@ module.exports = {
     hostname: 'https://www.doctors-of-doom.com',
     gzip: true,
     exclude: [
-      '/builder/**',
-      '/old/**',
+      '/builder/char/**',
     ],
     routes() {
       return [

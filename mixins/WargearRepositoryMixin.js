@@ -2383,7 +2383,8 @@ export default {
           name: 'Death Cult Assassin',
           options: [
             { name: 'Bodyglove' },
-            { name: 'Death Cult Powerblade', amount: 2 },
+            { name: 'Death Cult Powerblade' },
+            { name: 'Death Cult Powerblade' },
             { name: 'Knife' },
             { name: 'Laspistol' },
             { name: 'Doses of stimm', amount: 3 },
