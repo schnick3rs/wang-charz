@@ -12,7 +12,7 @@ export default {
           rarity: 'Very Rare',
           keywords: 'Powered,Imperium,Adeptus Astartes',
           effect: null,
-          source: null,
+          source: null
         },
         {
           key: null,
@@ -276,7 +276,14 @@ export default {
           rarity: 'Uncommon',
           keywords: 'Bolt,Imperium',
           effect: null,
-          source: null
+          source: null,
+          meta: {
+            range: '40',
+            damage: { static: 10, ed: 1, },
+            salvo: 2,
+            ap: -1,
+            traits: [ 'Assault', 'Brutal' ],
+          },
         },
         {
           key: null,
