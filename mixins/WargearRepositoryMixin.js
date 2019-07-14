@@ -2641,14 +2641,14 @@ export default {
               name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
-                { query: item => ( item.type === 'Cybernetic' ), },
+                { query: item => ( item.subtype === 'Augmentic' ), },
               ],
             },
             {
               name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
-                { query: item => ( item.type === 'Cybernetic' ), },
+                { query: item => ( item.subtype === 'Augmentic' ), },
               ],
             },
           ],
