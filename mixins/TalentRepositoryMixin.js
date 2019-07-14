@@ -66,17 +66,42 @@ export default {
       }),
     );
 
+    const talentUnnaturalSkill = ['Ballistic Skill']
+    .sort()
+    .map(
+      skill => ({
+        name: `Unnatural ${skill}`,
+        cost: 60,
+        prerequisites: [
+          {
+            condition: 'must', type: 'skill', key: skill, value: '4+',
+          },
+        ],
+        effect: '...',
+        source: {
+          book: 'core',
+          version: 'v1',
+          page: '182',
+        },
+        crunch: [
+          { type: 'ability' },
+        ],
+      }),
+    );
+
     return {
       talentRepository: [
         {
           name: 'Acts of Faith',
           cost: 40,
           prerequisites: [
-            { condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'] },
+            {
+              condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'],
+            },
             {
               condition: 'must', type: 'attribute', key: 'Willpower', value: '3+',
             },
-            { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
+            { condition: 'mustNot', type: 'keyword', key: ['Chaos'], },
           ],
           effect: 'Grants Faith and bonuses with various options.',
           source: {
@@ -833,24 +858,7 @@ export default {
           ],
         },
         ...talentUncannyTrait,
-        {
-          name: 'Unnatural <Skill>',
-          cost: 60,
-          prerequisites: [
-            {
-              condition: 'must', type: 'skill', key: 'Skill', value: '4+',
-            },
-          ],
-          effect: '...',
-          source: {
-            book: 'core',
-            version: 'v1',
-            page: '182',
-          },
-          crunch: [
-            { type: 'ability' },
-          ],
-        },
+        ...talentUnnaturalSkill,
         {
           name: 'Unquestioning Faith',
           cost: 20,

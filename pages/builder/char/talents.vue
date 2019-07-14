@@ -26,6 +26,7 @@
         <v-card>
 
           <v-card-title>
+
             <v-text-field
               v-model="searchQuery"
               append-icon="search"
@@ -33,10 +34,18 @@
               single-line
               hide-details
             ></v-text-field>
+
+            <v-switch
+              v-model="filterOnlyPrerequisites"
+              color="primary"
+              label="Show only fulfilled prerequisites"
+            >
+            </v-switch>
+
           </v-card-title>
 
           <v-data-table
-            :items="talentRepository"
+            :items="filteredTalents"
             :search="searchQuery"
             :headers="headers"
             hide-actions
@@ -49,15 +58,24 @@
                 <span class="hidden-md-and-up" style="display:block; color:grey;">{{props.item.effect}}</span>
               </td>
               <td class="caption text-xs-center" >{{props.item.cost}}</td>
-              <td class="caption hidden-xs-and-down" v-html="prerequisitesToText(props.item).join(', ')"></td>
+              <td class="caption hidden-xs-and-down">
+                <span v-html="prerequisitesToText(props.item).join(', ')"></span>
+              </td>
               <td class="caption hidden-sm-and-down">{{props.item.effect}}</td>
               <td class="text-xs-center">
                 <v-btn
+                  v-bind:disabled="characterTalents.includes(props.item.name)"
+                  v-on:click="addTalent(props.item)"
                   icon
-                  @click="addTalent(props.item)"
-                  :disabled="characterTalents.includes(props.item.name)"
                 >
-                  <v-icon :color="affordableColor(props.item.cost)">add_circle</v-icon>
+                  <v-icon
+                    v-if="!props.item.prerequisitesFulfilled"
+                    color="orange"
+                  >info</v-icon>
+                  <v-icon
+                    v-else
+                    v-bind:color="affordableColor(props.item.cost)"
+                  >add_circle</v-icon>
                 </v-btn>
               </td>
             </template>
@@ -77,16 +95,19 @@
 </template>
 
 <script lang="js">
+  import { mapGetters } from 'vuex';
   import TalentRepositoryMixin from '~/mixins/TalentRepositoryMixin.js';
+  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
   export default {
   name: 'Talents',
   layout: 'builder',
   props: [],
-  mixins: [ TalentRepositoryMixin ],
+  mixins: [ TalentRepositoryMixin, StatRepositoryMixin ],
   data() {
     return {
       searchQuery: '',
+      filterOnlyPrerequisites: false,
       headers: [
         {
           text: 'Name',
@@ -121,16 +142,91 @@
     };
   },
   computed: {
+    ...mapGetters([
+      'effectiveCharacterTier',
+      'finalKeywords',
+      'attributesEnhanced',
+      'skills',
+    ]),
     characterTalents() { return this.$store.getters.talents; },
-    filteredTalentRepository() {
+    filteredTalents() {
       if (this.talentRepository === undefined) {
         return [];
       }
 
-      let filteredTalents = this.talentRepository.filter(t => (!t.prerequisitesKeywords
-          || t.prerequisitesKeywords.split(',').some(r => this.characterKeywords.indexOf(r) >= 0)));
+      let filteredTalents = this.talentRepository;
 
+      // exclude those already picked
       filteredTalents = filteredTalents.filter(t => !this.characterTalents.includes(t.name));
+
+      filteredTalents = filteredTalents.map( talent => {
+        let fulfilled = true;
+
+        // has prerequisites
+        if ( talent.prerequisites.length > 0) {
+          talent.prerequisites.forEach( prerequisite => {
+
+            switch (prerequisite.type) {
+
+              // condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'],
+              case 'keyword':
+                const found = prerequisite.key.some( prereqKeyword => this.finalKeywords.includes(prereqKeyword) );
+                if (
+                  ( prerequisite.condition === 'must' && !found ) ||
+                  ( prerequisite.condition === 'mustNot' && found )
+                ){
+                  fulfilled = false;
+                }
+                break;
+
+              // condition: 'must', type: 'attribute', key: 'Willpower', value: '3+',
+              case 'attribute':
+                const attribute = this.attributeRepository.find(a => a.name == prerequisite.key);
+                if (attribute) {
+                  const charAttributeValue = this.attributesEnhanced[attribute.key];
+                  const prereqAttributeValue = prerequisite.value.split('+')[0];
+                  if ( charAttributeValue < prereqAttributeValue ) {
+                    fulfilled = false;
+                  }
+                } else {
+                  console.warn(`No attribute found for ${prerequisite.key}.`);
+                }
+                break;
+
+              // condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+',
+              case 'skill':
+                const skill = this.skillRepository.find(a => a.name == prerequisite.key);
+                if (skill){
+                  const charSkillValue = this.skills[skill.key];
+                  const prereqSkillValue = prerequisite.value.split('+')[0];
+                  if ( charSkillValue < prereqSkillValue ) {
+                    fulfilled = false;
+                  }
+                } else {
+                  console.warn(`No skill found for ${prerequisite.key}.`);
+                }
+                break;
+
+              // condition: 'must', type: 'character', key: 'Tier', value: '2+',
+              case 'character':
+                if (prerequisite.key === 'Tier'){
+                  const prereqTierValue = prerequisite.value.split('+')[0];
+                  if (this.effectiveCharacterTier <= prereqTierValue) {
+                    fulfilled = false;
+                  }
+                }
+                break;
+            }
+          });
+        }
+        talent['prerequisitesFulfilled'] = fulfilled;
+        return talent;
+      });
+
+      // only show those whose prerequisites are met
+      if ( this.filterOnlyPrerequisites ){
+        filteredTalents = filteredTalents.filter( talent => talent.prerequisitesFulfilled === true)
+      }
 
       return filteredTalents;
     },
