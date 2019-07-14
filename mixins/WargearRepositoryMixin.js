@@ -49,9 +49,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Arm",
+          "name": "Augmentic Arm",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 4,
           "rarity": "Rare",
           "keywords": "<Any>",
@@ -60,9 +60,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Auger Eye",
+          "name": "Augmentic Auger Eye",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 6,
           "rarity": "Uncommon",
           "keywords": "<Any>",
@@ -71,9 +71,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Legs",
+          "name": "Augmentic Legs",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 4,
           "rarity": "Rare",
           "keywords": "<Any>",
@@ -82,9 +82,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Night Eye",
+          "name": "Augmentic Night Eye",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 6,
           "rarity": "Uncommon",
           "keywords": "<Any>",
@@ -93,9 +93,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Pict Recorder",
+          "name": "Augmentic Pict Recorder",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 6,
           "rarity": "Uncommon",
           "keywords": "<Any>",
@@ -104,9 +104,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Respirator",
+          "name": "Augmentic Respirator",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 5,
           "rarity": "Rare",
           "keywords": "<Any>",
@@ -115,9 +115,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Reticule Eye",
+          "name": "Augmentic Reticule Eye",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 6,
           "rarity": "Uncommon",
           "keywords": "<Any>",
@@ -126,9 +126,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Telescopic Eye",
+          "name": "Augmentic Telescopic Eye",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 6,
           "rarity": "Uncommon",
           "keywords": "<Any>",
@@ -137,9 +137,9 @@ export default {
         },
         {
           "key": null,
-          "name": "Augmetic Visceral",
+          "name": "Augmentic Visceral",
           "type": "Cybernetic",
-          "subtype": "Augmetic",
+          "subtype": "Augmentic",
           "value": 5,
           "rarity": "Very Rare",
           "keywords": "<Any>",
@@ -2638,14 +2638,14 @@ export default {
             { name: 'Laspistol' },
             { name: 'Mechandrites (Servo-Arm)' },
             {
-              name: 'One augmetic of your choice.',
+              name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
                 { query: item => ( item.type === 'Cybernetic' ), },
               ],
             },
             {
-              name: 'One augmetic of your choice.',
+              name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
                 { query: item => ( item.type === 'Cybernetic' ), },
@@ -2744,14 +2744,14 @@ export default {
             { name: 'Laspistol' },
             { name: 'Mechandrites (Servo-Arm)' },
             {
-              name: 'One augmetic of your choice.',
+              name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
                 { query: item => ( item.type === 'Cybernetic' ), },
               ],
             },
             {
-              name: 'One augmetic of your choice.',
+              name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
                 { query: item => ( item.type === 'Cybernetic' ), },
