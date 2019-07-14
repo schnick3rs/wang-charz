@@ -156,7 +156,10 @@
     },
     attributeMaximumFor(attributeName) {
       const usedSpecies = this.characterSpecies || 'Human';
-      return this.getAttributeMaximumForSpecies( usedSpecies, attributeName );
+      const attributeBaseMaximumByTier = [4,5,6,8,10]; //index 0 is tier 1
+      const maxBySpecies = this.getAttributeMaximumForSpecies( usedSpecies, attributeName );
+      const maxByTier = attributeBaseMaximumByTier[this.settingTier-1];
+      return Math.min(maxBySpecies, maxByTier);
     },
     skillMaximumBy(tier) {
       return 3 + tier;

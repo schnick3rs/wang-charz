@@ -4,11 +4,9 @@
 
 What are the next steps to implement
 
-### Beta
-* ✓ Ascension: Persist Keyword (choice)
-* ✓ Species.Astartes: Persist Chapter Choice
-* ✓ Ascension.StayTheCourse: Persist Story Element
-* Ascension.StayTheCourse: Handle Wargear Options
+### Latest ✓
+* archetype.tech-priest: filter by augmentic and not by cybernetic
+* stats: add note for breacking the limit
 
 ### Release
 * Basic PDF View/Export

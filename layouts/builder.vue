@@ -266,6 +266,11 @@
 
     totalBuildPoints() { return this.$store.state.settingTier * 100; },
 
+    // see core page 156
+    maximumBuildPointsForAttributes() {
+      const bpLimits = [0, 100, 100, 150, 200, 300];
+      return bpLimits[this.settingTier()];
+    },
     maximumStartingTalents() { return Math.min(5, this.settingTier + 1); },
     maximumPsychicPowers() { return this.settingTier + 3; },
 
