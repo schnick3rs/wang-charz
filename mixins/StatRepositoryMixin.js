@@ -340,5 +340,37 @@ export default {
       const maximum = species.traitMaximums.find( trait => trait.name === traitName );
       return (maximum) ? maximum.value : undefined;
     },
+    getCreationAttributeArrayByTier() {
+      return [
+        [ 2, 2, 3, 3, 3, 3, 3, ],
+        [ 3, 3, 3, 3, 4, 4, 4, ],
+        [ 3, 4, 4, 4, 4, 4, 5, ],
+        [ 4, 4, 4, 4, 5, 5, 6, ],
+        [ 4, 4, 5, 6, 6, 6, 7, ],
+      ];
+    },
+    getCreationAttributeArrayByTierExamples(){
+      return [
+        { strength: 2, agility: 3, toughness: 3, intellect: 3, fellowship: 3, willpower: 2, initiative: 3, },
+        { strength: 3, agility: 4, toughness: 4, intellect: 3, fellowship: 3, willpower: 4, initiative: 3, },
+        { strength: 3, agility: 4, toughness: 4, intellect: 4, fellowship: 4, willpower: 5, initiative: 4, },
+        { strength: 4, agility: 6, toughness: 5, intellect: 4, fellowship: 4, willpower: 4, initiative: 5, },
+        { strength: 4, agility: 7, toughness: 6, intellect: 4, fellowship: 5, willpower: 6, initiative: 6, },
+      ];
+    },
+    getCreationSkillArrayByTier() {
+      return [
+        [ 2, 3, 3, 3, 4 ],
+        [ 2, 3, 3, 3, 3, 4, 4, 5 ],
+        [ 2, 3, 3, 3, 4, 4, 4, 4, 5, 5 ],
+        [ 2, 2, 2, 3, 4, 4, 4, 5, 5, 5, 6 ],
+        [ 3, 4, 4, 4, 4, 4, 4, 4, 5, 6, 6, 7 ],
+      ];
+    },
+    getCreationSkillArrayByTierExamples(){
+      return [
+        { athletics: 2, awareness: 3, ballisticSkill: 4, persuasion: 3 },
+      ];
+    },
   },
 };

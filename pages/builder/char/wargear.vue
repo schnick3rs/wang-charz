@@ -162,10 +162,10 @@
     wargearSubtitle(item) {
       //const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
-        let tags = [
-          item.type,
-          item.subtype,
-        ];
+        let tags = [item.type];
+        if ( item.subtype ) {
+          tags.push(item.subtype);
+        }
         return tags.filter(t=> t!== undefined).join(' • ');
       }
       return '';
