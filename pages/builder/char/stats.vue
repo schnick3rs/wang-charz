@@ -117,12 +117,13 @@
 <script lang="js">
   import { mapGetters } from 'vuex';
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
 
   export default {
   name: 'Stats',
   layout: 'builder',
   props: [],
-  mixins: [StatRepositoryMixin],
+  mixins: [ArchetypeRepositoryMixin,StatRepositoryMixin],
   data() {
     return {
       selectedAttribute: undefined,
@@ -177,6 +178,14 @@
     alerts() {
       const alerts = [];
 
+      // archetype prerequisites matched?
+      if ( !this.archetypePrerequisitesValid ) {
+        alerts.push({
+          type: 'warning',
+          text: 'Archetype prerequisites unfulfilled. Increase your attributes and skills accordingly.',
+        });
+      }
+
       // tree of learning valid?
       if ( !this.treeOfLearningValid ) {
         alerts.push({ type: 'warning', text: 'Tree of Learning violated. You must have at least as many skills learned as your highest skill value.'})
@@ -192,6 +201,33 @@
       }
 
       return alerts;
+    },
+    archetypePrerequisitesValid() {
+      const archetype = this.archetypeRepository.find( archetype => archetype.name == this.archetype );
+
+      let fulfilled = true;
+      if ( archetype && archetype.prerequisites.length > 0 ) {
+        archetype.prerequisites.forEach( prerequisite => {
+
+          // { group: 'attributes', value: 'willpower', threshold: 3, }
+          switch (prerequisite.group) {
+            case 'attributes':
+              const attributeValue = this.characterAttributesEnhanced[prerequisite.value];
+              if ( attributeValue < prerequisite.threshold ) {
+                fulfilled = false;
+              }
+              break;
+            case 'skills':
+              const skillValue = this.characterSkills[prerequisite.value];
+              if ( skillValue < prerequisite.threshold ) {
+                fulfilled = false;
+              }
+              break;
+          }
+
+        });
+      }
+      return fulfilled;
     },
     treeOfLearningValid() {
       let valueOfHighestSkill = 0;
@@ -216,6 +252,7 @@
     },
     ...mapGetters([
       'settingTier',
+      'archetype',
       'attributeCosts',
       'remainingBuildPoints'
     ]),
