@@ -199,8 +199,8 @@
       if (!this.isPsychic) {
         const alert = {
           type: 'warning',
-          text: 'You need to either possess the <strong>Psychic</strong> Keyword or have at '
-            + 'least learned one rank in the <strong>Psychc Mastery</strong> skill',
+          text: 'You need to either possess the Psychic Keyword or have at '
+            + 'least learned one rank in the Psychc Mastery skill',
         };
         alerts.push(alert);
       }

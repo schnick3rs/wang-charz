@@ -5,8 +5,11 @@
 What are the next steps to implement
 
 ### Latest ✓
-* archetype.tech-priest: filter by augmentic and not by cybernetic
-* stats: add note for breacking the limit
+* ✓ archetype.tech-priest: filter by augmentic and not by cybernetic
+* ✓stats: add note for breacking the limit
+* stats: more verbose archetype prerequisite notes
+* traits: Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Infl uence.
+* Ascension and Stats
 
 ### Release
 * Basic PDF View/Export
