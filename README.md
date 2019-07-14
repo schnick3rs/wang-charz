@@ -7,11 +7,15 @@ What are the next steps to implement
 ### Latest ✓
 * ✓ archetype.tech-priest: filter by augmentic and not by cybernetic
 * ✓stats: add note for breacking the limit
-* stats: more verbose archetype prerequisite notes
-* traits: Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Infl uence.
+* ork clans break stats
 * ascension and influence
+* traits: Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Infl uence.
+* stats: more verbose archetype prerequisite notes
 * Ascension and Stat prerequisites
 * Stat packages for beginners
+* additional powers for eldar
+* hated keyword
+* faith
 
 ### Release
 * Basic PDF View/Export

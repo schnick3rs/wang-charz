@@ -681,6 +681,9 @@ export default {
               'engaged in melee combat with the same target.' }
         ],
         keywordOption: null,
+        prerequisites: [
+          { group: 'skills', value: 'weaponSkill', threshold: 2, },
+        ],
         group: "Orks",
         key: null,
         description: null,
@@ -698,6 +701,12 @@ export default {
               'within 15 metres gain +1/2 Rank to Stealth tests.' }
         ],
         keywordOption: null,
+        prerequisites: [
+          { group: 'attributes', value: 'agility', threshold: 2, },
+          { group: 'attributes', value: 'toughness', threshold: 2, },
+          { group: 'skills', value: 'stealth', threshold: 2, },
+          { group: 'skills', value: 'survival', threshold: 1, },
+        ],
         group: "Orks",
         key: null,
         description: null,
@@ -714,6 +723,12 @@ export default {
           { name: 'Boys', effect: 'A Nob commands a mob of Troops numbering up to Rank x 3 Boyz ' +
               'who loyally follow his direction. These Ork Boyz use the profi le found on page ' +
               '150.' }
+        ],
+        keywordOption: null,
+        prerequisites: [
+          { group: 'attributes', value: 'strength', threshold: 4, },
+          { group: 'attributes', value: 'toughness', threshold: 3, },
+          { group: 'skills', value: 'intimidation', threshold: 2, },
         ],
         group: "Orks",
         key: null,
