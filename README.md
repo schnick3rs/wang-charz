@@ -9,7 +9,9 @@ What are the next steps to implement
 * ✓stats: add note for breacking the limit
 * stats: more verbose archetype prerequisite notes
 * traits: Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Infl uence.
-* Ascension and Stats
+* ascension and influence
+* Ascension and Stat prerequisites
+* Stat packages for beginners
 
 ### Release
 * Basic PDF View/Export

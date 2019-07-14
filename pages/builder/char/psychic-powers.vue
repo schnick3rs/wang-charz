@@ -200,7 +200,7 @@
         const alert = {
           type: 'warning',
           text: 'You need to either possess the Psychic Keyword or have at '
-            + 'least learned one rank in the Psychc Mastery skill',
+            + 'least learned one rank in the Psychic Mastery skill',
         };
         alerts.push(alert);
       }
