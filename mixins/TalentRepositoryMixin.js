@@ -66,7 +66,7 @@ export default {
       }),
     );
 
-    const talentUnnaturalSkill = ['Ballistic Skill']
+    const talentUnnaturalSkill = ['Athletics', 'Awareness', 'Ballistic Skill', 'Cunning', 'Deception', 'Insight', 'Intimidation', 'Investigation', 'Leadership', 'Medicae', 'Persuasion', 'Pilot', 'Psychic Mastery', 'Scholar', 'Stealth', 'Survival', 'Tech', 'Weapon Skill']
     .sort()
     .map(
       skill => ({
