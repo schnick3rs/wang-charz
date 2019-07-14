@@ -14,8 +14,10 @@ What are the next steps to implement
 * Ascension and Stat prerequisites
 * Stat packages for beginners
 * additional powers for eldar
-* hated keyword
-* faith
+* hated keyword handling
+* faith talent / resource handling
+* Assets
+* Languages
 
 ### Release
 * Basic PDF View/Export
