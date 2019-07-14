@@ -344,7 +344,7 @@ export const mutations = {
     state.ascensionPackages = state.ascensionPackages.filter(a => (a.value !== payload.value));
 
     // remove all enhancements that are related to the package
-    state.enhancements = state.enhancements.filter(e => !e.source.startsWith(`ascension.${payload.value}`));
+    state.enhancements = state.enhancements.filter(e => !e.source.startsWith(`ascension.${payload.key}`));
 
     state.keywords = state.keywords.filter( k => k.source !== `ascension.${payload.key}`);
 

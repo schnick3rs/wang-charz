@@ -331,6 +331,16 @@
         });
       }
 
+      const influenceDifference = ascensionPackage.targetTier - ascensionPackage.sourceTier;
+      const influenceModifier = influenceDifference * ascensionPackage.influencePerTier;
+      const modificationPayload = {
+        targetGroup: 'traits',
+        targetValue: 'influence',
+        modifier: influenceModifier,
+        source: `ascension.${ascensionPackage.key}.influence`,
+      };
+      this.$store.commit('setAscensionModifications', modificationPayload);
+
       this.characterAscension = ascensionPackage;
 
       this.dialog = false;
