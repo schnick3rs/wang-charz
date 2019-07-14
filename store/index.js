@@ -144,6 +144,13 @@ export const getters = {
 
     traits['wealth'] = state.settingTier;
     traits['speed'] = 6;
+    if ( getters.species && getters.species === 'Eldar' ) {
+      traits['speed'] = 8;
+    }
+    if ( getters.species && getters.species.endsWith('Astartes') ) {
+      traits['speed'] = 7;
+    }
+
     traits['corruption'] = 0;
     return traits;
   },
