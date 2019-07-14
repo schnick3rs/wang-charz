@@ -6,6 +6,18 @@
       <h1 class="headline">Select a Attributes & Skills</h1>
     </v-flex>
 
+    <v-flex xs12>
+      <v-alert
+        v-for="alert in alerts"
+        v-bind:key="alert.key"
+        v-bind:type="alert.type"
+        value="true"
+      >
+        {{ alert.text }}
+      </v-alert>
+    </v-flex>
+
+
     <v-flex xs12 md6>
 
       <v-card>
@@ -98,10 +110,6 @@
 
     </v-flex>
 
-    <v-flex xs12>
-      <v-alert :value="!treeOfLearningValid" type="warning">Tree of Learning violated. You must have at least as many skills learned as your highest skill value.</v-alert>
-    </v-flex>
-
   </v-layout>
 
 </template>
@@ -166,6 +174,25 @@
     },
   },
   computed: {
+    alerts() {
+      const alerts = [];
+
+      // tree of learning valid?
+      if ( !this.treeOfLearningValid ) {
+        alerts.push({ type: 'warning', text: 'Tree of Learning violated. You must have at least as many skills learned as your highest skill value.'})
+      }
+
+      // bp for attributes valid?
+      const attributeBpSpendLimitValid = this.attributeCosts <= this.maximumBuildPointsForAttributes;
+      if ( !attributeBpSpendLimitValid ) {
+        alerts.push({
+          type: 'warning',
+          text: `Maximum allowed BP spending violated. You may only spend ${this.maximumBuildPointsForAttributes} BP for Tier ${this.settingTier}.`,
+        });
+      }
+
+      return alerts;
+    },
     treeOfLearningValid() {
       let valueOfHighestSkill = 0;
       let numberOfLearnedSkills = 0;
@@ -179,11 +206,17 @@
       }
       return numberOfLearnedSkills >= valueOfHighestSkill;
     },
+    // see core page 156
+    maximumBuildPointsForAttributes() {
+      const bpLimits = [0, 100, 100, 150, 200, 300];
+      return bpLimits[this.settingTier];
+    },
     skillMaximum() {
       return this.skillMaximumBy(this.settingTier);
     },
     ...mapGetters([
       'settingTier',
+      'attributeCosts',
       'remainingBuildPoints'
     ]),
     ...mapGetters({
