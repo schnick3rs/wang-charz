@@ -18,6 +18,10 @@
         </h3>
         <span class="grey--text">{{ item.hint }}</span>
       </div>
+      <v-spacer></v-spacer>
+      <div class="hidden-xs-only">
+        <img :src="getAvatar(item.name)" style="width:96px" />
+      </div>
     </v-card-title>
 
     <v-card-text>
@@ -126,6 +130,10 @@
     };
   },
   methods: {
+    getAvatar(name) {
+      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+    },
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {
         // return all but the any keyword

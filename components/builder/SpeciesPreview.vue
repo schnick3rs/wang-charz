@@ -21,6 +21,10 @@
         </h3>
         <span class="grey--text">{{ species.hint }}</span>
       </div>
+      <v-spacer></v-spacer>
+      <div class="hidden-xs-only">
+        <img :src="getAvatar(species.name)" style="width:96px" />
+      </div>
     </v-card-title>
 
     <v-card-text>
@@ -140,6 +144,10 @@
     },
   },
   methods: {
+    getAvatar(name) {
+      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      return `/img/icon/species/species_${slug}_avatar.png`;
+    },
     getChapterTraditions(chapterName) {
       const chapter = this.astartesChapterRepository.find(a => a.name === chapterName) || [];
       if (chapter) {
