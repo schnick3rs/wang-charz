@@ -1,58 +1,27 @@
-// https://www.nexmo.com/blog/2018/09/11/add-2fa-to-nuxt-with-nexmo-verify-dr?sf92467419=1
 // api/index.js
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
 
+// https://blog.logrocket.com/setting-up-a-restful-api-with-node-js-and-postgresql-d96d6fc892d8/
+// https://www.nexmo.com/blog/2018/09/11/add-2fa-to-nuxt-with-nexmo-verify-dr?sf92467419=1
+const db = require('./queries');
 const express = require('express');
-const { Client } = require('pg');
-
-const DATABASE_URL = process.env.DATABASE_URL;
-
 const app = express();
 app.use(express.json());
 
-app.get('/backgrounds', function (req, res) {
-  const client = new Client({
-    connectionString: DATABASE_URL,
-    ssl: true,
-  });
-  client.connect();
-  client.query('SELECT id, name, hint FROM wrath_glory.background;', (error, response) => {
-    if (error) {
-      res.status(500).json({status: 'error', message: `Somthing wrong`});
-    };
+app.get('/backgrounds', db.getBackgrounds);
+app.get('/backgrounds/:id', db.getBackgroundById);
 
-    let data = [];
-    for (let row of response.rows) {
-      data.push(row)
-    }
-    console.log(data);
-    res.status(200).json({status: 'success', data: data});
-    client.end();
-  });
-});
+// CREATE
+app.post('/characters', db.createCharacter);
 
-app.get('/characters', function (req, res) {
-  const client = new Client({
-    connectionString: DATABASE_URL,
-    ssl: true,
-  });
-  client.connect();
-  client.query('SELECT * FROM wrath_glory.characters;', (error, response) => {
-    if (error) {
-      res.status(500).json({status: 'error', message: `Somthing wrong`});
-    };
+// READ
+app.get('/characters', db.getCharacters);
+app.get('/characters/:id', db.getCharacterById);
 
-    let data = [];
-    for (let row of response.rows) {
-      data.push(row)
-    }
-    console.log(data);
-    res.status(200).json({status: 'success', data: data});
-    client.end();
-  });
-});
+// UPDATE
+//app.put('/characters', db.updateCharacter);
+
+// DELETE
+//app.delete('/characters', db.deleteCharacter);
 
 module.exports = {
   path: '/api',
