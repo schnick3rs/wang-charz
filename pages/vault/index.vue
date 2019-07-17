@@ -75,7 +75,7 @@
             <tr @click="toggle(props)">
               <td>{{ props.item.name }}
                 <v-chip
-                  v-if="props.item.version === 'draft'"
+                  v-if="['draft', 'work in progress'].includes(props.item.version)"
                   color="orange"
                   text-color="white"
                   tags

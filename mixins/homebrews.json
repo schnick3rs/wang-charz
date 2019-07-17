@@ -244,5 +244,21 @@
     "teaserImage": "",
     "avatar": "",
     "color": "red"
+  },
+  {
+    "name": "An Abundance of Apocrypha",
+    "subtitle": "",
+    "hint": "A collection of Unofficial Rules",
+    "abstract": "This collection of Wrath & Glory Rules contain something from everything. Various species variants (e.g. Beastman) are available in addition to Dark Heresy style homeworld options. Also, lots of archetypes, talents and wargear. Also interesting, some additional Ascension Packages.",
+    "keywords": [ "Imperium", "Chaos", "Inquisiton", "Aeldari", "Astartes" ],
+    "topics": [ "Species", "Archetypes", "Wargear", "Ascension Packages", "Talents" ],
+    "content": {},
+    "version": "work in progress",
+    "url": "https://www.dropbox.com/s/cd7wsdrikpgr61t/Abundance%20of%20Apocrypha%20v1.docx?dl=0",
+    "author" : "N0-1_H3r3",
+    "links": [],
+    "teaserImage": "",
+    "avatar": "",
+    "color": "red"
   }
 ]

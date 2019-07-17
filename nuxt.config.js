@@ -86,6 +86,7 @@ module.exports = {
     routes() {
       return [
         '/vault/agents-of-the-golden-throne',
+        '/vault/an-abundance-of-apocrypha',
         '/vault/expanded-voidship-combat-rules',
         '/vault/god-engines',
         '/vault/hesperaxs-vault',
