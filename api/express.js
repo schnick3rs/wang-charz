@@ -18,10 +18,10 @@ app.get('/characters', db.getCharacters);
 app.get('/characters/:id', db.getCharacterById);
 
 // UPDATE
-//app.put('/characters', db.updateCharacter);
+app.put('/characters/:id', db.updateCharacterById);
 
 // DELETE
-//app.delete('/characters', db.deleteCharacter);
+app.delete('/characters/:id', db.deleteCharacterById);
 
 module.exports = {
   path: '/api',
