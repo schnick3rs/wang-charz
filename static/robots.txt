@@ -1,6 +1,5 @@
 # Regel 1
 User-agent: Googlebot
-Disallow: /builder/
 Disallow: /old/
 
 # Regel 2
