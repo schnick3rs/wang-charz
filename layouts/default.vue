@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-app>
     <v-toolbar
       app
@@ -15,7 +15,38 @@
 
       <v-toolbar-items>
 
+        <v-tooltip
+          v-if="isLoggedIn"
+          bottom
+        >
+          <template v-slot:activator="{ on }">
+            <v-btn
+              v-on="on"
+              flat
+              small
+              icon
+              color="success"
+            >
+              <v-icon>person</v-icon>
+            </v-btn>
+          </template>
+          <span>{{getHash}}</span>
+        </v-tooltip>
+
+        <v-btn
+          v-else
+          flat
+          small
+          icon
+          v-on:click="register"
+        >
+          <v-icon>person_add</v-icon>
+        </v-btn>
+
+        <v-btn flat small icon color="error" v-bind:disabled="!isLoggedIn" v-on:click="logout"><v-icon>exit_to_app</v-icon></v-btn>
+
       </v-toolbar-items>
+
     </v-toolbar>
 
     <v-content>
@@ -33,6 +64,7 @@
 
 <script>
   import DefaultFooter from '~/components/DefaultFooter';
+  import { mapActions, mapGetters } from 'vuex';
 
   export default {
   components: { DefaultFooter },
@@ -74,6 +106,12 @@
         clippedLeft: true,
       },
     };
+  },
+  computed: {
+    ...mapGetters('user', ['isLoggedIn', 'getHash']),
+  },
+  methods: {
+    ...mapActions('user', ['logout', 'register'])
   },
 };
 </script>

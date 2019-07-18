@@ -55,7 +55,7 @@ const createCharacter = (request, response) => {
 
 const getCharacters = (request, response) => {
   //const userHash = request.body.userHash;
-  const userHash = 'ecd016aa-afac-44e8-8448-ddd09197dbb8';
+  const userHash = request.header('X-USER-HASH');
   executeSelect(`SELECT * FROM wrath_glory.characters WHERE user_hash = '${userHash}';`, response, 200);
 };
 
