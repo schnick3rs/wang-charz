@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const getDefaultState = () => ({
   id: -1,
   setting: undefined,
@@ -409,4 +411,57 @@ export const mutations = {
   clearEnhancementsBySource(state, payload) {
     state.enhancements = state.enhancements.filter(e => e.source !== payload.source);
   }
+};
+
+const baseApiUrl = 'http://localhost:3000';
+
+export const actions = {
+  saveCurrentCharacterToDatabase(context) {
+
+    const body = {
+      state: context.state,
+      userHash: context.getters['user/getHash'],
+      version: 'v1.0.0'
+    };
+
+    // if current state has no id => create a new character entry and return the ID
+    let characterId = getters['id'];
+    if ( characterId <= 0 ) {
+      axios.post(`${baseApiUrl}/api/characters`, body)
+      .then((response) => {
+        console.log(response);
+        characterId = response.data.id;
+      })
+      .catch((error) => {
+        console.error(error);
+      })
+      .finally(() => {});
+    }
+    characterId = 7
+    axios.put(`${baseApiUrl}/api/characters/${characterId}`, body)
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .finally(() => {});
+  },
+  /**
+   * Character is loaded by a given hash identifiying the character
+   * @param context
+   * @param payload
+   */
+  loadCharacterFromDatabase(context, payload) {
+    console.log(payload);
+    axios.get(`${baseApiUrl}/api/characters/3`)
+    .then( (response) => {
+      console.log(response);
+    })
+    .catch( (error) => {
+      console.log(error);
+    })
+    .finally( () => {
+    });
+  },
 };

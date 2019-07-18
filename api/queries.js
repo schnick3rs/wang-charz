@@ -45,6 +45,7 @@ const getBackgroundById = (request, response) => {
 const createCharacter = (request, response) => {
   const characterObject = JSON.stringify(request.body.state);
   const version = request.body.version;
+  const userHash = request.body.userHash;
   executeChange(
     `INSERT INTO wrath_glory.characters ("character_object", "version") VALUES ('${characterObject}', '${version}');`,
     response,
@@ -53,7 +54,9 @@ const createCharacter = (request, response) => {
 };
 
 const getCharacters = (request, response) => {
-  executeSelect(`SELECT * FROM wrath_glory.characters;`, response, 200);
+  //const userHash = request.body.userHash;
+  const userHash = 'ecd016aa-afac-44e8-8448-ddd09197dbb8';
+  executeSelect(`SELECT * FROM wrath_glory.characters WHERE user_hash = '${userHash}';`, response, 200);
 };
 
 const getCharacterById = (request, response) => {

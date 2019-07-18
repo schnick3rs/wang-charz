@@ -1,6 +1,5 @@
 <template>
   <v-app>
-
     <v-navigation-drawer
       app
       :clipped="drawer.clipped"
@@ -107,7 +106,7 @@
         </v-toolbar-items>
       </v-toolbar>
 
-      <v-container grid-list-md>
+      <v-container grid-list-md >
 
         <v-layout justify-center>
 
@@ -288,3 +287,17 @@
   },
 };
 </script>
+
+<style lang="css">
+  .fancy {
+    /*position: absolute;*/
+    /*width: 100%;*/
+    /*height: 100%;*/
+    /*transform: rotate(90deg);*/
+    /*background-image: url('https://i.imgur.com/E9huxA0.png');*/
+    background-image: url('https://i.imgur.com/NfGsk6O.png');
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+  }
+</style>

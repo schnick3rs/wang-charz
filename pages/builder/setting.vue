@@ -4,89 +4,126 @@
 
     <v-flex xs12>
 
-      <h1 class="headline">Campaign Tier</h1>
-      <p>Define your campaign framework.</p>
+      <div>
+        <h2 class="headline">Character Information</h2>
 
-      <v-select
-        label="Select a fitting tier"
-        :value="settingTier"
-        :items="tierSelect.options"
-        box
-        dense
-        @change="setSettingTier"
-      />
-
-      <v-select
-        label="Allowed Species"
-        :value="speciesRepository.map( s => s.name )"
-        :items="speciesRepository"
-        item-text="name"
-        item-value="name"
-        dense
-        box
-        multiple
-        chips
-        deletable-chips
-        readonly
-        hint="Select at least one species"
-      />
-
-      <v-select
-        v-if="false"
-        label="Excluded Archetypes"
-        :items="archetypeRepository"
-        item-text="name"
-        item-value="name"
-        chips
-        dense
-        box
-        multiple
-        deletable-chips
-        disabled
-        hint="Select Archetypes that are not allowed to pick."
-        persistent-hint
-      />
-
-      <div v-if="false">
-
-        <h2 class="title">Homebrews</h2>
-
-        <p>Allow specific hombrew content.</p>
-
-        <div
-          v-for="homebrew in settingHomebrewOptions"
-          v-bind:key="homebrew.key"
-        >
-
-          <v-switch
-            v-model="enabledHomebrews"
-            v-bind:label="homebrew.name"
-            v-bind:value="homebrew.key"
-            v-on:change="updateHomebrew(homebrew)"
-            color="primary"
-            class="mt-0 mb-0"
-          />
-
-        </div>
+        <span>Enter name</span>
 
       </div>
 
-      <v-card-actions>
+      <div>
+
+        <h2 class="headline">Campaign Tier</h2>
+        <p>Define your campaign framework.</p>
+
+        <v-select
+          label="Select a fitting tier"
+          :value="settingTier"
+          :items="tierSelect.options"
+          box
+          dense
+          @change="setSettingTier"
+        />
+
+        <v-select
+          v-if="false"
+          label="Allowed Species"
+          :value="speciesRepository.map( s => s.name )"
+          :items="speciesRepository"
+          item-text="name"
+          item-value="name"
+          dense
+          box
+          multiple
+          chips
+          deletable-chips
+          readonly
+          hint="Select at least one species"
+        />
+
+        <v-select
+          v-if="false"
+          label="Excluded Archetypes"
+          :items="archetypeRepository"
+          item-text="name"
+          item-value="name"
+          chips
+          dense
+          box
+          multiple
+          deletable-chips
+          disabled
+          hint="Select Archetypes that are not allowed to pick."
+          persistent-hint
+        />
+
+        <div v-if="false">
+
+          <h2 class="title">Homebrews</h2>
+
+          <p>Allow specific hombrew content.</p>
+
+          <div
+            v-for="homebrew in settingHomebrewOptions"
+            v-bind:key="homebrew.key"
+          >
+
+            <v-switch
+              v-model="enabledHomebrews"
+              v-bind:label="homebrew.name"
+              v-bind:value="homebrew.key"
+              v-on:change="updateHomebrew(homebrew)"
+              color="primary"
+              class="mt-0 mb-0"
+            />
+
+          </div>
+
+        </div>
+
+        <v-card-actions>
+          <v-btn
+            block
+            color="green"
+            @click="applySetting()"
+          >
+            Select Setting
+          </v-btn>
+          <v-btn
+            block
+            color="red"
+            @click="clearState()"
+          >
+            Fresh Character
+          </v-btn>
+        </v-card-actions>
+
+        <v-card-actions>
         <v-btn
           block
-          color="green"
-          @click="applySetting()"
+          color="primary"
+          @click="saveChar()"
         >
-          Select Setting
+          save
         </v-btn>
         <v-btn
           block
-          color="red"
-          @click="clearState()"
+          color="primary"
+          @click="loadChar()"
         >
-          Fresh Character
+          load
+        </v-btn>
+        <v-btn
+          block
+          color="primary"
+          @click="registerUser()"
+        >
+          register
         </v-btn>
       </v-card-actions>
+
+      </div>
+
     </v-flex>
 
     <v-flex
@@ -113,7 +150,9 @@
         </v-card-actions>
       </v-card>
     </v-flex>
+
   </v-layout>
+
 </template>
 
 <script lang="js">
@@ -197,6 +236,16 @@
       } else {
         this.$store.commit('removeHomebrewContent', { key: homebrew.key});
       }
+    },
+    loadChar(){
+      this.$store.dispatch('loadCharacterFromDatabase', { id: 3 } );
+
+    },
+    saveChar(){
+      this.$store.dispatch('saveCurrentCharacterToDatabase', { id: 1 } );
+    },
+    registerUser(){
+      this.$store.commit('user/generateNewHash', {});
     },
   },
 };

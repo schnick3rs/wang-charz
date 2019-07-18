@@ -1,0 +1,12 @@
+{
+  "@type": "DigitalDocument",
+  "name": "Agents of the Golden Throne",
+  "author": "SendInTheNextWave",
+  "alternativeHeadline": "A Homebrew Wrath and Glory Supplement for the Inquisition",
+  "genre": "Sience Fiction",
+  "language": "EN",
+  "isBasedOn": {
+  	"@type": "CreativeWork",
+    "name": "Wrath & Glory"
+  },
+  "url": "https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit"
