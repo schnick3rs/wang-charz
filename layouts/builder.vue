@@ -93,14 +93,15 @@
           <v-btn flat small nuxt to="/builder/char/ascension" :disabled="!settingSelected">5. Ascension</v-btn>
           <v-btn flat small nuxt to="/builder/char/wargear" :disabled="!settingSelected">6. Wargear</v-btn>
           <v-btn flat small nuxt to="/builder/char/psychic-powers" :disabled="!settingSelected">7. Psychic Powers</v-btn>
-          <v-btn flat small nuxt to="/builder/char/background" :disabled="!settingSelected">8. Background</v-btn>
+          <v-btn flat small nuxt to="/builder/char/background" :disabled="!settingSelected" >8. Background</v-btn>
           <v-btn
             flat
             small
             nuxt
             icon
             to="/builder/char/print"
-            :disabled="!settingSelected"
+            v-bind:disabled="!settingSelected"
+            target="_blank"
           >
             <v-icon>description</v-icon>
           </v-btn>

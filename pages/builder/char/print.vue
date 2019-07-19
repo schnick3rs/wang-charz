@@ -24,7 +24,7 @@
 
             <v-card>
 
-              <v-toolbar color="red" dark dense>
+              <v-toolbar color="red" dark dense height="32">
                 <v-toolbar-title>Attributes</v-toolbar-title>
               </v-toolbar>
 
@@ -52,11 +52,34 @@
 
             <v-card>
 
-              <v-toolbar color="red" dark dense>
-                <v-toolbar-title>Combat Traits</v-toolbar-title>
+              <v-toolbar color="red" dark dense height="32">
+                <v-toolbar-title>Traits</v-toolbar-title>
               </v-toolbar>
 
               <v-data-table
+                :headers="traitHeaders"
+                :items="groupedTraits"
+                hide-footer
+                hide-headers
+                hide-actions
+              >
+                <template v-slot:items="props">
+                  <tr v-if="['Defence', 'Conviction', 'Influence'].includes(props.item.name)">
+                    <td v-if="props.item.name==='Defence'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Combat Traits</td>
+                    <td v-if="props.item.name==='Conviction'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Mental Traits</td>
+                    <td v-if="props.item.name==='Influence'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Social Traits</td>
+                  </tr>
+                  <tr>
+                    <td class="text-xs-left pa-1 small">
+                      {{ props.item.name }}
+                      <em v-if="props.item.name==='Resilience' && armour.length>0">@{{armour[0].name}}</em>
+                    </td>
+                    <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                  </tr>
+                </template>
+              </v-data-table>
+
+              <v-data-table v-if="false"
                 :headers="traitHeaders"
                 :items="traits.filter(i=>i.type === 'Combat')"
                 hide-footer
@@ -70,7 +93,7 @@
                 </template>
               </v-data-table>
 
-              <v-data-table
+              <v-data-table v-if="false"
                 :headers="traitHeaders"
                 :items="traits.filter(i=>i.type === 'Mental')"
                 hide-footer
@@ -84,7 +107,7 @@
                 </template>
               </v-data-table>
 
-              <v-data-table
+              <v-data-table v-if="false"
                 :headers="traitHeaders"
                 :items="traits.filter(i=>i.type === 'Social')"
                 hide-footer
@@ -109,7 +132,7 @@
 
           <v-card>
 
-            <v-toolbar color="red" dark dense>
+            <v-toolbar color="red" dark dense height="32">
               <v-toolbar-title>Skills</v-toolbar-title>
             </v-toolbar>
 
@@ -140,12 +163,44 @@
 
             <v-card>
 
-              <v-toolbar color="red" dark dense>
+              <v-toolbar color="red" dark dense height="32">
                 <v-toolbar-title>Abilities</v-toolbar-title>
               </v-toolbar>
 
               <v-card-text v-for="ability in abilities" class="pa-2 caption">
                 <strong>{{ ability.name }}:</strong> {{ ability.effect }} <em v-if="ability.source">@{{ ability.source }}</em>
+              </v-card-text>
+
+            </v-card>
+
+          </v-flex>
+
+          <v-flex xs12>
+
+            <v-card>
+
+              <v-toolbar color="red" dark dense height="32">
+                <v-toolbar-title>Talents</v-toolbar-title>
+              </v-toolbar>
+
+              <v-card-text v-for="talent in talents" class="pa-2 caption">
+                <strong>{{ talent.name }}:</strong> {{ talent.effect }}
+              </v-card-text>
+
+            </v-card>
+
+          </v-flex>
+
+          <v-flex xs12>
+
+            <v-card>
+
+              <v-toolbar color="red" dark dense height="32">
+                <v-toolbar-title>Gear</v-toolbar-title>
+              </v-toolbar>
+
+              <v-card-text class="pa-2 caption">
+               {{ gear.map( g => g.name ).join(', ') }}
               </v-card-text>
 
             </v-card>
@@ -158,7 +213,7 @@
 
           <v-card>
 
-            <v-toolbar color="red" dark dense>
+            <v-toolbar color="red" dark dense height="32">
               <v-toolbar-title>Weapons</v-toolbar-title>
             </v-toolbar>
 
@@ -172,7 +227,12 @@
                 <tr>
                   <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
                   <td class="text-xs-center pa-1 small">
-                    <span v-if="props.item.meta && props.item.meta[0].damage">{{ props.item.meta[0].damage.static }} + {{ props.item.meta[0].damage.ed }} ED</span>
+                    <div v-if="props.item.meta && props.item.meta[0].damage">
+                      <span v-if="props.item.type==='Melee Weapon'">{{ props.item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
+                      <span v-else>{{ props.item.meta[0].damage.static }}</span>
+                      <span> + </span>
+                      <span>{{ props.item.meta[0].damage.ed }} ED</span>
+                    </div>
                   </td>
                   <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].ap }}</span></td>
                   <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].salvo }}</span></td>
@@ -250,8 +310,8 @@
       charTraits: 'traits',
       charTraitsEnhanced: 'traitsEnhanced',
       charSkills: 'skills',
-      talents: 'talents',
-      wargear: 'wargear',
+      charTalents: 'talents',
+      charWargear: 'wargear',
     }),
     attributes() {
       return this.attributeRepository.map( a => {
@@ -271,6 +331,13 @@
         }
       });
     },
+    groupedTraits() {
+      return [
+        ...this.traits.filter(i=>i.type === 'Combat'),
+        ...this.traits.filter(i=>i.type === 'Mental'),
+        ...this.traits.filter(i=>i.type === 'Social'),
+      ]
+    },
     skills() {
       return this.skillRepository.map( s => {
         return {
@@ -286,7 +353,7 @@
 
       // species
       if (this.species) {
-        const species = this.speciesRepository.find( s => s.name === this.species)
+        const species = this.speciesRepository.find( s => s.name === this.species);
         let speciesAbilityNames = species.abilities.split(',');
         if (speciesAbilityNames.length > 0) {
           speciesAbilityNames.forEach( speciesAbilityName => {
@@ -307,28 +374,39 @@
 
       }
 
-      // talents
-      this.talents.forEach( talentName => {
-        const talent = this.talentRepository.find( t => t.name === talentName );
-        talent['source'] = undefined;
-        abilities.push(talent);
-      });
-
       // TODO background abilities
 
       return abilities;
     },
-    weapons() {
-      let weapons = [];
-
-      this.wargear.forEach( wargearName => {
-        const wargear = this.wargearRepository.find( w => w.name === wargearName );
-        if ( wargear && ['Ranged Weapon', 'Melee Weapon'].includes(wargear.type) ) {
-          weapons.push(wargear);
+    talents() {
+      let talents = [];
+      this.charTalents.forEach( talentName => {
+        const talent = this.talentRepository.find( t => t.name === talentName );
+        talent['source'] = undefined;
+        talents.push(talent);
+      });
+      return talents;
+    },
+    wargear() {
+      let wargear = [];
+      this.charWargear.forEach( wargearName => {
+        const foundGear = this.wargearRepository.find(w => w.name === wargearName);
+        if ( foundGear ){
+          wargear.push(foundGear);
+        } else {
+          wargear.push({name: wargearName, type: 'Misc'});
         }
       });
-
-      return weapons;
+      return wargear;
+    },
+    weapons() {
+      return this.wargear.filter( w => ['Ranged Weapon', 'Melee Weapon'].includes(w.type) );
+    },
+    armour() {
+      return this.wargear.filter( w => ['Armour'].includes(w.type) );
+    },
+    gear() {
+      return this.wargear.filter( w => !['Armour', 'Ranged Weapon', 'Melee Weapon'].includes(w.type) );
     },
     psychicPowers() {
 

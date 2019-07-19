@@ -2183,7 +2183,17 @@ export default {
           rarity: 'Uncommon',
           keywords: 'Blade,Imperium,Adeptus,Astartes',
           effect: null,
-          source: null
+          source: null,
+          meta: [
+            {
+              type: 'melee-weapon',
+              range: '1',
+              damage: { static: 3, ed: 1, },
+              salvo: undefined,
+              ap: 0,
+              traits: [ ],
+            },
+          ],
         },
         {
           key: null,
