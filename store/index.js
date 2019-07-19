@@ -172,6 +172,9 @@ export const getters = {
   talents(state) {
     return state.talents.map(t => t.name);
   },
+  psychicPowers(state) {
+    return state.psychicPowers.map(p => p.name);
+  },
   remainingBuildPoints(state, getters) {
     let remaining = 0;
     remaining = state.settingTier * 100;

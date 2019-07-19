@@ -130,6 +130,7 @@
         <!-- skills -->
         <v-flex xs4>
 
+          <v-flex xs12>
           <v-card>
 
             <v-toolbar color="red" dark dense height="32">
@@ -153,6 +154,25 @@
             </v-data-table>
 
           </v-card>
+
+          </v-flex>
+
+          <v-flex xs12>
+
+            <v-card>
+
+              <v-toolbar color="red" dark dense height="32">
+                <v-toolbar-title>Gear</v-toolbar-title>
+              </v-toolbar>
+
+              <v-card-text class="pa-2 caption">
+                {{ gear.map( g => g.name ).join(', ') }}
+              </v-card-text>
+
+            </v-card>
+
+          </v-flex>
+
 
         </v-flex>
 
@@ -191,16 +211,16 @@
 
           </v-flex>
 
-          <v-flex xs12>
+          <v-flex xs12 v-if="psychicPowers.length>0">
 
             <v-card>
 
               <v-toolbar color="red" dark dense height="32">
-                <v-toolbar-title>Gear</v-toolbar-title>
+                <v-toolbar-title>Psychic Powers</v-toolbar-title>
               </v-toolbar>
 
-              <v-card-text class="pa-2 caption">
-               {{ gear.map( g => g.name ).join(', ') }}
+              <v-card-text v-for="power in psychicPowers" class="pa-2 caption">
+                <strong>{{ power.name }}:</strong> {{ power.effect }}
               </v-card-text>
 
             </v-card>
@@ -258,6 +278,7 @@
 
 <script lang="js">
   import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+  import PsychicPowersRepositoryMixin from '~/mixins/PsychicPowersRepositoryMixin.js';
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
   import TalentRepositoryMixin from '~/mixins/TalentRepositoryMixin.js';
@@ -267,7 +288,14 @@
   export default {
   name: 'Print',
   layout: 'print',
-  mixins: [ArchetypeRepositoryMixin, SpeciesRepositoryMixin, StatRepositoryMixin, TalentRepositoryMixin, WargearRepositoryMixin],
+  mixins: [
+    ArchetypeRepositoryMixin,
+    PsychicPowersRepositoryMixin,
+    SpeciesRepositoryMixin,
+    StatRepositoryMixin,
+    TalentRepositoryMixin,
+    WargearRepositoryMixin
+  ],
   props: [],
   async asyncData({ params }) {
     return {};
@@ -312,6 +340,7 @@
       charSkills: 'skills',
       charTalents: 'talents',
       charWargear: 'wargear',
+      charPsychicPowers: 'psychicPowers',
     }),
     attributes() {
       return this.attributeRepository.map( a => {
@@ -411,7 +440,12 @@
       return this.wargear.filter( w => !['Armour', 'Ranged Weapon', 'Melee Weapon'].includes(w.type) );
     },
     psychicPowers() {
-
+      let items = [];
+      this.charPsychicPowers.forEach( name => {
+        const power = this.psychicPowersRepository.find( power => power.name === name );
+        items.push(power);
+      });
+      return items;
     },
   },
   methods: {
