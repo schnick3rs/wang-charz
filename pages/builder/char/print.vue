@@ -354,13 +354,15 @@
       // species
       if (this.species) {
         const species = this.speciesRepository.find( s => s.name === this.species);
-        let speciesAbilityNames = species.abilities.split(',');
-        if (speciesAbilityNames.length > 0) {
-          speciesAbilityNames.forEach( speciesAbilityName => {
-            const ability = this.speciesAbilitiesRepository.find( a => a.name === speciesAbilityName );
-            ability['source'] = this.species;
-            abilities.push(ability);
-          });
+        if ( species && species.abilities ) {
+          let speciesAbilityNames = species.abilities.split(',');
+          if (speciesAbilityNames.length > 0) {
+            speciesAbilityNames.forEach(speciesAbilityName => {
+              const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
+              ability['source'] = this.species;
+              abilities.push(ability);
+            });
+          }
         }
       }
 
