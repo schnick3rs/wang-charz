@@ -15,7 +15,7 @@
         dense
       />
 
-      <h1 class="headline">Campaign Tier</h1>
+      <h1 class="headline">Framework</h1>
       <p>Define your campaign framework.</p>
 
       <v-select
@@ -28,6 +28,7 @@
       />
 
       <v-select
+        v-if="false"
         label="Allowed Species"
         :value="speciesRepository.map( s => s.name )"
         :items="speciesRepository"
