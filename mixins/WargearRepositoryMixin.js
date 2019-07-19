@@ -243,7 +243,17 @@ export default {
           rarity: 'Very Rare',
           keywords: 'Bolt,Imperium,Adeptus Astartes,Primaris',
           effect: null,
-          source: null
+          source: null,
+          meta: [
+            {
+              type: 'ranged-weapon',
+              range: '36',
+              damage: { static: 12, ed: 2, },
+              salvo: 3,
+              ap: -1,
+              traits: [ 'Assault', 'Brutal' ],
+            },
+          ],
         },
         {
           key: null,
@@ -254,7 +264,17 @@ export default {
           rarity: 'Uncommon',
           keywords: 'Bolt,Imperium',
           effect: null,
-          source: null
+          source: null,
+          meta: [
+            {
+              type: 'ranged-weapon',
+              range: '20',
+              damage: { static: 10, ed: 1, },
+              salvo: 1,
+              ap: 0,
+              traits: [ 'Brutal', 'Pistol' ],
+            },
+          ],
         },
         {
           key: null,
@@ -265,7 +285,17 @@ export default {
           rarity: 'Very Rare',
           keywords: 'Bolt,Imperium,Adeptus Astartes,Primaris',
           effect: null,
-          source: null
+          source: null,
+          meta: [
+            {
+              type: 'ranged-weapon',
+              range: '60',
+              damage: { static: 10, ed: 1, },
+              salvo: 2,
+              ap: -1,
+              traits: [ 'Brutal', 'Rapid Fire (2)' ],
+            },
+          ],
         },
         {
           key: null,
@@ -277,13 +307,16 @@ export default {
           keywords: 'Bolt,Imperium',
           effect: null,
           source: null,
-          meta: {
-            range: '40',
-            damage: { static: 10, ed: 1, },
-            salvo: 2,
-            ap: -1,
-            traits: [ 'Assault', 'Brutal' ],
-          },
+          meta: [
+            {
+              type: 'ranged-weapon',
+              range: '40',
+              damage: { static: 10, ed: 1, },
+              salvo: 2,
+              ap: 0,
+              traits: [ 'Brutal', 'Rapid Fire (2)' ],
+            },
+          ],
         },
         {
           key: null,
@@ -294,7 +327,17 @@ export default {
           rarity: 'Very Rare',
           keywords: 'Bolt,Imperium,Adeptus Astartes,Primaris',
           effect: null,
-          source: null
+          source: null,
+          meta: [
+            {
+              type: 'ranged-weapon',
+              range: '24',
+              damage: { static: 10, ed: 1, },
+              salvo: 1,
+              ap: -1,
+              traits: [ 'Brutal', 'Pistol' ],
+            },
+          ],
         },
         {
           key: null,
@@ -305,7 +348,17 @@ export default {
           rarity: 'Uncommon',
           keywords: 'Bolt,Imperium',
           effect: null,
-          source: null
+          source: null,
+          meta: [
+            {
+              type: 'ranged-weapon',
+              range: '60',
+              damage: { static: 12, ed: 2, },
+              salvo: 3,
+              ap: -1,
+              traits: [ 'Brutal', 'Heavy' ],
+            },
+          ],
         },
         {
           key: null,
@@ -316,7 +369,17 @@ export default {
           rarity: 'Rare',
           keywords: 'Bolt,Imperium',
           effect: null,
-          source: null
+          source: null,
+          meta: [
+            {
+              type: 'ranged-weapon',
+              range: '40',
+              damage: { static: 10, ed: 1, },
+              salvo: 4,
+              ap: 0,
+              traits: [ 'Brutal', 'Rapid Fire (2)' ],
+            },
+          ],
         },
         {
           key: null,

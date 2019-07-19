@@ -163,6 +163,9 @@ export const getters = {
     });
     return enhanced;
   },
+  wargear(state) {
+    return state.wargear.map(w => w.name);
+  },
   talents(state) {
     return state.talents.map(t => t.name);
   },

@@ -155,7 +155,37 @@
         </v-flex>
 
         <v-flex xs12>
-          <h2 style="background-color: orangered; color: white;">Weapons</h2>
+
+          <v-card>
+
+            <v-toolbar color="red" dark dense>
+              <v-toolbar-title>Weapons</v-toolbar-title>
+            </v-toolbar>
+
+            <v-data-table
+              :headers="weaponHeaders"
+              :items="weapons"
+              hide-footer
+              hide-actions
+            >
+              <template v-slot:items="props">
+                <tr>
+                  <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
+                  <td class="text-xs-center pa-1 small">
+                    <span v-if="props.item.meta && props.item.meta[0].damage">{{ props.item.meta[0].damage.static }} + {{ props.item.meta[0].damage.ed }} ED</span>
+                  </td>
+                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].ap }}</span></td>
+                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].salvo }}</span></td>
+                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].range }} m</span></td>
+                  <td class="text-xs-left pa-1 small">
+                    <span v-if="props.item.meta && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
+                  </td>
+                </tr>
+              </template>
+            </v-data-table>
+
+          </v-card>
+
         </v-flex>
 
       </v-layout>
@@ -171,12 +201,13 @@
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
   import TalentRepositoryMixin from '~/mixins/TalentRepositoryMixin.js';
+  import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin.js';
   import { mapGetters } from 'vuex';
 
   export default {
   name: 'Print',
   layout: 'print',
-  mixins: [ArchetypeRepositoryMixin, SpeciesRepositoryMixin, StatRepositoryMixin, TalentRepositoryMixin],
+  mixins: [ArchetypeRepositoryMixin, SpeciesRepositoryMixin, StatRepositoryMixin, TalentRepositoryMixin, WargearRepositoryMixin],
   props: [],
   async asyncData({ params }) {
     return {};
@@ -198,6 +229,14 @@
         { text: "Att", sortable: false, align: 'center', class: 'small pa-1' },
         { text: "Total", sortable: false, align: 'center', class: 'small pa-1' },
       ],
+      weaponHeaders: [
+        { text: "Name", sortable: false, align: 'left', class: 'small pa-1' },
+        { text: "Damage", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "AP", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "Salvo", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "Range", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "Traits", sortable: false, align: 'left', class: 'small pa-1' },
+      ],
     };
   },
   computed: {
@@ -211,6 +250,7 @@
       charTraitsEnhanced: 'traitsEnhanced',
       charSkills: 'skills',
       talents: 'talents',
+      wargear: 'wargear',
     }),
     attributes() {
       return this.attributeRepository.map( a => {
@@ -273,7 +313,21 @@
         abilities.push(talent);
       });
 
+      // TODO background abilities
+
       return abilities;
+    },
+    weapons() {
+      let weapons = [];
+
+      this.wargear.forEach( wargearName => {
+        const wargear = this.wargearRepository.find( w => w.name === wargearName );
+        if ( wargear && ['Ranged Weapon', 'Melee Weapon'].includes(wargear.type) ) {
+          weapons.push(wargear);
+        }
+      });
+
+      return weapons;
     },
     psychicPowers() {
 
