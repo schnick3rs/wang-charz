@@ -108,7 +108,7 @@ export default {
         {
           "key": null,
           "name": "Angel of Death",
-          "effect": "Space Marines add +1/2 Rank icons to any successful attack against a Mob.",
+          "effect": "Space Marines add +½ Rank icons to any successful attack against a Mob.",
           "description": null
         },
         {

@@ -192,7 +192,7 @@ export default {
             'of the Imperium they strive to protect.',
           effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, ' +
             'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. ' +
-            'Gain +1/2 Rank bonus dice with that skill.',
+            'Gain +½ Rank bonus dice with that skill.',
           modification: { },
         },
         {
@@ -202,7 +202,7 @@ export default {
             'of the Imperium they strive to protect.',
           effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, ' +
             'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. ' +
-            'Gain +1/2 Rank bonus dice with that skill.',
+            'Gain +½ Rank bonus dice with that skill.',
           modification: { },
         },
 

@@ -4,6 +4,17 @@
 
     <v-flex xs12>
 
+      <h1 class="headline">Character</h1>
+      <p>Some Notes on the character</p>
+
+      <v-text-field
+        label="Character Name"
+        v-bind:value="characterName"
+        v-on:input="setCharacterName"
+        box
+        dense
+      />
+
       <h1 class="headline">Campaign Tier</h1>
       <p>Define your campaign framework.</p>
 
@@ -119,6 +130,7 @@
 <script lang="js">
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
   import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+  import { mapGetters } from 'vuex';
 
   export default {
   name: 'Setting',
@@ -177,9 +189,15 @@
     };
   },
   computed: {
-    settingTier() { return this.$store.state.settingTier; },
+    ...mapGetters({
+      characterName: 'name',
+      settingTier: 'settingTier',
+    }),
   },
   methods: {
+    setCharacterName(name){
+      this.$store.commit('setName', name);
+    },
     setSettingTier(event) {
       this.$store.commit('setSettingTier', { amount: event });
     },

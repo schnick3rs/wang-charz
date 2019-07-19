@@ -121,7 +121,7 @@ export default {
               condition: 'must', type: 'character', key: 'Tier', value: '2+',
             },
           ],
-          effect: 'Does not bleed or breathe. +1/2 Rank to Tech and Soak tests. +2DN to Persuasion tests.',
+          effect: 'Does not bleed or breathe. +½ Rank to Tech and Soak tests. +2DN to Persuasion tests.',
           source: {
             book: 'core',
             version: 'v1',
@@ -210,7 +210,7 @@ export default {
           name: 'Dedicated <Ability>',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'character', key: 'One Ability that  grant a bonus of +1/2 Rank.' },
+            { condition: 'must', type: 'character', key: 'One Ability that  grant a bonus of +½ Rank.' },
           ],
           effect: '...',
           source: {

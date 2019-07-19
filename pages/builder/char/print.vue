@@ -10,7 +10,7 @@
 
         <v-flex xs12>
 
-          <p class="display-1 text-xs-center mb-0">Simsel Simselman</p>
+          <p class="display-1 text-xs-center mb-0">{{ name }}</p>
           <p class="text-xs-center mb-0">{{ [species, archetype].join(' • ') }}</p>
           <span class="sexy_line"></span>
           <p class="text-xs-center">{{ keywords.join(' • ') }}</p>
@@ -242,6 +242,7 @@
   computed: {
     ...mapGetters({
       keywords: 'finalKeywords',
+      name: 'name',
       species: 'species',
       archetype: 'archetype',
       charAttributes: 'attributes',

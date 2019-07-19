@@ -56,7 +56,7 @@ export default {
         keywords: "Imperium,Adeptus Ministorum",
         abilities: [
           { name: 'Armour of Faith', effect: 'Crusaders rely upon their faith to carry them ' +
-              'through; they increase their Resolve by 1/2 Rank. Crusaders gain +Rank bonus ' +
+              'through; they increase their Resolve by ½ Rank. Crusaders gain +Rank bonus ' +
               'dice to melee attacks against any opponent with the Heretic or Chaos keywords.'},
         ],
         prerequisites: [
@@ -138,7 +138,7 @@ export default {
               'When doing so, increase the Guardsman’s resilience by +Rank for determining the ' +
               'damage of the attack.' },
           { name: 'Regimental Affiliation', effect: 'Select a regiment to which the character ' +
-              'belongs (see Regiments on page 114). The soldier gains + 1/2 Rank bonus dice ' +
+              'belongs (see Regiments on page 114). The soldier gains + ½ Rank bonus dice ' +
               'with that regiment’s bonus (either a Skill or Resolve test).' },
         ],
         keywordOption: "<Regiment>",
@@ -397,7 +397,7 @@ export default {
         keywords: "Imperium,Adeptus Mechanicus,Skitarii,<Forge World>",
         abilities: [
           { name: 'Heavily Augmented', effect: 'The Skitarius’ body is designed to withstand ' +
-              'the rigours of war. Skitarii do not bleed and gain +1/2 Rank to Soak tests.' },
+              'the rigours of war. Skitarii do not bleed and gain +½ Rank to Soak tests.' },
         ],
         keywordOption: "<Forge World>",
         prerequisites: [
@@ -628,11 +628,11 @@ export default {
         tier: 2,
         species: "Eldar",
         influence: 0,
-        keywords: "Aeldari,Asuryani,<Crafsworld>",
+        keywords: "Aeldari,Asuryani,<Craftworld>",
         abilities: [
           { name: 'From the Shadows', effect: 'Rangers are adept at exploiting any concealment. ' +
               'Any penalties to detect (using Awareness) or attack a ranger due to lighting or ' +
-              'cover are increased by +1/2 Rank.' }
+              'cover are increased by +½ Rank.' }
         ],
         keywordOption: null,
         prerequisites: [
@@ -651,7 +651,7 @@ export default {
         tier: 3,
         species: "Eldar",
         influence: 2,
-        keywords: "Aeldari,Asuryani,Psyker,<Crafsworld>",
+        keywords: "Aeldari,Asuryani,Psyker,<Craftworld>",
         abilities: [
           { name: 'Runes of Battle', effect: 'A Warlock begins play with the Psyniscience and ' +
               'smite psychic powers (these do not count towards the maximum), and may purchase ' +
@@ -698,7 +698,7 @@ export default {
         keywords: "Ork,<Clan>",
         abilities: [
           { name: 'Kunnin\' Plan', effect: 'A Kommando and any allies with the Ork Keyword ' +
-              'within 15 metres gain +1/2 Rank to Stealth tests.' }
+              'within 15 metres gain +½ Rank to Stealth tests.' }
         ],
         keywordOption: null,
         prerequisites: [
