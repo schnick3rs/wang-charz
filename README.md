@@ -1,35 +1,71 @@
 # doctors-of-doom
 
-## Milestone Todo's
+#Features
 
-What are the next steps to implement
+# ToDo's
 
-### Latest ✓
-* traits: Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Influence.
-* stats: more verbose archetype prerequisite notes
-* Ascension and Stat prerequisites
-* Stat packages for beginners
-* additional powers for eldar
-* hatred keyword handling
-* faith talent / resource handling
-* Assets
-* Languages
+#### Printable View
+_A din A4 printable view for the done character_ 
 
-### Release
-* Basic PDF View/Export
+* `[✓]` Basic view
+* `[_]` Better representation of soak, shock, wounds
 
-### Follow Up
-* Persist Character (needs refinement, cloud, local)
-* Allow for the Optional Wargear Rules
-* Astartes: Default Archetype Chapter Keyword derived from Species selection (and vice versa)
+
+#### Cloud Character Sheet
+_A view (not an edit) of the current character. Should be responsive._
+
+* `[_]` Add toolbar and Layout
+
+#### User Account
+
+* `[_]` Register
+* `[_]` Login
+* `[_]` Logout
+
+#### Manager
+
+* `[_]` Persist Character (needs refinement, cloud, local)
+* `[_]` My Characteres overview
+* `[_]` Delete character option
+
+#### Generator
+
+###### CORE Functionality
+
+* `[_]` traits: add Data is Currency functionality
+
+
+    Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Influence.
+
+* `[_]` Handle additional powers for eldar species
+
+##### Extendet CORE
+
+* `[_]` talent: hatred keyword handling
+* `[_]` faith talent / resource handling
+* `[_]` Traits: Add asserts and allow to buy (up to # tier) during creation
+* `[_]` Languages: Allow to by (custom field with autocomplete for known languages)
+* `[_]` Keywords: Custom text for some (or all) sub keywords
+
+##### HELPER / UX
+
+* `[_]` stats: more verbose archetype prerequisite notes
+* `[_]` Handle Ascension and Archetype Stat prerequisites
+* `[_]` Helper: Attribute and Skill packages for beginners
+* `[_]` Astartes: Default Archetype Chapter Keyword derived from Species selection (and vice versa)
+
+###### Others
+
+* `[_]` Allow for the Optional Wargear Rules
+* `[_]` Allow for custom Gear to be added: Misc, Armour, Weapon
+
+#### Homebrew Support
+
+* `[_]` Add homebrew support
 
 ### Backlog
-* Persist multiple Characters
 * (?) Keyword overview tab
 * Sharable Campaign Framework
-* Mobile/Desktop Character View
-* custom keyword text
-* Add homebrew support
 * Help Section
 * Shareable Character View
 
