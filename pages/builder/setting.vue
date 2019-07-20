@@ -4,17 +4,19 @@
 
     <v-flex xs12>
 
-      <div>
-        <h2 class="headline">Character Information</h2>
+      <h1 class="headline">Character</h1>
+      <p>Some Notes on the character</p>
 
-        <span>Enter name</span>
+      <v-text-field
+        label="Character Name"
+        v-bind:value="characterName"
+        v-on:input="setCharacterName"
+        box
+        dense
+      />
 
-      </div>
-
-      <div>
-
-        <h2 class="headline">Campaign Tier</h2>
-        <p>Define your campaign framework.</p>
+      <h1 class="headline">Framework</h1>
+      <p>Define your campaign framework.</p>
 
         <v-select
           label="Select a fitting tier"
@@ -25,21 +27,21 @@
           @change="setSettingTier"
         />
 
-        <v-select
-          v-if="false"
-          label="Allowed Species"
-          :value="speciesRepository.map( s => s.name )"
-          :items="speciesRepository"
-          item-text="name"
-          item-value="name"
-          dense
-          box
-          multiple
-          chips
-          deletable-chips
-          readonly
-          hint="Select at least one species"
-        />
+      <v-select
+        v-if="false"
+        label="Allowed Species"
+        :value="speciesRepository.map( s => s.name )"
+        :items="speciesRepository"
+        item-text="name"
+        item-value="name"
+        dense
+        box
+        multiple
+        chips
+        deletable-chips
+        readonly
+        hint="Select at least one species"
+      />
 
         <v-select
           v-if="false"
@@ -158,6 +160,7 @@
 <script lang="js">
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
   import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+  import { mapGetters } from 'vuex';
 
   export default {
   name: 'Setting',
@@ -216,9 +219,15 @@
     };
   },
   computed: {
-    settingTier() { return this.$store.state.settingTier; },
+    ...mapGetters({
+      characterName: 'name',
+      settingTier: 'settingTier',
+    }),
   },
   methods: {
+    setCharacterName(name){
+      this.$store.commit('setName', name);
+    },
     setSettingTier(event) {
       this.$store.commit('setSettingTier', { amount: event });
     },

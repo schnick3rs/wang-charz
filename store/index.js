@@ -6,6 +6,7 @@ const getDefaultState = () => ({
   settingSelected: true,
   settingTier: 3,
   settingHomebrewContent: [],
+  characterName: 'Simsel Simselman',
   species: { value: undefined, cost: 0 },
   speciesAstartesChapter: undefined,
   archetype: { value: undefined, cost: 0 },
@@ -53,6 +54,7 @@ export const state = () => ({
   settingSelected: true,
   settingTier: 3,
   settingHomebrewContent: [],
+  characterName: 'Simsel Simselman',
   species: { value: undefined, cost: 0 },
   speciesAstartesChapter: undefined,
   archetype: { value: undefined, cost: 0 },
@@ -99,6 +101,7 @@ export const getters = {
   settingSelected(state) { return state.settingSelected; },
   settingTier(state) { return state.settingTier; },
   settingHomebrewContent(state) { return state.settingHomebrewContent; },
+  name(state) { return state.characterName; },
   species(state) { return state.species.value; },
   speciesAstartesChapter(state) { return state.speciesAstartesChapter; },
   archetype(state) { return state.archetype.value; },
@@ -165,8 +168,14 @@ export const getters = {
     });
     return enhanced;
   },
+  wargear(state) {
+    return state.wargear.map(w => w.name);
+  },
   talents(state) {
     return state.talents.map(t => t.name);
+  },
+  psychicPowers(state) {
+    return state.psychicPowers.map(p => p.name);
   },
   remainingBuildPoints(state, getters) {
     let remaining = 0;
@@ -241,6 +250,9 @@ export const mutations = {
   },
   removeHomebrewContent(state, payload){
     state.settingHomebrewContent = state.settingHomebrewContent.filter(c => c !== payload.key);
+  },
+  setName(state, name) {
+    state.characterName = name;
   },
   setSpecies(state, payload) {
     state.species = payload;
