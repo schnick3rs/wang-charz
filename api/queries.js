@@ -2,9 +2,26 @@ if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
 }
 
-const { Client } = require('pg');
+const { Pool, Client } = require('pg');
 
 const DATABASE_URL = process.env.DATABASE_URL;
+const DATABASE_USER = process.env.DATABASE_USER;
+const DATABASE_PASSWORD = process.env.DATABASE_PASSWORD;
+const DATABASE_HOST = process.env.DATABASE_HOST;
+const DATABASE_PORT = process.env.DATABASE_PORT;
+const DATABASE_NAME = process.env.DATABASE_NAME;
+
+const pool = new Pool({
+  connectionString: DATABASE_URL,
+  ssl: true,
+  //  user: DATABASE_USER,
+  //  host: DATABASE_HOST,
+  //  database: DATABASE_NAME,
+  //  password: DATABASE_PASSWORD,
+  //  port: DATABASE_PORT,
+});
+
+const query = (text, params, callback) => { return pool.query(text, params, callback); };
 
 const executeSelect = (sql, response, successStatusCode) => {
   const client = new Client({ connectionString: DATABASE_URL, ssl: true, });
@@ -20,7 +37,6 @@ const executeSelect = (sql, response, successStatusCode) => {
 };
 
 const executeChange = (sql, response, successStatusCode) => {
-  console.info(sql);
   const client = new Client({ connectionString: DATABASE_URL, ssl: true, });
   client.connect();
   client.query(sql, (error, results) => {
@@ -32,6 +48,27 @@ const executeChange = (sql, response, successStatusCode) => {
     client.end();
   });
 };
+
+// USERS
+const createUser = (payload, response) => {
+  const client = new Client({ connectionString: DATABASE_URL, ssl: true, });
+  client.connect();
+  pool.query(`INSERT INTO wrath_glory.user (uuid) VALUES ($1) RETURNING *`, [payload.uuid], (error, result) => {
+    if ( error ) {
+      response.status(500).json({status: 'error', message:'Could not create user.', error: error})
+    } else {
+      const user = result.rows.map( r => { return { id: r.id, uuid: r.uuid}; });
+      response.status(201).json({status:'success', data: user[0] });
+    }
+    client.end();
+  });
+};
+
+const getUserByUuid = (uuid) => {
+
+};
+
+// BACKGROUNDS
 
 const getBackgrounds = (request, response) => {
   executeSelect(`SELECT * FROM wrath_glory.background;`, response, 200);
@@ -87,6 +124,12 @@ const deleteCharacterById = (request, response) => {
 };
 
 module.exports = {
+
+  query,
+
+  // User (account)
+  createUser,
+  //getUserByUuid,
 
   // Characters
   createCharacter,

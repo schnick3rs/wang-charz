@@ -187,7 +187,7 @@
                 <v-toolbar-title>Abilities</v-toolbar-title>
               </v-toolbar>
 
-              <v-card-text v-for="ability in abilities" class="pa-2 caption">
+              <v-card-text v-for="ability in abilities" v-bind:key="ability.name" class="pa-2 caption">
                 <strong>{{ ability.name }}:</strong> {{ ability.effect }} <em v-if="ability.source">@{{ ability.source }}</em>
               </v-card-text>
 
@@ -203,7 +203,7 @@
                 <v-toolbar-title>Talents</v-toolbar-title>
               </v-toolbar>
 
-              <v-card-text v-for="talent in talents" class="pa-2 caption">
+              <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
                 <strong>{{ talent.name }}:</strong> {{ talent.effect }}
               </v-card-text>
 
@@ -219,7 +219,7 @@
                 <v-toolbar-title>Psychic Powers</v-toolbar-title>
               </v-toolbar>
 
-              <v-card-text v-for="power in psychicPowers" class="pa-2 caption">
+              <v-card-text v-for="power in psychicPowers" v-bind:key="power.name"  class="pa-2 caption">
                 <strong>{{ power.name }}:</strong> {{ power.effect }}
               </v-card-text>
 

@@ -15,6 +15,18 @@
 
       <v-toolbar-items>
 
+        <v-dialog
+          v-model="loginDialog"
+          lazy
+          width="500"
+        >
+          <login-dialog
+            v-on:close="loginDialog = false"
+          ></login-dialog>
+        </v-dialog>
+
+        <v-btn v-on:click.stop="loginDialog = true">Login</v-btn>
+
         <v-tooltip
           v-if="isLoggedIn"
           bottom
@@ -63,11 +75,12 @@
 </template>
 
 <script>
-  import DefaultFooter from '~/components/DefaultFooter';
+  import DefaultFooter from '~/components/DefaultFooter.vue';
+  import LoginDialog from '~/components/user/LoginDialog.vue';
   import { mapActions, mapGetters } from 'vuex';
 
   export default {
-  components: { DefaultFooter },
+  components: { DefaultFooter, LoginDialog },
   head() {
     return {
       link: [
@@ -77,6 +90,7 @@
   },
   data() {
     return {
+      loginDialog: false,
       navigation: [
         { title: 'Setting', icon: 'dashboard' },
         { title: 'Species', icon: 'dashboard' },

@@ -28,7 +28,7 @@
 
         <div
           v-for="entry in helperBox"
-          :key="entry.key"
+          v-bind:key="entry.key"
         >
           <v-divider v-if="entry.divider"></v-divider>
 
