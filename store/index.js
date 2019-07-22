@@ -97,6 +97,7 @@ export const state = () => ({
 });
 
 export const getters = {
+  id(state) { return state.id; },
   setting(state) { return state.setting; },
   settingSelected(state) { return state.settingSelected; },
   settingTier(state) { return state.settingTier; },
@@ -428,11 +429,15 @@ export const mutations = {
 const baseApiUrl = 'http://localhost:3000';
 
 export const actions = {
+  nuxtServerInit ({ commit }, { req }) {
+    commit('user/setUuid', 'ecd016aa-afac-44e8-8448-ddd09197dbb8');
+    //commit('user/setUuid', undefined);
+  },
   saveCurrentCharacterToDatabase(context) {
 
     const body = {
       state: context.state,
-      userHash: context.getters['user/getHash'],
+      userHash: context.getters['user/getUuid'],
       version: 'v1.0.0'
     };
 
@@ -460,7 +465,7 @@ export const actions = {
     .finally(() => {});
   },
   /**
-   * Character is loaded by a given hash identifiying the character
+   * Character is loaded by a given uuid identifiying the character
    * @param context
    * @param payload
    */

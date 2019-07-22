@@ -42,7 +42,7 @@
               <v-icon>person</v-icon>
             </v-btn>
           </template>
-          <span>{{getHash}}</span>
+          <span>{{getUuid}}</span>
         </v-tooltip>
 
         <v-btn
@@ -122,7 +122,7 @@
     };
   },
   computed: {
-    ...mapGetters('user', ['isLoggedIn', 'getHash']),
+    ...mapGetters('user', ['isLoggedIn', 'getUuid']),
   },
   methods: {
     ...mapActions('user', ['logout', 'register'])

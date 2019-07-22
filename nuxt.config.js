@@ -133,6 +133,6 @@ module.exports = {
   },
   serverMiddleware: [
     'redirect-ssl',
-    '~/api/controller', // handles /api/** calls
+    '~/api/express', // handles /api/** calls
   ],
 };

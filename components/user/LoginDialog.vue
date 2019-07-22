@@ -21,19 +21,18 @@
 
         <div v-if="!isLoggedIn">
           <v-text-field
-            v-bind:value="newHash"
+            v-model="newUuid"
             v-on:click:append="copyToClipboard"
             label="Unique User Id"
             hint="Login, using your unique user hash."
             persistent-hint
-            readonly
           ></v-text-field>
         </div>
 
-        <!-- Show the readonly hash value -->
+        <!-- Show the readonly uuid value -->
         <div v-if="isLoggedIn">
           <v-text-field
-            v-bind:value="getHash"
+            v-bind:value="getUuid"
             v-on:click:append="copyToClipboard"
             label="Unique User Hash"
             append-icon="filter_none"
@@ -46,7 +45,7 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn v-if="!isLoggedIn" block color="success" v-on:click="login(newHash)">Login</v-btn>
+        <v-btn v-if="!isLoggedIn" block color="success" v-on:click="login">Login</v-btn>
         <v-btn v-if="isLoggedIn" block color="error" v-on:click="$emit('close')">Logout</v-btn>
       </v-card-actions>
 
@@ -60,25 +59,27 @@
 </template>
 
 <script lang="js">
-  import { mapActions, mapGetters } from 'vuex';
+  import { mapGetters } from 'vuex';
 
   export default {
   name: 'LoginDialog',
   data() {
     return {
-      newHash: '',
+      newUuid: '',
       loading: false,
     };
   },
   computed: {
-    ...mapGetters('user', ['isLoggedIn', 'getHash']),
+    ...mapGetters('user', ['isLoggedIn', 'getUuid']),
   },
   methods: {
-    ...mapActions('user', ['logout', 'login']),
+    login() {
+      this.$store.dispatch('user/login', this.newUuid);
+    },
     register() {
       this.loading = true;
-      this.$axios.post('/api/account')
-        .then( response => { this.newHash = response.data.hash; } )
+      this.$axios.post('/api/users/register')
+        .then( response => { this.newUuid = response.uuid; } )
         .catch( error => { console.warn('An unexpected error'); } )
         .finally( () => { this.loading = false; } );
     },

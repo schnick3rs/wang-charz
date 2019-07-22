@@ -1,42 +1,26 @@
 // store/user.js
-const uuidv4 = require('uuid/v4');
-
 export const state = () => ({
-  // the user hash should be a relativly long (UUID) hash that identifies a single user.
+  // the user uuid should be a relativly long (UUID) uuid that identifies a single user.
   // it is the access token and must be noted down.
-  hash: undefined,
+  uuid: undefined,
 });
 
 export const getters = {
-  getHash( state ) {
-    return state.hash;
+  getUuid(state ) {
+    return state.uuid;
   },
   isLoggedIn( state ) {
-    return state.hash !== undefined;
+    return state.uuid !== undefined && state.uuid.length > 0;
   },
 };
 
 export const mutations = {
-  generateNewHash( state, payload ) {
-    const forceRenew = payload.force || false;
-    if ( !state.hash || forceRenew ) {
-      state.hash = uuidv4();
-    }
-  },
-  setHash(state, hash) {
-    state.hash = hash;
+  setUuid(state, uuid) {
+    state.uuid = uuid;
   },
 };
 
 export const actions = {
-  register(context) {
-    if ( context.state.hash !== undefined ) {
-      console.warn('Already logged in.');
-      return;
-    }
-    const hash = uuidv4();
-    context.commit('setHash', hash);
-  },
   login(context, hash) {
     if ( context.getters.isLoggedIn ) {
       console.warn('Already logged in.');
