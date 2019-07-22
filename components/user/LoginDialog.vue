@@ -21,12 +21,23 @@
 
         <div v-if="!isLoggedIn">
           <v-text-field
-            v-model="newUuid"
-            v-on:click:append="copyToClipboard"
-            label="Unique User Id"
-            hint="Login, using your unique user hash."
+            v-model="username"
+            v-bind:rules="[rules.required]"
+            label="Username"
+            hint=""
+          ></v-text-field>
+
+          <v-text-field
+            v-model="password"
+            v-bind:append-icon="showPassword ? 'visibility' : 'visibility_off'"
+            v-bind:type="showPassword ? 'text' : 'password'"
+            v-bind:rules="[rules.required, rules.min]"
+            @click:append="showPassword = !showPassword"
+            label="Password"
+            hint="At least 8 characters"
             persistent-hint
           ></v-text-field>
+
         </div>
 
         <!-- Show the readonly uuid value -->
@@ -46,11 +57,8 @@
 
       <v-card-actions>
         <v-btn v-if="!isLoggedIn" block color="success" v-on:click="login">Login</v-btn>
+        <v-btn v-if="!isLoggedIn" block color="primary" v-on:click="register">Register</v-btn>
         <v-btn v-if="isLoggedIn" block color="error" v-on:click="$emit('close')">Logout</v-btn>
-      </v-card-actions>
-
-      <v-card-actions>
-        <p class="text-xs-center">No unique hash yet? <a v-on:click="register">Register</a> and generate one to persist characters.</p>
       </v-card-actions>
 
     </v-card>
@@ -65,7 +73,13 @@
   name: 'LoginDialog',
   data() {
     return {
-      newUuid: '',
+      username: '',
+      password: '',
+      showPassword: false,
+      rules: {
+        required: value => !!value || 'Required',
+        min: v => v.length >= 8 || 'Min 8 Characters'
+      },
       loading: false,
     };
   },
@@ -74,12 +88,23 @@
   },
   methods: {
     login() {
-      this.$store.dispatch('user/login', this.newUuid);
+      const user = {
+        username: this.username,
+        password: this.password,
+      };
+      this.$axios.post('/api/users/login', user)
+        .then( response => { console.info(response); } )
+        .catch( error => { console.warn('An unexpected error'); } )
+        .finally( () => { this.loading = false; } );
     },
     register() {
       this.loading = true;
-      this.$axios.post('/api/users/register')
-        .then( response => { this.newUuid = response.uuid; } )
+      const user = {
+        username: this.username,
+        password: this.password,
+      };
+      this.$axios.post('/api/users/register', user)
+        .then( response => { } )
         .catch( error => { console.warn('An unexpected error'); } )
         .finally( () => { this.loading = false; } );
     },

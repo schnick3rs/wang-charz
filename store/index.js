@@ -430,7 +430,7 @@ const baseApiUrl = 'http://localhost:3000';
 
 export const actions = {
   nuxtServerInit ({ commit }, { req }) {
-    commit('user/setUuid', 'ecd016aa-afac-44e8-8448-ddd09197dbb8');
+    //commit('user/setUuid', 'ecd016aa-afac-44e8-8448-ddd09197dbb8');
     //commit('user/setUuid', undefined);
   },
   saveCurrentCharacterToDatabase(context) {

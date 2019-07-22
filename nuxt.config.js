@@ -59,6 +59,7 @@ module.exports = {
     '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
+    '@nuxtjs/auth',
     // '@nuxtjs/eslint-module'
     // Simple usage
     ['@nuxtjs/google-analytics', {
@@ -105,6 +106,17 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+  },
+  auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'api/users/login', method: 'post', propertyName: data.token },
+          user: false,
+          logout: false,
+        }
+      }
+    }
   },
   /*
   ** vuetify module configuration
