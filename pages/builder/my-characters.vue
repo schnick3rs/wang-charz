@@ -92,9 +92,8 @@
     };
   },
   async asyncData ({ params, store, app }) {
-    const uuid = store.getters['user/getUuid']; // 'ecd016aa-afac-44e8-8448-ddd09197dbb8'
-    const config = { headers: { 'X-USER-UUID': uuid } };
-    const response = await app.$axios.get('http://localhost:3000/api/characters', config).catch( (e) => { console.warn(`Could not fetch character.`); });
+    const response = await app.$axios.get('http://localhost:3000/api/characters')
+      .catch( (e) => { console.warn(`Could not fetch character.`); });
     if ( response && response.data) {
       let characters = [];
       characters = response.data.map( (charState) => {

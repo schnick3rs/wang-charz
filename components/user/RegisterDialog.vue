@@ -40,24 +40,10 @@
 
         </div>
 
-        <!-- Show the readonly uuid value -->
-        <div v-if="isLoggedIn">
-          <v-text-field
-            v-bind:value="getUuid"
-            v-on:click:append="copyToClipboard"
-            label="Unique User Hash"
-            append-icon="filter_none"
-            hint="You unique hash to identify youself"
-            persistent-hint
-            readonly
-          ></v-text-field>
-        </div>
-
       </v-card-text>
 
       <v-card-actions>
-        <v-btn v-if="!isLoggedIn" block color="success" v-on:click="login">Login</v-btn>
-        <v-btn v-if="!isLoggedIn" block color="primary" v-on:click="register">Register</v-btn>
+        <v-btn v-if="!isLoggedIn" block color="success" v-on:click="register">Register</v-btn>
         <v-btn v-if="isLoggedIn" block color="error" v-on:click="$emit('close')">Logout</v-btn>
       </v-card-actions>
 
@@ -87,22 +73,6 @@
     ...mapGetters('user', ['isLoggedIn', 'getUuid']),
   },
   methods: {
-    login() {
-      this.loading = true;
-      const user = {
-        data: {
-          username: this.username,
-          password: this.password,
-        }
-      };
-      this.$auth.loginWith('local', user)
-        .then( response => { } )
-        .catch( error => { console.warn('An unexpected error'); } )
-        .finally( () => {
-          this.loading = false;
-          this.$emit('close');
-        });
-    },
     register() {
       this.loading = true;
       const user = {
@@ -113,9 +83,6 @@
         .then( response => { } )
         .catch( error => { console.warn('An unexpected error'); } )
         .finally( () => { this.loading = false; } );
-    },
-    copyToClipboard(event) {
-      console.info(event)
     },
   },
 }

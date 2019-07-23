@@ -76,8 +76,9 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-
+        <toolbar-account-actions></toolbar-account-actions>
       </v-toolbar-items>
+
     </v-toolbar>
 
     <v-content>
@@ -139,11 +140,12 @@
 </template>
 
 <script>
-  import DefaultFooter from '~/components/DefaultFooter';
-  import { mapGetters } from 'vuex';
+import DefaultFooter from '~/components/DefaultFooter';
+import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
+import { mapGetters } from 'vuex';
 
-  export default {
-  components: { DefaultFooter },
+export default {
+  components: { DefaultFooter, ToolbarAccountActions },
   head() {
     return {
       title: 'Create your Character | W&G Builder',

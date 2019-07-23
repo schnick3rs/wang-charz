@@ -14,49 +14,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-
-        <v-dialog
-          v-model="loginDialog"
-          lazy
-          width="500"
-        >
-          <login-dialog
-            v-on:close="loginDialog = false"
-          ></login-dialog>
-        </v-dialog>
-
-        <v-btn v-on:click.stop="loginDialog = true">Login</v-btn>
-
-        <v-tooltip
-          v-if="isLoggedIn"
-          bottom
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              v-on="on"
-              flat
-              small
-              icon
-              color="success"
-            >
-              <v-icon>person</v-icon>
-            </v-btn>
-          </template>
-          <span>{{getUuid}}</span>
-        </v-tooltip>
-
-        <v-btn
-          v-else
-          flat
-          small
-          icon
-          v-on:click="register"
-        >
-          <v-icon>person_add</v-icon>
-        </v-btn>
-
-        <v-btn flat small icon color="error" v-bind:disabled="!isLoggedIn" v-on:click="logout"><v-icon>exit_to_app</v-icon></v-btn>
-
+        <toolbar-account-actions></toolbar-account-actions>
       </v-toolbar-items>
 
     </v-toolbar>
@@ -75,12 +33,12 @@
 </template>
 
 <script>
-  import DefaultFooter from '~/components/DefaultFooter.vue';
-  import LoginDialog from '~/components/user/LoginDialog.vue';
-  import { mapActions, mapGetters } from 'vuex';
+import { mapActions, mapGetters } from 'vuex';
+import DefaultFooter from '~/components/DefaultFooter.vue';
+import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
 
-  export default {
-  components: { DefaultFooter, LoginDialog },
+export default {
+  components: { DefaultFooter, ToolbarAccountActions },
   head() {
     return {
       link: [
@@ -90,7 +48,6 @@
   },
   data() {
     return {
-      loginDialog: false,
       navigation: [
         { title: 'Setting', icon: 'dashboard' },
         { title: 'Species', icon: 'dashboard' },
@@ -120,12 +77,6 @@
         clippedLeft: true,
       },
     };
-  },
-  computed: {
-    ...mapGetters('user', ['isLoggedIn', 'getUuid']),
-  },
-  methods: {
-    ...mapActions('user', ['logout', 'register'])
   },
 };
 </script>

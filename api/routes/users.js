@@ -1,18 +1,14 @@
 /**
  * see https://node-postgres.com/guides/async-express
  */
-if (process.env.NODE_ENV !== 'production') {
-  require('dotenv').config();
-}
-const JWT_SECRET = process.env.JWT_SECRET;
-
 const Router = require('express-promise-router');
 
 const uuidv4 = require('uuid/v4');
-const db = require('../db');
-
-const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
+
+const db = require('../db');
+const authProvider = require('./authProvider');
+
 const saltRounds = 12;
 
 // create a new express-promise-router
@@ -33,13 +29,13 @@ router.post('/register', async (request, response) => {
   // normalize password normalize.trim
   const password = request.body.password.toLowerCase().trim();
   // TODO generate bcrypt password
-  //const hash = await bcrypt.hash(password, saltRounds);
-  var hash = bcrypt.hashSync(password, saltRounds);
+  // const hash = await bcrypt.hash(password, saltRounds);
+  const hash = bcrypt.hashSync(password, saltRounds);
 
   const uuid = uuidv4();
-  const { rows } = await db.queryAsyncAwait(
+  await db.queryAsyncAwait(
     'INSERT INTO wrath_glory.user (username, password, uuid) VALUES ($1, $2, $3)',
-    [username, hash, uuid]
+    [username, hash, uuid],
   );
 
   response.status(201).json({});
@@ -47,7 +43,6 @@ router.post('/register', async (request, response) => {
 
 // login user
 router.post('/login', async (request, response) => {
-
   const username = request.body.username.toLowerCase().trim();
   const { rows } = await db.queryAsyncAwait('SELECT * FROM wrath_glory.user WHERE username = $1', [username]);
   const user = rows[0];
@@ -56,9 +51,30 @@ router.post('/login', async (request, response) => {
   const match = bcrypt.compareSync(password, user.password);
 
   if (match) {
-    const token = jwt.sign({userId: user.id, username: user.username}, JWT_SECRET );
-    response.status(201).json({userId: user.id, username: user.username, token: token});
-  }
+    const jwtPayload = {
+      username: user.username,
+      userId: user.id,
+      userUuid: user.uuid,
+    };
 
+    const token = authProvider.sign(user.indexOf, jwtPayload);
+
+    response.status(201).json({ token });
+  }
 });
 
+// login user
+router.get('/me', async (request, response) => {
+
+  const decoded = authProvider.verifyRequest(request);
+  // assert valid
+
+  const { rows } = await db.queryAsyncAwait(
+    'SELECT id, username, uuid FROM wrath_glory.user WHERE id = $1',
+    [decoded.userId],
+  );
+  // asert == 0
+  const user = rows[0];
+
+  response.status(200).json({ data: user });
+});

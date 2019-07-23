@@ -31,34 +31,18 @@
             v-model="password"
             v-bind:append-icon="showPassword ? 'visibility' : 'visibility_off'"
             v-bind:type="showPassword ? 'text' : 'password'"
-            v-bind:rules="[rules.required, rules.min]"
+            v-bind:rules="[rules.required]"
             @click:append="showPassword = !showPassword"
             label="Password"
-            hint="At least 8 characters"
             persistent-hint
           ></v-text-field>
 
-        </div>
-
-        <!-- Show the readonly uuid value -->
-        <div v-if="isLoggedIn">
-          <v-text-field
-            v-bind:value="getUuid"
-            v-on:click:append="copyToClipboard"
-            label="Unique User Hash"
-            append-icon="filter_none"
-            hint="You unique hash to identify youself"
-            persistent-hint
-            readonly
-          ></v-text-field>
         </div>
 
       </v-card-text>
 
       <v-card-actions>
         <v-btn v-if="!isLoggedIn" block color="success" v-on:click="login">Login</v-btn>
-        <v-btn v-if="!isLoggedIn" block color="primary" v-on:click="register">Register</v-btn>
-        <v-btn v-if="isLoggedIn" block color="error" v-on:click="$emit('close')">Logout</v-btn>
       </v-card-actions>
 
     </v-card>
@@ -88,28 +72,20 @@
   },
   methods: {
     login() {
-      const user = {
-        username: this.username,
-        password: this.password,
-      };
-      this.$axios.post('/api/users/login', user)
-        .then( response => { console.info(response); } )
-        .catch( error => { console.warn('An unexpected error'); } )
-        .finally( () => { this.loading = false; } );
-    },
-    register() {
       this.loading = true;
       const user = {
-        username: this.username,
-        password: this.password,
+        data: {
+          username: this.username,
+          password: this.password,
+        }
       };
-      this.$axios.post('/api/users/register', user)
+      this.$auth.loginWith('local', user)
         .then( response => { } )
         .catch( error => { console.warn('An unexpected error'); } )
-        .finally( () => { this.loading = false; } );
-    },
-    copyToClipboard(event) {
-      console.info(event)
+        .finally( () => {
+          this.loading = false;
+          this.$emit('close');
+        });
     },
   },
 }

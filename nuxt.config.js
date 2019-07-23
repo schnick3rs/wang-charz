@@ -21,20 +21,11 @@ module.exports = {
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-      {
-        rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png',
-      },
-      {
-        rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png',
-      },
-      {
-        rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png',
-      },
+      { rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png' },
+      { rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png' },
+      { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png' },
       { rel: 'manifest', href: '/site.webmanifest' },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons',
-      },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
     ],
   },
   /*
@@ -111,12 +102,14 @@ module.exports = {
     strategies: {
       local: {
         endpoints: {
-          login: { url: 'api/users/login', method: 'post', propertyName: data.token },
-          user: false,
+          login: { url: 'api/users/login', method: 'post', propertyName: 'token' },
+          user: { url: 'api/users/me', mthod: 'get', propertyName: 'data'},
           logout: false,
-        }
-      }
-    }
+        },
+        // tokenRequired: true,
+        // tokenType: 'Bearer'
+      },
+    },
   },
   /*
   ** vuetify module configuration

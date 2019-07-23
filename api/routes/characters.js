@@ -1,6 +1,8 @@
+const Router = require('express-promise-router');
+
+const authProvider = require('./authProvider');
 const db = require('../db');
 
-const Router = require('express-promise-router');
 const router = new Router();
 module.exports = router;
 
@@ -21,18 +23,18 @@ router.post('/characters', async (request, response) => {
 });
 
 // READ
-router.get('/', async(request, response) => {
-
-  // TODO fetch ID from JWT
-  const uuid = request.header('X-USER-UUID');
-
-  const { rows } = await db.queryAsyncAwait('SELECT * FROM wrath_glory.characters WHERE uuid = $1', [uuid]);
-  const characters = rows.map( row => { return row.character_object } );
+router.get('/', async (request, response) => {
+  const decoded = authProvider.verifyRequest(request);
+  console.info(decoded);
+  const { rows } = await db.queryAsyncAwait(
+    'SELECT * FROM wrath_glory.characters WHERE uuid = $1',
+    [decoded.userUuid],
+  );
+  const characters = rows.map(row => row.character_object);
   response.status(200).json(characters);
 });
 
-router.get('/:id', async(request, response) => {
-
+router.get('/:id', async (request, response) => {
   // TODO fetch ID from JWT
   const uuid = request.header('X-USER-UUID');
 
