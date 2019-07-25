@@ -48,6 +48,7 @@
             View
           </v-btn>
           <v-btn
+            v-on:click="edit(character.id)"
             block
             color="primary"
             flat
@@ -129,27 +130,12 @@
     settingTier() { return this.$store.state.settingTier; },
   },
   methods: {
-    setSettingTier(event) {
-      this.$store.commit('setSettingTier', { amount: event });
-    },
-    applySetting() {
-      this.$store.commit('setSetting', { setting: this.setting });
-      this.$router.push({ name: 'builder-char-species' });
-    },
-    clearState() {
-      this.$store.commit('resetState');
-    },
-    updateHomebrew(homebrew) {
-      const enabled = this.enabledHomebrews.includes(homebrew.key);
-      if ( enabled ) {
-        this.$store.commit('addHomebrewContent', { key: homebrew.key});
-      } else {
-        this.$store.commit('removeHomebrewContent', { key: homebrew.key});
-      }
+    edit(characterId) {
+      console.info(characterId);
+      this.$store.dispatch('loadCharacterFromDatabase', { id: characterId } );
     },
     loadChar(){
       this.$store.dispatch('loadCharacterFromDatabase', { id: 3 } );
-
     },
     saveChar(){
       this.$store.dispatch('saveCurrentCharacterToDatabase', { id: 1 } );

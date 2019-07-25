@@ -25,7 +25,6 @@ router.post('/characters', async (request, response) => {
 // READ
 router.get('/', async (request, response) => {
   const decoded = authProvider.verifyRequest(request);
-  console.info(decoded);
   const { rows } = await db.queryAsyncAwait(
     'SELECT * FROM wrath_glory.characters WHERE uuid = $1',
     [decoded.userUuid],

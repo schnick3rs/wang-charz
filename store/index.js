@@ -475,9 +475,9 @@ export const actions = {
    * @param context
    * @param payload
    */
-  loadCharacterFromDatabase(context, payload) {
+  loadCharacterFromDatabase(context, characterId) {
     console.log(payload);
-    axios.get(`${baseApiUrl}/api/characters/3`)
+    axios.get(`${baseApiUrl}/api/characters/${characterId}`)
     .then( (response) => {
       console.log(response);
     })

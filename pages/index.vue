@@ -84,7 +84,7 @@ export default {
           htmlText: 'Define the setting and tier of your campaign and start building a Wrath & ' +
             'Glory Character for your session.</p><p><strong>BETA Status, characters might get ' +
             'lost during updates</strong>',
-          link: { text: 'To the Forge', route: '/builder/setting' },
+          link: { text: 'To the Forge', route: '/builder/my-characters' },
           isActive: true,
           classes: [ ],
         },
