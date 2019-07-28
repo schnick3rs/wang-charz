@@ -59,7 +59,6 @@ module.exports = {
     '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
-    // '@nuxtjs/eslint-module'
     // Simple usage
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
@@ -83,21 +82,9 @@ module.exports = {
     exclude: [
       '/builder/char/**',
     ],
-    routes() {
-      return [
-        '/vault/agents-of-the-golden-throne',
-        '/vault/an-abundance-of-apocrypha',
-        '/vault/expanded-voidship-combat-rules',
-        '/vault/god-engines',
-        '/vault/hesperaxs-vault',
-        '/vault/legacy-of-the-necrontyr',
-        '/vault/let-the-galaxy-burn',
-        '/vault/the-deathwatch---slayers-of-the-alien-horde',
-        '/vault/the-emperors-angels',
-        '/vault/the-high-altar-of-technology',
-        '/vault/tome-of-glory',
-        '/vault/tyranids',
-      ];
+    async routes() {
+      const vaulItems = await axios.get('/api/homebrews/')
+      return vaultItems.data.map( vaultItem => `/vault/${vaultItem.slug}` );
     },
   },
   /*
