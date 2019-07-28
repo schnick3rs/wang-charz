@@ -97,12 +97,6 @@ export const state = () => ({
 });
 
 export const getters = {
-  isAuthenticated(state) {
-    return state.auth.loggedIn
-  },
-  loggedInUser(state) {
-    return state.auth.user
-  },
   id(state) { return state.id; },
   setting(state) { return state.setting; },
   settingSelected(state) { return state.settingSelected; },
@@ -243,10 +237,7 @@ export const mutations = {
   resetState (state) {
     // Merge rather than replace so we don't lose observers
     // https://github.com/vuejs/vuex/issues/1118
-    Object.assign(state, getDefaultState());
-  },
-  setState (state, newState) {
-    Object.assign(state, newState);
+    Object.assign(state, getDefaultState())
   },
   setSetting(state, payload) {
     state.setting = payload.setting;
@@ -438,22 +429,10 @@ export const mutations = {
 const baseApiUrl = 'http://localhost:3000';
 
 export const actions = {
-  nuxtServerInit ({ commit }, { req }) {
-    //commit('user/setUuid', 'ecd016aa-afac-44e8-8448-ddd09197dbb8');
-    //commit('user/setUuid', undefined);
-  },
-  populateState(context, payload) {
-    const state = {
-      ...context.state,
-      ...payload.data,
-      };
-    context.commit('setState', payload.data);
-    console.info(state)
-  },
-  saveCurrentCharacterToDatabase({ context, state, getters }) {
+  saveCurrentCharacterToDatabase(context) {
 
     const body = {
-      state: state,
+      state: context.state,
       version: 'v1.0.0'
     };
 

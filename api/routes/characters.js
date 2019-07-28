@@ -9,9 +9,6 @@ module.exports = router;
 // CREATE
 router.post('/characters', async (request, response) => {
 
-  // TODO fetch ID from JWT
-  const uuid = request.header('X-USER-UUID');
-
   const characterObject = JSON.stringify(request.body.state);
   const version = request.body.version;
 
@@ -29,18 +26,26 @@ router.get('/', async (request, response) => {
     'SELECT * FROM wrath_glory.characters WHERE uuid = $1',
     [decoded.userUuid],
   );
-  const characters = rows.map(row => row.character_object);
+  const characters = rows.map(row => {
+    return {
+      ...row.character_object,
+      id: row.id,
+    };
+  });
   response.status(200).json(characters);
 });
 
 router.get('/:id', async (request, response) => {
-  // TODO fetch ID from JWT
-  const uuid = request.header('X-USER-UUID');
+  const decoded = authProvider.verifyRequest(request);
+  const uuid = decoded.userUuid;
 
   const id = parseInt(request.params.id);
-  const { rows } = await db.queryAsyncAwait('SELECT * FROM wrath_glory.characters where id = $1 AND uuid = $2', [id, uuid]);
+  const { rows } = await db.queryAsyncAwait(
+    'SELECT * FROM wrath_glory.characters where id = $1 AND uuid = $2',
+    [id, uuid]
+  );
 
-  const characters = rows.map( row => { return row.character_object } );
+  const characters = rows.map( row => { return { ...row.character_object, id: row.id }; });
   response.status(200).json(characters[0]);
 });
 

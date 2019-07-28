@@ -110,6 +110,9 @@ module.exports = {
         // tokenType: 'Bearer'
       },
     },
+    plugins: [
+      '~/plugins/auth.js'
+    ]
   },
   /*
   ** vuetify module configuration

@@ -13,7 +13,7 @@
 
     </v-flex>
 
-    <v-flex xs12 sm6 md5
+    <v-flex xs12
       v-if="characters"
       v-for="character in characters"
       v-bind:key="character.id"
@@ -48,7 +48,8 @@
             View
           </v-btn>
           <v-btn
-            v-on:click="edit(character.id)"
+            nuxt
+            to="/builder/setting"
             block
             color="primary"
             flat
@@ -56,6 +57,26 @@
           >
             <v-icon>edit</v-icon>
             Edit
+          </v-btn>
+          <v-btn
+            v-on:click="saveChar"
+            block
+            color="primary"
+            flat
+            small
+          >
+            <v-icon>save</v-icon>
+            Save
+          </v-btn>
+          <v-btn
+            v-on:click="load(character.id)"
+            block
+            color="primary"
+            flat
+            small
+          >
+            <v-icon>edit</v-icon>
+            Load
           </v-btn>
           <v-btn
             block
@@ -94,7 +115,7 @@
   },
   async asyncData ({ params, store, app }) {
     const response = await app.$axios.get('http://localhost:3000/api/characters')
-      .catch( (e) => { console.warn(`Could not fetch character.`); });
+      .catch( error => { console.warn(`Could not fetch character during async: ${error}`); });
     if ( response && response.data) {
       let characters = [];
       characters = response.data.map( (charState) => {
@@ -130,15 +151,19 @@
     settingTier() { return this.$store.state.settingTier; },
   },
   methods: {
-    edit(characterId) {
-      console.info(characterId);
-      this.$store.dispatch('loadCharacterFromDatabase', { id: characterId } );
+    load(characterId) {
+      this.$axios.get(`/api/characters/${characterId}`)
+        .then( response => {
+          this.$store.dispatch('populateState', response)
+        });
+
+      //this.$store.dispatch('loadCharacterFromDatabase', characterId );
     },
     loadChar(){
       this.$store.dispatch('loadCharacterFromDatabase', { id: 3 } );
     },
     saveChar(){
-      this.$store.dispatch('saveCurrentCharacterToDatabase', { id: 1 } );
+      this.$store.dispatch('saveCurrentCharacterToDatabase');
     },
   },
 };
