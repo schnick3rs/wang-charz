@@ -85,7 +85,7 @@ module.exports = {
       '/builder/char/**',
     ],
     routes() {
-      return axios.get('http://localhost:3000/api/homebrews/')
+      return axios.get('https://www.doctors-of-doom.com/api/homebrews/')
         .then( response => response.data.map( vaultItem => `/vault/${vaultItem.slug}` ) );
     },
   },
