@@ -73,7 +73,10 @@
           </template>
           <template v-slot:items="props">
             <tr @click="toggle(props)">
-              <td>{{ props.item.title }}</td>
+              <td>
+                {{ props.item.title }}
+                <br/><span class="grey--text hidden-sm-and-up">{{props.item.hint}}</span>
+              </td>
               <td>
                 <v-chip
                   v-if="['Draft'].includes(props.item.status)"
@@ -99,7 +102,7 @@
                 </v-chip>
               </td>
               <td class="hidden-xs-only">{{ props.item.hint }}</td>
-              <td>
+              <td class="hidden-xs-only">
                 <v-chip v-for="keyword in props.item.keywords" :key="keyword" small>{{ keyword }}</v-chip>
               </td>
               <td class="hidden-sm-and-down">
@@ -135,7 +138,7 @@
                   <v-card-text>
                     <strong>Topics:</strong>
                     <ul>
-                      <li v-for="parts in props.item.topics">
+                      <li v-for="parts in props.item.topics" v-bind:key="parts">
                         {{ parts }}
                       </li>
                     </ul>
@@ -221,7 +224,7 @@ export default {
           text: 'Hint', align: 'left', value: 'hint', class: 'hidden-xs-only',
         },
         {
-          text: 'Keywords', align: 'left', value: 'keywords', class: '',
+          text: 'Keywords', align: 'left', value: 'keywords', class: 'hidden-sm-and-down',
         },
         {
           text: 'Author', align: 'left', value: 'author', class: 'hidden-sm-and-down',

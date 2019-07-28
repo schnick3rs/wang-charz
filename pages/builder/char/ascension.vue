@@ -125,6 +125,7 @@
             >
               <div
                 v-for="selectItem in characterAscension.wargearOptions.find( o => o.key === characterAscension.wargearChoice ).selectList"
+                v-bind:key="selectItem.key"
               >
                 <v-select
                   v-model="selectItem.itemChoice"
