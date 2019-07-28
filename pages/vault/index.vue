@@ -52,7 +52,7 @@
           :headers="headers"
           :items="searchResults"
           disable-initial-sort
-          item-key="name"
+          item-key="title"
           :pagination.sync="pagination"
           :expand="expand"
           :search="searchQuery"
@@ -73,26 +73,29 @@
           </template>
           <template v-slot:items="props">
             <tr @click="toggle(props)">
-              <td>{{ props.item.name }}
+              <td>{{ props.item.title }}</td>
+              <td>
                 <v-chip
-                  v-if="['draft', 'work in progress'].includes(props.item.version)"
+                  v-if="['Draft'].includes(props.item.status)"
                   color="orange"
                   text-color="white"
                   tags
                   small
                   label
                 >
-                  {{ props.item.version }}
+                  <span v-if="props.item.version">{{ props.item.version }}</span>
+                  <span v-else>{{ props.item.status }}</span>
                 </v-chip>
                 <v-chip
-                  v-else-if="props.item.version !== undefined && props.item.version.indexOf('v0') >= 0"
-                  color="orange"
+                  v-if="['Released'].includes(props.item.status)"
+                  color="green"
                   text-color="white"
                   tags
                   small
                   label
                 >
-                  {{ props.item.version }}
+                  <span v-if="props.item.version">{{ props.item.version }}</span>
+                  <span v-else>{{ props.item.status }}</span>
                 </v-chip>
               </td>
               <td class="hidden-xs-only">{{ props.item.hint }}</td>
@@ -112,7 +115,7 @@
           <template v-slot:expand="props">
             <v-card>
               <v-card-title>
-                <h3 class="headline">{{ props.item.name }}</h3>
+                <h3 class="headline">{{ props.item.title }}</h3>
                 <span class="grey--text">{{ props.item.subtitle }}</span>
               </v-card-title>
 
@@ -142,7 +145,7 @@
 
               <v-card-actions>
                 <v-btn color="primary" :href="props.item.url" target="_blank" @click="trackEvent(props.item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
-                <v-btn color="green" nuxt :to="'/vault/'+slugBy(props.item.name)">Show Details</v-btn>
+                <v-btn color="green" nuxt :to="'/vault/'+slugBy(props.item.title)">Show Details</v-btn>
               </v-card-actions>
             </v-card>
           </template>
@@ -176,9 +179,7 @@
 </template>
 
 <script>
-  import HomebrewRepositoryMixin from '~/mixins/HomebrewRepositoryMixin';
-
-  export default {
+export default {
   components: {},
   head() {
     return {
@@ -194,19 +195,27 @@
     };
   },
   layout: 'vault',
-  mixins: [HomebrewRepositoryMixin],
+  async asyncData({ app }) {
+    const vaultItemResponse = await app.$axios.get(`/api/homebrews/`);
+    return {
+      vaultItems: vaultItemResponse.data,
+    };
+  },
   data() {
     return {
       searchQuery: '',
       settingFilter: [],
       contentFilter: [],
       pagination: {
-        sortBy: 'name',
+        sortBy: 'title',
         rowsPerPage: -1,
       },
       headers: [
         {
-          text: 'Name', align: 'left', value: 'name', class: '',
+          text: 'Title', align: 'left', value: 'title', class: '',
+        },
+        {
+          text: 'Version', align: 'left', value: 'version', class: '',
         },
         {
           text: 'Hint', align: 'left', value: 'hint', class: 'hidden-xs-only',
@@ -236,18 +245,21 @@
       ];
     },
     settingOptions() {
-      return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
+      return null;
+      //return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
     },
     contentOptions() {
       let contentOptions = [];
-      this.homebrewRepository.forEach(h => contentOptions = [...contentOptions, ...h.topics, ...h.keywords]);
+      this.vaultItems.forEach( vaultItem => {
+        contentOptions = [...contentOptions, ...vaultItem.topics, ...vaultItem.keywords];
+      });
       return [...new Set(contentOptions)].sort();
     },
     searchResults() {
-      let filteredResults = this.homebrewRepository;
+      let filteredResults = this.vaultItems;
 
       if (this.searchQuery) {
-        // filteredResults = filteredResults.filter(h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
+        // filteredResults = filteredResults.filter(h => (h.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
       }
 
       if (this.contentFilter.length > 0) {
@@ -278,7 +290,7 @@
       }
     },
     toggle(props) {
-      this.$ga.event('Vault Row', 'expand', props.item.name, 0);
+      this.$ga.event('Vault Row', 'expand', props.item.title, 0);
       props.expanded = !props.expanded;
     },
     trackEvent(url) {
