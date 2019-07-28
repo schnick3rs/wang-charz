@@ -60,7 +60,10 @@ module.exports = {
   modules: [
     '@nuxtjs/vuetify',
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
+    ['@nuxtjs/axios', {
+      baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+      //baseURL: 'https://www.doctors-of-doom.com',
+    }],
     // Simple usage
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
@@ -85,7 +88,8 @@ module.exports = {
       '/builder/char/**',
     ],
     routes() {
-      return axios.get('https://www.doctors-of-doom.com/api/homebrews/')
+      const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
+      return axios.get(base+'/api/homebrews/')
         .then( response => response.data.map( vaultItem => `/vault/${vaultItem.slug}` ) );
     },
   },
@@ -94,6 +98,9 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://local.doom.com:3000',
+    //baseURL: 'https://www.doctors-of-doom.com',
+    //debug: process.env.NODE_ENV !== 'production',
   },
   /*
   ** vuetify module configuration

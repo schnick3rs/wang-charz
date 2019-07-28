@@ -199,7 +199,7 @@ export default {
   },
   layout: 'vault',
   async asyncData({ app }) {
-    const vaultItemResponse = await app.$axios.get(`https://www.doctors-of-doom.com/api/homebrews/`);
+    const vaultItemResponse = await app.$axios.get(`/api/homebrews/`);
     return {
       vaultItems: vaultItemResponse.data,
     };
