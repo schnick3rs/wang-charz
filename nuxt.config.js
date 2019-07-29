@@ -59,12 +59,11 @@ module.exports = {
   */
   modules: [
     '@nuxtjs/vuetify',
-    // Doc: https://axios.nuxtjs.org/usage
+    '@nuxtjs/sitemap',
     ['@nuxtjs/axios', {
       baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
       //baseURL: 'https://www.doctors-of-doom.com',
     }],
-    // Simple usage
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
       disabled: false,
@@ -75,8 +74,12 @@ module.exports = {
         sendHitTask: process.env.NODE_ENV === 'production',
       },
     }],
-    // create a dynamic sitemap
-    '@nuxtjs/sitemap',
+    // https://github.com/nuxt-community/redirect-module
+    ['@nuxtjs/redirect-module', {
+      rules: [
+        //{ from: '^/vault/the-deathwatch---slayers-of-the-alien-horde', to: '/vault/the-deathwatch-slayers-of-the-alien-horde', statusCode: 301 },
+      ],
+    }],
   ],
   /*
    * Sitemap module configuration

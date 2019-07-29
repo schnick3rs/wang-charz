@@ -148,7 +148,7 @@
 
               <v-card-actions>
                 <v-btn color="primary" :href="props.item.url" target="_blank" @click="trackEvent(props.item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
-                <v-btn color="green" nuxt :to="'/vault/'+slugBy(props.item.title)">Show Details</v-btn>
+                <v-btn color="green" nuxt :to="'/vault/'+props.item.slug">Show Details</v-btn>
               </v-card-actions>
             </v-card>
           </template>
@@ -281,9 +281,6 @@ export default {
     },
   },
   methods: {
-    slugBy(name) {
-      return name.toLowerCase().replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-');
-    },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
         this.pagination.descending = !this.pagination.descending;
