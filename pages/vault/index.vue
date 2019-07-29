@@ -134,7 +134,10 @@
                     </p>
                   </v-card-text>
                 </v-flex>
-                <v-flex xs12 sm6>
+                <v-flex xs12 sm3 v-if="props.item.thumbnail" class="hidden-xs-only">
+                  <v-img v-bind:src="props.item.thumbnail" />
+                </v-flex>
+                <v-flex xs12 sm3>
                   <v-card-text>
                     <strong>Topics:</strong>
                     <ul>
