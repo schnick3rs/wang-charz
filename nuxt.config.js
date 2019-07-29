@@ -78,6 +78,7 @@ module.exports = {
     ['@nuxtjs/redirect-module', {
       rules: [
         //{ from: '^/vault/the-deathwatch---slayers-of-the-alien-horde', to: '/vault/the-deathwatch-slayers-of-the-alien-horde', statusCode: 301 },
+        { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
       ],
     }],
   ],
@@ -94,6 +95,12 @@ module.exports = {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
       return axios.get(base+'/api/homebrews/')
         .then( response => response.data.map( vaultItem => `/vault/${vaultItem.slug}` ) );
+    },
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date(),
+      lastmodrealtime: true
     },
   },
   /*
