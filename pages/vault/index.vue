@@ -185,9 +185,27 @@
 </template>
 
 <script>
-export default {
+  import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
+
+  export default {
   components: {},
   head() {
+
+    const itemSchemaArray = this.vaultItems.map( item => {
+      return {
+        ...SchemaDigitalDocument,
+        name: item.title,
+        alternativeHeadline: item.subtitle,
+        author: item.author,
+        version: item.version || item.status,
+        url: item.url,
+        thumbnailUrl: item.thumbnail ? `https://www.doctors-of-doom.com${item.thumbnail}` : null,
+        description: item.abstract,
+        keywords: [...item.keywords, 'Wrath & Glory'].join(','),
+      };
+    });
+
+
     return {
       title: 'Collection of Wrath & Glory Homebrews | Vault',
       meta: [
@@ -198,6 +216,10 @@ export default {
             + ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.',
         },
       ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' }
+      ]
     };
   },
   layout: 'vault',
