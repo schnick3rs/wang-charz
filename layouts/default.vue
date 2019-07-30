@@ -1,14 +1,14 @@
 <template>
   <v-app>
-    <v-toolbar
+    <v-app-bar
       app
-      dense
       dark
+      dense
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
       <v-toolbar-items>
-        <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
+        <v-btn text small nuxt to="/">Doctors of Doom</v-btn>
       </v-toolbar-items>
 
       <v-spacer></v-spacer>
@@ -16,7 +16,7 @@
       <v-toolbar-items>
 
       </v-toolbar-items>
-    </v-toolbar>
+    </v-app-bar>
 
     <v-content>
 

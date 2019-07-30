@@ -1,5 +1,5 @@
 <template>
-  <v-footer :app="true" class="pa-2" dark>
+  <v-footer app class="pa-2" dark>
     <v-spacer></v-spacer>
     <v-btn v-if="false" nuxt to="/private-policy">Private Policy</v-btn>
     <v-btn nuxt to="/about">About</v-btn>
