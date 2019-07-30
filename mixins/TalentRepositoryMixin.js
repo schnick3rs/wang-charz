@@ -369,7 +369,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Weapon Skill', value: '2+',
             },
           ],
-          effect: '+1/2 Rank to melee attacks made as part of a charge.',
+          effect: '+½ Rank to melee attacks made as part of a charge.',
           source: {
             book: 'core',
             version: 'v1',
@@ -606,7 +606,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Primaris Astartes'] },
           ],
-          effect: '+1/2 Rank to Resolve and Corruption Tests. +Rank to Scholar tests regarding historical events.',
+          effect: '+½ Rank to Resolve and Corruption Tests. +Rank to Scholar tests regarding historical events.',
           source: {
             book: 'core',
             version: 'v1',
@@ -736,7 +736,7 @@ export default {
             },
             { condition: 'must', type: 'keyword', key: ['Adeptus Astartes'] },
           ],
-          effect: '+1/2 Rank bonus damage with Space Marine weapons',
+          effect: '+½ Rank bonus damage with Space Marine weapons',
           source: {
             book: 'core',
             version: 'v1',
@@ -787,7 +787,7 @@ export default {
           name: 'Touched by Fate',
           cost: 25,
           prerequisites: [],
-          effect: 'Gain +1/2 Rank Wrath at the beginning of each session.',
+          effect: 'Gain +½ Rank Wrath at the beginning of each session.',
           source: {
             book: 'core',
             version: 'v1',
@@ -841,7 +841,7 @@ export default {
               condition: 'must', type: 'attribute', key: 'Toughness', value: '4+',
             },
           ],
-          effect: 'Ignore the penalty for Lightly Wounded; +1DN for Heavily Wounded. +1/2 Rank to Wounds.',
+          effect: 'Ignore the penalty for Lightly Wounded; +1DN for Heavily Wounded. +½ Rank to Wounds.',
           source: {
             book: 'core',
             version: 'v1',
