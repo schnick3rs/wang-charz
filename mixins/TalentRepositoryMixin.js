@@ -77,7 +77,7 @@ export default {
             condition: 'must', type: 'skill', key: skill, value: '4+',
           },
         ],
-        effect: '...',
+        effect: `Reduce DN modifiers by +Rank for ${skill} tests.`,
         source: {
           book: 'core',
           version: 'v1',
@@ -95,13 +95,9 @@ export default {
           name: 'Acts of Faith',
           cost: 40,
           prerequisites: [
-            {
-              condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'],
-            },
-            {
-              condition: 'must', type: 'attribute', key: 'Willpower', value: '3+',
-            },
-            { condition: 'mustNot', type: 'keyword', key: ['Chaos'], },
+            { condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'] },
+            { condition: 'must', type: 'attribute', key: 'Willpower', value: '3+' },
+            { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
           ],
           effect: 'Grants Faith and bonuses with various options.',
           source: {
@@ -141,7 +137,7 @@ export default {
             { condition: 'must', type: 'keyword', key: ['Chaos'] },
             { condition: 'must', type: 'talent', key: ['Devotees'] },
           ],
-          effect: '...',
+          effect: 'May sacrifice a devotee for Wrath.',
           source: {
             book: 'core',
             version: 'v1',
@@ -157,12 +153,10 @@ export default {
           name: 'Bombardment',
           cost: 40,
           prerequisites: [
-            {
-              condition: 'must', type: 'character', key: 'Rank', value: '3+',
-            },
+            { condition: 'must', type: 'character', key: 'Rank', value: '3+' },
             { condition: 'must', type: 'keyword', key: ['Aeldari', 'Astra Militarum', 'Chaos', 'Ork', 'Rogue Trader', 'Adeptus Astartes'] },
           ],
-          effect: '...',
+          effect: 'Calls in a bombardment once per game.',
           source: {
             book: 'core',
             version: 'v1',
@@ -178,7 +172,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Chaos'] },
           ],
-          effect: '...',
+          effect: 'Gains a minion spawned from the warp.',
           source: {
             book: 'core',
             version: 'v1',
@@ -196,7 +190,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Weapon Skill', value: '5+',
             },
           ],
-          effect: '...',
+          effect: 'Strike back if you are attacked in melee.',
           source: {
             book: 'core',
             version: 'v1',
@@ -210,9 +204,9 @@ export default {
           name: 'Dedicated <Ability>',
           cost: 30,
           prerequisites: [
-            { condition: 'must', type: 'character', key: 'One Ability that  grant a bonus of +½ Rank.' },
+            { condition: 'must', type: 'character', key: 'One Ability that grant a bonus of +½ Rank.' },
           ],
-          effect: '...',
+          effect: 'Increase the chosen bonus to +Rank.',
           source: {
             book: 'core',
             version: 'v1',
@@ -230,7 +224,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Leadership', value: '4+',
             },
           ],
-          effect: '...',
+          effect: 'You gain a mob of Troops as devoted followers.',
           source: {
             book: 'core',
             version: 'v1',
@@ -248,7 +242,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+',
             },
           ],
-          effect: '...',
+          effect: 'May wield two pistols.',
           source: {
             book: 'core',
             version: 'v1',
@@ -266,7 +260,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+',
             },
           ],
-          effect: '...',
+          effect: 'May wield two melee weapons.',
           source: {
             book: 'core',
             version: 'v1',
@@ -282,7 +276,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Psyker'] },
           ],
-          effect: '...',
+          effect: 'May reroll psychic mishaps.',
           source: {
             book: 'core',
             version: 'v1',
@@ -300,7 +294,7 @@ export default {
               condition: 'must', type: 'attribute', key: 'Willpower', value: '5+',
             },
           ],
-          effect: '...',
+          effect: 'Fearless and immune to Intimidation.',
           source: {
             book: 'core',
             version: 'v1',
@@ -318,7 +312,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Weapon Skill', value: '3+',
             },
           ],
-          effect: '...',
+          effect: '+½ Rank ED to any All-Out Attack',
           source: {
             book: 'core',
             version: 'v1',
@@ -336,7 +330,7 @@ export default {
               condition: 'must', type: 'attribute', key: 'Toughness', value: '3+',
             },
           ],
-          effect: '...',
+          effect: 'Test Toughness to restore Shock.',
           source: {
             book: 'core',
             version: 'v1',
@@ -354,7 +348,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Weapon Skill', value: '3+',
             },
           ],
-          effect: '...',
+          effect: '+Rank on melee attacks against a chosen keyword; +2DN for non-hostile Interaction tests with that keyword.',
           source: {
             book: 'core',
             version: 'v1',
@@ -375,7 +369,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Weapon Skill', value: '2+',
             },
           ],
-          effect: '...',
+          effect: '+1/2 Rank to melee attacks made as part of a charge.',
           source: {
             book: 'core',
             version: 'v1',
@@ -392,7 +386,7 @@ export default {
             { condition: 'must', type: 'keyword', key: ['Adeptus Ministorum'] },
             { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
           ],
-          effect: '...',
+          effect: 'Chant as a free action to heal Shock in you and your allies.',
           source: {
             book: 'core',
             version: 'v1',
@@ -408,7 +402,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Aeldari'] },
           ],
-          effect: '...',
+          effect: 'No longer suffers from Intense Emotion, +1 Glory when passing a Defiance Check.',
           source: {
             book: 'core',
             version: 'v1',
@@ -424,7 +418,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Chaos'] },
           ],
-          effect: '...',
+          effect: 'Bonus Glory when you incapacitate an opponent.',
           source: {
             book: 'core',
             version: 'v1',
@@ -442,7 +436,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Scholar', value: '4+',
             },
           ],
-          effect: '...',
+          effect: 'Gain skill bonuses for a specifi c subject.',
           source: {
             book: 'core',
             version: 'v1',
@@ -458,7 +452,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Khorne'] },
           ],
-          effect: '...',
+          effect: 'Dedicate yourself to a Chaos God to gain a benefit.',
           source: {
             book: 'core',
             version: 'v1',
@@ -474,7 +468,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Nurgle'] },
           ],
-          effect: '...',
+          effect: 'Dedicate yourself to a Chaos God to gain a benefit.',
           source: {
             book: 'core',
             version: 'v1',
@@ -490,7 +484,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Slaanesh'] },
           ],
-          effect: '...',
+          effect: 'Dedicate yourself to a Chaos God to gain a benefit.',
           source: {
             book: 'core',
             version: 'v1',
@@ -506,7 +500,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Tzeentch'] },
           ],
-          effect: '...',
+          effect: 'Dedicate yourself to a Chaos God to gain a benefit.',
           source: {
             book: 'core',
             version: 'v1',
@@ -522,7 +516,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Undedicated'] },
           ],
-          effect: '...',
+          effect: 'Dedicate yourself to a Chaos God to gain a benefit.',
           source: {
             book: 'core',
             version: 'v1',
@@ -562,7 +556,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Aeldari', 'Asuryani'] },
           ],
-          effect: '...',
+          effect: 'Select a second Background and gain the benefi ts.',
           source: {
             book: 'core',
             version: 'v1',
@@ -578,7 +572,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Ork'] },
           ],
-          effect: '...',
+          effect: '+Rank to Resolve tests for Ork followers.',
           source: {
             book: 'core',
             version: 'v1',
@@ -596,7 +590,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Persuasion', value: '3+',
             },
           ],
-          effect: '...',
+          effect: '+Rank to Influence and Interaction Skills in social situations.',
           source: {
             book: 'core',
             version: 'v1',
@@ -612,7 +606,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Primaris Astartes'] },
           ],
-          effect: '...',
+          effect: '+1/2 Rank to Resolve and Corruption Tests. +Rank to Scholar tests regarding historical events.',
           source: {
             book: 'core',
             version: 'v1',
@@ -628,7 +622,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Adeptus Mechanicus'] },
           ],
-          effect: '...',
+          effect: 'Project cone of fear-causing subsonics.',
           source: {
             book: 'core',
             version: 'v1',
@@ -644,7 +638,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Adeptus Mechanicus'] },
           ],
-          effect: '...',
+          effect: 'Manipulate metal objects without touching them.',
           source: {
             book: 'core',
             version: 'v1',
@@ -660,7 +654,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Adeptus Mechanicus'] },
           ],
-          effect: '...',
+          effect: '+½ Rank to Fear tests and resist Interaction attacks; +½ Rank to Investigation tests.',
           source: {
             book: 'core',
             version: 'v1',
@@ -676,7 +670,7 @@ export default {
           prerequisites: [
             { condition: 'must', type: 'keyword', key: ['Ork'] },
           ],
-          effect: '...',
+          effect: 'Increase Salvo value by ½ Rank.',
           source: {
             book: 'core',
             version: 'v1',
@@ -723,7 +717,7 @@ export default {
             },
             { condition: 'must', type: 'keyword', key: ['Imperial Guardsman', 'Tempestus Scion'] },
           ],
-          effect: '...',
+          effect: 'Gain a choice of special weapons as standard wargear.',
           source: {
             book: 'core',
             version: 'v1',
@@ -742,7 +736,7 @@ export default {
             },
             { condition: 'must', type: 'keyword', key: ['Adeptus Astartes'] },
           ],
-          effect: '...',
+          effect: '+1/2 Rank bonus damage with Space Marine weapons',
           source: {
             book: 'core',
             version: 'v1',
@@ -760,7 +754,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+',
             },
           ],
-          effect: '...',
+          effect: 'Reduce DN for Multi-attack in melee.',
           source: {
             book: 'core',
             version: 'v1',
@@ -779,7 +773,7 @@ export default {
             { condition: 'must', type: 'keyword', key: ['Adeptus Ministorum'] },
             { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
           ],
-          effect: '...',
+          effect: 'Grants Faith and gives bonuses to Corruption tests and Fear tests for you and your allies.',
           source: {
             book: 'core',
             version: 'v1',
@@ -793,7 +787,7 @@ export default {
           name: 'Touched by Fate',
           cost: 25,
           prerequisites: [],
-          effect: '...',
+          effect: 'Gain +1/2 Rank Wrath at the beginning of each session.',
           source: {
             book: 'core',
             version: 'v1',
@@ -811,7 +805,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+',
             },
           ],
-          effect: '...',
+          effect: '+Rank ED to all successful attacks with chosen weapon.',
           source: {
             book: 'core',
             version: 'v1',
@@ -829,7 +823,7 @@ export default {
               condition: 'must', type: 'skill', key: 'Weapon Skill', value: '4+',
             },
           ],
-          effect: '...',
+          effect: '+Rank ED to all successful attacks with chosen weapon.',
           source: {
             book: 'core',
             version: 'v1',
@@ -847,7 +841,7 @@ export default {
               condition: 'must', type: 'attribute', key: 'Toughness', value: '4+',
             },
           ],
-          effect: '...',
+          effect: 'Ignore the penalty for Lightly Wounded; +1DN for Heavily Wounded. +1/2 Rank to Wounds.',
           source: {
             book: 'core',
             version: 'v1',
@@ -868,7 +862,7 @@ export default {
             },
             { condition: 'mustNot', type: 'keyword', key: ['Chaos'] },
           ],
-          effect: '...',
+          effect: 'Grants Faith and provides bonuses to resist psychic powers and effects.',
           source: {
             book: 'core',
             version: 'v1',
