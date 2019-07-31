@@ -12,6 +12,10 @@
         </li>
         <li class="v-breadcrumbs__divider">/</li>
         <li class="v-breadcrumbs__item">
+          <nuxt-link to="/library/wargear" class="v-breadcrumbs__item">Wargear</nuxt-link>
+        </li>
+        <li class="v-breadcrumbs__divider">/</li>
+        <li class="v-breadcrumbs__item">
           <nuxt-link to="/library/wargear" class="v-breadcrumbs__item--disabled v-breadcrumbs__item">Wargear</nuxt-link>
         </li>
       </ul>
@@ -52,7 +56,6 @@
           <template v-slot:items="props">
             <tr>
               <td>{{ props.item.name }}</td>
-              <td>{{ props.item.type }}</td>
               <td>{{ props.item.subtype }}</td>
               <td>
                 <div v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].damage">
@@ -141,7 +144,6 @@ export default {
       },
       headers: [
         { text: 'Name', align: 'left', value: 'name', class: '' },
-        { text: 'Type', align: 'left', value: 'type', class: '' },
         { text: 'Subtype', align: 'left', value: 'subtype', class: '' },
         { text: 'Damage', align: 'left', value: 'damage', class: '' },
         { text: 'AP', align: 'left', value: 'ap', class: '' },
