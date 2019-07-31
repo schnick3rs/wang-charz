@@ -9,7 +9,7 @@ module.exports = {
     parser: 'babel-eslint'
   },
   extends: [
-    'airbnb-base',
+    '@vue/airbnb',
     'plugin:nuxt/recommended'
   ],
   // add your custom rules here
