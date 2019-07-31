@@ -21,8 +21,7 @@
       </ul>
     </div>
 
-
-  <v-layout justify-center row wrap>
+    <v-layout justify-center row wrap>
 
     <v-flex xs12>
       <v-card>
@@ -93,8 +92,8 @@
 
     </v-flex>
   </v-layout>
-  </div>
 
+  </div>
 
 </template>
 
@@ -103,13 +102,12 @@ export default {
   components: {},
   head() {
     return {
-      title: 'Wargear - Wrath & Glory Reference | Library',
+      title: 'Armour - Wrath & Glory Wargear Reference | Library',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'The Doctors of Doom Vault contains a curated collection of homebrews and houserules for Wrath & Glory,'
-            + ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.',
+          content: '',
         },
       ],
     };

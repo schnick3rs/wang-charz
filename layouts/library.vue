@@ -26,9 +26,8 @@
 
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
-          <v-btn flat small nuxt to="/library/wargear">Wargear</v-btn>
           <v-btn flat small nuxt to="/library/wargear/weapons">Weapons</v-btn>
-          <v-btn flat small nuxt to="/library/wargear/amour">Armour</v-btn>
+          <v-btn flat small nuxt to="/library/wargear/armour">Armour</v-btn>
         </v-toolbar-items>
       </v-toolbar>
 

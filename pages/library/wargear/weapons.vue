@@ -93,13 +93,6 @@
 
       <v-card>
         <v-card-text>
-          <h1>Search the Vault for precious, fanmade hombrews</h1>
-          <p>
-            This is a curated list of homebrews from fans, found in the internet. I credit the author and link to their
-            community pages, as good as I could, if I find them either in the document found or on their respective page.
-            If want to add, remove or change your homebrew content or if you want to propose changes regarding links,
-            you can mail me to <a href="mailto:docsofdoom+vault@gmail.com?subject=Vault Request">docsofdoom+vault(at)gmail.com</a>.
-           </p>
         </v-card-text>
       </v-card>
 
@@ -115,13 +108,12 @@ export default {
   components: {},
   head() {
     return {
-      title: 'Wargear - Wrath & Glory Reference | Library',
+      title: 'Weapons - Wrath & Glory Wargear Reference | Library',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'The Doctors of Doom Vault contains a curated collection of homebrews and houserules for Wrath & Glory,'
-            + ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.',
+          content: '',
         },
       ],
     };
@@ -158,16 +150,6 @@ export default {
   computed: {
     weapons() {
       return this.wargearRepository.filter( gear => ['Ranged Weapon', 'Melee Weapon'].includes(gear.type));
-    },
-    breadcrumbItems() {
-      return [
-        {
-          text: 'D', disabled: false, nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Vault', disabled: false, nuxt: true, exact: true, to: '/vault',
-        },
-      ];
     },
     searchResults() {
       let filteredResults = this.vaultItems;
