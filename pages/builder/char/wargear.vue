@@ -100,10 +100,23 @@
   layout: 'builder',
   props: [],
   mixins: [WargearRepositoryMixin],
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get(`/api/wargear/`);
+    const wargearRepository = response.data;
+
+    return {
+      wargearRepository: wargearRepository,
+    };
+  },
   data() {
     return {};
   },
   computed: {
+    allTheWargear() {
+      this.wargearRepository.forEach( w => {
+        //console.log(`INSERT INTO wrath_glory.wargear (name, type, subtype, value, rarity, keywords) VALUES ('${w.name}', '${w.type}', '${w.subtype}', ${w.value}, '${w.rarity}', '{${w.keywords}}')`);
+      });
+    },
     settingTier() { return this.$store.state.settingTier; },
     characterArchetypeName() { return this.$store.state.archetype.value; },
     startingWargear() {

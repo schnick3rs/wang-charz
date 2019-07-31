@@ -247,18 +247,24 @@
                 <tr>
                   <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
                   <td class="text-xs-center pa-1 small">
-                    <div v-if="props.item.meta && props.item.meta[0].damage">
+                    <div v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].damage">
                       <span v-if="props.item.type==='Melee Weapon'">{{ props.item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
                       <span v-else>{{ props.item.meta[0].damage.static }}</span>
                       <span> + </span>
                       <span>{{ props.item.meta[0].damage.ed }} ED</span>
                     </div>
                   </td>
-                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].ap }}</span></td>
-                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].salvo }}</span></td>
-                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].range }} m</span></td>
+                  <td class="text-xs-center pa-1 small">
+                    <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].ap }}</span>
+                  </td>
+                  <td class="text-xs-center pa-1 small">
+                    <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].salvo }}</span>
+                  </td>
+                  <td class="text-xs-center pa-1 small">
+                    <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].range }} m</span>
+                  </td>
                   <td class="text-xs-left pa-1 small">
-                    <span v-if="props.item.meta && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
+                    <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
                   </td>
                 </tr>
               </template>
@@ -282,7 +288,6 @@
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
   import TalentRepositoryMixin from '~/mixins/TalentRepositoryMixin.js';
-  import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin.js';
   import { mapGetters } from 'vuex';
 
   export default {
@@ -293,12 +298,16 @@
     PsychicPowersRepositoryMixin,
     SpeciesRepositoryMixin,
     StatRepositoryMixin,
-    TalentRepositoryMixin,
-    WargearRepositoryMixin
+    TalentRepositoryMixin
   ],
   props: [],
-  async asyncData({ params }) {
-    return {};
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get(`/api/wargear/`);
+    const wargearRepository = response.data;
+
+    return {
+      wargearRepository: wargearRepository,
+    };
   },
   data() {
     return {

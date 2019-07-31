@@ -212,7 +212,6 @@
   import { mapGetters } from 'vuex';
   import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
   import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
-  import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin';
   import AscensionPreview from '~/components/builder/AscensionPreview.vue';
   import KeywordSelect from '~/components/builder/KeywordSelect.vue';
   import WargearSelect from '~/components/builder/WargearSelect.vue';
@@ -221,8 +220,16 @@
   name: 'Ascension',
   layout: 'builder',
   props: [],
-  mixins: [AscensionRepositoryMixin, KeywordRepositoryMixin, WargearRepositoryMixin],
+  mixins: [AscensionRepositoryMixin, KeywordRepositoryMixin],
   components: { AscensionPreview, KeywordSelect, WargearSelect },
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get(`/api/wargear/`);
+    const wargearRepository = response.data;
+
+    return {
+      wargearRepository: wargearRepository,
+    };
+  },
   data() {
     return {
       dialog: false,

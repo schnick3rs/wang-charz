@@ -2,7 +2,7 @@ export default {
   data() {
     return {
       // https://api.sheety.co/cd93dfab-c658-4099-8a93-e6cc202b3488
-      wargearRepository: [
+      wargearRepositoryDeprecated: [
         {
           key: null,
           name: 'Aquila Mk VII',
