@@ -283,30 +283,29 @@
 </template>
 
 <script lang="js">
+  import { mapGetters } from 'vuex';
   import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import PsychicPowersRepositoryMixin from '~/mixins/PsychicPowersRepositoryMixin.js';
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
-  import TalentRepositoryMixin from '~/mixins/TalentRepositoryMixin.js';
-  import { mapGetters } from 'vuex';
 
   export default {
   name: 'Print',
   layout: 'print',
   mixins: [
     ArchetypeRepositoryMixin,
-    PsychicPowersRepositoryMixin,
     SpeciesRepositoryMixin,
     StatRepositoryMixin,
-    TalentRepositoryMixin
   ],
   props: [],
   async asyncData({ params, $axios, error }) {
-    const response = await $axios.get(`/api/wargear/`);
-    const wargearRepository = response.data;
+    const talentResponse = await $axios.get(`/api/talents/`);
+    const wargearResponse = await $axios.get(`/api/wargear/`);
+    const psychicPowersResponse = await $axios.get(`/api/psychic-powers/`);
 
     return {
-      wargearRepository: wargearRepository,
+      wargearRepository: wargearResponse.data,
+      talentRepository: talentResponse.data,
+      psychicPowersRepository: psychicPowersResponse.data,
     };
   },
   data() {

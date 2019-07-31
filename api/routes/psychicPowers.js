@@ -11,7 +11,7 @@ router.get('/', async (request, response) => {
   const slug = request.params.slug;
 
   const { rows } = await db.queryAsyncAwait(
-    'SELECT * FROM wrath_glory.wargear',
+    'SELECT * FROM wrath_glory.psychic_powers',
     [],
   );
 
@@ -25,7 +25,7 @@ router.get('/:id', async (request, response) => {
   const id = request.params.id;
 
   const { rows } = await db.queryAsyncAwait(
-    'SELECT * FROM wrath_glory.homebrews WHERE id = $1 LIMIT 1',
+    'SELECT * FROM wrath_glory.psychic_powers WHERE id = $1 LIMIT 1',
     [id],
   );
 
