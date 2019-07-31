@@ -57,7 +57,7 @@
             <tr>
               <td>{{ props.item.name }}</td>
               <td>{{ props.item.subtype }}</td>
-              <td>
+              <td class="text-sm-center">
                 <div v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].damage">
                   <span v-if="props.item.type==='Melee Weapon'">{{ props.item.meta[0].damage.static }}*</span>
                   <span v-else>{{ props.item.meta[0].damage.static }}</span>
@@ -65,13 +65,13 @@
                   <span>{{ props.item.meta[0].damage.ed }} ED</span>
                 </div>
               </td>
-              <td>
+              <td class="text-sm-center">
                 <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].ap }}</span>
               </td>
-              <td>
+              <td class="text-sm-center">
                 <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].salvo }}</span>
               </td>
-              <td>
+              <td class="text-sm-center">
                 <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].range }} m</span>
               </td>
               <td>
@@ -137,10 +137,10 @@ export default {
       headers: [
         { text: 'Name', align: 'left', value: 'name', class: '' },
         { text: 'Subtype', align: 'left', value: 'subtype', class: '' },
-        { text: 'Damage', align: 'left', value: 'damage', class: '' },
-        { text: 'AP', align: 'left', value: 'ap', class: '' },
-        { text: 'Salvo', align: 'left', value: 'salvo', class: '' },
-        { text: 'Range', align: 'left', value: 'range', class: '' },
+        { text: 'Damage', align: 'center', value: 'damage', class: '' },
+        { text: 'AP', align: 'center', value: 'ap', class: '' },
+        { text: 'Salvo', align: 'center', value: 'salvo', class: '' },
+        { text: 'Range', align: 'center', value: 'range', class: '' },
         { text: 'Traits', align: 'left', value: 'traits', class: '' },
         { text: 'Keywords', align: 'left', value: 'keywords', class: '' },
       ],
