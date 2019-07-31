@@ -12,10 +12,15 @@
         </li>
         <li class="v-breadcrumbs__divider">/</li>
         <li class="v-breadcrumbs__item">
-          <nuxt-link to="/library/wargear" class="v-breadcrumbs__item--disabled v-breadcrumbs__item">Wargear</nuxt-link>
+          <nuxt-link to="/library/wargear" class="v-breadcrumbs__item">Wargear</nuxt-link>
+        </li>
+        <li class="v-breadcrumbs__divider">/</li>
+        <li class="v-breadcrumbs__item">
+          <nuxt-link to="/library/wargear/armour" class="v-breadcrumbs__item--disabled v-breadcrumbs__item">Armour</nuxt-link>
         </li>
       </ul>
     </div>
+
 
   <v-layout justify-center row wrap>
 
@@ -109,7 +114,7 @@ export default {
       ],
     };
   },
-  layout: 'vault',
+  layout: 'library',
   async asyncData({ app }) {
     const response = await app.$axios.get(`/api/wargear/`);
     return {
