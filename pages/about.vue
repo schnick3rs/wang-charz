@@ -15,6 +15,8 @@
             The game is currently published by <a href="https://www.cubicle7games.com/?p=3870">Cubical 7</a>.
           </p>
 
+          <h2>The Character Generator</h2>
+
           <p>I was heavily motivated and inspired by <a href="https://www.reddit.com/user/althalin/">reddit user althalin</a>
              and his <a href="http://apps.ajott.io/dh2chargen/">Dark Heresy 2 Character Generator</a>. You should
           definitely check it out!</p>
