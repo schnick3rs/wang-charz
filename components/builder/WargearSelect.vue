@@ -56,7 +56,7 @@
     options() {
       const placeholder = this.placeholder;
 
-      let wordy= {};
+      let wordy = {};
       if ( placeholder.toLowerCase() === '<any>' ) {
         const levelOneKeywords = this.keywordRepository
           .filter(k => k.name.indexOf('<')<0)
