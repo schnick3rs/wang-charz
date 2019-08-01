@@ -316,6 +316,7 @@
 
                 <v-card-text
                   v-for="(objective, index) in objectives"
+                  v-bind:key="objective.name"
                   class="pl-2 pr-2 pt-1 pb-1 caption"
                 >
                   <strong>{{ index+1 }}:</strong> {{ objective.text }}

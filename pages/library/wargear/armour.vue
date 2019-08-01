@@ -23,75 +23,78 @@
 
     <v-layout justify-center row wrap>
 
-    <v-flex xs12>
-      <v-card>
-        <v-card-text>
-          <v-layout justify-center row wrap>
-            <v-flex xs12 sm6>
-              <v-text-field
-                v-model="searchQuery"
-                box
-                dense
-                clearable
-                label="Search"></v-text-field>
-            </v-flex>
+      <v-flex xs12>
+        <v-card>
+          <v-card-text>
+            <v-layout justify-center row wrap>
+              <v-flex xs12 sm6>
+                <v-text-field
+                  v-model="searchQuery"
+                  box
+                  dense
+                  clearable
+                  label="Search"></v-text-field>
+              </v-flex>
 
-          </v-layout>
-        </v-card-text>
-      </v-card>
-    </v-flex>
+            </v-layout>
+          </v-card-text>
+        </v-card>
+      </v-flex>
 
-    <v-flex xs12>
-      <v-card>
-        <v-data-table
-          v-bind:headers="headers"
-          v-bind:items="armour"
-          v-bind:pagination.sync="pagination"
-          v-bind:expand="expand"
-          v-bind:search="searchQuery"
-          disable-initial-sort
-          item-key="title"
-          hide-actions
-        >
-          <template v-slot:items="props">
-            <tr>
-              <td>{{ props.item.name }}</td>
-              <td>{{ props.item.subtype }}</td>
-              <td class="text-lg-center">
-                <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].armourRating }}</span>
-              </td>
-              <td>
-                <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
-              </td>
-              <td>{{ props.item.value }} {{ props.item.rarity }}</td>
-              <td>{{ props.item.keywords.join(', ') }}</td>
-            </tr>
-          </template>
+      <v-flex xs12>
+        <v-card>
+          <v-data-table
+            v-bind:headers="headers"
+            v-bind:items="armour"
+            v-bind:pagination.sync="pagination"
+            v-bind:expand="expand"
+            v-bind:search="searchQuery"
+            disable-initial-sort
+            item-key="title"
+            hide-actions
+          >
+            <template v-slot:items="props">
+              <tr>
+                <td>{{ props.item.name }}</td>
+                <td>{{ props.item.subtype }}</td>
+                <td class="text-lg-center">
+                  <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].armourRating }}</span>
+                </td>
+                <td>
+                  <span >
+                    {{ props.item.meta[0].traits }}
+                  </span>
+                </td>
+                <td>{{ props.item.value }} {{ props.item.rarity }}</td>
+                <td>{{ props.item.keywords.join(', ') }}</td>
+              </tr>
+            </template>
 
-        </v-data-table>
+          </v-data-table>
 
-        <div class="text-xs-center pt-2">
-          <v-pagination v-model="pagination.page" :length="pages" />
-        </div>
-      </v-card>
-    </v-flex>
+          <div class="text-xs-center pt-2">
+            <v-pagination v-model="pagination.page" :length="pages" />
+          </div>
 
-    <v-flex xs12>
+        </v-card>
 
-      <v-card>
-        <v-card-text>
-          <h1>Search the Vault for precious, fanmade hombrews</h1>
-          <p>
-            This is a curated list of homebrews from fans, found in the internet. I credit the author and link to their
-            community pages, as good as I could, if I find them either in the document found or on their respective page.
-            If want to add, remove or change your homebrew content or if you want to propose changes regarding links,
-            you can mail me to <a href="mailto:docsofdoom+vault@gmail.com?subject=Vault Request">docsofdoom+vault(at)gmail.com</a>.
-           </p>
-        </v-card-text>
-      </v-card>
+      </v-flex>
 
-    </v-flex>
-  </v-layout>
+      <v-flex xs12>
+
+        <v-card>
+
+          <v-card-text>
+
+            <h1>Armour, protection and deflection.</h1>
+
+          </v-card-text>
+
+        </v-card>
+
+      </v-flex>
+
+    </v-layout>
 
   </div>
 
