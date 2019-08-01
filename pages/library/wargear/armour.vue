@@ -182,7 +182,7 @@ export default {
           return armourMeta.traits.join(', ');
         }
       }
-      return '';
+      return '-';
     },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
