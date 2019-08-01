@@ -60,11 +60,7 @@
                 <td class="text-lg-center">
                   <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].armourRating }}</span>
                 </td>
-                <td>
-                  <span >
-                    {{ props.item.meta[0].traits }}
-                  </span>
-                </td>
+                <td>{{ toTraitString(props.item) }}</td>
                 <td>{{ props.item.value }} {{ props.item.rarity }}</td>
                 <td>{{ props.item.keywords.join(', ') }}</td>
               </tr>
@@ -179,6 +175,15 @@ export default {
     },
   },
   methods: {
+    toTraitString(item) {
+      const armourMeta = item.meta.filter( i => i.type === 'armour' )[0]  ;
+      if ( armourMeta ) {
+        if (armourMeta.traits && armourMeta.traits.length > 0 ) {
+          return armourMeta.traits.join(', ');
+        }
+      }
+      return '';
+    },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
         this.pagination.descending = !this.pagination.descending;
