@@ -582,11 +582,16 @@
       return items;
     },
     objectives() {
-      return [
-        { text: 'Some text that is cool.'},
-        { text: 'Also bragging, make it!'},
-        { text: 'Remember something, also tell about it...'},
-      ];
+      if (this.archetype) {
+        const archetype = this.archetypeRepository.find(a => a.name === this.archetype);
+        if ( archetype ) {
+          const objectiveList = this.objectiveRepository.find(o => o.group === archetype.group);
+          if ( objectiveList ) {
+            return objectiveList.objectives.map(o => { return {text: o}; });
+          }
+        }
+      }
+      return [];
     },
   },
   methods: {

@@ -762,10 +762,94 @@ export default {
       },
     ];
 
+    const objectives = [
+      {
+        group: 'Adeptus Ministorum',
+        objectives: [
+          'Extoll the virtues of worshipping the God-Emperor to an unbeliever.',
+          'Proclaim your enemy to be a heretic and unworthy of the Emperor’s light.',
+          'Bear witness to an act that you consider a miracle of the divine Emperor',
+        ],
+      },
+      {
+        group: 'Adepta Sororitas',
+        objectives: [
+          'Describe how faith and/or sacrifi ce in the Emperor’s name brings success.',
+          'Invoke an Imperial Saint (Saint Alicia Dominica and Saint Celestine are two examples) to bless your achievements',
+          'Bear witness to an act that you consider a miracle of the divine Emperor.',
+        ],
+      },
+      {
+        group: 'Astra Militarum',
+        objectives: [
+          'Express confidence (or the opposite!) in the virtue of overwhelming numbers and fi repower',
+          'Explain how the Imperial Infantryman’s Uplifting Primer has a lesson appropriate to the current situation.',
+          'Reminisce about your far-fl ung home world and compare it to the current situation.',
+        ],
+      },
+      {
+        group: 'Agents of the Imperium',
+        objectives: [
+          'Solve a problem using wealth, influence, psychic abilities, or guile instead of threats or force.',
+          'Compare the current situation to a far-fl ung exotic world (within or beyond the Imperium) that you have visited.',
+          'Display a symbol of your authority, and use it to firmly establish your position in an interaction with another NPC.',
+        ],
+      },
+      {
+        group: 'Adeptus Astartes',
+        objectives: [
+          'Call upon your Chapter’s Primarch as you defeat an enemy.',
+          'Describe how the Codex Astartes applies (or does not apply) to the current situation.',
+          'Reminisce upon the traditions of your Chapter (and the Chapter’s home world, if any) and compare it to the current situation.',
+        ],
+      },
+      {
+        group: 'Adeptus Mechanicus',
+        objectives: [
+          'Praise the Omnissiah as you commune with a machine-spirit (a successful Tech test counts for this).',
+          'Calculate the odds of any given task and provide an estimate of either survival or success (or both).',
+          'Reminisce about a Forge World you have visited and compare it to the current location.',
+        ],
+      },
+      {
+        group: 'Scum',
+        objectives: [
+          'Compare the current situation to a crime you once observed (or participated in).',
+          'Verbally estimate the potential value of an item (or person!) if it were in your possession. This may be as subtle or as overt as you wish.',
+          'Describe a desperate act of survival you attempted under diffi cult circumstances.',
+        ],
+      },
+      {
+        group: 'Renegade',
+        objectives: [
+          'Describe the benefi ts (or lack thereof!) of gaining the attention of the Ruinous Powers.',
+          'Proclaim how a fl aw of the Imperium shall lead to its downfall.',
+          'Bear witness to an act that you consider a sign of the Ruinous Powers’ favour (or contempt).',
+        ],
+      },
+      {
+        group: 'Aeldari',
+        objectives: [
+          'Unfavourably evaluate a facet of another species against Eldar culture, technology, or art.',
+          'Call upon one of the gods of the Eldar as you accomplish a diffi cult task or defeat an enemy.',
+          'Reminisce upon the traditions of an Eldar Craftworld, and compare it to the current situation.',
+        ],
+      },
+      {
+        group: 'Ork',
+        objectives: [
+          'Reminisce on the traditions of your Ork Clan, and compare them to the current situation.',
+          'Use your size, physical might, or reputation in a fearsome manner.',
+          'Sincerely express a desire for brutal, uncompromising combat.',
+        ],
+      },
+    ];
+
     return {
       archetypeRepository: [
         ...core,
-      ]
+      ],
+      objectiveRepository: objectives,
     }
   },
 };
