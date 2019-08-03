@@ -73,9 +73,16 @@
                     <tr>
                       <td class="text-xs-left pa-1 small">
                         {{ props.item.name }}
-                        <em v-if="props.item.name==='Resilience' && armour.length>0">@{{armour[0].name}}</em>
+                        <em v-if="props.item.name==='Resilience' && armour.length>0">
+                          @{{armour[0].name}} ({{ armour[0].meta[0].armourRating }})
+                        </em>
                       </td>
-                      <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <td v-if="props.item.name==='Resilience'" class="text-xs-center pa-1 small">
+                        {{ props.item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
+                      </td>
+                      <td v-else class="text-xs-center pa-1 small">
+                        {{ props.item.enhancedValue }}
+                      </td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -288,15 +295,19 @@
 
         <v-layout justify-center wrap row>
 
-          <v-flex xs6>
+          <v-flex xs5>
 
             <v-flex xs12>
 
               <v-card>
 
                 <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-title>Gear</v-toolbar-title>
+                  <v-toolbar-title>Talents</v-toolbar-title>
                 </v-toolbar>
+
+                <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
+                  <strong>{{ talent.name }}:</strong> {{ talent.description }}
+                </v-card-text>
 
               </v-card>
 
@@ -304,37 +315,24 @@
 
           </v-flex>
 
-          <v-flex xs6>
+          <v-flex xs7>
 
-            <v-flex xs12>
+            <v-layout justify-center wrap row>
 
-              <v-card>
-
-                <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-title>Objectives</v-toolbar-title>
-                </v-toolbar>
-
-                <v-card-text
-                  v-for="(objective, index) in objectives"
-                  v-bind:key="objective.name"
-                  class="pl-2 pr-2 pt-1 pb-1 caption"
-                >
-                  <strong>{{ index+1 }}:</strong> {{ objective.text }}
-                </v-card-text>
-
-              </v-card>
-
-            </v-flex>
-
-              <v-flex xs6>
+              <v-flex xs12>
 
                 <v-card>
 
                   <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-title>Wrath usage</v-toolbar-title>
+                    <v-toolbar-title>Objectives</v-toolbar-title>
                   </v-toolbar>
 
-                  <v-card-text>
+                  <v-card-text
+                    v-for="(objective, index) in objectives"
+                    v-bind:key="objective.name"
+                    class="pl-2 pr-2 pt-1 pb-1 caption"
+                  >
+                    <strong>{{ index+1 }}:</strong> {{ objective.text }}
                   </v-card-text>
 
                 </v-card>
@@ -345,18 +343,42 @@
 
                 <v-card>
 
-                  <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-title>Glory usage</v-toolbar-title>
-                  </v-toolbar>
-
                   <v-card-text>
+                    <p class="caption">Spend one <strong>Wrath</strong> to:</p>
+                    <ul class="pl-3">
+                      <li class="caption">Re-roll failures once on a test</li>
+                      <li class="caption">Re-roll failures once on a soak attempt</li>
+                      <li class="caption">Add +1 to a Defiance check</li>
+                      <li class="caption">Make a narrative declaration</li>
+                      <li class="caption">As an Action: restore 1d3+1 Shock</li>
+                    </ul>
                   </v-card-text>
 
                 </v-card>
 
               </v-flex>
-            </v-flex>
 
+              <v-flex xs6>
+
+                <v-card>
+
+                  <v-card-text>
+                    <p class="caption">Spend one <strong>Glory</strong> to:</p>
+                    <ul class="pl-3">
+                      <li class="caption">Add +1d to a test after any re-rolls</li>
+                      <li class="caption">Add +1 damage to a successful attack</li>
+                      <li class="caption">Increase the severity of a Critical Hit</li>
+                      <li class="caption">Seize the Initiative</li>
+                    </ul>
+                  </v-card-text>
+
+                </v-card>
+
+              </v-flex>
+
+            </v-layout>
+
+          </v-flex>
 
           <v-flex xs12>
 
