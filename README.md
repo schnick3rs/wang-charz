@@ -9,7 +9,7 @@ _A din A4 printable view for the done character_
 
 * `[✓]` Basic view
 * `[_]` Better representation of soak, shock, wounds
-* `[_]` 2nd page, detailed Psychic Powers
+* `[✓]` 2nd page, detailed Psychic Powers
 * `[_]` 2nd Page, detailed Gear
 
 #### Cloud Character Sheet
