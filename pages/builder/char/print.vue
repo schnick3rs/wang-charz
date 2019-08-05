@@ -186,7 +186,7 @@
 
             </v-flex>
 
-            <v-flex xs12>
+            <v-flex xs12 v-if="talents.length > 0">
 
               <v-card>
 
@@ -202,7 +202,7 @@
 
             </v-flex>
 
-            <v-flex xs12>
+            <v-flex xs12 v-if="gear.length > 0">
 
               <v-card>
 
@@ -249,10 +249,11 @@
                       <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].ap }}</span>
                     </td>
                     <td class="text-xs-center pa-1 small">
-                      <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].salvo }}</span>
+                      <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].salvo < 0 ? '-' : props.item.meta[0].salvo }}</span>
                     </td>
                     <td class="text-xs-center pa-1 small">
-                      <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].range }} m</span>
+                      <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].range > 1">{{ props.item.meta[0].range }} m</span>
+                      <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].range === 1">melee</span>
                     </td>
                     <td class="text-xs-left pa-1 small">
                       <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
@@ -282,7 +283,7 @@
 
             <v-layout justify-left wrap row>
 
-              <v-flex xs6>
+              <v-flex xs6 v-if="gear.length > 0">
 
                 <v-card>
 
@@ -298,7 +299,7 @@
 
               </v-flex>
 
-              <v-flex xs6>
+              <v-flex xs6 v-if="talents.length > 0">
 
                 <v-card>
 
@@ -320,7 +321,7 @@
 
           <v-flex xs12>
 
-            <v-card>
+            <v-card v-if="psychicPowers.length > 0">
 
               <v-toolbar color="red" dark dense height="32">
                 <v-toolbar-title>Psychic Powers</v-toolbar-title>
@@ -355,7 +356,7 @@
 
               <v-flex xs4>
 
-                <v-card>
+                <v-card height="100%" class="flexcard">
 
                   <v-toolbar color="red" dark dense height="32">
                     <v-toolbar-title>Objectives</v-toolbar-title>
@@ -375,7 +376,7 @@
 
               <v-flex xs4>
 
-                <v-card>
+                <v-card height="100%" class="flexcard">
 
                   <v-card-text>
                     <p class="caption">Spend one <strong>Wrath</strong> to:</p>
@@ -394,7 +395,7 @@
 
               <v-flex xs4>
 
-                <v-card>
+                <v-card height="100%" class="flexcard">
 
                   <v-card-text>
                     <p class="caption">Spend one <strong>Glory</strong> to:</p>
@@ -491,6 +492,7 @@
       keywords: 'finalKeywords',
       name: 'name',
       species: 'species',
+      astartesChapter: 'speciesAstartesChapter',
       archetype: 'archetype',
       charAttributes: 'attributes',
       charAttributesEnhanced: 'attributesEnhanced',
@@ -546,13 +548,28 @@
           let speciesAbilityNames = species.abilities.split(',');
           if (speciesAbilityNames.length > 0) {
             speciesAbilityNames.forEach(speciesAbilityName => {
-              const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
-              ability['source'] = this.species;
-              abilities.push(ability);
+
+              if ( speciesAbilityName === 'Honour the Chapter' ) {
+                const chapter = this.astartesChapterRepository.find(a => a.name === this.astartesChapter) || [];
+                const traditions = chapter.beliefsAndTraditions;
+                traditions.forEach( t => {
+                  let tradition = {
+                    name: t.name,
+                    effect: t.effect,
+                    source: this.astartesChapter,
+                  };
+                  abilities.push(tradition);
+                });
+              } else {
+                const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
+                ability['source'] = this.species;
+                abilities.push(ability);
+              }
             });
           }
         }
       }
+
 
       // archetype
       if (this.archetype){
