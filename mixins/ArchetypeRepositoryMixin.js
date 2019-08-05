@@ -75,7 +75,7 @@ export default {
         key: "sisterHospitaller",
         name: "Sister Hospitaller",
         hint: "A pious healer dedicated to care of both body and soul.",
-        group: "Adeptus Sororitas",
+        group: "Adepta Sororitas",
         cost: 0,
         tier: 1,
         species: "Human",
@@ -119,7 +119,7 @@ export default {
           { group: 'skills', value: 'ballisticSkill', threshold: 2, },
           { group: 'skills', value: 'weaponSkill', threshold: 2, },
         ],
-        group: "Adeptus Sororitas",
+        group: "Adepta Sororitas",
         key: "sisterOfBattle",
         description: "As the militant arm of the of the Adeptus Ministorum, the Sisters of Battle are equipped to engage any who would dare to oppose the Imperial Creed. It is their sacred duty to cleanse the galaxy of heresy and corruption, wherever they should fi nd it, including within the various organisations of the Imperium of Man. Due to their shared goals, the Orders Militant often work in conjunction with the Imperial Inquisition, though they remain distinct organisations. Many of the orders maintain convents on Shrine Worlds, so that they can more easily defend those places most blessed to the Imperial Creed.",
         hint: "A determined warrior, filled with purity and faith."
