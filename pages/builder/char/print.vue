@@ -75,7 +75,7 @@
                         <span>{{ props.item.name }}</span>
                         <span v-if="props.item.name === 'Wounds'" style="float: right;">
                           {{ '☐'.repeat( Math.ceil(props.item.enhancedValue/2) ) }}
-                          -
+                          •
                           {{ '☐'.repeat( Math.floor(props.item.enhancedValue/2) ) }}
                         </span>
                         <span v-if="props.item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(props.item.enhancedValue) }}</span>
