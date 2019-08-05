@@ -103,6 +103,7 @@ export const getters = {
   species(state) { return state.species.value; },
   speciesAstartesChapter(state) { return state.speciesAstartesChapter; },
   archetype(state) { return state.archetype.value; },
+  background(state) { return state.background; },
   keywords(state) { return state.keywords; },
   finalKeywords(state) { return state.keywords.map(k => k.replacement ? k.replacement : k.name); },
   effectiveCharacterTier(state) {

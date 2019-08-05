@@ -72,7 +72,9 @@
                     </tr>
                     <tr>
                       <td class="text-xs-left pa-1 small">
-                        {{ props.item.name }}
+                        <span>{{ props.item.name }}</span>
+                        <span v-if="props.item.name === 'Wounds'" style="float: right;">{{ '❏'.repeat(props.item.enhancedValue) }}</span>
+                        <span v-if="props.item.name === 'Shock'" style="float: right;">{{ '❏'.repeat(props.item.enhancedValue) }}</span>
                         <em v-if="props.item.name==='Resilience' && armour.length>0">
                           @{{armour[0].name}} ({{ armour[0].meta[0].armourRating }})
                         </em>
@@ -455,7 +457,7 @@ export default {
     return {
       //title: [this.name, this.species, this.archetype].join(' • '),
       title: this.name,
-      titleTemplate: '%s | W&G Character Sheet',
+      //titleTemplate: '%s | W&G Character Sheet',
     };
   },
   data() {
@@ -501,6 +503,7 @@ export default {
       species: 'species',
       astartesChapter: 'speciesAstartesChapter',
       archetype: 'archetype',
+      charBackground: 'background',
       charAttributes: 'attributes',
       charAttributesEnhanced: 'attributesEnhanced',
       charTraits: 'traits',
@@ -577,7 +580,6 @@ export default {
         }
       }
 
-
       // archetype
       if (this.archetype){
         const archetype = this.archetypeRepository.find( a => a.name === this.archetype );
@@ -588,7 +590,15 @@ export default {
 
       }
 
-      // TODO background abilities
+      // background abilities
+      if ( this.charBackground ) {
+        let background = {
+          name: this.charBackground,
+          effect: '',
+          source: 'Background',
+        };
+        abilities.push(background);
+      }
 
       return abilities;
     },
