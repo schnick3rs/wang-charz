@@ -165,22 +165,6 @@
 
             </v-flex>
 
-            <v-flex xs12>
-
-              <v-card>
-
-                <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-title>Gear</v-toolbar-title>
-                </v-toolbar>
-
-                <v-card-text class="pa-2 caption">
-                  {{ wargear.map( g => g.name ).join(', ') }}
-                </v-card-text>
-
-              </v-card>
-
-            </v-flex>
-
           </v-flex>
 
           <!-- abilities -->
@@ -212,6 +196,22 @@
 
                 <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
                   <strong>{{ talent.name }}:</strong> {{ talent.effect }}
+                </v-card-text>
+
+              </v-card>
+
+            </v-flex>
+
+            <v-flex xs12>
+
+              <v-card>
+
+                <v-toolbar color="red" dark dense height="32">
+                  <v-toolbar-title>Gear</v-toolbar-title>
+                </v-toolbar>
+
+                <v-card-text v-for="gearItem in gear" v-bind:key="gearItem.id" class="pa-2 caption">
+                  <strong>{{ gearItem.name }}:</strong> {{ gearItem.hint }}
                 </v-card-text>
 
               </v-card>
