@@ -174,13 +174,12 @@
                 </v-toolbar>
 
                 <v-card-text class="pa-2 caption">
-                  {{ gear.map( g => g.name ).join(', ') }}
+                  {{ wargear.map( g => g.name ).join(', ') }}
                 </v-card-text>
 
               </v-card>
 
             </v-flex>
-
 
           </v-flex>
 
@@ -213,22 +212,6 @@
 
                 <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
                   <strong>{{ talent.name }}:</strong> {{ talent.effect }}
-                </v-card-text>
-
-              </v-card>
-
-            </v-flex>
-
-            <v-flex xs12 v-if="psychicPowers.length>0">
-
-              <v-card>
-
-                <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-title>Psychic Powers</v-toolbar-title>
-                </v-toolbar>
-
-                <v-card-text v-for="power in psychicPowers" v-bind:key="power.name" class="pa-2 caption">
-                  <strong>{{ power.name }}:</strong> {{ power.effect }}
                 </v-card-text>
 
               </v-card>
@@ -295,44 +278,20 @@
 
         <v-layout justify-center wrap row>
 
-          <v-flex xs5>
+          <v-flex xs12>
 
-            <v-flex xs12>
+            <v-layout justify-left wrap row>
 
-              <v-card>
-
-                <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-title>Talents</v-toolbar-title>
-                </v-toolbar>
-
-                <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
-                  <strong>{{ talent.name }}:</strong> {{ talent.description }}
-                </v-card-text>
-
-              </v-card>
-
-            </v-flex>
-
-          </v-flex>
-
-          <v-flex xs7>
-
-            <v-layout justify-center wrap row>
-
-              <v-flex xs12>
+              <v-flex xs6>
 
                 <v-card>
 
                   <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-title>Objectives</v-toolbar-title>
+                    <v-toolbar-title>Gear</v-toolbar-title>
                   </v-toolbar>
 
-                  <v-card-text
-                    v-for="(objective, index) in objectives"
-                    v-bind:key="objective.name"
-                    class="pl-2 pr-2 pt-1 pb-1 caption"
-                  >
-                    <strong>{{ index+1 }}:</strong> {{ objective.text }}
+                  <v-card-text v-for="gearItem in gear" v-bind:key="gearItem.name" class="pa-2 caption">
+                    <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
                   </v-card-text>
 
                 </v-card>
@@ -343,33 +302,12 @@
 
                 <v-card>
 
-                  <v-card-text>
-                    <p class="caption">Spend one <strong>Wrath</strong> to:</p>
-                    <ul class="pl-3">
-                      <li class="caption">Re-roll failures once on a test</li>
-                      <li class="caption">Re-roll failures once on a soak attempt</li>
-                      <li class="caption">Add +1 to a Defiance check</li>
-                      <li class="caption">Make a narrative declaration</li>
-                      <li class="caption">As an Action: restore 1d3+1 Shock</li>
-                    </ul>
-                  </v-card-text>
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Talents</v-toolbar-title>
+                  </v-toolbar>
 
-                </v-card>
-
-              </v-flex>
-
-              <v-flex xs6>
-
-                <v-card>
-
-                  <v-card-text>
-                    <p class="caption">Spend one <strong>Glory</strong> to:</p>
-                    <ul class="pl-3">
-                      <li class="caption">Add +1d to a test after any re-rolls</li>
-                      <li class="caption">Add +1 damage to a successful attack</li>
-                      <li class="caption">Increase the severity of a Critical Hit</li>
-                      <li class="caption">Seize the Initiative</li>
-                    </ul>
+                  <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
+                    <strong>{{ talent.name }}:</strong> {{ talent.description }}
                   </v-card-text>
 
                 </v-card>
@@ -408,6 +346,71 @@
               </v-data-table>
 
             </v-card>
+
+          </v-flex>
+
+          <v-flex xs12>
+
+            <v-layout justify-center wrap row>
+
+              <v-flex xs4>
+
+                <v-card>
+
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Objectives</v-toolbar-title>
+                  </v-toolbar>
+
+                  <v-card-text
+                    v-for="(objective, index) in objectives"
+                    v-bind:key="objective.name"
+                    class="pl-2 pr-2 pt-1 pb-1 caption"
+                  >
+                    <strong>{{ index+1 }}:</strong> {{ objective.text }}
+                  </v-card-text>
+
+                </v-card>
+
+              </v-flex>
+
+              <v-flex xs4>
+
+                <v-card>
+
+                  <v-card-text>
+                    <p class="caption">Spend one <strong>Wrath</strong> to:</p>
+                    <ul class="pl-3">
+                      <li class="caption">Re-roll failures once on a test</li>
+                      <li class="caption">Re-roll failures once on a soak attempt</li>
+                      <li class="caption">Add +1 to a Defiance check</li>
+                      <li class="caption">Make a narrative declaration</li>
+                      <li class="caption">As an Action: restore 1d3+1 Shock</li>
+                    </ul>
+                  </v-card-text>
+
+                </v-card>
+
+              </v-flex>
+
+              <v-flex xs4>
+
+                <v-card>
+
+                  <v-card-text>
+                    <p class="caption">Spend one <strong>Glory</strong> to:</p>
+                    <ul class="pl-3">
+                      <li class="caption">Add +1d to a test after any re-rolls</li>
+                      <li class="caption">Add +1 damage to a successful attack</li>
+                      <li class="caption">Increase the severity of a Critical Hit</li>
+                      <li class="caption">Seize the Initiative</li>
+                    </ul>
+                  </v-card-text>
+
+                </v-card>
+
+              </v-flex>
+
+            </v-layout>
 
           </v-flex>
 

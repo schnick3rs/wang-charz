@@ -2447,7 +2447,7 @@ export default {
             { name: 'Rosarius' },
             { name: 'Knife' },
             { name: 'Clothing', variant: 'Ministorum robes' },
-            { name: 'Missionary kit' },
+            { name: 'Missionary Kit' },
           ],
         },
         {
