@@ -75,7 +75,25 @@
            class="text-lg-justify"
       >
         <p><strong>{{ ability.name }}:</strong> {{ ability.effect}}</p>
+        <div v-if="item.psychicPowers && psychicPowersRepository">
 
+          <div v-for="option in item.psychicPowers.discount" v-bind:key="option.name">
+            <v-select
+              v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
+              v-model="option.selected"
+              v-bind:items="psychicPowersRepository.filter(option.filter)"
+              v-bind:hint="psychicPowerHint(option.selected)"
+              v-on:change="updatePsychicPowers(option)"
+              item-value="name"
+              item-text="name"
+              persistent-hint
+              dense
+              solo
+              class="ml-2 mr-2"
+            ></v-select>
+          </div>
+
+        </div>
       </div>
 
       <p class="text-lg-justify"><strong>Wargear:</strong> {{ wargearText }}</p>
@@ -99,11 +117,11 @@
 </template>
 
 <script lang="js">
-  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
-  import StatRepository from '~/mixins/StatRepositoryMixin';
-  import WargearRepository from '~/mixins/WargearRepositoryMixin';
+import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+import StatRepository from '~/mixins/StatRepositoryMixin';
+import WargearRepository from '~/mixins/WargearRepositoryMixin';
 
-  export default {
+export default {
   name: 'archetype-preview',
   mixins: [KeywordRepository, StatRepository, WargearRepository],
   props: {
@@ -112,6 +130,10 @@
       required: true,
     },
     keywords: {
+      type: Array,
+      required: false,
+    },
+    psychicPowersRepository: {
       type: Array,
       required: false,
     },
@@ -180,7 +202,25 @@
         source: 'archetype',
       });
       placeholder.selected = selection;
-    }
+    },
+    psychicPowerHint(powerName) {
+
+      const power = this.psychicPowersRepository.find( p => p.name === powerName );
+
+      if ( power ) {
+        return power.effect;
+      }
+
+      return '';
+    },
+    updatePsychicPowers(option) {
+      this.$store.commit('clearPowersBySource', { source: `archetype.${option.name}` });
+      this.$store.commit('addPower', {
+        name: option.selected,
+        cost: 0,
+        source: `archetype.${option.name}`,
+      });
+    },
   },
   computed: {
     selectedKeywords(){

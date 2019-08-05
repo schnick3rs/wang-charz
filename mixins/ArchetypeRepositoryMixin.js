@@ -280,6 +280,21 @@ export default {
               'power and the smite psychic power. They may purchase additional Minor Psychic ' +
               'Powers and Universal Psychic powers, subject to Tier restrictions.' }
         ],
+        psychicPowers: {
+          discount: [
+            { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
+            { name: 'minor', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
+          ],
+          access: [
+            'Minor',
+            'Biomancy',
+            'Divination',
+            'Pyromancy',
+            'Telekinesis',
+            'Telepathy',
+            'Universal',
+          ],
+        },
         keywordOption: null,
         prerequisites: [
           { group: 'attributes', value: 'willpower', threshold: 4, },
@@ -586,6 +601,22 @@ export default {
               'Smite Power and may purchase additional Minor Psychic Powers, Universal Psychic ' +
               'Powers and Maleficarum Psychic Powers subject to Tier restrictions.' }
         ],
+        psychicPowers: {
+          discount: [
+            { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
+            { name: 'minor', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
+          ],
+          access: [
+            'Minor',
+            'Biomancy',
+            'Divination',
+            'Pyromancy',
+            'Telekinesis',
+            'Telepathy',
+            'Maleficarum',
+            'Universal',
+          ],
+        },
         prerequisites: [
           { group: 'attributes', value: 'willpower', threshold: 4, },
           { group: 'skills', value: 'psychicMastery', threshold: 1, },
@@ -658,6 +689,22 @@ export default {
               'additional Minor Psychic Powers, Universal Psychic Powers, and Runes of Battle ' +
               'Psychic Powers, subject to Tier restrictions.' }
         ],
+        psychicPowers: {
+          discount: [
+            { name: 'psyniscience', selected: 'Psyniscience', filter: power => ( power.name === 'Psyniscience' ) },
+            { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
+          ],
+          access: [
+            'Minor',
+            'Biomancy',
+            'Divination',
+            'Pyromancy',
+            'Telekinesis',
+            'Telepathy',
+            'Universal',
+            'Runes of Battle',
+          ],
+        },
         keywordOption: null,
         prerequisites: [
           { group: 'attributes', value: 'willpower', threshold: 4, },

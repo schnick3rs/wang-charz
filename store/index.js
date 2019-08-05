@@ -176,6 +176,9 @@ export const getters = {
   psychicPowers(state) {
     return state.psychicPowers.map(p => p.name);
   },
+  psychicPowersObjects(state) {
+    return state.psychicPowers;
+  },
   remainingBuildPoints(state, getters) {
     let remaining = 0;
     remaining = state.settingTier * 100;
@@ -333,13 +336,23 @@ export const mutations = {
   addPower(state, payload) {
     const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
     if (!hasPower) {
-      state.psychicPowers.push({ name: payload.name, cost: payload.cost });
+      state.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
     }
   },
   removePower(state, payload) {
     const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
     if (hasPower) {
       state.psychicPowers = state.psychicPowers.filter(t => t.name !== payload.name);
+    }
+  },
+  /**
+   * @param payload { source:String }
+   */
+  clearPowersBySource(state, payload) {
+    if ( state.psychicPowers.length > 0 ) {
+      console.log(`found ${state.psychicPowers.length} psychic powers, clearing with source ${payload.source}...`);
+      state.psychicPowers = state.psychicPowers.filter( k => k.source.indexOf(payload.source) < 0 );
+      console.log(`${state.psychicPowers.length} psychic powers remaining`);
     }
   },
   addAscension(state, payload) {

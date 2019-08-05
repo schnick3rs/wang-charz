@@ -19,11 +19,11 @@
         <v-card-text>
           <v-chip
             v-for="item in characterPowers"
-            :key="item.key"
-            close
-            @input="removePower(item)"
+            v-bind:key="item.name"
+            v-bind:close="item.cost !== 0"
+            @input="removePower(item.name)"
           >
-            {{item}}
+            {{item.name}}
           </v-chip>
         </v-card-text>
       </v-card>
@@ -223,7 +223,7 @@ export default {
     maximumMinorPowers() { return this.settingTier; },
     maximumDisciplinePowers() { return Math.max(1, this.settingTier - 1); },
     maximumPsychicPowers() { return this.settingTier + 3; },
-    characterPowers() { return this.$store.state.psychicPowers.map(p => p.name); },
+    characterPowers() { return this.$store.state.psychicPowers; },
     filteredPowers() {
       if (this.psychicPowersRepository === undefined) {
         return [];
