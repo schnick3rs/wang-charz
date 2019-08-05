@@ -426,12 +426,12 @@
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'vuex';
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import { mapGetters } from 'vuex';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
-  export default {
+export default {
   name: 'Print',
   layout: 'print',
   mixins: [
@@ -449,6 +449,13 @@
       wargearRepository: wargearResponse.data,
       talentRepository: talentResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
+    };
+  },
+  head() {
+    return {
+      //title: [this.name, this.species, this.archetype].join(' • '),
+      title: this.name,
+      titleTemplate: '%s | W&G Character Sheet',
     };
   },
   data() {
