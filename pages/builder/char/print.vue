@@ -74,9 +74,9 @@
                       <td class="text-xs-left pa-1 small">
                         <span>{{ props.item.name }}</span>
                         <span v-if="props.item.name === 'Wounds'" style="float: right;">
-                          {{ '☐'.repeat( Math.floor(props.item.enhancedValue/2) ) }}
-                          -
                           {{ '☐'.repeat( Math.ceil(props.item.enhancedValue/2) ) }}
+                          -
+                          {{ '☐'.repeat( Math.floor(props.item.enhancedValue/2) ) }}
                         </span>
                         <span v-if="props.item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(props.item.enhancedValue) }}</span>
                         <em v-if="props.item.name==='Resilience' && armour.length>0">
