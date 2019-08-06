@@ -6,12 +6,34 @@ const router = new Router();
 
 module.exports = router;
 
+const TABLE_FIELDS = ['id', 'name', 'cost', 'keywords', 'effect', 'discipline'];
+
 router.get('/', async (request, response) => {
 
-  const slug = request.params.slug;
+  let select = '*';
+  const fieldsString = request.query.fields;
+  if ( fieldsString ) {
+    const selectFields = [];
+    fieldsString.split(',').forEach( potentialField => {
+      if ( TABLE_FIELDS.includes(potentialField) ) {
+        selectFields.push(potentialField);
+      }
+    });
+    select = selectFields.join(',');
+  }
+
+  let where = '';
+  const filter = {};
+  const filterDisciplineString = request.query.discipline;
+  if (filterDisciplineString) {
+    filter['discipline'] = filterDisciplineString.split(',');
+    if (filter.discipline) {
+      where = `WHERE discipline in ( '${filter.discipline.join("','")}' )`;
+    }
+  }
 
   const { rows } = await db.queryAsyncAwait(
-    'SELECT * FROM wrath_glory.psychic_powers',
+    `SELECT ${select} FROM wrath_glory.psychic_powers ${where}`,
     [],
   );
 

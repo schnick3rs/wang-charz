@@ -125,7 +125,7 @@
   mixins: [ArchetypeRepositoryMixin],
   props: [],
   async asyncData({ $axios }) {
-    const response = await $axios.get(`/api/psychic-powers/`);
+    const response = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
     return {
       psychicPowersRepository: response.data,
     };
