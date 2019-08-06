@@ -21,7 +21,6 @@
       </v-alert>
     </v-flex>
 
-
     <v-flex xs12 md6>
 
       <v-card>
