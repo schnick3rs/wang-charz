@@ -88,9 +88,9 @@
           <v-btn flat small nuxt to="/builder/setting" >Setting</v-btn>
           <v-btn flat small nuxt to="/builder/char/species" :disabled="!settingSelected">1. Species</v-btn>
           <v-btn flat small nuxt to="/builder/char/archetype" :disabled="!settingSelected">2. Archetype</v-btn>
-          <v-btn flat small nuxt to="/builder/char/stats" :disabled="!settingSelected">3. Stats</v-btn>
-          <v-btn flat small nuxt to="/builder/char/talents" :disabled="!settingSelected">4. Talents</v-btn>
-          <v-btn flat small nuxt to="/builder/char/ascension" :disabled="!settingSelected">5. Ascension</v-btn>
+          <v-btn flat small nuxt to="/builder/char/ascension" :disabled="!settingSelected">3. Ascension</v-btn>
+          <v-btn flat small nuxt to="/builder/char/stats" :disabled="!settingSelected">4. Stats</v-btn>
+          <v-btn flat small nuxt to="/builder/char/talents" :disabled="!settingSelected">5. Talents</v-btn>
           <v-btn flat small nuxt to="/builder/char/wargear" :disabled="!settingSelected">6. Wargear</v-btn>
           <v-btn flat small nuxt to="/builder/char/psychic-powers" :disabled="!settingSelected">7. Psychic Powers</v-btn>
           <v-btn flat small nuxt to="/builder/char/background" :disabled="!settingSelected" >8. Background</v-btn>
@@ -220,31 +220,15 @@
       return [
         // { path: '/builder/setting', hint: 'Framework', text: `Tier ${this.settingTier} Campaign`, cost: this.settingTier*100 },
         { divider: true },
-        {
-          path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost,
-        },
-        {
-          path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost,
-        },
-        {
-          path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts + this.skillCosts,
-        },
-        {
-          path: '/builder/char/talents', hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts,
-        },
-        {
-          path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts,
-        },
-        {
-          path: '/builder/char/psychic-powers', hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts,
-        },
+        { path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost },
+        { path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost },
+        { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts },
+        { path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts + this.skillCosts },
+        { path: '/builder/char/talents', hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
+        { path: '/builder/char/psychic-powers', hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
         { divider: true },
-        {
-          path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined,
-        },
-        {
-          path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined,
-        },
+        { path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined },
+        { path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined },
       ];
     },
 
