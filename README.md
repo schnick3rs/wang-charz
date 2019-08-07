@@ -8,7 +8,7 @@
 _A din A4 printable view for the done character_ 
 
 * `[✓]` Basic view
-* `[_]` Better representation of soak, shock, wounds
+* `[✓]` Better representation of soak, shock, wounds
 * `[✓]` 2nd page, detailed Psychic Powers
 * `[✓]` 2nd Page, detailed Gear
 
@@ -46,7 +46,9 @@ _A view (not an edit) of the current character. Should be responsive._
 * `[_]` faith talent / resource handling
 * `[_]` Traits: Add asserts and allow to buy (up to # tier) during creation
 * `[_]` Languages: Allow to by (custom field with autocomplete for known languages)
-* `[_]` Keywords: Custom text for some (or all) sub keywords
+* `[_]` Keywords: Custom text for some (or all) sub keywordsd
+* `[_]` Background: Keyword selection
+* `[_]` Keywords: Allow for custom strings
 
 ##### HELPER / UX
 

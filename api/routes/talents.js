@@ -17,6 +17,7 @@ router.get('/', async (request, response) => {
 
   const vaultItems = rows;
 
+  response.set('Cache-Control', 'public, max-age=3600'); // one year
   response.status(200).json(vaultItems);
 });
 

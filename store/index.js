@@ -173,6 +173,9 @@ export const getters = {
   talents(state) {
     return state.talents.map(t => t.name);
   },
+  ascensionPackages(state) {
+    return state.ascensionPackages;
+  },
   psychicPowers(state) {
     return state.psychicPowers.map(p => p.name);
   },

@@ -57,6 +57,13 @@
             (New Tier x {{ characterAscension.cost }})
           </p>
 
+          <span class="mt-2 grey--text">Prerequisites</span>
+          <v-divider class="mb-2"></v-divider>
+
+          <div>
+            {{ characterAscension.effectivePrerequisites.map(a => `${a.value} (${a.threshold})`).join(", ") }}
+          </div>
+
           <span class="mt-2 grey--text">Benefits</span>
           <v-divider class="mb-2"></v-divider>
 
@@ -209,18 +216,19 @@
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'vuex';
-  import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
-  import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
-  import AscensionPreview from '~/components/builder/AscensionPreview.vue';
-  import KeywordSelect from '~/components/builder/KeywordSelect.vue';
-  import WargearSelect from '~/components/builder/WargearSelect.vue';
+import { mapGetters } from 'vuex';
+import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
+import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
+import AscensionPreview from '~/components/builder/AscensionPreview.vue';
+import KeywordSelect from '~/components/builder/KeywordSelect.vue';
+import WargearSelect from '~/components/builder/WargearSelect.vue';
 
-  export default {
+export default {
   name: 'Ascension',
   layout: 'builder',
   props: [],
-  mixins: [AscensionRepositoryMixin, KeywordRepositoryMixin],
+  mixins: [ArchetypeRepositoryMixin, AscensionRepositoryMixin, KeywordRepositoryMixin],
   components: { AscensionPreview, KeywordSelect, WargearSelect },
   async asyncData({ params, $axios, error }) {
     const response = await $axios.get(`/api/wargear/`);
@@ -262,6 +270,14 @@
         characterPackage.targetTier = packageName.targetTier;
         characterPackage.storyElementChoice = packageName.storyElementChoice;
         characterPackage.wargearChoice = packageName.wargearChoice;
+
+        const archetypeName = this.$store.getters.archetype;
+        if ( archetypeName && this.archetypeRepository ) {
+          const archetype = this.archetypeRepository.find( archetype => archetype.name == archetypeName );
+          if ( archetype && archetype.prerequisites && archetype.prerequisites.length > 0 ) {
+            characterPackage.effectivePrerequisites = characterPackage.prerequisites(archetype.prerequisites);
+          }
+        }
 
         const sourceKey = `ascension.${characterPackage.key}.${characterPackage.wargearChoice}`;
         const gear = this.$store.state.wargear

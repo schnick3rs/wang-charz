@@ -126,15 +126,20 @@
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'vuex';
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import { mapGetters } from 'vuex';
+import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
-  export default {
+export default {
   name: 'Stats',
   layout: 'builder',
   props: [],
-  mixins: [ArchetypeRepositoryMixin,StatRepositoryMixin],
+  mixins: [
+    ArchetypeRepositoryMixin,
+    AscensionRepositoryMixin,
+    StatRepositoryMixin,
+  ],
   data() {
     return {
       selectedAttribute: undefined,
@@ -269,6 +274,12 @@
 
         });
       }
+
+      if ( this.ascensionPackages ) {
+        //this.ascensionPackages.
+      }
+      //const ascensions = this.
+
       return fulfilled;
     },
     treeOfLearningValid() {
@@ -296,7 +307,8 @@
       'settingTier',
       'archetype',
       'attributeCosts',
-      'remainingBuildPoints'
+      'remainingBuildPoints',
+      'ascensionPackages',
     ]),
     ...mapGetters({
       characterSpecies: 'species',
