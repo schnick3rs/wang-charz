@@ -9,11 +9,18 @@ module.exports = {
     parser: 'babel-eslint'
   },
   extends: [
-    'plugin:nuxt/recommended',
-    '@vue/airbnb'
+    '@nuxtjs',
+    'airbnb-base'
   ],
   // add your custom rules here
   rules: {
-    'nuxt/no-cjs-in-config': 'off'
-  }
+    'nuxt/no-cjs-in-config': 'off',
+    'import/extensions': ['error', 'always', {
+      js: 'never',
+      vue: 'never',
+    }],
+  },
+  plugins: [
+    'html',
+  ],
 }
