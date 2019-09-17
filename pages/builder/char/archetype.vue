@@ -114,11 +114,11 @@
 </template>
 
 <script lang="js">
-  import ArchetypePreview from '~/components/builder/ArchetypePreview';
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import { mapGetters } from 'vuex';
+import ArchetypePreview from '~/components/builder/ArchetypePreview';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import { mapGetters } from 'vuex';
 
-  export default {
+export default {
   name: 'Archetype',
   layout: 'builder',
   components: { ArchetypePreview },
