@@ -98,8 +98,13 @@
   export default {
   name: 'Wargear',
   layout: 'builder',
-  props: [],
   mixins: [WargearRepositoryMixin],
+  props: [],
+  head() {
+    return {
+      title: 'Select Wargear',
+    }
+  },
   async asyncData({ params, $axios, error }) {
     const response = await $axios.get(`/api/wargear/`);
     const wargearRepository = response.data;

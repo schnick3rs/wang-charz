@@ -124,6 +124,11 @@ export default {
   components: { ArchetypePreview },
   mixins: [ArchetypeRepositoryMixin],
   props: [],
+  head() {
+    return {
+      title: 'Select Archetype',
+    }
+  },
   async asyncData({ $axios }) {
     const response = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
     return {

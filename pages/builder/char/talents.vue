@@ -103,6 +103,11 @@
   layout: 'builder',
   props: [],
   mixins: [ StatRepositoryMixin ],
+    head() {
+      return {
+        title: 'Select Talents',
+      }
+    },
   async asyncData({ params, $axios, error }) {
     const response = await $axios.get(`/api/talents/`);
     return {

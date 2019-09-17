@@ -140,14 +140,15 @@
 </template>
 
 <script>
-  import DefaultFooter from '~/components/DefaultFooter';
-  import { mapGetters } from 'vuex';
+import DefaultFooter from '~/components/DefaultFooter';
+import { mapGetters } from 'vuex';
 
-  export default {
+export default {
   components: { DefaultFooter },
   head() {
     return {
-      title: 'Create your Character | W&G Builder',
+      titleTemplate: '%s | Character Builder',
+      title: 'Create your Character',
       meta: [
         {
           hid: 'description',

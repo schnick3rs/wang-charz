@@ -140,6 +140,11 @@ export default {
     AscensionRepositoryMixin,
     StatRepositoryMixin,
   ],
+  head() {
+    return {
+      title: 'Select Attributes & Skills',
+    }
+  },
   data() {
     return {
       selectedAttribute: undefined,

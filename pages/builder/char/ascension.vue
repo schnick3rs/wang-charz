@@ -230,6 +230,11 @@ export default {
   props: [],
   mixins: [ArchetypeRepositoryMixin, AscensionRepositoryMixin, KeywordRepositoryMixin],
   components: { AscensionPreview, KeywordSelect, WargearSelect },
+  head() {
+    return {
+      title: 'Select Ascension Package',
+    }
+  },
   async asyncData({ params, $axios, error }) {
     const response = await $axios.get(`/api/wargear/`);
     const wargearRepository = response.data;

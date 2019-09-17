@@ -84,6 +84,11 @@
   components: { SpeciesPreview },
   mixins: [ SpeciesRepositoryMixin ],
   props: [],
+    head() {
+      return {
+        title: 'Select Species',
+      }
+    },
   data() {
     return {
       changeSpeciesMode: false,

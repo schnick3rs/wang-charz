@@ -101,6 +101,11 @@ export default {
   name: 'psychic-powers',
   layout: 'builder',
   props: [],
+  head() {
+    return {
+      title: 'Select Psychic Powers',
+    }
+  },
   async asyncData({ params, $axios, error }) {
     const response = await $axios.get(`/api/psychic-powers/`);
     return {
