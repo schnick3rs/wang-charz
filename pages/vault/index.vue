@@ -332,11 +332,11 @@
       }
     },
     toggle(props) {
-      this.$ga.event('Vault Row', 'expand', props.item.title, 0);
+      this.$ga.event('Vault Row', 'expand', props.item.title, 1);
       props.expanded = !props.expanded;
     },
     trackEvent(url) {
-      this.$ga.event('Outbound Link', 'click', url, 0);
+      this.$ga.event('Outbound Link', 'click', url, 10);
     },
   },
 };
