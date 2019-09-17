@@ -1,6 +1,6 @@
 {
   "name": "doctors-of-doom",
-  "version": "2.59.0",
+  "version": "2.59.1",
   "engines": {
     "node": "10.3.0"
   },
