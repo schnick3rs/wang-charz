@@ -28,7 +28,10 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png' },
       { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png' },
       { rel: 'manifest', href: '/site.webmanifest' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
+      //{ rel: 'stylesheet', href: '/css/roboto.css' },
+      //{ rel: 'preload', href: '/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
+      //{ rel: 'preload', href: '/fonts/KFOlCnqEu92Fr1MmEU9fBBc4.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
+      //{ rel: 'preload', href: '/fonts/KFOmCnqEu92Fr1Mu4mxK.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
     ],
   },
   /*
