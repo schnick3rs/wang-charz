@@ -8,12 +8,12 @@
           xs12
           sm10
           md8
-          lg6
+          lg4
         >
 
           <v-card height="100%" class="flexcard">
 
-            <v-img :src="section.imageSrc" height="250" :class="section.classes"/>
+            <v-img :src="section.imageSrc" height="200" :class="section.classes"/>
 
             <v-card-text>
               <v-spacer /><span>© {{ section.imageCredit }}</span>
@@ -85,6 +85,16 @@ export default {
             'Glory Character for your session.</p><p><strong>BETA Status, characters might get ' +
             'lost during updates</strong>',
           link: { text: 'To the Forge', route: '/builder/setting' },
+          isActive: true,
+          classes: [ ],
+        },
+        {
+          key: 'network',
+          title: 'Network - Assets & Links',
+          imageSrc: '/img/artwork_network_2.jpg',
+          imageCredit: 'Artwork from Pixabay',
+          htmlText: 'Check out some (one) of the assets provided by the community. E.g. some <strong>fillable character sheets</strong>.',
+          link: { text: 'To the Network', route: '/network' },
           isActive: true,
           classes: [ ],
         },
