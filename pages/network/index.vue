@@ -57,6 +57,19 @@
 export default {
 
   layout: 'network',
+  head() {
+    return {
+      title: 'W&G Assets for Players and Game-Masters | Network',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Searching for fillable character sheets for Wrath and Glory? Then check out the ' +
+            'network section for downloads and links to valuable stuff.',
+        },
+      ]
+    };
+  },
   data() {
     return {
       assets: [
