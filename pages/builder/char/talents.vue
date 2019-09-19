@@ -96,14 +96,24 @@
 
 <script lang="js">
   import { mapGetters } from 'vuex';
-  import TalentRepositoryMixin from '~/mixins/TalentRepositoryMixin.js';
   import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
   export default {
   name: 'Talents',
   layout: 'builder',
   props: [],
-  mixins: [ TalentRepositoryMixin, StatRepositoryMixin ],
+  mixins: [ StatRepositoryMixin ],
+    head() {
+      return {
+        title: 'Select Talents',
+      }
+    },
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get(`/api/talents/`);
+    return {
+      talentRepository: response.data,
+    };
+  },
   data() {
     return {
       searchQuery: '',

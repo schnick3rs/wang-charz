@@ -2,7 +2,7 @@
 
   <v-layout justify-center row wrap>
 
-    <v-flex v-if="!characterArchetype || changeMode">
+    <v-flex>
       <h1 class="headline">Manage Powers</h1>
 
       <v-alert
@@ -19,11 +19,11 @@
         <v-card-text>
           <v-chip
             v-for="item in characterPowers"
-            :key="item.key"
-            close
-            @input="removePower(item)"
+            v-bind:key="item.name"
+            v-bind:close="item.cost !== 0"
+            @input="removePower(item.name)"
           >
-            {{item}}
+            {{item.name}}
           </v-chip>
         </v-card-text>
       </v-card>
@@ -97,13 +97,21 @@
 </template>
 
 <script lang="js">
-  import PsychicPowersRepositoryMixin from '~/mixins/PsychicPowersRepositoryMixin.js';
-
-  export default {
+export default {
   name: 'psychic-powers',
   layout: 'builder',
-  mixins: [PsychicPowersRepositoryMixin],
   props: [],
+  head() {
+    return {
+      title: 'Select Psychic Powers',
+    }
+  },
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get(`/api/psychic-powers/`);
+    return {
+      psychicPowersRepository: response.data,
+    };
+  },
   data() {
     return {
       searchQuery: '',
@@ -193,14 +201,19 @@
     };
   },
   computed: {
+    allThe() {
+      this.psychicPowersRepository.forEach( w => {
+        //console.log(`INSERT INTO wrath_glory.psychic_powers (name, cost, keywords, effect) VALUES ('${w.name}', ${w.cost}, '{${w.keywords.join(',')}}', '${w.effect}' );`);
+        //console.log(`UPDATE wrath_glory.psychic_powers SET discipline = '${w.discipline}' WHERE name = '${w.name}';`);
+      });
+    },
     alerts() {
       const alerts = [];
 
       if (!this.isPsychic) {
         const alert = {
           type: 'warning',
-          text: 'You need to either possess the Psychic Keyword or have at '
-            + 'least learned one rank in the Psychic Mastery skill',
+          text: 'You need to either possess the Psychic Keyword or have at least learned one rank in the Psychic Mastery skill',
         };
         alerts.push(alert);
       }
@@ -215,7 +228,7 @@
     maximumMinorPowers() { return this.settingTier; },
     maximumDisciplinePowers() { return Math.max(1, this.settingTier - 1); },
     maximumPsychicPowers() { return this.settingTier + 3; },
-    characterPowers() { return this.$store.state.psychicPowers.map(p => p.name); },
+    characterPowers() { return this.$store.state.psychicPowers; },
     filteredPowers() {
       if (this.psychicPowersRepository === undefined) {
         return [];

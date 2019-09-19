@@ -2,7 +2,7 @@ export default {
   data() {
     return {
       // https://api.sheety.co/cd93dfab-c658-4099-8a93-e6cc202b3488
-      wargearRepository: [
+      wargearRepositoryDeprecated: [
         {
           key: null,
           name: 'Aquila Mk VII',
@@ -2447,7 +2447,7 @@ export default {
             { name: 'Rosarius' },
             { name: 'Knife' },
             { name: 'Clothing', variant: 'Ministorum robes' },
-            { name: 'Missionary kit' },
+            { name: 'Missionary Kit' },
           ],
         },
         {
@@ -2474,7 +2474,7 @@ export default {
           name: 'Sister of Battle',
           options: [
             { name: 'Sororitas Powered Armour' },
-            { name: 'Chaplet Ecclisiasticus' },
+            { name: 'Chaplet Ecclesiasticus' },
             {
               name: 'Either a boltgun OR a chainsword and bolt pistol.',
               selected: 'Boltgun',
@@ -2484,7 +2484,7 @@ export default {
               ],
             },
             { name: 'Clothing', variant: 'Sororitas vestments' },
-            { name: 'Writing kit' },
+            { name: 'Writing Kit' },
             { name: 'Copy of the Rule of the Sororitas' },
           ],
         },

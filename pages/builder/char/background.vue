@@ -33,43 +33,51 @@
 
     </v-flex>
 
+    <v-dialog
+      v-model="dialog"
+      width="600px"
+      scrollable
+    >
+      <background-preview
+        v-if="dialogItem"
+        v-bind:item="dialogItem"
+        v-on:select="selectBackgroundForChar"
+        v-on:cancel="dialog = false"
+      >
+      </background-preview>
+    </v-dialog>
+
     <v-flex xs12 v-if="!characterBackground">
 
       <h1 class="headline">Select a background</h1>
 
+    </v-flex>
+
+    <v-flex xs12 v-if="!characterBackground">
+
       <v-card>
 
-        <div
-        >
+        <v-list>
 
-          <v-list>
+          <v-list-tile
+            v-for="item in backgroundRepository"
+            v-bind:key="item.key"
+            v-on:click.stop="openDialog(item)"
+          >
 
-            <v-list-tile
-              two-line
-              v-for="item in backgroundRepository"
-              :key="item.key"
-              avatar
-              @click.stop=""
-            >
+            <v-list-tile-content>
+              <v-list-tile-title>{{ item.name }}</v-list-tile-title>
+              <v-list-tile-sub-title>{{ item.hint }}</v-list-tile-sub-title>
+            </v-list-tile-content>
 
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.name}}</v-list-tile-title>
-                <v-list-tile-sub-title>{{item.hint}}</v-list-tile-sub-title>
-              </v-list-tile-content>
+            <v-list-tile-action>
+              <v-icon color="primary">arrow_forward_ios</v-icon>
+            </v-list-tile-action>
 
-              <v-list-tile-action>
-                <v-btn icon
-                       @click="select(item)"
-                >
-                  <v-icon color="green">add_circle</v-icon>
-                </v-btn>
-              </v-list-tile-action>
+          </v-list-tile>
 
-            </v-list-tile>
+        </v-list>
 
-          </v-list>
-
-        </div>
       </v-card>
 
     </v-flex>
@@ -79,13 +87,25 @@
 </template>
 
 <script lang="js">
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+import BackgroundPreview from '~/components/builder/BackgroundPreview.vue';
+
 export default {
   name: 'Background',
   layout: 'builder',
+  mixins: [ BackgroundRepositoryMixin ],
+  components: { BackgroundPreview },
   props: [],
+  head() {
+    return {
+      title: 'Select Background',
+    }
+  },
   data() {
     return {
-      backgroundRepository: [
+      dialog: false,
+      dialogItem: undefined,
+      backgroundRepositoryDeprecated: [
         {
           name: 'Origin (Shock)',
           hint: '+3 Shock',
@@ -158,10 +178,18 @@ export default {
       return this.$store.state.background;
     },
     characterBackground() {
-      return this.backgroundRepository.find(i => i.name === this.characterBackgroundName);
+      return this.backgroundRepositoryDeprecated.find(i => i.name === this.characterBackgroundName);
     },
   },
   methods: {
+    openDialog(item) {
+      this.dialogItem = item;
+      this.dialog = true;
+    },
+    selectBackgroundForChar(item) {
+      console.info(`${item.name} selected.`);
+      this.dialog = false;
+    },
     select(item) {
       this.$store.commit('setBackground', { name: item.name });
       this.$store.commit('setBackgroundModifications', { modifications: [item.crunch] });

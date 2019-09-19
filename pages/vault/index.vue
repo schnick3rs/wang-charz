@@ -62,9 +62,9 @@
             <tr>
               <th
                 v-for="header in props.headers"
-                :key="header.text"
-                :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '', header.class]"
-                @click="changeSort(header.value)"
+                v-bind:key="header.value"
+                v-bind:class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '', header.class]"
+                v-on:click="changeSort(header.value)"
               >
                 <v-icon small>arrow_upward</v-icon>
                 {{ header.text }}
@@ -102,7 +102,7 @@
                 </v-chip>
               </td>
               <td class="hidden-xs-only">{{ props.item.hint }}</td>
-              <td class="hidden-xs-only">
+              <td class="hidden-sm-and-down">
                 <v-chip v-for="keyword in props.item.keywords" :key="keyword" small>{{ keyword }}</v-chip>
               </td>
               <td class="hidden-sm-and-down">
@@ -112,17 +112,25 @@
                 <v-icon v-if="!props.expanded">expand_more</v-icon>
                 <v-icon v-else-if="props.expanded">expand_less</v-icon>
               </td>
+              <td>
+                <v-btn small icon nuxt :to="'/vault/'+props.item.slug">
+                  <v-icon>chevron_right</v-icon>
+                </v-btn>
+              </td>
             </tr>
           </template>
 
           <template v-slot:expand="props">
+
             <v-card>
+
               <v-card-title>
                 <h3 class="headline">{{ props.item.title }}</h3>
                 <span class="grey--text">{{ props.item.subtitle }}</span>
               </v-card-title>
 
               <v-layout row wrap>
+
                 <v-flex xs12 sm6>
                   <v-card-text>
                     <p><strong>Author:</strong> {{ props.item.author }}</p>
@@ -134,9 +142,11 @@
                     </p>
                   </v-card-text>
                 </v-flex>
+
                 <v-flex xs12 sm3 v-if="props.item.thumbnail" class="hidden-xs-only">
                   <v-img v-bind:src="props.item.thumbnail" />
                 </v-flex>
+
                 <v-flex xs12 sm3>
                   <v-card-text>
                     <strong>Topics:</strong>
@@ -147,14 +157,18 @@
                     </ul>
                   </v-card-text>
                 </v-flex>
+
               </v-layout>
 
               <v-card-actions>
                 <v-btn color="primary" :href="props.item.url" target="_blank" @click="trackEvent(props.item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
                 <v-btn color="green" nuxt :to="'/vault/'+props.item.slug">Show Details</v-btn>
               </v-card-actions>
+
             </v-card>
+
           </template>
+
         </v-data-table>
 
         <div class="text-xs-center pt-2">
@@ -212,7 +226,7 @@
         {
           hid: 'description',
           name: 'description',
-          content: 'The Doctors of Doom Vault contains a curated collection of homebrews and houserules for Wrath & Glory,'
+          content: 'The Doctors of Doom Vault contains a curated collection of supplements, homebrews and houserules for Wrath & Glory,'
             + ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.',
         },
       ],
@@ -255,7 +269,10 @@
           text: 'Author', align: 'left', value: 'author', class: 'hidden-sm-and-down',
         },
         {
-          text: '', sortable: false, align: 'right', value: 'actions', class: 'hidden-xs-only',
+          text: '', sortable: false, align: 'right', value: 'details', class: 'hidden-xs-only',
+        },
+        {
+          text: '', sortable: false, align: 'right', value: 'actions', class: '',
         },
       ],
       expand: false,
@@ -315,11 +332,11 @@
       }
     },
     toggle(props) {
-      this.$ga.event('Vault Row', 'expand', props.item.title, 0);
+      this.$ga.event('Vault Row', 'expand', props.item.title, 1);
       props.expanded = !props.expanded;
     },
     trackEvent(url) {
-      this.$ga.event('Outbound Link', 'click', url, 0);
+      this.$ga.event('Outbound Link', 'click', url, 10);
     },
   },
 };

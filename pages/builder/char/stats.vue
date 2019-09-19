@@ -3,7 +3,7 @@
   <v-layout justify-center row wrap>
 
     <v-flex xs12 >
-      <h1 class="headline">Select a Attributes & Skills</h1>
+      <h1 class="headline">Select Attributes & Skills</h1>
     </v-flex>
 
     <v-flex xs12>
@@ -14,9 +14,12 @@
         value="true"
       >
         {{ alert.text }}
+        <v-btn color="primary" v-if="alert.key === 'prerequisites'" v-on:click="ensurePrerequisites">
+          Increase stats to meet prerequisites.
+          <v-icon right>library_add</v-icon>
+        </v-btn>
       </v-alert>
     </v-flex>
-
 
     <v-flex xs12 md6>
 
@@ -123,15 +126,25 @@
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'vuex';
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import { mapGetters } from 'vuex';
+import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
-  export default {
+export default {
   name: 'Stats',
   layout: 'builder',
   props: [],
-  mixins: [ArchetypeRepositoryMixin,StatRepositoryMixin],
+  mixins: [
+    ArchetypeRepositoryMixin,
+    AscensionRepositoryMixin,
+    StatRepositoryMixin,
+  ],
+  head() {
+    return {
+      title: 'Select Attributes & Skills',
+    }
+  },
   data() {
     return {
       selectedAttribute: undefined,
@@ -181,6 +194,31 @@
     skillMaximumBy(tier) {
       return 3 + tier;
     },
+    ensurePrerequisites(){
+      const archetype = this.archetypeRepository.find( archetype => archetype.name == this.archetype );
+
+      if ( archetype && archetype.prerequisites.length > 0 ) {
+        archetype.prerequisites.forEach(prerequisite => {
+
+          // { group: 'attributes', value: 'willpower', threshold: 3, }
+          switch (prerequisite.group) {
+            case 'attributes':
+              const attributeValue = this.characterAttributesEnhanced[prerequisite.value];
+              if (attributeValue < prerequisite.threshold) {
+                this.$store.commit('setAttribute', { key: prerequisite.value, value: prerequisite.threshold });
+              }
+              break;
+            case 'skills':
+              const skillValue = this.characterSkills[prerequisite.value];
+              if (skillValue < prerequisite.threshold) {
+                this.$store.commit('setSkill', { key: prerequisite.value, value: prerequisite.threshold });
+              }
+              break;
+          }
+
+        });
+      }
+    },
   },
   computed: {
     alerts() {
@@ -189,6 +227,7 @@
       // archetype prerequisites matched?
       if ( !this.archetypePrerequisitesValid ) {
         alerts.push({
+          key: 'prerequisites',
           type: 'warning',
           text: 'Archetype prerequisites unfulfilled. Increase your attributes and skills accordingly.',
         });
@@ -196,13 +235,18 @@
 
       // tree of learning valid?
       if ( !this.treeOfLearningValid ) {
-        alerts.push({ type: 'warning', text: 'Tree of Learning violated. You must have at least as many skills learned as your highest skill value.'})
+        alerts.push({
+          key: 'tree',
+          type: 'warning',
+          text: 'Tree of Learning violated. You must have at least as many skills learned as your highest skill value.'
+        });
       }
 
       // bp for attributes valid?
       const attributeBpSpendLimitValid = this.attributeCosts <= this.maximumBuildPointsForAttributes;
       if ( !attributeBpSpendLimitValid ) {
         alerts.push({
+          key: 'attributeSpending',
           type: 'warning',
           text: `Maximum allowed BP spending violated. You may only spend ${this.maximumBuildPointsForAttributes} BP for Tier ${this.settingTier}.`,
         });
@@ -235,6 +279,12 @@
 
         });
       }
+
+      if ( this.ascensionPackages ) {
+        //this.ascensionPackages.
+      }
+      //const ascensions = this.
+
       return fulfilled;
     },
     treeOfLearningValid() {
@@ -262,7 +312,8 @@
       'settingTier',
       'archetype',
       'attributeCosts',
-      'remainingBuildPoints'
+      'remainingBuildPoints',
+      'ascensionPackages',
     ]),
     ...mapGetters({
       characterSpecies: 'species',

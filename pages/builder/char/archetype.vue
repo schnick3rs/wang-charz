@@ -100,6 +100,7 @@
       <archetype-preview
         v-bind:item="characterArchetype"
         v-bind:keywords="keywords"
+        v-bind:psychicPowersRepository="psychicPowersRepository"
         v-on:change="doChangeMode"
         v-on:select="selectArchetypeForChar"
         v-on:reset="resetArchetype"
@@ -113,16 +114,27 @@
 </template>
 
 <script lang="js">
-  import ArchetypePreview from '~/components/builder/ArchetypePreview';
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import { mapGetters } from 'vuex';
+import ArchetypePreview from '~/components/builder/ArchetypePreview';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import { mapGetters } from 'vuex';
 
-  export default {
+export default {
   name: 'Archetype',
   layout: 'builder',
   components: { ArchetypePreview },
   mixins: [ArchetypeRepositoryMixin],
   props: [],
+  head() {
+    return {
+      title: 'Select Archetype',
+    }
+  },
+  async asyncData({ $axios }) {
+    const response = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
+    return {
+      psychicPowersRepository: response.data,
+    };
+  },
   data() {
     return {
       dialog: false,
@@ -190,6 +202,20 @@
             replacement: undefined,
           };
           this.$store.commit('addKeyword', payload);
+        });
+      }
+
+      this.$store.commit('clearPowersBySource', {source: 'archetype'});
+      if ( item.psychicPowers && item.psychicPowers.discount && item.psychicPowers.discount.length > 0 ) {
+        item.psychicPowers.discount.forEach( d => {
+          if ( d.selected ) {
+            const payload = {
+              name: d.selected,
+              cost: 0,
+              source: 'archetype',
+            };
+            this.$store.commit('addPower', payload);
+          }
         });
       }
 

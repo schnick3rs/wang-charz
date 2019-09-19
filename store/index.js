@@ -103,6 +103,7 @@ export const getters = {
   species(state) { return state.species.value; },
   speciesAstartesChapter(state) { return state.speciesAstartesChapter; },
   archetype(state) { return state.archetype.value; },
+  background(state) { return state.background; },
   keywords(state) { return state.keywords; },
   finalKeywords(state) { return state.keywords.map(k => k.replacement ? k.replacement : k.name); },
   effectiveCharacterTier(state) {
@@ -172,8 +173,14 @@ export const getters = {
   talents(state) {
     return state.talents.map(t => t.name);
   },
+  ascensionPackages(state) {
+    return state.ascensionPackages;
+  },
   psychicPowers(state) {
     return state.psychicPowers.map(p => p.name);
+  },
+  psychicPowersObjects(state) {
+    return state.psychicPowers;
   },
   remainingBuildPoints(state, getters) {
     let remaining = 0;
@@ -332,13 +339,23 @@ export const mutations = {
   addPower(state, payload) {
     const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
     if (!hasPower) {
-      state.psychicPowers.push({ name: payload.name, cost: payload.cost });
+      state.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
     }
   },
   removePower(state, payload) {
     const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
     if (hasPower) {
       state.psychicPowers = state.psychicPowers.filter(t => t.name !== payload.name);
+    }
+  },
+  /**
+   * @param payload { source:String }
+   */
+  clearPowersBySource(state, payload) {
+    if ( state.psychicPowers.length > 0 ) {
+      console.log(`found ${state.psychicPowers.length} psychic powers, clearing with source ${payload.source}...`);
+      state.psychicPowers = state.psychicPowers.filter( k => k.source.indexOf(payload.source) < 0 );
+      console.log(`${state.psychicPowers.length} psychic powers remaining`);
     }
   },
   addAscension(state, payload) {
