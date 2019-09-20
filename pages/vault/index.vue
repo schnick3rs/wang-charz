@@ -155,7 +155,7 @@
                 <v-btn color="green" nuxt :to="'/vault/'+item.slug">Show Details</v-btn>
               </v-card-actions>
 
-            
+
             </td>
           </template>
 
@@ -185,6 +185,7 @@
 
 <script>
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
+import SchemaFaqPage from '~/assets/SchemaFaqPage.json';
 
 export default {
   components: {},
@@ -204,6 +205,11 @@ export default {
       };
     });
 
+    const faqSchemaObejct = {
+      ...SchemaFaqPage
+    };
+
+
     return {
       title: 'Collection of Wrath & Glory Homebrews | Vault',
       meta: [
@@ -216,7 +222,8 @@ export default {
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
-        { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' }
+        { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(faqSchemaObejct), type: 'application/ld+json' },
       ]
     };
   },
