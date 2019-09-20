@@ -57,12 +57,12 @@
                 <span >{{props.item.name}}</span>
                 <span class="hidden-md-and-up" style="display:block; color:grey;">{{props.item.effect}}</span>
               </td>
-              <td class="caption text-xs-center" >{{props.item.cost}}</td>
+              <td class="caption text-center" >{{props.item.cost}}</td>
               <td class="caption hidden-xs-and-down">
                 <span v-html="prerequisitesToText(props.item).join(', ')"></span>
               </td>
               <td class="caption hidden-sm-and-down">{{props.item.effect}}</td>
-              <td class="text-xs-center">
+              <td class="text-center">
                 <v-btn
                   v-bind:disabled="characterTalents.includes(props.item.name)"
                   v-on:click="addTalent(props.item)"
@@ -80,7 +80,7 @@
               </td>
             </template>
             <template v-slot:no-results>
-              <div class="text-xs-center">Your search for "{{ searchQuery }}" found no results.</div>
+              <div class="text-center">Your search for "{{ searchQuery }}" found no results.</div>
             </template>
           </v-data-table>
 

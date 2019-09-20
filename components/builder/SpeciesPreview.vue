@@ -2,7 +2,7 @@
   <v-card>
 
     <v-toolbar dense dark v-if="chooseMode">
-      <v-toolbar-title class="text-xs-center">{{ species.name }}</v-toolbar-title>
+      <v-toolbar-title class="text-center">{{ species.name }}</v-toolbar-title>
     </v-toolbar>
 
     <v-card-title primary-title v-if="manageMode">

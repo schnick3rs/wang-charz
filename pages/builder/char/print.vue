@@ -11,10 +11,10 @@
 
           <v-flex xs12>
 
-            <p class="display-1 text-xs-center mb-0">{{ name }}</p>
-            <p class="text-xs-center mb-0">{{ [species, archetype].join(' • ') }}</p>
+            <p class="display-1 text-center mb-0">{{ name }}</p>
+            <p class="text-center mb-0">{{ [species, archetype].join(' • ') }}</p>
             <span class="sexy_line"></span>
-            <p class="text-xs-center">{{ keywords.join(' • ') }}</p>
+            <p class="text-center">{{ keywords.join(' • ') }}</p>
 
           </v-flex>
 
@@ -38,9 +38,9 @@
                   <template v-slot:items="props">
                     <tr>
                       <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                      <td class="text-xs-center pa-1 small">{{ props.item.value }}</td>
+                      <td class="text-center pa-1 small">{{ props.item.value }}</td>
 
-                      <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <td class="text-center pa-1 small">{{ props.item.enhancedValue }}</td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -83,10 +83,10 @@
                           @{{armour[0].name}} ({{ armour[0].meta[0].armourRating }})
                         </em>
                       </td>
-                      <td v-if="props.item.name==='Resilience'" class="text-xs-center pa-1 small">
+                      <td v-if="props.item.name==='Resilience'" class="text-center pa-1 small">
                         {{ props.item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
                       </td>
-                      <td v-else class="text-xs-center pa-1 small">
+                      <td v-else class="text-center pa-1 small">
                         {{ props.item.enhancedValue }}
                       </td>
                     </tr>
@@ -102,7 +102,7 @@
                   <template v-slot:items="props">
                     <tr>
                       <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                      <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <td class="text-center pa-1 small">{{ props.item.enhancedValue }}</td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -116,7 +116,7 @@
                   <template v-slot:items="props">
                     <tr>
                       <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                      <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <td class="text-center pa-1 small">{{ props.item.enhancedValue }}</td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -130,7 +130,7 @@
                   <template v-slot:items="props">
                     <tr>
                       <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                      <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <td class="text-center pa-1 small">{{ props.item.enhancedValue }}</td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -160,9 +160,9 @@
                 <template v-slot:items="props">
                   <tr>
                     <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.value }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.attribute.substring(0,3) }}</td>
-                    <td class="text-xs-center pa-1 small">{{ computeSkillPool(props.item) }}</td>
+                    <td class="text-center pa-1 small">{{ props.item.value }}</td>
+                    <td class="text-center pa-1 small">{{ props.item.attribute.substring(0,3) }}</td>
+                    <td class="text-center pa-1 small">{{ computeSkillPool(props.item) }}</td>
                   </tr>
                 </template>
               </v-data-table>
@@ -243,7 +243,7 @@
                 <template v-slot:items="props">
                   <tr>
                     <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-xs-center pa-1 small">
+                    <td class="text-center pa-1 small">
                       <div v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].damage">
                         <span v-if="props.item.type==='Melee Weapon'">{{ props.item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
                         <span v-else>{{ props.item.meta[0].damage.static }}</span>
@@ -251,13 +251,13 @@
                         <span>{{ props.item.meta[0].damage.ed }} ED</span>
                       </div>
                     </td>
-                    <td class="text-xs-center pa-1 small">
+                    <td class="text-center pa-1 small">
                       <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].ap }}</span>
                     </td>
-                    <td class="text-xs-center pa-1 small">
+                    <td class="text-center pa-1 small">
                       <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].salvo < 0 ? '-' : props.item.meta[0].salvo }}</span>
                     </td>
-                    <td class="text-xs-center pa-1 small">
+                    <td class="text-center pa-1 small">
                       <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].range > 1">{{ props.item.meta[0].range }} m</span>
                       <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].range === 1">melee</span>
                     </td>
@@ -342,11 +342,11 @@
                 <template v-slot:items="props">
                   <tr>
                     <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.crunch_difficulty_number }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.crunch_activation }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.crunch_duration }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.crunch_range }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.crunch_multi_target }}</td>
+                    <td class="text-center pa-1 small">{{ props.item.crunch_difficulty_number }}</td>
+                    <td class="text-center pa-1 small">{{ props.item.crunch_activation }}</td>
+                    <td class="text-center pa-1 small">{{ props.item.crunch_duration }}</td>
+                    <td class="text-center pa-1 small">{{ props.item.crunch_range }}</td>
+                    <td class="text-center pa-1 small">{{ props.item.crunch_multi_target }}</td>
                     <td class="text-xs-left pa-1 small">{{ props.item.effect }}</td>
                   </tr>
                 </template>

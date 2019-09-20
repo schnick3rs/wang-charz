@@ -24,14 +24,26 @@ module.exports = {
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-      { rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png' },
-      { rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png' },
-      { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png' },
+      {
+        rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png',
+      },
+      {
+        rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png',
+      },
+      {
+        rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png',
+      },
       { rel: 'manifest', href: '/site.webmanifest' },
-      //{ rel: 'stylesheet', href: '/css/roboto.css' },
-      //{ rel: 'preload', href: '/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
-      //{ rel: 'preload', href: '/fonts/KFOlCnqEu92Fr1MmEU9fBBc4.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
-      //{ rel: 'preload', href: '/fonts/KFOmCnqEu92Fr1Mu4mxK.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
+      { rel: 'stylesheet', href: '/css/roboto.css' },
+      {
+        rel: 'preload', href: '/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
+      },
+      {
+        rel: 'preload', href: '/fonts/KFOlCnqEu92Fr1MmEU9fBBc4.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
+      },
+      {
+        rel: 'preload', href: '/fonts/KFOmCnqEu92Fr1Mu4mxK.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
+      },
     ],
   },
   /*
@@ -53,11 +65,12 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/vuetify',
+    ['@nuxtjs/vuetify', {
+      //defaultAssets: false,
+    }],
     '@nuxtjs/sitemap',
     ['@nuxtjs/axios', {
       baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
-      //baseURL: 'https://www.doctors-of-doom.com',
     }],
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
@@ -72,7 +85,6 @@ module.exports = {
     // https://github.com/nuxt-community/redirect-module
     ['@nuxtjs/redirect-module', {
       rules: [
-        //{ from: '^/vault/the-deathwatch---slayers-of-the-alien-horde', to: '/vault/the-deathwatch-slayers-of-the-alien-horde', statusCode: 301 },
         { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
       ],
     }],
@@ -88,14 +100,14 @@ module.exports = {
     ],
     routes() {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
-      return axios.get(base+'/api/homebrews/')
-        .then( response => response.data.map( vaultItem => `/vault/${vaultItem.slug}` ) );
+      return axios.get(`${base}/api/homebrews/`)
+        .then((response) => response.data.map((vaultItem) => `/vault/${vaultItem.slug}`));
     },
     defaults: {
       changefreq: 'daily',
       priority: 1,
       lastmod: new Date(),
-      lastmodrealtime: true
+      lastmodrealtime: true,
     },
   },
   /*
@@ -103,10 +115,11 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://local.doom.com:3000',
-    //baseURL: 'https://www.doctors-of-doom.com',
-    //debug: process.env.NODE_ENV !== 'production',
+    // baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://local.doom.com:3000',
+    // baseURL: 'https://www.doctors-of-doom.com',
+    // debug: process.env.NODE_ENV !== 'production',
   },
+
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
@@ -122,6 +135,7 @@ module.exports = {
       success: colors.green.base,
     },
   },
+
   /*
   ** Build configuration
   */

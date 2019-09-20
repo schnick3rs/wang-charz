@@ -70,7 +70,7 @@
             <td class="caption">{{props.item.name}}</td>
             <td class="caption">{{props.item.discipline}}</td>
             <td class="caption hidden-sm-and-down">{{props.item.effect}}</td>
-            <td class="caption text-xs-center" >{{props.item.cost}}</td>
+            <td class="caption text-center" >{{props.item.cost}}</td>
             <td>
               <v-btn
                 icon

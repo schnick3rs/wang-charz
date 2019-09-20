@@ -98,7 +98,7 @@
                   >
                     <template v-slot:items="meta">
                         <td class="text-xs-left">{{ props.item.name }}</td>
-                        <td class="text-xs-center">
+                        <td class="text-center">
                           <div v-if="meta.item.damage">
                             <span>{{ meta.item.damage.static }}</span>
                             <span v-if="meta.item.type==='melee-weapon'">*</span>
@@ -106,13 +106,13 @@
                             <span>{{ meta.item.damage.ed }} ED</span>
                           </div>
                         </td>
-                        <td class="text-xs-center">
+                        <td class="text-center">
                           <span>{{ meta.item.ap }}</span>
                         </td>
-                        <td class="text-xs-center">
+                        <td class="text-center">
                           <span>{{ meta.item.salvo < 0 ? '-' : meta.item.salvo }}</span>
                         </td>
-                        <td class="text-xs-center">
+                        <td class="text-center">
                           <span v-if="meta.item.range > 1">{{ meta.item.range }} m</span>
                           <span v-if="meta.item.range === 1">melee</span>
                         </td>
@@ -129,7 +129,7 @@
 
         </v-data-table>
 
-        <div class="text-xs-center pt-2">
+        <div class="text-center pt-2">
           <v-pagination v-model="pagination.page" :length="pages" />
         </div>
       </v-card>

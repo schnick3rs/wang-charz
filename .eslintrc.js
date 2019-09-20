@@ -19,8 +19,12 @@ module.exports = {
       js: 'never',
       vue: 'never',
     }],
+    'vuetify/no-deprecated-classes': 'error',
+    'vuetify/grid-unknown-attributes': 'error',
+    'vuetify/no-legacy-grid': 'error',
   },
   plugins: [
     'html',
+    'vuetify',
   ],
-}
+};

@@ -1,19 +1,21 @@
 <template lang="html">
 
-  <v-layout justify-center row wrap>
-
-        <v-flex
+  <v-row
+    justify="center"
+    dense
+  >
+        <v-col
           v-for="section in sections.filter(i=>i.isActive)"
           v-bind:key="section.key"
-          xs12
-          sm10
-          md8
-          lg4
+          :xs="12"
+          :sm="6"
+          :md="4"
+          :lg="4"
         >
 
           <v-card height="100%" class="flexcard">
 
-            <v-img :src="section.imageSrc" height="200" :class="section.classes"/>
+            <v-img :src="section.imageSrc" height="180px" :class="section.classes" />
 
             <v-card-text>
               <v-spacer /><span>© {{ section.imageCredit }}</span>
@@ -36,9 +38,9 @@
 
           </v-card>
 
-        </v-flex>
+        </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 
@@ -82,7 +84,7 @@ export default {
           imageSrc: '/img/artwork_abstract.jpg',
           imageCredit: 'Artwork by prettysleepy1 (Pixabay)',
           htmlText: 'Define the setting and tier of your campaign and start building a Wrath & ' +
-            'Glory Character for your session.</p><p><strong>BETA Status, characters might get ' +
+            'Glory Character for your session.<br/><br/><strong>BETA Status, characters might get ' +
             'lost during updates</strong>',
           link: { text: 'To the Forge', route: '/builder/setting' },
           isActive: true,
