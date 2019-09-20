@@ -199,9 +199,10 @@
 </template>
 
 <script>
-  import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
+import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
+import SchemaFaqPage from '~/assets/SchemaFaqPage.json';
 
-  export default {
+export default {
   components: {},
   head() {
 
@@ -219,6 +220,9 @@
       };
     });
 
+    const faqPageSchama = {
+      ...SchemaFaqPage,
+    };
 
     return {
       title: 'Collection of Wrath & Glory Homebrews | Vault',
@@ -232,7 +236,8 @@
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
-        { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' }
+        { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(faqPageSchama), type: 'application/ld+json' },
       ]
     };
   },
