@@ -4,9 +4,9 @@
 
     <v-container grid-list-md>
 
-      <v-layout justify-center row wrap>
+      <v-row justify-center row wrap>
 
-        <v-flex xs12 sm10 md8 lg8>
+        <v-col v-bind:cols="12" sm10 md8 lg8>
 
           <h1>About this page</h1>
 
@@ -51,9 +51,9 @@
 
           <p></p>
 
-        </v-flex>
+        </v-col>
 
-      </v-layout>
+      </v-row>
 
     </v-container>
 

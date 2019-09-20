@@ -155,7 +155,6 @@
                 <v-btn color="green" nuxt :to="'/vault/'+item.slug">Show Details</v-btn>
               </v-card-actions>
 
-
             </td>
           </template>
 

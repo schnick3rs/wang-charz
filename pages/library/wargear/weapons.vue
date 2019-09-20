@@ -21,27 +21,27 @@
       </ul>
     </div>
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
       <v-card>
         <v-card-text>
-          <v-layout justify-center row wrap>
-            <v-flex xs12 sm6>
+          <v-row justify-center row wrap>
+            <v-col v-bind:cols="12" sm6>
               <v-text-field
                 v-model="searchQuery"
                 box
                 dense
                 clearable
                 label="Search"></v-text-field>
-            </v-flex>
+            </v-col>
 
-          </v-layout>
+          </v-row>
         </v-card-text>
       </v-card>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
       <v-card>
         <v-data-table
           v-bind:headers="headers"
@@ -87,17 +87,17 @@
           <v-pagination v-model="pagination.page" :length="pages" />
         </div>
       </v-card>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
         <v-card-text>
         </v-card-text>
       </v-card>
 
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
   </div>
 
 

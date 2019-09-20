@@ -1,8 +1,8 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
-    <v-flex
+    <v-col
       xs12
       v-if="characterBackground"
     >
@@ -31,7 +31,7 @@
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
     <v-dialog
       v-model="dialog"
@@ -47,42 +47,42 @@
       </background-preview>
     </v-dialog>
 
-    <v-flex xs12 v-if="!characterBackground">
+    <v-col v-bind:cols="12" v-if="!characterBackground">
 
       <h1 class="headline">Select a background</h1>
 
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12 v-if="!characterBackground">
+    <v-col v-bind:cols="12" v-if="!characterBackground">
 
       <v-card>
 
         <v-list>
 
-          <v-list-tile
+          <v-list-item
             v-for="item in backgroundRepository"
             v-bind:key="item.key"
             v-on:click.stop="openDialog(item)"
           >
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{ item.hint }}</v-list-tile-sub-title>
-            </v-list-tile-content>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+              <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action>
+            <v-list-item-action>
               <v-icon color="primary">arrow_forward_ios</v-icon>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-          </v-list-tile>
+          </v-list-item>
 
         </v-list>
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 

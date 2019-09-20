@@ -38,9 +38,9 @@
 
     <v-card-actions>
 
-        <v-layout align-center justify-center >
+        <v-row align-center justify-center >
 
-          <v-flex xs2 >
+          <v-col xs2 >
             <v-select
               :items="[currentCharacterTier]"
               :value="currentCharacterTier"
@@ -49,24 +49,24 @@
               disabled
               readonly
             ></v-select>
-          </v-flex>
+          </v-col>
 
-          <v-flex xs2 offset-xs1 class="align-center justify-center">
+          <v-col xs2 offset-xs1 class="align-center justify-center">
             <v-avatar size="32" color="primary" >
               <v-icon color="white">arrow_forward</v-icon>
             </v-avatar>
-          </v-flex>
+          </v-col>
 
-          <v-flex xs2>
+          <v-col xs2>
             <v-select
               :items="targetTierOptions"
               v-model="targetTier"
               dense
               label="Target Tier"
             ></v-select>
-          </v-flex>
+          </v-col>
 
-        </v-layout>
+        </v-row>
 
     </v-card-actions>
 

@@ -36,7 +36,6 @@
 
           <v-list-item
             v-else
-            avatar
             nuxt
             :to="entry.path"
           >
@@ -135,10 +134,10 @@
       class="font-weight-medium"
     >
       <div>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</div>
-      <v-spacer class="hidden-xs-only"></v-spacer>
-      <div class="hidden-xs-only">{{finalKeywords.join(' • ')}}</div>
+      <v-spacer ></v-spacer>
+      <div class="caption d-none d-sm-block">{{finalKeywords.join(' • ')}}</div>
       <v-spacer></v-spacer>
-      <span>&copy; {{ new Date().getFullYear() }} Doctors of Doom</span>
+      <span>&copy; {{ new Date().getFullYear() }} </span><span class="d-none d-md-block"> Doctors of Doom</span>
     </v-footer>
 
   </v-app>

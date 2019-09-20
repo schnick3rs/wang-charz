@@ -1,27 +1,28 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-layout justify-center row wrap>
+  <div>
 
-    <v-layout justify-center row wrap>
+    <v-row justify="center">
 
-      <v-flex xs12>
+      <v-col v-bind:cols="12">
 
         <v-card>
           <v-card-text>
             <v-chip
               v-for="talent in characterTalents"
-              :key="talent.key"
+              v-bind:key="talent.key"
               close
-              @input="removeTalent(talent)"
+              @click:close="removeTalent(talent)"
+              class="mr-2"
             >
               {{talent}}
             </v-chip>
           </v-card-text>
         </v-card>
 
-      </v-flex>
+      </v-col>
 
-      <v-flex xs12>
+      <v-col v-bind:cols="12">
 
         <v-card>
 
@@ -45,69 +46,87 @@
           </v-card-title>
 
           <v-data-table
-            :items="filteredTalents"
-            :search="searchQuery"
-            :headers="headers"
-            hide-actions
+            v-bind:headers="headers"
+            v-bind:items="filteredTalents"
+            v-bind:search="searchQuery"          
+            v-bind:items-per-page="-1"
+            show-expand
+            sort-by="name"
+            item-key="name"
+            hide-default-footer
           >
             <template v-slot:no-data>
             </template>
-            <template v-slot:items="props">
-              <td class="caption">
-                <span >{{props.item.name}}</span>
-                <span class="hidden-md-and-up" style="display:block; color:grey;">{{props.item.effect}}</span>
-              </td>
-              <td class="caption text-center" >{{props.item.cost}}</td>
-              <td class="caption hidden-xs-and-down">
-                <span v-html="prerequisitesToText(props.item).join(', ')"></span>
-              </td>
-              <td class="caption hidden-sm-and-down">{{props.item.effect}}</td>
-              <td class="text-center">
+
+            <template v-slot:item.name="{ item }">
+              <span >{{ item.name }}</span>
+            </template>
+
+            <template v-slot:item.cost="{ item }">
+              <span>{{ item.cost }}</span>
+            </template>
+            
+            <template v-slot:item.prerequisites="{ item }">
+              <span v-html="prerequisitesToText(item).join(', ')"></span>
+            </template>
+
+            <template v-slot:item.effect="{ item }">
+              <span>{{ item.effect }}</span>
+            </template>
+
+            <template v-slot:item.buy="{ item }">
                 <v-btn
-                  v-bind:disabled="characterTalents.includes(props.item.name)"
-                  v-on:click="addTalent(props.item)"
+                  v-bind:disabled="characterTalents.includes(item.name)"
+                  v-on:click="addTalent(item)"
                   icon
                 >
                   <v-icon
-                    v-if="!props.item.prerequisitesFulfilled"
+                    v-if="!item.prerequisitesFulfilled"
                     color="orange"
                   >info</v-icon>
                   <v-icon
                     v-else
-                    v-bind:color="affordableColor(props.item.cost)"
+                    v-bind:color="affordableColor(item.cost)"
                   >add_circle</v-icon>
-                </v-btn>
+                </v-btn>         
+            </template>
+
+            <template v-slot:expanded-item="{ headers, item }">
+              <td :colspan="headers.length">
+                <p class="pt-4">{{ item.description }}</p>
               </td>
             </template>
+
             <template v-slot:no-results>
-              <div class="text-center">Your search for "{{ searchQuery }}" found no results.</div>
+              <span class="text-center">Your search for "{{ searchQuery }}" found no results.</span>
             </template>
+
           </v-data-table>
 
         </v-card>
 
-      </v-flex>
+      </v-col>
 
-    </v-layout>
+    </v-row>
 
-  </v-layout>
+  </div>
 
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'vuex';
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import { mapGetters } from 'vuex';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
-  export default {
+export default {
   name: 'Talents',
   layout: 'builder',
   props: [],
   mixins: [ StatRepositoryMixin ],
-    head() {
-      return {
-        title: 'Select Talents',
-      }
-    },
+  head() {
+    return {
+      title: 'Select Talents',
+    }
+  },
   async asyncData({ params, $axios, error }) {
     const response = await $axios.get(`/api/talents/`);
     return {
@@ -135,16 +154,15 @@
           text: 'Prerequisites',
           value: 'prerequisites',
           sortable: false,
-          //class: 'hidden-sm-and-down',
         },
         {
           text: 'Effect',
           value: 'effect',
           sortable: false,
-          class: 'hidden-sm-and-down',
         },
         {
           text: 'Buy',
+          value: 'buy',
           align: 'center',
           sortable: false,
         },

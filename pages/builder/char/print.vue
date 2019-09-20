@@ -7,21 +7,21 @@
       <!-- grid list with low margin -->
       <v-container grid-list-xs>
 
-        <v-layout justify-center wrap row>
+        <v-row justify-center wrap row>
 
-          <v-flex xs12>
+          <v-col v-bind:cols="12">
 
             <p class="display-1 text-center mb-0">{{ name }}</p>
             <p class="text-center mb-0">{{ [species, archetype].join(' • ') }}</p>
             <span class="sexy_line"></span>
             <p class="text-center">{{ keywords.join(' • ') }}</p>
 
-          </v-flex>
+          </v-col>
 
           <!-- attributes and traits -->
-          <v-flex xs4>
+          <v-col xs4>
 
-            <v-flex xs12>
+            <v-col v-bind:cols="12">
 
               <v-card>
 
@@ -47,9 +47,9 @@
 
               </v-card>
 
-            </v-flex>
+            </v-col>
 
-            <v-flex xs12>
+            <v-col v-bind:cols="12">
 
               <v-card>
 
@@ -137,14 +137,14 @@
 
               </v-card>
 
-            </v-flex>
+            </v-col>
 
-          </v-flex>
+          </v-col>
 
           <!-- skills -->
-          <v-flex xs4>
+          <v-col xs4>
 
-            <v-flex xs12>
+            <v-col v-bind:cols="12">
             <v-card>
 
               <v-toolbar color="red" dark dense height="32">
@@ -169,14 +169,14 @@
 
             </v-card>
 
-            </v-flex>
+            </v-col>
 
-          </v-flex>
+          </v-col>
 
           <!-- abilities -->
-          <v-flex xs4>
+          <v-col xs4>
 
-            <v-flex xs12>
+            <v-col v-bind:cols="12">
 
               <v-card>
 
@@ -190,9 +190,9 @@
 
               </v-card>
 
-            </v-flex>
+            </v-col>
 
-            <v-flex xs12 v-if="talents.length > 0">
+            <v-col v-bind:cols="12" v-if="talents.length > 0">
 
               <v-card>
 
@@ -206,9 +206,9 @@
 
               </v-card>
 
-            </v-flex>
+            </v-col>
 
-            <v-flex xs12 v-if="gear.length > 0">
+            <v-col v-bind:cols="12" v-if="gear.length > 0">
 
               <v-card>
 
@@ -222,11 +222,11 @@
 
               </v-card>
 
-            </v-flex>
+            </v-col>
 
-          </v-flex>
+          </v-col>
 
-          <v-flex xs12>
+          <v-col v-bind:cols="12">
 
             <v-card>
 
@@ -270,9 +270,9 @@
 
             </v-card>
 
-          </v-flex>
+          </v-col>
 
-        </v-layout>
+        </v-row>
 
       </v-container>
 
@@ -283,13 +283,13 @@
       <!-- grid list with low margin -->
       <v-container grid-list-xs>
 
-        <v-layout justify-center wrap row>
+        <v-row justify-center wrap row>
 
-          <v-flex xs12>
+          <v-col v-bind:cols="12">
 
-            <v-layout justify-left wrap row>
+            <v-row justify-left wrap row>
 
-              <v-flex xs6 v-if="gear.length > 0">
+              <v-col xs6 v-if="gear.length > 0">
 
                 <v-card>
 
@@ -303,9 +303,9 @@
 
                 </v-card>
 
-              </v-flex>
+              </v-col>
 
-              <v-flex xs6 v-if="talents.length > 0">
+              <v-col xs6 v-if="talents.length > 0">
 
                 <v-card>
 
@@ -319,13 +319,13 @@
 
                 </v-card>
 
-              </v-flex>
+              </v-col>
 
-            </v-layout>
+            </v-row>
 
-          </v-flex>
+          </v-col>
 
-          <v-flex xs12>
+          <v-col v-bind:cols="12">
 
             <v-card v-if="psychicPowers.length > 0">
 
@@ -354,13 +354,13 @@
 
             </v-card>
 
-          </v-flex>
+          </v-col>
 
-          <v-flex xs12>
+          <v-col v-bind:cols="12">
 
-            <v-layout justify-center wrap row>
+            <v-row justify-center wrap row>
 
-              <v-flex xs4>
+              <v-col xs4>
 
                 <v-card height="100%" class="flexcard">
 
@@ -378,9 +378,9 @@
 
                 </v-card>
 
-              </v-flex>
+              </v-col>
 
-              <v-flex xs4>
+              <v-col xs4>
 
                 <v-card height="100%" class="flexcard">
 
@@ -397,9 +397,9 @@
 
                 </v-card>
 
-              </v-flex>
+              </v-col>
 
-              <v-flex xs4>
+              <v-col xs4>
 
                 <v-card height="100%" class="flexcard">
 
@@ -415,13 +415,13 @@
 
                 </v-card>
 
-              </v-flex>
+              </v-col>
 
-            </v-layout>
+            </v-row>
 
-          </v-flex>
+          </v-col>
 
-        </v-layout>
+        </v-row>
 
       </v-container>
 

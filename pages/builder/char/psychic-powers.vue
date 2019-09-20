@@ -1,8 +1,8 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
-    <v-flex>
+    <v-col>
       <h1 class="headline">Manage Powers</h1>
 
       <v-alert
@@ -11,9 +11,9 @@
         :key="alert.key"
         :type="alert.type"
       >{{alert.text}}</v-alert>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
         <v-card-text>
@@ -28,9 +28,9 @@
         </v-card-text>
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-chip
         v-for="discipline in disciplines"
@@ -42,9 +42,9 @@
       >
         {{discipline.name}}
       </v-chip>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
 
@@ -90,9 +90,9 @@
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 
