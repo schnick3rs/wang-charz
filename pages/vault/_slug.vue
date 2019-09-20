@@ -129,6 +129,20 @@ export default {
       keywords: [...this.item.keywords, 'Wrath & Glory'].join(','),
     };
 
+
+    const breadcrumbListSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": this.breadcrumbItems.map( (item, index) => {
+        return {
+          "@type": "ListItem",
+          "position": index+1,
+          "name": ( index === 0 ? 'Doctors of Doom' : item.text),
+          "item": `https://www.doctors-of-doom.com${item.to}`
+        }
+      })
+    };
+
     return {
       titleTemplate: '%s | Vault',
       title: `${this.item.title} - ${this.item.keywords[0]} Homebrew`,
@@ -136,7 +150,7 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: `${this.item.abstract}`,
+          content: `${this.item.subtitle}. ${this.item.abstract}`,
         },
         {
           hid: 'keywords',
@@ -151,7 +165,8 @@ export default {
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
-        { innerHTML: JSON.stringify(itemSchema), type: 'application/ld+json' }
+        { innerHTML: JSON.stringify(itemSchema), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
       ]
     };
   },
@@ -176,7 +191,7 @@ export default {
           {
             text: 'Vault', nuxt: true, exact: true, to: '/vault',
           },
-          { text: vaultItem.title, disabled: true },
+          { text: vaultItem.title, disabled: true, nuxt: true, to: `/vault/${vaultItem.slug}` },
         ],
     };
   },

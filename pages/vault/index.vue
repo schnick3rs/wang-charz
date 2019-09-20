@@ -205,10 +205,22 @@ export default {
       };
     });
 
-    const faqSchemaObejct = {
-      ...SchemaFaqPage
+    const faqPageSchama = {
+      ...SchemaFaqPage,
     };
 
+    const breadcrumbListSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": this.breadcrumbItems.map( (item, index) => {
+        return {
+          "@type": "ListItem",
+          "position": index+1,
+          "name": ( index === 0 ? 'Doctors of Doom' : item.text),
+          "item": `https://www.doctors-of-doom.com${item.to}`
+        }
+      })
+    };
 
     return {
       title: 'Collection of Wrath & Glory Homebrews | Vault',
@@ -223,7 +235,8 @@ export default {
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' },
-        { innerHTML: JSON.stringify(faqSchemaObejct), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(faqPageSchama), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
       ]
     };
   },
