@@ -5,7 +5,7 @@
   <v-row justify="center">
     <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
 
-    <v-breadcrumbs light
+    <v-breadcrumbs
       v-bind:items="breadcrumbItems"
     >
       <template v-slot:item="props">

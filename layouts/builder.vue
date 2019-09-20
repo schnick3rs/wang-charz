@@ -1,4 +1,5 @@
 <template>
+
   <v-app>
 
     <v-navigation-drawer
@@ -12,20 +13,20 @@
     >
       <v-list two-line subheader dense>
 
-        <v-list-tile
+        <v-list-item
           nuxt
           to="/builder/setting"
         >
-          <v-list-tile-content >
-            <v-list-tile-title>Tier {{settingTier}} Campaign</v-list-tile-title>
-            <v-list-tile-sub-title>Framework</v-list-tile-sub-title>
-          </v-list-tile-content>
+          <v-list-item-content >
+            <v-list-item-title>Tier {{settingTier}} Campaign</v-list-item-title>
+            <v-list-item-subtitle>Framework</v-list-item-subtitle>
+          </v-list-item-content>
 
-          <v-list-tile-action>
+          <v-list-item-action>
             <span>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</span>
-          </v-list-tile-action>
+          </v-list-item-action>
 
-        </v-list-tile>
+        </v-list-item>
 
         <div
           v-for="entry in helperBox"
@@ -33,23 +34,23 @@
         >
           <v-divider v-if="entry.divider"></v-divider>
 
-          <v-list-tile
+          <v-list-item
             v-else
             avatar
             nuxt
             :to="entry.path"
           >
-            <v-list-tile-content >
-              <v-list-tile-title>{{entry.text}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{entry.hint}}</v-list-tile-sub-title>
-            </v-list-tile-content>
+            <v-list-item-content >
+              <v-list-item-title>{{entry.text}}</v-list-item-title>
+              <v-list-item-subtitle>{{entry.hint}}</v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action>
+            <v-list-item-action>
               <span v-if="entry.text">{{entry.cost}} BP</span>
               <v-icon v-else>info</v-icon>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-          </v-list-tile>
+          </v-list-item>
 
         </div>
 
@@ -57,46 +58,45 @@
 
     </v-navigation-drawer>
 
-    <v-toolbar
+    <v-app-bar
       app
-      dense
       dark
+      dense    
+      style="background-color: #212121;"
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
-      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
+
+      <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
 
       <v-toolbar-items>
-        <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
+        <v-btn icon nuxt to="/"><v-icon>home</v-icon></v-btn>
       </v-toolbar-items>
 
-      <v-toolbar-title >
-        <span class="text-capitalize">Forge</span>
-      </v-toolbar-title>
+      <v-toolbar-title class="pl-4">Doctors of Doom</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
 
       </v-toolbar-items>
-    </v-toolbar>
+    </v-app-bar>
 
     <v-content>
 
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
-          <v-btn flat small nuxt to="/builder/setting" >Setting</v-btn>
-          <v-btn flat small nuxt to="/builder/char/species" :disabled="!settingSelected">1. Species</v-btn>
-          <v-btn flat small nuxt to="/builder/char/archetype" :disabled="!settingSelected">2. Archetype</v-btn>
-          <v-btn flat small nuxt to="/builder/char/ascension" :disabled="!settingSelected">3. Ascension</v-btn>
-          <v-btn flat small nuxt to="/builder/char/stats" :disabled="!settingSelected">4. Stats</v-btn>
-          <v-btn flat small nuxt to="/builder/char/talents" :disabled="!settingSelected">5. Talents</v-btn>
-          <v-btn flat small nuxt to="/builder/char/wargear" :disabled="!settingSelected">6. Wargear</v-btn>
-          <v-btn flat small nuxt to="/builder/char/psychic-powers" :disabled="!settingSelected">7. Psychic Powers</v-btn>
-          <v-btn flat small nuxt to="/builder/char/background" :disabled="!settingSelected" >8. Background</v-btn>
+          <v-btn small text nuxt to="/builder/setting" >Setting</v-btn>
+          <v-btn small text nuxt to="/builder/char/species" :disabled="!settingSelected">1. Species</v-btn>
+          <v-btn small text nuxt to="/builder/char/archetype" :disabled="!settingSelected">2. Archetype</v-btn>
+          <v-btn small text nuxt to="/builder/char/ascension" :disabled="!settingSelected">3. Ascension</v-btn>
+          <v-btn small text nuxt to="/builder/char/stats" :disabled="!settingSelected">4. Stats</v-btn>
+          <v-btn small text nuxt to="/builder/char/talents" :disabled="!settingSelected">5. Talents</v-btn>
+          <v-btn small text nuxt to="/builder/char/wargear" :disabled="!settingSelected">6. Wargear</v-btn>
+          <v-btn small text nuxt to="/builder/char/psychic-powers" :disabled="!settingSelected">7. Psychic Powers</v-btn>
+          <v-btn small text nuxt to="/builder/char/background" :disabled="!settingSelected" >8. Background</v-btn>
           <v-btn
-            flat
-            small
+            small 
             nuxt
             icon
             to="/builder/char/print"
@@ -108,32 +108,37 @@
         </v-toolbar-items>
       </v-toolbar>
 
-      <v-container grid-list-md>
+      <v-container>
 
-        <v-layout justify-center>
+        <v-row justify="center">
 
-          <v-flex xs12 sm10 md9 lg8 xl7>
+          <v-col 
+            v-bind:cols="12"
+            v-bind:sm="12"
+            v-bind:md="9"
+            v-bind:lg="8"
+            v-bind:xl="7"
+          >
             <nuxt />
-          </v-flex>
+          </v-col>
 
-        </v-layout>
+        </v-row>
 
       </v-container>
 
     </v-content>
 
     <v-footer
-      v-bind:app="true"
-      v-bind:color="(spendBuildingPoints > totalBuildPoints) ? 'error' : ''"
-      class="pa-2"
+      app
       dark
+      v-bind:color="(spendBuildingPoints > totalBuildPoints) ? 'error' : ''"
+      class="font-weight-medium"
     >
       <div>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</div>
       <v-spacer class="hidden-xs-only"></v-spacer>
       <div class="hidden-xs-only">{{finalKeywords.join(' • ')}}</div>
       <v-spacer></v-spacer>
-      <v-btn nuxt to="/about" >About</v-btn>
-      <div>&copy; {{ new Date().getFullYear() }}</div>
+      <span>&copy; {{ new Date().getFullYear() }} Doctors of Doom</span>
     </v-footer>
 
   </v-app>

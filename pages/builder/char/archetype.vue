@@ -1,6 +1,6 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-layout justify-center row wrap>
+  <v-row justify="center">
 
     <v-dialog
       v-model="dialog"
@@ -16,16 +16,16 @@
       ></archetype-preview>
     </v-dialog>
 
-    <v-flex v-if="!characterArchetype || changeMode">
+    <v-col v-if="!characterArchetype || changeMode">
       <h1 class="headline">Select an Archetype</h1>
 
       <v-alert
         :value="!characterSpecies"
         type="warning"
       >You need to select a Species first.</v-alert>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12 v-if="!characterArchetype || changeMode">
+    <v-col :cols="12" v-if="!characterArchetype || changeMode">
       <v-text-field
         solo
         placeholder="Search..."
@@ -33,9 +33,9 @@
         prepend-inner-icon="search"
         clearable
       ></v-text-field>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12 v-if="!characterArchetype || changeMode">
+    <v-col :cols="12" v-if="!characterArchetype || changeMode">
 
       <v-card v-if="loaded">
 
@@ -50,7 +50,7 @@
 
             <v-subheader>{{ group }}</v-subheader>
 
-            <v-list-tile
+            <v-list-item
               two-line
               v-for="item in archetypesByGroup(group)"
               :key="item.key"
@@ -59,43 +59,43 @@
               :disabled="item.species !== characterSpecies || item.tier > settingTier"
             >
 
-              <v-list-tile-avatar tile>
+              <v-list-item-avatar tile>
                 <img :src="getAvatar(item.name)">
-              </v-list-tile-avatar>
+              </v-list-item-avatar>
 
-              <v-list-tile-content>
-                <v-list-tile-title>{{item.name}}</v-list-tile-title>
-                <v-list-tile-sub-title>{{item.hint}}</v-list-tile-sub-title>
-              </v-list-tile-content>
+              <v-list-item-content>
+                <v-list-item-title>{{item.name}}</v-list-item-title>
+                <v-list-item-subtitle>{{item.hint}}</v-list-item-subtitle>
+              </v-list-item-content>
 
-              <v-list-tile-action class="hidden-sm-and-up">
+              <v-list-item-action class="hidden-sm-and-up">
                 <v-btn dense icon>
                   <v-icon color="primary">arrow_forward_ios</v-icon>
                 </v-btn>
-              </v-list-tile-action>
-              <v-list-tile-action class="hidden-xs-only">
-                <v-chip color="green" text-color="white">
-                  <v-avatar class="green darken-4">{{item.cost}}</v-avatar>
+              </v-list-item-action>
+              <v-list-item-action class="hidden-xs-only">
+                <v-chip pill color="green" text-color="white">
+                  <v-avatar left class="green darken-4">{{item.cost}}</v-avatar>
                   BP
                 </v-chip>
-              </v-list-tile-action>
-              <v-list-tile-action class="hidden-xs-only">
-                <v-chip color="red" text-color="white">
-                  <v-avatar class="red darken-4">{{item.tier}}</v-avatar>
+              </v-list-item-action>
+              <v-list-item-action class="hidden-xs-only">
+                <v-chip pill color="red" text-color="white">
+                  <v-avatar left class="red darken-4">{{item.tier}}</v-avatar>
                   Tier
                 </v-chip>
-              </v-list-tile-action>
+              </v-list-item-action>
 
-            </v-list-tile>
+            </v-list-item>
 
           </v-list>
 
         </div>
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12 v-if="characterArchetype && !changeMode">
+    <v-col :cols="12" v-if="characterArchetype && !changeMode">
 
       <archetype-preview
         v-bind:item="characterArchetype"
@@ -107,9 +107,9 @@
         manageMode
       ></archetype-preview>
 
-    </v-flex>
+    </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 

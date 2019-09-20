@@ -5,11 +5,13 @@
     <v-card-title primary-title>
       <div>
         <div class="headline">{{ item.name }}</div>
-        <span class="grey--text">{{ item.teaser }}</span>
+        <span class="subtitle-1 grey--text">{{ item.teaser }}</span>
       </div>
     </v-card-title>
 
-    <v-card-text>
+    <v-divider />
+
+    <v-card-text class="pt-4">
 
       <p class="text-lg-justify"><strong>Build Point Cost:</strong> (New Tier x {{ item.cost }})</p>
 
@@ -31,6 +33,8 @@
       <p class="text-lg-justify"><strong>Wargear:</strong> {{ item.wargearText }}</p>
 
     </v-card-text>
+
+    <v-divider />
 
     <v-card-actions>
 
@@ -66,9 +70,10 @@
 
     </v-card-actions>
 
-    <v-card-actions v-if="chooseMode">
-      <v-btn block color="green" @click="$emit('select', item, targetTier)" >Select Package</v-btn>
-      <v-btn block color="red" @click="$emit('cancel')" >Cancel</v-btn>
+    <v-card-actions v-if="chooseMode">      
+      <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-spacer />
+      <v-btn right color="green" @click="$emit('select', item, targetTier)" >Select Package</v-btn>
     </v-card-actions>
   </v-card>
 

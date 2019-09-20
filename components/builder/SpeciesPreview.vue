@@ -1,9 +1,12 @@
 <template lang="html">
   <v-card>
 
-    <v-toolbar dense dark v-if="chooseMode">
-      <v-toolbar-title class="text-center">{{ species.name }}</v-toolbar-title>
-    </v-toolbar>
+    <v-card-title v-if="chooseMode" style="background-color: #212121;color: #fff;">
+      {{ species.name }}
+    </v-card-title>
+    
+    <v-divider v-if="chooseMode"></v-divider>
+
 
     <v-card-title primary-title v-if="manageMode">
       <div>
@@ -11,7 +14,7 @@
           {{ species.name }}
           <v-btn
             v-if="manageMode"
-            flat
+            small outlined
             color="primary"
             @click="$emit('changeSpecies')"
           >
@@ -19,7 +22,7 @@
             change species
           </v-btn>
         </h3>
-        <span class="grey--text">{{ species.hint }}</span>
+        <span class="subtitle-1 grey--text">{{ species.hint }}</span>
       </div>
       <v-spacer></v-spacer>
       <div class="hidden-xs-only">
@@ -27,7 +30,7 @@
       </div>
     </v-card-title>
 
-    <v-card-text>
+    <v-card-text class="pa-6">
       <p class="text-lg-justify">
         <strong>Build Point Cost:</strong> {{ species.cost }}
       </p>
@@ -92,7 +95,7 @@
           <p><v-divider /></p>
           <blockquote class="blockquote font-italic" >
             <p>"{{ species.description }}"</p>
-            <span class="right">- from the Wrath & Glory Corerules -</span>
+            <span class="right">- from the Wrath &quot; Glory Corerules -</span>
           </blockquote>
         </div>
 
@@ -100,12 +103,14 @@
 
     </v-card-text>
 
+    <v-divider v-if="chooseMode"></v-divider>
     <v-card-actions v-if="chooseMode">
-      <v-btn color="green" block @click="$emit('select', species);">
-        Select Species
-      </v-btn>
-      <v-btn color="red"  block @click="$emit('cancel')">
+      <v-btn outlined color="red" left @click="$emit('cancel')">
         Cancel
+      </v-btn>
+      <v-spacer/>
+      <v-btn color="green" right @click="$emit('select', species);">
+        Select Species
       </v-btn>
     </v-card-actions>
   </v-card>

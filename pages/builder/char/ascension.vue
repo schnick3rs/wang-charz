@@ -1,6 +1,6 @@
 <template lang="html">
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
     <v-dialog
       v-model="dialog"
@@ -19,8 +19,8 @@
     </v-dialog>
 
     <!-- selected ascension -->
-    <v-flex
-      xs12
+    <v-col
+      :cols="12"
       v-if="characterAscensionPackages.length > 0"
     >
 
@@ -33,15 +33,15 @@
         <v-card-title primary-title>
           <div>
             <div class="headline">{{ characterAscension.name }}</div>
-            <span class="grey--text">{{ characterAscension.teaser }}</span>
+            <span class="subtitle-1 grey--text">{{ characterAscension.teaser }}</span>
           </div>
           <div>
             <v-btn
-              flat
+              small outlined
               color="red"
               @click="removePackage(characterAscension)"
             >
-              <v-icon>remove_circle</v-icon>
+              <v-icon left>remove_circle</v-icon>
               remove package
             </v-btn>
           </div>
@@ -154,10 +154,10 @@
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
     <!--  -->
-    <v-flex>
+    <v-col>
       <h1 class="headline">Select an Ascension Package</h1>
 
       <v-alert
@@ -167,18 +167,18 @@
         :type="alert.type"
       >{{alert.text}}</v-alert>
 
-    </v-flex>
+    </v-col>
 
     <!-- ascension options -->
-    <v-flex
-      xs12
+    <v-col
+      :cols="12"
       v-if="alerts.length === 0"
     >
       <v-card>
 
         <v-list>
 
-          <v-list-tile
+          <v-list-item
             two-line
             v-for="item in ascensionRepository"
             :key="item.key"
@@ -186,32 +186,32 @@
             @click.stop="openDialog(item)"
           >
 
-            <v-list-tile-avatar tile>
+            <v-list-item-avatar tile>
               <img />
-            </v-list-tile-avatar>
+            </v-list-item-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{item.name}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{item.teaser}}</v-list-tile-sub-title>
-            </v-list-tile-content>
+            <v-list-item-content>
+              <v-list-item-title>{{item.name}}</v-list-item-title>
+              <v-list-item-sub-title>{{item.teaser}}</v-list-item-sub-title>
+            </v-list-item-content>
 
-            <v-list-tile-action>
+            <v-list-item-action>
               <v-btn dense icon>
                 <v-icon color="primary">arrow_forward_ios</v-icon>
               </v-btn>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-          </v-list-tile>
+          </v-list-item>
 
         </v-list>
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
 
 
-  </v-layout>
+  </v-row>
 
 </template>
 
