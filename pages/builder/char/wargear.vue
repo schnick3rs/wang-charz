@@ -13,7 +13,7 @@
       >
 
         <v-card-title>
-          <span class="mb-0">{{ gear.name }}</span>
+          <span class="subtitle-1 mb-0">{{ gear.name }}</span>
         </v-card-title>
 
         <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query">
@@ -79,7 +79,7 @@
           </v-list-item-content>
 
           <v-list-item-action>
-            <v-btn flat small color="red" @click="remove(gear)">Remove</v-btn>
+            <v-btn text small color="red" @click="remove(gear)">Remove</v-btn>
           </v-list-item-action>
 
         </v-list-item>

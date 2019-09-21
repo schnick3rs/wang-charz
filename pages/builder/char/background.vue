@@ -15,7 +15,7 @@
           </div>
           <div>
             <v-btn
-              flat
+              text
               color="red"
               @click="removeBackground(characterBackground)"
             >

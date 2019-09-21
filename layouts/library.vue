@@ -8,7 +8,7 @@
       :clipped-left="toolbar.clippedLeft"
     >
       <v-toolbar-items>
-        <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
+        <v-btn text small nuxt to="/">Doctors of Doom</v-btn>
       </v-toolbar-items>
 
       <v-toolbar-title >
@@ -26,8 +26,8 @@
 
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
-          <v-btn flat small nuxt to="/library/wargear/weapons">Weapons</v-btn>
-          <v-btn flat small nuxt to="/library/wargear/armour">Armour</v-btn>
+          <v-btn text small nuxt to="/library/wargear/weapons">Weapons</v-btn>
+          <v-btn text small nuxt to="/library/wargear/armour">Armour</v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
