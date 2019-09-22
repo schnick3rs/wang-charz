@@ -70,12 +70,12 @@
           <template v-slot:items="props">
             <tr v-on:click="toggle(props)">
               <td>
-                <p class="mb-0 body-1">{{ props.item.name }}</p>
-                <p class="mb-0 grey--text">{{ toTypeString(props.item) }}</p>
+                <p class="mb-0 body-1">{{ item.name }}</p>
+                <p class="mb-0 grey--text">{{ toTypeString(item) }}</p>
               </td>
-              <td class="text-xs-right hidden-xs-only">{{ props.item.value }}</td>
-              <td class="hidden-xs-only">{{ props.item.rarity }}</td>
-              <td class="hidden-sm-and-down">{{ props.item.keywords.join(', ') }}</td>
+              <td class="text-xs-right hidden-xs-only">{{ item.value }}</td>
+              <td class="hidden-xs-only">{{ item.rarity }}</td>
+              <td class="hidden-sm-and-down">{{ item.keywords.join(', ') }}</td>
               <td>
                 <v-icon v-if="props.expanded">expand_more</v-icon>
                 <v-icon v-else>chevron_right</v-icon>
@@ -86,18 +86,18 @@
           <template v-slot:expand="props">
             <v-card>
               <v-card-text>
-                <p>{{props.item.hint}}</p>
+                <p>{{item.hint}}</p>
 
-                <div v-if="props.item.meta && props.item.meta.find(i=>['ranged-weapon','melee-weapon'].includes(i.type))">
+                <div v-if="item.meta && item.meta.find(i=>['ranged-weapon','melee-weapon'].includes(i.type))">
 
                   <v-data-table
                     v-bind:headers="weaponHeaders"
-                    v-bind:items="props.item.meta.filter(i=>['ranged-weapon','melee-weapon'].includes(i.type))"
+                    v-bind:items="item.meta.filter(i=>['ranged-weapon','melee-weapon'].includes(i.type))"
                     disable-initial-sort
                     hide-actions
                   >
                     <template v-slot:items="meta">
-                        <td class="text-xs-left">{{ props.item.name }}</td>
+                        <td class="text-xs-left">{{ item.name }}</td>
                         <td class="text-center">
                           <div v-if="meta.item.damage">
                             <span>{{ meta.item.damage.static }}</span>

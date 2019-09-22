@@ -5,9 +5,9 @@
     <div class="page page--din-a-4">
 
       <!-- grid list with low margin -->
-      <v-container grid-list-xs>
+      <v-container>
 
-        <v-row justify-center wrap row>
+        <v-row justify="center" no-gutters>
 
           <v-col v-bind:cols="12">
 
@@ -19,9 +19,9 @@
           </v-col>
 
           <!-- attributes and traits -->
-          <v-col xs4>
+          <v-col v-bind:cols="4">
 
-            <v-col v-bind:cols="12">
+            <v-col v-bind:cols="12" class="pa-1">
 
               <v-card>
 
@@ -29,27 +29,28 @@
                   <v-toolbar-title>Attributes</v-toolbar-title>
                 </v-toolbar>
 
-                <v-data-table
-                  :headers="attributeHeaders"
-                  :items="attributes"
-                  hide-footer
-                  hide-actions
+                <v-simple-table
+                  dense
                 >
-                  <template v-slot:items="props">
+                  <thead>
                     <tr>
-                      <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                      <td class="text-center pa-1 small">{{ props.item.value }}</td>
-
-                      <td class="text-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <th v-for="header in attributeHeaders">{{ header.text }}</th>
                     </tr>
-                  </template>
-                </v-data-table>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in attributes">
+                      <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                      <td class="text-center pa-1 small">{{ item.value }}</td>
+                      <td class="text-center pa-1 small">{{ item.enhancedValue }}</td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
 
               </v-card>
 
             </v-col>
 
-            <v-col v-bind:cols="12">
+            <v-col v-bind:cols="12"  class="pa-1">
 
               <v-card>
 
@@ -57,41 +58,34 @@
                   <v-toolbar-title>Traits</v-toolbar-title>
                 </v-toolbar>
 
-                <v-data-table
+                <v-simple-table
                   :headers="traitHeaders"
                   :items="groupedTraits"
-                  hide-footer
-                  hide-headers
-                  hide-actions
+                  dense
                 >
-                  <template v-slot:items="props">
-                    <tr v-if="['Defence', 'Conviction', 'Influence'].includes(props.item.name)">
-                      <td v-if="props.item.name==='Defence'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Combat Traits</td>
-                      <td v-if="props.item.name==='Conviction'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Mental Traits</td>
-                      <td v-if="props.item.name==='Influence'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Social Traits</td>
-                    </tr>
-                    <tr>
+                  <tbody>
+                    <tr v-for="item in groupedTraits">
                       <td class="text-xs-left pa-1 small">
-                        <span>{{ props.item.name }}</span>
-                        <span v-if="props.item.name === 'Wounds'" style="float: right;">
-                          {{ '☐'.repeat( Math.ceil(props.item.enhancedValue/2) ) }}
+                        <span>{{ item.name }}</span>
+                        <span v-if="item.name === 'Wounds'" style="float: right;">
+                          {{ '☐'.repeat( Math.ceil(item.enhancedValue/2) ) }}
                           •
-                          {{ '☐'.repeat( Math.floor(props.item.enhancedValue/2) ) }}
+                          {{ '☐'.repeat( Math.floor(item.enhancedValue/2) ) }}
                         </span>
-                        <span v-if="props.item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(props.item.enhancedValue) }}</span>
-                        <em v-if="props.item.name==='Resilience' && armour.length>0">
+                        <span v-if="item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
+                        <em v-if="item.name==='Resilience' && armour.length>0">
                           @{{armour[0].name}} ({{ armour[0].meta[0].armourRating }})
                         </em>
                       </td>
-                      <td v-if="props.item.name==='Resilience'" class="text-center pa-1 small">
-                        {{ props.item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
+                      <td v-if="item.name==='Resilience'" class="text-center pa-1 small">
+                        {{ item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
                       </td>
                       <td v-else class="text-center pa-1 small">
-                        {{ props.item.enhancedValue }}
+                        {{ item.enhancedValue }}
                       </td>
                     </tr>
-                  </template>
-                </v-data-table>
+                  </tbody>
+                </v-simple-table>
 
                 <v-data-table v-if="false"
                   :headers="traitHeaders"
@@ -101,8 +95,8 @@
                 >
                   <template v-slot:items="props">
                     <tr>
-                      <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                      <td class="text-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                      <td class="text-center pa-1 small">{{ item.enhancedValue }}</td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -115,8 +109,8 @@
                 >
                   <template v-slot:items="props">
                     <tr>
-                      <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                      <td class="text-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                      <td class="text-center pa-1 small">{{ item.enhancedValue }}</td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -129,8 +123,8 @@
                 >
                   <template v-slot:items="props">
                     <tr>
-                      <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                      <td class="text-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                      <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                      <td class="text-center pa-1 small">{{ item.enhancedValue }}</td>
                     </tr>
                   </template>
                 </v-data-table>
@@ -142,30 +136,32 @@
           </v-col>
 
           <!-- skills -->
-          <v-col xs4>
+          <v-col v-bind:cols="4">
 
-            <v-col v-bind:cols="12">
+            <v-col v-bind:cols="12" class="pa-1">
             <v-card>
 
               <v-toolbar color="red" dark dense height="32">
                 <v-toolbar-title>Skills</v-toolbar-title>
               </v-toolbar>
 
-              <v-data-table
-                :headers="skillHeaders"
-                :items="skills"
-                hide-footer
-                hide-actions
+              <v-simple-table
+                dense
               >
-                <template v-slot:items="props">
+                <thead>
                   <tr>
-                    <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-center pa-1 small">{{ props.item.value }}</td>
-                    <td class="text-center pa-1 small">{{ props.item.attribute.substring(0,3) }}</td>
-                    <td class="text-center pa-1 small">{{ computeSkillPool(props.item) }}</td>
+                    <th v-for="header in skillHeaders">{{ header.text }}</th>
                   </tr>
-                </template>
-              </v-data-table>
+                </thead>
+                <tbody>
+                  <tr v-for="item in skills">
+                    <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                    <td class="text-center pa-1 small">{{ item.value }}</td>
+                    <td class="text-center pa-1 small">{{ item.attribute.substring(0,3) }}</td>
+                    <td class="text-center pa-1 small">{{ computeSkillPool(item) }}</td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
 
             </v-card>
 
@@ -174,9 +170,9 @@
           </v-col>
 
           <!-- abilities -->
-          <v-col xs4>
+          <v-col v-bind:cols="4">
 
-            <v-col v-bind:cols="12">
+            <v-col v-bind:cols="12" class="pa-1">
 
               <v-card>
 
@@ -192,7 +188,7 @@
 
             </v-col>
 
-            <v-col v-bind:cols="12" v-if="talents.length > 0">
+            <v-col v-bind:cols="12" class="pa-1" v-if="talents.length > 0">
 
               <v-card>
 
@@ -208,7 +204,7 @@
 
             </v-col>
 
-            <v-col v-bind:cols="12" v-if="gear.length > 0">
+            <v-col v-bind:cols="12" class="pa-1" v-if="gear.length > 0">
 
               <v-card>
 
@@ -237,32 +233,31 @@
               <v-data-table
                 :headers="weaponHeaders"
                 :items="weapons"
-                hide-footer
-                hide-actions
+                hide-default-footer
               >
-                <template v-slot:items="props">
+                <template v-slot:item="{ item }">
                   <tr>
-                    <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
+                    <td class="text-xs-left pa-1 small">{{ item.name }}</td>
                     <td class="text-center pa-1 small">
-                      <div v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].damage">
-                        <span v-if="props.item.type==='Melee Weapon'">{{ props.item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
-                        <span v-else>{{ props.item.meta[0].damage.static }}</span>
+                      <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
+                        <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
+                        <span v-else>{{ item.meta[0].damage.static }}</span>
                         <span> + </span>
-                        <span>{{ props.item.meta[0].damage.ed }} ED</span>
+                        <span>{{ item.meta[0].damage.ed }} ED</span>
                       </div>
                     </td>
                     <td class="text-center pa-1 small">
-                      <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].ap }}</span>
+                      <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
                     </td>
                     <td class="text-center pa-1 small">
-                      <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].salvo < 0 ? '-' : props.item.meta[0].salvo }}</span>
+                      <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo < 0 ? '-' : item.meta[0].salvo }}</span>
                     </td>
                     <td class="text-center pa-1 small">
-                      <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].range > 1">{{ props.item.meta[0].range }} m</span>
-                      <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].range === 1">melee</span>
+                      <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
+                      <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
                     </td>
                     <td class="text-xs-left pa-1 small">
-                      <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
+                      <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
                     </td>
                   </tr>
                 </template>
@@ -281,15 +276,15 @@
     <div class="page page--din-a-4">
 
       <!-- grid list with low margin -->
-      <v-container grid-list-xs>
+      <v-container>
 
-        <v-row justify-center wrap row>
+        <v-row justify="center" no-gutters>
 
           <v-col v-bind:cols="12">
 
-            <v-row justify-left wrap row>
+            <v-row justify="left" no-gutters>
 
-              <v-col xs6 v-if="gear.length > 0">
+              <v-col v-bind:cols="6" class="pa-1" v-if="gear.length > 0">
 
                 <v-card>
 
@@ -305,7 +300,7 @@
 
               </v-col>
 
-              <v-col xs6 v-if="talents.length > 0">
+              <v-col v-bind:cols="6" class="pa-1" v-if="talents.length > 0">
 
                 <v-card>
 
@@ -325,7 +320,7 @@
 
           </v-col>
 
-          <v-col v-bind:cols="12">
+          <v-col v-bind:cols="12" class="pa-1">
 
             <v-card v-if="psychicPowers.length > 0">
 
@@ -336,18 +331,17 @@
               <v-data-table
                 :headers="psychicPowersHeaders"
                 :items="psychicPowers"
-                hide-footer
-                hide-actions
+                hide-default-footer
               >
-                <template v-slot:items="props">
+                <template v-slot:item="{ item }">
                   <tr>
-                    <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-center pa-1 small">{{ props.item.crunch_difficulty_number }}</td>
-                    <td class="text-center pa-1 small">{{ props.item.crunch_activation }}</td>
-                    <td class="text-center pa-1 small">{{ props.item.crunch_duration }}</td>
-                    <td class="text-center pa-1 small">{{ props.item.crunch_range }}</td>
-                    <td class="text-center pa-1 small">{{ props.item.crunch_multi_target }}</td>
-                    <td class="text-xs-left pa-1 small">{{ props.item.effect }}</td>
+                    <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_difficulty_number }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_activation }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_duration }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_range }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_multi_target }}</td>
+                    <td class="text-xs-left pa-1 small">{{ item.effect }}</td>
                   </tr>
                 </template>
               </v-data-table>
@@ -358,9 +352,9 @@
 
           <v-col v-bind:cols="12">
 
-            <v-row justify-center wrap row>
+            <v-row justify="center" no-gutters>
 
-              <v-col xs4>
+              <v-col v-bind:cols="4" class="pa-1">
 
                 <v-card height="100%" class="flexcard">
 
@@ -380,7 +374,7 @@
 
               </v-col>
 
-              <v-col xs4>
+              <v-col v-bind:cols="4" class="pa-1">
 
                 <v-card height="100%" class="flexcard">
 
@@ -399,7 +393,7 @@
 
               </v-col>
 
-              <v-col xs4>
+              <v-col v-bind:cols="4" class="pa-1">
 
                 <v-card height="100%" class="flexcard">
 
@@ -685,7 +679,7 @@ export default {
   }
 
   td.small {
-    height: 24px;
+    font-size: 12px;
   }
 
   .sexy_line{

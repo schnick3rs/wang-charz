@@ -55,14 +55,14 @@
           >
             <template v-slot:items="props">
               <tr>
-                <td>{{ props.item.name }}</td>
-                <td>{{ props.item.subtype }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.subtype }}</td>
                 <td class="text-lg-center">
-                  <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].armourRating }}</span>
+                  <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].armourRating }}</span>
                 </td>
-                <td>{{ toTraitString(props.item) }}</td>
-                <td>{{ props.item.value }} {{ props.item.rarity }}</td>
-                <td>{{ props.item.keywords.join(', ') }}</td>
+                <td>{{ toTraitString(item) }}</td>
+                <td>{{ item.value }} {{ item.rarity }}</td>
+                <td>{{ item.keywords.join(', ') }}</td>
               </tr>
             </template>
 

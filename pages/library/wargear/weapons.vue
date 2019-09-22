@@ -55,29 +55,29 @@
         >
           <template v-slot:items="props">
             <tr>
-              <td>{{ props.item.name }}</td>
-              <td>{{ props.item.subtype }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.subtype }}</td>
               <td class="text-sm-center">
-                <div v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].damage">
-                  <span v-if="props.item.type==='Melee Weapon'">{{ props.item.meta[0].damage.static }}*</span>
-                  <span v-else>{{ props.item.meta[0].damage.static }}</span>
+                <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
+                  <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static }}*</span>
+                  <span v-else>{{ item.meta[0].damage.static }}</span>
                   <span> + </span>
-                  <span>{{ props.item.meta[0].damage.ed }} ED</span>
+                  <span>{{ item.meta[0].damage.ed }} ED</span>
                 </div>
               </td>
               <td class="text-sm-center">
-                <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].ap }}</span>
+                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
               </td>
               <td class="text-sm-center">
-                <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].salvo }}</span>
+                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo }}</span>
               </td>
               <td class="text-sm-center">
-                <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].range }} m</span>
+                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].range }} m</span>
               </td>
               <td>
-                <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
+                <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
               </td>
-              <td>{{ props.item.keywords.join(', ') }}</td>
+              <td>{{ item.keywords.join(', ') }}</td>
             </tr>
           </template>
 

@@ -11,12 +11,12 @@
       <template v-slot:item="props">
         <v-breadcrumbs-item
           :nuxt="true"
-          :to="props.item.to"
-          :disabled="props.item.disabled"
-          :exact="props.item.exact"
+          :to="item.to"
+          :disabled="item.disabled"
+          :exact="item.exact"
         >
-          <img v-if="props.item.to == '/'" src="/favicon-16x16.png" />
-          {{ props.item.text }}
+          <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+          {{ item.text }}
         </v-breadcrumbs-item>
       </template>
 
@@ -331,7 +331,7 @@ export default {
       }
     },
     toggle(props) {
-      this.$ga.event('Vault Row', 'expand', props.item.title, 1);
+      this.$ga.event('Vault Row', 'expand', item.title, 1);
       props.expanded = !props.expanded;
     },
     trackEvent(url) {
