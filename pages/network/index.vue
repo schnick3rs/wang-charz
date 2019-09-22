@@ -34,7 +34,8 @@
       <v-col
         v-for="item in assets"
         v-bind:key="item.name"
-        v-bind:cols="5"
+        v-bind:cols="11"
+        v-bind:sm="5"
       >
 
         <v-card>
