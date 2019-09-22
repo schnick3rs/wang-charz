@@ -5,26 +5,26 @@
     <v-row justify="center">
       <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
 
-      <v-breadcrumbs
-        v-bind:items="breadcrumbItems"
-      >
-        <template v-slot:item="props">
-          <v-breadcrumbs-item
-            :nuxt="true"
-            :to="item.to"
-            :disabled="item.disabled"
-            :exact="item.exact"
-          >
-            <img v-if="item.to == '/'" src="/favicon-16x16.png" />
-            {{ item.text }}
-          </v-breadcrumbs-item>
-        </template>
+        <v-breadcrumbs
+          v-bind:items="breadcrumbItems"
+        >
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item
+              :nuxt="true"
+              :to="item.to"
+              :disabled="item.disabled"
+              :exact="item.exact"
+            >
+              <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+              {{ item.text }}
+            </v-breadcrumbs-item>
+          </template>
 
-        <template v-slot:divider>
-          <v-icon>mdi-chevron-right</v-icon>
-        </template>
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-right</v-icon>
+          </template>
 
-      </v-breadcrumbs>
+        </v-breadcrumbs>
 
       </v-col>
     </v-row>
@@ -74,6 +74,22 @@
           <v-card-actions>
           </v-card-actions>
 
+        </v-card>
+
+      </v-col>
+
+      <v-col :cols="11">
+
+        <v-card>
+          <v-card-text>
+            <h1>Character Sheets for Wrath and Glory</h1>
+            <p>
+              Your currently will find fan-made character sheets. We will add and link to other
+              resources like community pages, reference sheets and roleplaying hooks in the future.
+              If you want to add your page assets or other stuff, reach out to via
+              <a href="mailto:docsofdoom+network@gmail.com?subject=Network Request">docsofdoom+network(at)gmail.com</a>.
+            </p>
+          </v-card-text>
         </v-card>
 
       </v-col>

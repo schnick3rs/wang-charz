@@ -38,30 +38,30 @@
 
     <v-card-actions>
 
-        <v-row align-center justify-center >
+        <v-row justify="center" >
 
-          <v-col xs2 >
+          <v-col :cols="2" >
             <v-select
               :items="[currentCharacterTier]"
               :value="currentCharacterTier"
               label="Current Tier"
-              dense
+              dense outlined
               disabled
               readonly
             ></v-select>
           </v-col>
 
-          <v-col xs2 offset-xs1 class="align-center justify-center">
+          <v-col :cols="2" justify="center" style="text-align:center;">
             <v-avatar size="32" color="primary" >
               <v-icon color="white">arrow_forward</v-icon>
             </v-avatar>
           </v-col>
 
-          <v-col xs2>
+          <v-col cols="2">
             <v-select
               :items="targetTierOptions"
               v-model="targetTier"
-              dense
+              dense outlined
               label="Target Tier"
             ></v-select>
           </v-col>

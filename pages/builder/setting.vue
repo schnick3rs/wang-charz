@@ -11,7 +11,7 @@
         label="Character Name"
         v-bind:value="characterName"
         v-on:input="setCharacterName"
-        dense
+        dense filled
       />
 
       <h1 class="headline">Framework</h1>
@@ -21,7 +21,7 @@
         label="Select a fitting tier"
         :value="settingTier"
         :items="tierSelect.options"
-        dense
+        dense filled
         @change="setSettingTier"
       />
 
@@ -33,7 +33,7 @@
         item-text="name"
         item-value="name"
         dense
-        box
+        filled
         multiple
         chips
         deletable-chips

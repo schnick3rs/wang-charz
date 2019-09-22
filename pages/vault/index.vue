@@ -5,26 +5,26 @@
   <v-row justify="center">
     <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
 
-    <v-breadcrumbs
-      v-bind:items="breadcrumbItems"
-    >
-      <template v-slot:item="props">
-        <v-breadcrumbs-item
-          :nuxt="true"
-          :to="item.to"
-          :disabled="item.disabled"
-          :exact="item.exact"
-        >
-          <img v-if="item.to == '/'" src="/favicon-16x16.png" />
-          {{ item.text }}
-        </v-breadcrumbs-item>
-      </template>
+      <v-breadcrumbs
+        v-bind:items="breadcrumbItems"
+      >
+        <template v-slot:item="{ item }">
+          <v-breadcrumbs-item
+            :nuxt="true"
+            :to="item.to"
+            :disabled="item.disabled"
+            :exact="item.exact"
+          >
+            <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+            {{ item.text }}
+          </v-breadcrumbs-item>
+        </template>
 
-      <template v-slot:divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
+        <template v-slot:divider>
+          <v-icon>mdi-chevron-right</v-icon>
+        </template>
 
-    </v-breadcrumbs>
+      </v-breadcrumbs>
 
     </v-col>
   </v-row>
@@ -106,7 +106,7 @@
           </template>
 
           <template v-slot:item.keywords="{ item }">
-            <v-chip v-for="keyword in item.keywords" :key="keyword" small class="mr-2">{{ keyword }}</v-chip>
+            <v-chip v-for="keyword in item.keywords" :key="keyword" small class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
           </template>
 
           <template v-slot:item.actions="{ item }">
