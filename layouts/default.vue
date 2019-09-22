@@ -1,26 +1,33 @@
 <template>
+  
   <v-app>
-    <v-toolbar
+
+    <v-app-bar
       app
-      dense
       dark
+      dense
+      style="background-color: #212121;"
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
+
       <v-toolbar-items>
-        <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
+        <v-btn icon nuxt to="/"><v-icon>home</v-icon></v-btn>
       </v-toolbar-items>
+
+      <v-toolbar-title class="pl-4">Doctors of Doom</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-
+        <v-btn icon nuxt to="/about"><v-icon>help</v-icon></v-btn>
       </v-toolbar-items>
-    </v-toolbar>
+
+    </v-app-bar>
 
     <v-content>
 
-      <v-container grid-list-md>
+      <v-container>
         <nuxt />
       </v-container>
 
@@ -32,9 +39,9 @@
 </template>
 
 <script>
-  import DefaultFooter from '~/components/DefaultFooter';
+import DefaultFooter from '~/components/DefaultFooter';
 
-  export default {
+export default {
   components: { DefaultFooter },
   head() {
     return {

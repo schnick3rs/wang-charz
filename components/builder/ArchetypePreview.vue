@@ -8,15 +8,15 @@
           {{ item.name }}
           <v-btn
             v-if="manageMode"
-            flat
+            text outlined small
             color="primary"
             @click="$emit('change')"
           >
-            <v-icon>settings</v-icon>
+            <v-icon left>settings</v-icon>
             change archetype
           </v-btn>
         </h3>
-        <span class="grey--text">{{ item.hint }}</span>
+        <span class="subtitle-1 grey--text">{{ item.hint }}</span>
       </div>
       <v-spacer></v-spacer>
       <div class="hidden-xs-only">
@@ -24,7 +24,9 @@
       </div>
     </v-card-title>
 
-    <v-card-text>
+    <v-divider></v-divider>
+
+    <v-card-text class="pt-4">
       <p class="text-lg-justify"><strong>Build Point Cost:</strong> {{ item.cost }}</p>
 
       <span class="mt-2 grey--text">Prerequisites</span>
@@ -108,9 +110,11 @@
 
     </v-card-text>
 
+    <v-divider v-if="chooseMode"></v-divider>
     <v-card-actions v-if="chooseMode">
-      <v-btn block color="green" @click="$emit('select', item)" >Select Archetype</v-btn>
-      <v-btn block color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-spacer />
+      <v-btn right color="green" @click="$emit('select', item)" >Select Archetype</v-btn>
     </v-card-actions>
   </v-card>
 

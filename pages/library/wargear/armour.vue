@@ -21,27 +21,27 @@
       </ul>
     </div>
 
-    <v-layout justify-center row wrap>
+    <v-row justify-center row wrap>
 
-      <v-flex xs12>
+      <v-col v-bind:cols="12">
         <v-card>
           <v-card-text>
-            <v-layout justify-center row wrap>
-              <v-flex xs12 sm6>
+            <v-row justify-center row wrap>
+              <v-col v-bind:cols="12" sm6>
                 <v-text-field
                   v-model="searchQuery"
                   box
                   dense
                   clearable
                   label="Search"></v-text-field>
-              </v-flex>
+              </v-col>
 
-            </v-layout>
+            </v-row>
           </v-card-text>
         </v-card>
-      </v-flex>
+      </v-col>
 
-      <v-flex xs12>
+      <v-col v-bind:cols="12">
         <v-card>
           <v-data-table
             v-bind:headers="headers"
@@ -55,28 +55,28 @@
           >
             <template v-slot:items="props">
               <tr>
-                <td>{{ props.item.name }}</td>
-                <td>{{ props.item.subtype }}</td>
+                <td>{{ item.name }}</td>
+                <td>{{ item.subtype }}</td>
                 <td class="text-lg-center">
-                  <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].armourRating }}</span>
+                  <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].armourRating }}</span>
                 </td>
-                <td>{{ toTraitString(props.item) }}</td>
-                <td>{{ props.item.value }} {{ props.item.rarity }}</td>
-                <td>{{ props.item.keywords.join(', ') }}</td>
+                <td>{{ toTraitString(item) }}</td>
+                <td>{{ item.value }} {{ item.rarity }}</td>
+                <td>{{ item.keywords.join(', ') }}</td>
               </tr>
             </template>
 
           </v-data-table>
 
-          <div class="text-xs-center pt-2">
+          <div class="text-center pt-2">
             <v-pagination v-model="pagination.page" :length="pages" />
           </div>
 
         </v-card>
 
-      </v-flex>
+      </v-col>
 
-      <v-flex xs12>
+      <v-col v-bind:cols="12">
 
         <v-card>
 
@@ -88,9 +88,9 @@
 
         </v-card>
 
-      </v-flex>
+      </v-col>
 
-    </v-layout>
+    </v-row>
 
   </div>
 

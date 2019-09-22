@@ -1,8 +1,8 @@
 <template lang="html">
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
-    <v-flex xs12>
+    <v-col :cols="12">
 
       <h1 class="headline">Character</h1>
       <p>Some Notes on the character</p>
@@ -11,8 +11,7 @@
         label="Character Name"
         v-bind:value="characterName"
         v-on:input="setCharacterName"
-        box
-        dense
+        dense filled
       />
 
       <h1 class="headline">Framework</h1>
@@ -22,8 +21,7 @@
         label="Select a fitting tier"
         :value="settingTier"
         :items="tierSelect.options"
-        box
-        dense
+        dense filled
         @change="setSettingTier"
       />
 
@@ -35,7 +33,7 @@
         item-text="name"
         item-value="name"
         dense
-        box
+        filled
         multiple
         chips
         deletable-chips
@@ -85,30 +83,33 @@
 
       <v-card-actions>
         <v-btn
-          block
-          color="green"
-          @click="applySetting()"
-        >
-          Select Setting
-        </v-btn>
-        <v-btn
-          block
+          left
+          outlined
           color="red"
           @click="clearState()"
         >
           Fresh Character
         </v-btn>
-      </v-card-actions>
-    </v-flex>
+        <v-spacer/>
+        <v-btn
+          right
+          color="green"
+          @click="applySetting()"
+        >
+          Select Setting
+        </v-btn>
 
-    <v-flex
+      </v-card-actions>
+    </v-col>
+
+    <v-col
       v-if="false"
       v-for="item in settingTemplateOptions"
       :key="item.name"
-      xs12
-      sm6
-      md4
-      lg2
+      :cols="12"
+      :sm="6"
+      :md="4"
+      :lg="2"
     >
       <v-card>
         <v-img v-if="false" :src="item.cover" height="150" />
@@ -124,16 +125,18 @@
           <v-btn>Select</v-btn>
         </v-card-actions>
       </v-card>
-    </v-flex>
-  </v-layout>
+    </v-col>
+
+  </v-row>
+
 </template>
 
 <script lang="js">
-  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import { mapGetters } from 'vuex';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import { mapGetters } from 'vuex';
 
-  export default {
+export default {
   name: 'Setting',
   layout: 'builder',
   mixins: [SpeciesRepositoryMixin, ArchetypeRepositoryMixin],

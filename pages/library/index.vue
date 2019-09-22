@@ -13,17 +13,17 @@
       </ul>
     </div>
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
 
         <v-card-text>
 
-          <v-layout justify-center row wrap>
+          <v-row justify-center row wrap>
 
-            <v-flex xs12 >
+            <v-col v-bind:cols="12" >
 
               <v-text-field
                 v-model="searchQuery"
@@ -31,9 +31,9 @@
                 dense
                 clearable
                 label="Search"></v-text-field>
-            </v-flex>
+            </v-col>
 
-            <v-flex xs12>
+            <v-col v-bind:cols="12">
 
               <v-chip
                 v-for="filter in typeFilters"
@@ -45,17 +45,17 @@
               >
                 {{filter.name}}
               </v-chip>
-            </v-flex>
+            </v-col>
 
-          </v-layout>
+          </v-row>
 
         </v-card-text>
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
         <v-data-table
@@ -70,12 +70,12 @@
           <template v-slot:items="props">
             <tr v-on:click="toggle(props)">
               <td>
-                <p class="mb-0 body-1">{{ props.item.name }}</p>
-                <p class="mb-0 grey--text">{{ toTypeString(props.item) }}</p>
+                <p class="mb-0 body-1">{{ item.name }}</p>
+                <p class="mb-0 grey--text">{{ toTypeString(item) }}</p>
               </td>
-              <td class="text-xs-right hidden-xs-only">{{ props.item.value }}</td>
-              <td class="hidden-xs-only">{{ props.item.rarity }}</td>
-              <td class="hidden-sm-and-down">{{ props.item.keywords.join(', ') }}</td>
+              <td class="text-xs-right hidden-xs-only">{{ item.value }}</td>
+              <td class="hidden-xs-only">{{ item.rarity }}</td>
+              <td class="hidden-sm-and-down">{{ item.keywords.join(', ') }}</td>
               <td>
                 <v-icon v-if="props.expanded">expand_more</v-icon>
                 <v-icon v-else>chevron_right</v-icon>
@@ -86,19 +86,19 @@
           <template v-slot:expand="props">
             <v-card>
               <v-card-text>
-                <p>{{props.item.hint}}</p>
+                <p>{{item.hint}}</p>
 
-                <div v-if="props.item.meta && props.item.meta.find(i=>['ranged-weapon','melee-weapon'].includes(i.type))">
+                <div v-if="item.meta && item.meta.find(i=>['ranged-weapon','melee-weapon'].includes(i.type))">
 
                   <v-data-table
                     v-bind:headers="weaponHeaders"
-                    v-bind:items="props.item.meta.filter(i=>['ranged-weapon','melee-weapon'].includes(i.type))"
+                    v-bind:items="item.meta.filter(i=>['ranged-weapon','melee-weapon'].includes(i.type))"
                     disable-initial-sort
                     hide-actions
                   >
                     <template v-slot:items="meta">
-                        <td class="text-xs-left">{{ props.item.name }}</td>
-                        <td class="text-xs-center">
+                        <td class="text-xs-left">{{ item.name }}</td>
+                        <td class="text-center">
                           <div v-if="meta.item.damage">
                             <span>{{ meta.item.damage.static }}</span>
                             <span v-if="meta.item.type==='melee-weapon'">*</span>
@@ -106,13 +106,13 @@
                             <span>{{ meta.item.damage.ed }} ED</span>
                           </div>
                         </td>
-                        <td class="text-xs-center">
+                        <td class="text-center">
                           <span>{{ meta.item.ap }}</span>
                         </td>
-                        <td class="text-xs-center">
+                        <td class="text-center">
                           <span>{{ meta.item.salvo < 0 ? '-' : meta.item.salvo }}</span>
                         </td>
-                        <td class="text-xs-center">
+                        <td class="text-center">
                           <span v-if="meta.item.range > 1">{{ meta.item.range }} m</span>
                           <span v-if="meta.item.range === 1">melee</span>
                         </td>
@@ -129,13 +129,13 @@
 
         </v-data-table>
 
-        <div class="text-xs-center pt-2">
+        <div class="text-center pt-2">
           <v-pagination v-model="pagination.page" :length="pages" />
         </div>
       </v-card>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
         <v-card-text>
@@ -146,8 +146,8 @@
         </v-card-text>
       </v-card>
 
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
   </div>
 
 

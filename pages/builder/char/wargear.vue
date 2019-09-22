@@ -1,8 +1,8 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
-    <v-flex xs12 v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0">
+    <v-col v-bind:cols="12" v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0">
 
       <h1 class="headline">Select starting Wargear</h1>
 
@@ -13,7 +13,7 @@
       >
 
         <v-card-title>
-          <span class="mb-0">{{ gear.name }}</span>
+          <span class="subtitle-1 mb-0">{{ gear.name }}</span>
         </v-card-title>
 
         <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query">
@@ -51,9 +51,9 @@
         @click="addWargearToCharacter(startingWargear.options)"
       >Add starting wargear</v-btn>
 
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <h1 class="headline">Manage Wargear</h1>
 
@@ -64,31 +64,31 @@
         v-if="characterWargear"
       >
 
-        <v-list-tile
+        <v-list-item
           v-for="gear in characterWargear"
           :key="gear.name"
         >
 
-          <v-list-tile-avatar tile>
+          <v-list-item-avatar tile>
             <img />
-          </v-list-tile-avatar>
+          </v-list-item-avatar>
 
-          <v-list-tile-content>
-            <v-list-tile-title>{{gear.name}}</v-list-tile-title>
-            <v-list-tile-sub-title>{{wargearSubtitle(gear)}}</v-list-tile-sub-title>
-          </v-list-tile-content>
+          <v-list-item-content>
+            <v-list-item-title>{{gear.name}}</v-list-item-title>
+            <v-list-item-subtitle>{{wargearSubtitle(gear)}}</v-list-item-subtitle>
+          </v-list-item-content>
 
-          <v-list-tile-action>
-            <v-btn flat small color="red" @click="remove(gear)">Remove</v-btn>
-          </v-list-tile-action>
+          <v-list-item-action>
+            <v-btn text small color="red" @click="remove(gear)">Remove</v-btn>
+          </v-list-item-action>
 
-        </v-list-tile>
+        </v-list-item>
 
       </v-list>
 
-    </v-flex>
+    </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 

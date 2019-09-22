@@ -1,10 +1,14 @@
 <template>
-  <v-footer :app="true" class="pa-2" dark>
+
+  <v-footer
+   app   
+   dark
+   class="font-weight-medium"
+  >
     <v-spacer></v-spacer>
-    <v-btn v-if="false" nuxt to="/private-policy">Private Policy</v-btn>
-    <v-btn nuxt to="/about">About</v-btn>
-    <div>&copy; {{ new Date().getFullYear() }} Doctors of Doom</div>
+    <span>&copy; {{ new Date().getFullYear() }} Doctors of Doom</span>
   </v-footer>
+
 </template>
 
 <script>

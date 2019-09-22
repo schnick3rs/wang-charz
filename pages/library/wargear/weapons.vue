@@ -21,27 +21,27 @@
       </ul>
     </div>
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
       <v-card>
         <v-card-text>
-          <v-layout justify-center row wrap>
-            <v-flex xs12 sm6>
+          <v-row justify-center row wrap>
+            <v-col v-bind:cols="12" sm6>
               <v-text-field
                 v-model="searchQuery"
                 box
                 dense
                 clearable
                 label="Search"></v-text-field>
-            </v-flex>
+            </v-col>
 
-          </v-layout>
+          </v-row>
         </v-card-text>
       </v-card>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
       <v-card>
         <v-data-table
           v-bind:headers="headers"
@@ -55,49 +55,49 @@
         >
           <template v-slot:items="props">
             <tr>
-              <td>{{ props.item.name }}</td>
-              <td>{{ props.item.subtype }}</td>
+              <td>{{ item.name }}</td>
+              <td>{{ item.subtype }}</td>
               <td class="text-sm-center">
-                <div v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].damage">
-                  <span v-if="props.item.type==='Melee Weapon'">{{ props.item.meta[0].damage.static }}*</span>
-                  <span v-else>{{ props.item.meta[0].damage.static }}</span>
+                <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
+                  <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static }}*</span>
+                  <span v-else>{{ item.meta[0].damage.static }}</span>
                   <span> + </span>
-                  <span>{{ props.item.meta[0].damage.ed }} ED</span>
+                  <span>{{ item.meta[0].damage.ed }} ED</span>
                 </div>
               </td>
               <td class="text-sm-center">
-                <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].ap }}</span>
+                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
               </td>
               <td class="text-sm-center">
-                <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].salvo }}</span>
+                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo }}</span>
               </td>
               <td class="text-sm-center">
-                <span v-if="props.item.meta && props.item.meta.length > 0">{{ props.item.meta[0].range }} m</span>
+                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].range }} m</span>
               </td>
               <td>
-                <span v-if="props.item.meta && props.item.meta.length > 0 && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
+                <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
               </td>
-              <td>{{ props.item.keywords.join(', ') }}</td>
+              <td>{{ item.keywords.join(', ') }}</td>
             </tr>
           </template>
 
         </v-data-table>
 
-        <div class="text-xs-center pt-2">
+        <div class="text-center pt-2">
           <v-pagination v-model="pagination.page" :length="pages" />
         </div>
       </v-card>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
         <v-card-text>
         </v-card-text>
       </v-card>
 
-    </v-flex>
-  </v-layout>
+    </v-col>
+  </v-row>
   </div>
 
 
