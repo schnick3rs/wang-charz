@@ -75,8 +75,7 @@
             <tr @click="toggle(props)">
               <td>
                 {{ props.item.title }}
-                <br/>
-                <span class="grey--text hidden-sm-and-up">{{props.item.hint}}</span>
+                <br/><span class="grey--text hidden-sm-and-up">{{props.item.hint}}</span>
               </td>
               <td>
                 <v-chip
