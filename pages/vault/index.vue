@@ -70,7 +70,7 @@
       <v-card>
         <v-data-table
           v-bind:headers="headers"
-          v-bind:items="vaultItems"
+          v-bind:items="searchResults"
           v-bind:expanded.sync="expanded"
           v-bind:search="searchQuery"
           sort-by="title"
