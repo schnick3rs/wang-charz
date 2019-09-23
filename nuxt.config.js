@@ -75,7 +75,7 @@ module.exports = {
     }],
     '@nuxtjs/sitemap',
     ['@nuxtjs/axios', {
-      baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+      //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
     }],
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
