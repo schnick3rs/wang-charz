@@ -35,6 +35,7 @@ module.exports = {
       },
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'stylesheet', href: '/css/roboto.css' },
+      { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' },
       {
         rel: 'preload', href: '/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
       },
@@ -43,6 +44,9 @@ module.exports = {
       },
       {
         rel: 'preload', href: '/fonts/KFOmCnqEu92Fr1Mu4mxK.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
+      },
+      {
+        rel: 'preload', href: '/fonts/materialdesignicons-webfont.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
       },
     ],
   },
@@ -66,7 +70,8 @@ module.exports = {
   */
   modules: [
     ['@nuxtjs/vuetify', {
-      //defaultAssets: false,
+      /* @see https://github.com/nuxt-community/vuetify-module#defaultassets */
+      defaultAssets: false
     }],
     '@nuxtjs/sitemap',
     ['@nuxtjs/axios', {
@@ -88,6 +93,9 @@ module.exports = {
         { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
       ],
     }],
+    ['@nuxtjs/pwa', {
+      manifest: false
+    }]
   ],
   /*
    * Sitemap module configuration
