@@ -34,20 +34,11 @@ module.exports = {
         rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png',
       },
       { rel: 'manifest', href: '/site.webmanifest' },
-      { rel: 'stylesheet', href: '/css/roboto.css' },
-      { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' },
-      {
-        rel: 'preload', href: '/fonts/flUhRq6tzZclQEJ-Vdg-IuiaDsNc.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
-      },
-      {
-        rel: 'preload', href: '/fonts/KFOlCnqEu92Fr1MmEU9fBBc4.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
-      },
-      {
-        rel: 'preload', href: '/fonts/KFOmCnqEu92Fr1Mu4mxK.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
-      },
-      {
-        rel: 'preload', href: '/fonts/materialdesignicons-webfont.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
-      },
+      { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' }, // ToDo Needed
+      { rel: 'preload', href: '/fonts/Material-Icons.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
+      { rel: 'preload', href: '/fonts/Roboto-Regular.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
+      { rel: 'preload', href: '/fonts/Roboto-Medium.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
+      { rel: 'preload', href: '/fonts/Roboto-Bold.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
     ],
   },
   /*
@@ -58,6 +49,7 @@ module.exports = {
   ** Global CSS
   */
   css: [
+    '@/assets/scss/config/_fonts.scss',
   ],
   /*
   ** Plugins to load before mounting the App
