@@ -107,6 +107,8 @@
 
       </v-col>
 
+      <issue-list :items="issues" />
+
     </v-row>
 
   </div>
@@ -116,12 +118,14 @@
 <script lang="js">
 import { mapGetters } from 'vuex';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import IssueList from '~/components/IssueList.vue';
 
 export default {
   name: 'Talents',
   layout: 'builder',
   props: [],
   mixins: [ StatRepositoryMixin ],
+  components: { IssueList },
   head() {
     return {
       title: 'Select Talents',
@@ -135,6 +139,11 @@ export default {
   },
   data() {
     return {
+      issues: [
+        'Allow to select specific "Acts of Faith".',
+        'Allow to pick a "Special Weapon", add it to the wargear and compute the cost accordingly.',
+        'Allow to pick "Augments", add them to the wargear and compute the cost accordingly.',
+      ],
       searchQuery: '',
       filterOnlyPrerequisites: false,
       headers: [

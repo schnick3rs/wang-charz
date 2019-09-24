@@ -428,6 +428,7 @@
 <script lang="js">
 import { mapGetters } from 'vuex';
 import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin.js';
 import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
@@ -436,6 +437,7 @@ export default {
   layout: 'print',
   mixins: [
     ArchetypeRepositoryMixin,
+    BackgroundRepositoryMixin,
     SpeciesRepositoryMixin,
     StatRepositoryMixin,
   ],
@@ -585,18 +587,24 @@ export default {
           a['source'] = this.archetype;
           abilities.push(a);
         });
-
       }
 
       // background abilities
       if ( this.charBackground ) {
-        let background = {
-          name: this.charBackground,
-          effect: '',
-          source: 'Background',
-        };
-        abilities.push(background);
+        const background = this.backgroundRepository
+          .filter((b) => b.name === this.charBackground)
+          .map((b) =>  {
+            return {
+              name: b.name,
+              effect: b.bonus,
+              source: 'Background'
+            };
+          });
+        abilities.push(background[0]);
       }
+
+      // other
+
 
       return abilities;
     },

@@ -99,19 +99,22 @@
 
     </v-col>
 
+     <issue-list :items="issues" />
+
   </v-row>
 
 </template>
 
 <script lang="js">
-  import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-  import BackgroundPreview from '~/components/builder/BackgroundPreview.vue';
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+import BackgroundPreview from '~/components/builder/BackgroundPreview.vue';
+import IssueList from '~/components/IssueList.vue';
 
-  export default {
+export default {
   name: 'Background',
   layout: 'builder',
   mixins: [ BackgroundRepositoryMixin ],
-  components: { BackgroundPreview },
+  components: { BackgroundPreview, IssueList },
   props: [],
   head() {
     return {
@@ -122,6 +125,10 @@
     return {
       dialog: false,
       dialogItem: undefined,
+      issues: [
+        'Add option to select specific keyword for "Keywords as a Background" Option',
+        'Allow to select a second background if the respective talent is chosen',
+      ]
     };
   },
   computed: {
