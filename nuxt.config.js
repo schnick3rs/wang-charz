@@ -34,7 +34,7 @@ module.exports = {
         rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png',
       },
       { rel: 'manifest', href: '/site.webmanifest' },
-      { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' }, // ToDo Needed
+      { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' },
       { rel: 'preload', href: '/fonts/Material-Icons.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
       { rel: 'preload', href: '/fonts/Roboto-Regular.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
       { rel: 'preload', href: '/fonts/Roboto-Medium.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
