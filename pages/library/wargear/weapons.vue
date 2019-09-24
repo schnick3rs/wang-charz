@@ -1,33 +1,16 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
   <div>
-    <div class="elevation-4 mb-4 p-0">
-      <ul class="v-breadcrumbs theme--light">
-        <li class="v-breadcrumbs__item">
-          <nuxt-link to="/" class="v-breadcrumbs__item"><img src="/favicon-16x16.png" /></nuxt-link>
-        </li>
-        <li class="v-breadcrumbs__divider">/</li>
-        <li class="v-breadcrumbs__item">
-          <nuxt-link to="/library" class="v-breadcrumbs__item">Library</nuxt-link>
-        </li>
-        <li class="v-breadcrumbs__divider">/</li>
-        <li class="v-breadcrumbs__item">
-          <nuxt-link to="/library/wargear" class="v-breadcrumbs__item">Wargear</nuxt-link>
-        </li>
-        <li class="v-breadcrumbs__divider">/</li>
-        <li class="v-breadcrumbs__item">
-          <nuxt-link to="/library/wargear/weapons" class="v-breadcrumbs__item--disabled v-breadcrumbs__item">Weapons</nuxt-link>
-        </li>
-      </ul>
-    </div>
 
-  <v-row justify-center row wrap>
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
-    <v-col v-bind:cols="12">
+  <v-row justify="center">
+
+    <v-col v-bind:cols="11">
       <v-card>
         <v-card-text>
           <v-row justify-center row wrap>
-            <v-col v-bind:cols="12" sm6>
+            <v-col v-bind:cols="12" :xs="6">
               <v-text-field
                 v-model="searchQuery"
                 box
@@ -41,7 +24,7 @@
       </v-card>
     </v-col>
 
-    <v-col v-bind:cols="12">
+    <v-col v-bind:cols="11">
       <v-card>
         <v-data-table
           v-bind:headers="headers"
@@ -53,7 +36,7 @@
           item-key="title"
           hide-actions
         >
-          <template v-slot:items="props">
+          <template v-slot:item="{ item }">
             <tr>
               <td>{{ item.name }}</td>
               <td>{{ item.subtype }}</td>
@@ -104,8 +87,10 @@
 </template>
 
 <script>
-export default {
-  components: {},
+  import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
+
+  export default {
+  components: { DodDefaultBreadcrumbs },
   head() {
     return {
       title: 'Weapons - Wrath & Glory Wargear Reference | Library',
@@ -150,6 +135,14 @@ export default {
   computed: {
     weapons() {
       return this.wargearRepository.filter( gear => ['Ranged Weapon', 'Melee Weapon'].includes(gear.type));
+    },
+    breadcrumbItems() {
+      return [
+        { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
+        { text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library' },
+        { text: 'Wargear', disabled: false, nuxt: true, exact: true, to: '/library/wargear' },
+        { text: 'Weapons', disabled: false, nuxt: true, exact: true, to: '/library/wargear/weapons' },
+      ];
     },
     searchResults() {
       let filteredResults = this.vaultItems;
