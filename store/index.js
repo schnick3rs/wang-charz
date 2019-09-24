@@ -429,13 +429,16 @@ export const mutations = {
     state.background = payload.name;
   },
   setBackgroundModifications(state, payload) {
-    state.enhancements = state.enhancements.filter(e => e.source !== 'background');
+    console.info(payload);
+    state.enhancements = state.enhancements.filter((e) => e.source !== payload.source);
 
     payload.modifications.forEach((item) => {
       state.enhancements.push(item);
     });
+    console.info(state.enhancements);
   },
   clearEnhancementsBySource(state, payload) {
-    state.enhancements = state.enhancements.filter(e => e.source !== payload.source);
+
+    state.enhancements = state.enhancements.filter((e) => e.source.indexOf(payload.source) < 0 );
   }
 };

@@ -1,9 +1,9 @@
-<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template lang="html">
 
-  <v-row justify-center row wrap>
+  <v-row justify="center">
 
     <v-col
-      xs12
+      v-bind:cols="12"
       v-if="characterBackground"
     >
       <v-card>
@@ -11,23 +11,40 @@
         <v-card-title primary-title>
           <div>
             <div class="headline">{{ characterBackground.name }}</div>
-            <span class="grey--text">{{ characterBackground.hint}}</span>
-          </div>
-          <div>
-            <v-btn
-              text
-              color="red"
-              @click="removeBackground(characterBackground)"
-            >
-              <v-icon>remove_circle</v-icon>
-              remove background
-            </v-btn>
+            <span class="subtitle-2">{{ characterBackground.hint}}</span>
           </div>
         </v-card-title>
 
         <v-card-text>
-          <p>{{characterBackground.crunch.effect}}</p>
+          <p>{{ characterBackground.bonus }}</p>
+
+          <div v-if="characterBackground.choice">
+            <v-select
+              v-model="characterBackground.selected"
+              label="Some text"
+              v-bind:items="characterBackground.choice"
+              v-on:change="selectBackgroundChoice(characterBackground, characterBackground.selected)"
+              item-text="name"
+              item-value="key"
+              solo
+              dense
+            ></v-select>
+          </div>
         </v-card-text>
+
+        <v-divider/>
+
+        <v-card-actions>
+        <v-btn
+          text
+          outlined
+          color="red"
+          @click="removeBackground(characterBackground)"
+        >
+          <v-icon>remove_circle</v-icon>
+          remove background
+        </v-btn>
+        </v-card-actions>
 
       </v-card>
 
@@ -87,10 +104,10 @@
 </template>
 
 <script lang="js">
-import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-import BackgroundPreview from '~/components/builder/BackgroundPreview.vue';
+  import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+  import BackgroundPreview from '~/components/builder/BackgroundPreview.vue';
 
-export default {
+  export default {
   name: 'Background',
   layout: 'builder',
   mixins: [ BackgroundRepositoryMixin ],
@@ -105,72 +122,6 @@ export default {
     return {
       dialog: false,
       dialogItem: undefined,
-      backgroundRepositoryDeprecated: [
-        {
-          name: 'Origin (Shock)',
-          hint: '+3 Shock',
-          crunch: {
-            targetGroup: 'traits',
-            targetValue: 'shock',
-            modifier: 3,
-            hint: 'Origin as Background',
-            source: 'background',
-          },
-        },
-        {
-          name: 'Origin (Wounds)',
-          hint: '+1 Wound',
-          crunch: {
-            targetGroup: 'traits',
-            targetValue: 'wounds',
-            modifier: 1,
-            hint: 'Origin as Background',
-            source: 'background',
-          },
-        },
-        {
-          name: 'Keyword',
-          hint: 'Close connection to the organisation and valuable contacts.',
-          crunch: {
-            effect: 'Send message. Access information, equipment and small favours once per '
-              + 'session.',
-            hint: 'Keyword as Background',
-            source: 'background',
-          },
-        },
-        {
-          name: 'Accomplishment (Influence)',
-          hint: '+1 Influence',
-          crunch: {
-            targetGroup: 'traits',
-            targetValue: 'influence',
-            modifier: 1,
-            hint: 'Accomplishment as Background',
-            source: 'background',
-          },
-        },
-        {
-          name: 'Accomplishment (Wealth)',
-          hint: '+2 Wealth',
-          crunch: {
-            targetGroup: 'traits',
-            targetValue: 'wealth',
-            modifier: 2,
-            hint: 'Accomplishment as Background',
-            source: 'background',
-          },
-        },
-        {
-          name: 'Goal',
-          hint: 'Additional Glory on accomplishing Objectives.',
-          crunch: {
-            effect: 'Characters who choose a goal as their background gain +1 Glory in addition '
-              + 'to gaining +1 Wrath any time that they accomplish an Objective.',
-            hint: 'Goal as Background',
-            source: 'background',
-          },
-        },
-      ],
     };
   },
   computed: {
@@ -178,7 +129,7 @@ export default {
       return this.$store.state.background;
     },
     characterBackground() {
-      return this.backgroundRepositoryDeprecated.find(i => i.name === this.characterBackgroundName);
+      return this.backgroundRepository.find((i) => i.name === this.characterBackgroundName);
     },
   },
   methods: {
@@ -187,19 +138,30 @@ export default {
       this.dialog = true;
     },
     selectBackgroundForChar(item) {
-      console.info(`${item.name} selected.`);
+      console.info(`Background: ${item.name} selected.`);
+      this.$store.commit('setBackground', { name: item.name });
+      if ( item.modifier ) {
+        this.$store.commit('setBackgroundModifications', { modifications: [item.modifier] });
+      }
       this.dialog = false;
     },
     select(item) {
       this.$store.commit('setBackground', { name: item.name });
-      this.$store.commit('setBackgroundModifications', { modifications: [item.crunch] });
+      //this.$store.commit('setBackgroundModifications', { modifications: [item.modifier] });
       this.selectedBackground = item;
     },
-    removeBackground() {
+    removeBackground(item) {
       this.$store.commit('setBackground', { name: undefined });
-      this.$store.commit('clearEnhancementsBySource', { source: 'background' });
+      this.$store.commit('clearEnhancementsBySource', { source: `background.${item.key}` });
       this.selectedBackground = undefined;
-    }
+    },
+    selectBackgroundChoice(background, choiceKey) {
+      const choice = background.choice.find( (choice) => choice.key === choiceKey );
+
+      console.info(`Background ${background.name} with choice ${choice.name}.`);
+
+      this.$store.commit('setBackgroundModifications', { modifications: [choice.modifier] });
+    },
   },
 };
 </script>

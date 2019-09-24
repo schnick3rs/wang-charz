@@ -66,9 +66,7 @@ module.exports = {
       defaultAssets: false
     }],
     '@nuxtjs/sitemap',
-    ['@nuxtjs/axios', {
-      baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
-    }],
+    '@nuxtjs/axios',
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
       disabled: false,
@@ -89,6 +87,7 @@ module.exports = {
       manifest: false
     }]
   ],
+
   /*
    * Sitemap module configuration
    */
@@ -115,8 +114,7 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    // baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://local.doom.com:3000',
-    // baseURL: 'https://www.doctors-of-doom.com',
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
     // debug: process.env.NODE_ENV !== 'production',
   },
 
