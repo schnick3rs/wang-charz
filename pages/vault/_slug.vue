@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
 <div>
 
@@ -8,7 +8,7 @@
     <v-breadcrumbs
       v-bind:items="breadcrumbItems"
     >
-      <template v-slot:item="props">
+      <template v-slot:item="{ item }">
         <v-breadcrumbs-item
           :nuxt="true"
           :to="item.to"
@@ -112,9 +112,9 @@
 </template>
 
 <script>
-import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
+  import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 
-export default {
+  export default {
   components: {},
   head() {
     const itemSchema = {
@@ -184,19 +184,24 @@ export default {
 
     return {
         item: vaultItem,
-        breadcrumbItems: [
-          {
-            text: '', nuxt: true, exact: true, to: '/'
-          },
-          {
-            text: 'Vault', nuxt: true, exact: true, to: '/vault',
-          },
-          { text: vaultItem.title, disabled: true, nuxt: true, to: `/vault/${vaultItem.slug}` },
-        ],
+        slug: slug,
     };
   },
   data() {
     return {}
+  },
+  computed: {
+    breadcrumbItems() {
+      return [
+        {
+          text: '', nuxt: true, exact: true, to: '/'
+        },
+        {
+          text: 'Vault', nuxt: true, exact: true, to: '/vault',
+        },
+        { text: this.item.title, disabled: true, nuxt: true, to: `/vault/${this.slug}` },
+      ]
+    },
   },
   methods: {
     trackEvent(url) {

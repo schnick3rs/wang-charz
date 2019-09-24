@@ -1,0 +1,15 @@
+@mixin fontface($name, $localName, $file, $style: normal, $weight: normal, $range: false) {
+  @font-face {
+    font-family: "#{$name}";
+    src: local("#{$localName}"),
+    local("#{$file}.woff"),
+    url("/fonts/#{$file}.woff2") format("woff2"),
+    url("/fonts/#{$file}.woff") format("woff");
+    font-weight: $weight;
+    font-style: $style;
+    font-display: fallback; // @see https://3perf.com/talks/web-perf-101/?utm_source=CSS-Weekly&utm_campaign=Issue-338&utm_medium=web#fonts-header
+    @if $range != false {
+      unicode-range: $range;
+    }
+  }
+}
