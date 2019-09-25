@@ -131,7 +131,7 @@
       app
       dark
       v-bind:color="(spendBuildingPoints > totalBuildPoints) ? 'error' : ''"
-      class="font-weight-medium"
+      class="caption"
     >
       <div>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</div>
       <v-spacer ></v-spacer>
@@ -144,11 +144,14 @@
 </template>
 
 <script>
-import DefaultFooter from '~/components/DefaultFooter';
 import { mapGetters } from 'vuex';
+import DefaultFooter from '~/components/DefaultFooter';
+import Default from './default';
 
 export default {
-  components: { DefaultFooter },
+  components: {
+    Default,
+    DefaultFooter },
   head() {
     return {
       titleTemplate: '%s | Character Builder',

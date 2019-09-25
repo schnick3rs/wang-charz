@@ -3,6 +3,7 @@
   <v-footer
    dark
    class="caption"
+   style="background-color: #424242;"
   >
     <span>&copy; {{ new Date().getFullYear() }} Doctors of Doom</span>
     <v-spacer></v-spacer>
