@@ -93,7 +93,7 @@ export default {
         {
           key: 'network',
           title: 'Network - Assets & Links',
-          imageSrc: '/img/artwork_network_2.jpg',
+          imageSrc: '/img/artwork_network.jpg',
           imageCredit: 'Artwork from Pixabay',
           htmlText: 'Check out some (one) of the assets provided by the community. E.g. some <strong>fillable character sheets</strong>.',
           link: { text: 'To the Network', route: '/network' },

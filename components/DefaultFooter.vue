@@ -1,12 +1,12 @@
 <template>
 
   <v-footer
-   app   
    dark
-   class="font-weight-medium"
+   class="caption"
   >
-    <v-spacer></v-spacer>
     <span>&copy; {{ new Date().getFullYear() }} Doctors of Doom</span>
+    <v-spacer></v-spacer>
+    <span><a href="/about">About & Private Policy</a></span>
   </v-footer>
 
 </template>
