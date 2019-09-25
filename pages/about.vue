@@ -24,10 +24,6 @@
           <p>Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
             and draw inspiration how to organise the layout.</p>
 
-          <p>
-            And, let me point you to another online character generator for Wrath & Glory: http://wagce.eu-west-2.elasticbeanstalk.com/.
-          </p>
-
           <h2>Contact</h2>
           <p>
             You can reach out to via mail by <a href="mailto:docsofdoom+contact@gmail.com?subject=Contact">docsofdoom+contact(at)gmail.com</a>.
