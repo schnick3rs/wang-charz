@@ -7,7 +7,7 @@
   >
         <v-col
           v-for="section in sections.filter(i=>i.isActive)"
-          v-bind:key="section.key"
+          :key="section.key"
           :cols="12"
           :sm="6"
           :md="4"
@@ -15,7 +15,7 @@
           class="pa-3"
         >
 
-          <v-card class="card elevation-4">
+          <v-card class="card " exact nuxt :to="section.link.route" hover>
 
             <div class="card__image-container">
               <div class="card__image" :style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading></div>
@@ -30,7 +30,7 @@
               <p class="body-2" v-html="section.htmlText"></p>
 
               <div class="card__content-footer">
-                <v-btn block nuxt :to="section.link.route" color="green">{{ section.link.text }}</v-btn>
+                <v-btn block color="green">{{ section.link.text }}</v-btn>
               </div>
 
             </div>

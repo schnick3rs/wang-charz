@@ -180,7 +180,6 @@
             two-line
             v-for="item in ascensionRepository"
             :key="item.key"
-            avatar
             @click.stop="openDialog(item)"
           >
 
