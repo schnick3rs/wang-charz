@@ -22,7 +22,7 @@
           v-on:click="toggleTypeFilter(filter.name)"
           small
           label
-          class="mr-2"
+          class="mr-2 mb-2"
         >
           {{filter.name}}
         </v-chip>

@@ -78,12 +78,13 @@
             </v-card-title>
 
             <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query">
-              <v-select
-                :items="wargearRepository.filter(gear.options[0].query)"
-                v-model="gear.selected"
-                item-value="name"
-                item-text="name"
-              ></v-select>
+
+              <wargear-select
+                :item="gear.selected"
+                :repository="wargearRepository.filter(gear.options[0].query)"
+                @input="gear.selected = $event"
+                class="mb-4"
+              ></wargear-select>
 
             </v-card-text>
 
@@ -157,12 +158,13 @@
 <script lang="js">
 import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin.js';
 import WargearSearch from '~/components/builder/WargearSearch.vue';
+import WargearSelect from '~/components/builder/WargearSelect.vue';
 
 export default {
   name: 'Wargear',
   layout: 'builder',
   mixins: [WargearRepositoryMixin],
-  components: { WargearSearch },
+  components: { WargearSelect, WargearSearch },
   props: [],
   head() {
     return {
@@ -197,14 +199,12 @@ export default {
          if ( gear ) {
            gear.id = chargear.id;
            gear.source = chargear.source;
-           console.info(`${chargear.id} > ${gear.id}`);
            characterWargear.push({
              id: chargear.id,
              name: chargear.name,
              type: this.wargearSubtitle(gear),
              source: chargear.source,
            });
-           console.info(characterWargear.map(i=>i.id))
          } else {
            characterWargear.push( {
              id: chargear.id,

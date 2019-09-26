@@ -2,6 +2,7 @@
 
   <v-row justify-center row wrap>
 
+    <!-- Ascension Dialog -->
     <v-dialog
       v-model="dialog"
       width="600px"
@@ -79,8 +80,7 @@
               v-bind:selection="characterAscension.selected"
               v-bind:exclude="finalKeywords.filter(k=>k.indexOf('<')<0)"
               v-on:input="updateKeyword($event, placeholderName, characterAscension)"
-            ></keyword-select>
-
+            />
           </div>
 
           <!-- selection for the sub keyword -->
@@ -134,16 +134,14 @@
                 v-for="selectItem in characterAscension.wargearOptions.find( o => o.key === characterAscension.wargearChoice ).selectList"
                 v-bind:key="selectItem.key"
               >
-                <v-select
-                  v-model="selectItem.itemChoice"
-                  v-bind:items="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
-                  v-on:input="updateAscensionPackageWargearOptionChoice($event, selectItem.key, characterAscension)"
-                  item-value="name"
-                  item-text="name"
-                  label="Item Option"
-                  solo
-                  dense
-                ></v-select>
+
+                <wargear-select
+                  :item="selectItem.itemChoice"
+                  :repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
+                  @input="updateAscensionPackageWargearOptionChoice($event, selectItem.key, characterAscension)"
+                  class="mb-4"
+                ></wargear-select>
+
               </div>
 
             </div>
@@ -156,7 +154,7 @@
 
     </v-col>
 
-    <!--  -->
+    <!-- ascension list -->
     <v-col>
       <h1 class="headline">Select an Ascension Package</h1>
 
@@ -208,8 +206,6 @@
       </v-card>
 
     </v-col>
-
-
 
   </v-row>
 
@@ -270,7 +266,7 @@ export default {
       return this.$store.state.ascensionPackages.map(packageName => {
         const characterPackage = this.ascensionRepository.find(j => {
           return j.name === packageName.value;
-        })
+        });
         characterPackage.sourceTier = packageName.sourceTier;
         characterPackage.targetTier = packageName.targetTier;
         characterPackage.storyElementChoice = packageName.storyElementChoice;
