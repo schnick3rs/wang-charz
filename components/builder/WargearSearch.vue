@@ -16,6 +16,7 @@
         ></v-text-field>
 
         <v-chip
+          v-if="typeFilters.length > 1"
           v-for="filter in typeFilters"
           v-bind:key="filter.key"
           v-bind:color="selectedTypeFilters.includes(filter.name) ? 'primary' : ''"

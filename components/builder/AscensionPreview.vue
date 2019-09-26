@@ -2,16 +2,18 @@
 
   <v-card v-if="item">
 
-    <v-card-title primary-title>
-      <div>
+    <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
+      <span>Confirm Ascension</span>
+      <v-spacer></v-spacer>
+      <v-icon dark @click="$emit('cancel')">close</v-icon>
+    </v-card-title>
+
+    <v-card-text class="pt-4">
+
+      <div class="pb-2">
         <div class="headline">{{ item.name }}</div>
         <span class="subtitle-1 grey--text">{{ item.teaser }}</span>
       </div>
-    </v-card-title>
-
-    <v-divider />
-
-    <v-card-text class="pt-4">
 
       <p class="text-lg-justify"><strong>Build Point Cost:</strong> (New Tier x {{ item.cost }})</p>
 
@@ -36,16 +38,16 @@
 
     <v-divider />
 
-    <v-card-actions>
+    <v-card-actions v-if="chooseMode">
 
-        <v-row justify="center" >
+        <v-row justify="center" no-gutters>
 
           <v-col :cols="2" >
             <v-select
               :items="[currentCharacterTier]"
               :value="currentCharacterTier"
               label="Current Tier"
-              dense outlined
+              dense
               disabled
               readonly
             ></v-select>
@@ -61,7 +63,7 @@
             <v-select
               :items="targetTierOptions"
               v-model="targetTier"
-              dense outlined
+              dense
               label="Target Tier"
             ></v-select>
           </v-col>
@@ -70,11 +72,12 @@
 
     </v-card-actions>
 
-    <v-card-actions v-if="chooseMode">      
+    <v-card-actions v-if="chooseMode">
       <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
       <v-spacer />
       <v-btn right color="green" @click="$emit('select', item, targetTier)" >Select Package</v-btn>
     </v-card-actions>
+
   </v-card>
 
 </template>

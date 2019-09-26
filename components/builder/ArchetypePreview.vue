@@ -2,6 +2,12 @@
 
   <v-card v-if="item">
 
+    <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
+      <span>Confirm Archetype</span>
+      <v-spacer></v-spacer>
+      <v-icon dark @click="$emit('cancel')">close</v-icon>
+    </v-card-title>
+
     <v-card-title primary-title>
       <div>
         <h3 class="headline md0">

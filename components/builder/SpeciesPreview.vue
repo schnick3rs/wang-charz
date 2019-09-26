@@ -1,14 +1,15 @@
 <template lang="html">
   <v-card>
 
-    <v-card-title v-if="chooseMode" style="background-color: #212121;color: #fff;">
-      {{ species.name }}
+    <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
+      <span>Confirm Species</span>
+      <v-spacer></v-spacer>
+      <v-icon dark @click="$emit('cancel')">close</v-icon>
     </v-card-title>
     
     <v-divider v-if="chooseMode"></v-divider>
 
-
-    <v-card-title primary-title v-if="manageMode">
+    <v-card-title primary-title >
       <div>
         <h3 class="headline md0">
           {{ species.name }}
