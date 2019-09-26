@@ -416,7 +416,7 @@ export const mutations = {
     for (let i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    console.info(`Adding '${payload.name}' by '${payload.source}'`)
+    console.info(`Adding '${payload.name}' by '${payload.source}' [${result}]`)
     state.wargear.push({ id: result, name: payload.name, source: payload.source });
   },
   removeWargear(state, payload) {
