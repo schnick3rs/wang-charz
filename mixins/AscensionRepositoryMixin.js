@@ -141,7 +141,19 @@ export default {
           keywords: ['Psyker'],
           influencePerTier: 1,
           storyElementText: 'The character gains the smite psychic power. They also may choose one Minor Psychic power per Tier ascended and may purchase powers from one Discipline of their choice. The character must purchase the Psychic Mastery Skill.',
-          storyElementOptions: [],
+          storyElementOptions: [
+            {
+              key: 'spells',
+              text: '',
+              type: 'spells',
+              discount: [
+                { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
+                { name: 'minor1', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
+                { name: 'minor2', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
+                { name: 'minor3', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
+              ]
+            }
+          ],
           storyElementChoice: '',
           wargearText: 'None',
           wargearOptions: [],

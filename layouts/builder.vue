@@ -107,21 +107,33 @@
         </v-toolbar-items>
       </v-toolbar>
 
-      <v-container>
+      <v-container class="container">
+
+        <v-btn
+          v-if="false"
+          small
+          color="green lighten-2"
+          style="position: fixed; top: 174px; right: 350px; margin-right: 50%;"
+        >
+          <v-icon>chevron_left</v-icon>
+        </v-btn>
 
         <v-row justify="center">
 
-          <v-col 
-            v-bind:cols="12"
-            v-bind:sm="12"
-            v-bind:md="9"
-            v-bind:lg="8"
-            v-bind:xl="7"
-          >
+          <v-col>
             <nuxt />
           </v-col>
 
         </v-row>
+
+        <v-btn
+          v-if="false"
+          small
+          color="green lighten-2"
+          style="position: fixed; top: 174px; left: 350px; margin-left: 50%;"
+        >
+          <v-icon>chevron_right</v-icon>
+        </v-btn>
 
       </v-container>
 
@@ -281,3 +293,13 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+  .container {
+    
+    @media (min-width: 768px) {
+      width: 680px;
+    }
+
+  }
+</style>

@@ -1,6 +1,6 @@
 <template lang="html">
 
-  <v-row justify-center row wrap>
+  <v-row justify="center" no-gutters>
 
     <!-- Ascension Dialog -->
     <v-dialog
@@ -93,20 +93,49 @@
             ( {{characterAscension.influencePerTier}} per tier ascended)
           </p>
 
+          <!-- Story Element -->
+
           <v-divider class="mb-2"></v-divider>
 
           <p class="text-lg-justify"><strong>Story Element:</strong> {{ characterAscension.storyElementText }}</p>
-          <v-select
+
+          <div
             v-if="characterAscension.storyElementOptions.length > 0"
-            v-model="characterAscension.storyElementChoice"
-            v-bind:items="characterAscension.storyElementOptions"
-            v-on:input="updateAscensionPackageStoryElement($event, characterAscension)"
-            item-text="text"
-            item-value="key"
-            label="Story Element"
-            solo
-            dense
-          ></v-select>
+          >
+
+            <div
+              v-if="characterAscension.storyElementOptions[0].type === 'spells'"
+              v-for="option in characterAscension.storyElementOptions[0].discount.slice(0,2)"
+              :key="option.name"
+            >
+              <v-select
+                v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
+                v-model="option.selected"
+                v-bind:items="psychicPowersRepository.filter(option.filter)"
+                v-bind:hint="psychicPowerHint(option.selected)"
+                v-on:change="updatePsychicPowers(characterAscension, option)"
+                item-value="name"
+                item-text="name"
+                persistent-hint
+                dense
+                solo
+                class="ml-2 mr-2"
+              ></v-select>
+            </div>
+
+            <v-select
+              v-else
+              v-model="characterAscension.storyElementChoice"
+              v-bind:items="characterAscension.storyElementOptions"
+              v-on:input="updateAscensionPackageStoryElement($event, characterAscension)"
+              item-text="text"
+              item-value="key"
+              label="Story Element"
+              solo
+              dense
+            ></v-select>
+
+          </div>
 
           <v-divider class="mb-2"></v-divider>
 
@@ -231,11 +260,11 @@ export default {
     }
   },
   async asyncData({ params, $axios, error }) {
-    const response = await $axios.get(`/api/wargear/`);
-    const wargearRepository = response.data;
-
+    const wargearResponse = await $axios.get(`/api/wargear/`);
+    const powersResponse = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
     return {
-      wargearRepository: wargearRepository,
+      wargearRepository: wargearResponse.data,
+      psychicPowersRepository: powersResponse.data,
     };
   },
   data() {
@@ -439,6 +468,24 @@ export default {
     },
     subKeywordOptions(placeholder) {
       return this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
+    },
+    psychicPowerHint(powerName) {
+
+      const power = this.psychicPowersRepository.find( p => p.name === powerName );
+
+      if ( power ) {
+        return power.effect;
+      }
+
+      return '';
+    },
+    updatePsychicPowers(characterAscension, option) {
+      this.$store.commit('clearPowersBySource', { source: `ascension.${characterAscension.key}.${option.name}` });
+      this.$store.commit('addPower', {
+        name: option.selected,
+        cost: 0,
+        source: `ascension.${characterAscension.key}.${option.name}`,
+      });
     },
   },
 };

@@ -1,6 +1,6 @@
 <template lang="html">
 
-  <v-card v-if="item">
+  <v-card v-if="item" flat class="pa-0">
 
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Archetype</span>
@@ -8,8 +8,13 @@
       <v-icon dark @click="$emit('cancel')">close</v-icon>
     </v-card-title>
 
-    <v-card-title primary-title>
-      <div>
+    <v-card-text class="pt-4">
+
+      <div class="hidden-xs-only" style="float: right;">
+        <img :src="getAvatar(item.name)" style="width:96px" />
+      </div>
+
+      <div style="width: 75%">
         <h3 class="headline md0">
           {{ item.name }}
           <v-btn
@@ -24,15 +29,7 @@
         </h3>
         <span class="subtitle-1 grey--text">{{ item.hint }}</span>
       </div>
-      <v-spacer></v-spacer>
-      <div class="hidden-xs-only">
-        <img :src="getAvatar(item.name)" style="width:96px" />
-      </div>
-    </v-card-title>
 
-    <v-divider></v-divider>
-
-    <v-card-text class="pt-4">
       <p class="text-lg-justify"><strong>Build Point Cost:</strong> {{ item.cost }}</p>
 
       <span class="mt-2 grey--text">Prerequisites</span>
