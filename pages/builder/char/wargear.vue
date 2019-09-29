@@ -38,7 +38,7 @@
           </v-list-item-content>
 
           <v-list-item-action>
-            <v-btn outlined small color="error" @click="remove(gear)"><v-icon left>delete</v-icon>Remove</v-btn>
+            <v-btn outlined x-small color="error" @click="remove(gear)"><v-icon left>delete</v-icon>Remove</v-btn>
           </v-list-item-action>
 
         </v-list-item>
