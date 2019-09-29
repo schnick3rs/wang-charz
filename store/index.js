@@ -3,6 +3,7 @@ const getDefaultState = () => ({
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
+  customXp: 0,
   settingHomebrewContent: [],
   characterName: 'Simsel Simselman',
   species: { value: undefined, cost: 0 },
@@ -51,6 +52,7 @@ export const state = () => ({
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
+  customXp: 0,
   settingHomebrewContent: [],
   characterName: 'Simsel Simselman',
   species: { value: undefined, cost: 0 },
@@ -98,6 +100,7 @@ export const getters = {
   setting(state) { return state.setting; },
   settingSelected(state) { return state.settingSelected; },
   settingTier(state) { return state.settingTier; },
+  customXp(state) { return state.customXp ? parseInt(state.customXp) : 0; },
   settingHomebrewContent(state) { return state.settingHomebrewContent; },
   name(state) { return state.characterName; },
   species(state) { return state.species.value; },
@@ -185,7 +188,7 @@ export const getters = {
   remainingBuildPoints(state, getters) {
     let remaining = 0;
     remaining = state.settingTier * 100;
-    return (state.settingTier * 100) - getters.spendBuildingPoints;
+    return (state.settingTier * 100) - getters.spendBuildingPoints + state.customXp;
   },
   attributeCosts(state) {
     const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
@@ -249,6 +252,9 @@ export const mutations = {
   },
   setSettingTier(state, payload) {
     state.settingTier = payload.amount;
+  },
+  setCustomXp(state, payload) {
+    state.customXp = payload;
   },
   addHomebrewContent(state, payload){
     state.settingHomebrewContent.push(payload.key);

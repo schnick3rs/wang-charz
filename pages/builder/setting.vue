@@ -1,28 +1,44 @@
 <template lang="html">
 
-  <v-row justify-center row wrap>
+  <v-row justify="center">
 
-    <v-col :cols="12">
+    <v-col :cols="12" :sm="6">
 
-      <h1 class="headline">Character</h1>
+      <h2 class="headline">Character</h2>
       <p>Some Notes on the character</p>
 
       <v-text-field
         label="Character Name"
-        v-bind:value="characterName"
-        v-on:input="setCharacterName"
-        dense filled
+        :value="characterName"
+        @input="setCharacterName"
+        dense
+        filled
       />
 
-      <h1 class="headline">Framework</h1>
+      <div>
+        <v-text-field
+          :value="customXp"
+          @input="setCustomXp"
+          label="Additional eXperience Points"
+          hint="Add the XP earend by playing the game. Usually granted by the GM."
+          dense filled persistent-hint
+        ></v-text-field>
+      </div>
+
+    </v-col>
+
+    <v-col :cols="12" :sm="6">
+
+      <h2 class="headline">Framework</h2>
       <p>Define your campaign framework.</p>
 
       <v-select
         label="Select a fitting tier"
         :value="settingTier"
         :items="tierSelect.options"
-        dense filled
         @change="setSettingTier"
+        hint="Define your "
+        dense filled persistent-hint
       />
 
       <v-select
@@ -80,12 +96,15 @@
         </div>
 
       </div>
+    </v-col>
+
+    <v-col :cols="12">
 
       <v-card-actions>
         <v-btn
           left
           outlined
-          color="red"
+          color="info"
           @click="clearState()"
         >
           Fresh Character
@@ -100,6 +119,7 @@
         </v-btn>
 
       </v-card-actions>
+
     </v-col>
 
     <v-col
@@ -164,6 +184,7 @@ export default {
           { text: '5 - Agents of Fate', value: 5 },
         ],
       },
+      settingPlayMode: false,
       settingTemplateOptions: [
         { name: 'Custom', recommendedTiers: '1-5', cover: 'https://cdna.artstation.com/p/assets/images/images/011/151/588/large/diego-gisbert-llorens-b-g-cover-1-wip4a.jpg?1528118826' },
         { name: 'Only War', recommendedTiers: '1', cover: 'https://40k.gallery/img/40K-artwork/40K-20170826114311.jpg' },
@@ -196,11 +217,15 @@ export default {
     ...mapGetters({
       characterName: 'name',
       settingTier: 'settingTier',
+      customXp: 'customXp'
     }),
   },
   methods: {
     setCharacterName(name){
       this.$store.commit('setName', name);
+    },
+    setCustomXp(xp){
+      this.$store.commit('setCustomXp', xp);
     },
     setSettingTier(event) {
       this.$store.commit('setSettingTier', { amount: event });

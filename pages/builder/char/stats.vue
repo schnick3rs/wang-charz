@@ -48,8 +48,7 @@
                   <v-btn
                     icon       
                     @click="incrementAttribute(attribute.key)"
-                    :disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"
-                  >
+                  ><!--:disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"-->
                     <v-icon color="green">add_circle</v-icon>
                   </v-btn>
                 </td>

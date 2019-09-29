@@ -107,7 +107,7 @@
         </v-toolbar-items>
       </v-toolbar>
 
-      <v-container class="container">
+      <v-container>
 
         <v-btn
           v-if="false"
@@ -120,7 +120,12 @@
 
         <v-row justify="center">
 
-          <v-col>
+          <v-col
+            :cols="12"
+            :sm="10"
+            :md="10"
+            :lg="7"
+          >
             <nuxt />
           </v-col>
 
@@ -269,7 +274,11 @@ export default {
       'finalKeywords',
     ]),
 
-    totalBuildPoints() { return this.$store.state.settingTier * 100; },
+    totalBuildPoints() {
+      const buildPoints = this.$store.state.settingTier * 100;
+      const xp = this.$store.getters.customXp;
+      return buildPoints + xp;
+    },
 
     // see core page 156
     maximumBuildPointsForAttributes() {
@@ -294,8 +303,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-  .container {
+<style scoped lang="scss">
+  .dod-container {
     
     @media (min-width: 768px) {
       width: 680px;
