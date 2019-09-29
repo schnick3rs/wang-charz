@@ -105,7 +105,7 @@
 
             <div
               v-if="characterAscension.storyElementOptions[0].type === 'spells'"
-              v-for="option in characterAscension.storyElementOptions[0].discount.slice(0,2)"
+              v-for="option in characterAscension.storyElementOptions[0].discount.slice(0,3)"
               :key="option.name"
             >
               <v-select
