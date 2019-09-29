@@ -37,8 +37,7 @@
         :value="settingTier"
         :items="tierSelect.options"
         @change="setSettingTier"
-        hint="Define your "
-        dense filled persistent-hint
+        dense filled
       />
 
       <v-select
