@@ -21,7 +21,7 @@
           @input="setCustomXp"
           label="Additional eXperience Points"
           hint="Add the XP earend by playing the game. Usually granted by the GM."
-          dense filled persistent-hint
+          dense filled persistent-hint type="number"
         ></v-text-field>
       </div>
 
