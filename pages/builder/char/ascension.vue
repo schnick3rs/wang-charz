@@ -105,9 +105,11 @@
 
             <div
               v-if="characterAscension.storyElementOptions[0].type === 'spells'"
-              v-for="option in characterAscension.storyElementOptions[0].discount.slice(0,3)"
-              :key="option.name"
             >
+              <div
+                v-for="option in characterAscension.storyElementOptions[0].discount.slice(0,3)"
+                :key="option.name"
+              >
               <v-select
                 v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
                 v-model="option.selected"
@@ -121,6 +123,7 @@
                 solo
                 class="ml-2 mr-2"
               ></v-select>
+              </div>
             </div>
 
             <v-select
