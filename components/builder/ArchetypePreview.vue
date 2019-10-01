@@ -1,50 +1,54 @@
 <template lang="html">
 
-  <v-card v-if="item" flat class="pa-0">
+  <div v-if="item">
 
-    <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
-      <span>Confirm Archetype</span>
-      <v-spacer></v-spacer>
-      <v-icon dark @click="$emit('cancel')">close</v-icon>
-    </v-card-title>
+        <div class="hidden-xs-only" style="float: right;">
+          <img :src="getAvatar(item.name)" style="width:96px" />
+        </div>
 
-    <v-card-text class="pt-4">
+        <div style="width: 75%">
+          <h3 class="headline md0">
+            {{ item.name }}
+            <v-btn
+              v-if="manageMode"
+              text outlined small
+              color="primary"
+              @click="$emit('change')"
+            >
+              <v-icon left>settings</v-icon>
+              change archetype
+            </v-btn>
+          </h3>
+          <span class="subtitle-1 grey--text">{{ item.hint }}</span>
+        </div>
 
-      <div class="hidden-xs-only" style="float: right;">
-        <img :src="getAvatar(item.name)" style="width:96px" />
-      </div>
+        <p class="text-lg-justify"><strong>Build Point Cost:</strong> {{ item.cost }}</p>
 
-      <div style="width: 75%">
-        <h3 class="headline md0">
-          {{ item.name }}
-          <v-btn
-            v-if="manageMode"
-            text outlined small
-            color="primary"
-            @click="$emit('change')"
-          >
-            <v-icon left>settings</v-icon>
-            change archetype
-          </v-btn>
-        </h3>
-        <span class="subtitle-1 grey--text">{{ item.hint }}</span>
-      </div>
+        <span class="mt-2 grey--text">Prerequisites</span>
+        <p><v-divider></v-divider></p>
 
-      <p class="text-lg-justify"><strong>Build Point Cost:</strong> {{ item.cost }}</p>
+        <p class="text-lg-justify"><strong>Tier:</strong> {{ item.tier }}</p>
+        <p class="text-lg-justify"><strong>Species:</strong> {{ item.species }}</p>
+        <p class="text-lg-justify"><strong>Attributes:</strong> {{ attributePrerequisites }}</p>
+        <p class="text-lg-justify"><strong>Skills:</strong> {{ skillPrerequisites }}</p>
 
-      <span class="mt-2 grey--text">Prerequisites</span>
-      <p><v-divider></v-divider></p>
+        <span class="mt-2 grey--text">Benefits</span>
+        <p><v-divider ></v-divider></p>
 
-      <p class="text-lg-justify"><strong>Tier:</strong> {{ item.tier }}</p>
-      <p class="text-lg-justify"><strong>Species:</strong> {{ item.species }}</p>
-      <p class="text-lg-justify"><strong>Attributes:</strong> {{ attributePrerequisites }}</p>
-      <p class="text-lg-justify"><strong>Skills:</strong> {{ skillPrerequisites }}</p>
 
-      <span class="mt-2 grey--text">Benefits</span>
-      <p><v-divider ></v-divider></p>
+        <div v-if="false">
+          <p><v-divider></v-divider></p>
+          <blockquote class="blockquote font-italic">
+            <p>"{{ item.description }}"</p>
+            <span class="right">- from the Wrath & Glory Corerules -</span>
+          </blockquote>
+        </div>
 
-      <p class="text-lg-justify"><strong>Keywords:</strong> {{ item.keywords.split(',').join(', ') }}</p>
-
+    <feature-selection-box
+      class="pb-4"
+      title="Keywords"
+      :subtitle="item.keywords.split(',').join(', ')"
+    >
       <div
         v-if="manageMode"
         v-for="placeholder in itemKeywordPlaceholders"
@@ -72,64 +76,64 @@
         </p>
 
       </div>
+    </feature-selection-box>
 
-      <p class="text-lg-justify"><strong>Influence Bonus:</strong> {{ item.influence }}</p>
+    <feature-selection-box
+      class="pb-4"
+      title="Influence Bonus"
+      :subtitle="item.influence"
+      :expandable="false"
+    >
+      <strong>Influence Bonus:</strong> {{ item.influence }}
+    </feature-selection-box>
 
-      <div v-if="item.abilities"
-           v-for="ability in abilityObjects"
-           class="text-lg-justify"
-      >
-        <p><strong>{{ ability.name }}:</strong> {{ ability.effect}}</p>
-        <div v-if="item.psychicPowers && psychicPowersRepository">
+    <feature-selection-box
+      v-if="item.abilities"
+      v-for="ability in abilityObjects"
+      :title="ability.name"
+      class="pb-4"
+    >
+      <p>{{ ability.effect}}</p>
+      <div v-if="item.psychicPowers && psychicPowersRepository">
 
-          <div v-for="option in item.psychicPowers.discount" v-bind:key="option.name">
-            <v-select
-              v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
-              v-model="option.selected"
-              v-bind:items="psychicPowersRepository.filter(option.filter)"
-              v-bind:hint="psychicPowerHint(option.selected)"
-              v-on:change="updatePsychicPowers(option)"
-              item-value="name"
-              item-text="name"
-              persistent-hint
-              dense
-              solo
-              class="ml-2 mr-2"
-            ></v-select>
-          </div>
-
+        <div v-for="option in item.psychicPowers.discount" v-bind:key="option.name">
+          <v-select
+            v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
+            v-model="option.selected"
+            v-bind:items="psychicPowersRepository.filter(option.filter)"
+            v-bind:hint="psychicPowerHint(option.selected)"
+            v-on:change="updatePsychicPowers(option)"
+            item-value="name"
+            item-text="name"
+            persistent-hint
+            dense
+            solo
+            class="ml-2 mr-2"
+          ></v-select>
         </div>
+
       </div>
+    </feature-selection-box>
 
-      <p class="text-lg-justify"><strong>Wargear:</strong> {{ wargearText }}</p>
+    <feature-selection-box
+      title="Wargear"
+      class="pb-4"
+    >
+      <p>{{ wargearText }}</p>
+    </feature-selection-box>
 
-      <div v-if="false">
-        <p><v-divider></v-divider></p>
-        <blockquote class="blockquote font-italic">
-          <p>"{{ item.description }}"</p>
-          <span class="right">- from the Wrath & Glory Corerules -</span>
-        </blockquote>
-      </div>
-
-    </v-card-text>
-
-    <v-divider v-if="chooseMode"></v-divider>
-    <v-card-actions v-if="chooseMode">
-      <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
-      <v-spacer />
-      <v-btn right color="green" @click="$emit('select', item)" >Select Archetype</v-btn>
-    </v-card-actions>
-  </v-card>
-
+  </div>
 </template>
 
 <script lang="js">
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
 import WargearRepository from '~/mixins/WargearRepositoryMixin';
+import FeatureSelectionBox from '~/components/builder/FeatureSelectionBox.vue';
 
 export default {
   name: 'archetype-preview',
+  components: { FeatureSelectionBox },
   mixins: [KeywordRepository, StatRepository, WargearRepository],
   props: {
     item: {

@@ -7,13 +7,36 @@
       width="600px"
       scrollable
     >
-      <archetype-preview
-        v-if="selectedArchetype"
-        v-bind:item="selectedArchetype"
-        v-on:select="selectArchetypeForChar"
-        v-on:cancel="dialog = false"
-        chooseMode
-      ></archetype-preview>
+      <v-card flat class="pa-0 mb-4">
+
+        <v-card-title style="background-color: #262e37; color: #fff;">
+          <span>Confirm Archetype</span>
+          <v-spacer></v-spacer>
+          <v-icon dark @click="$emit('cancel')">close</v-icon>
+        </v-card-title>
+
+        <v-card-text class="pt-4">
+
+          <archetype-preview
+            v-if="selectedArchetype"
+            v-bind:item="selectedArchetype"
+            v-on:select="selectArchetypeForChar"
+            v-on:cancel="dialog = false"
+            chooseMode
+          ></archetype-preview>
+
+        </v-card-text>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-btn left outlined color="red" @click="dialog = false" >Cancel</v-btn>
+          <v-spacer />
+          <v-btn right color="green" @click="selectArchetypeForChar(selectedArchetype)" >Select Archetype</v-btn>
+        </v-card-actions>
+
+      </v-card>
+
     </v-dialog>
 
     <v-col v-if="!characterArchetype || changeMode">
@@ -54,7 +77,6 @@
               two-line
               v-for="item in archetypesByGroup(group)"
               :key="item.key"
-              avatar
               @click.stop="updatePreview(item)"
               :disabled="item.species !== characterSpecies || item.tier > settingTier"
             >
