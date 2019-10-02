@@ -1,31 +1,44 @@
 <template lang="html">
 
-  <v-layout justify-center row wrap>
+  <v-row justify="center">
 
-    <v-flex xs12>
+    <v-col :cols="12" :sm="6">
 
-      <h1 class="headline">Character</h1>
+      <h2 class="headline">Character</h2>
       <p>Some Notes on the character</p>
 
       <v-text-field
         label="Character Name"
-        v-bind:value="characterName"
-        v-on:input="setCharacterName"
-        box
+        :value="characterName"
+        @input="setCharacterName"
         dense
+        filled
       />
 
-      <h1 class="headline">Framework</h1>
+      <div>
+        <v-text-field
+          :value="customXp"
+          @input="setCustomXp"
+          label="Additional eXperience Points"
+          hint="Add the XP earend by playing the game. Usually granted by the GM."
+          dense filled persistent-hint type="number"
+        ></v-text-field>
+      </div>
+
+    </v-col>
+
+    <v-col :cols="12" :sm="6">
+
+      <h2 class="headline">Framework</h2>
       <p>Define your campaign framework.</p>
 
-        <v-select
-          label="Select a fitting tier"
-          :value="settingTier"
-          :items="tierSelect.options"
-          box
-          dense
-          @change="setSettingTier"
-        />
+      <v-select
+        label="Select a fitting tier"
+        :value="settingTier"
+        :items="tierSelect.options"
+        @change="setSettingTier"
+        dense filled
+      />
 
       <v-select
         v-if="false"
@@ -35,7 +48,7 @@
         item-text="name"
         item-value="name"
         dense
-        box
+        filled
         multiple
         chips
         deletable-chips
@@ -81,26 +94,32 @@
 
           </div>
 
-        </div>
+      </div>
+    </v-col>
 
-        <v-card-actions>
-          <v-btn
-            block
-            color="green"
-            @click="applySetting()"
-          >
-            Select Setting
-          </v-btn>
-          <v-btn
-            block
-            color="red"
-            @click="clearState()"
-          >
-            Fresh Character
-          </v-btn>
-        </v-card-actions>
+    <v-col :cols="12">
 
-        <v-card-actions>
+      <v-card-actions>
+        <v-btn
+          left
+          outlined
+          color="info"
+          @click="clearState()"
+        >
+          Fresh Character
+        </v-btn>
+        <v-spacer/>
+        <v-btn
+          right
+          color="green"
+          @click="applySetting()"
+        >
+          Select Setting
+        </v-btn>
+
+      </v-card-actions>
+
+      <v-card-actions>
         <v-btn
           block
           color="primary"
@@ -124,18 +143,16 @@
         </v-btn>
       </v-card-actions>
 
-      </div>
+    </v-col>
 
-    </v-flex>
-
-    <v-flex
+    <v-col
       v-if="false"
       v-for="item in settingTemplateOptions"
       :key="item.name"
-      xs12
-      sm6
-      md4
-      lg2
+      :cols="12"
+      :sm="6"
+      :md="4"
+      :lg="2"
     >
       <v-card>
         <v-img v-if="false" :src="item.cover" height="150" />
@@ -151,18 +168,18 @@
           <v-btn>Select</v-btn>
         </v-card-actions>
       </v-card>
-    </v-flex>
+    </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 
 <script lang="js">
-  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import { mapGetters } from 'vuex';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import { mapGetters } from 'vuex';
 
-  export default {
+export default {
   name: 'Setting',
   layout: 'builder',
   mixins: [SpeciesRepositoryMixin, ArchetypeRepositoryMixin],
@@ -190,6 +207,7 @@
           { text: '5 - Agents of Fate', value: 5 },
         ],
       },
+      settingPlayMode: false,
       settingTemplateOptions: [
         { name: 'Custom', recommendedTiers: '1-5', cover: 'https://cdna.artstation.com/p/assets/images/images/011/151/588/large/diego-gisbert-llorens-b-g-cover-1-wip4a.jpg?1528118826' },
         { name: 'Only War', recommendedTiers: '1', cover: 'https://40k.gallery/img/40K-artwork/40K-20170826114311.jpg' },
@@ -222,11 +240,15 @@
     ...mapGetters({
       characterName: 'name',
       settingTier: 'settingTier',
+      customXp: 'customXp'
     }),
   },
   methods: {
     setCharacterName(name){
       this.$store.commit('setName', name);
+    },
+    setCustomXp(xp){
+      this.$store.commit('setCustomXp', xp);
     },
     setSettingTier(event) {
       this.$store.commit('setSettingTier', { amount: event });

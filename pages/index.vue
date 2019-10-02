@@ -1,44 +1,45 @@
 <template lang="html">
 
-  <v-layout justify-center row wrap>
-
-        <v-flex
+  <v-row
+    justify="center"
+    no-gutters
+    dense
+  >
+        <v-col
           v-for="section in sections.filter(i=>i.isActive)"
-          v-bind:key="section.key"
-          xs12
-          sm10
-          md8
-          lg6
+          :key="section.key"
+          :cols="12"
+          :sm="6"
+          :md="4"
+          :lg="4"
+          class="pa-3"
         >
 
-          <v-card height="100%" class="flexcard">
+          <v-card class="card " exact nuxt :to="section.link.route" hover>
 
-            <v-img :src="section.imageSrc" height="250" :class="section.classes"/>
+            <div class="card__image-container">
+              <div class="card__image" :style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading></div>
+            </div>
 
-            <v-card-text>
-              <v-spacer /><span>© {{ section.imageCredit }}</span>
-            </v-card-text>
+            <div class="card__content-container pa-4">
 
-            <v-card-title>
-              <h2 class="headline">{{ section.title }}</h2>
-            </v-card-title>
+              <h2 class="headline" v-html="section.title"></h2>
 
-            <v-card-text>
-              <p v-html="section.htmlText"></p>
-            </v-card-text>
+              <h3 class="card__content-subtitle pb-4 subtitle-2">{{ section.subtitle }}</h3>
 
-            <v-card-text class="grow">
-            </v-card-text>
+              <p class="body-2" v-html="section.htmlText"></p>
 
-            <v-card-actions>
-              <v-btn block nuxt :to="section.link.route" color="green">{{ section.link.text }}</v-btn>
-            </v-card-actions>
+              <div class="card__content-footer">
+                <v-btn block color="green">{{ section.link.text }}</v-btn>
+              </div>
+
+            </div>
 
           </v-card>
 
-        </v-flex>
+        </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 
@@ -64,8 +65,9 @@ export default {
       sections: [
         {
           key: 'vault',
-          title: 'Vault - A collection of Wrath & Glory homebrews',
-          imageSrc: '/img/artwork_forge_mozjpeg.jpg',
+          title: 'Homebrew <strong>Vault</strong>',
+          subtitle: 'A collection of Wrath & Glory homebrews',
+          imageSrc: '/img/artwork_vault_bright.jpg',
           imageCredit: 'unknown, found at warhammer40k.fandom.com',
           htmlText: 'An expanding collection of <strong>homebrews from fans</strong> of the Wrath ' +
             '& Glory RPG. Extend your known settings like the Inquisition or explore new ones, for ' +
@@ -76,15 +78,27 @@ export default {
         },
         {
           key: 'forge',
-          title: 'Forge - A Character Builder for Wrath & Glory',
+          title: 'Character <strong>Forge</strong>',
+          subtitle: 'A Character Builder for Wrath & Glory',
           //imageSrc: '/img/artwork_mechanicus_aertist-alexboca_mozjpeg.jpg',
           //imageCredit: 'Artwork by AlexBoca (DevianArt)',
           imageSrc: '/img/artwork_abstract.jpg',
           imageCredit: 'Artwork by prettysleepy1 (Pixabay)',
           htmlText: 'Define the setting and tier of your campaign and start building a Wrath & ' +
-            'Glory Character for your session.</p><p><strong>BETA Status, characters might get ' +
+            'Glory Character for your session.<br/><br/><strong>BETA Status, characters might get ' +
             'lost during updates</strong>',
           link: { text: 'To the Forge', route: '/builder/my-characters' },
+          isActive: true,
+          classes: [ ],
+        },
+        {
+          key: 'network',
+          title: 'Community <strong>Network</strong>',
+          subtitle: 'Assets & Links',
+          imageSrc: '/img/artwork_network_cut.jpg',
+          imageCredit: 'Artwork from Pixabay',
+          htmlText: 'Check out some (one) of the assets provided by the community. E.g. some <strong>fillable character sheets</strong>.',
+          link: { text: 'To the Network', route: '/network' },
           isActive: true,
           classes: [ ],
         },
@@ -94,7 +108,42 @@ export default {
 };
 </script>
 
-<style scoped lang="css">
+<style scoped lang="scss">
+
+  .card {
+
+    //max-width: 640px;
+    height: 340px;
+    display: flex;
+
+    &__image-container {
+      width: 20%;
+      min-width: 20%;
+      object-fit: contain;
+      align-self: flex-start;
+    }
+
+    &__image {
+      background-position: center center;
+      background-size: cover;
+      height: 340px;
+    }
+
+    &__content-container {
+      flex: 1 1 auto;
+    }
+
+    &__content-subtitle {
+
+    }
+
+    &__content-footer {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+  }
+
   .flexcard {
     display: flex;
     flex-direction: column;

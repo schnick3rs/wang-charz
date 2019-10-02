@@ -1,10 +1,10 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-layout justify-center row wrap>
+  <v-row justify="center">
 
-    <v-flex v-if="!characterSpecies || changeSpeciesMode">
+    <v-col :cols="12" v-if="!characterSpecies || changeSpeciesMode">
       <h1 class="headline">Select a Species</h1>
-    </v-flex>
+    </v-col>
 
     <v-dialog
       v-model="speciesDialog"
@@ -20,10 +20,10 @@
       />
     </v-dialog>
 
-    <v-flex v-if="!characterSpecies || changeSpeciesMode" xs12>
+    <v-col v-if="!characterSpecies || changeSpeciesMode" xs12>
       <v-card>
         <v-list>
-          <v-list-tile
+          <v-list-item
             v-for="item in speciesRepository"
             :key="item.name"
             avatar
@@ -31,35 +31,35 @@
             @click.stop="updatePreview(item)"
           >
 
-            <v-list-tile-avatar tile>
+            <v-list-item-avatar tile>
               <img :src="getAvatar(item.name)" />
-            </v-list-tile-avatar>
+            </v-list-item-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{ item.name }}</v-list-tile-title>
-              <v-list-tile-sub-title>{{item.hint}}</v-list-tile-sub-title>
-            </v-list-tile-content>
+            <v-list-item-content>
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+              <v-list-item-subtitle>{{item.hint}}</v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action >
-              <v-chip color="green" text-color="white">
-                <v-avatar class="green darken-4">{{item.cost}}</v-avatar>
+            <v-list-item-action >
+              <v-chip pill color="green" text-color="white">
+                <v-avatar left class="green darken-4">{{item.cost}}</v-avatar>
                 BP
               </v-chip>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-            <v-list-tile-action>
-              <v-chip color="red" text-color="white">
-                <v-avatar class="red darken-4">{{item.baseTier}}</v-avatar>
+            <v-list-item-action>
+              <v-chip pill color="red" text-color="white">
+                <v-avatar left class="red darken-4">{{item.baseTier}}</v-avatar>
                 Tier
               </v-chip>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-          </v-list-tile>
+          </v-list-item>
         </v-list>
       </v-card>
-    </v-flex>
+    </v-col>
 
-    <v-flex v-if="characterSpecies && !changeSpeciesMode" xs12>
+    <v-col v-if="characterSpecies && !changeSpeciesMode" xs12>
       <species-preview
         v-bind:species="characterSpecies"
         v-on:changeSpecies="doChangeSpeciesMode"
@@ -68,9 +68,9 @@
         v-on:changeChapter="updateAstartesChapter"
         manageMode
       />
-    </v-flex>
+    </v-col>
 
-  </v-layout>
+  </v-row>
 </template>
 
 <script lang="js">
@@ -84,6 +84,11 @@
   components: { SpeciesPreview },
   mixins: [ SpeciesRepositoryMixin ],
   props: [],
+    head() {
+      return {
+        title: 'Select Species',
+      }
+    },
   data() {
     return {
       changeSpeciesMode: false,

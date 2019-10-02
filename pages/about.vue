@@ -4,9 +4,9 @@
 
     <v-container grid-list-md>
 
-      <v-layout justify-center row wrap>
+      <v-row justify-center row wrap>
 
-        <v-flex xs12 sm10 md8 lg8>
+        <v-col v-bind:cols="12" sm10 md8 lg8>
 
           <h1>About this page</h1>
 
@@ -15,16 +15,14 @@
             The game is currently published by <a href="https://www.cubicle7games.com/?p=3870">Cubical 7</a>.
           </p>
 
-          <p v-if="false">I was heavily motivated and inspired by <a href="https://www.reddit.com/user/althalin/">reddit user althalin</a>
+          <h2>The Character Generator</h2>
+
+          <p>I was heavily motivated and inspired by <a href="https://www.reddit.com/user/althalin/">reddit user althalin</a>
              and his <a href="http://apps.ajott.io/dh2chargen/">Dark Heresy 2 Character Generator</a>. You should
           definitely check it out!</p>
 
-          <p v-if="false">Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
+          <p>Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
             and draw inspiration how to organise the layout.</p>
-
-          <p v-if="false">
-            And, let me point you to another online character generator for Wrath & Glory: http://wagce.eu-west-2.elasticbeanstalk.com/.
-          </p>
 
           <h2>Contact</h2>
           <p>
@@ -49,9 +47,9 @@
 
           <p></p>
 
-        </v-flex>
+        </v-col>
 
-      </v-layout>
+      </v-row>
 
     </v-container>
 

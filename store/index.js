@@ -5,6 +5,7 @@ const getDefaultState = () => ({
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
+  customXp: 0,
   settingHomebrewContent: [],
   characterName: 'Simsel Simselman',
   species: { value: undefined, cost: 0 },
@@ -53,6 +54,7 @@ export const state = () => ({
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
+  customXp: 0,
   settingHomebrewContent: [],
   characterName: 'Simsel Simselman',
   species: { value: undefined, cost: 0 },
@@ -107,11 +109,13 @@ export const getters = {
   setting(state) { return state.setting; },
   settingSelected(state) { return state.settingSelected; },
   settingTier(state) { return state.settingTier; },
+  customXp(state) { return state.customXp ? parseInt(state.customXp) : 0; },
   settingHomebrewContent(state) { return state.settingHomebrewContent; },
   name(state) { return state.characterName; },
   species(state) { return state.species.value; },
   speciesAstartesChapter(state) { return state.speciesAstartesChapter; },
   archetype(state) { return state.archetype.value; },
+  background(state) { return state.background; },
   keywords(state) { return state.keywords; },
   finalKeywords(state) { return state.keywords.map(k => k.replacement ? k.replacement : k.name); },
   effectiveCharacterTier(state) {
@@ -181,13 +185,19 @@ export const getters = {
   talents(state) {
     return state.talents.map(t => t.name);
   },
+  ascensionPackages(state) {
+    return state.ascensionPackages;
+  },
   psychicPowers(state) {
     return state.psychicPowers.map(p => p.name);
+  },
+  psychicPowersObjects(state) {
+    return state.psychicPowers;
   },
   remainingBuildPoints(state, getters) {
     let remaining = 0;
     remaining = state.settingTier * 100;
-    return (state.settingTier * 100) - getters.spendBuildingPoints;
+    return (state.settingTier * 100) - getters.spendBuildingPoints + state.customXp;
   },
   attributeCosts(state) {
     const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
@@ -254,6 +264,9 @@ export const mutations = {
   },
   setSettingTier(state, payload) {
     state.settingTier = payload.amount;
+  },
+  setCustomXp(state, payload) {
+    state.customXp = payload;
   },
   addHomebrewContent(state, payload){
     state.settingHomebrewContent.push(payload.key);
@@ -344,13 +357,23 @@ export const mutations = {
   addPower(state, payload) {
     const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
     if (!hasPower) {
-      state.psychicPowers.push({ name: payload.name, cost: payload.cost });
+      state.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
     }
   },
   removePower(state, payload) {
     const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
     if (hasPower) {
       state.psychicPowers = state.psychicPowers.filter(t => t.name !== payload.name);
+    }
+  },
+  /**
+   * @param payload { source:String }
+   */
+  clearPowersBySource(state, payload) {
+    if ( state.psychicPowers.length > 0 ) {
+      console.log(`found ${state.psychicPowers.length} psychic powers, clearing with source ${payload.source}...`);
+      state.psychicPowers = state.psychicPowers.filter( k => k.source.indexOf(payload.source) < 0 );
+      console.log(`${state.psychicPowers.length} psychic powers remaining`);
     }
   },
   addAscension(state, payload) {
@@ -411,7 +434,7 @@ export const mutations = {
     for (let i = 0; i < length; i++ ) {
       result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
-    console.info(`Adding '${payload.name}' by '${payload.source}'`)
+    console.info(`Adding '${payload.name}' by '${payload.source}' [${result}]`)
     state.wargear.push({ id: result, name: payload.name, source: payload.source });
   },
   removeWargear(state, payload) {
@@ -424,14 +447,17 @@ export const mutations = {
     state.background = payload.name;
   },
   setBackgroundModifications(state, payload) {
-    state.enhancements = state.enhancements.filter(e => e.source !== 'background');
+    console.info(payload);
+    state.enhancements = state.enhancements.filter((e) => e.source !== payload.source);
 
     payload.modifications.forEach((item) => {
       state.enhancements.push(item);
     });
+    console.info(state.enhancements);
   },
   clearEnhancementsBySource(state, payload) {
-    state.enhancements = state.enhancements.filter(e => e.source !== payload.source);
+
+    state.enhancements = state.enhancements.filter((e) => e.source.indexOf(payload.source) < 0 );
   }
 };
 

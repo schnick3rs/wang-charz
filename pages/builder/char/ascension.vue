@@ -1,7 +1,8 @@
 <template lang="html">
 
-  <v-layout justify-center row wrap>
+  <v-row justify="center" no-gutters>
 
+    <!-- Ascension Dialog -->
     <v-dialog
       v-model="dialog"
       width="600px"
@@ -19,8 +20,8 @@
     </v-dialog>
 
     <!-- selected ascension -->
-    <v-flex
-      xs12
+    <v-col
+      :cols="12"
       v-if="characterAscensionPackages.length > 0"
     >
 
@@ -33,15 +34,15 @@
         <v-card-title primary-title>
           <div>
             <div class="headline">{{ characterAscension.name }}</div>
-            <span class="grey--text">{{ characterAscension.teaser }}</span>
+            <span class="subtitle-1 grey--text">{{ characterAscension.teaser }}</span>
           </div>
           <div>
             <v-btn
-              flat
+              small outlined
               color="red"
               @click="removePackage(characterAscension)"
             >
-              <v-icon>remove_circle</v-icon>
+              <v-icon left>remove_circle</v-icon>
               remove package
             </v-btn>
           </div>
@@ -56,6 +57,13 @@
             {{ characterAscension.targetTier * characterAscension.cost }}
             (New Tier x {{ characterAscension.cost }})
           </p>
+
+          <span class="mt-2 grey--text">Prerequisites</span>
+          <v-divider class="mb-2"></v-divider>
+
+          <div>
+            {{ characterAscension.effectivePrerequisites.map(a => `${a.value} (${a.threshold})`).join(", ") }}
+          </div>
 
           <span class="mt-2 grey--text">Benefits</span>
           <v-divider class="mb-2"></v-divider>
@@ -72,8 +80,7 @@
               v-bind:selection="characterAscension.selected"
               v-bind:exclude="finalKeywords.filter(k=>k.indexOf('<')<0)"
               v-on:input="updateKeyword($event, placeholderName, characterAscension)"
-            ></keyword-select>
-
+            />
           </div>
 
           <!-- selection for the sub keyword -->
@@ -86,20 +93,52 @@
             ( {{characterAscension.influencePerTier}} per tier ascended)
           </p>
 
+          <!-- Story Element -->
+
           <v-divider class="mb-2"></v-divider>
 
           <p class="text-lg-justify"><strong>Story Element:</strong> {{ characterAscension.storyElementText }}</p>
-          <v-select
+
+          <div
             v-if="characterAscension.storyElementOptions.length > 0"
-            v-model="characterAscension.storyElementChoice"
-            v-bind:items="characterAscension.storyElementOptions"
-            v-on:input="updateAscensionPackageStoryElement($event, characterAscension)"
-            item-text="text"
-            item-value="key"
-            label="Story Element"
-            solo
-            dense
-          ></v-select>
+          >
+
+            <div
+              v-if="characterAscension.storyElementOptions[0].type === 'spells'"
+            >
+              <div
+                v-for="option in characterAscension.storyElementOptions[0].discount.slice(0,3)"
+                :key="option.name"
+              >
+              <v-select
+                v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
+                v-model="option.selected"
+                v-bind:items="psychicPowersRepository.filter(option.filter)"
+                v-bind:hint="psychicPowerHint(option.selected)"
+                v-on:change="updatePsychicPowers(characterAscension, option)"
+                item-value="name"
+                item-text="name"
+                persistent-hint
+                dense
+                solo
+                class="ml-2 mr-2"
+              ></v-select>
+              </div>
+            </div>
+
+            <v-select
+              v-else
+              v-model="characterAscension.storyElementChoice"
+              v-bind:items="characterAscension.storyElementOptions"
+              v-on:input="updateAscensionPackageStoryElement($event, characterAscension)"
+              item-text="text"
+              item-value="key"
+              label="Story Element"
+              solo
+              dense
+            ></v-select>
+
+          </div>
 
           <v-divider class="mb-2"></v-divider>
 
@@ -125,17 +164,16 @@
             >
               <div
                 v-for="selectItem in characterAscension.wargearOptions.find( o => o.key === characterAscension.wargearChoice ).selectList"
+                v-bind:key="selectItem.key"
               >
-                <v-select
-                  v-model="selectItem.itemChoice"
-                  v-bind:items="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
-                  v-on:input="updateAscensionPackageWargearOptionChoice($event, selectItem.key, characterAscension)"
-                  item-value="name"
-                  item-text="name"
-                  label="Item Option"
-                  solo
-                  dense
-                ></v-select>
+
+                <wargear-select
+                  :item="selectItem.itemChoice"
+                  :repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
+                  @input="updateAscensionPackageWargearOptionChoice($event, selectItem.key, characterAscension)"
+                  class="mb-4"
+                ></wargear-select>
+
               </div>
 
             </div>
@@ -146,10 +184,10 @@
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-    <!--  -->
-    <v-flex>
+    <!-- ascension list -->
+    <v-col>
       <h1 class="headline">Select an Ascension Package</h1>
 
       <v-alert
@@ -159,69 +197,79 @@
         :type="alert.type"
       >{{alert.text}}</v-alert>
 
-    </v-flex>
+    </v-col>
 
     <!-- ascension options -->
-    <v-flex
-      xs12
+    <v-col
+      :cols="12"
       v-if="alerts.length === 0"
     >
       <v-card>
 
         <v-list>
 
-          <v-list-tile
+          <v-list-item
             two-line
             v-for="item in ascensionRepository"
             :key="item.key"
-            avatar
             @click.stop="openDialog(item)"
           >
 
-            <v-list-tile-avatar tile>
+            <v-list-item-avatar tile>
               <img />
-            </v-list-tile-avatar>
+            </v-list-item-avatar>
 
-            <v-list-tile-content>
-              <v-list-tile-title>{{item.name}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{item.teaser}}</v-list-tile-sub-title>
-            </v-list-tile-content>
+            <v-list-item-content>
+              <v-list-item-title>{{item.name}}</v-list-item-title>
+              <v-list-item-subtitle>{{item.teaser}}</v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action>
+            <v-list-item-action>
               <v-btn dense icon>
                 <v-icon color="primary">arrow_forward_ios</v-icon>
               </v-btn>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-          </v-list-tile>
+          </v-list-item>
 
         </v-list>
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-
-
-  </v-layout>
+  </v-row>
 
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'vuex';
-  import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
-  import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
-  import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin';
-  import AscensionPreview from '~/components/builder/AscensionPreview.vue';
-  import KeywordSelect from '~/components/builder/KeywordSelect.vue';
-  import WargearSelect from '~/components/builder/WargearSelect.vue';
+import { mapGetters } from 'vuex';
+import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
+import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
+import AscensionPreview from '~/components/builder/AscensionPreview.vue';
+import KeywordSelect from '~/components/builder/KeywordSelect.vue';
+import WargearSelect from '~/components/builder/WargearSelect.vue';
 
-  export default {
+export default {
   name: 'Ascension',
   layout: 'builder',
   props: [],
-  mixins: [AscensionRepositoryMixin, KeywordRepositoryMixin, WargearRepositoryMixin],
+  mixins: [ArchetypeRepositoryMixin, AscensionRepositoryMixin, KeywordRepositoryMixin],
   components: { AscensionPreview, KeywordSelect, WargearSelect },
+  head() {
+    return {
+      title: 'Select Ascension Package',
+    }
+  },
+  async asyncData({ params, $axios, error }) {
+    const wargearResponse = await $axios.get(`/api/wargear/`);
+    const powersResponse = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
+    return {
+      wargearRepository: wargearResponse.data,
+      psychicPowersRepository: powersResponse.data,
+    };
+  },
   data() {
     return {
       dialog: false,
@@ -249,11 +297,19 @@
       return this.$store.state.ascensionPackages.map(packageName => {
         const characterPackage = this.ascensionRepository.find(j => {
           return j.name === packageName.value;
-        })
+        });
         characterPackage.sourceTier = packageName.sourceTier;
         characterPackage.targetTier = packageName.targetTier;
         characterPackage.storyElementChoice = packageName.storyElementChoice;
         characterPackage.wargearChoice = packageName.wargearChoice;
+
+        const archetypeName = this.$store.getters.archetype;
+        if ( archetypeName && this.archetypeRepository ) {
+          const archetype = this.archetypeRepository.find( archetype => archetype.name == archetypeName );
+          if ( archetype && archetype.prerequisites && archetype.prerequisites.length > 0 ) {
+            characterPackage.effectivePrerequisites = characterPackage.prerequisites(archetype.prerequisites);
+          }
+        }
 
         const sourceKey = `ascension.${characterPackage.key}.${characterPackage.wargearChoice}`;
         const gear = this.$store.state.wargear
@@ -415,6 +471,24 @@
     },
     subKeywordOptions(placeholder) {
       return this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
+    },
+    psychicPowerHint(powerName) {
+
+      const power = this.psychicPowersRepository.find( p => p.name === powerName );
+
+      if ( power ) {
+        return power.effect;
+      }
+
+      return '';
+    },
+    updatePsychicPowers(characterAscension, option) {
+      this.$store.commit('clearPowersBySource', { source: `ascension.${characterAscension.key}.${option.name}` });
+      this.$store.commit('addPower', {
+        name: option.selected,
+        cost: 0,
+        source: `ascension.${characterAscension.key}.${option.name}`,
+      });
     },
   },
 };

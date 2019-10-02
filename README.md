@@ -4,14 +4,6 @@
 
 # ToDo's
 
-#### Printable View
-_A din A4 printable view for the done character_ 
-
-* `[✓]` Basic view
-* `[_]` Better representation of soak, shock, wounds
-* `[_]` 2nd page, detailed Psychic Powers
-* `[_]` 2nd Page, detailed Gear
-
 #### Cloud Character Sheet
 _A view (not an edit) of the current character. Should be responsive._
 
@@ -40,13 +32,15 @@ _A view (not an edit) of the current character. Should be responsive._
 
 * `[_]` Handle additional powers for eldar species
 
-##### Extendet CORE
+##### Extended CORE
 
 * `[_]` talent: hatred keyword handling
 * `[_]` faith talent / resource handling
 * `[_]` Traits: Add asserts and allow to buy (up to # tier) during creation
 * `[_]` Languages: Allow to by (custom field with autocomplete for known languages)
-* `[_]` Keywords: Custom text for some (or all) sub keywords
+* `[_]` Keywords: Custom text for some (or all) sub keywordsd
+* `[_]` Background: Keyword selection
+* `[_]` Keywords: Allow for custom strings
 
 ##### HELPER / UX
 

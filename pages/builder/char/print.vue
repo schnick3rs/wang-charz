@@ -1,304 +1,466 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <!-- a dina4 print page -->
-  <div class="page page--din-a-4">
+  <div>
 
-    <!-- grid list with low margin -->
-    <v-container grid-list-xs>
+    <div class="page page--din-a-4">
 
-      <v-layout justify-center wrap row>
+      <!-- grid list with low margin -->
+      <v-container>
 
-        <v-flex xs12>
+        <v-row justify="center" no-gutters>
 
-          <p class="display-1 text-xs-center mb-0">{{ name }}</p>
-          <p class="text-xs-center mb-0">{{ [species, archetype].join(' • ') }}</p>
-          <span class="sexy_line"></span>
-          <p class="text-xs-center">{{ keywords.join(' • ') }}</p>
+          <v-col v-bind:cols="12">
 
-        </v-flex>
+            <p class="display-1 text-center mb-0">{{ name }}</p>
+            <p class="text-center mb-0">{{ [species, archetype].join(' • ') }}</p>
+            <span class="sexy_line"></span>
+            <p class="text-center">{{ keywords.join(' • ') }}</p>
 
-        <!-- attributes and traits -->
-        <v-flex xs4>
+          </v-col>
 
-          <v-flex xs12>
+          <!-- attributes and traits -->
+          <v-col v-bind:cols="4">
 
+            <v-col v-bind:cols="12" class="pa-1">
+
+              <v-card>
+
+                <v-toolbar color="red" dark dense height="32">
+                  <v-toolbar-title>Attributes</v-toolbar-title>
+                </v-toolbar>
+
+                <v-simple-table
+                  dense
+                >
+                  <thead>
+                    <tr>
+                      <th v-for="header in attributeHeaders">{{ header.text }}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr v-for="item in attributes">
+                      <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                      <td class="text-center pa-1 small">{{ item.value }}</td>
+                      <td class="text-center pa-1 small">{{ item.enhancedValue }}</td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+
+              </v-card>
+
+            </v-col>
+
+            <v-col v-bind:cols="12"  class="pa-1">
+
+              <v-card>
+
+                <v-toolbar color="red" dark dense height="32">
+                  <v-toolbar-title>Traits</v-toolbar-title>
+                </v-toolbar>
+
+                <v-simple-table
+                  :headers="traitHeaders"
+                  :items="groupedTraits"
+                  dense
+                >
+                  <tbody>
+                    <tr v-for="item in groupedTraits">
+                      <td class="text-xs-left pa-1 small">
+                        <span>{{ item.name }}</span>
+                        <span v-if="item.name === 'Wounds'" style="float: right;">
+                          {{ '☐'.repeat( Math.ceil(item.enhancedValue/2) ) }}
+                          •
+                          {{ '☐'.repeat( Math.floor(item.enhancedValue/2) ) }}
+                        </span>
+                        <span v-if="item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
+                        <em v-if="item.name==='Resilience' && armour.length>0">
+                          @{{armour[0].name}} ({{ armour[0].meta[0].armourRating }})
+                        </em>
+                      </td>
+                      <td v-if="item.name==='Resilience'" class="text-center pa-1 small">
+                        {{ item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
+                      </td>
+                      <td v-else class="text-center pa-1 small">
+                        {{ item.enhancedValue }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </v-simple-table>
+
+                <v-data-table v-if="false"
+                  :headers="traitHeaders"
+                  :items="traits.filter(i=>i.type === 'Combat')"
+                  hide-footer
+                  hide-actions
+                >
+                  <template v-slot:items="props">
+                    <tr>
+                      <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                      <td class="text-center pa-1 small">{{ item.enhancedValue }}</td>
+                    </tr>
+                  </template>
+                </v-data-table>
+
+                <v-data-table v-if="false"
+                  :headers="traitHeaders"
+                  :items="traits.filter(i=>i.type === 'Mental')"
+                  hide-footer
+                  hide-actions
+                >
+                  <template v-slot:items="props">
+                    <tr>
+                      <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                      <td class="text-center pa-1 small">{{ item.enhancedValue }}</td>
+                    </tr>
+                  </template>
+                </v-data-table>
+
+                <v-data-table v-if="false"
+                  :headers="traitHeaders"
+                  :items="traits.filter(i=>i.type === 'Social')"
+                  hide-footer
+                  hide-actions
+                >
+                  <template v-slot:items="props">
+                    <tr>
+                      <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                      <td class="text-center pa-1 small">{{ item.enhancedValue }}</td>
+                    </tr>
+                  </template>
+                </v-data-table>
+
+              </v-card>
+
+            </v-col>
+
+          </v-col>
+
+          <!-- skills -->
+          <v-col v-bind:cols="4">
+
+            <v-col v-bind:cols="12" class="pa-1">
             <v-card>
 
               <v-toolbar color="red" dark dense height="32">
-                <v-toolbar-title>Attributes</v-toolbar-title>
+                <v-toolbar-title>Skills</v-toolbar-title>
               </v-toolbar>
 
-              <v-data-table
-                :headers="attributeHeaders"
-                :items="attributes"
-                hide-footer
-                hide-actions
+              <v-simple-table
+                dense
               >
-                <template v-slot:items="props">
+                <thead>
                   <tr>
-                    <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.value }}</td>
-
-                    <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                    <th v-for="header in skillHeaders">{{ header.text }}</th>
                   </tr>
-                </template>
-              </v-data-table>
+                </thead>
+                <tbody>
+                  <tr v-for="item in skills">
+                    <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                    <td class="text-center pa-1 small">{{ item.value }}</td>
+                    <td class="text-center pa-1 small">{{ item.attribute.substring(0,3) }}</td>
+                    <td class="text-center pa-1 small">{{ computeSkillPool(item) }}</td>
+                  </tr>
+                </tbody>
+              </v-simple-table>
 
             </v-card>
 
-          </v-flex>
+            </v-col>
 
-          <v-flex xs12>
+          </v-col>
+
+          <!-- abilities -->
+          <v-col v-bind:cols="4">
+
+            <v-col v-bind:cols="12" class="pa-1">
+
+              <v-card>
+
+                <v-toolbar color="red" dark dense height="32">
+                  <v-toolbar-title>Abilities</v-toolbar-title>
+                </v-toolbar>
+
+                <v-card-text v-for="ability in abilities" v-bind:key="ability.name" class="pa-2 caption">
+                  <strong>{{ ability.name }}</strong><em v-if="ability.source">  • {{ ability.source }}</em>
+                  <br>
+                  <span v-html="computeFormatedText(ability.effect)"></span>
+                </v-card-text>
+
+              </v-card>
+
+            </v-col>
+
+            <v-col v-bind:cols="12" class="pa-1" v-if="talents.length > 0">
+
+              <v-card>
+
+                <v-toolbar color="red" dark dense height="32">
+                  <v-toolbar-title>Talents</v-toolbar-title>
+                </v-toolbar>
+
+                <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
+                  <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.effect)"></span>
+                </v-card-text>
+
+              </v-card>
+
+            </v-col>
+
+            <v-col v-bind:cols="12" class="pa-1" v-if="gear.length > 0">
+
+              <v-card>
+
+                <v-toolbar color="red" dark dense height="32">
+                  <v-toolbar-title>Gear</v-toolbar-title>
+                </v-toolbar>
+
+                <v-card-text v-for="gearItem in gear" v-bind:key="gearItem.id" class="pa-2 caption">
+                  <strong>{{ gearItem.name }}:</strong> {{ gearItem.hint }}
+                </v-card-text>
+
+              </v-card>
+
+            </v-col>
+
+          </v-col>
+
+          <v-col v-bind:cols="12">
 
             <v-card>
 
               <v-toolbar color="red" dark dense height="32">
-                <v-toolbar-title>Traits</v-toolbar-title>
+                <v-toolbar-title>Weapons</v-toolbar-title>
               </v-toolbar>
 
               <v-data-table
-                :headers="traitHeaders"
-                :items="groupedTraits"
-                hide-footer
-                hide-headers
-                hide-actions
+                :headers="weaponHeaders"
+                :items="weapons"
+                hide-default-footer
               >
-                <template v-slot:items="props">
-                  <tr v-if="['Defence', 'Conviction', 'Influence'].includes(props.item.name)">
-                    <td v-if="props.item.name==='Defence'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Combat Traits</td>
-                    <td v-if="props.item.name==='Conviction'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Mental Traits</td>
-                    <td v-if="props.item.name==='Influence'" class="text-xs-left pa-1 body-2 small grey" colspan="2">Social Traits</td>
-                  </tr>
+                <template v-slot:item="{ item }">
                   <tr>
-                    <td class="text-xs-left pa-1 small">
-                      {{ props.item.name }}
-                      <em v-if="props.item.name==='Resilience' && armour.length>0">@{{armour[0].name}}</em>
+                    <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                    <td class="text-center pa-1 small">
+                      <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
+                        <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
+                        <span v-else>{{ item.meta[0].damage.static }}</span>
+                        <span> + </span>
+                        <span>{{ item.meta[0].damage.ed }} ED</span>
+                      </div>
                     </td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
-                  </tr>
-                </template>
-              </v-data-table>
-
-              <v-data-table v-if="false"
-                :headers="traitHeaders"
-                :items="traits.filter(i=>i.type === 'Combat')"
-                hide-footer
-                hide-actions
-              >
-                <template v-slot:items="props">
-                  <tr>
-                    <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
-                  </tr>
-                </template>
-              </v-data-table>
-
-              <v-data-table v-if="false"
-                :headers="traitHeaders"
-                :items="traits.filter(i=>i.type === 'Mental')"
-                hide-footer
-                hide-actions
-              >
-                <template v-slot:items="props">
-                  <tr>
-                    <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
-                  </tr>
-                </template>
-              </v-data-table>
-
-              <v-data-table v-if="false"
-                :headers="traitHeaders"
-                :items="traits.filter(i=>i.type === 'Social')"
-                hide-footer
-                hide-actions
-              >
-                <template v-slot:items="props">
-                  <tr>
-                    <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                    <td class="text-xs-center pa-1 small">{{ props.item.enhancedValue }}</td>
+                    <td class="text-center pa-1 small">
+                      <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
+                    </td>
+                    <td class="text-center pa-1 small">
+                      <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo < 0 ? '-' : item.meta[0].salvo }}</span>
+                    </td>
+                    <td class="text-center pa-1 small">
+                      <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
+                      <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
+                    </td>
+                    <td class="text-xs-left pa-1 small">
+                      <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
+                    </td>
                   </tr>
                 </template>
               </v-data-table>
 
             </v-card>
 
-          </v-flex>
+          </v-col>
 
-        </v-flex>
+        </v-row>
 
-        <!-- skills -->
-        <v-flex xs4>
+      </v-container>
 
-          <v-flex xs12>
-          <v-card>
+    </div>
 
-            <v-toolbar color="red" dark dense height="32">
-              <v-toolbar-title>Skills</v-toolbar-title>
-            </v-toolbar>
+    <div class="page page--din-a-4">
 
-            <v-data-table
-              :headers="skillHeaders"
-              :items="skills"
-              hide-footer
-              hide-actions
-            >
-              <template v-slot:items="props">
-                <tr>
-                  <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                  <td class="text-xs-center pa-1 small">{{ props.item.value }}</td>
-                  <td class="text-xs-center pa-1 small">{{ props.item.attribute.substring(0,3) }}</td>
-                  <td class="text-xs-center pa-1 small">{{ computeSkillPool(props.item) }}</td>
-                </tr>
-              </template>
-            </v-data-table>
+      <!-- grid list with low margin -->
+      <v-container>
 
-          </v-card>
+        <v-row justify="center" no-gutters>
 
-          </v-flex>
+          <v-col v-bind:cols="12">
 
-          <v-flex xs12>
+            <v-row justify="left" no-gutters>
 
-            <v-card>
+              <v-col v-bind:cols="6" class="pa-1" v-if="gear.length > 0">
 
-              <v-toolbar color="red" dark dense height="32">
-                <v-toolbar-title>Gear</v-toolbar-title>
-              </v-toolbar>
+                <v-card>
 
-              <v-card-text class="pa-2 caption">
-                {{ gear.map( g => g.name ).join(', ') }}
-              </v-card-text>
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Gear</v-toolbar-title>
+                  </v-toolbar>
 
-            </v-card>
+                  <v-card-text v-for="gearItem in gear" v-bind:key="gearItem.name" class="pa-2 caption">
+                    <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
+                  </v-card-text>
 
-          </v-flex>
+                </v-card>
 
+              </v-col>
 
-        </v-flex>
+              <v-col v-bind:cols="6" class="pa-1" v-if="talents.length > 0">
 
-        <!-- abilities -->
-        <v-flex xs4>
+                <v-card>
 
-          <v-flex xs12>
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Talents</v-toolbar-title>
+                  </v-toolbar>
 
-            <v-card>
+                  <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
+                    <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)"></span>
+                  </v-card-text>
 
-              <v-toolbar color="red" dark dense height="32">
-                <v-toolbar-title>Abilities</v-toolbar-title>
-              </v-toolbar>
+                </v-card>
 
-              <v-card-text v-for="ability in abilities" v-bind:key="ability.name" class="pa-2 caption">
-                <strong>{{ ability.name }}:</strong> {{ ability.effect }} <em v-if="ability.source">@{{ ability.source }}</em>
-              </v-card-text>
+              </v-col>
 
-            </v-card>
+            </v-row>
 
-          </v-flex>
+          </v-col>
 
-          <v-flex xs12>
+          <v-col v-bind:cols="12" class="pa-1">
 
-            <v-card>
-
-              <v-toolbar color="red" dark dense height="32">
-                <v-toolbar-title>Talents</v-toolbar-title>
-              </v-toolbar>
-
-              <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
-                <strong>{{ talent.name }}:</strong> {{ talent.effect }}
-              </v-card-text>
-
-            </v-card>
-
-          </v-flex>
-
-          <v-flex xs12 v-if="psychicPowers.length>0">
-
-            <v-card>
+            <v-card v-if="psychicPowers.length > 0">
 
               <v-toolbar color="red" dark dense height="32">
                 <v-toolbar-title>Psychic Powers</v-toolbar-title>
               </v-toolbar>
 
-              <v-card-text v-for="power in psychicPowers" v-bind:key="power.name"  class="pa-2 caption">
-                <strong>{{ power.name }}:</strong> {{ power.effect }}
-              </v-card-text>
+              <v-data-table
+                :headers="psychicPowersHeaders"
+                :items="psychicPowers"
+                hide-default-footer
+              >
+                <template v-slot:item="{ item }">
+                  <tr>
+                    <td class="text-xs-left pa-1 small">{{ item.name }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_difficulty_number }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_activation }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_duration }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_range }}</td>
+                    <td class="text-center pa-1 small">{{ item.crunch_multi_target }}</td>
+                    <td class="text-xs-left pa-1 small">{{ item.effect }}</td>
+                  </tr>
+                </template>
+              </v-data-table>
 
             </v-card>
 
-          </v-flex>
+          </v-col>
 
-        </v-flex>
+          <v-col v-bind:cols="12">
 
-        <v-flex xs12>
+            <v-row justify="center" no-gutters>
 
-          <v-card>
+              <v-col v-bind:cols="4" class="pa-1">
 
-            <v-toolbar color="red" dark dense height="32">
-              <v-toolbar-title>Weapons</v-toolbar-title>
-            </v-toolbar>
+                <v-card height="100%" class="flexcard">
 
-            <v-data-table
-              :headers="weaponHeaders"
-              :items="weapons"
-              hide-footer
-              hide-actions
-            >
-              <template v-slot:items="props">
-                <tr>
-                  <td class="text-xs-left pa-1 small">{{ props.item.name }}</td>
-                  <td class="text-xs-center pa-1 small">
-                    <div v-if="props.item.meta && props.item.meta[0].damage">
-                      <span v-if="props.item.type==='Melee Weapon'">{{ props.item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
-                      <span v-else>{{ props.item.meta[0].damage.static }}</span>
-                      <span> + </span>
-                      <span>{{ props.item.meta[0].damage.ed }} ED</span>
-                    </div>
-                  </td>
-                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].ap }}</span></td>
-                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].salvo }}</span></td>
-                  <td class="text-xs-center pa-1 small"><span v-if="props.item.meta">{{ props.item.meta[0].range }} m</span></td>
-                  <td class="text-xs-left pa-1 small">
-                    <span v-if="props.item.meta && props.item.meta[0].traits && props.item.meta[0].traits.length >0">{{ props.item.meta[0].traits.join(', ') }}</span>
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Objectives</v-toolbar-title>
+                  </v-toolbar>
 
-          </v-card>
+                  <v-card-text
+                    v-for="(objective, index) in objectives"
+                    v-bind:key="objective.name"
+                    class="pl-2 pr-2 pt-1 pb-1 caption"
+                  >
+                    <strong>{{ index+1 }}:</strong> {{ objective.text }}
+                  </v-card-text>
 
-        </v-flex>
+                </v-card>
 
-      </v-layout>
+              </v-col>
 
-    </v-container>
+              <v-col v-bind:cols="4" class="pa-1">
+
+                <v-card height="100%" class="flexcard">
+
+                  <v-card-text>
+                    <p class="caption">Spend one <strong>Wrath</strong> to:</p>
+                    <ul class="pl-3">
+                      <li class="caption">Re-roll failures once on a test</li>
+                      <li class="caption">Re-roll failures once on a soak attempt</li>
+                      <li class="caption">Add +1 to a Defiance check</li>
+                      <li class="caption">Make a narrative declaration</li>
+                      <li class="caption">As an Action: restore 1d3+1 Shock</li>
+                    </ul>
+                  </v-card-text>
+
+                </v-card>
+
+              </v-col>
+
+              <v-col v-bind:cols="4" class="pa-1">
+
+                <v-card height="100%" class="flexcard">
+
+                  <v-card-text>
+                    <p class="caption">Spend one <strong>Glory</strong> to:</p>
+                    <ul class="pl-3">
+                      <li class="caption">Add +1d to a test after any re-rolls</li>
+                      <li class="caption">Add +1 damage to a successful attack</li>
+                      <li class="caption">Increase the severity of a Critical Hit</li>
+                      <li class="caption">Seize the Initiative</li>
+                    </ul>
+                  </v-card-text>
+
+                </v-card>
+
+              </v-col>
+
+            </v-row>
+
+          </v-col>
+
+        </v-row>
+
+      </v-container>
+
+    </div>
 
   </div>
 
 </template>
 
 <script lang="js">
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import PsychicPowersRepositoryMixin from '~/mixins/PsychicPowersRepositoryMixin.js';
-  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
-  import TalentRepositoryMixin from '~/mixins/TalentRepositoryMixin.js';
-  import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin.js';
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin.js';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
-  export default {
+export default {
   name: 'Print',
   layout: 'print',
   mixins: [
     ArchetypeRepositoryMixin,
-    PsychicPowersRepositoryMixin,
+    BackgroundRepositoryMixin,
     SpeciesRepositoryMixin,
     StatRepositoryMixin,
-    TalentRepositoryMixin,
-    WargearRepositoryMixin
   ],
   props: [],
-  async asyncData({ params }) {
-    return {};
+  async asyncData({ params, $axios, error }) {
+    const talentResponse = await $axios.get(`/api/talents/`);
+    const wargearResponse = await $axios.get(`/api/wargear/`);
+    const psychicPowersResponse = await $axios.get(`/api/psychic-powers/`);
+
+    return {
+      wargearRepository: wargearResponse.data,
+      talentRepository: talentResponse.data,
+      psychicPowersRepository: psychicPowersResponse.data,
+    };
+  },
+  head() {
+    return {
+      //title: [this.name, this.species, this.archetype].join(' • '),
+      title: this.name,
+      //titleTemplate: '%s | W&G Character Sheet',
+    };
   },
   data() {
     return {
@@ -325,6 +487,15 @@
         { text: "Range", sortable: false, align: 'center', class: 'small pa-1' },
         { text: "Traits", sortable: false, align: 'left', class: 'small pa-1' },
       ],
+      psychicPowersHeaders: [
+        { text: "Name", sortable: false, align: 'left', class: 'small pa-1' },
+        { text: "DN", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "Activation", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "Duration", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "Range", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "Multi-Target", sortable: false, align: 'center', class: 'small pa-1' },
+        { text: "Effect", sortable: false, align: 'left', class: 'small pa-1' },
+      ],
     };
   },
   computed: {
@@ -332,7 +503,9 @@
       keywords: 'finalKeywords',
       name: 'name',
       species: 'species',
+      astartesChapter: 'speciesAstartesChapter',
       archetype: 'archetype',
+      charBackground: 'background',
       charAttributes: 'attributes',
       charAttributesEnhanced: 'attributesEnhanced',
       charTraits: 'traits',
@@ -387,9 +560,23 @@
           let speciesAbilityNames = species.abilities.split(',');
           if (speciesAbilityNames.length > 0) {
             speciesAbilityNames.forEach(speciesAbilityName => {
-              const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
-              ability['source'] = this.species;
-              abilities.push(ability);
+
+              if ( speciesAbilityName === 'Honour the Chapter' ) {
+                const chapter = this.astartesChapterRepository.find(a => a.name === this.astartesChapter) || [];
+                const traditions = chapter.beliefsAndTraditions;
+                traditions.forEach( t => {
+                  let tradition = {
+                    name: t.name,
+                    effect: t.effect,
+                    source: this.astartesChapter,
+                  };
+                  abilities.push(tradition);
+                });
+              } else {
+                const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
+                ability['source'] = this.species;
+                abilities.push(ability);
+              }
             });
           }
         }
@@ -402,10 +589,24 @@
           a['source'] = this.archetype;
           abilities.push(a);
         });
-
       }
 
-      // TODO background abilities
+      // background abilities
+      if ( this.charBackground ) {
+        const background = this.backgroundRepository
+          .filter((b) => b.name === this.charBackground)
+          .map((b) =>  {
+            return {
+              name: b.name,
+              effect: b.bonus,
+              source: 'Background'
+            };
+          });
+        abilities.push(background[0]);
+      }
+
+      // other
+
 
       return abilities;
     },
@@ -447,11 +648,38 @@
       });
       return items;
     },
+    objectives() {
+      if (this.archetype) {
+        const archetype = this.archetypeRepository.find(a => a.name === this.archetype);
+        if ( archetype ) {
+          const objectiveList = this.objectiveRepository.find(o => o.group === archetype.group);
+          if ( objectiveList ) {
+            return objectiveList.objectives.map(o => { return {text: o}; });
+          }
+        }
+      }
+      return [];
+    },
   },
   methods: {
     computeSkillPool(skill) {
       let attribute = this.attributes.find(a => a.name === skill.attribute);
       return attribute.enhancedValue + skill.enhancedValue;
+    },
+    computeFormatedText(text) {
+      const rank = 4;
+      let computed = text;
+
+      //computed = computed.replace(/(1d3\+Rank Shock)/g, `<strong>1d3+${rank} Shock</strong>`);
+      computed = computed.replace(/(\d+ Faith)/g, `<strong>$1</strong>`);
+      computed = computed.replace(/(\d+ meters)/g, `<strong>$1</strong>`);
+      computed = computed.replace(/(\d+ metres)/g, `<strong>$1</strong>`);
+      computed = computed.replace(/15 \+ Rank meters/g, `<strong data-hint="15 + Rank meters">${ 15+rank } meters</strong>`);
+      computed = computed.replace(/15 \+ Rank metres/g, `<strong>${ 15+rank } metres</strong>`);
+      computed = computed.replace(/\+½ Rank/g, `<strong data-hint="+½ Rank">+${ Math.round(rank/2) }</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong data-hint="+ Rank">+${ rank }</strong>`);
+
+      return computed;
     },
   },
 };
@@ -460,6 +688,7 @@
 <style scoped lang="css">
 
   .page {
+    page-break-inside: avoid;
   }
 
   .page--din-a-4 {
@@ -475,7 +704,7 @@
   }
 
   td.small {
-    height: 24px;
+    font-size: 12px;
   }
 
   .sexy_line{

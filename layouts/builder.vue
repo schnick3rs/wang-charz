@@ -1,4 +1,5 @@
 <template>
+
   <v-app>
     <v-navigation-drawer
       app
@@ -11,20 +12,20 @@
     >
       <v-list two-line subheader dense>
 
-        <v-list-tile
+        <v-list-item
           nuxt
           to="/builder/setting"
         >
-          <v-list-tile-content >
-            <v-list-tile-title>Tier {{settingTier}} Campaign</v-list-tile-title>
-            <v-list-tile-sub-title>Framework</v-list-tile-sub-title>
-          </v-list-tile-content>
+          <v-list-item-content >
+            <v-list-item-title>Tier {{settingTier}} Campaign</v-list-item-title>
+            <v-list-item-subtitle>Framework</v-list-item-subtitle>
+          </v-list-item-content>
 
-          <v-list-tile-action>
+          <v-list-item-action>
             <span>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</span>
-          </v-list-tile-action>
+          </v-list-item-action>
 
-        </v-list-tile>
+        </v-list-item>
 
         <div
           v-for="entry in helperBox"
@@ -32,23 +33,22 @@
         >
           <v-divider v-if="entry.divider"></v-divider>
 
-          <v-list-tile
+          <v-list-item
             v-else
-            avatar
             nuxt
             :to="entry.path"
           >
-            <v-list-tile-content >
-              <v-list-tile-title>{{entry.text}}</v-list-tile-title>
-              <v-list-tile-sub-title>{{entry.hint}}</v-list-tile-sub-title>
-            </v-list-tile-content>
+            <v-list-item-content >
+              <v-list-item-title>{{entry.text}}</v-list-item-title>
+              <v-list-item-subtitle>{{entry.hint}}</v-list-item-subtitle>
+            </v-list-item-content>
 
-            <v-list-tile-action>
+            <v-list-item-action>
               <span v-if="entry.text">{{entry.cost}} BP</span>
               <v-icon v-else>info</v-icon>
-            </v-list-tile-action>
+            </v-list-item-action>
 
-          </v-list-tile>
+          </v-list-item>
 
         </div>
 
@@ -56,46 +56,44 @@
 
     </v-navigation-drawer>
 
-    <v-toolbar
+    <v-app-bar
       app
-      dense
       dark
+      dense
+      style="background-color: #212121;"
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
-      <v-toolbar-side-icon @click.stop="toggleDrawer"></v-toolbar-side-icon>
+
+      <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
 
       <v-toolbar-items>
-        <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
+        <v-btn icon nuxt to="/"><v-icon>home</v-icon></v-btn>
       </v-toolbar-items>
 
-      <v-toolbar-title >
-        <span class="text-capitalize">Forge</span>
-      </v-toolbar-title>
+      <v-toolbar-title class="pl-4">Doctors of Doom</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
         <toolbar-account-actions></toolbar-account-actions>
       </v-toolbar-items>
-
-    </v-toolbar>
+    </v-app-bar>
 
     <v-content>
 
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
-          <v-btn flat small nuxt to="/builder/setting" >Setting</v-btn>
-          <v-btn flat small nuxt to="/builder/char/species" :disabled="!settingSelected">1. Species</v-btn>
-          <v-btn flat small nuxt to="/builder/char/archetype" :disabled="!settingSelected">2. Archetype</v-btn>
-          <v-btn flat small nuxt to="/builder/char/stats" :disabled="!settingSelected">3. Stats</v-btn>
-          <v-btn flat small nuxt to="/builder/char/talents" :disabled="!settingSelected">4. Talents</v-btn>
-          <v-btn flat small nuxt to="/builder/char/ascension" :disabled="!settingSelected">5. Ascension</v-btn>
-          <v-btn flat small nuxt to="/builder/char/wargear" :disabled="!settingSelected">6. Wargear</v-btn>
-          <v-btn flat small nuxt to="/builder/char/psychic-powers" :disabled="!settingSelected">7. Psychic Powers</v-btn>
-          <v-btn flat small nuxt to="/builder/char/background" :disabled="!settingSelected" >8. Background</v-btn>
+          <v-btn small text nuxt to="/builder/setting" >Setting</v-btn>
+          <v-btn small text nuxt to="/builder/char/species" :disabled="!settingSelected">1. Species</v-btn>
+          <v-btn small text nuxt to="/builder/char/archetype" :disabled="!settingSelected">2. Archetype</v-btn>
+          <v-btn small text nuxt to="/builder/char/ascension" :disabled="!settingSelected">3. Ascension</v-btn>
+          <v-btn small text nuxt to="/builder/char/stats" :disabled="!settingSelected">4. Stats</v-btn>
+          <v-btn small text nuxt to="/builder/char/talents" :disabled="!settingSelected">5. Talents</v-btn>
+          <v-btn small text nuxt to="/builder/char/wargear" :disabled="!settingSelected">6. Wargear</v-btn>
+          <v-btn small text nuxt to="/builder/char/psychic-powers" :disabled="!settingSelected">7. Psychic Powers</v-btn>
+          <v-btn small text nuxt to="/builder/char/background" :disabled="!settingSelected" >8. Background</v-btn>
           <v-btn
-            flat
             small
             nuxt
             icon
@@ -108,47 +106,75 @@
         </v-toolbar-items>
       </v-toolbar>
 
-      <v-container grid-list-md >
+      <v-container>
 
-        <v-layout justify-center>
+        <v-btn
+          v-if="false"
+          small
+          color="green lighten-2"
+          style="position: fixed; top: 174px; right: 350px; margin-right: 50%;"
+        >
+          <v-icon>chevron_left</v-icon>
+        </v-btn>
 
-          <v-flex xs12 sm10 md9 lg8 xl7>
+        <v-row justify="center">
+
+          <v-col
+            :cols="12"
+            :sm="10"
+            :md="10"
+            :lg="7"
+          >
             <nuxt />
-          </v-flex>
+          </v-col>
 
-        </v-layout>
+        </v-row>
+
+        <v-btn
+          v-if="false"
+          small
+          color="green lighten-2"
+          style="position: fixed; top: 174px; left: 350px; margin-left: 50%;"
+        >
+          <v-icon>chevron_right</v-icon>
+        </v-btn>
 
       </v-container>
 
     </v-content>
 
     <v-footer
-      v-bind:app="true"
-      v-bind:color="(spendBuildingPoints > totalBuildPoints) ? 'error' : ''"
-      class="pa-2"
+      app
       dark
+      v-bind:color="(spendBuildingPoints > totalBuildPoints) ? 'error' : ''"
+      class="caption"
     >
       <div>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</div>
-      <v-spacer class="hidden-xs-only"></v-spacer>
-      <div class="hidden-xs-only">{{finalKeywords.join(' • ')}}</div>
+      <v-spacer ></v-spacer>
+      <div class="caption d-none d-sm-block">{{finalKeywords.join(' • ')}}</div>
       <v-spacer></v-spacer>
-      <v-btn nuxt to="/about" >About</v-btn>
-      <div>&copy; {{ new Date().getFullYear() }}</div>
+      <span>&copy; {{ new Date().getFullYear() }} </span><span class="d-none d-md-block"> Doctors of Doom</span>
     </v-footer>
 
   </v-app>
 </template>
 
 <script>
-import DefaultFooter from '~/components/DefaultFooter';
-import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
 import { mapGetters } from 'vuex';
+import DefaultFooter from '~/components/DefaultFooter';
+import Default from './default';
+import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
 
 export default {
-  components: { DefaultFooter, ToolbarAccountActions },
+  components: {
+    Default,
+    DefaultFooter ,
+    ToolbarAccountActions,
+  },
   head() {
     return {
-      title: 'Create your Character | W&G Builder',
+      titleTemplate: '%s | Character Builder',
+      title: 'Create your Character',
       meta: [
         {
           hid: 'description',
@@ -221,31 +247,15 @@ export default {
       return [
         // { path: '/builder/setting', hint: 'Framework', text: `Tier ${this.settingTier} Campaign`, cost: this.settingTier*100 },
         { divider: true },
-        {
-          path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost,
-        },
-        {
-          path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost,
-        },
-        {
-          path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts + this.skillCosts,
-        },
-        {
-          path: '/builder/char/talents', hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts,
-        },
-        {
-          path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts,
-        },
-        {
-          path: '/builder/char/psychic-powers', hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts,
-        },
+        { path: '/builder/char/species', hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost },
+        { path: '/builder/char/archetype', hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost },
+        { path: '/builder/char/ascension', hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts },
+        { path: '/builder/char/stats', hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts + this.skillCosts },
+        { path: '/builder/char/talents', hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
+        { path: '/builder/char/psychic-powers', hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
         { divider: true },
-        {
-          path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined,
-        },
-        {
-          path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined,
-        },
+        { path: '/builder/char/wargear', hint: '', text: 'Wargear', cost: undefined },
+        { path: '/builder/char/background', hint: 'Background', text: this.characterBackground, cost: undefined },
       ];
     },
 
@@ -266,7 +276,11 @@ export default {
       'finalKeywords',
     ]),
 
-    totalBuildPoints() { return this.$store.state.settingTier * 100; },
+    totalBuildPoints() {
+      const buildPoints = this.$store.state.settingTier * 100;
+      const xp = this.$store.getters.customXp;
+      return buildPoints + xp;
+    },
 
     // see core page 156
     maximumBuildPointsForAttributes() {
@@ -291,7 +305,15 @@ export default {
 };
 </script>
 
-<style lang="css">
+<style scoped lang="scss">
+  .dod-container {
+
+    @media (min-width: 768px) {
+      width: 680px;
+    }
+
+  }
+
   .fancy {
     /*position: absolute;*/
     /*width: 100%;*/

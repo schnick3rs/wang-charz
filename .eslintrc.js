@@ -9,11 +9,22 @@ module.exports = {
     parser: 'babel-eslint'
   },
   extends: [
-    'airbnb-base',
-    'plugin:nuxt/recommended'
+    '@nuxtjs',
+    'airbnb-base'
   ],
   // add your custom rules here
   rules: {
-    'nuxt/no-cjs-in-config': 'off'
-  }
-}
+    'nuxt/no-cjs-in-config': 'off',
+    'import/extensions': ['error', 'always', {
+      js: 'never',
+      vue: 'never',
+    }],
+    'vuetify/no-deprecated-classes': 'error',
+    'vuetify/grid-unknown-attributes': 'error',
+    'vuetify/no-legacy-grid': 'error',
+  },
+  plugins: [
+    'html',
+    'vuetify',
+  ],
+};

@@ -2,39 +2,48 @@
 
   <div>
 
-    <v-select
-      :value="value"
-      @input="$emit('input', $event)"
-      v-bind:label="label"
-      v-bind:items="options"
-      v-bind:hint="hint"
-      item-text="name"
-      item-value="name"
-      persistent-hint
-      solo
-      dense
-    ></v-select>
-
-    <p
-      v-if="effects"
-      class="ma-4"
+    <v-dialog
+      v-model="dialog"
+      width="600px"
+      scrollable
     >
-      {{effects}}
-    </p>
+      <v-card>
+        <v-card-text class="mt-4">
+          <wargear-search
+            :repository="repository"
+            @select="selectWargear"
+          />
+        </v-card-text>
+      </v-card>
+    </v-dialog>
+
+    <v-card>
+      <v-card-text>
+      <v-btn
+        dense
+        right
+        small
+        color="info"
+        @click.stop="dialog = true"
+      >Select item</v-btn>
+        <span class="ml-4">{{ item }}</span>
+      </v-card-text>
+    </v-card>
 
   </div>
 
 </template>
 
 <script lang="js">
-  import WargearRepository from '~/mixins/WargearRepositoryMixin';
+import WargearSearch from '~/components/builder/WargearSearch.vue';
 
-  export default {
+export default {
   name: 'wargear-select',
-  mixins: [WargearRepository],
+  components: { WargearSearch },
   props: {
+    repository: Array,
     value: String,
-
+    item: String,
     selection: {
       type: String,
       required: false,
@@ -43,10 +52,16 @@
   },
   data() {
     return {
+      dialog: false,
       selected: undefined,
     };
   },
-  methods: {},
+  methods: {
+    selectWargear(payload) {
+      this.$emit('input', payload.name);
+      this.dialog = false;
+    }
+  },
   computed: {
     // helper
     mergedKeywords() {
@@ -56,7 +71,7 @@
     options() {
       const placeholder = this.placeholder;
 
-      let wordy= {};
+      let wordy = {};
       if ( placeholder.toLowerCase() === '<any>' ) {
         const levelOneKeywords = this.keywordRepository
           .filter(k => k.name.indexOf('<')<0)

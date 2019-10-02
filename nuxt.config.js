@@ -1,5 +1,7 @@
 const colors = require('vuetify/es5/util/colors').default;
 
+const axios = require('axios');
+
 module.exports = {
   mode: 'universal',
   /*
@@ -16,7 +18,8 @@ module.exports = {
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
       { hid: 'robots', name: 'robots', content: 'index,follow' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
-      { hid: 'keywords', name: 'keywords', content: 'Wrath ang Glory,Wrath & Glory,W&G,Hombrew,40k,Warhammer,Roleplaying Game' },
+      { hid: 'keywords', name: 'keywords', content: 'Wrath and Glory,Wrath & Glory,W&G,Hombrew,40k,Warhammer,Roleplaying Game' },
+      { hid: 'theme-color', name: 'theme-color', content: '#4caf50' },
       { hid: 'google-site-verification', name: 'google-site-verification', content: '5Eig5Vs_1-k3HAZdkGwTDu4Tu94AM9H-xny9n80IgJ0' },
     ],
     link: [
@@ -25,17 +28,22 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png' },
       { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png' },
       { rel: 'manifest', href: '/site.webmanifest' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' },
+      { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' },
+      { rel: 'preload', href: '/fonts/Material-Icons.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
+      { rel: 'preload', href: '/fonts/Roboto-Regular.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
+      { rel: 'preload', href: '/fonts/Roboto-Medium.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
+      { rel: 'preload', href: '/fonts/Roboto-Bold.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
     ],
   },
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: { color: colors.green.base },
   /*
   ** Global CSS
   */
   css: [
+    '@/assets/scss/config/_fonts.scss',
   ],
   /*
   ** Plugins to load before mounting the App
@@ -47,12 +55,13 @@ module.exports = {
   ** Nuxt.js modules
   */
   modules: [
-    '@nuxtjs/vuetify',
-    // Doc: https://axios.nuxtjs.org/usage
+    ['@nuxtjs/vuetify', {
+      /* @see https://github.com/nuxt-community/vuetify-module#defaultassets */
+      defaultAssets: false
+    }],
+    '@nuxtjs/sitemap',
     '@nuxtjs/axios',
     '@nuxtjs/auth',
-    // '@nuxtjs/eslint-module'
-    // Simple usage
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
       disabled: false,
@@ -63,9 +72,17 @@ module.exports = {
         sendHitTask: process.env.NODE_ENV === 'production',
       },
     }],
-    // create a dynamic sitemap
-    '@nuxtjs/sitemap',
+    // https://github.com/nuxt-community/redirect-module
+    ['@nuxtjs/redirect-module', {
+      rules: [
+        { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
+      ],
+    }],
+    ['@nuxtjs/pwa', {
+      manifest: false
+    }]
   ],
+
   /*
    * Sitemap module configuration
    */
@@ -76,20 +93,15 @@ module.exports = {
       '/builder/char/**',
     ],
     routes() {
-      return [
-        '/vault/agents-of-the-golden-throne',
-        '/vault/an-abundance-of-apocrypha',
-        '/vault/expanded-voidship-combat-rules',
-        '/vault/god-engines',
-        '/vault/hesperaxs-vault',
-        '/vault/legacy-of-the-necrontyr',
-        '/vault/let-the-galaxy-burn',
-        '/vault/the-deathwatch---slayers-of-the-alien-horde',
-        '/vault/the-emperors-angels',
-        '/vault/the-high-altar-of-technology',
-        '/vault/tome-of-glory',
-        '/vault/tyranids',
-      ];
+      const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
+      return axios.get(`${base}/api/homebrews/`)
+        .then((response) => response.data.map((vaultItem) => `/vault/${vaultItem.slug}`));
+    },
+    defaults: {
+      changefreq: 'daily',
+      priority: 1,
+      lastmod: new Date(),
+      lastmodrealtime: true,
     },
   },
   /*
@@ -97,6 +109,8 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+    // debug: process.env.NODE_ENV !== 'production',
   },
   auth: {
     strategies: {
@@ -129,6 +143,7 @@ module.exports = {
       success: colors.green.base,
     },
   },
+
   /*
   ** Build configuration
   */

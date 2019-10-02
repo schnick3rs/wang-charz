@@ -1,50 +1,52 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-layout justify-center row wrap>
+  <v-row justify-center row wrap>
 
-    <v-flex v-if="!characterArchetype || changeMode">
+    <v-col>
       <h1 class="headline">Manage Powers</h1>
 
       <v-alert
-        :value="true"
         v-for="alert in alerts"
-        :key="alert.key"
-        :type="alert.type"
-      >{{alert.text}}</v-alert>
-    </v-flex>
+        v-bind:key="alert.key"
+        v-bind:value="true"
+        v-bind:type="alert.type"
+      >{{ alert.text }}</v-alert>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
         <v-card-text>
           <v-chip
             v-for="item in characterPowers"
-            :key="item.key"
-            close
-            @input="removePower(item)"
+            v-bind:key="item.name"
+            v-bind:close="item.cost !== 0"
+            @click:close="removePower(item.name)"
+            class="mr-2"          
           >
-            {{item}}
+            {{item.name}}
           </v-chip>
         </v-card-text>
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-chip
         v-for="discipline in disciplines"
-        :key="discipline.key"
-        @click="toggleDisciplineFilter(discipline.name)"
-        :color="selectedDisciplines.includes(discipline.name) ? 'green' : ''"
+        v-bind:key="discipline.key"
+        v-bind:color="selectedDisciplines.includes(discipline.name) ? 'green' : ''"
+        v-on:click="toggleDisciplineFilter(discipline.name)"      
         small
         label
+        class="mr-2"
       >
         {{discipline.name}}
       </v-chip>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col v-bind:cols="12">
 
       <v-card>
 
@@ -59,51 +61,57 @@
         </v-card-title>
 
         <v-data-table
-          :items="filteredPowers"
-          :search="searchQuery"
-          :headers="headers"
-          hide-actions
+          v-bind:headers="headers"
+          v-bind:items="filteredPowers"
+          v-bind:search="searchQuery"        
+          v-bind:items-per-page="-1"
+          sort-by="name"
+          item-key="name"
+          hide-default-footer
         >
-          <template v-slot:no-data>
-          </template>
-          <template v-slot:items="props">
-            <td class="caption">{{props.item.name}}</td>
-            <td class="caption">{{props.item.discipline}}</td>
-            <td class="caption hidden-sm-and-down">{{props.item.effect}}</td>
-            <td class="caption text-xs-center" >{{props.item.cost}}</td>
-            <td>
-              <v-btn
+
+          <template v-slot:item.learn="{ item }">
+              <span>              
+                <v-btn
                 icon
-                @click="addPower(props.item)"
-                :disabled="characterPowers.includes(props.item.name)"
+                v-on:click="addPower(item)"
+                v-bind:disabled="characterPowers.includes(item.name)"
               >
-                <v-icon
-                  :color="affordableColor(props.item.cost)"
-                >add_circle</v-icon>
+                <v-icon :color="affordableColor(item.cost)">add_circle</v-icon>
               </v-btn>
-            </td>
+              </span>
           </template>
+
           <template v-slot:no-results>
             <div class="text-lg-center">Your search for "{{ searchQuery }}" found no results.</div>
           </template>
+
         </v-data-table>
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 
 <script lang="js">
-  import PsychicPowersRepositoryMixin from '~/mixins/PsychicPowersRepositoryMixin.js';
-
-  export default {
+export default {
   name: 'psychic-powers',
   layout: 'builder',
-  mixins: [PsychicPowersRepositoryMixin],
   props: [],
+  head() {
+    return {
+      title: 'Select Psychic Powers',
+    }
+  },
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get(`/api/psychic-powers/`);
+    return {
+      psychicPowersRepository: response.data,
+    };
+  },
   data() {
     return {
       searchQuery: '',
@@ -115,6 +123,12 @@
           sortable: true,
         },
         {
+          text: 'Cost',
+          value: 'cost',
+          align: 'center',
+          sortable: true,
+        },
+        {
           text: 'Discipline',
           value: 'discipline',
           sortable: true,
@@ -123,17 +137,11 @@
           text: 'Effect',
           value: 'effect',
           sortable: false,
-          class: 'hidden-sm-and-down',
-        },
-        {
-          text: 'Cost',
-          value: 'cost',
-          align: 'center',
-          sortable: true,
         },
         {
           text: 'Learn',
           align: 'center',
+          value: 'learn',
           sortable: false,
         },
       ],
@@ -193,14 +201,19 @@
     };
   },
   computed: {
+    allThe() {
+      this.psychicPowersRepository.forEach( w => {
+        //console.log(`INSERT INTO wrath_glory.psychic_powers (name, cost, keywords, effect) VALUES ('${w.name}', ${w.cost}, '{${w.keywords.join(',')}}', '${w.effect}' );`);
+        //console.log(`UPDATE wrath_glory.psychic_powers SET discipline = '${w.discipline}' WHERE name = '${w.name}';`);
+      });
+    },
     alerts() {
       const alerts = [];
 
       if (!this.isPsychic) {
         const alert = {
           type: 'warning',
-          text: 'You need to either possess the Psychic Keyword or have at '
-            + 'least learned one rank in the Psychic Mastery skill',
+          text: 'You need to either possess the Psychic Keyword or have at least learned one rank in the Psychic Mastery skill',
         };
         alerts.push(alert);
       }
@@ -215,7 +228,7 @@
     maximumMinorPowers() { return this.settingTier; },
     maximumDisciplinePowers() { return Math.max(1, this.settingTier - 1); },
     maximumPsychicPowers() { return this.settingTier + 3; },
-    characterPowers() { return this.$store.state.psychicPowers.map(p => p.name); },
+    characterPowers() { return this.$store.state.psychicPowers; },
     filteredPowers() {
       if (this.psychicPowersRepository === undefined) {
         return [];

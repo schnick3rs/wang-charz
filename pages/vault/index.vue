@@ -1,36 +1,54 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <div>
-    <div class="elevation-4 mb-4 p-0">
-      <ul class="v-breadcrumbs theme--light">
-        <li class="v-breadcrumbs__item">
-          <nuxt-link to="/" class="v-breadcrumbs__item"><img src="/favicon-16x16.png" /></nuxt-link>
-        </li>
-        <li class="v-breadcrumbs__divider">/</li>
-        <li class="v-breadcrumbs__item">
-          <nuxt-link to="/vault" class="v-breadcrumbs__item--disabled v-breadcrumbs__item">Vault</nuxt-link>
-        </li>
-      </ul>
-    </div>
+<div>
 
-  <v-layout justify-center row wrap>
+  <v-row justify="center">
+    <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
 
-    <v-flex xs12>
+      <v-breadcrumbs
+        v-bind:items="breadcrumbItems"
+      >
+        <template v-slot:item="{ item }">
+          <v-breadcrumbs-item
+            :nuxt="true"
+            :to="item.to"
+            :disabled="item.disabled"
+            :exact="item.exact"
+          >
+            <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+            {{ item.text }}
+          </v-breadcrumbs-item>
+        </template>
+
+        <template v-slot:divider>
+          <v-icon>mdi-chevron-right</v-icon>
+        </template>
+
+      </v-breadcrumbs>
+
+    </v-col>
+  </v-row>
+
+  <v-row justify="center">
+
+    <v-col :cols="11">
       <v-card>
         <v-card-text>
-          <v-layout justify-center row wrap>
-            <v-flex xs12 sm6>
+          <v-row justify="center">
+            <v-col :cols="12" :sm="6">
               <v-text-field
                 v-model="searchQuery"
-                box
+                filled
                 dense
                 clearable
-                label="Search"></v-text-field>
-            </v-flex>
+                append-icon="search"
+                label="Search"
+              ></v-text-field>
+            </v-col>
 
-            <v-flex xs12 sm6>
+            <v-col :cols="12" :sm="6">
               <v-select
-                box
+                filled
                 dense
                 v-model="contentFilter"
                 clearable
@@ -39,122 +57,113 @@
                 deletable-chips
                 single-line
                 label="Filter by Content"
-                :items="contentOptions"></v-select>
-            </v-flex>
-          </v-layout>
+                :items="contentOptions"
+              >
+              </v-select>
+            </v-col>
+          </v-row>
         </v-card-text>
       </v-card>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col :cols="11">
       <v-card>
         <v-data-table
-          :headers="headers"
-          :items="searchResults"
-          disable-initial-sort
-          item-key="name"
-          :pagination.sync="pagination"
-          :expand="expand"
-          :search="searchQuery"
-          hide-actions
+          v-bind:headers="headers"
+          v-bind:items="searchResults"
+          v-bind:expanded.sync="expanded"
+          v-bind:search="searchQuery"
+          sort-by="title"
+          item-key="title"
+          show-expand
+          hide-default-footer
+          :items-per-page="-1"
         >
-          <template v-slot:headers="props">
-            <tr>
-              <th
-                v-for="header in props.headers"
-                :key="header.text"
-                :class="['column sortable', pagination.descending ? 'desc' : 'asc', header.value === pagination.sortBy ? 'active' : '', header.class]"
-                @click="changeSort(header.value)"
-              >
-                <v-icon small>arrow_upward</v-icon>
-                {{ header.text }}
-              </th>
-            </tr>
-          </template>
-          <template v-slot:items="props">
-            <tr @click="toggle(props)">
-              <td>{{ props.item.name }}
-                <v-chip
-                  v-if="['draft', 'work in progress'].includes(props.item.version)"
+
+          <template v-slot:item.version="{ item }">
+            <v-chip
+                  v-if="['Draft'].includes(item.status)"
                   color="orange"
                   text-color="white"
                   tags
-                  small
+                  x-small
                   label
                 >
-                  {{ props.item.version }}
+                  <span v-if="item.version">{{ item.version }}</span>
+                  <span v-else>{{ item.status }}</span>
                 </v-chip>
                 <v-chip
-                  v-else-if="props.item.version !== undefined && props.item.version.indexOf('v0') >= 0"
-                  color="orange"
+                  v-if="['Released'].includes(item.status)"
+                  color="green"
                   text-color="white"
                   tags
-                  small
+                  x-small
                   label
                 >
-                  {{ props.item.version }}
+                  <span v-if="item.version">{{ item.version }}</span>
+                  <span v-else>{{ item.status }}</span>
                 </v-chip>
-              </td>
-              <td class="hidden-xs-only">{{ props.item.hint }}</td>
-              <td>
-                <v-chip v-for="keyword in props.item.keywords" :key="keyword" small>{{ keyword }}</v-chip>
-              </td>
-              <td class="hidden-sm-and-down">
-                <span>{{ props.item.author }}</span>
-              </td>
-              <td class="text-lg-center hidden-xs-only">
-                <v-icon v-if="!props.expanded">expand_more</v-icon>
-                <v-icon v-else-if="props.expanded">expand_less</v-icon>
-              </td>
-            </tr>
           </template>
 
-          <template v-slot:expand="props">
-            <v-card>
-              <v-card-title>
-                <h3 class="headline">{{ props.item.name }}</h3>
-                <span class="grey--text">{{ props.item.subtitle }}</span>
-              </v-card-title>
+          <template v-slot:item.keywords="{ item }">
+            <v-chip v-for="keyword in item.keywords" :key="keyword" small class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+          </template>
 
-              <v-layout row wrap>
-                <v-flex xs12 sm6>
-                  <v-card-text>
-                    <p><strong>Author:</strong> {{ props.item.author }}</p>
-                    <p>{{ props.item.abstract }}</p>
-                     <p v-if="props.item.keywords">
-                      <v-chip v-for="keyword in props.item.keywords" :key="keyword">
+          <template v-slot:item.actions="{ item }">
+            <v-btn small icon nuxt :to="'/vault/'+item.slug">
+              <v-icon>chevron_right</v-icon>
+            </v-btn>
+          </template>
+
+          <template v-slot:expanded-item="{ headers, item }">
+            <td :colspan="headers.length">
+
+              <v-row>
+
+                <v-col :cols="12" >
+                  <h3 class="headline">{{ item.title }}</h3>
+                  <span class="grey--text">{{ item.subtitle }}</span>
+                </v-col>
+
+                <v-col :cols="12" :md="8">
+                    <p><strong>Author:</strong> {{ item.author }}</p>
+                    <p>{{ item.abstract }}</p>
+                     <p v-if="item.keywords">
+                      <v-chip v-for="keyword in item.keywords" :key="keyword">
                         {{ keyword }}
                       </v-chip>
                     </p>
-                  </v-card-text>
-                </v-flex>
-                <v-flex xs12 sm6>
-                  <v-card-text>
+                </v-col>
+
+                <v-col :cols="12" :md="3" v-if="item.thumbnail && false">
+                  <v-img v-bind:src="item.thumbnail" />
+                </v-col>
+
+                <v-col :cols="12" :md="4">
                     <strong>Topics:</strong>
                     <ul>
-                      <li v-for="parts in props.item.topics">
+                      <li v-for="parts in item.topics" v-bind:key="parts">
                         {{ parts }}
                       </li>
                     </ul>
-                  </v-card-text>
-                </v-flex>
-              </v-layout>
+                </v-col>
+
+              </v-row>
 
               <v-card-actions>
-                <v-btn color="primary" :href="props.item.url" target="_blank" @click="trackEvent(props.item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
-                <v-btn color="green" nuxt :to="'/vault/'+slugBy(props.item.name)">Show Details</v-btn>
+                <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
+                <v-btn color="green" nuxt :to="'/vault/'+item.slug">Show Details</v-btn>
               </v-card-actions>
-            </v-card>
+
+            </td>
           </template>
+
         </v-data-table>
 
-        <div class="text-xs-center pt-2">
-          <v-pagination v-model="pagination.page" :length="pages" />
-        </div>
       </v-card>
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12>
+    <v-col :cols="11">
 
       <v-card>
         <v-card-text>
@@ -168,86 +177,133 @@
         </v-card-text>
       </v-card>
 
-    </v-flex>
-  </v-layout>
-  </div>
-
-
+    </v-col>
+  </v-row>
+</div>
 </template>
 
 <script>
-  import HomebrewRepositoryMixin from '~/mixins/HomebrewRepositoryMixin';
+import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
+import SchemaFaqPage from '~/assets/SchemaFaqPage.json';
 
-  export default {
+export default {
   components: {},
   head() {
+
+    const itemSchemaArray = this.vaultItems.map( item => {
+      return {
+        ...SchemaDigitalDocument,
+        name: item.title,
+        alternativeHeadline: item.subtitle,
+        author: item.author,
+        version: item.version || item.status,
+        url: item.url,
+        thumbnailUrl: item.thumbnail ? `https://www.doctors-of-doom.com${item.thumbnail}` : null,
+        description: item.abstract,
+        keywords: [...item.keywords, 'Wrath & Glory'].join(','),
+      };
+    });
+
+    const faqPageSchama = {
+      ...SchemaFaqPage,
+    };
+
+    const breadcrumbListSchema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": this.breadcrumbItems.map( (item, index) => {
+        return {
+          "@type": "ListItem",
+          "position": index+1,
+          "name": ( index === 0 ? 'Doctors of Doom' : item.text),
+          "item": `https://www.doctors-of-doom.com${item.to}`
+        }
+      })
+    };
+
     return {
       title: 'Collection of Wrath & Glory Homebrews | Vault',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'The Doctors of Doom Vault contains a curated collection of homebrews and houserules for Wrath & Glory,'
+          content: 'The Doctors of Doom Vault contains a curated collection of supplements, homebrews and houserules for Wrath & Glory,'
             + ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.',
         },
       ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(faqPageSchama), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
+      ]
     };
   },
-  layout: 'vault',
-  mixins: [HomebrewRepositoryMixin],
+  async asyncData({ app }) {
+    const vaultItemResponse = await app.$axios.get(`/api/homebrews/`);
+    return {
+      vaultItems: vaultItemResponse.data,
+    };
+  },
   data() {
     return {
       searchQuery: '',
       settingFilter: [],
       contentFilter: [],
       pagination: {
-        sortBy: 'name',
+        sortBy: 'title',
         rowsPerPage: -1,
       },
       headers: [
         {
-          text: 'Name', align: 'left', value: 'name', class: '',
+          text: 'Title', align: 'left', value: 'title', class: '',
         },
         {
-          text: 'Hint', align: 'left', value: 'hint', class: 'hidden-xs-only',
+          text: 'Version', align: 'left', value: 'version', class: '',
+        },
+        {
+          text: 'Hint', align: 'left', value: 'hint', class: '',
         },
         {
           text: 'Keywords', align: 'left', value: 'keywords', class: '',
         },
         {
-          text: 'Author', align: 'left', value: 'author', class: 'hidden-sm-and-down',
+          text: 'Author', align: 'left', value: 'author', class: '',
         },
         {
-          text: '', sortable: false, align: 'right', value: 'actions', class: 'hidden-xs-only',
+          text: '', sortable: false, align: 'right', value: 'actions', class: '',
         },
       ],
-      expand: false,
+      expanded: [],
     };
   },
   computed: {
     breadcrumbItems() {
       return [
         {
-          text: 'D', disabled: false, nuxt: true, exact: true, to: '/',
+          text: '', nuxt: true, exact: true, to: '/',
         },
         {
-          text: 'Vault', disabled: false, nuxt: true, exact: true, to: '/vault',
+          text: 'Vault', nuxt: true, exact: true, to: '/vault',
         },
       ];
     },
     settingOptions() {
-      return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
+      return null;
+      //return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
     },
     contentOptions() {
       let contentOptions = [];
-      this.homebrewRepository.forEach(h => contentOptions = [...contentOptions, ...h.topics, ...h.keywords]);
+      this.vaultItems.forEach( vaultItem => {
+        contentOptions = [...contentOptions, ...vaultItem.topics, ...vaultItem.keywords];
+      });
       return [...new Set(contentOptions)].sort();
     },
     searchResults() {
-      let filteredResults = this.homebrewRepository;
+      let filteredResults = this.vaultItems;
 
       if (this.searchQuery) {
-        // filteredResults = filteredResults.filter(h => (h.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
+        // filteredResults = filteredResults.filter(h => (h.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
       }
 
       if (this.contentFilter.length > 0) {
@@ -266,9 +322,6 @@
     },
   },
   methods: {
-    slugBy(name) {
-      return name.toLowerCase().replace(/[^a-z0-9 -]/g, '').replace(/\s+/g, '-');
-    },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
         this.pagination.descending = !this.pagination.descending;
@@ -278,11 +331,11 @@
       }
     },
     toggle(props) {
-      this.$ga.event('Vault Row', 'expand', props.item.name, 0);
+      this.$ga.event('Vault Row', 'expand', item.title, 1);
       props.expanded = !props.expanded;
     },
     trackEvent(url) {
-      this.$ga.event('Outbound Link', 'click', url, 0);
+      this.$ga.event('Outbound Link', 'click', url, 10);
     },
   },
 };

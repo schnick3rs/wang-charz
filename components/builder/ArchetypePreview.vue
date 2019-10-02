@@ -1,30 +1,35 @@
 <template lang="html">
 
-  <v-card v-if="item">
+  <v-card v-if="item" class="pa-0">
 
-    <v-card-title primary-title>
-      <div>
+    <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
+      <span>Confirm Archetype</span>
+      <v-spacer></v-spacer>
+      <v-icon dark @click="$emit('cancel')">close</v-icon>
+    </v-card-title>
+
+    <v-card-text class="pt-4">
+
+      <div class="hidden-xs-only" style="float: right;">
+        <img :src="getAvatar(item.name)" style="width:96px" />
+      </div>
+
+      <div style="width: 75%">
         <h3 class="headline md0">
           {{ item.name }}
           <v-btn
             v-if="manageMode"
-            flat
+            text outlined small
             color="primary"
             @click="$emit('change')"
           >
-            <v-icon>settings</v-icon>
+            <v-icon left>settings</v-icon>
             change archetype
           </v-btn>
         </h3>
-        <span class="grey--text">{{ item.hint }}</span>
+        <span class="subtitle-1 grey--text">{{ item.hint }}</span>
       </div>
-      <v-spacer></v-spacer>
-      <div class="hidden-xs-only">
-        <img :src="getAvatar(item.name)" style="width:96px" />
-      </div>
-    </v-card-title>
 
-    <v-card-text>
       <p class="text-lg-justify"><strong>Build Point Cost:</strong> {{ item.cost }}</p>
 
       <span class="mt-2 grey--text">Prerequisites</span>
@@ -75,7 +80,25 @@
            class="text-lg-justify"
       >
         <p><strong>{{ ability.name }}:</strong> {{ ability.effect}}</p>
+        <div v-if="item.psychicPowers && psychicPowersRepository">
 
+          <div v-for="option in item.psychicPowers.discount" v-bind:key="option.name">
+            <v-select
+              v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
+              v-model="option.selected"
+              v-bind:items="psychicPowersRepository.filter(option.filter)"
+              v-bind:hint="psychicPowerHint(option.selected)"
+              v-on:change="updatePsychicPowers(option)"
+              item-value="name"
+              item-text="name"
+              persistent-hint
+              dense
+              solo
+              class="ml-2 mr-2"
+            ></v-select>
+          </div>
+
+        </div>
       </div>
 
       <p class="text-lg-justify"><strong>Wargear:</strong> {{ wargearText }}</p>
@@ -90,20 +113,22 @@
 
     </v-card-text>
 
+    <v-divider v-if="chooseMode"></v-divider>
     <v-card-actions v-if="chooseMode">
-      <v-btn block color="green" @click="$emit('select', item)" >Select Archetype</v-btn>
-      <v-btn block color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-spacer />
+      <v-btn right color="green" @click="$emit('select', item)" >Select Archetype</v-btn>
     </v-card-actions>
   </v-card>
 
 </template>
 
 <script lang="js">
-  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
-  import StatRepository from '~/mixins/StatRepositoryMixin';
-  import WargearRepository from '~/mixins/WargearRepositoryMixin';
+import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+import StatRepository from '~/mixins/StatRepositoryMixin';
+import WargearRepository from '~/mixins/WargearRepositoryMixin';
 
-  export default {
+export default {
   name: 'archetype-preview',
   mixins: [KeywordRepository, StatRepository, WargearRepository],
   props: {
@@ -112,6 +137,10 @@
       required: true,
     },
     keywords: {
+      type: Array,
+      required: false,
+    },
+    psychicPowersRepository: {
       type: Array,
       required: false,
     },
@@ -180,7 +209,25 @@
         source: 'archetype',
       });
       placeholder.selected = selection;
-    }
+    },
+    psychicPowerHint(powerName) {
+
+      const power = this.psychicPowersRepository.find( p => p.name === powerName );
+
+      if ( power ) {
+        return power.effect;
+      }
+
+      return '';
+    },
+    updatePsychicPowers(option) {
+      this.$store.commit('clearPowersBySource', { source: `archetype.${option.name}` });
+      this.$store.commit('addPower', {
+        name: option.selected,
+        cost: 0,
+        source: `archetype.${option.name}`,
+      });
+    },
   },
   computed: {
     selectedKeywords(){
@@ -190,8 +237,7 @@
           selectedKeywords[r.name] = r.replacement
         });
       }
-      console.log('selectedKeywords')
-      console.log(selectedKeywords)
+      console.log(selectedKeywords);
       return selectedKeywords;
     },
     mergedKeywords() {

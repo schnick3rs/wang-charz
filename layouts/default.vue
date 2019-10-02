@@ -1,27 +1,33 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
+
   <v-app>
-    <v-toolbar
+
+    <v-app-bar
       app
-      dense
       dark
+      dense
+      style="background-color: #212121;"
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
+
       <v-toolbar-items>
-        <v-btn flat small nuxt to="/">Doctors of Doom</v-btn>
+        <v-btn icon nuxt to="/"><v-icon>home</v-icon></v-btn>
       </v-toolbar-items>
+
+      <v-toolbar-title class="pl-4">Doctors of Doom</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <toolbar-account-actions></toolbar-account-actions>
+        <v-btn icon nuxt to="/about"><v-icon>help</v-icon></v-btn>
       </v-toolbar-items>
 
-    </v-toolbar>
+    </v-app-bar>
 
     <v-content>
 
-      <v-container grid-list-md>
+      <v-container>
         <nuxt />
       </v-container>
 
@@ -38,7 +44,10 @@ import DefaultFooter from '~/components/DefaultFooter.vue';
 import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
 
 export default {
-  components: { DefaultFooter, ToolbarAccountActions },
+  components: {
+    DefaultFooter,
+    ToolbarAccountActions,
+  },
   head() {
     return {
       link: [

@@ -2,14 +2,18 @@
 
   <v-card v-if="item">
 
-    <v-card-title primary-title>
-      <div>
-        <div class="headline">{{ item.name }}</div>
-        <span class="grey--text">{{ item.teaser }}</span>
-      </div>
+    <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
+      <span>Confirm Ascension</span>
+      <v-spacer></v-spacer>
+      <v-icon dark @click="$emit('cancel')">close</v-icon>
     </v-card-title>
 
-    <v-card-text>
+    <v-card-text class="pt-4">
+
+      <div class="pb-2">
+        <div class="headline">{{ item.name }}</div>
+        <span class="subtitle-1 grey--text">{{ item.teaser }}</span>
+      </div>
 
       <p class="text-lg-justify"><strong>Build Point Cost:</strong> (New Tier x {{ item.cost }})</p>
 
@@ -32,11 +36,13 @@
 
     </v-card-text>
 
-    <v-card-actions>
+    <v-divider />
 
-        <v-layout align-center justify-center >
+    <v-card-actions v-if="chooseMode">
 
-          <v-flex xs2 >
+        <v-row justify="center" no-gutters>
+
+          <v-col :cols="2" >
             <v-select
               :items="[currentCharacterTier]"
               :value="currentCharacterTier"
@@ -45,31 +51,33 @@
               disabled
               readonly
             ></v-select>
-          </v-flex>
+          </v-col>
 
-          <v-flex xs2 offset-xs1 class="align-center justify-center">
+          <v-col :cols="2" justify="center" style="text-align:center;">
             <v-avatar size="32" color="primary" >
               <v-icon color="white">arrow_forward</v-icon>
             </v-avatar>
-          </v-flex>
+          </v-col>
 
-          <v-flex xs2>
+          <v-col cols="2">
             <v-select
               :items="targetTierOptions"
               v-model="targetTier"
               dense
               label="Target Tier"
             ></v-select>
-          </v-flex>
+          </v-col>
 
-        </v-layout>
+        </v-row>
 
     </v-card-actions>
 
     <v-card-actions v-if="chooseMode">
-      <v-btn block color="green" @click="$emit('select', item, targetTier)" >Select Package</v-btn>
-      <v-btn block color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-spacer />
+      <v-btn right color="green" @click="$emit('select', item, targetTier)" >Select Package</v-btn>
     </v-card-actions>
+
   </v-card>
 
 </template>
