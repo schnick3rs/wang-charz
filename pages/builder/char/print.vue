@@ -199,7 +199,7 @@
                 </v-toolbar>
 
                 <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
-                  <strong>{{ talent.name }}:</strong> {{ talent.effect }}
+                  <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.effect)"></span>
                 </v-card-text>
 
               </v-card>
@@ -311,7 +311,7 @@
                   </v-toolbar>
 
                   <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
-                    <strong>{{ talent.name }}:</strong> {{ talent.description }}
+                    <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)"></span>
                   </v-card-text>
 
                 </v-card>
@@ -670,10 +670,14 @@ export default {
       const rank = 4;
       let computed = text;
 
+      //computed = computed.replace(/(1d3\+Rank Shock)/g, `<strong>1d3+${rank} Shock</strong>`);
+      computed = computed.replace(/(\d+ Faith)/g, `<strong>$1</strong>`);
       computed = computed.replace(/(\d+ meters)/g, `<strong>$1</strong>`);
-      computed = computed.replace(/\15 \+ Rank/g, `<strong>+${ Math.round(rank/2) }</strong>`);
-      computed = computed.replace(/\+½ Rank/g, `<strong>+${ Math.round(rank/2) }</strong>`);
-      computed = computed.replace(/\+Rank/g, `<strong>+${ rank }</strong>`);
+      computed = computed.replace(/(\d+ metres)/g, `<strong>$1</strong>`);
+      computed = computed.replace(/15 \+ Rank meters/g, `<strong data-hint="15 + Rank meters">${ 15+rank } meters</strong>`);
+      computed = computed.replace(/15 \+ Rank metres/g, `<strong>${ 15+rank } metres</strong>`);
+      computed = computed.replace(/\+½ Rank/g, `<strong data-hint="+½ Rank">+${ Math.round(rank/2) }</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong data-hint="+ Rank">+${ rank }</strong>`);
 
       return computed;
     },
