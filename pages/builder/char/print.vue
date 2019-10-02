@@ -181,7 +181,9 @@
                 </v-toolbar>
 
                 <v-card-text v-for="ability in abilities" v-bind:key="ability.name" class="pa-2 caption">
-                  <strong>{{ ability.name }}:</strong> {{ ability.effect }} <em v-if="ability.source">@{{ ability.source }}</em>
+                  <strong>{{ ability.name }}</strong><em v-if="ability.source">  • {{ ability.source }}</em>
+                  <br>
+                  <span v-html="computeFormatedText(ability.effect)"></span>
                 </v-card-text>
 
               </v-card>
@@ -663,6 +665,17 @@ export default {
     computeSkillPool(skill) {
       let attribute = this.attributes.find(a => a.name === skill.attribute);
       return attribute.enhancedValue + skill.enhancedValue;
+    },
+    computeFormatedText(text) {
+      const rank = 4;
+      let computed = text;
+
+      computed = computed.replace(/(\d+ meters)/g, `<strong>$1</strong>`);
+      computed = computed.replace(/\15 \+ Rank/g, `<strong>+${ Math.round(rank/2) }</strong>`);
+      computed = computed.replace(/\+½ Rank/g, `<strong>+${ Math.round(rank/2) }</strong>`);
+      computed = computed.replace(/\+Rank/g, `<strong>+${ rank }</strong>`);
+
+      return computed;
     },
   },
 };

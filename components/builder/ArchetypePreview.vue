@@ -1,6 +1,6 @@
 <template lang="html">
 
-  <v-card v-if="item" flat class="pa-0">
+  <v-card v-if="item" class="pa-0">
 
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Archetype</span>
@@ -237,8 +237,7 @@ export default {
           selectedKeywords[r.name] = r.replacement
         });
       }
-      console.log('selectedKeywords')
-      console.log(selectedKeywords)
+      console.log(selectedKeywords);
       return selectedKeywords;
     },
     mergedKeywords() {
