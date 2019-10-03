@@ -90,7 +90,7 @@ module.exports = {
     hostname: 'https://www.doctors-of-doom.com',
     gzip: true,
     exclude: [
-      '/builder/char/**',
+      '/builder/**',
     ],
     routes() {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';

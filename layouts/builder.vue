@@ -1,6 +1,7 @@
 <template>
 
   <v-app>
+
     <v-navigation-drawer
       app
       :clipped="drawer.clipped"
@@ -61,8 +62,8 @@
       dark
       dense
       style="background-color: #212121;"
-      :fixed="toolbar.fixed"
-      :clipped-left="toolbar.clippedLeft"
+      v-bind:fixed="toolbar.fixed"
+      v-bind:clipped-left="toolbar.clippedLeft"
     >
 
       <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
@@ -78,6 +79,7 @@
       <v-toolbar-items>
         <toolbar-account-actions></toolbar-account-actions>
       </v-toolbar-items>
+
     </v-app-bar>
 
     <v-content>
@@ -161,13 +163,11 @@
 
 <script>
 import { mapGetters } from 'vuex';
-import DefaultFooter from '~/components/DefaultFooter';
-import Default from './default';
+import DefaultFooter from '~/components/DefaultFooter.vue';
 import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
 
 export default {
   components: {
-    Default,
     DefaultFooter ,
     ToolbarAccountActions,
   },

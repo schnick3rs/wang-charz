@@ -25,7 +25,7 @@ export const actions = {
     if ( context.getters.isLoggedIn ) {
       console.warn('Already logged in.');
       return;
-    };
+    }
     context.commit('setHash', hash);
   },
   logout(context) {

@@ -1,22 +1,25 @@
 <template lang="html">
 
-  <v-layout justify-center row wrap>
+  <v-row justify="center">
 
-    <v-flex xs12>
+    <v-col
+      v-bind:cols="12"
+    >
 
       <div>
         <h2 class="headline">Characters</h2>
 
-        <v-btn block large color="primary">Create a Character</v-btn>
+        <v-btn large color="primary">Create a Character</v-btn>
 
       </div>
 
-    </v-flex>
+    </v-col>
 
-    <v-flex xs12
+    <v-col
       v-if="characters"
       v-for="character in characters"
       v-bind:key="character.id"
+      v-bind:cols="6"
     >
 
       <v-card>
@@ -39,71 +42,66 @@
 
         <v-card-actions>
           <v-btn
-            block
             color="primary"
-            flat
-            small
+            outlined
+            x-small
+            disabled
           >
-            <v-icon>description</v-icon>
+            <v-icon small>description</v-icon>
             View
           </v-btn>
           <v-btn
             nuxt
-            to="/builder/setting"
-            block
+            v-bind:to="`/builder/${character.id}/setting`"
             color="primary"
-            flat
-            small
+            outlined
+            x-small
           >
-            <v-icon>edit</v-icon>
+            <v-icon small>edit</v-icon>
             Edit
           </v-btn>
           <v-btn
             v-on:click="saveChar"
-            block
             color="primary"
-            flat
-            small
+            outlined
+            x-small
           >
-            <v-icon>save</v-icon>
+            <v-icon small>save</v-icon>
             Save
           </v-btn>
           <v-btn
             v-on:click="load(character.id)"
-            block
             color="primary"
-            flat
-            small
+            outlined
+            x-small
           >
-            <v-icon>edit</v-icon>
+            <v-icon small>edit</v-icon>
             Load
           </v-btn>
           <v-btn
-            block
             color="red"
-            flat
-            small
+            outlined
+            x-small
           >
-            <v-icon>delete</v-icon>
+            <v-icon small>delete</v-icon>
             Delete
           </v-btn>
         </v-card-actions>
 
       </v-card>
 
-    </v-flex>
+    </v-col>
 
-  </v-layout>
+  </v-row>
 
 </template>
 
 <script lang="js">
-  import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
 
-  export default {
+export default {
   name: 'my-characters',
-  //layout: 'builder',
   mixins: [
     ArchetypeRepositoryMixin,
     SpeciesRepositoryMixin,

@@ -1,46 +1,41 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+
   <div>
+    <v-dialog
+      v-model="loginDialog"
+      width="500"
+    >
+      <login-dialog
+        v-on:close="loginDialog = false"
+      ></login-dialog>
+    </v-dialog>
 
-        <v-dialog
-          v-model="loginDialog"
-          lazy
-          width="500"
-        >
-          <login-dialog
-            v-on:close="loginDialog = false"
-          ></login-dialog>
-        </v-dialog>
-
-        <v-tooltip
-          v-if="isAuthenticated"
-          bottom
-        >
-          <template v-slot:activator="{ on }">
-            <v-btn
-              v-on="on"
-              flat
-              small
-              icon
-              color="success"
-            >
-              <v-icon>person</v-icon>
-            </v-btn>
-          </template>
-          <span>Logged in as {{loggedInUser.username}}</span>
-        </v-tooltip>
-
+    <v-tooltip
+      v-if="isAuthenticated"
+      bottom
+    >
+      <template v-slot:activator="{ on }">
         <v-btn
-          title="Logout"
-          v-else
-          flat
-          small
+          v-on="on"
           icon
-          v-on:click.stop="loginDialog = true"
+          color="success"
         >
-          <v-icon>person_add</v-icon>
+          <v-icon>person</v-icon>
         </v-btn>
+      </template>
+      <span>Logged in as {{loggedInUser.username}}</span>
+    </v-tooltip>
 
-        <v-btn flat small icon color="error" v-bind:disabled="!isAuthenticated" v-on:click="logout"><v-icon>exit_to_app</v-icon></v-btn>
+    <v-btn
+      title="Logout"
+      v-else
+      icon
+      v-on:click.stop="loginDialog = true"
+    >
+      <v-icon>person_add</v-icon>
+    </v-btn>
+
+    <v-btn icon color="error" v-bind:disabled="!isAuthenticated" v-on:click="logout"><v-icon>exit_to_app</v-icon></v-btn>
   </div>
 </template>
 

@@ -99,6 +99,8 @@
 
     <v-col :cols="12">
 
+      <v-card>
+
       <v-card-actions>
         <v-btn
           left
@@ -118,41 +120,45 @@
         </v-btn>
 
       </v-card-actions>
+      </v-card>
+
+    </v-col>
+
+    <v-col v-bind:cols="12">
+      <v-card>
 
       <v-card-actions>
         <v-btn
-          block
           color="primary"
           @click="saveChar()"
         >
           save
         </v-btn>
         <v-btn
-          block
           color="primary"
           @click="loadChar()"
         >
           load
         </v-btn>
         <v-btn
-          block
           color="primary"
           @click="registerUser()"
         >
           register
         </v-btn>
       </v-card-actions>
+      </v-card>
 
     </v-col>
 
     <v-col
       v-if="false"
       v-for="item in settingTemplateOptions"
-      :key="item.name"
-      :cols="12"
-      :sm="6"
-      :md="4"
-      :lg="2"
+      v-bind:key="item.name"
+      v-bind:cols="12"
+      v-bind:sm="6"
+      v-bind:md="4"
+      v-bind:lg="2"
     >
       <v-card>
         <v-img v-if="false" :src="item.cover" height="150" />
@@ -182,8 +188,11 @@ import { mapGetters } from 'vuex';
 export default {
   name: 'Setting',
   layout: 'builder',
-  mixins: [SpeciesRepositoryMixin, ArchetypeRepositoryMixin],
+  mixins: [ SpeciesRepositoryMixin, ArchetypeRepositoryMixin ],
   props: [],
+  asyncData({ params }) {
+    console.info(`${params.id}`);
+  },
   data() {
     return {
       currentPage: 1,
