@@ -107,12 +107,12 @@
 
 <script lang="js">
 import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-import BackgroundPreview from '~/components/builder/BackgroundPreview.vue';
+import BackgroundPreview from '~/components/forge/BackgroundPreview.vue';
 import IssueList from '~/components/IssueList.vue';
 
 export default {
   name: 'Background',
-  layout: 'builder',
+  layout: 'forge',
   mixins: [ BackgroundRepositoryMixin ],
   components: { BackgroundPreview, IssueList },
   props: [],

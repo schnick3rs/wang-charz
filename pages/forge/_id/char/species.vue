@@ -74,13 +74,13 @@
 </template>
 
 <script lang="js">
-  import SpeciesPreview from '~/components/builder/SpeciesPreview.vue';
+  import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
   import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
   import { mapGetters } from 'vuex';
 
   export default {
   name: 'SpeciesSelection',
-  layout: 'builder',
+  layout: 'forge',
   components: { SpeciesPreview },
   mixins: [ SpeciesRepositoryMixin ],
   props: [],

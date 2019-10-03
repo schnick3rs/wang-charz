@@ -122,7 +122,7 @@ import IssueList from '~/components/IssueList.vue';
 
 export default {
   name: 'Talents',
-  layout: 'builder',
+  layout: 'forge',
   props: [],
   mixins: [ StatRepositoryMixin ],
   components: { IssueList },

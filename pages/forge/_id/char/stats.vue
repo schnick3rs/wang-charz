@@ -129,7 +129,7 @@ import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
 
 export default {
   name: 'Stats',
-  layout: 'builder',
+  layout: 'forge',
   props: [],
   mixins: [
     ArchetypeRepositoryMixin,

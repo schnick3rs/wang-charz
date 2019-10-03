@@ -99,7 +99,7 @@
 <script lang="js">
 export default {
   name: 'psychic-powers',
-  layout: 'builder',
+  layout: 'forge',
   props: [],
   head() {
     return {

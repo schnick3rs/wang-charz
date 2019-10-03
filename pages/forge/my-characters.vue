@@ -52,7 +52,7 @@
           </v-btn>
           <v-btn
             nuxt
-            v-bind:to="`/builder/${character.id}/setting`"
+            v-bind:to="`/forge/${character.id}/setting`"
             color="primary"
             outlined
             x-small

@@ -187,7 +187,7 @@ import { mapGetters } from 'vuex';
 
 export default {
   name: 'Setting',
-  layout: 'builder',
+  layout: 'forge',
   mixins: [ SpeciesRepositoryMixin, ArchetypeRepositoryMixin ],
   props: [],
   asyncData({ params }) {

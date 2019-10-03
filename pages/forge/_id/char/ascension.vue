@@ -247,13 +247,13 @@ import { mapGetters } from 'vuex';
 import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
 import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
-import AscensionPreview from '~/components/builder/AscensionPreview.vue';
-import KeywordSelect from '~/components/builder/KeywordSelect.vue';
-import WargearSelect from '~/components/builder/WargearSelect.vue';
+import AscensionPreview from '~/components/forge/AscensionPreview.vue';
+import KeywordSelect from '~/components/forge/KeywordSelect.vue';
+import WargearSelect from '~/components/forge/WargearSelect.vue';
 
 export default {
   name: 'Ascension',
-  layout: 'builder',
+  layout: 'forge',
   props: [],
   mixins: [ArchetypeRepositoryMixin, AscensionRepositoryMixin, KeywordRepositoryMixin],
   components: { AscensionPreview, KeywordSelect, WargearSelect },

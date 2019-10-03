@@ -157,12 +157,12 @@
 
 <script lang="js">
 import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin.js';
-import WargearSearch from '~/components/builder/WargearSearch.vue';
-import WargearSelect from '~/components/builder/WargearSelect.vue';
+import WargearSearch from '~/components/forge/WargearSearch.vue';
+import WargearSelect from '~/components/forge/WargearSelect.vue';
 
 export default {
   name: 'Wargear',
-  layout: 'builder',
+  layout: 'forge',
   mixins: [WargearRepositoryMixin],
   components: { WargearSelect, WargearSearch },
   props: [],
