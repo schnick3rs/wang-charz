@@ -191,7 +191,9 @@ export default {
   mixins: [ SpeciesRepositoryMixin, ArchetypeRepositoryMixin ],
   props: [],
   asyncData({ params }) {
-    console.info(`${params.id}`);
+    return {
+      characterId: params.id,
+    };
   },
   data() {
     return {
@@ -247,14 +249,17 @@ export default {
   },
   computed: {
     ...mapGetters({
-      characterName: 'name',
       settingTier: 'settingTier',
       customXp: 'customXp'
     }),
+    ...mapGetters('characters', ['characterNameById']),
+    characterName(){
+      return this.characterNameById(this.characterId);
+    }
   },
   methods: {
     setCharacterName(name){
-      this.$store.commit('setName', name);
+      this.$store.commit('characters/setCharacterName', {id: this.characterId, name: name});
     },
     setCustomXp(xp){
       this.$store.commit('setCustomXp', xp);

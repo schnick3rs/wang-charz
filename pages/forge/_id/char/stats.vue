@@ -136,6 +136,11 @@ export default {
     AscensionRepositoryMixin,
     StatRepositoryMixin,
   ],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   head() {
     return {
       title: 'Select Attributes & Skills',
@@ -149,19 +154,19 @@ export default {
   methods: {
     incrementSkill(skill) {
       const newValue = this.characterSkills[skill] + 1;
-      this.$store.commit('setSkill', { key: skill, value: newValue });
+      this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
     },
     decrementSkill(skill) {
       const newValue = this.characterSkills[skill] - 1;
-      this.$store.commit('setSkill', { key: skill, value: newValue });
+      this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
     },
     incrementAttribute(attribute) {
       const newValue = this.characterAttributes[attribute] + 1;
-      this.$store.commit('setAttribute', { key: attribute, value: newValue });
+      this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
     },
     decrementAttribute(attribute) {
       const newValue = this.characterAttributes[attribute] - 1;
-      this.$store.commit('setAttribute', { key: attribute, value: newValue });
+      this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
     },
     skillsByAttribute(attribute) {
       if (this.skillRepository !== undefined) {
@@ -313,12 +318,22 @@ export default {
     ]),
     ...mapGetters({
       characterSpecies: 'species',
-      characterAttributes: 'attributes',
-      characterAttributesEnhanced: 'attributesEnhanced',
-      characterTraits: 'traits',
-      characterTraitsEnhanced: 'traitsEnhanced',
-      characterSkills: 'skills',
     }),
+    characterAttributes() {
+      return this.$store.getters['characters/characterAttributesById'](this.characterId);
+    },
+    characterAttributesEnhanced() {
+      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+    },
+    characterSkills() {
+      return this.$store.getters['characters/characterSkillsById'](this.characterId);
+    },
+    characterTraits() {
+      return this.$store.getters['characters/characterTraitsById'](this.characterId);
+    },
+    characterTraitsEnhanced() {
+      return this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
+    },
   }
 }
 </script>

@@ -27,7 +27,7 @@
             v-for="item in speciesRepository"
             :key="item.name"
             avatar
-            :disabled="item.baseTier > settingTier"
+            :disabled="item.baseTier > characterSettingTier"
             @click.stop="updatePreview(item)"
           >
 
@@ -74,21 +74,26 @@
 </template>
 
 <script lang="js">
-  import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
-  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-  import { mapGetters } from 'vuex';
+import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import { mapGetters, mapMutations } from 'vuex';
 
-  export default {
+export default {
   name: 'SpeciesSelection',
   layout: 'forge',
   components: { SpeciesPreview },
   mixins: [ SpeciesRepositoryMixin ],
   props: [],
-    head() {
-      return {
-        title: 'Select Species',
-      }
-    },
+  head() {
+    return {
+      title: 'Select Species',
+    }
+  },
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       changeSpeciesMode: false,
@@ -103,7 +108,12 @@
       'settingTier',
       'speciesAstartesChapter',
     ]),
-    characterSpeciesName() { return this.$store.state.species.value; },
+    characterSettingTier() {
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterSpeciesName() {
+      return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
+    },
     characterSpecies() {
       const species = this.getSpeciesBy(this.characterSpeciesName);
       const chapter = this.speciesAstartesChapter;
@@ -129,14 +139,14 @@
       this.speciesDialog = true;
     },
     selectSpeciesForChar(species) {
-      this.$store.commit('setSpecies', { value: species.name, cost: species.cost });
-      this.$store.commit('setSpeciesModifications', { modifications: species.modifications });
+      this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { value: species.name, cost: species.cost } });
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: species.modifications, source: 'species' } });
       this.speciesDialog = false;
       this.changeSpeciesMode = false;
     },
     resetSpecies() {
       this.selectedSpecies = undefined;
-      this.$store.commit('setSpecies', { values: undefined, cost: 0 });
+      this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { value: undefined, cost: 0 } });
     },
     getSpeciesBy(name) {
       return this.speciesRepository.find(s => s.name === name);

@@ -9,20 +9,20 @@
       <div>
         <h2 class="headline">Characters</h2>
 
-        <v-btn large color="primary">Create a Character</v-btn>
+        <v-btn large color="primary" v-on:click="newCharacter">Create a Character</v-btn>
 
       </div>
 
     </v-col>
 
     <v-col
-      v-if="characters"
-      v-for="character in characters"
+      v-if="characterSets"
+      v-for="character in characterSets.filter(i=>i !== undefined)"
       v-bind:key="character.id"
       v-bind:cols="6"
     >
 
-      <v-card>
+      <v-card v-if="character">
 
         <v-card-title>
           <h3 class="headline">{{character.name}}</h3>
@@ -33,10 +33,10 @@
 
         <v-card-text>
           <v-avatar color="red" size="64">
-            <img src="/img/icon/species/species_ork_avatar.png" />
+            <img v-bind:src="getAvatar(characterSpecies(character.id))" />
           </v-avatar>
           <div>
-            <span>{{ character.species }} - {{ character.archetype }}</span>
+            <span>{{ characterSpecies(character.id) }} - {{ characterArchetype(character.id) }}</span>
           </div>
         </v-card-text>
 
@@ -46,6 +46,7 @@
             outlined
             x-small
             disabled
+            v-if="false"
           >
             <v-icon small>description</v-icon>
             View
@@ -82,6 +83,7 @@
             color="red"
             outlined
             x-small
+            v-on:click="deleteChar(character.id)"
           >
             <v-icon small>delete</v-icon>
             Delete
@@ -97,11 +99,13 @@
 </template>
 
 <script lang="js">
+import {mapGetters, mapMutations, mapState} from 'vuex';
 import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
 import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
 
 export default {
   name: 'my-characters',
+  //layout: 'forge',
   mixins: [
     ArchetypeRepositoryMixin,
     SpeciesRepositoryMixin,
@@ -137,6 +141,15 @@ export default {
         ...this.persistedCharacters,
       ];
     },
+    ...mapGetters({
+      characterIds: 'characters/characterIds',
+      characterSets: 'characters/characterSets',
+    }),
+    ...mapGetters('characters', [
+      'characterNameById',
+      'characterSpeciesLabelById',
+      'characterArchetypeLabelById',
+    ]),
     localCharacter() {
       return [{
         id: this.$store.getters.id,
@@ -149,6 +162,19 @@ export default {
     settingTier() { return this.$store.state.settingTier; },
   },
   methods: {
+    ...mapMutations({
+      deleteChar: 'characters/remove',
+    }),
+    characterSpecies(id) {
+      return this.characterSpeciesLabelById(id);
+    },
+    characterArchetype(id) {
+      return this.characterArchetypeLabelById(id);
+    },
+    getAvatar(name) {
+      const slug = name ? name.toLowerCase().replace(/\s/gm, '-') : 'human';
+      return `/img/icon/species/species_${slug}_avatar.png`;
+    },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)
         .then( response => {
@@ -162,6 +188,10 @@ export default {
     },
     saveChar(){
       this.$store.dispatch('saveCurrentCharacterToDatabase');
+    },
+    newCharacter(){
+      let newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+      this.$store.commit('characters/create', newCharId);
     },
   },
 };
