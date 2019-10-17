@@ -93,7 +93,7 @@ module.exports = {
       '/forge/**',
     ],
     routes() {
-      const base = process.env.NODE_ENV === 'production' ? 'https://doctors-of-doom-producti-pr-14.herokuapp.com' : 'http://localhost:3000';
+      const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
       return axios.get(`${base}/api/homebrews/`)
         .then((response) => response.data.map((vaultItem) => `/vault/${vaultItem.slug}`));
     },
@@ -109,7 +109,7 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+    baseURL: process.env.NODE_ENV === 'production' ? '/' : 'http://localhost:3000',
     // debug: process.env.NODE_ENV !== 'production',
   },
   /*auth: {
