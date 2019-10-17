@@ -1,6 +1,7 @@
 export const state = () => ({
   list: [],
   characters: {},
+  version: 1,
   // 123: { name: simsel, species. 123 }
   // species: { 123: { name: human, ... } }
 });
