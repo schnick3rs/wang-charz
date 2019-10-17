@@ -3,7 +3,8 @@
   <v-row justify="center">
 
     <v-col
-      v-bind:cols="12"
+      v-bind:cols="10"
+      v-bind:md="8"
     >
 
       <div>
@@ -13,84 +14,89 @@
 
       </div>
 
-    </v-col>
+      <v-row justify="center">
 
-    <v-col
-      v-if="characterSets"
-      v-for="character in characterSets.filter(i=>i !== undefined)"
-      v-bind:key="character.id"
-      v-bind:cols="6"
-    >
+        <v-col
+          v-if="characterSets"
+          v-for="character in characterSets.filter(i=>i !== undefined)"
+          v-bind:key="character.id"
+          v-bind:cols="12"
+          v-bind:md="6"
+        >
 
-      <v-card v-if="character">
+          <v-card v-if="character">
 
-        <v-card-title>
-          <h3 class="headline">{{character.name}}</h3>
-          <v-spacer></v-spacer>
-          <v-icon v-if="character.storage === 'local'">storage</v-icon>
-          <v-icon v-if="character.storage === 'db'">cloud</v-icon>
-        </v-card-title>
+            <v-card-title>
+              <h3 class="headline">{{character.name}}</h3>
+              <v-spacer></v-spacer>
+              <v-icon v-if="character.storage === 'local'">storage</v-icon>
+              <v-icon v-if="character.storage === 'db'">cloud</v-icon>
+            </v-card-title>
 
-        <v-card-text>
-          <v-avatar color="red" size="64">
-            <img v-bind:src="getAvatar(characterSpecies(character.id))" />
-          </v-avatar>
-          <div>
-            <span>{{ characterSpecies(character.id) }} - {{ characterArchetype(character.id) }}</span>
-          </div>
-        </v-card-text>
+            <v-card-text>
+              <v-avatar color="red" size="64">
+                <img v-bind:src="getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))" />
+              </v-avatar>
+              <div>
+                <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
+              </div>
+            </v-card-text>
 
-        <v-card-actions>
-          <v-btn
-            color="primary"
-            outlined
-            x-small
-            disabled
-            v-if="false"
-          >
-            <v-icon small>description</v-icon>
-            View
-          </v-btn>
-          <v-btn
-            nuxt
-            v-bind:to="`/forge/${character.id}/setting`"
-            color="primary"
-            outlined
-            x-small
-          >
-            <v-icon small>edit</v-icon>
-            Edit
-          </v-btn>
-          <v-btn
-            v-on:click="saveChar"
-            color="primary"
-            outlined
-            x-small
-          >
-            <v-icon small>save</v-icon>
-            Save
-          </v-btn>
-          <v-btn
-            v-on:click="load(character.id)"
-            color="primary"
-            outlined
-            x-small
-          >
-            <v-icon small>edit</v-icon>
-            Load
-          </v-btn>
-          <v-btn
-            color="red"
-            outlined
-            x-small
-            v-on:click="deleteChar(character.id)"
-          >
-            <v-icon small>delete</v-icon>
-            Delete
-          </v-btn>
-        </v-card-actions>
+            <v-card-actions>
+              <v-btn
+                color="primary"
+                outlined
+                x-small
+                disabled
+                v-if="false"
+              >
+                <v-icon small>description</v-icon>
+                View
+              </v-btn>
+              <v-btn
+                nuxt
+                v-bind:to="`/forge/${character.id}/setting`"
+                color="primary"
+                outlined
+                x-small
+              >
+                <v-icon small>edit</v-icon>
+                Edit
+              </v-btn>
+              <v-btn
+                v-on:click="saveChar"
+                color="primary"
+                outlined
+                x-small
+              >
+                <v-icon small>save</v-icon>
+                Save
+              </v-btn>
+              <v-btn
+                v-on:click="load(character.id)"
+                color="primary"
+                outlined
+                x-small
+              >
+                <v-icon small>edit</v-icon>
+                Load
+              </v-btn>
+              <v-btn
+                color="red"
+                outlined
+                x-small
+                v-on:click="deleteChar(character.id)"
+              >
+                <v-icon small>delete</v-icon>
+                Delete
+              </v-btn>
+            </v-card-actions>
 
-      </v-card>
+          </v-card>
+
+        </v-col>
+
+      </v-row>
 
     </v-col>
 
@@ -147,8 +153,6 @@ export default {
     }),
     ...mapGetters('characters', [
       'characterNameById',
-      'characterSpeciesLabelById',
-      'characterArchetypeLabelById',
     ]),
     localCharacter() {
       return [{
@@ -159,21 +163,30 @@ export default {
         storage: 'local',
       }];
     },
-    settingTier() { return this.$store.state.settingTier; },
   },
   methods: {
     ...mapMutations({
       deleteChar: 'characters/remove',
     }),
-    characterSpecies(id) {
-      return this.characterSpeciesLabelById(id);
+    characterSpeciesLabel(id) {
+      return this.$store.getters['characters/characterSpeciesLabelById'](id);
     },
-    characterArchetype(id) {
-      return this.characterArchetypeLabelById(id);
+    characterArchetypeLabel(id) {
+      return this.$store.getters['characters/characterArchetypeLabelById'](id);
     },
-    getAvatar(name) {
-      const slug = name ? name.toLowerCase().replace(/\s/gm, '-') : 'human';
-      return `/img/icon/species/species_${slug}_avatar.png`;
+    getAvatar(speciesLabel, archetypeLabel) {
+
+      if ( archetypeLabel !== undefined ) {
+        const slug = archetypeLabel.toLowerCase().replace(/\s/gm, '-');
+        return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+      }
+
+      if ( speciesLabel !== undefined ) {
+        const slug = speciesLabel.toLowerCase().replace(/\s/gm, '-');
+        return `/img/icon/species/species_${slug}_avatar.png`;
+      }
+
+      return `/img/icon/species/species_human_avatar.png`;
     },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)
@@ -190,7 +203,7 @@ export default {
       this.$store.dispatch('saveCurrentCharacterToDatabase');
     },
     newCharacter(){
-      let newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 5);
+      let newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       this.$store.commit('characters/create', newCharId);
     },
   },

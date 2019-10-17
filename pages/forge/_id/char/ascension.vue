@@ -268,6 +268,7 @@ export default {
     return {
       wargearRepository: wargearResponse.data,
       psychicPowersRepository: powersResponse.data,
+      characterId: params.id,
     };
   },
   data() {
@@ -278,10 +279,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'settingTier',
       'effectiveCharacterTier',
-      'keywords',
-      'finalKeywords',
     ]),
     alerts() {
       const alerts = [];
@@ -293,27 +291,41 @@ export default {
       }
       return alerts;
     },
+    settingTier(){
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterArchetypeLabel() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+    keywords(){
+      return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
+    },
+    finalKeywords(){
+      return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
+    },
+    characterWargear() {
+      return this.$store.getters['characters/characterWargearById'](this.characterId);
+    },
     characterAscensionPackages() {
-      return this.$store.state.ascensionPackages.map(packageName => {
+      const characterAscensionPackages = this.$store.getters['characters/characterAscensionPackagesById'](this.characterId);
+      return characterAscensionPackages.map(ascensionPackage => {
         const characterPackage = this.ascensionRepository.find(j => {
-          return j.name === packageName.value;
+          return j.name === ascensionPackage.value;
         });
-        characterPackage.sourceTier = packageName.sourceTier;
-        characterPackage.targetTier = packageName.targetTier;
-        characterPackage.storyElementChoice = packageName.storyElementChoice;
-        characterPackage.wargearChoice = packageName.wargearChoice;
+        characterPackage.sourceTier = ascensionPackage.sourceTier;
+        characterPackage.targetTier = ascensionPackage.targetTier;
+        characterPackage.storyElementChoice = ascensionPackage.storyElementChoice;
+        characterPackage.wargearChoice = ascensionPackage.wargearChoice;
 
-        const archetypeName = this.$store.getters.archetype;
-        if ( archetypeName && this.archetypeRepository ) {
-          const archetype = this.archetypeRepository.find( archetype => archetype.name == archetypeName );
+        if ( this.characterArchetypeLabel && this.archetypeRepository ) {
+          const archetype = this.archetypeRepository.find( archetype => archetype.name === this.characterArchetypeLabel );
           if ( archetype && archetype.prerequisites && archetype.prerequisites.length > 0 ) {
             characterPackage.effectivePrerequisites = characterPackage.prerequisites(archetype.prerequisites);
           }
         }
 
         const sourceKey = `ascension.${characterPackage.key}.${characterPackage.wargearChoice}`;
-        const gear = this.$store.state.wargear
-          .filter(gear => gear.source && gear.source.startsWith(sourceKey));
+        const gear = this.characterWargear.filter(gear => gear.source && gear.source.startsWith(sourceKey));
         if (gear) {
           gear.forEach(g=>{
             characterPackage
@@ -367,23 +379,24 @@ export default {
       ascensionPackage.targetTier = targetTier;
 
       const payload = {
+        id: this.characterId,
         key: ascensionPackage.key,
         value: ascensionPackage.name,
         cost: ascensionPackage.cost * targetTier,
         sourceTier: ascensionPackage.sourceTier,
         targetTier: targetTier,
       };
-      this.$store.commit('addAscension', payload);
+      this.$store.commit('characters/addCharacterAscensionPackage', payload);
 
       if ( ascensionPackage.keywords ) {
-        ascensionPackage.keywords.forEach(keyword => {
-          const payload = {
-            name: keyword,
+        ascensionPackage.keywords.forEach(ascensionKeyword => {
+          const keyword = {
+            name: ascensionKeyword,
             source: `ascension.${ascensionPackage.key}`,
-            type: (keyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
+            type: (ascensionKeyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
             replacement: undefined,
           };
-          this.$store.commit('addKeyword', payload);
+          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: keyword });
         });
       }
 
@@ -395,7 +408,7 @@ export default {
         modifier: influenceModifier,
         source: `ascension.${ascensionPackage.key}.influence`,
       };
-      this.$store.commit('setAscensionModifications', modificationPayload);
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: [modificationPayload] } });
 
       this.characterAscension = ascensionPackage;
 
@@ -408,7 +421,8 @@ export default {
     updateKeyword(selected, placeholder, ascensionPackage) {
       console.log(`selected ${selected} for ${placeholder}`);
 
-      this.$store.commit('replaceKeyword', {
+      this.$store.commit('characters/replaceCharacterKeywordPlaceholder', {
+        id: this.characterId,
         // the name of the keyword to be replaced
         placeholder: placeholder,
         // the new selected choice
@@ -424,11 +438,11 @@ export default {
      */
     updateAscensionPackageStoryElement(choiceValue, ascensionObject){
       const storyElementOption = ascensionObject.storyElementOptions.find(o => o.key === choiceValue);
-      const payload = {
+      const modification = {
         ...storyElementOption.modifications[0],
         source: `ascension.${ascensionObject.key}.storyElement`,
       };
-      this.$store.commit('setAscensionModifications', payload);
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: [modification] } });
       const storyPayload = {
         ascensionPackageKey: ascensionObject.key,
         ascensionPackageTargetTier: ascensionObject.targetTier,
@@ -448,19 +462,21 @@ export default {
     updateAscensionPackageWargearOptionChoice(choiceValue, itemKey, ascensionObject){
       const wargearOption = ascensionObject.wargearOptions.find(o => o.key === ascensionObject.wargearChoice);
       const payload = {
+        id: this.characterId,
         name: choiceValue,
-        source: `ascension.${ascensionObject.key}.${wargearOption.key}.${itemKey}`
+        source: `ascension.${ascensionObject.key}.${wargearOption.key}.${itemKey}`,
       };
-      this.$store.commit('addWargear', payload);
+      this.$store.commit('characters/addCharacterWargear', payload);
     },
     removePackage(ascensionPackage) {
       const payload = {
+        id: this.characterId,
         value: ascensionPackage.name,
         key: ascensionPackage.key,
         sourceTier: ascensionPackage.sourceTier,
         targetTier: ascensionPackage.targetTier,
       };
-      this.$store.commit('removeAscension', payload);
+      this.$store.commit('characters/removeCharacterAscensionPackage', payload);
     },
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {

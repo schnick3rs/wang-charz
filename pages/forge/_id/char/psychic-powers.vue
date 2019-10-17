@@ -73,13 +73,15 @@
           <template v-slot:item.learn="{ item }">
               <span>              
                 <v-btn
-                icon
                 v-on:click="addPower(item)"
-                v-bind:disabled="characterPowers.includes(item.name)"
+                v-bind:disabled="characterPowers.map(i=>i.name).includes(item.name)"
+                v-bind:color="affordableColor(item.cost)"
+                v-bind:dark="!characterPowers.map(i=>i.name).includes(item.name)"
+                x-small
               >
-                <v-icon :color="affordableColor(item.cost)">add_circle</v-icon>
+                add
               </v-btn>
-              </span>
+            </span>
           </template>
 
           <template v-slot:no-results>
@@ -110,6 +112,7 @@ export default {
     const response = await $axios.get(`/api/psychic-powers/`);
     return {
       psychicPowersRepository: response.data,
+      characterId: params.id,
     };
   },
   data() {
@@ -220,15 +223,21 @@ export default {
       return alerts;
     },
     isPsychic() {
-      const hasSkill = this.$store.state.skills.psychicMastery > 0;
-      const hasKeyword = this.$store.state.keywords.includes('Psychic');
+      const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
+      const keywords = this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
+      const hasSkill = skills.psychicMastery > 0;
+      const hasKeyword = keywords.includes('Psychic');
       return (hasSkill || hasKeyword);
     },
-    settingTier() { return this.$store.state.settingTier; },
+    settingTier(){
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
     maximumMinorPowers() { return this.settingTier; },
     maximumDisciplinePowers() { return Math.max(1, this.settingTier - 1); },
     maximumPsychicPowers() { return this.settingTier + 3; },
-    characterPowers() { return this.$store.state.psychicPowers; },
+    characterPowers() {
+      return this.$store.getters['characters/characterPsychicPowersById'](this.characterId);
+    },
     filteredPowers() {
       if (this.psychicPowersRepository === undefined) {
         return [];
@@ -236,26 +245,26 @@ export default {
 
       let filteredPowers = this.psychicPowersRepository;
 
-      console.log(this.selectedDisciplines);
       if (this.selectedDisciplines.length > 0) {
         filteredPowers = filteredPowers.filter(p => this.selectedDisciplines.includes(p.discipline));
       }
-
       // filteredTalents = filteredTalents.filter( t => !this.characterTalents.includes(t.name) );
 
       return filteredPowers;
     },
-    remainingBuildPoints() { return this.$store.getters.remainingBuildPoints; },
+    remainingBuildPoints() {
+      return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
+    },
   },
   methods: {
     affordableColor(cost) {
       return (cost <= this.remainingBuildPoints) ? 'green' : 'grey';
     },
     addPower(power) {
-      this.$store.commit('addPower', { name: power.name, cost: power.cost });
+      this.$store.commit('characters/addCharacterPsychicPower', { id: this.characterId, name: power.name, cost: power.cost });
     },
     removePower(power) {
-      this.$store.commit('removePower', { name: power });
+      this.$store.commit('characters/removeCharacterPsychicPower', { id: this.characterId, name: power });
     },
     toggleDisciplineFilter(name) {
       if (this.selectedDisciplines.includes(name)) {

@@ -75,7 +75,7 @@
 
 <script lang="js">
 import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -111,11 +111,13 @@ export default {
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
+    characterSpecies() {
+      return this.getSpeciesBy(this.characterSpeciesName);
+    },
     characterSpeciesName() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
-    characterSpecies() {
-      const species = this.getSpeciesBy(this.characterSpeciesName);
+    characterSpeciesLabel() {
       const chapter = this.speciesAstartesChapter;
       if(chapter) {
         species['chapter'] = chapter;

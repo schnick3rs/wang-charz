@@ -186,7 +186,7 @@ export default {
       return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
     },
     attributeMaximumFor(attributeName) {
-      const usedSpecies = this.characterSpecies || 'Human';
+      const usedSpecies = this.characterSpeciesLabel || 'Human';
       const attributeBaseMaximumByTier = [4,5,6,8,10]; //index 0 is tier 1
       const maxBySpecies = this.getAttributeMaximumForSpecies( usedSpecies, attributeName );
       const maxByTier = attributeBaseMaximumByTier[this.settingTier-1];
@@ -206,13 +206,13 @@ export default {
             case 'attributes':
               const attributeValue = this.characterAttributesEnhanced[prerequisite.value];
               if (attributeValue < prerequisite.threshold) {
-                this.$store.commit('setAttribute', { key: prerequisite.value, value: prerequisite.threshold });
+                this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
               }
               break;
             case 'skills':
               const skillValue = this.characterSkills[prerequisite.value];
               if (skillValue < prerequisite.threshold) {
-                this.$store.commit('setSkill', { key: prerequisite.value, value: prerequisite.threshold });
+                this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
               }
               break;
           }
@@ -317,7 +317,7 @@ export default {
       'ascensionPackages',
     ]),
     ...mapGetters({
-      characterSpecies: 'species',
+      characterSpeciesLabel: 'species',
     }),
     characterAttributes() {
       return this.$store.getters['characters/characterAttributesById'](this.characterId);

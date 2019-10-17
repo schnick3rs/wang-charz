@@ -78,17 +78,9 @@
                 <v-btn
                   v-bind:disabled="characterTalents.includes(item.name)"
                   v-on:click="addTalent(item)"
-                  icon
-                >
-                  <v-icon
-                    v-if="!item.prerequisitesFulfilled"
-                    color="orange"
-                  >info</v-icon>
-                  <v-icon
-                    v-else
-                    v-bind:color="affordableColor(item.cost)"
-                  >add_circle</v-icon>
-                </v-btn>         
+                  v-bind:color="item.prerequisitesFulfilled ? affordableColor(item.cost) : 'orange'"
+                  x-small
+                >add</v-btn>
             </template>
 
             <template v-slot:expanded-item="{ headers, item }">
@@ -117,7 +109,7 @@
 
 <script lang="js">
 import { mapGetters } from 'vuex';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 import IssueList from '~/components/IssueList.vue';
 
 export default {
@@ -135,6 +127,7 @@ export default {
     const response = await $axios.get(`/api/talents/`);
     return {
       talentRepository: response.data,
+      characterId: params.id,
     };
   },
   data() {
@@ -181,11 +174,16 @@ export default {
   computed: {
     ...mapGetters([
       'effectiveCharacterTier',
-      'finalKeywords',
-      'attributesEnhanced',
-      'skills',
     ]),
-    characterTalents() { return this.$store.getters.talents; },
+    characterAttributesEnhanced() {
+      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+    },
+    characterSkills() {
+      return this.$store.getters['characters/characterSkillsById'](this.characterId);
+    },
+    characterTalents() {
+      return this.$store.getters['characters/characterTalentsById'](this.characterId).map( t => t.name );
+    },
     filteredTalents() {
       if (this.talentRepository === undefined) {
         return [];
@@ -220,7 +218,7 @@ export default {
               case 'attribute':
                 const attribute = this.attributeRepository.find(a => a.name == prerequisite.key);
                 if (attribute) {
-                  const charAttributeValue = this.attributesEnhanced[attribute.key];
+                  const charAttributeValue = this.characterAttributesEnhanced[attribute.key];
                   const prereqAttributeValue = prerequisite.value.split('+')[0];
                   if ( charAttributeValue < prereqAttributeValue ) {
                     fulfilled = false;
@@ -234,7 +232,7 @@ export default {
               case 'skill':
                 const skill = this.skillRepository.find(a => a.name == prerequisite.key);
                 if (skill){
-                  const charSkillValue = this.skills[skill.key];
+                  const charSkillValue = this.characterSkills[skill.key];
                   const prereqSkillValue = prerequisite.value.split('+')[0];
                   if ( charSkillValue < prereqSkillValue ) {
                     fulfilled = false;
@@ -267,11 +265,11 @@ export default {
 
       return filteredTalents;
     },
-    remainingBuildPoints() { return this.$store.getters['remainingBuildPoints']
-      ; },
-    //TODO
-    characterKeywords() {
-      return ['Adepta Sororitas', 'Imperium'];
+    remainingBuildPoints() {
+      return this.$store.getters['remainingBuildPoints'];
+    },
+    finalKeywords(){
+      return this.$store.getters['characters/characterKeywordsFinalById'](this.$route.params.id);
     },
   },
   methods: {
@@ -279,10 +277,10 @@ export default {
       return (cost <= this.remainingBuildPoints) ? 'green' : 'grey';
     },
     addTalent(talent) {
-      this.$store.commit('addTalent', { name: talent.name, cost: talent.cost });
+      this.$store.commit('characters/addCharacterTalent', { id: this.characterId, name: talent.name, cost: talent.cost });
     },
     removeTalent(talent) {
-      this.$store.commit('removeTalent', { name: talent });
+      this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent });
     },
     prerequisitesToText(item) {
       const texts = [];

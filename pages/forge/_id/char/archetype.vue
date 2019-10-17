@@ -9,6 +9,7 @@
     >
       <archetype-preview
         v-if="selectedArchetype"
+        v-bind:characterId="characterId"
         v-bind:item="selectedArchetype"
         v-on:select="selectArchetypeForChar"
         v-on:cancel="dialog = false"
@@ -20,7 +21,7 @@
       <h1 class="headline">Select an Archetype</h1>
 
       <v-alert
-        :value="!characterSpecies"
+        :value="!characterSpeciesLabel"
         type="warning"
       >You need to select a Species first.</v-alert>
     </v-col>
@@ -56,7 +57,7 @@
               :key="item.key"
               avatar
               @click.stop="updatePreview(item)"
-              :disabled="item.species !== characterSpecies || item.tier > settingTier"
+              :disabled="item.species !== characterSpeciesLabel || item.tier > settingTier"
             >
 
               <v-list-item-avatar tile>
@@ -98,6 +99,7 @@
     <v-col :cols="12" v-if="characterArchetype && !changeMode">
 
       <archetype-preview
+        v-bind:characterId="characterId"
         v-bind:item="characterArchetype"
         v-bind:keywords="keywords"
         v-bind:psychicPowersRepository="psychicPowersRepository"
@@ -115,7 +117,7 @@
 
 <script lang="js">
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
 import { mapGetters, mapMutations } from 'vuex';
 
 export default {
@@ -166,8 +168,8 @@ export default {
       archetypes = archetypes.filter(a => a.group === groupName);
 
       /* filter by  */
-      if (this.characterSpecies) {
-        archetypes = archetypes.filter(a => a.species === this.characterSpecies);
+      if (this.characterSpeciesLabel) {
+        archetypes = archetypes.filter(a => a.species === this.characterSpeciesLabel);
       }
 
       if (this.settingTier !== undefined) {
@@ -192,7 +194,7 @@ export default {
       mods.push({ targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype'});
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
 
-      //this.$store.commit('clearKeywordsBySource', { source: 'archetype' });
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype' });
       // keywords = String[]
       if ( item.keywords ) {
         const itemKeywords = item.keywords.split(',');
@@ -203,7 +205,7 @@ export default {
             type: (keyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
             replacement: undefined,
           };
-          //this.$store.commit('addKeyword', payload);
+          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
         });
       }
 
@@ -235,25 +237,24 @@ export default {
   },
   computed: {
     loaded() { return this.archetypeRepository !== undefined; },
-    ...mapGetters([
-      'settingTier',
-      'keywords',
-    ]),
-    characterArchetypeName() {
+    settingTier(){
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
     characterArchetype() {
-      return this.getArchetypeBy(this.characterArchetypeName);
+      return this.getArchetypeBy(this.characterArchetypeLabel);
     },
-    characterSpecies() {
+    characterSpeciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
     archetypeGroups() {
       if (this.archetypeRepository !== undefined) {
         let archetypes = this.archetypeRepository;
 
-        if (this.characterSpecies !== undefined) {
-          archetypes = archetypes.filter(a => a.species === this.characterSpecies);
+        if (this.characterSpeciesLabel !== undefined) {
+          archetypes = archetypes.filter(a => a.species === this.characterSpeciesLabel);
         }
 
         if (this.settingTier !== undefined) {
@@ -264,6 +265,9 @@ export default {
       }
 
       return [];
+    },
+    keywords(){
+      return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
     },
   },
 };

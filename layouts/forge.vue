@@ -250,41 +250,49 @@ export default {
   computed: {
     helperBox() {
       return [
-        // { path: '/forge/setting', hint: 'Framework', text: `Tier ${this.settingTier} Campaign`, cost: this.settingTier*100 },
+        { path: `/forge/${this.characterId}/setting`, hint: 'Framework', text: `Tier ${this.settingTier} Campaign`, cost: this.settingTier*100 },
         { divider: true },
-        { path: `/forge/${this.characterId}char/species`, hint: 'Species', text: this.characterSpecies, cost: this.$store.state.species.cost },
-        { path: `/forge/${this.characterId}char/archetype`, hint: 'Archetype', text: this.characterArchetype, cost: this.$store.state.archetype.cost },
-        { path: `/forge/${this.characterId}char/ascension`, hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts },
-        { path: `/forge/${this.characterId}char/stats`, hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts + this.skillCosts },
-        { path: `/forge/${this.characterId}char/talents`, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
-        { path: `/forge/${this.characterId}char/psychic-powers`, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
+        { path: `/forge/${this.characterId}/char/species`, hint: 'Species', text: this.characterSpeciesLabel, cost: this.characterSpeciesCost },
+        { path: `/forge/${this.characterId}/char/archetype`, hint: 'Archetype', text: this.characterArchetype, cost: this.characterArchetypeCost },
+        { path: `/forge/${this.characterId}/char/ascension`, hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts },
+        { path: `/forge/${this.characterId}/char/stats`, hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts + this.skillCosts },
+        { path: `/forge/${this.characterId}/char/talents`, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
+        { path: `/forge/${this.characterId}/char/psychic-powers`, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
         { divider: true },
-        { path: `/forge/${this.characterId}char/wargear`, hint: '', text: 'Wargear', cost: undefined },
-        { path: `/forge/${this.characterId}char/background`, hint: 'Background', text: this.characterBackground, cost: undefined },
+        { path: `/forge/${this.characterId}/char/wargear`, hint: '', text: 'Wargear', cost: undefined },
+        { path: `/forge/${this.characterId}/char/background`, hint: 'Background', text: this.characterBackground, cost: undefined },
       ];
     },
 
     ...mapGetters([
       // setting
       'settingSelected',
-      'settingTier',
-      // spending
-      'spendBuildingPoints',
       // costs
       'attributeCosts',
       'skillCosts',
       'talentCosts',
       'psychicPowerCosts',
       'ascensionCosts',
-      // misc
-      'keywords',
-      'finalKeywords',
     ]),
 
+    settingTier(){
+      return this.$store.getters['characters/characterSettingTierById'](this.$route.params.id);
+    },
+    campaignCustomXp(){
+      return this.$store.getters['characters/characterCampaignCustomXpById'](this.$route.params.id);
+    },
     totalBuildPoints() {
-      const buildPoints = this.$store.state.settingTier * 100;
-      const xp = this.$store.getters.customXp;
-      return buildPoints + xp;
+      return this.$store.getters['characters/characterTotalBuildPointsById'](this.$route.params.id);
+    },
+    spendBuildingPoints(){
+      return this.$store.getters['characters/characterSpendBuildPointsById'](this.$route.params.id);
+    },
+
+    keywords(){
+      return this.$store.getters['characters/characterKeywordsRawById'](this.$route.params.id);
+    },
+    finalKeywords(){
+      return this.$store.getters['characters/characterKeywordsFinalById'](this.$route.params.id);
     },
 
     // see core page 156
@@ -295,8 +303,18 @@ export default {
     maximumStartingTalents() { return Math.min(5, this.settingTier + 1); },
     maximumPsychicPowers() { return this.settingTier + 3; },
 
-    characterSpecies() { return this.$store.state.species.value; },
-    characterArchetype() { return this.$store.state.archetype.value; },
+    characterSpeciesLabel() {
+      return this.$store.getters['characters/characterSpeciesLabelById'](this.$route.params.id);
+    },
+    characterSpeciesCost() {
+      return this.$store.getters['characters/characterSpeciesCostsById'](this.$route.params.id);
+    },
+    characterArchetype() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.$route.params.id);
+    },
+    characterArchetypeCost() {
+      return this.$store.getters['characters/characterArchetypeCostsById'](this.$route.params.id);
+    },
     characterTalents() { return this.$store.state.talents; },
     characterPsychicPowers() { return this.$store.state.psychicPowers; },
     characterAscension() {

@@ -99,55 +99,15 @@
 
     <v-col :cols="12">
 
-      <v-card>
-
-      <v-card-actions>
-        <v-btn
-          left
-          outlined
-          color="info"
-          @click="clearState()"
-        >
-          Fresh Character
-        </v-btn>
-        <v-spacer/>
-        <v-btn
-          right
-          color="green"
-          @click="applySetting()"
-        >
-          Select Setting
-        </v-btn>
-
-      </v-card-actions>
-      </v-card>
-
-    </v-col>
-
-    <v-col v-bind:cols="12">
-      <v-card>
-
-      <v-card-actions>
-        <v-btn
-          color="primary"
-          @click="saveChar()"
-        >
-          save
-        </v-btn>
-        <v-btn
-          color="primary"
-          @click="loadChar()"
-        >
-          load
-        </v-btn>
-        <v-btn
-          color="primary"
-          @click="registerUser()"
-        >
-          register
-        </v-btn>
-      </v-card-actions>
-      </v-card>
+      <v-btn
+        right
+        block
+        dark
+        color="green"
+        @click="applySetting()"
+      >
+        Select Setting
+      </v-btn>
 
     </v-col>
 
@@ -248,24 +208,25 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      settingTier: 'settingTier',
-      customXp: 'customXp'
-    }),
-    ...mapGetters('characters', ['characterNameById']),
+    customXp(){
+      return this.$store.getters['characters/characterCampaignCustomXpById'](this.characterId);
+    },
     characterName(){
-      return this.characterNameById(this.characterId);
-    }
+      return this.$store.getters['characters/characterNameById'](this.characterId);
+    },
+    settingTier(){
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
   },
   methods: {
     setCharacterName(name){
       this.$store.commit('characters/setCharacterName', {id: this.characterId, name: name});
     },
     setCustomXp(xp){
-      this.$store.commit('setCustomXp', xp);
+      this.$store.commit('characters/setCustomXp', {id: this.characterId, xp: xp});
     },
     setSettingTier(event) {
-      this.$store.commit('setSettingTier', { amount: event });
+      this.$store.commit('characters/setSettingTier', { id: this.characterId, tier: event });
     },
     applySetting() {
       this.$store.commit('setSetting', { setting: this.setting });
@@ -273,24 +234,6 @@ export default {
     },
     clearState() {
       this.$store.commit('resetState');
-    },
-    updateHomebrew(homebrew) {
-      const enabled = this.enabledHomebrews.includes(homebrew.key);
-      if ( enabled ) {
-        this.$store.commit('addHomebrewContent', { key: homebrew.key});
-      } else {
-        this.$store.commit('removeHomebrewContent', { key: homebrew.key});
-      }
-    },
-    loadChar(){
-      this.$store.dispatch('loadCharacterFromDatabase', { id: 3 } );
-
-    },
-    saveChar(){
-      this.$store.dispatch('saveCurrentCharacterToDatabase', { id: 1 } );
-    },
-    registerUser(){
-      this.$store.commit('user/generateNewHash', {});
     },
   },
 };

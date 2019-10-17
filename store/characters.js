@@ -13,6 +13,73 @@ export const getters = {
   characterSettingTierById: (state) => (id) => {
     return state.characters[id] ? state.characters[id].settingTier : 1;
   },
+  characterCampaignCustomXpById: (state) => (id) => {
+    return state.characters[id] && state.characters[id].customXp ? parseInt(state.characters[id].customXp) : 0;
+  },
+
+  // Cost & Spending
+  characterSpeciesCostsById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].species.cost : 0;
+  },
+  characterArchetypeCostsById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].archetype.cost : 0;
+  },
+  characterAttributeCostsById: (state) => (id) => {
+    let character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
+    let attributesSpending = 0;
+    Object.keys(character.attributes).forEach((key) => {
+      attributesSpending += attributeTotalCost[character.attributes[key]];
+    });
+    return attributesSpending;
+  },
+  characterSkillCostsById: (state) => (id) => {
+    let character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
+    let skillSpending = 0;
+    Object.keys(character.skills).forEach((key) => {
+      skillSpending += skillTotalCost[character.skills[key]];
+    });
+    return skillSpending;
+  },
+  characterTalentCostsById: (state) => (id) => {
+    return 0;
+  },
+  characterAscensionCostsById: (state) => (id) => {
+    return 0;
+  },
+  characterPsychicPowerCostsById: (state) => (id) => {
+    return 0;
+  },
+  // total
+  characterSpendBuildPointsById: (state, getters) => (id) => {
+      let spend = 0;
+
+      spend += getters.characterSpeciesCostsById(id);
+      spend += getters.characterArchetypeCostsById(id);
+      spend += getters.characterAttributeCostsById(id);
+      spend += getters.characterSkillCostsById(id);
+      spend += getters.characterTalentCostsById(id);
+      spend += getters.characterAscensionCostsById(id);
+      spend += getters.characterPsychicPowerCostsById(id);
+
+      return spend;
+  },
+  characterTotalBuildPointsById: (state, getters) => (id) => {
+      let total = 0;
+      total += getters.characterSettingTierById(id) * 100;
+      total += getters.characterCampaignCustomXpById(id);
+      return total;
+  },
+  characterRemainingBuildPointsById: (state, getters) => (id) => {
+    return getters.characterTotalBuildPointsById(id) - getters.characterSpendBuildPointsById(id);
+  },
 
   // Character data
   characterNameById: (state) => (id) => {
@@ -92,11 +159,47 @@ export const getters = {
     });
     return enhanced;
   },
+
+  // Talents
+  characterTalentsById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].talents : [];
+  },
+
+  // Wargear
+  characterWargearById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].wargear : [];
+  },
+
+  // Powers
+  characterPsychicPowersById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].psychicPowers : [];
+  },
+
+  // Ascensions
+  characterAscensionPackagesById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].ascensionPackages : [];
+  },
+
+  // Keywords
+  characterKeywordsRawById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].keywords : [];
+  },
+  characterKeywordsFinalById: (state) => (id) => {
+    const keywords = state.characters[id] ? state.characters[id].keywords : [];
+    return keywords.map(k => k.replacement ? k.replacement : k.name);
+  },
 };
 
 export const mutations = {
   setCharacterName(state, payload){
     state.characters[payload.id].name = payload.name;
+  },
+
+  setSettingTier(state, payload){
+    state.characters[payload.id].settingTier = payload.tier;
+  },
+  setCustomXp(state, payload){
+    state.characters[payload.id].customXp = payload.xp;
   },
   setCharacterSpecies(state, payload){
     state.characters[payload.id].species = payload.species;
@@ -138,6 +241,115 @@ export const mutations = {
     });
   },
 
+  // Talents
+  addCharacterTalent(state, payload) {
+    const character = state.characters[payload.id];
+    const hasTalent = character.talents.find(t => t.name === payload.name) !== undefined;
+    if (!hasTalent) {
+      character.talents.push({ name: payload.name, cost: payload.cost });
+    }
+  },
+  removeCharacterTalent(state, payload) {
+    const character = state.characters[payload.id];
+    const hasTalent = character.talents.find(t => t.name === payload.name) !== undefined;
+    if (hasTalent) {
+      character.talents = character.talents.filter(t => t.name !== payload.name);
+    }
+  },
+
+  // Wargear
+  addCharacterWargear(state, payload) {
+    const character = state.characters[payload.id];
+    const wargearUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    console.info(`Adding '${payload.name}' by '${payload.source}' [${wargearUniqueId}]`);
+    character.wargear.push({ id: wargearUniqueId, name: payload.name, source: payload.source });
+  },
+  removeCharacterWargear(state, payload) {
+    const character = state.characters[payload.id];
+    const gearId = payload.gearId;
+    const hasWargear = character.wargear.find(t => t.id === gearId) !== undefined;
+    if (hasWargear) {
+      character.wargear = character.wargear.filter(t => t.id !== gearId);
+    }
+  },
+
+  // Psychic Powers
+  addCharacterPsychicPower(state, payload) {
+    const character = state.characters[payload.id];
+    const hasPower = character.psychicPowers.find(t => t.name === payload.name) !== undefined;
+    if (!hasPower) {
+      console.info(`Adding '${payload.name}' by '${payload.source}'`);
+      character.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
+    }
+  },
+  removeCharacterPsychicPower(state, payload) {
+    const character = state.characters[payload.id];
+    const hasPower = character.psychicPowers.find(t => t.name === payload.name) !== undefined;
+    if (hasPower) {
+      console.info(`Removing '${payload.name}' by '${payload.source}'`);
+      character.psychicPowers = character.psychicPowers.filter(t => t.name !== payload.name);
+    }
+  },
+
+  // Ascension & Ascension Packages
+  addCharacterAscensionPackage(state, payload) {
+    const character = state.characters[payload.id];
+    character.ascensionPackages.push({
+      key: payload.key,
+      value: payload.value,
+      cost: payload.cost,
+      storyElementChoice: undefined,
+      sourceTier: payload.sourceTier,
+      targetTier: payload.targetTier,
+    });
+  },
+  removeCharacterAscensionPackage(state, payload) {
+    const character = state.characters[payload.id];
+    // remove the package from the ascension stacks
+    character.ascensionPackages = character.ascensionPackages.filter(a => (a.value !== payload.value));
+
+    // remove all enhancements that are related to the package
+    character.enhancements = character.enhancements.filter(e => e.source === undefined || !e.source.startsWith(`ascension.${payload.key}`));
+
+    character.keywords = character.keywords.filter( k => k.source !== `ascension.${payload.key}`);
+
+    // ToDo: remove all wargear that is related to the package
+  },
+
+  // Keywords
+  addCharacterKeyword(state, payload) {
+    const character = state.characters[payload.id];
+    const keyword = payload.keyword;
+    console.log(`Adding keyword ${keyword.name} of type ${keyword.type}.`);
+    character.keywords.push(keyword);
+  },
+  clearCharacterKeywordsBySource: function (state, payload) {
+    const character = state.characters[payload.id];
+    const source = payload.source;
+    if (character.keywords.length > 0) {
+      console.log(`found ${character.keywords.length} keywords, clearing with source ${source}...`);
+      character.keywords = character.keywords.filter(k => k.source !== source);
+      console.log(`${character.keywords.length} keywords remaining`);
+    }
+  },
+  /**
+   * keyword { name:String, source:String, type:String, replacement:undefined/String }
+   * @param payload { placeholder:String, replacement:String, source:String}
+   */
+  replaceCharacterKeywordPlaceholder(state, payload) {
+    const character = state.characters[payload.id];
+    if ( character.keywords.length > 0) {
+      let placeholderKeyword = character.keywords.find(k => {
+        return (k.source === payload.source && k.name === payload.placeholder);
+      });
+      if ( placeholderKeyword ) {
+        placeholderKeyword.replacement = payload.replacement;
+        character.keywords = character.keywords.filter( k => !(k.source === payload.source && k.name === payload.placeholder) )
+        character.keywords.push(placeholderKeyword);
+      };
+    }
+  },
+
   // character handling
   create(state, id){
     state.list.push(id);
@@ -161,6 +373,7 @@ const getDefaultState = () => ({
   settingSelected: true,
   settingTier: 3,
   settingHomebrewContent: [],
+  customXp: 0,
   name: 'Simsel Simselman',
   species: { value: undefined, cost: 0 },
   speciesAstartesChapter: undefined,

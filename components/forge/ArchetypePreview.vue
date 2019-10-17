@@ -132,6 +132,10 @@ export default {
   name: 'archetype-preview',
   mixins: [KeywordRepository, StatRepository, WargearRepository],
   props: {
+    characterId: {
+      type: String,
+      required: true,
+    },
     item: {
       type: Object,
       required: true,
@@ -200,7 +204,8 @@ export default {
     updateKeyword(placeholder, selection) {
       console.log(`selected ${selection} for ${placeholder.name}`);
 
-      this.$store.commit('replaceKeyword', {
+      this.$store.commit('characters/replaceCharacterKeywordPlaceholder', {
+        id: this.characterId,
         // the name of the keyword to be replaced
         placeholder: placeholder.name,
         // the new selected choice

@@ -1,54 +1,5 @@
 import axios from 'axios';
 
-const getDefaultState = () => ({
-  id: -1,
-  setting: undefined,
-  settingSelected: true,
-  settingTier: 3,
-  customXp: 0,
-  settingHomebrewContent: [],
-  characterName: 'Simsel Simselman',
-  species: { value: undefined, cost: 0 },
-  speciesAstartesChapter: undefined,
-  archetype: { value: undefined, cost: 0 },
-  attributes: {
-    strength: 1,
-    agility: 1,
-    toughness: 1,
-    intellect: 1,
-    willpower: 1,
-    fellowship: 1,
-    initiative: 1,
-  },
-  skills: {
-    athletics: 0,
-    awareness: 0,
-    ballisticSkill: 0,
-    cunning: 0,
-    deception: 0,
-    insight: 0,
-    intimidation: 0,
-    investigation: 0,
-    leadership: 0,
-    medicae: 0,
-    persuasion: 0,
-    pilot: 0,
-    psychicMastery: 0,
-    scholar: 0,
-    stealth: 0,
-    survival: 0,
-    tech: 0,
-    weaponSkill: 0,
-  },
-  keywords: [],
-  talents: [],
-  psychicPowers: [],
-  ascensionPackages: [],
-  wargear: [],
-  background: undefined,
-  enhancements: [],
-});
-
 export const state = () => ({
   id: -1,
   setting: undefined,
@@ -127,57 +78,6 @@ export const getters = {
       }
     });
     return Math.max(archetypeTier, ascensionTier);
-  },
-  attributes(state) { return state.attributes; },
-  attributesEnhanced(state) {
-    const enhanced = Object.assign({}, state.attributes);
-    const attributeEnhancements = state.enhancements.filter(e => e.targetGroup === 'attributes');
-    attributeEnhancements.forEach((m) => {
-      console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}/${m.hint}.`);
-      enhanced[m.targetValue] += m.modifier;
-    });
-    return enhanced;
-  },
-  skills(state) { return state.skills; },
-  traits(state, getters) {
-    let traits = {};
-    traits['defence'] = state.attributes.initiative-1;
-    traits['resilience'] = state.attributes.toughness+1;
-    traits['soak'] = state.attributes.toughness;
-    traits['wounds'] = state.attributes.toughness+state.settingTier;
-    traits['shock'] = state.attributes.willpower+state.settingTier;
-    traits['resolve'] = state.attributes.willpower-1;
-    traits['conviction'] = state.attributes.willpower;
-    traits['passiveAwareness'] = Math.round((state.attributes.intellect+state.skills.awareness)/2);
-
-    traits['influence'] = state.attributes.fellowship-1;
-    if ( getters.species && getters.species === 'Ork' ) {
-      traits['influence'] = state.attributes.strength-1;
-    }
-    if ( getters.archetype && getters.archetype === 'Tech-Priest' ) {
-      traits['influence'] = state.attributes.intellect-1;
-    }
-
-    traits['wealth'] = state.settingTier;
-    traits['speed'] = 6;
-    if ( getters.species && getters.species === 'Eldar' ) {
-      traits['speed'] = 8;
-    }
-    if ( getters.species && getters.species.endsWith('Astartes') ) {
-      traits['speed'] = 7;
-    }
-
-    traits['corruption'] = 0;
-    return traits;
-  },
-  traitsEnhanced(state, getters) {
-    const enhanced = Object.assign({}, getters.traits);
-    const traitEnhancements = state.enhancements.filter(e => e.targetGroup === 'traits');
-    traitEnhancements.forEach((m) => {
-      console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}.`);
-      enhanced[m.targetValue] += m.modifier;
-    });
-    return enhanced;
   },
   wargear(state) {
     return state.wargear.map(w => w.name);
@@ -262,55 +162,8 @@ export const mutations = {
     state.setting = payload.setting;
     state.settingSelected = true;
   },
-  setSettingTier(state, payload) {
-    state.settingTier = payload.amount;
-  },
-  setCustomXp(state, payload) {
-    state.customXp = payload;
-  },
-  addHomebrewContent(state, payload){
-    state.settingHomebrewContent.push(payload.key);
-  },
-  removeHomebrewContent(state, payload){
-    state.settingHomebrewContent = state.settingHomebrewContent.filter(c => c !== payload.key);
-  },
-  setName(state, name) {
-    state.characterName = name;
-  },
-  setSpecies(state, payload) {
-    state.species = payload;
-  },
-  setSpeciesModifications(state, payload) {
-    state.enhancements = state.enhancements.filter(e => e.source !== 'species');
-
-    payload.modifications.forEach((item) => {
-      item.source = 'species';
-      state.enhancements.push(item);
-    });
-  },
   setSpeciesAstartesChapter(state, payload) {
     state.speciesAstartesChapter = payload.name;
-  },
-  setArchetype(state, payload) {
-    state.archetype = payload;
-  },
-  setArchetypeModifications(state, payload) {
-    state.enhancements = state.enhancements.filter(e => e.source !== 'archetype');
-
-    payload.modifications.forEach((item) => {
-      item.source = 'archetype';
-      state.enhancements.push(item);
-    });
-  },
-  /**
-   * @param payload { source:String }
-   */
-  clearKeywordsBySource(state, payload) {
-    if ( state.keywords.length > 0 ) {
-      console.log(`found ${state.keywords.length} keywods, clearing with source ${payload.source}...`);
-      state.keywords = state.keywords.filter( k => k.source !== payload.source );
-      console.log(`${state.keywords.length} keywords remaining`);
-    }
   },
   /**
    * @param payload { name:String, source:String, type:String, replacement:undefined/String }
@@ -336,34 +189,10 @@ export const mutations = {
       };
     }
   },
-  setAttribute(state, payload) {
-    state.attributes[payload.key] = payload.value;
-  },
-  setSkill(state, payload) {
-    state.skills[payload.key] = payload.value;
-  },
-  addTalent(state, payload) {
-    const hasTalent = state.talents.find(t => t.name === payload.name) !== undefined;
-    if (!hasTalent) {
-      state.talents.push({ name: payload.name, cost: payload.cost });
-    }
-  },
-  removeTalent(state, payload) {
-    const hasTalent = state.talents.find(t => t.name === payload.name) !== undefined;
-    if (hasTalent) {
-      state.talents = state.talents.filter(t => t.name !== payload.name);
-    }
-  },
   addPower(state, payload) {
     const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
     if (!hasPower) {
       state.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
-    }
-  },
-  removePower(state, payload) {
-    const hasPower = state.psychicPowers.find(t => t.name === payload.name) !== undefined;
-    if (hasPower) {
-      state.psychicPowers = state.psychicPowers.filter(t => t.name !== payload.name);
     }
   },
   /**
@@ -436,12 +265,6 @@ export const mutations = {
     }
     console.info(`Adding '${payload.name}' by '${payload.source}' [${result}]`)
     state.wargear.push({ id: result, name: payload.name, source: payload.source });
-  },
-  removeWargear(state, payload) {
-    const hasWargear = state.wargear.find(t => t.id === payload.id) !== undefined;
-    if (hasWargear) {
-      state.wargear = state.wargear.filter(t => t.id !== payload.id);
-    }
   },
   setBackground(state, payload) {
     state.background = payload.name;
