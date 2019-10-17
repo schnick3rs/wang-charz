@@ -80,7 +80,7 @@ module.exports = {
     }],
     ['@nuxtjs/pwa', {
       manifest: false
-    }]
+    }],
   ],
 
   /*
@@ -93,7 +93,8 @@ module.exports = {
       '/forge/**',
     ],
     routes() {
-      const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
+      console.error(process,env.API_BASE_URL)
+      const base = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
       return axios.get(`${base}/api/homebrews/`)
         .then((response) => response.data.map((vaultItem) => `/vault/${vaultItem.slug}`));
     },
@@ -109,8 +110,12 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+    //baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000',
+    baseURL: '/',
     // debug: process.env.NODE_ENV !== 'production',
+  },
+  proxy: {
+    '/api/': 'https://www.doctors-of-doom.com', // only for development
   },
   /*auth: {
     strategies: {
