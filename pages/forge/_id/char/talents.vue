@@ -108,7 +108,6 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 import IssueList from '~/components/IssueList.vue';
 
@@ -172,9 +171,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'effectiveCharacterTier',
-    ]),
+    effectiveCharacterTier() {
+      return 1;
+    },
     characterAttributesEnhanced() {
       return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
     },

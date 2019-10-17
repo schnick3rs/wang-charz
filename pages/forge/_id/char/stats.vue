@@ -122,10 +122,9 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
-import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin.js';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Stats',
@@ -309,16 +308,6 @@ export default {
     skillMaximum() {
       return this.skillMaximumBy(this.settingTier);
     },
-    ...mapGetters([
-      'settingTier',
-      'archetype',
-      'attributeCosts',
-      'remainingBuildPoints',
-      'ascensionPackages',
-    ]),
-    ...mapGetters({
-      characterSpeciesLabel: 'species',
-    }),
     characterAttributes() {
       return this.$store.getters['characters/characterAttributesById'](this.characterId);
     },

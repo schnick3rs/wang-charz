@@ -109,7 +109,7 @@ export default {
     };
   },
   async asyncData ({ params, store, app }) {
-    const response = await app.$axios.get('http://localhost:3000/api/characters')
+    /*const response = await app.$axios.get('http://localhost:3000/api/characters')
       .catch( error => { console.warn(`Could not fetch character during async: ${error}`); });
     if ( response && response.data) {
       let characters = [];
@@ -124,7 +124,7 @@ export default {
 
       });
       return { persistedCharacters : characters };
-    }
+    }*/
     return { persistedCharacters: [] };
   },
   computed: {

@@ -1,7 +1,7 @@
 export const state = () => ({
   list: [],
   characters: {},
-  version: 1,
+  //version: 1,
   // 123: { name: simsel, species. 123 }
   // species: { 123: { name: human, ... } }
 });
@@ -9,6 +9,19 @@ export const state = () => ({
 export const getters = {
   characterIds: (state) => state.list,
   characterSets: (state) => state.list.map( charId => state.characters[charId] ),
+
+  /*
+  effectiveCharacterTier(state) {
+    const archetypeTier = state.archetype.tier || 0;
+    let ascensionTier = 0;
+    state.ascensionPackages.forEach((i) => {
+      if (i.targetTier > ascensionTier) {
+        ascensionTier = i.targetTier;
+      }
+    });
+    return Math.max(archetypeTier, ascensionTier);
+  },
+  */
 
   // Character setting
   characterSettingTierById: (state) => (id) => {
@@ -219,6 +232,10 @@ export const getters = {
   characterKeywordsFinalById: (state) => (id) => {
     const keywords = state.characters[id] ? state.characters[id].keywords : [];
     return keywords.map(k => k.replacement ? k.replacement : k.name);
+  },
+
+  characterBackgroundLabelById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].background : getDefaultState().background;
   },
 };
 

@@ -110,8 +110,9 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    //baseURL: process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000',
-    baseURL: '/',
+    //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+    baseURL: 'https://www.doctors-of-doom.com',
+    browserBaseURL: '/',
     // debug: process.env.NODE_ENV !== 'production',
   },
   proxy: {

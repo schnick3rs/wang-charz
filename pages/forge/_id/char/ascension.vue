@@ -243,7 +243,6 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
 import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
 import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
@@ -278,9 +277,9 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'effectiveCharacterTier',
-    ]),
+    effectiveCharacterTier() {
+      return 1;
+    },
     alerts() {
       const alerts = [];
       if (!this.characterArchetype) {

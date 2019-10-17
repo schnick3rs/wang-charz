@@ -11,7 +11,7 @@
     </v-dialog>
 
     <v-tooltip
-      v-if="isAuthenticated"
+      v-if="false"
       bottom
     >
       <template v-slot:activator="{ on }">
@@ -35,7 +35,7 @@
       <v-icon>person_add</v-icon>
     </v-btn>
 
-    <v-btn icon color="error" v-bind:disabled="!isAuthenticated" v-on:click="logout"><v-icon>exit_to_app</v-icon></v-btn>
+    <v-btn v-if="false" icon color="error" v-bind:disabled="true" v-on:click="logout"><v-icon>exit_to_app</v-icon></v-btn>
   </div>
 </template>
 
@@ -53,7 +53,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isAuthenticated', 'loggedInUser']),
+    //...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
   methods: {
     logout() {

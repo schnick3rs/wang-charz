@@ -26,7 +26,6 @@
           <v-list-item
             v-for="item in speciesRepository"
             :key="item.name"
-            avatar
             :disabled="item.baseTier > characterSettingTier"
             @click.stop="updatePreview(item)"
           >

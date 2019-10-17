@@ -1,63 +1,17 @@
 import axios from 'axios';
 
 export const state = () => ({
-  id: -1,
-  setting: undefined,
 });
 
 export const getters = {
+  /*
   isAuthenticated(state) {
     return state.auth.loggedIn
   },
   loggedInUser(state) {
     return state.auth.user
   },
-  id(state) { return state.id; },
-  effectiveCharacterTier(state) {
-    const archetypeTier = state.archetype.tier || 0;
-    let ascensionTier = 0;
-    state.ascensionPackages.forEach((i) => {
-      if (i.targetTier > ascensionTier) {
-        ascensionTier = i.targetTier;
-      }
-    });
-    return Math.max(archetypeTier, ascensionTier);
-  },
-  attributeCosts(state) {
-    const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
-    let attributesSpending = 0;
-    Object.keys(state.attributes).forEach((key) => {
-      attributesSpending += attributeTotalCost[state.attributes[key]];
-    });
-    return attributesSpending;
-  },
-  skillCosts(state) {
-    const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
-    let skillSpending = 0;
-    Object.keys(state.skills).forEach((key) => {
-      skillSpending += skillTotalCost[state.skills[key]];
-    });
-    return skillSpending;
-  },
-  talentCosts(state) {
-    let spending = 0;
-    state.talents.forEach((talent) => { spending += talent.cost; });
-    return spending;
-  },
-  ascensionCosts(state) {
-    let spending = 0;
-    state.ascensionPackages.forEach((ascensionPackage) => {
-      spending += ascensionPackage.cost;
-    });
-    return spending;
-  },
-  psychicPowerCosts(state) {
-    let spending = 0;
-    state.psychicPowers.forEach((psychicPower) => {
-      spending += psychicPower.cost;
-    });
-    return spending;
-  },
+  */
 };
 
 export const mutations = {

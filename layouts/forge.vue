@@ -163,7 +163,6 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex';
 import DefaultFooter from '~/components/DefaultFooter.vue';
 import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
 
@@ -174,7 +173,6 @@ export default {
   },
   asyncData({ params }) {
     return {
-      characterId: params.id,
     };
   },
   head() {
@@ -251,28 +249,18 @@ export default {
   computed: {
     helperBox() {
       return [
-        { path: `/forge/${this.characterId}/setting`, hint: 'Framework', text: `Tier ${this.settingTier} Campaign`, cost: this.settingTier*100 },
         { divider: true },
-        { path: `/forge/${this.characterId}/char/species`, hint: 'Species', text: this.characterSpeciesLabel, cost: this.characterSpeciesCost },
-        { path: `/forge/${this.characterId}/char/archetype`, hint: 'Archetype', text: this.characterArchetype, cost: this.characterArchetypeCost },
-        { path: `/forge/${this.characterId}/char/ascension`, hint: 'Ascension Packages', text: this.characterAscension, cost: this.ascensionCosts },
-        { path: `/forge/${this.characterId}/char/stats`, hint: 'Stats', text: 'Attributes & Skills', cost: this.attributeCosts + this.skillCosts },
-        { path: `/forge/${this.characterId}/char/talents`, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.talentCosts },
-        { path: `/forge/${this.characterId}/char/psychic-powers`, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.psychicPowerCosts },
+        { path: `/forge/${this.$route.params.id}/char/species`, hint: 'Species', text: this.characterSpeciesLabel, cost: this.characterSpeciesCost },
+        { path: `/forge/${this.$route.params.id}/char/archetype`, hint: 'Archetype', text: this.characterArchetype, cost: this.characterArchetypeCost },
+        { path: `/forge/${this.$route.params.id}/char/ascension`, hint: 'Ascension Packages', text: this.characterAscension, cost: this.characterAscensionCost },
+        { path: `/forge/${this.$route.params.id}/char/stats`, hint: 'Stats', text: 'Attributes & Skills', cost: this.characterAttributeCost + this.characterSkillCost },
+        { path: `/forge/${this.$route.params.id}/char/talents`, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.characterTalentCost },
+        { path: `/forge/${this.$route.params.id}/char/psychic-powers`, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.characterPsychicPowerCost },
         { divider: true },
-        { path: `/forge/${this.characterId}/char/wargear`, hint: '', text: 'Wargear', cost: undefined },
-        { path: `/forge/${this.characterId}/char/background`, hint: 'Background', text: this.characterBackground, cost: undefined },
+        { path: `/forge/${this.$route.params.id}/char/wargear`, hint: '', text: 'Wargear', cost: undefined },
+        { path: `/forge/${this.$route.params.id}/char/background`, hint: 'Background', text: this.characterBackground, cost: undefined },
       ];
     },
-
-    ...mapGetters([
-      // costs
-      'attributeCosts',
-      'skillCosts',
-      'talentCosts',
-      'psychicPowerCosts',
-      'ascensionCosts',
-    ]),
 
     settingSelected() {
       return true;
@@ -309,24 +297,48 @@ export default {
     characterSpeciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.$route.params.id);
     },
-    characterSpeciesCost() {
-      return this.$store.getters['characters/characterSpeciesCostsById'](this.$route.params.id);
-    },
     characterArchetype() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.$route.params.id);
+    },
+    characterTalents() {
+      return this.$store.getters['characters/characterTalentsById'](this.$route.params.id);
+    },
+    characterPsychicPowers() {
+      return this.$store.getters['characters/characterPsychicPowersById'](this.$route.params.id);
+    },
+    characterAscension() {
+      const packages = this.$store.getters['characters/characterAscensionPackagesById'](this.$route.params.id);
+      if (packages !== undefined && packages.length > 0) {
+        return packages[0].value;
+      }
+      return '';
+    },
+    characterBackground() {
+      return this.$store.getters['characters/characterBackgroundLabelById'](this.$route.params.id);
+    },
+
+
+    characterSpeciesCost() {
+      return this.$store.getters['characters/characterSpeciesCostsById'](this.$route.params.id);
     },
     characterArchetypeCost() {
       return this.$store.getters['characters/characterArchetypeCostsById'](this.$route.params.id);
     },
-    characterTalents() { return this.$store.state.talents; },
-    characterPsychicPowers() { return this.$store.state.psychicPowers; },
-    characterAscension() {
-      if (this.$store.state.ascensionPackages.length > 0) {
-        return this.$store.state.ascensionPackages[0].value;
-      }
-      return '';
+    characterAscensionCost() {
+      return this.$store.getters['characters/characterAscensionCostsById'](this.$route.params.id);
     },
-    characterBackground() { return this.$store.state.background; },
+    characterAttributeCost() {
+      return this.$store.getters['characters/characterAttributeCostsById'](this.$route.params.id);
+    },
+    characterSkillCost() {
+      return this.$store.getters['characters/characterSkillCostsById'](this.$route.params.id);
+    },
+    characterTalentCost() {
+      return this.$store.getters['characters/characterTalentCostsById'](this.$route.params.id);
+    },
+    characterPsychicPowerCost() {
+      return this.$store.getters['characters/characterPsychicPowerCostsById'](this.$route.params.id);
+    },
   },
 };
 </script>

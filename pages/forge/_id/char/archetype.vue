@@ -55,7 +55,6 @@
               two-line
               v-for="item in archetypesByGroup(group)"
               :key="item.key"
-              avatar
               @click.stop="updatePreview(item)"
               :disabled="item.species !== characterSpeciesLabel || item.tier > settingTier"
             >
