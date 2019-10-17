@@ -57,18 +57,6 @@ export const getters = {
     return state.auth.user
   },
   id(state) { return state.id; },
-  setting(state) { return state.setting; },
-  settingSelected(state) { return state.settingSelected; },
-  settingTier(state) { return state.settingTier; },
-  customXp(state) { return state.customXp ? parseInt(state.customXp) : 0; },
-  settingHomebrewContent(state) { return state.settingHomebrewContent; },
-  name(state) { return state.characterName; },
-  species(state) { return state.species.value; },
-  speciesAstartesChapter(state) { return state.speciesAstartesChapter; },
-  archetype(state) { return state.archetype.value; },
-  background(state) { return state.background; },
-  keywords(state) { return state.keywords; },
-  finalKeywords(state) { return state.keywords.map(k => k.replacement ? k.replacement : k.name); },
   effectiveCharacterTier(state) {
     const archetypeTier = state.archetype.tier || 0;
     let ascensionTier = 0;
@@ -78,26 +66,6 @@ export const getters = {
       }
     });
     return Math.max(archetypeTier, ascensionTier);
-  },
-  wargear(state) {
-    return state.wargear.map(w => w.name);
-  },
-  talents(state) {
-    return state.talents.map(t => t.name);
-  },
-  ascensionPackages(state) {
-    return state.ascensionPackages;
-  },
-  psychicPowers(state) {
-    return state.psychicPowers.map(p => p.name);
-  },
-  psychicPowersObjects(state) {
-    return state.psychicPowers;
-  },
-  remainingBuildPoints(state, getters) {
-    let remaining = 0;
-    remaining = state.settingTier * 100;
-    return (state.settingTier * 100) - getters.spendBuildingPoints + state.customXp;
   },
   attributeCosts(state) {
     const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
@@ -161,9 +129,6 @@ export const mutations = {
   setSetting(state, payload) {
     state.setting = payload.setting;
     state.settingSelected = true;
-  },
-  setSpeciesAstartesChapter(state, payload) {
-    state.speciesAstartesChapter = payload.name;
   },
   /**
    * @param payload { name:String, source:String, type:String, replacement:undefined/String }

@@ -13,10 +13,10 @@
     >
       <species-preview
         v-if="selectedSpecies"
-        :species="selectedSpecies"
+        v-bind:species="selectedSpecies"
         chooseMode
-        @select="selectSpeciesForChar"
-        @cancel="speciesDialog = false"
+        v-on:select="selectSpeciesForChar"
+        v-on:cancel="speciesDialog = false"
       />
     </v-dialog>
 
@@ -76,7 +76,6 @@
 <script lang="js">
 import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
 import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
-import { mapGetters, mapMutations } from 'vuex';
 
 export default {
   name: 'SpeciesSelection',
@@ -104,22 +103,21 @@ export default {
   },
   computed: {
     loaded() { return this.speciesRepository !== undefined; },
-    ...mapGetters([
-      'settingTier',
-      'speciesAstartesChapter',
-    ]),
+
+    // Character
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
-    characterSpecies() {
-      return this.getSpeciesBy(this.characterSpeciesName);
-    },
-    characterSpeciesName() {
+    characterSpeciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
-    characterSpeciesLabel() {
-      const chapter = this.speciesAstartesChapter;
-      if(chapter) {
+    characterSpeciesAstartesChapter() {
+      return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
+    },
+    characterSpecies() {
+      const species = this.getSpeciesBy(this.characterSpeciesLabel);
+      const chapter = this.characterSpeciesAstartesChapter;
+      if (chapter) {
         species['chapter'] = chapter;
       }
       return species;
@@ -127,7 +125,7 @@ export default {
   },
   methods: {
     updateAstartesChapter(chapterName){
-      this.$store.commit('setSpeciesAstartesChapter', { name: chapterName });
+      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id: this.characterId, speciesAstartesChapter: chapterName });
     },
     getAvatar(name) {
       const slug = name.toLowerCase().replace(/\s/gm, '-');

@@ -86,6 +86,7 @@
 
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
+          <v-btn small text nuxt :to="`/forge/my-characters`" icon><v-icon>supervisor_account</v-icon></v-btn>
           <v-btn small text nuxt :to="`/forge/${$route.params.id}/setting`" >Setting</v-btn>
           <v-btn small text nuxt :to="`/forge/${$route.params.id}/char/species`" :disabled="!settingSelected">1. Species</v-btn>
           <v-btn small text nuxt :to="`/forge/${$route.params.id}/char/archetype`" :disabled="!settingSelected">2. Archetype</v-btn>
@@ -265,8 +266,6 @@ export default {
     },
 
     ...mapGetters([
-      // setting
-      'settingSelected',
       // costs
       'attributeCosts',
       'skillCosts',
@@ -274,6 +273,10 @@ export default {
       'psychicPowerCosts',
       'ascensionCosts',
     ]),
+
+    settingSelected() {
+      return true;
+    },
 
     settingTier(){
       return this.$store.getters['characters/characterSettingTierById'](this.$route.params.id);

@@ -444,20 +444,22 @@ export default {
       };
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: [modification] } });
       const storyPayload = {
+        id: this.characterId,
         ascensionPackageKey: ascensionObject.key,
         ascensionPackageTargetTier: ascensionObject.targetTier,
         ascensionPackageStoryElementKey: storyElementOption.key,
       };
-      this.$store.commit('setAscensionPackageStoryElement', storyPayload);
+      this.$store.commit('characters/setCharacterAscensionPackageStoryElement', storyPayload);
     },
     updateAscensionPackageWargearOption(choiceValue, ascensionObject){
       const wargearOption = ascensionObject.wargearOptions.find(o => o.key === choiceValue);
       const wargearOptionPayload = {
+        id: this.characterId,
         ascensionPackageKey: ascensionObject.key,
         ascensionPackageTargetTier: ascensionObject.targetTier,
         ascensionPackageWargearOptionKey: wargearOption.key,
       };
-      this.$store.commit('setAscensionPackageWargearOption', wargearOptionPayload);
+      this.$store.commit('characters/setCharacterAscensionPackageWargearOption', wargearOptionPayload);
     },
     updateAscensionPackageWargearOptionChoice(choiceValue, itemKey, ascensionObject){
       const wargearOption = ascensionObject.wargearOptions.find(o => o.key === ascensionObject.wargearChoice);

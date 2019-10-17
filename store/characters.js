@@ -13,8 +13,14 @@ export const getters = {
   characterSettingTierById: (state) => (id) => {
     return state.characters[id] ? state.characters[id].settingTier : 1;
   },
+  characterSettingTitleById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].settingTitle : getDefaultState().settingTitle;
+  },
   characterCampaignCustomXpById: (state) => (id) => {
     return state.characters[id] && state.characters[id].customXp ? parseInt(state.characters[id].customXp) : 0;
+  },
+  characterCampaignCustomRankById: (state) => (id) => {
+    return state.characters[id] && state.characters[id].customRank ? parseInt(state.characters[id].customRank) : 1;
   },
 
   // Cost & Spending
@@ -37,7 +43,7 @@ export const getters = {
     return attributesSpending;
   },
   characterSkillCostsById: (state) => (id) => {
-    let character = state.characters[id];
+    const character = state.characters[id];
     if ( character === undefined ) {
       return 0;
     }
@@ -49,15 +55,37 @@ export const getters = {
     return skillSpending;
   },
   characterTalentCostsById: (state) => (id) => {
-    return 0;
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    let spending = 0;
+    character.talents.forEach((talent) => { spending += talent.cost; });
+    return spending;
   },
   characterAscensionCostsById: (state) => (id) => {
-    return 0;
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    let spending = 0;
+    character.ascensionPackages.forEach((ascensionPackage) => {
+      spending += ascensionPackage.cost;
+    });
+    return spending;
   },
   characterPsychicPowerCostsById: (state) => (id) => {
-    return 0;
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    let spending = 0;
+    character.psychicPowers.forEach((psychicPower) => {
+      spending += psychicPower.cost;
+    });
+    return spending;
   },
-  // total
+  // => total
   characterSpendBuildPointsById: (state, getters) => (id) => {
       let spend = 0;
 
@@ -87,6 +115,9 @@ export const getters = {
   },
   characterSpeciesLabelById: (state) => (id) => {
     return state.characters[id] ? state.characters[id].species.value : 'unknown';
+  },
+  characterSpeciesAstartesChapterById: (state) => (id) => {
+    return state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter;
   },
   characterArchetypeLabelById: (state) => (id) => {
     return state.characters[id] ? state.characters[id].archetype.value : 'unknown';
@@ -194,15 +225,25 @@ export const mutations = {
   setCharacterName(state, payload){
     state.characters[payload.id].name = payload.name;
   },
-
   setSettingTier(state, payload){
     state.characters[payload.id].settingTier = payload.tier;
+  },
+  setSettingTitle(state, payload){
+    state.characters[payload.id].settingTitle = payload.title;
   },
   setCustomXp(state, payload){
     state.characters[payload.id].customXp = payload.xp;
   },
+  setCustomRank(state, payload){
+    console.info(`Set Rank manually to ${payload.rank}.`);
+    state.characters[payload.id].customRank = payload.rank;
+  },
   setCharacterSpecies(state, payload){
     state.characters[payload.id].species = payload.species;
+  },
+  setCharacterSpeciesAstartesChapter(state, payload){
+    console.info(`Set Species Astartes Chapter to ${payload.speciesAstartesChapter}.`);
+    state.characters[payload.id].speciesAstartesChapter = payload.speciesAstartesChapter;
   },
   setCharacterArchetype(state, payload){
     state.characters[payload.id].archetype = payload.archetype;
@@ -303,6 +344,30 @@ export const mutations = {
       targetTier: payload.targetTier,
     });
   },
+  setCharacterAscensionPackageStoryElement(state, payload){
+    const character = state.characters[payload.id];
+    console.info(`Set Ascension Story Element to ${payload.ascensionPackageStoryElementKey}`);
+    // find package by payload.ascensionPackageKey and payload.ascensionPackage
+    const index = character.ascensionPackages.findIndex(a => (
+      a.key === payload.ascensionPackageKey &&
+      a.targetTier === payload.ascensionPackageTargetTier
+    ));
+    if (index >= 0) {
+      character.ascensionPackages[index].storyElementChoice = payload.ascensionPackageStoryElementKey;
+    }
+  },
+  setCharacterAscensionPackageWargearOption(state, payload){
+    const character = state.characters[payload.id];
+    console.info(`Set Ascension WargearOption to ${payload.ascensionPackageWargearOptionKey}`);
+    // find package by payload.ascensionPackageKey and payload.ascensionPackage
+    const index = character.ascensionPackages.findIndex(a => (
+      a.key === payload.ascensionPackageKey &&
+      a.targetTier === payload.ascensionPackageTargetTier
+    ));
+    if (index >= 0) {
+      character.ascensionPackages[index].wargearChoice = payload.ascensionPackageWargearOptionKey;
+    }
+  },
   removeCharacterAscensionPackage(state, payload) {
     const character = state.characters[payload.id];
     // remove the package from the ascension stacks
@@ -372,8 +437,10 @@ const getDefaultState = () => ({
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
+  settingTitle: '',
   settingHomebrewContent: [],
   customXp: 0,
+  customRank: 1,
   name: 'Simsel Simselman',
   species: { value: undefined, cost: 0 },
   speciesAstartesChapter: undefined,

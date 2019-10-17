@@ -21,13 +21,14 @@
           v-for="character in characterSets.filter(i=>i !== undefined)"
           v-bind:key="character.id"
           v-bind:cols="12"
-          v-bind:md="6"
+          v-bind:md="12"
+          v-bind:lg="6"
         >
 
           <v-card v-if="character">
 
             <v-card-title>
-              <h3 class="headline">{{character.name}}</h3>
+              <h3 class="headline">{{ characterName(character.id) }}</h3>
               <v-spacer></v-spacer>
               <v-icon v-if="character.storage === 'local'">storage</v-icon>
               <v-icon v-if="character.storage === 'db'">cloud</v-icon>
@@ -40,13 +41,17 @@
               <div>
                 <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
               </div>
+              <div>
+                <span>{{ characterSettingTitle(character.id) }}</span>
+              </div>
             </v-card-text>
+
 
             <v-card-actions>
               <v-btn
                 color="primary"
                 outlined
-                x-small
+                small
                 disabled
                 v-if="false"
               >
@@ -58,33 +63,15 @@
                 v-bind:to="`/forge/${character.id}/setting`"
                 color="primary"
                 outlined
-                x-small
+                small
               >
                 <v-icon small>edit</v-icon>
                 Edit
               </v-btn>
               <v-btn
-                v-on:click="saveChar"
-                color="primary"
-                outlined
-                x-small
-              >
-                <v-icon small>save</v-icon>
-                Save
-              </v-btn>
-              <v-btn
-                v-on:click="load(character.id)"
-                color="primary"
-                outlined
-                x-small
-              >
-                <v-icon small>edit</v-icon>
-                Load
-              </v-btn>
-              <v-btn
                 color="red"
                 outlined
-                x-small
+                small
                 v-on:click="deleteChar(character.id)"
               >
                 <v-icon small>delete</v-icon>
@@ -151,9 +138,6 @@ export default {
       characterIds: 'characters/characterIds',
       characterSets: 'characters/characterSets',
     }),
-    ...mapGetters('characters', [
-      'characterNameById',
-    ]),
     localCharacter() {
       return [{
         id: this.$store.getters.id,
@@ -168,11 +152,17 @@ export default {
     ...mapMutations({
       deleteChar: 'characters/remove',
     }),
+    characterName(id){
+      return this.$store.getters['characters/characterNameById'](id);
+    },
     characterSpeciesLabel(id) {
       return this.$store.getters['characters/characterSpeciesLabelById'](id);
     },
     characterArchetypeLabel(id) {
       return this.$store.getters['characters/characterArchetypeLabelById'](id);
+    },
+    characterSettingTitle(id){
+      return this.$store.getters['characters/characterSettingTitleById'](id);
     },
     getAvatar(speciesLabel, archetypeLabel) {
 

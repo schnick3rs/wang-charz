@@ -507,6 +507,10 @@ export default {
     characterName(){
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
+    characterRank(){
+      return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
+    },
+
     keywords(){
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
@@ -677,7 +681,7 @@ export default {
       return attribute.enhancedValue + skill.enhancedValue;
     },
     computeFormatedText(text) {
-      const rank = 4;
+      const rank = this.characterRank;
       let computed = text;
 
       //computed = computed.replace(/(1d3\+Rank Shock)/g, `<strong>1d3+${rank} Shock</strong>`);

@@ -61,7 +61,7 @@ module.exports = {
     }],
     '@nuxtjs/sitemap',
     '@nuxtjs/axios',
-    '@nuxtjs/auth',
+    //'@nuxtjs/auth',
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
       disabled: false,
@@ -112,7 +112,7 @@ module.exports = {
     baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
     // debug: process.env.NODE_ENV !== 'production',
   },
-  auth: {
+  /*auth: {
     strategies: {
       local: {
         endpoints: {
@@ -127,7 +127,7 @@ module.exports = {
     plugins: [
       '~/plugins/auth.js'
     ]
-  },
+  },*/
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module

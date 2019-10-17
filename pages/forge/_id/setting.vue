@@ -13,17 +13,39 @@
         @input="setCharacterName"
         dense
         filled
-      />
+      ></v-text-field>
 
-      <div>
-        <v-text-field
-          :value="customXp"
-          @input="setCustomXp"
-          label="Additional eXperience Points"
-          hint="Add the XP earend by playing the game. Usually granted by the GM."
-          dense filled persistent-hint type="number"
-        ></v-text-field>
-      </div>
+      <v-text-field
+        v-bind:value="customXp"
+        v-on:input="setCustomXp"
+        class="pb-2"
+        label="Additional eXperience Points"
+        hint="Add the XP earend by playing the game. Usually granted by the GM."
+        dense filled persistent-hint type="number"
+      ></v-text-field>
+
+      <v-text-field
+        v-bind:value="characterCustomRank"
+        v-on:input="setCustomRank"
+        class="pb-2"
+        label="Rank"
+        hint="Set your Characters Rank, usually between 1-5."
+        dense filled persistent-hint type="number"
+      ></v-text-field>
+
+      <v-slider
+        v-if="false"
+        v-bind:min="1"
+        v-bind:max="5"
+        v-bind:thumb-size="24"
+        v-bind:value="characterCustomRank"
+        v-on:input="setCustomRank"
+        class="pt-6"
+        label="Rank"
+        step="1"
+        ticks
+        thumb-label="always"
+      ></v-slider>
 
     </v-col>
 
@@ -38,7 +60,16 @@
         :items="tierSelect.options"
         @change="setSettingTier"
         dense filled
-      />
+      ></v-select>
+
+      <v-text-field
+        v-bind:value="settingTitle"
+        v-on:input="setSettingTitle"
+        class="pb-2"
+        label="Describe your Setting or Campaign"
+        hint="Only a few words"
+        dense filled persistent-hint
+      ></v-text-field>
 
       <v-select
         v-if="false"
@@ -54,25 +85,25 @@
         deletable-chips
         readonly
         hint="Select at least one species"
-      />
+      ></v-select>
 
-        <v-select
-          v-if="false"
-          label="Excluded Archetypes"
-          :items="archetypeRepository"
-          item-text="name"
-          item-value="name"
-          chips
-          dense
-          box
-          multiple
-          deletable-chips
-          disabled
-          hint="Select Archetypes that are not allowed to pick."
-          persistent-hint
-        />
+      <v-select
+        v-if="false"
+        label="Excluded Archetypes"
+        :items="archetypeRepository"
+        item-text="name"
+        item-value="name"
+        chips
+        dense
+        box
+        multiple
+        deletable-chips
+        disabled
+        hint="Select Archetypes that are not allowed to pick."
+        persistent-hint
+      ></v-select>
 
-        <div v-if="false">
+      <div v-if="false">
 
           <h2 class="title">Homebrews</h2>
 
@@ -211,11 +242,17 @@ export default {
     customXp(){
       return this.$store.getters['characters/characterCampaignCustomXpById'](this.characterId);
     },
+    characterCustomRank(){
+      return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
+    },
     characterName(){
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
     settingTier(){
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    settingTitle(){
+      return this.$store.getters['characters/characterSettingTitleById'](this.characterId);
     },
   },
   methods: {
@@ -225,8 +262,14 @@ export default {
     setCustomXp(xp){
       this.$store.commit('characters/setCustomXp', {id: this.characterId, xp: xp});
     },
-    setSettingTier(event) {
-      this.$store.commit('characters/setSettingTier', { id: this.characterId, tier: event });
+    setCustomRank(rank){
+      this.$store.commit('characters/setCustomRank', {id: this.characterId, rank: rank});
+    },
+    setSettingTier(tier) {
+      this.$store.commit('characters/setSettingTier', {id: this.characterId, tier: tier});
+    },
+    setSettingTitle(title) {
+      this.$store.commit('characters/setSettingTitle', {id: this.characterId, title: title});
     },
     applySetting() {
       this.$store.commit('setSetting', { setting: this.setting });
