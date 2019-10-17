@@ -72,7 +72,7 @@
                 color="red"
                 outlined
                 small
-                v-on:click="deleteChar(character.id)"
+                v-on:click="deleteCharacter(character.id)"
               >
                 <v-icon small>delete</v-icon>
                 Delete
@@ -125,13 +125,12 @@ export default {
       });
       return { persistedCharacters : characters };
     }*/
-    return { persistedCharacters: [] };
+    return { };
   },
   computed: {
     characters() {
       return [
         ...this.localCharacter,
-        ...this.persistedCharacters,
       ];
     },
     ...mapGetters({
@@ -150,7 +149,7 @@ export default {
   },
   methods: {
     ...mapMutations({
-      deleteChar: 'characters/remove',
+      deleteCharacter: 'characters/remove',
     }),
     characterName(id){
       return this.$store.getters['characters/characterNameById'](id);

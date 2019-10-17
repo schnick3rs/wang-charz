@@ -11,7 +11,10 @@
 export default {
   name: 'IssueList',
   props: {
-    items: []
+    items: {
+      type: Array,
+      default: [],
+    },
   }
 };
 </script>

@@ -282,7 +282,7 @@ export default {
     },
     alerts() {
       const alerts = [];
-      if (!this.characterArchetype) {
+      if (!this.characterArchetypeLabel) {
         alerts.push({ type: 'warning', text: 'You need to select an Archetype first.' });
       }
       if (this.effectiveCharacterTier >= this.settingTier) {
@@ -343,9 +343,6 @@ export default {
 
         return characterPackage;
       });
-    },
-    characterArchetype() {
-      return this.$store.state.archetype.value;
     },
     characterAscensionKeywordPlaceholders(){
       let placeholderSet = [];

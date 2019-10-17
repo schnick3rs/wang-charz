@@ -12,7 +12,7 @@
           <v-col v-bind:cols="12">
 
             <p class="display-1 text-center mb-0">{{ characterName }}</p>
-            <p class="text-center mb-0">{{ [species, archetype].join(' • ') }}</p>
+            <p class="text-center mb-0">{{ [characterSpeciesLabel, archetypeLabel].join(' • ') }}</p>
             <span class="sexy_line"></span>
             <p class="text-center">{{ keywords.join(' • ') }}</p>
 
@@ -242,7 +242,7 @@
                     <td class="text-xs-left pa-1 small">{{ item.name }}</td>
                     <td class="text-center pa-1 small">
                       <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                        <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
+                        <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + characterAttributesEnhanced.strength }}*</span>
                         <span v-else>{{ item.meta[0].damage.static }}</span>
                         <span> + </span>
                         <span>{{ item.meta[0].damage.ed }} ED</span>
@@ -428,11 +428,10 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin.js';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Print',
@@ -500,10 +499,6 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      astartesChapter: 'speciesAstartesChapter',
-      charBackground: 'background',
-    }),
     characterName(){
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
@@ -511,24 +506,34 @@ export default {
       return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
     },
 
+    characterSpeciesLabel() {
+      return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
+    },
+    speciesAstartesChapter(){
+      return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
+    },
+
+    characterBackground(){
+      return this.$store.getters['characters/characterBackgroundLabelById'](this.characterId);
+    },
+
     keywords(){
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
 
-    species() {
-      return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
-    },
-    archetype() {
+    archetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+    characterAttributesEnhanced(){
+      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
     },
     attributes() {
       const attributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
-      const attributesEnhanced = this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
       return this.attributeRepository.map( a => {
         return {
           ...a,
           value: attributes[a.name.toLowerCase()],
-          enhancedValue: attributesEnhanced[a.name.toLowerCase()],
+          enhancedValue: this.characterAttributesEnhanced[a.name.toLowerCase()],
         }
       });
     },
@@ -562,25 +567,24 @@ export default {
     },
 
     abilities() {
-      return [];
       let abilities = [];
 
       // species
-      if (this.species) {
-        const species = this.speciesRepository.find( s => s.name === this.species);
-        if ( species && species.abilities ) {
+      if (this.characterSpeciesLabel !== undefined) {
+        const species = this.speciesRepository.find( s => s.name === this.characterSpeciesLabel);
+        if ( species !== undefined && species.abilities ) {
           let speciesAbilityNames = species.abilities.split(',');
           if (speciesAbilityNames.length > 0) {
             speciesAbilityNames.forEach(speciesAbilityName => {
 
               if ( speciesAbilityName === 'Honour the Chapter' ) {
-                const chapter = this.astartesChapterRepository.find(a => a.name === this.astartesChapter) || [];
+                const chapter = this.astartesChapterRepository.find(a => a.name === this.speciesAstartesChapter) || [];
                 const traditions = chapter.beliefsAndTraditions;
                 traditions.forEach( t => {
                   let tradition = {
                     name: t.name,
                     effect: t.effect,
-                    source: this.astartesChapter,
+                    source: this.speciesAstartesChapter,
                   };
                   abilities.push(tradition);
                 });
@@ -595,18 +599,20 @@ export default {
       }
 
       // archetype
-      if (this.archetype){
-        const archetype = this.archetypeRepository.find( a => a.name === this.archetype );
-        archetype.abilities.forEach(a => {
-          a['source'] = this.archetype;
-          abilities.push(a);
-        });
+      if (this.archetypeLabel !== undefined){
+        const archetype = this.archetypeRepository.find( a => a.name === this.archetypeLabel );
+        if (archetype !== undefined ) {
+          archetype.abilities.forEach(a => {
+            a['source'] = this.archetypeLabel;
+            abilities.push(a);
+          });
+        }
       }
 
       // background abilities
-      if ( this.charBackground ) {
+      if ( this.characterBackground ) {
         const background = this.backgroundRepository
-          .filter((b) => b.name === this.charBackground)
+          .filter((b) => b.name === this.characterBackground)
           .map((b) =>  {
             return {
               name: b.name,
@@ -663,8 +669,8 @@ export default {
       return items;
     },
     objectives() {
-      if (this.archetype) {
-        const archetype = this.archetypeRepository.find(a => a.name === this.archetype);
+      if (this.archetypeLabel) {
+        const archetype = this.archetypeRepository.find(a => a.name === this.archetypeLabel);
         if ( archetype ) {
           const objectiveList = this.objectiveRepository.find(o => o.group === archetype.group);
           if ( objectiveList ) {

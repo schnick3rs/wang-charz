@@ -2,8 +2,6 @@ export const state = () => ({
   list: [],
   characters: {},
   //version: 1,
-  // 123: { name: simsel, species. 123 }
-  // species: { 123: { name: human, ... } }
 });
 
 export const getters = {
@@ -125,10 +123,10 @@ export const getters = {
 
   // Character data
   characterNameById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].name : 'unknown';
+    return state.characters[id] ? state.characters[id].name : getDefaultState().name;
   },
   characterSpeciesLabelById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].species.value : 'unknown';
+    return state.characters[id] ? state.characters[id].species.value : getDefaultState().species.value;
   },
   characterSpeciesAstartesChapterById: (state) => (id) => {
     return state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter;
