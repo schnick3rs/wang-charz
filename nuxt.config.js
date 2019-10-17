@@ -93,7 +93,7 @@ module.exports = {
       '/forge/**',
     ],
     routes() {
-      const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
+      const base = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
       return axios.get(`${base}/api/homebrews/`)
         .then((response) => response.data.map((vaultItem) => `/vault/${vaultItem.slug}`));
     },
