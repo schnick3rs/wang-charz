@@ -43,22 +43,6 @@ export const mutations = {
       console.log(`${state.psychicPowers.length} psychic powers remaining`);
     }
   },
-  setBackground(state, payload) {
-    state.background = payload.name;
-  },
-  setBackgroundModifications(state, payload) {
-    console.info(payload);
-    state.enhancements = state.enhancements.filter((e) => e.source !== payload.source);
-
-    payload.modifications.forEach((item) => {
-      state.enhancements.push(item);
-    });
-    console.info(state.enhancements);
-  },
-  clearEnhancementsBySource(state, payload) {
-
-    state.enhancements = state.enhancements.filter((e) => e.source.indexOf(payload.source) < 0 );
-  }
 };
 
 const baseApiUrl = 'http://localhost:3000';

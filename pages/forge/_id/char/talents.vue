@@ -63,7 +63,8 @@
             </template>
 
             <template v-slot:item.cost="{ item }">
-              <span>{{ item.cost }}</span>
+              <v-chip v-if="isAffordable(item.cost)" label x-small >{{ item.cost }}</v-chip>
+              <v-chip v-else label x-small color="warning">{{ item.cost }}</v-chip>
             </template>
             
             <template v-slot:item.prerequisites="{ item }">
@@ -76,9 +77,9 @@
 
             <template v-slot:item.buy="{ item }">
                 <v-btn
+                  v-bind:color="'success'"
                   v-bind:disabled="characterTalents.includes(item.name)"
                   v-on:click="addTalent(item)"
-                  v-bind:color="item.prerequisitesFulfilled ? affordableColor(item.cost) : 'orange'"
                   x-small
                 >add</v-btn>
             </template>
@@ -265,15 +266,15 @@ export default {
       return filteredTalents;
     },
     remainingBuildPoints() {
-      return this.$store.getters['remainingBuildPoints'];
+      return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
     },
     finalKeywords(){
       return this.$store.getters['characters/characterKeywordsFinalById'](this.$route.params.id);
     },
   },
   methods: {
-    affordableColor(cost) {
-      return (cost <= this.remainingBuildPoints) ? 'green' : 'grey';
+    isAffordable(cost) {
+      return cost <= this.remainingBuildPoints;
     },
     addTalent(talent) {
       this.$store.commit('characters/addCharacterTalent', { id: this.characterId, name: talent.name, cost: talent.cost });

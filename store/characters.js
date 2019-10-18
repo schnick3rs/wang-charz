@@ -278,6 +278,9 @@ export const mutations = {
     const character = state.characters[payload.id];
     const modifications = payload.content.modifications;
     const source = payload.content.source || undefined;
+    console.info(payload);
+
+    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
 
     // we remove all enhancements that share the cleanup value.
     if ( source !== undefined ) {
@@ -289,8 +292,14 @@ export const mutations = {
       character.enhancements.push(item);
     });
   },
+  clearCharacterEnhancementsBySource(state, payload) {
+    const character = state.characters[payload.id];
+
+    character.enhancements = character.enhancements.filter(e => e.source !== undefined && e.source.indexOf(payload.source) < 0 );
+  },
   setCharacterSpeciesModifications(state, payload) {
     const character = state.characters[payload.id];
+
     character.enhancements = character.enhancements.filter(e => e.source !== 'species');
     payload.content.modifications.forEach((item) => {
       item.source = 'species';
@@ -395,6 +404,13 @@ export const mutations = {
     character.keywords = character.keywords.filter( k => k.source !== `ascension.${payload.key}`);
 
     // ToDo: remove all wargear that is related to the package
+  },
+
+  // Background
+  setCharacterBackground(state, payload) {
+    const character = state.characters[payload.id];
+    console.info(`Background: ${payload.backgroundName} selected.`);
+    character.background = payload.backgroundName;
   },
 
   // Keywords

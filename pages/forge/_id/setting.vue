@@ -130,16 +130,6 @@
 
     <v-col :cols="12">
 
-      <v-btn
-        right
-        block
-        dark
-        color="green"
-        @click="applySetting()"
-      >
-        Select Setting
-      </v-btn>
-
     </v-col>
 
     <v-col

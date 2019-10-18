@@ -1,9 +1,9 @@
-<template lang="html">
+<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
   <v-row justify-center row wrap>
 
     <v-col v-bind:cols="12">
-      <h1 class="headline">Select Attributes &quot; Skills</h1>
+      <h1 class="headline">Select Attributes and Skills</h1>
     </v-col>
 
     <v-col v-bind:cols="12">
@@ -243,12 +243,12 @@ export default {
       }
 
       // bp for attributes valid?
-      const attributeBpSpendLimitValid = this.attributeCosts <= this.maximumBuildPointsForAttributes;
+      const attributeBpSpendLimitValid = this.characterAttributeCosts <= this.maximumBuildPointsForAttributes;
       if ( !attributeBpSpendLimitValid ) {
         alerts.push({
           key: 'attributeSpending',
           type: 'warning',
-          text: `Maximum allowed BP spending violated. You may only spend ${this.maximumBuildPointsForAttributes} BP for Tier ${this.settingTier}.`,
+          text: `Maximum allowed BP spending violated. You spend ${this.characterAttributeCosts} BP but you may only spend ${this.maximumBuildPointsForAttributes} BP for Tier ${this.settingTier}.`,
         });
       }
 
@@ -307,6 +307,13 @@ export default {
     },
     skillMaximum() {
       return this.skillMaximumBy(this.settingTier);
+    },
+    // Character Data
+    settingTier(){
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterAttributeCosts(){
+      return this.$store.getters['characters/characterAttributeCostsById'](this.characterId);
     },
     characterAttributes() {
       return this.$store.getters['characters/characterAttributesById'](this.characterId);

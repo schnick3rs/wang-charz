@@ -116,6 +116,11 @@ export default {
   mixins: [ BackgroundRepositoryMixin ],
   components: { BackgroundPreview, IssueList },
   props: [],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   head() {
     return {
       title: 'Select Background',
@@ -133,7 +138,7 @@ export default {
   },
   computed: {
     characterBackgroundName() {
-      return this.$store.state.background;
+      return this.$store.getters['characters/characterBackgroundLabelById'](this.characterId);
     },
     characterBackground() {
       return this.backgroundRepository.find((i) => i.name === this.characterBackgroundName);
@@ -145,29 +150,24 @@ export default {
       this.dialog = true;
     },
     selectBackgroundForChar(item) {
-      console.info(`Background: ${item.name} selected.`);
-      this.$store.commit('setBackground', { name: item.name });
+      this.$store.commit('characters/setCharacterBackground', { id: this.characterId, backgroundName: item.name });
       if ( item.modifier ) {
-        this.$store.commit('setBackgroundModifications', { modifications: [item.modifier] });
+        const content = { modifications: [item.modifier], source: item.modifier.source };
+        this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: content });
       }
       this.dialog = false;
     },
-    select(item) {
-      this.$store.commit('setBackground', { name: item.name });
-      //this.$store.commit('setBackgroundModifications', { modifications: [item.modifier] });
-      this.selectedBackground = item;
-    },
     removeBackground(item) {
-      this.$store.commit('setBackground', { name: undefined });
-      this.$store.commit('clearEnhancementsBySource', { source: `background.${item.key}` });
-      this.selectedBackground = undefined;
+      this.$store.commit('characters/setCharacterBackground', { id: this.characterId, backgroundName: undefined });
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', {  id: this.characterId, source: `background.${item.key}` });
     },
     selectBackgroundChoice(background, choiceKey) {
       const choice = background.choice.find( (choice) => choice.key === choiceKey );
 
       console.info(`Background ${background.name} with choice ${choice.name}.`);
 
-      this.$store.commit('setBackgroundModifications', { modifications: [choice.modifier] });
+      const content = { modifications: [choice.modifier], source: choice.modifier.source };
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: content });
     },
   },
 };

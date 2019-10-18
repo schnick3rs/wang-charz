@@ -116,7 +116,7 @@ module.exports = {
     // debug: process.env.NODE_ENV !== 'production',
   },
   proxy: {
-    '/api/': 'https://www.doctors-of-doom.com', // only for development
+    //'/api/': 'https://www.doctors-of-doom.com', // only for development
   },
   /*auth: {
     strategies: {
