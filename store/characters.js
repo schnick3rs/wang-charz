@@ -511,6 +511,6 @@ const getDefaultState = () => ({
   psychicPowers: [],
   ascensionPackages: [],
   wargear: [],
-  background: undefined,
+  background: '',
   enhancements: [],
 });
