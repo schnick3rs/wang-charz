@@ -39,7 +39,7 @@
           text
           outlined
           color="red"
-          @click="removeBackground(characterBackground)"
+          v-on:click="removeBackground(characterBackground)"
         >
           <v-icon>remove_circle</v-icon>
           remove background

@@ -3,8 +3,8 @@
   <v-row justify="center">
 
     <v-col
-      v-bind:cols="10"
-      v-bind:md="8"
+      v-bind:cols="12"
+      v-bind:md="10"
     >
 
       <div>
@@ -14,40 +14,56 @@
 
       </div>
 
-      <v-row justify="center">
+      <v-row justify="left">
 
         <v-col
           v-if="characterSets"
           v-for="character in characterSets.filter(i=>i !== undefined)"
           v-bind:key="character.id"
           v-bind:cols="12"
-          v-bind:md="12"
+          v-bind:sm="6"
+          v-bind:md="6"
           v-bind:lg="6"
         >
 
-          <v-card v-if="character">
+          <v-card v-if="character" >
 
-            <v-card-title>
-              <h3 class="headline">{{ characterName(character.id) }}</h3>
-              <v-spacer></v-spacer>
-              <v-icon v-if="character.storage === 'local'">storage</v-icon>
-              <v-icon v-if="character.storage === 'db'">cloud</v-icon>
-            </v-card-title>
+            <div class="card">
 
-            <v-card-text>
-              <v-avatar color="red" size="64">
-                <img v-bind:src="getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))" />
-              </v-avatar>
-              <div>
-                <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
-              </div>
-              <div>
-                <span>{{ characterSettingTitle(character.id) }}</span>
+            <div class="card__image-container">
+              <div
+                class="card__image"
+                v-bind:style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
+                loading
+              ></div>
+            </div>
+
+            <v-card-text class="pa-0">
+
+              <div class="card__content-container pa-4">
+
+                <h3>{{ characterName(character.id) }}</h3>
+
+                <div>
+                  <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
+                </div>
+
+                <div>
+                  <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} BP</span>
+                </div>
+
+                <div class="pt-1">
+                  <span><strong>Tier {{characterSettingTier(character.id)}}:</strong> <em>{{ characterSettingTitle(character.id) }}</em></span>
+                </div>
+
               </div>
             </v-card-text>
 
+            </div>
 
-            <v-card-actions>
+            <v-divider/>
+
+            <v-card-actions >
               <v-btn
                 color="primary"
                 outlined
@@ -160,8 +176,20 @@ export default {
     characterArchetypeLabel(id) {
       return this.$store.getters['characters/characterArchetypeLabelById'](id);
     },
+    characterRank(id){
+      return this.$store.getters['characters/characterCampaignCustomRankById'](id);
+    },
+    characterTotalBp(id) {
+      return this.$store.getters['characters/characterTotalBuildPointsById'](id);
+    },
+    characterSpendBp(id){
+      return this.$store.getters['characters/characterSpendBuildPointsById'](id);
+    },
     characterSettingTitle(id){
       return this.$store.getters['characters/characterSettingTitleById'](id);
+    },
+    characterSettingTier(id){
+      return this.$store.getters['characters/characterSettingTierById'](id);
     },
     getAvatar(speciesLabel, archetypeLabel) {
 
@@ -199,6 +227,39 @@ export default {
 };
 </script>
 
-<style scoped lang="css">
+<style scoped lang="scss">
+  .card {
 
+    //max-width: 640px;
+    height: 140px;
+    display: flex;
+
+    &__image-container {
+      width: 15%;
+      min-width: 15%;
+      object-fit: contain;
+      align-self: flex-start;
+    }
+
+    &__image {
+      background-position: center center;
+      background-size: cover;
+      height: 140px;
+    }
+
+    &__content-container {
+      flex: 1 1 auto;
+      color: rgba(0, 0, 0, 0.54);
+    }
+
+    &__content-subtitle {
+
+    }
+
+    &__content-footer {
+      position: absolute;
+      bottom: 10px;
+      right: 10px;
+    }
+  }
 </style>

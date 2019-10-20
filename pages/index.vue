@@ -15,7 +15,7 @@
           class="pa-3"
         >
 
-          <v-card class="card " exact nuxt :to="section.link.route" hover>
+          <v-card class="card" exact nuxt :to="section.link.route" hover>
 
             <div class="card__image-container">
               <div class="card__image" :style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading></div>
