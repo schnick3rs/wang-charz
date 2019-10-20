@@ -89,6 +89,7 @@ module.exports = {
     hostname: 'https://www.doctors-of-doom.com',
     gzip: true,
     exclude: [
+      // dynamic and user specific parts should not be sitemaped
       '/forge/characters/**',
     ],
     routes() {
