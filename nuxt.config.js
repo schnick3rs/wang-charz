@@ -62,6 +62,8 @@ module.exports = {
     '@nuxtjs/sitemap',
     '@nuxtjs/axios',
     //'@nuxtjs/auth',
+    '@nuxtjs/redirect-module',
+    // https://github.com/nuxt-community/redirect-module
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
       disabled: false,
@@ -71,12 +73,6 @@ module.exports = {
       debug: {
         sendHitTask: process.env.NODE_ENV === 'production',
       },
-    }],
-    // https://github.com/nuxt-community/redirect-module
-    ['@nuxtjs/redirect-module', {
-      rules: [
-        { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
-      ],
     }],
     ['@nuxtjs/pwa', {
       manifest: false
@@ -118,6 +114,14 @@ module.exports = {
   proxy: {
     //'/api/': 'https://www.doctors-of-doom.com', // only for development
   },
+
+  redirect: {
+    rules: [
+      { from: '^/builder(.*)$', to: '/forge/my-characters', statusCode: 301 },
+      { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
+    ],
+  },
+
   /*auth: {
     strategies: {
       local: {

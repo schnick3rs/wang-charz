@@ -308,6 +308,7 @@ export default {
     characterAscensionPackages() {
       const characterAscensionPackages = this.$store.getters['characters/characterAscensionPackagesById'](this.characterId);
       return characterAscensionPackages.map(ascensionPackage => {
+
         const characterPackage = this.ascensionRepository.find(j => {
           return j.name === ascensionPackage.value;
         });
@@ -340,6 +341,24 @@ export default {
         } else {
           characterPackage.selected = '';
         }
+
+        /**
+         * Enrich the spell options with the selected ones. We fetch the psychic powers and check for matching sources.
+         */
+        if ( characterPackage.storyElementOptions && characterPackage.storyElementOptions.length > 0 ) {
+          const storyElementOptions = characterPackage.storyElementOptions;
+
+          storyElementOptions.forEach( storyElementOption => {
+            if ( storyElementOption.type === 'spells' && storyElementOption.discount.length > 0 ) {
+              storyElementOption.discount.forEach( d => {
+                if ( !d.selected ) {
+                  // ToDo
+                }
+              });
+            }
+          });
+        }
+
 
         return characterPackage;
       });
@@ -416,7 +435,7 @@ export default {
                   id: this.characterId,
                   name: d.selected,
                   cost: 0,
-                  source: 'archetype',
+                  source: `ascension.${ascensionPackage.key}.${d.name}`,
                 };
                 this.$store.commit('characters/addCharacterPsychicPower', payload);
               }

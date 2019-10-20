@@ -30,16 +30,19 @@
 
             <v-text-field
               v-model="searchQuery"
-              append-icon="search"
+              filled
+              dense
+              clearable
+              prepend-inner-icon="search"
+              clearable
               label="Search"
-              single-line
-              hide-details
             ></v-text-field>
 
             <v-switch
               v-model="filterOnlyPrerequisites"
               color="primary"
               label="Show only fulfilled prerequisites"
+              class="pl-2"
             >
             </v-switch>
 
@@ -48,10 +51,10 @@
           <v-data-table
             v-bind:headers="headers"
             v-bind:items="filteredTalents"
-            v-bind:search="searchQuery"          
-            v-bind:items-per-page="-1"
+            v-bind:search="searchQuery"
+            :page.sync="pagination.page"
+            @page-count="pagination.pageCount = $event"
             show-expand
-            sort-by="name"
             item-key="name"
             hide-default-footer
           >
@@ -95,6 +98,9 @@
             </template>
 
           </v-data-table>
+          <div class="text-xs-center pt-2">
+            <v-pagination v-model="pagination.page" :length="pagination.pageCount" />
+          </div>
 
         </v-card>
 
@@ -139,6 +145,12 @@ export default {
       ],
       searchQuery: '',
       filterOnlyPrerequisites: false,
+      pagination: {
+        page: 1,
+        pageCount: 0,
+        sortBy: 'name',
+        rowsPerPage: 25,
+      },
       headers: [
         {
           text: 'Name',
