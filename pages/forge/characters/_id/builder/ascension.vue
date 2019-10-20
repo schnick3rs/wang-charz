@@ -406,6 +406,25 @@ export default {
       };
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: [modificationPayload] } });
 
+      if ( ascensionPackage.storyElementOptions && ascensionPackage.storyElementOptions.length > 0 ) {
+        const storyElementOptions = ascensionPackage.storyElementOptions;
+        storyElementOptions.forEach( storyElementOption => {
+          if ( storyElementOption.type === 'spells' && storyElementOption.discount.length > 0 ) {
+            storyElementOption.discount.forEach( d => {
+              if ( d.selected ) {
+                const payload = {
+                  id: this.characterId,
+                  name: d.selected,
+                  cost: 0,
+                  source: 'archetype',
+                };
+                this.$store.commit('characters/addCharacterPsychicPower', payload);
+              }
+            });
+          }
+        });
+      }
+
       this.characterAscension = ascensionPackage;
 
       this.dialog = false;

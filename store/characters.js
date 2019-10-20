@@ -362,7 +362,7 @@ export const mutations = {
     const character = state.characters[payload.id];
     if ( character.psychicPowers.length > 0 ) {
       console.log(`found ${character.psychicPowers.length} psychic powers, clearing with source ${payload.source}...`);
-      character.psychicPowers = character.psychicPowers.filter( k => k.source.indexOf(payload.source) < 0 );
+      character.psychicPowers = character.psychicPowers.filter( k => k.source === undefined || k.source.indexOf(payload.source) < 0 );
       console.log(`${character.psychicPowers.length} psychic powers remaining`);
     }
   },
