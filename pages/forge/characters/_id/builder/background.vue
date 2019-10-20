@@ -41,7 +41,7 @@
           color="red"
           v-on:click="removeBackground(characterBackground)"
         >
-          <v-icon>remove_circle</v-icon>
+          <v-icon left>remove_circle</v-icon>
           remove background
         </v-btn>
         </v-card-actions>

@@ -90,7 +90,7 @@ module.exports = {
     hostname: 'https://www.doctors-of-doom.com',
     gzip: true,
     exclude: [
-      '/forge/**',
+      '/forge/characters/**',
     ],
     routes() {
       console.error(process,env.API_BASE_URL)

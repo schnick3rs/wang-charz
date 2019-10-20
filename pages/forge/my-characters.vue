@@ -66,7 +66,7 @@
             <v-card-actions >
               <v-btn
                 nuxt
-                v-bind:to="`/forge/${character.id}/setting`"
+                v-bind:to="`/forge/characters/${character.id}/builder/setting`"
                 color="primary"
                 small
               >
@@ -75,7 +75,7 @@
               </v-btn>
               <v-btn
                 nuxt
-                v-bind:to="`/forge/${character.id}/char/print`"
+                v-bind:to="`/forge/characters/${character.id}/builder/print`"
                 target="_blank"
                 color="primary"
                 outlined
@@ -122,6 +122,11 @@ export default {
   props: [],
   data() {
     return {
+    };
+  },
+  head() {
+    return {
+      title: 'My Characters',
     };
   },
   async asyncData ({ params, store, app }) {
