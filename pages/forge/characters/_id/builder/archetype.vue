@@ -208,16 +208,17 @@ export default {
         });
       }
 
-      //this.$store.commit('clearPowersBySource', {source: 'archetype'});
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: 'archetype'});
       if ( item.psychicPowers && item.psychicPowers.discount && item.psychicPowers.discount.length > 0 ) {
         item.psychicPowers.discount.forEach( d => {
           if ( d.selected ) {
             const payload = {
+              id: this.characterId,
               name: d.selected,
               cost: 0,
               source: 'archetype',
             };
-            //this.$store.commit('addPower', payload);
+            this.$store.commit('characters/addCharacterPsychicPower', payload);
           }
         });
       }

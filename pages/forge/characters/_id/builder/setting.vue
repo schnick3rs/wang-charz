@@ -261,13 +261,6 @@ export default {
     setSettingTitle(title) {
       this.$store.commit('characters/setSettingTitle', {id: this.characterId, title: title});
     },
-    applySetting() {
-      this.$store.commit('setSetting', { setting: this.setting });
-      this.$router.push({ name: 'builder-char-species' });
-    },
-    clearState() {
-      this.$store.commit('resetState');
-    },
   },
 };
 </script>

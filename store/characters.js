@@ -8,18 +8,20 @@ export const getters = {
   characterIds: (state) => state.list,
   characterSets: (state) => state.list.map( charId => state.characters[charId] ),
 
-  /*
-  effectiveCharacterTier(state) {
-    const archetypeTier = state.archetype.tier || 0;
+  characterEffectiveTierById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return {};
+    }
+    const archetypeTier = character.archetype.tier || 0;
     let ascensionTier = 0;
-    state.ascensionPackages.forEach((i) => {
+    character.ascensionPackages.forEach((i) => {
       if (i.targetTier > ascensionTier) {
         ascensionTier = i.targetTier;
       }
     });
     return Math.max(archetypeTier, ascensionTier);
   },
-  */
 
   // Character setting
   characterSettingTierById: (state) => (id) => {
@@ -354,6 +356,14 @@ export const mutations = {
     if (hasPower) {
       console.info(`Removing '${payload.name}' by '${payload.source}'`);
       character.psychicPowers = character.psychicPowers.filter(t => t.name !== payload.name);
+    }
+  },
+  clearCharacterPsychicPowersBySource(state, payload) {
+    const character = state.characters[payload.id];
+    if ( character.psychicPowers.length > 0 ) {
+      console.log(`found ${character.psychicPowers.length} psychic powers, clearing with source ${payload.source}...`);
+      character.psychicPowers = character.psychicPowers.filter( k => k.source.indexOf(payload.source) < 0 );
+      console.log(`${character.psychicPowers.length} psychic powers remaining`);
     }
   },
 

@@ -33,16 +33,6 @@ export const mutations = {
       state.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
     }
   },
-  /**
-   * @param payload { source:String }
-   */
-  clearPowersBySource(state, payload) {
-    if ( state.psychicPowers.length > 0 ) {
-      console.log(`found ${state.psychicPowers.length} psychic powers, clearing with source ${payload.source}...`);
-      state.psychicPowers = state.psychicPowers.filter( k => k.source.indexOf(payload.source) < 0 );
-      console.log(`${state.psychicPowers.length} psychic powers remaining`);
-    }
-  },
 };
 
 const baseApiUrl = 'http://localhost:3000';

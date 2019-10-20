@@ -226,8 +226,9 @@ export default {
       return '';
     },
     updatePsychicPowers(option) {
-      this.$store.commit('clearPowersBySource', { source: `archetype.${option.name}` });
-      this.$store.commit('addPower', {
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: `archetype.${option.name}` });
+      this.$store.commit('characters/addCharacterPsychicPower', {
+        id: this.characterId,
         name: option.selected,
         cost: 0,
         source: `archetype.${option.name}`,

@@ -278,7 +278,7 @@ export default {
   },
   computed: {
     effectiveCharacterTier() {
-      return 1;
+      return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
     },
     alerts() {
       const alerts = [];
@@ -497,8 +497,9 @@ export default {
       return '';
     },
     updatePsychicPowers(characterAscension, option) {
-      this.$store.commit('clearPowersBySource', { source: `ascension.${characterAscension.key}.${option.name}` });
-      this.$store.commit('addPower', {
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: `ascension.${characterAscension.key}.${option.name}` });
+      this.$store.commit('characters/addCharacterPsychicPower', {
+        id: this.characterId,
         name: option.selected,
         cost: 0,
         source: `ascension.${characterAscension.key}.${option.name}`,

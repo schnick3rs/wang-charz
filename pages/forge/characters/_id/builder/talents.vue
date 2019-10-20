@@ -173,7 +173,7 @@ export default {
   },
   computed: {
     effectiveCharacterTier() {
-      return 1;
+      return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
     },
     characterAttributesEnhanced() {
       return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);

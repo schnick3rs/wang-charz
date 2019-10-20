@@ -4,14 +4,23 @@
 
     <v-col
       v-bind:cols="12"
-      v-bind:md="10"
+      v-bind:md="12"
     >
 
       <div>
-        <h2 class="headline">Characters</h2>
+
+        <h2 class="headline">
+          My Characters: <span style="color: #1976d2;">{{ characterSets.filter(i=>i !== undefined).length }} Slots</span>
+        </h2>
 
         <v-btn large color="primary" v-on:click="newCharacter">Create a Character</v-btn>
 
+      </div>
+
+      <div>
+        <v-card>
+
+        </v-card>
       </div>
 
       <v-row justify="left">
@@ -23,7 +32,7 @@
           v-bind:cols="12"
           v-bind:sm="6"
           v-bind:md="6"
-          v-bind:lg="6"
+          v-bind:lg="4"
         >
 
           <v-card v-if="character">
