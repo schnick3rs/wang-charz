@@ -62,7 +62,10 @@ module.exports = {
     '@nuxtjs/sitemap',
     '@nuxtjs/axios',
     //'@nuxtjs/auth',
-    '@nuxtjs/redirect-module',
+    ['@nuxtjs/redirect-module', [
+        { from: '^/builder.*', to: '/forge/my-characters', statusCode: 301 },
+        { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
+    ]],
     // https://github.com/nuxt-community/redirect-module
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
@@ -89,7 +92,6 @@ module.exports = {
       '/forge/characters/**',
     ],
     routes() {
-      console.error(process,env.API_BASE_URL)
       const base = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
       return axios.get(`${base}/api/homebrews/`)
         .then((response) => response.data.map((vaultItem) => `/vault/${vaultItem.slug}`));
@@ -113,13 +115,6 @@ module.exports = {
   },
   proxy: {
     //'/api/': 'https://www.doctors-of-doom.com', // only for development
-  },
-
-  redirect: {
-    rules: [
-      { from: '^/builder(.*)$', to: '/forge/my-characters', statusCode: 301 },
-      { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
-    ],
   },
 
   /*auth: {
