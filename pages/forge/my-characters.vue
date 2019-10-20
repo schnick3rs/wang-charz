@@ -65,28 +65,28 @@
 
             <v-card-actions >
               <v-btn
-                color="primary"
-                outlined
-                small
-                disabled
-                v-if="false"
-              >
-                <v-icon small>description</v-icon>
-                View
-              </v-btn>
-              <v-btn
                 nuxt
                 v-bind:to="`/forge/${character.id}/setting`"
                 color="primary"
-                outlined
                 small
               >
-                <v-icon small>edit</v-icon>
+                <v-icon left small>edit</v-icon>
                 Edit
               </v-btn>
               <v-btn
-                color="red"
+                nuxt
+                v-bind:to="`/forge/${character.id}/char/print`"
+                target="_blank"
+                color="primary"
                 outlined
+                small
+              >
+                <v-icon small left>description</v-icon>
+                Print
+              </v-btn>
+              <v-btn
+                color="red"
+                text
                 small
                 v-on:click="deleteCharacter(character.id)"
               >

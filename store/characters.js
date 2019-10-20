@@ -466,6 +466,7 @@ export const mutations = {
 
 const getDefaultState = () => ({
   id: -1,
+  version: 1,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
