@@ -26,7 +26,7 @@
           v-bind:lg="6"
         >
 
-          <v-card v-if="character" >
+          <v-card v-if="character">
 
             <div class="card">
 
@@ -52,14 +52,14 @@
                   <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} BP</span>
                 </div>
 
-                <div class="pt-1">
-                  <span><strong>Tier {{characterSettingTier(character.id)}}:</strong> <em>{{ characterSettingTitle(character.id) }}</em></span>
-                </div>
-
-              </div>
+               </div>
             </v-card-text>
 
             </div>
+
+            <v-divider/>
+
+            <v-card-text class="pa-2 card__campaign-container"><strong>Tier {{characterSettingTier(character.id)}}:</strong> <em>{{ characterSettingTitle(character.id) }}</em></v-card-text>
 
             <v-divider/>
 
@@ -231,12 +231,12 @@ export default {
   .card {
 
     //max-width: 640px;
-    height: 140px;
+    height: 120px;
     display: flex;
 
     &__image-container {
-      width: 15%;
-      min-width: 15%;
+      width: 120px;
+      min-width: 120px;
       object-fit: contain;
       align-self: flex-start;
     }
@@ -244,12 +244,18 @@ export default {
     &__image {
       background-position: center center;
       background-size: cover;
-      height: 140px;
+      height: 120px;
+      width: 120px;
     }
 
     &__content-container {
       flex: 1 1 auto;
       color: rgba(0, 0, 0, 0.54);
+    }
+
+    &__campaign-container {
+      //color: rgba(255, 255, 255, 0.7);
+      //background-color: #424242;
     }
 
     &__content-subtitle {
