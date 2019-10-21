@@ -186,6 +186,7 @@ export default {
       ];
     },
     ...mapGetters({
+      version: 'version',
       characterIds: 'characters/characterIds',
       characterSets: 'characters/characterSets',
     }),
