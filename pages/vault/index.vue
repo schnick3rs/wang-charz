@@ -167,12 +167,16 @@
 
       <v-card>
         <v-card-text>
-          <h1>Search the Vault for precious, fanmade hombrews</h1>
+          <h1 class="headline">Search the Vault for precious, fan-made hombrews</h1>
           <p>
-            This is a curated list of homebrews from fans, found in the internet. I credit the author and link to their
-            community pages, as good as I could, if I find them either in the document found or on their respective page.
+            In desperate need of an option to extend your Wrath & Glory Campaign?
+            Searching for <em>that</em> particular homebrew to improve your setting?
+            The <strong>Vault</strong> has you covered.
+            This is a <strong>curated list of homebrews</strong> from fans, found in the internet.
+            I credit the author and link to their community pages, as good as I could,
+              if I find them either in the document found or on their respective page.
             If want to add, remove or change your homebrew content or if you want to propose changes regarding links,
-            you can mail me to <a href="mailto:docsofdoom+vault@gmail.com?subject=Vault Request">docsofdoom+vault(at)gmail.com</a>.
+              you can mail me to <a href="mailto:docsofdoom+vault@gmail.com?subject=Vault Request">docsofdoom+vault(at)gmail.com</a>.
            </p>
         </v-card-text>
       </v-card>

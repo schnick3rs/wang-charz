@@ -69,8 +69,10 @@ export default {
           subtitle: 'A collection of Wrath & Glory homebrews',
           imageSrc: '/img/artwork_vault_bright.jpg',
           imageCredit: 'unknown, found at warhammer40k.fandom.com',
-          htmlText: 'An expanding collection of <strong>homebrews from fans</strong> of the Wrath ' +
-            '& Glory RPG. Extend your known settings like the Inquisition or explore new ones, for ' +
+          htmlText: 'Searching for a specific homebrew? ' +
+            'The <strong>Vault</strong> contains an expanding collection of ' +
+            '<strong>homebrews from fans</strong> of the Wrath & Glory Roleplaying Game. ' +
+            'Extend your known settings like the Inquisition or explore new ones, for ' +
             'example, the life of a Titan crew. Enter the <strong>Vault</strong> to find out more...',
           link: { text: 'To the Vault', route: '/vault' },
           isActive: true,
