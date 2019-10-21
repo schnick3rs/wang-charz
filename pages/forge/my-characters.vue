@@ -112,6 +112,28 @@
 
     </v-col>
 
+    <v-col :cols="12">
+
+      <v-card>
+        <v-card-text>
+          <h1 class="headline">Character Generator for Wrath and Glory</h1>
+          <p>
+            This <strong>online character generator for Wrath & Glory</strong> allows you to create and <strong>organize multiple
+            characters</strong>. Just define a Setting with a fitting Tier and start building.
+            For severe issues, feedback and ideas, reach out to me via
+            <a href="mailto:docsofdoom+forge@gmail.com?subject=Forge Feedback">docsofdoom+forge(at)gmail.com</a>.
+          </p>
+          <p>
+            A last note, the generator is still missing some features, e.g. some Talents like <em>Special Weapon Troopes</em>,
+            but the vast majority is (should) working as expected.
+            Still, please consider this a <em>late</em> <strong>BETA</strong> Version, so characters <em>might</em> be deleted (or broken) on future updates.
+            I will try my best to migrate the existing ones to the new version.
+          </p>
+        </v-card-text>
+      </v-card>
+
+    </v-col>
+
   </v-row>
 
 </template>

@@ -87,8 +87,9 @@ export default {
           imageSrc: '/img/artwork_abstract.jpg',
           imageCredit: 'Artwork by prettysleepy1 (Pixabay)',
           htmlText: 'Define the setting and tier of your campaign and start building a Wrath & ' +
-            'Glory Character for your session.<br/><br/><strong>BETA Status, characters might get ' +
-            'lost during updates</strong>',
+            'Glory Character for your session.' +
+            '<br/><br/><strong>Latest Update: Organize multiple characters!</strong>' +
+            '<br/><br/>Still considered <strong>BETA Status</strong>, thus characters <em>might</em> get lost during updates.',
           link: { text: 'To the Forge', route: '/forge/my-characters' },
           isActive: true,
           classes: [ ],
