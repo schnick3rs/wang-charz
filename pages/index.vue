@@ -30,7 +30,7 @@
               <p class="body-2" v-html="section.htmlText"></p>
 
               <div class="card__content-footer">
-                <v-btn block color="green">{{ section.link.text }}</v-btn>
+                <v-btn block color="success">{{ section.link.text }}</v-btn>
               </div>
 
             </div>

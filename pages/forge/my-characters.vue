@@ -37,32 +37,32 @@
 
           <v-card v-if="character">
 
-            <div class="card">
+            <div class="card" >
 
-            <div class="card__image-container">
-              <div
-                class="card__image"
-                v-bind:style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
-                loading
-              ></div>
-            </div>
+              <div class="card__image-container">
+                <div
+                  class="card__image"
+                  v-bind:style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
+                  loading
+                ></div>
+              </div>
 
-            <v-card-text class="pa-0">
+              <v-card-text class="pa-0">
 
-              <div class="card__content-container pa-4">
+                <div class="card__content-container pa-4">
 
-                <h3>{{ characterName(character.id) }}</h3>
+                  <h3>{{ characterName(character.id) }}</h3>
 
-                <div>
-                  <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
-                </div>
+                  <div>
+                    <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
+                  </div>
 
-                <div>
-                  <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} BP</span>
-                </div>
+                  <div>
+                    <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} BP</span>
+                  </div>
 
-               </div>
-            </v-card-text>
+                 </div>
+              </v-card-text>
 
             </div>
 

@@ -155,6 +155,10 @@
       <div>{{spendBuildingPoints}} / {{totalBuildPoints}} BP</div>
       <v-spacer ></v-spacer>
       <div class="caption d-none d-sm-block">{{finalKeywords.join(' • ')}}</div>
+      <div class="d-block d-sm-none">
+        <v-btn tile small nuxt :to="linkPrev" :disabled="linkCurrentIndex === 0"><v-icon left small>chevron_left</v-icon>prev</v-btn>
+        <v-btn tile small nuxt :to="linkNext" :disabled="linkCurrentIndex === 8">next<v-icon right small>chevron_right</v-icon></v-btn>
+      </div>
       <v-spacer></v-spacer>
       <span>&copy; {{ new Date().getFullYear() }} </span><span class="d-none d-md-block"> Doctors of Doom</span>
     </v-footer>
@@ -250,16 +254,32 @@ export default {
     helperBox() {
       return [
         { divider: true },
-        { path: `/forge/characters/${this.$route.params.id}/builder/species`, hint: 'Species', text: this.characterSpeciesLabel, cost: this.characterSpeciesCost },
-        { path: `/forge/characters/${this.$route.params.id}/builder/archetype`, hint: 'Archetype', text: this.characterArchetype, cost: this.characterArchetypeCost },
-        { path: `/forge/characters/${this.$route.params.id}/builder/ascension`, hint: 'Ascension Packages', text: this.characterAscension, cost: this.characterAscensionCost },
-        { path: `/forge/characters/${this.$route.params.id}/builder/stats`, hint: 'Stats', text: 'Attributes & Skills', cost: this.characterAttributeCost + this.characterSkillCost },
-        { path: `/forge/characters/${this.$route.params.id}/builder/talents`, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.characterTalentCost },
-        { path: `/forge/characters/${this.$route.params.id}/builder/psychic-powers`, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.characterPsychicPowerCost },
+        { id: 1, path: `/forge/characters/${this.$route.params.id}/builder/species`, hint: 'Species', text: this.characterSpeciesLabel, cost: this.characterSpeciesCost },
+        { id: 2, path: `/forge/characters/${this.$route.params.id}/builder/archetype`, hint: 'Archetype', text: this.characterArchetype, cost: this.characterArchetypeCost },
+        { id: 3, path: `/forge/characters/${this.$route.params.id}/builder/ascension`, hint: 'Ascension Packages', text: this.characterAscension, cost: this.characterAscensionCost },
+        { id: 4, path: `/forge/characters/${this.$route.params.id}/builder/stats`, hint: 'Stats', text: 'Attributes & Skills', cost: this.characterAttributeCost + this.characterSkillCost },
+        { id: 5, path: `/forge/characters/${this.$route.params.id}/builder/talents`, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.characterTalentCost },
+        { id: 7, path: `/forge/characters/${this.$route.params.id}/builder/psychic-powers`, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.characterPsychicPowerCost },
         { divider: true },
-        { path: `/forge/characters/${this.$route.params.id}/builder/wargear`, hint: '', text: 'Wargear', cost: undefined },
-        { path: `/forge/characters/${this.$route.params.id}/builder/background`, hint: 'Background', text: this.characterBackground, cost: undefined },
+        { id: 6, path: `/forge/characters/${this.$route.params.id}/builder/wargear`, hint: '', text: 'Wargear', cost: undefined },
+        { id: 8, path: `/forge/characters/${this.$route.params.id}/builder/background`, hint: 'Background', text: this.characterBackground, cost: undefined },
       ];
+    },
+
+    linkCurrentIndex(){
+      const currentRoute = this.helperBox.find( i => i.path === this.$route.path );
+      return currentRoute !== undefined ? currentRoute.id : 0;
+    },
+
+    linkPrev(){
+      const index = this.linkCurrentIndex;
+      const prevRoute = this.helperBox.find( i => i.id === index-1 );
+      return prevRoute !== undefined ? prevRoute.path : `/forge/characters/${this.$route.params.id}/builder/setting`;
+    },
+    linkNext(){
+      const index = this.linkCurrentIndex;
+      const nextRoute = this.helperBox.find( i => i.id === index+1 );
+      return nextRoute !== undefined ? nextRoute.path : '';
     },
 
     settingSelected() {

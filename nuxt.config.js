@@ -123,8 +123,8 @@ module.exports = {
       local: {
         endpoints: {
           login: { url: 'api/users/login', method: 'post', propertyName: 'token' },
-          user: { url: 'api/users/me', mthod: 'get', propertyName: 'data'},
           logout: false,
+          user: { url: 'api/users/me', mthod: 'get', propertyName: 'data'},
         },
         // tokenRequired: true,
         // tokenType: 'Bearer'
@@ -134,6 +134,7 @@ module.exports = {
       '~/plugins/auth.js'
     ]
   },*/
+
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
