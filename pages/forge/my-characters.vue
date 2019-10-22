@@ -285,6 +285,7 @@ export default {
     newCharacter(){
       let newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       this.$store.commit('characters/create', newCharId);
+      this.$ga.event('New Character', 'click', newCharId, 10);
       //window.location.reload(true);
     },
   },
