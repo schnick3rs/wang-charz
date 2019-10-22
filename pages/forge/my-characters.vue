@@ -184,6 +184,14 @@ export default {
   head() {
     return {
       title: 'My Characters',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'The Forge allows you to create and organize multiple characters for the Wrath and Glory' +
+          'Roleplaying game. Edit, change and view your characters online.',
+        },
+      ],
     };
   },
   async asyncData ({ params, store, app }) {
