@@ -227,9 +227,6 @@ export default {
     },
   },
   methods: {
-    ...mapMutations({
-      deleteCharacter: 'characters/remove',
-    }),
     characterName(id){
       return this.$store.getters['characters/characterNameById'](id);
     },
@@ -286,7 +283,10 @@ export default {
       let newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       this.$store.commit('characters/create', newCharId);
       this.$ga.event('New Character', 'click', newCharId, 10);
-      //window.location.reload(true);
+    },
+    deleteCharacter(id){
+      this.$store.commit('characters/remove', id);
+      this.$ga.event('Delete Character', 'click', id, 1);
     },
   },
 };
