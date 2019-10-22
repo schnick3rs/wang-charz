@@ -463,7 +463,12 @@ export const mutations = {
     let newChar = {};
     Object.assign(newChar, getDefaultState());
     newChar.id = id;
-    state.characters[id] = newChar;
+    let newObj = {};
+    newObj[id] = newChar;
+    state.characters = {
+      ...state.characters,
+      ...newObj,
+    };
   },
   add(state, character) {
     state.list.push(character.id);

@@ -2,20 +2,46 @@
 
   <v-row justify="center">
 
-    <v-col
-      v-bind:cols="12"
-      v-bind:md="12"
-    >
+    <v-col v-bind:cols="12">
 
-      <div>
+      <h2 class="headline">
+        My Characters: <span style="color: #1976d2;">{{ characterSets.filter(i=>i !== undefined).length }} Slots</span>
+      </h2>
 
-        <h2 class="headline">
-          My Characters: <span style="color: #1976d2;">{{ characterSets.filter(i=>i !== undefined).length }} Slots</span>
-        </h2>
+      <v-btn large color="primary" v-on:click="newCharacter">Create a Character</v-btn>
 
-        <v-btn large color="primary" v-on:click="newCharacter">Create a Character</v-btn>
+    </v-col>
 
-      </div>
+    <!-- No Chars yet info text -->
+    <v-col v-bind:cols="12" v-if="characterSets.filter(i=>i !== undefined).length <= 0">
+      <v-alert
+        type="info"
+        prominent
+        text
+        border="left"
+        color="primary"
+      >
+        Just hit <strong>Create a Character</strong> and start building.
+      </v-alert>
+      <v-alert
+        type="info"
+        prominent
+        text
+        border="left"
+        color="primary"
+        v-if="false"
+      >
+        <p>
+          <strong>You have been here before and miss your character?</strong>
+          Sadly, to implement the handling of multiple characters, I had to make quite some changes.
+          Migrating existing characters was not achievable without significant effort.
+          So, after some considerations, I decided to skip the migration.
+          However, due to changes within the code, upcoming migrations are feasible.
+        </p>
+      </v-alert>
+    </v-col>
+
+    <v-col v-bind:cols="12">
 
       <div>
         <v-card>
@@ -124,8 +150,8 @@
             <a href="mailto:docsofdoom+forge@gmail.com?subject=Forge Feedback">docsofdoom+forge(at)gmail.com</a>.
           </p>
           <p>
-            A last note, the generator is still missing some features, e.g. some Talents like <em>Special Weapon Troopes</em>,
-            but the vast majority is (should) working as expected.
+            One last note, the generator is <strong>still missing some features</strong>, e.g. some Talents like <em>Special Weapon Troopes</em>,
+            but the vast majority is working as expected.
             Still, please consider this a <em>late</em> <strong>BETA</strong> Version, so characters <em>might</em> be deleted (or broken) on future updates.
             I will try my best to migrate the existing ones to the new version.
           </p>
@@ -259,6 +285,7 @@ export default {
     newCharacter(){
       let newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       this.$store.commit('characters/create', newCharId);
+      //window.location.reload(true);
     },
   },
 };
