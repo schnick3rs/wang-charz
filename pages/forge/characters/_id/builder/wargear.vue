@@ -157,12 +157,12 @@
 
 <script lang="js">
 import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin.js';
-import WargearSearch from '~/components/builder/WargearSearch.vue';
-import WargearSelect from '~/components/builder/WargearSelect.vue';
+import WargearSearch from '~/components/forge/WargearSearch.vue';
+import WargearSelect from '~/components/forge/WargearSelect.vue';
 
 export default {
   name: 'Wargear',
-  layout: 'builder',
+  layout: 'forge',
   mixins: [WargearRepositoryMixin],
   components: { WargearSelect, WargearSearch },
   props: [],
@@ -176,6 +176,7 @@ export default {
     const wargearRepository = response.data;
     return {
       wargearRepository: wargearRepository,
+      characterId: params.id,
     };
   },
   data() {
@@ -186,15 +187,23 @@ export default {
     };
   },
   computed: {
-    settingTier() { return this.$store.state.settingTier; },
-    characterArchetypeName() { return this.$store.state.archetype.value; },
+    settingTier() {
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterArchetypeLabel() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+    characterWargearRaw(){
+      return this.$store.getters['characters/characterWargearById'](this.characterId);
+    },
+
     startingWargear() {
-      return this.archetypeWargearRepository.find(i => i.name === this.characterArchetypeName);
+      return this.archetypeWargearRepository.find(i => i.name === this.characterArchetypeLabel);
     },
     characterWargear() {
       const characterWargear = [];
-      this.$store.state.wargear.forEach(chargear => {
-         var gear = {};
+      this.characterWargearRaw.forEach(chargear => {
+         let gear = {};
          gear = this.wargearRepository.find(wargear => wargear.name === chargear.name);
          if ( gear ) {
            gear.id = chargear.id;
@@ -252,14 +261,14 @@ export default {
         }
       });
       finalWargear.forEach((w) => {
-        this.$store.commit('addWargear', { name: w, source: 'archetype' });
+        this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: w, source: 'archetype' });
       });
     },
     add(gear) {
-      this.$store.commit('addWargear', { name: gear.name, source: 'custom' });
+      this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: gear.name, source: 'custom' });
     },
     remove(gear) {
-      this.$store.commit('removeWargear', { id: gear.id });
+      this.$store.commit('characters/removeCharacterWargear', { id: this.characterId, gearId: gear.id });
     },
     wargearSubtitle(item) {
       //const item = this.wargearRepository.find(i => i.name === gear);

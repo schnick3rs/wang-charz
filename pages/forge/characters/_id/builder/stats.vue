@@ -1,9 +1,9 @@
-<template lang="html">
+<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
   <v-row justify-center row wrap>
 
     <v-col v-bind:cols="12">
-      <h1 class="headline">Select Attributes &quot; Skills</h1>
+      <h1 class="headline">Select Attributes and Skills</h1>
     </v-col>
 
     <v-col v-bind:cols="12">
@@ -122,20 +122,24 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
-import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin.js';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Stats',
-  layout: 'builder',
+  layout: 'forge',
   props: [],
   mixins: [
     ArchetypeRepositoryMixin,
     AscensionRepositoryMixin,
     StatRepositoryMixin,
   ],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   head() {
     return {
       title: 'Select Attributes & Skills',
@@ -149,19 +153,19 @@ export default {
   methods: {
     incrementSkill(skill) {
       const newValue = this.characterSkills[skill] + 1;
-      this.$store.commit('setSkill', { key: skill, value: newValue });
+      this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
     },
     decrementSkill(skill) {
       const newValue = this.characterSkills[skill] - 1;
-      this.$store.commit('setSkill', { key: skill, value: newValue });
+      this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
     },
     incrementAttribute(attribute) {
       const newValue = this.characterAttributes[attribute] + 1;
-      this.$store.commit('setAttribute', { key: attribute, value: newValue });
+      this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
     },
     decrementAttribute(attribute) {
       const newValue = this.characterAttributes[attribute] - 1;
-      this.$store.commit('setAttribute', { key: attribute, value: newValue });
+      this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
     },
     skillsByAttribute(attribute) {
       if (this.skillRepository !== undefined) {
@@ -181,7 +185,7 @@ export default {
       return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
     },
     attributeMaximumFor(attributeName) {
-      const usedSpecies = this.characterSpecies || 'Human';
+      const usedSpecies = this.characterSpeciesLabel || 'Human';
       const attributeBaseMaximumByTier = [4,5,6,8,10]; //index 0 is tier 1
       const maxBySpecies = this.getAttributeMaximumForSpecies( usedSpecies, attributeName );
       const maxByTier = attributeBaseMaximumByTier[this.settingTier-1];
@@ -201,13 +205,13 @@ export default {
             case 'attributes':
               const attributeValue = this.characterAttributesEnhanced[prerequisite.value];
               if (attributeValue < prerequisite.threshold) {
-                this.$store.commit('setAttribute', { key: prerequisite.value, value: prerequisite.threshold });
+                this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
               }
               break;
             case 'skills':
               const skillValue = this.characterSkills[prerequisite.value];
               if (skillValue < prerequisite.threshold) {
-                this.$store.commit('setSkill', { key: prerequisite.value, value: prerequisite.threshold });
+                this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
               }
               break;
           }
@@ -239,12 +243,12 @@ export default {
       }
 
       // bp for attributes valid?
-      const attributeBpSpendLimitValid = this.attributeCosts <= this.maximumBuildPointsForAttributes;
+      const attributeBpSpendLimitValid = this.characterAttributeCosts <= this.maximumBuildPointsForAttributes;
       if ( !attributeBpSpendLimitValid ) {
         alerts.push({
           key: 'attributeSpending',
           type: 'warning',
-          text: `Maximum allowed BP spending violated. You may only spend ${this.maximumBuildPointsForAttributes} BP for Tier ${this.settingTier}.`,
+          text: `Maximum allowed BP spending violated. You spend ${this.characterAttributeCosts} BP but you may only spend ${this.maximumBuildPointsForAttributes} BP for Tier ${this.settingTier}.`,
         });
       }
 
@@ -304,21 +308,28 @@ export default {
     skillMaximum() {
       return this.skillMaximumBy(this.settingTier);
     },
-    ...mapGetters([
-      'settingTier',
-      'archetype',
-      'attributeCosts',
-      'remainingBuildPoints',
-      'ascensionPackages',
-    ]),
-    ...mapGetters({
-      characterSpecies: 'species',
-      characterAttributes: 'attributes',
-      characterAttributesEnhanced: 'attributesEnhanced',
-      characterTraits: 'traits',
-      characterTraitsEnhanced: 'traitsEnhanced',
-      characterSkills: 'skills',
-    }),
+    // Character Data
+    settingTier(){
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterAttributeCosts(){
+      return this.$store.getters['characters/characterAttributeCostsById'](this.characterId);
+    },
+    characterAttributes() {
+      return this.$store.getters['characters/characterAttributesById'](this.characterId);
+    },
+    characterAttributesEnhanced() {
+      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+    },
+    characterSkills() {
+      return this.$store.getters['characters/characterSkillsById'](this.characterId);
+    },
+    characterTraits() {
+      return this.$store.getters['characters/characterTraitsById'](this.characterId);
+    },
+    characterTraitsEnhanced() {
+      return this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
+    },
   }
 }
 </script>

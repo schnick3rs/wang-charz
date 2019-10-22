@@ -1,5 +1,5 @@
 <template>
-  
+
   <v-app>
 
     <v-app-bar
@@ -39,10 +39,15 @@
 </template>
 
 <script>
-import DefaultFooter from '~/components/DefaultFooter';
+import { mapActions, mapGetters } from 'vuex';
+import DefaultFooter from '~/components/DefaultFooter.vue';
+import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
 
 export default {
-  components: { DefaultFooter },
+  components: {
+    DefaultFooter,
+    ToolbarAccountActions,
+  },
   head() {
     return {
       link: [

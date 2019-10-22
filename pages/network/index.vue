@@ -83,7 +83,7 @@
 
         <v-card>
           <v-card-text>
-            <h1>Character Sheets for Wrath and Glory</h1>
+            <h1 class="headline">Character Sheets for Wrath and Glory</h1>
             <p>
               Your currently will find fan-made character sheets. We will add and link to other
               resources like community pages, reference sheets and roleplaying hooks in the future.

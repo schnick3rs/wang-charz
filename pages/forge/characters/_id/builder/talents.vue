@@ -30,16 +30,19 @@
 
             <v-text-field
               v-model="searchQuery"
-              append-icon="search"
+              filled
+              dense
+              clearable
+              prepend-inner-icon="search"
+              clearable
               label="Search"
-              single-line
-              hide-details
             ></v-text-field>
 
             <v-switch
               v-model="filterOnlyPrerequisites"
               color="primary"
               label="Show only fulfilled prerequisites"
+              class="pl-2"
             >
             </v-switch>
 
@@ -48,10 +51,10 @@
           <v-data-table
             v-bind:headers="headers"
             v-bind:items="filteredTalents"
-            v-bind:search="searchQuery"          
-            v-bind:items-per-page="-1"
+            v-bind:search="searchQuery"
+            :page.sync="pagination.page"
+            @page-count="pagination.pageCount = $event"
             show-expand
-            sort-by="name"
             item-key="name"
             hide-default-footer
           >
@@ -63,7 +66,8 @@
             </template>
 
             <template v-slot:item.cost="{ item }">
-              <span>{{ item.cost }}</span>
+              <v-chip v-if="isAffordable(item.cost)" label x-small >{{ item.cost }}</v-chip>
+              <v-chip v-else label x-small color="warning">{{ item.cost }}</v-chip>
             </template>
             
             <template v-slot:item.prerequisites="{ item }">
@@ -76,19 +80,11 @@
 
             <template v-slot:item.buy="{ item }">
                 <v-btn
+                  v-bind:color="'success'"
                   v-bind:disabled="characterTalents.includes(item.name)"
                   v-on:click="addTalent(item)"
-                  icon
-                >
-                  <v-icon
-                    v-if="!item.prerequisitesFulfilled"
-                    color="orange"
-                  >info</v-icon>
-                  <v-icon
-                    v-else
-                    v-bind:color="affordableColor(item.cost)"
-                  >add_circle</v-icon>
-                </v-btn>         
+                  x-small
+                >add</v-btn>
             </template>
 
             <template v-slot:expanded-item="{ headers, item }">
@@ -102,6 +98,9 @@
             </template>
 
           </v-data-table>
+          <div class="text-xs-center pt-2">
+            <v-pagination v-model="pagination.page" :length="pagination.pageCount" />
+          </div>
 
         </v-card>
 
@@ -116,13 +115,12 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 import IssueList from '~/components/IssueList.vue';
 
 export default {
   name: 'Talents',
-  layout: 'builder',
+  layout: 'forge',
   props: [],
   mixins: [ StatRepositoryMixin ],
   components: { IssueList },
@@ -135,6 +133,7 @@ export default {
     const response = await $axios.get(`/api/talents/`);
     return {
       talentRepository: response.data,
+      characterId: params.id,
     };
   },
   data() {
@@ -146,6 +145,12 @@ export default {
       ],
       searchQuery: '',
       filterOnlyPrerequisites: false,
+      pagination: {
+        page: 1,
+        pageCount: 0,
+        sortBy: 'name',
+        rowsPerPage: 25,
+      },
       headers: [
         {
           text: 'Name',
@@ -179,13 +184,18 @@ export default {
     };
   },
   computed: {
-    ...mapGetters([
-      'effectiveCharacterTier',
-      'finalKeywords',
-      'attributesEnhanced',
-      'skills',
-    ]),
-    characterTalents() { return this.$store.getters.talents; },
+    effectiveCharacterTier() {
+      return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
+    },
+    characterAttributesEnhanced() {
+      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+    },
+    characterSkills() {
+      return this.$store.getters['characters/characterSkillsById'](this.characterId);
+    },
+    characterTalents() {
+      return this.$store.getters['characters/characterTalentsById'](this.characterId).map( t => t.name );
+    },
     filteredTalents() {
       if (this.talentRepository === undefined) {
         return [];
@@ -220,7 +230,7 @@ export default {
               case 'attribute':
                 const attribute = this.attributeRepository.find(a => a.name == prerequisite.key);
                 if (attribute) {
-                  const charAttributeValue = this.attributesEnhanced[attribute.key];
+                  const charAttributeValue = this.characterAttributesEnhanced[attribute.key];
                   const prereqAttributeValue = prerequisite.value.split('+')[0];
                   if ( charAttributeValue < prereqAttributeValue ) {
                     fulfilled = false;
@@ -234,7 +244,7 @@ export default {
               case 'skill':
                 const skill = this.skillRepository.find(a => a.name == prerequisite.key);
                 if (skill){
-                  const charSkillValue = this.skills[skill.key];
+                  const charSkillValue = this.characterSkills[skill.key];
                   const prereqSkillValue = prerequisite.value.split('+')[0];
                   if ( charSkillValue < prereqSkillValue ) {
                     fulfilled = false;
@@ -267,22 +277,22 @@ export default {
 
       return filteredTalents;
     },
-    remainingBuildPoints() { return this.$store.getters['remainingBuildPoints']
-      ; },
-    //TODO
-    characterKeywords() {
-      return ['Adepta Sororitas', 'Imperium'];
+    remainingBuildPoints() {
+      return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
+    },
+    finalKeywords(){
+      return this.$store.getters['characters/characterKeywordsFinalById'](this.$route.params.id);
     },
   },
   methods: {
-    affordableColor(cost) {
-      return (cost <= this.remainingBuildPoints) ? 'green' : 'grey';
+    isAffordable(cost) {
+      return cost <= this.remainingBuildPoints;
     },
     addTalent(talent) {
-      this.$store.commit('addTalent', { name: talent.name, cost: talent.cost });
+      this.$store.commit('characters/addCharacterTalent', { id: this.characterId, name: talent.name, cost: talent.cost });
     },
     removeTalent(talent) {
-      this.$store.commit('removeTalent', { name: talent });
+      this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent });
     },
     prerequisitesToText(item) {
       const texts = [];

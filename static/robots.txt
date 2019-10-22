@@ -1,8 +1,7 @@
 # Regel 1
 User-agent: Googlebot
-Disallow: /old/
 Disallow: /api/
-#Disallow: /builder/char/
+Disallow: /forge/characters/
 
 # Regel 2
 User-agent: *

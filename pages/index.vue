@@ -15,7 +15,7 @@
           class="pa-3"
         >
 
-          <v-card class="card " exact nuxt :to="section.link.route" hover>
+          <v-card class="card" exact nuxt :to="section.link.route" hover>
 
             <div class="card__image-container">
               <div class="card__image" :style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading></div>
@@ -30,7 +30,7 @@
               <p class="body-2" v-html="section.htmlText"></p>
 
               <div class="card__content-footer">
-                <v-btn block color="green">{{ section.link.text }}</v-btn>
+                <v-btn block color="success">{{ section.link.text }}</v-btn>
               </div>
 
             </div>
@@ -69,8 +69,10 @@ export default {
           subtitle: 'A collection of Wrath & Glory homebrews',
           imageSrc: '/img/artwork_vault_bright.jpg',
           imageCredit: 'unknown, found at warhammer40k.fandom.com',
-          htmlText: 'An expanding collection of <strong>homebrews from fans</strong> of the Wrath ' +
-            '& Glory RPG. Extend your known settings like the Inquisition or explore new ones, for ' +
+          htmlText: 'Searching for a specific homebrew? ' +
+            'The <strong>Vault</strong> contains an expanding collection of ' +
+            '<strong>homebrews from fans</strong> of the Wrath & Glory Roleplaying Game. ' +
+            'Extend your known settings like the Inquisition or explore new ones, for ' +
             'example, the life of a Titan crew. Enter the <strong>Vault</strong> to find out more...',
           link: { text: 'To the Vault', route: '/vault' },
           isActive: true,
@@ -85,9 +87,10 @@ export default {
           imageSrc: '/img/artwork_abstract.jpg',
           imageCredit: 'Artwork by prettysleepy1 (Pixabay)',
           htmlText: 'Define the setting and tier of your campaign and start building a Wrath & ' +
-            'Glory Character for your session.<br/><br/><strong>BETA Status, characters might get ' +
-            'lost during updates</strong>',
-          link: { text: 'To the Forge', route: '/builder/setting' },
+            'Glory Character for your session.' +
+            '<br/><br/><strong>Latest Update: Organize multiple characters!</strong>' +
+            '<br/><br/>Still considered <strong>BETA Status</strong>, thus characters <em>might</em> get lost during updates.',
+          link: { text: 'To the Forge', route: '/forge/my-characters' },
           isActive: true,
           classes: [ ],
         },

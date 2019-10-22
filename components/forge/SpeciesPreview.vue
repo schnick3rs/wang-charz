@@ -118,9 +118,9 @@
 </template>
 
 <script lang="js">
-  import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
 
-  export default {
+export default {
   name: 'SpeciesPreview',
   mixins: [SpeciesRepositoryMixin],
   props: {

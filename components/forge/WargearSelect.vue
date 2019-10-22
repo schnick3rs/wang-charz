@@ -35,7 +35,7 @@
 </template>
 
 <script lang="js">
-import WargearSearch from '~/components/builder/WargearSearch.vue';
+import WargearSearch from '~/components/forge/WargearSearch.vue';
 
 export default {
   name: 'wargear-select',

@@ -11,8 +11,8 @@
 
           <v-col v-bind:cols="12">
 
-            <p class="display-1 text-center mb-0">{{ name }}</p>
-            <p class="text-center mb-0">{{ [species, archetype].join(' • ') }}</p>
+            <p class="display-1 text-center mb-0">{{ characterName }}</p>
+            <p class="text-center mb-0">{{ [characterSpeciesLabel, archetypeLabel].join(' • ') }}</p>
             <span class="sexy_line"></span>
             <p class="text-center">{{ keywords.join(' • ') }}</p>
 
@@ -180,7 +180,7 @@
                   <v-toolbar-title>Abilities</v-toolbar-title>
                 </v-toolbar>
 
-                <v-card-text v-for="ability in abilities" v-bind:key="ability.name" class="pa-2 caption">
+                <v-card-text v-for="ability in abilities" v-bind:key="ability.name" class="pa-1 caption">
                   <strong>{{ ability.name }}</strong><em v-if="ability.source">  • {{ ability.source }}</em>
                   <br>
                   <span v-html="computeFormatedText(ability.effect)"></span>
@@ -198,7 +198,7 @@
                   <v-toolbar-title>Talents</v-toolbar-title>
                 </v-toolbar>
 
-                <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
+                <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-1 caption">
                   <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.effect)"></span>
                 </v-card-text>
 
@@ -214,7 +214,7 @@
                   <v-toolbar-title>Gear</v-toolbar-title>
                 </v-toolbar>
 
-                <v-card-text v-for="gearItem in gear" v-bind:key="gearItem.id" class="pa-2 caption">
+                <v-card-text v-for="gearItem in gear" v-bind:key="gearItem.id" class="pa-1 caption">
                   <strong>{{ gearItem.name }}:</strong> {{ gearItem.hint }}
                 </v-card-text>
 
@@ -242,7 +242,7 @@
                     <td class="text-xs-left pa-1 small">{{ item.name }}</td>
                     <td class="text-center pa-1 small">
                       <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                        <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + charAttributesEnhanced.strength }}*</span>
+                        <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + characterAttributesEnhanced.strength }}*</span>
                         <span v-else>{{ item.meta[0].damage.static }}</span>
                         <span> + </span>
                         <span>{{ item.meta[0].damage.ed }} ED</span>
@@ -428,11 +428,10 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin.js';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Print',
@@ -453,6 +452,7 @@ export default {
       wargearRepository: wargearResponse.data,
       talentRepository: talentResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
+      characterId: params.id,
     };
   },
   head() {
@@ -499,37 +499,52 @@ export default {
     };
   },
   computed: {
-    ...mapGetters({
-      keywords: 'finalKeywords',
-      name: 'name',
-      species: 'species',
-      astartesChapter: 'speciesAstartesChapter',
-      archetype: 'archetype',
-      charBackground: 'background',
-      charAttributes: 'attributes',
-      charAttributesEnhanced: 'attributesEnhanced',
-      charTraits: 'traits',
-      charTraitsEnhanced: 'traitsEnhanced',
-      charSkills: 'skills',
-      charTalents: 'talents',
-      charWargear: 'wargear',
-      charPsychicPowers: 'psychicPowers',
-    }),
+    characterName(){
+      return this.$store.getters['characters/characterNameById'](this.characterId);
+    },
+    characterRank(){
+      return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
+    },
+
+    characterSpeciesLabel() {
+      return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
+    },
+    speciesAstartesChapter(){
+      return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
+    },
+
+    characterBackground(){
+      return this.$store.getters['characters/characterBackgroundLabelById'](this.characterId);
+    },
+
+    keywords(){
+      return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
+    },
+
+    archetypeLabel() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+    characterAttributesEnhanced(){
+      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+    },
     attributes() {
+      const attributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
       return this.attributeRepository.map( a => {
         return {
           ...a,
-          value: this.charAttributes[a.name.toLowerCase()],
-          enhancedValue: this.charAttributesEnhanced[a.name.toLowerCase()],
+          value: attributes[a.name.toLowerCase()],
+          enhancedValue: this.characterAttributesEnhanced[a.name.toLowerCase()],
         }
       });
     },
     traits() {
+      const traits = this.$store.getters['characters/characterTraitsById'](this.characterId);
+      const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
       return this.traitRepository.map( t => {
         return {
           ...t,
-          value: this.charTraits[t.name.toLowerCase()],
-          enhancedValue: this.charTraitsEnhanced[t.name.toLowerCase()],
+          value: traits[t.name.toLowerCase()],
+          enhancedValue: traitsEnhanced[t.name.toLowerCase()],
         }
       });
     },
@@ -541,34 +556,35 @@ export default {
       ]
     },
     skills() {
+      const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
       return this.skillRepository.map( s => {
         return {
           ...s,
-          value: this.charSkills[s.key],
-          enhancedValue: this.charSkills[s.key],
+          value: skills[s.key],
+          enhancedValue: skills[s.key],
         }
       });
     },
-    abilities() {
 
+    abilities() {
       let abilities = [];
 
       // species
-      if (this.species) {
-        const species = this.speciesRepository.find( s => s.name === this.species);
-        if ( species && species.abilities ) {
+      if (this.characterSpeciesLabel !== undefined) {
+        const species = this.speciesRepository.find( s => s.name === this.characterSpeciesLabel);
+        if ( species !== undefined && species.abilities ) {
           let speciesAbilityNames = species.abilities.split(',');
           if (speciesAbilityNames.length > 0) {
             speciesAbilityNames.forEach(speciesAbilityName => {
 
               if ( speciesAbilityName === 'Honour the Chapter' ) {
-                const chapter = this.astartesChapterRepository.find(a => a.name === this.astartesChapter) || [];
+                const chapter = this.astartesChapterRepository.find(a => a.name === this.speciesAstartesChapter) || [];
                 const traditions = chapter.beliefsAndTraditions;
                 traditions.forEach( t => {
                   let tradition = {
                     name: t.name,
                     effect: t.effect,
-                    source: this.astartesChapter,
+                    source: this.speciesAstartesChapter,
                   };
                   abilities.push(tradition);
                 });
@@ -583,18 +599,20 @@ export default {
       }
 
       // archetype
-      if (this.archetype){
-        const archetype = this.archetypeRepository.find( a => a.name === this.archetype );
-        archetype.abilities.forEach(a => {
-          a['source'] = this.archetype;
-          abilities.push(a);
-        });
+      if (this.archetypeLabel !== undefined){
+        const archetype = this.archetypeRepository.find( a => a.name === this.archetypeLabel );
+        if (archetype !== undefined ) {
+          archetype.abilities.forEach(a => {
+            a['source'] = this.archetypeLabel;
+            abilities.push(a);
+          });
+        }
       }
 
       // background abilities
-      if ( this.charBackground ) {
+      if ( this.characterBackground ) {
         const background = this.backgroundRepository
-          .filter((b) => b.name === this.charBackground)
+          .filter((b) => b.name === this.characterBackground)
           .map((b) =>  {
             return {
               name: b.name,
@@ -607,12 +625,12 @@ export default {
 
       // other
 
-
       return abilities;
     },
     talents() {
+      const talentLabels = this.$store.getters['characters/characterTalentsById'](this.characterId).map( t => t.name );
       let talents = [];
-      this.charTalents.forEach( talentName => {
+      talentLabels.forEach( talentName => {
         const talent = this.talentRepository.find( t => t.name === talentName );
         talent['source'] = undefined;
         talents.push(talent);
@@ -620,8 +638,9 @@ export default {
       return talents;
     },
     wargear() {
+      const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map( w => w.name );
       let wargear = [];
-      this.charWargear.forEach( wargearName => {
+      wargearLabels.forEach( wargearName => {
         const foundGear = this.wargearRepository.find(w => w.name === wargearName);
         if ( foundGear ){
           wargear.push(foundGear);
@@ -641,16 +660,17 @@ export default {
       return this.wargear.filter( w => !['Armour', 'Ranged Weapon', 'Melee Weapon'].includes(w.type) );
     },
     psychicPowers() {
+      const powers = this.$store.getters['characters/characterPsychicPowersById'](this.characterId).map( p => p.name );
       let items = [];
-      this.charPsychicPowers.forEach( name => {
+      powers.forEach( name => {
         const power = this.psychicPowersRepository.find( power => power.name === name );
         items.push(power);
       });
       return items;
     },
     objectives() {
-      if (this.archetype) {
-        const archetype = this.archetypeRepository.find(a => a.name === this.archetype);
+      if (this.archetypeLabel) {
+        const archetype = this.archetypeRepository.find(a => a.name === this.archetypeLabel);
         if ( archetype ) {
           const objectiveList = this.objectiveRepository.find(o => o.group === archetype.group);
           if ( objectiveList ) {
@@ -667,7 +687,7 @@ export default {
       return attribute.enhancedValue + skill.enhancedValue;
     },
     computeFormatedText(text) {
-      const rank = 4;
+      const rank = this.characterRank;
       let computed = text;
 
       //computed = computed.replace(/(1d3\+Rank Shock)/g, `<strong>1d3+${rank} Shock</strong>`);

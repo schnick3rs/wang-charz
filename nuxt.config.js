@@ -24,15 +24,9 @@ module.exports = {
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-      {
-        rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png',
-      },
-      {
-        rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png',
-      },
-      {
-        rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png',
-      },
+      { rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png' },
+      { rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png' },
+      { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png' },
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' },
       { rel: 'preload', href: '/fonts/Material-Icons.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
@@ -67,6 +61,12 @@ module.exports = {
     }],
     '@nuxtjs/sitemap',
     '@nuxtjs/axios',
+    //'@nuxtjs/auth',
+    ['@nuxtjs/redirect-module', [
+        { from: '^/builder.*', to: '/forge/my-characters', statusCode: 301 },
+        { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
+    ]],
+    // https://github.com/nuxt-community/redirect-module
     ['@nuxtjs/google-analytics', {
       id: 'UA-141676237-2',
       disabled: false,
@@ -77,15 +77,9 @@ module.exports = {
         sendHitTask: process.env.NODE_ENV === 'production',
       },
     }],
-    // https://github.com/nuxt-community/redirect-module
-    ['@nuxtjs/redirect-module', {
-      rules: [
-        { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
-      ],
-    }],
     ['@nuxtjs/pwa', {
       manifest: false
-    }]
+    }],
   ],
 
   /*
@@ -95,10 +89,11 @@ module.exports = {
     hostname: 'https://www.doctors-of-doom.com',
     gzip: true,
     exclude: [
-      '/builder/char/**',
+      // dynamic and user specific parts should not be sitemaped
+      '/forge/characters/**',
     ],
     routes() {
-      const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
+      const base = process.env.NODE_ENV === 'production' ? '' : 'http://localhost:3000';
       return axios.get(`${base}/api/homebrews/`)
         .then((response) => response.data.map((vaultItem) => `/vault/${vaultItem.slug}`));
     },
@@ -114,9 +109,31 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+    //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+    baseURL: 'https://www.doctors-of-doom.com',
+    browserBaseURL: '/',
     // debug: process.env.NODE_ENV !== 'production',
   },
+  proxy: {
+    //'/api/': 'https://www.doctors-of-doom.com', // only for development
+  },
+
+  /*auth: {
+    strategies: {
+      local: {
+        endpoints: {
+          login: { url: 'api/users/login', method: 'post', propertyName: 'token' },
+          logout: false,
+          user: { url: 'api/users/me', mthod: 'get', propertyName: 'data'},
+        },
+        // tokenRequired: true,
+        // tokenType: 'Bearer'
+      },
+    },
+    plugins: [
+      '~/plugins/auth.js'
+    ]
+  },*/
 
   /*
   ** vuetify module configuration
