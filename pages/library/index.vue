@@ -248,7 +248,7 @@ export default {
       }
       return types.join(' • ');
     },
-    toggleTypeFilter(name) {
+    toggleFilterFactionSelection(name) {
       if (this.selectedTypeFilters.includes(name)) {
         this.selectedTypeFilters = this.selectedTypeFilters.filter(d => d != name);
       } else {

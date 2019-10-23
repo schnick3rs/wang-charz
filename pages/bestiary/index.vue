@@ -34,7 +34,36 @@
     <v-col :cols="11">
       <v-card>
         <v-card-text>
+
           <v-row justify="center">
+
+            <v-col v-bind:cols="12" v-if="false">
+
+              <v-slide-group
+                multiple
+                show-arrows
+                v-bind:value="factionFilterSelections"
+              >
+                <v-slide-item
+                  v-for="faction in factionFilterOptions"
+                  v-bind:key="faction.key"
+                  v-slot:default="{ active, toggle }"
+                >
+
+                  <v-avatar
+                    size="86"
+                    class="faction-filter"
+                    v-bind:input-value="active"
+                    v-on:click="toggle"
+                  >
+                    <img v-bind:src="getAvatar(faction)">
+                  </v-avatar>
+                </v-slide-item>
+
+              </v-slide-group>
+
+            </v-col>
+
             <v-col :cols="12" :sm="6">
               <v-text-field
                 v-model="searchQuery"
@@ -484,12 +513,27 @@ export default {
     },
   },
   methods: {
+    getAvatar(factionLabel) {
+
+      if ( factionLabel !== undefined ) {
+        const slug = factionLabel.toLowerCase().replace(/\s/gm, '-');
+        return `/img/bestiary/faction_${slug}_avatar.png`;
+      }
+      return `/img/icon/species/species_human_avatar.png`;
+    },
     changeSort(column) {
       if (this.pagination.sortBy === column) {
         this.pagination.descending = !this.pagination.descending;
       } else {
         this.pagination.sortBy = column;
         this.pagination.descending = false;
+      }
+    },
+    toggleFilterFactionSelection(name) {
+      if (this.factionFilterSelections.includes(name)) {
+        this.factionFilterSelections = this.factionFilterSelections.filter(d => d != name);
+      } else {
+        this.factionFilterSelections.push(name);
       }
     },
     toggle(props) {
@@ -509,8 +553,17 @@ export default {
 };
 </script>
 
-<style scoped lang="css">
+<style scoped lang="scss">
   tr:hover {
     cursor: pointer;
   }
+
+  .faction-filter {
+    opacity: 0.5;
+  }
+
+  .faction-filter.v-slide-item--active {
+    opacity: unset;
+  }
+
 </style>

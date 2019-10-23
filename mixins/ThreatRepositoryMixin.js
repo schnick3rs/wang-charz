@@ -10,7 +10,7 @@ export default {
           },
           key: 'astraMilitarumTrooper',
           name: 'Astra Militarum Trooper',
-          faction: 'Imperial Threats',
+          faction: 'Imperial',
           classification: [
             'Troops',
             'Troops',
@@ -50,7 +50,7 @@ export default {
           sizeModifier: 0,
           keywords: [
             'Human',
-            'Imperial',
+            'Imperium',
           ],
           attacks: [
             {
@@ -99,7 +99,7 @@ export default {
           },
           key: 'astraMilitarumVeteranTrooper',
           name: 'Astra Militarum Veteran Trooper',
-          faction: 'Imperial Threats',
+          faction: 'Imperial',
           variantOf: 'astraMilitarumTrooper',
           classification: [
             'Adversary',
@@ -140,7 +140,7 @@ export default {
           sizeModifier: 0,
           keywords: [
             'Human',
-            'Imperial',
+            'Imperium',
           ],
           attacks: [
             {
@@ -293,7 +293,7 @@ export default {
             version: '',
             page: '',
           },
-          key: 'necroncy',
+          key: 'necroncyWarrior',
           name: 'Necron Warrior',
           faction: 'Necrontyr',
           classification: [
@@ -371,6 +371,311 @@ export default {
             {
               name: '(Mob) Undying Legions',
               effect: 'Whenever a mob of Necron Warriors successfully regains more than two members due to Reanimation Protocols, the GM gains 1 Ruin.',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Legacy of the Necrontyr',
+            key: 'necroncy',
+            version: '',
+            page: '',
+          },
+          key: 'necroncyImmortal',
+          name: 'Necron Immortal',
+          faction: 'Necrontyr',
+          classification: [
+            'Adversary',
+            'Adversary',
+            'Elite',
+            'Elite',
+            'Elite',
+          ],
+          description: 'Formerly professional soldiers in the Necrontyr military, these warriors retained a spark of their sentience, though they are still only capable of slightly more than a Warrior. Often assigned as leaders of groups of Warriors, Immortals carry much more powerful weapons and are covered in enhanced plating that gives them their name. Even amongst the deathless Necrons, the Immortals are particularly resilient.',
+          attributes: {
+            strength: 5,
+            agility: 4,
+            toughness: 6,
+            intellect: 3,
+            willpower: 4,
+            fellowship: 2,
+            initiative: 4,
+          },
+          traits: {
+            defence: 3,
+            speed: 5,
+            wounds: 9,
+            shock: 7,
+            soak: 6,
+            resolve: '-',
+            conviction: '-',
+            passiveAwareness: 4,
+            resilience: {
+              total: 12,
+              armourRating: 5,
+              armourName: 'Heavy Plating'
+            },
+          },
+          skills: {
+            ballisticSkill: 9,
+            default: 7,
+          },
+          size: 'Average',
+          sizeModifier: 0,
+          keywords: [
+            'Necron',
+            '<Dynasty>',
+          ],
+          attacks: [
+            {
+              name: 'Gauss Blaster',
+              type: 'ranged-weapon',
+              range: 48,
+              damage: { static: 12, ed: 1},
+              ap: -2,
+              salvo: 2,
+              traits: [ 'Rapid Fire (2)' ],
+            },
+            {
+              name: 'Tesla Carbine',
+              type: 'ranged-weapon',
+              range: 48,
+              damage: { static: 12, ed: 1},
+              ap: 0,
+              salvo: 2,
+              traits: [ 'Assault', 'Tesla' ],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: 'Reanimation Protocols',
+              effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
+              'at the beginning of each following round until combat ends or reanimation occurs. ' +
+              'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
+              'remaining. ' +
+              'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
+              'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
+              'reduced to 0 members does not roll for Reanimation Protocols.' +
+              'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
+              'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
+              'least for the remainder of the combat). It may still be teleported away from the ' +
+              'battlefield by its tomb.',
+            },
+            {
+              name: ' Soulless Machine',
+              effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
+              ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
+              'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
+              'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
+              'affect machines, a Necron is considered a machine.',
+            },
+            {
+              name: '(Ruin) Champion',
+              effect: 'This threat may take Ruin Actions.',
+            },
+            {
+              name: '(Ruin) Immortal',
+              effect: 'An Immortal may spend a point of Ruin to negate any critical effects it would suffer from a critical hit.',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Legacy of the Necrontyr',
+            key: 'necroncy',
+            version: '',
+            page: '',
+          },
+          key: 'necroncy',
+          name: 'Necron Deathmark',
+          faction: 'Necrontyr',
+          classification: [
+            'Adversary',
+            'Adversary',
+            'Elite',
+            'Elite',
+            'Elite',
+          ],
+          description: 'Patience and vigilance are some of the most important qualities for a sniper, and the Deathmarks exemplify them. With no need for sleep, food, or drink, nothing can distract these assassins from their task, hiding in the spaces between dimensions as they watch for their prey to draw near enough for them to attack. So feared are the Deathmarks that ancient laws forbid their use against fellow Necrons, but against mortals there are no such restrictions, and with their unparalleled tracking abilities, they never lose their mark once they have it. ',
+          attributes: {
+            strength: 5,
+            agility: 4,
+            toughness: 5,
+            intellect: 4,
+            willpower: 4,
+            fellowship: 2,
+            initiative: 4,
+          },
+          traits: {
+            defence: 3,
+            speed: 5,
+            wounds: 8,
+            shock: 7,
+            soak: 5,
+            resolve: '-',
+            conviction: '-',
+            passiveAwareness: 5,
+            resilience: {
+              total: 11,
+              armourRating: 5,
+              armourName: 'Heavy Plating'
+            },
+          },
+          skills: {
+            ballisticSkill: 10,
+            awareness: 10,
+            default: 7,
+          },
+          size: 'Average',
+          sizeModifier: 0,
+          keywords: [
+            'Necron',
+            '<Dynasty>',
+          ],
+          attacks: [
+            {
+              name: 'Synaptic Disintegrator',
+              type: 'ranged-weapon',
+              range: 48,
+              damage: { static: 10, ed: 1},
+              ap: 0,
+              salvo: 1,
+              traits: [ 'Rapid Fire (1)', 'Sniper (2)' ],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: 'Reanimation Protocols',
+              effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
+              'at the beginning of each following round until combat ends or reanimation occurs. ' +
+              'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
+              'remaining. ' +
+              'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
+              'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
+              'reduced to 0 members does not roll for Reanimation Protocols.' +
+              'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
+              'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
+              'least for the remainder of the combat). It may still be teleported away from the ' +
+              'battlefield by its tomb.',
+            },
+            {
+              name: ' Soulless Machine',
+              effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
+              ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
+              'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
+              'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
+              'affect machines, a Necron is considered a machine.',
+            },
+            {
+              name: '(Ruin) Hunter’s Mark',
+              effect: 'The GM may spend a point of Ruin in order to select a single non-Necron character. All Deathmarks in the current combat gain a +2d bonus to Ballistic Skill tests when targeting that character for the rest of the combat. They may also track the character without a test required.',
+            },
+            {
+              name: '(Wrath) Assassin',
+              effect: 'Whenever a Deathmark rolls a 6 on the Wrath die when attacking with its Synaptic Disintegrator, the target suffers a Mortal Wound in addition to any critical effects.',
+            },
+            {
+              name: 'Ethereal Interception',
+              effect: 'A Deathmark may hide within an extradimensional space, undetectable but unable to do more than watch outside. When anyone enters the area it has hidden within, it may emerge instantly, making a single attack with its Synaptic Disintegrator. This counts as an Ambush.\n',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Legacy of the Necrontyr',
+            key: 'necroncy',
+            version: '',
+            page: '',
+          },
+          key: 'necroncyFlayedOne',
+          name: 'Necron Flayed One',
+          faction: 'Necrontyr',
+          classification: [
+            'Adversary',
+            'Adversary',
+            'Elite',
+            'Elite',
+            'Troops',
+          ],
+          description: 'Infected by the ancient Flayer virus, the Flayed Ones seem to have an unsettling fascination with flesh, perhaps desiring to regain it, perhaps simply playing with it like a toy. Regardless, they have altered themselves for the purpose of obtaining more, with wicked talons designed to strip away everything from the bone, tearing asunder any mortal unfortunate enough to encounter one. They then wear these strips of flesh like clothing, draping them over their frame in a mess of bloody gore.',
+          attributes: {
+            strength: 5,
+            agility: 4,
+            toughness: 5,
+            intellect: 2,
+            willpower: 4,
+            fellowship: 1,
+            initiative: 5,
+          },
+          traits: {
+            defence: 4,
+            speed: 5,
+            wounds: 8,
+            shock: 7,
+            soak: 5,
+            resolve: '-',
+            conviction: '-',
+            passiveAwareness: 5,
+            resilience: {
+              total: 10,
+              armourRating: 4,
+              armourName: 'Living Metal'
+            },
+          },
+          skills: {
+            weaponSkill: 10,
+            default: 7,
+          },
+          size: 'Average',
+          sizeModifier: 0,
+          keywords: [
+            'Necron',
+            '<Dynasty>',
+          ],
+          attacks: [
+            {
+              name: 'Flayer Claws',
+              type: 'melee-weapon',
+              range: 1,
+              damage: { static: 10, ed: 1},
+              ap: 0,
+              traits: [ 'Brutal' ],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: 'Reanimation Protocols',
+              effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
+              'at the beginning of each following round until combat ends or reanimation occurs. ' +
+              'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
+              'remaining. ' +
+              'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
+              'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
+              'reduced to 0 members does not roll for Reanimation Protocols.' +
+              'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
+              'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
+              'least for the remainder of the combat). It may still be teleported away from the ' +
+              'battlefield by its tomb.',
+            },
+            {
+              name: ' Soulless Machine',
+              effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
+              ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
+              'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
+              'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
+              'affect machines, a Necron is considered a machine.',
+            },
+            {
+              name: '(Ruin) Flesh Hunger',
+              effect: 'If a Flayed One kills its target, the GM may spend a Ruin. If so, the Flayed One begins mutilating the corpse and draping its flesh about itself. If it does this, all those present in the combat that share a keyword with the dead individual suffer a +2DN penalty to Resolve tests so long as the Flayed One is alive.\n',
+            },
+            {
+              name: 'Flesh Render',
+              effect: 'A Flayed One may reroll any failed damage dice on its melee attacks. It may ignore up to +2DN worth of penalties when making melee multi-attacks, and gains +2d to its melee attack rolls when attacking mobs.',
+            },
+            {
+              name: 'Hunting Horrors',
+              effect: 'Flayed Ones usually hide within a charnel pocket-dimension, emerging into reality when they detect somewhere where new flesh can be harvested. A Flayed One may claw its way into reality into any combat involving Necrons and non-Necrons at the beginning of any Round. This does not count as an ambush.',
             },
           ],
         },
