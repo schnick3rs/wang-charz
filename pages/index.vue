@@ -10,8 +10,8 @@
           :key="section.key"
           :cols="12"
           :sm="6"
-          :md="4"
-          :lg="4"
+          :md="5"
+          :lg="5"
           class="pa-3"
         >
 
@@ -95,6 +95,18 @@ export default {
           classes: [ ],
         },
         {
+          key: 'bestiary',
+          title: 'Threat <strong>Bestiary</strong>',
+          subtitle: 'A repository of player threats',
+          imageSrc: '/img/artwork_bestiary_death.png',
+          imageCredit: 'Artwork from Pixabay',
+          htmlText: 'In search of a <strong>challenge</strong> for your players? Maybe you find something in the threat bestiary.' +
+            'Those also contain some enemies from the various fan homebrews you can find in the Vault. ',
+          link: { text: 'To the Bestiary', route: '/bestiary' },
+          isActive: true,
+          classes: [ ],
+        },
+        {
           key: 'network',
           title: 'Community <strong>Network</strong>',
           subtitle: 'Assets & Links',
@@ -116,7 +128,7 @@ export default {
   .card {
 
     //max-width: 640px;
-    height: 340px;
+    height: 400px;
     display: flex;
 
     &__image-container {
@@ -129,7 +141,7 @@ export default {
     &__image {
       background-position: center center;
       background-size: cover;
-      height: 340px;
+      height: 400px;
     }
 
     &__content-container {
@@ -144,6 +156,21 @@ export default {
       position: absolute;
       bottom: 10px;
       right: 10px;
+    }
+  }
+
+  @media only screen and (min-width: 600px) {
+    .card {
+      height: 340px;
+
+      &__image-container {
+        width: 25%;
+        min-width: 25%;
+      }
+
+      &__image {
+        height: 340px;
+      }
     }
   }
 

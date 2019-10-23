@@ -327,6 +327,9 @@ export default {
     getAttributeByKey(key) {
       return this.attributeRepository.find(a => a.key === key);
     },
+    getTraitByKey(key) {
+      return this.traitRepository.find(a => a.key === key);
+    },
     getSkillByKey(key) {
       return this.skillRepository.find(s => s.key === key);
     },
