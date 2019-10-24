@@ -408,15 +408,16 @@ export default {
       })
     };
 
+    const title = 'Threats for the Game Master | Bestiary';
+    const description = 'The Bestiary contains many homebrew threats to be used by the Game Master to ' +
+      'challenge your Wrath & Glory Players.';
+
     return {
-      title: 'Threats for the Game Master | Bestiary',
+      title: title,
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'The Bestiary contains many homebrew threats to be used by the Game Master to ' +
-          'challenge your Wrath & Glory Players.',
-        },
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [

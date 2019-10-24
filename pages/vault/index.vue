@@ -226,15 +226,17 @@ export default {
       })
     };
 
+    const title = 'Collection of Wrath & Glory Homebrews | Vault';
+    const description = 'The Doctors of Doom Vault contains a curated collection of supplements,' +
+      ' homebrews and houserules for Wrath & Glory, the latest Warhammer 40k Roleplaying game. ' +
+      'Those are written by dedicated fans.';
+
     return {
-      title: 'Collection of Wrath & Glory Homebrews | Vault',
+      title: title,
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'The Doctors of Doom Vault contains a curated collection of supplements, homebrews and houserules for Wrath & Glory,'
-            + ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.',
-        },
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
