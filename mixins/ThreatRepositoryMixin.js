@@ -286,6 +286,7 @@ export default {
             },
           ],
         },
+        /** Legacy of the Necrontyr */
         {
           source: {
             book: 'Legacy of the Necrontyr',
@@ -676,6 +677,321 @@ export default {
             {
               name: 'Hunting Horrors',
               effect: 'Flayed Ones usually hide within a charnel pocket-dimension, emerging into reality when they detect somewhere where new flesh can be harvested. A Flayed One may claw its way into reality into any combat involving Necrons and non-Necrons at the beginning of any Round. This does not count as an ambush.',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Legacy of the Necrontyr',
+            key: 'necroncy',
+            version: '',
+            page: '',
+          },
+          key: 'necroncyNecronTriarchPraetorian',
+          name: 'Necron Triarch Praetorian',
+          faction: 'Necrontyr',
+          classification: [
+            'Adversary',
+            'Adversary',
+            'Adversary',
+            'Elite',
+            'Elite',
+          ],
+          description: 'Enforcers of ancient Necrontyr law, a Praetorian’s task is not to fight on the front lines, but to ensure that the codes of the Empire are being upheld in any given combat. They are beholden to none but the Silent King himself, but they may lend their blades should a situation that threatens the Necron Empire arise.',
+          attributes: {
+            strength: 7,
+            agility: 5,
+            toughness: 7,
+            intellect: 6,
+            willpower: 5,
+            fellowship: 4,
+            initiative: 5,
+          },
+          traits: {
+            defence: 4,
+            speed: 10,
+            wounds: 12,
+            shock: 10,
+            soak: 6,
+            resolve: '-',
+            conviction: '-',
+            passiveAwareness: 6,
+            resilience: {
+              total: 12,
+              armourRating: 5,
+              armourName: 'Praetorian Plate'
+            },
+          },
+          skills: {
+            weaponSkill: 11,
+            ballisticSkill: 11,
+            scholar: 11,
+            default: 10,
+          },
+          size: 'Average',
+          sizeModifier: 0,
+          keywords: [
+            'Necron',
+            '<Dynasty>',
+          ],
+          attacks: [
+            {
+              name: 'Rod of Covenant',
+              type: 'melee-weapon',
+              range: 1,
+              damage: { static: 12, ed: 1},
+              ap: -3,
+              traits: [],
+            },
+            {
+              name: 'Rod of Covenant',
+              type: 'ranged-weapon',
+              range: 24,
+              damage: { static: 12, ed: 1},
+              ap: -3,
+              salvo: 1,
+              traits: [ 'Assault' ],
+            },
+            {
+              name: 'Voidblade',
+              type: 'melee-weapon',
+              range: 1,
+              damage: { static: 12, ed: 1},
+              ap: -3,
+              traits: [ ],
+            },
+            {
+              name: 'Particle Caster',
+              type: 'ranged-weapon',
+              range: 24,
+              damage: { static: 14, ed: 1},
+              ap: 0,
+              salvo: 1,
+              traits: [ 'Pistol' ],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: 'Reanimation Protocols',
+              effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
+              'at the beginning of each following round until combat ends or reanimation occurs. ' +
+              'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
+              'remaining. ' +
+              'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
+              'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
+              'reduced to 0 members does not roll for Reanimation Protocols.' +
+              'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
+              'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
+              'least for the remainder of the combat). It may still be teleported away from the ' +
+              'battlefield by its tomb.',
+            },
+            {
+              name: ' Soulless Machine',
+              effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
+              ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
+              'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
+              'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
+              'affect machines, a Necron is considered a machine.',
+            },
+            {
+              name: '(Ruin) Champion',
+              effect: 'This threat may take Ruin Actions.',
+            },
+            {
+              name: '(Ruin) Solemn Judgement',
+              effect: 'A Triarch Praetorian may judge whether an enemy’s conduct in the current combat is honorable or dishonorable once per combat, if the GM spends a point of Ruin. If the enemy is honorable, all Necrons in the combat (including the Praetorian) gain a +1d bonus to Weapon Skill tests against that enemy. If the enemy is dishonorable, they instead gain a +1d bonus to Ballistic Skill tests against that enemy.',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Legacy of the Necrontyr',
+            key: 'necroncy',
+            version: '',
+            page: '',
+          },
+          key: 'necroncyNecronDestroyer',
+          name: 'Necron Destroyer',
+          faction: 'Necrontyr',
+          classification: [
+            'Adversary',
+            'Adversary',
+            'Adversary',
+            'Elite',
+            'Elite',
+          ],
+          description: 'Corrupted by glitches, viruses, and decay after aeons of slumber, the Destroyers are nihilistic, even by the standards of the hateful Necrons. Seeking nothing less than the end of all things, the Destroyers would gladly annihilate the galaxy if it was within their power. In order to make themselves better weapons of war, the Destroyers mutilate themselves, removing their legs and replacing them with anti-gravity repulsors, amputating limbs and attaching massive weapons to the stumps. A Destroyer serves no lord other than one of his own kind, but they may assist an Overlord whose goals temporarily align with their own.',
+          attributes: {
+            strength: 5,
+            agility: 5,
+            toughness: 7,
+            intellect: 4,
+            willpower: 5,
+            fellowship: 1,
+            initiative: 5,
+          },
+          traits: {
+            defence: 4,
+            speed: 10,
+            wounds: 12,
+            shock: 7,
+            soak: 7,
+            resolve: '-',
+            conviction: '-',
+            passiveAwareness: 4,
+            resilience: {
+              total: 14,
+              armourRating: 5,
+              armourName: 'Heavy Plating'
+            },
+          },
+          skills: {
+            ballisticSkill: 11,
+            default: 8,
+          },
+          size: 'Average',
+          sizeModifier: 0,
+          keywords: [
+            'Necron',
+            '<Dynasty>',
+          ],
+          attacks: [
+            {
+              name: 'Gauss Cannon',
+              type: 'ranged-weapon',
+              range: 48,
+              damage: { static: 14, ed: 2},
+              ap: -3,
+              salvo: 3,
+              traits: [ 'Heavy (3)' ],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: 'Reanimation Protocols',
+              effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
+              'at the beginning of each following round until combat ends or reanimation occurs. ' +
+              'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
+              'remaining. ' +
+              'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
+              'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
+              'reduced to 0 members does not roll for Reanimation Protocols.' +
+              'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
+              'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
+              'least for the remainder of the combat). It may still be teleported away from the ' +
+              'battlefield by its tomb.',
+            },
+            {
+              name: ' Soulless Machine',
+              effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
+              ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
+              'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
+              'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
+              'affect machines, a Necron is considered a machine.',
+            },
+            {
+              name: 'Hardwired Hatred',
+              effect: 'When making attack rolls against anyone without the Necron keyword, a Destroyer may reroll unmodified die results of 1.',
+            },
+            {
+              name: 'Repulsor Platform',
+              effect: 'A Destroyer ignores penalties to movement due to difficult terrain, and may fly. It is always considered to be braced for the purposes of firing its weapons.\n',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Legacy of the Necrontyr',
+            key: 'necroncy',
+            version: '',
+            page: '',
+          },
+          key: 'necroncyHeavyNecronDestroyer',
+          name: 'Necron Heavy Destroyer',
+          faction: 'Necrontyr',
+          classification: [
+            'Adversary',
+            'Adversary',
+            'Adversary',
+            'Elite',
+            'Elite',
+          ],
+          description: 'Equipped with a much more powerful gauss weapon, these Destroyers are ideal for annihilating vehicles and other hardened targets. Corrupted by glitches, viruses, and decay after aeons of slumber, the Destroyers are nihilistic, even by the standards of the hateful Necrons. Seeking nothing less than the end of all things, the Destroyers would gladly annihilate the galaxy if it was within their power. In order to make themselves better weapons of war, the Destroyers mutilate themselves, removing their legs and replacing them with anti-gravity repulsors, amputating limbs and attaching massive weapons to the stumps. A Destroyer serves no lord other than one of his own kind, but they may assist an Overlord whose goals temporarily align with their own.',
+          attributes: {
+            strength: 5,
+            agility: 5,
+            toughness: 7,
+            intellect: 4,
+            willpower: 5,
+            fellowship: 1,
+            initiative: 5,
+          },
+          traits: {
+            defence: 4,
+            speed: 10,
+            wounds: 12,
+            shock: 7,
+            soak: 7,
+            resolve: '-',
+            conviction: '-',
+            passiveAwareness: 4,
+            resilience: {
+              total: 14,
+              armourRating: 5,
+              armourName: 'Heavy Plating'
+            },
+          },
+          skills: {
+            ballisticSkill: 11,
+            default: 8,
+          },
+          size: 'Average',
+          sizeModifier: 0,
+          keywords: [
+            'Necron',
+            '<Dynasty>',
+          ],
+          attacks: [
+            {
+              name: 'Heavy Gauss Cannon',
+              type: 'ranged-weapon',
+              range: 72,
+              damage: { static: 18, ed: 1},
+              ap: -4,
+              salvo: 1,
+              traits: [ 'Heavy' ],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: 'Reanimation Protocols',
+              effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
+              'at the beginning of each following round until combat ends or reanimation occurs. ' +
+              'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
+              'remaining. ' +
+              'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
+              'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
+              'reduced to 0 members does not roll for Reanimation Protocols.' +
+              'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
+              'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
+              'least for the remainder of the combat). It may still be teleported away from the ' +
+              'battlefield by its tomb.',
+            },
+            {
+              name: ' Soulless Machine',
+              effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
+              ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
+              'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
+              'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
+              'affect machines, a Necron is considered a machine.',
+            },
+            {
+              name: 'Hardwired Hatred',
+              effect: 'When making attack rolls against anyone without the Necron keyword, a Destroyer may reroll unmodified die results of 1.',
+            },
+            {
+              name: 'Repulsor Platform',
+              effect: 'A Destroyer ignores penalties to movement due to difficult terrain, and may fly. It is always considered to be braced for the purposes of firing its weapons.\n',
             },
           ],
         },
