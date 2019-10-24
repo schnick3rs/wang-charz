@@ -273,7 +273,7 @@
                 <!-- Attacks -->
                 <v-col v-bind:cols="12" v-bind:md="11">
 
-                  <h4>Attacks</h4>
+                  <h4 class="title-1">Attacks</h4>
 
                   <div>
 
