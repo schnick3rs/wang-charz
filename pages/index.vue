@@ -101,7 +101,8 @@ export default {
           imageSrc: '/img/artwork_bestiary_death.png',
           imageCredit: 'Artwork from Pixabay',
           htmlText: 'In search of a <strong>challenge</strong> for your players? Maybe you find something in the threat bestiary.' +
-            'Those also contain some enemies from the various fan homebrews you can find in the Vault. ',
+            'Those also contain some enemies from the various fan homebrews you can find in the Vault. ' +
+            '<br><br><strong>New Experimental Section</strong>, changes expected.',
           link: { text: 'To the Bestiary', route: '/bestiary' },
           isActive: true,
           classes: [ ],
