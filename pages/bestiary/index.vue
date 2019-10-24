@@ -537,10 +537,8 @@ export default {
       }
     },
     toggle(props) {
+      this.$ga.event('Bestiary Row', 'expand', item.name, 1);
       props.expanded = !props.expanded;
-    },
-    trackEvent(url) {
-
     },
     getClassificationColor(classification) {
       switch(classification) {
