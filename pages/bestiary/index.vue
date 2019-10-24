@@ -411,6 +411,7 @@ export default {
     const title = 'Threats for the Game Master | Bestiary';
     const description = 'The Bestiary contains many homebrew threats to be used by the Game Master to ' +
       'challenge your Wrath & Glory Players.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_bestiary_death.png';
 
     return {
       title: title,
@@ -418,6 +419,7 @@ export default {
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
         { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
