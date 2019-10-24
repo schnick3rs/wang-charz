@@ -188,6 +188,7 @@ export default {
       'Roleplaying game. Edit, change and view your characters online.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_abstract.jpg';
 
+
     return {
       title: title,
       meta: [
