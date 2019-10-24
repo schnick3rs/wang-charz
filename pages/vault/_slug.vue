@@ -143,15 +143,18 @@
       })
     };
 
+    const title = `${this.item.title} - ${this.item.keywords[0]} Homebrew`;
+    const description = `${this.item.subtitle}. ${this.item.abstract}`;
+    const image = this.item.thumbnail ? `https://www.doctors-of-doom.com${this.item.thumbnail}` : 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
+
     return {
       titleTemplate: '%s | Vault',
-      title: `${this.item.title} - ${this.item.keywords[0]} Homebrew`,
+      title: title,
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: `${this.item.subtitle}. ${this.item.abstract}`,
-        },
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
         {
           hid: 'keywords',
           name: 'keywords',
