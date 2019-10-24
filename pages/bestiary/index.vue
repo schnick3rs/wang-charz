@@ -368,14 +368,14 @@
         <v-card-text>
           <h1 class="headline">Search the Vault for precious, fan-made hombrews</h1>
           <p>
-            In desperate need of an option to extend your Wrath & Glory Campaign?
-            Searching for <em>that</em> particular homebrew to improve your setting?
-            The <strong>Vault</strong> has you covered.
-            This is a <strong>curated list of homebrews</strong> from fans, found in the internet.
-            I credit the author and link to their community pages, as good as I could,
-              if I find them either in the document found or on their respective page.
-            If want to add, remove or change your homebrew content or if you want to propose changes regarding links,
-              you can mail me to <a href="mailto:docsofdoom+vault@gmail.com?subject=Vault Request">docsofdoom+vault(at)gmail.com</a>.
+            Using the same threats within your Wrath and Glory campaign over and over?
+            Never leave your players bored again! search throu this growing collection of adversaries
+            derived from the various content provided by the fans. Check out the respective brews
+            within the <nuxt-link to="/vault">Vault</nuxt-link>.
+          </p>
+          <p>
+            If you have any feedback, or want to add your brews to the collection, you can mail me at
+            <a href="mailto:docsofdoom+bestiary@gmail.com?subject=Bestiary Feedback">docsofdoom+bestiary(at)gmail.com</a>.
            </p>
         </v-card-text>
       </v-card>
@@ -408,13 +408,13 @@ export default {
     };
 
     return {
-      title: 'Collection of Wrath & Glory Homebrews | Vault',
+      title: 'Threats for the Game Master | Bestiary',
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: 'The Doctors of Doom Vault contains a curated collection of supplements, homebrews and houserules for Wrath & Glory,'
-            + ' the latest Warhammer 40k Roleplaying game. Those are written by dedicated fans.',
+          content: 'The Bestiary contains many homebrew threats to be used by the Game Master to ' +
+          'challenge your Wrath & Glory Players.',
         },
       ],
       __dangerouslyDisableSanitizers: ['script'],
