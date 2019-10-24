@@ -73,11 +73,12 @@
           v-bind:items="searchResults"
           v-bind:expanded.sync="expanded"
           v-bind:search="searchQuery"
+          v-bind:items-per-page="-1"
+          v-on:item-expanded="trackExpand"
           sort-by="title"
           item-key="title"
           show-expand
           hide-default-footer
-          :items-per-page="-1"
         >
 
           <template v-slot:item.version="{ item }">
@@ -334,9 +335,10 @@ export default {
         this.pagination.descending = false;
       }
     },
-    toggle(props) {
-      this.$ga.event('Vault Row', 'expand', item.title, 1);
-      props.expanded = !props.expanded;
+    trackExpand(event) {
+      if ( event.value === true ) {
+        this.$ga.event('Vault Row', 'expand', event.item.title, 1);
+      }
     },
     trackEvent(url) {
       this.$ga.event('Outbound Link', 'click', url, 10);

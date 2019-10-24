@@ -130,6 +130,7 @@
           v-bind:items="searchResults"
           v-bind:expanded.sync="expanded"
           v-bind:search="searchQuery"
+          v-on:item-expanded="trackExpand"
           sort-by="name"
           item-key="key"
           show-expand
@@ -536,9 +537,10 @@ export default {
         this.factionFilterSelections.push(name);
       }
     },
-    toggle(props) {
-      this.$ga.event('Bestiary Row', 'expand', item.name, 1);
-      props.expanded = !props.expanded;
+    trackExpand(event) {
+      if ( event.value === true ) {
+        this.$ga.event('Bestiary Row', 'expand', event.item.name, 1);
+      }
     },
     getClassificationColor(classification) {
       switch(classification) {
