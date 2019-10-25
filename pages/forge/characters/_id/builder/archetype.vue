@@ -56,7 +56,7 @@
               v-for="item in archetypesByGroup(group)"
               :key="item.key"
               @click.stop="updatePreview(item)"
-              :disabled="item.species !== characterSpeciesLabel || item.tier > settingTier"
+              :disabled="!item.species.includes(characterSpeciesLabel) || item.tier > settingTier"
             >
 
               <v-list-item-avatar tile>
@@ -168,7 +168,7 @@ export default {
 
       /* filter by  */
       if (this.characterSpeciesLabel) {
-        archetypes = archetypes.filter(a => a.species === this.characterSpeciesLabel);
+        archetypes = archetypes.filter( a => a.species.includes(this.characterSpeciesLabel) );
       }
 
       if (this.settingTier !== undefined) {
@@ -254,7 +254,7 @@ export default {
         let archetypes = this.archetypeRepository;
 
         if (this.characterSpeciesLabel !== undefined) {
-          archetypes = archetypes.filter(a => a.species === this.characterSpeciesLabel);
+          archetypes = archetypes.filter( a => a.species.includes(this.characterSpeciesLabel) );
         }
 
         if (this.settingTier !== undefined) {

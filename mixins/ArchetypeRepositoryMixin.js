@@ -7,7 +7,7 @@ export default {
         name: "Ministorum Priest",
         cost: 0,
         tier: 1,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 1,
         keywords: "Imperium,Adeptus Ministorum",
         abilities: [
@@ -29,7 +29,7 @@ export default {
         name: "Death Cult Assassin",
         cost: 20,
         tier: 2,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 0,
         keywords: "Imperium,Adeptus Ministorum",
         abilities: [
@@ -51,7 +51,7 @@ export default {
         name: "Crusader",
         cost: 40,
         tier: 3,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 1,
         keywords: "Imperium,Adeptus Ministorum",
         abilities: [
@@ -78,7 +78,7 @@ export default {
         group: "Adepta Sororitas",
         cost: 0,
         tier: 1,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 0,
         keywords: "Imperium,Adeptus Ministorum,Adeptus Sororitas,<Order>",
         keywordOption: "<Order>",
@@ -99,7 +99,7 @@ export default {
       },
       {
         name: "Sister of Battle",
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         cost: 40,
         tier: 2,
         influence: 1,
@@ -129,7 +129,7 @@ export default {
         name: "Imperial Guardsman",
         cost: 0,
         tier: 1,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 0,
         keywords: "Imperium,Astra Militarum,<Regiment>",
         abilities: [
@@ -154,7 +154,7 @@ export default {
         name: "Tempestus Scion",
         cost: 30,
         tier: 2,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 1,
         keywords: "Imperium,Astra Militarum,Militarum Tempest",
         abilities: [
@@ -179,7 +179,7 @@ export default {
         name: "Commissar",
         cost: 50,
         tier: 3,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 3,
         keywords: "Imperium,Astra Militarum,Officio Prefectus",
         abilities: [
@@ -203,7 +203,7 @@ export default {
         name: "Inquisitorial Acolyte",
         cost: 0,
         tier: 1,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 2,
         keywords: "Imperium,Inquisition,<ANY>,<Ordo>",
         abilities: [
@@ -225,7 +225,7 @@ export default {
         name: "Inquisitorial Adept",
         cost: 0,
         tier: 1,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 1,
         keywords: "Imperium,Inquisition,<Ordo>",
         abilities: [
@@ -247,7 +247,7 @@ export default {
         name: "Rogue Trader",
         cost: 40,
         tier: 2,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 2,
         keywords: "Imperium,Rogue Trader,<Dynasty>",
         keywordOption: "<Dynasty>",
@@ -272,7 +272,7 @@ export default {
         name: "Sanctioned Psyker",
         cost: 50,
         tier: 2,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 0,
         keywords: "Imperium,Adptus Astartes Telepathica,Psyker,Scholastica Psykana",
         abilities: [
@@ -309,7 +309,7 @@ export default {
         name: "Inquisitor",
         cost: 70,
         tier: 4,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 4,
         keywords: "Imperium,Inquisition,<Any>,<Ordo>",
         abilities: [
@@ -407,7 +407,7 @@ export default {
         name: "Skitarius",
         cost: 40,
         tier: 2,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 0,
         keywords: "Imperium,Adeptus Mechanicus,Skitarii,<Forge World>",
         abilities: [
@@ -429,7 +429,7 @@ export default {
         name: "Tech-Priest",
         cost: 60,
         tier: 3,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 2,
         keywords: "Imperium,Adeptus Mechanicus,Cult Mechanicus,<Forge World>",
         keywordOption: "<Forge World>",
@@ -453,7 +453,7 @@ export default {
         name: "Ganger",
         cost: 0,
         tier: 1,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 1,
         keywords: "Scum,<ANY>",
         keywordOption: "<Any>",
@@ -475,7 +475,7 @@ export default {
         name: "Scavvy",
         cost: 10,
         tier: 2,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: -1,
         abilities: [
           { name: 'Mutant', effect: 'The Scavvy may select one mutation (see Scavvy Mutations, ' +
@@ -497,7 +497,7 @@ export default {
         name: "Desperado",
         cost: 40,
         tier: 3,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 1,
         abilities: [
           { name: 'Valuable Prey', effect: 'Desperados receive +Rank for Cunning tests. They ' +
@@ -522,7 +522,7 @@ export default {
         name: "Cultist",
         cost: 0,
         tier: 1,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 2,
         keywords: "Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Any>",
         abilities: [
@@ -569,7 +569,7 @@ export default {
         name: "Heretek",
         cost: 60,
         tier: 2,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 1,
         keywords: "Chaos,Heretic,Adeptus Mechanicus,Dark Mechanicus",
         abilities: [
@@ -593,7 +593,7 @@ export default {
         key: "roguePsyker",
         name: "Rogue Psyker",
         group: "Renegades",
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         cost: 50,
         tier: 2,
         abilities: [
@@ -788,7 +788,7 @@ export default {
         name: "Scum Psyker",
         cost: 50,
         tier: 2,
-        species: "Human",
+        species: ["Human","Ogryn","Ratling"],
         influence: 0,
         keywords: "Imperium,Scum,Psyker",
         abilities: [

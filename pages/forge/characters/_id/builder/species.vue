@@ -140,6 +140,20 @@ export default {
     selectSpeciesForChar(species) {
       this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { value: species.name, cost: species.cost } });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: species.modifications, source: 'species' } });
+
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'species' });
+      if ( species.keywords.length > 0 ) {
+        species.keywords.forEach( keyword => {
+          const payload = {
+            name: keyword,
+            source: 'species',
+            type: 'keyword',
+            replacement: undefined,
+          };
+          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+        });
+      }
+
       this.speciesDialog = false;
       this.changeSpeciesMode = false;
     },
