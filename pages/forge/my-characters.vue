@@ -266,7 +266,7 @@ export default {
     },
     getAvatar(speciesLabel, archetypeLabel) {
 
-      if ( archetypeLabel !== undefined ) {
+      if ( archetypeLabel !== undefined && !['Ratling','Ogryn'].includes(speciesLabel) ) {
         const slug = archetypeLabel.toLowerCase().replace(/\s/gm, '-');
         return `/img/icon/archetype/archetype_${slug}_avatar.png`;
       }
