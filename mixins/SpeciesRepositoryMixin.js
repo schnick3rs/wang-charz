@@ -42,7 +42,7 @@ export default {
           keywords: ['Scum'],
           abilities: 'Abhuman,Born Sharpshooter,Conniving',
           hint: 'Half-man by name, but not by nature',
-          description: '',
+          description: 'Hailing from the planet of Anark Zeta and other such very high gravity worlds Ogryns are the heavy assault backbone of the Astra Militarum, usually attached to the various regiments of the Imperial Guard. These Abhumans are loyal, stalwart, brutal, and extremely strong. They are capable of shrugging off damage that would slaughter a human outright; in short, they make perfect assault and shock troopers when the Imperial Guard requires a heavy fist. Some Ogryns take this to heart, bearing shields and clubs to act as melee powerhouses, whilst many others use their prized (and heavily constructed) Ripper guns.',
           avatar: null,
           theme: null
         },
@@ -64,7 +64,7 @@ export default {
           keywords: [],
           abilities: 'Abhuman,Burly',
           hint: 'The brutal, eeh... human?',
-          description: '',
+          description: 'These small Abhumans are loud, lecherous, hungry, and always on the lookout for something to steal. They like to go into battle barefoot so they can feel the ground beneath their feet. They are often referred to as akin to a plague of rats, for a squad of these Ratlings can strip an Imperial Guard canteen bare in the time it takes the cook to call a squad to mess. Despite this, Ratlings are considered a valuable resource for the Astra Militarum.',
           avatar: null,
           theme: null
         },
