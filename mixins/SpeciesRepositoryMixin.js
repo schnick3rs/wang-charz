@@ -11,6 +11,7 @@ export default {
     return {
       speciesRepository: [
         {
+          key: "human",
           name: "Human",
           cost: 0,
           baseTier: 1,
@@ -18,7 +19,6 @@ export default {
           attributes: "None",
           modifications: [],
           abilities: null,
-          key: "human",
           hint: "The humble human",
           description: "Each human is just one of untold billions spread across the galaxy over millions of planets. Those in the Imperium live under the authority of the Emperor, but He has not stirred from His Golden Throne on Holy Terra for over ten thousand years. The remorseless government agencies of the Imperium use His authority to mercilessly rule Humanity according to their interpretations of the Emperor’s will. Every planet has its own culture and unique interpretations of the Imperium’s laws and sacred beliefs, but a few things are especially common.",
           avatar: null,
@@ -26,6 +26,7 @@ export default {
         },
         {
           name: "Ratling",
+          key: "ratling",
           cost: 15,
           baseTier: 1,
           speed: 5,
@@ -36,14 +37,34 @@ export default {
             { targetGroup: "attributes", targetValue: "agility", modifier: 1 },
           ],
           abilities: "Abhuman,Born Sharpshooter,Conniving",
-          key: "human",
           hint: "Half-man by name, but not by nature",
           description: "",
           avatar: null,
           theme: null
         },
         {
+          key: "ogryn",
+          name: "Ogryn",
+          cost: 15,
+          baseTier: 2,
+          speed: 4,
+          size: "Large",
+          attributes: "Strength +2, Toughness +2, Fellowship -1, Intellect -1",
+          modifications: [
+            { targetGroup: "attributes", targetValue: "strength", modifier: 2 },
+            { targetGroup: "attributes", targetValue: "toughness", modifier: 2 },
+            { targetGroup: "attributes", targetValue: "fellowship", modifier: -1 },
+            { targetGroup: "attributes", targetValue: "intellect", modifier: -1 },
+          ],
+          abilities: "Abhuman,Burly",
+          hint: "The brutal, eeh... human?",
+          description: "",
+          avatar: null,
+          theme: null
+        },
+        {
           name: "Eldar",
+          key: "eldar",
           cost: 10,
           baseTier: 1,
           speed: 8,
@@ -56,7 +77,6 @@ export default {
             }
           ],
           abilities: "Outsider,Intense Emotion,Psychosensitive",
-          key: "eldar",
           hint: "The filthy xenos",
           description: "The Aeldari ruled the galaxy for millions of years. During their rise to power, this species uncovered secrets of the galaxy’s very essence, learning to create and shatter entire worlds. They discovered and developed the webway, enabling them to quickly travel across the galaxy without the risk of warp travel. Their collective knowledge eventually reached the point that any drive to learn dampened, as they could accomplish virtually any task they could imagine. The longlived Aeldari existed in luxury, pursuing whatever interests drew their attention. Eventually, such leisure led to increasingly hedonistic pursuits that spread in cults across their entire population. Those moral failings, over time, coalesced within the warp, giving birth to Slaanesh.",
           avatar: null,
@@ -83,27 +103,8 @@ export default {
           theme: null
         },
         {
-          name: "Ogryn",
-          cost: 15,
-          baseTier: 2,
-          speed: 4,
-          size: "Large",
-          attributes: "Strength +2, Toughness +2, Fellowship -1, Intellect -1",
-          modifications: [
-            { targetGroup: "attributes", targetValue: "strength", modifier: 2 },
-            { targetGroup: "attributes", targetValue: "toughness", modifier: 2 },
-            { targetGroup: "attributes", targetValue: "fellowship", modifier: -1 },
-            { targetGroup: "attributes", targetValue: "intellect", modifier: -1 },
-          ],
-          abilities: "Abhuman,Burly",
-          key: "human",
-          hint: "The brutal, eeh... human?",
-          description: "",
-          avatar: null,
-          theme: null
-        },
-        {
           name: "Adeptus Astartes",
+          key: "adeptusAstartes",
           cost: 50,
           baseTier: 2,
           speed: 7,
@@ -115,7 +116,6 @@ export default {
             { targetGroup: "traits", targetValue: "resolve", modifier: 1 }
           ],
           abilities: "Angel of Death,Honour the Chapter,Space Marine Implants",
-          key: "adeptusAstartes",
           hint: "the sword of mankind",
           description: "Prior to launching the Great Crusade, the Emperor of Man created the Adeptus Astartes and assembled them into his legions. Each began as a mortal man, but a combination of genetic manipulations and physical implantations transformed each into a superhuman warrior—an Imperial Space Marine. The Emperor initially created twenty legions of Space Marines, each one containing vast numbers. All members of each of the twenty legions used a gene-seed developed from one of the twenty godlike Primarchs, whom the emperor also created. During the Great Crusade, Primarchs served as the generals of the Space Marine Legions, as the Emperor strove to reunify all lost human worlds, bringing the galaxy into Imperial Compliance.",
           avatar: null,
@@ -123,6 +123,7 @@ export default {
         },
         {
           name: "Primaris Astartes",
+          key: "primarisAstartes",
           cost: 100,
           baseTier: 4,
           speed: 7,
@@ -135,7 +136,6 @@ export default {
             { targetGroup: "traits", targetValue: "wound", modifier: 4 }
           ],
           abilities: "Angel of Death,Honour the Chapter (Primaris),Space Marine Implants",
-          key: "primarisAstartes",
           hint: "the new breed",
           description: "In the wake of the Horus Heresy, after completing the Codex Astartes, Primarch Roboute Guilliman decided that the Adeptus Astartes needed further enhancements to better defend the Imperium from outside threats—including those Space Marines who had turned traitor. He assigned the job of improving them to Archmagos Dominus Belisarius Cawl of the Adeptus Mechanicus. To aid the Tech-Priest, Guilliman provided him with an archive of genetic material taken from his fellow Primarchs, called the Sangprimus Portum.",
           avatar: null,
