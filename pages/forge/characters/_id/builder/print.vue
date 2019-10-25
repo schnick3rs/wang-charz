@@ -580,14 +580,16 @@ export default {
               if ( speciesAbilityName === 'Honour the Chapter' ) {
                 const chapter = this.astartesChapterRepository.find(a => a.name === this.speciesAstartesChapter) || [];
                 const traditions = chapter.beliefsAndTraditions;
-                traditions.forEach( t => {
-                  let tradition = {
-                    name: t.name,
-                    effect: t.effect,
-                    source: this.speciesAstartesChapter,
-                  };
-                  abilities.push(tradition);
-                });
+                if ( traditions !== undefined ) {
+                  traditions.forEach( t => {
+                    let tradition = {
+                      name: t.name,
+                      effect: t.effect,
+                      source: this.speciesAstartesChapter,
+                    };
+                    abilities.push(tradition);
+                  });
+                }
               } else {
                 const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
                 ability['source'] = this.species;
