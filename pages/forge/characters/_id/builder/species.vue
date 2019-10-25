@@ -140,6 +140,19 @@ export default {
     selectSpeciesForChar(species) {
       this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { value: species.name, cost: species.cost } });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: species.modifications, source: 'species' } });
+
+
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'species' });
+      if ( species.name === 'Ratling' ) {
+        const payload = {
+          name: 'Scum',
+          source: 'species',
+          type: 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+      }
+
       this.speciesDialog = false;
       this.changeSpeciesMode = false;
     },

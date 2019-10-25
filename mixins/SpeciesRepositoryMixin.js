@@ -25,6 +25,24 @@ export default {
           "theme": null
         },
         {
+          "name": "Ratling",
+          "cost": 15,
+          "baseTier": 1,
+          "speed": 5,
+          "size": "Small",
+          "attributes": "Agility +1, Strength -1",
+          "modifications": [
+            { "targetGroup": "attributes", "targetValue": "strength", "modifier": -1 },
+            { "targetGroup": "attributes", "targetValue": "agility", "modifier": 1 },
+          ],
+          "abilities": "Abhuman,Born Sharpshooter,Conniving",
+          "key": "human",
+          "hint": "Half-man by name, but not by nature",
+          "description": "",
+          "avatar": null,
+          "theme": null
+        },
+        {
           "name": "Eldar",
           "cost": 10,
           "baseTier": 1,
@@ -61,6 +79,26 @@ export default {
           "key": "ork",
           "hint": "The savage brute",
           "description": "Orks are ubiquitous throughout the galaxy. Their incomprehensible physiology and ecosystem is capable of actively proliferating in even the most hostile of environments—from ash wastes, to overgrown Death Worlds, to barren asteroids. Even a small tribe of a few dozen Orks can inexplicably grow into a force of tens of thousands in relatively short order. The biological mechanisms behind this growth and adaptability confound even the most accomplished scholars of the Adeptus Mechanicus. There are no consistent requirements for Orks to thrive within any climate. However, their functionality is clearly evident on the countless worlds they have subsumed.",
+          "avatar": null,
+          "theme": null
+        },
+        {
+          "name": "Ogryn",
+          "cost": 15,
+          "baseTier": 2,
+          "speed": 4,
+          "size": "Large",
+          "attributes": "Strength +2, Toughness +2, Fellowship -1, Intellect -1",
+          "modifications": [
+            { "targetGroup": "attributes", "targetValue": "strength", "modifier": 2 },
+            { "targetGroup": "attributes", "targetValue": "toughness", "modifier": 2 },
+            { "targetGroup": "attributes", "targetValue": "fellowship", "modifier": -1 },
+            { "targetGroup": "attributes", "targetValue": "intellect", "modifier": -1 },
+          ],
+          "abilities": "Abhuman,Burly",
+          "key": "human",
+          "hint": "The brutal, eeh... human?",
+          "description": "",
           "avatar": null,
           "theme": null
         },
@@ -133,6 +171,30 @@ export default {
           "key": null,
           "name": "Outsider",
           "effect": "+2DN to all Interaction tests with those with the Keyword <Imperium>.",
+          "description": null
+        },
+        {
+          "key": null,
+          "name": "Abhuman",
+          "effect": "+1DN to all interaction tests with characters possessing the Imperium keyword.",
+          "description": null
+        },
+        {
+          "key": null,
+          "name": "Burly",
+          "effect": " +2d to all Intimidation tests.",
+          "description": null
+        },
+        {
+          "key": null,
+          "name": "Born Sharpshooter",
+          "effect": " +2d to all Ballistic Skill tests.",
+          "description": null
+        },
+        {
+          "key": null,
+          "name": "Conniving",
+          "effect": "Ratlings begin play with the Scum keyword.",
           "description": null
         },
         {
