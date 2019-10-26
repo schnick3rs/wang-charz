@@ -458,7 +458,7 @@ export default {
   head() {
     return {
       //title: [this.name, this.species, this.archetype].join(' • '),
-      title: this.name,
+      title: this.characterName,
       //titleTemplate: '%s | W&G Character Sheet',
     };
   },
