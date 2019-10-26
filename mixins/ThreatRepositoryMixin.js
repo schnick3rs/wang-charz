@@ -1512,7 +1512,7 @@ export default {
             },
           ],
         },
-        /** Let The Galaxy Burn */
+        /** TODO Let The Galaxy Burn https://docs.google.com/document/d/1bdtobuS39XgY_7WJ0cbP5xzHMvozJh9gIgyf6K5nBvw/view */
         {
           source: {
             book: 'Let The Galaxy Burn',
@@ -1764,6 +1764,105 @@ export default {
             {
               name: 'Shoot and Stab',
               effect: 'Cultists take no penalty for a multi-action where they fire their pistol and stab with their knife in the same turn.',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Let The Galaxy Burn',
+            key: 'burnyGalax',
+            version: '',
+            page: '',
+          },
+          key: 'burnyGalaxBloodthirster',
+          name: 'Bloodthirster',
+          faction: 'Chaos',
+          classification: [
+            'Monstrous Creature',
+            'Monstrous Creature',
+            'Monstrous Creature',
+            'Monstrous Creature',
+            'Monstrous Creature',
+          ],
+          description: 'The ultimate embodiment of Khorne’s unflinching rage, a Bloodthirster charges into combat with a fervor only outstripped by its ferocity. Tearing through hordes of soldiers like a farmer reaps wheat, no amount of slaughter is enough for this juggernaut.',
+          attributes: {
+            strength: 10,
+            agility: 8,
+            toughness: 9,
+            intellect: 7,
+            willpower: 8,
+            fellowship: 6,
+            initiative: 10,
+          },
+          traits: {
+            defence: 6,
+            speed: 12,
+            wounds: 32,
+            shock: '-',
+            soak: 8,
+            resolve: '-',
+            conviction: '-',
+            passiveAwareness: 6,
+            resilience: { total: 18, armourRating: 8, armourName: 'Armour of Rage' },
+          },
+          skills: {
+            weaponSkill: 18,
+            default: 14,
+          },
+          size: 'Gargantuan',
+          sizeModifier: 3,
+          keywords: [
+            'Chaos',
+            'Daemon',
+            'Khorne',
+          ],
+          attacks: [
+            {
+              name: 'Hellfire',
+              type: 'ranged-weapon',
+              range: 16,
+              damage: { static: 12, ed: 1 },
+              ap: -1,
+              salvo: 1,
+              traits: [ 'Assault', 'Blaze', 'Blast (large)' ],
+            },
+            {
+              name: 'Great Axe of Khorne (Mighty Strikes)',
+              type: 'melee-weapon',
+              range: 1,
+              damage: { static: 28, ed: 4 },
+              ap: -4,
+              traits: [],
+            },
+            {
+              name: 'Great Axe of Khorne (Sweeping Blows)',
+              type: 'melee-weapon',
+              range: 1,
+              damage: { static: 14, ed: 1 },
+              ap: -2,
+              traits: [ 'Spread' ],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: 'Daemonic',
+              effect: 'This threat may attempt to Soak Mortal Wounds. Soaking does not cost any Shock for this threat.',
+            },
+            {
+              name: 'Fear (8)',
+              effect: 'This threat causes fear. Enemies are required to pass a Fear test (DN 8) to act normally.',
+            },
+            {
+              name: '(Wrath) Blood for the Blood God',
+              effect: 'If a Bloodthirster rolls a 6 on the Wrath dice when attacking with its weapons, any character that loses a wound from the attack also gains the Bleeding condition.',
+            },
+            {
+              name: 'Greater Daemon',
+              effect: 'All those with the Khorne keyword within 12 metres of a Bloodthirster (including itself) automatically pass Resolve or Fear tests.',
+            },
+            {
+              name: '(Ruin) Deathbringer',
+              effect: 'A Bloodthirster may spend a Ruin to activate this ability until the end of its turn. All exalted icons shifted to damage produce 2 ED each, rather than 1.',
             },
           ],
         },
