@@ -20,7 +20,6 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <v-btn icon nuxt to="/about"><v-icon>help</v-icon></v-btn>
       </v-toolbar-items>
 
     </v-app-bar>

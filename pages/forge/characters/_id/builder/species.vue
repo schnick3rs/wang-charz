@@ -8,6 +8,7 @@
 
     <v-dialog
       v-model="speciesDialog"
+      v-bind:fullscreen="$vuetify.breakpoint.xsOnly"
       width="600px"
       scrollable
     >
@@ -39,14 +40,14 @@
               <v-list-item-subtitle>{{item.hint}}</v-list-item-subtitle>
             </v-list-item-content>
 
-            <v-list-item-action >
+            <v-list-item-action class="d-none d-sm-inline">
               <v-chip pill color="green" text-color="white">
                 <v-avatar left class="green darken-4">{{item.cost}}</v-avatar>
                 BP
               </v-chip>
             </v-list-item-action>
 
-            <v-list-item-action>
+            <v-list-item-action class="d-none d-sm-inline">
               <v-chip pill color="red" text-color="white">
                 <v-avatar left class="red darken-4">{{item.baseTier}}</v-avatar>
                 Tier

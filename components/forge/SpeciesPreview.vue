@@ -110,7 +110,7 @@
         Cancel
       </v-btn>
       <v-spacer/>
-      <v-btn color="green" right @click="$emit('select', species);">
+      <v-btn color="success" right @click="$emit('select', species);">
         Select Species
       </v-btn>
     </v-card-actions>

@@ -77,7 +77,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-        <toolbar-account-actions></toolbar-account-actions>
+
       </v-toolbar-items>
 
     </v-app-bar>
@@ -160,7 +160,7 @@
         <v-btn tile small nuxt :to="linkNext" :disabled="linkCurrentIndex === 8">next<v-icon right small>chevron_right</v-icon></v-btn>
       </div>
       <v-spacer></v-spacer>
-      <span>&copy; {{ new Date().getFullYear() }} </span><span class="d-none d-md-block"> Doctors of Doom</span>
+      <span>&copy; {{ new Date().getFullYear() }}</span><span class="d-none d-md-block"> Doctors of Doom</span>
     </v-footer>
 
   </v-app>
