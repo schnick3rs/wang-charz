@@ -58,7 +58,7 @@ export default {
   },
   methods: {
     selectWargear(payload) {
-      this.$emit('input', payload.name);
+      this.$emit('input', payload);
       this.dialog = false;
     }
   },

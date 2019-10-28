@@ -74,7 +74,12 @@ export const getters = {
       return 0;
     }
     let spending = 0;
-    character.talents.forEach((talent) => { spending += talent.cost; });
+    character.talents.forEach( (talent) => {
+      spending += talent.cost;
+      if ( talent.extraCost ) {
+        spending += talent.extraCost;
+      }
+    });
     return spending;
   },
   characterAscensionCostsById: (state) => (id) => {
@@ -312,9 +317,11 @@ export const mutations = {
   // Talents
   addCharacterTalent(state, payload) {
     const character = state.characters[payload.id];
-    const hasTalent = character.talents.find(t => t.name === payload.name) !== undefined;
+    const talent = payload.talent;
+    const talentUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    const hasTalent = character.talents.find(t => t.name === talent.name) !== undefined;
     if (!hasTalent) {
-      character.talents.push({ name: payload.name, cost: payload.cost });
+      character.talents.push( { id: talentUniqueId, ...talent } );
     }
   },
   removeCharacterTalent(state, payload) {
@@ -323,6 +330,10 @@ export const mutations = {
     if (hasTalent) {
       character.talents = character.talents.filter(t => t.name !== payload.name);
     }
+  },
+  setCharacterTalentExtraCost(state, payload) {
+    const character = state.characters[payload.id];
+    character.talents.find(t => t.name === payload.name).extraCost = payload.extraCost;
   },
 
   // Wargear

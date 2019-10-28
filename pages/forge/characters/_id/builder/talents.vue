@@ -6,19 +6,89 @@
 
       <v-col v-bind:cols="12">
 
-        <v-card>
-          <v-card-text>
-            <v-chip
-              v-for="talent in characterTalents"
-              v-bind:key="talent.key"
-              close
-              @click:close="removeTalent(talent)"
-              class="mr-2"
-            >
-              {{talent}}
-            </v-chip>
-          </v-card-text>
-        </v-card>
+        <v-expansion-panels multiple>
+
+          <v-expansion-panel
+            v-for="talent in characterTalents"
+            v-bind:key="talent.key"
+          >
+
+            <v-expansion-panel-header>
+
+              <template v-slot:default="{ open }">
+
+                <v-row no-gutters>
+
+                  <v-col v-bind:cols="7" v-bind:sm="9" class="subtitle-1">
+                    <span v-if="talent.selected" v-html="talent.name.replace(/(<.*>)/, `<em>${talent.selected}</em>`)"></span>
+                    <span v-else>{{ talent.name }}</span>
+                  </v-col>
+                  <v-col v-bind:cols="1" v-bind:sm="1" ><v-chip label x-small >{{ talent.cost }} BP</v-chip></v-col>
+                  <v-col v-bind:cols="4" v-bind:sm="2" ><v-btn v-on:click.stop.prevent="removeTalent(talent.name)" color="error" x-small >remove</v-btn></v-col>
+
+                  <v-col v-if="!open" v-bind:cols="8" v-bind:sm="10"  class="caption grey--text">{{ talent.effect }}</v-col>
+
+                </v-row>
+
+              </template>
+
+            </v-expansion-panel-header>
+
+            <v-expansion-panel-content>
+
+              <p class="body-2">{{ talent.description }}</p>
+
+              <div v-if="talent.name === 'Hatred <Keyword>'">
+                <v-select
+                  v-model="talent.selected"
+                  v-bind:items="talentHatredKeywordOptions"
+                  item-text="name"
+                  item-value="name"
+                  label="Select a species or faction to hate with the blaze of a thousand suns"
+                  filled
+                  dense
+                ></v-select>
+              </div>
+
+              <div v-if="talent.name === 'Loremaster <Keyword>'">
+                <v-select
+                  v-model="talent.selected"
+                  v-bind:items="talentLoremasterKeywordOptions"
+                  item-text="name"
+                  item-value="name"
+                  label="Select a keyword, you know much about those dudes, like really much"
+                  filled
+                  dense
+                ></v-select>
+              </div>
+
+              <div v-if="talent.name === 'Augmetic <Specific Implants>'">
+                <wargear-select
+                  v-bind:item="talent.selected"
+                  v-bind:repository="wargearRepository.filter( gear => {
+                      const typeReq = ['Cybernetic'].includes(gear.type);
+                      const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(gear.rarity);
+                      return (typeReq && rarityReq);
+                    })"
+                  v-on:input="talent.selected = $event.name"
+                  class="mb-4"
+                ></wargear-select>
+
+              </div>
+              <div v-if="talent.name === 'Special Weapons Trooper'">
+                <wargear-select
+                  v-bind:item="talent.selected"
+                  v-bind:repository="wargearRepository.filter( gear => ['Combat Shotgun','Flamer','Hot-Shot Lasgun','Meltagun','Plasma Gun','Voss Pattern Grenade Launcher', 'Astartes Sniper Rifle'].includes(gear.name) )"
+                  v-on:input="talentSpecialWeaponTrooperUpdateWeaponChoice($event, 'weapon', talent)"
+                  class="mb-4"
+                ></wargear-select>
+              </div>
+
+            </v-expansion-panel-content>
+
+          </v-expansion-panel>
+
+        </v-expansion-panels>
 
       </v-col>
 
@@ -115,24 +185,28 @@
 </template>
 
 <script lang="js">
+import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 import IssueList from '~/components/IssueList.vue';
+import WargearSelect from '~/components/forge/WargearSelect.vue';
 
 export default {
   name: 'Talents',
   layout: 'forge',
   props: [],
-  mixins: [ StatRepositoryMixin ],
-  components: { IssueList },
+  mixins: [ KeywordRepositoryMixin, StatRepositoryMixin ],
+  components: { WargearSelect, IssueList },
   head() {
     return {
       title: 'Select Talents',
     }
   },
   async asyncData({ params, $axios, error }) {
-    const response = await $axios.get(`/api/talents/`);
+    const talentResponse = await $axios.get(`/api/talents/`);
+    const wargeaResponse = await $axios.get(`/api/wargear/`);
     return {
-      talentRepository: response.data,
+      talentRepository: talentResponse.data,
+      wargearRepository: wargeaResponse.data,
       characterId: params.id,
     };
   },
@@ -181,6 +255,7 @@ export default {
           sortable: false,
         },
       ],
+      talentDialog: false,
     };
   },
   computed: {
@@ -193,8 +268,42 @@ export default {
     characterSkills() {
       return this.$store.getters['characters/characterSkillsById'](this.characterId);
     },
-    characterTalents() {
+    characterTalentLabels() {
       return this.$store.getters['characters/characterTalentsById'](this.characterId).map( t => t.name );
+    },
+    characterWargear() {
+      return this.$store.getters['characters/characterWargearById'](this.characterId);
+    },
+    characterTalents() {
+      // { id, name, cost, selection}
+      const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
+
+      return characterTalents.map( talent => {
+        let enrichedTalent = this.talentRepository.find( r => r.name === talent.name);
+
+
+        // for each special talent, check respecivly
+
+        // Fetch gear for selected weapon trooper
+        if ( enrichedTalent.name === 'Special Weapons Trooper' ) {
+          const sourceKey = `talent.${enrichedTalent.id}`;
+          const gear = this.characterWargear.filter(gear => gear.source && gear.source.startsWith(sourceKey));
+          if ( gear && gear.length > 0 ) {
+            console.log(gear);
+            enrichedTalent.selected = gear[0].name;
+            /*
+            gear.forEach( g => {
+              characterPackage
+              .wargearOptions.find(o=>o.key === characterPackage.wargearChoice)
+              .selectList.find(s=> g.source.endsWith(s.key))
+                .itemChoice = g.name
+            });
+            */
+          }
+        }
+
+        return enrichedTalent;
+      });
     },
     filteredTalents() {
       if (this.talentRepository === undefined) {
@@ -204,7 +313,7 @@ export default {
       let filteredTalents = this.talentRepository;
 
       // exclude those already picked
-      filteredTalents = filteredTalents.filter(t => !this.characterTalents.includes(t.name));
+      filteredTalents = filteredTalents.filter(t => !this.characterTalentLabels.includes(t.name));
 
       filteredTalents = filteredTalents.map( talent => {
         let fulfilled = true;
@@ -283,13 +392,30 @@ export default {
     finalKeywords(){
       return this.$store.getters['characters/characterKeywordsFinalById'](this.$route.params.id);
     },
+    talentHatredKeywordOptions() {
+      return this.keywordRepository.filter( k => {
+        return k.placeholder === undefined && k.name.indexOf('<') !== 0
+      });
+    },
+    talentLoremasterKeywordOptions() {
+      return this.keywordRepository.filter( k => {
+        return k.name.indexOf('<') !== 0
+      });
+    },
   },
   methods: {
     isAffordable(cost) {
       return cost <= this.remainingBuildPoints;
     },
     addTalent(talent) {
-      this.$store.commit('characters/addCharacterTalent', { id: this.characterId, name: talent.name, cost: talent.cost });
+      const match = talent.name.match(/(<.*>)/);
+      const payload = {
+        name: talent.name,
+        cost: talent.cost,
+        placeholder: ( match !== null && match !== undefined ) ? match[1] : undefined,
+        selected: undefined,
+      };
+      this.$store.commit('characters/addCharacterTalent', { id: this.characterId, talent: payload });
     },
     removeTalent(talent) {
       this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent });
@@ -327,6 +453,25 @@ export default {
       });
 
       return texts;
+    },
+    /** Special Telent Selections */
+    talentSpecialWeaponTrooperUpdateWeaponChoice(wargear, itemKey, talent){
+
+      const payload = {
+        id: this.characterId,
+        name: wargear.name,
+        source: `talent.${talent.id}.${itemKey}`,
+      };
+      console.info(payload);
+      this.$store.commit('characters/addCharacterWargear', payload);
+
+      // We add the additional point costs to the talent
+      const talentPayload = {
+        id: this.characterId,
+        name: talent.name,
+        extraCost: wargear.value,
+      };
+      this.$store.commit('characters/setCharacterTalentExtraCost', talentPayload);
     },
   },
 };

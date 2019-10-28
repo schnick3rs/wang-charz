@@ -170,7 +170,7 @@
                 <wargear-select
                   :item="selectItem.itemChoice"
                   :repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
-                  @input="updateAscensionPackageWargearOptionChoice($event, selectItem.key, characterAscension)"
+                  @input="updateAscensionPackageWargearOptionChoice($event.name, selectItem.key, characterAscension)"
                   class="mb-4"
                 ></wargear-select>
 
