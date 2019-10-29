@@ -630,14 +630,17 @@ export default {
       return abilities;
     },
     talents() {
-      const talentLabels = this.$store.getters['characters/characterTalentsById'](this.characterId).map( t => t.name );
-      let talents = [];
-      talentLabels.forEach( talentName => {
-        const talent = this.talentRepository.find( t => t.name === talentName );
-        talent['source'] = undefined;
-        talents.push(talent);
+      const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
+      let finalTalents = [];
+      characterTalents.forEach( charTalent => {
+        const rawTalent = this.talentRepository.find( t => t.name === charTalent.name );
+        rawTalent['source'] = undefined;
+        if ( charTalent.selected ) {
+          rawTalent.name = rawTalent.name.replace(/(<.*>)/, `[${charTalent.selected}]`);
+        }
+        finalTalents.push(rawTalent);
       });
-      return talents;
+      return finalTalents;
     },
     wargear() {
       const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map( w => w.name );
