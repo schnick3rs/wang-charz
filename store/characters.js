@@ -154,28 +154,30 @@ export const getters = {
   characterSkillsById: (state) => (id) => {
     return state.characters[id] ? state.characters[id].skills : {};
   },
-  characterTraitsById: (state) => (id) => {
+  characterTraitsById: (state, getters) => (id) => {
     let character = state.characters[id];
+    let enhancedAttributes = getters.characterAttributesEnhancedById(id);
     if ( character === undefined ) {
       return {};
     }
 
     let traits = {};
-    traits['defence'] = character.attributes.initiative-1;
-    traits['resilience'] = character.attributes.toughness+1;
-    traits['soak'] = character.attributes.toughness;
-    traits['wounds'] = character.attributes.toughness+character.settingTier;
-    traits['shock'] = character.attributes.willpower+character.settingTier;
-    traits['resolve'] = character.attributes.willpower-1;
-    traits['conviction'] = character.attributes.willpower;
-    traits['passiveAwareness'] = Math.round((character.attributes.intellect+character.skills.awareness)/2);
+    traits['defence'] = enhancedAttributes.initiative-1;
+    traits['resilience'] = enhancedAttributes.toughness+1;
+    traits['soak'] = enhancedAttributes.toughness;
+    traits['wounds'] = enhancedAttributes.toughness + character.settingTier;
+    traits['shock'] = enhancedAttributes.willpower + character.settingTier;
+    traits['resolve'] = enhancedAttributes.willpower-1;
+    traits['conviction'] = enhancedAttributes.willpower;
+    const passiveAwarenessSum = enhancedAttributes.intellect + character.skills.awareness;
+    traits['passiveAwareness'] = Math.round(passiveAwarenessSum/2);
 
-    traits['influence'] = character.attributes.fellowship-1;
+    traits['influence'] = enhancedAttributes.fellowship-1;
     if ( character.species.value && character.species.value === 'Ork' ) {
-      traits['influence'] = character.attributes.strength-1;
+      traits['influence'] = enhancedAttributes.strength-1;
     }
     if ( character.archetype.value && character.archetype.value === 'Tech-Priest' ) {
-      traits['influence'] = character.attributes.intellect-1;
+      traits['influence'] = enhancedAttributes.intellect-1;
     }
 
     traits['wealth'] = character.settingTier;
