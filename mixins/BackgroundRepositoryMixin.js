@@ -25,7 +25,7 @@ export default {
               name: 'Wound',
               modifier: {
                 targetGroup: 'traits',
-                targetValue: 'wound',
+                targetValue: 'wounds',
                 modifier: 1,
                 hint: 'Origin as Background',
                 source: 'background.origin',
