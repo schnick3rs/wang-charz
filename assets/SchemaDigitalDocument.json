@@ -15,12 +15,6 @@
     "name": "English",
     "alternateName": "en"
   },
-  "isBasedOn": {
-    "@type": "Product",
-    "name": "Wrath & Glory Core Rules",
-    "image": "https://www.drivethrurpg.com/images/3444/249388.jpg",
-    "url": "https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules"
-  },
   "keywords": "Wrath & Glory",
   "url": "",
   "thumbnailUrl": "",
