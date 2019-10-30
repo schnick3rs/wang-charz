@@ -14,6 +14,7 @@
           :to="item.to"
           :disabled="item.disabled"
           :exact="item.exact"
+          :title="item.text"
         >
           <img v-if="item.to == '/'" src="/favicon-16x16.png" />
           {{ item.text }}
@@ -35,26 +36,26 @@
 
       <div class="mb-4">
         <h1 class="headline">{{ item.title }}</h1>
-        <span class="grey--text">{{ item.subtitle }}</span>
+        <h2 class="subtitle-2 grey--text">{{ item.subtitle }}</h2>
       </div>
 
       <v-row wrap>
 
         <v-col :cols="12" :sm="6">
 
-          <h2 class="title">Author</h2>
+          <h3 class="title">Author</h3>
           <p>
             {{ item.author }}
           </p>
 
           <div>
-            <h2 class="title">Version Info</h2>
+            <h3 class="title">Version Info</h3>
             <p>
               {{ item.status }} {{ item.version }}
             </p>
           </div>
 
-          <h2 class="title">Abstract</h2>
+          <h3 class="title">Abstract</h3>
           <p>
             {{ item.abstract }}
           </p>
@@ -117,6 +118,7 @@
   export default {
   components: {},
   head() {
+
     const itemSchema = {
       ...SchemaDigitalDocument,
       name: this.item.title,
@@ -128,7 +130,6 @@
       description: this.item.abstract,
       keywords: [...this.item.keywords, 'Wrath & Glory'].join(','),
     };
-
 
     const breadcrumbListSchema = {
       "@context": "https://schema.org",
@@ -143,12 +144,12 @@
       })
     };
 
-    const title = `${this.item.title} - ${this.item.keywords[0]} Homebrew`;
+    const title = `${this.item.title}`;
     const description = `${this.item.subtitle}. ${this.item.abstract}`;
     const image = this.item.thumbnail ? `https://www.doctors-of-doom.com${this.item.thumbnail}` : 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
 
     return {
-      titleTemplate: '%s | Vault',
+      titleTemplate: '%s | A Wrath & Glory Homebrew',
       title: title,
       meta: [
         { hid: 'description', name: 'description', content: description },
