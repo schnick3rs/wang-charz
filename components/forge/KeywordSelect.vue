@@ -3,8 +3,8 @@
   <div>
 
     <v-select
-      :value="value"
-      @input="$emit('input', $event)"
+      v-bind:value="value"
+      v-on:input="$emit('input', $event)"
       v-bind:label="label"
       v-bind:items="options"
       v-bind:hint="hint"

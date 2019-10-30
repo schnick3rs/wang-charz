@@ -21,7 +21,7 @@
             v-for="item in characterPowers"
             v-bind:key="item.name"
             v-bind:close="item.cost !== 0"
-            @click:close="removePower(item.name)"
+            v-on:click:close="removePower(item.name)"
             class="mr-2"          
           >
             {{item.name}}

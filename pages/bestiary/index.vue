@@ -3,17 +3,17 @@
 <div>
 
   <v-row justify="center">
-    <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
+    <v-col v-bind:cols="11" class="elevation-4 mb-2 pa-0 ma-0">
 
       <v-breadcrumbs
         v-bind:items="breadcrumbItems"
       >
         <template v-slot:item="{ item }">
           <v-breadcrumbs-item
-            :nuxt="true"
-            :to="item.to"
-            :disabled="item.disabled"
-            :exact="item.exact"
+            v-bind:nuxt="true"
+            v-bind:to="item.to"
+            v-bind:disabled="item.disabled"
+            v-bind:exact="item.exact"
           >
             <img v-if="item.to == '/'" src="/favicon-16x16.png" />
             {{ item.text }}
@@ -31,7 +31,7 @@
 
   <v-row justify="center">
 
-    <v-col :cols="11">
+    <v-col v-bind:cols="11">
       <v-card>
         <v-card-text>
 
@@ -64,7 +64,7 @@
 
             </v-col>
 
-            <v-col :cols="12" :sm="6">
+            <v-col v-bind:cols="12" v-bind:sm="6">
               <v-text-field
                 v-model="searchQuery"
                 filled
@@ -75,7 +75,7 @@
               ></v-text-field>
             </v-col>
 
-            <v-col :cols="12" :sm="6">
+            <v-col v-bind:cols="12" v-bind:sm="6">
               <v-select
                 v-model="contentFilter"
                 filled
@@ -86,12 +86,12 @@
                 deletable-chips
                 single-line
                 label="Filter by Content"
-                :items="contentOptions"
+                v-bind:items="contentOptions"
               >
               </v-select>
             </v-col>
 
-            <v-col :cols="12" :sm="6">
+            <v-col v-bind:cols="12" v-bind:sm="6">
 
               <v-slider
                 v-model="filterTier"
@@ -102,7 +102,7 @@
 
             </v-col>
 
-            <v-col :cols="12" :sm="6">
+            <v-col v-bind:cols="12" v-bind:sm="6">
               <v-select
                 v-model="factionFilterSelections"
                 v-bind:items="factionFilterOptions"
@@ -123,7 +123,7 @@
       </v-card>
     </v-col>
 
-    <v-col :cols="11">
+    <v-col v-bind:cols="11">
       <v-card>
         <v-data-table
           v-bind:headers="headers"
@@ -135,7 +135,7 @@
           item-key="key"
           show-expand
           hide-default-footer
-          :items-per-page="-1"
+          v-bind:items-per-page="-1"
         >
 
           <template v-slot:item.classification="{ item }">
@@ -163,12 +163,12 @@
 
           <template v-slot:item.keywords="{ item }">
             <v-chip-group multiple>
-              <v-chip v-for="keyword in item.keywords" :key="keyword" x-small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+              <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" x-small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
             </v-chip-group>
           </template>
 
           <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
+            <td v-bind:colspan="headers.length">
 
               <v-row justify="center">
 
@@ -350,7 +350,7 @@
                 <!-- Keywords -->
                 <v-col v-bind:cols="12">
                   <span>Keywords: </span>
-                  <v-chip v-for="keyword in item.keywords" :key="keyword" small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+                  <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
                 </v-col>
 
               </v-row>
@@ -363,7 +363,7 @@
       </v-card>
     </v-col>
 
-    <v-col :cols="11">
+    <v-col v-bind:cols="11">
 
       <v-card>
         <v-card-text>

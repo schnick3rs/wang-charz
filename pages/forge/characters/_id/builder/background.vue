@@ -99,7 +99,7 @@
 
     </v-col>
 
-     <issue-list :items="issues" />
+     <issue-list v-bind:items="issues" />
 
   </v-row>
 

@@ -12,7 +12,7 @@
               v-for="talent in characterTalents"
               v-bind:key="talent.key"
               close
-              @click:close="removeTalent(talent)"
+              v-on:click:close="removeTalent(talent)"
               class="mr-2"
             >
               {{talent}}
@@ -52,8 +52,8 @@
             v-bind:headers="headers"
             v-bind:items="filteredTalents"
             v-bind:search="searchQuery"
-            :page.sync="pagination.page"
-            @page-count="pagination.pageCount = $event"
+            v-bind:page.sync="pagination.page"
+            v-on:page-count="pagination.pageCount = $event"
             show-expand
             item-key="name"
             hide-default-footer
@@ -88,7 +88,7 @@
             </template>
 
             <template v-slot:expanded-item="{ headers, item }">
-              <td :colspan="headers.length">
+              <td v-bind:colspan="headers.length">
                 <p class="pt-4">{{ item.description }}</p>
               </td>
             </template>
@@ -99,14 +99,14 @@
 
           </v-data-table>
           <div class="text-xs-center pt-2">
-            <v-pagination v-model="pagination.page" :length="pagination.pageCount" />
+            <v-pagination v-model="pagination.page" v-bind:length="pagination.pageCount" />
           </div>
 
         </v-card>
 
       </v-col>
 
-      <issue-list :items="issues" />
+      <issue-list v-bind:items="issues" />
 
     </v-row>
 

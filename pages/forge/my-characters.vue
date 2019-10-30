@@ -138,7 +138,7 @@
 
     </v-col>
 
-    <v-col :cols="12">
+    <v-col v-bind:cols="12">
 
       <v-card>
         <v-card-text>

@@ -32,12 +32,12 @@
 
     <v-card>
       <v-data-table
-        :headers="headers"
-        :items="searchResult"
+        v-bind:headers="headers"
+        v-bind:items="searchResult"
         item-key="name"
-        :search="searchQuery"
-        :page.sync="pagination.page"
-        @page-count="pagination.pageCount = $event"
+        v-bind:search="searchQuery"
+        v-bind:page.sync="pagination.page"
+        v-on:page-count="pagination.pageCount = $event"
         hide-default-footer
         show-expand
       >
@@ -47,11 +47,11 @@
         </template>
 
         <template v-slot:item.action-add="{ item }">
-          <v-btn color="success" x-small @click="$emit('select', item)">add</v-btn>
+          <v-btn color="success" x-small v-on:click="$emit('select', item)">add</v-btn>
         </template>
 
         <template v-slot:expanded-item="{ headers, item }">
-          <td :colspan="headers.length">
+          <td v-bind:colspan="headers.length">
             <p class="mt-2">{{item.hint}}</p>
           </td>
         </template>
@@ -59,7 +59,7 @@
       </v-data-table>
 
       <div class="text-xs-center pt-2">
-        <v-pagination v-model="pagination.page" :length="pagination.pageCount" />
+        <v-pagination v-model="pagination.page" v-bind:length="pagination.pageCount" />
       </div>
     </v-card>
 

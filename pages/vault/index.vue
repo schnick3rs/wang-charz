@@ -3,17 +3,17 @@
 <div>
 
   <v-row justify="center">
-    <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
+    <v-col v-bind:cols="11" class="elevation-4 mb-2 pa-0 ma-0">
 
       <v-breadcrumbs
         v-bind:items="breadcrumbItems"
       >
         <template v-slot:item="{ item }">
           <v-breadcrumbs-item
-            :nuxt="true"
-            :to="item.to"
-            :disabled="item.disabled"
-            :exact="item.exact"
+            v-bind:nuxt="true"
+            v-bind:to="item.to"
+            v-bind:disabled="item.disabled"
+            v-bind:exact="item.exact"
           >
             <img v-if="item.to == '/'" src="/favicon-16x16.png" />
             {{ item.text }}
@@ -31,11 +31,11 @@
 
   <v-row justify="center">
 
-    <v-col :cols="11">
+    <v-col v-bind:cols="11">
       <v-card>
         <v-card-text>
           <v-row justify="center">
-            <v-col :cols="12" :sm="6">
+            <v-col v-bind:cols="12" v-bind:sm="6">
               <v-text-field
                 v-model="searchQuery"
                 filled
@@ -46,7 +46,7 @@
               ></v-text-field>
             </v-col>
 
-            <v-col :cols="12" :sm="6">
+            <v-col v-bind:cols="12" v-bind:sm="6">
               <v-select
                 filled
                 dense
@@ -57,7 +57,7 @@
                 deletable-chips
                 single-line
                 label="Filter by Content"
-                :items="contentOptions"
+                v-bind:items="contentOptions"
               >
               </v-select>
             </v-col>
@@ -66,7 +66,7 @@
       </v-card>
     </v-col>
 
-    <v-col :cols="11">
+    <v-col v-bind:cols="11">
       <v-card>
         <v-data-table
           v-bind:headers="headers"
@@ -107,40 +107,40 @@
           </template>
 
           <template v-slot:item.keywords="{ item }">
-            <v-chip v-for="keyword in item.keywords" :key="keyword" small class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+            <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" small class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
           </template>
 
           <template v-slot:item.actions="{ item }">
-            <v-btn small icon nuxt :to="'/vault/'+item.slug">
+            <v-btn small icon nuxt v-bind:to="'/vault/'+item.slug">
               <v-icon>chevron_right</v-icon>
             </v-btn>
           </template>
 
           <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
+            <td v-bind:colspan="headers.length">
 
               <v-row>
 
-                <v-col :cols="12" >
+                <v-col v-bind:cols="12" >
                   <h3 class="headline">{{ item.title }}</h3>
                   <span class="grey--text">{{ item.subtitle }}</span>
                 </v-col>
 
-                <v-col :cols="12" :md="8">
+                <v-col v-bind:cols="12" v-bind:md="8">
                     <p><strong>Author:</strong> {{ item.author }}</p>
                     <p>{{ item.abstract }}</p>
                      <p v-if="item.keywords">
-                      <v-chip v-for="keyword in item.keywords" :key="keyword">
+                      <v-chip v-for="keyword in item.keywords" v-bind:key="keyword">
                         {{ keyword }}
                       </v-chip>
                     </p>
                 </v-col>
 
-                <v-col :cols="12" :md="3" v-if="item.thumbnail && false">
+                <v-col v-bind:cols="12" v-bind:md="3" v-if="item.thumbnail && false">
                   <v-img v-bind:src="item.thumbnail" />
                 </v-col>
 
-                <v-col :cols="12" :md="4">
+                <v-col v-bind:cols="12" v-bind:md="4">
                     <strong>Topics:</strong>
                     <ul>
                       <li v-for="parts in item.topics" v-bind:key="parts">
@@ -152,8 +152,8 @@
               </v-row>
 
               <v-card-actions>
-                <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
-                <v-btn color="green" nuxt :to="'/vault/'+item.slug">Show Details</v-btn>
+                <v-btn color="primary" v-bind:href="item.url" target="_blank" v-on:click="trackEvent(item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
+                <v-btn color="green" nuxt v-bind:to="'/vault/'+item.slug">Show Details</v-btn>
               </v-card-actions>
 
             </td>
@@ -164,7 +164,7 @@
       </v-card>
     </v-col>
 
-    <v-col :cols="11">
+    <v-col v-bind:cols="11">
 
       <v-card>
         <v-card-text>

@@ -2,15 +2,15 @@
 
   <v-row justify="center">
 
-    <v-col :cols="12" :sm="6">
+    <v-col v-bind:cols="12" v-bind:sm="6">
 
       <h2 class="headline">Character</h2>
       <p>Some Notes on the character</p>
 
       <v-text-field
         label="Character Name"
-        :value="characterName"
-        @input="setCharacterName"
+        v-bind:value="characterName"
+        v-on:input="setCharacterName"
         dense
         filled
       ></v-text-field>
@@ -49,16 +49,16 @@
 
     </v-col>
 
-    <v-col :cols="12" :sm="6">
+    <v-col v-bind:cols="12" v-bind:sm="6">
 
       <h2 class="headline">Framework</h2>
       <p>Define your campaign framework.</p>
 
       <v-select
         label="Select a fitting tier"
-        :value="settingTier"
-        :items="tierSelect.options"
-        @change="setSettingTier"
+        v-bind:value="settingTier"
+        v-bind:items="tierSelect.options"
+        v-on:change="setSettingTier"
         dense filled
       ></v-select>
 
@@ -74,8 +74,8 @@
       <v-select
         v-if="false"
         label="Allowed Species"
-        :value="speciesRepository.map( s => s.name )"
-        :items="speciesRepository"
+        v-bind:value="speciesRepository.map( s => s.name )"
+        v-bind:items="speciesRepository"
         item-text="name"
         item-value="name"
         dense
@@ -90,7 +90,7 @@
       <v-select
         v-if="false"
         label="Excluded Archetypes"
-        :items="archetypeRepository"
+        v-bind:items="archetypeRepository"
         item-text="name"
         item-value="name"
         chips
@@ -128,7 +128,7 @@
       </div>
     </v-col>
 
-    <v-col :cols="12">
+    <v-col v-bind:cols="12">
 
     </v-col>
 
@@ -142,7 +142,7 @@
       v-bind:lg="2"
     >
       <v-card>
-        <v-img v-if="false" :src="item.cover" height="150" />
+        <v-img v-if="false" v-bind:src="item.cover" height="150" />
         <v-card-title primary-title>
           <h3 class="title">
             {{ item.name }}

@@ -130,7 +130,7 @@
         </v-data-table>
 
         <div class="text-center pt-2">
-          <v-pagination v-model="pagination.page" :length="pages" />
+          <v-pagination v-model="pagination.page" v-bind:length="pages" />
         </div>
       </v-card>
     </v-col>

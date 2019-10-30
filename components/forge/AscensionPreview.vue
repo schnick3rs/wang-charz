@@ -5,7 +5,7 @@
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Ascension</span>
       <v-spacer></v-spacer>
-      <v-icon dark @click="$emit('cancel')">close</v-icon>
+      <v-icon dark v-on:click="$emit('cancel')">close</v-icon>
     </v-card-title>
 
     <v-card-text class="pt-4">
@@ -42,10 +42,10 @@
 
         <v-row justify="center" no-gutters>
 
-          <v-col :cols="2" >
+          <v-col v-bind:cols="2" >
             <v-select
-              :items="[currentCharacterTier]"
-              :value="currentCharacterTier"
+              v-bind:items="[currentCharacterTier]"
+              v-bind:value="currentCharacterTier"
               label="Current Tier"
               dense
               disabled
@@ -53,7 +53,7 @@
             ></v-select>
           </v-col>
 
-          <v-col :cols="2" justify="center" style="text-align:center;">
+          <v-col v-bind:cols="2" justify="center" style="text-align:center;">
             <v-avatar size="32" color="primary" >
               <v-icon color="white">arrow_forward</v-icon>
             </v-avatar>
@@ -61,7 +61,7 @@
 
           <v-col cols="2">
             <v-select
-              :items="targetTierOptions"
+              v-bind:items="targetTierOptions"
               v-model="targetTier"
               dense
               label="Target Tier"
@@ -73,9 +73,9 @@
     </v-card-actions>
 
     <v-card-actions v-if="chooseMode">
-      <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-btn left outlined color="red" v-on:click="$emit('cancel')" >Cancel</v-btn>
       <v-spacer />
-      <v-btn right color="green" @click="$emit('select', item, targetTier)" >Select Package</v-btn>
+      <v-btn right color="green" v-on:click="$emit('select', item, targetTier)" >Select Package</v-btn>
     </v-card-actions>
 
   </v-card>

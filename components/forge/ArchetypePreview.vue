@@ -5,13 +5,13 @@
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Archetype</span>
       <v-spacer></v-spacer>
-      <v-icon dark @click="$emit('cancel')">close</v-icon>
+      <v-icon dark v-on:click="$emit('cancel')">close</v-icon>
     </v-card-title>
 
     <v-card-text class="pt-4">
 
       <div class="hidden-xs-only" style="float: right;">
-        <img :src="getAvatar(item.name)" style="width:96px" />
+        <img v-bind:src="getAvatar(item.name)" style="width:96px" />
       </div>
 
       <div style="width: 75%">
@@ -21,7 +21,7 @@
             v-if="manageMode"
             text outlined small
             color="primary"
-            @click="$emit('change')"
+            v-on:click="$emit('change')"
           >
             <v-icon left>settings</v-icon>
             change archetype
@@ -115,9 +115,9 @@
 
     <v-divider v-if="chooseMode"></v-divider>
     <v-card-actions v-if="chooseMode">
-      <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-btn left outlined color="red" v-on:click="$emit('cancel')" >Cancel</v-btn>
       <v-spacer />
-      <v-btn right color="green" @click="$emit('select', item)" >Select Archetype</v-btn>
+      <v-btn right color="green" v-on:click="$emit('select', item)" >Select Archetype</v-btn>
     </v-card-actions>
   </v-card>
 

@@ -3,17 +3,17 @@
 <div>
 
   <v-row justify="center">
-    <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
+    <v-col v-bind:cols="11" class="elevation-4 mb-2 pa-0 ma-0">
 
     <v-breadcrumbs
       v-bind:items="breadcrumbItems"
     >
       <template v-slot:item="{ item }">
         <v-breadcrumbs-item
-          :nuxt="true"
-          :to="item.to"
-          :disabled="item.disabled"
-          :exact="item.exact"
+          v-bind:nuxt="true"
+          v-bind:to="item.to"
+          v-bind:disabled="item.disabled"
+          v-bind:exact="item.exact"
         >
           <img v-if="item.to == '/'" src="/favicon-16x16.png" />
           {{ item.text }}
@@ -31,7 +31,7 @@
 
   <v-row justify="center">
 
-    <v-col :cols="8" >
+    <v-col v-bind:cols="8" >
 
       <div class="mb-4">
         <h1 class="headline">{{ item.title }}</h1>
@@ -40,7 +40,7 @@
 
       <v-row wrap>
 
-        <v-col :cols="12" :sm="6">
+        <v-col v-bind:cols="12" v-bind:sm="6">
 
           <h3 class="title">Author</h3>
           <p>
@@ -61,11 +61,11 @@
 
         </v-col>
 
-        <v-col :cols="12" :sm="3" v-if="item.thumbnail">
+        <v-col v-bind:cols="12" v-bind:sm="3" v-if="item.thumbnail">
           <v-img v-bind:src="item.thumbnail" />
         </v-col>
 
-        <v-col :cols="12" :sm="3">
+        <v-col v-bind:cols="12" v-bind:sm="3">
             <span class="subtitle-2">Topics / Content:</span>
           <ul>
             <li v-for="parts in item.topics" v-bind:key="parts">
@@ -75,13 +75,13 @@
 
         </v-col>
 
-        <v-col :cols="12" :sm="3" v-if="item.links && item.links.length > 0">
+        <v-col v-bind:cols="12" v-bind:sm="3" v-if="item.links && item.links.length > 0">
 
           <span class="subtitle-2">Support or follow the author:</span>
 
           <ul class="mb-4" v-if="item.links && item.links.length > 0">
-            <li v-for="link in item.links" :key="link.title">
-              <a class="mr-2" :href="link.url" target="_blank">{{ link.name }}</a>
+            <li v-for="link in item.links" v-bind:key="link.title">
+              <a class="mr-2" v-bind:href="link.url" target="_blank">{{ link.name }}</a>
             </li>
           </ul>
 
@@ -92,14 +92,14 @@
       <div>
         <p v-if="item.keywords">
           <span class="subtitle-2">Keywords / Tags:</span><br/>
-          <v-chip v-for="keyword in item.keywords" :key="keyword" class="mr-2">
+          <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" class="mr-2">
             {{ keyword }}
           </v-chip>
         </p>
       </div>
 
       <div>
-        <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">
+        <v-btn color="primary" v-bind:href="item.url" target="_blank" v-on:click="trackEvent(item.url)">
           View the document
           <v-icon right dark>launch</v-icon>
         </v-btn>

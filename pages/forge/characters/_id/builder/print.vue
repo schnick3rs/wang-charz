@@ -59,8 +59,8 @@
                 </v-toolbar>
 
                 <v-simple-table
-                  :headers="traitHeaders"
-                  :items="groupedTraits"
+                  v-bind:headers="traitHeaders"
+                  v-bind:items="groupedTraits"
                   dense
                 >
                   <tbody>
@@ -88,8 +88,8 @@
                 </v-simple-table>
 
                 <v-data-table v-if="false"
-                  :headers="traitHeaders"
-                  :items="traits.filter(i=>i.type === 'Combat')"
+                  v-bind:headers="traitHeaders"
+                  v-bind:items="traits.filter(i=>i.type === 'Combat')"
                   hide-footer
                   hide-actions
                 >
@@ -102,8 +102,8 @@
                 </v-data-table>
 
                 <v-data-table v-if="false"
-                  :headers="traitHeaders"
-                  :items="traits.filter(i=>i.type === 'Mental')"
+                  v-bind:headers="traitHeaders"
+                  v-bind:items="traits.filter(i=>i.type === 'Mental')"
                   hide-footer
                   hide-actions
                 >
@@ -116,8 +116,8 @@
                 </v-data-table>
 
                 <v-data-table v-if="false"
-                  :headers="traitHeaders"
-                  :items="traits.filter(i=>i.type === 'Social')"
+                  v-bind:headers="traitHeaders"
+                  v-bind:items="traits.filter(i=>i.type === 'Social')"
                   hide-footer
                   hide-actions
                 >
@@ -233,8 +233,8 @@
               </v-toolbar>
 
               <v-data-table
-                :headers="weaponHeaders"
-                :items="weapons"
+                v-bind:headers="weaponHeaders"
+                v-bind:items="weapons"
                 hide-default-footer
               >
                 <template v-slot:item="{ item }">
@@ -331,8 +331,8 @@
               </v-toolbar>
 
               <v-data-table
-                :headers="psychicPowersHeaders"
-                :items="psychicPowers"
+                v-bind:headers="psychicPowersHeaders"
+                v-bind:items="psychicPowers"
                 hide-default-footer
               >
                 <template v-slot:item="{ item }">

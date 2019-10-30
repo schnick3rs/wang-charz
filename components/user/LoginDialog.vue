@@ -32,7 +32,7 @@
             v-bind:append-icon="showPassword ? 'visibility' : 'visibility_off'"
             v-bind:type="showPassword ? 'text' : 'password'"
             v-bind:rules="[rules.required]"
-            @click:append="showPassword = !showPassword"
+            v-on:click:append="showPassword = !showPassword"
             label="Password"
             persistent-hint
           ></v-text-field>

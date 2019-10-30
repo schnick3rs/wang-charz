@@ -7,18 +7,18 @@
   >
         <v-col
           v-for="section in sections.filter(i=>i.isActive)"
-          :key="section.key"
-          :cols="12"
-          :sm="6"
-          :md="5"
-          :lg="5"
+          v-bind:key="section.key"
+          v-bind:cols="12"
+          v-bind:sm="6"
+          v-bind:md="5"
+          v-bind:lg="5"
           class="pa-3"
         >
 
-          <v-card class="card" exact nuxt :to="section.link.route" hover>
+          <v-card class="card" exact nuxt v-bind:to="section.link.route" hover>
 
             <div class="card__image-container">
-              <div class="card__image" :style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading></div>
+              <div class="card__image" v-bind:style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading></div>
             </div>
 
             <div class="card__content-container pa-4">

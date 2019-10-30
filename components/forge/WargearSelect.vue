@@ -10,8 +10,8 @@
       <v-card>
         <v-card-text class="mt-4">
           <wargear-search
-            :repository="repository"
-            @select="selectWargear"
+            v-bind:repository="repository"
+            v-on:select="selectWargear"
           />
         </v-card-text>
       </v-card>
@@ -24,7 +24,7 @@
         right
         small
         color="info"
-        @click.stop="dialog = true"
+        v-on:click.stop="dialog = true"
       >Select item</v-btn>
         <span class="ml-4">{{ item }}</span>
       </v-card-text>

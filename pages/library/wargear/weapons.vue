@@ -2,7 +2,7 @@
 
   <div>
 
-    <dod-default-breadcrumbs :items="breadcrumbItems" />
+    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
 
   <v-row justify="center">
 
@@ -10,7 +10,7 @@
       <v-card>
         <v-card-text>
           <v-row justify-center row wrap>
-            <v-col v-bind:cols="12" :xs="6">
+            <v-col v-bind:cols="12" v-bind:xs="6">
               <v-text-field
                 v-model="searchQuery"
                 box
@@ -67,7 +67,7 @@
         </v-data-table>
 
         <div class="text-center pt-2">
-          <v-pagination v-model="pagination.page" :length="pages" />
+          <v-pagination v-model="pagination.page" v-bind:length="pages" />
         </div>
       </v-card>
     </v-col>

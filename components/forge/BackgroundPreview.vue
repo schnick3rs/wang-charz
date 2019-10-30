@@ -26,9 +26,9 @@
     <v-divider /> 
 
     <v-card-actions v-if="chooseMode">      
-      <v-btn left outlined color="red" @click="$emit('cancel')" >Cancel</v-btn>
+      <v-btn left outlined color="red" v-on:click="$emit('cancel')" >Cancel</v-btn>
       <v-spacer />
-      <v-btn right color="green" @click="$emit('select', item)" >Select Background</v-btn>
+      <v-btn right color="green" v-on:click="$emit('select', item)" >Select Background</v-btn>
     </v-card-actions>
 
   </v-card>

@@ -7,8 +7,8 @@
       dark
       dense
       style="background-color: #212121;"
-      :fixed="toolbar.fixed"
-      :clipped-left="toolbar.clippedLeft"
+      v-bind:fixed="toolbar.fixed"
+      v-bind:clipped-left="toolbar.clippedLeft"
     >
 
       <v-toolbar-items>

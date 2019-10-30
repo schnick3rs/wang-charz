@@ -21,12 +21,12 @@
       <h1 class="headline">Select an Archetype</h1>
 
       <v-alert
-        :value="!characterSpeciesLabel"
+        v-bind:value="!characterSpeciesLabel"
         type="warning"
       >You need to select a Species first.</v-alert>
     </v-col>
 
-    <v-col :cols="12" v-if="!characterArchetype || changeMode">
+    <v-col v-bind:cols="12" v-if="!characterArchetype || changeMode">
       <v-text-field
         solo
         placeholder="Search..."
@@ -36,13 +36,13 @@
       ></v-text-field>
     </v-col>
 
-    <v-col :cols="12" v-if="!characterArchetype || changeMode">
+    <v-col v-bind:cols="12" v-if="!characterArchetype || changeMode">
 
       <v-card v-if="loaded">
 
         <div
           v-for="(group, key) in archetypeGroups"
-          :key="key"
+          v-bind:key="key"
         >
 
           <v-divider></v-divider>
@@ -54,13 +54,13 @@
             <v-list-item
               two-line
               v-for="item in archetypesByGroup(group)"
-              :key="item.key"
-              @click.stop="updatePreview(item)"
-              :disabled="!item.species.includes(characterSpeciesLabel) || item.tier > settingTier"
+              v-bind:key="item.key"
+              v-on:click.stop="updatePreview(item)"
+              v-bind:disabled="!item.species.includes(characterSpeciesLabel) || item.tier > settingTier"
             >
 
               <v-list-item-avatar tile>
-                <img :src="getAvatar(item.name)">
+                <img v-bind:src="getAvatar(item.name)">
               </v-list-item-avatar>
 
               <v-list-item-content>
@@ -95,7 +95,7 @@
 
     </v-col>
 
-    <v-col :cols="12" v-if="characterArchetype && !changeMode">
+    <v-col v-bind:cols="12" v-if="characterArchetype && !changeMode">
 
       <archetype-preview
         v-bind:characterId="characterId"
