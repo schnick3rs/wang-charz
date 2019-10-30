@@ -14,7 +14,6 @@
           :to="item.to"
           :disabled="item.disabled"
           :exact="item.exact"
-          :title="item.text"
         >
           <img v-if="item.to == '/'" src="/favicon-16x16.png" />
           {{ item.text }}
