@@ -367,7 +367,7 @@
 
       <v-card>
         <v-card-text>
-          <h1 class="headline">Search the Vault for precious, fan-made hombrews</h1>
+          <h1 class="headline">Search the bestiary for homebrew threats to enrich your Wrath and Glory Campaign</h1>
           <p>
             Using the same threats within your Wrath and Glory campaign over and over?
             Never leave your players bored again! search throu this growing collection of adversaries
