@@ -45,7 +45,7 @@
                 v-bind:value="factionFilterSelections"
               >
                 <v-slide-item
-                  v-for="faction in factionFilterOptions"
+                  v-for="faction in filterFactionOptions"
                   v-bind:key="faction.key"
                   v-slot:default="{ active, toggle }"
                 >
@@ -77,7 +77,8 @@
 
             <v-col v-bind:cols="12" v-bind:sm="6">
               <v-select
-                v-model="contentFilter"
+                v-model="filterSourceModel"
+                v-bind:items="filterSourceOptions"
                 filled
                 dense
                 clearable
@@ -85,8 +86,7 @@
                 chips
                 deletable-chips
                 single-line
-                label="Filter by Content"
-                v-bind:items="contentOptions"
+                label="Filter by Source/Homebrew"
               >
               </v-select>
             </v-col>
@@ -98,6 +98,7 @@
                 label="Set Campaign Tier"
                 min="0"
                 max="5"
+                thumb-label="always"
               ></v-slider>
 
             </v-col>
@@ -105,7 +106,7 @@
             <v-col v-bind:cols="12" v-bind:sm="6">
               <v-select
                 v-model="factionFilterSelections"
-                v-bind:items="factionFilterOptions"
+                v-bind:items="filterFactionOptions"
                 label="Filter by Content"
                 filled
                 dense
@@ -161,7 +162,7 @@
             </v-chip-group>
           </template>
 
-          <template v-slot:item.keywords="{ item }">
+          <template v-if="false" v-slot:item.keywords="{ item }">
             <v-chip-group multiple>
               <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" x-small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
             </v-chip-group>
@@ -277,6 +278,10 @@
                   <h4 class="title-1">Attacks</h4>
 
                   <div>
+                    <p v-html="item.attackOptions"></p>
+                  </div>
+
+                  <div>
 
                     <v-simple-table dense>
 
@@ -302,7 +307,8 @@
                           >
                             <td class="text-left">{{ attack.name }}</td>
                             <td class="text-center">
-                              <span>{{ attack.range }} m</span>
+                              <span v-if="attack.range === 1">melee</span>
+                              <span v-else>{{ attack.range }} m</span>
                             </td>
                             <td class="text-center">
                               <div v-if="attack.damage">
@@ -328,6 +334,10 @@
                       </template>
                     </v-simple-table>
 
+                  </div>
+
+                  <div v-if="item.weaponTraits" v-for="weaponTrait in item.weaponTraits" class="pt-2">
+                    <p><strong>{{ weaponTrait.name }}:</strong> {{ weaponTrait.effect }}</p>
                   </div>
 
                 </v-col>
@@ -435,7 +445,8 @@ export default {
       settingFilter: [],
       contentFilter: [],
       factionFilterSelections: [],
-      filterTier: 3,
+      filterSourceModel: [],
+      filterTier: 0,
       pagination: {
         sortBy: 'title',
         rowsPerPage: -1,
@@ -449,9 +460,6 @@ export default {
         },
         {
           text: 'Faction', align: 'left', value: 'faction', class: '',
-        },
-        {
-          text: 'Keywords', align: 'left', value: 'keywords', class: '',
         },
         {
           text: 'Source', align: 'left', value: 'source.book', class: '',
@@ -491,8 +499,12 @@ export default {
       return null;
       //return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
     },
-    factionFilterOptions() {
+    filterFactionOptions() {
       let options = this.items.map( i => i.faction );
+      return [...new Set(options)].sort();
+    },
+    filterSourceOptions() {
+      let options = this.items.map(i => i.source.book);
       return [...new Set(options)].sort();
     },
     contentOptions() {
@@ -501,6 +513,10 @@ export default {
     },
     searchResults() {
       let filteredResults = this.items;
+
+      if (this.filterSourceModel.length > 0) {
+        filteredResults = filteredResults.filter( i => this.filterSourceModel.includes(i.source.book) );
+      }
 
       if (this.factionFilterSelections.length > 0) {
         filteredResults = filteredResults.filter( i => this.factionFilterSelections.includes(i.faction) );

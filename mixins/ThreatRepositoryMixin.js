@@ -1512,6 +1512,274 @@ export default {
             },
           ],
         },
+        /** Javelin's Tyranid Bestiary */
+        {
+          source: {
+            book: 'Javelin\'s Tyranid Bestiary',
+            key: 'javelinTyranids',
+            version: '',
+            page: '',
+          },
+          key: 'javelinTyranidsTyranidHormagant',
+          name: 'Tyranid Hormagant',
+          faction: 'Tyranids',
+          classification: [
+            'Troops',
+            'Troops',
+            'Troops',
+            'Troops',
+            'Troops',
+          ],
+          description: '',
+          attributes: {
+            strength: 4,
+            agility: 3,
+            toughness: 3,
+            intellect: 2,
+            willpower: 4,
+            fellowship: 1,
+            initiative: 4,
+          },
+          traits: {
+            defence: 3,
+            speed: 8,
+            wounds: 4,
+            shock: 4,
+            soak: 3,
+            resolve: 2,
+            conviction: 3,
+            passiveAwareness: 3,
+            resilience: {
+              total: 7,
+              armourRating: 3,
+              armourName: 'Chitin'
+            },
+          },
+          skills: {
+            athletics: 7,
+            weaponSkill: 6,
+            default: 5,
+          },
+          size: 'Average',
+          sizeModifier: 0,
+          keywords: [
+            'Tyranid',
+            '<Hive Fleet>',
+          ],
+          attacks: [
+            {
+              name: 'Scything Talons',
+              type: 'melee-weapon',
+              range: 1,
+              damage: { static: 7, ed: 1 },
+              ap: 0,
+              traits: ['Penetrating (1)'],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: '(Mob) Brood Mind',
+              effect: 'Whilst in a mob, Hormagaunts gain +3d to Resolve tests while they are within 20 meters of a Genestealer or any other Tyranid with the Synapse Creature keyword.',
+            },
+            {
+              name: 'Bounding Leap',
+              effect: 'Hormagaunts double their movement characteristic when using the Charge action.',
+            },
+            {
+              name: 'Instinctive Behaviour (Feed)',
+              effect: 'A Hormagaunt that is further away than 1KM from a Genestealer or any other Tyranid with the Synapse Creature keyword, or otherwise cut from the Hivemind will start feeding on whatever is nearby, attacking only to defend itself.',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Javelin\'s Tyranid Bestiary',
+            key: 'javelinTyranids',
+            version: '',
+            page: '',
+          },
+          key: 'javelinTyranidsTyranidTermagant',
+          name: 'Tyranid Termagant',
+          faction: 'Tyranids',
+          classification: [
+            'Troops',
+            'Troops',
+            'Troops',
+            'Troops',
+            'Troops',
+          ],
+          description: '',
+          attributes: {
+            strength: 3,
+            agility: 4,
+            toughness: 2,
+            intellect: 2,
+            willpower: 4,
+            fellowship: 1,
+            initiative: 3,
+          },
+          traits: {
+            defence: 2,
+            speed: 8,
+            wounds: 4,
+            shock: 4,
+            soak: 2,
+            resolve: 2,
+            conviction: 3,
+            passiveAwareness: 3,
+            resilience: {
+              total: 6,
+              armourRating: 3,
+              armourName: 'Chitin'
+            },
+          },
+          skills: {
+            ballisticSkill: 6,
+            default: 5,
+          },
+          size: 'Average',
+          sizeModifier: 0,
+          keywords: [
+            'Tyranid',
+            '<Hive Fleet>',
+          ],
+          attackOptions: 'Termagants are equipped with a <strong>Fleshborer</strong> and <strong>Claws and Teeth</strong>.',
+          attacks: [
+            {
+              name: 'Fleshborer',
+              type: 'ranged-weapon',
+              range: 20,
+              damage: { static: 7, ed: 1 },
+              ap: 0,
+              salvo: 1,
+              traits: ['Assault (1)'],
+            },
+            {
+              name: 'Claws and Teeth',
+              type: 'melee-weapon',
+              range: 1,
+              damage: { static: 5, ed: 1 },
+              ap: 0,
+              traits: [],
+            },
+            {
+              name: 'Strangleweb Cannon',
+              type: 'ranged-weapon',
+              range: 20,
+              damage: { static: 5, ed: 1 },
+              ap: 0,
+              salvo: 1,
+              traits: ['Blast (Medium)', 'Strangleweb'],
+            },
+          ],
+          weaponTraits: [
+            {
+              name: 'Strangleweb',
+              effect: 'Furthermore when a target is hit by this attack they are Restrained until they succeed on a DN 3 Strength test. At the start of the target´s turn they take 1d3+1 Shock damage from the web tightening around them.'
+            }
+          ],
+          specialAbilities: [
+            {
+              name: '(Mob) Brood Mind',
+              effect: 'Whilst in a mob, Termagants gain +3d to Resolve tests while they are within 20 meters of a Genestealer or any other Tyranid with the Synapse Creature keyword.',
+            },
+            {
+              name: 'Instinctive Behaviour (Lurk)',
+              effect: 'A Termagaunt that is further away than 1KM from a Genestealer or any other Tyranid with the Synapse Creature keyword, or otherwise cut from the Hivemind will turn from combat and actively seek out a shelter to hide in, attacking only to defend itself.',
+            },
+            {
+              name: '(Mob) Strangleweb',
+              effect: 'Occasionally Termagaunts are equipped with debilitating weaponry in order to capture live specimen for gene-splicing and dissecting. In a mob of at least 10 Termagaunts you may replace one´s Fleshborer with a Strangleweb Cannon.',
+            },
+          ],
+        },
+        {
+          source: {
+            book: 'Javelin\'s Tyranid Bestiary',
+            key: 'javelinTyranids',
+            version: '',
+            page: '',
+          },
+          key: 'javelinTyranidsTyranidRipperSwarm',
+          name: 'Tyranid Ripper Swarm',
+          faction: 'Tyranids',
+          classification: [
+            'Troops',
+            'Troops',
+            'Troops',
+            'Troops',
+            'Troops',
+          ],
+          description: '',
+          attributes: {
+            strength: 3,
+            agility: 3,
+            toughness: 2,
+            intellect: 1,
+            willpower: 4,
+            fellowship: 1,
+            initiative: 5,
+          },
+          traits: {
+            defence: 4,
+            speed: 6,
+            wounds: 3,
+            shock: 4,
+            soak: 2,
+            resolve: 2,
+            conviction: 3,
+            passiveAwareness: 3,
+            resilience: {
+              total: 6,
+              armourRating: 3,
+              armourName: 'Chitin'
+            },
+          },
+          skills: {
+            athletics: 6,
+            stealth: 7,
+            weaponSkill: 4,
+            default: 2,
+          },
+          size: 'Small (Swarm of 10 Rippers)',
+          sizeModifier: -1,
+          keywords: [
+            'Tyranid',
+            '<Hive Fleet>',
+          ],
+          attacks: [
+            {
+              name: 'Claws and Teeth',
+              type: 'melee-weapon',
+              range: 1,
+              damage: { static: 5, ed: 1 },
+              ap: 0,
+              traits: [],
+            },
+          ],
+          specialAbilities: [
+            {
+              name: '(Mob) Brood Mind',
+              effect: 'Whilst in a mob, Ripper Swarms gain +3d to Resolve tests while they are within 20 meters of a Genestealer or any other Tyranid with the Synapse Creature keyword.',
+            },
+            {
+              name: 'Fearless',
+              effect: 'Ripper Swarms are immune to Fear and Pinned effects.',
+            },
+            {
+              name: 'Swarm',
+              effect: 'This creature uses its minute form and large numbers to overpower their foe. They are immune to Prone and Restrained effects but their tight grouping makes them ideal targets for ordnance and flame. Any attack targeting a Swarm that has an area of effect affects a number of targets one size category greater than listed on the weapon´s profile.',
+            },
+            {
+              name: 'Instinctive Behaviour (Feed)',
+              effect: 'A Ripper Swarm that is further away than 1KM from a Genestealer or any other Tyranid with the Synapse Creature keyword, or otherwise cut from the Hivemind will start feeding on whatever is nearby, attacking only to defend itself.',
+            },
+            {
+              name: 'Tunnel Swarm',
+              effect: 'As an action on its turn this creature can tunnel under the ground, becoming invisible to the naked eye. While underground it cannot use the Sprint action. As an action while tunneling it can emerge from the ground.',
+            },
+          ],
+        },
         /** TODO Let The Galaxy Burn https://docs.google.com/document/d/1bdtobuS39XgY_7WJ0cbP5xzHMvozJh9gIgyf6K5nBvw/view */
         {
           source: {
