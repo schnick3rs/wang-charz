@@ -4,92 +4,178 @@
 
     <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
 
-  <v-row justify="center">
+    <v-row justify="center">
 
-    <v-col v-bind:cols="11">
-      <v-card>
-        <v-card-text>
-          <v-row justify-center row wrap>
-            <v-col v-bind:cols="12" v-bind:xs="6">
-              <v-text-field
-                v-model="searchQuery"
-                box
-                dense
-                clearable
-                label="Search"></v-text-field>
-            </v-col>
+      <v-col v-bind:cols="11">
 
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-col>
+        <v-card>
 
-    <v-col v-bind:cols="11">
-      <v-card>
-        <v-data-table
-          v-bind:headers="headers"
-          v-bind:items="weapons"
-          v-bind:pagination.sync="pagination"
-          v-bind:expand="expand"
-          v-bind:search="searchQuery"
-          disable-initial-sort
-          item-key="title"
-          hide-actions
-        >
-          <template v-slot:item="{ item }">
-            <tr>
-              <td>{{ item.name }}</td>
-              <td>{{ item.subtype }}</td>
-              <td class="text-sm-center">
-                <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                  <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static }}*</span>
-                  <span v-else>{{ item.meta[0].damage.static }}</span>
-                  <span> + </span>
-                  <span>{{ item.meta[0].damage.ed }} ED</span>
-                </div>
-              </td>
-              <td class="text-sm-center">
-                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
-              </td>
-              <td class="text-sm-center">
-                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo }}</span>
-              </td>
-              <td class="text-sm-center">
-                <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].range }} m</span>
-              </td>
-              <td>
-                <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
-              </td>
-              <td>{{ item.keywords.join(', ') }}</td>
-            </tr>
-          </template>
+          <v-card-text>
 
-        </v-data-table>
+            <v-row justify-center row wrap>
 
-        <div class="text-center pt-2">
-          <v-pagination v-model="pagination.page" v-bind:length="pages" />
-        </div>
-      </v-card>
-    </v-col>
+              <v-col v-bind:cols="12" v-bind:xs="6">
 
-    <v-col v-bind:cols="12">
+                <v-text-field
+                  v-model="searchQuery"
+                  filled
+                  dense
+                  clearable
+                  label="Search"></v-text-field>
 
-      <v-card>
-        <v-card-text>
-        </v-card-text>
-      </v-card>
+              </v-col>
 
-    </v-col>
-  </v-row>
+              <v-col v-bind:cols="4">
+                <v-select
+                  v-model="filters.subtype.model"
+                  v-bind:items="filtersSubtypeOptions"
+                  v-bind:label="filters.subtype.label"
+                  filled
+                  dense
+                  clearable
+                  multiple
+                  chips
+                  deletable-chips
+                  single-line
+                >
+                </v-select>
+              </v-col>
+
+              <v-col v-bind:cols="4">
+                <v-select
+                  v-model="filters.traits.model"
+                  v-bind:items="filterTraitsOptions"
+                  v-bind:label="filters.traits.label"
+                  filled
+                  dense
+                  clearable
+                  multiple
+                  chips
+                  deletable-chips
+                  single-line
+                >
+                </v-select>
+              </v-col>
+
+              <v-col v-bind:cols="4">
+                <v-select
+                  v-model="filters.keywords.model"
+                  v-bind:items="filterKeywordsOptions"
+                  v-bind:label="filters.keywords.label"
+                  filled
+                  dense
+                  clearable
+                  multiple
+                  chips
+                  deletable-chips
+                  single-line
+                >
+                </v-select>
+
+              </v-col>
+
+              <v-col v-bind:cols="12">
+
+                <v-chip-group
+                  v-model="filters.subtype.model"
+                  active-class="primary--text"
+                  column
+                  multiple
+                >
+
+                  <v-chip
+                    v-for="filter in filtersSubtypeOptions"
+                    v-bind:key="filter"
+                    v-bind:value="filter"
+                    filter
+                    small
+                    label
+                  >
+                    {{filter}}
+                  </v-chip>
+
+                </v-chip-group>
+
+              </v-col>
+
+            </v-row>
+
+          </v-card-text>
+
+        </v-card>
+
+      </v-col>
+
+      <v-col v-bind:cols="11">
+        <v-card>
+          <v-data-table
+            v-bind:headers="headers"
+            v-bind:items="searchResults"
+            v-bind:page.sync="pagination.page"
+            v-bind:search="searchQuery"
+            v-on:page-count="pagination.pageCount = $event"
+            item-key="name"
+            sort-by="name"
+            hide-default-footer
+          >
+            <template v-slot:item="{ item }">
+              <tr>
+                <td>{{ item.name }}</td>
+                <td>{{ item.subtype }}</td>
+                <td class="text-sm-center">
+                  <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
+                    <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static }}*</span>
+                    <span v-else>{{ item.meta[0].damage.static }}</span>
+                    <span> + </span>
+                    <span>{{ item.meta[0].damage.ed }} ED</span>
+                  </div>
+                </td>
+                <td class="text-sm-center">
+                  <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
+                </td>
+                <td class="text-sm-center">
+                  <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo }}</span>
+                </td>
+                <td class="text-sm-center">
+                  <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].range }} m</span>
+                </td>
+                <td>
+                  <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
+                </td>
+                <td>{{ item.keywords.join(', ') }}</td>
+              </tr>
+            </template>
+
+          </v-data-table>
+
+          <div class="text-center pt-2">
+            <v-pagination
+              v-model="pagination.page"
+              v-bind:length="pagination.pageCount"
+            />
+          </div>
+        </v-card>
+      </v-col>
+
+      <v-col v-bind:cols="12">
+
+        <v-card>
+          <v-card-text>
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+    </v-row>
+
   </div>
-
 
 </template>
 
 <script>
-  import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
+import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 
-  export default {
+export default {
   components: { DodDefaultBreadcrumbs },
   head() {
     return {
@@ -115,9 +201,25 @@
       searchQuery: '',
       settingFilter: [],
       contentFilter: [],
+      filters: {
+        subtype: {
+          model: [],
+          label: 'Filter by Subtypes'
+        },
+        keywords: {
+          model: [],
+          label: 'Filter by Keywords'
+        },
+        traits: {
+          model: [],
+          label: 'Filter by Traits'
+        },
+      },
       pagination: {
+        page: 1,
+        pageCount: 0,
         sortBy: 'title',
-        rowsPerPage: -1,
+        rowsPerPage: 25,
       },
       headers: [
         { text: 'Name', align: 'left', value: 'name', class: '' },
@@ -145,18 +247,46 @@
       ];
     },
     searchResults() {
-      let filteredResults = this.vaultItems;
+      let filteredResults = this.weapons;
 
       if (this.searchQuery) {
-        // filteredResults = filteredResults.filter(h => (h.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
+        //filteredResults = filteredResults.filter(h => (h.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
       }
 
-      if (this.contentFilter.length > 0) {
-        filteredResults = filteredResults.filter(h => [...h.topics, ...h.keywords]
-          .some(c => this.contentFilter.includes(c)));
+      if (this.filters.keywords.model.length > 0) {
+        filteredResults = filteredResults.filter( item => this.filters.keywords.model.some( m => item.keywords.includes(m) ));
+      }
+
+      if (this.filters.traits.model.length > 0) {
+        filteredResults = filteredResults.filter( item => this.filters.traits.model.some( m => item.meta[0].traits.includes(m) ));
+      }
+
+      if (this.filters.subtype.model.length > 0) {
+        filteredResults = filteredResults.filter( item => this.filters.subtype.model.includes(item.subtype) );
       }
 
       return filteredResults;
+    },
+    filtersSubtypeOptions() {
+      const reduce = this.weapons.map( item => item.subtype );
+      const distinct = [ ...new Set(reduce) ];
+      return distinct.filter( d => d !== null ).sort();
+    },
+    filterKeywordsOptions() {
+      let keywordArray = [];
+      this.weapons.forEach( item => {
+        keywordArray.push(...item.keywords)
+      });
+      const distinctOptions = [ ...new Set(keywordArray) ];
+      return distinctOptions.filter( o => o.indexOf('<') !== 0 ).sort();
+    },
+    filterTraitsOptions() {
+      let traitArray = [];
+      this.weapons.forEach( item => {
+        traitArray.push(...item.meta[0].traits)
+      });
+      const distinctOptions = [ ...new Set(traitArray) ];
+      return distinctOptions.sort();
     },
     pages() {
       if (this.pagination.rowsPerPage == null
