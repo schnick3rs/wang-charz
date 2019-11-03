@@ -74,30 +74,6 @@
 
               </v-col>
 
-              <v-col v-bind:cols="12">
-
-                <v-chip-group
-                  v-model="filters.subtype.model"
-                  active-class="primary--text"
-                  column
-                  multiple
-                >
-
-                  <v-chip
-                    v-for="filter in filtersSubtypeOptions"
-                    v-bind:key="filter"
-                    v-bind:value="filter"
-                    filter
-                    small
-                    label
-                  >
-                    {{filter}}
-                  </v-chip>
-
-                </v-chip-group>
-
-              </v-col>
-
             </v-row>
 
           </v-card-text>
