@@ -3,10 +3,12 @@
   <div>
 
     <v-row justify="center">
-      <v-col v-bind:cols="11" class="elevation-4 mb-2 pa-0 ma-0">
+
+      <v-col v-bind:cols="12" class="elevation-4 mb-2 pa-0 ma-0">
 
         <v-breadcrumbs
           v-bind:items="breadcrumbItems"
+          class="pa-2"
         >
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item
@@ -27,6 +29,7 @@
         </v-breadcrumbs>
 
       </v-col>
+
     </v-row>
 
     <v-row justify="center" >
@@ -34,7 +37,7 @@
       <v-col
         v-for="item in assets"
         v-bind:key="item.name"
-        v-bind:cols="11"
+        v-bind:cols="12"
         v-bind:sm="5"
       >
 
@@ -79,7 +82,7 @@
 
       </v-col>
 
-      <v-col v-bind:cols="11">
+      <v-col v-bind:cols="12">
 
         <v-card>
           <v-card-text>
