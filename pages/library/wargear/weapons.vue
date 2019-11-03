@@ -118,7 +118,6 @@
                 <td>
                   <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
                 </td>
-                <td>{{ item.keywords.join(', ') }}</td>
               </tr>
             </template>
 
@@ -205,7 +204,6 @@ export default {
         { text: 'Salvo', align: 'center', value: 'salvo', class: '' },
         { text: 'Range', align: 'center', value: 'range', class: '' },
         { text: 'Traits', align: 'left', value: 'traits', class: '' },
-        { text: 'Keywords', align: 'left', value: 'keywords', class: '' },
       ],
       expand: false,
     };
