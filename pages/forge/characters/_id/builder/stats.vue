@@ -39,15 +39,15 @@
                 <td>
                   <v-btn
                     icon
-                    @click="decrementAttribute(attribute.key)"
-                    :disabled="characterAttributes[attribute.key] <= 1"
+                    v-on:click="decrementAttribute(attribute.key)"
+                    v-bind:disabled="characterAttributes[attribute.key] <= 1"
                   >
                     <v-icon color="red">remove_circle</v-icon>
                   </v-btn>
                   {{ characterAttributes[attribute.key] }}
                   <v-btn
                     icon       
-                    @click="incrementAttribute(attribute.key)"
+                    v-on:click="incrementAttribute(attribute.key)"
                   ><!--:disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"-->
                     <v-icon color="green">add_circle</v-icon>
                   </v-btn>
@@ -88,20 +88,20 @@
             
               <tr
                 v-for="skill in skillRepository"
-                :key="skill.key"
+                v-bind:key="skill.key"
               >
                 <td>{{ skill.name }}</td>
                 <td>
-                  <v-btn icon @click="decrementSkill(skill.key)" :disabled="characterSkills[skill.key] <= 0">
+                  <v-btn icon v-on:click="decrementSkill(skill.key)" v-bind:disabled="characterSkills[skill.key] <= 0">
                     <v-icon color="red">remove_circle</v-icon>
                   </v-btn>
                     {{characterSkills[skill.key]}}
                   <v-btn
                     icon
-                    @click="incrementSkill(skill.key)"
-                    :disabled="characterSkills[skill.key] >= skillMaximum"
+                    v-on:click="incrementSkill(skill.key)"
+                    v-bind:disabled="characterSkills[skill.key] >= skillMaximum"
                   >
-                    <v-icon :color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
+                    <v-icon v-bind:color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
                   </v-btn>
                 </td>
                 <td>{{ characterSkills[skill.key]+characterAttributesEnhanced[skill.attribute.toLowerCase()] }}</td>

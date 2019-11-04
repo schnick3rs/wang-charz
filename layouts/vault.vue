@@ -4,8 +4,8 @@
       app
       dense
       dark
-      :fixed="toolbar.fixed"
-      :clipped-left="toolbar.clippedLeft"
+      v-bind:fixed="toolbar.fixed"
+      v-bind:clipped-left="toolbar.clippedLeft"
     >
       <v-toolbar-items>
         <v-btn text small nuxt to="/">Doctors of Doom</v-btn>
@@ -30,7 +30,7 @@
 
     </v-content>
 
-    <v-footer :app="true" class="pa-2" dark>
+    <v-footer v-bind:app="true" class="pa-2" dark>
       <v-spacer></v-spacer>
       <v-btn v-if="false" nuxt to="/private-policy">Private Policy</v-btn>
       <v-btn nuxt to="/about">About</v-btn>

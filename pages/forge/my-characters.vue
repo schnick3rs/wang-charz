@@ -1,166 +1,200 @@
-<template lang="html">
+<template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-row justify="center">
+  <div>
 
-    <v-col v-bind:cols="12">
+    <v-row justify="center">
 
-      <h2 class="headline">
-        My Characters: <span style="color: #1976d2;">{{ characterSets.filter(i=>i !== undefined).length }} Slots</span>
-      </h2>
+      <v-col v-bind:cols="12" class="elevation-4 mb-2 pa-0 ma-0">
 
-      <v-btn large color="primary" v-on:click="newCharacter">Create a Character</v-btn>
-
-    </v-col>
-
-    <!-- No Chars yet info text -->
-    <v-col v-bind:cols="12" v-if="characterSets.filter(i=>i !== undefined).length <= 0">
-      <v-alert
-        type="info"
-        prominent
-        text
-        border="left"
-        color="primary"
-      >
-        Just hit <strong>Create a Character</strong> and start building.
-      </v-alert>
-      <v-alert
-        type="info"
-        prominent
-        text
-        border="left"
-        color="primary"
-        v-if="false"
-      >
-        <p>
-          <strong>You have been here before and miss your character?</strong>
-          Sadly, to implement the handling of multiple characters, I had to make quite some changes.
-          Migrating existing characters was not achievable without significant effort.
-          So, after some considerations, I decided to skip the migration.
-          However, due to changes within the code, upcoming migrations are feasible.
-        </p>
-      </v-alert>
-    </v-col>
-
-    <v-col v-bind:cols="12">
-
-      <div>
-        <v-card>
-
-        </v-card>
-      </div>
-
-      <v-row justify="left">
-
-        <v-col
-          v-if="characterSets"
-          v-for="character in characterSets.filter(i=>i !== undefined)"
-          v-bind:key="character.id"
-          v-bind:cols="12"
-          v-bind:sm="6"
-          v-bind:md="6"
-          v-bind:lg="4"
+        <v-breadcrumbs
+          v-bind:items="breadcrumbItems"
+          class="pa-2"
         >
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item
+              v-bind:nuxt="true"
+              v-bind:to="item.to"
+              v-bind:disabled="item.disabled"
+              v-bind:exact="item.exact"
+            >
+              <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+              {{ item.text }}
+            </v-breadcrumbs-item>
+          </template>
 
-          <v-card v-if="character">
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-right</v-icon>
+          </template>
 
-            <div class="card" >
+        </v-breadcrumbs>
 
-              <div class="card__image-container">
-                <div
-                  class="card__image"
-                  v-bind:style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
-                  loading
-                ></div>
-              </div>
+      </v-col>
 
-              <v-card-text class="pa-0">
+    </v-row>
 
-                <div class="card__content-container pa-4">
+    <v-row justify="center">
 
-                  <h3>{{ characterName(character.id) }}</h3>
+      <v-col v-bind:cols="12">
 
-                  <div>
-                    <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
-                  </div>
+        <h2 class="headline">
+          My Characters: <span style="color: #1976d2;">{{ characterSets.filter(i=>i !== undefined).length }} Slots</span>
+        </h2>
 
-                  <div>
-                    <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} BP</span>
-                  </div>
+        <v-btn large color="primary" v-on:click="newCharacter">Create a Character</v-btn>
 
-                 </div>
-              </v-card-text>
+      </v-col>
 
-            </div>
+      <!-- No Chars yet info text -->
+      <v-col v-bind:cols="12" v-if="characterSets.filter(i=>i !== undefined).length <= 0">
+        <v-alert
+          type="info"
+          prominent
+          text
+          border="left"
+          color="primary"
+        >
+          Just hit <strong>Create a Character</strong> and start building.
+        </v-alert>
+        <v-alert
+          type="info"
+          prominent
+          text
+          border="left"
+          color="primary"
+          v-if="false"
+        >
+          <p>
+            <strong>You have been here before and miss your character?</strong>
+            Sadly, to implement the handling of multiple characters, I had to make quite some changes.
+            Migrating existing characters was not achievable without significant effort.
+            So, after some considerations, I decided to skip the migration.
+            However, due to changes within the code, upcoming migrations are feasible.
+          </p>
+        </v-alert>
+      </v-col>
 
-            <v-divider/>
+      <v-col v-bind:cols="12">
 
-            <v-card-text class="pa-2 card__campaign-container"><strong>Tier {{characterSettingTier(character.id)}}:</strong> <em>{{ characterSettingTitle(character.id) }}</em></v-card-text>
-
-            <v-divider/>
-
-            <v-card-actions >
-              <v-btn
-                nuxt
-                v-bind:to="`/forge/characters/${character.id}/builder/setting`"
-                color="primary"
-                small
-              >
-                <v-icon left small>edit</v-icon>
-                Edit
-              </v-btn>
-              <v-btn
-                nuxt
-                v-bind:to="`/forge/characters/${character.id}/builder/print`"
-                target="_blank"
-                color="primary"
-                outlined
-                small
-              >
-                <v-icon small left>description</v-icon>
-                Print
-              </v-btn>
-              <v-btn
-                color="red"
-                text
-                small
-                v-on:click="deleteCharacter(character.id)"
-              >
-                <v-icon small>delete</v-icon>
-                Delete
-              </v-btn>
-            </v-card-actions>
+        <div>
+          <v-card>
 
           </v-card>
+        </div>
 
-        </v-col>
+        <v-row justify="left">
 
-      </v-row>
+          <v-col
+            v-if="characterSets"
+            v-for="character in characterSets.filter(i=>i !== undefined)"
+            v-bind:key="character.id"
+            v-bind:cols="12"
+            v-bind:sm="6"
+            v-bind:md="6"
+            v-bind:lg="4"
+          >
 
-    </v-col>
+            <v-card v-if="character">
 
-    <v-col :cols="12">
+              <div class="card" >
 
-      <v-card>
-        <v-card-text>
-          <h1 class="headline">Character Generator for Wrath and Glory</h1>
-          <p>
-            This <strong>online character generator for Wrath & Glory</strong> allows you to create and <strong>organize multiple
-            characters</strong>. Just define a Setting with a fitting Tier and start building.
-            For severe issues, feedback and ideas, reach out to me via
-            <a href="mailto:docsofdoom+forge@gmail.com?subject=Forge Feedback">docsofdoom+forge(at)gmail.com</a>.
-          </p>
-          <p>
-            One last note, the generator is <strong>still missing some features</strong>, e.g. some Talents like <em>Special Weapon Troopes</em>,
-            but the vast majority is working as expected.
-            Still, please consider this a <em>late</em> <strong>BETA</strong> Version, so characters <em>might</em> be deleted (or broken) on future updates.
-            I will try my best to migrate the existing ones to the new version.
-          </p>
-        </v-card-text>
-      </v-card>
+                <div class="card__image-container">
+                  <div
+                    class="card__image"
+                    v-bind:style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
+                    loading
+                  ></div>
+                </div>
 
-    </v-col>
+                <v-card-text class="pa-0">
 
-  </v-row>
+                  <div class="card__content-container pa-4">
+
+                    <h3>{{ characterName(character.id) }}</h3>
+
+                    <div>
+                      <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
+                    </div>
+
+                    <div>
+                      <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} BP</span>
+                    </div>
+
+                  </div>
+                </v-card-text>
+
+              </div>
+
+              <v-divider/>
+
+              <v-card-text class="pa-2 card__campaign-container"><strong>Tier {{characterSettingTier(character.id)}}:</strong> <em>{{ characterSettingTitle(character.id) }}</em></v-card-text>
+
+              <v-divider/>
+
+              <v-card-actions >
+                <v-btn
+                  nuxt
+                  v-bind:to="`/forge/characters/${character.id}/builder/setting`"
+                  color="primary"
+                  small
+                >
+                  <v-icon left small>edit</v-icon>
+                  Edit
+                </v-btn>
+                <v-btn
+                  nuxt
+                  v-bind:to="`/forge/characters/${character.id}/builder/print`"
+                  target="_blank"
+                  color="primary"
+                  outlined
+                  small
+                >
+                  <v-icon small left>description</v-icon>
+                  Print
+                </v-btn>
+                <v-btn
+                  color="red"
+                  text
+                  small
+                  v-on:click="deleteCharacter(character.id)"
+                >
+                  <v-icon small>delete</v-icon>
+                  Delete
+                </v-btn>
+              </v-card-actions>
+
+            </v-card>
+
+          </v-col>
+
+        </v-row>
+
+      </v-col>
+
+      <v-col v-bind:cols="12">
+
+        <v-card>
+          <v-card-text>
+            <h1 class="headline">Character Generator for Wrath and Glory</h1>
+            <p>
+              This <strong>online character generator for Wrath & Glory</strong> allows you to create and <strong>organize multiple
+              characters</strong>. Just define a Setting with a fitting Tier and start building.
+              For severe issues, feedback and ideas, reach out to me via
+              <a href="mailto:docsofdoom+forge@gmail.com?subject=Forge Feedback">docsofdoom+forge(at)gmail.com</a>.
+            </p>
+            <p>
+              One last note, the generator is <strong>still missing some features</strong>, e.g. some Talents like <em>Special Weapon Troopes</em>,
+              but the vast majority is working as expected.
+              Still, please consider this a <em>late</em> <strong>BETA</strong> Version, so characters <em>might</em> be deleted (or broken) on future updates.
+              I will try my best to migrate the existing ones to the new version.
+            </p>
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+    </v-row>
+
+  </div>
 
 </template>
 
@@ -179,6 +213,14 @@ export default {
   props: [],
   data() {
     return {
+      breadcrumbItems: [
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters',
+        },
+      ]
     };
   },
   head() {
@@ -187,7 +229,6 @@ export default {
     const description = 'The Forge allows you to create and organize multiple characters for the Wrath and Glory' +
       'Roleplaying game. Edit, change and view your characters online.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_abstract.jpg';
-
 
     return {
       title: title,

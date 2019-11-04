@@ -1,389 +1,412 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-<div>
+  <div>
 
-  <v-row justify="center">
-    <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
+    <v-row justify="center">
 
-      <v-breadcrumbs
-        v-bind:items="breadcrumbItems"
+      <v-col
+        v-bind:cols="12"
+        class="elevation-4 mb-2 pa-0 ma-0"
       >
-        <template v-slot:item="{ item }">
-          <v-breadcrumbs-item
-            :nuxt="true"
-            :to="item.to"
-            :disabled="item.disabled"
-            :exact="item.exact"
-          >
-            <img v-if="item.to == '/'" src="/favicon-16x16.png" />
-            {{ item.text }}
-          </v-breadcrumbs-item>
-        </template>
 
-        <template v-slot:divider>
-          <v-icon>mdi-chevron-right</v-icon>
-        </template>
-
-      </v-breadcrumbs>
-
-    </v-col>
-  </v-row>
-
-  <v-row justify="center">
-
-    <v-col :cols="11">
-      <v-card>
-        <v-card-text>
-
-          <v-row justify="center">
-
-            <v-col v-bind:cols="12" v-if="false">
-
-              <v-slide-group
-                multiple
-                show-arrows
-                v-bind:value="factionFilterSelections"
-              >
-                <v-slide-item
-                  v-for="faction in factionFilterOptions"
-                  v-bind:key="faction.key"
-                  v-slot:default="{ active, toggle }"
-                >
-
-                  <v-avatar
-                    size="86"
-                    class="faction-filter"
-                    v-bind:input-value="active"
-                    v-on:click="toggle"
-                  >
-                    <img v-bind:src="getAvatar(faction)">
-                  </v-avatar>
-                </v-slide-item>
-
-              </v-slide-group>
-
-            </v-col>
-
-            <v-col :cols="12" :sm="6">
-              <v-text-field
-                v-model="searchQuery"
-                filled
-                dense
-                clearable
-                append-icon="search"
-                label="Search"
-              ></v-text-field>
-            </v-col>
-
-            <v-col :cols="12" :sm="6">
-              <v-select
-                v-model="contentFilter"
-                filled
-                dense
-                clearable
-                multiple
-                chips
-                deletable-chips
-                single-line
-                label="Filter by Content"
-                :items="contentOptions"
-              >
-              </v-select>
-            </v-col>
-
-            <v-col :cols="12" :sm="6">
-
-              <v-slider
-                v-model="filterTier"
-                label="Set Campaign Tier"
-                min="0"
-                max="5"
-              ></v-slider>
-
-            </v-col>
-
-            <v-col :cols="12" :sm="6">
-              <v-select
-                v-model="factionFilterSelections"
-                v-bind:items="factionFilterOptions"
-                label="Filter by Content"
-                filled
-                dense
-                clearable
-                multiple
-                chips
-                deletable-chips
-                single-line
-              >
-              </v-select>
-            </v-col>
-
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-col>
-
-    <v-col :cols="11">
-      <v-card>
-        <v-data-table
-          v-bind:headers="headers"
-          v-bind:items="searchResults"
-          v-bind:expanded.sync="expanded"
-          v-bind:search="searchQuery"
-          v-on:item-expanded="trackExpand"
-          sort-by="name"
-          item-key="key"
-          show-expand
-          hide-default-footer
-          :items-per-page="-1"
+        <v-breadcrumbs
+          v-bind:items="breadcrumbItems"
+          class="pa-2"
         >
-
-          <template v-slot:item.classification="{ item }">
-            <v-chip
-              v-if="filterTier > 0"
-              v-bind:color="getClassificationColor(item.classification[filterTier-1])"
-              x-small
-              label
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item
+              v-bind:nuxt="true"
+              v-bind:to="item.to"
+              v-bind:disabled="item.disabled"
+              v-bind:exact="item.exact"
             >
-              {{ item.classification[filterTier-1] }}
-            </v-chip>
+              <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+              {{ item.text }}
+            </v-breadcrumbs-item>
+          </template>
 
-            <v-chip-group multiple v-else>
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-right</v-icon>
+          </template>
+
+        </v-breadcrumbs>
+
+      </v-col>
+
+    </v-row>
+
+    <v-row justify="center">
+
+      <v-col v-bind:cols="12">
+
+        <v-card>
+          <v-card-text>
+
+            <v-row justify="center">
+
+              <v-col v-bind:cols="12" v-if="false">
+
+                <v-slide-group
+                  multiple
+                  show-arrows
+                  v-bind:value="factionFilterSelections"
+                >
+                  <v-slide-item
+                    v-for="faction in filterFactionOptions"
+                    v-bind:key="faction.key"
+                    v-slot:default="{ active, toggle }"
+                  >
+
+                    <v-avatar
+                      size="86"
+                      class="faction-filter"
+                      v-bind:input-value="active"
+                      v-on:click="toggle"
+                    >
+                      <img v-bind:src="getAvatar(faction)">
+                    </v-avatar>
+                  </v-slide-item>
+
+                </v-slide-group>
+
+              </v-col>
+
+              <v-col v-bind:cols="12" v-bind:sm="6">
+                <v-text-field
+                  v-model="searchQuery"
+                  filled
+                  dense
+                  clearable
+                  append-icon="search"
+                  label="Search"
+                ></v-text-field>
+              </v-col>
+
+              <v-col v-bind:cols="12" v-bind:sm="6">
+                <v-select
+                  v-model="filterSourceModel"
+                  v-bind:items="filterSourceOptions"
+                  filled
+                  dense
+                  clearable
+                  multiple
+                  chips
+                  deletable-chips
+                  single-line
+                  label="Filter by Source/Homebrew"
+                >
+                </v-select>
+              </v-col>
+
+              <v-col v-bind:cols="12" v-bind:sm="6">
+
+                <v-slider
+                  v-model="filterTier"
+                  label="Set Campaign Tier"
+                  min="0"
+                  max="5"
+                  thumb-label="always"
+                ></v-slider>
+
+              </v-col>
+
+              <v-col v-bind:cols="12" v-bind:sm="6">
+                <v-select
+                  v-model="factionFilterSelections"
+                  v-bind:items="filterFactionOptions"
+                  label="Filter by Content"
+                  filled
+                  dense
+                  clearable
+                  multiple
+                  chips
+                  deletable-chips
+                  single-line
+                >
+                </v-select>
+              </v-col>
+
+            </v-row>
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+      <v-col v-bind:cols="12">
+
+        <v-card>
+          <v-data-table
+            v-bind:headers="headers"
+            v-bind:items="searchResults"
+            v-bind:expanded.sync="expanded"
+            v-bind:search="searchQuery"
+            v-on:item-expanded="trackExpand"
+            sort-by="name"
+            item-key="key"
+            show-expand
+            hide-default-footer
+            v-bind:items-per-page="-1"
+          >
+
+            <template v-slot:item.classification="{ item }">
               <v-chip
-                v-for="classification in item.classification"
-                v-bind:key="classification.key"
-                v-bind:color="getClassificationColor(classification)"
+                v-if="filterTier > 0"
+                v-bind:color="getClassificationColor(item.classification[filterTier-1])"
                 x-small
                 label
               >
-                {{ classification.substr(0,1) }}
+                {{ item.classification[filterTier-1] }}
               </v-chip>
-            </v-chip-group>
-          </template>
 
-          <template v-slot:item.keywords="{ item }">
-            <v-chip-group multiple>
-              <v-chip v-for="keyword in item.keywords" :key="keyword" x-small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
-            </v-chip-group>
-          </template>
+              <v-chip-group multiple v-else>
+                <v-chip
+                  v-for="classification in item.classification"
+                  v-bind:key="classification.key"
+                  v-bind:color="getClassificationColor(classification)"
+                  x-small
+                  label
+                >
+                  {{ classification.substr(0,1) }}
+                </v-chip>
+              </v-chip-group>
+            </template>
 
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
+            <template v-if="false" v-slot:item.keywords="{ item }">
+              <v-chip-group multiple>
+                <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" x-small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+              </v-chip-group>
+            </template>
 
-              <v-row justify="center">
+            <template v-slot:expanded-item="{ headers, item }">
+              <td v-bind:colspan="headers.length">
 
-                <v-col v-bind:cols="12" v-bind:md="12">
-                  <h3 class="headline">{{ item.name }}</h3>
-                </v-col>
+                <v-row justify="center">
 
-                <!-- Stats -->
-                <v-col v-bind:cols="12" v-bind:md="3">
+                  <v-col v-bind:cols="12" v-bind:md="12">
+                    <h3 class="headline">{{ item.name }}</h3>
+                  </v-col>
 
-                  <v-simple-table dense>
-
-                    <template v-slot:default>
-
-                      <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Rating</th>
-                      </tr>
-                      </thead>
-
-                      <tbody>
-
-                      <tr
-                        v-for="(value, key) in item.attributes"
-                        v-bind:key="key"
-                      >
-                        <td>{{ getAttributeByKey(key).name }}</td>
-                        <td>{{ value }}</td>
-                      </tr>
-
-                      </tbody>
-
-                    </template>
-
-                  </v-simple-table>
-
-                </v-col>
-
-                <v-col v-bind:cols="12" v-bind:md="5">
-
-                  <v-simple-table dense>
-
-                    <template v-slot:default>
-
-                      <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Rating</th>
-                      </tr>
-                      </thead>
-
-                      <tbody>
-
-                      <tr
-                        v-for="(value, key) in item.traits"
-                        v-bind:key="key"
-                      >
-                        <td>{{ getTraitByKey(key).name }}</td>
-                        <td v-if="key==='resilience'">{{ value.total }} ( {{ value.armourRating }} {{ value.armourName }})</td>
-                        <td v-else>{{ value }}</td>
-                      </tr>
-
-                      </tbody>
-
-                    </template>
-
-                  </v-simple-table>
-
-                </v-col>
-                <v-col v-bind:cols="12" v-bind:md="3">
-
-                  <v-simple-table dense>
-
-                    <template v-slot:default>
-
-                      <thead>
-                      <tr>
-                        <th>Name</th>
-                        <th>Rating</th>
-                      </tr>
-                      </thead>
-
-                      <tbody>
-
-                      <tr
-                        v-for="(value, key) in item.skills"
-                        v-bind:key="key"
-                      >
-                        <td v-if="key==='default'">Default</td>
-                        <td v-else>{{ getSkillByKey(key).name }}</td>
-                        <td>{{ value }}</td>
-                      </tr>
-
-                      </tbody>
-
-                    </template>
-
-                  </v-simple-table>
-
-                </v-col>
-
-                <!-- Attacks -->
-                <v-col v-bind:cols="12" v-bind:md="11">
-
-                  <h4 class="title-1">Attacks</h4>
-
-                  <div>
+                  <!-- Stats -->
+                  <v-col v-bind:cols="12" v-bind:md="3">
 
                     <v-simple-table dense>
 
                       <template v-slot:default>
 
                         <thead>
-                          <tr>
-                            <th
-                              v-for="header in attacksTable.headers"
-                              v-bind:key="header.value"
-                              class="text-left"
-                            >
-                              {{ header.text }}
-                            </th>
-                          </tr>
+                        <tr>
+                          <th>Name</th>
+                          <th>Rating</th>
+                        </tr>
                         </thead>
 
                         <tbody>
 
-                          <tr
-                            v-for="attack in item.attacks"
-                            v-bind:key="item.label"
-                          >
-                            <td class="text-left">{{ attack.name }}</td>
-                            <td class="text-center">
-                              <span>{{ attack.range }} m</span>
-                            </td>
-                            <td class="text-center">
-                              <div v-if="attack.damage">
-                                <span v-if="item.type==='Melee Weapon'">{{ attack.damage.static }}*</span>
-                                <span v-else>{{ attack.damage.static }}</span>
-                                <span> + </span>
-                                <span>{{ attack.damage.ed }} ED</span>
-                              </div>
-                            </td>
-                            <td class="text-center">
-                              <span>{{ attack.ap }}</span>
-                            </td>
-                            <td class="text-center">
-                              <span>{{ attack.salvo }}</span>
-                            </td>
-                            <td class="text-left">
-                              <span v-if="attack.traits && attack.traits.length >0">{{ attack.traits.join(', ') }}</span>
-                            </td>
-                          </tr>
+                        <tr
+                          v-for="(value, key) in item.attributes"
+                          v-bind:key="key"
+                        >
+                          <td>{{ getAttributeByKey(key).name }}</td>
+                          <td>{{ value }}</td>
+                        </tr>
 
                         </tbody>
 
                       </template>
+
                     </v-simple-table>
 
-                  </div>
+                  </v-col>
 
-                </v-col>
+                  <v-col v-bind:cols="12" v-bind:md="5">
 
-                <!-- Abilities -->
-                <v-col v-bind:cols="12" v-bind:md="11">
+                    <v-simple-table dense>
 
-                  <h4>Special Abilities</h4>
+                      <template v-slot:default>
 
-                  <div v-for="ability in item.specialAbilities">
-                    <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
-                  </div>
+                        <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Rating</th>
+                        </tr>
+                        </thead>
 
-                </v-col>
+                        <tbody>
 
-                <v-col v-bind:cols="12" v-bind:md="12">
-                  {{ item.description }}
-                </v-col>
+                        <tr
+                          v-for="(value, key) in item.traits"
+                          v-bind:key="key"
+                        >
+                          <td>{{ getTraitByKey(key).name }}</td>
+                          <td v-if="key==='resilience'">{{ value.total }} ( {{ value.armourRating }} {{ value.armourName }})</td>
+                          <td v-else>{{ value }}</td>
+                        </tr>
 
-                <!-- Keywords -->
-                <v-col v-bind:cols="12">
-                  <span>Keywords: </span>
-                  <v-chip v-for="keyword in item.keywords" :key="keyword" small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
-                </v-col>
+                        </tbody>
 
-              </v-row>
+                      </template>
 
-            </td>
-          </template>
+                    </v-simple-table>
 
-        </v-data-table>
+                  </v-col>
+                  <v-col v-bind:cols="12" v-bind:md="3">
 
-      </v-card>
-    </v-col>
+                    <v-simple-table dense>
 
-    <v-col :cols="11">
+                      <template v-slot:default>
 
-      <v-card>
-        <v-card-text>
-          <h1 class="headline">Search the Vault for precious, fan-made hombrews</h1>
-          <p>
-            Using the same threats within your Wrath and Glory campaign over and over?
-            Never leave your players bored again! search throu this growing collection of adversaries
-            derived from the various content provided by the fans. Check out the respective brews
-            within the <nuxt-link to="/vault">Vault</nuxt-link>.
-          </p>
-          <p>
-            If you have any feedback, or want to add your brews to the collection, you can mail me at
-            <a href="mailto:docsofdoom+bestiary@gmail.com?subject=Bestiary Feedback">docsofdoom+bestiary(at)gmail.com</a>.
-           </p>
-        </v-card-text>
-      </v-card>
+                        <thead>
+                        <tr>
+                          <th>Name</th>
+                          <th>Rating</th>
+                        </tr>
+                        </thead>
 
-    </v-col>
-  </v-row>
-</div>
+                        <tbody>
+
+                        <tr
+                          v-for="(value, key) in item.skills"
+                          v-bind:key="key"
+                        >
+                          <td v-if="key==='default'">Default</td>
+                          <td v-else>{{ getSkillByKey(key).name }}</td>
+                          <td>{{ value }}</td>
+                        </tr>
+
+                        </tbody>
+
+                      </template>
+
+                    </v-simple-table>
+
+                  </v-col>
+
+                  <!-- Attacks -->
+                  <v-col v-bind:cols="12" v-bind:md="11">
+
+                    <h4 class="title-1">Attacks</h4>
+
+                    <div>
+                      <p v-html="item.attackOptions"></p>
+                    </div>
+
+                    <div>
+
+                      <v-simple-table dense>
+
+                        <template v-slot:default>
+
+                          <thead>
+                            <tr>
+                              <th
+                                v-for="header in attacksTable.headers"
+                                v-bind:key="header.value"
+                                class="text-left"
+                              >
+                                {{ header.text }}
+                              </th>
+                            </tr>
+                          </thead>
+
+                          <tbody>
+
+                            <tr
+                              v-for="attack in item.attacks"
+                              v-bind:key="item.label"
+                            >
+                              <td class="text-left">{{ attack.name }}</td>
+                              <td class="text-center">
+                                <span v-if="attack.range === 1">melee</span>
+                                <span v-else>{{ attack.range }} m</span>
+                              </td>
+                              <td class="text-center">
+                                <div v-if="attack.damage">
+                                  <span v-if="item.type==='Melee Weapon'">{{ attack.damage.static }}*</span>
+                                  <span v-else>{{ attack.damage.static }}</span>
+                                  <span> + </span>
+                                  <span>{{ attack.damage.ed }} ED</span>
+                                </div>
+                              </td>
+                              <td class="text-center">
+                                <span>{{ attack.ap }}</span>
+                              </td>
+                              <td class="text-center">
+                                <span>{{ attack.salvo }}</span>
+                              </td>
+                              <td class="text-left">
+                                <span v-if="attack.traits && attack.traits.length >0">{{ attack.traits.join(', ') }}</span>
+                              </td>
+                            </tr>
+
+                          </tbody>
+
+                        </template>
+                      </v-simple-table>
+
+                    </div>
+
+                    <div v-if="item.weaponTraits" v-for="weaponTrait in item.weaponTraits" class="pt-2">
+                      <p><strong>{{ weaponTrait.name }}:</strong> {{ weaponTrait.effect }}</p>
+                    </div>
+
+                  </v-col>
+
+                  <!-- Abilities -->
+                  <v-col v-bind:cols="12" v-bind:md="11">
+
+                    <h4>Special Abilities</h4>
+
+                    <div v-for="ability in item.specialAbilities">
+                      <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
+                    </div>
+
+                  </v-col>
+
+                  <v-col v-bind:cols="12" v-bind:md="12">
+                    {{ item.description }}
+                  </v-col>
+
+                  <!-- Keywords -->
+                  <v-col v-bind:cols="12">
+                    <span>Keywords: </span>
+                    <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+                  </v-col>
+
+                </v-row>
+
+              </td>
+            </template>
+
+          </v-data-table>
+
+        </v-card>
+
+      </v-col>
+
+      <v-col v-bind:cols="12">
+
+        <v-card>
+          <v-card-text>
+            <h1 class="headline">Search the bestiary for homebrew threats to enrich your Wrath and Glory Campaign</h1>
+            <p>
+              Using the same threats within your Wrath and Glory campaign over and over?
+              Never leave your players bored again! search throu this growing collection of adversaries
+              derived from the various content provided by the fans. Check out the respective brews
+              within the <nuxt-link to="/vault">Vault</nuxt-link>.
+            </p>
+            <p>
+              If you have any feedback, or want to add your brews to the collection, you can mail me at
+              <a href="mailto:docsofdoom+bestiary@gmail.com?subject=Bestiary Feedback">docsofdoom+bestiary(at)gmail.com</a>.
+             </p>
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+
+    </v-row>
+
+  </div>
+
 </template>
 
 <script>
@@ -435,7 +458,8 @@ export default {
       settingFilter: [],
       contentFilter: [],
       factionFilterSelections: [],
-      filterTier: 3,
+      filterSourceModel: [],
+      filterTier: 0,
       pagination: {
         sortBy: 'title',
         rowsPerPage: -1,
@@ -449,9 +473,6 @@ export default {
         },
         {
           text: 'Faction', align: 'left', value: 'faction', class: '',
-        },
-        {
-          text: 'Keywords', align: 'left', value: 'keywords', class: '',
         },
         {
           text: 'Source', align: 'left', value: 'source.book', class: '',
@@ -491,8 +512,12 @@ export default {
       return null;
       //return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
     },
-    factionFilterOptions() {
+    filterFactionOptions() {
       let options = this.items.map( i => i.faction );
+      return [...new Set(options)].sort();
+    },
+    filterSourceOptions() {
+      let options = this.items.map(i => i.source.book);
       return [...new Set(options)].sort();
     },
     contentOptions() {
@@ -501,6 +526,10 @@ export default {
     },
     searchResults() {
       let filteredResults = this.items;
+
+      if (this.filterSourceModel.length > 0) {
+        filteredResults = filteredResults.filter( i => this.filterSourceModel.includes(i.source.book) );
+      }
 
       if (this.factionFilterSelections.length > 0) {
         filteredResults = filteredResults.filter( i => this.factionFilterSelections.includes(i.faction) );

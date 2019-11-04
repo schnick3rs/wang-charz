@@ -2,13 +2,13 @@
 
   <v-row justify="center" >
 
-    <v-col :cols="12">
+    <v-col v-bind:cols="12">
 
       <v-card
-        @click="manageWargear = !manageWargear"
+        v-on:click="manageWargear = !manageWargear"
         class="mb-4"
         dark dense outlined
-        :color=" manageWargear ? 'info' : '' "
+        v-bind:color=" manageWargear ? 'info' : '' "
       >
         <v-card-text>
           <v-icon>{{ manageWargear ? 'expand_less' : 'expand_more' }}</v-icon>
@@ -25,7 +25,7 @@
 
         <v-list-item
           v-for="gear in characterWargear"
-          :key="gear.id"
+          v-bind:key="gear.id"
         >
 
           <v-list-item-avatar tile>
@@ -38,7 +38,7 @@
           </v-list-item-content>
 
           <v-list-item-action>
-            <v-btn outlined x-small color="error" @click="remove(gear)"><v-icon left>delete</v-icon>Remove</v-btn>
+            <v-btn outlined x-small color="error" v-on:click="remove(gear)"><v-icon left>delete</v-icon>Remove</v-btn>
           </v-list-item-action>
 
         </v-list-item>
@@ -48,13 +48,13 @@
 
     </v-col>
 
-    <v-col :cols="12" >
+    <v-col v-bind:cols="12" >
 
       <v-card
-        @click="startingWargearExpand = !startingWargearExpand"
+        v-on:click="startingWargearExpand = !startingWargearExpand"
         class="mb-4"
         dark dense outlined
-        :color=" startingWargearExpand ? 'info' : '' "
+        v-bind:color=" startingWargearExpand ? 'info' : '' "
       >
         <v-card-text>
           <v-icon>{{ startingWargearExpand ? 'expand_less' : 'expand_more' }}</v-icon>
@@ -68,7 +68,7 @@
 
           <v-card
             v-for="gear in startingWargear.options"
-            :key="gear.key"
+            v-bind:key="gear.key"
             outlined dense
             class="mb-2"
           >
@@ -80,9 +80,9 @@
             <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query">
 
               <wargear-select
-                :item="gear.selected"
-                :repository="wargearRepository.filter(gear.options[0].query)"
-                @input="gear.selected = $event.name"
+                v-bind:item="gear.selected"
+                v-bind:repository="wargearRepository.filter(gear.options[0].query)"
+                v-on:input="gear.selected = $event.name"
                 class="mb-4"
               ></wargear-select>
 
@@ -96,9 +96,9 @@
               >
                 <v-radio
                   v-for="option in gear.options"
-                  :key="option.key"
-                  :label="option.name"
-                  :value="option.name"
+                  v-bind:key="option.key"
+                  v-bind:label="option.name"
+                  v-bind:value="option.name"
                 ></v-radio>
               </v-radio-group>
 
@@ -111,7 +111,7 @@
             block
             dense
             color="green"
-            @click="addWargearToCharacter(startingWargear.options)"
+            v-on:click="addWargearToCharacter(startingWargear.options)"
           >Add starting wargear</v-btn>
 
         </div>
@@ -129,13 +129,13 @@
 
     </v-col>
 
-    <v-col :cols="12">
+    <v-col v-bind:cols="12">
 
       <v-card
-        @click="wargearSearchActive = !wargearSearchActive"
+        v-on:click="wargearSearchActive = !wargearSearchActive"
         class="mb-4"
         dark dense outlined
-        :color=" wargearSearchActive ? 'info' : '' "
+        v-bind:color=" wargearSearchActive ? 'info' : '' "
       >
         <v-card-text>
           <v-icon>{{ wargearSearchActive ? 'expand_less' : 'expand_more' }}</v-icon>
@@ -145,8 +145,8 @@
 
       <wargear-search
         v-if="wargearSearchActive"
-        :repository="wargearRepository"
-        @select="add"
+        v-bind:repository="wargearRepository"
+        v-on:select="add"
       ></wargear-search>
 
     </v-col>

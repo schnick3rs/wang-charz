@@ -4,10 +4,10 @@
 
     <v-navigation-drawer
       app
-      :clipped="drawer.clipped"
-      :fixed="drawer.fixed"
-      :permanent="drawer.permanent"
-      :mini-variant="drawer.mini"
+      v-bind:clipped="drawer.clipped"
+      v-bind:fixed="drawer.fixed"
+      v-bind:permanent="drawer.permanent"
+      v-bind:mini-variant="drawer.mini"
       v-model="drawer.open"
       width="220"
     >
@@ -15,7 +15,7 @@
 
         <v-list-item
           nuxt
-          :to="`/forge/characters/${$route.params.id}/builder/setting`"
+          v-bind:to="`/forge/characters/${$route.params.id}/builder/setting`"
         >
           <v-list-item-content >
             <v-list-item-title>Tier {{settingTier}} Campaign</v-list-item-title>
@@ -37,7 +37,7 @@
           <v-list-item
             v-else
             nuxt
-            :to="entry.path"
+            v-bind:to="entry.path"
           >
             <v-list-item-content >
               <v-list-item-title>{{entry.text}}</v-list-item-title>
@@ -66,7 +66,7 @@
       v-bind:clipped-left="toolbar.clippedLeft"
     >
 
-      <v-app-bar-nav-icon @click.stop="toggleDrawer"></v-app-bar-nav-icon>
+      <v-app-bar-nav-icon v-on:click.stop="toggleDrawer"></v-app-bar-nav-icon>
 
       <v-toolbar-items>
         <v-btn icon nuxt to="/"><v-icon>home</v-icon></v-btn>
@@ -86,21 +86,21 @@
 
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
-          <v-btn small text nuxt :to="`/forge/my-characters`" icon><v-icon>supervisor_account</v-icon></v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/setting`" >Setting</v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/species`" :disabled="!settingSelected">1. Species</v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/archetype`" :disabled="!settingSelected">2. Archetype</v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/ascension`" :disabled="!settingSelected">3. Ascension</v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/stats`" :disabled="!settingSelected">4. Stats</v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/talents`" :disabled="!settingSelected">5. Talents</v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/wargear`" :disabled="!settingSelected">6. Wargear</v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/psychic-powers`" :disabled="!settingSelected">7. Psychic Powers</v-btn>
-          <v-btn small text nuxt :to="`/forge/characters/${$route.params.id}/builder/background`" :disabled="!settingSelected" >8. Background</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/my-characters`" icon><v-icon>supervisor_account</v-icon></v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/setting`" >Setting</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/species`" v-bind:disabled="!settingSelected">1. Species</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/archetype`" v-bind:disabled="!settingSelected">2. Archetype</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/ascension`" v-bind:disabled="!settingSelected">3. Ascension</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/stats`" v-bind:disabled="!settingSelected">4. Stats</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/talents`" v-bind:disabled="!settingSelected">5. Talents</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/wargear`" v-bind:disabled="!settingSelected">6. Wargear</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/psychic-powers`" v-bind:disabled="!settingSelected">7. Psychic Powers</v-btn>
+          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/background`" v-bind:disabled="!settingSelected" >8. Background</v-btn>
           <v-btn
             small
             nuxt
             icon
-            :to="`/forge/characters/${$route.params.id}/builder/print`"
+            v-bind:to="`/forge/characters/${$route.params.id}/builder/print`"
             v-bind:disabled="!settingSelected"
             target="_blank"
           >
@@ -123,10 +123,10 @@
         <v-row justify="center">
 
           <v-col
-            :cols="12"
-            :sm="10"
-            :md="10"
-            :lg="7"
+            v-bind:cols="12"
+            v-bind:sm="10"
+            v-bind:md="10"
+            v-bind:lg="7"
           >
             <nuxt />
           </v-col>
@@ -156,8 +156,8 @@
       <v-spacer ></v-spacer>
       <div class="caption d-none d-sm-block">{{finalKeywords.join(' • ')}}</div>
       <div class="d-block d-sm-none">
-        <v-btn tile small nuxt :to="linkPrev" :disabled="linkCurrentIndex === 0"><v-icon left small>chevron_left</v-icon>prev</v-btn>
-        <v-btn tile small nuxt :to="linkNext" :disabled="linkCurrentIndex === 8">next<v-icon right small>chevron_right</v-icon></v-btn>
+        <v-btn tile small nuxt v-bind:to="linkPrev" v-bind:disabled="linkCurrentIndex === 0"><v-icon left small>chevron_left</v-icon>prev</v-btn>
+        <v-btn tile small nuxt v-bind:to="linkNext" v-bind:disabled="linkCurrentIndex === 8">next<v-icon right small>chevron_right</v-icon></v-btn>
       </div>
       <v-spacer></v-spacer>
       <span>&copy; {{ new Date().getFullYear() }}</span><span class="d-none d-md-block"> Doctors of Doom</span>

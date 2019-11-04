@@ -1,190 +1,194 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-<div>
+  <div>
 
-  <v-row justify="center">
-    <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
+    <v-row justify="center">
 
-      <v-breadcrumbs
-        v-bind:items="breadcrumbItems"
-      >
-        <template v-slot:item="{ item }">
-          <v-breadcrumbs-item
-            :nuxt="true"
-            :to="item.to"
-            :disabled="item.disabled"
-            :exact="item.exact"
-          >
-            <img v-if="item.to == '/'" src="/favicon-16x16.png" />
-            {{ item.text }}
-          </v-breadcrumbs-item>
-        </template>
+      <v-col v-bind:cols="12" class="elevation-4 mb-2 pa-0 ma-0">
 
-        <template v-slot:divider>
-          <v-icon>mdi-chevron-right</v-icon>
-        </template>
-
-      </v-breadcrumbs>
-
-    </v-col>
-  </v-row>
-
-  <v-row justify="center">
-
-    <v-col :cols="11">
-      <v-card>
-        <v-card-text>
-          <v-row justify="center">
-            <v-col :cols="12" :sm="6">
-              <v-text-field
-                v-model="searchQuery"
-                filled
-                dense
-                clearable
-                append-icon="search"
-                label="Search"
-              ></v-text-field>
-            </v-col>
-
-            <v-col :cols="12" :sm="6">
-              <v-select
-                filled
-                dense
-                v-model="contentFilter"
-                clearable
-                multiple
-                chips
-                deletable-chips
-                single-line
-                label="Filter by Content"
-                :items="contentOptions"
-              >
-              </v-select>
-            </v-col>
-          </v-row>
-        </v-card-text>
-      </v-card>
-    </v-col>
-
-    <v-col :cols="11">
-      <v-card>
-        <v-data-table
-          v-bind:headers="headers"
-          v-bind:items="searchResults"
-          v-bind:expanded.sync="expanded"
-          v-bind:search="searchQuery"
-          v-bind:items-per-page="-1"
-          v-on:item-expanded="trackExpand"
-          sort-by="title"
-          item-key="title"
-          show-expand
-          hide-default-footer
+        <v-breadcrumbs
+          v-bind:items="breadcrumbItems"
+          class="pa-2"
         >
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item
+              v-bind:nuxt="true"
+              v-bind:to="item.to"
+              v-bind:disabled="item.disabled"
+              v-bind:exact="item.exact"
+            >
+              <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+              {{ item.text }}
+            </v-breadcrumbs-item>
+          </template>
 
-          <template v-slot:item.version="{ item }">
-            <v-chip
-                  v-if="['Draft'].includes(item.status)"
-                  color="orange"
-                  text-color="white"
-                  tags
-                  x-small
-                  label
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-right</v-icon>
+          </template>
+
+        </v-breadcrumbs>
+
+      </v-col>
+    </v-row>
+
+    <v-row justify="center">
+
+      <v-col v-bind:cols="12">
+        <v-card>
+          <v-card-text>
+            <v-row justify="center">
+              <v-col v-bind:cols="12" v-bind:sm="6">
+                <v-text-field
+                  v-model="searchQuery"
+                  filled
+                  dense
+                  clearable
+                  append-icon="search"
+                  label="Search"
+                ></v-text-field>
+              </v-col>
+
+              <v-col v-bind:cols="12" v-bind:sm="6">
+                <v-select
+                  filled
+                  dense
+                  v-model="contentFilter"
+                  clearable
+                  multiple
+                  chips
+                  deletable-chips
+                  single-line
+                  label="Filter by Content"
+                  v-bind:items="contentOptions"
                 >
-                  <span v-if="item.version">{{ item.version }}</span>
-                  <span v-else>{{ item.status }}</span>
-                </v-chip>
-                <v-chip
-                  v-if="['Released'].includes(item.status)"
-                  color="green"
-                  text-color="white"
-                  tags
-                  x-small
-                  label
-                >
-                  <span v-if="item.version">{{ item.version }}</span>
-                  <span v-else>{{ item.status }}</span>
-                </v-chip>
-          </template>
+                </v-select>
+              </v-col>
+            </v-row>
+          </v-card-text>
+        </v-card>
+      </v-col>
 
-          <template v-slot:item.keywords="{ item }">
-            <v-chip v-for="keyword in item.keywords" :key="keyword" small class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
-          </template>
+      <v-col v-bind:cols="12">
+        <v-card>
+          <v-data-table
+            v-bind:headers="headers"
+            v-bind:items="searchResults"
+            v-bind:expanded.sync="expanded"
+            v-bind:search="searchQuery"
+            v-bind:items-per-page="-1"
+            v-on:item-expanded="trackExpand"
+            sort-by="title"
+            item-key="title"
+            show-expand
+            hide-default-footer
+          >
 
-          <template v-slot:item.actions="{ item }">
-            <v-btn small icon nuxt :to="'/vault/'+item.slug">
-              <v-icon>chevron_right</v-icon>
-            </v-btn>
-          </template>
+            <template v-slot:item.version="{ item }">
+              <v-chip
+                    v-if="['Draft'].includes(item.status)"
+                    color="orange"
+                    text-color="white"
+                    tags
+                    x-small
+                    label
+                  >
+                    <span v-if="item.version">{{ item.version }}</span>
+                    <span v-else>{{ item.status }}</span>
+                  </v-chip>
+                  <v-chip
+                    v-if="['Released'].includes(item.status)"
+                    color="green"
+                    text-color="white"
+                    tags
+                    x-small
+                    label
+                  >
+                    <span v-if="item.version">{{ item.version }}</span>
+                    <span v-else>{{ item.status }}</span>
+                  </v-chip>
+            </template>
 
-          <template v-slot:expanded-item="{ headers, item }">
-            <td :colspan="headers.length">
+            <template v-slot:item.keywords="{ item }">
+              <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" small class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+            </template>
 
-              <v-row>
+            <template v-slot:item.actions="{ item }">
+              <v-btn small icon nuxt v-bind:to="'/vault/'+item.slug">
+                <v-icon>chevron_right</v-icon>
+              </v-btn>
+            </template>
 
-                <v-col :cols="12" >
-                  <h3 class="headline">{{ item.title }}</h3>
-                  <span class="grey--text">{{ item.subtitle }}</span>
-                </v-col>
+            <template v-slot:expanded-item="{ headers, item }">
+              <td v-bind:colspan="headers.length">
 
-                <v-col :cols="12" :md="8">
-                    <p><strong>Author:</strong> {{ item.author }}</p>
-                    <p>{{ item.abstract }}</p>
-                     <p v-if="item.keywords">
-                      <v-chip v-for="keyword in item.keywords" :key="keyword">
-                        {{ keyword }}
-                      </v-chip>
-                    </p>
-                </v-col>
+                <v-row>
 
-                <v-col :cols="12" :md="3" v-if="item.thumbnail && false">
-                  <v-img v-bind:src="item.thumbnail" />
-                </v-col>
+                  <v-col v-bind:cols="12" >
+                    <h3 class="headline">{{ item.title }}</h3>
+                    <span class="grey--text">{{ item.subtitle }}</span>
+                  </v-col>
 
-                <v-col :cols="12" :md="4">
-                    <strong>Topics:</strong>
-                    <ul>
-                      <li v-for="parts in item.topics" v-bind:key="parts">
-                        {{ parts }}
-                      </li>
-                    </ul>
-                </v-col>
+                  <v-col v-bind:cols="12" v-bind:md="8">
+                      <p><strong>Author:</strong> {{ item.author }}</p>
+                      <p>{{ item.abstract }}</p>
+                       <p v-if="item.keywords">
+                        <v-chip v-for="keyword in item.keywords" v-bind:key="keyword">
+                          {{ keyword }}
+                        </v-chip>
+                      </p>
+                  </v-col>
 
-              </v-row>
+                  <v-col v-bind:cols="12" v-bind:md="3" v-if="item.thumbnail && false">
+                    <v-img v-bind:src="item.thumbnail" />
+                  </v-col>
 
-              <v-card-actions>
-                <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
-                <v-btn color="green" nuxt :to="'/vault/'+item.slug">Show Details</v-btn>
-              </v-card-actions>
+                  <v-col v-bind:cols="12" v-bind:md="4">
+                      <strong>Topics:</strong>
+                      <ul>
+                        <li v-for="parts in item.topics" v-bind:key="parts">
+                          {{ parts }}
+                        </li>
+                      </ul>
+                  </v-col>
 
-            </td>
-          </template>
+                </v-row>
 
-        </v-data-table>
+                <v-card-actions>
+                  <v-btn color="primary" v-bind:href="item.url" target="_blank" v-on:click="trackEvent(item.url)">View the document <v-icon right dark>launch</v-icon></v-btn>
+                  <v-btn color="green" nuxt v-bind:to="'/vault/'+item.slug">Show Details</v-btn>
+                </v-card-actions>
 
-      </v-card>
-    </v-col>
+              </td>
+            </template>
 
-    <v-col :cols="11">
+          </v-data-table>
 
-      <v-card>
-        <v-card-text>
-          <h1 class="headline">Search the Vault for precious, fan-made hombrews</h1>
-          <p>
-            In desperate need of an option to extend your Wrath & Glory Campaign?
-            Searching for <em>that</em> particular homebrew to improve your setting?
-            The <strong>Vault</strong> has you covered.
-            This is a <strong>curated list of homebrews</strong> from fans, found in the internet.
-            I credit the author and link to their community pages, as good as I could,
-              if I find them either in the document found or on their respective page.
-            If want to add, remove or change your homebrew content or if you want to propose changes regarding links,
-              you can mail me to <a href="mailto:docsofdoom+vault@gmail.com?subject=Vault Request">docsofdoom+vault(at)gmail.com</a>.
-           </p>
-        </v-card-text>
-      </v-card>
+        </v-card>
+      </v-col>
 
-    </v-col>
-  </v-row>
-</div>
+      <v-col v-bind:cols="12">
+
+        <v-card>
+          <v-card-text>
+            <h1 class="headline">Search the Vault for precious, fan-made hombrews</h1>
+            <p>
+              In desperate need of an option to extend your Wrath & Glory Campaign?
+              Searching for <em>that</em> particular homebrew to improve your setting?
+              The <strong>Vault</strong> has you covered.
+              This is a <strong>curated list of homebrews</strong> from fans, found in the internet.
+              I credit the author and link to their community pages, as good as I could,
+                if I find them either in the document found or on their respective page.
+              If want to add, remove or change your homebrew content or if you want to propose changes regarding links,
+                you can mail me to <a href="mailto:docsofdoom+vault@gmail.com?subject=Vault Request">docsofdoom+vault(at)gmail.com</a>.
+             </p>
+          </v-card-text>
+        </v-card>
+
+      </v-col>
+    </v-row>
+
+  </div>
+
 </template>
 
 <script>

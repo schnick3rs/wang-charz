@@ -92,6 +92,7 @@ module.exports = {
     exclude: [
       // dynamic and user specific parts should not be sitemaped
       '/forge/characters/**',
+      '/library/**',
     ],
     routes() {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';

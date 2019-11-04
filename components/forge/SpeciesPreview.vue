@@ -4,7 +4,7 @@
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Species</span>
       <v-spacer></v-spacer>
-      <v-icon dark @click="$emit('cancel')">close</v-icon>
+      <v-icon dark v-on:click="$emit('cancel')">close</v-icon>
     </v-card-title>
     
     <v-divider v-if="chooseMode"></v-divider>
@@ -17,7 +17,7 @@
             v-if="manageMode"
             small outlined
             color="primary"
-            @click="$emit('changeSpecies')"
+            v-on:click="$emit('changeSpecies')"
           >
             <v-icon>settings</v-icon>
             change species
@@ -27,7 +27,7 @@
       </div>
       <v-spacer></v-spacer>
       <div class="hidden-xs-only">
-        <img :src="getAvatar(species.name)" style="width:96px" />
+        <img v-bind:src="getAvatar(species.name)" style="width:96px" />
       </div>
     </v-card-title>
 
@@ -106,11 +106,11 @@
 
     <v-divider v-if="chooseMode"></v-divider>
     <v-card-actions v-if="chooseMode">
-      <v-btn outlined color="red" left @click="$emit('cancel')">
+      <v-btn outlined color="red" left v-on:click="$emit('cancel')">
         Cancel
       </v-btn>
       <v-spacer/>
-      <v-btn color="success" right @click="$emit('select', species);">
+      <v-btn color="success" right v-on:click="$emit('select', species);">
         Select Species
       </v-btn>
     </v-card-actions>

@@ -21,13 +21,13 @@
 
     <!-- selected ascension -->
     <v-col
-      :cols="12"
+      v-bind:cols="12"
       v-if="characterAscensionPackages.length > 0"
     >
 
       <v-card
         v-for="characterAscension in characterAscensionPackages"
-        :key="characterAscension.key"
+        v-bind:key="characterAscension.key"
         class="mb-2"
       >
 
@@ -40,7 +40,7 @@
             <v-btn
               small outlined
               color="red"
-              @click="removePackage(characterAscension)"
+              v-on:click="removePackage(characterAscension)"
             >
               <v-icon left>remove_circle</v-icon>
               remove package
@@ -108,7 +108,7 @@
             >
               <div
                 v-for="option in characterAscension.storyElementOptions[0].discount.slice(0,3)"
-                :key="option.name"
+                v-bind:key="option.name"
               >
               <v-select
                 v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
@@ -168,9 +168,9 @@
               >
 
                 <wargear-select
-                  :item="selectItem.itemChoice"
-                  :repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
-                  @input="updateAscensionPackageWargearOptionChoice($event.name, selectItem.key, characterAscension)"
+                  v-bind:item="selectItem.itemChoice"
+                  v-bind:repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
+                  v-on:input="updateAscensionPackageWargearOptionChoice($event.name, selectItem.key, characterAscension)"
                   class="mb-4"
                 ></wargear-select>
 
@@ -192,16 +192,16 @@
 
       <v-alert
         v-for="alert in alerts"
-        :key="alert.key"
-        :value="true"
-        :type="alert.type"
+        v-bind:key="alert.key"
+        v-bind:value="true"
+        v-bind:type="alert.type"
       >{{alert.text}}</v-alert>
 
     </v-col>
 
     <!-- ascension options -->
     <v-col
-      :cols="12"
+      v-bind:cols="12"
       v-if="alerts.length === 0"
     >
       <v-card>
@@ -211,8 +211,8 @@
           <v-list-item
             two-line
             v-for="item in ascensionRepository"
-            :key="item.key"
-            @click.stop="openDialog(item)"
+            v-bind:key="item.key"
+            v-on:click.stop="openDialog(item)"
           >
 
             <v-list-item-avatar tile>

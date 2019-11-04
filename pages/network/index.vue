@@ -3,17 +3,19 @@
   <div>
 
     <v-row justify="center">
-      <v-col :cols="11" class="elevation-4 mb-2 pa-0 ma-0">
+
+      <v-col v-bind:cols="12" class="elevation-4 mb-2 pa-0 ma-0">
 
         <v-breadcrumbs
           v-bind:items="breadcrumbItems"
+          class="pa-2"
         >
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item
-              :nuxt="true"
-              :to="item.to"
-              :disabled="item.disabled"
-              :exact="item.exact"
+              v-bind:nuxt="true"
+              v-bind:to="item.to"
+              v-bind:disabled="item.disabled"
+              v-bind:exact="item.exact"
             >
               <img v-if="item.to == '/'" src="/favicon-16x16.png" />
               {{ item.text }}
@@ -27,6 +29,7 @@
         </v-breadcrumbs>
 
       </v-col>
+
     </v-row>
 
     <v-row justify="center" >
@@ -34,7 +37,7 @@
       <v-col
         v-for="item in assets"
         v-bind:key="item.name"
-        v-bind:cols="11"
+        v-bind:cols="12"
         v-bind:sm="5"
       >
 
@@ -56,7 +59,7 @@
               <v-list-item
                 v-for="subitem in item.parts"
                 v-bind:key="subitem.title"
-                @click="trackEvent(subitem.url)"
+                v-on:click="trackEvent(subitem.url)"
               >
                 <v-list-item-content>
                   <v-list-item-title>{{ subitem.title }}</v-list-item-title>
@@ -79,7 +82,7 @@
 
       </v-col>
 
-      <v-col :cols="11">
+      <v-col v-bind:cols="12">
 
         <v-card>
           <v-card-text>

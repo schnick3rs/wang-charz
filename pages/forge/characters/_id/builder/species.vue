@@ -2,7 +2,7 @@
 
   <v-row justify="center">
 
-    <v-col :cols="12" v-if="!characterSpecies || changeSpeciesMode">
+    <v-col v-bind:cols="12" v-if="!characterSpecies || changeSpeciesMode">
       <h1 class="headline">Select a Species</h1>
     </v-col>
 
@@ -26,13 +26,13 @@
         <v-list>
           <v-list-item
             v-for="item in speciesRepository"
-            :key="item.name"
-            :disabled="item.baseTier > characterSettingTier"
-            @click.stop="updatePreview(item)"
+            v-bind:key="item.name"
+            v-bind:disabled="item.baseTier > characterSettingTier"
+            v-on:click.stop="updatePreview(item)"
           >
 
             <v-list-item-avatar tile>
-              <img :src="getAvatar(item.name)" />
+              <img v-bind:src="getAvatar(item.name)" />
             </v-list-item-avatar>
 
             <v-list-item-content>

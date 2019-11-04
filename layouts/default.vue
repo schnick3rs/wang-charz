@@ -7,8 +7,8 @@
       dark
       dense
       style="background-color: #212121;"
-      :fixed="toolbar.fixed"
-      :clipped-left="toolbar.clippedLeft"
+      v-bind:fixed="toolbar.fixed"
+      v-bind:clipped-left="toolbar.clippedLeft"
     >
 
       <v-toolbar-items>
@@ -27,7 +27,17 @@
     <v-content>
 
       <v-container>
-        <nuxt />
+
+        <v-row justify="center" no-gutters>
+
+          <v-col
+            v-bind:cols="12"
+            v-bind:xl="8"
+          >
+            <nuxt />
+          </v-col>
+        </v-row>
+
       </v-container>
 
     </v-content>
