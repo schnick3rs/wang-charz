@@ -40,7 +40,7 @@
 
           <v-col
             v-bind:cols="12"
-            v-bind:xl="9"
+            v-bind:xl="8"
           >
 
             <nuxt />

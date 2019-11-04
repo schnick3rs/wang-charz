@@ -9,9 +9,10 @@
           v-for="section in sections.filter(i=>i.isActive)"
           v-bind:key="section.key"
           v-bind:cols="12"
-          v-bind:sm="6"
-          v-bind:md="5"
-          v-bind:lg="5"
+          v-bind:sm="12"
+          v-bind:md="6"
+          v-bind:lg="6"
+          v-bind:xl="6"
           class="pa-3"
         >
 
