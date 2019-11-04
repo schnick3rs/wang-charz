@@ -36,7 +36,7 @@
       <p><v-divider></v-divider></p>
 
       <p class="text-lg-justify"><strong>Tier:</strong> {{ item.tier }}</p>
-      <p class="text-lg-justify"><strong>Species:</strong> {{ item.species }}</p>
+      <p class="text-lg-justify"><strong>Species:</strong> {{ item.species.join(', ') }}</p>
       <p class="text-lg-justify"><strong>Attributes:</strong> {{ attributePrerequisites }}</p>
       <p class="text-lg-justify"><strong>Skills:</strong> {{ skillPrerequisites }}</p>
 

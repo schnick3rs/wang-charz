@@ -337,7 +337,7 @@ export default {
         name: "Space Marine Scout",
         hint: "A stealthy warrior adept at reconnaissance.",
         group: "Adeptus Astartes",
-        species: "Adeptus Astartes",
+        species: ["Adeptus Astartes"],
         cost: 20,
         tier: 2,
         influence: 1,
@@ -358,7 +358,7 @@ export default {
       },
       {
         name: "Tactical Space Marine",
-        species: "Adeptus Astartes",
+        species: ["Adeptus Astartes"],
         cost: 50,
         tier: 3,
         influence: 2,
@@ -386,7 +386,7 @@ export default {
         group: "Adeptus Astartes",
         cost: 60,
         tier: 4,
-        species: "Primaris Astartes",
+        species: ["Primaris Astartes"],
         prerequisites: [
           { group: 'attributes', value: 'strength', threshold: 4, },
           { group: 'attributes', value: 'agility', threshold: 4, },
@@ -544,7 +544,7 @@ export default {
         name: "Chaos Space Marine",
         cost: 50,
         tier: 3,
-        species: "Adeptus Astartes",
+        species: ["Adeptus Astartes"],
         influence: 2,
         keywords: "Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Legion>",
         abilities: [
@@ -634,7 +634,7 @@ export default {
         name: "Corsair",
         cost: 0,
         tier: 1,
-        species: "Eldar",
+        species: ["Eldar"],
         influence: 0,
         keywords: "Aeldari,Anhrathe,<Coterie>",
         abilities: [
@@ -657,7 +657,7 @@ export default {
         name: "Ranger",
         cost: 30,
         tier: 2,
-        species: "Eldar",
+        species: ["Eldar"],
         influence: 0,
         keywords: "Aeldari,Asuryani,<Craftworld>",
         abilities: [
@@ -680,7 +680,7 @@ export default {
         name: "Warlock",
         cost: 80,
         tier: 3,
-        species: "Eldar",
+        species: ["Eldar"],
         influence: 2,
         keywords: "Aeldari,Asuryani,Psyker,<Craftworld>",
         abilities: [
@@ -720,7 +720,7 @@ export default {
         name: "Boy",
         cost: 0,
         tier: 1,
-        species: "Ork",
+        species: ["Ork"],
         influence: 0,
         keywords: "Ork,<Clan>",
         abilities: [
@@ -740,7 +740,7 @@ export default {
         name: "Kommando",
         cost: 30,
         tier: 2,
-        species: "Ork",
+        species: ["Ork"],
         influence: 0,
         keywords: "Ork,<Clan>",
         abilities: [
@@ -763,7 +763,7 @@ export default {
         name: "Nob",
         cost: 60,
         tier: 3,
-        species: "Ork",
+        species: ["Ork"],
         influence: 2,
         keywords: "Ork,<Clan>",
         abilities: [
