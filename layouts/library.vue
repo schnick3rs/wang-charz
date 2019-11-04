@@ -35,7 +35,20 @@
       </v-toolbar>
 
       <v-container>
-        <nuxt />
+
+        <v-row justify="center" no-gutters>
+
+          <v-col
+            v-bind:cols="12"
+            v-bind:xl="9"
+          >
+
+            <nuxt />
+
+          </v-col>
+
+        </v-row>
+
       </v-container>
 
     </v-content>

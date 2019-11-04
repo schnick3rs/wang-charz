@@ -122,6 +122,50 @@ export default {
           hint: '',
           description: 'Powered by psychic energy, bizarre alien technology, or utilizing the raw force of Chaos, these weapons can harm nearly any foe. A weapon with this quality has a damage rating equal to its listed damage rating or the target’s Resilience -4, whichever is higher.'
         },
+        {
+          name: 'Bulk',
+          hint: '',
+          effect: 'Reduces the Speed Trait of the Wearer by X',
+          description: 'Heavy and restrictive armour possesses the Bulk trait. Bulk reduces the Speed of the wearer by a number of metres equal to X.'
+        },
+        {
+          name: 'Cumbersome',
+          hint: '',
+          effect: 'Wearer cannot run or spring.',
+          description: 'Common to the largest suits of powered armour, the Cumbersome trait severely limits the wearer’s movement. Characters in Cumbersome armour cannot run or sprint.'
+        },
+        {
+          name: '\'Ere We Go!',
+          hint: '',
+          effect: 'When wounded, an Ork wearer ignores this armours Bulk and Cumbersome armour traits.',
+          description: 'Common to Ork armour, an Ork wearing armour with this trait ignores the armour’s Bulk and Cumbersome traits when Lightly Wounded or Heavily Wounded.'
+        },
+        {
+          name: 'Force Shield',
+          hint: '',
+          effect: 'The wearer my soak Mortal Wounds and the armour rating is not reduced by AP.',
+          description: 'Wonders of archeotech, personal force shields envelope their user in a protective barrier of energy.' +
+          ' A Force Shield’s protection allows the wearer to soak mortal wounds. ' +
+          'This armour rating is invulnerable and may not be reduced by AP.'
+        },
+        {
+          name: 'Powered',
+          hint: '',
+          effect: 'Grants X Strength to the wearer and ignores the Heavy weapon trait.',
+          description: 'Armour designed to augment the strength of the wearer possesses the Powered trait.' +
+          ' Powered armour grants a bonus to the wearer’s Strength equal to X.' +
+          ' A character wearing Powered armour ignores the Heavy weapon trait.'
+        },
+        {
+          name: 'Shield',
+          hint: '',
+          effect: 'Adds it\'s rating to Resilience and Defence against attacks from the front and the side. (GM has the final say)',
+          description: 'This type of armour is carried, not worn. ' +
+          'Wielded like a defensive weapon, shields turn away blows and incoming fire. ' +
+          'A shield adds its Armour Rating to both Resilience and Defence against attacks coming from the front and side of the bearer. ' +
+          'The GM has final say on how far around the bearer a shield’s protection extends. ' +
+          'Some types of shields are invulnerable (designated with an asterisk next to the armour rating) and thus may not be reduced by AP.'
+        },
       ],
     };
   },
