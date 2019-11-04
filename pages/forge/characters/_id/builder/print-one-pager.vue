@@ -20,7 +20,11 @@
           <!-- attributes, skills and traits -->
           <v-col v-bind:cols="3" class="pa-1">
 
-            <v-card v-for="attribute in attributes" class="mb-1">
+            <v-card
+              v-for="attribute in attributes"
+              v-bind:key="attribute.name"
+              class="mb-1"
+            >
 
               <v-toolbar color="red" dark dense height="32">
                   <v-toolbar-title>
@@ -32,7 +36,10 @@
                 <thead>
                 </thead>
                 <tbody>
-                  <tr v-for="skill in skills.filter( s => s.attribute === attribute.name)">
+                  <tr
+                    v-for="skill in skills.filter( s => s.attribute === attribute.name)"
+                    v-bind:key="skill"
+                  >
                     <td class="text-xs-left pa-1 small">{{ skill.name }}</td>
                     <td class="text-center pa-1 small">{{ skill.enhancedValue }}</td>
                   </tr>
@@ -114,7 +121,11 @@
                     <v-toolbar-title>Gear</v-toolbar-title>
                   </v-toolbar>
 
-                  <v-card-text v-for="gearItem in gear" v-bind:key="gearItem.name" class="pa-2 caption">
+                  <v-card-text
+                    v-for="gearItem in gear"
+                    v-bind:key="gearItem.name"
+                    class="pa-2 caption"
+                  >
                     <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
                   </v-card-text>
 
@@ -130,7 +141,11 @@
                     <v-toolbar-title>Talents</v-toolbar-title>
                   </v-toolbar>
 
-                  <v-card-text v-for="talent in talents" v-bind:key="talent.name" class="pa-2 caption">
+                  <v-card-text
+                    v-for="talent in talents"
+                    v-bind:key="talent.name"
+                    class="pa-2 caption"
+                  >
                     <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)"></span>
                   </v-card-text>
 
