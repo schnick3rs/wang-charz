@@ -24,7 +24,7 @@
                     <span v-else>{{ talent.name }}</span>
                   </v-col>
                   <v-col v-bind:cols="1" v-bind:sm="1" ><v-chip label x-small >{{ talent.cost }} BP</v-chip></v-col>
-                  <v-col v-bind:cols="4" v-bind:sm="2" ><v-btn v-on:click.stop.prevent="removeTalent(talent.name)" color="error" x-small >remove</v-btn></v-col>
+                  <v-col v-bind:cols="4" v-bind:sm="2" ><v-btn v-on:click.stop.prevent="removeTalent(talent)" color="error" x-small >remove</v-btn></v-col>
 
                   <v-col v-if="!open" v-bind:cols="8" v-bind:sm="10"  class="caption grey--text">{{ talent.effect }}</v-col>
 
@@ -487,7 +487,12 @@ export default {
       this.$store.commit('characters/addCharacterTalent', { id: this.characterId, talent: payload });
     },
     removeTalent(talent) {
-      this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent });
+      const payload = {
+        id: this.characterId,
+        source: `talent.${talent.id}`,
+      };
+      this.$store.commit('characters/removeCharacterWargearBySource', payload);
+      this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent.name });
     },
     prerequisitesToText(item) {
       const texts = [];

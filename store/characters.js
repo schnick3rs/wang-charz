@@ -375,7 +375,7 @@ export const mutations = {
   removeCharacterWargearBySource(state, payload) {
     const character = state.characters[payload.id];
     const source = payload.source;
-    character.wargear = character.wargear.filter( item => item.source !== source );
+    character.wargear = character.wargear.filter( item => item.source.indexOf(source) < 0 );
   },
 
   // Psychic Powers
