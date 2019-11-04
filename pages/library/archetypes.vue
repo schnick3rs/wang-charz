@@ -104,7 +104,7 @@
               <td v-bind:colspan="headers.length">
                 <archetype-preview
                   v-bind:item="item"
-                  class="mt-2"
+                  class="pa-2 pt-4 pb-4"
                 ></archetype-preview>
               </td>
             </template>
