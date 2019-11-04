@@ -23,7 +23,10 @@
                     <span v-if="talent.selected" v-html="talent.name.replace(/(<.*>)/, `<em>${talent.selected}</em>`)"></span>
                     <span v-else>{{ talent.name }}</span>
                   </v-col>
-                  <v-col v-bind:cols="1" v-bind:sm="1" ><v-chip label x-small >{{ talent.cost }} BP</v-chip></v-col>
+                  <v-col v-bind:cols="1" v-bind:sm="1" >
+                    <v-chip label x-small v-if="talent.name === 'Special Weapons Trooper'">{{ talent.cost+talent.extraCost }} BP</v-chip>
+                    <v-chip label x-small v-else>{{ talent.cost }} BP</v-chip>
+                  </v-col>
                   <v-col v-bind:cols="4" v-bind:sm="2" ><v-btn v-on:click.stop.prevent="removeTalent(talent)" color="error" x-small >remove</v-btn></v-col>
 
                   <v-col v-if="!open" v-bind:cols="8" v-bind:sm="10"  class="caption grey--text">{{ talent.effect }}</v-col>
@@ -111,16 +114,10 @@
                   v-on:input="talentSpecialWeaponTrooperUpdateWeaponChoiceLabel($event, 'weapon', talent)"
                   item-text="name"
                   item-value="name"
-                  label="Select a keyword, you know much about those dudes, like really much"
+                  label="Select a Special Weapon to make YOU special"
                   filled
                   dense
                 ></v-select>
-                <wargear-select
-                  v-bind:item="talent.selected"
-                  v-bind:repository="wargearRepository.filter( gear => ['Combat Shotgun','Flamer','Hot-Shot Lasgun','Meltagun','Plasma Gun','Voss Pattern Grenade Launcher', 'Astartes Sniper Rifle'].includes(gear.name) )"
-                  v-on:input="talentSpecialWeaponTrooperUpdateWeaponChoice($event, 'weapon', talent)"
-                  class="mb-4"
-                ></wargear-select>
               </div>
 
             </v-expansion-panel-content>
@@ -326,6 +323,7 @@ export default {
         // for each special talent, check respectively
         if ( talent.selected ) {
           enrichedTalent.selected = talent.selected;
+          enrichedTalent.extraCost = talent.extraCost;
         }
 
         // Fetch gear for selected weapon trooper
