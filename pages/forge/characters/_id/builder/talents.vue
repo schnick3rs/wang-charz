@@ -323,7 +323,7 @@ export default {
       return characterTalents.map( talent => {
         let enrichedTalent = this.talentRepository.find( r => r.name === talent.name);
 
-        // for each special talent, check respecivly
+        // for each special talent, check respectively
         if ( talent.selected ) {
           enrichedTalent.selected = talent.selected;
         }
@@ -563,6 +563,7 @@ export default {
         name: wargear.name,
         source: `talent.${talent.id}.${itemKey}`,
       };
+      this.$store.commit('characters/removeCharacterWargearBySource', payload);
       this.$store.commit('characters/addCharacterWargear', payload);
 
       this.talentUpdateSelected(wargear.name, talent);
