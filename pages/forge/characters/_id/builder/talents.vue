@@ -19,13 +19,9 @@
 
                 <v-row no-gutters>
 
-                  <v-col v-bind:cols="7" v-bind:sm="9" class="subtitle-1">
+                  <v-col v-bind:cols="8" v-bind:sm="10" class="subtitle-1">
                     <span v-if="talent.selected" v-html="talent.name.replace(/(<.*>)/, `<em>${talent.selected}</em>`)"></span>
                     <span v-else>{{ talent.name }}</span>
-                  </v-col>
-                  <v-col v-bind:cols="1" v-bind:sm="1" >
-                    <v-chip label x-small v-if="talent.name === 'Special Weapons Trooper'">{{ talent.cost+talent.extraCost }} BP</v-chip>
-                    <v-chip label x-small v-else>{{ talent.cost }} BP</v-chip>
                   </v-col>
                   <v-col v-bind:cols="4" v-bind:sm="2" ><v-btn v-on:click.stop.prevent="removeTalent(talent)" color="error" x-small >remove</v-btn></v-col>
 
@@ -38,6 +34,12 @@
             </v-expansion-panel-header>
 
             <v-expansion-panel-content>
+
+              <div class="mb-4">
+                <span>Cost:</span>
+                <v-chip label x-small v-if="talent.name === 'Special Weapons Trooper'">{{ talent.cost+talent.extraCost }} BP</v-chip>
+                <v-chip label x-small v-else>{{ talent.cost }} BP</v-chip>
+              </div>
 
               <p class="body-2">{{ talent.description }}</p>
 
