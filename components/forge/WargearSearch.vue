@@ -31,6 +31,7 @@
     </v-card>
 
     <v-card>
+
       <v-data-table
         v-bind:headers="headers"
         v-bind:items="searchResult"
@@ -52,7 +53,28 @@
 
         <template v-slot:expanded-item="{ headers, item }">
           <td v-bind:colspan="headers.length">
-            <p class="mt-2">{{item.hint}}</p>
+
+            <div class="pa-2 pt-4 pb-4">
+
+              <span>{{ item.hint }}</span>
+
+              <dod-simple-weapon-stats
+                v-if="item.meta !== undefined && item.meta.length > 0 && ['ranged-weapon','melee-weapon'].includes(item.meta[0].type)"
+                v-bind:name="item.name"
+                v-bind:stats="item.meta[0]"
+                v-bind:showTraits="false"
+                class="mb-2"
+              ></dod-simple-weapon-stats>
+              <dod-simple-armour-stats
+                v-if="item.meta !== undefined && item.meta.length > 0 && ['armour'].includes(item.meta[0].type)"
+                v-bind:name="item.name"
+                v-bind:stats="item.meta[0]"
+                v-bind:showTraits="false"
+                class="mb-2"
+              ></dod-simple-armour-stats>
+
+            </div>
+
           </td>
         </template>
 
@@ -61,6 +83,7 @@
       <div class="text-xs-center pt-2">
         <v-pagination v-model="pagination.page" v-bind:length="pagination.pageCount" />
       </div>
+
     </v-card>
 
   </div>
@@ -68,71 +91,78 @@
 </template>
 
 <script>
-  export default {
-    name: "wargear-search",
-    props: {
-      repository: Array,
-    },
-    data() {
-      return {
-        searchQuery: '',
-        selectedTypeFilters: [],
-        pagination: {
-          page: 1,
-          pageCount: 0,
-          sortBy: 'title',
-          rowsPerPage: 25,
-        },
-        headers: [
-          { text: 'Name', align: 'left', value: 'name', class: '' },
-          { text: '', align: 'right', value: 'action-add', class: '' },
-        ],
-      };
-    },
-    computed: {
-      typeFilters() {
-        if ( this.repository === undefined ) {
-          return [];
-        }
-        const reduceToType = this.repository.map( item => item.type );
-        const distinctTypes = [ ...new Set(reduceToType) ];
-        const types = distinctTypes.map( t => { return { name: t } });
-        return types;
-      },
-      searchResult() {
-        if ( this.repository === undefined ) {
-          return [];
-        }
-        let searchResult = this.repository;
+import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
+import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
 
-        if (this.selectedTypeFilters.length > 0) {
-          searchResult = searchResult.filter( item => this.selectedTypeFilters.includes(item.type));
-        }
+export default {
+  name: "wargear-search",
+  components: {
+    DodSimpleArmourStats,
+    DodSimpleWeaponStats,
+  },
+  props: {
+    repository: Array,
+  },
+  data() {
+    return {
+      searchQuery: '',
+      selectedTypeFilters: [],
+      pagination: {
+        page: 1,
+        pageCount: 0,
+        sortBy: 'title',
+        rowsPerPage: 25,
+      },
+      headers: [
+        { text: 'Name', align: 'left', value: 'name', class: '' },
+        { text: '', align: 'right', value: 'action-add', class: '' },
+      ],
+    };
+  },
+  computed: {
+    typeFilters() {
+      if ( this.repository === undefined ) {
+        return [];
+      }
+      const reduceToType = this.repository.map( item => item.type );
+      const distinctTypes = [ ...new Set(reduceToType) ];
+      const types = distinctTypes.map( t => { return { name: t } });
+      return types;
+    },
+    searchResult() {
+      if ( this.repository === undefined ) {
+        return [];
+      }
+      let searchResult = this.repository;
 
-        return searchResult;
-      },
+      if (this.selectedTypeFilters.length > 0) {
+        searchResult = searchResult.filter( item => this.selectedTypeFilters.includes(item.type));
+      }
+
+      return searchResult;
     },
-    methods: {
-      toggleTypeFilter(name) {
-        if (this.selectedTypeFilters.includes(name)) {
-          this.selectedTypeFilters = this.selectedTypeFilters.filter(d => d != name);
-        } else {
-          this.selectedTypeFilters.push(name);
-        }
-      },
-      wargearSubtitle(item) {
-        //const item = this.wargearRepository.find(i => i.name === gear);
-        if (item) {
-          let tags = [item.type];
-          if ( item.subtype ) {
-            tags.push(item.subtype);
-          }
-          return tags.filter(t=> t!== undefined).join(' • ');
-        }
-        return '';
-      },
+  },
+  methods: {
+    toggleTypeFilter(name) {
+      if (this.selectedTypeFilters.includes(name)) {
+        this.selectedTypeFilters = this.selectedTypeFilters.filter(d => d != name);
+      } else {
+        this.selectedTypeFilters.push(name);
+      }
     },
-  }
+    wargearSubtitle(item) {
+      //const item = this.wargearRepository.find(i => i.name === gear);
+      if (item) {
+        let tags = [item.type];
+        if ( item.subtype ) {
+          tags.push(item.subtype);
+        }
+        return tags.filter(t=> t!== undefined).join(' • ');
+      }
+      return '';
+    },
+  },
+}
 </script>
 
 <style scoped>

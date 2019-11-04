@@ -52,7 +52,7 @@
 
     </v-simple-table>
 
-    <div class="mt-4">
+    <div class="mt-4" v-if="showTraits">
 
       <p
         v-for="trait in stats.traits"
@@ -84,7 +84,7 @@ export default {
       type: Object,
       required: true,
     },
-    'show-traits': {
+    showTraits: {
       type: Boolean,
       required: false,
       default: false,
