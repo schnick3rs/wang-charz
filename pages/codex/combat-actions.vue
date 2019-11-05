@@ -83,7 +83,10 @@
 
             <v-expansion-panel-content>
 
-              <p v-html="item.shortDescriptionHtml" class="body-2"></p>
+              <div v-if="item.shortDescriptionHtml">
+                <p v-html="item.shortDescriptionHtml" class="body-2"></p>
+              </div>
+              <p v-else class="body-2">{{ item.hint }}</p>
 
             </v-expansion-panel-content>
 

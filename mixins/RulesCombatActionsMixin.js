@@ -62,7 +62,7 @@ export default {
         key: 'interactionAttack',
         name: 'Interaction Attack',
         group: 'Combat',
-        shortDescriptionHtml: '',
+        shortDescriptionHtml: 'some text',
         source: { book: 'CORE', page: 215 },
       },
       {
