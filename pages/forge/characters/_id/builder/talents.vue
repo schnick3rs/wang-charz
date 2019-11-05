@@ -100,6 +100,23 @@
                   v-bind:item="talent.selected"
                   v-bind:repository="wargearRepository.filter( gear => {
                       const typeReq = ['Cybernetic'].includes(gear.type);
+                      return (typeReq);
+                    })"
+                  v-on:input="talentAugmeticImplantsUpdateImplantChoice($event, 'implant', talent)"
+                  class="mb-4"
+                ></wargear-select>
+
+                <v-alert type="info" dense elevation="2">
+                  Currently, only the variant for a single item works correct.
+                </v-alert>
+
+              </div>
+
+              <div v-if=false>
+                <wargear-select
+                  v-bind:item="talent.selected"
+                  v-bind:repository="wargearRepository.filter( gear => {
+                      const typeReq = ['Cybernetic'].includes(gear.type);
                       const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(gear.rarity);
                       return (typeReq && rarityReq);
                     })"
@@ -121,9 +138,6 @@
                 ></v-select>
               </div>
 
-              <v-alert v-if="talent.id === 83" type="warning" dense elevation="2">
-                This talent is not working correctly at the moment. Only the Base cost are used!
-              </v-alert>
 
             </v-expansion-panel-content>
 
