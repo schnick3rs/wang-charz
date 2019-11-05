@@ -253,7 +253,6 @@ export default {
     return {
       issues: [
         'Allow to select specific "Acts of Faith".',
-        'Allow to pick a "Special Weapon", add it to the wargear and compute the cost accordingly.',
         'Allow to pick "Augments", add them to the wargear and compute the cost accordingly.',
       ],
       searchQuery: '',
