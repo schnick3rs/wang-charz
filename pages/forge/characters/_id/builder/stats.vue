@@ -1,6 +1,6 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-row justify-center row wrap>
+  <v-row justify="center" row wrap>
 
     <v-col v-bind:cols="12">
       <h1 class="headline">Select Attributes and Skills</h1>
