@@ -11,7 +11,7 @@ module.exports = {
     htmlAttrs: {
       lang: 'en',
     },
-    titleTemplate: '%s - Doctors of Doom',
+    titleTemplate: '%s',
     title: 'Doctors of Doom' || '',
     meta: [
       { charset: 'utf-8' },

@@ -49,7 +49,6 @@ export default {
   components: {},
   head() {
     return {
-      titleTemplate: '%s',
       title: 'Doctors of Doom | A Wrath & Glory fan page',
       meta: [
         {
