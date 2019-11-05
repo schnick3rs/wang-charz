@@ -1,6 +1,6 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-row justify-center row wrap>
+  <v-row justify="center" row wrap>
 
     <v-col>
       <h1 class="headline">Manage Powers</h1>

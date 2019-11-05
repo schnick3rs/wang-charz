@@ -13,7 +13,7 @@
 
           <v-card-text>
 
-            <v-row justify-center row wrap>
+            <v-row justify="center" row wrap>
 
               <v-col v-bind:cols="12" >
 

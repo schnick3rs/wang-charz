@@ -4,7 +4,7 @@
 
     <v-container grid-list-md>
 
-      <v-row justify-center row wrap>
+      <v-row justify="center" row wrap>
 
         <v-col v-bind:cols="12" sm10 md8 lg8>
 
