@@ -156,13 +156,20 @@ export default {
   },
   computed: {
     activeRepository() {
-      return this.combatActionsRepository;
+      return [
+        ...this.combatActionsRepository,
+        ...this.combatOptionsRepository.map( item => { return { group: 'Option', ...item} } )
+        ].sort((a, b) => a.name.localeCompare(b.name));
     },
     searchResult() {
       if ( this.activeRepository === undefined ) {
         return [];
       }
       let filteredResults = this.activeRepository;
+
+      if ( this.searchQuery.length > 0 ) {
+        filteredResults = filteredResults.filter( item => item.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0 );
+      }
 
       let filter = this.filters.group;
       if (filter.model && filter.model.length > 0) {
