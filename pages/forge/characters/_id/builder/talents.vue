@@ -76,7 +76,7 @@
                   v-on:input="talentUpdateSelected($event, talent)"
                   item-text="name"
                   item-value="name"
-                  label="Select a keyword, you know much about those dudes, like really much"
+                  label="This weapon and you are good pals"
                   filled
                   dense
                 ></v-select>
@@ -89,7 +89,7 @@
                   v-on:input="talentUpdateSelected($event, talent)"
                   item-text="name"
                   item-value="name"
-                  label="Select a keyword, you know much about those dudes, like really much"
+                  label="You are often seen with that range weapon"
                   filled
                   dense
                 ></v-select>
@@ -106,7 +106,6 @@
                   v-on:input="talentAugmeticImplantsUpdateImplantChoice($event, 'implant', talent)"
                   class="mb-4"
                 ></wargear-select>
-
               </div>
 
               <div v-if="talent.id === 36">
@@ -121,6 +120,10 @@
                   dense
                 ></v-select>
               </div>
+
+              <v-alert v-if="talent.id === 83" type="warning" dense elevation="2">
+                This talent is not working correctly at the moment. Only the Base cost are used!
+              </v-alert>
 
             </v-expansion-panel-content>
 
