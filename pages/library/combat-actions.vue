@@ -64,7 +64,7 @@
             v-bind:key="item.key"
           >
 
-            <v-expansion-panel-header>
+            <v-expansion-panel-header class="pa-4 pt-2 pb-2">
 
               <template v-slot:default="{ open }">
 
@@ -73,7 +73,7 @@
                     <h3 class="subtitle-1">{{ item.name }}</h3>
                   </v-col>
                   <v-col v-bind:cols="12">
-                    <span v-if="!open" class="caption grey--text">{{ item.group }}</span>
+                    <span class="caption grey--text">{{ item.group }}</span>
                   </v-col>
                 </v-row>
 
