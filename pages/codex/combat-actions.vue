@@ -111,14 +111,18 @@ export default {
     RulesCombatActionsMixin,
   ],
   head() {
+
+    const title = 'Combat Actions - Wrath & Glory Reference | Library';
+    const description = 'This Quick Reference for Wrath and Glory shows the various combat actions and options.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
+
     return {
-      title: 'Combat Actions - Wrath & Glory Reference | Library',
+      title: title,
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '',
-        },
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
       ],
     };
   },
@@ -126,8 +130,8 @@ export default {
     return {
       breadcrumbItems: [
         { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
-        { text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library' },
-        { text: 'Combat Actions', disabled: false, nuxt: true, exact: true, to: '/library/combat-actions' },
+        { text: 'Codex', disabled: false, nuxt: true, exact: true, to: '/codex' },
+        { text: 'Combat Actions', disabled: false, nuxt: true, exact: true, to: '/codex/combat-actions' },
       ],
       searchQuery: '',
       selectedTypeFilters: [],

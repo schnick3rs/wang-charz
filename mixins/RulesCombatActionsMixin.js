@@ -1,13 +1,6 @@
 export default {
   data() {
 
-    const combatActionGroups = [
-      {
-        key: 'movement',
-        name: 'Movement Actions',
-      },
-    ];
-
     const combatActions = [
       {
         key: 'standardMovement',
@@ -123,7 +116,6 @@ export default {
         key: 'allOutAttack',
         name: 'All-Out Attack',
         type: [ 'Melee' ],
-        withMultiAttack: false,
         hint: 'Sacrifice move to gain either +1d on a ranged attack or fire into melee without risk',
         shortDescriptionHtml: 'A character may perform an All-Out attack, putting all of their effort into aggression and forgoing caution. When making an All-Out attack, a character gains a +2d bonus to their melee attack, but they also suffer a -2 penalty to their Defence until their next turn. A character that performs an All-Out attack cannot use a Multiaction.',
         source: { book: 'CORE', page: 221 },
@@ -227,7 +219,6 @@ export default {
     ];
 
     return {
-      combatActionGroupsRepository: combatActionGroups,
       combatActionsRepository: combatActions,
       combatOptionsRepository: combatOptions,
     }
