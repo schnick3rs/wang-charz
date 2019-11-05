@@ -38,6 +38,7 @@
               <div class="mb-4">
                 <span>Cost:</span>
                 <v-chip label x-small v-if="talent.name === 'Special Weapons Trooper'">{{ talent.cost+talent.extraCost }} BP</v-chip>
+                <v-chip label x-small v-if="talent.name === 'Augmetic <Specific Implants>'">{{ talent.cost+talent.extraCost }} BP</v-chip>
                 <v-chip label x-small v-else>{{ talent.cost }} BP</v-chip>
               </div>
 
@@ -545,6 +546,7 @@ export default {
         name: gear.name,
         source: `talent.${talent.id}.${itemKey}`,
       };
+      this.$store.commit('characters/removeCharacterWargearBySource', payload);
       this.$store.commit('characters/addCharacterWargear', payload);
 
       this.talentUpdateSelected(gear.name, talent);
