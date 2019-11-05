@@ -37,14 +37,13 @@
 
               <div class="mb-4">
                 <span>Cost:</span>
-                <v-chip label x-small v-if="talent.name === 'Special Weapons Trooper'">{{ talent.cost+talent.extraCost }} BP</v-chip>
-                <v-chip label x-small v-if="talent.name === 'Augmetic <Specific Implants>'">{{ talent.cost+talent.extraCost }} BP</v-chip>
+                <v-chip label x-small v-if="talent.extraCost">{{ talent.cost+talent.extraCost }} BP</v-chip>
                 <v-chip label x-small v-else>{{ talent.cost }} BP</v-chip>
               </div>
 
               <p class="body-2">{{ talent.description }}</p>
 
-              <div v-if="talent.name === 'Hatred <Keyword>'">
+              <div v-if="talent.id === 15">
                 <v-select
                   v-bind:value="talent.selected"
                   v-bind:items="talentHatredKeywordOptions"
@@ -57,7 +56,7 @@
                 ></v-select>
               </div>
 
-              <div v-if="talent.name === 'Loremaster <Keyword>'">
+              <div v-if="talent.id === 20">
                 <v-select
                   v-bind:value="talent.selected"
                   v-bind:items="talentLoremasterKeywordOptions"
@@ -70,7 +69,7 @@
                 ></v-select>
               </div>
 
-              <div v-if="talent.name === 'Trademark Weapon: (Melee <Weapon>)'">
+              <div v-if="talent.id === 54">
                 <v-select
                   v-bind:value="talent.selected"
                   v-bind:items="talentTrademarkWeaponOptions.filter( w => w.type === 'Melee Weapon')"
@@ -83,7 +82,7 @@
                 ></v-select>
               </div>
 
-              <div v-if="talent.name === 'Trademark Weapon: (Ranged <Weapon>)'">
+              <div v-if="talent.id === 53">
                 <v-select
                   v-bind:value="talent.selected"
                   v-bind:items="talentTrademarkWeaponOptions.filter( w => w.type === 'Ranged Weapon')"
@@ -96,7 +95,7 @@
                 ></v-select>
               </div>
 
-              <div v-if="talent.name === 'Augmetic <Specific Implants>'">
+              <div v-if="talent.id === 83">
                 <wargear-select
                   v-bind:item="talent.selected"
                   v-bind:repository="wargearRepository.filter( gear => {
@@ -110,7 +109,7 @@
 
               </div>
 
-              <div v-if="talent.name === 'Special Weapons Trooper'">
+              <div v-if="talent.id === 36">
                 <v-select
                   v-bind:value="talent.selected"
                   v-bind:items="wargearRepository.filter( gear => ['Combat Shotgun','Flamer','Hot-Shot Lasgun','Meltagun','Plasma Gun','Voss Pattern Grenade Launcher', 'Astartes Sniper Rifle'].includes(gear.name) )"
@@ -254,6 +253,7 @@ export default {
       issues: [
         'Allow to select specific "Acts of Faith".',
         'Allow to pick "Augments", add them to the wargear and compute the cost accordingly.',
+        'Allow to pick some talents multiple times.',
       ],
       searchQuery: '',
       filterOnlyPrerequisites: false,
