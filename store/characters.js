@@ -74,7 +74,10 @@ export const getters = {
       return 0;
     }
     let spending = 0;
-    character.talents.forEach((talent) => { spending += talent.cost; });
+    character.talents.forEach( (talent) => {
+      spending += talent.cost;
+      spending += talent.extraCost && parseInt(talent.extraCost) ? talent.extraCost : 0;
+    });
     return spending;
   },
   characterAscensionCostsById: (state) => (id) => {
@@ -165,12 +168,11 @@ export const getters = {
     traits['defence'] = enhancedAttributes.initiative-1;
     traits['resilience'] = enhancedAttributes.toughness+1;
     traits['soak'] = enhancedAttributes.toughness;
-    traits['wounds'] = enhancedAttributes.toughness + character.settingTier;
-    traits['shock'] = enhancedAttributes.willpower + character.settingTier;
+    traits['wounds'] = enhancedAttributes.toughness+character.settingTier;
+    traits['shock'] = enhancedAttributes.willpower+character.settingTier;
     traits['resolve'] = enhancedAttributes.willpower-1;
     traits['conviction'] = enhancedAttributes.willpower;
-    const passiveAwarenessSum = enhancedAttributes.intellect + character.skills.awareness;
-    traits['passiveAwareness'] = Math.round(passiveAwarenessSum/2);
+    traits['passiveAwareness'] = Math.round((enhancedAttributes.intellect+character.skills.awareness)/2);
 
     traits['influence'] = enhancedAttributes.fellowship-1;
     if ( character.species.value && character.species.value === 'Ork' ) {
@@ -314,9 +316,11 @@ export const mutations = {
   // Talents
   addCharacterTalent(state, payload) {
     const character = state.characters[payload.id];
-    const hasTalent = character.talents.find(t => t.name === payload.name) !== undefined;
+    const talent = payload.talent;
+    const talentUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    const hasTalent = character.talents.find(t => t.name === talent.name) !== undefined;
     if (!hasTalent) {
-      character.talents.push({ name: payload.name, cost: payload.cost });
+      character.talents.push( { id: talentUniqueId, ...talent } );
     }
   },
   removeCharacterTalent(state, payload) {
@@ -325,6 +329,32 @@ export const mutations = {
     if (hasTalent) {
       character.talents = character.talents.filter(t => t.name !== payload.name);
     }
+  },
+  setCharacterTalentSelected(state, payload) {
+    const character = state.characters[payload.id];
+    console.info(`Update ${payload.name} set selected = ${payload.selected}`);
+    const theTalent = character.talents.find(t => t.name === payload.name);
+    const theOtherTalents = character.talents.filter(t => t.name !== payload.name);
+
+    theTalent.selected = payload.selected;
+
+    character.talents = [
+      ...theOtherTalents,
+      theTalent
+    ];
+  },
+  setCharacterTalentExtraCost(state, payload) {
+    const character = state.characters[payload.id];
+    console.info(`Update ${payload.name} set extraCost = ${payload.extraCost}`);
+    const theTalent = character.talents.find(t => t.name === payload.name);
+    const theOtherTalents = character.talents.filter(t => t.name !== payload.name);
+
+    theTalent.extraCost = payload.extraCost;
+
+    character.talents = [
+      ...theOtherTalents,
+      theTalent
+    ];
   },
 
   // Wargear
@@ -341,6 +371,11 @@ export const mutations = {
     if (hasWargear) {
       character.wargear = character.wargear.filter(t => t.id !== gearId);
     }
+  },
+  removeCharacterWargearBySource(state, payload) {
+    const character = state.characters[payload.id];
+    const source = payload.source;
+    character.wargear = character.wargear.filter( item => item.source.indexOf(source) < 0 );
   },
 
   // Psychic Powers

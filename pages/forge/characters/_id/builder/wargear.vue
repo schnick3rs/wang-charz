@@ -82,7 +82,7 @@
               <wargear-select
                 v-bind:item="gear.selected"
                 v-bind:repository="wargearRepository.filter(gear.options[0].query)"
-                v-on:input="gear.selected = $event"
+                v-on:input="gear.selected = $event.name"
                 class="mb-4"
               ></wargear-select>
 
@@ -156,7 +156,7 @@
 </template>
 
 <script lang="js">
-import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin.js';
+import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin';
 import WargearSearch from '~/components/forge/WargearSearch.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
 

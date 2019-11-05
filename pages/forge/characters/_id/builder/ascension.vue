@@ -170,7 +170,7 @@
                 <wargear-select
                   v-bind:item="selectItem.itemChoice"
                   v-bind:repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
-                  v-on:input="updateAscensionPackageWargearOptionChoice($event, selectItem.key, characterAscension)"
+                  v-on:input="updateAscensionPackageWargearOptionChoice($event.name, selectItem.key, characterAscension)"
                   class="mb-4"
                 ></wargear-select>
 
