@@ -170,7 +170,7 @@ export default {
       }
       let filteredResults = this.activeRepository;
 
-      if ( this.searchQuery.length > 0 ) {
+      if ( this.searchQuery && this.searchQuery.length > 0 ) {
         filteredResults = filteredResults.filter( item => item.name.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0 );
       }
 

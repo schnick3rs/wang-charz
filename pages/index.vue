@@ -118,6 +118,28 @@ export default {
           isActive: true,
           classes: [ ],
         },
+        {
+          key: 'codex',
+          title: 'Rules <strong>Codex</strong>',
+          subtitle: 'Combat Rules References',
+          imageSrc: '/img/artwork_codex.jpg',
+          imageCredit: 'Artwork from Pixabay',
+          htmlText: 'A quick reference for some of the combat rules.',
+          link: { text: 'To the Codey', route: '/codex' },
+          isActive: true,
+          classes: [ ],
+        },,
+        {
+          key: 'library',
+          title: 'Reference <strong>Library</strong>',
+          subtitle: 'Species, Archetypes and more',
+          imageSrc: '/img/artwork_library.jpg',
+          imageCredit: 'Artwork from Pixabay',
+          htmlText: 'Browse through Species, Archetypes, Wargear and more...',
+          link: { text: 'To the Library', route: '/library' },
+          isActive: true,
+          classes: [ ],
+        },
       ],
     };
   },
@@ -160,6 +182,7 @@ export default {
     }
   }
 
+  // md medium
   @media only screen and (min-width: 600px) {
     .card {
       height: 340px;
@@ -174,6 +197,23 @@ export default {
       }
     }
   }
+
+  // lg large
+  @media only screen and (min-width: 960px) {
+    .card {
+      height: 300px;
+
+      &__image-container {
+        width: 25%;
+        min-width: 25%;
+      }
+
+      &__image {
+        height: 300px;
+      }
+    }
+  }
+
 
   .flexcard {
     display: flex;
