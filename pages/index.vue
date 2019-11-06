@@ -122,7 +122,7 @@ export default {
           key: 'codex',
           title: 'Rules <strong>Codex</strong>',
           subtitle: 'Combat Rules References',
-          imageSrc: '/img/artwork_codex.jpg',
+          imageSrc: '/img/artwork_codex_book.jpg',
           imageCredit: 'Artwork from Pixabay',
           htmlText: 'A quick reference for some of the combat rules.',
           link: { text: 'To the Codey', route: '/codex' },
