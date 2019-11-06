@@ -117,7 +117,7 @@ export default {
   head() {
     const title = 'Combat Actions - Wrath & Glory Reference | Codex';
     const description = 'This Quick Reference for Wrath and Glory shows the various combat actions and options.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_codex_book.jpg';
 
     return {
       title: title,
