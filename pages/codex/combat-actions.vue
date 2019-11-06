@@ -85,7 +85,9 @@
 
               <p class="body-2"><em>{{ item.hint }}</em></p>
 
-              <div v-html="item.shortDescriptionHtml" class="body-2"></div>
+              <div v-if="item.hint === undefined" v-html="item.shortDescriptionHtml" class="body-2 mb-2"></div>
+
+              <p class="caption"><strong>Source:</strong> {{ item.source.book }}, pg. {{ item.source.page }}</p>
 
             </v-expansion-panel-content>
 

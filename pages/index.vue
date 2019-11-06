@@ -11,8 +11,8 @@
           v-bind:cols="12"
           v-bind:sm="12"
           v-bind:md="6"
-          v-bind:lg="6"
-          v-bind:xl="6"
+          v-bind:lg="4"
+          v-bind:xl="4"
           class="pa-3"
         >
 
@@ -28,9 +28,9 @@
 
               <h3 class="card__content-subtitle pb-4 subtitle-2">{{ section.subtitle }}</h3>
 
-              <p class="body-2" v-html="section.htmlText"></p>
+              <p class="body-2 d-none d-sm-block" v-html="section.htmlText"></p>
 
-              <div class="card__content-footer">
+              <div class="card__content-footer d-none d-sm-block">
                 <v-btn block color="success">{{ section.link.text }}</v-btn>
               </div>
 
@@ -69,11 +69,9 @@ export default {
           subtitle: 'A collection of Wrath & Glory homebrews',
           imageSrc: '/img/artwork_vault_bright.jpg',
           imageCredit: 'unknown, found at warhammer40k.fandom.com',
-          htmlText: 'Searching for a specific homebrew? ' +
+          htmlText:
             'The <strong>Vault</strong> contains an expanding collection of ' +
-            '<strong>homebrews from fans</strong> of the Wrath & Glory Roleplaying Game. ' +
-            'Extend your known settings like the Inquisition or explore new ones, for ' +
-            'example, the life of a Titan crew. Enter the <strong>Vault</strong> to find out more...',
+            '<strong>homebrews from fans</strong> of the Wrath & Glory Roleplaying Game.',
           link: { text: 'To the Vault', route: '/vault' },
           isActive: true,
           classes: []
@@ -86,10 +84,9 @@ export default {
           //imageCredit: 'Artwork by AlexBoca (DevianArt)',
           imageSrc: '/img/artwork_abstract.jpg',
           imageCredit: 'Artwork by prettysleepy1 (Pixabay)',
-          htmlText: 'Define the setting and tier of your campaign and start building a Wrath & ' +
-            'Glory Character for your session.' +
-            '<br/><br/><strong>Latest Update: Organize multiple characters!</strong>' +
-            '<br/><br/>Still considered <strong>BETA Status</strong>, thus characters <em>might</em> get lost during updates.',
+          htmlText:
+            'Define the setting and tier of your campaign and <strong>start building a Wrath & ' +
+            'Glory Character</strong> for your session.',
           link: { text: 'To the Forge', route: '/forge/my-characters' },
           isActive: true,
           classes: [ ],
@@ -100,9 +97,10 @@ export default {
           subtitle: 'A repository of player threats',
           imageSrc: '/img/artwork_bestiary_death.png',
           imageCredit: 'Artwork from Pixabay',
-          htmlText: 'In search of a <strong>challenge</strong> for your players? Maybe you find something in the threat bestiary.' +
-            'Those also contain some enemies from the various fan homebrews you can find in the Vault. ' +
-            '<br><br><strong>New Experimental Section</strong>, changes expected.',
+          htmlText:
+            'In search of new <strong>threats</strong> for your players? ' +
+            'Check out the <strong>Wrath & Glory bestiary</strong>.' +
+            'Those also contain enemies from the fan homebrews you can find in the <strong>Vault</strong>.',
           link: { text: 'To the Bestiary', route: '/bestiary' },
           isActive: true,
           classes: [ ],
@@ -121,23 +119,23 @@ export default {
         {
           key: 'codex',
           title: 'Rules <strong>Codex</strong>',
-          subtitle: 'Combat Rules References',
+          subtitle: 'Quick Rules References',
           imageSrc: '/img/artwork_codex_book.jpg',
           imageCredit: 'Artwork from Pixabay',
-          htmlText: 'A quick reference for some of the combat rules.',
-          link: { text: 'To the Codey', route: '/codex' },
+          htmlText: 'Need to know how bleeding work? Check the Rules reference.',
+          link: { text: 'To the Codex', route: '/codex' },
           isActive: true,
           classes: [ ],
         },,
         {
           key: 'library',
           title: 'Reference <strong>Library</strong>',
-          subtitle: 'Species, Archetypes and more',
+          subtitle: 'Browse Options for Characters',
           imageSrc: '/img/artwork_library.jpg',
           imageCredit: 'Artwork from Pixabay',
           htmlText: 'Browse through Species, Archetypes, Wargear and more...',
           link: { text: 'To the Library', route: '/library' },
-          isActive: true,
+          isActive: false,
           classes: [ ],
         },
       ],
@@ -151,12 +149,12 @@ export default {
   .card {
 
     //max-width: 640px;
-    height: 400px;
+    height: 180px;
     display: flex;
 
     &__image-container {
-      width: 20%;
-      min-width: 20%;
+      width: 30%;
+      min-width: 30%;
       object-fit: contain;
       align-self: flex-start;
     }
@@ -164,7 +162,7 @@ export default {
     &__image {
       background-position: center center;
       background-size: cover;
-      height: 400px;
+      height: 180px;
     }
 
     &__content-container {
@@ -185,7 +183,7 @@ export default {
   // md medium
   @media only screen and (min-width: 600px) {
     .card {
-      height: 340px;
+      height: 180px;
 
       &__image-container {
         width: 25%;
@@ -193,7 +191,7 @@ export default {
       }
 
       &__image {
-        height: 340px;
+        height: 180px;
       }
     }
   }
@@ -201,7 +199,7 @@ export default {
   // lg large
   @media only screen and (min-width: 960px) {
     .card {
-      height: 300px;
+      height: 240px;
 
       &__image-container {
         width: 25%;
@@ -209,7 +207,7 @@ export default {
       }
 
       &__image {
-        height: 300px;
+        height: 240px;
       }
     }
   }
