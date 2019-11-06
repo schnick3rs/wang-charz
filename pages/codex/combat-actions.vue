@@ -83,10 +83,9 @@
 
             <v-expansion-panel-content>
 
-              <div v-if="item.shortDescriptionHtml">
-                <p v-html="item.shortDescriptionHtml" class="body-2"></p>
-              </div>
-              <p v-else class="body-2">{{ item.hint }}</p>
+              <p class="body-2"><em>{{ item.hint }}</em></p>
+
+              <div v-html="item.shortDescriptionHtml" class="body-2"></div>
 
             </v-expansion-panel-content>
 
@@ -161,7 +160,8 @@ export default {
     activeRepository() {
       return [
         ...this.combatActionsRepository,
-        ...this.combatOptionsRepository.map( item => { return { group: 'Option', ...item} } )
+        ...this.combatOptionsRepository.map( item => { return { group: 'Option', ...item} } ),
+        ...this.combatEffectsRepository.map( item => { return { group: 'Effect', ...item} } ),
         ].sort((a, b) => a.name.localeCompare(b.name));
     },
     searchResult() {
