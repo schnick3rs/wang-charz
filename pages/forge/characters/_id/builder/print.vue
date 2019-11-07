@@ -12,7 +12,9 @@
           <v-col v-bind:cols="12">
 
             <p class="display-1 text-center mb-0">{{ characterName }}</p>
-            <p class="text-center mb-0">{{ [characterSpeciesLabel, archetypeLabel].join(' • ') }}</p>
+            <p class="text-center mb-0">
+              {{ [ `Rank ${characterRank}`, characterSpeciesLabel, archetypeLabel, `Tier ${characterSettingTier}` ].join(' • ') }}
+            </p>
             <span class="sexy_line"></span>
             <p class="text-center">{{ keywords.join(' • ') }}</p>
 
@@ -502,6 +504,9 @@ export default {
     characterName(){
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
+    characterSettingTier(){
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
     characterRank(){
       return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
     },
@@ -592,7 +597,7 @@ export default {
                 }
               } else {
                 const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
-                ability['source'] = this.species;
+                ability['source'] = this.characterSpeciesLabel;
                 abilities.push(ability);
               }
             });
