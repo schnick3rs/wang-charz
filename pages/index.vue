@@ -146,10 +146,11 @@ export default {
 
 <style scoped lang="scss">
 
+  // xs < 600
   .card {
 
     //max-width: 640px;
-    height: 180px;
+    height: 140px;
     display: flex;
 
     &__image-container {
@@ -162,7 +163,7 @@ export default {
     &__image {
       background-position: center center;
       background-size: cover;
-      height: 180px;
+      height: 140px;
     }
 
     &__content-container {
@@ -180,7 +181,7 @@ export default {
     }
   }
 
-  // md medium
+  // sm small
   @media only screen and (min-width: 600px) {
     .card {
       height: 180px;
@@ -196,7 +197,7 @@ export default {
     }
   }
 
-  // lg large
+  // md medium
   @media only screen and (min-width: 960px) {
     .card {
       height: 240px;
