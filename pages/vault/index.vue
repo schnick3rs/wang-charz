@@ -170,7 +170,7 @@
 
         <v-card>
           <v-card-text>
-            <h1 class="headline">Search the Vault for precious, fan-made hombrews</h1>
+            <h1 class="headline">Search the Vault for precious, fan-made homebrews</h1>
             <p>
               In desperate need of an option to extend your Wrath & Glory Campaign?
               Searching for <em>that</em> particular homebrew to improve your setting?

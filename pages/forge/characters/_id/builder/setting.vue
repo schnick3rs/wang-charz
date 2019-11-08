@@ -107,7 +107,7 @@
 
           <h2 class="title">Homebrews</h2>
 
-          <p>Allow specific hombrew content.</p>
+          <p>Allow specific homebrew content.</p>
 
           <div
             v-for="homebrew in settingHomebrewOptions"

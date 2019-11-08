@@ -75,7 +75,11 @@ import WargearRepository from '~/mixins/WargearRepositoryMixin';
 
 export default {
   name: 'archetype-preview',
-  mixins: [KeywordRepository, StatRepository, WargearRepository],
+  mixins: [
+    KeywordRepository,
+    StatRepository,
+    WargearRepository,
+  ],
   props: {
     item: {
       type: Object,
