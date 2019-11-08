@@ -1,4 +1,9 @@
 export default {
+  methods: {
+    getByKey(key) {
+      return this.threatRepository.find( threat => threat.key === key );
+    },
+  },
   data() {
     return {
       threatRepository: [

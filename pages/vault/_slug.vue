@@ -2,32 +2,8 @@
 
 <div>
 
-  <v-row justify="center">
-    <v-col v-bind:cols="11" class="elevation-4 mb-2 pa-0 ma-0">
-
-    <v-breadcrumbs
-      v-bind:items="breadcrumbItems"
-    >
-      <template v-slot:item="{ item }">
-        <v-breadcrumbs-item
-          v-bind:nuxt="true"
-          v-bind:to="item.to"
-          v-bind:disabled="item.disabled"
-          v-bind:exact="item.exact"
-        >
-          <img v-if="item.to == '/'" src="/favicon-16x16.png" />
-          {{ item.text }}
-        </v-breadcrumbs-item>
-      </template>
-
-      <template v-slot:divider>
-        <v-icon>mdi-chevron-right</v-icon>
-      </template>
-
-    </v-breadcrumbs>
-
-    </v-col>
-  </v-row>
+  <!-- Breadcrumbs -->
+  <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
 
   <v-row justify="center">
 
@@ -112,10 +88,13 @@
 </template>
 
 <script>
-  import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
+import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
+import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 
-  export default {
-  components: {},
+export default {
+  components: {
+    DodDefaultBreadcrumbs,
+  },
   head() {
 
     const itemSchema = {

@@ -2,38 +2,8 @@
 
   <div>
 
-    <v-row justify="center">
-
-      <v-col
-        v-bind:cols="12"
-        class="elevation-4 mb-2 pa-0 ma-0"
-      >
-
-        <v-breadcrumbs
-          v-bind:items="breadcrumbItems"
-          class="pa-2"
-        >
-          <template v-slot:item="{ item }">
-            <v-breadcrumbs-item
-              v-bind:nuxt="true"
-              v-bind:to="item.to"
-              v-bind:disabled="item.disabled"
-              v-bind:exact="item.exact"
-            >
-              <img v-if="item.to == '/'" src="/favicon-16x16.png" />
-              {{ item.text }}
-            </v-breadcrumbs-item>
-          </template>
-
-          <template v-slot:divider>
-            <v-icon>mdi-chevron-right</v-icon>
-          </template>
-
-        </v-breadcrumbs>
-
-      </v-col>
-
-    </v-row>
+    <!-- Breadcrumbs -->
+    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
 
     <v-row justify="center">
 
@@ -180,196 +150,12 @@
             <template v-slot:expanded-item="{ headers, item }">
               <td v-bind:colspan="headers.length">
 
-                <v-row justify="center">
+                <dod-threat-details v-bind:item="item" ></dod-threat-details>
 
-                  <v-col v-bind:cols="12" v-bind:md="12">
-                    <h3 class="headline">{{ item.name }}</h3>
-                  </v-col>
+                <v-row>
 
-                  <!-- Stats -->
-                  <v-col v-bind:cols="12" v-bind:md="3">
-
-                    <v-simple-table dense>
-
-                      <template v-slot:default>
-
-                        <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Rating</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-
-                        <tr
-                          v-for="(value, key) in item.attributes"
-                          v-bind:key="key"
-                        >
-                          <td>{{ getAttributeByKey(key).name }}</td>
-                          <td>{{ value }}</td>
-                        </tr>
-
-                        </tbody>
-
-                      </template>
-
-                    </v-simple-table>
-
-                  </v-col>
-
-                  <v-col v-bind:cols="12" v-bind:md="5">
-
-                    <v-simple-table dense>
-
-                      <template v-slot:default>
-
-                        <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Rating</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-
-                        <tr
-                          v-for="(value, key) in item.traits"
-                          v-bind:key="key"
-                        >
-                          <td>{{ getTraitByKey(key).name }}</td>
-                          <td v-if="key==='resilience'">{{ value.total }} ( {{ value.armourRating }} {{ value.armourName }})</td>
-                          <td v-else>{{ value }}</td>
-                        </tr>
-
-                        </tbody>
-
-                      </template>
-
-                    </v-simple-table>
-
-                  </v-col>
-                  <v-col v-bind:cols="12" v-bind:md="3">
-
-                    <v-simple-table dense>
-
-                      <template v-slot:default>
-
-                        <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Rating</th>
-                        </tr>
-                        </thead>
-
-                        <tbody>
-
-                        <tr
-                          v-for="(value, key) in item.skills"
-                          v-bind:key="key"
-                        >
-                          <td v-if="key==='default'">Default</td>
-                          <td v-else>{{ getSkillByKey(key).name }}</td>
-                          <td>{{ value }}</td>
-                        </tr>
-
-                        </tbody>
-
-                      </template>
-
-                    </v-simple-table>
-
-                  </v-col>
-
-                  <!-- Attacks -->
-                  <v-col v-bind:cols="12" v-bind:md="11">
-
-                    <h4 class="title-1">Attacks</h4>
-
-                    <div>
-                      <p v-html="item.attackOptions"></p>
-                    </div>
-
-                    <div>
-
-                      <v-simple-table dense>
-
-                        <template v-slot:default>
-
-                          <thead>
-                            <tr>
-                              <th
-                                v-for="header in attacksTable.headers"
-                                v-bind:key="header.value"
-                                class="text-left"
-                              >
-                                {{ header.text }}
-                              </th>
-                            </tr>
-                          </thead>
-
-                          <tbody>
-
-                            <tr
-                              v-for="attack in item.attacks"
-                              v-bind:key="item.label"
-                            >
-                              <td class="text-left">{{ attack.name }}</td>
-                              <td class="text-center">
-                                <span v-if="attack.range === 1">melee</span>
-                                <span v-else>{{ attack.range }} m</span>
-                              </td>
-                              <td class="text-center">
-                                <div v-if="attack.damage">
-                                  <span v-if="item.type==='Melee Weapon'">{{ attack.damage.static }}*</span>
-                                  <span v-else>{{ attack.damage.static }}</span>
-                                  <span> + </span>
-                                  <span>{{ attack.damage.ed }} ED</span>
-                                </div>
-                              </td>
-                              <td class="text-center">
-                                <span>{{ attack.ap }}</span>
-                              </td>
-                              <td class="text-center">
-                                <span>{{ attack.salvo }}</span>
-                              </td>
-                              <td class="text-left">
-                                <span v-if="attack.traits && attack.traits.length >0">{{ attack.traits.join(', ') }}</span>
-                              </td>
-                            </tr>
-
-                          </tbody>
-
-                        </template>
-                      </v-simple-table>
-
-                    </div>
-
-                    <div v-if="item.weaponTraits" v-for="weaponTrait in item.weaponTraits" class="pt-2">
-                      <p><strong>{{ weaponTrait.name }}:</strong> {{ weaponTrait.effect }}</p>
-                    </div>
-
-                  </v-col>
-
-                  <!-- Abilities -->
-                  <v-col v-bind:cols="12" v-bind:md="11">
-
-                    <h4>Special Abilities</h4>
-
-                    <div v-for="ability in item.specialAbilities">
-                      <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
-                    </div>
-
-                  </v-col>
-
-                  <v-col v-bind:cols="12" v-bind:md="12">
-                    {{ item.description }}
-                  </v-col>
-
-                  <!-- Keywords -->
-                  <v-col v-bind:cols="12">
-                    <span>Keywords: </span>
-                    <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+                  <v-col>
+                    <v-btn nuxt :to="`/bestiary/${computeSlug(item.key)}`">Details</v-btn>
                   </v-col>
 
                 </v-row>
@@ -410,12 +196,18 @@
 </template>
 
 <script>
-import StatRepository from '~/mixins/StatRepositoryMixin';
+import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
+import DodThreatDetails from '~/components/DodThreatDetails';
 import ThreatRepository from '~/mixins/ThreatRepositoryMixin';
 
 export default {
-  components: {},
-  mixins: [ StatRepository, ThreatRepository ],
+  components: {
+    DodDefaultBreadcrumbs,
+    DodThreatDetails,
+  },
+  mixins: [
+    ThreatRepository,
+  ],
   head() {
 
     const breadcrumbListSchema = {
@@ -482,16 +274,6 @@ export default {
         },
       ],
       expanded: [],
-      attacksTable: {
-        headers: [
-          { text: 'Name', value: 'name' },
-          { text: 'Range', value: 'range' },
-          { text: 'Damage', value: 'damage' },
-          { text: 'AP', value: 'ap' },
-          { text: 'Salvo', value: 'salvo' },
-          { text: 'Traits', value: 'traits' },
-        ],
-      }
     };
   },
   computed: {
@@ -580,6 +362,9 @@ export default {
         case 'Elite': return 'yellow'
         case 'Adversary': return 'orange'
       }
+    },
+    computeSlug(key) {
+      return key.replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
     }
   },
 };
