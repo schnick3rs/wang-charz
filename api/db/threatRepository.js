@@ -6,7 +6,7 @@ const threatRepository = [
       version: 'v1',
       page: '409',
     },
-    key: 'astraMilitarumTrooper',
+    key: 'coreAstraMilitarumTrooper',
     name: 'Astra Militarum Trooper',
     faction: 'Imperial',
     classification: [
@@ -95,7 +95,7 @@ const threatRepository = [
       version: 'v1',
       page: '409',
     },
-    key: 'astraMilitarumVeteranTrooper',
+    key: 'coreAstraMilitarumVeteranTrooper',
     name: 'Astra Militarum Veteran Trooper',
     faction: 'Imperial',
     variantOf: 'astraMilitarumTrooper',
@@ -183,11 +183,11 @@ const threatRepository = [
   {
     source: {
       book: 'The High Altar of Technology',
-      key: 'altar',
+      key: 'thaot',
       version: '',
       page: '',
     },
-    key: 'altarKastelanRobot',
+    key: 'thaotKastelanRobot',
     name: 'Kastelan Robot',
     faction: 'Adeptus Mechanicus',
     classification: [
@@ -289,11 +289,11 @@ const threatRepository = [
   {
     source: {
       book: 'Legacy of the Necrontyr',
-      key: 'necroncy',
+      key: 'lotn',
       version: '',
       page: '',
     },
-    key: 'necroncyWarrior',
+    key: 'lotnWarrior',
     name: 'Necron Warrior',
     faction: 'Necrontyr',
     classification: [
@@ -377,11 +377,11 @@ const threatRepository = [
   {
     source: {
       book: 'Legacy of the Necrontyr',
-      key: 'necroncy',
+      key: 'lotn',
       version: '',
       page: '',
     },
-    key: 'necroncyImmortal',
+    key: 'lotnImmortal',
     name: 'Necron Immortal',
     faction: 'Necrontyr',
     classification: [
@@ -479,11 +479,11 @@ const threatRepository = [
   {
     source: {
       book: 'Legacy of the Necrontyr',
-      key: 'necroncy',
+      key: 'lotn',
       version: '',
       page: '',
     },
-    key: 'necroncy',
+    key: 'lotn',
     name: 'Necron Deathmark',
     faction: 'Necrontyr',
     classification: [
@@ -580,11 +580,11 @@ const threatRepository = [
   {
     source: {
       book: 'Legacy of the Necrontyr',
-      key: 'necroncy',
+      key: 'lotn',
       version: '',
       page: '',
     },
-    key: 'necroncyFlayedOne',
+    key: 'lotnFlayedOne',
     name: 'Necron Flayed One',
     faction: 'Necrontyr',
     classification: [
@@ -679,11 +679,11 @@ const threatRepository = [
   {
     source: {
       book: 'Legacy of the Necrontyr',
-      key: 'necroncy',
+      key: 'lotn',
       version: '',
       page: '',
     },
-    key: 'necroncyNecronTriarchPraetorian',
+    key: 'lotnNecronTriarchPraetorian',
     name: 'Necron Triarch Praetorian',
     faction: 'Necrontyr',
     classification: [
@@ -802,11 +802,11 @@ const threatRepository = [
   {
     source: {
       book: 'Legacy of the Necrontyr',
-      key: 'necroncy',
+      key: 'lotn',
       version: '',
       page: '',
     },
-    key: 'necroncyNecronDestroyer',
+    key: 'lotnNecronDestroyer',
     name: 'Necron Destroyer',
     faction: 'Necrontyr',
     classification: [
@@ -898,11 +898,11 @@ const threatRepository = [
   {
     source: {
       book: 'Legacy of the Necrontyr',
-      key: 'necroncy',
+      key: 'lotn',
       version: '',
       page: '',
     },
-    key: 'necroncyHeavyNecronDestroyer',
+    key: 'lotnHeavyNecronDestroyer',
     name: 'Necron Heavy Destroyer',
     faction: 'Necrontyr',
     classification: [
@@ -995,11 +995,11 @@ const threatRepository = [
   {
     source: {
       book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'purpleTyranids',
+      key: 'arpuTyranids',
       version: '',
       page: '',
     },
-    key: 'purpleTyranidsTermagant',
+    key: 'arpuTyranidsTermagant',
     name: 'Termagant',
     faction: 'Tyranids',
     classification: [
@@ -1073,11 +1073,11 @@ const threatRepository = [
   {
     source: {
       book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'purpleTyranids',
+      key: 'arpuTyranids',
       version: '',
       page: '',
     },
-    key: 'purpleTyranidsHormagant',
+    key: 'arpuTyranidsHormagant',
     name: 'Hormagant',
     faction: 'Tyranids',
     classification: [
@@ -1149,11 +1149,11 @@ const threatRepository = [
   {
     source: {
       book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'purpleTyranids',
+      key: 'arpuTyranids',
       version: '',
       page: '',
     },
-    key: 'purpleTyranidsTyranidWarrior',
+    key: 'arpuTyranidsTyranidWarrior',
     name: 'Tyranid Warrior',
     faction: 'Tyranids',
     classification: [
@@ -1236,11 +1236,11 @@ const threatRepository = [
   {
     source: {
       book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'purpleTyranids',
+      key: 'arpuTyranids',
       version: '',
       page: '',
     },
-    key: 'purpleTyranidsLictor',
+    key: 'arpuTyranidsLictor',
     name: 'Lictor',
     faction: 'Tyranids',
     classification: [
@@ -1312,11 +1312,11 @@ const threatRepository = [
   {
     source: {
       book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'purpleTyranids',
+      key: 'arpuTyranids',
       version: '',
       page: '',
     },
-    key: 'purpleTyranidsZoanthrope',
+    key: 'arpuTyranidsZoanthrope',
     name: 'Zoanthrope',
     faction: 'Tyranids',
     classification: [
@@ -1390,11 +1390,11 @@ const threatRepository = [
   {
     source: {
       book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'purpleTyranids',
+      key: 'arpuTyranids',
       version: '',
       page: '',
     },
-    key: 'purpleTyranidsRavener',
+    key: 'arpuTyranidsRavener',
     name: 'Ravener',
     faction: 'Tyranids',
     classification: [
@@ -1455,11 +1455,11 @@ const threatRepository = [
   {
     source: {
       book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'purpleTyranids',
+      key: 'arpuTyranids',
       version: 'darft',
       page: '',
     },
-    key: 'purpleTyranidsCarnifex',
+    key: 'arpuTyranidsCarnifex',
     name: 'Carnifex',
     faction: 'Tyranids',
     classification: [
@@ -1521,11 +1521,11 @@ const threatRepository = [
   {
     source: {
       book: 'Javelin\'s Tyranid Bestiary',
-      key: 'javelinTyranids',
+      key: 'jtb',
       version: '',
       page: '',
     },
-    key: 'javelinTyranidsTyranidHormagant',
+    key: 'jtbTyranidHormagant',
     name: 'Tyranid Hormagant',
     faction: 'Tyranids',
     classification: [
@@ -1599,11 +1599,11 @@ const threatRepository = [
   {
     source: {
       book: 'Javelin\'s Tyranid Bestiary',
-      key: 'javelinTyranids',
+      key: 'jtb',
       version: '',
       page: '',
     },
-    key: 'javelinTyranidsTyranidTermagant',
+    key: 'jtbTyranidTermagant',
     name: 'Tyranid Termagant',
     faction: 'Tyranids',
     classification: [
@@ -1701,11 +1701,11 @@ const threatRepository = [
   {
     source: {
       book: 'Javelin\'s Tyranid Bestiary',
-      key: 'javelinTyranids',
+      key: 'jtb',
       version: '',
       page: '',
     },
-    key: 'javelinTyranidsTyranidRipperSwarm',
+    key: 'jtbTyranidRipperSwarm',
     name: 'Tyranid Ripper Swarm',
     faction: 'Tyranids',
     classification: [
@@ -1788,11 +1788,11 @@ const threatRepository = [
   {
     source: {
       book: 'Javelin\'s Tyranid Bestiary',
-      key: 'javelinTyranids',
+      key: 'jtb',
       version: '',
       page: '',
     },
-    key: 'javelinTyranidsTyranidWarrior',
+    key: 'jtbTyranidWarrior',
     name: 'Tyranid Warrior',
     faction: 'Tyranids',
     classification: [
@@ -1899,11 +1899,11 @@ const threatRepository = [
   {
     source: {
       book: 'Let The Galaxy Burn',
-      key: 'burnyGalax',
+      key: 'ltgbGalax',
       version: '',
       page: '',
     },
-    key: 'burnyGalaxCultist',
+    key: 'ltgbGalaxCultist',
     name: 'Cultist',
     faction: 'Chaos',
     classification: [
@@ -1985,11 +1985,11 @@ const threatRepository = [
   {
     source: {
       book: 'Let The Galaxy Burn',
-      key: 'burnyGalax',
+      key: 'ltgbGalax',
       version: '',
       page: '',
     },
-    key: 'burnyGalaxCultistRangedVariant',
+    key: 'ltgbGalaxCultistRangedVariant',
     name: 'Cultist (Ranged Variant)',
     faction: 'Chaos',
     classification: [
@@ -2071,11 +2071,11 @@ const threatRepository = [
   {
     source: {
       book: 'Let The Galaxy Burn',
-      key: 'burnyGalax',
+      key: 'ltgbGalax',
       version: '',
       page: '',
     },
-    key: 'burnyGalaxCultLeader',
+    key: 'ltgbGalaxCultLeader',
     name: 'Cult Leader',
     faction: 'Chaos',
     classification: [
@@ -2153,11 +2153,11 @@ const threatRepository = [
   {
     source: {
       book: 'Let The Galaxy Burn',
-      key: 'burnyGalax',
+      key: 'ltgbGalax',
       version: '',
       page: '',
     },
-    key: 'burnyGalaxBloodthirster',
+    key: 'ltgbGalaxBloodthirster',
     name: 'Bloodthirster',
     faction: 'Chaos',
     classification: [
@@ -2249,6 +2249,7 @@ const threatRepository = [
       },
     ],
   },
+  /** CORE Orks */
   {
     source: {
       book: 'Core Rules',
@@ -2773,6 +2774,38 @@ const threatRepository = [
         effect: 'Kommandos may make Stealth Tests as a mob rather than as individuals. When they do so, they gain one bonus icon.',
       },
     ],
+  },
+  /**  */
+];
+
+const abundanceThreatsTyranidsHiveFleets = [
+  {
+    name: 'Behemoth',
+    crunch: 'Add <Campaign Tier> to Speed when Charging.',
+  },
+  {
+    name: 'Gorgon',
+    crunch: 'Melee Attacks gain (or increase) the Toxic Trait, with a Rating equals the <Campaign Tier>.',
+  },
+  {
+    name: 'Hydra',
+    crunch: 'Mobs add <Campaign Tier> dice to melee attacks.',
+  },
+  {
+    name: 'Jormungandr',
+    crunch: 'Non-Flying Tyranids increase their Defence by <Campaign Tier>. The bonus is lost, while Running, Sprinting or Charging.',
+  },
+  {
+    name: 'Kraken',
+    crunch: 'Add <Campaign Tier> to Speed when Running, Sprinting or Charging. May Disengage as a Free Action.',
+  },
+  {
+    name: 'Kronos',
+    crunch: 'Add <Campaign Tier> dice to aimed range attacks.',
+  },
+  {
+    name: 'Leviathan',
+    crunch: 'Add <Campaign Tier> dice to Soak rolls. May soak Mortal Wounds while within range of a Synapse Creature. Mobs within Synapse Range are not slayn on a 6+.',
   },
 ];
 

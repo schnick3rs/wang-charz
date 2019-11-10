@@ -7,6 +7,7 @@
 
     <v-row justify="center">
 
+      <!-- FILTER -->
       <v-col v-bind:cols="12">
 
         <v-card>
@@ -102,6 +103,7 @@
 
       </v-col>
 
+      <!-- TABLE -->
       <v-col v-bind:cols="12">
 
         <v-card>
@@ -117,13 +119,6 @@
             hide-default-footer
             v-bind:items-per-page="-1"
           >
-
-            <template v-slot:item.name="{ item }">
-              <v-row no-gutters>
-                <v-col v-bind:cols="12">{{item.name}}</v-col>
-                <v-col v-bind:cols="12" class="caption grey--text">{{item.source.book}}</v-col>
-              </v-row>
-            </template>
 
             <template v-slot:item.classification="{ item }">
               <v-chip
@@ -148,10 +143,17 @@
               </v-chip-group>
             </template>
 
-            <template v-if="false" v-slot:item.keywords="{ item }">
-              <v-chip-group multiple>
-                <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" x-small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
-              </v-chip-group>
+            <template v-slot:item.name="{ item }">
+              <v-row no-gutters>
+                <v-col v-bind:cols="12">{{item.name}}</v-col>
+                <v-col v-bind:cols="12" class="caption grey--text d-block d-sm-none">{{item.faction}}</v-col>
+              </v-row>
+            </template>
+
+            <template v-slot:item.actions="{ item }">
+              <v-btn small icon nuxt v-bind:to="`/bestiary/${computeSlug(item.key)}`">
+                <v-icon>chevron_right</v-icon>
+              </v-btn>
             </template>
 
             <template v-slot:expanded-item="{ headers, item }">
@@ -280,26 +282,25 @@ export default {
       contentFilter: [],
       factionFilterSelections: [],
       filterSourceModel: [],
-      //filterTier: 0,
       pagination: {
         sortBy: 'title',
         rowsPerPage: -1,
       },
       headers: [
         {
-          text: 'Classification', align: 'center', value: 'classification', class: '',
+          text: 'Classification', align: 'center', value: 'classification', class: ['d-none', 'd-sm-block'],
         },
         {
-          text: 'Name', align: 'left', value: 'name', class: '',
+          text: 'Name', align: 'start', value: 'name', class: '',
         },
         {
-          text: 'Faction', align: 'left', value: 'faction', class: '',
+          text: 'Faction', align: 'start', value: 'faction', class: '',
         },
         {
-          text: 'Source', align: 'left', value: 'source.book', class: '',
+          text: 'Source', align: 'start', value: 'source.book', class: '',
         },
         {
-          text: '', sortable: false, align: 'right', value: 'actions', class: '',
+          text: '', sortable: false, align: 'end', value: 'actions', class: '',
         },
       ],
       expanded: [],
