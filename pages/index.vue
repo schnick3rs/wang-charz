@@ -6,7 +6,7 @@
     dense
   >
         <v-col
-          v-for="section in sections.filter(i=>i.isActive)"
+          v-for="section in sections"
           v-bind:key="section.key"
           v-bind:cols="12"
           v-bind:sm="12"
@@ -16,7 +16,14 @@
           class="pa-3"
         >
 
-          <v-card class="card" exact nuxt v-bind:to="section.link.route" hover>
+          <v-card
+            v-bind:to="section.link.route"
+            v-bind:disabled="!section.isActive"
+            class="card"
+            exact
+            nuxt
+            hover
+          >
 
             <div class="card__image-container">
               <div class="card__image" v-bind:style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading></div>
@@ -126,7 +133,7 @@ export default {
           link: { text: 'To the Codex', route: '/codex' },
           isActive: true,
           classes: [ ],
-        },,
+        },
         {
           key: 'library',
           title: 'Reference <strong>Library</strong>',
@@ -135,7 +142,7 @@ export default {
           imageCredit: 'Artwork from Pixabay',
           htmlText: 'Browse through Species, Archetypes, Wargear and more...',
           link: { text: 'To the Library', route: '/library' },
-          isActive: true,
+          isActive: false,
           classes: [ ],
         },
       ],
