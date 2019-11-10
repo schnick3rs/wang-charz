@@ -485,7 +485,7 @@ const threatRepository = [
       version: '',
       page: '',
     },
-    key: 'lotn',
+    key: 'lotnDeathmark',
     name: 'Necron Deathmark',
     faction: 'Necrontyr',
     classification: [
