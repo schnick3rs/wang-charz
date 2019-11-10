@@ -84,12 +84,12 @@
                 <v-select
                   v-model="factionFilterSelections"
                   v-bind:items="filterFactionOptions"
-                  label="Filter by Content"
+                  label="Filter by Faction"
                   filled
                   dense
                   clearable
                   multiple
-                  chips
+
                   deletable-chips
                   single-line
                 >
@@ -248,7 +248,7 @@ export default {
       ]
     };
   },
-  async asyncData({ $axios, error }) {
+  async asyncData({ $axios, query, params, error }) {
 
     const response = await $axios.get(`/api/threats/`);
     const items = response.data;
@@ -257,8 +257,16 @@ export default {
       error({ statusCode: 404, message: 'Threat not found' });
     }
 
+    console.info(query);
+    console.info();
+    const factionFilterSelections = [];
+    if ( query['filter-faction'] ) {
+      factionFilterSelections.push(query['filter-faction']);
+    }
+
     return {
       items: items,
+      factionFilterSelections: factionFilterSelections,
     };
   },
   data() {
