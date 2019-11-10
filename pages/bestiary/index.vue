@@ -257,16 +257,20 @@ export default {
       error({ statusCode: 404, message: 'Threat not found' });
     }
 
-    console.info(query);
-    console.info();
     const factionFilterSelections = [];
     if ( query['filter-faction'] ) {
       factionFilterSelections.push(query['filter-faction']);
     }
 
+    let filterTier = 0;
+    if ( query['filter-tier'] ) {
+      filterTier = query['filter-tier'];
+    }
+
     return {
       items: items,
       factionFilterSelections: factionFilterSelections,
+      filterTier: filterTier,
     };
   },
   data() {
@@ -276,7 +280,7 @@ export default {
       contentFilter: [],
       factionFilterSelections: [],
       filterSourceModel: [],
-      filterTier: 0,
+      //filterTier: 0,
       pagination: {
         sortBy: 'title',
         rowsPerPage: -1,
