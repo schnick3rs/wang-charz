@@ -95,10 +95,25 @@ module.exports = {
       '/library/**',
       '/codex/**',
     ],
-    routes() {
+    routes: async () => {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
-      return axios.get(`${base}/api/homebrews/`)
-        .then((response) => response.data.map((vaultItem) => `/vault/${vaultItem.slug}`));
+
+      const homebrewResponse = await axios.get(`${base}/api/homebrews/`);
+      const homebrewRoutes = homebrewResponse.data.map( (vaultItem) => `/vault/${vaultItem.slug}`);
+
+      const threatResponse = await axios.get(`${base}/api/threats/`);
+      const threatRoutes = threatResponse.data
+        .filter( (vaultItem) => vaultItem.source.key !== 'core' )
+        .map( (vaultItem) => {
+          const slug = vaultItem.key.replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() })
+          return `/bestiary/${slug}`;
+        })
+      ;
+
+      return [
+        ...homebrewRoutes,
+        ...threatRoutes
+      ];
     },
     defaults: {
       changefreq: 'daily',
@@ -114,6 +129,7 @@ module.exports = {
   axios: {
     //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
     baseURL: 'https://www.doctors-of-doom.com',
+    //baseURL: 'http://localhost:3000',
     browserBaseURL: '/',
     // debug: process.env.NODE_ENV !== 'production',
   },

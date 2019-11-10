@@ -232,8 +232,9 @@ export default {
     };
 
     const title = 'Threats for the Game Master | Bestiary';
-    const description = 'The Bestiary contains many homebrew threats to be used by the Game Master to ' +
-      'challenge your Wrath & Glory Players.';
+    const description =
+      'This Bestiary contains fan-made homebews threats to be used by the Game Master to challenge your Wrath & Glory Players. ' +
+      'Filter by Campaign Tier and Faction to find various Troops of Mobs, Elite Champions and Adversaries.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_bestiary_death.png';
 
     return {

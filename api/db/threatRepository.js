@@ -3,6 +3,7 @@ const threatRepository = [
   {
     source: {
       book: 'Core Rules',
+      key: 'core',
       version: 'v1',
       page: '409',
     },
@@ -92,6 +93,7 @@ const threatRepository = [
   {
     source: {
       book: 'Core Rules',
+      key: 'core',
       version: 'v1',
       page: '409',
     },

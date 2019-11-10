@@ -46,12 +46,12 @@ export default {
     };
   },
   head() {
-    const title = `${this.item.name} - ${this.item.faction} Threat`;
+    const title = `${this.item.name} - ${this.item.faction}`;
     const description = `${this.item.description}`;
     const image = this.item.thumbnail ? `https://www.doctors-of-doom.com${this.item.thumbnail}` : 'https://www.doctors-of-doom.com/img/artwork_bestiary_death.png';
 
     return {
-      titleTemplate: '%s | Wrath & Glory Bestiary',
+      titleTemplate: '%s | Wrath & Glory Threat',
       title: title,
       meta: [
         { hid: 'description', name: 'description', content: description },
@@ -62,7 +62,7 @@ export default {
           hid: 'keywords',
           name: 'keywords',
           content: [
-            ...this.item.keywords,
+            ...this.item.keywords.filter( k => k.indexOf('<') !== 0),
             'Threat',
             'Bestiary',
             'Wrath & Glory',

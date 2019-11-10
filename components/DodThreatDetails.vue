@@ -198,11 +198,11 @@
     </v-col>
 
     <!-- Keywords -->
-    <v-col v-bind:cols="12" v-bind:md="10">
+    <v-col v-bind:cols="12" v-bind:md="9">
       <span>Keywords: </span>
       <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
     </v-col>
-    <v-col v-bind:cols="12" v-bind:md="2" style="font-style: italic">
+    <v-col v-bind:cols="12" v-bind:md="3" style="font-style: italic">
       <span class="caption">{{ item.source.book }}</span><span class="caption" v-if="item.source.page">, pg. {{ item.source.page }}</span>
     </v-col>
 
