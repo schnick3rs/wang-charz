@@ -2,8 +2,18 @@ export default {
 
   data() {
     return {
+      /**
+       * @key unique kebabCase key
+       * @name name, title, label
+       * @hint a short scentence to describe the effect
+       * @crunch the minmal set for rules
+       * @fluff some flabour text or similar
+       * @description a (html?) text describing the effect
+       * @source source reference array { book: 'CORE', page: 3 }
+       */
       wargearTraitRepository: [
         {
+          key: 'weaponTraitAgonizing',
           name: 'Agonizing',
           hint: '',
           description: 'This weapon wounds the mind as well as the body by inflicting maximum pain. ' +
@@ -17,12 +27,6 @@ export default {
           ' When attacking a vehicle, arc weapons gain a bonus to ED equal to their rating.'
         },
         {
-          /**
-           * @hint a short scentence to describe the effect
-           * @crunch the minmal set for rules
-           * @fluff some flabour text or similar
-           * @description a (html?) text describing the effect
-           */
           key: 'traitAssault',
           name: 'Assault',
           hint: 'Fire the weapon with increased DN while running.',
@@ -36,6 +40,7 @@ export default {
         {
           name: 'Blast',
           hint: '',
+          crunch: '',
           description: 'Most commonly possessed by weapons with explosive ordnance, ' +
           'Blast weapons can injure multiple targets with one attack, ' +
           'depending on the size (See Explosives and Area Effects on page 229).' +
@@ -44,6 +49,7 @@ export default {
         {
           name: 'Blaze',
           hint: '',
+          crunch: 'Any target hit is set on Fire (see CORE, pg. 275).',
           description: 'This weapon incorporates fire or burning chemicals. Any character, vehicle, or object hit by a Blaze weapon is set on fire (see Fire on page 275).'
         },
         {
@@ -61,7 +67,20 @@ export default {
         {
           name: 'Heavy',
           hint: '',
-          description: 'Some weapons are simply too large and cumbersome to be fi red with ease. Only the strongest can truly handle a heavy weapon. All Heavy weapons have a minimum Strength rating. Characters who meet the strength requirements incur no penalty to their attack; however, those who do not meet the minimum incur an increase of +2DN on the attack, and a roll of 1 on the Wrath Dice knocks the user prone in addition to any other complication. Characters wearing powered armour and beings with the Adeptus Astartes or Ork keywords are not knocked prone when fi ring unsecured Heavy weapons. Heavy weapons must be secured to a gunnery post, vehicle mount, tripod, or braced to fi re without risking the safety of the user. Setting a Heavy weapon up on a tripod or brace takes an action but reduces the penalty.'
+          crunch:
+            'Without Strength Rating of X the wielder suffers +2 DN on attacks and is (additionally) knocked prone on a Complication. ' +
+            'Wearing Armour with the Powered Trait or having the Adeptus Astartes or Ork Keyword prevents the Knock Down. ' +
+            'Bracing the weapon remove the DN penalty.',
+          fluff: 'Some weapons are simply too large and cumbersome to be fired with ease. Only the strongest can truly handle a heavy weapon.',
+          description:
+            'Some weapons are simply too large and cumbersome to be fired with ease. Only the strongest can truly handle a heavy weapon. ' +
+            'All Heavy weapons have a minimum Strength rating. ' +
+            'Characters who meet the strength requirements incur no penalty to their attack; ' +
+            'however, those who do not meet the minimum incur an increase of +2DN on the attack, ' +
+            'and a roll of 1 on the Wrath Dice knocks the user prone in addition to any other complication. ' +
+            'Characters wearing powered armour and beings with the Adeptus Astartes or Ork keywords are not knocked prone when firing unsecured Heavy weapons. ' +
+            'Heavy weapons must be secured to a gunnery post, vehicle mount, tripod, or braced to fire without risking the safety of the user. ' +
+            'Setting a Heavy weapon up on a tripod or brace takes an action but reduces the penalty.'
         },
         {
           name: 'Melta',
@@ -81,7 +100,8 @@ export default {
         {
           name: 'Pistol',
           hint: '',
-          description: 'Pistols are quickly drawn and relatively easy to wield in close quarters. A pistol can be fi red while engaged in close combat using the Weapon Skill in place of the Ballistic Skill.'
+          crunch: 'Can be fired while engaged in close combat using the Weapon Skill in place of the Ballistic Skill.',
+          description: 'Pistols are quickly drawn and relatively easy to wield in close quarters. A pistol can be fired while engaged in close combat using the Weapon Skill in place of the Ballistic Skill.'
         },
         {
           name: 'Rad',
@@ -126,7 +146,12 @@ export default {
         {
           name: 'Waaagh!',
           hint: '',
-          description: 'Weapons produced by Mekboyz defy human understanding, but a greenskin doesn’t need to understand how it works to wield it with brutal cunning. When wielded by an Ork, a weapon with the Waaagh! trait grants a +1d bonus to attack and +1ED if the wielder is Lightly Wounded or Heavily Wounded. This bonus persists until combat ends or the Ork is healed, whichever comes fi rst.'
+          fluff: 'Weapons produced by Mekboyz defy human understanding, but a greenskin doesn’t need to understand how it works to wield it with brutal cunning.',
+          crunch: 'When wielded by an wounded Ork, this weapon grants +1 attack die and +1 ED. Lasts until combat ends or the wielder is healed.',
+          description:
+            'Weapons produced by Mekboyz defy human understanding, but a greenskin doesn’t need to understand how it works to wield it with brutal cunning.' +
+            'When wielded by an Ork, a weapon  with the Waaagh! trait grants a +1d bonus to attack and +1ED if the wielder is Lightly Wounded or Heavily Wounded. ' +
+            'This bonus persists until combat ends or the Ork is healed, whichever comes first.'
         },
         {
           name: 'Warp Weapon',
