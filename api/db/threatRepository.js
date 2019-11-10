@@ -2,7 +2,7 @@ const threatRepository =[
   /** TODO CORE */
   {
     source: {
-      book: 'core',
+      book: 'Core Rules',
       version: 'v1',
       page: '409',
     },
@@ -91,7 +91,7 @@ const threatRepository =[
   },
   {
     source: {
-      book: 'core',
+      book: 'Core Rules',
       version: 'v1',
       page: '409',
     },
@@ -1217,8 +1217,19 @@ const threatRepository =[
         traits: [ 'Assault', 'Brutal', 'Living Ammunition' ],
       },
     ],
+    attackTraits: [
+      {
+        name: 'Off-Hand',
+        crunch: 'Multi-Attacks with this weapon ignore up to +2 DN penalties.',
+        description: 'Often small and well-balanced, an Off-Hand weapon is designed for dual wielding, allowing the user to blend both weapons together in a single, seamless combat style. If used as part of a melee Multi-attack, ignore up to +2DN worth of penalties when attacking with an Off-Hand weapon.',
+      },
+      {
+        name: 'Living Ammunition',
+        crunch: 'The weapon ignore the Jam and Out of Ammunition Combat Complication.',
+        description: 'Weapons with this trait generate ammunition from their very bodies, and therefore do not run out of it. However, using excessive amounts of it can tax the Tyranid’s body. A weapon with this trait is never considered to be empty and does not jam--the Tyranid can always generate enough to fire normally--but all rules regarding reloads are used as normal. A Tyranid with no reloads remaining cannot spend them to Salvo or other actions, and Troop-level tyranids do not gain the ability to spend reloads.',
+      },
+    ],
     specialAbilities: [
-      { name: 'Off-Hand', effect: 'Often small and well-balanced, an Off-Hand weapon is designed for dual wielding, allowing the user to blend both weapons together in a single, seamless combat style. If used as part of a melee Multi-attack, ignore up to +2DN worth of penalties when attacking with an Off-Hand weapon.' },
       {
         name: 'Synapse',
         effect: 'Creatures with the Tyranid keyword who do NOT possess the Synapse Creature keyword automatically pass all Resolve tests when within 8m of a Synapse.',
@@ -1669,7 +1680,7 @@ const threatRepository =[
         traits: ['Blast (Medium)', 'Strangleweb'],
       },
     ],
-    weaponTraits: [
+    attackTraits: [
       {
         name: 'Strangleweb',
         effect: 'Furthermore when a target is hit by this attack they are Restrained until they succeed on a DN 3 Strength test. At the start of the target´s turn they take 1d3+1 Shock damage from the web tightening around them.'

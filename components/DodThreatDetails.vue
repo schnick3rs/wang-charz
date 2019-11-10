@@ -2,7 +2,7 @@
 
   <v-row justify="center">
 
-    <v-col v-bind:cols="12" v-bind:md="12">
+    <v-col v-bind:cols="12">
       <h3 class="headline">{{ item.name }}</h3>
     </v-col>
 
@@ -37,8 +37,7 @@
       </v-simple-table>
 
     </v-col>
-
-    <v-col v-bind:cols="12" v-bind:md="5">
+    <v-col v-bind:cols="12" v-bind:md="6">
 
       <v-simple-table dense>
 
@@ -102,9 +101,9 @@
     </v-col>
 
     <!-- Attacks -->
-    <v-col v-bind:cols="12" v-bind:md="11">
+    <v-col v-bind:cols="12" >
 
-      <h4 class="title-1">Attacks</h4>
+      <h4 class="subtitle-1">Attacks</h4>
 
       <div>
         <p v-html="item.attackOptions"></p>
@@ -121,7 +120,7 @@
               <th
                 v-for="header in attacksTable.headers"
                 v-bind:key="header.value"
-                class="text-left"
+                v-bind:class="header.class"
               >
                 {{ header.text }}
               </th>
@@ -163,18 +162,29 @@
           </template>
         </v-simple-table>
 
-      </div>
+        <div class="mt-4">
 
-      <div v-if="item.weaponTraits" v-for="weaponTrait in item.weaponTraits" class="pt-2">
-        <p><strong>{{ weaponTrait.name }}:</strong> {{ weaponTrait.effect }}</p>
+          <p
+            v-for="trait in attackTraitSet"
+            v-bind:key="trait"
+            v-if="traitByName(trait)"
+            class="body-2 mb-2"
+          >
+            <strong>{{ traitByName(trait).name }}: </strong>
+            <span v-if="traitByName(trait).crunch">{{ traitByName(trait).crunch }}</span>
+            <span v-else>{{ traitByName(trait).description }}</span>
+          </p>
+
+        </div>
+
       </div>
 
     </v-col>
 
     <!-- Abilities -->
-    <v-col v-bind:cols="12" v-bind:md="11">
+    <v-col v-bind:cols="12" >
 
-      <h4>Special Abilities</h4>
+      <h4 class="subtitle-1">Special Abilities</h4>
 
       <div v-for="ability in item.specialAbilities">
         <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
@@ -182,15 +192,18 @@
 
     </v-col>
 
-    <v-col v-bind:cols="12" v-bind:md="12">
-      <h3 class="title">Description</h3>
+    <v-col v-bind:cols="12" v-if="item.description">
+      <h4 class="subtitle-1">Description</h4>
       <p v-html="item.description" style="font-style: italic"></p>
     </v-col>
 
     <!-- Keywords -->
-    <v-col v-bind:cols="12">
+    <v-col v-bind:cols="12" v-bind:md="10">
       <span>Keywords: </span>
       <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
+    </v-col>
+    <v-col v-bind:cols="12" v-bind:md="2" style="font-style: italic">
+      <span class="caption">{{ item.source.book }}</span><span class="caption" v-if="item.source.page">, pg. {{ item.source.page }}</span>
     </v-col>
 
   </v-row>
@@ -199,11 +212,13 @@
 
 <script>
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
 
 export default {
   name: "dod-threat-details",
   mixins: [
-    StatRepositoryMixin
+    StatRepositoryMixin,
+    WargearTraitRepositoryMixin,
   ],
   props: {
     item: {
@@ -215,15 +230,43 @@ export default {
     return {
       attacksTable: {
         headers: [
-          { text: 'Name', value: 'name' },
-          { text: 'Range', value: 'range' },
-          { text: 'Damage', value: 'damage' },
-          { text: 'AP', value: 'ap' },
-          { text: 'Salvo', value: 'salvo' },
-          { text: 'Traits', value: 'traits' },
+          { text: 'Name', value: 'name', class: 'text-left' },
+          { text: 'Range', value: 'range', class: 'text-center' },
+          { text: 'Damage', value: 'damage', class: 'text-center' },
+          { text: 'AP', value: 'ap', class: 'text-center' },
+          { text: 'Salvo', value: 'salvo', class: 'text-center' },
+          { text: 'Traits', value: 'traits', class: 'text-left' },
         ],
       }
     }
+  },
+  methods: {
+    traitByName(name) {
+      const prefix = name.split(/ ?\(/)[0];
+      return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
+    },
+  },
+  computed: {
+    combinedTraitsRepository() {
+      return (this.item.attackTraits)
+        ? [
+          ...this.wargearTraitRepository,
+          ...this.item.attackTraits,
+        ]
+        : this.wargearTraitRepository;
+    },
+    attackTraitSet() {
+      let attackTraitSet = [];
+      const item = this.item;
+
+      item.attacks.forEach( attack => {
+        if ( attack.traits && attack.traits.length > 0) {
+          attackTraitSet = [ ...attackTraitSet, ...attack.traits ];
+        }
+      });
+
+      return [...new Set(attackTraitSet)].sort();
+    },
   }
 }
 </script>

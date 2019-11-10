@@ -17,8 +17,17 @@ export default {
           ' When attacking a vehicle, arc weapons gain a bonus to ED equal to their rating.'
         },
         {
+          /**
+           * @hint a short scentence to describe the effect
+           * @crunch the minmal set for rules
+           * @fluff some flabour text or similar
+           * @description a (html?) text describing the effect
+           */
+          key: 'traitAssault',
           name: 'Assault',
-          hint: '',
+          hint: 'Fire the weapon with increased DN while running.',
+          fluff: 'Optimised for firing on the move, a hero armed with an Assault firearm can fire from the hip while charging into the fray.',
+          crunch: 'Assault weapons can be fired as part of a Run Action, with additional +2 DN for the attack.',
           description: 'Optimised for firing on the move, ' +
           'a hero armed with an Assault firearm can fire from the hip while charging into the fray. ' +
           'Assault weapons can be fired as part of a Run Action, ' +
@@ -39,8 +48,10 @@ export default {
         },
         {
           name: 'Brutal',
-          hint: '',
-          description: 'This weapon infl icts traumatic wounds that test the skill of the most seasoned Apothecaries. When rolling damage dice for a Brutal weapon, add +1 to the result of each Extra Damage Die.'
+          hint: 'Add +1 to the result of extra damage dice.',
+          fluff: 'This weapon inflicts traumatic wounds that test the skill of the most seasoned Apothecaries.',
+          crunch: 'When rolling damage dice, add +1 to the result of each Extra Damage Die.',
+          description: 'This weapon inflicts traumatic wounds that test the skill of the most seasoned Apothecaries. When rolling damage dice for a Brutal weapon, add +1 to the result of each Extra Damage Die.'
         },
         {
           name: 'Force',

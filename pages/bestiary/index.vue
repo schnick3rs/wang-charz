@@ -118,6 +118,13 @@
             v-bind:items-per-page="-1"
           >
 
+            <template v-slot:item.name="{ item }">
+              <v-row no-gutters>
+                <v-col v-bind:cols="12">{{item.name}}</v-col>
+                <v-col v-bind:cols="12" class="caption grey--text">{{item.source.book}}</v-col>
+              </v-row>
+            </template>
+
             <template v-slot:item.classification="{ item }">
               <v-chip
                 v-if="filterTier > 0"
@@ -150,15 +157,17 @@
             <template v-slot:expanded-item="{ headers, item }">
               <td v-bind:colspan="headers.length">
 
-                <dod-threat-details v-bind:item="item" ></dod-threat-details>
+                <div class="pa-4">
 
-                <v-row>
+                  <dod-threat-details v-bind:item="item"></dod-threat-details>
 
-                  <v-col>
-                    <v-btn nuxt :to="`/bestiary/${computeSlug(item.key)}`">Details</v-btn>
-                  </v-col>
+                  <v-btn
+                    nuxt
+                    v-bind:to="`/bestiary/${computeSlug(item.key)}`"
+                    color="success"
+                  >Show Details Page</v-btn>
 
-                </v-row>
+                </div>
 
               </td>
             </template>
@@ -198,16 +207,13 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodThreatDetails from '~/components/DodThreatDetails';
-import ThreatRepository from '~/mixins/ThreatRepositoryMixin';
 
 export default {
   components: {
     DodDefaultBreadcrumbs,
     DodThreatDetails,
   },
-  mixins: [
-    ThreatRepository,
-  ],
+  mixins: [],
   head() {
 
     const breadcrumbListSchema = {
@@ -242,7 +248,18 @@ export default {
       ]
     };
   },
-  async asyncData({ app }) {
+  async asyncData({ $axios, error }) {
+
+    const response = await $axios.get(`/api/threats/`);
+    const items = response.data;
+
+    if ( items === undefined || items.length <= 0 ) {
+      error({ statusCode: 404, message: 'Threat not found' });
+    }
+
+    return {
+      items: items,
+    };
   },
   data() {
     return {
@@ -277,9 +294,6 @@ export default {
     };
   },
   computed: {
-    items() {
-      return this.threatRepository;
-    },
     breadcrumbItems() {
       return [
         {

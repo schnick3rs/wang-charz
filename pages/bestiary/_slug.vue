@@ -23,16 +23,13 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodThreatDetails from '~/components/DodThreatDetails';
-import ThreatRepository from '~/mixins/ThreatRepositoryMixin';
 
 export default {
   components: {
     DodDefaultBreadcrumbs,
     DodThreatDetails,
   },
-  mixins: [
-    ThreatRepository,
-  ],
+  mixins: [],
   async asyncData({ params, $axios, error }) {
     const slug = params.slug;
 
