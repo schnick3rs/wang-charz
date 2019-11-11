@@ -3226,7 +3226,6 @@ const threatRepository = [
     sizeModifier: 0,
     keywords: [
       'Tyranid',
-      'Gaunt',
     ],
     attacks: [
       simpleMelee('Claws and Teeth', 1, '5+1', 0),
