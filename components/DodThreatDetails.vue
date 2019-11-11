@@ -4,6 +4,10 @@
 
     <v-col v-bind:cols="12">
       <h3 class="headline">{{ item.name }}</h3>
+      <h5 class="subtitle-2">
+        <strong>Source: </strong>
+        <span>{{ item.source.book }}</span><span v-if="item.source.page">, pg. {{ item.source.page }}</span>
+      </h5>
     </v-col>
 
     <!-- Stats -->
@@ -104,9 +108,9 @@
     <v-col v-bind:cols="12" >
 
       <h4 class="subtitle-1">Attacks</h4>
-
+      <v-divider></v-divider>
       <div>
-        <p v-html="item.attackOptions"></p>
+        <p v-html="item.attackOptions" class="body-2"></p>
       </div>
 
       <div>
@@ -185,7 +189,7 @@
     <v-col v-bind:cols="12" >
 
       <h4 class="subtitle-1">Special Abilities</h4>
-
+      <v-divider></v-divider>
       <div
         v-for="ability in item.specialAbilities"
         v-bind:key="ability.name"
@@ -198,7 +202,7 @@
     <v-col v-bind:cols="12" v-if="item.variants">
 
       <h4 class="subtitle-1">Variants: {{ item.variants.name }}</h4>
-
+      <v-divider></v-divider>
       <div
         v-for="variantOption in item.variants.options"
         v-bind:key="variantOption.name"
@@ -210,6 +214,7 @@
 
     <v-col v-bind:cols="12" v-if="item.description">
       <h4 class="subtitle-1">Description</h4>
+      <v-divider></v-divider>
       <p v-html="item.description" style="font-style: italic"></p>
     </v-col>
 

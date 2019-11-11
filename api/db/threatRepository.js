@@ -3092,6 +3092,7 @@ const threatRepository = [
     },
     key: 'aaoaGargolye',
     name: 'Gargolye',
+    thumbnail: '/img/bestiary/threats/tyranid_gargolye_artwork.jpg',
     faction: 'Tyranids',
     classification: [
       'Troops',
