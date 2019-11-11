@@ -372,7 +372,7 @@ export default {
     },
     trackExpand(event) {
       if ( event.value === true ) {
-        this.$ga.event('Bestiary Row', 'expand', event.item.name, 1);
+        this.$ga.event('Bestiary Row', 'expand', this.computeSlug(event.item.key), 1);
       }
     },
     getClassificationColor(classification) {
@@ -384,7 +384,7 @@ export default {
     },
     computeSlug(key) {
       return key.replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
-    }
+    },
   },
 };
 </script>
