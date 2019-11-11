@@ -52,7 +52,7 @@ export default {
       : `The ${this.item.name} from the ${this.item.faction} faction is a threat provided by ${this.item.source.book}.`;
     const image = this.item.thumbnail
       ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
-      : `https://www.doctors-of-doom.com/img/bestiary/faction_${this.item.faction}_avatar.png`;
+      : `https://www.doctors-of-doom.com/img/bestiary/faction_${this.item.faction.toLowerCase()}_avatar.png`;
 
     return {
       titleTemplate: '%s | Wrath & Glory Bestiary',
