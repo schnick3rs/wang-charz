@@ -46,14 +46,16 @@ export default {
     };
   },
   head() {
-    const title = `${this.item.name} - ${this.item.faction}`;
-    const description = `${this.item.description}`;
+    const title = `${this.item.name} - ${this.item.faction} Threat`;
+    const description = this.item.description
+      ? `${this.item.description}`
+      : `The ${this.item.name} from the ${this.item.faction} faction is a threat provided by ${this.item.source.book}.`;
     const image = this.item.thumbnail
       ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
       : `https://www.doctors-of-doom.com/img/bestiary/faction_${this.item.faction}_avatar.png`;
 
     return {
-      titleTemplate: '%s | Wrath & Glory Threat',
+      titleTemplate: '%s | Wrath & Glory Bestiary',
       title: title,
       meta: [
         { hid: 'description', name: 'description', content: description },
