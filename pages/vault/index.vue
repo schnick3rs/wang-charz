@@ -83,6 +83,13 @@
             hide-default-footer
           >
 
+            <template v-slot:item.title="{ item }">
+              <v-row no-gutters>
+                <v-col v-bind:cols="12">{{item.title}}</v-col>
+                <v-col v-bind:cols="12" class="caption grey--text" v-if="false">{{item.hint}}</v-col>
+              </v-row>
+            </template>
+
             <template v-slot:item.version="{ item }">
               <v-chip
                     v-if="['Draft'].includes(item.status)"
@@ -113,7 +120,7 @@
             </template>
 
             <template v-slot:item.actions="{ item }">
-              <v-btn small icon nuxt v-bind:to="'/vault/'+item.slug">
+              <v-btn small icon nuxt v-bind:to="`/vault/${item.slug}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
@@ -132,9 +139,16 @@
                       <p><strong>Author:</strong> {{ item.author }}</p>
                       <p>{{ item.abstract }}</p>
                        <p v-if="item.keywords">
-                        <v-chip v-for="keyword in item.keywords" v-bind:key="keyword">
-                          {{ keyword }}
-                        </v-chip>
+                         <span>Keywords: </span>
+                         <v-chip
+                           v-for="keyword in item.keywords"
+                           v-bind:key="keyword"
+                           class="mr-2 mb-1 mt-1"
+                           small
+                           label
+                         >
+                           {{ keyword }}
+                         </v-chip>
                       </p>
                   </v-col>
 
@@ -269,22 +283,19 @@ export default {
       },
       headers: [
         {
-          text: 'Title', align: 'left', value: 'title', class: '',
+          text: 'Title', align: 'start', value: 'title', class: '',
         },
         {
-          text: 'Version', align: 'left', value: 'version', class: '',
+          text: 'Version', align: 'start', value: 'version', class: '',
         },
         {
-          text: 'Hint', align: 'left', value: 'hint', class: '',
+          text: 'Hint', align: 'start', value: 'hint', class: '',
         },
         {
-          text: 'Keywords', align: 'left', value: 'keywords', class: '',
+          text: 'Author', align: 'start', value: 'author', class: '',
         },
         {
-          text: 'Author', align: 'left', value: 'author', class: '',
-        },
-        {
-          text: '', sortable: false, align: 'right', value: 'actions', class: '',
+          text: '', sortable: false, align: 'end', value: 'actions', class: '',
         },
       ],
       expanded: [],

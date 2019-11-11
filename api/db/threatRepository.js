@@ -1,3 +1,118 @@
+const simpleMelee = function(name, range, damage, ap, ...traits) {
+  const splitDamage = damage.split('+');
+  return {
+    name: name,
+    type: 'melee-weapon',
+    range: range,
+    damage: { static: splitDamage[0], ed: splitDamage[1] },
+    ap: ap,
+    traits: traits,
+  }
+};
+
+const simpleRanged = function(name, range, damage, ap, salvo, ...traits) {
+  const splitDamage = damage.split('+');
+  return {
+    name: name,
+    type: 'ranged-weapon',
+    range: range,
+    damage: { static: splitDamage[0], ed: splitDamage[1] },
+    ap: ap,
+    salvo: salvo,
+    traits: traits,
+  }
+};
+
+const simpleAbility = function(text) {
+  const textSplit = text.split(': ');
+  return {
+    name: textSplit[0],
+    effect: textSplit[1],
+  };
+};
+
+const aaoa = {
+  feed: {
+    name: 'Instinctive Behaviour (Lurk)',
+    effect:
+    'At the start of the creature’s turn, it must pass a Resolve test (DN 3) or act according to that instinct; ' +
+    'if the Resolve test is passed, the creature may act freely. ' +
+    'If the creature is part of a mob, then the whole mob makes a single Resolve test. ' +
+    'Tyranids with the Feed instinct are driven by a voracious need to attack and consume, and they will rampage towards the nearest prey without thought for anything but sating appetites that will never be satisfied. ' +
+    'A Tyranid with the Feed instinct becomes frenzied.',
+  },
+  lurk: {
+    name: 'Instinctive Behaviour (Lurk)',
+    effect:
+      'At the start of the creature’s turn, it must pass a Resolve test (DN 3) or act according to that instinct; ' +
+      'if the Resolve test is passed, the creature may act freely. ' +
+      'If the creature is part of a mob, then the whole mob makes a single Resolve test. ' +
+      'Tyranids with the Lurk instinct are driven by their survival instincts to seek out cover, hiding themselves away and attacking only when threatened. ' +
+      'A Tyranid with the Lurk instinct becomes pinned.',
+  },
+  fleshborer: {
+    name: 'Fleshborer',
+    type: 'ranged-weapon',
+    range: 24,
+    damage: { static: 10, ed: 1 },
+    ap: 0,
+    salvo: 1,
+    traits: [ 'Assault', 'Brutal' ],
+  },
+  devourer: {
+    name: 'Devourer',
+    type: 'ranged-weapon',
+    range: 36,
+    damage: { static: 10, ed: 1 },
+    ap: 0,
+    salvo: 3,
+    traits: [ 'Agonizing', 'Asault', 'Spread' ],
+  },
+  fleshHooks: simpleRanged('Flesh Hooks', 12, '15+1', 0, 2, 'Assault', 'Pistol'),
+  adrenalGlands: {
+    name: 'Adrenalin Glands',
+    effect: 'Increase Speed by 1.'
+  },
+  toxinSacs: {
+    name: 'Toxin Sacs',
+    effect: 'Melee attacks gain +1 ED and Toxic(3).'
+  },
+  synapseCreature: simpleAbility('Synapse Creature: Tyranids automatically pass Resolve tests if they are within 25m of a friendly Synapse Creature. Further, Tyranids within range of a Synapse Creature cannot suffer Shock, as they are driven to action without regard for fear, pain, fatigue, or the limits of their own bodies. Naturally, a Synapse Creature also receives these benefits, as they are always considered to be “within range of a Synapse Creature”.'),
+  shadowOfTheWarp: simpleAbility('Shadow of the Warp: Whenever a Psyker uses a psychic power while within 35m of a Tyranid with this ability, they must count all 6s on their Wrath dice as 1s. Psykers with the Tyranid keyword are not affected.'),
+};
+
+/** An Abundance of Apocrypha */
+const aaoaThreatsTyranidsHiveFleets = [
+  {
+    name: 'Behemoth',
+    crunch: 'Add <Campaign Tier> to Speed when Charging.',
+  },
+  {
+    name: 'Gorgon',
+    crunch: 'Melee Attacks gain (or increase) the Toxic Trait, with a Rating equals the <Campaign Tier>.',
+  },
+  {
+    name: 'Hydra',
+    crunch: 'Mobs add <Campaign Tier> dice to melee attacks.',
+  },
+  {
+    name: 'Jormungandr',
+    crunch: 'Non-Flying Tyranids increase their Defence by <Campaign Tier>. The bonus is lost, while Running, Sprinting or Charging.',
+  },
+  {
+    name: 'Kraken',
+    crunch: 'Add <Campaign Tier> to Speed when Running, Sprinting or Charging. May Disengage as a Free Action.',
+  },
+  {
+    name: 'Kronos',
+    crunch: 'Add <Campaign Tier> dice to aimed range attacks.',
+  },
+  {
+    name: 'Leviathan',
+    crunch: 'Add <Campaign Tier> dice to Soak rolls. May soak Mortal Wounds while within range of a Synapse Creature. Mobs within Synapse Range are not slayn on a 6+.',
+  },
+];
+
 const threatRepository = [
   /** TODO CORE */
   {
@@ -2777,38 +2892,589 @@ const threatRepository = [
       },
     ],
   },
-  /**  */
+  /** An Abundance of Apocrypha - Tyranids */
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '',
+    },
+    key: 'aaoaHormagant',
+    name: 'Hormagant',
+    faction: 'Tyranids',
+    classification: [
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+    ],
+    description: '',
+    attributes: {
+      strength: 4,
+      agility: 5,
+      toughness: 3,
+      intellect: 1,
+      willpower: 5,
+      fellowship: 1,
+      initiative: 5,
+    },
+    traits: {
+      defence: 4,
+      speed: 8,
+      wounds: 3,
+      shock: 3,
+      soak: 3,
+      resolve: 4,
+      conviction: 5,
+      passiveAwareness: 3,
+      resilience: {
+        total: 5,
+        armourRating: 1,
+        armourName: 'Tyranid Carapace'
+      },
+    },
+    skills: {
+      athletics: 6,
+      weaponSkill: 6,
+      default: 5,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Tyranid',
+      'Gaunt',
+    ],
+    variants: {
+      name: 'Biomorphs',
+      options: [
+        aaoa.adrenalGlands,
+        aaoa.toxinSacs,
+      ],
+    },
+    attacks: [
+      {
+        name: 'Scything Talons',
+        type: 'melee-weapon',
+        range: 1,
+        damage: { static: 7, ed: 1 },
+        ap: 0,
+        traits: [],
+      },
+    ],
+    specialAbilities: [
+      aaoa.lurk,
+      {
+        name: 'Bounding Leap',
+        effect: 'Whenever a Hormagaunt runs, sprints, or charges, it adds +2 to its Speed, and may leap over gaps and obstacles up to 2m high and up to 4m wide.',
+      },
+      {
+        name: '(Mob) Hungering Swarm',
+        effect: 'Whilst in a mob, Hormagaunts gain a +2d bonus to melee attack rolls.',
+      },
+    ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '',
+    },
+    key: 'aaoaTermagant',
+    name: 'Termagant',
+    faction: 'Tyranids',
+    classification: [
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+    ],
+    description: '',
+    attributes: {
+      strength: 3,
+      agility: 5,
+      toughness: 3,
+      intellect: 2,
+      willpower: 5,
+      fellowship: 1,
+      initiative: 5,
+    },
+    traits: {
+      defence: 4,
+      speed: 6,
+      wounds: 3,
+      shock: 3,
+      soak: 3,
+      resolve: 4,
+      conviction: 5,
+      passiveAwareness: 3,
+      resilience: {
+        total: 5,
+        armourRating: 1,
+        armourName: 'Tyranid Carapace'
+      },
+    },
+    skills: {
+      stealth: 6,
+      ballisticSkill: 6,
+      default: 5,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Tyranid',
+      'Gaunt',
+    ],
+    variants: {
+      name: 'Biomorphs',
+      options: [
+        aaoa.adrenalGlands,
+        aaoa.toxinSacs,
+      ],
+    },
+    attackOptions: 'Termagants are normally armed with Fleshborers, but some carry Devourers or Spinefists instead. In a mob, one Termagant in every 10 may carry a Spike Rifle or Strangleweb instead.',
+    attacks: [
+      aaoa.devourer,
+      aaoa.fleshborer,
+      {
+        name: 'Spinefist',
+        type: 'ranged-weapon',
+        range: 24,
+        damage: { static: 8, ed: 1 },
+        ap: 0,
+        salvo: 2,
+        traits: [ 'Paired', 'Pistol' ],
+      },
+      {
+        name: 'Spike Rifle',
+        type: 'ranged-weapon',
+        range: 36,
+        damage: { static: 8, ed: 1 },
+        ap: 0,
+        salvo: 1,
+        traits: [ 'Assault', 'Sniper (1)' ],
+      },
+      {
+        name: 'Strangleweb',
+        type: 'ranged-weapon',
+        range: 16,
+        damage: { static: 5, ed: 1 },
+        ap: 0,
+        salvo: 0,
+        traits: [ 'Assault', 'Blast (Small)', 'Tangle (3)' ],
+      },
+      {
+        name: 'Claws',
+        type: 'melee-weapon',
+        range: 1,
+        damage: { static: 5, ed: 1 },
+        ap: 0,
+        traits: [],
+      },
+    ],
+    specialAbilities: [
+      aaoa.lurk,
+      {
+        name: '(Mob) Hail of Living Ammunition',
+        effect: 'Whilst in a mob, Termagants gain a +1d bonus to ranged attack rolls.',
+      },
+    ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '',
+    },
+    key: 'aaoaGargolye',
+    name: 'Gargolye',
+    faction: 'Tyranids',
+    classification: [
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+    ],
+    description: '',
+    attributes: {
+      strength: 3,
+      agility: 5,
+      toughness: 3,
+      intellect: 2,
+      willpower: 5,
+      fellowship: 1,
+      initiative: 5,
+    },
+    traits: {
+      defence: 4,
+      speed: '12 (Flight)',
+      wounds: 3,
+      shock: 3,
+      soak: 3,
+      resolve: 4,
+      conviction: 5,
+      passiveAwareness: 3,
+      resilience: {
+        total: 5,
+        armourRating: 1,
+        armourName: 'Tyranid Carapace'
+      },
+    },
+    skills: {
+      stealth: 6,
+      ballisticSkill: 6,
+      default: 5,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Tyranid',
+      'Gaunt',
+    ],
+    variants: {
+      name: 'Biomorphs',
+      options: [
+        aaoa.adrenalGlands,
+        aaoa.toxinSacs,
+      ],
+    },
+    attacks: [
+      aaoa.fleshborer,
+      {
+        name: 'Blinding Venom',
+        type: 'melee-weapon',
+        range: 2,
+        damage: { static: 7, ed: 1 },
+        ap: 0,
+        traits: [ 'Agonizing', 'Toxic (3)' ],
+      },
+      {
+        name: 'Claws',
+        type: 'melee-weapon',
+        range: 1,
+        damage: { static: 5, ed: 1 },
+        ap: 0,
+        traits: [],
+      },
+    ],
+    specialAbilities: [
+      aaoa.lurk,
+      {
+        name: 'Blinding Venom',
+        effect: 'A creature which becomes Poisoned from a Gargoyle’s Blinding Venom is also blinded.',
+      },
+      {
+        name: '(Mob) Hail of Living Ammunition',
+        effect: 'Add +1d to ranged attacks.',
+      },
+    ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '',
+    },
+    key: 'aaoaRipper',
+    name: 'Ripper',
+    faction: 'Tyranids',
+    classification: [
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+    ],
+    description: '',
+    attributes: {
+      strength: 2,
+      agility: 4,
+      toughness: 2,
+      intellect: 1,
+      willpower: 4,
+      fellowship: 1,
+      initiative: 5,
+    },
+    traits: {
+      defence: 6,
+      speed: '12 (Flight)',
+      wounds: 3,
+      shock: 3,
+      soak: 3,
+      resolve: 3,
+      conviction: 4,
+      passiveAwareness: 3,
+      resilience: {
+        total: 4,
+        armourRating: 1,
+        armourName: 'Tyranid Carapace'
+      },
+    },
+    skills: {
+      stealth: 5,
+      weaponSkill: 5,
+      default: 4,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Tyranid',
+      'Gaunt',
+    ],
+    attacks: [
+      simpleMelee('Claws and Teeth', 1, '5+1', 0),
+      simpleRanged('Spine-Maw', 12, '7+1', 0, 1, 'Pistol'),
+    ],
+    attackOptions: 'Rippers attack using their claws and teeth, but some swarms are adapted with spine-maws as well.',
+    specialAbilities: [
+      aaoa.feed,
+      {
+        name: '(Mob) Swarm and Consume',
+        effect: 'Whilst in a mob, Rippers add +2ED and the Brutal trait to their melee attacks. In addition, any enemy attacked by a Ripper mob must pass an Athletics test (DN 3) or be knocked prone.',
+      },
+    ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '204',
+    },
+    key: 'aaoaLictor',
+    name: 'Lictor',
+    faction: 'Tyranids',
+    classification: [
+      'Adversary',
+      'Adversary',
+      'Adversary',
+      'Elite',
+      'Elite',
+    ],
+    description: '',
+    attributes: {
+      strength: 12,
+      agility: 6,
+      toughness: 6,
+      intellect: 4,
+      willpower: 9,
+      fellowship: 1,
+      initiative: 6,
+    },
+    traits: {
+      defence: 5,
+      speed: 9,
+      wounds: 12,
+      shock:9,
+      soak: 6,
+      resolve: 8,
+      conviction: 9,
+      passiveAwareness: 6,
+      resilience: {
+        total: 9,
+        armourRating: 2,
+        armourName: 'Tyranid Carapace'
+      },
+    },
+    skills: {
+      athletics: 12,
+      awareness: 11,
+      stealth: 12,
+      weaponSkill: 11,
+      default: 9,
+    },
+    size: 'Large',
+    sizeModifier: 0,
+    keywords: [
+      'Tyranid',
+    ],
+    attacks: [
+      simpleMelee('Rending Claws', 1, '16+1', -1, 'Penetrating (4)'),
+      simpleMelee('Grasping Talons', 2, '15+1', -1),
+      aaoa.fleshHooks,
+    ],
+    specialAbilities: [
+      simpleAbility('Chameleonic Skin: The Lictor’s skin grants it a +2d bonus to Stealth tests, and a +2 bonus to Defence when in shadow or cover.'),
+      simpleAbility('Terror (3): This threat causes terror. Enemies are required to pass a Terror test (DN 3) to act normally.'),
+      simpleAbility('Flesh Hooks: A Tyranid with Flesh Hooks adds +2d to any Athletics test to climb.'),
+      simpleAbility('Feeder Tendrils: As an action, a Lictor may drain knowledge and memory from the brain of a creature it has killed. This adds 1 to Ruin.'),
+      simpleAbility('(Ruin) Champion: This threat may take Ruin Actions.'),
+      simpleAbility('(Ruin) Invisible Predator: As a Ruin Action when not engaged in melee, the Lictor may move up to its Speed and make a Stealth test to hide (DN is nearest foe’s Passive Awareness).'),
+      simpleAbility('Pheromone Trail: When a Lictor is slain, the Game Master gains 2 Ruin, as there are sure to be more Tyranids arriving soon.'),
+    ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '205',
+    },
+    key: 'aaoaTyranidWarrior',
+    name: 'Tyranid Warrior',
+    faction: 'Tyranids',
+    classification: [
+      'Adversary',
+      'Adversary',
+      'Elite',
+      'Elite',
+      'Elite',
+    ],
+    description: '',
+    attributes: {
+      strength: 8,
+      agility: 4,
+      toughness: 6,
+      intellect: 3,
+      willpower: 9,
+      fellowship: 1,
+      initiative: 4,
+    },
+    traits: {
+      defence: 3,
+      speed: 6,
+      wounds: 9,
+      shock: '-',
+      soak: 6,
+      resolve: 8,
+      conviction: 9,
+      passiveAwareness: 5,
+      resilience: {
+        total: 9,
+        armourRating: 2,
+        armourName: 'Tyranid Carapace'
+      },
+    },
+    skills: {
+      awareness: 9,
+      weaponSkill: 10,
+      default: 8,
+    },
+    size: 'Large',
+    sizeModifier: 0,
+    keywords: [
+      'Tyranid',
+    ],
+    attacks: [
+      aaoa.devourer,
+      simpleMelee('Scyching Talons', 1, '11+1', 0, '+1 to attacks'),
+      aaoa.fleshHooks,
+    ],
+    attackOptions: 'Tyranid Warriors have been encountered armed with a wide range of weapons. Commonly, they carry a Devourer and a pair of Scything Talons. The Devourer may be exchanged for a Basic Bio-Weapon or Melee Bio-Weapon. The Scything Talons may be exchanged for a Melee Bio-Weapon. One in three replace their Devourer with Bio-Cannon instead. Some Tyranid Warriors have Flesh Hooks. See Bio-Weapons, later, for details on other Tyranid weapon options.',
+    variants: {
+      name: 'Biomorphs',
+      options: [
+        aaoa.adrenalGlands,
+        aaoa.toxinSacs,
+      ],
+    },
+    specialAbilities: [
+      simpleAbility('Terror (3): This threat causes terror. Enemies are required to pass a Terror test (DN 3) to act normally.'),
+      simpleAbility('Flesh Hooks: A Tyranid with Flesh Hooks adds +2d to any Athletics test to climb.'),
+      aaoa.synapseCreature,
+      aaoa.shadowOfTheWarp,
+    ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '209',
+    },
+    key: 'aaoaCarnifex',
+    name: 'Carnifex',
+    faction: 'Tyranids',
+    classification: [
+      'Monstrous Creature',
+      'Monstrous Creature',
+      'Monstrous Creature',
+      'Monstrous Creature',
+      'Monstrous Creature',
+    ],
+    description: '',
+    attributes: {
+      strength: 12,
+      agility: 3,
+      toughness: 12,
+      intellect: 2,
+      willpower: 6,
+      fellowship: 1,
+      initiative: 3,
+    },
+    traits: {
+      defence: 2,
+      speed: 7,
+      wounds: 16,
+      shock: 12,
+      soak: 12,
+      resolve: 5,
+      conviction: 6,
+      passiveAwareness: 3,
+      resilience: {
+        total: 18,
+        armourRating: 5,
+        armourName: 'Tyranid Carapace'
+      },
+    },
+    skills: {
+      weaponSkill: 8,
+      intimidation: 8,
+      default: 6,
+    },
+    size: 'Huge',
+    sizeModifier: 0,
+    keywords: [
+      'Tyranid',
+    ],
+    attacks: [
+      simpleMelee('Monstrous Scything Talons', 3, '16+1', -3, 'Spread'),
+      simpleMelee('Crushing Claws', 2, '20+3', -3, 'Brutal', 'Unwieldy (2)'),
+      simpleRanged('Bio-Plasma', 25, '14+1', -3, 0, 'Assault', 'Blast (Small)'),
+      simpleMelee('Monstrous Acid Maw', 1, '15+2', -5, 'Brutal'),
+      simpleMelee('Thresher Scythe (Tail)', 2, '12+1', -1, 'Spread'),
+      simpleMelee('Bone Mace (Tail)', 2, '16+2', -1),
+      simpleRanged('Twin Deathspitters with Slimer Maggots (Bio-Cannon)', 48, '15+1', -1, 6, 'Assault'),
+      simpleRanged('Twin Devourers with Brainleech Worms (Bio-Cannon)', 36, '14+1', 0, 12, 'Agonizing', 'Assault', 'Spread'),
+      simpleRanged('Stranglethorn Cannon (Bio-Cannon)', 72, '16+2', -1, 1, 'Assault', 'Blast (Large)', 'Tangle (5)', 'Strangle', 'Unique'),
+      simpleRanged('Heavy Venom Cannon (Bio-Cannon)', 72, '18+3', -2, 2, 'Arc (2)', 'Assault', 'Blast (Small)', 'Toxic (5)', 'Unique'),
+    ],
+    attackTraits: [
+      { name: 'Strangle', crunch: 'Enemies hit by a Stranglethorn Cannon must take a Resolve test or become pinned.' },
+      { name: 'Unique', crunch: 'A Tyranid may only have a single Stranglethorn cannon or Heavy Venom Cannon.' },
+    ],
+    attackOptions:
+      'A Carnifex is armed with two pairs of Monstrous Scything Talons. ' +
+      'It may replace one or both of those with a weapon from the Monstrous Bio-Cannons list (pg. 208). ' +
+      'It may replace one pair of Monstrous Scything Talons with a pair of Crushing Claws. ' +
+      'It may also take one of the following: Bio-plasma, enhanced senses, or monstrous acid maw. ' +
+      'It may also have a thresher scythe or a bone mace on its tail.',
+    variants: {
+      name: 'Biomorphs',
+      options: [
+        aaoa.adrenalGlands,
+        aaoa.toxinSacs,
+        simpleAbility('Chitin Thorns: Enemies who attack the Tyranid in melee and suffer a complication suffer a Mortal Wound.'),
+        simpleAbility('Spine Bank: (Damage 12+1ED; AP 0; Range 12m; Salvo 4; Assault, Pistol, Spread)'),
+        simpleAbility('Spore Cysts: The Tyranid receives +2 Defence against shooting attacks, as if it were in cover.'),
+        simpleAbility('Enhanced Senses: The Tyranid adds a bonus of +2d to all ranged attacks.'),
+      ],
+    },
+    specialAbilities: [
+      aaoa.feed,
+      simpleAbility('Terror (3): This threat causes terror. Enemies are required to pass a Terror test (DN 3) to act normally.'),
+      simpleAbility('Living Battering Ram: When a Carnifex charges, roll a d6 for each enemy within 2m of it along the path of its charge; each enemy that rolls a 4+ suffers 1 Mortal Wound and is knocked prone. The Carnifex adds +2d to melee attacks when it charges.'),
+      simpleAbility('(Ruin) Sweeping Tail: When an enemy moves or attacks while within 2m of the Carnifex, it may make an attack with a Thresher Scythe or Bone Mace as a Ruin action.'),
+    ],
+  },
 ];
 
-const abundanceThreatsTyranidsHiveFleets = [
-  {
-    name: 'Behemoth',
-    crunch: 'Add <Campaign Tier> to Speed when Charging.',
-  },
-  {
-    name: 'Gorgon',
-    crunch: 'Melee Attacks gain (or increase) the Toxic Trait, with a Rating equals the <Campaign Tier>.',
-  },
-  {
-    name: 'Hydra',
-    crunch: 'Mobs add <Campaign Tier> dice to melee attacks.',
-  },
-  {
-    name: 'Jormungandr',
-    crunch: 'Non-Flying Tyranids increase their Defence by <Campaign Tier>. The bonus is lost, while Running, Sprinting or Charging.',
-  },
-  {
-    name: 'Kraken',
-    crunch: 'Add <Campaign Tier> to Speed when Running, Sprinting or Charging. May Disengage as a Free Action.',
-  },
-  {
-    name: 'Kronos',
-    crunch: 'Add <Campaign Tier> dice to aimed range attacks.',
-  },
-  {
-    name: 'Leviathan',
-    crunch: 'Add <Campaign Tier> dice to Soak rolls. May soak Mortal Wounds while within range of a Synapse Creature. Mobs within Synapse Range are not slayn on a 6+.',
-  },
-];
 
 module.exports = threatRepository;
+

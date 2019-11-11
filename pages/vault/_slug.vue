@@ -68,7 +68,13 @@
       <div>
         <p v-if="item.keywords">
           <span class="subtitle-2">Keywords / Tags:</span><br/>
-          <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" class="mr-2">
+          <v-chip
+            v-for="keyword in item.keywords"
+            v-bind:key="keyword"
+            class="mr-2 mb-1 mt-1"
+            small
+            label
+          >
             {{ keyword }}
           </v-chip>
         </p>

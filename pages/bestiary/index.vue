@@ -143,10 +143,10 @@
               </v-chip-group>
             </template>
 
-            <template v-slot:item.name="{ item }">
+             <template v-slot:item.name="{ item }">
               <v-row no-gutters>
                 <v-col v-bind:cols="12">{{item.name}}</v-col>
-                <v-col v-bind:cols="12" class="caption grey--text d-block d-sm-none">{{item.faction}}</v-col>
+                <v-col v-bind:cols="12" class="caption grey--text">{{item.keywords.filter(k=>k.indexOf('<')!==0).join(' • ')}}</v-col>
               </v-row>
             </template>
 
@@ -288,21 +288,12 @@ export default {
         rowsPerPage: -1,
       },
       headers: [
-        {
-          text: 'Classification', align: 'center', value: 'classification', class: ['d-none', 'd-sm-block'],
-        },
-        {
-          text: 'Name', align: 'start', value: 'name', class: '',
-        },
-        {
-          text: 'Faction', align: 'start', value: 'faction', class: '',
-        },
-        {
-          text: 'Source', align: 'start', value: 'source.book', class: '',
-        },
-        {
-          text: '', sortable: false, align: 'end', value: 'actions', class: '',
-        },
+        { text: 'Classification', align: 'center',  value: 'classification',  class: '' },
+        //{ text: '',               align: 'center',  value: 'avatar',          class: '' },
+        { text: 'Name',           align: 'start',   value: 'name',            class: '' },
+        { text: 'Faction',        align: 'start',   value: 'faction',         class: '' },
+        { text: 'Source',         align: 'start',   value: 'source.book',     class: '' },
+        { text: '',               align: 'end',     value: 'actions',         class: '', sortable: false,  },
       ],
       expanded: [],
     };

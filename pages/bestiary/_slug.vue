@@ -48,7 +48,9 @@ export default {
   head() {
     const title = `${this.item.name} - ${this.item.faction}`;
     const description = `${this.item.description}`;
-    const image = this.item.thumbnail ? `https://www.doctors-of-doom.com${this.item.thumbnail}` : 'https://www.doctors-of-doom.com/img/artwork_bestiary_death.png';
+    const image = this.item.thumbnail
+      ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
+      : `/img/bestiary/faction_${this.item.faction}_avatar.png`;
 
     return {
       titleTemplate: '%s | Wrath & Glory Threat',

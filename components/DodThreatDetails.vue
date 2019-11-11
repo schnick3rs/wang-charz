@@ -186,8 +186,24 @@
 
       <h4 class="subtitle-1">Special Abilities</h4>
 
-      <div v-for="ability in item.specialAbilities">
-        <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
+      <div
+        v-for="ability in item.specialAbilities"
+        v-bind:key="ability.name"
+      >
+        <p class="body-2 mb-2"><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
+      </div>
+
+    </v-col>
+
+    <v-col v-bind:cols="12" v-if="item.variants">
+
+      <h4 class="subtitle-1">Variants: {{ item.variants.name }}</h4>
+
+      <div
+        v-for="variantOption in item.variants.options"
+        v-bind:key="variantOption.name"
+      >
+        <p class="body-2 mb-2"><strong>{{ variantOption.name }}:</strong> {{ variantOption.effect }}</p>
       </div>
 
     </v-col>
