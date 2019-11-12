@@ -155,7 +155,13 @@ aaoa.tau.septs['fire'] = {
 };
 
 const source = {
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '' },
+  core: { book: 'Core Rules', key: 'core', version: 'v1' },
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
+  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
+  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
+  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
+  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
 };
 
 /** An Abundance of Apocrypha */
@@ -194,9 +200,7 @@ const threatRepository = [
   /** TODO CORE */
   {
     source: {
-      book: 'Core Rules',
-      key: 'core',
-      version: 'v1',
+      ...source.core,
       page: '409',
     },
     key: 'coreAstraMilitarumTrooper',
@@ -284,9 +288,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Core Rules',
-      key: 'core',
-      version: 'v1',
+      ...source.core,
       page: '409',
     },
     key: 'coreAstraMilitarumVeteranTrooper',
@@ -376,9 +378,7 @@ const threatRepository = [
   /** TODO Altar of Mechanicus */
   {
     source: {
-      book: 'The High Altar of Technology',
-      key: 'thaot',
-      version: '',
+      ...source.thaot,
       page: '',
     },
     key: 'thaotKastelanRobot',
@@ -482,9 +482,7 @@ const threatRepository = [
   /** Legacy of the Necrontyr */
   {
     source: {
-      book: 'Legacy of the Necrontyr',
-      key: 'lotn',
-      version: '',
+      ...source.lotn,
       page: '',
     },
     key: 'lotnWarrior',
@@ -570,21 +568,13 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Legacy of the Necrontyr',
-      key: 'lotn',
-      version: '',
+      ...source.lotn,
       page: '',
     },
     key: 'lotnImmortal',
     name: 'Necron Immortal',
     faction: 'Necrons',
-    classification: [
-      'Adversary',
-      'Adversary',
-      'Elite',
-      'Elite',
-      'Elite',
-    ],
+    classification: classificationHelper('aaeee'),
     description: 'Formerly professional soldiers in the Necrontyr military, these warriors retained a spark of their sentience, though they are still only capable of slightly more than a Warrior. Often assigned as leaders of groups of Warriors, Immortals carry much more powerful weapons and are covered in enhanced plating that gives them their name. Even amongst the deathless Necrons, the Immortals are particularly resilient.',
     attributes: {
       strength: 5,
@@ -672,9 +662,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Legacy of the Necrontyr',
-      key: 'lotn',
-      version: '',
+      ...source.lotn,
       page: '',
     },
     key: 'lotnDeathmark',
@@ -773,9 +761,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Legacy of the Necrontyr',
-      key: 'lotn',
-      version: '',
+      ...source.lotn,
       page: '',
     },
     key: 'lotnFlayedOne',
@@ -872,9 +858,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Legacy of the Necrontyr',
-      key: 'lotn',
-      version: '',
+      ...source.lotn,
       page: '',
     },
     key: 'lotnNecronTriarchPraetorian',
@@ -995,9 +979,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Legacy of the Necrontyr',
-      key: 'lotn',
-      version: '',
+      ...source.lotn,
       page: '',
     },
     key: 'lotnNecronDestroyer',
@@ -1091,9 +1073,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Legacy of the Necrontyr',
-      key: 'lotn',
-      version: '',
+      ...source.lotn,
       page: '',
     },
     key: 'lotnHeavyNecronDestroyer',
@@ -1188,9 +1168,7 @@ const threatRepository = [
   /** ArdentPurple's Tyranid Bestiary */
   {
     source: {
-      book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'arpuTyranids',
-      version: '',
+      ...source.aptb,
       page: '',
     },
     key: 'arpuTyranidsTermagant',
@@ -1266,9 +1244,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'arpuTyranids',
-      version: '',
+      ...source.aptb,
       page: '',
     },
     key: 'arpuTyranidsHormagant',
@@ -1342,9 +1318,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'arpuTyranids',
-      version: '',
+      ...source.aptb,
       page: '',
     },
     key: 'arpuTyranidsTyranidWarrior',
@@ -1429,9 +1403,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'arpuTyranids',
-      version: '',
+      ...source.aptb,
       page: '',
     },
     key: 'arpuTyranidsLictor',
@@ -1505,9 +1477,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'arpuTyranids',
-      version: '',
+      ...source.aptb,
       page: '',
     },
     key: 'arpuTyranidsZoanthrope',
@@ -1583,9 +1553,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'arpuTyranids',
-      version: '',
+      ...source.aptb,
       page: '',
     },
     key: 'arpuTyranidsRavener',
@@ -1648,9 +1616,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'ArdentPurple\'s Tyranid Bestiary',
-      key: 'arpuTyranids',
-      version: 'darft',
+      ...source.aptb,
       page: '',
     },
     key: 'arpuTyranidsCarnifex',
@@ -1714,9 +1680,7 @@ const threatRepository = [
   /** Javelin's Tyranid Bestiary */
   {
     source: {
-      book: 'Javelin\'s Tyranid Bestiary',
-      key: 'jtb',
-      version: '',
+      ...source.tjb,
       page: '',
     },
     key: 'jtbTyranidHormagant',
@@ -1792,9 +1756,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Javelin\'s Tyranid Bestiary',
-      key: 'jtb',
-      version: '',
+      ...source.jtb,
       page: '',
     },
     key: 'jtbTyranidTermagant',
@@ -1894,9 +1856,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Javelin\'s Tyranid Bestiary',
-      key: 'jtb',
-      version: '',
+      ...source.jtb,
       page: '',
     },
     key: 'jtbTyranidRipperSwarm',
@@ -1981,9 +1941,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Javelin\'s Tyranid Bestiary',
-      key: 'jtb',
-      version: '',
+      ...source.jtb,
       page: '',
     },
     key: 'jtbTyranidWarrior',
@@ -2092,9 +2050,7 @@ const threatRepository = [
   /** TODO Let The Galaxy Burn https://docs.google.com/document/d/1bdtobuS39XgY_7WJ0cbP5xzHMvozJh9gIgyf6K5nBvw/view */
   {
     source: {
-      book: 'Let The Galaxy Burn',
-      key: 'ltgbGalax',
-      version: '',
+      ...source.ltgb,
       page: '',
     },
     key: 'ltgbGalaxCultist',
@@ -2178,9 +2134,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Let The Galaxy Burn',
-      key: 'ltgbGalax',
-      version: '',
+      ...source.ltgb,
       page: '',
     },
     key: 'ltgbGalaxCultistRangedVariant',
@@ -2264,9 +2218,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Let The Galaxy Burn',
-      key: 'ltgbGalax',
-      version: '',
+      ...source.ltgb,
       page: '',
     },
     key: 'ltgbGalaxCultLeader',
@@ -2346,9 +2298,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Let The Galaxy Burn',
-      key: 'ltgbGalax',
-      version: '',
+      ...source.ltgb,
       page: '',
     },
     key: 'ltgbGalaxBloodthirster',
@@ -2446,9 +2396,7 @@ const threatRepository = [
   /** CORE Orks */
   {
     source: {
-      book: 'Core Rules',
-      key: 'core',
-      version: 'v1',
+      ...source.core,
       page: '432',
     },
     key: 'coreOrkBoys',
@@ -2538,9 +2486,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Core Rules',
-      key: 'core',
-      version: 'v1',
+      ...source.core,
       page: '434',
     },
     key: 'coreOrkNobz',
@@ -2629,9 +2575,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Core Rules',
-      key: 'core',
-      version: 'v1',
+      ...source.core,
       page: '435',
     },
     key: 'coreOrkMegaNobz',
@@ -2720,9 +2664,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Core Rules',
-      key: 'core',
-      version: 'v1',
+      ...source.core,
       page: '435',
     },
     key: 'coreGretchin',
@@ -2793,9 +2735,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Core Rules',
-      key: 'core',
-      version: 'v1',
+      ...source.core,
       page: '436',
     },
     key: 'coreOrkKommando',
@@ -2882,9 +2822,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'Core Rules',
-      key: 'core',
-      version: 'v1',
+      ...source.core,
       page: '437',
     },
     key: 'coreKaptinKommando',
@@ -2972,9 +2910,7 @@ const threatRepository = [
   /** An Abundance of Apocrypha - Tyranids */
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '',
     },
     key: 'aaoaHormagant',
@@ -3054,9 +2990,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '',
     },
     key: 'aaoaTermagant',
@@ -3162,9 +3096,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '',
     },
     key: 'aaoaGargolye',
@@ -3254,9 +3186,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '',
     },
     key: 'aaoaRipper',
@@ -3319,9 +3249,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '204',
     },
     key: 'aaoaLictor',
@@ -3388,9 +3316,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '205',
     },
     key: 'aaoaTyranidWarrior',
@@ -3460,9 +3386,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '209',
     },
     key: 'aaoaCarnifex',
@@ -3552,9 +3476,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '235',
     },
     key: 'aaoaFireCasteStrikeShasLa',
@@ -3628,9 +3550,7 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '236',
     },
     key: 'aaoaFireCasteBreacherShasLa',
@@ -3998,6 +3918,181 @@ const threatRepository = [
       simpleAbility('(Ruin) Haunting Horror: Spend 1 Ruin to have a Flayed One emerge from their charnel dimension, drawn by slaughter and bloodshed. Regain 1 Ruin to have a Flayed One vanish back into that dimension.'),
       simpleAbility('(Ruin) Disruption Field: Spend 1 Ruin when a Flayed One attempts a melee attack, to add +2ED to the attack’s damage.'),
     ],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '169',
+    },
+    key: 'aaoaNecronImmortals',
+    name: 'Necron Immortals',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '171',
+    },
+    key: 'aaoaDestroyers',
+    name: 'Destroyers',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '172',
+    },
+    key: 'aaoaDeathmarks',
+    name: 'Deathmarks',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '173',
+    },
+    key: 'aaoaLychguard',
+    name: 'Lychguard',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '174',
+    },
+    key: 'aaoaNecronLord',
+    name: 'Necron Lord',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '175',
+    },
+    key: 'aaoaNecronOverlord',
+    name: 'Necron Overlord',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '176',
+    },
+    key: 'aaoaNecronDestroyerLord',
+    name: 'Necron Destroyer Lord',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '179',
+    },
+    key: 'aaoaNecronCryptek',
+    name: 'Necron Cryptek',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '183',
+    },
+    key: 'aaoaTriarchPraetorians',
+    name: 'Triarch Praetorians',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '184',
+    },
+    key: 'aaoaTriarchStalker',
+    name: 'Triarch Stalker',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '185',
+    },
+    key: 'aaoaCanoptekWraith',
+    name: 'Canoptek Wraith',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '186',
+    },
+    key: 'aaoaCanoptekSpyder',
+    name: 'Canoptek Spyder',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '187',
+    },
+    key: 'aaoaCtanShardOfTheDeceiver',
+    name: 'C’Tan Shard of the Deceiver',
+    faction: 'Necrons',
+    classification: classificationHelper('ccccc'),
+    keywords: ['C´Tan Shard'],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '188',
+    },
+    key: 'aaoaCtanShardOfTheNightbringer',
+    name: 'C’Tan Shard of the Nightbringer',
+    faction: 'Necrons',
+    classification: classificationHelper('ccccc'),
+    keywords: ['C´Tan Shard'],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '190',
+    },
+    key: 'aaoaGhostArk',
+    name: 'Ghost Ark',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '190',
+    },
+    key: 'aaoaDoomsdayArk',
+    name: 'Doomsday Ark',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '191',
+    },
+    key: 'aaoaAnnihilationBarge',
+    name: 'Annihilation Barge',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '191',
+    },
+    key: 'aaoaCatacombCommandBarge',
+    name: 'Catacomb Command Barge',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '192',
+    },
+    key: 'aaoaMonolith',
+    name: 'Monolith',
+    faction: 'Necrons',
   },
 ];
 

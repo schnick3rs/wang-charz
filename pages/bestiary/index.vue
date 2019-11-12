@@ -121,33 +121,40 @@
           >
 
             <template v-slot:item.classification="{ item }">
-              <v-chip
-                v-if="filterTier > 0"
-                v-bind:color="getClassificationColor(item.classification[filterTier-1])"
-                x-small
-                label
-              >
-                {{ item.classification[filterTier-1] }}
-              </v-chip>
-
-              <v-chip-group multiple v-else>
+              <div v-if="item.classification">
                 <v-chip
-                  v-for="classification in item.classification"
-                  v-bind:key="classification.key"
-                  v-bind:color="getClassificationColor(classification)"
+                  v-if="filterTier > 0"
+                  v-bind:color="getClassificationColor(item.classification[filterTier-1])"
                   x-small
                   label
                 >
-                  {{ classification.substr(0,1) }}
+                  {{ item.classification[filterTier-1] }}
                 </v-chip>
-              </v-chip-group>
+
+                <v-chip-group multiple v-else>
+                  <v-chip
+                    v-for="classification in item.classification"
+                    v-bind:key="classification.key"
+                    v-bind:color="getClassificationColor(classification)"
+                    x-small
+                    label
+                  >
+                    {{ classification.substr(0,1) }}
+                  </v-chip>
+                </v-chip-group>
+              </div>
             </template>
 
              <template v-slot:item.name="{ item }">
               <v-row no-gutters>
                 <v-col v-bind:cols="12">{{item.name}}</v-col>
-                <v-col v-bind:cols="12" class="caption grey--text">{{item.keywords.filter(k=>k.indexOf('<')!==0).join(' • ')}}</v-col>
+                <v-col v-bind:cols="12" class="caption grey--text" v-if="item.keywords">{{item.keywords.filter(k=>k.indexOf('<')!==0).join(' • ')}}</v-col>
               </v-row>
+            </template>
+
+            <template v-slot:item.source.book="{ item }">
+              {{item.source.book}}
+              <NuxtLink v-if="item.source.path" v-bind:to="item.source.path" target="_blank"><v-icon small>launch</v-icon></NuxtLink>
             </template>
 
             <template v-slot:item.actions="{ item }">
@@ -377,9 +384,9 @@ export default {
     },
     getClassificationColor(classification) {
       switch(classification) {
-        case 'Troops': return 'green'
-        case 'Elite': return 'yellow'
-        case 'Adversary': return 'orange'
+        case 'Troops': return 'green';
+        case 'Elite': return 'yellow';
+        case 'Adversary': return 'orange';
       }
     },
     computeSlug(key) {

@@ -34,8 +34,7 @@
       </div>
     </v-col>
 
-
-    <v-col v-bind:cols="12" v-bind:md="3">
+    <v-col v-bind:cols="12" v-bind:md="3" v-if="item.attributes">
 
       <v-simple-table dense>
 
@@ -65,7 +64,7 @@
       </v-simple-table>
 
     </v-col>
-    <v-col v-bind:cols="12" v-bind:md="6">
+    <v-col v-bind:cols="12" v-bind:md="6" v-if="item.traits">
 
       <v-simple-table dense>
 
@@ -96,7 +95,7 @@
       </v-simple-table>
 
     </v-col>
-    <v-col v-bind:cols="12" v-bind:md="3">
+    <v-col v-bind:cols="12" v-bind:md="3" v-if="item.skills">
 
       <v-simple-table dense>
 
@@ -129,7 +128,7 @@
     </v-col>
 
     <!-- Attacks -->
-    <v-col v-bind:cols="12" >
+    <v-col v-bind:cols="12" v-if="item.attacks">
 
       <h4 class="subtitle-1">Attacks</h4>
       <v-divider></v-divider>
@@ -210,7 +209,7 @@
     </v-col>
 
     <!-- Abilities -->
-    <v-col v-bind:cols="12" >
+    <v-col v-bind:cols="12" v-if="item.specialAbilities">
 
       <h4 class="subtitle-1">Special Abilities</h4>
       <v-divider></v-divider>
@@ -243,10 +242,11 @@
     </v-col>
 
     <!-- Keywords -->
-    <v-col v-bind:cols="12" v-bind:md="9">
+    <v-col v-bind:cols="12" v-bind:md="9" v-if="item.keywords">
       <span>Keywords: </span>
       <v-chip v-for="keyword in item.keywords" v-bind:key="keyword" small label class="mr-2 mb-1 mt-1">{{ keyword }}</v-chip>
     </v-col>
+
     <v-col v-bind:cols="12" v-bind:md="3" style="font-style: italic">
       <span class="caption">{{ item.source.book }}</span><span class="caption" v-if="item.source.page">, pg. {{ item.source.page }}</span>
     </v-col>

@@ -66,7 +66,7 @@ export default {
           hid: 'keywords',
           name: 'keywords',
           content: [
-            ...this.item.keywords.filter( k => k.indexOf('<') !== 0),
+            //...this.item.keywords.filter( k => k.indexOf('<') !== 0),
             'Threat',
             'Bestiary',
             'Wrath & Glory',
