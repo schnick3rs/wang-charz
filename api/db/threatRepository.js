@@ -31,6 +31,18 @@ const simpleAbility = function(text) {
   };
 };
 
+const levelMap = {
+  t: 'Troops',
+  e: 'Elite',
+  a: 'Adversary',
+  c: 'Monstrous Creature',
+};
+
+const classificationHelper = function(shortcode) {
+  const split = shortcode.split('');
+  return split.map( code => levelMap[code] );
+};
+
 const aaoa = {
   feed: {
     name: 'Instinctive Behaviour (Lurk)',
@@ -79,6 +91,21 @@ const aaoa = {
   },
   synapseCreature: simpleAbility('Synapse Creature: Tyranids automatically pass Resolve tests if they are within 25m of a friendly Synapse Creature. Further, Tyranids within range of a Synapse Creature cannot suffer Shock, as they are driven to action without regard for fear, pain, fatigue, or the limits of their own bodies. Naturally, a Synapse Creature also receives these benefits, as they are always considered to be “within range of a Synapse Creature”.'),
   shadowOfTheWarp: simpleAbility('Shadow of the Warp: Whenever a Psyker uses a psychic power while within 35m of a Tyranid with this ability, they must count all 6s on their Wrath dice as 1s. Psykers with the Tyranid keyword are not affected.'),
+  necrons: {
+    ancientMachines: simpleAbility('Ancient Machines: Necrons cannot suffer Shock, and abilities which inflict Shock have no effect on Necrons. Necron NPCs do may not roll to Soak unless they have an ability which permits them to, such as Living Metal.'),
+    livingMetal: simpleAbility('Living Metal: Soaking does not cost any Shock for this Threat. In addition, if it ever scores more Icons when Soaking than is necessary to negate all the damage being inflicted, it regains 1 lost Wound for each surplus Icon, up to its normal maximum.'),
+    reanimationProtocols: simpleAbility('Reanimation Protocols: Roll 1d6 for each slain Necron with this rule at the start of each round: on a 1, the Necron’s remains vanish, either self-destructing or teleporting away (it is impossible to tell which). On a 5 or 6, however, the Necron regains all lost Wounds and stands back up. On any other result, the Necron’s remains stay on the battlefield, but may roll again next round, unless no other Necrons of that type remain active on the battlefield, in which case they teleport away. Necrons which have been Annihilated immediately vanish.'),
+    variants: {
+      name: 'Necron Dynasties',
+      options: [
+        simpleAbility('Mephrit: Necrons of this dynasty improve the AP of their ranged weapons by 1 if they attack a target within Close range.'),
+        simpleAbility('Nephrekh: If a Necron of this dynasty takes a Run or Sprint action, they vanish, and instantly reappear anywhere within a distance equal to their Speed, or twice their Speed if they sprinted. They must reappear on solid ground or another surface stable enough to stand upon.'),
+        simpleAbility('Nihilakh: Necrons of this dynasty may re-roll any dice which roll 1s on their ranged attacks, provided that they did not move in the same turn.'),
+        simpleAbility('Novokh: Necrons of this dynasty may re-roll all failures on melee attacks made when they charge, or if they were charged since their last turn.'),
+        simpleAbility('Sautekh: When a Necron of this dynasty Runs, it treats all weapons as if they had the Assault trait. In addition, Necrons of this dynasty ignore the Heavy trait on weapons.'),
+      ],
+    },
+  },
   tau: {
     fire: simpleAbility('For the Greater Good! (Fire): When an enemy declares a charge against a T’au ally within 12m of you, you may spend a Reload to make a shooting attack against the charging enemy, adding +4 to the DN and resolving the attack before the enemy moves. This ability may only be used once per round.'),
     water: simpleAbility('For the Greater Good! (Water): When a T’au ally attempts a Cunning, Deception, Insight, or Persuasion test, and you assist them, you add icons to their test for your assistance, rather than dice.'),
@@ -87,6 +114,7 @@ const aaoa = {
     bonding: simpleAbility('Ta\'lissera Bonding Ritual: Any T’au with this rule are part of a bonded team (the GM should determine which T’au are part of which team for roleplaying purposes). Whenever a T’au with this ability attempts a Resolve or Conviction test, and rolls a 6 on their Wrath die, then the test is automatically successful, regardless of how many icons were rolled.'),
     markerlights: simpleRanged('Markerlights', 72, '0+0', 0, 0, 'Heavy (5)', 'Sniper'),
     pulsePistol: simpleRanged('Pulse Pistol', 60, '12+1', 0, 1, 'Pistol', 'Steadfast'),
+    pulseRifle: simpleRanged('Pulse Rifle', 60, '12+1', 0, 1, 'Rapid Fire (2)', 'Steadfast'),
     photonGrenade: simpleRanged('Photon Grenades', 12, '0+0', 0, '-', 'Blast (Medium)', 'Suppression'),
     haywireGrenade: simpleRanged('Haywire Grenade', 12, '0+0', 0, '-', 'Blast (Small)', 'Haywire (3)'),
     pulseCarbine: simpleRanged('Pulse Carbine', 36, '12+1', 0, 2, 'Assault', 'Steadfast', 'includes  Range 36m'),
@@ -124,6 +152,10 @@ aaoa.tau.septs['fire'] = {
     aaoa.tau.septs.tau.fire,
     aaoa.tau.septs.viorla.fire,
   ]
+};
+
+const source = {
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '' },
 };
 
 /** An Abundance of Apocrypha */
@@ -457,7 +489,7 @@ const threatRepository = [
     },
     key: 'lotnWarrior',
     name: 'Necron Warrior',
-    faction: 'Necrontyr',
+    faction: 'Necrons',
     classification: [
       'Adversary',
       'Elite',
@@ -545,7 +577,7 @@ const threatRepository = [
     },
     key: 'lotnImmortal',
     name: 'Necron Immortal',
-    faction: 'Necrontyr',
+    faction: 'Necrons',
     classification: [
       'Adversary',
       'Adversary',
@@ -647,7 +679,7 @@ const threatRepository = [
     },
     key: 'lotnDeathmark',
     name: 'Necron Deathmark',
-    faction: 'Necrontyr',
+    faction: 'Necrons',
     classification: [
       'Adversary',
       'Adversary',
@@ -748,7 +780,7 @@ const threatRepository = [
     },
     key: 'lotnFlayedOne',
     name: 'Necron Flayed One',
-    faction: 'Necrontyr',
+    faction: 'Necrons',
     classification: [
       'Adversary',
       'Adversary',
@@ -847,7 +879,7 @@ const threatRepository = [
     },
     key: 'lotnNecronTriarchPraetorian',
     name: 'Necron Triarch Praetorian',
-    faction: 'Necrontyr',
+    faction: 'Necrons',
     classification: [
       'Adversary',
       'Adversary',
@@ -970,7 +1002,7 @@ const threatRepository = [
     },
     key: 'lotnNecronDestroyer',
     name: 'Necron Destroyer',
-    faction: 'Necrontyr',
+    faction: 'Necrons',
     classification: [
       'Adversary',
       'Adversary',
@@ -1066,7 +1098,7 @@ const threatRepository = [
     },
     key: 'lotnHeavyNecronDestroyer',
     name: 'Necron Heavy Destroyer',
-    faction: 'Necrontyr',
+    faction: 'Necrons',
     classification: [
       'Adversary',
       'Adversary',
@@ -3574,7 +3606,7 @@ const threatRepository = [
       '<Sept>',
     ],
     attacks: [
-      simpleRanged('Pulse Rifle', 60, '12+1', 0, 1, 'Rapid Fire (2)', 'Steadfast'),
+      aaoa.tau.pulseRifle,
       aaoa.tau.pulseCarbine,
       aaoa.tau.buildInPhotonGrenadeLauncher,
       aaoa.tau.pulsePistol,
@@ -3671,22 +3703,14 @@ const threatRepository = [
   },
   {
     source: {
-      book: 'An Abundance of Apocrypha',
-      key: 'aaoa',
-      version: '',
+      ...source.aaoa,
       page: '237',
     },
     key: 'aaoaFireCastePathfinderShasLa',
     name: 'Fire Caste Pathfinder Shas\'La',
     thumbnail: '/img/bestiary/threats/tau_pathfinder.png',
     faction: 'Tau',
-    classification: [
-      'Elite',
-      'Troops',
-      'Troops',
-      'Troops',
-      'Troops',
-    ],
+    classification: classificationHelper('etttt'),
     description: '',
     attributes: {
       strength: 3,
@@ -3728,9 +3752,9 @@ const threatRepository = [
     ],
     attacks: [
       aaoa.tau.pulseCarbine,
-      aaoa.tau.buildInPhotonGrenadeLauncher,
+      aaoa.tau.buildInPhotonGrenadeLauncher, // Suppression
       aaoa.tau.markerlights,
-      aaoa.tau.photonGrenade,
+      aaoa.tau.photonGrenade, // Suppression
       simpleRanged('Ion Rifle', 60, '15+1', 0, 1, 'Rapid Fire (1)', 'Supercharge', 'Ion Charge'),
       simpleRanged('Rail Rifle', 60, '14+2', -4, 1, 'Mortal (1)', 'Rapid Fire (1)', 'Sniper (1)'),
     ],
@@ -3746,6 +3770,234 @@ const threatRepository = [
       simpleAbility('Vanguard: A Pathfinder increases their Speed by +2 when they Run or Sprint. They do not reduce their Defence when they Sprint.'),
     ],
     variants: aaoa.tau.septs.fire,
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '239',
+    },
+    key: 'aaoaFireCasteCadreFirebladeShasEl',
+    name: 'Fire Caste Cadre Fireblade Shas’el',
+    faction: 'Tau',
+    classification: classificationHelper('aaaaa'),
+    description: '',
+    attributes: {
+      strength: 4,
+      agility: 4,
+      toughness: 4,
+      intellect: 5,
+      willpower: 6,
+      fellowship: 5,
+      initiative: 5,
+    },
+    traits: {
+      defence: 4,
+      speed: 6,
+      wounds: 7,
+      shock: 9,
+      soak: 4,
+      resolve: 7,
+      conviction: 7,
+      passiveAwareness: 4,
+      resilience: {
+        total: 9,
+        armourRating: 4,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      ballisticSkill: 9,
+      leadership: 9,
+      weaponSkill: 7,
+      default: 8,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'T´au',
+      'Fire Caste',
+      '<Sept>',
+    ],
+    attacks: [
+      aaoa.tau.pulseRifle,
+      aaoa.tau.markerlights,
+      aaoa.tau.photonGrenade, // Suppression
+    ],
+    attackTraits: [
+      { name: 'Suppression', crunch: 'Enemies hit are blinded until the end of their next turn, and must test to avoid being pinned)' },
+    ],
+    attackOptions:
+      'A Cadre Fireblade may also take one item from the Support Systems section.',
+    specialAbilities: [
+      aaoa.tau.fire,
+      aaoa.tau.bonding,
+      simpleAbility('(Ruin) Champion: This threat may take Ruin actions.'),
+      simpleAbility('(Ruin) Directed Fire: As a free action, spend 1 Ruin to add +2ED to the shooting attacks of all Fire Warriors within 15 metres. This bonus lasts until the beginning of the Cadre Fireblade’s next turn.'),
+      simpleAbility('Volley Fire: Allied Fire Warriors within 15 metres may add +2 to the Salvo of their Pulse Rifles, Pulse Carbines, and Pulse Rifles when firing at a target within close range.'),
+    ],
+    variants: aaoa.tau.septs.fire,
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '167',
+    },
+    key: 'aaoaCanoptekScarabs',
+    name: 'Canoptek Scarabs',
+    faction: 'Necrons',
+    classification: classificationHelper('ttttt'),
+    description: 'A Canoptek Scarab is a small, silver, beetle-like Necron construct, about the size of a Space Marine’s armoured fist. These robotic Scarabs are the most numerous and diverse of the Necrons\' Canoptek machine servants. They are designed to break down organic and non-organic matter into raw energy, which can then be woven into fresh construct forms at the direction of the Scarabs’ controller.',
+    attributes: {
+      strength: 1,
+      agility: 4,
+      toughness: 3,
+      intellect: 1,
+      willpower: 6,
+      fellowship: 1,
+      initiative: 3,
+    },
+    traits: {
+      defence: 4,
+      speed: '10 (Flight)',
+      wounds: 3,
+      shock: '-',
+      soak: 3,
+      resolve: 2,
+      conviction: 3,
+      passiveAwareness: 3,
+      resilience: {
+        total: 5,
+        armourRating: 1,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      awareness: 7,
+      tech: 7,
+      default: 6,
+    },
+    size: 'Tiny',
+    sizeModifier: 0,
+    keywords: [
+      'Necron',
+      'Canoptek',
+    ],
+    attacks: [
+      simpleMelee('Feeder Mandibles', 1, '5+1', 0, 'Arc (2)', 'Warp Weapon'),
+    ],
+    specialAbilities: [
+      aaoa.necrons.ancientMachines,
+      simpleAbility('(Ruin) Self-Destruct: A lone scarab (one not in a mob) may spend 1 Ruin when it attempts a melee attack; if the attack is successful, it inflicts 1d3+1 Mortal Wounds and is then destroyed.'),
+      simpleAbility('(Mob) Devouring Swarm: While in a mob, scarabs add +2ED to their melee attacks.'),
+    ],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '168',
+    },
+    key: 'aaoaNecronWarriors',
+    name: 'Necron Warriors',
+    faction: 'Necrons',
+    classification: classificationHelper('aeett'),
+    description: 'Necron Warriors are the primary infantry troops of the soulless, undying mechanical monstrosities known as the Necrons. They were created from the majority of the ancient humanoid Necrontyr species who agreed to be bound to the will of their Star Gods, the terrible entities known as the C\'tan. The Necrontyr\'s consciousnesses were transferred into robotic bodies made of the living metal called necrodermis. Over a long period of time, the new unliving bodies dulled the Necrontyr\'s minds and their abilities to feel emotion or pleasure. Over many millennia, the ultimate outcome of this process of gradual desensitization was that the Necron Warriors became little more than soulless automatons, the warrior-slaves of the still-sentient Necron royalty and military elite who seek to rebuild their star-spanning empires across the portions of the galaxy now controlled by the "lesser races."',
+    attributes: {
+      strength: 7,
+      agility: 3,
+      toughness: 5,
+      intellect: 2,
+      willpower: 6,
+      fellowship: 1,
+      initiative: 3,
+    },
+    traits: {
+      defence: 2,
+      speed: 5,
+      wounds: 5,
+      shock: '-',
+      soak: 5,
+      resolve: 5,
+      conviction: 6,
+      passiveAwareness: 4,
+      resilience: {
+        total: 10,
+        armourRating: 4,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      ballisticSkill: 8,
+      default: 7,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Necron',
+    ],
+    attacks: [
+      simpleRanged('Gauss Flayer', 48, '10+1', -1, 2, 'Rapid Fire (1)'),
+      simpleMelee('Combat Blade', 1, '10+2', 0, 'Penetrating (1)'),
+    ],
+    specialAbilities: [
+      aaoa.necrons.ancientMachines,
+      aaoa.necrons.reanimationProtocols,
+      simpleAbility('(Ruin) Disruption Field: Spend 1 Ruin when a Necron Warrior attempts a melee attack, to add +2ED to the attack’s damage.'),
+    ],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '170',
+    },
+    key: 'aaoaFlayedOnes',
+    name: 'Flayed Ones',
+    faction: 'Necrons',
+    classification: classificationHelper('aeett'),
+    description: 'Flayed Ones are twisted and ghoulish Necron terrors afflicted by an ancient infection that breeds a hunger for organic flesh in them. Flayed Ones act as specialised close combat troops. They appear from an unknown pocket dimension of their hideous kind to join the Necron armies in battle, though never by invitation from the Necrons themselves.',
+    attributes: {
+      strength: 7,
+      agility: 4,
+      toughness: 5,
+      intellect: 2,
+      willpower: 6,
+      fellowship: 1,
+      initiative: 4,
+    },
+    traits: {
+      defence: 3,
+      speed: 5,
+      wounds: 5,
+      shock: '-',
+      soak: 5,
+      resolve: 5,
+      conviction: 6,
+      passiveAwareness: 4,
+      resilience: {
+        total: 10,
+        armourRating: 4,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      weaponSkill: 8,
+      default: 7,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Necron',
+      'Flayed One',
+    ],
+    attacks: [
+      simpleMelee('Talons', 1, '12+2', 0, 'Tearing (2)', 'Penetrating (1)'),
+    ],
+    specialAbilities: [
+      aaoa.necrons.ancientMachines,
+      aaoa.necrons.reanimationProtocols,
+      simpleAbility('Fear (3): This threat causes fear. Enemies are required to make a fear test (DN 3) to act normally.'),
+      simpleAbility('(Ruin) Haunting Horror: Spend 1 Ruin to have a Flayed One emerge from their charnel dimension, drawn by slaughter and bloodshed. Regain 1 Ruin to have a Flayed One vanish back into that dimension.'),
+      simpleAbility('(Ruin) Disruption Field: Spend 1 Ruin when a Flayed One attempts a melee attack, to add +2ED to the attack’s damage.'),
+    ],
   },
 ];
 

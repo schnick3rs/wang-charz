@@ -11,6 +11,30 @@
     </v-col>
 
     <!-- Stats -->
+    <v-col v-bind:cols="12" v-bind:md="8" v-if="false">
+      <div class="attribute-box__container">
+        <div class="attribute-box__value">{{ item.traits.defence }}</div>
+        <div class="attribute-box__label">Defence</div>
+      </div>
+      <div class="attribute-box__container">
+        <div class="attribute-box__value">{{ item.traits.resilience.total }}</div>
+        <div class="attribute-box__label">Resilience</div>
+      </div>
+      <div class="attribute-box__container">
+        <div class="attribute-box__value">{{ item.traits.soak }}</div>
+        <div class="attribute-box__label">Soak</div>
+      </div>
+      <div class="attribute-box__container">
+        <div class="attribute-box__value">{{ item.traits.wounds }}</div>
+        <div class="attribute-box__label">Wounds</div>
+      </div>
+      <div class="attribute-box__container">
+        <div class="attribute-box__value">{{ item.traits.resolve }}</div>
+        <div class="attribute-box__label">Resolve</div>
+      </div>
+    </v-col>
+
+
     <v-col v-bind:cols="12" v-bind:md="3">
 
       <v-simple-table dense>
@@ -293,6 +317,34 @@ export default {
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+  .attribute-box {
 
+    &__container {
+      box-sizing: border-box;
+      display: block;
+      width: 64px;
+      align-content: center;
+      border: 3px double orangered;
+      padding: 0;
+      height: 64px;
+      float: left;
+      margin: 2px;
+      border-radius: 10px;
+    }
+
+    &__value {
+      justify-content: center;
+      font-size: 25px;
+      font-weight: 600;
+      display: flex;
+    }
+
+    &__label {
+      display: flex;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+  }
 </style>
