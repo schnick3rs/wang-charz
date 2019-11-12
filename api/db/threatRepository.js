@@ -3527,6 +3527,7 @@ const threatRepository = [
     },
     key: 'aaoaFireCasteStrikeShasLa',
     name: 'Fire Caste Strike Shas\'La',
+    thumbnail: '/img/bestiary/threats/tau_striker.png',
     faction: 'Tau',
     classification: [
       'Troops',
@@ -3602,6 +3603,7 @@ const threatRepository = [
     },
     key: 'aaoaFireCasteBreacherShasLa',
     name: 'Fire Caste Breacher Shas\'La',
+    thumbnail: '/img/bestiary/threats/tau_breacher.png',
     faction: 'Tau',
     classification: [
       'Troops',
@@ -3676,6 +3678,7 @@ const threatRepository = [
     },
     key: 'aaoaFireCastePathfinderShasLa',
     name: 'Fire Caste Pathfinder Shas\'La',
+    thumbnail: '/img/bestiary/threats/tau_pathfinder.png',
     faction: 'Tau',
     classification: [
       'Elite',
