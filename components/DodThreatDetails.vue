@@ -263,8 +263,9 @@ export default {
   },
   methods: {
     traitByName(name) {
-      const prefix = name.split(/ ?\(/)[0];
-      return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
+      //const prefix = name.split(/ ?\(/)[0];
+      //return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
+      return this.combinedTraitsRepository.find( item => item.name === name );
     },
   },
   computed: {
@@ -285,7 +286,7 @@ export default {
           attackTraitSet = [ ...attackTraitSet, ...attack.traits ];
         }
       });
-
+      attackTraitSet = attackTraitSet.map( t => t.split(/ ?\(/)[0] );
       return [...new Set(attackTraitSet)].sort();
     },
   }

@@ -79,6 +79,51 @@ const aaoa = {
   },
   synapseCreature: simpleAbility('Synapse Creature: Tyranids automatically pass Resolve tests if they are within 25m of a friendly Synapse Creature. Further, Tyranids within range of a Synapse Creature cannot suffer Shock, as they are driven to action without regard for fear, pain, fatigue, or the limits of their own bodies. Naturally, a Synapse Creature also receives these benefits, as they are always considered to be “within range of a Synapse Creature”.'),
   shadowOfTheWarp: simpleAbility('Shadow of the Warp: Whenever a Psyker uses a psychic power while within 35m of a Tyranid with this ability, they must count all 6s on their Wrath dice as 1s. Psykers with the Tyranid keyword are not affected.'),
+  tau: {
+    fire: simpleAbility('For the Greater Good! (Fire): When an enemy declares a charge against a T’au ally within 12m of you, you may spend a Reload to make a shooting attack against the charging enemy, adding +4 to the DN and resolving the attack before the enemy moves. This ability may only be used once per round.'),
+    water: simpleAbility('For the Greater Good! (Water): When a T’au ally attempts a Cunning, Deception, Insight, or Persuasion test, and you assist them, you add icons to their test for your assistance, rather than dice.'),
+    air: simpleAbility('For the Greater Good! (Air): When making an attack from a vehicle or spacecraft, shifts from your roll may be used to increase the DN of your target’s next attack against a T’au ally by +1 per shift.'),
+    earth: simpleAbility('For the Greater Good! (Earth): When a T’au ally attempts a Medicae, Scholar, or Tech test, and you assist them, you add icons to their test for your assistance, rather than dice.'),
+    bonding: simpleAbility('Ta\'lissera Bonding Ritual: Any T’au with this rule are part of a bonded team (the GM should determine which T’au are part of which team for roleplaying purposes). Whenever a T’au with this ability attempts a Resolve or Conviction test, and rolls a 6 on their Wrath die, then the test is automatically successful, regardless of how many icons were rolled.'),
+    markerlights: simpleRanged('Markerlights', 72, '0+0', 0, 0, 'Heavy (5)', 'Sniper'),
+    pulsePistol: simpleRanged('Pulse Pistol', 60, '12+1', 0, 1, 'Pistol', 'Steadfast'),
+    photonGrenade: simpleRanged('Photon Grenades', 12, '0+0', 0, '-', 'Blast (Medium)', 'Suppression'),
+    haywireGrenade: simpleRanged('Haywire Grenade', 12, '0+0', 0, '-', 'Blast (Small)', 'Haywire (3)'),
+    pulseCarbine: simpleRanged('Pulse Carbine', 36, '12+1', 0, 2, 'Assault', 'Steadfast', 'includes  Range 36m'),
+    buildInPhotonGrenadeLauncher: simpleRanged('+ build-in Photon Grenade Launcher', 36, '0+0', 0, '-', 'Blast (Medium)', 'Suppression'),
+    septs: {
+      borkan: {
+        fire: simpleAbility('Bork\'an Sept (Fire Caste): Increasing the range of all weapons with the Rapid Fire or Heavy trait by 12 metres.'),
+      },
+      dalyth: {
+        fire: simpleAbility('Dal\'yth Sept (Fire Caste): If they do not move during their turn, they add +2 to their Defence (as if in cover) until the start of their next turn.'),
+      },
+      farsight: {
+        fire: simpleAbility('The Farsight Enclave (Fire Caste): Add +2 to their Conviction. They may re-roll any failures on their extra damage dice for shooting attacks against enemies within 12m.'),
+      },
+      sacea: {
+        fire: simpleAbility('Sa\'cea Sept (Fire Caste): All T’au from Sa’cea add +1 to their Resolve. May re-roll one die on any Ballistic Skill test they attempt.'),
+      },
+      tau: {
+        fire: simpleAbility('T\'au Sept (Fire Caste): T’au from T’au reduce the DN of tests using Ballistic Skill by 2.')
+      },
+      viorla: {
+        fire: simpleAbility('Vior\'la Sept (Fire Caste): Treat any Rapid Fire weapon as if it had the Assault trait.'),
+      }
+    }
+  },
+};
+
+aaoa.tau.septs['fire'] = {
+  name: 'T\'au Septs (Fire Caste)',
+  options: [
+    aaoa.tau.septs.borkan.fire,
+    aaoa.tau.septs.dalyth.fire,
+    aaoa.tau.septs.farsight.fire,
+    aaoa.tau.septs.sacea.fire,
+    aaoa.tau.septs.tau.fire,
+    aaoa.tau.septs.viorla.fire,
+  ]
 };
 
 /** An Abundance of Apocrypha */
@@ -3472,6 +3517,232 @@ const threatRepository = [
       simpleAbility('Living Battering Ram: When a Carnifex charges, roll a d6 for each enemy within 2m of it along the path of its charge; each enemy that rolls a 4+ suffers 1 Mortal Wound and is knocked prone. The Carnifex adds +2d to melee attacks when it charges.'),
       simpleAbility('(Ruin) Sweeping Tail: When an enemy moves or attacks while within 2m of the Carnifex, it may make an attack with a Thresher Scythe or Bone Mace as a Ruin action.'),
     ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '235',
+    },
+    key: 'aaoaFireCasteStrikeShasLa',
+    name: 'Fire Caste Strike Shas\'La',
+    faction: 'Tau',
+    classification: [
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+    ],
+    description: '',
+    attributes: {
+      strength: 3,
+      agility: 2,
+      toughness: 3,
+      intellect: 3,
+      willpower: 3,
+      fellowship: 3,
+      initiative: 3,
+    },
+    traits: {
+      defence: 2,
+      speed: 6,
+      wounds: 3,
+      shock: 3,
+      soak: 3,
+      resolve: 4,
+      conviction: 4,
+      passiveAwareness: 3,
+      resilience: {
+        total: 8,
+        armourRating: 4,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      ballisticSkill: 6,
+      weaponSkill: 4,
+      default: 5,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Tau',
+      'Fire Caste',
+      '<Sept>',
+    ],
+    attacks: [
+      simpleRanged('Pulse Rifle', 60, '12+1', 0, 1, 'Rapid Fire (2)', 'Steadfast'),
+      aaoa.tau.pulseCarbine,
+      aaoa.tau.buildInPhotonGrenadeLauncher,
+      aaoa.tau.pulsePistol,
+      aaoa.tau.photonGrenade,
+      aaoa.tau.haywireGrenade,
+    ],
+    attackTraits: [
+      { name: 'Suppression', crunch: 'enemies hit are blinded until the end of their next turn, and must test to avoid being pinned)' },
+    ],
+    attackOptions:
+      'Fire caste Strike teams are armed with Pulse Rifles and Photon Grenades. ' +
+      'They sometimes exchange their Pulse Rifles for Pulse Carbines ' +
+      'and may carry additional armament like Pulse Pistols and/or EMP Grenades.',
+    specialAbilities: [
+      aaoa.tau.fire,
+      aaoa.tau.bonding,
+      simpleAbility('(Ruin) (Mob) Turret Support: A mob of Fire Warriors which did not move may spend 1 Ruin to have a DS8 Tactical Support Turret air-dropped on their position. The turret lands at the end of their turn but may not act until the mob’s next turn.'),
+    ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '236',
+    },
+    key: 'aaoaFireCasteBreacherShasLa',
+    name: 'Fire Caste Breacher Shas\'La',
+    faction: 'Tau',
+    classification: [
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+    ],
+    description: '',
+    attributes: {
+      strength: 3,
+      agility: 2,
+      toughness: 3,
+      intellect: 3,
+      willpower: 3,
+      fellowship: 3,
+      initiative: 3,
+    },
+    traits: {
+      defence: 2,
+      speed: 6,
+      wounds: 3,
+      shock: 3,
+      soak: 3,
+      resolve: 4,
+      conviction: 4,
+      passiveAwareness: 3,
+      resilience: {
+        total: 8,
+        armourRating: 4,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      ballisticSkill: 6,
+      weaponSkill: 4,
+      default: 5,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Tau',
+      'Fire Caste',
+      '<Sept>',
+    ],
+    attacks: [
+      simpleRanged('Pulse Blaster (Close Range)', 20, '14+1', -2, 2, 'Assault', 'Steadfast'),
+      simpleRanged('Pulse Blaster', 20, '12+1', -1, 2, 'Assault', 'Steadfast'),
+      simpleRanged('Pulse Blaster (Long Range)', 20, '10+1', 0, 2, 'Assault', 'Steadfast'),
+      aaoa.tau.pulsePistol,
+      aaoa.tau.photonGrenade,
+      aaoa.tau.haywireGrenade,
+    ],
+    attackTraits: [
+      { name: 'Suppression', crunch: 'enemies hit are blinded until the end of their next turn, and must test to avoid being pinned)' },
+    ],
+    attackOptions:
+      'Fire caste Breacher teams are armed with Pulse Blasters and Photon Grenades. They sometimes carry additional armament like Pulse Pistols and/or EMP Grenades.',
+    specialAbilities: [
+      aaoa.tau.fire,
+      aaoa.tau.bonding,
+      simpleAbility('(Ruin) (Mob) Turret Support: A mob of Fire Warriors which did not move may spend 1 Ruin to have a DS8 Tactical Support Turret air-dropped on their position. The turret lands at the end of their turn but may not act until the mob’s next turn.'),
+      simpleAbility('(Mob) Breach and Clear! When any member of a Breacher team attacks enemies who are in cover and under the effects of a Photon grenade, they may add a +2d bonus to their shooting attacks, and +2ED to the damage of those attacks.'),
+    ],
+  },
+  {
+    source: {
+      book: 'An Abundance of Apocrypha',
+      key: 'aaoa',
+      version: '',
+      page: '237',
+    },
+    key: 'aaoaFireCastePathfinderShasLa',
+    name: 'Fire Caste Pathfinder Shas\'La',
+    faction: 'Tau',
+    classification: [
+      'Elite',
+      'Troops',
+      'Troops',
+      'Troops',
+      'Troops',
+    ],
+    description: '',
+    attributes: {
+      strength: 3,
+      agility: 3,
+      toughness: 3,
+      intellect: 3,
+      willpower: 3,
+      fellowship: 3,
+      initiative: 4,
+    },
+    traits: {
+      defence: 3,
+      speed: 7,
+      wounds: 3,
+      shock: 3,
+      soak: 3,
+      resolve: 4,
+      conviction: 4,
+      passiveAwareness: 3,
+      resilience: {
+        total: 7,
+        armourRating: 3,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      ballisticSkill: 6,
+      awareness: 6,
+      stealth: 6,
+      weaponSkill: 4,
+      default: 5,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Tau',
+      'Fire Caste',
+      '<Sept>',
+    ],
+    attacks: [
+      aaoa.tau.pulseCarbine,
+      aaoa.tau.buildInPhotonGrenadeLauncher,
+      aaoa.tau.markerlights,
+      aaoa.tau.photonGrenade,
+      simpleRanged('Ion Rifle', 60, '15+1', 0, 1, 'Rapid Fire (1)', 'Supercharge', 'Ion Charge'),
+      simpleRanged('Rail Rifle', 60, '14+2', -4, 1, 'Mortal (1)', 'Rapid Fire (1)', 'Sniper (1)'),
+    ],
+    attackTraits: [
+      { name: 'Suppression', crunch: 'Enemies hit are blinded until the end of their next turn, and must test to avoid being pinned)' },
+      { name: 'Ion Charge', crunch: 'Using the weapon on Supercharge adds the Blast [Medium] and Heavy [5] traits)' },
+    ],
+    attackOptions:
+      'Pathfinders are armed with Pulse Carbines, Markerlights, and Photon Grenades. Some exchange their Pulse Carbine and Markerlight for an Ion Rifle or Rail Rifle.',
+    specialAbilities: [
+      aaoa.tau.fire,
+      aaoa.tau.bonding,
+      simpleAbility('Vanguard: A Pathfinder increases their Speed by +2 when they Run or Sprint. They do not reduce their Defence when they Sprint.'),
+    ],
+    variants: aaoa.tau.septs.fire,
   },
 ];
 
