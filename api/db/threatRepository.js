@@ -36,6 +36,7 @@ const levelMap = {
   e: 'Elite',
   a: 'Adversary',
   c: 'Monstrous Creature',
+  v: 'Vehicle',
 };
 
 const classificationHelper = function(shortcode) {
@@ -1680,7 +1681,7 @@ const threatRepository = [
   /** Javelin's Tyranid Bestiary */
   {
     source: {
-      ...source.tjb,
+      ...source.jtb,
       page: '',
     },
     key: 'jtbTyranidHormagant',
@@ -4057,6 +4058,7 @@ const threatRepository = [
     key: 'aaoaGhostArk',
     name: 'Ghost Ark',
     faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
   },
   {
     source: {
@@ -4066,6 +4068,7 @@ const threatRepository = [
     key: 'aaoaDoomsdayArk',
     name: 'Doomsday Ark',
     faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
   },
   {
     source: {
@@ -4075,6 +4078,7 @@ const threatRepository = [
     key: 'aaoaAnnihilationBarge',
     name: 'Annihilation Barge',
     faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
   },
   {
     source: {
@@ -4084,6 +4088,7 @@ const threatRepository = [
     key: 'aaoaCatacombCommandBarge',
     name: 'Catacomb Command Barge',
     faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
   },
   {
     source: {
@@ -4093,6 +4098,7 @@ const threatRepository = [
     key: 'aaoaMonolith',
     name: 'Monolith',
     faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
   },
 ];
 

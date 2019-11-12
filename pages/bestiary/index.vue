@@ -123,7 +123,15 @@
             <template v-slot:item.classification="{ item }">
               <div v-if="item.classification">
                 <v-chip
-                  v-if="filterTier > 0"
+                  v-if="item.classification.length === 1"
+                  v-bind:color="getClassificationColor(item.classification[0])"
+                  x-small
+                  label
+                >
+                  {{ item.classification[0] }}
+                </v-chip>
+                <v-chip
+                  v-else-if="filterTier > 0"
                   v-bind:color="getClassificationColor(item.classification[filterTier-1])"
                   x-small
                   label
@@ -321,12 +329,12 @@ export default {
       //return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
     },
     filterFactionOptions() {
-      let options = this.items.map( i => i.faction );
-      return [...new Set(options)].sort();
+      let options = this.items.map( i => { return {value: i.faction, text: i.faction} } );
+      return [...new Set(options)].sort( (a, b) => a.text.localeCompare(b.text) );
     },
     filterSourceOptions() {
-      let options = this.items.map(i => i.source.book);
-      return [...new Set(options)].sort();
+      let options = this.items.map(i => { return {value: i.source.key, text: i.source.book} } );
+      return [...new Set(options)].sort( (a, b) => a.text.localeCompare(b.text) );
     },
     contentOptions() {
       let contentOptions = [];
@@ -336,7 +344,7 @@ export default {
       let filteredResults = this.items;
 
       if (this.filterSourceModel.length > 0) {
-        filteredResults = filteredResults.filter( i => this.filterSourceModel.includes(i.source.book) );
+        filteredResults = filteredResults.filter( i => this.filterSourceModel.includes(i.source.key) );
       }
 
       if (this.factionFilterSelections.length > 0) {
