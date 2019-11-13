@@ -9,7 +9,6 @@ const simpleMelee = function(name, range, damage, ap, ...traits) {
     traits: traits,
   }
 };
-
 const simpleRanged = function(name, range, damage, ap, salvo, ...traits) {
   const splitDamage = damage.split('+');
   return {
@@ -22,13 +21,31 @@ const simpleRanged = function(name, range, damage, ap, salvo, ...traits) {
     traits: traits,
   }
 };
-
 const simpleAbility = function(text) {
   const textSplit = text.split(': ');
   return {
     name: textSplit[0],
     effect: textSplit[1],
   };
+};
+
+/**
+ *
+ * @param text
+ * @returns {string}
+ */
+const textToSlug = function(text) {
+  return text.toLowerCase().replace(/\W/gm, '-');
+};
+
+const slugToKebab = function(slug) {
+  return slug.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
+};
+
+const textSlugKebab = function(text) {
+   const slug = textToSlug(text);
+   const kebab = slugToKebab(slug);
+   return kebab;
 };
 
 const levelMap = {
@@ -163,6 +180,19 @@ const source = {
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
   aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
   jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
+};
+
+const simpleStub = function(sourceKey, sourcePage, faction, name, level) {
+  return {
+    source: {
+      ...source[sourceKey],
+      page: sourcePage,
+    },
+    key: `${textSlugKebab(sourceKey+' '+name)}`,
+    name: name,
+    faction: faction,
+    classification: classificationHelper(level),
+  };
 };
 
 /** An Abundance of Apocrypha */
@@ -2908,7 +2938,350 @@ const threatRepository = [
       },
     ],
   },
-  /** An Abundance of Apocrypha - Tyranids */
+  /** An Abundance of Apocrypha - NECRONS */
+  {
+    source: {
+      ...source.aaoa,
+      page: '167',
+    },
+    key: 'aaoaCanoptekScarabs',
+    name: 'Canoptek Scarabs',
+    faction: 'Necrons',
+    classification: classificationHelper('ttttt'),
+    description: 'A Canoptek Scarab is a small, silver, beetle-like Necron construct, about the size of a Space Marine’s armoured fist. These robotic Scarabs are the most numerous and diverse of the Necrons\' Canoptek machine servants. They are designed to break down organic and non-organic matter into raw energy, which can then be woven into fresh construct forms at the direction of the Scarabs’ controller.',
+    attributes: {
+      strength: 1,
+      agility: 4,
+      toughness: 3,
+      intellect: 1,
+      willpower: 6,
+      fellowship: 1,
+      initiative: 3,
+    },
+    traits: {
+      defence: 4,
+      speed: '10 (Flight)',
+      wounds: 3,
+      shock: '-',
+      soak: 3,
+      resolve: 2,
+      conviction: 3,
+      passiveAwareness: 3,
+      resilience: {
+        total: 5,
+        armourRating: 1,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      awareness: 7,
+      tech: 7,
+      default: 6,
+    },
+    size: 'Tiny',
+    sizeModifier: 0,
+    keywords: [
+      'Necron',
+      'Canoptek',
+    ],
+    attacks: [
+      simpleMelee('Feeder Mandibles', 1, '5+1', 0, 'Arc (2)', 'Warp Weapon'),
+    ],
+    specialAbilities: [
+      aaoa.necrons.ancientMachines,
+      simpleAbility('(Ruin) Self-Destruct: A lone scarab (one not in a mob) may spend 1 Ruin when it attempts a melee attack; if the attack is successful, it inflicts 1d3+1 Mortal Wounds and is then destroyed.'),
+      simpleAbility('(Mob) Devouring Swarm: While in a mob, scarabs add +2ED to their melee attacks.'),
+    ],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '168',
+    },
+    key: 'aaoaNecronWarriors',
+    name: 'Necron Warriors',
+    faction: 'Necrons',
+    classification: classificationHelper('aeett'),
+    description: 'Necron Warriors are the primary infantry troops of the soulless, undying mechanical monstrosities known as the Necrons. They were created from the majority of the ancient humanoid Necrontyr species who agreed to be bound to the will of their Star Gods, the terrible entities known as the C\'tan. The Necrontyr\'s consciousnesses were transferred into robotic bodies made of the living metal called necrodermis. Over a long period of time, the new unliving bodies dulled the Necrontyr\'s minds and their abilities to feel emotion or pleasure. Over many millennia, the ultimate outcome of this process of gradual desensitization was that the Necron Warriors became little more than soulless automatons, the warrior-slaves of the still-sentient Necron royalty and military elite who seek to rebuild their star-spanning empires across the portions of the galaxy now controlled by the "lesser races."',
+    attributes: {
+      strength: 7,
+      agility: 3,
+      toughness: 5,
+      intellect: 2,
+      willpower: 6,
+      fellowship: 1,
+      initiative: 3,
+    },
+    traits: {
+      defence: 2,
+      speed: 5,
+      wounds: 5,
+      shock: '-',
+      soak: 5,
+      resolve: 5,
+      conviction: 6,
+      passiveAwareness: 4,
+      resilience: {
+        total: 10,
+        armourRating: 4,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      ballisticSkill: 8,
+      default: 7,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Necron',
+    ],
+    attacks: [
+      simpleRanged('Gauss Flayer', 48, '10+1', -1, 2, 'Rapid Fire (1)'),
+      simpleMelee('Combat Blade', 1, '10+2', 0, 'Penetrating (1)'),
+    ],
+    specialAbilities: [
+      aaoa.necrons.ancientMachines,
+      aaoa.necrons.reanimationProtocols,
+      simpleAbility('(Ruin) Disruption Field: Spend 1 Ruin when a Necron Warrior attempts a melee attack, to add +2ED to the attack’s damage.'),
+    ],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '170',
+    },
+    key: 'aaoaFlayedOnes',
+    name: 'Flayed Ones',
+    faction: 'Necrons',
+    classification: classificationHelper('aeett'),
+    description: 'Flayed Ones are twisted and ghoulish Necron terrors afflicted by an ancient infection that breeds a hunger for organic flesh in them. Flayed Ones act as specialised close combat troops. They appear from an unknown pocket dimension of their hideous kind to join the Necron armies in battle, though never by invitation from the Necrons themselves.',
+    attributes: {
+      strength: 7,
+      agility: 4,
+      toughness: 5,
+      intellect: 2,
+      willpower: 6,
+      fellowship: 1,
+      initiative: 4,
+    },
+    traits: {
+      defence: 3,
+      speed: 5,
+      wounds: 5,
+      shock: '-',
+      soak: 5,
+      resolve: 5,
+      conviction: 6,
+      passiveAwareness: 4,
+      resilience: {
+        total: 10,
+        armourRating: 4,
+        armourName: 'Armour'
+      },
+    },
+    skills: {
+      weaponSkill: 8,
+      default: 7,
+    },
+    size: 'Average',
+    sizeModifier: 0,
+    keywords: [
+      'Necron',
+      'Flayed One',
+    ],
+    attacks: [
+      simpleMelee('Talons', 1, '12+2', 0, 'Tearing (2)', 'Penetrating (1)'),
+    ],
+    specialAbilities: [
+      aaoa.necrons.ancientMachines,
+      aaoa.necrons.reanimationProtocols,
+      simpleAbility('Fear (3): This threat causes fear. Enemies are required to make a fear test (DN 3) to act normally.'),
+      simpleAbility('(Ruin) Haunting Horror: Spend 1 Ruin to have a Flayed One emerge from their charnel dimension, drawn by slaughter and bloodshed. Regain 1 Ruin to have a Flayed One vanish back into that dimension.'),
+      simpleAbility('(Ruin) Disruption Field: Spend 1 Ruin when a Flayed One attempts a melee attack, to add +2ED to the attack’s damage.'),
+    ],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '169',
+    },
+    key: 'aaoaNecronImmortals',
+    name: 'Necron Immortals',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '171',
+    },
+    key: 'aaoaDestroyers',
+    name: 'Destroyers',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '172',
+    },
+    key: 'aaoaDeathmarks',
+    name: 'Deathmarks',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '173',
+    },
+    key: 'aaoaLychguard',
+    name: 'Lychguard',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '174',
+    },
+    key: 'aaoaNecronLord',
+    name: 'Necron Lord',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '175',
+    },
+    key: 'aaoaNecronOverlord',
+    name: 'Necron Overlord',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '176',
+    },
+    key: 'aaoaNecronDestroyerLord',
+    name: 'Necron Destroyer Lord',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '179',
+    },
+    key: 'aaoaNecronCryptek',
+    name: 'Necron Cryptek',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '183',
+    },
+    key: 'aaoaTriarchPraetorians',
+    name: 'Triarch Praetorians',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '184',
+    },
+    key: 'aaoaTriarchStalker',
+    name: 'Triarch Stalker',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '185',
+    },
+    key: 'aaoaCanoptekWraith',
+    name: 'Canoptek Wraith',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '186',
+    },
+    key: 'aaoaCanoptekSpyder',
+    name: 'Canoptek Spyder',
+    faction: 'Necrons',
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '187',
+    },
+    key: 'aaoaCtanShardOfTheDeceiver',
+    name: 'C’Tan Shard of the Deceiver',
+    faction: 'Necrons',
+    classification: classificationHelper('ccccc'),
+    keywords: ['C´Tan Shard'],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '188',
+    },
+    key: 'aaoaCtanShardOfTheNightbringer',
+    name: 'C’Tan Shard of the Nightbringer',
+    faction: 'Necrons',
+    classification: classificationHelper('ccccc'),
+    keywords: ['C´Tan Shard'],
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '190',
+    },
+    key: 'aaoaGhostArk',
+    name: 'Ghost Ark',
+    faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '190',
+    },
+    key: 'aaoaDoomsdayArk',
+    name: 'Doomsday Ark',
+    faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '191',
+    },
+    key: 'aaoaAnnihilationBarge',
+    name: 'Annihilation Barge',
+    faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '191',
+    },
+    key: 'aaoaCatacombCommandBarge',
+    name: 'Catacomb Command Barge',
+    faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
+  },
+  {
+    source: {
+      ...source.aaoa,
+      page: '192',
+    },
+    key: 'aaoaMonolith',
+    name: 'Monolith',
+    faction: 'Necrons',
+    classification: classificationHelper('vvvvv'),
+  },
+  /** An Abundance of Apocrypha - TYRANIDS */
   {
     source: {
       ...source.aaoa,
@@ -3452,11 +3825,11 @@ const threatRepository = [
       { name: 'Unique', crunch: 'A Tyranid may only have a single Stranglethorn cannon or Heavy Venom Cannon.' },
     ],
     attackOptions:
-      'A Carnifex is armed with two pairs of Monstrous Scything Talons. ' +
-      'It may replace one or both of those with a weapon from the Monstrous Bio-Cannons list (pg. 208). ' +
-      'It may replace one pair of Monstrous Scything Talons with a pair of Crushing Claws. ' +
-      'It may also take one of the following: Bio-plasma, enhanced senses, or monstrous acid maw. ' +
-      'It may also have a thresher scythe or a bone mace on its tail.',
+    'A Carnifex is armed with two pairs of Monstrous Scything Talons. ' +
+    'It may replace one or both of those with a weapon from the Monstrous Bio-Cannons list (pg. 208). ' +
+    'It may replace one pair of Monstrous Scything Talons with a pair of Crushing Claws. ' +
+    'It may also take one of the following: Bio-plasma, enhanced senses, or monstrous acid maw. ' +
+    'It may also have a thresher scythe or a bone mace on its tail.',
     variants: {
       name: 'Biomorphs',
       options: [
@@ -3475,6 +3848,8 @@ const threatRepository = [
       simpleAbility('(Ruin) Sweeping Tail: When an enemy moves or attacks while within 2m of the Carnifex, it may make an attack with a Thresher Scythe or Bone Mace as a Ruin action.'),
     ],
   },
+  //simpleStub('aaoa', 240, 'Tau', 'Drones', 'ttttt'),
+  /** An Abundance of Apocrypha - TAU */
   {
     source: {
       ...source.aaoa,
@@ -3540,9 +3915,9 @@ const threatRepository = [
       { name: 'Suppression', crunch: 'enemies hit are blinded until the end of their next turn, and must test to avoid being pinned)' },
     ],
     attackOptions:
-      'Fire caste Strike teams are armed with Pulse Rifles and Photon Grenades. ' +
-      'They sometimes exchange their Pulse Rifles for Pulse Carbines ' +
-      'and may carry additional armament like Pulse Pistols and/or EMP Grenades.',
+    'Fire caste Strike teams are armed with Pulse Rifles and Photon Grenades. ' +
+    'They sometimes exchange their Pulse Rifles for Pulse Carbines ' +
+    'and may carry additional armament like Pulse Pistols and/or EMP Grenades.',
     specialAbilities: [
       aaoa.tau.fire,
       aaoa.tau.bonding,
@@ -3758,348 +4133,31 @@ const threatRepository = [
     ],
     variants: aaoa.tau.septs.fire,
   },
-  {
-    source: {
-      ...source.aaoa,
-      page: '167',
-    },
-    key: 'aaoaCanoptekScarabs',
-    name: 'Canoptek Scarabs',
-    faction: 'Necrons',
-    classification: classificationHelper('ttttt'),
-    description: 'A Canoptek Scarab is a small, silver, beetle-like Necron construct, about the size of a Space Marine’s armoured fist. These robotic Scarabs are the most numerous and diverse of the Necrons\' Canoptek machine servants. They are designed to break down organic and non-organic matter into raw energy, which can then be woven into fresh construct forms at the direction of the Scarabs’ controller.',
-    attributes: {
-      strength: 1,
-      agility: 4,
-      toughness: 3,
-      intellect: 1,
-      willpower: 6,
-      fellowship: 1,
-      initiative: 3,
-    },
-    traits: {
-      defence: 4,
-      speed: '10 (Flight)',
-      wounds: 3,
-      shock: '-',
-      soak: 3,
-      resolve: 2,
-      conviction: 3,
-      passiveAwareness: 3,
-      resilience: {
-        total: 5,
-        armourRating: 1,
-        armourName: 'Armour'
-      },
-    },
-    skills: {
-      awareness: 7,
-      tech: 7,
-      default: 6,
-    },
-    size: 'Tiny',
-    sizeModifier: 0,
-    keywords: [
-      'Necron',
-      'Canoptek',
-    ],
-    attacks: [
-      simpleMelee('Feeder Mandibles', 1, '5+1', 0, 'Arc (2)', 'Warp Weapon'),
-    ],
-    specialAbilities: [
-      aaoa.necrons.ancientMachines,
-      simpleAbility('(Ruin) Self-Destruct: A lone scarab (one not in a mob) may spend 1 Ruin when it attempts a melee attack; if the attack is successful, it inflicts 1d3+1 Mortal Wounds and is then destroyed.'),
-      simpleAbility('(Mob) Devouring Swarm: While in a mob, scarabs add +2ED to their melee attacks.'),
-    ],
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '168',
-    },
-    key: 'aaoaNecronWarriors',
-    name: 'Necron Warriors',
-    faction: 'Necrons',
-    classification: classificationHelper('aeett'),
-    description: 'Necron Warriors are the primary infantry troops of the soulless, undying mechanical monstrosities known as the Necrons. They were created from the majority of the ancient humanoid Necrontyr species who agreed to be bound to the will of their Star Gods, the terrible entities known as the C\'tan. The Necrontyr\'s consciousnesses were transferred into robotic bodies made of the living metal called necrodermis. Over a long period of time, the new unliving bodies dulled the Necrontyr\'s minds and their abilities to feel emotion or pleasure. Over many millennia, the ultimate outcome of this process of gradual desensitization was that the Necron Warriors became little more than soulless automatons, the warrior-slaves of the still-sentient Necron royalty and military elite who seek to rebuild their star-spanning empires across the portions of the galaxy now controlled by the "lesser races."',
-    attributes: {
-      strength: 7,
-      agility: 3,
-      toughness: 5,
-      intellect: 2,
-      willpower: 6,
-      fellowship: 1,
-      initiative: 3,
-    },
-    traits: {
-      defence: 2,
-      speed: 5,
-      wounds: 5,
-      shock: '-',
-      soak: 5,
-      resolve: 5,
-      conviction: 6,
-      passiveAwareness: 4,
-      resilience: {
-        total: 10,
-        armourRating: 4,
-        armourName: 'Armour'
-      },
-    },
-    skills: {
-      ballisticSkill: 8,
-      default: 7,
-    },
-    size: 'Average',
-    sizeModifier: 0,
-    keywords: [
-      'Necron',
-    ],
-    attacks: [
-      simpleRanged('Gauss Flayer', 48, '10+1', -1, 2, 'Rapid Fire (1)'),
-      simpleMelee('Combat Blade', 1, '10+2', 0, 'Penetrating (1)'),
-    ],
-    specialAbilities: [
-      aaoa.necrons.ancientMachines,
-      aaoa.necrons.reanimationProtocols,
-      simpleAbility('(Ruin) Disruption Field: Spend 1 Ruin when a Necron Warrior attempts a melee attack, to add +2ED to the attack’s damage.'),
-    ],
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '170',
-    },
-    key: 'aaoaFlayedOnes',
-    name: 'Flayed Ones',
-    faction: 'Necrons',
-    classification: classificationHelper('aeett'),
-    description: 'Flayed Ones are twisted and ghoulish Necron terrors afflicted by an ancient infection that breeds a hunger for organic flesh in them. Flayed Ones act as specialised close combat troops. They appear from an unknown pocket dimension of their hideous kind to join the Necron armies in battle, though never by invitation from the Necrons themselves.',
-    attributes: {
-      strength: 7,
-      agility: 4,
-      toughness: 5,
-      intellect: 2,
-      willpower: 6,
-      fellowship: 1,
-      initiative: 4,
-    },
-    traits: {
-      defence: 3,
-      speed: 5,
-      wounds: 5,
-      shock: '-',
-      soak: 5,
-      resolve: 5,
-      conviction: 6,
-      passiveAwareness: 4,
-      resilience: {
-        total: 10,
-        armourRating: 4,
-        armourName: 'Armour'
-      },
-    },
-    skills: {
-      weaponSkill: 8,
-      default: 7,
-    },
-    size: 'Average',
-    sizeModifier: 0,
-    keywords: [
-      'Necron',
-      'Flayed One',
-    ],
-    attacks: [
-      simpleMelee('Talons', 1, '12+2', 0, 'Tearing (2)', 'Penetrating (1)'),
-    ],
-    specialAbilities: [
-      aaoa.necrons.ancientMachines,
-      aaoa.necrons.reanimationProtocols,
-      simpleAbility('Fear (3): This threat causes fear. Enemies are required to make a fear test (DN 3) to act normally.'),
-      simpleAbility('(Ruin) Haunting Horror: Spend 1 Ruin to have a Flayed One emerge from their charnel dimension, drawn by slaughter and bloodshed. Regain 1 Ruin to have a Flayed One vanish back into that dimension.'),
-      simpleAbility('(Ruin) Disruption Field: Spend 1 Ruin when a Flayed One attempts a melee attack, to add +2ED to the attack’s damage.'),
-    ],
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '169',
-    },
-    key: 'aaoaNecronImmortals',
-    name: 'Necron Immortals',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '171',
-    },
-    key: 'aaoaDestroyers',
-    name: 'Destroyers',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '172',
-    },
-    key: 'aaoaDeathmarks',
-    name: 'Deathmarks',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '173',
-    },
-    key: 'aaoaLychguard',
-    name: 'Lychguard',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '174',
-    },
-    key: 'aaoaNecronLord',
-    name: 'Necron Lord',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '175',
-    },
-    key: 'aaoaNecronOverlord',
-    name: 'Necron Overlord',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '176',
-    },
-    key: 'aaoaNecronDestroyerLord',
-    name: 'Necron Destroyer Lord',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '179',
-    },
-    key: 'aaoaNecronCryptek',
-    name: 'Necron Cryptek',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '183',
-    },
-    key: 'aaoaTriarchPraetorians',
-    name: 'Triarch Praetorians',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '184',
-    },
-    key: 'aaoaTriarchStalker',
-    name: 'Triarch Stalker',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '185',
-    },
-    key: 'aaoaCanoptekWraith',
-    name: 'Canoptek Wraith',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '186',
-    },
-    key: 'aaoaCanoptekSpyder',
-    name: 'Canoptek Spyder',
-    faction: 'Necrons',
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '187',
-    },
-    key: 'aaoaCtanShardOfTheDeceiver',
-    name: 'C’Tan Shard of the Deceiver',
-    faction: 'Necrons',
-    classification: classificationHelper('ccccc'),
-    keywords: ['C´Tan Shard'],
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '188',
-    },
-    key: 'aaoaCtanShardOfTheNightbringer',
-    name: 'C’Tan Shard of the Nightbringer',
-    faction: 'Necrons',
-    classification: classificationHelper('ccccc'),
-    keywords: ['C´Tan Shard'],
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '190',
-    },
-    key: 'aaoaGhostArk',
-    name: 'Ghost Ark',
-    faction: 'Necrons',
-    classification: classificationHelper('vvvvv'),
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '190',
-    },
-    key: 'aaoaDoomsdayArk',
-    name: 'Doomsday Ark',
-    faction: 'Necrons',
-    classification: classificationHelper('vvvvv'),
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '191',
-    },
-    key: 'aaoaAnnihilationBarge',
-    name: 'Annihilation Barge',
-    faction: 'Necrons',
-    classification: classificationHelper('vvvvv'),
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '191',
-    },
-    key: 'aaoaCatacombCommandBarge',
-    name: 'Catacomb Command Barge',
-    faction: 'Necrons',
-    classification: classificationHelper('vvvvv'),
-  },
-  {
-    source: {
-      ...source.aaoa,
-      page: '192',
-    },
-    key: 'aaoaMonolith',
-    name: 'Monolith',
-    faction: 'Necrons',
-    classification: classificationHelper('vvvvv'),
-  },
+  simpleStub('aaoa', 240, 'Tau', 'Drones', 'ttttt'),
+  simpleStub('aaoa', 244, 'Tau', 'Firesight Marksman Shas\'la', 'aeeee'),
+  simpleStub('aaoa', 245, 'Tau', 'Shas\'ui in XV-15 Stealthsuit', 'aaeee'),
+  simpleStub('aaoa', 246, 'Tau', 'Shas\'ui in XV-25 Stealthsuit', 'aaeee'),
+  simpleStub('aaoa', 247, 'Tau', 'Shas\'ui in XV-8 Crisis Suit', 'aaeee'),
+  simpleStub('aaoa', 248, 'Tau', 'Shas\'ui in XV-88 Broadside Suit', 'aaaae'),
+  simpleStub('aaoa', 249, 'Tau', 'Shas\'vre in XV-15 XV-25 Stealthsuit', 'aaaee'),
+  simpleStub('aaoa', 249, 'Tau', 'Shas\'vre in XV-8 Crisis Suit', 'aaaee'),
+  simpleStub('aaoa', 249, 'Tau', 'Shas\'vre in XV-88 Broadside Suit', 'aaaae'),
+  simpleStub('aaoa', 250, 'Tau', 'Fire Caste Commander in XV-85 Enforcer Suit', 'aaaaa'),
+  simpleStub('aaoa', 251, 'Tau', 'Ethereal Caste Advisor', 'aaaaa'),
+  simpleStub('aaoa', 252, 'Tau', 'Earth Caste Worker Fio\'la', 'ttttt'),
+  simpleStub('aaoa', 253, 'Tau', 'Air Caste Pilot Kor\'la', 'eeeee'),
+  simpleStub('aaoa', 254, 'Tau', 'Water Caste Envoy Por\'ui', 'eeeee'),
+  simpleStub('aaoa', 255, 'Tau', 'Kroot Carnivore', 'ttttt'),
+  simpleStub('aaoa', 256, 'Tau', 'Kroot Shaper', 'aaaaa'),
+  simpleStub('aaoa', 257, 'Tau', 'Kroothound', 'ttttt'),
+  simpleStub('aaoa', 258, 'Tau', 'Krootox', 'eeett'),
+  simpleStub('aaoa', 259, 'Tau', 'Vespid Stingwing', 'eettt'),
+  simpleStub('aaoa', 260, 'Tau', 'Shas\'vre in XV-95 Ghostkeel Battlesuit', 'aaaae'),
+  simpleStub('aaoa', 261, 'Tau', 'Shas\'vre in XV-104 Riptide Battlesui', 'aaaaa'),
+  simpleStub('aaoa', 262, 'Tau', 'TY-7 Devilfish', 'v'),
+  simpleStub('aaoa', 262, 'Tau', 'TX-4 Piranha', 'v'),
+  simpleStub('aaoa', 263, 'Tau', 'TX-7 Hammerhead Gunship', 'v'),
+  simpleStub('aaoa', 263, 'Tau', 'TX-78 Skyray Gunship', 'v'),
 ];
 
 

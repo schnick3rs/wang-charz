@@ -112,12 +112,13 @@
             v-bind:items="searchResults"
             v-bind:expanded.sync="expanded"
             v-bind:search="searchQuery"
+            v-bind:page.sync="pagination.page"
             v-on:item-expanded="trackExpand"
+            v-on:page-count="pagination.pageCount = $event"
             sort-by="name"
             item-key="key"
             show-expand
             hide-default-footer
-            v-bind:items-per-page="-1"
           >
 
             <template v-slot:item.classification="{ item }">
@@ -161,8 +162,16 @@
             </template>
 
             <template v-slot:item.source.book="{ item }">
-              {{item.source.book}}
-              <NuxtLink v-if="item.source.path" v-bind:to="item.source.path" target="_blank"><v-icon small>launch</v-icon></NuxtLink>
+              <v-row no-gutters>
+                <v-col v-bind:cols="12">
+                  {{item.source.book}}
+                  <NuxtLink v-if="item.source.path" v-bind:to="item.source.path" target="_blank"><v-icon small>launch</v-icon></NuxtLink>
+                </v-col>
+                <v-col v-bind:cols="12" class="caption grey--text" v-if="item.source.page">
+                  pg. {{ item.source.page }}
+                </v-col>
+              </v-row>
+
             </template>
 
             <template v-slot:item.actions="{ item }">
@@ -190,6 +199,10 @@
             </template>
 
           </v-data-table>
+
+          <div class="text-xs-center pt-2">
+            <v-pagination v-model="pagination.page" v-bind:length="pagination.pageCount" />
+          </div>
 
         </v-card>
 
@@ -299,8 +312,10 @@ export default {
       factionFilterSelections: [],
       filterSourceModel: [],
       pagination: {
-        sortBy: 'title',
-        rowsPerPage: -1,
+        page: 1,
+        pageCount: 0,
+        sortBy: 'name',
+        rowsPerPage: 25,
       },
       headers: [
         { text: 'Classification', align: 'center',  value: 'classification',  class: '' },
@@ -398,7 +413,7 @@ export default {
       }
     },
     computeSlug(key) {
-      return key.replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
+      return key.replace(/([a-z0-9][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
     },
   },
 };
