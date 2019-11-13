@@ -259,7 +259,7 @@ export default {
       })
     };
 
-    const title = 'Threats for the Game Master | Bestiary';
+    const title = 'Threats for Wrath & Glory | Bestiary';
     const description =
       'This Bestiary contains fan-made homebews threats to be used by the Game Master to challenge your Wrath & Glory Players. ' +
       'Filter by Campaign Tier and Faction to find various Troops of Mobs, Elite Champions and Adversaries.';
