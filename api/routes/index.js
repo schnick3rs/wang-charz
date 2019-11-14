@@ -4,6 +4,7 @@ const psychicPowers = require('./psychicPowers');
 const talents = require('./talents');
 
 const threats = require('./threats');
+const archetypes = require('./archetypes');
 
 const users = require('./users');
 const characters = require('./characters');
@@ -15,6 +16,7 @@ module.exports = app => {
   app.use('/psychic-powers', psychicPowers);
 
   app.use('/threats', threats);
+  app.use('/archetypes', archetypes);
 
   app.use('/users', users);
   app.use('/characters', characters);

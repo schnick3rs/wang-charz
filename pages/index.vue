@@ -142,7 +142,7 @@ export default {
           imageCredit: 'Artwork from Pixabay',
           htmlText: 'Browse through Species, Archetypes, Wargear and more...',
           link: { text: 'To the Library', route: '/library' },
-          isActive: false,
+          isActive: true,
           classes: [ ],
         },
       ],

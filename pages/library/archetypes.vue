@@ -90,14 +90,22 @@
             v-on:page-count="pagination.pageCount = $event"
             item-key="name"
             sort-by="name"
-            show-expand
             hide-default-footer
           >
 
             <template v-slot:item.species="{ item }">{{ item.species.join(', ') }}</template>
-            <template v-slot:item.source="{ item }">
-              <span v-if="item.source"></span>
-              <span v-else>Core</span>
+
+            <template v-slot:item.source.book="{ item }">
+              <v-row no-gutters>
+                <v-col v-bind:cols="12">
+                  {{item.source.book}}
+                  <NuxtLink v-if="item.source.path" v-bind:to="item.source.path" target="_blank"><v-icon small>launch</v-icon></NuxtLink>
+                </v-col>
+                <v-col v-bind:cols="12" class="caption grey--text" v-if="item.source.page">
+                  pg. {{ item.source.page }}
+                </v-col>
+              </v-row>
+
             </template>
 
             <template v-slot:expanded-item="{ headers, item }">
@@ -148,6 +156,24 @@ export default {
       ],
     };
   },
+  async asyncData({ $axios, query, params, error }) {
+
+    const response = await $axios.get(`/api/archetypes/`);
+    const items = response.data;
+
+    if ( items === undefined || items.length <= 0 ) {
+      error({ statusCode: 404, message: 'No Archetypes found!' });
+    }
+
+    const groupFilterSelections = [];
+    if ( query['filter-group'] ) {
+      //factionFilterSelections.push(query['filter-faction']);
+    }
+
+    return {
+      items: items,
+    };
+  },
   data() {
     return {
       breadcrumbItems: [
@@ -173,14 +199,14 @@ export default {
         { text: 'Species', align: 'left', value: 'species', class: '' },
         { text: 'Tier', align: 'center', value: 'tier', class: '' },
         { text: 'Cost', align: 'center', value: 'cost', class: '' },
-        { text: 'Source', align: 'left', value: 'source', class: '' },
+        { text: 'Source', align: 'left', value: 'source.book', class: '' },
       ],
       expand: false,
     };
   },
   computed: {
     activeRepository() {
-      return this.archetypeRepository;
+      return this.items;
     },
     searchResult() {
       if ( this.activeRepository === undefined ) {

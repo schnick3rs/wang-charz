@@ -1,6 +1,6 @@
 const Router = require('express-promise-router');
 
-const threatRepository = require('../db/static/threatRepository');
+const archetypeRepository = require('../db/static/archetypeRepository');
 
 const router = new Router();
 
@@ -8,9 +8,9 @@ module.exports = router;
 
 router.get('/', (request, response) => {
 
-  const items = threatRepository;
+  const items = archetypeRepository;
 
-  response.set('Cache-Control', 'public, max-age=3600'); // one year
+  //response.set('Cache-Control', 'public, max-age=3600'); // one year
   response.status(200).json(items);
 });
 
@@ -20,7 +20,7 @@ router.get('/:slug', (request, response) => {
 
   const key = slug.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
 
-  const item = threatRepository.find( threat => threat.key === key );
+  const item = archetypeRepository.find( archetype => archetype.key === key );
 
   response.status(200).json(item);
 });

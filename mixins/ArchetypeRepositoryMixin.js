@@ -783,7 +783,7 @@ export default {
         hint: "A savage warrior and capable leader, using brute force to succeed where others fail."
       },
     ];
-    const dndScumPsyker = [
+    const dodScumPsyker = [
       {
         name: "Scum Psyker",
         cost: 50,
