@@ -12,22 +12,21 @@ const source = {
   goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
   tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
   pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
+  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
 };
 
-const textToSlug = function(text) {
+const stringToKebab = function(text) {
   return text.toLowerCase().replace(/\W/gm, '-');
 };
 
-const slugToKebab = function(slug) {
+const kebabToCamel = function(slug) {
   return slug.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
 };
 
-const textSlugKebab = function(text) {
-   const slug = textToSlug(text);
-  return slugToKebab(slug);
+const stringToKebabToCamel = function(text) {
+   const slug = stringToKebab(text);
+  return kebabToCamel(slug);
 };
-
-
 
 const simpleStub = function(sourceKey, sourcePage, species, group, name, bp, tier) {
   return {
@@ -35,7 +34,7 @@ const simpleStub = function(sourceKey, sourcePage, species, group, name, bp, tie
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${textSlugKebab(sourceKey+' '+name)}`,
+    key: `${stringToKebabToCamel(sourceKey+' '+name)}`,
     name: name,
     cost: bp,
     tier: tier,
@@ -386,4 +385,3 @@ const archetypeRepository = [
 ];
 
 module.exports = archetypeRepository;
-

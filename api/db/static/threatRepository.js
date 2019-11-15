@@ -12,6 +12,7 @@ const source = {
   goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
   tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
   pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
+  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
 };
 
 const simpleMelee = function(name, range, damage, ap, ...traits) {
