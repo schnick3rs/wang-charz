@@ -178,21 +178,21 @@ const ltgbRep = [
 ];
 
 const teaRep = [
-  simpleStub('teaRep', 22, 'Adeptus Astartes', 'Adeptus Astartes', 'Devastator Space Marine', 60, 3),
-  simpleStub('teaRep', 23, 'Adeptus Astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3),
-  simpleStub('teaRep', 23, 'Adeptus Astartes', 'Adeptus Astartes', 'Tactical Marine', 50, 3),
-  simpleStub('teaRep', 24, 'Adeptus Astartes', 'Adeptus Astartes', 'Techmarine', 85, 3),
-  simpleStub('teaRep', 25, 'Adeptus Astartes', 'Adeptus Astartes', 'Apothecary', 70, 3),
-  simpleStub('teaRep', 25, 'Adeptus Astartes', 'Adeptus Astartes', 'Librarian', 80, 3),
-  simpleStub('teaRep', 26, 'Adeptus Astartes', 'Adeptus Astartes', 'Chaplain', 85, 4),
-  simpleStub('teaRep', 27, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Intercessor', 60, 4),
-  simpleStub('teaRep', 27, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Hellblaster', 75, 4),
-  simpleStub('teaRep', 28, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Reiver', 60, 4),
-  simpleStub('teaRep', 28, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Inceptor', 80, 4),
-  simpleStub('teaRep', 29, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Aggressor', 80, 4),
-  simpleStub('teaRep', 29, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Apothecary', 80, 4),
-  simpleStub('teaRep', 30, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Librarian', 90, 4),
-  simpleStub('teaRep', 31, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Chaplain', 95, 5),
+  simpleStub('tea', 22, 'Adeptus Astartes', 'Adeptus Astartes', 'Devastator Space Marine', 60, 3),
+  simpleStub('tea', 23, 'Adeptus Astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3),
+  simpleStub('tea', 23, 'Adeptus Astartes', 'Adeptus Astartes', 'Tactical Marine', 50, 3),
+  simpleStub('tea', 24, 'Adeptus Astartes', 'Adeptus Astartes', 'Techmarine', 85, 3),
+  simpleStub('tea', 25, 'Adeptus Astartes', 'Adeptus Astartes', 'Apothecary', 70, 3),
+  simpleStub('tea', 25, 'Adeptus Astartes', 'Adeptus Astartes', 'Librarian', 80, 3),
+  simpleStub('tea', 26, 'Adeptus Astartes', 'Adeptus Astartes', 'Chaplain', 85, 4),
+  simpleStub('tea', 27, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Intercessor', 60, 4),
+  simpleStub('tea', 27, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Hellblaster', 75, 4),
+  simpleStub('tea', 28, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Reiver', 60, 4),
+  simpleStub('tea', 28, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Inceptor', 80, 4),
+  simpleStub('tea', 29, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Aggressor', 80, 4),
+  simpleStub('tea', 29, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Apothecary', 80, 4),
+  simpleStub('tea', 30, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Librarian', 90, 4),
+  simpleStub('tea', 31, 'Primaris Astartes', 'Adeptus Astartes', 'Primaris Chaplain', 95, 5),
 ];
 
 const hevaRep = [

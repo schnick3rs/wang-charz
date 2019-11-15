@@ -2,6 +2,7 @@
 
   <div>
 
+    <!-- Breadcrumbs -->
     <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
 
     <v-row justify="center">
@@ -15,7 +16,7 @@
 
             <v-row justify="center" row wrap>
 
-              <v-col v-bind:cols="12" >
+              <v-col v-bind:cols="12" v-bind:sm="6" >
 
                 <v-text-field
                   v-model="searchQuery"
@@ -25,49 +26,65 @@
                   label="Search"></v-text-field>
               </v-col>
 
-              <v-col v-bind:cols="12">
-                <v-chip-group
+              <v-col v-bind:cols="12" v-bind:sm="6">
+                <v-select
+                v-model="filters.settingTier.model"
+                v-bind:items="filterSettingTierOptions"
+                label="Setting Tier (Max Tier)"
+                filled
+                dense
+                >
+                </v-select>
+              </v-col>
+
+              <!-- filter species -->
+              <v-col v-bind:cols="12" v-bind:sm="4">
+                <v-select
                   v-model="filters.species.model"
-                  active-class="primary--text"
-                  column
+                  v-bind:items="filterSpeciesOptions"
+                  chips
+                  filled
+                  clearable
                   multiple
+                  deletable-chips
+                  dense
+                  label="Filter by Species"
                 >
-
-                  <v-chip
-                    v-for="filter in filterSpeciesOptions"
-                    v-bind:key="filter"
-                    v-bind:value="filter"
-                    filter
-                    small
-                    label
-                  >
-                    {{filter}}
-                  </v-chip>
-
-                </v-chip-group>
+                </v-select>
               </v-col>
 
-              <v-col v-bind:cols="12">
-                <v-chip-group
+              <!-- filter group -->
+              <v-col v-bind:cols="12" v-bind:sm="4">
+                <v-select
                   v-model="filters.group.model"
-                  active-class="primary--text"
-                  column
+                  v-bind:items="filterGroupOptions"
+                  chips
+                  filled
+                  clearable
                   multiple
+                  deletable-chips
+                  dense
+                  label="Filter by Source/Homebrew"
                 >
-
-                  <v-chip
-                    v-for="filter in filterGroupOptions"
-                    v-bind:key="filter"
-                    v-bind:value="filter"
-                    filter
-                    small
-                    label
-                  >
-                    {{filter}}
-                  </v-chip>
-
-                </v-chip-group>
+                </v-select>
               </v-col>
+
+              <!-- filter source -->
+              <v-col v-bind:cols="12" v-bind:sm="4">
+                <v-select
+                  v-model="filters.source.model"
+                  v-bind:items="filterSourceOptions"
+                  chips
+                  filled
+                  clearable
+                  multiple
+                  deletable-chips
+                  dense
+                  label="Filter by Source/Homebrew"
+                >
+                </v-select>
+              </v-col>
+
 
             </v-row>
 
@@ -88,7 +105,7 @@
             v-bind:page.sync="pagination.page"
             v-bind:search="searchQuery"
             v-on:page-count="pagination.pageCount = $event"
-            item-key="name"
+            item-key="key"
             sort-by="name"
             hide-default-footer
           >
@@ -184,8 +201,10 @@ export default {
       searchQuery: '',
       selectedTypeFilters: [],
       filters: {
+        settingTier: { model: 6, label: 'Filter by Archetype-Group' },
         species: { model: [], label: 'Filter by Species' },
         group: { model: [], label: 'Filter by Archetype-Group' },
+        source: { model: [], label: 'Filter by Homebrew' },
       },
       pagination: {
         page: 1,
@@ -208,13 +227,29 @@ export default {
     activeRepository() {
       return this.items;
     },
+    filterSourceOptions() {
+      let options = this.activeRepository.map(i => { return {value: i.source.key, text: i.source.book} } );
+      return [...new Set(options)].sort( (a, b) => a.text.localeCompare(b.text) );
+    },
     searchResult() {
       if ( this.activeRepository === undefined ) {
         return [];
       }
       let filteredResults = this.activeRepository;
 
-      let filter = this.filters.species;
+      let filter;
+
+      filter = this.filters.settingTier;
+      if (filter.model) {
+        filteredResults = filteredResults.filter( i => i.tier <= filter.model );
+      }
+
+      filter = this.filters.source;
+      if (filter.model.length > 0) {
+        filteredResults = filteredResults.filter( i => filter.model.includes(i.source.key) );
+      }
+
+      filter = this.filters.species;
       if (filter.model.length > 0) {
         filteredResults = filteredResults.filter( item => filter.model.some( m => item.species.includes(m) ));
       }
@@ -225,6 +260,16 @@ export default {
       }
 
       return filteredResults;
+    },
+    filterSettingTierOptions() {
+      return [
+        { text: 'Show all tiers', value: 6 },
+        { text: '1 - One among billions', value: 1 },
+        { text: '2 - Stalwart Defenders', value: 2 },
+        { text: '3 - Elite Guardians', value: 3 },
+        { text: '4 - Heroic Operatives', value: 4 },
+        { text: '5 - Agents of Fate', value: 5 },
+      ];
     },
     filterSpeciesOptions() {
       let array = [];

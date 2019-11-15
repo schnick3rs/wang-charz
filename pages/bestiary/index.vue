@@ -11,6 +11,7 @@
       <v-col v-bind:cols="12">
 
         <v-card>
+
           <v-card-text>
 
             <v-row justify="center">
