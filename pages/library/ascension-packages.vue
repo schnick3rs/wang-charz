@@ -119,14 +119,19 @@ export default {
   },
   mixins: [],
   head() {
+    const title = 'Ascension Packages - Wrath & Glory Reference | Library';
+    const description =
+      'Tired of staying the course and wizzarding around? Search the Library for Ascension Packages. ' +
+      'Check out the respective linked Homebrews for detailed informations.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
     return {
-      title: 'Ascension Packages - Wrath & Glory Reference | Library',
+      title: title,
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '',
-        },
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
       ],
     };
   },

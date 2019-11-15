@@ -163,14 +163,19 @@ export default {
   components: { DodDefaultBreadcrumbs, ArchetypePreview },
   mixins: [ ArchetypeRepositoryMixin ],
   head() {
+    const title = 'Archetypes - Wrath & Glory Reference | Library';
+    const description =
+      'Oh there are way to many archetypes written by fans. Filter a little and then pick the one you want.' +
+      ' Check the linked homebrews for details.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
     return {
-      title: 'Archetypes - Wrath & Glory Reference | Library',
+      title: title,
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '',
-        },
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
       ],
     };
   },
