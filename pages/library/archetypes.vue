@@ -42,13 +42,13 @@
                 <v-select
                   v-model="filters.species.model"
                   v-bind:items="filterSpeciesOptions"
+                  v-bind:label="filters.species.label"
                   chips
                   filled
                   clearable
                   multiple
                   deletable-chips
                   dense
-                  label="Filter by Species"
                 >
                 </v-select>
               </v-col>
@@ -58,13 +58,13 @@
                 <v-select
                   v-model="filters.group.model"
                   v-bind:items="filterGroupOptions"
+                  v-bind:label="filters.group.label"
                   chips
                   filled
                   clearable
                   multiple
                   deletable-chips
                   dense
-                  label="Filter by Source/Homebrew"
                 >
                 </v-select>
               </v-col>
@@ -74,13 +74,13 @@
                 <v-select
                   v-model="filters.source.model"
                   v-bind:items="filterSourceOptions"
+                  v-bind:label="filters.source.label"
                   chips
                   filled
                   clearable
                   multiple
                   deletable-chips
                   dense
-                  label="Filter by Source/Homebrew"
                 >
                 </v-select>
               </v-col>
