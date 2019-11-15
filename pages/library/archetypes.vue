@@ -104,11 +104,11 @@
             v-bind:items="searchResult"
             v-bind:page.sync="pagination.page"
             v-bind:search="searchQuery"
+            v-bind:items-per-page="15"
             v-on:page-count="pagination.pageCount = $event"
             item-key="key"
             sort-by="name"
             hide-default-footer
-            items-per-page="15"
           >
 
             <template v-slot:item.species="{ item }">{{ item.species.join(', ') }}</template>
