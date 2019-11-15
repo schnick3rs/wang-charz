@@ -1,16 +1,3 @@
-const textToSlug = function(text) {
-  return text.toLowerCase().replace(/\W/gm, '-');
-};
-
-const slugToKebab = function(slug) {
-  return slug.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
-};
-
-const textSlugKebab = function(text) {
-   const slug = textToSlug(text);
-  return slugToKebab(slug);
-};
-
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
@@ -26,6 +13,21 @@ const source = {
   tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
   pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
 };
+
+const textToSlug = function(text) {
+  return text.toLowerCase().replace(/\W/gm, '-');
+};
+
+const slugToKebab = function(slug) {
+  return slug.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
+};
+
+const textSlugKebab = function(text) {
+   const slug = textToSlug(text);
+  return slugToKebab(slug);
+};
+
+
 
 const simpleStub = function(sourceKey, sourcePage, species, group, name, bp, tier) {
   return {

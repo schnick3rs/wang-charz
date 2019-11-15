@@ -108,6 +108,7 @@
             item-key="key"
             sort-by="name"
             hide-default-footer
+            items-per-page="15"
           >
 
             <template v-slot:item.species="{ item }">{{ item.species.join(', ') }}</template>
