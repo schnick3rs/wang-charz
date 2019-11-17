@@ -161,7 +161,7 @@
                       <ul>
                         <li v-for="parts in item.topics" v-bind:key="parts">
                           <nuxt-link
-                            v-if="['Archetypes','Ascension Packages'].includes(parts)"
+                            v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
                             v-bind:to="`/library/${stringToKebab(parts)}?filter-source=${item.key}`"
                           >
                             {{ parts }}

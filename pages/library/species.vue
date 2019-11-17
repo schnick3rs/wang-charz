@@ -177,6 +177,8 @@ export default {
       headers: [
         { text: 'Name', align: 'start', value: 'name', class: '' },
         { text: 'Hint', align: 'start', value: 'hint', class: '' },
+        { text: 'Tier', align: 'center', value: 'tier', class: '' },
+        { text: 'Cost', align: 'center', value: 'cost', class: '' },
         { text: 'Source', align: 'start', value: 'source.book', class: '' },
       ],
       expand: false,
