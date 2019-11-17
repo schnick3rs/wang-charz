@@ -176,6 +176,7 @@ export default {
       },
       headers: [
         { text: 'Name', align: 'start', value: 'name', class: '' },
+        { text: 'Group', align: 'start', value: 'group', class: '' },
         { text: 'Hint', align: 'start', value: 'hint', class: '' },
         { text: 'Tier', align: 'center', value: 'tier', class: '' },
         { text: 'Cost', align: 'center', value: 'cost', class: '' },
