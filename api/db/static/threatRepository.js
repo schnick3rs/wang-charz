@@ -1,7 +1,5 @@
 // TODO
 // ArdentPurple's Tyranid Bestiary
-// The Deathwatch - Slayers of the Alien Horde
-// The High Altar of Technology
 
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
@@ -4182,6 +4180,7 @@ const threatRepository = [
   simpleStub('thaot', 33, 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 'etttt'),
   simpleStub('thaot', 33, 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 'etttt'),
   simpleStub('thaot', 34, 'Adeptus Mechanicus', 'Tech-Priest Dominus', 'aaaae'),
+  simpleStub('sotah', 17, 'Deathwatch', 'Deathwatch Marine', 'aaaee'),
 ];
 
 
