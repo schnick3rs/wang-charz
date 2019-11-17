@@ -56,14 +56,12 @@
 
               <v-col v-bind:cols="12" v-bind:sm="6">
                 <v-select
-                  v-model="filterSourceModel"
+                  v-model="filtersSourceModel"
                   v-bind:items="filterSourceOptions"
                   filled
                   dense
                   clearable
                   multiple
-                  chips
-                  deletable-chips
                   single-line
                   label="Filter by Source/Homebrew"
                 >
@@ -299,10 +297,16 @@ export default {
       filterTier = query['filter-tier'];
     }
 
+    const filtersSourceModel = [];
+    if ( query['filter-source'] ) {
+      filtersSourceModel.push(query['filter-source']);
+    }
+
     return {
       items: items,
       factionFilterSelections: factionFilterSelections,
       filterTier: filterTier,
+      filtersSourceModel: filtersSourceModel,
     };
   },
   data() {
@@ -311,7 +315,6 @@ export default {
       settingFilter: [],
       contentFilter: [],
       factionFilterSelections: [],
-      filterSourceModel: [],
       pagination: {
         page: 1,
         pageCount: 0,
@@ -359,8 +362,8 @@ export default {
     searchResults() {
       let filteredResults = this.items;
 
-      if (this.filterSourceModel.length > 0) {
-        filteredResults = filteredResults.filter( i => this.filterSourceModel.includes(i.source.key) );
+      if (this.filtersSourceModel.length > 0) {
+        filteredResults = filteredResults.filter( i => this.filtersSourceModel.includes(i.source.key) );
       }
 
       if (this.factionFilterSelections.length > 0) {

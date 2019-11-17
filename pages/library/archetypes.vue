@@ -182,8 +182,10 @@ export default {
       error({ statusCode: 404, message: 'No Archetypes found!' });
     }
 
+    // TODO
+    const factionFilterSelections = [];
     if ( query['filter-faction'] ) {
-      factionFilterSelections.push(query['filter-faction']);
+      factionFilterSelections.push(query['filter-group']);
     }
 
     const filtersSourceModel = [];

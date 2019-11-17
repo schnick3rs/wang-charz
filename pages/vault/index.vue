@@ -160,7 +160,19 @@
                       <strong>Topics:</strong>
                       <ul>
                         <li v-for="parts in item.topics" v-bind:key="parts">
-                          {{ parts }}
+                          <nuxt-link
+                            v-if="['Archetypes','Ascension Packages'].includes(parts)"
+                            v-bind:to="`/library/${stringToKebab(parts)}?filter-source=${item.key}`"
+                          >
+                            {{ parts }}
+                          </nuxt-link>
+                          <nuxt-link
+                            v-else-if="['Threats'].includes(parts)"
+                            v-bind:to="`/bestiary?filter-source=${item.key}`"
+                          >
+                            {{ parts }}
+                          </nuxt-link>
+                          <span v-else>{{ parts }}</span>
                         </li>
                       </ul>
                   </v-col>
@@ -353,6 +365,9 @@ export default {
         this.pagination.sortBy = column;
         this.pagination.descending = false;
       }
+    },
+    stringToKebab(text) {
+      return text.toLowerCase().replace(/\W/gm, '-');
     },
     trackExpand(event) {
       if ( event.value === true ) {

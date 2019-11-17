@@ -45,7 +45,19 @@
             <span class="subtitle-2">Topics / Content:</span>
           <ul>
             <li v-for="parts in item.topics" v-bind:key="parts">
-              {{ parts }}
+              <nuxt-link
+                v-if="['Archetypes','Ascension Packages'].includes(parts)"
+                v-bind:to="`/library/${stringToKebab(parts)}?filter-source=${item.key}`"
+              >
+                {{ parts }}
+              </nuxt-link>
+              <nuxt-link
+                v-else-if="['Threats'].includes(parts)"
+                v-bind:to="`/bestiary?filter-source=${item.key}`"
+              >
+                {{ parts }}
+              </nuxt-link>
+              <span v-else>{{ parts }}</span>
             </li>
           </ul>
 
@@ -194,6 +206,9 @@ export default {
   methods: {
     trackEvent(url) {
       this.$ga.event('Outbound Link', 'click', url, 10);
+    },
+    stringToKebab(text) {
+      return text.toLowerCase().replace(/\W/gm, '-');
     },
   },
 };

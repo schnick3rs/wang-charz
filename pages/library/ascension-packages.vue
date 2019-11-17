@@ -33,11 +33,9 @@
                   v-model="filters.source.model"
                   v-bind:items="filterSourceOptions"
                   v-bind:label="filters.source.label"
-                  chips
                   filled
                   clearable
                   multiple
-                  deletable-chips
                   dense
                 >
                 </v-select>
@@ -149,8 +147,16 @@ export default {
       //factionFilterSelections.push(query['filter-faction']);
     }
 
+    const filtersSourceModel = [];
+    if ( query['filter-source'] ) {
+      filtersSourceModel.push(query['filter-source']);
+    }
+
     return {
       items: items,
+      filters: {
+        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
+      },
     };
   },
   data() {
@@ -162,9 +168,6 @@ export default {
       ],
       searchQuery: '',
       selectedTypeFilters: [],
-      filters: {
-        source: { model: [], label: 'Filter by Homebrew' },
-      },
       pagination: {
         page: 1,
         pageCount: 0,
