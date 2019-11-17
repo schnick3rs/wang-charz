@@ -43,11 +43,9 @@
                   v-model="filters.species.model"
                   v-bind:items="filterSpeciesOptions"
                   v-bind:label="filters.species.label"
-                  chips
                   filled
                   clearable
                   multiple
-                  deletable-chips
                   dense
                 >
                 </v-select>
@@ -59,11 +57,9 @@
                   v-model="filters.group.model"
                   v-bind:items="filterGroupOptions"
                   v-bind:label="filters.group.label"
-                  chips
                   filled
                   clearable
                   multiple
-                  deletable-chips
                   dense
                 >
                 </v-select>
@@ -75,11 +71,9 @@
                   v-model="filters.source.model"
                   v-bind:items="filterSourceOptions"
                   v-bind:label="filters.source.label"
-                  chips
                   filled
                   clearable
                   multiple
-                  deletable-chips
                   dense
                 >
                 </v-select>
@@ -188,13 +182,23 @@ export default {
       error({ statusCode: 404, message: 'No Archetypes found!' });
     }
 
-    const groupFilterSelections = [];
-    if ( query['filter-group'] ) {
-      //factionFilterSelections.push(query['filter-faction']);
+    if ( query['filter-faction'] ) {
+      factionFilterSelections.push(query['filter-faction']);
+    }
+
+    const filtersSourceModel = [];
+    if ( query['filter-source'] ) {
+      filtersSourceModel.push(query['filter-source']);
     }
 
     return {
       items: items,
+      filters: {
+        settingTier: { model: 6, label: 'Filter by Archetype-Group' },
+        species: { model: [], label: 'Filter by Species' },
+        group: { model: [], label: 'Filter by Archetype-Group' },
+        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
+      }
     };
   },
   data() {
@@ -206,12 +210,6 @@ export default {
       ],
       searchQuery: '',
       selectedTypeFilters: [],
-      filters: {
-        settingTier: { model: 6, label: 'Filter by Archetype-Group' },
-        species: { model: [], label: 'Filter by Species' },
-        group: { model: [], label: 'Filter by Archetype-Group' },
-        source: { model: [], label: 'Filter by Homebrew' },
-      },
       pagination: {
         page: 1,
         pageCount: 0,
