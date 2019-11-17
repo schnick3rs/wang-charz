@@ -51,6 +51,7 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vuex-persist', ssr: false },
+    '~plugins/filters.js',
   ],
   /*
   ** Nuxt.js modules
@@ -92,8 +93,6 @@ module.exports = {
     exclude: [
       // dynamic and user specific parts should not be sitemaped
       '/forge/characters/**',
-      '/library/**',
-      '/codex/**',
     ],
     routes: async () => {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
