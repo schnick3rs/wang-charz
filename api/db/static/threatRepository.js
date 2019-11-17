@@ -4180,6 +4180,7 @@ const threatRepository = [
   simpleStub('thaot', 33, 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 'etttt'),
   simpleStub('thaot', 34, 'Adeptus Mechanicus', 'Tech-Priest Dominus', 'aaaae'),
   simpleStub('sotah', 17, 'Deathwatch', 'Deathwatch Marine', 'aaaee'),
+  simpleStub('pax', 17, 'Deathwatch', 'Deathwatch Marine', 'aaaee'),
 ];
 
 

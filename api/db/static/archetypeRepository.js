@@ -16,6 +16,7 @@ const source = {
   tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
   pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
   sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
+  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
 };
 
 const stringToKebab = function(text) {
@@ -381,7 +382,17 @@ const sotahRep = [
 ];
 
 const thaotRep = [
-  simpleStub('thaot', 4, 'Adeptus Astartes', 'Adeptus Astartes', 'Techmarin3', 70, 3),
+  simpleStub('thaot', 4, 'Adeptus Astartes', 'Adeptus Astartes', 'Techmarin', 70, 3),
+];
+
+const ambRep = [
+  simpleStub('amb', 2, 'Human', 'Astra Militarum', 'Weapon Specialist', 25, 2),
+  simpleStub('amb', 3, 'Human', 'Astra Militarum', 'Brawler', 25, 2),
+  simpleStub('amb', 4, 'Human', 'Astra Militarum', 'Scout', 30, 2),
+  simpleStub('amb', 4, 'Human', 'Astra Militarum', 'Sniper', 30, 2),
+  simpleStub('amb', 5, 'Human', 'Astra Militarum', 'Heavy Weapon Specialist', 35, 2),
+  simpleStub('amb', 6, 'Ogryn', 'Astra Militarum', 'Bulwark', 25, 2),
+  simpleStub('amb', 6, 'Human', 'Astra Militarum', 'Field Medicae', 25, 2),
 ];
 
 const archetypeRepository = [
@@ -397,6 +408,7 @@ const archetypeRepository = [
   ...paxRep,
   ...sotahRep,
   ...thaotRep,
+  ...ambRep,
 ];
 
 module.exports = archetypeRepository;
