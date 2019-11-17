@@ -4,14 +4,26 @@ const db = require('../db');
 
 const router = new Router();
 
+const TABLE_FIELDS = ['id', 'title', 'subtitle', 'slug', 'version', 'author'];
+
 module.exports = router;
 
 router.get('/', async (request, response) => {
 
-  const slug = request.params.slug;
+  let select = '*';
+  const fieldsString = request.query.fields;
+  if ( fieldsString ) {
+    const selectFields = [];
+    fieldsString.split(',').forEach( potentialField => {
+      if ( TABLE_FIELDS.includes(potentialField) ) {
+        selectFields.push(potentialField);
+      }
+    });
+    select = selectFields.join(',');
+  }
 
   const { rows } = await db.queryAsyncAwait(
-    'SELECT * FROM wrath_glory.homebrews WHERE is_active = true',
+    `SELECT ${select} FROM wrath_glory.homebrews WHERE is_active = true`,
     [],
   );
 

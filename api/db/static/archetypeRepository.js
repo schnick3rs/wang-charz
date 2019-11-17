@@ -371,6 +371,12 @@ const paxRep = [
   simpleStub('pax', '-', 'Human', 'Void Pirates', 'Swashbuckler', 40, 2),
 ];
 
+const sotahRep = [
+  simpleStub('sotah', 4, 'Adeptus Astartes', 'Deathwatch', 'Blackshield', 60, 4),
+  simpleStub('sotah', 4, 'Adeptus Astartes', 'Deathwatch', 'Keeper', 80, 5),
+  simpleStub('sotah', 5, 'Adeptus Astartes', 'Deathwatch', 'Kill Marine', 60, 4),
+];
+
 const archetypeRepository = [
   ...dodScumPsyker,
   ...aaoaRep,
@@ -382,6 +388,7 @@ const archetypeRepository = [
   ...lotnRep,
   ...togRep,
   ...paxRep,
+  ...sotahRep,
 ];
 
 module.exports = archetypeRepository;
