@@ -1,3 +1,6 @@
+// TODO
+// Astra Militarum
+
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
@@ -377,6 +380,10 @@ const sotahRep = [
   simpleStub('sotah', 5, 'Adeptus Astartes', 'Deathwatch', 'Kill Marine', 60, 4),
 ];
 
+const thaotRep = [
+  simpleStub('thaot', 4, 'Adeptus Astartes', 'Adeptus Astartes', 'Techmarin3', 70, 3),
+];
+
 const archetypeRepository = [
   ...dodScumPsyker,
   ...aaoaRep,
@@ -389,6 +396,7 @@ const archetypeRepository = [
   ...togRep,
   ...paxRep,
   ...sotahRep,
+  ...thaotRep,
 ];
 
 module.exports = archetypeRepository;

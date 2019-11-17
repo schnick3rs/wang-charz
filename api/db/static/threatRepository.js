@@ -1,3 +1,8 @@
+// TODO
+// ArdentPurple's Tyranid Bestiary
+// The Deathwatch - Slayers of the Alien Horde
+// The High Altar of Technology
+
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
@@ -4165,6 +4170,18 @@ const threatRepository = [
   simpleStub('aaoa', 262, 'Tau', 'TX-4 Piranha', 'v'),
   simpleStub('aaoa', 263, 'Tau', 'TX-7 Hammerhead Gunship', 'v'),
   simpleStub('aaoa', 263, 'Tau', 'TX-78 Skyray Gunship', 'v'),
+  simpleStub('thaot', 27, 'Adeptus Mechanicus', 'Monotask Servitor', 'ttttt'),
+  simpleStub('thaot', 27, 'Adeptus Mechanicus', 'Kataphron Battle Servitor', 'aaeee'),
+  simpleStub('thaot', 28, 'Adeptus Mechanicus', 'Skitarii Vanguard', 'etttt'),
+  simpleStub('thaot', 29, 'Adeptus Mechanicus', 'Skitarii Ranger', 'etttt'),
+  simpleStub('thaot', 30, 'Adeptus Mechanicus', 'Sicaran Ruststalker', 'aaeet'),
+  simpleStub('thaot', 31, 'Adeptus Mechanicus', 'Sicaran Infiltrator', 'aaeet'),
+  simpleStub('thaot', 31, 'Adeptus Mechanicus', 'Sicaran Infiltrator', 'aaeet'),
+  simpleStub('thaot', 31, 'Adeptus Mechanicus', 'Tech-Priest Engineseer', 'aeett'),
+  simpleStub('thaot', 32, 'Adeptus Mechanicus', 'Cybernetica Datasmith', 'aaaee'),
+  simpleStub('thaot', 33, 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 'etttt'),
+  simpleStub('thaot', 33, 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 'etttt'),
+  simpleStub('thaot', 34, 'Adeptus Mechanicus', 'Tech-Priest Dominus', 'aaaae'),
 ];
 
 
