@@ -4174,7 +4174,6 @@ const threatRepository = [
   simpleStub('thaot', 29, 'Adeptus Mechanicus', 'Skitarii Ranger', 'etttt'),
   simpleStub('thaot', 30, 'Adeptus Mechanicus', 'Sicaran Ruststalker', 'aaeet'),
   simpleStub('thaot', 31, 'Adeptus Mechanicus', 'Sicaran Infiltrator', 'aaeet'),
-  simpleStub('thaot', 31, 'Adeptus Mechanicus', 'Sicaran Infiltrator', 'aaeet'),
   simpleStub('thaot', 31, 'Adeptus Mechanicus', 'Tech-Priest Engineseer', 'aeett'),
   simpleStub('thaot', 32, 'Adeptus Mechanicus', 'Cybernetica Datasmith', 'aaaee'),
   simpleStub('thaot', 33, 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 'etttt'),
