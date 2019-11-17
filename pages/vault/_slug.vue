@@ -45,19 +45,7 @@
             <span class="subtitle-2">Topics / Content:</span>
           <ul>
             <li v-for="parts in item.topics" v-bind:key="parts">
-              <nuxt-link
-                v-if="['Archetypes','Ascension Packages'].includes(parts)"
-                v-bind:to="`/library/${stringToKebab(parts)}?filter-source=${item.key}`"
-              >
-                {{ parts }}
-              </nuxt-link>
-              <nuxt-link
-                v-else-if="['Threats'].includes(parts)"
-                v-bind:to="`/bestiary?filter-source=${item.key}`"
-              >
-                {{ parts }}
-              </nuxt-link>
-              <span v-else>{{ parts }}</span>
+              <span>{{ parts }}</span>
             </li>
           </ul>
 
