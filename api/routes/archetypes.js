@@ -1,6 +1,7 @@
 const Router = require('express-promise-router');
 
 const archetypeRepository = require('../db/static/archetypeRepository');
+const objectivesRepository = require('../db/static/archetypeObjectivesRepository');
 
 const router = new Router();
 
@@ -14,6 +15,37 @@ router.get('/', (request, response) => {
   response.status(200).json(items);
 });
 
+router.get('/groups/', (request, response) => {
+
+  let items = [];
+  items = archetypeRepository;
+
+  const filter = {};
+
+  const filterSourceString = request.query.source;
+  if (filterSourceString) {
+    filter['source'] = filterSourceString.split(',');
+    if (filter.source) {
+      items = items.filter( item => filter.source.includes(item.source.key));
+    }
+  }
+
+  items = items.map( item => item.group );
+
+  items = [ ...new Set(items)].sort();
+
+  //response.set('Cache-Control', 'public, max-age=3600'); // one year
+  response.status(200).json(items);
+});
+
+router.get('/objectives/', (request, response) => {
+
+  let items = [];
+  items = objectivesRepository;
+
+  response.status(200).json(items);
+});
+
 router.get('/:slug', (request, response) => {
 
   const slug = request.params.slug;
@@ -24,3 +56,4 @@ router.get('/:slug', (request, response) => {
 
   response.status(200).json(item);
 });
+

@@ -445,16 +445,23 @@ export default {
     StatRepositoryMixin,
   ],
   props: [],
-  async asyncData({ params, $axios, error }) {
+  async asyncData({ params, $axios }) {
+    const sourceFilter = `?source=core,coreab`;
     const talentResponse = await $axios.get(`/api/talents/`);
     const wargearResponse = await $axios.get(`/api/wargear/`);
     const psychicPowersResponse = await $axios.get(`/api/psychic-powers/`);
+    const objectiveResponse = await $axios.get(`/api/archetypes/objectives/`);
+    const speciesResponse = await $axios.get(`/api/species/${sourceFilter}`);
+
+    console.info(objectiveResponse);
 
     return {
-      wargearRepository: wargearResponse.data,
-      talentRepository: talentResponse.data,
-      psychicPowersRepository: psychicPowersResponse.data,
       characterId: params.id,
+      speciesRepository: speciesResponse.data,
+      objectiveRepository: objectiveResponse.data,
+      psychicPowersRepository: psychicPowersResponse.data,
+      talentRepository: talentResponse.data,
+      wargearRepository: wargearResponse.data,
     };
   },
   head() {
@@ -679,7 +686,7 @@ export default {
       return items;
     },
     objectives() {
-      if (this.archetypeLabel) {
+      if ( this.archetypeLabel && this.objectiveRepository ) {
         const archetype = this.archetypeRepository.find(a => a.name === this.archetypeLabel);
         if ( archetype ) {
           const objectiveList = this.objectiveRepository.find(o => o.group === archetype.group);

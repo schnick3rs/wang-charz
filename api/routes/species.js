@@ -1,6 +1,7 @@
 const Router = require('express-promise-router');
 
 const speciesRepository = require('../db/static/speciesRepository');
+const chaptersRepository = require('../db/static/speciesChaptersRepository');
 
 const router = new Router();
 
@@ -8,9 +9,29 @@ module.exports = router;
 
 router.get('/', (request, response) => {
 
-  const items = speciesRepository;
+  let items = [];
+  items = speciesRepository;
 
-  //response.set('Cache-Control', 'public, max-age=3600'); // one year
+  const filter = {};
+  const filterSourceString = request.query.source;
+  if (filterSourceString) {
+    filter['source'] = filterSourceString.split(',');
+    if (filter.source) {
+      items = items.filter( item => filter.source.includes(item.source.key));
+    }
+  }
+
+  response.status(200).json(items);
+});
+
+/**
+ * returns a list of all astartes chapter abilities
+ */
+router.get('/chapters/', (request, response) => {
+
+  let items = [];
+  items = chaptersRepository;
+
   response.status(200).json(items);
 });
 

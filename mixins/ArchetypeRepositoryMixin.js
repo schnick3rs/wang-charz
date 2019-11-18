@@ -821,7 +821,7 @@ export default {
       {
         group: 'Adepta Sororitas',
         objectives: [
-          'Describe how faith and/or sacrifi ce in the Emperor’s name brings success.',
+          'Describe how faith and/or sacrifice in the Emperor’s name brings success.',
           'Invoke an Imperial Saint (Saint Alicia Dominica and Saint Celestine are two examples) to bless your achievements',
           'Bear witness to an act that you consider a miracle of the divine Emperor.',
         ],

@@ -162,14 +162,11 @@
 </template>
 
 <script lang="js">
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-import { mapGetters } from 'vuex';
 
 export default {
   name: 'Setting',
   layout: 'forge',
-  mixins: [ SpeciesRepositoryMixin, ArchetypeRepositoryMixin ],
+  mixins: [ ],
   props: [],
   asyncData({ params }) {
     return {

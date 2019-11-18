@@ -88,9 +88,14 @@ export default {
       title: 'Select Species',
     }
   },
-  asyncData({ params }) {
+  async asyncData({ params, $axios }) {
+    const speciesResponse = await $axios.get(`/api/species/?source=core,coreab`);
+    const chaptersRepository = await $axios.get(`/api/species/chapters/?source=core,coreab`);
+
     return {
       characterId: params.id,
+      speciesRepository: speciesResponse.data,
+      astartesChapterRepository: chaptersRepository.data,
     };
   },
   data() {

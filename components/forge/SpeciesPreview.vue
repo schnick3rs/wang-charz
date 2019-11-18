@@ -137,8 +137,14 @@ export default {
       default: false,
     },
   },
+  async mounted() {
+    const chaptersResponse = await this.$axios.get(`/api/species/chapters/?source=core,coreab`);
+    this.astartesChapterRepository = chaptersResponse.data;
+  },
   data() {
-    return {}
+    return {
+      astartesChapterRepository: [],
+    }
   },
   computed: {
     abilityObjects() {

@@ -200,8 +200,8 @@
 
 <script lang="js">
 import {mapGetters, mapMutations, mapState} from 'vuex';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
+import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
 
 export default {
   name: 'my-characters',
