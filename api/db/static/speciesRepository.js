@@ -80,6 +80,27 @@ const coreRep = [
     ],
     keywords: ['Scum'],
     abilities: 'Abhuman,Born Sharpshooter,Conniving',
+    abilityObjects: [
+      {
+        key: null,
+        name: 'Abhuman',
+        effect: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
+        description: null,
+        archdescription: null
+      },
+      {
+        key: null,
+        name: 'Born Sharpshooter',
+        effect: ' +2d to all Ballistic Skill tests.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Conniving',
+        effect: 'Ratlings begin play with the Scum keyword.',
+        description: null
+      },
+    ],
     avatar: null,
     theme: null
   },
@@ -103,6 +124,20 @@ const coreRep = [
     ],
     keywords: [],
     abilities: 'Abhuman,Burly',
+    abilityObjects: [
+      {
+        key: null,
+        name: 'Abhuman',
+        effect: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Burly',
+        effect: ' +2d to all Intimidation tests.',
+        description: null
+      },
+    ],
     avatar: null,
     theme: null
   },
@@ -125,6 +160,26 @@ const coreRep = [
     ],
     keywords: [],
     abilities: 'Outsider,Intense Emotion,Psychosensitive',
+    abilityObjects: [
+      {
+        key: null,
+        name: 'Outsider',
+        effect: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Intense Emotion',
+        effect: '+1DN to all Resolve tests. Failing a Willpower-based test in a scene involving intense emotion grants the GM +1 Ruin.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Psychosensitive',
+        effect: 'All Eldar may purchase 1 Minor Psychic Power if they also purchase the Psychic Mastery skill. This purchase also gives them the Psyker keyword. In addition, the Tier Restriction for Maximum Psychic Powers for Eldar Characters is increased by 1 to accommodate this purchase.',
+        description: null
+      },
+    ],
     description: 'The Aeldari ruled the galaxy for millions of years. During their rise to power, this species uncovered secrets of the galaxy’s very essence, learning to create and shatter entire worlds. They discovered and developed the webway, enabling them to quickly travel across the galaxy without the risk of warp travel. Their collective knowledge eventually reached the point that any drive to learn dampened, as they could accomplish virtually any task they could imagine. The longlived Aeldari existed in luxury, pursuing whatever interests drew their attention. Eventually, such leisure led to increasingly hedonistic pursuits that spread in cults across their entire population. Those moral failings, over time, coalesced within the warp, giving birth to Slaanesh.',
     avatar: null,
     theme: null
@@ -147,6 +202,26 @@ const coreRep = [
     ],
     keywords: [],
     abilities: 'Outsider,Orky,Bigger is Better',
+    abilityObjects: [
+      {
+        key: null,
+        name: 'Outsider',
+        effect: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Orky',
+        effect: '+1 to all Intimidation tests.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Bigger is Better',
+        effect: 'Orks calculate Infl uence using their Strength in place of Fellowship.',
+        description: null
+      },
+    ],
     hint: 'The savage brute',
     description: 'Orks are ubiquitous throughout the galaxy. Their incomprehensible physiology and ecosystem is capable of actively proliferating in even the most hostile of environments—from ash wastes, to overgrown Death Worlds, to barren asteroids. Even a small tribe of a few dozen Orks can inexplicably grow into a force of tens of thousands in relatively short order. The biological mechanisms behind this growth and adaptability confound even the most accomplished scholars of the Adeptus Mechanicus. There are no consistent requirements for Orks to thrive within any climate. However, their functionality is clearly evident on the countless worlds they have subsumed.',
     avatar: null,
@@ -169,6 +244,26 @@ const coreRep = [
     ],
     keywords: [],
     abilities: 'Angel of Death,Honour the Chapter,Space Marine Implants',
+    abilityObjects: [
+      {
+        key: null,
+        name: 'Angel of Death',
+        effect: 'Space Marines add +½ Rank icons to any successful attack against a Mob.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Honour the Chapter',
+        effect: 'You are subject to the orders of your chapter master, and must honour both the beliefs and traditions of your chapter.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Space Marine Implants',
+        effect: 'Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifier to any test if the Game Master deems it appropriate for one of the 19 implants.',
+        description: null
+      },
+    ],
     hint: 'the sword of mankind',
     description: 'Prior to launching the Great Crusade, the Emperor of Man created the Adeptus Astartes and assembled them into his legions. Each began as a mortal man, but a combination of genetic manipulations and physical implantations transformed each into a superhuman warrior—an Imperial Space Marine. The Emperor initially created twenty legions of Space Marines, each one containing vast numbers. All members of each of the twenty legions used a gene-seed developed from one of the twenty godlike Primarchs, whom the emperor also created. During the Great Crusade, Primarchs served as the generals of the Space Marine Legions, as the Emperor strove to reunify all lost human worlds, bringing the galaxy into Imperial Compliance.',
     avatar: null,
@@ -193,6 +288,26 @@ const coreRep = [
     ],
     keywords: [],
     abilities: 'Angel of Death,Honour the Chapter (Primaris),Space Marine Implants',
+    abilityObjects: [
+      {
+        key: null,
+        name: 'Angel of Death',
+        effect: 'Space Marines add +½ Rank icons to any successful attack against a Mob.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Honour the Chapter (Primaris)',
+        effect: 'You are subject to the orders of your chapter master and the beliefs and traditions of your chapter. Primaris Space Marines gain the fi rst special rule from their Chapter and ignore any penalties or drawbacks from the second if it is marked as being related to the Chapter’s gene-seed.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Space Marine Implants',
+        effect: 'Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifier to any test if the Game Master deems it appropriate for one of the 19 implants.',
+        description: null
+      },
+    ],
     description: 'In the wake of the Horus Heresy, after completing the Codex Astartes, Primarch Roboute Guilliman decided that the Adeptus Astartes needed further enhancements to better defend the Imperium from outside threats—including those Space Marines who had turned traitor. He assigned the job of improving them to Archmagos Dominus Belisarius Cawl of the Adeptus Mechanicus. To aid the Tech-Priest, Guilliman provided him with an archive of genetic material taken from his fellow Primarchs, called the Sangprimus Portum.',
     avatar: null,
     theme: null

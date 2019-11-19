@@ -75,13 +75,12 @@
 
 <script lang="js">
 import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
 
 export default {
   name: 'SpeciesSelection',
   layout: 'forge',
   components: { SpeciesPreview },
-  mixins: [ SpeciesRepositoryMixin ],
+  mixins: [ ],
   props: [],
   head() {
     return {
@@ -139,9 +138,14 @@ export default {
     doChangeSpeciesMode() {
       this.changeSpeciesMode = true;
     },
-    updatePreview(item) {
-      this.selectedSpecies = item;
+    async updatePreview(item) {
+      const slug = this.computeSlug(item.key);
+      const speciesDetails = await this.$axios.get(`/api/species/${slug}`);
+      this.selectedSpecies = speciesDetails.data;
       this.speciesDialog = true;
+    },
+    computeSlug(key) {
+      return key.replace(/([a-z0-9][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
     },
     selectSpeciesForChar(species) {
       this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { value: species.name, cost: species.cost } });

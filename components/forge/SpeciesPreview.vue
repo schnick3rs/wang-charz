@@ -56,7 +56,7 @@
         <p><v-divider></v-divider></p>
 
         <div
-          v-for="ability in abilityObjects"
+          v-for="ability in species.abilityObjects"
           v-if="species.abilities"
           class="text-lg-justify"
         >
@@ -118,11 +118,10 @@
 </template>
 
 <script lang="js">
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
 
 export default {
   name: 'SpeciesPreview',
-  mixins: [SpeciesRepositoryMixin],
+  mixins: [],
   props: {
     species: {
       type: Object,
@@ -147,13 +146,6 @@ export default {
     }
   },
   computed: {
-    abilityObjects() {
-      if (this.speciesAbilitiesRepository) {
-        const abilities = this.species.abilities ? this.species.abilities.split(',') : [];
-        return this.speciesAbilitiesRepository.filter(a => abilities.includes(a.name));
-      }
-      return [];
-    },
   },
   methods: {
     getAvatar(name) {

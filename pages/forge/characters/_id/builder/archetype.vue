@@ -101,7 +101,6 @@
         v-bind:characterId="characterId"
         v-bind:item="characterArchetype"
         v-bind:keywords="keywords"
-        v-bind:psychicPowersRepository="psychicPowersRepository"
         v-on:change="doChangeMode"
         v-on:select="selectArchetypeForChar"
         v-on:reset="resetArchetype"
@@ -116,14 +115,13 @@
 
 <script lang="js">
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
-import { mapGetters, mapMutations } from 'vuex';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'Archetype',
   layout: 'forge',
   components: { ArchetypePreview },
-  mixins: [ArchetypeRepositoryMixin],
+  mixins: [],
   props: [],
   head() {
     return {
@@ -131,10 +129,12 @@ export default {
     }
   },
   async asyncData({ params, $axios }) {
-    const response = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
+    //const psychicPowersResponse = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
+    const archetypeResponse = await $axios.get(`/api/archetypes/?source=core,coreab`);
     return {
-      psychicPowersRepository: response.data,
       characterId: params.id,
+      //psychicPowersRepository: psychicPowersResponse.data,
+      archetypeRepository: archetypeResponse.data,
     };
   },
   data() {

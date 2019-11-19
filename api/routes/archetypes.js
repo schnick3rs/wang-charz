@@ -9,9 +9,19 @@ module.exports = router;
 
 router.get('/', (request, response) => {
 
-  const items = archetypeRepository;
+  let items = [];
+  items = archetypeRepository;
 
-  //response.set('Cache-Control', 'public, max-age=3600'); // one year
+  const filter = {};
+  const filterSourceString = request.query.source;
+  if (filterSourceString) {
+    filter['source'] = filterSourceString.split(',');
+    if (filter.source) {
+      items = items.filter( item => filter.source.includes(item.source.key));
+    }
+  }
+
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);
 });
 
@@ -34,7 +44,7 @@ router.get('/groups/', (request, response) => {
 
   items = [ ...new Set(items)].sort();
 
-  //response.set('Cache-Control', 'public, max-age=3600'); // one year
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);
 });
 
@@ -43,6 +53,7 @@ router.get('/objectives/', (request, response) => {
   let items = [];
   items = objectivesRepository;
 
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);
 });
 
@@ -54,6 +65,7 @@ router.get('/:slug', (request, response) => {
 
   const item = archetypeRepository.find( archetype => archetype.key === key );
 
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);
 });
 

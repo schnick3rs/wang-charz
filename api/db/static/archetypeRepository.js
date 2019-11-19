@@ -341,8 +341,8 @@ const core = [
     ],
     psychicPowers: {
       discount: [
-        { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
-        { name: 'minor', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
+        { name: 'smite', selected: 'Smite', query: {'discipline':'Universal'}, filter: power => ( power.name === 'Smite' ) },
+        { name: 'minor', selected: undefined, query: {'discipline':'Minor'}, filter: power => ( ['Minor'].includes(power.discipline) ) },
       ],
       access: [
         'Minor',

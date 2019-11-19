@@ -123,7 +123,6 @@
 
 <script lang="js">
 import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
@@ -131,13 +130,14 @@ export default {
   layout: 'forge',
   props: [],
   mixins: [
-    ArchetypeRepositoryMixin,
     AscensionRepositoryMixin,
     StatRepositoryMixin,
   ],
-  asyncData({ params }) {
+  async asyncData({ params, $axios }) {
+    const archetypeResponse = await $axios.get(`/api/archetypes/?source=core,coreab`);
     return {
       characterId: params.id,
+      archetypeRepository: archetypeResponse.data,
     };
   },
   head() {

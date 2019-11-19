@@ -10,7 +10,7 @@ router.get('/', (request, response) => {
 
   const items = ascensionPackagesRepository;
 
-  //response.set('Cache-Control', 'public, max-age=3600'); // one year
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);
 });
 

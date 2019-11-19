@@ -80,13 +80,14 @@
            class="text-lg-justify"
       >
         <p><strong>{{ ability.name }}:</strong> {{ ability.effect}}</p>
-        <div v-if="item.psychicPowers && psychicPowersRepository">
+        <div v-if="item.psychicPowers">
 
-          <div v-for="option in item.psychicPowers.discount" v-bind:key="option.name">
+          <div v-for="option in psychicPowersDiscount" v-bind:key="option.name">
             <v-select
-              v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
+              v-if="option.values"
               v-model="option.selected"
-              v-bind:items="psychicPowersRepository.filter(option.filter)"
+              v-bind:readonly="option.values.length <= 1"
+              v-bind:items="option.values"
               v-bind:hint="psychicPowerHint(option.selected)"
               v-on:change="updatePsychicPowers(option)"
               item-value="name"
@@ -148,10 +149,6 @@ export default {
       type: Array,
       required: false,
     },
-    psychicPowersRepository: {
-      type: Array,
-      required: false,
-    },
     manageMode: {
       type: Boolean,
       default: false,
@@ -163,8 +160,24 @@ export default {
   },
   data() {
     return {
-
+      psychicPowersDiscount: [],
     };
+  },
+  created() {
+
+    this.item.psychicPowers.discount.forEach( async (d) => {
+
+      const con = {
+        params: {
+          ...d.query,
+          fields: 'id,name,effect,discipline',
+        }
+      };
+      const powersResponse = await this.$axios.get(`/api/psychic-powers/`, con);
+      d['values'] = powersResponse.data;
+      this.psychicPowersDiscount.push(d);
+    });
+    //console.log(this.item.psychicPowers.discount);
   },
   methods: {
     getAvatar(name) {
@@ -220,13 +233,13 @@ export default {
       placeholder.selected = selection;
     },
     psychicPowerHint(powerName) {
-
+/*
       const power = this.psychicPowersRepository.find( p => p.name === powerName );
 
       if ( power ) {
         return power.effect;
       }
-
+*/
       return '';
     },
     updatePsychicPowers(option) {

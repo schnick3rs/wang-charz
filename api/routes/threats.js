@@ -10,7 +10,7 @@ router.get('/', (request, response) => {
 
   const items = threatRepository;
 
-  response.set('Cache-Control', 'public, max-age=3600'); // one year
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);
 });
 
@@ -22,5 +22,6 @@ router.get('/:slug', (request, response) => {
 
   const item = threatRepository.find( threat => threat.key === key );
 
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);
 });

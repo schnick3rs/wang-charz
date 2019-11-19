@@ -21,6 +21,7 @@ router.get('/', (request, response) => {
     }
   }
 
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);
 });
 
@@ -32,6 +33,7 @@ router.get('/chapters/', (request, response) => {
   let items = [];
   items = chaptersRepository;
 
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);
 });
 
@@ -43,5 +45,6 @@ router.get('/:slug', (request, response) => {
 
   const item = speciesRepository.find( archetype => archetype.key === key );
 
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);
 });

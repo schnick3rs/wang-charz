@@ -430,18 +430,14 @@
 </template>
 
 <script lang="js">
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
 import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Print',
   layout: 'print',
   mixins: [
-    ArchetypeRepositoryMixin,
     BackgroundRepositoryMixin,
-    SpeciesRepositoryMixin,
     StatRepositoryMixin,
   ],
   props: [],
@@ -451,15 +447,15 @@ export default {
     const wargearResponse = await $axios.get(`/api/wargear/`);
     const psychicPowersResponse = await $axios.get(`/api/psychic-powers/`);
     const objectiveResponse = await $axios.get(`/api/archetypes/objectives/`);
+    const chaptersResponse = await $axios.get(`/api/species/chapters/`);
     const speciesResponse = await $axios.get(`/api/species/${sourceFilter}`);
-
-    console.info(objectiveResponse);
 
     return {
       characterId: params.id,
-      speciesRepository: speciesResponse.data,
+      astartesChapterRepository: chaptersResponse.data,
       objectiveRepository: objectiveResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
+      speciesRepository: speciesResponse.data,
       talentRepository: talentResponse.data,
       wargearRepository: wargearResponse.data,
     };
@@ -603,7 +599,7 @@ export default {
                   });
                 }
               } else {
-                const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
+                const ability = species.abilityObjects.find(a => a.name === speciesAbilityName);
                 ability['source'] = this.characterSpeciesLabel;
                 abilities.push(ability);
               }
