@@ -2,7 +2,9 @@
 
   <v-row justify="center">
 
-    <v-progress-circular v-if="!species" indeterminate color="success" size="128" width="12"></v-progress-circular>
+    <v-overlay :value="!species" dark opacity="0.3">
+      <v-progress-circular v-if="!species" indeterminate color="success" size="128" width="12"></v-progress-circular>
+    </v-overlay>
 
     <v-col v-if="species" v-bind:xs="12">
       <species-preview

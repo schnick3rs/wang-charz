@@ -23,7 +23,9 @@
 
     <v-col xs12>
 
-      <v-progress-circular v-if="!speciesList" indeterminate color="success" size="128" width="12"></v-progress-circular>
+      <v-overlay :value="!speciesList" dark opacity="0.3">
+        <v-progress-circular v-if="!speciesList" indeterminate color="success" size="128" width="12"></v-progress-circular>
+      </v-overlay>
 
       <v-card v-if="speciesList">
         <v-list>

@@ -43,7 +43,7 @@ router.get('/', async (request, response) => {
     filter['value-leq'] = filterValueLowerEqualString;
     if (filter['value-leq']) {
       where += (where.length>0) ? ' AND ' : ' WHERE ';
-      where += ` value <= ${toP(filter['value-leq'], params.length)} )`;
+      where += ` value <= ${toP(filter['value-leq'], params.length)}  `;
       params.push(...filter['value-leq']);
     }
   }
@@ -53,7 +53,7 @@ router.get('/', async (request, response) => {
     filter['name'] = filterNameString.split(',');
     if (filter.name) {
       where += (where.length>0) ? ' AND ' : ' WHERE ';
-      where += ` rarity in ( ${toP(filter.name, params.length).join("','")} )`;
+      where += ` name in ( ${toP(filter.name, params.length).join(",")} )`;
       params.push(...filter.name);
     }
   }

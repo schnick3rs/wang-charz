@@ -127,7 +127,7 @@ module.exports = {
   */
   axios: {
     //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
-    baseURL: 'https://www.doctors-of-doom.com',
+    //baseURL: 'https://www.doctors-of-doom.com',
     //baseURL: 'http://localhost:3000',
     browserBaseURL: '/',
     // debug: process.env.NODE_ENV !== 'production',

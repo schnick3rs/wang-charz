@@ -218,10 +218,12 @@
 </template>
 
 <script>
+import SluggerMixin from '~/mixins/SluggerMixin';
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 import SchemaFaqPage from '~/assets/SchemaFaqPage.json';
 
 export default {
+  mixns: [ SluggerMixin ],
   components: {},
   head() {
 
@@ -365,9 +367,6 @@ export default {
         this.pagination.sortBy = column;
         this.pagination.descending = false;
       }
-    },
-    stringToKebab(text) {
-      return text.toLowerCase().replace(/\W/gm, '-');
     },
     trackExpand(event) {
       if ( event.value === true ) {
