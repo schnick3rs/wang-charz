@@ -1,4 +1,5 @@
 <template lang="html">
+
   <v-card>
 
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
@@ -137,8 +138,10 @@ export default {
     },
   },
   async mounted() {
-    const chaptersResponse = await this.$axios.get(`/api/species/chapters/?source=core,coreab`);
-    this.astartesChapterRepository = chaptersResponse.data;
+    if ( this.manageMode ) {
+      const chaptersResponse = await this.$axios.get(`/api/species/chapters/?source=core,coreab`);
+      this.astartesChapterRepository = chaptersResponse.data;
+    }
   },
   data() {
     return {

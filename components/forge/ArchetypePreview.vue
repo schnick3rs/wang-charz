@@ -165,19 +165,20 @@ export default {
   },
   created() {
 
-    this.item.psychicPowers.discount.forEach( async (d) => {
+    if ( this.item.psychicPowers ) {
+      this.item.psychicPowers.discount.forEach( async (d) => {
 
-      const con = {
-        params: {
-          ...d.query,
-          fields: 'id,name,effect,discipline',
-        }
-      };
-      const powersResponse = await this.$axios.get(`/api/psychic-powers/`, con);
-      d['values'] = powersResponse.data;
-      this.psychicPowersDiscount.push(d);
-    });
-    //console.log(this.item.psychicPowers.discount);
+        const con = {
+          params: {
+            ...d.query,
+            fields: 'id,name,effect,discipline',
+          }
+        };
+        const powersResponse = await this.$axios.get(`/api/psychic-powers/`, con);
+        d['values'] = powersResponse.data;
+        this.psychicPowersDiscount.push(d);
+      });
+    }
   },
   methods: {
     getAvatar(name) {

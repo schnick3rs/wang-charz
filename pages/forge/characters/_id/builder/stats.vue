@@ -140,15 +140,16 @@ export default {
       archetypeRepository: archetypeResponse.data,
     };
   },
+  data() {
+    return {
+      selectedAttribute: undefined,
+      archetypeRepository: [],
+    };
+  },
   head() {
     return {
       title: 'Select Attributes & Skills',
     }
-  },
-  data() {
-    return {
-      selectedAttribute: undefined,
-    };
   },
   methods: {
     incrementSkill(skill) {
@@ -195,7 +196,7 @@ export default {
       return 3 + tier;
     },
     ensurePrerequisites(){
-      const archetype = this.archetypeRepository.find( archetype => archetype.name == this.archetype );
+      const archetype = this.archetypeRepository.find( archetype => archetype.name == this.characterArchetypeLabel );
 
       if ( archetype && archetype.prerequisites.length > 0 ) {
         archetype.prerequisites.forEach(prerequisite => {
@@ -255,7 +256,8 @@ export default {
       return alerts;
     },
     archetypePrerequisitesValid() {
-      const archetype = this.archetypeRepository.find( archetype => archetype.name == this.archetype );
+
+      const archetype = this.archetypeRepository.find( archetype => archetype.name == this.characterArchetypeLabel );
 
       let fulfilled = true;
       if ( archetype && archetype.prerequisites.length > 0 ) {
@@ -311,6 +313,9 @@ export default {
     // Character Data
     settingTier(){
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterArchetypeLabel() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
     characterAttributeCosts(){
       return this.$store.getters['characters/characterAttributeCostsById'](this.characterId);

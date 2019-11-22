@@ -40,7 +40,7 @@ const simpleStub = function(sourceKey, sourcePage, group, name, hint, bp, tier) 
     hint: hint,
     group: group,
     cost: bp,
-    tier: tier,
+    baseTier: tier,
   };
 };
 
