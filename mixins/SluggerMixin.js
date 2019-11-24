@@ -16,6 +16,10 @@ export default {
      */
     kebabToLowerCamelCase(kebab) {
       return kebab.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
+    },
+
+    camelToKebab(camel){
+      return camel.replace(/([a-z0-9][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
     }
   }
 }

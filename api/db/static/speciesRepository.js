@@ -41,6 +41,7 @@ const simpleStub = function(sourceKey, sourcePage, group, name, hint, bp, tier) 
     group: group,
     cost: bp,
     baseTier: tier,
+    stub: true,
   };
 };
 
@@ -326,9 +327,34 @@ const homebrewReps = [
   simpleStub('aaoa', 16, 'Mankind', 'Pharia', 'The blank, the untouched, the hated', 30, 2),
   simpleStub('aaoa', 17, 'Mankind', 'Squat', 'Abhuman and dwarfish underground variant', 15, 1),
   simpleStub('aaoa', 18, 'Mankind', 'Beastman', 'Touched by fate... eeh chaos.', 20, 1),
-  simpleStub('pax', 13, 'Mankind', 'Beastman', 'Beastly touch of unknown origin', 10, 1),
   simpleStub('pax', 14, 'Mankind', 'Navigator', 'Blessed with the third eye', 50, 1),
   simpleStub('pax', 18, 'Mankind', 'Untouchable', 'The soulless', 20, 1),
+  {
+    ...simpleStub('pax', 13, 'Mankind', 'Beastman', 'Beastly touch of unknown origin', 10, 1),
+    stub: false,
+    speed: 8,
+    attributes: 'Fellowship -1, Toughness +1 or Strength +1',
+    modifications: [
+      { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
+      { targetGroup: 'attributes', targetValue: 'Toughness', modifier: 1 },
+      { targetGroup: 'attributes', targetValue: 'Stregnth', modifier: 1 },
+    ],
+    abilities: 'Abhuman, Stable Mutation',
+    abilityObjects: [
+      {
+        key: null,
+        name: 'Abhuman',
+        effect: '+1 DN to all interaction tests with characters possessing the Imperium keyword. Beastmen can take any Tier 1 archetypes listed with a prerequisite species of Human.',
+        description: null
+      },
+      {
+        key: null,
+        name: 'Stable Mutation',
+        effect: 'All Beastmen have the Aberration Mutation (page 374 of the Wrath & Glory core rulebook) and choose an animal hybrid from Table 7-14: Hybrid Merges (page 375).',
+        description: null
+      },
+    ],
+  }
 ];
 
 module.exports = [

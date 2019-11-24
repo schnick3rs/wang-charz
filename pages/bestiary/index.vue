@@ -106,6 +106,7 @@
       <v-col v-bind:cols="12">
 
         <v-card>
+
           <v-data-table
             v-bind:headers="headers"
             v-bind:items="searchResults"
@@ -114,8 +115,8 @@
             v-bind:page.sync="pagination.page"
             v-on:item-expanded="trackExpand"
             v-on:page-count="pagination.pageCount = $event"
-            sort-by="name"
             item-key="key"
+            sort-by="name"
             show-expand
             hide-default-footer
           >
