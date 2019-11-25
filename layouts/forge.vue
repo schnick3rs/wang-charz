@@ -102,7 +102,7 @@
             icon
             v-bind:to="`/forge/characters/${$route.params.id}/builder/print`"
             v-bind:disabled="!settingSelected"
-
+            target="_blank"
           >
             <v-icon>description</v-icon>
           </v-btn>
