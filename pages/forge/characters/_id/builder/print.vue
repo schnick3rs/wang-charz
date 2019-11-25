@@ -446,6 +446,7 @@ export default {
     const talentResponse = await $axios.get(`/api/talents/`);
     const wargearResponse = await $axios.get(`/api/wargear/`);
     const psychicPowersResponse = await $axios.get(`/api/psychic-powers/`);
+    const archetypeResponse = await $axios.get(`/api/archetypes/${sourceFilter}`);
     const objectiveResponse = await $axios.get(`/api/archetypes/objectives/`);
     const chaptersResponse = await $axios.get(`/api/species/chapters/`);
     const speciesResponse = await $axios.get(`/api/species/${sourceFilter}`);
@@ -456,6 +457,7 @@ export default {
       objectiveRepository: objectiveResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
       speciesRepository: speciesResponse.data,
+      archetypeRepository: archetypeResponse.data,
       talentRepository: talentResponse.data,
       wargearRepository: wargearResponse.data,
     };
