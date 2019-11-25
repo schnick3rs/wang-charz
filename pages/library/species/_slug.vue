@@ -30,6 +30,7 @@ export default {
     DodDefaultBreadcrumbs,
     DodSpeciesDetails,
   },
+  mixins: [],
   head() {
     const title = `${this.item.name} - Species`;
     const description = this.item.source.key.indexOf('core') >= 0

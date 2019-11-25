@@ -68,12 +68,16 @@
 
 <script>
 import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
+import SluggerMixin from '~/mixins/SluggerMixin.vue';
 
 export default {
   name: "choose",
   components: {
     SpeciesPreview,
   },
+  mixins: [
+    SluggerMixin,
+  ],
   asyncData({ params }) {
     return {
       characterId: params.id,
@@ -115,17 +119,14 @@ export default {
       this.speciesList = data;
     },
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      const slug = this.textToKebab(name);
       return `/img/icon/species/species_${slug}_avatar.png`;
     },
     async updatePreview(item) {
-      const slug = this.computeSlug(item.key);
+      const slug = this.camelToKebab(item.key);
       const speciesDetails = await this.$axios.get(`/api/species/${slug}`);
       this.selectedSpecies = speciesDetails.data;
       this.speciesDialog = true;
-    },
-    computeSlug(key) {
-      return key.replace(/([a-z0-9][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
     },
     selectSpeciesForChar(species) {
       this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { value: species.name, cost: species.cost } });

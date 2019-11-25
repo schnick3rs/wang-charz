@@ -175,7 +175,7 @@
             </template>
 
             <template v-slot:item.actions="{ item }">
-              <v-btn small icon nuxt v-bind:to="`/bestiary/${computeSlug(item.key)}`">
+              <v-btn small icon nuxt v-bind:to="`/bestiary/${camelToKebab(item.key)}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
@@ -189,7 +189,7 @@
 
                   <v-btn
                     nuxt
-                    v-bind:to="`/bestiary/${computeSlug(item.key)}`"
+                    v-bind:to="`/bestiary/${camelToKebab(item.key)}`"
                     color="success"
                   >Show Details Page</v-btn>
 
@@ -237,13 +237,16 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodThreatDetails from '~/components/DodThreatDetails';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   components: {
     DodDefaultBreadcrumbs,
     DodThreatDetails,
   },
-  mixins: [],
+  mixins: [
+    SluggerMixin,
+  ],
   head() {
 
     const breadcrumbListSchema = {
@@ -385,8 +388,7 @@ export default {
     getAvatar(factionLabel) {
 
       if ( factionLabel !== undefined ) {
-        const slug = factionLabel.toLowerCase().replace(/\s/gm, '-');
-        return `/img/bestiary/faction_${slug}_avatar.png`;
+        return `/img/bestiary/faction_${this.textToKebab(factionLabel)}_avatar.png`;
       }
       return `/img/icon/species/species_human_avatar.png`;
     },
@@ -407,7 +409,7 @@ export default {
     },
     trackExpand(event) {
       if ( event.value === true ) {
-        this.$ga.event('Bestiary Row', 'expand', this.computeSlug(event.item.key), 1);
+        this.$ga.event('Bestiary Row', 'expand', this.camelToKebab(event.item.key), 1);
       }
     },
     getClassificationColor(classification) {
@@ -416,9 +418,6 @@ export default {
         case 'Elite': return 'yellow';
         case 'Adversary': return 'orange';
       }
-    },
-    computeSlug(key) {
-      return key.replace(/([a-z0-9][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
     },
   },
 };

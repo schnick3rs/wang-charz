@@ -199,11 +199,14 @@
 </template>
 
 <script lang="js">
+import SluggerMixin from '~/mixins/SluggerMixin';
 import { mapGetters } from 'vuex';
 
 export default {
   name: 'my-characters',
-  mixins: [],
+  mixins: [
+    SluggerMixin,
+  ],
   props: [],
   data() {
     return {
@@ -282,13 +285,11 @@ export default {
     getAvatar(speciesLabel, archetypeLabel) {
 
       if ( archetypeLabel !== undefined && !['Ratling','Ogryn'].includes(speciesLabel) ) {
-        const slug = archetypeLabel.toLowerCase().replace(/\s/gm, '-');
-        return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+        return `/img/icon/archetype/archetype_${this.textToKebab(archetypeLabel)}_avatar.png`;
       }
 
       if ( speciesLabel !== undefined ) {
-        const slug = speciesLabel.toLowerCase().replace(/\s/gm, '-');
-        return `/img/icon/species/species_${slug}_avatar.png`;
+        return `/img/icon/species/species_${this.textToKebab(speciesLabel)}_avatar.png`;
       }
 
       return `/img/icon/species/species_human_avatar.png`;

@@ -102,11 +102,15 @@
 
 <script>
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
+import SluggerMixin from '~/mixins/SluggerMixin.vue';
 import { mapMutations } from 'vuex';
 
 export default {
   name: "archetype-choose",
   components: { ArchetypePreview },
+  mixins: [
+    SluggerMixin,
+  ],
   asyncData({ params }) {
     return {
       characterId: params.id,
@@ -172,7 +176,7 @@ export default {
       this.itemList = data;
     },
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      const slug = this.textToKebab(name);
       return `/img/icon/archetype/archetype_${slug}_avatar.png`;
     },
     archetypesByGroup(groupName) {

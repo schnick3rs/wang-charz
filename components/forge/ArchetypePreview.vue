@@ -128,13 +128,15 @@
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
 import WargearRepository from '~/mixins/WargearRepositoryMixin';
+import SluggerMixin from '~/mixins/SluggerMixin.vue';
 
 export default {
   name: 'archetype-preview',
   mixins: [
     KeywordRepository,
     StatRepository,
-    WargearRepository
+    WargearRepository,
+    SluggerMixin,
   ],
   props: {
     characterId: {
@@ -182,7 +184,7 @@ export default {
   },
   methods: {
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      const slug = this.textToKebab(name);
       return `/img/icon/archetype/archetype_${slug}_avatar.png`;
     },
     keywordOptions(wildcard) {

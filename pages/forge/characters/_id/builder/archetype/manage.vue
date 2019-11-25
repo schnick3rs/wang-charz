@@ -22,10 +22,14 @@
 
 <script>
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
+import SluggerMixin from '~/mixins/SluggerMixin.vue';
 
 export default {
   name: "manage",
   components: { ArchetypePreview },
+  mixins: [
+    SluggerMixin,
+  ],
   asyncData({ params }) {
     return {
       characterId: params.id,
@@ -60,8 +64,8 @@ export default {
   methods: {
     async getArchetype(name) {
       this.loading = true;
-      const slug = name.toLowerCase().replace(/\W/gm, '-');
-      const {data} = await this.$axios.get(`/api/archetypes/${slug}`)
+      const slug = this.textToKebab(name);
+      const {data} = await this.$axios.get(`/api/archetypes/${slug}`);
       this.loading = false;
       this.item = data;
     },

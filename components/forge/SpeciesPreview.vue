@@ -119,10 +119,13 @@
 </template>
 
 <script lang="js">
+import SluggerMixin from '~/mixins/SluggerMixin.vue';
 
 export default {
   name: 'SpeciesPreview',
-  mixins: [],
+  mixins: [
+    SluggerMixin,
+  ],
   props: {
     species: {
       type: Object,
@@ -152,8 +155,7 @@ export default {
   },
   methods: {
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
-      return `/img/icon/species/species_${slug}_avatar.png`;
+      return `/img/icon/species/species_${this.textToKebab(name)}_avatar.png`;
     },
     getChapterTraditions(chapterName) {
       const chapter = this.astartesChapterRepository.find(a => a.name === chapterName) || [];

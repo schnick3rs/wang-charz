@@ -6,13 +6,16 @@
 
 <script lang="js">
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
+import SluggerMixin from '~/mixins/SluggerMixin';
 import { mapMutations } from 'vuex';
 
 export default {
   name: 'Archetype',
   layout: 'forge',
   components: { ArchetypePreview },
-  mixins: [],
+  mixins: [
+    SluggerMixin,
+  ],
   props: [],
   head() {
     return {
@@ -56,8 +59,7 @@ export default {
   methods: {
     ...mapMutations('characters', ['setCharacterArchetype']),
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
-      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+      return `/img/icon/archetype/archetype_${this.textToKebab(name)}_avatar.png`;
     },
     doChangeMode() {
       this.changeMode = true;

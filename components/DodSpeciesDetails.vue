@@ -81,10 +81,13 @@
 </template>
 
 <script lang="js">
+import SluggerMixin from '~/mixins/SluggerMixin.vue';
 
 export default {
   name: 'species-details',
-  mixins: [],
+  mixins: [
+    SluggerMixin,
+  ],
   props: {
     item: {
       type: Object,
@@ -93,8 +96,7 @@ export default {
   },
   computed: {
     avatar() {
-      const slug = this.item.name.toLowerCase().replace(/\s/gm, '-');
-      return `/img/icon/species/species_${slug}_avatar.png`;
+      return `/img/icon/species/species_${this.textToKebab(this.item.name)}_avatar.png`;
     },
   },
   methods: {

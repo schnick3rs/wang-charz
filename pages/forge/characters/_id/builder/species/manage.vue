@@ -19,12 +19,16 @@
 
 <script>
 import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
+import SluggerMixin from '~/mixins/SluggerMixin.vue';
 
 export default {
   name: "manage",
   components: {
     SpeciesPreview,
   },
+  mixins: [
+    SluggerMixin,
+  ],
   asyncData({ params }) {
     return {
       characterId: params.id,
@@ -59,7 +63,7 @@ export default {
   methods: {
     async getSpecies(name) {
       this.loading = true;
-      const slug = name.toLowerCase().replace(/\W/gm, '-');
+      const slug = this.textToKebab(name);
       const {data} = await this.$axios.get(`/api/species/${slug}`)
       const chapter = this.characterSpeciesAstartesChapter;
       if (chapter) {

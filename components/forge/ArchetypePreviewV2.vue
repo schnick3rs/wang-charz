@@ -138,7 +138,7 @@ export default {
   },
   methods: {
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
+      const slug = this.textToKebab(name);
       return `/img/icon/archetype/archetype_${slug}_avatar.png`;
     },
   },

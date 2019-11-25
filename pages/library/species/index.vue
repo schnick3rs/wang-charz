@@ -133,7 +133,7 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodSpeciesDetails from '~/components/DodSpeciesDetails';
-import SluggerMixin from '../../../mixins/SluggerMixin';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   components: {
