@@ -30,6 +30,26 @@ export default {
     DodDefaultBreadcrumbs,
     DodSpeciesDetails,
   },
+  head() {
+    const title = `${this.item.name} - Species`;
+    const description = this.item.source.key.indexOf('core') >= 0
+      ? `The ${this.item.name} from ${this.item.group} is an official Species described in the ${this.item.source.book}.`
+      : `The ${this.item.name} from ${this.item.group} is a homebrew Species provided by ${this.item.source.book}.`;
+    const image = this.item.thumbnail
+      ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
+      : `https://www.doctors-of-doom.com/img/bestiary/faction_${this.item.group.toLowerCase()}_avatar.png`;
+
+    return {
+      titleTemplate: '%s | Wrath & Glory Library',
+      title: title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+      ],
+    };
+  },
   async asyncData({ params, $axios, error }) {
     const slug = params.slug;
 
