@@ -162,7 +162,7 @@
                         <li v-for="parts in item.topics" v-bind:key="parts">
                           <nuxt-link
                             v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
-                            v-bind:to="`/library/${stringToKebab(parts)}?filter-source=${item.key}`"
+                            v-bind:to="`/library/${camelToKebab(parts)}?filter-source=${item.key}`"
                           >
                             {{ parts }}
                           </nuxt-link>
@@ -223,7 +223,8 @@ import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 import SchemaFaqPage from '~/assets/SchemaFaqPage.json';
 
 export default {
-  mixns: [ SluggerMixin ],
+  name: 'vault',
+  mixins: [ SluggerMixin ],
   components: {},
   head() {
 
@@ -318,12 +319,8 @@ export default {
   computed: {
     breadcrumbItems() {
       return [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Vault', nuxt: true, exact: true, to: '/vault',
-        },
+        { text: '', nuxt: true, exact: true, to: '/' },
+        { text: 'Vault', nuxt: true, exact: true, to: '/vault' },
       ];
     },
     settingOptions() {
