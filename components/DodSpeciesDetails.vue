@@ -81,7 +81,7 @@
 </template>
 
 <script lang="js">
-import SluggerMixin from '~/mixins/SluggerMixin.vue';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: 'species-details',

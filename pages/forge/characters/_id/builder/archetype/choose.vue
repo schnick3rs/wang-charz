@@ -102,7 +102,7 @@
 
 <script>
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
-import SluggerMixin from '~/mixins/SluggerMixin.vue';
+import SluggerMixin from '~/mixins/SluggerMixin';
 import { mapMutations } from 'vuex';
 
 export default {

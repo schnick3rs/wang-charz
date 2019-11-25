@@ -22,7 +22,7 @@
 
 <script>
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
-import SluggerMixin from '~/mixins/SluggerMixin.vue';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: "manage",

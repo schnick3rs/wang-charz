@@ -68,7 +68,7 @@
 
 <script>
 import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
-import SluggerMixin from '~/mixins/SluggerMixin.vue';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: "choose",

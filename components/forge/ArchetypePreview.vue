@@ -128,7 +128,7 @@
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
 import WargearRepository from '~/mixins/WargearRepositoryMixin';
-import SluggerMixin from '~/mixins/SluggerMixin.vue';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: 'archetype-preview',
