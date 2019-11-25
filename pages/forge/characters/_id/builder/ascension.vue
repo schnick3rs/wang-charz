@@ -245,7 +245,6 @@
 <script lang="js">
 import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
 import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
 import AscensionPreview from '~/components/forge/AscensionPreview.vue';
 import KeywordSelect from '~/components/forge/KeywordSelect.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
@@ -254,7 +253,10 @@ export default {
   name: 'Ascension',
   layout: 'forge',
   props: [],
-  mixins: [ArchetypeRepositoryMixin, AscensionRepositoryMixin, KeywordRepositoryMixin],
+  mixins: [
+    AscensionRepositoryMixin,
+    KeywordRepositoryMixin
+  ],
   components: { AscensionPreview, KeywordSelect, WargearSelect },
   head() {
     return {
@@ -264,10 +266,12 @@ export default {
   async asyncData({ params, $axios, error }) {
     const wargearResponse = await $axios.get(`/api/wargear/`);
     const powersResponse = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
+    const archetypeResponse = await $axios.get(`/api/archetypes/?source=core,coreab`);
     return {
-      wargearRepository: wargearResponse.data,
-      psychicPowersRepository: powersResponse.data,
       characterId: params.id,
+      archetypeRepository: archetypeResponse.data,
+      psychicPowersRepository: powersResponse.data,
+      wargearRepository: wargearResponse.data,
     };
   },
   data() {

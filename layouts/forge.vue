@@ -88,14 +88,14 @@
         <v-toolbar-items>
           <v-btn small text nuxt v-bind:to="`/forge/my-characters`" icon><v-icon>supervisor_account</v-icon></v-btn>
           <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/setting`" >Setting</v-btn>
-          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/species`" v-bind:disabled="!settingSelected">1. Species</v-btn>
-          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/archetype`" v-bind:disabled="!settingSelected">2. Archetype</v-btn>
-          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/ascension`" v-bind:disabled="!settingSelected">3. Ascension</v-btn>
-          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/stats`" v-bind:disabled="!settingSelected">4. Stats</v-btn>
-          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/talents`" v-bind:disabled="!settingSelected">5. Talents</v-btn>
-          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/wargear`" v-bind:disabled="!settingSelected">6. Wargear</v-btn>
-          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/psychic-powers`" v-bind:disabled="!settingSelected">7. Psychic Powers</v-btn>
-          <v-btn small text nuxt v-bind:to="`/forge/characters/${$route.params.id}/builder/background`" v-bind:disabled="!settingSelected" >8. Background</v-btn>
+          <v-btn small text nuxt v-bind:to="routes.species" v-bind:disabled="!settingSelected">1. Species</v-btn>
+          <v-btn small text nuxt v-bind:to="routes.archetype" v-bind:disabled="!settingSelected">2. Archetype</v-btn>
+          <v-btn small text nuxt v-bind:to="routes.ascension" v-bind:disabled="!settingSelected">3. Ascension</v-btn>
+          <v-btn small text nuxt v-bind:to="routes.stats" v-bind:disabled="!settingSelected">4. Stats</v-btn>
+          <v-btn small text nuxt v-bind:to="routes.talents" v-bind:disabled="!settingSelected">5. Talents</v-btn>
+          <v-btn small text nuxt v-bind:to="routes.wargear" v-bind:disabled="!settingSelected">6. Wargear</v-btn>
+          <v-btn small text nuxt v-bind:to="routes.psychic" v-bind:disabled="!settingSelected">7. Psychic Powers</v-btn>
+          <v-btn small text nuxt v-bind:to="routes.background" v-bind:disabled="!settingSelected" >8. Background</v-btn>
           <v-btn
             small
             nuxt
@@ -249,25 +249,45 @@ export default {
         this.drawer.open = !this.drawer.open;
       }
     },
+    routeBuilder(parent, child) {
+      if ( child ) {
+        return { name: `forge-characters-id-builder-${parent}-${child}`, params: { id: this.$route.params.id} };
+      }
+      return { name: `forge-characters-id-builder-${parent}`, params: { id: this.$route.params.id} };
+    },
   },
   computed: {
+    routes() {
+      return {
+        species: this.routeBuilder('species', this.characterSpeciesLabel ? 'manage' : 'choose'),
+        archetype: this.routeBuilder('archetype', this.characterArchetype ? 'manage' : 'choose'),
+        ascension: this.routeBuilder('ascension'),
+        stats: this.routeBuilder('stats'),
+        talents: this.routeBuilder('talents'),
+        psychic: this.routeBuilder('psychic-powers'),
+        wargear: this.routeBuilder('wargear'),
+        background: this.routeBuilder('background'),
+      };
+    },
     helperBox() {
       return [
         { divider: true },
-        { id: 1, path: `/forge/characters/${this.$route.params.id}/builder/species`, hint: 'Species', text: this.characterSpeciesLabel, cost: this.characterSpeciesCost },
-        { id: 2, path: `/forge/characters/${this.$route.params.id}/builder/archetype`, hint: 'Archetype', text: this.characterArchetype, cost: this.characterArchetypeCost },
-        { id: 3, path: `/forge/characters/${this.$route.params.id}/builder/ascension`, hint: 'Ascension Packages', text: this.characterAscension, cost: this.characterAscensionCost },
-        { id: 4, path: `/forge/characters/${this.$route.params.id}/builder/stats`, hint: 'Stats', text: 'Attributes & Skills', cost: this.characterAttributeCost + this.characterSkillCost },
-        { id: 5, path: `/forge/characters/${this.$route.params.id}/builder/talents`, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.characterTalentCost },
-        { id: 7, path: `/forge/characters/${this.$route.params.id}/builder/psychic-powers`, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.characterPsychicPowerCost },
+        { id: 1, path: this.routes.species, hint: 'Species', text: this.characterSpeciesLabel, cost: this.characterSpeciesCost },
+        { id: 2, path: this.routes.archetype, hint: 'Archetype', text: this.characterArchetype, cost: this.characterArchetypeCost },
+        { id: 3, path: this.routes.ascension, hint: 'Ascension Packages', text: this.characterAscension, cost: this.characterAscensionCost },
+        { id: 4, path: this.routes.stats, hint: 'Stats', text: 'Attributes & Skills', cost: this.characterAttributeCost + this.characterSkillCost },
+        { id: 5, path: this.routes.talents, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.characterTalentCost },
+        { id: 7, path: this.routes.psychic, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.characterPsychicPowerCost },
         { divider: true },
-        { id: 6, path: `/forge/characters/${this.$route.params.id}/builder/wargear`, hint: '', text: 'Wargear', cost: undefined },
-        { id: 8, path: `/forge/characters/${this.$route.params.id}/builder/background`, hint: 'Background', text: this.characterBackground, cost: undefined },
+        { id: 6, path: this.routes.wargear, hint: '', text: 'Wargear', cost: undefined },
+        { id: 8, path: this.routes.background, hint: 'Background', text: this.characterBackground, cost: undefined },
       ];
     },
 
     linkCurrentIndex(){
-      const currentRoute = this.helperBox.find( i => i.path === this.$route.path );
+      const currentRoute = this.helperBox
+        .filter( i => i.path !== undefined )
+        .find( i => i.path.name === this.$route.name );
       return currentRoute !== undefined ? currentRoute.id : 0;
     },
 
@@ -336,8 +356,6 @@ export default {
     characterBackground() {
       return this.$store.getters['characters/characterBackgroundLabelById'](this.$route.params.id);
     },
-
-
     characterSpeciesCost() {
       return this.$store.getters['characters/characterSpeciesCostsById'](this.$route.params.id);
     },

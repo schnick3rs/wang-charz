@@ -1,4 +1,5 @@
 <template lang="html">
+
   <v-card>
 
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
@@ -56,7 +57,7 @@
         <p><v-divider></v-divider></p>
 
         <div
-          v-for="ability in abilityObjects"
+          v-for="ability in species.abilityObjects"
           v-if="species.abilities"
           class="text-lg-justify"
         >
@@ -118,11 +119,13 @@
 </template>
 
 <script lang="js">
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: 'SpeciesPreview',
-  mixins: [SpeciesRepositoryMixin],
+  mixins: [
+    SluggerMixin,
+  ],
   props: {
     species: {
       type: Object,
@@ -137,22 +140,22 @@ export default {
       default: false,
     },
   },
+  async mounted() {
+    if ( this.manageMode ) {
+      const chaptersResponse = await this.$axios.get(`/api/species/chapters/?source=core,coreab`);
+      this.astartesChapterRepository = chaptersResponse.data;
+    }
+  },
   data() {
-    return {}
+    return {
+      astartesChapterRepository: [],
+    }
   },
   computed: {
-    abilityObjects() {
-      if (this.speciesAbilitiesRepository) {
-        const abilities = this.species.abilities ? this.species.abilities.split(',') : [];
-        return this.speciesAbilitiesRepository.filter(a => abilities.includes(a.name));
-      }
-      return [];
-    },
   },
   methods: {
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
-      return `/img/icon/species/species_${slug}_avatar.png`;
+      return `/img/icon/species/species_${this.textToKebab(name)}_avatar.png`;
     },
     getChapterTraditions(chapterName) {
       const chapter = this.astartesChapterRepository.find(a => a.name === chapterName) || [];

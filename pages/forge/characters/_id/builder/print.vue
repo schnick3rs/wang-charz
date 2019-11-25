@@ -430,31 +430,36 @@
 </template>
 
 <script lang="js">
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
 import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Print',
   layout: 'print',
   mixins: [
-    ArchetypeRepositoryMixin,
     BackgroundRepositoryMixin,
-    SpeciesRepositoryMixin,
     StatRepositoryMixin,
   ],
   props: [],
-  async asyncData({ params, $axios, error }) {
+  async asyncData({ params, $axios }) {
+    const sourceFilter = `?source=core,coreab`;
     const talentResponse = await $axios.get(`/api/talents/`);
     const wargearResponse = await $axios.get(`/api/wargear/`);
     const psychicPowersResponse = await $axios.get(`/api/psychic-powers/`);
+    const archetypeResponse = await $axios.get(`/api/archetypes/${sourceFilter}`);
+    const objectiveResponse = await $axios.get(`/api/archetypes/objectives/`);
+    const chaptersResponse = await $axios.get(`/api/species/chapters/`);
+    const speciesResponse = await $axios.get(`/api/species/${sourceFilter}`);
 
     return {
-      wargearRepository: wargearResponse.data,
-      talentRepository: talentResponse.data,
-      psychicPowersRepository: psychicPowersResponse.data,
       characterId: params.id,
+      astartesChapterRepository: chaptersResponse.data,
+      objectiveRepository: objectiveResponse.data,
+      psychicPowersRepository: psychicPowersResponse.data,
+      speciesRepository: speciesResponse.data,
+      archetypeRepository: archetypeResponse.data,
+      talentRepository: talentResponse.data,
+      wargearRepository: wargearResponse.data,
     };
   },
   head() {
@@ -596,7 +601,7 @@ export default {
                   });
                 }
               } else {
-                const ability = this.speciesAbilitiesRepository.find(a => a.name === speciesAbilityName);
+                const ability = species.abilityObjects.find(a => a.name === speciesAbilityName);
                 ability['source'] = this.characterSpeciesLabel;
                 abilities.push(ability);
               }
@@ -679,7 +684,7 @@ export default {
       return items;
     },
     objectives() {
-      if (this.archetypeLabel) {
+      if ( this.archetypeLabel && this.objectiveRepository ) {
         const archetype = this.archetypeRepository.find(a => a.name === this.archetypeLabel);
         if ( archetype ) {
           const objectiveList = this.objectiveRepository.find(o => o.group === archetype.group);

@@ -25,7 +25,7 @@
     <span class="mt-2 grey--text">Benefits</span>
     <p><v-divider ></v-divider></p>
 
-    <p class="text-lg-justify"><strong>Keywords:</strong> {{ item.keywords.split(',').join(', ') }}</p>
+    <p class="text-lg-justify"><strong>Keywords:</strong> {{ keywords }}</p>
 
     <p class="text-lg-justify"><strong>Influence Bonus:</strong> {{ item.influence }}</p>
 
@@ -64,6 +64,7 @@
         <span class="right">- from the Wrath & Glory Corerules -</span>
       </blockquote>
     </div>
+
   </div>
 
 </template>
@@ -90,12 +91,6 @@ export default {
     return {
 
     };
-  },
-  methods: {
-    getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
-      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
-    },
   },
   computed: {
     attributePrerequisites() {
@@ -133,6 +128,18 @@ export default {
         }).join(', ');
       }
       return this.item.wargear;
+    },
+    keywords() {
+      if ( this.item.keywords ) {
+        return this.item.keywords.split(',').join(', ');
+      }
+      return '';
+    },
+  },
+  methods: {
+    getAvatar(name) {
+      const slug = this.textToKebab(name);
+      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
     },
   },
 };

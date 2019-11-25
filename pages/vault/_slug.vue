@@ -94,10 +94,14 @@
 </template>
 
 <script>
+import SluggerMixin from '~/mixins/SluggerMixin';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 
 export default {
+  mixins: [
+    SluggerMixin,
+  ],
   components: {
     DodDefaultBreadcrumbs,
   },
@@ -194,9 +198,6 @@ export default {
   methods: {
     trackEvent(url) {
       this.$ga.event('Outbound Link', 'click', url, 10);
-    },
-    stringToKebab(text) {
-      return text.toLowerCase().replace(/\W/gm, '-');
     },
   },
 };

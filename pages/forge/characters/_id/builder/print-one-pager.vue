@@ -263,18 +263,14 @@
 </template>
 
 <script lang="js">
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
 import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Print',
   layout: 'print',
   mixins: [
-    ArchetypeRepositoryMixin,
     BackgroundRepositoryMixin,
-    SpeciesRepositoryMixin,
     StatRepositoryMixin,
   ],
   props: [],

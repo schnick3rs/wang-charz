@@ -29,6 +29,7 @@ router.get('/', async (request, response) => {
 
   const vaultItems = rows;
 
+  response.set('Cache-Control', 'public, max-age=1800'); // 1/2 hour
   response.status(200).json(vaultItems);
 });
 
@@ -43,5 +44,6 @@ router.get('/:slug', async (request, response) => {
 
   const vaultItem = rows[0];
 
+  response.set('Cache-Control', 'public, max-age=1800'); // 1/2 hour
   response.status(200).json(vaultItem);
 });

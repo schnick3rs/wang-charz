@@ -30,21 +30,6 @@ export default {
     DodThreatDetails,
   },
   mixins: [],
-  async asyncData({ params, $axios, error }) {
-    const slug = params.slug;
-
-    const response = await $axios.get(`/api/threats/${slug}`);
-    const item = response.data;
-
-    if ( item === undefined || item.length <= 0 ) {
-      error({ statusCode: 404, message: 'Threat not found' });
-    }
-
-    return {
-      item: item,
-      slug: slug,
-    };
-  },
   head() {
     const title = `${this.item.name} - ${this.item.faction} Threat`;
     const description = this.item.description
@@ -74,6 +59,21 @@ export default {
         },
       ],
     }
+  },
+  async asyncData({ params, $axios, error }) {
+    const slug = params.slug;
+
+    const response = await $axios.get(`/api/threats/${slug}`);
+    const item = response.data;
+
+    if ( item === undefined || item.length <= 0 ) {
+      error({ statusCode: 404, message: 'Threat not found' });
+    }
+
+    return {
+      item: item,
+      slug: slug,
+    };
   },
   computed: {
     breadcrumbItems() {

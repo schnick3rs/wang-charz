@@ -151,11 +151,10 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import ArchetypePreview from '~/components/forge/ArchetypePreviewV2';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
 
 export default {
   components: { DodDefaultBreadcrumbs, ArchetypePreview },
-  mixins: [ ArchetypeRepositoryMixin ],
+  mixins: [],
   head() {
     const title = 'Archetypes - Wrath & Glory Reference | Library';
     const description =
@@ -175,8 +174,8 @@ export default {
   },
   async asyncData({ $axios, query, params, error }) {
 
-    const response = await $axios.get(`/api/archetypes/`);
-    const items = response.data;
+    const archetypeResponse = await $axios.get(`/api/archetypes/`);
+    const items = archetypeResponse.data;
 
     if ( items === undefined || items.length <= 0 ) {
       error({ statusCode: 404, message: 'No Archetypes found!' });

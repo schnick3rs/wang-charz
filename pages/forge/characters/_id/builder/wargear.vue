@@ -159,12 +159,19 @@
 import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin';
 import WargearSearch from '~/components/forge/WargearSearch.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: 'Wargear',
   layout: 'forge',
-  mixins: [WargearRepositoryMixin],
-  components: { WargearSelect, WargearSearch },
+  mixins: [
+    WargearRepositoryMixin,
+    SluggerMixin,
+  ],
+  components: {
+    WargearSelect,
+    WargearSearch,
+  },
   props: [],
   head() {
     return {
@@ -239,8 +246,7 @@ export default {
       return '';
     },
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
-      return `/img/icon/wargear/wargear_${slug}_avatar.png`;
+      return `/img/icon/wargear/wargear_${this.textToKebab(name)}_avatar.png`;
     },
     addWargearToCharacter(wargearOptions) {
       const finalWargear = [];

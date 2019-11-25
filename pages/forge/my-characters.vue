@@ -199,16 +199,13 @@
 </template>
 
 <script lang="js">
-import {mapGetters, mapMutations, mapState} from 'vuex';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin.js';
-import SpeciesRepositoryMixin from '~/mixins/SpeciesRepositoryMixin.js';
+import SluggerMixin from '~/mixins/SluggerMixin';
+import { mapGetters } from 'vuex';
 
 export default {
   name: 'my-characters',
-  //layout: 'forge',
   mixins: [
-    ArchetypeRepositoryMixin,
-    SpeciesRepositoryMixin,
+    SluggerMixin,
   ],
   props: [],
   data() {
@@ -224,7 +221,6 @@ export default {
     };
   },
   head() {
-
     const title = 'My Characters | Forge';
     const description = 'The Forge allows you to create and organize multiple characters for the Wrath and Glory' +
       'Roleplaying game. Edit, change and view your characters online.';
@@ -239,25 +235,6 @@ export default {
         { hid: 'og:image', name: 'og:image', content: image },
       ],
     };
-  },
-  async asyncData ({ params, store, app }) {
-    /*const response = await app.$axios.get('http://localhost:3000/api/characters')
-      .catch( error => { console.warn(`Could not fetch character during async: ${error}`); });
-    if ( response && response.data) {
-      let characters = [];
-      characters = response.data.map( (charState) => {
-        return {
-          id: charState.id,
-          name: charState.name,
-          species: charState.species.value,
-          archetype: charState.archetype.value,
-          storage: 'db',
-        };
-
-      });
-      return { persistedCharacters : characters };
-    }*/
-    return { };
   },
   computed: {
     characters() {
@@ -308,13 +285,11 @@ export default {
     getAvatar(speciesLabel, archetypeLabel) {
 
       if ( archetypeLabel !== undefined && !['Ratling','Ogryn'].includes(speciesLabel) ) {
-        const slug = archetypeLabel.toLowerCase().replace(/\s/gm, '-');
-        return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+        return `/img/icon/archetype/archetype_${this.textToKebab(archetypeLabel)}_avatar.png`;
       }
 
       if ( speciesLabel !== undefined ) {
-        const slug = speciesLabel.toLowerCase().replace(/\s/gm, '-');
-        return `/img/icon/species/species_${slug}_avatar.png`;
+        return `/img/icon/species/species_${this.textToKebab(speciesLabel)}_avatar.png`;
       }
 
       return `/img/icon/species/species_human_avatar.png`;

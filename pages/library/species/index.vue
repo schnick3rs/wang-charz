@@ -64,9 +64,11 @@
             v-on:page-count="pagination.pageCount = $event"
             item-key="key"
             sort-by="name"
+            show-expand
             hide-default-footer
           >
 
+            <!-- Source Book -->
             <template v-slot:item.source.book="{ item }">
               <v-row no-gutters>
                 <v-col v-bind:cols="12">
@@ -80,12 +82,32 @@
 
             </template>
 
+            <!-- Detail Page link -->
+            <template v-slot:item.actions="{ item }">
+              <v-btn v-if="item.stub === undefined || !item.stub" small icon nuxt v-bind:to="`/library/species/${camelToKebab(item.key)}`">
+                <v-icon>chevron_right</v-icon>
+              </v-btn>
+            </template>
+
+            <!-- Expand -->
             <template v-slot:expanded-item="{ headers, item }">
               <td v-bind:colspan="headers.length">
-                <archetype-preview
-                  v-bind:item="item"
-                  class="pa-2 pt-4 pb-4"
-                ></archetype-preview>
+
+                <div class="pa-4">
+
+                  <dod-species-details
+                    v-bind:item="item"
+                    class="pa-2 pt-4 pb-4"
+                  ></dod-species-details>
+
+                  <v-btn
+                    v-if="item.stub === undefined || !item.stub"
+                    nuxt v-bind:to="`/library/species/${camelToKebab(item.key)}`"
+                    color="success"
+                  >Show Details Page</v-btn>
+
+                </div>
+
               </td>
             </template>
 
@@ -110,12 +132,17 @@
 
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
+import DodSpeciesDetails from '~/components/DodSpeciesDetails';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   components: {
     DodDefaultBreadcrumbs,
+    DodSpeciesDetails,
   },
-  mixins: [],
+  mixins: [
+    SluggerMixin,
+  ],
   head() {
     const title = 'Species - Wrath & Glory Reference | Library';
     const description =
@@ -164,7 +191,7 @@ export default {
       breadcrumbItems: [
         { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
         { text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library' },
-        { text: 'Ascension Packages', disabled: false, nuxt: true, exact: true, to: '/library/species' },
+        { text: 'Species', disabled: false, nuxt: true, exact: true, to: '/library/species' },
       ],
       searchQuery: '',
       selectedTypeFilters: [],
@@ -175,12 +202,13 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        { text: 'Name', align: 'start', value: 'name', class: '' },
-        { text: 'Group', align: 'start', value: 'group', class: '' },
-        { text: 'Hint', align: 'start', value: 'hint', class: '' },
-        { text: 'Tier', align: 'center', value: 'tier', class: '' },
-        { text: 'Cost', align: 'center', value: 'cost', class: '' },
-        { text: 'Source', align: 'start', value: 'source.book', class: '' },
+        { text: 'Name',     align: 'start',   value: 'name',        class: '' },
+        { text: 'Group',    align: 'start',   value: 'group',       class: '' },
+        { text: 'Hint',     align: 'start',   value: 'hint',        class: '' },
+        { text: 'Base Tier',align: 'center',  value: 'baseTier',    class: '' },
+        { text: 'Cost',     align: 'center',  value: 'cost',        class: '' },
+        { text: 'Source',   align: 'start',   value: 'source.book', class: '' },
+        { text: '',         align: 'end',     value: 'actions',     class: '', sortable: false, },
       ],
       expand: false,
     };

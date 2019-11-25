@@ -1,129 +1,21 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
 
-  <v-row justify="center">
-
-    <v-dialog
-      v-model="dialog"
-      width="600px"
-      scrollable
-    >
-      <archetype-preview
-        v-if="selectedArchetype"
-        v-bind:characterId="characterId"
-        v-bind:item="selectedArchetype"
-        v-on:select="selectArchetypeForChar"
-        v-on:cancel="dialog = false"
-        chooseMode
-      ></archetype-preview>
-    </v-dialog>
-
-    <v-col v-if="!characterArchetype || changeMode">
-      <h1 class="headline">Select an Archetype</h1>
-
-      <v-alert
-        v-bind:value="!characterSpeciesLabel"
-        type="warning"
-      >You need to select a Species first.</v-alert>
-    </v-col>
-
-    <v-col v-bind:cols="12" v-if="!characterArchetype || changeMode">
-      <v-text-field
-        solo
-        placeholder="Search..."
-        v-model="searchQuery"
-        prepend-inner-icon="search"
-        clearable
-      ></v-text-field>
-    </v-col>
-
-    <v-col v-bind:cols="12" v-if="!characterArchetype || changeMode">
-
-      <v-card v-if="loaded">
-
-        <div
-          v-for="(group, key) in archetypeGroups"
-          v-bind:key="key"
-        >
-
-          <v-divider></v-divider>
-
-          <v-list subheader v-if="archetypesByGroup(group).length > 0">
-
-            <v-subheader>{{ group }}</v-subheader>
-
-            <v-list-item
-              two-line
-              v-for="item in archetypesByGroup(group)"
-              v-bind:key="item.key"
-              v-on:click.stop="updatePreview(item)"
-              v-bind:disabled="!item.species.includes(characterSpeciesLabel) || item.tier > settingTier"
-            >
-
-              <v-list-item-avatar tile>
-                <img v-bind:src="getAvatar(item.name)">
-              </v-list-item-avatar>
-
-              <v-list-item-content>
-                <v-list-item-title>{{item.name}}</v-list-item-title>
-                <v-list-item-subtitle>{{item.hint}}</v-list-item-subtitle>
-              </v-list-item-content>
-
-              <v-list-item-action class="hidden-sm-and-up">
-                <v-btn dense icon>
-                  <v-icon color="primary">arrow_forward_ios</v-icon>
-                </v-btn>
-              </v-list-item-action>
-              <v-list-item-action class="hidden-xs-only">
-                <v-chip pill color="green" text-color="white">
-                  <v-avatar left class="green darken-4">{{item.cost}}</v-avatar>
-                  BP
-                </v-chip>
-              </v-list-item-action>
-              <v-list-item-action class="hidden-xs-only">
-                <v-chip pill color="red" text-color="white">
-                  <v-avatar left class="red darken-4">{{item.tier}}</v-avatar>
-                  Tier
-                </v-chip>
-              </v-list-item-action>
-
-            </v-list-item>
-
-          </v-list>
-
-        </div>
-      </v-card>
-
-    </v-col>
-
-    <v-col v-bind:cols="12" v-if="characterArchetype && !changeMode">
-
-      <archetype-preview
-        v-bind:characterId="characterId"
-        v-bind:item="characterArchetype"
-        v-bind:keywords="keywords"
-        v-bind:psychicPowersRepository="psychicPowersRepository"
-        v-on:change="doChangeMode"
-        v-on:select="selectArchetypeForChar"
-        v-on:reset="resetArchetype"
-        manageMode
-      ></archetype-preview>
-
-    </v-col>
-
-  </v-row>
+  <nuxt-child></nuxt-child>
 
 </template>
 
 <script lang="js">
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
-import ArchetypeRepositoryMixin from '~/mixins/ArchetypeRepositoryMixin';
-import { mapGetters, mapMutations } from 'vuex';
+import SluggerMixin from '~/mixins/SluggerMixin';
+import { mapMutations } from 'vuex';
 
 export default {
   name: 'Archetype',
   layout: 'forge',
   components: { ArchetypePreview },
-  mixins: [ArchetypeRepositoryMixin],
+  mixins: [
+    SluggerMixin,
+  ],
   props: [],
   head() {
     return {
@@ -131,14 +23,33 @@ export default {
     }
   },
   async asyncData({ params, $axios }) {
-    const response = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
-    return {
-      psychicPowersRepository: response.data,
-      characterId: params.id,
+    const config = {
+      params: {
+        source: 'core,coreab',
+      },
     };
+    //const archetypeResponse = await $axios.get(`/api/archetypes/`, config);
+    return {
+      characterId: params.id,
+      //psychicPowersRepository: psychicPowersResponse.data,
+      //archetypeRepository: archetypeResponse.data,
+    };
+  },
+  created() {
+    const config = {
+      params: {
+        source: 'core,coreab',
+      },
+    };
+    this.$axios.get(`/api/archetypes/`, config)
+    .then((response) => {
+      this.archetypeRepository = response.data;
+    });
+
   },
   data() {
     return {
+      archetypeRepository: [],
       dialog: false,
       changeMode: false,
       searchQuery: '',
@@ -148,8 +59,7 @@ export default {
   methods: {
     ...mapMutations('characters', ['setCharacterArchetype']),
     getAvatar(name) {
-      const slug = name.toLowerCase().replace(/\s/gm, '-');
-      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+      return `/img/icon/archetype/archetype_${this.textToKebab(name)}_avatar.png`;
     },
     doChangeMode() {
       this.changeMode = true;

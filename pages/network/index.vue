@@ -131,6 +131,15 @@ export default {
       ],
       assets: [
         {
+          name: 'Condensed Rules reference',
+          type: 'MS Word on Google Drive',
+          author: 'mikev37',
+          text: 'mikev37 produced a condensed rules reference that helps the DM (and players) in their Wrath & Glory Campaigns.',
+          parts: [
+            { title: 'Condensed Rules', url: 'https://drive.google.com/file/d/0B9hL1gAseGFMeGFrWkZQa1d1T1AwaFhTSl9MbURFMldxcFQ0/view' },
+          ],
+        },
+        {
           name: 'Form-Fillable Character Sheets',
           type: 'pdf',
           author: 'Deathbird',

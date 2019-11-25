@@ -162,7 +162,7 @@
                         <li v-for="parts in item.topics" v-bind:key="parts">
                           <nuxt-link
                             v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
-                            v-bind:to="`/library/${stringToKebab(parts)}?filter-source=${item.key}`"
+                            v-bind:to="`/library/${camelToKebab(parts)}?filter-source=${item.key}`"
                           >
                             {{ parts }}
                           </nuxt-link>
@@ -218,10 +218,13 @@
 </template>
 
 <script>
+import SluggerMixin from '~/mixins/SluggerMixin';
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 import SchemaFaqPage from '~/assets/SchemaFaqPage.json';
 
 export default {
+  name: 'vault',
+  mixins: [ SluggerMixin ],
   components: {},
   head() {
 
@@ -316,12 +319,8 @@ export default {
   computed: {
     breadcrumbItems() {
       return [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Vault', nuxt: true, exact: true, to: '/vault',
-        },
+        { text: '', nuxt: true, exact: true, to: '/' },
+        { text: 'Vault', nuxt: true, exact: true, to: '/vault' },
       ];
     },
     settingOptions() {
@@ -365,9 +364,6 @@ export default {
         this.pagination.sortBy = column;
         this.pagination.descending = false;
       }
-    },
-    stringToKebab(text) {
-      return text.toLowerCase().replace(/\W/gm, '-');
     },
     trackExpand(event) {
       if ( event.value === true ) {

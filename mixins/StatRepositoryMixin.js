@@ -1,7 +1,6 @@
 export default {
   data() {
     return {
-      // https://api.sheety.co/ff93c641-c553-4379-85c0-ca2acd417333
       attributeRepository: [
         {
           "key": "strength",
