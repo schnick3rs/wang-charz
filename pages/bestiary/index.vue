@@ -275,7 +275,10 @@ export default {
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
         { hid: 'og:description', name: 'og:description', content: description },
+
+        // Open Graph
         { hid: 'og:image', name: 'og:image', content: image },
+
         // Twitter Card
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:title', name: 'twitter:title', content: title },
