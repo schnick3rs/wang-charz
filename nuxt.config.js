@@ -22,11 +22,16 @@ module.exports = {
       { hid: 'theme-color', name: 'theme-color', content: '#4caf50' },
       { hid: 'google-site-verification', name: 'google-site-verification', content: '5Eig5Vs_1-k3HAZdkGwTDu4Tu94AM9H-xny9n80IgJ0' },
 
-      // Open Grapth (Facebook)
+      /**
+       *  Open Graph, used in facebook
+       */
       { hid: 'og:site_name', name: 'og:site_name', content: 'Doctors of Doom' },
 
-      // Twitter Card (Twittter, Discord)
-      // @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary-card-with-large-image
+      /**
+       * Twitter Card, used in Twitter, Discord
+       * @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary-card-with-large-image
+       * @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary
+       */
       { hid: 'twitter:site', name: 'twitter:site', content: '@doctors_of_doom' },
       { hid: 'twitter:creator', name: 'twitter:creator', content: '@doctors_of_doom' },
     ],

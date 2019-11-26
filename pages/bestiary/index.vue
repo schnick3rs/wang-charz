@@ -267,6 +267,7 @@ export default {
       'This Bestiary contains fan-made homebews threats to be used by the Game Master to challenge your Wrath & Glory Players. ' +
       'Filter by Campaign Tier and Faction to find various Troops of Mobs, Elite Champions and Adversaries.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_bestiary_death.png';
+    const imageTwitter = 'https://www.doctors-of-doom.com/img/artwork_bestiary_twitter.png';
 
     return {
       title: title,
@@ -279,7 +280,7 @@ export default {
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:title', name: 'twitter:title', content: title },
         { hid: 'twitter:description', name: 'twitter:description', content: description },
-        { hid: 'twitter:image', name: 'twitter:image', content: image },
+        { hid: 'twitter:image', name: 'twitter:image', content: imageTwitter },
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
