@@ -233,6 +233,13 @@ export default {
         { hid: 'og:title', name: 'og:title', content: title },
         { hid: 'og:description', name: 'og:description', content: description },
         { hid: 'og:image', name: 'og:image', content: image },
+        // Twitter Card @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary-card-with-large-image
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+        { hid: 'twitter:site', name: 'twitter:site', content: '@LuciusBrother' },
+        { hid: 'twitter:creator', name: 'twitter:creator', content: '@LuciusBrother' },
+        { hid: 'twitter:title', name: 'twitter:title', content: title },
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
+        { hid: 'twitter:image', name: 'twitter:image', content: image },
       ],
     };
   },
