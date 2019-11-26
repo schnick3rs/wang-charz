@@ -69,16 +69,6 @@ export default {
         { hid: 'og:description', name: 'og:description', content: description },
         { hid: 'og:image', name: 'og:image', content: image },
       ],
-
-      title: 'Doctors of Doom | A Wrath & Glory fan page',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Within the Warhammer 40k Universe, the Doctors of Doom are serving the community for Wrath & Glory '
-            + 'roleplaying game. Here you can find homebrews and (in the future) other W&G related stuff.',
-        },
-      ],
     };
   },
   data() {
