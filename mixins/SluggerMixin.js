@@ -6,7 +6,7 @@ export default {
      * // \W matches any non-word character (equal to [^a-zA-Z0-9_])
      * // \s matches any whitespace character (equal to [\r\n\t\f\v ])
      *
-     * @param string
+     * @param text
      * @returns {*)
      */
     textToKebab(text) {

@@ -23,13 +23,16 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodThreatDetails from '~/components/DodThreatDetails';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   components: {
     DodDefaultBreadcrumbs,
     DodThreatDetails,
   },
-  mixins: [],
+  mixins: [
+    SluggerMixin,
+  ],
   head() {
     const title = `${this.item.name} - ${this.item.faction} Threat`;
     const description = this.item.description
@@ -37,16 +40,22 @@ export default {
       : `The ${this.item.name} from the ${this.item.faction} faction is a threat provided by ${this.item.source.book}.`;
     const image = this.item.thumbnail
       ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
-      : `https://www.doctors-of-doom.com/img/bestiary/faction_${this.item.faction.toLowerCase()}_avatar.png`;
+      : `https://www.doctors-of-doom.com/img/bestiary/faction_${this.textToKebab(this.item.faction)}_avatar.png`;
 
     return {
       titleTemplate: '%s | Wrath & Glory Bestiary',
       title: title,
       meta: [
         { hid: 'description', name: 'description', content: description },
+
+        // Open Graph
         { hid: 'og:title', name: 'og:title', content: title },
         { hid: 'og:description', name: 'og:description', content: description },
         { hid: 'og:image', name: 'og:image', content: image },
+
+        // Twitter
+        { hid: 'twitter:image', name: 'twitter:image', content: imageTwitter },
+
         {
           hid: 'keywords',
           name: 'keywords',
