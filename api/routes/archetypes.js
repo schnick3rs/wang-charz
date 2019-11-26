@@ -13,6 +13,7 @@ router.get('/', (request, response) => {
   items = archetypeRepository;
 
   const filter = {};
+
   const filterSourceString = request.query.source;
   if (filterSourceString) {
     filter['source'] = filterSourceString.split(',');

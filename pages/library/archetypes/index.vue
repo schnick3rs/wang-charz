@@ -182,9 +182,9 @@ export default {
     }
 
     // TODO
-    const factionFilterSelections = [];
-    if ( query['filter-faction'] ) {
-      factionFilterSelections.push(query['filter-group']);
+    const factionGroupSelections = [];
+    if ( query['filter-group'] ) {
+      factionGroupSelections.push(query['filter-group']);
     }
 
     const filtersSourceModel = [];
@@ -197,7 +197,7 @@ export default {
       filters: {
         settingTier: { model: 6, label: 'Filter by Archetype-Group' },
         species: { model: [], label: 'Filter by Species' },
-        group: { model: [], label: 'Filter by Archetype-Group' },
+        group: { model: factionGroupSelections, label: 'Filter by Archetype-Group' },
         source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
       }
     };
