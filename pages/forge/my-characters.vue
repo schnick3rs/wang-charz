@@ -225,6 +225,7 @@ export default {
     const description = 'The Forge allows you to create and organize multiple characters for the Wrath and Glory' +
       'Roleplaying game. Edit, change and view your characters online.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_abstract.jpg';
+    const imageTwitter = 'https://www.doctors-of-doom.com/img/artwork_forge_twitter.jpg';
 
     return {
       title: title,
@@ -233,13 +234,11 @@ export default {
         { hid: 'og:title', name: 'og:title', content: title },
         { hid: 'og:description', name: 'og:description', content: description },
         { hid: 'og:image', name: 'og:image', content: image },
-        // Twitter Card @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary-card-with-large-image
+        // Twitter Card
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'twitter:site', name: 'twitter:site', content: '@LuciusBrother' },
-        { hid: 'twitter:creator', name: 'twitter:creator', content: '@LuciusBrother' },
         { hid: 'twitter:title', name: 'twitter:title', content: title },
         { hid: 'twitter:description', name: 'twitter:description', content: description },
-        { hid: 'twitter:image', name: 'twitter:image', content: image },
+        { hid: 'twitter:image', name: 'twitter:image', content: imageTwitter },
       ],
     };
   },
