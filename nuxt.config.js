@@ -27,8 +27,8 @@ module.exports = {
 
       // Twitter Card (Twittter, Discord)
       // @see https://developer.twitter.com/en/docs/tweets/optimize-with-cards/overview/summary-card-with-large-image
-      { hid: 'twitter:site', name: 'twitter:site', content: '@brother_lucius' },
-      { hid: 'twitter:creator', name: 'twitter:creator', content: '@brother_lucius' },
+      { hid: 'twitter:site', name: 'twitter:site', content: '@doctors_of_doom' },
+      { hid: 'twitter:creator', name: 'twitter:creator', content: '@doctors_of_doom' },
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
