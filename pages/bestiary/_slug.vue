@@ -54,7 +54,7 @@ export default {
         { hid: 'og:image', name: 'og:image', content: image },
 
         // Twitter
-        { hid: 'twitter:image', name: 'twitter:image', content: imageTwitter },
+        { hid: 'twitter:image', name: 'twitter:image', content: image },
 
         {
           hid: 'keywords',
