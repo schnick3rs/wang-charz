@@ -55,7 +55,21 @@
 export default {
   components: {},
   head() {
+    const title = 'Doctors of Doom | A Wrath & Glory fan page';
+    const description =
+      'Within the Warhammer 40k Universe, the Doctors of Doom are serving the Wrath & Glory roleplaying game community. ' +
+      'Here you can find homebrews and (in the future) other W&G related stuff.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_beta-lyrae.jpg';
+
     return {
+      title: title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+      ],
+
       title: 'Doctors of Doom | A Wrath & Glory fan page',
       meta: [
         {
