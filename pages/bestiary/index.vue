@@ -279,7 +279,7 @@ export default {
         // Open Graph
         { hid: 'og:image', name: 'og:image', content: image },
 
-        // Twitter Card
+        // Twitter
         { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
         { hid: 'twitter:title', name: 'twitter:title', content: title },
         { hid: 'twitter:description', name: 'twitter:description', content: description },
