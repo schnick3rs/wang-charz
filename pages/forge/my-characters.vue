@@ -211,13 +211,18 @@ export default {
   data() {
     return {
       breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters',
-        },
-      ]
+        { text: '', nuxt: true, exact: true, to: '/' },
+        { text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters' },
+      ],
+      howTo: {
+        steps: [
+          { name: 'Select Species', text: 'Select a species. This defines the available archetypes. You may select any species that has a base tier lower or equals the Setting Tier.' },
+          { name: 'Select Archetype', text: 'Select an Archetype. The archetype provides keywords, wargear and unique abilities.' },
+          { name: 'Buy Attributes, Skills and Talents', text: 'Spend points on Attributes, Skills, Talents and Psychic Powers.' },
+          { name: 'Ascend the Character', text: 'If the current tier is lower than the Setting Tier, select one or more ascension packages.' },
+          { name: 'Select a Background', text: 'Choose a background.' },
+        ],
+      },
     };
   },
   head() {
@@ -226,6 +231,26 @@ export default {
       'Roleplaying game. Edit, change and view your characters online.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_abstract.jpg';
     const imageTwitter = 'https://www.doctors-of-doom.com/img/artwork_forge_twitter.jpg';
+
+    const howToSchema = {
+      "@context": "http://schema.org",
+      "@type": "HowTo",
+      "name": "How to create a Wrath and Glory Character",
+      "description": "Creating a Character is quite easy. Pick a Setting Tier, select species and archetype and spend your remaining build points.",
+      "tool": [
+        {
+          "@type": "HowToTool",
+          "name": "Wrath & Glory Core Rules"
+        }
+      ],
+      "step": this.howTo.steps.map( (item) => {
+        return {
+          "@type": "HowToStep",
+          "name": item.name,
+          "text": item.text,
+        }
+      }),
+    };
 
     return {
       title: title,
@@ -239,6 +264,10 @@ export default {
         { hid: 'twitter:title', name: 'twitter:title', content: title },
         { hid: 'twitter:description', name: 'twitter:description', content: description },
         { hid: 'twitter:image', name: 'twitter:image', content: imageTwitter },
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(howToSchema), type: 'application/ld+json' },
       ],
     };
   },
