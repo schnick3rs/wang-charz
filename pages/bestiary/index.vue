@@ -174,8 +174,9 @@
 
             </template>
 
+            <!-- Detail Page link -->
             <template v-slot:item.actions="{ item }">
-              <v-btn small icon nuxt v-bind:to="`/bestiary/${camelToKebab(item.key)}`">
+              <v-btn v-if="item.key && (item.stub === undefined || !item.stub)" small icon nuxt v-bind:to="`/bestiary/${camelToKebab(item.key)}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>

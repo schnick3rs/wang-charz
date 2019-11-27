@@ -92,7 +92,7 @@ export default {
       breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/', },
         { text: 'Bestiary', nuxt: true, exact: true, to: '/bestiary', },
-        { text: this.item.name, disabled: true, nuxt: true, to: `/bestiary/${this.slug}`, },
+        { text: item.name, disabled: true, nuxt: true, to: `/bestiary/${slug}`, },
       ],
     };
   },
