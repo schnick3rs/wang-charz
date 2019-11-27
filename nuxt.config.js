@@ -92,7 +92,7 @@ module.exports = {
       },
     }],
     ['@nuxtjs/pwa', {
-      manifest: false
+      manifest: false,
     }],
   ],
 
@@ -181,6 +181,12 @@ module.exports = {
     },
   },
 
+
+  serverMiddleware: [
+    'redirect-ssl',
+    '~/api/express', // handles /api/** calls
+  ],
+
   /*
   ** Build configuration
   */
@@ -191,8 +197,4 @@ module.exports = {
     extend(config, ctx) {
     },
   },
-  serverMiddleware: [
-    'redirect-ssl',
-    '~/api/express', // handles /api/** calls
-  ],
 };
