@@ -77,7 +77,7 @@
       <v-spacer></v-spacer>
 
       <v-toolbar-items>
-
+        <v-btn v-if="$nuxt.isOffline" icon color="warning"><v-icon>offline_bolt</v-icon></v-btn>
       </v-toolbar-items>
 
     </v-app-bar>
