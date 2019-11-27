@@ -211,6 +211,29 @@
         </v-card>
 
       </v-col>
+
+      <v-col v-bind:cols="12">
+
+        <v-expansion-panels
+          accordion
+        >
+          <v-expansion-panel
+            v-for="item in faqItems"
+            v-bind:key="item.q"
+          >
+            <v-expansion-panel-header>{{ item.q }}</v-expansion-panel-header>
+            <v-expansion-panel-content>
+              <p
+                v-html="item.a"
+                class="body-2"
+              ></p>
+            </v-expansion-panel-content>
+          </v-expansion-panel>
+
+        </v-expansion-panels>
+
+      </v-col>
+
     </v-row>
 
   </div>
@@ -243,7 +266,18 @@ export default {
     });
 
     const faqPageSchama = {
-      ...SchemaFaqPage,
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": this.faqItems.map( item => {
+        return {
+          "@type": "Question",
+          "name": item.q,
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": item.a
+          }
+        };
+      }),
     };
 
     const breadcrumbListSchema = {
@@ -255,8 +289,8 @@ export default {
           "position": index+1,
           "name": ( index === 0 ? 'Doctors of Doom' : item.text),
           "item": `https://www.doctors-of-doom.com${item.to}`
-        }
-      })
+        };
+      }),
     };
 
     const title = 'Collection of Wrath & Glory Homebrews | Vault';
@@ -319,6 +353,21 @@ export default {
         },
       ],
       expanded: [],
+      faqItems: [
+        {
+          q: 'Which homebrew supports my migration from Fantasy Flight Games to Wrath and Glory?',
+          a: 'Multiple fan supplements exist to extend the Wrath & Glory Core Rules. ' +
+          'When you are coming from <strong>Dark Heresy</strong>, ' +
+          'the <a href="https://www.doctors-of-doom.com/vault/agents-of-the-golden-throne">Agents of the Golden Throne</a> supplement ' +
+          'provides your with archetypes wargear and more.</p>',
+        },
+        {
+          q: 'Can I play a Deathwatch Campaign with Wrath and Glory?',
+          a: 'Yes, there are <strong>multiple homebrews</strong> to support this campaign style. ' +
+          'Most notably are the <a href="https://www.doctors-of-doom.com/vault/the-deathwatch---slayers-of-the-alien-horde">Slayers of the Alien Horde</a> ' +
+          'and <a href="https://www.doctors-of-doom.com/vault/the-emperors-angels">The Emperor’s Angels</a>.',
+        },
+      ],
     };
   },
   computed: {
