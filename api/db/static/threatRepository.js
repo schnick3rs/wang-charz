@@ -202,6 +202,7 @@ const simpleStub = function(sourceKey, sourcePage, faction, name, level) {
     name: name,
     faction: faction,
     classification: classificationHelper(level),
+    stub: true,
   };
 };
 

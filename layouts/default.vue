@@ -48,7 +48,6 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex';
 import DefaultFooter from '~/components/DefaultFooter.vue';
 import ToolbarAccountActions from '~/components/user/ToolbarAccountActions.vue';
 

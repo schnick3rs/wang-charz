@@ -24,6 +24,7 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodThreatDetails from '~/components/DodThreatDetails';
 import SluggerMixin from '~/mixins/SluggerMixin';
+import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
   components: {
@@ -31,9 +32,11 @@ export default {
     DodThreatDetails,
   },
   mixins: [
+    BreadcrumbSchemaMixin,
     SluggerMixin,
   ],
   head() {
+
     const title = `${this.item.name} - ${this.item.faction} Threat`;
     const description = this.item.description
       ? `${this.item.description}`
@@ -67,6 +70,10 @@ export default {
           ].join(','),
         },
       ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
+      ]
     }
   },
   async asyncData({ params, $axios, error }) {
@@ -82,16 +89,14 @@ export default {
     return {
       item: item,
       slug: slug,
-    };
-  },
-  computed: {
-    breadcrumbItems() {
-      return [
+      breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/', },
         { text: 'Bestiary', nuxt: true, exact: true, to: '/bestiary', },
         { text: this.item.name, disabled: true, nuxt: true, to: `/bestiary/${this.slug}`, },
-      ]
-    },
+      ],
+    };
+  },
+  computed: {
   },
 }
 </script>

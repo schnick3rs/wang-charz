@@ -45,6 +45,7 @@ const simpleStub = function(sourceKey, sourcePage, species, group, name, bp, tie
     tier: tier,
     group: group,
     species: [ species ],
+    stub: true,
   };
 };
 
@@ -116,7 +117,7 @@ const core = [
       { group: 'skills', value: 'scholar', threshold: 1, },
     ],
     group: "Adeptus Ministorum",
-    key: null,
+    key: "adeptusMinistorum",
     description: null,
     hint: "A holy warrior with unfl agging devotion to the God-Emperor."
   },
@@ -485,7 +486,7 @@ const core = [
       { group: 'skills', value: 'tech', threshold: 1, },
     ],
     group: "Adeptus Mechanicus",
-    key: null,
+    key: 'adeptusMechanicus',
     description: null,
     hint: "A warrior of the Machine Cult, sturdy and reliable."
   },
@@ -556,7 +557,7 @@ const core = [
       { group: 'skills', value: 'survival', threshold: 1, },
     ],
     group: "Scum",
-    key: null,
+    key: 'scavvy',
     description: null,
     hint: "A mutant—cast out and reviled—yet their mutations give them power."
   },
@@ -581,7 +582,7 @@ const core = [
       { group: 'skills', value: 'investigation', threshold: 2, },
     ],
     group: "Scum",
-    key: null,
+    key: 'desperado',
     description: null,
     hint: "A savvy and dangerous bounty hunter, mercenary, and gun for hire."
   },
@@ -746,7 +747,7 @@ const core = [
       { group: 'skills', value: 'survival', threshold: 2, },
     ],
     group: "Aeldari",
-    key: null,
+    key: 'ranger',
     description: null,
     hint: "A wanderer, a scout, and tracker for the good of their people."
   },
@@ -786,7 +787,7 @@ const core = [
       { group: 'skills', value: 'psychicMastery', threshold: 2, },
     ],
     group: "Aeldari",
-    key: null,
+    key: 'warlock',
     description: null,
     hint: "A powerful psyker, wielding strictly-guided powers for the Aeldari cause."
   },
@@ -808,7 +809,7 @@ const core = [
       { group: 'skills', value: 'weaponSkill', threshold: 2, },
     ],
     group: "Orks",
-    key: null,
+    key: 'boy',
     description: null,
     hint: "A brutish warrior and thug who believes that might makes right."
   },
@@ -832,7 +833,7 @@ const core = [
       { group: 'skills', value: 'survival', threshold: 1, },
     ],
     group: "Orks",
-    key: null,
+    key: 'kommando',
     description: null,
     hint: "A stealthy and cunning warrior who knows how to turn almost any battle to his advantage."
   },
@@ -856,7 +857,7 @@ const core = [
       { group: 'skills', value: 'intimidation', threshold: 2, },
     ],
     group: "Orks",
-    key: null,
+    key: 'nob',
     description: null,
     hint: "A savage warrior and capable leader, using brute force to succeed where others fail."
   },

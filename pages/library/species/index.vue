@@ -134,6 +134,7 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodSpeciesDetails from '~/components/DodSpeciesDetails';
 import SluggerMixin from '~/mixins/SluggerMixin';
+import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
   components: {
@@ -141,6 +142,7 @@ export default {
     DodSpeciesDetails,
   },
   mixins: [
+    BreadcrumbSchemaMixin,
     SluggerMixin,
   ],
   head() {
@@ -158,6 +160,10 @@ export default {
         { hid: 'og:description', name: 'og:description', content: description },
         { hid: 'og:image', name: 'og:image', content: image },
       ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
+      ]
     };
   },
   async asyncData({ $axios, query, params, error }) {

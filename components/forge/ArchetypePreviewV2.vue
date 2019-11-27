@@ -73,6 +73,7 @@
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
 import WargearRepository from '~/mixins/WargearRepositoryMixin';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: 'archetype-preview',
@@ -80,6 +81,7 @@ export default {
     KeywordRepository,
     StatRepository,
     WargearRepository,
+    SluggerMixin,
   ],
   props: {
     item: {

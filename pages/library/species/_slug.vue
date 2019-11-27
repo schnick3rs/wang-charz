@@ -23,6 +23,7 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodSpeciesDetails from '~/components/DodSpeciesDetails';
+import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
   name: "species",
@@ -30,7 +31,9 @@ export default {
     DodDefaultBreadcrumbs,
     DodSpeciesDetails,
   },
-  mixins: [],
+  mixins: [
+    BreadcrumbSchemaMixin
+  ],
   head() {
     const title = `${this.item.name} - Species`;
     const description = this.item.source.key.indexOf('core') >= 0
@@ -49,6 +52,10 @@ export default {
         { hid: 'og:description', name: 'og:description', content: description },
         { hid: 'og:image', name: 'og:image', content: image },
       ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
+      ]
     };
   },
   async asyncData({ params, $axios, error }) {
@@ -64,18 +71,14 @@ export default {
     return {
       item: item,
       slug: slug,
-    };
-  },
-  computed: {
-    breadcrumbItems() {
-      return [
+      breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/', },
         { text: 'Library', nuxt: true, exact: true, to: '/library', },
         { text: 'Species', nuxt: true, exact: true, to: '/library/species', },
-        { text: this.item.name, disabled: true, nuxt: true, to: `/library/species/${this.slug}`, },
-      ]
-    },
-  }
+        { text: item.name, disabled: true, nuxt: true, to: `/library/species/${slug}`, },
+      ],
+    };
+  },
 }
 </script>
 

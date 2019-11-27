@@ -120,6 +120,13 @@
 
             </template>
 
+            <!-- Detail Page link -->
+            <template v-slot:item.actions="{ item }">
+              <v-btn v-if="item.key && (item.stub === undefined || !item.stub)" small icon nuxt v-bind:to="`/library/archetypes/${camelToKebab(item.key)}`">
+                <v-icon>chevron_right</v-icon>
+              </v-btn>
+            </template>
+
             <template v-slot:expanded-item="{ headers, item }">
               <td v-bind:colspan="headers.length">
                 <archetype-preview
@@ -151,10 +158,15 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import ArchetypePreview from '~/components/forge/ArchetypePreviewV2';
+import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   components: { DodDefaultBreadcrumbs, ArchetypePreview },
-  mixins: [],
+  mixins: [
+    BreadcrumbSchemaMixin,
+    SluggerMixin,
+  ],
   head() {
     const title = 'Archetypes - Wrath & Glory Reference | Library';
     const description =
@@ -169,6 +181,10 @@ export default {
         { hid: 'og:title', name: 'og:title', content: title },
         { hid: 'og:description', name: 'og:description', content: description },
         { hid: 'og:image', name: 'og:image', content: image },
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
       ],
     };
   },
@@ -218,12 +234,13 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        { text: 'Name', align: 'left', value: 'name', class: '' },
-        { text: 'Group', align: 'left', value: 'group', class: '' },
-        { text: 'Species', align: 'left', value: 'species', class: '' },
-        { text: 'Tier', align: 'center', value: 'tier', class: '' },
-        { text: 'Cost', align: 'center', value: 'cost', class: '' },
-        { text: 'Source', align: 'left', value: 'source.book', class: '' },
+        { text: 'Name',     align: 'start',   value: 'name',        class: '' },
+        { text: 'Group',    align: 'start',   value: 'group',       class: '' },
+        { text: 'Species',  align: 'start',   value: 'species',     class: '' },
+        { text: 'Tier',     align: 'center',  value: 'tier',        class: '' },
+        { text: 'Cost',     align: 'center',  value: 'cost',        class: '' },
+        { text: 'Source',   align: 'start',   value: 'source.book', class: '' },
+        { text: '',         align: 'end',     value: 'actions',     class: '', sortable: false, },
       ],
       expand: false,
     };

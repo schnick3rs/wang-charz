@@ -1,22 +1,69 @@
 <template>
 
-  <v-row justify="center">
 
-    <v-col v-bind:cols="12" v-bind:sm="10">
+  <div>
 
-      <archetype-preview v-bind:item="item"></archetype-preview>
+    <!-- Breadcrumbs -->
+    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
 
-    </v-col>
+    <!-- Species Details -->
+    <v-row justify="center" no-gutters>
 
-  </v-row>
+      <v-col v-bind:cols="12" v-bind:sm="10">
+
+        <v-row justify="center">
+
+          <v-col v-bind:cols="12">
+
+            <archetype-preview v-bind:item="item"></archetype-preview>
+
+          </v-col>
+
+        </v-row>
+
+      </v-col>
+
+    </v-row>
+
+  </div>
 
 </template>
 
 <script>
+import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import ArchetypePreview from '~/components/forge/ArchetypePreviewV2';
+import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+
 export default {
-  name: "_slug",
-  components: { ArchetypePreview },
+  name: "archetype",
+  components: {
+    ArchetypePreview,
+    DodDefaultBreadcrumbs,
+  },
+  mixins: [
+    BreadcrumbSchemaMixin,
+  ],
+  head() {
+    const title = 'Archetypes - Wrath & Glory Reference | Library';
+    const description =
+      'Oh there are way to many archetypes written by fans. Filter a little and then pick the one you want.' +
+      ' Check the linked homebrews for details.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
+    return {
+      title: title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
+      ],
+    };
+  },
   async asyncData({ params, $axios, error }) {
     const slug = params.slug;
 
@@ -30,6 +77,12 @@ export default {
     return {
       item: item,
       slug: slug,
+      breadcrumbItems: [
+        { text: '', nuxt: true, exact: true, to: '/', },
+        { text: 'Library', nuxt: true, exact: true, to: '/library', },
+        { text: 'Archetypes', nuxt: true, exact: true, to: '/library/archetypes', },
+        { text: item.name, disabled: true, nuxt: true, to: `/library/archetypes/${slug}`, },
+      ],
     };
   },
 }
