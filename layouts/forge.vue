@@ -191,6 +191,7 @@ export default {
             'Select Species and Archetype, learn some Talents, acquire Wargear and (if needed) ' +
             'tap into the warp powers.',
         },
+        { hid: 'robots', name: 'robots', content: 'noindex,nofollow' },
       ],
       link: [
         { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },

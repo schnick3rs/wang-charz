@@ -125,6 +125,7 @@
               </v-btn>
             </template>
 
+            <!-- expand view -->
             <template v-slot:expanded-item="{ headers, item }">
               <td v-bind:colspan="headers.length">
 
@@ -243,7 +244,6 @@
 <script>
 import SluggerMixin from '~/mixins/SluggerMixin';
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
-import SchemaFaqPage from '~/assets/SchemaFaqPage.json';
 
 export default {
   name: 'vault',
@@ -265,7 +265,7 @@ export default {
       };
     });
 
-    const faqPageSchama = {
+    const faqPageSchema = {
       "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": this.faqItems.map( item => {
@@ -315,7 +315,7 @@ export default {
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' },
-        { innerHTML: JSON.stringify(faqPageSchama), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(faqPageSchema), type: 'application/ld+json' },
         { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
       ]
     };
@@ -417,6 +417,19 @@ export default {
       } else {
         this.pagination.sortBy = column;
         this.pagination.descending = false;
+      }
+    },
+    share(item) {
+      if (navigator.share) {
+        navigator.share({
+          title: 'Vault',
+          text: `Check out ${item.title}`,
+          url: `https://www.doctors-of-doom/vault/${item.slug}`,
+        })
+        .then(() => console.log('Successful share'))
+        .catch((error) => console.log('Error sharing', error));
+      } else {
+        console.info("no share api found");
       }
     },
     trackExpand(event) {
