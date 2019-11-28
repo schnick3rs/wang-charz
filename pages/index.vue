@@ -59,7 +59,7 @@ export default {
     const description =
       'Within the Warhammer 40k Universe, the Doctors of Doom are serving the Wrath & Glory roleplaying game community. ' +
       'Here you can find homebrews and (in the future) other W&G related stuff.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_beta-lyrae.jpg';
+    const image = 'https://www.doctors-of-doom.com/img/background_abstract_green.jpg';
 
     return {
       title: title,
