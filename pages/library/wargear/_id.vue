@@ -63,9 +63,9 @@
 
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
-import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
 import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
+import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 
 export default {

@@ -195,30 +195,47 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
 import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
+import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
+  layout: 'library',
   components: {
     DodDefaultBreadcrumbs,
     DodSimpleArmourStats,
     DodSimpleWeaponStats,
   },
+  mixins: [
+    BreadcrumbSchemaMixin,
+  ],
   head() {
+    const title = 'Wargear - Wrath & Glory Reference | Library';
+    const description = 'Aha! The armoury. Check out those juicy items for you characters.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
     return {
-      title: 'Wargear - Wrath & Glory Reference | Library',
+      title: title,
       meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '',
-        },
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
       ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
+      ]
     };
   },
-  layout: 'library',
   async asyncData({ app }) {
     const response = await app.$axios.get(`/api/wargear/`);
+    const items = response.data;
+
+    if ( items === undefined || items.length <= 0 ) {
+      error({ statusCode: 404, message: 'No Ascension Packages found!' });
+    }
+
     return {
-      wargearRepository: response.data,
+      wargearRepository: items,
     };
   },
   data() {
