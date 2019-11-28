@@ -67,7 +67,6 @@ import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
 import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
-
 export default {
   name: "wargear",
   components: {
@@ -102,7 +101,11 @@ export default {
     };
   },
   async asyncData({ params, $axios, error }) {
-    const id = params.id;
+    const regex = /(?<id>\d+)-(?<slug>[\w-]*)/;
+
+    const idslug = params.idslug;
+
+    const { id, slug } = regex.exec(idslug).groups;
 
     const response = await $axios.get(`/api/wargear/${id}`);
     const item = response.data;
@@ -113,12 +116,12 @@ export default {
 
     return {
       item: item,
-      slug: '',
+      slug: slug,
       breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/', },
         { text: 'Library', nuxt: true, exact: true, to: '/library', },
         { text: 'Wargear', nuxt: true, exact: true, to: '/library/wargear', },
-        { text: item.name, disabled: true, nuxt: true, to: `/library/wargear/${id}`, },
+        { text: item.name, disabled: true, nuxt: true, to: `/library/wargear/${id}-${slug}`, },
       ],
     };
   },

@@ -58,8 +58,6 @@ router.get('/', async (request, response) => {
     }
   }
 
-  console.log(where);
-  console.log(params);
   const { rows } = await db.queryAsyncAwait(
     `SELECT * FROM wrath_glory.wargear ${where}`,
     params,

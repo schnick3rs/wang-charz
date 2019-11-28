@@ -146,7 +146,7 @@
 
                     <v-btn
                       nuxt
-                      v-bind:to="`/library/wargear/${item.id}`"
+                      v-bind:to="`/library/wargear/${item.id}-${textToKebab(item.name)}`"
                       color="success"
                       small
                     >Show Details Page</v-btn>
@@ -196,6 +196,7 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
 import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   layout: 'library',
@@ -206,6 +207,7 @@ export default {
   },
   mixins: [
     BreadcrumbSchemaMixin,
+    SluggerMixin,
   ],
   head() {
     const title = 'Wargear - Wrath & Glory Reference | Library';
