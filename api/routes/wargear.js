@@ -76,7 +76,7 @@ router.get('/:id', async (request, response) => {
   const id = request.params.id;
 
   const { rows } = await db.queryAsyncAwait(
-    'SELECT * FROM wrath_glory.homebrews WHERE id = $1 LIMIT 1',
+    'SELECT * FROM wrath_glory.wargear WHERE id = $1 LIMIT 1',
     [id],
   );
 

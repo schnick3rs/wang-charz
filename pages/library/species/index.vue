@@ -91,13 +91,14 @@
 
             <!-- Expand -->
             <template v-slot:expanded-item="{ headers, item }">
+
               <td v-bind:colspan="headers.length">
 
                 <div class="pa-4">
 
                   <dod-species-details
                     v-bind:item="item"
-                    class="pa-2 pt-4 pb-4"
+                    class="pa-2 pb-4"
                   ></dod-species-details>
 
                   <v-btn
@@ -109,6 +110,7 @@
                 </div>
 
               </td>
+
             </template>
 
           </v-data-table>

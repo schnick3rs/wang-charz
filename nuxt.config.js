@@ -26,6 +26,7 @@ module.exports = {
        *  Open Graph, used in facebook
        */
       { hid: 'og:site_name', name: 'og:site_name', content: 'Doctors of Doom' },
+      { hid: 'og:image', name: 'og:image', content: 'https://www.doctors-of-doom.com/website_logo.png' },
 
       /**
        * Twitter Card, used in Twitter, Discord
@@ -139,7 +140,7 @@ module.exports = {
   */
   axios: {
     //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
-    baseURL: 'https://www.doctors-of-doom.com',
+    //baseURL: 'https://www.doctors-of-doom.com',
     //baseURL: 'http://localhost:3000',
     browserBaseURL: '/',
     // debug: process.env.NODE_ENV !== 'production',
