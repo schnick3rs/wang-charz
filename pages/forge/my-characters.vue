@@ -237,19 +237,29 @@ export default {
       "@type": "HowTo",
       "name": "How to create a Wrath and Glory Character",
       "description": "Creating a Character is quite easy. Pick a Setting Tier, select species and archetype and spend your remaining build points.",
+      "image": "https://www.doctors-of-doom.com/img/artwork_abstract.jpg",
       "tool": [
         {
           "@type": "HowToTool",
           "name": "Wrath & Glory Core Rules"
         }
       ],
+      "supply": "", // TODO
       "step": this.howTo.steps.map( (item) => {
         return {
           "@type": "HowToStep",
           "name": item.name,
           "text": item.text,
+          "image": "", // TODO
+          "url": "", // TODO
         }
       }),
+      /**
+       * period of 1 hour
+       *
+       * @see https://www.digi.com/resources/documentation/digidocs/90001437-13/reference/r_iso_8601_duration_format.htm
+       */
+      "totalTime": "P1H",
     };
 
     return {
