@@ -1,10 +1,10 @@
 {
-  "name": "doctors-of-doom",
+  "name": "A Wrath and Glory Fan Page",
   "version": "4.0.0",
   "engines": {
     "node": "10.3.0"
   },
-  "description": "The Doctors of Doom exist to serve the Wrath and Glory Communiy",
+  "description": "The Doctors of Doom exist to serve the Wrath and Glory Community",
   "author": "Brother Lucius",
   "private": true,
   "scripts": {
