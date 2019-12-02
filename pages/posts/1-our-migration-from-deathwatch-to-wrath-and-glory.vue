@@ -180,7 +180,7 @@
           </ol>
 
           <p>
-            Ok let’s check the Talents. <!--<dod-tooltip name="Steel and Doom" type="talent"></dod-tooltip>-->
+            Ok let’s check the Talents.
             <a class="tooltip tooltip--talent" href="/library/talents/37-steel-and-doom" v-on:mouseover="setHintBoxItem($event, 37)" v-on:mouseleave="showTooltip = false">Steel and Doom</a> was mandatory and thus set.
             I wandered through the talent section multiple times, but couldn’t find one
             that hooked me. Finally, I decided the
