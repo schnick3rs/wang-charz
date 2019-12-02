@@ -221,8 +221,8 @@
         v-bind:cols="12"
         v-bind:md="10"
       >
-        <div>
-        </div>
+        <div id="commento"></div>
+        <script src="https://cdn.commento.io/js/commento.js"></script>
       </v-col>
 
     </v-row>
