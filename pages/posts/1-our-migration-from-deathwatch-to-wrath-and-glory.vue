@@ -211,11 +211,19 @@
             I can also give more details on the narrative and history of the
             Recruitment World, the Chapter or the Characters, if you wish.
           </p>
-          <div>
-             
-          </div>
+
         </div>
 
+      </v-col>
+
+      <v-col
+        v-bind:cols="12"
+        v-bind:md="10"
+      >
+        <div>
+          <div id="commento"></div>
+          <script src="https://cdn.commento.io/js/commento.js"></script>
+        </div>
       </v-col>
 
     </v-row>
