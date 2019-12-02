@@ -314,6 +314,7 @@ export default {
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
+        { src: '/body.js', body: true },
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
         { innerHTML: JSON.stringify(articleJsonLdSchema), type: 'application/ld+json' },
       ]
