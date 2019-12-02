@@ -254,6 +254,7 @@ export default {
           name: 'Brother Lucius',
           avatar: '',
         },
+        image: '/img/artwork_posts.jpg',
         tags: [
           'Migration Guide',
           'Deathwatch',
@@ -274,7 +275,7 @@ export default {
   head() {
     const title = this.post.title;
     const description = this.post.abstract;
-    //const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+    const image = `https://www.doctors-of-doom.com${this.post.image}`;
 
     const articleJsonLdSchema = {
       "@context": "https://schema.org",
@@ -283,12 +284,11 @@ export default {
       "dateModified": this.post.modifiedAt,
       "headline": title,
       "description": description,
-      //"image": image,
+      "image": image,
       "author": {
         "@type": "Person",
         "name": this.post.author.name,
       },
-
     };
 
     return {
@@ -296,9 +296,15 @@ export default {
       titleTemplate: '%s | Blog',
       meta: [
         { hid: 'description', name: 'description', content: description },
+
         { hid: 'og:title', name: 'og:title', content: title },
         { hid: 'og:description', name: 'og:description', content: description },
-        //{ hid: 'og:image', name: 'og:image', content: image },
+        { hid: 'og:image', name: 'og:image', content: image },
+
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+        { hid: 'twitter:title', name: 'twitter:title', content: title },
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
+        { hid: 'twitter:image', name: 'twitter:image', content: image },
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
