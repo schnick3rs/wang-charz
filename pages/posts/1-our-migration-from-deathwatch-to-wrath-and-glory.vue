@@ -217,12 +217,11 @@
       </v-col>
 
       <v-col
+        v-if="false"
         v-bind:cols="12"
         v-bind:md="10"
       >
         <div>
-          <div id="commento"></div>
-          <script src="https://cdn.commento.io/js/commento.js"></script>
         </div>
       </v-col>
 
