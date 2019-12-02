@@ -80,6 +80,7 @@ module.exports = {
     ['@nuxtjs/redirect-module', [
         { from: '^/builder.*', to: '/forge/my-characters', statusCode: 301 },
         { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
+        { from: '^/blog/our-migration-from-deathwatch-to-wrath-and-glory', to: '/posts/1-our-migration-from-deathwatch-to-wrath-and-glory', statusCode: 301 },
     ]],
     // https://github.com/nuxt-community/redirect-module
     ['@nuxtjs/google-analytics', {

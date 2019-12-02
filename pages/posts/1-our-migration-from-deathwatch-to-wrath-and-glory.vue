@@ -2,6 +2,26 @@
 
   <div>
 
+
+    <div
+      v-show="showTooltip"
+      class="tooltip-container"
+      v-bind:style="{ left: tooltip.position.x, top: tooltip.position.y }"
+    >
+      <v-card v-if="tooltip.loading" dark color="success">
+        <v-progress-circular indeterminate></v-progress-circular>
+      </v-card>
+      <v-card v-else raised  dark color="success">
+        <v-card-title class="tooltip-container__header">
+          {{hintBoxItem.title}}
+        </v-card-title>
+        <v-card-text>
+          {{hintBoxItem.description}}
+        </v-card-text>
+
+      </v-card>
+    </div>
+
     <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
 
     <v-row
@@ -16,20 +36,20 @@
       >
 
         <div>
-          <h1>
-            Our migration from Deathwatch to Wrath &amp; Glory
-          </h1>
-          <p>
-            Once you go Wrath &amp; Glory, there is no turning back..
-            We migrated out FFG Deathwatch campaign to Wrath &amp; Glory. Here are the
-            reasons why and how we did it.
-          </p>
-          <h2>
-            Premise / Setting
-          </h2>
+          <h1>{{ post.title }}</h1>
+
+        </div>
+
+        <div class="post-html-container">
+
+          <p>{{ post.abstract }}</p>
+
+          <h2>Premise / A short overview of the setting</h2>
+
           <p>
             Ok, so in early 2017 we started a Warhammer 40k Adeptus Astartes Campaign
-            titled <strong>The First Generation</strong>. 3 Players and 1 Master. We used the FFG’s
+            titled <strong>The First Generation</strong> (or sometimes, the first harvest).
+            3 Players and 1 Master. We used the FFG’s
             Deathwatch Rules as basis but made some alterations to fit our setting. We
             would not start as full marines or even deathwatch but as Aspirants, chosen
             to become marines for the <strong>Doctors of Doom</strong> Chapter, more precisely, the 4th
@@ -49,9 +69,9 @@
             fully accepted Battle Brothers, earning our place among our Brethren and
             the right to wear the ancient power armors. Well, let’s meet the gang.
           </p>
-          <h3>
-            Party composition
-          </h3>
+
+          <h3>Meat the Squad, the Party composition</h3>
+
           <p>
             The Squad consists of three Marines: From the <strong>House Isenwell</strong> (reflavored
             Storm Warden Chapter), we have Brother <strong>Ferris</strong>. An agile duelist that chose
@@ -61,12 +81,12 @@
             Assault Marines. His fellow brother from the same house, was a Scout during
             is time as mere Human. His name is <strong>Gar</strong>, a quiet, determined and disturbing
             fellow that was accompanied by an animal companion: a falcon that he also
-            called Gar. Oddly enough, the Master of The Forge, Brother <trong>Raziel</trong>, claimed
+            called Gar. Oddly enough, the Master of The Forge, Brother <strong>Raziel</strong>, claimed
             this one, so he took the mantle of the Techmarines.
           </p>
-          <h3>
-            Reasons
-          </h3>
+
+          <h3>Reasons</h3>
+
           <p>
             Approximately 17 Sessions and 2 Years later, the Squad bordered Rank 3. And
             after the last session, we thought about switching to Wrath &amp; Glory,
@@ -75,9 +95,9 @@
             Deathwatch system. We decided to convert the characters, see if that works
             for us, and if not, we would just stay (revert back to) Deathwatch.
           </p>
-          <h2>
-            Migration Approach
-          </h2>
+
+          <h2>Migration Approach</h2>
+
           <p>
             Together with our GM, we decided for the following Rules regarding the
             Character Creation.
@@ -87,8 +107,9 @@
             The general Setting Tier would be Tier 3 and the respective Rules regarding
             ascension and archetype requirements would apply. Due to the lack of
             Assault and Techmarines, we would consider taking Archetypes from some of
-            the Homebrews (check out the <nuxt-link to="/vault">Vault</nuxt-link>!): <nuxt-link to="/vault/the-emperors-angels">The Emperor's Angles</nuxt-link> or
-            <nuxt-link to="/vault/an-abundance-of-apocrypha">An abundance of Apocrypha</nuxt-link>.
+            the Homebrews (check out the <a href="https://doctors-of-doom.com/vault">Vault</a>!):
+            <a href="https://doctors-of-doom.com/vault/the-emperors-angels">The Emperor's Angles</a> or
+            <a href="https://doctors-of-doom.com/vault/an-abundance-of-apocrypha">An abundance of Apocrypha</a>.
             <em>The Emperor's Angles</em> supplement would also provide us with rules for House Isenwell (read: Storm Wardens).
           </p>
            
@@ -103,9 +124,9 @@
             case, we would be Rank 2) and not by the BP gained. We also decided, that
             everyone needs to pick the <em>Steel and Doom</em> talent.
           </p>
-          <h3>
-            Condensed Creation Rules
-          </h3>
+
+          <h3>Condensed Creation Rules</h3>
+
           <p>
             So, here we have the condensed rules that we used:
           </p>
@@ -120,7 +141,7 @@
           </ul>
            
           <p>
-            This leaves approximately 300 build points to distribute.
+            This leaves approximately 300 build points to distribute freely.
           </p>
            
           <p>
@@ -140,7 +161,7 @@
             Brother Gar
           </h4>
           <p>
-            Ah, the Techmarine. At first, I was tempted to use the techmarine from one
+            Ah, the Techmarine. At first, I was tempted to use the Techmarine Archetype from one
             of the supplements. But then, in regard to the scoutish heritage of the
             character, I decided to take the <strong>Scout Archetype</strong> and Ascend with the <strong>Stay
             the Course Package</strong>. This would give me some custom gear and augments and
@@ -148,16 +169,23 @@
           </p>
            
           <p>
-            I then increased Attributes and Skills with a focus on (1) Agility,
-            Ballistic Skill and Stealth, representing the Scout part. And (2) Intellect
-            and Tech. Some supporting skills are: Awareness, Investigation, Pilot and
-            Scholar.
+            I then increased Attributes and Skills with a focus on
           </p>
-           
+
+          <ol class="mb-4">
+            <li>First: Agility, Ballistic Skill and Stealth, representing the Scout part. </li>
+            <li>And second: Intellect and Tech.</li>
+            <li>Finally, some supporting skills are: Awareness, Investigation, Pilot and
+              Scholar.</li>
+          </ol>
+
           <p>
-            Ok let’s check the Talents. Steel and Doom was mandatory and thus set. I
-            wandered through the talent section multiple times, but couldn’t find one
-            that hooked me. Finally, I decided on the Bombardment talent. It’s quite
+            Ok let’s check the Talents. <!--<dod-tooltip name="Steel and Doom" type="talent"></dod-tooltip>-->
+            <a class="tooltip tooltip--talent" href="/library/talents/37-steel-and-doom" v-on:mouseover="setHintBoxItem($event, 37)" v-on:mouseleave="showTooltip = false">Steel and Doom</a> was mandatory and thus set.
+            I wandered through the talent section multiple times, but couldn’t find one
+            that hooked me. Finally, I decided the
+            <a class="tooltip tooltip-talent" href="/library/talents/4-bombardment" v-on:mouseover="setHintBoxItem($event, 4)" v-on:mouseleave="showTooltip = false">Bombardment</a>
+            talent would ne fitting. It’s quite
             costly and I needed to convince my GM to ignore the Rank 3+ restriction
             (great success). I would reflavor the Talent so that it represents
             preparation by Gar, setting traps and explosives on key locations, to be
@@ -166,14 +194,13 @@
           </p>
            
           <p>
-            And that’s mostly it. There is some final tweaking to do, but I think this
-            will work well. I build the character with the <nuxt-link to="/forge/my-characters">Forge</nuxt-link> and
+            And that’s mostly it. There is some final tweaking to do, but I think this will work well.
+            I <nuxt-link to="/forge/my-characters">build the character with the Forge</nuxt-link> (of course) and
             <a href="/characters/first-generation_brother-gar_v1.pdf">uploaded the
             respective PDF</a>, if you want a closer look into the details..
           </p>
-          <h2>
-            Follow Up
-          </h2>
+
+          <h2>Follow Up</h2>
           <p>
             That’s for today. Additional posts will follow, once I have the time to
             write some more. In the meantime, I hope you enjoyed the view into our
@@ -204,20 +231,69 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
-  name: '1-our-deathwatch-migration-to-wrath-and-glory',
+  name: 'our-migration-from-deathwatch-to-wrath-and-glory',
   components: {
     DodDefaultBreadcrumbs
   },
   mixins: [
     BreadcrumbSchemaMixin,
   ],
+  data() {
+    return {
+      post: {
+        id: 1,
+        title: 'Our migration from Deathwatch to Wrath and Glory',
+        shortTitle: 'From Deathwatch to Wrath & Glory',
+        slug: 'our-migration-from-deathwatch-to-wrath-and-glory',
+        abstract:
+          'Once you go Wrath & Glory, there is no turning back... ' +
+          'We migrated out FFG Deathwatch campaign to Wrath &amp; Glory. ' +
+          'Here are the reasons why and how we did it.',
+        author: {
+          id: 1,
+          name: 'Brother Lucius',
+          avatar: '',
+        },
+        tags: [
+          'Migration Guide',
+          'Deathwatch',
+          'Setting',
+          'The First Harvest'
+        ],
+        publishedAt: '2019-12-01T08:00:00+08:00',
+        modifiedAt: '2019-12-01T08:00:00+08:00',
+      },
+      showTooltip: false,
+      tooltip: {
+        position: { x: 0, y: 0 },
+        loading: false,
+      },
+      hintBoxItem: { title: '', description: '', type: '' },
+    };
+  },
   head() {
-    const title = 'Our migration from Deathwatch to Wrath and Glory | Blog';
-    const description = 'We migrated out FFG Deathwatch campaign to Wrath &amp; Glory. Here are the reasons why and how we did it.';
+    const title = this.post.title;
+    const description = this.post.abstract;
     //const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
+    const articleJsonLdSchema = {
+      "@context": "https://schema.org",
+      "@type": "BlogPost",
+      "datePublished": this.post.publishedAt,
+      "dateModified": this.post.modifiedAt,
+      "headline": title,
+      "description": description,
+      //"image": image,
+      "author": {
+        "@type": "Person",
+        "name": this.post.author.name,
+      },
+
+    };
 
     return {
       title: title,
+      titleTemplate: '%s | Blog',
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
@@ -227,6 +303,7 @@ export default {
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(articleJsonLdSchema), type: 'application/ld+json' },
       ]
     };
   },
@@ -234,13 +311,95 @@ export default {
     breadcrumbItems() {
       return [
         { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
-        { text: 'Our Deathwatch migration to Wrath and Glory', disabled: false, nuxt: true, exact: true, to: '/blog/1-our-deathwatch-migration-to-wrath-and-glory' },
+        { text: 'Posts' , disabled: true, nuxt: true, exact: true, to: undefined },
+        { text: this.post.shortTitle , disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.id}-${this.post.slug}` },
       ];
     },
-  }
+  },
+  methods: {
+    setHintBoxItem($event, talentId) {
+
+      this.tooltip.loading = true;
+      this.$axios.get(`/api/talents/${talentId}`)
+        .then( ( {data} ) => {
+          this.hintBoxItem = {
+            title: data.name,
+            description: data.effect,
+            type: 'Talent',
+          };
+          this.tooltip.loading = false;
+        });
+
+      this.showTooltip = true;
+      this.tooltip.position.x = $event.pageX+'px';
+      this.tooltip.position.y = $event.pageY+'px';
+    }
+  },
 }
 </script>
 
-<style scoped>
+<style scoped lang="scss">
+
+  .tooltip {
+
+    font-weight: 600;
+    text-decoration: none;
+    color: hsl(122, 39%, 49%);
+
+    &--talent {
+
+    }
+
+  }
+
+  .tooltip-container {
+
+    z-index: 1;
+    position: absolute;
+    min-width: 450px;
+    max-width: 450px;
+    min-height: 100px;
+
+    &__header {
+
+    }
+
+    &__content {
+
+    }
+
+  }
+
+  .post-wrapper {
+
+  }
+
+  .post-html-container {
+
+    border-top: 2px solid hsl(122, 39%, 49%);
+    border-bottom: 2px solid hsl(122, 39%, 49%);
+    background: white;
+    padding: 20px 10px;
+    margin-bottom: 20px;
+
+    //column-count: 2;
+
+    & h2, h3 {
+      //column-span: all;
+    }
+
+    & p {
+
+    }
+  }
+
+  .sexy-line{
+    display:block;
+    border:none;
+    color:white;
+    height:1px;
+    background:black;
+    background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
+  }
 
 </style>
