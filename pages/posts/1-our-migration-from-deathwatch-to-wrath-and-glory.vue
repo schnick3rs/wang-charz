@@ -8,7 +8,7 @@
       class="tooltip-container"
       v-bind:style="{ left: tooltip.position.x, top: tooltip.position.y }"
     >
-      <v-card v-if="tooltip.loading" dark color="success">
+      <v-card v-if="tooltip.loading" dark color="success" class="text-center">
         <v-progress-circular indeterminate></v-progress-circular>
       </v-card>
       <v-card v-else raised  dark color="success">
@@ -107,9 +107,9 @@
             The general Setting Tier would be Tier 3 and the respective Rules regarding
             ascension and archetype requirements would apply. Due to the lack of
             Assault and Techmarines, we would consider taking Archetypes from some of
-            the Homebrews (check out the <a href="https://doctors-of-doom.com/vault">Vault</a>!):
-            <a href="https://doctors-of-doom.com/vault/the-emperors-angels">The Emperor's Angles</a> or
-            <a href="https://doctors-of-doom.com/vault/an-abundance-of-apocrypha">An abundance of Apocrypha</a>.
+            the Homebrews (check out the <nuxt-link to="/vault">Vault</nuxt-link>!):
+            <nuxt-link to="/vault/the-emperors-angels">The Emperor's Angles</nuxt-link> or
+            <nuxt-link to="/vault/an-abundance-of-apocrypha">An abundance of Apocrypha</nuxt-link>.
             <em>The Emperor's Angles</em> supplement would also provide us with rules for House Isenwell (read: Storm Wardens).
           </p>
            
@@ -149,17 +149,17 @@
             will allow for some more distinction in addition to the related skills
             Leadership and Scholar.
           </p>
-          <h3>
-            The respective Characters
-          </h3>
+
+          <h3>The respective Characters</h3>
+
           <p>
             Let’s check with what we came up, shall we? As that is my character, I can
             go a little deeper into the thought process. I will explore the details of
             the other characters in a different post.
           </p>
-          <h4>
-            Brother Gar
-          </h4>
+
+          <h4>Brother Gar</h4>
+
           <p>
             Ah, the Techmarine. At first, I was tempted to use the Techmarine Archetype from one
             of the supplements. But then, in regard to the scoutish heritage of the
@@ -201,6 +201,7 @@
           </p>
 
           <h2>Follow Up</h2>
+
           <p>
             That’s for today. Additional posts will follow, once I have the time to
             write some more. In the meantime, I hope you enjoyed the view into our
@@ -243,7 +244,7 @@ export default {
         slug: 'our-migration-from-deathwatch-to-wrath-and-glory',
         abstract:
           'Once you go Wrath & Glory, there is no turning back... ' +
-          'We migrated out FFG Deathwatch campaign to Wrath &amp; Glory. ' +
+          'We migrated out FFG Deathwatch campaign to Wrath and Glory. ' +
           'Here are the reasons why and how we did it.',
         author: {
           id: 1,
