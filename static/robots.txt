@@ -2,6 +2,7 @@
 User-agent: Googlebot
 Disallow: /api/
 Disallow: /forge/characters/
+Disallow: /about
 
 # Regel 2
 User-agent: *

@@ -486,7 +486,7 @@ const core = [
       { group: 'skills', value: 'tech', threshold: 1, },
     ],
     group: "Adeptus Mechanicus",
-    key: 'adeptusMechanicus',
+    key: 'skitarius',
     description: null,
     hint: "A warrior of the Machine Cult, sturdy and reliable."
   },
