@@ -564,7 +564,7 @@ const core = [
   {
     source: { ...source.core },
     name: "Desperado",
-    cost: 40,
+    cost: 30,
     tier: 3,
     species: ["Human","Ogryn","Ratling"],
     influence: 1,
