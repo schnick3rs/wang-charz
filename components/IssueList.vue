@@ -1,7 +1,14 @@
 <template>
-
   <v-col>
-    <v-alert v-for="item in items" v-bind:key="item" type="info" outlined text dense elevation="4">
+    <v-alert
+      v-for="item in items"
+      :key="item"
+      type="info"
+      outlined
+      text
+      dense
+      elevation="4"
+    >
       <strong>Open ToDos: </strong>{{ item }}
     </v-alert>
   </v-col>
@@ -15,6 +22,6 @@ export default {
       type: Array,
       default: [],
     },
-  }
+  },
 };
 </script>

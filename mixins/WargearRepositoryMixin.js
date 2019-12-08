@@ -113,7 +113,7 @@ export default {
                   query: (item) => {
                     const valueReq = item.value <= 5;
                     const rarityReq = ['Uncommon'].includes(item.rarity);
-                    const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
+                    const keywordReq = (item.keywords) ? item.keywords.split(',').includes('Imperium') : false;
                     const typeReq = item.type === 'Ranged Weapon';
                     return (valueReq && rarityReq && keywordReq && typeReq);
                   },
@@ -151,7 +151,7 @@ export default {
               selected: undefined,
               options: [
                 {
-                  query: item => (
+                  query: (item) => (
                     item.value <= 7
                     && ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity)
                     && item.type.includes('Ranged Weapon')
@@ -164,7 +164,7 @@ export default {
               selected: undefined,
               options: [
                 {
-                  query: item => (
+                  query: (item) => (
                     item.value <= 7
                     && ['Uncommon', 'Common', 'Rare', 'Very Rare'].includes(item.rarity)
                     && item.type.includes('Melee Weapon')
@@ -192,7 +192,7 @@ export default {
               selected: undefined,
               options: [
                 {
-                  query: item => (
+                  query: (item) => (
                     item.value <= (this.settingTier + 4)
                     && ['Uncommon', 'Common', 'Rare'].includes(item.rarity)
                     && item.type.includes('Ranged Weapon')
@@ -205,7 +205,7 @@ export default {
               selected: undefined,
               options: [
                 {
-                  query: item => (
+                  query: (item) => (
                     item.value <= this.settingTier + 4
                     && ['Uncommon', 'Common', 'Rare'].includes(item.rarity)
                     && item.type.includes('Melee Weapon')
@@ -284,14 +284,14 @@ export default {
               name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
-                { query: item => ( item.subtype === 'Augmentic' ), },
+                { query: (item) => (item.subtype === 'Augmentic') },
               ],
             },
             {
               name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
-                { query: item => ( item.subtype === 'Augmentic' ), },
+                { query: (item) => (item.subtype === 'Augmentic') },
               ],
             },
           ],
@@ -390,14 +390,14 @@ export default {
               name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
-                { query: item => ( item.type === 'Cybernetic' ), },
+                { query: (item) => (item.type === 'Cybernetic') },
               ],
             },
             {
               name: 'One augmentic of your choice.',
               selected: undefined,
               options: [
-                { query: item => ( item.type === 'Cybernetic' ), },
+                { query: (item) => (item.type === 'Cybernetic') },
               ],
             },
           ],

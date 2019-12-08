@@ -1,124 +1,111 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
-  <v-row justify="center" row wrap>
-
-    <v-col v-bind:cols="12">
-      <h1 class="headline">Select Attributes and Skills</h1>
+  <v-row justify="center">
+    <v-col :cols="12">
+      <h1 class="headline">
+        Select Attributes and Skills
+      </h1>
     </v-col>
 
-    <v-col v-bind:cols="12">
+    <v-col :cols="12">
       <v-alert
         v-for="alert in alerts"
-        v-bind:key="alert.key"
-        v-bind:type="alert.type"
-        v-bind:value="true"
+        :key="alert.key"
+        :type="alert.type"
+        :value="true"
       >
         {{ alert.text }}
-        <v-btn color="primary" v-if="alert.key === 'prerequisites'" v-on:click="ensurePrerequisites">
+        <v-btn v-if="alert.key === 'prerequisites'" color="primary" @click="ensurePrerequisites">
           Increase stats to meet prerequisites.
-          <v-icon right>library_add</v-icon>
+          <v-icon right>
+            library_add
+          </v-icon>
         </v-btn>
       </v-alert>
     </v-col>
 
-    <v-col v-bind:cols="12" v-bind:md="6">
-
+    <v-col :cols="12" :md="6">
       <v-card>
-
         <v-simple-table dense>
-
           <template v-slot:default>
-
             <tbody>
-            
               <tr
                 v-for="attribute in attributeRepository"
-                v-bind:key="attribute.key"
+                :key="attribute.key"
               >
                 <td>{{ attribute.name }}</td>
                 <td>
                   <v-btn
                     icon
-                    v-on:click="decrementAttribute(attribute.key)"
-                    v-bind:disabled="characterAttributes[attribute.key] <= 1"
+                    :disabled="characterAttributes[attribute.key] <= 1"
+                    @click="decrementAttribute(attribute.key)"
                   >
-                    <v-icon color="red">remove_circle</v-icon>
+                    <v-icon color="red">
+                      remove_circle
+                    </v-icon>
                   </v-btn>
                   {{ characterAttributes[attribute.key] }}
                   <v-btn
-                    icon       
-                    v-on:click="incrementAttribute(attribute.key)"
-                  ><!--:disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"-->
-                    <v-icon color="green">add_circle</v-icon>
+                    icon
+                    @click="incrementAttribute(attribute.key)"
+                  >
+                    <!--:disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"-->
+                    <v-icon color="green">
+                      add_circle
+                    </v-icon>
                   </v-btn>
                 </td>
                 <td>{{ characterAttributesEnhanced[attribute.key] }}</td>
               </tr>
-              
+
               <tr
                 v-for="trait in traitRepository"
-                v-bind:key="trait.key"
+                :key="trait.key"
               >
-                <td>{{trait.name}}:</td>
-                <td>{{characterTraits[trait.key]}}</td>
-                <td>{{characterTraitsEnhanced[trait.key]}}</td>
-
+                <td>{{ trait.name }}:</td>
+                <td>{{ characterTraits[trait.key] }}</td>
+                <td>{{ characterTraitsEnhanced[trait.key] }}</td>
               </tr>
-
             </tbody>
-
           </template>
-
         </v-simple-table>
-
       </v-card>
-
     </v-col>
 
-    <v-col v-bind:cols="12" v-bind:md="6">
-
+    <v-col :cols="12" :md="6">
       <v-card>
-
-
         <v-simple-table dense>
-
           <template v-slot:default>
-
             <tbody>
-            
               <tr
                 v-for="skill in skillRepository"
-                v-bind:key="skill.key"
+                :key="skill.key"
               >
                 <td>{{ skill.name }}</td>
                 <td>
-                  <v-btn icon v-on:click="decrementSkill(skill.key)" v-bind:disabled="characterSkills[skill.key] <= 0">
-                    <v-icon color="red">remove_circle</v-icon>
+                  <v-btn icon :disabled="characterSkills[skill.key] <= 0" @click="decrementSkill(skill.key)">
+                    <v-icon color="red">
+                      remove_circle
+                    </v-icon>
                   </v-btn>
-                    {{characterSkills[skill.key]}}
+                  {{ characterSkills[skill.key] }}
                   <v-btn
                     icon
-                    v-on:click="incrementSkill(skill.key)"
-                    v-bind:disabled="characterSkills[skill.key] >= skillMaximum"
+                    :disabled="characterSkills[skill.key] >= skillMaximum"
+                    @click="incrementSkill(skill.key)"
                   >
-                    <v-icon v-bind:color="affordableSkillColor(characterSkills[skill.key])">add_circle</v-icon>
+                    <v-icon :color="affordableSkillColor(characterSkills[skill.key])">
+                      add_circle
+                    </v-icon>
                   </v-btn>
                 </td>
                 <td>{{ characterSkills[skill.key]+characterAttributesEnhanced[skill.attribute.toLowerCase()] }}</td>
-              </tr>          
-
+              </tr>
             </tbody>
-
           </template>
-
         </v-simple-table>
-
       </v-card>
-
     </v-col>
-
   </v-row>
-
 </template>
 
 <script lang="js">
@@ -128,105 +115,23 @@ import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 export default {
   name: 'Stats',
   layout: 'forge',
-  props: [],
   mixins: [
     AscensionRepositoryMixin,
     StatRepositoryMixin,
   ],
-  async asyncData({ params, $axios }) {
-    const archetypeResponse = await $axios.get(`/api/archetypes/?source=core,coreab`);
-    return {
-      characterId: params.id,
-      archetypeRepository: archetypeResponse.data,
-    };
-  },
+  props: [],
   data() {
     return {
       selectedAttribute: undefined,
       archetypeRepository: [],
     };
   },
-  head() {
-    return {
-      title: 'Select Attributes & Skills',
-    }
-  },
-  methods: {
-    incrementSkill(skill) {
-      const newValue = this.characterSkills[skill] + 1;
-      this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
-    },
-    decrementSkill(skill) {
-      const newValue = this.characterSkills[skill] - 1;
-      this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
-    },
-    incrementAttribute(attribute) {
-      const newValue = this.characterAttributes[attribute] + 1;
-      this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
-    },
-    decrementAttribute(attribute) {
-      const newValue = this.characterAttributes[attribute] - 1;
-      this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
-    },
-    skillsByAttribute(attribute) {
-      if (this.skillRepository !== undefined) {
-        return this.skillRepository.filter(s => s.attribute === attribute);
-      }
-      return [];
-    },
-    traitsByAttribute(attribute) {
-      if (this.traitRepository !== undefined) {
-        return this.traitRepository.filter(t => t.attribute === attribute);
-      }
-      return [];
-    },
-    affordableSkillColor(currentSkillValue) {
-      const skillNewValueCost = [0, 1, 2, 3, 4, 10, 12, 14, 24];
-      const cost = skillNewValueCost[currentSkillValue + 1];
-      return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
-    },
-    attributeMaximumFor(attributeName) {
-      const usedSpecies = this.characterSpeciesLabel || 'Human';
-      const attributeBaseMaximumByTier = [4,5,6,8,10]; //index 0 is tier 1
-      const maxBySpecies = this.getAttributeMaximumForSpecies( usedSpecies, attributeName );
-      const maxByTier = attributeBaseMaximumByTier[this.settingTier-1];
-      return Math.min(maxBySpecies, maxByTier);
-    },
-    skillMaximumBy(tier) {
-      return 3 + tier;
-    },
-    ensurePrerequisites(){
-      const archetype = this.archetypeRepository.find( archetype => archetype.name == this.characterArchetypeLabel );
-
-      if ( archetype && archetype.prerequisites.length > 0 ) {
-        archetype.prerequisites.forEach(prerequisite => {
-
-          // { group: 'attributes', value: 'willpower', threshold: 3, }
-          switch (prerequisite.group) {
-            case 'attributes':
-              const attributeValue = this.characterAttributesEnhanced[prerequisite.value];
-              if (attributeValue < prerequisite.threshold) {
-                this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
-              }
-              break;
-            case 'skills':
-              const skillValue = this.characterSkills[prerequisite.value];
-              if (skillValue < prerequisite.threshold) {
-                this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
-              }
-              break;
-          }
-
-        });
-      }
-    },
-  },
   computed: {
     alerts() {
       const alerts = [];
 
       // archetype prerequisites matched?
-      if ( !this.archetypePrerequisitesValid ) {
+      if (!this.archetypePrerequisitesValid) {
         alerts.push({
           key: 'prerequisites',
           type: 'warning',
@@ -235,17 +140,17 @@ export default {
       }
 
       // tree of learning valid?
-      if ( !this.treeOfLearningValid ) {
+      if (!this.treeOfLearningValid) {
         alerts.push({
           key: 'tree',
           type: 'warning',
-          text: 'Tree of Learning violated. You must have at least as many skills learned as your highest skill value.'
+          text: 'Tree of Learning violated. You must have at least as many skills learned as your highest skill value.',
         });
       }
 
       // bp for attributes valid?
       const attributeBpSpendLimitValid = this.characterAttributeCosts <= this.maximumBuildPointsForAttributes;
-      if ( !attributeBpSpendLimitValid ) {
+      if (!attributeBpSpendLimitValid) {
         alerts.push({
           key: 'attributeSpending',
           type: 'warning',
@@ -256,36 +161,33 @@ export default {
       return alerts;
     },
     archetypePrerequisitesValid() {
-
-      const archetype = this.archetypeRepository.find( archetype => archetype.name == this.characterArchetypeLabel );
+      const archetype = this.archetypeRepository.find((archetype) => archetype.name == this.characterArchetypeLabel);
 
       let fulfilled = true;
-      if ( archetype && archetype.prerequisites.length > 0 ) {
-        archetype.prerequisites.forEach( prerequisite => {
-
+      if (archetype && archetype.prerequisites.length > 0) {
+        archetype.prerequisites.forEach((prerequisite) => {
           // { group: 'attributes', value: 'willpower', threshold: 3, }
           switch (prerequisite.group) {
             case 'attributes':
               const attributeValue = this.characterAttributesEnhanced[prerequisite.value];
-              if ( attributeValue < prerequisite.threshold ) {
+              if (attributeValue < prerequisite.threshold) {
                 fulfilled = false;
               }
               break;
             case 'skills':
               const skillValue = this.characterSkills[prerequisite.value];
-              if ( skillValue < prerequisite.threshold ) {
+              if (skillValue < prerequisite.threshold) {
                 fulfilled = false;
               }
               break;
           }
-
         });
       }
 
-      if ( this.ascensionPackages ) {
-        //this.ascensionPackages.
+      if (this.ascensionPackages) {
+        // this.ascensionPackages.
       }
-      //const ascensions = this.
+      // const ascensions = this.
 
       return fulfilled;
     },
@@ -311,13 +213,13 @@ export default {
       return this.skillMaximumBy(this.settingTier);
     },
     // Character Data
-    settingTier(){
+    settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
-    characterAttributeCosts(){
+    characterAttributeCosts() {
       return this.$store.getters['characters/characterAttributeCostsById'](this.characterId);
     },
     characterAttributes() {
@@ -335,8 +237,88 @@ export default {
     characterTraitsEnhanced() {
       return this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
     },
-  }
-}
+  },
+  async asyncData({ params, $axios }) {
+    const archetypeResponse = await $axios.get('/api/archetypes/?source=core,coreab');
+    return {
+      characterId: params.id,
+      archetypeRepository: archetypeResponse.data,
+    };
+  },
+  head() {
+    return {
+      title: 'Select Attributes & Skills',
+    };
+  },
+  methods: {
+    incrementSkill(skill) {
+      const newValue = this.characterSkills[skill] + 1;
+      this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
+    },
+    decrementSkill(skill) {
+      const newValue = this.characterSkills[skill] - 1;
+      this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
+    },
+    incrementAttribute(attribute) {
+      const newValue = this.characterAttributes[attribute] + 1;
+      this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
+    },
+    decrementAttribute(attribute) {
+      const newValue = this.characterAttributes[attribute] - 1;
+      this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
+    },
+    skillsByAttribute(attribute) {
+      if (this.skillRepository !== undefined) {
+        return this.skillRepository.filter((s) => s.attribute === attribute);
+      }
+      return [];
+    },
+    traitsByAttribute(attribute) {
+      if (this.traitRepository !== undefined) {
+        return this.traitRepository.filter((t) => t.attribute === attribute);
+      }
+      return [];
+    },
+    affordableSkillColor(currentSkillValue) {
+      const skillNewValueCost = [0, 1, 2, 3, 4, 10, 12, 14, 24];
+      const cost = skillNewValueCost[currentSkillValue + 1];
+      return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
+    },
+    attributeMaximumFor(attributeName) {
+      const usedSpecies = this.characterSpeciesLabel || 'Human';
+      const attributeBaseMaximumByTier = [4, 5, 6, 8, 10]; // index 0 is tier 1
+      const maxBySpecies = this.getAttributeMaximumForSpecies(usedSpecies, attributeName);
+      const maxByTier = attributeBaseMaximumByTier[this.settingTier - 1];
+      return Math.min(maxBySpecies, maxByTier);
+    },
+    skillMaximumBy(tier) {
+      return 3 + tier;
+    },
+    ensurePrerequisites() {
+      const archetype = this.archetypeRepository.find((archetype) => archetype.name == this.characterArchetypeLabel);
+
+      if (archetype && archetype.prerequisites.length > 0) {
+        archetype.prerequisites.forEach((prerequisite) => {
+          // { group: 'attributes', value: 'willpower', threshold: 3, }
+          switch (prerequisite.group) {
+            case 'attributes':
+              const attributeValue = this.characterAttributesEnhanced[prerequisite.value];
+              if (attributeValue < prerequisite.threshold) {
+                this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
+              }
+              break;
+            case 'skills':
+              const skillValue = this.characterSkills[prerequisite.value];
+              if (skillValue < prerequisite.threshold) {
+                this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
+              }
+              break;
+          }
+        });
+      }
+    },
+  },
+};
 </script>
 
 <style scoped lang="css">

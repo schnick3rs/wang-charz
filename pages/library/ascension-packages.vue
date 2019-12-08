@@ -1,111 +1,91 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
   <div>
-
     <!-- Breadcrumbs -->
-    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <v-row justify="center">
-
       <!-- filter -->
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <v-card>
-
           <v-card-text>
-
-            <v-row justify="center" row wrap>
-
-              <v-col v-bind:cols="12" v-bind:sm="6" >
-
+            <v-row justify="center">
+              <v-col :cols="12" :sm="6">
                 <v-text-field
                   v-model="searchQuery"
                   filled
                   dense
                   clearable
-                  label="Search"></v-text-field>
+                  label="Search"
+                />
               </v-col>
 
               <!-- filter species -->
-              <v-col v-bind:cols="12" v-bind:sm="6">
-
+              <v-col :cols="12" :sm="6">
                 <v-select
                   v-model="filters.source.model"
-                  v-bind:items="filterSourceOptions"
-                  v-bind:label="filters.source.label"
+                  :items="filterSourceOptions"
+                  :label="filters.source.label"
                   filled
                   clearable
                   multiple
                   dense
-                >
-                </v-select>
+                />
               </v-col>
-
-
             </v-row>
-
           </v-card-text>
-
         </v-card>
-
       </v-col>
 
       <!-- Table -->
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <v-card>
-
           <v-data-table
-            v-bind:headers="headers"
-            v-bind:items="searchResult"
-            v-bind:page.sync="pagination.page"
-            v-bind:search="searchQuery"
-            v-bind:items-per-page="15"
-            v-on:page-count="pagination.pageCount = $event"
+            :headers="headers"
+            :items="searchResult"
+            :page.sync="pagination.page"
+            :search="searchQuery"
+            :items-per-page="15"
             item-key="key"
             sort-by="name"
             hide-default-footer
+            @page-count="pagination.pageCount = $event"
           >
-
             <template v-slot:item.source.book="{ item }">
               <v-row no-gutters>
-                <v-col v-bind:cols="12">
-                  {{item.source.book}}
-                  <NuxtLink v-if="item.source.path" v-bind:to="item.source.path" target="_blank"><v-icon small>launch</v-icon></NuxtLink>
+                <v-col :cols="12">
+                  {{ item.source.book }}
+                  <NuxtLink v-if="item.source.path" :to="item.source.path" target="_blank">
+                    <v-icon small>
+                      launch
+                    </v-icon>
+                  </NuxtLink>
                 </v-col>
-                <v-col v-bind:cols="12" class="caption grey--text" v-if="item.source.page">
+                <v-col v-if="item.source.page" :cols="12" class="caption grey--text">
                   pg. {{ item.source.page }}
                 </v-col>
               </v-row>
-
             </template>
 
             <template v-slot:expanded-item="{ headers, item }">
-              <td v-bind:colspan="headers.length">
+              <td :colspan="headers.length">
                 <archetype-preview
-                  v-bind:item="item"
+                  :item="item"
                   class="pa-2 pt-4 pb-4"
-                ></archetype-preview>
+                />
               </td>
             </template>
-
           </v-data-table>
 
-          <div class="text-xs-center pt-2">
+          <div class="text-center pt-2">
             <v-pagination
               v-model="pagination.page"
-              v-bind:length="pagination.pageCount"
+              :length="pagination.pageCount"
             />
           </div>
-
         </v-card>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
@@ -118,13 +98,12 @@ export default {
   mixins: [],
   head() {
     const title = 'Ascension Packages - Wrath & Glory Reference | Library';
-    const description =
-      'Tired of staying the course and wizzarding around? Search the Library for Ascension Packages. ' +
-      'Check out the respective linked Homebrews for detailed informations.';
+    const description = 'Tired of staying the course and wizzarding around? Search the Library for Ascension Packages. '
+      + 'Check out the respective linked Homebrews for detailed informations.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
 
     return {
-      title: title,
+      title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
@@ -133,38 +112,18 @@ export default {
       ],
     };
   },
-  async asyncData({ $axios, query, params, error }) {
-
-    const response = await $axios.get(`/api/ascension-packages/`);
-    const items = response.data;
-
-    if ( items === undefined || items.length <= 0 ) {
-      error({ statusCode: 404, message: 'No Ascension Packages found!' });
-    }
-
-    const groupFilterSelections = [];
-    if ( query['filter-group'] ) {
-      //factionFilterSelections.push(query['filter-faction']);
-    }
-
-    const filtersSourceModel = [];
-    if ( query['filter-source'] ) {
-      filtersSourceModel.push(query['filter-source']);
-    }
-
-    return {
-      items: items,
-      filters: {
-        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
-      },
-    };
-  },
   data() {
     return {
       breadcrumbItems: [
-        { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
-        { text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library' },
-        { text: 'Ascension Packages', disabled: false, nuxt: true, exact: true, to: '/library/ascension-packages' },
+        {
+          text: '', disabled: false, nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library',
+        },
+        {
+          text: 'Ascension Packages', disabled: false, nuxt: true, exact: true, to: '/library/ascension-packages',
+        },
       ],
       searchQuery: '',
       selectedTypeFilters: [],
@@ -175,9 +134,15 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        { text: 'Name', align: 'start', value: 'name', class: '' },
-        { text: 'Hint', align: 'start', value: 'hint', class: '' },
-        { text: 'Source', align: 'start', value: 'source.book', class: '' },
+        {
+          text: 'Name', align: 'start', value: 'name', class: '',
+        },
+        {
+          text: 'Hint', align: 'start', value: 'hint', class: '',
+        },
+        {
+          text: 'Source', align: 'start', value: 'source.book', class: '',
+        },
       ],
       expand: false,
     };
@@ -187,11 +152,11 @@ export default {
       return this.items;
     },
     filterSourceOptions() {
-      let options = this.activeRepository.map(i => { return {value: i.source.key, text: i.source.book} } );
-      return [...new Set(options)].sort( (a, b) => a.text.localeCompare(b.text) );
+      const options = this.activeRepository.map((i) => ({ value: i.source.key, text: i.source.book }));
+      return [...new Set(options)].sort((a, b) => a.text.localeCompare(b.text));
     },
     searchResult() {
-      if ( this.activeRepository === undefined ) {
+      if (this.activeRepository === undefined) {
         return [];
       }
       let filteredResults = this.activeRepository;
@@ -200,7 +165,7 @@ export default {
 
       filter = this.filters.source;
       if (filter.model.length > 0) {
-        filteredResults = filteredResults.filter( i => filter.model.includes(i.source.key) );
+        filteredResults = filteredResults.filter((i) => filter.model.includes(i.source.key));
       }
 
       return filteredResults;
@@ -216,18 +181,45 @@ export default {
       ];
     },
     filterSpeciesOptions() {
-      let array = [];
-      this.activeRepository.forEach( item => {
-        array.push(...item.species)
+      const array = [];
+      this.activeRepository.forEach((item) => {
+        array.push(...item.species);
       });
-      const distinct = [ ...new Set(array) ];
+      const distinct = [...new Set(array)];
       return distinct.sort();
     },
     filterGroupOptions() {
-      const reduce = this.activeRepository.map( item => item.group );
-      const distinct = [ ...new Set(reduce) ];
-      return distinct.filter( d => d !== null ).sort();
+      const reduce = this.activeRepository.map((item) => item.group);
+      const distinct = [...new Set(reduce)];
+      return distinct.filter((d) => d !== null).sort();
     },
+  },
+  async asyncData({
+    $axios, query, params, error,
+  }) {
+    const response = await $axios.get('/api/ascension-packages/');
+    const items = response.data;
+
+    if (items === undefined || items.length <= 0) {
+      error({ statusCode: 404, message: 'No Ascension Packages found!' });
+    }
+
+    const groupFilterSelections = [];
+    if (query['filter-group']) {
+      // factionFilterSelections.push(query['filter-faction']);
+    }
+
+    const filtersSourceModel = [];
+    if (query['filter-source']) {
+      filtersSourceModel.push(query['filter-source']);
+    }
+
+    return {
+      items,
+      filters: {
+        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
+      },
+    };
   },
   methods: {
   },
@@ -236,4 +228,3 @@ export default {
 
 <style scoped lang="css">
 </style>
-

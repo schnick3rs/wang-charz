@@ -1,17 +1,16 @@
 <template lang="html">
-
   <v-row justify="center">
-
     <v-col
-      v-bind:cols="12"
       v-if="characterBackground"
+      :cols="12"
     >
       <v-card>
-
         <v-card-title primary-title>
           <div>
-            <div class="headline">{{ characterBackground.name }}</div>
-            <span class="subtitle-2">{{ characterBackground.hint}}</span>
+            <div class="headline">
+              {{ characterBackground.name }}
+            </div>
+            <span class="subtitle-2">{{ characterBackground.hint }}</span>
           </div>
         </v-card-title>
 
@@ -22,32 +21,32 @@
             <v-select
               v-model="characterBackground.selected"
               label="Some text"
-              v-bind:items="characterBackground.choice"
-              v-on:change="selectBackgroundChoice(characterBackground, characterBackground.selected)"
+              :items="characterBackground.choice"
               item-text="name"
               item-value="key"
               solo
               dense
-            ></v-select>
+              @change="selectBackgroundChoice(characterBackground, characterBackground.selected)"
+            />
           </div>
         </v-card-text>
 
-        <v-divider/>
+        <v-divider />
 
         <v-card-actions>
-        <v-btn
-          text
-          outlined
-          color="red"
-          v-on:click="removeBackground(characterBackground)"
-        >
-          <v-icon left>remove_circle</v-icon>
-          remove background
-        </v-btn>
+          <v-btn
+            text
+            outlined
+            color="red"
+            @click="removeBackground(characterBackground)"
+          >
+            <v-icon left>
+              remove_circle
+            </v-icon>
+            remove background
+          </v-btn>
         </v-card-actions>
-
       </v-card>
-
     </v-col>
 
     <v-dialog
@@ -57,52 +56,43 @@
     >
       <background-preview
         v-if="dialogItem"
-        v-bind:item="dialogItem"
-        v-on:select="selectBackgroundForChar"
-        v-on:cancel="dialog = false"
-      >
-      </background-preview>
+        :item="dialogItem"
+        @select="selectBackgroundForChar"
+        @cancel="dialog = false"
+      />
     </v-dialog>
 
-    <v-col v-bind:cols="12" v-if="!characterBackground">
-
-      <h1 class="headline">Select a background</h1>
-
+    <v-col v-if="!characterBackground" :cols="12">
+      <h1 class="headline">
+        Select a background
+      </h1>
     </v-col>
 
-    <v-col v-bind:cols="12" v-if="!characterBackground">
-
+    <v-col v-if="!characterBackground" :cols="12">
       <v-card>
-
         <v-list>
-
           <v-list-item
             v-for="item in backgroundRepository"
-            v-bind:key="item.key"
-            v-on:click.stop="openDialog(item)"
+            :key="item.key"
+            @click.stop="openDialog(item)"
           >
-
             <v-list-item-content>
               <v-list-item-title>{{ item.name }}</v-list-item-title>
               <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
-              <v-icon color="primary">arrow_forward_ios</v-icon>
+              <v-icon color="primary">
+                arrow_forward_ios
+              </v-icon>
             </v-list-item-action>
-
           </v-list-item>
-
         </v-list>
-
       </v-card>
-
     </v-col>
 
-     <issue-list v-bind:items="issues" />
-
+    <issue-list :items="issues" />
   </v-row>
-
 </template>
 
 <script lang="js">
@@ -113,19 +103,9 @@ import IssueList from '~/components/IssueList.vue';
 export default {
   name: 'Background',
   layout: 'forge',
-  mixins: [ BackgroundRepositoryMixin ],
   components: { BackgroundPreview, IssueList },
+  mixins: [BackgroundRepositoryMixin],
   props: [],
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
-  },
-  head() {
-    return {
-      title: 'Select Background',
-    }
-  },
   data() {
     return {
       dialog: false,
@@ -133,7 +113,7 @@ export default {
       issues: [
         'Add option to select specific keyword for "Keywords as a Background" Option',
         'Allow to select a second background if the respective talent is chosen',
-      ]
+      ],
     };
   },
   computed: {
@@ -144,6 +124,16 @@ export default {
       return this.backgroundRepository.find((i) => i.name === this.characterBackgroundName);
     },
   },
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
+  head() {
+    return {
+      title: 'Select Background',
+    };
+  },
   methods: {
     openDialog(item) {
       this.dialogItem = item;
@@ -151,23 +141,23 @@ export default {
     },
     selectBackgroundForChar(item) {
       this.$store.commit('characters/setCharacterBackground', { id: this.characterId, backgroundName: item.name });
-      if ( item.modifier ) {
+      if (item.modifier) {
         const content = { modifications: [item.modifier], source: item.modifier.source };
-        this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: content });
+        this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });
       }
       this.dialog = false;
     },
     removeBackground(item) {
       this.$store.commit('characters/setCharacterBackground', { id: this.characterId, backgroundName: undefined });
-      this.$store.commit('characters/clearCharacterEnhancementsBySource', {  id: this.characterId, source: `background.${item.key}` });
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `background.${item.key}` });
     },
     selectBackgroundChoice(background, choiceKey) {
-      const choice = background.choice.find( (choice) => choice.key === choiceKey );
+      const choice = background.choice.find((choice) => choice.key === choiceKey);
 
       console.info(`Background ${background.name} with choice ${choice.name}.`);
 
       const content = { modifications: [choice.modifier], source: choice.modifier.source };
-      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: content });
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });
     },
   },
 };

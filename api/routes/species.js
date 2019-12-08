@@ -8,16 +8,15 @@ const router = new Router();
 module.exports = router;
 
 router.get('/', (request, response) => {
-
   let items = [];
   items = speciesRepository;
 
   const filter = {};
   const filterSourceString = request.query.source;
   if (filterSourceString) {
-    filter['source'] = filterSourceString.split(',');
+    filter.source = filterSourceString.split(',');
     if (filter.source) {
-      items = items.filter( item => filter.source.includes(item.source.key));
+      items = items.filter((item) => filter.source.includes(item.source.key));
     }
   }
 
@@ -29,7 +28,6 @@ router.get('/', (request, response) => {
  * returns a list of all astartes chapter abilities
  */
 router.get('/chapters/', (request, response) => {
-
   let items = [];
   items = chaptersRepository;
 
@@ -38,12 +36,11 @@ router.get('/chapters/', (request, response) => {
 });
 
 router.get('/:slug', (request, response) => {
+  const { slug } = request.params;
 
-  const slug = request.params.slug;
+  const key = slug.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 
-  const key = slug.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
-
-  const item = speciesRepository.find( archetype => archetype.key === key );
+  const item = speciesRepository.find((archetype) => archetype.key === key);
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);

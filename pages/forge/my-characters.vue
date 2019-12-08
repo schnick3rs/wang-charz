@@ -1,23 +1,19 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
   <div>
-
     <v-row justify="center">
-
-      <v-col v-bind:cols="12" class="elevation-4 mb-2 pa-0 ma-0">
-
+      <v-col :cols="12" class="elevation-4 mb-2 pa-0 ma-0">
         <v-breadcrumbs
-          v-bind:items="breadcrumbItems"
+          :items="breadcrumbItems"
           class="pa-2"
         >
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item
-              v-bind:nuxt="true"
-              v-bind:to="item.to"
-              v-bind:disabled="item.disabled"
-              v-bind:exact="item.exact"
+              :nuxt="true"
+              :to="item.to"
+              :disabled="item.disabled"
+              :exact="item.exact"
             >
-              <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+              <img v-if="item.to == '/'" src="/favicon-16x16.png">
               {{ item.text }}
             </v-breadcrumbs-item>
           </template>
@@ -25,27 +21,23 @@
           <template v-slot:divider>
             <v-icon>mdi-chevron-right</v-icon>
           </template>
-
         </v-breadcrumbs>
-
       </v-col>
-
     </v-row>
 
     <v-row justify="center">
-
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <h2 class="headline">
           My Characters: <span style="color: #1976d2;">{{ characterSets.filter(i=>i !== undefined).length }} Slots</span>
         </h2>
 
-        <v-btn large color="primary" v-on:click="newCharacter">Create a Character</v-btn>
-
+        <v-btn large color="primary" @click="newCharacter">
+          Create a Character
+        </v-btn>
       </v-col>
 
       <!-- No Chars yet info text -->
-      <v-col v-bind:cols="12" v-if="characterSets.filter(i=>i !== undefined).length <= 0">
+      <v-col v-if="characterSets.filter(i=>i !== undefined).length <= 0" :cols="12">
         <v-alert
           type="info"
           prominent
@@ -56,12 +48,12 @@
           Just hit <strong>Create a Character</strong> and start building.
         </v-alert>
         <v-alert
+          v-if="false"
           type="info"
           prominent
           text
           border="left"
           color="primary"
-          v-if="false"
         >
           <p>
             <strong>You have been here before and miss your character?</strong>
@@ -73,42 +65,33 @@
         </v-alert>
       </v-col>
 
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <div>
-          <v-card>
-
-          </v-card>
+          <v-card />
         </div>
 
         <v-row justify="left">
-
           <v-col
-            v-if="characterSets"
             v-for="character in characterSets.filter(i=>i !== undefined)"
-            v-bind:key="character.id"
-            v-bind:cols="12"
-            v-bind:sm="6"
-            v-bind:md="6"
-            v-bind:lg="4"
+            v-if="characterSets"
+            :key="character.id"
+            :cols="12"
+            :sm="6"
+            :md="6"
+            :lg="4"
           >
-
             <v-card v-if="character">
-
-              <div class="card" >
-
+              <div class="card">
                 <div class="card__image-container">
                   <div
                     class="card__image"
-                    v-bind:style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
+                    :style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
                     loading
-                  ></div>
+                  />
                 </div>
 
                 <v-card-text class="pa-0">
-
                   <div class="card__content-container pa-4">
-
                     <h3>{{ characterName(character.id) }}</h3>
 
                     <div>
@@ -118,66 +101,69 @@
                     <div>
                       <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} BP</span>
                     </div>
-
                   </div>
                 </v-card-text>
-
               </div>
 
-              <v-divider/>
+              <v-divider />
 
-              <v-card-text class="pa-2 card__campaign-container"><strong>Tier {{characterSettingTier(character.id)}}:</strong> <em>{{ characterSettingTitle(character.id) }}</em></v-card-text>
+              <v-card-text class="pa-2 card__campaign-container">
+                <strong>Tier {{ characterSettingTier(character.id) }}:</strong> <em>{{ characterSettingTitle(character.id) }}</em>
+              </v-card-text>
 
-              <v-divider/>
+              <v-divider />
 
-              <v-card-actions >
+              <v-card-actions>
                 <v-btn
                   nuxt
-                  v-bind:to="`/forge/characters/${character.id}/builder/setting`"
+                  :to="`/forge/characters/${character.id}/builder/setting`"
                   color="primary"
                   small
                 >
-                  <v-icon left small>edit</v-icon>
+                  <v-icon left small>
+                    edit
+                  </v-icon>
                   Edit
                 </v-btn>
                 <v-btn
                   nuxt
-                  v-bind:to="`/forge/characters/${character.id}/builder/print`"
+                  :to="`/forge/characters/${character.id}/builder/print`"
                   target="_blank"
                   color="primary"
                   outlined
                   small
                 >
-                  <v-icon small left>description</v-icon>
+                  <v-icon small left>
+                    description
+                  </v-icon>
                   Print
                 </v-btn>
                 <v-btn
                   color="red"
                   text
                   small
-                  v-on:click="deleteCharacter(character.id)"
+                  @click="deleteCharacter(character.id)"
                 >
-                  <v-icon small>delete</v-icon>
+                  <v-icon small>
+                    delete
+                  </v-icon>
                   Delete
                 </v-btn>
               </v-card-actions>
-
             </v-card>
-
           </v-col>
-
         </v-row>
-
       </v-col>
 
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <v-card>
           <v-card-text>
-            <h1 class="headline">Character Generator for Wrath and Glory</h1>
+            <h1 class="headline">
+              Character Generator for Wrath and Glory
+            </h1>
             <p>
               This <strong>online character generator for Wrath & Glory</strong> allows you to create and <strong>organize multiple
-              characters</strong>. Just define a Setting with a fitting Tier and start building.
+                characters</strong>. Just define a Setting with a fitting Tier and start building.
               For severe issues, feedback and ideas, reach out to me via
               <a href="mailto:docsofdoom+forge@gmail.com?subject=Forge Feedback">docsofdoom+forge(at)gmail.com</a>.
             </p>
@@ -189,21 +175,17 @@
             </p>
           </v-card-text>
         </v-card>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script lang="js">
-import SluggerMixin from '~/mixins/SluggerMixin';
 import { mapGetters } from 'vuex';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
-  name: 'my-characters',
+  name: 'MyCharacters',
   mixins: [
     SluggerMixin,
   ],
@@ -211,8 +193,12 @@ export default {
   data() {
     return {
       breadcrumbItems: [
-        { text: '', nuxt: true, exact: true, to: '/' },
-        { text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters' },
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters',
+        },
       ],
       howTo: {
         steps: [
@@ -227,43 +213,41 @@ export default {
   },
   head() {
     const title = 'My Characters | Forge';
-    const description = 'The Forge allows you to create and organize multiple characters for the Wrath and Glory' +
-      'Roleplaying game. Edit, change and view your characters online.';
+    const description = 'The Forge allows you to create and organize multiple characters for the Wrath and Glory'
+      + 'Roleplaying game. Edit, change and view your characters online.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_abstract.jpg';
     const imageTwitter = 'https://www.doctors-of-doom.com/img/artwork_forge_twitter.jpg';
 
     const howToSchema = {
-      "@context": "http://schema.org",
-      "@type": "HowTo",
-      "name": "How to create a Wrath and Glory Character",
-      "description": "Creating a Character is quite easy. Pick a Setting Tier, select species and archetype and spend your remaining build points.",
-      "image": "https://www.doctors-of-doom.com/img/artwork_abstract.jpg",
-      "tool": [
+      '@context': 'http://schema.org',
+      '@type': 'HowTo',
+      name: 'How to create a Wrath and Glory Character',
+      description: 'Creating a Character is quite easy. Pick a Setting Tier, select species and archetype and spend your remaining build points.',
+      image: 'https://www.doctors-of-doom.com/img/artwork_abstract.jpg',
+      tool: [
         {
-          "@type": "HowToTool",
-          "name": "Wrath & Glory Core Rules"
-        }
+          '@type': 'HowToTool',
+          name: 'Wrath & Glory Core Rules',
+        },
       ],
-      "supply": "", // TODO
-      "step": this.howTo.steps.map( (item) => {
-        return {
-          "@type": "HowToStep",
-          "name": item.name,
-          "text": item.text,
-          "image": "", // TODO
-          "url": "", // TODO
-        }
-      }),
+      supply: '', // TODO
+      step: this.howTo.steps.map((item) => ({
+        '@type': 'HowToStep',
+        name: item.name,
+        text: item.text,
+        image: '', // TODO
+        url: '', // TODO
+      })),
       /**
        * period of 1 hour
        *
        * @see https://www.digi.com/resources/documentation/digidocs/90001437-13/reference/r_iso_8601_duration_format.htm
        */
-      "totalTime": "P1H",
+      totalTime: 'P1H',
     };
 
     return {
-      title: title,
+      title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
@@ -303,7 +287,7 @@ export default {
     },
   },
   methods: {
-    characterName(id){
+    characterName(id) {
       return this.$store.getters['characters/characterNameById'](id);
     },
     characterSpeciesLabel(id) {
@@ -312,53 +296,52 @@ export default {
     characterArchetypeLabel(id) {
       return this.$store.getters['characters/characterArchetypeLabelById'](id);
     },
-    characterRank(id){
+    characterRank(id) {
       return this.$store.getters['characters/characterCampaignCustomRankById'](id);
     },
     characterTotalBp(id) {
       return this.$store.getters['characters/characterTotalBuildPointsById'](id);
     },
-    characterSpendBp(id){
+    characterSpendBp(id) {
       return this.$store.getters['characters/characterSpendBuildPointsById'](id);
     },
-    characterSettingTitle(id){
+    characterSettingTitle(id) {
       return this.$store.getters['characters/characterSettingTitleById'](id);
     },
-    characterSettingTier(id){
+    characterSettingTier(id) {
       return this.$store.getters['characters/characterSettingTierById'](id);
     },
     getAvatar(speciesLabel, archetypeLabel) {
-
-      if ( archetypeLabel !== undefined && !['Ratling','Ogryn'].includes(speciesLabel) ) {
+      if (archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(speciesLabel)) {
         return `/img/icon/archetype/archetype_${this.textToKebab(archetypeLabel)}_avatar.png`;
       }
 
-      if ( speciesLabel !== undefined ) {
+      if (speciesLabel !== undefined) {
         return `/img/icon/species/species_${this.textToKebab(speciesLabel)}_avatar.png`;
       }
 
-      return `/img/icon/species/species_human_avatar.png`;
+      return '/img/icon/species/species_human_avatar.png';
     },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)
-        .then( response => {
-          this.$store.dispatch('populateState', response)
+        .then((response) => {
+          this.$store.dispatch('populateState', response);
         });
 
-      //this.$store.dispatch('loadCharacterFromDatabase', characterId );
+      // this.$store.dispatch('loadCharacterFromDatabase', characterId );
     },
-    loadChar(){
-      this.$store.dispatch('loadCharacterFromDatabase', { id: 3 } );
+    loadChar() {
+      this.$store.dispatch('loadCharacterFromDatabase', { id: 3 });
     },
-    saveChar(){
+    saveChar() {
       this.$store.dispatch('saveCurrentCharacterToDatabase');
     },
-    newCharacter(){
-      let newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    newCharacter() {
+      const newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       this.$store.commit('characters/create', newCharId);
       this.$ga.event('New Character', 'click', newCharId, 10);
     },
-    deleteCharacter(id){
+    deleteCharacter(id) {
       this.$store.commit('characters/remove', id);
       this.$ga.event('Delete Character', 'click', id, 1);
     },

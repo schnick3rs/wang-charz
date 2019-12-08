@@ -1,13 +1,12 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
   <div>
     <v-dialog
       v-model="loginDialog"
       width="500"
     >
       <login-dialog
-        v-on:close="loginDialog = false"
-      ></login-dialog>
+        @close="loginDialog = false"
+      />
     </v-dialog>
 
     <v-tooltip
@@ -16,26 +15,28 @@
     >
       <template v-slot:activator="{ on }">
         <v-btn
-          v-on="on"
           icon
           color="success"
+          v-on="on"
         >
           <v-icon>person</v-icon>
         </v-btn>
       </template>
-      <span>Logged in as {{loggedInUser.username}}</span>
+      <span>Logged in as {{ loggedInUser.username }}</span>
     </v-tooltip>
 
     <v-btn
-      title="Logout"
       v-else
+      title="Logout"
       icon
-      v-on:click.stop="loginDialog = true"
+      @click.stop="loginDialog = true"
     >
       <v-icon>person_add</v-icon>
     </v-btn>
 
-    <v-btn v-if="false" icon color="error" v-bind:disabled="true" v-on:click="logout"><v-icon>exit_to_app</v-icon></v-btn>
+    <v-btn v-if="false" icon color="error" :disabled="true" @click="logout">
+      <v-icon>exit_to_app</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -49,18 +50,18 @@ export default {
   components: { LoginDialog, RegisterDialog },
   data() {
     return {
-        loginDialog: false,
+      loginDialog: false,
     };
   },
   computed: {
-    //...mapGetters(['isAuthenticated', 'loggedInUser']),
+    // ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
   methods: {
     logout() {
       this.$auth.logout();
-    }
+    },
   },
-}
+};
 </script>
 
 <style>

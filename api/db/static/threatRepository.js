@@ -3,45 +3,71 @@
 
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
-  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
-  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
-  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
-  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
-  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
-  aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
-  tea: { book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
-  heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
-  goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
-  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
-  pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
-  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
+  aaoa: {
+    book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha',
+  },
+  lotn: {
+    book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr',
+  },
+  thaot: {
+    book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology',
+  },
+  ltgb: {
+    book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn',
+  },
+  aptb: {
+    book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary',
+  },
+  jtb: {
+    book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary',
+  },
+  aotgt: {
+    book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne',
+  },
+  tea: {
+    book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels',
+  },
+  heva: {
+    book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault',
+  },
+  goen: {
+    book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines',
+  },
+  tog: {
+    book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory',
+  },
+  pax: {
+    book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis',
+  },
+  sotah: {
+    book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde',
+  },
 };
 
-const simpleMelee = function(name, range, damage, ap, ...traits) {
+const simpleMelee = function (name, range, damage, ap, ...traits) {
   const splitDamage = damage.split('+');
   return {
-    name: name,
+    name,
     type: 'melee-weapon',
-    range: range,
+    range,
     damage: { static: splitDamage[0], ed: splitDamage[1] },
-    ap: ap,
-    traits: traits,
-  }
+    ap,
+    traits,
+  };
 };
-const simpleRanged = function(name, range, damage, ap, salvo, ...traits) {
+const simpleRanged = function (name, range, damage, ap, salvo, ...traits) {
   const splitDamage = damage.split('+');
   return {
-    name: name,
+    name,
     type: 'ranged-weapon',
-    range: range,
+    range,
     damage: { static: splitDamage[0], ed: splitDamage[1] },
-    ap: ap,
-    salvo: salvo,
-    traits: traits,
-  }
+    ap,
+    salvo,
+    traits,
+  };
 };
-const simpleAbility = function(text) {
+const simpleAbility = function (text) {
   const textSplit = text.split(': ');
   return {
     name: textSplit[0],
@@ -54,18 +80,18 @@ const simpleAbility = function(text) {
  * @param text
  * @returns {string}
  */
-const textToSlug = function(text) {
+const textToSlug = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
 };
 
-const slugToKebab = function(slug) {
-  return slug.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
+const slugToKebab = function (slug) {
+  return slug.replace(/-([a-z0-9])/g, (g) => g[1].toUpperCase());
 };
 
-const textSlugKebab = function(text) {
-   const slug = textToSlug(text);
-   const kebab = slugToKebab(slug);
-   return kebab;
+const textSlugKebab = function (text) {
+  const slug = textToSlug(text);
+  const kebab = slugToKebab(slug);
+  return kebab;
 };
 
 const levelMap = {
@@ -76,29 +102,29 @@ const levelMap = {
   v: 'Vehicle',
 };
 
-const classificationHelper = function(shortcode) {
+const classificationHelper = function (shortcode) {
   const split = shortcode.split('');
-  return split.map( code => levelMap[code] );
+  return split.map((code) => levelMap[code]);
 };
 
 const aaoa = {
   feed: {
     name: 'Instinctive Behaviour (Lurk)',
     effect:
-    'At the start of the creature’s turn, it must pass a Resolve test (DN 3) or act according to that instinct; ' +
-    'if the Resolve test is passed, the creature may act freely. ' +
-    'If the creature is part of a mob, then the whole mob makes a single Resolve test. ' +
-    'Tyranids with the Feed instinct are driven by a voracious need to attack and consume, and they will rampage towards the nearest prey without thought for anything but sating appetites that will never be satisfied. ' +
-    'A Tyranid with the Feed instinct becomes frenzied.',
+    'At the start of the creature’s turn, it must pass a Resolve test (DN 3) or act according to that instinct; '
+    + 'if the Resolve test is passed, the creature may act freely. '
+    + 'If the creature is part of a mob, then the whole mob makes a single Resolve test. '
+    + 'Tyranids with the Feed instinct are driven by a voracious need to attack and consume, and they will rampage towards the nearest prey without thought for anything but sating appetites that will never be satisfied. '
+    + 'A Tyranid with the Feed instinct becomes frenzied.',
   },
   lurk: {
     name: 'Instinctive Behaviour (Lurk)',
     effect:
-      'At the start of the creature’s turn, it must pass a Resolve test (DN 3) or act according to that instinct; ' +
-      'if the Resolve test is passed, the creature may act freely. ' +
-      'If the creature is part of a mob, then the whole mob makes a single Resolve test. ' +
-      'Tyranids with the Lurk instinct are driven by their survival instincts to seek out cover, hiding themselves away and attacking only when threatened. ' +
-      'A Tyranid with the Lurk instinct becomes pinned.',
+      'At the start of the creature’s turn, it must pass a Resolve test (DN 3) or act according to that instinct; '
+      + 'if the Resolve test is passed, the creature may act freely. '
+      + 'If the creature is part of a mob, then the whole mob makes a single Resolve test. '
+      + 'Tyranids with the Lurk instinct are driven by their survival instincts to seek out cover, hiding themselves away and attacking only when threatened. '
+      + 'A Tyranid with the Lurk instinct becomes pinned.',
   },
   fleshborer: {
     name: 'Fleshborer',
@@ -107,7 +133,7 @@ const aaoa = {
     damage: { static: 10, ed: 1 },
     ap: 0,
     salvo: 1,
-    traits: [ 'Assault', 'Brutal' ],
+    traits: ['Assault', 'Brutal'],
   },
   devourer: {
     name: 'Devourer',
@@ -116,16 +142,16 @@ const aaoa = {
     damage: { static: 10, ed: 1 },
     ap: 0,
     salvo: 3,
-    traits: [ 'Agonizing', 'Asault', 'Spread' ],
+    traits: ['Agonizing', 'Asault', 'Spread'],
   },
   fleshHooks: simpleRanged('Flesh Hooks', 12, '15+1', 0, 2, 'Assault', 'Pistol'),
   adrenalGlands: {
     name: 'Adrenalin Glands',
-    effect: 'Increase Speed by 1.'
+    effect: 'Increase Speed by 1.',
   },
   toxinSacs: {
     name: 'Toxin Sacs',
-    effect: 'Melee attacks gain +1 ED and Toxic(3).'
+    effect: 'Melee attacks gain +1 ED and Toxic(3).',
   },
   synapseCreature: simpleAbility('Synapse Creature: Tyranids automatically pass Resolve tests if they are within 25m of a friendly Synapse Creature. Further, Tyranids within range of a Synapse Creature cannot suffer Shock, as they are driven to action without regard for fear, pain, fatigue, or the limits of their own bodies. Naturally, a Synapse Creature also receives these benefits, as they are always considered to be “within range of a Synapse Creature”.'),
   shadowOfTheWarp: simpleAbility('Shadow of the Warp: Whenever a Psyker uses a psychic power while within 35m of a Tyranid with this ability, they must count all 6s on their Wrath dice as 1s. Psykers with the Tyranid keyword are not affected.'),
@@ -171,16 +197,16 @@ const aaoa = {
         fire: simpleAbility('Sa\'cea Sept (Fire Caste): All T’au from Sa’cea add +1 to their Resolve. May re-roll one die on any Ballistic Skill test they attempt.'),
       },
       tau: {
-        fire: simpleAbility('T\'au Sept (Fire Caste): T’au from T’au reduce the DN of tests using Ballistic Skill by 2.')
+        fire: simpleAbility('T\'au Sept (Fire Caste): T’au from T’au reduce the DN of tests using Ballistic Skill by 2.'),
       },
       viorla: {
         fire: simpleAbility('Vior\'la Sept (Fire Caste): Treat any Rapid Fire weapon as if it had the Assault trait.'),
-      }
-    }
+      },
+    },
   },
 };
 
-aaoa.tau.septs['fire'] = {
+aaoa.tau.septs.fire = {
   name: 'T\'au Septs (Fire Caste)',
   options: [
     aaoa.tau.septs.borkan.fire,
@@ -189,18 +215,18 @@ aaoa.tau.septs['fire'] = {
     aaoa.tau.septs.sacea.fire,
     aaoa.tau.septs.tau.fire,
     aaoa.tau.septs.viorla.fire,
-  ]
+  ],
 };
 
-const simpleStub = function(sourceKey, sourcePage, faction, name, level) {
+const simpleStub = function (sourceKey, sourcePage, faction, name, level) {
   return {
     source: {
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${textSlugKebab(sourceKey+' '+name)}`,
-    name: name,
-    faction: faction,
+    key: `${textSlugKebab(`${sourceKey} ${name}`)}`,
+    name,
+    faction,
     classification: classificationHelper(level),
     stub: true,
   };
@@ -276,7 +302,7 @@ const threatRepository = [
       resilience: {
         total: 8,
         armourRating: 3,
-        armourName: 'Flak Armour'
+        armourName: 'Flak Armour',
       },
     },
     skills: {
@@ -293,25 +319,25 @@ const threatRepository = [
       {
         name: 'Lasgun',
         type: 'ranged-weapon',
-        damage: { static: 7, ed: 1},
+        damage: { static: 7, ed: 1 },
         range: 48,
         salvo: 2,
         ap: 0,
-        traits: [ 'Steadfast', 'Rapid Fire (2)' ],
+        traits: ['Steadfast', 'Rapid Fire (2)'],
       },
       {
         name: '2 Frag Grenades',
         type: 'ranged-weapon',
-        damage: { static: 10, ed: 1},
+        damage: { static: 10, ed: 1 },
         range: 12,
         salvo: -1,
         ap: 0,
-        traits: [ 'Blast (Medium)' ],
+        traits: ['Blast (Medium)'],
       },
       {
         name: 'Knife or Bayonet',
         type: 'melee-weapon',
-        damage: { static: 5, ed: 1},
+        damage: { static: 5, ed: 1 },
         ap: 0,
         traits: [],
       },
@@ -365,7 +391,7 @@ const threatRepository = [
       resilience: {
         total: 8,
         armourRating: 3,
-        armourName: 'Flak Armour'
+        armourName: 'Flak Armour',
       },
     },
     skills: {
@@ -382,25 +408,25 @@ const threatRepository = [
       {
         name: 'Lasgun',
         type: 'ranged-weapon',
-        damage: { static: 7, ed: 1},
+        damage: { static: 7, ed: 1 },
         range: 48,
         salvo: 2,
         ap: 0,
-        traits: [ 'Steadfast', 'Rapid Fire (2)' ],
+        traits: ['Steadfast', 'Rapid Fire (2)'],
       },
       {
         name: '2 Frag Grenades',
         type: 'ranged-weapon',
-        damage: { static: 10, ed: 1},
+        damage: { static: 10, ed: 1 },
         range: 12,
         salvo: -1,
         ap: 0,
-        traits: [ 'Blast (Medium)' ],
+        traits: ['Blast (Medium)'],
       },
       {
         name: 'Knife or Bayonet',
         type: 'melee-weapon',
-        damage: { static: 5, ed: 1},
+        damage: { static: 5, ed: 1 },
         ap: 0,
         traits: [],
       },
@@ -433,8 +459,8 @@ const threatRepository = [
       'Elite',
       'Elite',
     ],
-    description: 'An echoing remnant of the once-great Legio Cybernetica, the Kastelan is a true robot, capable of making combat decisions without the input of a human operator. Edging dangerously close to the Silica Animus the Mechanicum fears, every Kastelan Robot is programmed with special data-chips, sanctified and warded against what the Adeptus Mechanicus fears above all else: another uprising of Artificial Intelligence. To help prevent this, Kastelan robots are usually fielded alongside Cybernetica Datasmiths, tech-priests who dedicate themselves to monitoring and feeding combat data to these walking automatons.' +
-    '<br/><br/>While the Kastelan Robot is technically classed as a vehicle and is treated as such for most purposes, it operates on its own will without a human intelligence, and therefore much in common with a normal enemy as well. For all purposes that involve the vehicle’s pilot, consider the profile below to represent both the Kastelan itself and its “pilot”.',
+    description: 'An echoing remnant of the once-great Legio Cybernetica, the Kastelan is a true robot, capable of making combat decisions without the input of a human operator. Edging dangerously close to the Silica Animus the Mechanicum fears, every Kastelan Robot is programmed with special data-chips, sanctified and warded against what the Adeptus Mechanicus fears above all else: another uprising of Artificial Intelligence. To help prevent this, Kastelan robots are usually fielded alongside Cybernetica Datasmiths, tech-priests who dedicate themselves to monitoring and feeding combat data to these walking automatons.'
+    + '<br/><br/>While the Kastelan Robot is technically classed as a vehicle and is treated as such for most purposes, it operates on its own will without a human intelligence, and therefore much in common with a normal enemy as well. For all purposes that involve the vehicle’s pilot, consider the profile below to represent both the Kastelan itself and its “pilot”.',
     attributes: {
       strength: 8,
       agility: 4,
@@ -456,7 +482,7 @@ const threatRepository = [
       resilience: {
         total: 17,
         armourRating: 17,
-        armourName: 'Walker'
+        armourName: 'Walker',
       },
     },
     skills: {
@@ -477,28 +503,28 @@ const threatRepository = [
         name: 'Kastelan Fists',
         type: 'melee-weapon',
         range: 1,
-        damage: { static: 18, ed: 2},
+        damage: { static: 18, ed: 2 },
         ap: -3,
-        traits: [ 'Brutal' ],
+        traits: ['Brutal'],
       },
       {
         name: 'Incendine Combustor',
         type: 'ranged-weapon',
         range: 16,
-        damage: { static: 12, ed: 2},
+        damage: { static: 12, ed: 2 },
         salvo: 2,
         ap: -1,
-        traits: [ 'Blast (Large)', 'Blaze', 'Heavy (6)', 'Spread' ],
+        traits: ['Blast (Large)', 'Blaze', 'Heavy (6)', 'Spread'],
       },
       {
         name: '3x Heavy Phosphor Blaster',
         type: 'ranged-weapon',
         range: 72,
-        damage: { static: 14, ed: 2},
+        damage: { static: 14, ed: 2 },
         salvo: 3,
         ap: -2,
-        traits: [ 'Blaze', 'Heavy (6)', 'Phosphor' ],
-        special: 'All three Phosphor Blasters may be fired individually each turn.'
+        traits: ['Blaze', 'Heavy (6)', 'Phosphor'],
+        special: 'All three Phosphor Blasters may be fired individually each turn.',
       },
     ],
     specialAbilities: [
@@ -512,12 +538,12 @@ const threatRepository = [
       },
       {
         name: 'Battle Protocols',
-        effect: 'Kastelan Robots can have one of three battle protocols active at a time. ' +
-        'A Kastelan Robot begins combat with Aegis Protocol active and cannot change to ' +
-        'another except by the actions of a Cybernetica Datasmith. ' +
-        '(1) Aegis Protocol: The Kastelan robot adds 2 to its resilience and increases the AV of its Repulsor Grid force shield to 7.' +
-        '(2) Conqueror Protocol: The Kastelan cannot fire any ranged weapons it has equipped, but may ignore up to 2DN penalty for making a melee Multi-Attack.' +
-        '(3) Protector Protocol: The Kastelan cannot use any melee weapons it has equipped and cannot move, but doubles the Salvo rating for all its ranged weapons.',
+        effect: 'Kastelan Robots can have one of three battle protocols active at a time. '
+        + 'A Kastelan Robot begins combat with Aegis Protocol active and cannot change to '
+        + 'another except by the actions of a Cybernetica Datasmith. '
+        + '(1) Aegis Protocol: The Kastelan robot adds 2 to its resilience and increases the AV of its Repulsor Grid force shield to 7.'
+        + '(2) Conqueror Protocol: The Kastelan cannot fire any ranged weapons it has equipped, but may ignore up to 2DN penalty for making a melee Multi-Attack.'
+        + '(3) Protector Protocol: The Kastelan cannot use any melee weapons it has equipped and cannot move, but doubles the Salvo rating for all its ranged weapons.',
       },
     ],
   },
@@ -559,7 +585,7 @@ const threatRepository = [
       resilience: {
         total: 10,
         armourRating: 4,
-        armourName: 'Living Metal'
+        armourName: 'Living Metal',
       },
     },
     skills: {
@@ -577,26 +603,26 @@ const threatRepository = [
         name: 'Gauss Flayer',
         type: 'ranged-weapon',
         range: 48,
-        damage: { static: 10, ed: 1},
+        damage: { static: 10, ed: 1 },
         ap: -1,
         salvo: 2,
-        traits: [ 'Rappid Fire (2)' ],
+        traits: ['Rappid Fire (2)'],
       },
     ],
     specialAbilities: [
       {
         name: 'Reanimation Protocols',
-        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
-        'at the beginning of each following round until combat ends or reanimation occurs. ' +
-        'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
-        'remaining. ' +
-        'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
-        'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
-        'reduced to 0 members does not roll for Reanimation Protocols.' +
-        'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
-        'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
-        'least for the remainder of the combat). It may still be teleported away from the ' +
-        'battlefield by its tomb.',
+        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 '
+        + 'at the beginning of each following round until combat ends or reanimation occurs. '
+        + 'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds '
+        + 'remaining. '
+        + 'For mobs with this ability, instead roll a d6 for each member of the mob that has '
+        + 'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is '
+        + 'reduced to 0 members does not roll for Reanimation Protocols.'
+        + 'As a full round action, a character may attack a Necron at 0 wounds, spending enough '
+        + 'time to blast its remains apart or chop it to pieces, killing it permanently (or at '
+        + 'least for the remainder of the combat). It may still be teleported away from the '
+        + 'battlefield by its tomb.',
       },
       {
         name: ' Soulless Machine',
@@ -639,7 +665,7 @@ const threatRepository = [
       resilience: {
         total: 12,
         armourRating: 5,
-        armourName: 'Heavy Plating'
+        armourName: 'Heavy Plating',
       },
     },
     skills: {
@@ -657,43 +683,43 @@ const threatRepository = [
         name: 'Gauss Blaster',
         type: 'ranged-weapon',
         range: 48,
-        damage: { static: 12, ed: 1},
+        damage: { static: 12, ed: 1 },
         ap: -2,
         salvo: 2,
-        traits: [ 'Rapid Fire (2)' ],
+        traits: ['Rapid Fire (2)'],
       },
       {
         name: 'Tesla Carbine',
         type: 'ranged-weapon',
         range: 48,
-        damage: { static: 12, ed: 1},
+        damage: { static: 12, ed: 1 },
         ap: 0,
         salvo: 2,
-        traits: [ 'Assault', 'Tesla' ],
+        traits: ['Assault', 'Tesla'],
       },
     ],
     specialAbilities: [
       {
         name: 'Reanimation Protocols',
-        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
-        'at the beginning of each following round until combat ends or reanimation occurs. ' +
-        'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
-        'remaining. ' +
-        'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
-        'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
-        'reduced to 0 members does not roll for Reanimation Protocols.' +
-        'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
-        'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
-        'least for the remainder of the combat). It may still be teleported away from the ' +
-        'battlefield by its tomb.',
+        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 '
+        + 'at the beginning of each following round until combat ends or reanimation occurs. '
+        + 'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds '
+        + 'remaining. '
+        + 'For mobs with this ability, instead roll a d6 for each member of the mob that has '
+        + 'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is '
+        + 'reduced to 0 members does not roll for Reanimation Protocols.'
+        + 'As a full round action, a character may attack a Necron at 0 wounds, spending enough '
+        + 'time to blast its remains apart or chop it to pieces, killing it permanently (or at '
+        + 'least for the remainder of the combat). It may still be teleported away from the '
+        + 'battlefield by its tomb.',
       },
       {
         name: ' Soulless Machine',
-        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
-        ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
-        'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
-        'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
-        'affect machines, a Necron is considered a machine.',
+        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.'
+        + ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s '
+        + 'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and '
+        + 'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that '
+        + 'affect machines, a Necron is considered a machine.',
       },
       { name: '(Ruin) Champion', effect: 'This threat may take Ruin Actions.' },
       {
@@ -739,7 +765,7 @@ const threatRepository = [
       resilience: {
         total: 11,
         armourRating: 5,
-        armourName: 'Heavy Plating'
+        armourName: 'Heavy Plating',
       },
     },
     skills: {
@@ -758,34 +784,34 @@ const threatRepository = [
         name: 'Synaptic Disintegrator',
         type: 'ranged-weapon',
         range: 48,
-        damage: { static: 10, ed: 1},
+        damage: { static: 10, ed: 1 },
         ap: 0,
         salvo: 1,
-        traits: [ 'Rapid Fire (1)', 'Sniper (2)' ],
+        traits: ['Rapid Fire (1)', 'Sniper (2)'],
       },
     ],
     specialAbilities: [
       {
         name: 'Reanimation Protocols',
-        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
-        'at the beginning of each following round until combat ends or reanimation occurs. ' +
-        'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
-        'remaining. ' +
-        'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
-        'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
-        'reduced to 0 members does not roll for Reanimation Protocols.' +
-        'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
-        'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
-        'least for the remainder of the combat). It may still be teleported away from the ' +
-        'battlefield by its tomb.',
+        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 '
+        + 'at the beginning of each following round until combat ends or reanimation occurs. '
+        + 'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds '
+        + 'remaining. '
+        + 'For mobs with this ability, instead roll a d6 for each member of the mob that has '
+        + 'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is '
+        + 'reduced to 0 members does not roll for Reanimation Protocols.'
+        + 'As a full round action, a character may attack a Necron at 0 wounds, spending enough '
+        + 'time to blast its remains apart or chop it to pieces, killing it permanently (or at '
+        + 'least for the remainder of the combat). It may still be teleported away from the '
+        + 'battlefield by its tomb.',
       },
       {
         name: ' Soulless Machine',
-        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
-        ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
-        'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
-        'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
-        'affect machines, a Necron is considered a machine.',
+        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.'
+        + ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s '
+        + 'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and '
+        + 'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that '
+        + 'affect machines, a Necron is considered a machine.',
       },
       {
         name: '(Ruin) Hunter’s Mark',
@@ -838,7 +864,7 @@ const threatRepository = [
       resilience: {
         total: 10,
         armourRating: 4,
-        armourName: 'Living Metal'
+        armourName: 'Living Metal',
       },
     },
     skills: {
@@ -856,33 +882,33 @@ const threatRepository = [
         name: 'Flayer Claws',
         type: 'melee-weapon',
         range: 1,
-        damage: { static: 10, ed: 1},
+        damage: { static: 10, ed: 1 },
         ap: 0,
-        traits: [ 'Brutal' ],
+        traits: ['Brutal'],
       },
     ],
     specialAbilities: [
       {
         name: 'Reanimation Protocols',
-        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
-        'at the beginning of each following round until combat ends or reanimation occurs. ' +
-        'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
-        'remaining. ' +
-        'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
-        'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
-        'reduced to 0 members does not roll for Reanimation Protocols.' +
-        'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
-        'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
-        'least for the remainder of the combat). It may still be teleported away from the ' +
-        'battlefield by its tomb.',
+        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 '
+        + 'at the beginning of each following round until combat ends or reanimation occurs. '
+        + 'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds '
+        + 'remaining. '
+        + 'For mobs with this ability, instead roll a d6 for each member of the mob that has '
+        + 'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is '
+        + 'reduced to 0 members does not roll for Reanimation Protocols.'
+        + 'As a full round action, a character may attack a Necron at 0 wounds, spending enough '
+        + 'time to blast its remains apart or chop it to pieces, killing it permanently (or at '
+        + 'least for the remainder of the combat). It may still be teleported away from the '
+        + 'battlefield by its tomb.',
       },
       {
         name: ' Soulless Machine',
-        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
-        ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
-        'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
-        'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
-        'affect machines, a Necron is considered a machine.',
+        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.'
+        + ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s '
+        + 'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and '
+        + 'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that '
+        + 'affect machines, a Necron is considered a machine.',
       },
       {
         name: '(Ruin) Flesh Hunger',
@@ -935,7 +961,7 @@ const threatRepository = [
       resilience: {
         total: 12,
         armourRating: 5,
-        armourName: 'Praetorian Plate'
+        armourName: 'Praetorian Plate',
       },
     },
     skills: {
@@ -955,7 +981,7 @@ const threatRepository = [
         name: 'Rod of Covenant',
         type: 'melee-weapon',
         range: 1,
-        damage: { static: 12, ed: 1},
+        damage: { static: 12, ed: 1 },
         ap: -3,
         traits: [],
       },
@@ -963,51 +989,51 @@ const threatRepository = [
         name: 'Rod of Covenant',
         type: 'ranged-weapon',
         range: 24,
-        damage: { static: 12, ed: 1},
+        damage: { static: 12, ed: 1 },
         ap: -3,
         salvo: 1,
-        traits: [ 'Assault' ],
+        traits: ['Assault'],
       },
       {
         name: 'Voidblade',
         type: 'melee-weapon',
         range: 1,
-        damage: { static: 12, ed: 1},
+        damage: { static: 12, ed: 1 },
         ap: -3,
-        traits: [ ],
+        traits: [],
       },
       {
         name: 'Particle Caster',
         type: 'ranged-weapon',
         range: 24,
-        damage: { static: 14, ed: 1},
+        damage: { static: 14, ed: 1 },
         ap: 0,
         salvo: 1,
-        traits: [ 'Pistol' ],
+        traits: ['Pistol'],
       },
     ],
     specialAbilities: [
       {
         name: 'Reanimation Protocols',
-        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
-        'at the beginning of each following round until combat ends or reanimation occurs. ' +
-        'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
-        'remaining. ' +
-        'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
-        'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
-        'reduced to 0 members does not roll for Reanimation Protocols.' +
-        'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
-        'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
-        'least for the remainder of the combat). It may still be teleported away from the ' +
-        'battlefield by its tomb.',
+        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 '
+        + 'at the beginning of each following round until combat ends or reanimation occurs. '
+        + 'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds '
+        + 'remaining. '
+        + 'For mobs with this ability, instead roll a d6 for each member of the mob that has '
+        + 'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is '
+        + 'reduced to 0 members does not roll for Reanimation Protocols.'
+        + 'As a full round action, a character may attack a Necron at 0 wounds, spending enough '
+        + 'time to blast its remains apart or chop it to pieces, killing it permanently (or at '
+        + 'least for the remainder of the combat). It may still be teleported away from the '
+        + 'battlefield by its tomb.',
       },
       {
         name: ' Soulless Machine',
-        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
-        ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
-        'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
-        'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
-        'affect machines, a Necron is considered a machine.',
+        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.'
+        + ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s '
+        + 'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and '
+        + 'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that '
+        + 'affect machines, a Necron is considered a machine.',
       },
       {
         name: '(Ruin) Champion',
@@ -1056,7 +1082,7 @@ const threatRepository = [
       resilience: {
         total: 14,
         armourRating: 5,
-        armourName: 'Heavy Plating'
+        armourName: 'Heavy Plating',
       },
     },
     skills: {
@@ -1074,34 +1100,34 @@ const threatRepository = [
         name: 'Gauss Cannon',
         type: 'ranged-weapon',
         range: 48,
-        damage: { static: 14, ed: 2},
+        damage: { static: 14, ed: 2 },
         ap: -3,
         salvo: 3,
-        traits: [ 'Heavy (3)' ],
+        traits: ['Heavy (3)'],
       },
     ],
     specialAbilities: [
       {
         name: 'Reanimation Protocols',
-        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
-        'at the beginning of each following round until combat ends or reanimation occurs. ' +
-        'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
-        'remaining. ' +
-        'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
-        'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
-        'reduced to 0 members does not roll for Reanimation Protocols.' +
-        'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
-        'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
-        'least for the remainder of the combat). It may still be teleported away from the ' +
-        'battlefield by its tomb.',
+        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 '
+        + 'at the beginning of each following round until combat ends or reanimation occurs. '
+        + 'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds '
+        + 'remaining. '
+        + 'For mobs with this ability, instead roll a d6 for each member of the mob that has '
+        + 'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is '
+        + 'reduced to 0 members does not roll for Reanimation Protocols.'
+        + 'As a full round action, a character may attack a Necron at 0 wounds, spending enough '
+        + 'time to blast its remains apart or chop it to pieces, killing it permanently (or at '
+        + 'least for the remainder of the combat). It may still be teleported away from the '
+        + 'battlefield by its tomb.',
       },
       {
         name: ' Soulless Machine',
-        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
-        ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
-        'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
-        'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
-        'affect machines, a Necron is considered a machine.',
+        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.'
+        + ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s '
+        + 'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and '
+        + 'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that '
+        + 'affect machines, a Necron is considered a machine.',
       },
       {
         name: 'Hardwired Hatred',
@@ -1150,7 +1176,7 @@ const threatRepository = [
       resilience: {
         total: 14,
         armourRating: 5,
-        armourName: 'Heavy Plating'
+        armourName: 'Heavy Plating',
       },
     },
     skills: {
@@ -1168,34 +1194,34 @@ const threatRepository = [
         name: 'Heavy Gauss Cannon',
         type: 'ranged-weapon',
         range: 72,
-        damage: { static: 18, ed: 1},
+        damage: { static: 18, ed: 1 },
         ap: -4,
         salvo: 1,
-        traits: [ 'Heavy' ],
+        traits: ['Heavy'],
       },
     ],
     specialAbilities: [
       {
         name: 'Reanimation Protocols',
-        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 ' +
-        'at the beginning of each following round until combat ends or reanimation occurs. ' +
-        'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds ' +
-        'remaining. ' +
-        'For mobs with this ability, instead roll a d6 for each member of the mob that has ' +
-        'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is ' +
-        'reduced to 0 members does not roll for Reanimation Protocols.' +
-        'As a full round action, a character may attack a Necron at 0 wounds, spending enough ' +
-        'time to blast its remains apart or chop it to pieces, killing it permanently (or at ' +
-        'least for the remainder of the combat). It may still be teleported away from the ' +
-        'battlefield by its tomb.',
+        effect: 'When this threat is reduced to 0 wounds, except by Annihilation, roll a d6 '
+        + 'at the beginning of each following round until combat ends or reanimation occurs. '
+        + 'On a die result of 5 or 6, the threat returns to consciousness with 1d6*Tier wounds '
+        + 'remaining. '
+        + 'For mobs with this ability, instead roll a d6 for each member of the mob that has '
+        + 'been lost, and for each result of 5 or 6, restore it to the mob. A mob that is '
+        + 'reduced to 0 members does not roll for Reanimation Protocols.'
+        + 'As a full round action, a character may attack a Necron at 0 wounds, spending enough '
+        + 'time to blast its remains apart or chop it to pieces, killing it permanently (or at '
+        + 'least for the remainder of the combat). It may still be teleported away from the '
+        + 'battlefield by its tomb.',
       },
       {
         name: ' Soulless Machine',
-        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.' +
-        ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s ' +
-        'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and ' +
-        'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that ' +
-        'affect machines, a Necron is considered a machine.',
+        effect: 'A Necron is immune to fear, pinning, and mind-affecting abilities and powers.'
+        + ' A Necron never needs to pass Resolve tests in order to keep fighting. A Necron’s '
+        + 'Corruption is permanently locked at 0. Necrons are immune to disease and toxins, and '
+        + 'never have to eat, sleep, or breathe. For the purposes of weapons and abilities that '
+        + 'affect machines, a Necron is considered a machine.',
       },
       {
         name: 'Hardwired Hatred',
@@ -1245,7 +1271,7 @@ const threatRepository = [
       resilience: {
         total: 7,
         armourRating: 3,
-        armourName: 'Carapace'
+        armourName: 'Carapace',
       },
     },
     skills: {
@@ -1266,7 +1292,7 @@ const threatRepository = [
         damage: { static: 10, ed: 1 },
         ap: 0,
         salvo: 2,
-        traits: [ 'Living Ammunition' ],
+        traits: ['Living Ammunition'],
       },
       {
         name: 'Teeth and Claws',
@@ -1321,7 +1347,7 @@ const threatRepository = [
       resilience: {
         total: 7,
         armourRating: 3,
-        armourName: 'Carapace'
+        armourName: 'Carapace',
       },
     },
     skills: {
@@ -1412,7 +1438,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 10, ed: 1 },
         ap: -1,
-        traits: [ 'Off-Hand' ],
+        traits: ['Off-Hand'],
       },
       {
         name: 'Devourer',
@@ -1421,7 +1447,7 @@ const threatRepository = [
         damage: { static: 10, ed: 1 },
         ap: 0,
         salvo: 3,
-        traits: [ 'Assault', 'Brutal', 'Living Ammunition' ],
+        traits: ['Assault', 'Brutal', 'Living Ammunition'],
       },
     ],
     attackTraits: [
@@ -1495,7 +1521,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 10, ed: 1 },
         ap: 0,
-        traits: [ 'Toxic (3)', 'Off-Hand' ],
+        traits: ['Toxic (3)', 'Off-Hand'],
       },
       {
         name: 'Rending Claws',
@@ -1503,7 +1529,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 10, ed: 1 },
         ap: -1,
-        traits: [ 'Penetrating (4)' ],
+        traits: ['Penetrating (4)'],
       },
     ],
     specialAbilities: [
@@ -1571,7 +1597,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 10, ed: 1 },
         ap: 0,
-        traits: [ 'Toxic (3)', 'Off-Hand' ],
+        traits: ['Toxic (3)', 'Off-Hand'],
       },
     ],
     specialAbilities: [
@@ -1646,7 +1672,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 10, ed: 1 },
         ap: 0,
-        traits: [ 'Toxic (3)' ],
+        traits: ['Toxic (3)'],
       },
     ],
     specialAbilities: [
@@ -1709,7 +1735,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 10, ed: 1 },
         ap: 0,
-        traits: [ 'Toxic (3)' ],
+        traits: ['Toxic (3)'],
       },
     ],
     specialAbilities: [
@@ -1757,7 +1783,7 @@ const threatRepository = [
       resilience: {
         total: 7,
         armourRating: 3,
-        armourName: 'Chitin'
+        armourName: 'Chitin',
       },
     },
     skills: {
@@ -1833,7 +1859,7 @@ const threatRepository = [
       resilience: {
         total: 6,
         armourRating: 3,
-        armourName: 'Chitin'
+        armourName: 'Chitin',
       },
     },
     skills: {
@@ -1878,8 +1904,8 @@ const threatRepository = [
     attackTraits: [
       {
         name: 'Strangleweb',
-        effect: 'Furthermore when a target is hit by this attack they are Restrained until they succeed on a DN 3 Strength test. At the start of the target´s turn they take 1d3+1 Shock damage from the web tightening around them.'
-      }
+        effect: 'Furthermore when a target is hit by this attack they are Restrained until they succeed on a DN 3 Strength test. At the start of the target´s turn they take 1d3+1 Shock damage from the web tightening around them.',
+      },
     ],
     specialAbilities: [
       {
@@ -1933,7 +1959,7 @@ const threatRepository = [
       resilience: {
         total: 6,
         armourRating: 3,
-        armourName: 'Chitin'
+        armourName: 'Chitin',
       },
     },
     skills: {
@@ -2018,7 +2044,7 @@ const threatRepository = [
       resilience: {
         total: 10,
         armourRating: 5,
-        armourName: 'Hardened Carapace'
+        armourName: 'Hardened Carapace',
       },
     },
     skills: {
@@ -2035,8 +2061,8 @@ const threatRepository = [
       '<Hive Fleet>',
       'Synapse Creature',
     ],
-    attackOptions: 'Some (Anti-Tank) Warriors come equipped with a <strong>Venom Cannon</strong> instead of a <strong>Devourer</strong>. ' +
-      'Others (Venguards) change the weapon layout to <strong>Boneswords</strong> and <strong>Spinefists</strong>.',
+    attackOptions: 'Some (Anti-Tank) Warriors come equipped with a <strong>Venom Cannon</strong> instead of a <strong>Devourer</strong>. '
+      + 'Others (Venguards) change the weapon layout to <strong>Boneswords</strong> and <strong>Spinefists</strong>.',
     attacks: [
       {
         name: 'Devourer',
@@ -2045,7 +2071,7 @@ const threatRepository = [
         damage: { static: 10, ed: 1 },
         ap: 0,
         salvo: 2,
-        traits: ['Brutal','Rapid Fire (2)'],
+        traits: ['Brutal', 'Rapid Fire (2)'],
       },
       {
         name: 'Scything Talons',
@@ -2127,7 +2153,7 @@ const threatRepository = [
       resilience: {
         total: 6,
         armourRating: 2,
-        armourName: 'Robes'
+        armourName: 'Robes',
       },
     },
     skills: {
@@ -2152,7 +2178,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: 2,
-        traits: [ 'Pistol' ],
+        traits: ['Pistol'],
       },
       {
         name: 'Knife',
@@ -2211,7 +2237,7 @@ const threatRepository = [
       resilience: {
         total: 6,
         armourRating: 2,
-        armourName: 'Robes'
+        armourName: 'Robes',
       },
     },
     skills: {
@@ -2236,7 +2262,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: 3,
-        traits: [ 'Rapid Fire (1)' ],
+        traits: ['Rapid Fire (1)'],
       },
       {
         name: 'Knife',
@@ -2316,7 +2342,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: 2,
-        traits: [ 'Pistol' ],
+        traits: ['Pistol'],
       },
       {
         name: 'Knife',
@@ -2393,7 +2419,7 @@ const threatRepository = [
         damage: { static: 12, ed: 1 },
         ap: -1,
         salvo: 1,
-        traits: [ 'Assault', 'Blaze', 'Blast (large)' ],
+        traits: ['Assault', 'Blaze', 'Blast (large)'],
       },
       {
         name: 'Great Axe of Khorne (Mighty Strikes)',
@@ -2409,7 +2435,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 14, ed: 1 },
         ap: -2,
-        traits: [ 'Spread' ],
+        traits: ['Spread'],
       },
     ],
     specialAbilities: [
@@ -2490,7 +2516,7 @@ const threatRepository = [
         damage: { static: 10, ed: 1 },
         ap: 0,
         salvo: 1,
-        traits: [ 'Pistol', 'Waaagh!' ],
+        traits: ['Pistol', 'Waaagh!'],
       },
       {
         name: 'Choopa',
@@ -2498,7 +2524,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 9, ed: 2 },
         ap: 0,
-        traits: [ 'Steadfast', 'Waaagh!' ],
+        traits: ['Steadfast', 'Waaagh!'],
       },
       {
         name: '2 Stikkbombs',
@@ -2507,7 +2533,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: -1,
-        traits: [ 'Blast (Medium)' ],
+        traits: ['Blast (Medium)'],
       },
     ],
     attackOptions: 'In mobs of up to 30 Boyz, one out of every ten may wield a Big Shoota or a Rokkit Launcha',
@@ -2580,7 +2606,7 @@ const threatRepository = [
         damage: { static: 10, ed: 1 },
         ap: 0,
         salvo: 2,
-        traits: [ 'Assault', 'Waaagh!' ],
+        traits: ['Assault', 'Waaagh!'],
       },
       {
         name: 'Big Choopa',
@@ -2588,7 +2614,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 12, ed: 2 },
         ap: -1,
-        traits: [ 'Waaagh!' ],
+        traits: ['Waaagh!'],
       },
       {
         name: '2 Stikkbombs',
@@ -2597,7 +2623,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: -1,
-        traits: [ 'Blast (Medium)' ],
+        traits: ['Blast (Medium)'],
       },
     ],
     specialAbilities: [
@@ -2669,7 +2695,7 @@ const threatRepository = [
         damage: { static: 12, ed: 2 },
         ap: 0,
         salvo: 3,
-        traits: [ 'Assault', 'Waaagh!' ],
+        traits: ['Assault', 'Waaagh!'],
       },
       {
         name: 'Power Claw',
@@ -2677,7 +2703,7 @@ const threatRepository = [
         range: 2,
         damage: { static: 17, ed: 3 },
         ap: -3,
-        traits: [ 'Brutal', 'Unwieldy (3)' ],
+        traits: ['Brutal', 'Unwieldy (3)'],
       },
       {
         name: '2 Stikkbombs',
@@ -2686,7 +2712,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: -1,
-        traits: [ 'Blast (Medium)' ],
+        traits: ['Blast (Medium)'],
       },
     ],
     specialAbilities: [
@@ -2757,7 +2783,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: 1,
-        traits: [ 'Pistol', 'Waaagh!' ],
+        traits: ['Pistol', 'Waaagh!'],
       },
       {
         name: 'Knife',
@@ -2830,7 +2856,7 @@ const threatRepository = [
         damage: { static: 10, ed: 1 },
         ap: 0,
         salvo: 1,
-        traits: [ 'Pistol', 'Waaagh!' ],
+        traits: ['Pistol', 'Waaagh!'],
       },
       {
         name: 'Choopa',
@@ -2838,7 +2864,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 9, ed: 2 },
         ap: 0,
-        traits: [ 'Steadfast', 'Waaagh!' ],
+        traits: ['Steadfast', 'Waaagh!'],
       },
       {
         name: '2 Stikkbombs',
@@ -2847,7 +2873,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: -1,
-        traits: [ 'Blast (Medium)' ],
+        traits: ['Blast (Medium)'],
       },
     ],
     attackOptions: 'In mobs of up to 10 Kommandos, up to two may wield a Big Shoota, Burna or a Rokkit Launcher.',
@@ -2917,7 +2943,7 @@ const threatRepository = [
         damage: { static: 10, ed: 1 },
         ap: 0,
         salvo: 1,
-        traits: [ 'Pistol', 'Waaagh!' ],
+        traits: ['Pistol', 'Waaagh!'],
       },
       {
         name: 'Big Choopa',
@@ -2925,7 +2951,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 11, ed: 2 },
         ap: -1,
-        traits: [ 'Waaagh!' ],
+        traits: ['Waaagh!'],
       },
       {
         name: '2 Stikkbombs',
@@ -2934,7 +2960,7 @@ const threatRepository = [
         damage: { static: 7, ed: 1 },
         ap: 0,
         salvo: -1,
-        traits: [ 'Blast (Medium)' ],
+        traits: ['Blast (Medium)'],
       },
     ],
     specialAbilities: [
@@ -2981,7 +3007,7 @@ const threatRepository = [
       resilience: {
         total: 5,
         armourRating: 1,
-        armourName: 'Armour'
+        armourName: 'Armour',
       },
     },
     skills: {
@@ -3035,7 +3061,7 @@ const threatRepository = [
       resilience: {
         total: 10,
         armourRating: 4,
-        armourName: 'Armour'
+        armourName: 'Armour',
       },
     },
     skills: {
@@ -3088,7 +3114,7 @@ const threatRepository = [
       resilience: {
         total: 10,
         armourRating: 4,
-        armourName: 'Armour'
+        armourName: 'Armour',
       },
     },
     skills: {
@@ -3330,7 +3356,7 @@ const threatRepository = [
       resilience: {
         total: 5,
         armourRating: 1,
-        armourName: 'Tyranid Carapace'
+        armourName: 'Tyranid Carapace',
       },
     },
     skills: {
@@ -3410,7 +3436,7 @@ const threatRepository = [
       resilience: {
         total: 5,
         armourRating: 1,
-        armourName: 'Tyranid Carapace'
+        armourName: 'Tyranid Carapace',
       },
     },
     skills: {
@@ -3442,7 +3468,7 @@ const threatRepository = [
         damage: { static: 8, ed: 1 },
         ap: 0,
         salvo: 2,
-        traits: [ 'Paired', 'Pistol' ],
+        traits: ['Paired', 'Pistol'],
       },
       {
         name: 'Spike Rifle',
@@ -3451,7 +3477,7 @@ const threatRepository = [
         damage: { static: 8, ed: 1 },
         ap: 0,
         salvo: 1,
-        traits: [ 'Assault', 'Sniper (1)' ],
+        traits: ['Assault', 'Sniper (1)'],
       },
       {
         name: 'Strangleweb',
@@ -3460,7 +3486,7 @@ const threatRepository = [
         damage: { static: 5, ed: 1 },
         ap: 0,
         salvo: 0,
-        traits: [ 'Assault', 'Blast (Small)', 'Tangle (3)' ],
+        traits: ['Assault', 'Blast (Small)', 'Tangle (3)'],
       },
       {
         name: 'Claws',
@@ -3517,7 +3543,7 @@ const threatRepository = [
       resilience: {
         total: 5,
         armourRating: 1,
-        armourName: 'Tyranid Carapace'
+        armourName: 'Tyranid Carapace',
       },
     },
     skills: {
@@ -3546,7 +3572,7 @@ const threatRepository = [
         range: 2,
         damage: { static: 7, ed: 1 },
         ap: 0,
-        traits: [ 'Agonizing', 'Toxic (3)' ],
+        traits: ['Agonizing', 'Toxic (3)'],
       },
       {
         name: 'Claws',
@@ -3606,7 +3632,7 @@ const threatRepository = [
       resilience: {
         total: 4,
         armourRating: 1,
-        armourName: 'Tyranid Carapace'
+        armourName: 'Tyranid Carapace',
       },
     },
     skills: {
@@ -3661,7 +3687,7 @@ const threatRepository = [
       defence: 5,
       speed: 9,
       wounds: 12,
-      shock:9,
+      shock: 9,
       soak: 6,
       resolve: 8,
       conviction: 9,
@@ -3669,7 +3695,7 @@ const threatRepository = [
       resilience: {
         total: 9,
         armourRating: 2,
-        armourName: 'Tyranid Carapace'
+        armourName: 'Tyranid Carapace',
       },
     },
     skills: {
@@ -3736,7 +3762,7 @@ const threatRepository = [
       resilience: {
         total: 9,
         armourRating: 2,
-        armourName: 'Tyranid Carapace'
+        armourName: 'Tyranid Carapace',
       },
     },
     skills: {
@@ -3806,7 +3832,7 @@ const threatRepository = [
       resilience: {
         total: 18,
         armourRating: 5,
-        armourName: 'Tyranid Carapace'
+        armourName: 'Tyranid Carapace',
       },
     },
     skills: {
@@ -3836,11 +3862,11 @@ const threatRepository = [
       { name: 'Unique', crunch: 'A Tyranid may only have a single Stranglethorn cannon or Heavy Venom Cannon.' },
     ],
     attackOptions:
-    'A Carnifex is armed with two pairs of Monstrous Scything Talons. ' +
-    'It may replace one or both of those with a weapon from the Monstrous Bio-Cannons list (pg. 208). ' +
-    'It may replace one pair of Monstrous Scything Talons with a pair of Crushing Claws. ' +
-    'It may also take one of the following: Bio-plasma, enhanced senses, or monstrous acid maw. ' +
-    'It may also have a thresher scythe or a bone mace on its tail.',
+    'A Carnifex is armed with two pairs of Monstrous Scything Talons. '
+    + 'It may replace one or both of those with a weapon from the Monstrous Bio-Cannons list (pg. 208). '
+    + 'It may replace one pair of Monstrous Scything Talons with a pair of Crushing Claws. '
+    + 'It may also take one of the following: Bio-plasma, enhanced senses, or monstrous acid maw. '
+    + 'It may also have a thresher scythe or a bone mace on its tail.',
     variants: {
       name: 'Biomorphs',
       options: [
@@ -3859,7 +3885,7 @@ const threatRepository = [
       simpleAbility('(Ruin) Sweeping Tail: When an enemy moves or attacks while within 2m of the Carnifex, it may make an attack with a Thresher Scythe or Bone Mace as a Ruin action.'),
     ],
   },
-  //simpleStub('aaoa', 240, 'Tau', 'Drones', 'ttttt'),
+  // simpleStub('aaoa', 240, 'Tau', 'Drones', 'ttttt'),
   /** An Abundance of Apocrypha - TAU */
   {
     source: {
@@ -3899,7 +3925,7 @@ const threatRepository = [
       resilience: {
         total: 8,
         armourRating: 4,
-        armourName: 'Armour'
+        armourName: 'Armour',
       },
     },
     skills: {
@@ -3926,9 +3952,9 @@ const threatRepository = [
       { name: 'Suppression', crunch: 'enemies hit are blinded until the end of their next turn, and must test to avoid being pinned)' },
     ],
     attackOptions:
-    'Fire caste Strike teams are armed with Pulse Rifles and Photon Grenades. ' +
-    'They sometimes exchange their Pulse Rifles for Pulse Carbines ' +
-    'and may carry additional armament like Pulse Pistols and/or EMP Grenades.',
+    'Fire caste Strike teams are armed with Pulse Rifles and Photon Grenades. '
+    + 'They sometimes exchange their Pulse Rifles for Pulse Carbines '
+    + 'and may carry additional armament like Pulse Pistols and/or EMP Grenades.',
     specialAbilities: [
       aaoa.tau.fire,
       aaoa.tau.bonding,
@@ -3973,7 +3999,7 @@ const threatRepository = [
       resilience: {
         total: 8,
         armourRating: 4,
-        armourName: 'Armour'
+        armourName: 'Armour',
       },
     },
     skills: {
@@ -4040,7 +4066,7 @@ const threatRepository = [
       resilience: {
         total: 7,
         armourRating: 3,
-        armourName: 'Armour'
+        armourName: 'Armour',
       },
     },
     skills: {
@@ -4109,7 +4135,7 @@ const threatRepository = [
       resilience: {
         total: 9,
         armourRating: 4,
-        armourName: 'Armour'
+        armourName: 'Armour',
       },
     },
     skills: {
@@ -4186,4 +4212,3 @@ const threatRepository = [
 
 
 module.exports = threatRepository;
-

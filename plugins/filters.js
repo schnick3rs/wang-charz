@@ -1,3 +1,3 @@
 import Vue from 'vue';
 
-Vue.filter('kebab', val => val.toLowerCase().replace(/\W/gm, '-'))
+Vue.filter('kebab', (val) => val.toLowerCase().replace(/\W/gm, '-'));

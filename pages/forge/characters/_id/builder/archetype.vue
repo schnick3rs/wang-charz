@@ -1,13 +1,11 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
-  <nuxt-child></nuxt-child>
-
+  <nuxt-child />
 </template>
 
 <script lang="js">
+import { mapMutations } from 'vuex';
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
 import SluggerMixin from '~/mixins/SluggerMixin';
-import { mapMutations } from 'vuex';
 
 export default {
   name: 'Archetype',
@@ -20,32 +18,7 @@ export default {
   head() {
     return {
       title: 'Select Archetype',
-    }
-  },
-  async asyncData({ params, $axios }) {
-    const config = {
-      params: {
-        source: 'core,coreab',
-      },
     };
-    //const archetypeResponse = await $axios.get(`/api/archetypes/`, config);
-    return {
-      characterId: params.id,
-      //psychicPowersRepository: psychicPowersResponse.data,
-      //archetypeRepository: archetypeResponse.data,
-    };
-  },
-  created() {
-    const config = {
-      params: {
-        source: 'core,coreab',
-      },
-    };
-    this.$axios.get(`/api/archetypes/`, config)
-    .then((response) => {
-      this.archetypeRepository = response.data;
-    });
-
   },
   data() {
     return {
@@ -55,6 +28,30 @@ export default {
       searchQuery: '',
       selectedArchetype: undefined,
     };
+  },
+  async asyncData({ params, $axios }) {
+    const config = {
+      params: {
+        source: 'core,coreab',
+      },
+    };
+    // const archetypeResponse = await $axios.get(`/api/archetypes/`, config);
+    return {
+      characterId: params.id,
+      // psychicPowersRepository: psychicPowersResponse.data,
+      // archetypeRepository: archetypeResponse.data,
+    };
+  },
+  created() {
+    const config = {
+      params: {
+        source: 'core,coreab',
+      },
+    };
+    this.$axios.get('/api/archetypes/', config)
+      .then((response) => {
+        this.archetypeRepository = response.data;
+      });
   },
   methods: {
     ...mapMutations('characters', ['setCharacterArchetype']),
@@ -66,7 +63,7 @@ export default {
     },
     getArchetypeBy(name) {
       if (this.archetypeRepository) {
-        return this.archetypeRepository.find(s => s.name === name);
+        return this.archetypeRepository.find((s) => s.name === name);
       }
       return undefined;
     },
@@ -74,15 +71,15 @@ export default {
       let archetypes = this.archetypeRepository;
 
       /* filter by archetype group */
-      archetypes = archetypes.filter(a => a.group === groupName);
+      archetypes = archetypes.filter((a) => a.group === groupName);
 
       /* filter by  */
       if (this.characterSpeciesLabel) {
-        archetypes = archetypes.filter( a => a.species.includes(this.characterSpeciesLabel) );
+        archetypes = archetypes.filter((a) => a.species.includes(this.characterSpeciesLabel));
       }
 
       if (this.settingTier !== undefined) {
-        archetypes = archetypes.filter(a => a.tier <= this.settingTier);
+        archetypes = archetypes.filter((a) => a.tier <= this.settingTier);
       }
 
       /* filter by search query */
@@ -100,28 +97,30 @@ export default {
       this.setCharacterArchetype({ id: this.characterId, archetype: { value: item.name, cost: item.cost, tier: item.tier } });
 
       const mods = [];
-      mods.push({ targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype'});
+      mods.push({
+        targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype',
+      });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype' });
       // keywords = String[]
-      if ( item.keywords ) {
+      if (item.keywords) {
         const itemKeywords = item.keywords.split(',');
-        itemKeywords.forEach(keyword => {
+        itemKeywords.forEach((keyword) => {
           const payload = {
             name: keyword,
             source: 'archetype',
-            type: (keyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
+            type: (keyword.includes('<')) ? 'placeholder' : 'keyword',
             replacement: undefined,
           };
           this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
         });
       }
 
-      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: 'archetype'});
-      if ( item.psychicPowers && item.psychicPowers.discount && item.psychicPowers.discount.length > 0 ) {
-        item.psychicPowers.discount.forEach( d => {
-          if ( d.selected ) {
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: 'archetype' });
+      if (item.psychicPowers && item.psychicPowers.discount && item.psychicPowers.discount.length > 0) {
+        item.psychicPowers.discount.forEach((d) => {
+          if (d.selected) {
             const payload = {
               id: this.characterId,
               name: d.selected,
@@ -138,7 +137,7 @@ export default {
     },
     resetArchetype() {
       this.selectedArchetype = undefined;
-      this.setCharacterArchetype({ id: this.characterId, archetype: { value: undefined, cost: 0} });
+      this.setCharacterArchetype({ id: this.characterId, archetype: { value: undefined, cost: 0 } });
     },
     updatePreview(item) {
       this.selectedArchetype = item;
@@ -147,7 +146,7 @@ export default {
   },
   computed: {
     loaded() { return this.archetypeRepository !== undefined; },
-    settingTier(){
+    settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
     characterArchetypeLabel() {
@@ -164,19 +163,19 @@ export default {
         let archetypes = this.archetypeRepository;
 
         if (this.characterSpeciesLabel !== undefined) {
-          archetypes = archetypes.filter( a => a.species.includes(this.characterSpeciesLabel) );
+          archetypes = archetypes.filter((a) => a.species.includes(this.characterSpeciesLabel));
         }
 
         if (this.settingTier !== undefined) {
-          archetypes = archetypes.filter(a => a.tier <= this.settingTier);
+          archetypes = archetypes.filter((a) => a.tier <= this.settingTier);
         }
 
-        return [...new Set(archetypes.map(item => item.group))];
+        return [...new Set(archetypes.map((item) => item.group))];
       }
 
       return [];
     },
-    keywords(){
+    keywords() {
       return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
     },
   },

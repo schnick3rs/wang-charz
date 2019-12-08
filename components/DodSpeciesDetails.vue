@@ -1,33 +1,27 @@
 <template lang="html">
-
   <v-row justify="center">
-
-    <v-col v-bind:cols="12">
-
+    <v-col :cols="12">
       <v-row>
-
         <v-col>
-          <h3 class="headline">{{ item.name }}</h3>
+          <h3 class="headline">
+            {{ item.name }}
+          </h3>
           <span class="subtitle-1 grey--text">{{ item.hint }}</span>
           <h5 class="subtitle-2">
             <strong>Source: </strong>
             <span>{{ item.source.book }}</span><span v-if="item.source.page">, pg. {{ item.source.page }}</span>
           </h5>
-
         </v-col>
 
-        <v-spacer></v-spacer>
+        <v-spacer />
 
         <v-col class="hidden-xs-only">
-          <img v-bind:src="avatar" style="width:96px" />
+          <img :src="avatar" style="width:96px">
         </v-col>
-
       </v-row>
-
     </v-col>
 
-    <v-col v-bind:cols="12" >
-
+    <v-col :cols="12">
       <p class="text-lg-justify">
         <strong>Build Point Cost:</strong> {{ item.cost }}
       </p>
@@ -47,9 +41,8 @@
       </p>
 
       <div v-if="item.abilities">
-
         <span class="mt-2 grey--text">Abilities</span>
-        <v-divider></v-divider>
+        <v-divider />
 
         <div
           v-for="ability in item.abilityObjects"
@@ -61,30 +54,26 @@
 
         <div v-if="item.description && item.description.length > 0">
           <p><v-divider /></p>
-          <blockquote class="blockquote font-italic" >
+          <blockquote class="blockquote font-italic">
             <p>"{{ item.description }}"</p>
-            <span class="right">- Source: {{ item.source.book }} -</span>
+            <span class="float-right">- Source: {{ item.source.book }} -</span>
           </blockquote>
         </div>
-
       </div>
-
     </v-col>
 
     <!-- source -->
-    <v-col v-bind:cols="12" style="font-style: italic">
-      <span class="caption">{{ item.source.book }}</span><span class="caption" v-if="item.source.page">, pg. {{ item.source.page }}</span>
+    <v-col :cols="12" style="font-style: italic">
+      <span class="caption">{{ item.source.book }}</span><span v-if="item.source.page" class="caption">, pg. {{ item.source.page }}</span>
     </v-col>
-
   </v-row>
-
 </template>
 
 <script lang="js">
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
-  name: 'species-details',
+  name: 'SpeciesDetails',
   mixins: [
     SluggerMixin,
   ],

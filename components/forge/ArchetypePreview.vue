@@ -1,17 +1,16 @@
 <template lang="html">
-
   <v-card v-if="item" class="pa-0">
-
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Archetype</span>
-      <v-spacer></v-spacer>
-      <v-icon dark v-on:click="$emit('cancel')">close</v-icon>
+      <v-spacer />
+      <v-icon dark @click="$emit('cancel')">
+        close
+      </v-icon>
     </v-card-title>
 
     <v-card-text class="pt-4">
-
       <div class="hidden-xs-only" style="float: right;">
-        <img v-bind:src="getAvatar(item.name)" style="width:96px" />
+        <img :src="getAvatar(item.name)" style="width:96px">
       </div>
 
       <div style="width: 75%">
@@ -19,109 +18,128 @@
           {{ item.name }}
           <v-btn
             v-if="manageMode"
-            text outlined small
+            text
+            outlined
+            small
             color="primary"
-            v-on:click="$emit('change')"
+            @click="$emit('change')"
           >
-            <v-icon left>settings</v-icon>
+            <v-icon left>
+              settings
+            </v-icon>
             change archetype
           </v-btn>
         </h3>
         <span class="subtitle-1 grey--text">{{ item.hint }}</span>
       </div>
 
-      <p class="text-lg-justify"><strong>Build Point Cost:</strong> {{ item.cost }}</p>
+      <p class="text-lg-justify">
+        <strong>Build Point Cost:</strong> {{ item.cost }}
+      </p>
 
       <span class="mt-2 grey--text">Prerequisites</span>
-      <p><v-divider></v-divider></p>
+      <p><v-divider /></p>
 
-      <p class="text-lg-justify"><strong>Tier:</strong> {{ item.tier }}</p>
-      <p class="text-lg-justify"><strong>Species:</strong> {{ item.species.join(', ') }}</p>
-      <p class="text-lg-justify"><strong>Attributes:</strong> {{ attributePrerequisites }}</p>
-      <p class="text-lg-justify"><strong>Skills:</strong> {{ skillPrerequisites }}</p>
+      <p class="text-lg-justify">
+        <strong>Tier:</strong> {{ item.tier }}
+      </p>
+      <p class="text-lg-justify">
+        <strong>Species:</strong> {{ item.species.join(', ') }}
+      </p>
+      <p class="text-lg-justify">
+        <strong>Attributes:</strong> {{ attributePrerequisites }}
+      </p>
+      <p class="text-lg-justify">
+        <strong>Skills:</strong> {{ skillPrerequisites }}
+      </p>
 
       <span class="mt-2 grey--text">Benefits</span>
-      <p><v-divider ></v-divider></p>
+      <p><v-divider /></p>
 
-      <p class="text-lg-justify"><strong>Keywords:</strong> {{ item.keywords.split(',').join(', ') }}</p>
+      <p class="text-lg-justify">
+        <strong>Keywords:</strong> {{ item.keywords.split(',').join(', ') }}
+      </p>
 
       <div
-        v-if="manageMode"
         v-for="placeholder in itemKeywordPlaceholders"
-        v-bind:key="placeholder.key"
+        v-if="manageMode"
+        :key="placeholder.key"
       >
-
         <v-select
           v-model="placeholder.selected"
-          v-bind:label="placeholder.name +' Keyword'"
-          v-bind:items="placeholder.options"
-          v-bind:hint="keywordHint(placeholder.selected, placeholder)"
-          v-on:change="updateKeyword(placeholder, placeholder.selected)"
+          :label="placeholder.name +' Keyword'"
+          :items="placeholder.options"
+          :hint="keywordHint(placeholder.selected, placeholder)"
           item-text="name"
           item-value="name"
           persistent-hint
           solo
           dense
-        ></v-select>
+          @change="updateKeyword(placeholder, placeholder.selected)"
+        />
 
         <p
           v-if="selectedKeywords[placeholder.name]"
           class="ma-4"
         >
-          {{keywordEffect(selectedKeywords[placeholder.name])}}
+          {{ keywordEffect(selectedKeywords[placeholder.name]) }}
         </p>
-
       </div>
 
-      <p class="text-lg-justify"><strong>Influence Bonus:</strong> {{ item.influence }}</p>
+      <p class="text-lg-justify">
+        <strong>Influence Bonus:</strong> {{ item.influence }}
+      </p>
 
-      <div v-if="item.abilities"
-           v-for="ability in abilityObjects"
-           class="text-lg-justify"
+      <div
+        v-for="ability in abilityObjects"
+        v-if="item.abilities"
+        class="text-lg-justify"
       >
-        <p><strong>{{ ability.name }}:</strong> {{ ability.effect}}</p>
+        <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
         <div v-if="item.psychicPowers">
-
-          <div v-for="option in psychicPowersDiscount" v-bind:key="option.name">
+          <div v-for="option in psychicPowersDiscount" :key="option.name">
             <v-select
               v-if="option.values"
               v-model="option.selected"
-              v-bind:readonly="option.values.length <= 1"
-              v-bind:items="option.values"
-              v-bind:hint="psychicPowerHint(option.selected)"
-              v-on:change="updatePsychicPowers(option)"
+              :readonly="option.values.length <= 1"
+              :items="option.values"
+              :hint="psychicPowerHint(option.selected)"
               item-value="name"
               item-text="name"
               persistent-hint
               dense
               solo
               class="ml-2 mr-2"
-            ></v-select>
+              @change="updatePsychicPowers(option)"
+            />
           </div>
-
         </div>
       </div>
 
-      <p class="text-lg-justify"><strong>Wargear:</strong> {{ wargearText }}</p>
+      <p class="text-lg-justify">
+        <strong>Wargear:</strong> {{ wargearText }}
+      </p>
 
       <div v-if="false">
-        <p><v-divider></v-divider></p>
+        <p><v-divider /></p>
         <blockquote class="blockquote font-italic">
           <p>"{{ item.description }}"</p>
-          <span class="right">- from the Wrath & Glory Corerules -</span>
+          <span class="float-right">- from the Wrath & Glory Corerules -</span>
         </blockquote>
       </div>
-
     </v-card-text>
 
-    <v-divider v-if="chooseMode"></v-divider>
+    <v-divider v-if="chooseMode" />
     <v-card-actions v-if="chooseMode">
-      <v-btn left outlined color="red" v-on:click="$emit('cancel')" >Cancel</v-btn>
+      <v-btn left outlined color="red" @click="$emit('cancel')">
+        Cancel
+      </v-btn>
       <v-spacer />
-      <v-btn right color="green" v-on:click="$emit('select', item)" >Select Archetype</v-btn>
+      <v-btn right color="green" @click="$emit('select', item)">
+        Select Archetype
+      </v-btn>
     </v-card-actions>
   </v-card>
-
 </template>
 
 <script lang="js">
@@ -131,7 +149,7 @@ import WargearRepository from '~/mixins/WargearRepositoryMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
-  name: 'archetype-preview',
+  name: 'ArchetypePreview',
   mixins: [
     KeywordRepository,
     StatRepository,
@@ -165,19 +183,91 @@ export default {
       psychicPowersDiscount: [],
     };
   },
+  computed: {
+    selectedKeywords() {
+      const selectedKeywords = {};
+      if (this.keywords) {
+        this.keywords.filter((k) => (k.replacement)).forEach((r) => {
+          selectedKeywords[r.name] = r.replacement;
+        });
+      }
+      console.log(selectedKeywords);
+      return selectedKeywords;
+    },
+    mergedKeywords() {
+      return [...this.keywordRepository, ...this.keywordSubwordRepository];
+    },
+    itemKeywordPlaceholders() {
+      const placeholderKeywords = this.item.keywords.split(',').filter((k) => k.includes('<'));
+
+      const placeholderSet = [];
+
+      placeholderKeywords.forEach((placeholder) => {
+        let wordy = {};
+        if (placeholder.toLowerCase() === '<any>') {
+          const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
+          wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
+        } else {
+          const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
+          wordy = { name: placeholder, options: subKeywords, selected: '' };
+        }
+        console.log(this.selectedKeywords[placeholder]);
+        if (this.selectedKeywords[placeholder]) {
+          wordy.selected = this.selectedKeywords[placeholder];
+        }
+        placeholderSet.push(wordy);
+      });
+
+      return placeholderSet;
+    },
+    attributePrerequisites() {
+      if (this.item.prerequisites) {
+        return this.item.prerequisites
+          .filter((p) => p.group === 'attributes')
+          .map((a) => `${this.getAttributeByKey(a.value).name} ${a.threshold}`)
+          .join(', ');
+      }
+      return this.item.attributes;
+    },
+    skillPrerequisites() {
+      if (this.item.prerequisites) {
+        return this.item.prerequisites
+          .filter((p) => p.group === 'skills')
+          .map((a) => `${this.getSkillByKey(a.value).name} (${a.threshold})`)
+          .join(', ');
+      }
+      return this.item.skills;
+    },
+    abilityObjects() {
+      if (Array.isArray(this.item.abilities)) {
+        return this.item.abilities;
+      }
+      return [];
+    },
+    wargearText() {
+      const charGear = this.archetypeWargearRepository.find((a) => a.name === this.item.name);
+      if (charGear) {
+        return charGear.options.map((g) => {
+          if (g.amount) {
+            return `${g.amount}x ${g.name}`;
+          }
+          return `${g.name}`;
+        }).join(', ');
+      }
+      return this.item.wargear;
+    },
+  },
   created() {
-
-    if ( this.item.psychicPowers ) {
-      this.item.psychicPowers.discount.forEach( async (d) => {
-
+    if (this.item.psychicPowers) {
+      this.item.psychicPowers.discount.forEach(async (d) => {
         const con = {
           params: {
             ...d.query,
             fields: 'id,name,effect,discipline',
-          }
+          },
         };
-        const powersResponse = await this.$axios.get(`/api/psychic-powers/`, con);
-        d['values'] = powersResponse.data;
+        const powersResponse = await this.$axios.get('/api/psychic-powers/', con);
+        d.values = powersResponse.data;
         this.psychicPowersDiscount.push(d);
       });
     }
@@ -190,26 +280,25 @@ export default {
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {
         // return all but the any keyword
-        return this.keywordRepository.filter(k => k.name !== '<Any>');
+        return this.keywordRepository.filter((k) => k.name !== '<Any>');
       }
 
-      return this.keywordSubwordRepository.filter(k => k.placeholder === wildcard);
+      return this.keywordSubwordRepository.filter((k) => k.placeholder === wildcard);
     },
     keywordEffect(keyword) {
       const mergedKeywords = [...this.keywordSubwordRepository];
-      let foundKeyword = mergedKeywords.find(k => k.name === keyword);
+      const foundKeyword = mergedKeywords.find((k) => k.name === keyword);
       if (foundKeyword !== undefined) {
         return foundKeyword.effect;
       }
     },
     keywordHint(keyword, parentKeyword) {
-
-      let foundKeyword = this.mergedKeywords.find(k => k.name === keyword);
+      let foundKeyword = this.mergedKeywords.find((k) => k.name === keyword);
       if (foundKeyword !== undefined) {
         return foundKeyword.description;
       }
 
-      foundKeyword = this.mergedKeywords.find(k => k.name === parentKeyword);
+      foundKeyword = this.mergedKeywords.find((k) => k.name === parentKeyword);
       if (foundKeyword !== undefined) {
         return foundKeyword.description;
       }
@@ -236,7 +325,7 @@ export default {
       placeholder.selected = selection;
     },
     psychicPowerHint(powerName) {
-/*
+      /*
       const power = this.psychicPowersRepository.find( p => p.name === powerName );
 
       if ( power ) {
@@ -253,80 +342,6 @@ export default {
         cost: 0,
         source: `archetype.${option.name}`,
       });
-    },
-  },
-  computed: {
-    selectedKeywords(){
-      let selectedKeywords = {};
-      if ( this.keywords) {
-        this.keywords.filter(k=> (k.replacement)).forEach(r=>{
-          selectedKeywords[r.name] = r.replacement
-        });
-      }
-      console.log(selectedKeywords);
-      return selectedKeywords;
-    },
-    mergedKeywords() {
-      return [...this.keywordRepository, ...this.keywordSubwordRepository];
-    },
-    itemKeywordPlaceholders() {
-      const placeholderKeywords = this.item.keywords.split(',').filter( (k) => { return k.indexOf('<')>=0; } );
-
-      let placeholderSet = [];
-
-      placeholderKeywords.forEach(placeholder => {
-        let wordy= {};
-        if ( placeholder.toLowerCase() === '<any>' ) {
-          const levelOneKeywords = this.keywordRepository.filter(k => k.name.toLowerCase() !== placeholder.toLowerCase());
-          wordy = { name: placeholder, options: levelOneKeywords, selected: '', };
-        } else {
-          const subKeywords = this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
-          wordy = { name: placeholder, options: subKeywords, selected: '', };
-        }
-        console.log(this.selectedKeywords[placeholder]);
-        if ( this.selectedKeywords[placeholder] ){
-          wordy.selected = this.selectedKeywords[placeholder];
-        }
-        placeholderSet.push(wordy);
-      });
-
-      return placeholderSet;
-    },
-    attributePrerequisites() {
-      if ( this.item.prerequisites ) {
-        return this.item.prerequisites
-        .filter( p => p.group === 'attributes' )
-        .map( a => `${this.getAttributeByKey(a.value).name} ${a.threshold}` )
-        .join(", ");
-      }
-      return this.item.attributes;
-    },
-    skillPrerequisites() {
-      if ( this.item.prerequisites ) {
-        return this.item.prerequisites
-        .filter(p => p.group === 'skills')
-        .map(a => `${this.getSkillByKey(a.value).name} (${a.threshold})`)
-        .join(", ");
-      }
-      return this.item.skills;
-    },
-    abilityObjects() {
-      if ( this.item.abilities instanceof Array) {
-        return this.item.abilities;
-      }
-      return [];
-    },
-    wargearText() {
-      const charGear = this.archetypeWargearRepository.find(a => a.name === this.item.name);
-      if ( charGear ) {
-        return charGear.options.map( g => {
-          if ( g.amount ) {
-            return `${g.amount}x ${g.name}`;
-          }
-          return `${g.name}`;
-        }).join(', ');
-      }
-      return this.item.wargear;
     },
   },
 };

@@ -1,19 +1,18 @@
 <template>
-
   <div>
-
     <!-- Breadcrumbs -->
-    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <!-- Species Details -->
     <v-row justify="center" no-gutters>
-
-      <v-col v-bind:cols="12" v-bind:sm="10">
-
+      <v-col :cols="12" :sm="10">
         <div class="pa-2 pt-4 pb-4">
-
-          <h3 class="title-1">{{ item.name }}</h3>
-          <h4 class="subtitle-2 grey--text">{{ toTypeString(item) }}</h4>
+          <h3 class="title-1">
+            {{ item.name }}
+          </h3>
+          <h4 class="subtitle-2 grey--text">
+            {{ toTypeString(item) }}
+          </h4>
 
           <hr class="mb-0">
 
@@ -22,43 +21,42 @@
             <span><strong>Value:</strong> {{ item.value }}</span>
           </div>
 
-          <p class="mt-2">{{ item.description }}</p>
+          <p class="mt-2">
+            {{ item.description }}
+          </p>
 
           <dod-simple-weapon-stats
             v-if="item.meta !== undefined && item.meta.length > 0 && ['ranged-weapon','melee-weapon'].includes(item.meta[0].type)"
-            v-bind:name="item.name"
-            v-bind:stats="item.meta[0]"
+            :name="item.name"
+            :stats="item.meta[0]"
             show-traits
             class="mb-2"
-          ></dod-simple-weapon-stats>
+          />
 
           <dod-simple-armour-stats
             v-if="item.meta !== undefined && item.meta.length > 0 && ['armour'].includes(item.meta[0].type)"
-            v-bind:name="item.name"
-            v-bind:stats="item.meta[0]"
+            :name="item.name"
+            :stats="item.meta[0]"
             show-traits
             class="mb-2"
-          ></dod-simple-armour-stats>
+          />
 
           <div>
             <span>Keywords:</span>
             <v-chip
               v-for="keyword in item.keywords"
-              v-bind:key="keyword"
+              :key="keyword"
               label
               small
               class="mr-1"
-            >{{keyword}}</v-chip>
+            >
+              {{ keyword }}
+            </v-chip>
           </div>
-
         </div>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
@@ -68,27 +66,27 @@ import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
-  name: "wargear",
+  name: 'Wargear',
   components: {
     DodDefaultBreadcrumbs,
     DodSimpleWeaponStats,
     DodSimpleArmourStats,
   },
   mixins: [
-    BreadcrumbSchemaMixin
+    BreadcrumbSchemaMixin,
   ],
   head() {
     const title = `${this.item.name} - Wargear`;
     const description = ''; /* this.item.source.key.indexOf('core') >= 0
       ? `The ${this.item.name} from ${this.item.group} is an official Species described in the ${this.item.source.book}.`
-      : `The ${this.item.name} from ${this.item.group} is a homebrew Species provided by ${this.item.source.book}.`;*/
+      : `The ${this.item.name} from ${this.item.group} is a homebrew Species provided by ${this.item.source.book}.`; */
     const image = this.item.thumbnail
       ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
       : `https://www.doctors-of-doom.com/img/wargear/${this.item.type.toLowerCase()}_avatar.png`;
 
     return {
       titleTemplate: '%s | Wrath & Glory Library',
-      title: title,
+      title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
@@ -97,44 +95,52 @@ export default {
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-      ]
+      ],
     };
   },
   async asyncData({ params, $axios, error }) {
     const regex = /(?<id>\d+)-(?<slug>[\w-]*)/;
 
-    const idslug = params.idslug;
+    const { idslug } = params;
 
     const { id, slug } = regex.exec(idslug).groups;
 
     const response = await $axios.get(`/api/wargear/${id}`);
     const item = response.data;
 
-    if ( item === undefined || item.length <= 0 ) {
+    if (item === undefined || item.length <= 0) {
       error({ statusCode: 404, message: 'Wargear not found' });
     }
 
     return {
-      item: item,
-      slug: slug,
+      item,
+      slug,
       breadcrumbItems: [
-        { text: '', nuxt: true, exact: true, to: '/', },
-        { text: 'Library', nuxt: true, exact: true, to: '/library', },
-        { text: 'Wargear', nuxt: true, exact: true, to: '/library/wargear', },
-        { text: item.name, disabled: true, nuxt: true, to: `/library/wargear/${id}-${slug}`, },
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Library', nuxt: true, exact: true, to: '/library',
+        },
+        {
+          text: 'Wargear', nuxt: true, exact: true, to: '/library/wargear',
+        },
+        {
+          text: item.name, disabled: true, nuxt: true, to: `/library/wargear/${id}-${slug}`,
+        },
       ],
     };
   },
   methods: {
     toTypeString(item) {
-      let types = [ item.type ];
-      if ( item.subtype ) {
-        types.push(item.subtype)
+      const types = [item.type];
+      if (item.subtype) {
+        types.push(item.subtype);
       }
       return types.join(' • ');
     },
   },
-}
+};
 </script>
 
 <style scoped>

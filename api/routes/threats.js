@@ -7,7 +7,6 @@ const router = new Router();
 module.exports = router;
 
 router.get('/', (request, response) => {
-
   const items = threatRepository;
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
@@ -15,12 +14,11 @@ router.get('/', (request, response) => {
 });
 
 router.get('/:slug', (request, response) => {
+  const { slug } = request.params;
 
-  const slug = request.params.slug;
+  const key = slug.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
 
-  const key = slug.replace(/-([a-z])/g, function (g) { return g[1].toUpperCase(); });
-
-  const item = threatRepository.find( threat => threat.key === key );
+  const item = threatRepository.find((threat) => threat.key === key);
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);

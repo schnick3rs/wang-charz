@@ -154,55 +154,55 @@ export default {
         {
           placeholder: '<Ordo>',
           name: 'Ordo Hereticus',
-          description: 'The Ordo Hereticus hunts down heretics, mutants, and rogue psykers. It ' +
-            'is their responsibility to police the Adeptus Ministorum. Their most common ally is ' +
-            'the Order Militant of the Ecclesiarchy, the Sisters of Battle.',
-          effect: 'Choose one: You gain +2 bonus dice to resist psychic powers, or you gain +2 ' +
-            'bonus dice to resist Corruption tests.',
+          description: 'The Ordo Hereticus hunts down heretics, mutants, and rogue psykers. It '
+            + 'is their responsibility to police the Adeptus Ministorum. Their most common ally is '
+            + 'the Order Militant of the Ecclesiarchy, the Sisters of Battle.',
+          effect: 'Choose one: You gain +2 bonus dice to resist psychic powers, or you gain +2 '
+            + 'bonus dice to resist Corruption tests.',
           modification: { },
         },
         {
           placeholder: '<Ordo>',
           name: 'Ordo Xenos',
-          description: 'The Ordo Xenos is tasked with defeating the alien in all its loathsome ' +
-            'forms. They study their foe, always probing for more information about the ' +
-            'weaknesses of alien species and civilisations. It is their duty to investigate ' +
-            'xenos influence over Imperial domains. Their operations often see them working ' +
-            'alongside the Space Marines of the Deathwatch.',
-          effect: 'The character is fluent in one alien language; choose an alien species and ' +
-            'write it down on the character sheet. In addition, the character gains +2 bonus ' +
-            'dice for any Scholar or Investigation tests related to xenos.',
+          description: 'The Ordo Xenos is tasked with defeating the alien in all its loathsome '
+            + 'forms. They study their foe, always probing for more information about the '
+            + 'weaknesses of alien species and civilisations. It is their duty to investigate '
+            + 'xenos influence over Imperial domains. Their operations often see them working '
+            + 'alongside the Space Marines of the Deathwatch.',
+          effect: 'The character is fluent in one alien language; choose an alien species and '
+            + 'write it down on the character sheet. In addition, the character gains +2 bonus '
+            + 'dice for any Scholar or Investigation tests related to xenos.',
           modification: { },
         },
         {
           placeholder: '<Ordo>',
           name: 'Ordo Malleus',
-          description: 'The Ordo Malleus were established to fi ght against mankind’s greatest ' +
-            'menace the corrupting influence of Chaos. The Chamber Militant of the Ordo Malleus ' +
-            'are the Grey Knights, and they sometimes campaign together under a dual command ' +
-            'structure.',
-          effect: 'Either the character gains 2 Corruption points, or gain +2 bonus dice for any ' +
-            'Scholar or Investigation tests related to daemons and the warp.',
+          description: 'The Ordo Malleus were established to fi ght against mankind’s greatest '
+            + 'menace the corrupting influence of Chaos. The Chamber Militant of the Ordo Malleus '
+            + 'are the Grey Knights, and they sometimes campaign together under a dual command '
+            + 'structure.',
+          effect: 'Either the character gains 2 Corruption points, or gain +2 bonus dice for any '
+            + 'Scholar or Investigation tests related to daemons and the warp.',
           modification: { },
         },
         {
           placeholder: '<Ordo>',
           name: 'Other Ordo',
-          description: 'Inquisitors are as varied in appearance, manner and method as the worlds ' +
-            'of the Imperium they strive to protect.',
-          effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, ' +
-            'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. ' +
-            'Gain +½ Rank bonus dice with that skill.',
+          description: 'Inquisitors are as varied in appearance, manner and method as the worlds '
+            + 'of the Imperium they strive to protect.',
+          effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, '
+            + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
+            + 'Gain +½ Rank bonus dice with that skill.',
           modification: { },
         },
         {
           placeholder: '<Ordo>',
           name: 'No Ordo',
-          description: 'Inquisitors are as varied in appearance, manner and method as the worlds ' +
-            'of the Imperium they strive to protect.',
-          effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, ' +
-            'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. ' +
-            'Gain +½ Rank bonus dice with that skill.',
+          description: 'Inquisitors are as varied in appearance, manner and method as the worlds '
+            + 'of the Imperium they strive to protect.',
+          effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, '
+            + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
+            + 'Gain +½ Rank bonus dice with that skill.',
           modification: { },
         },
 
@@ -253,63 +253,63 @@ export default {
         {
           placeholder: '<Clan>',
           name: 'Goffs',
-          description: 'Goffs have a prominent place in the battle line and can usually be found ' +
-            'where the fi ghting is thickest. Goffs consider massed infantry charges the only ' +
-            'true way for Orks to fi ght, declaring anything else to be “muckin’ about.”',
+          description: 'Goffs have a prominent place in the battle line and can usually be found '
+            + 'where the fi ghting is thickest. Goffs consider massed infantry charges the only '
+            + 'true way for Orks to fi ght, declaring anything else to be “muckin’ about.”',
           effect: '+1 bonus dice to melee attacks when charging (see page 221).',
           modification: {},
         },
         {
           placeholder: '<Clan>',
           name: 'Evil Sunz',
-          description: 'The Evil Sunz Clan embodies the Orks’ obsessive love for speed. Evil ' +
-            'Sunz typically pile aboard the fastest vehicles they can fi nd to hurtle into battle ' +
-            'at the vanguard of the Waaagh!',
-          effect: '+1d3 bonus dice to Piloting tests when the vehicle is moving as fast as ' +
-            'possible. Roll to see how many bonus dice you receive at the beginning of each round.',
+          description: 'The Evil Sunz Clan embodies the Orks’ obsessive love for speed. Evil '
+            + 'Sunz typically pile aboard the fastest vehicles they can fi nd to hurtle into battle '
+            + 'at the vanguard of the Waaagh!',
+          effect: '+1d3 bonus dice to Piloting tests when the vehicle is moving as fast as '
+            + 'possible. Roll to see how many bonus dice you receive at the beginning of each round.',
           modification: {},
         },
         {
           placeholder: '<Clan>',
           name: 'Bad Moons',
-          description: 'The Bad Moons Clan is the richest of their kind, for their teeth the ' +
-            'basis of Ork economy grow at twice the normal rate. Because of their wealth, Bad ' +
-            'Moons possess the best and shiniest gear, and are not shy about bragging about it.',
+          description: 'The Bad Moons Clan is the richest of their kind, for their teeth the '
+            + 'basis of Ork economy grow at twice the normal rate. Because of their wealth, Bad '
+            + 'Moons possess the best and shiniest gear, and are not shy about bragging about it.',
           effect: '+2 Wealth',
           modification: {},
         },
         {
           placeholder: '<Clan>',
           name: 'Deathskulls',
-          description: 'Deathskulls are light-fi ngered thieves who share an almost Mekboylike ' +
-            'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as ' +
-            'much as the next Ork, their innate kleptomania makes them see every battle as an ' +
-            'excuse to scavenge or loot anything they can get their hands on.',
+          description: 'Deathskulls are light-fi ngered thieves who share an almost Mekboylike '
+            + 'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as '
+            + 'much as the next Ork, their innate kleptomania makes them see every battle as an '
+            + 'excuse to scavenge or loot anything they can get their hands on.',
           effect: '+1 bonus dice to Tech tests and Infl uence tests to acquire items.',
           modification: {},
         },
         {
           placeholder: '<Clan>',
           name: 'Blood Axe',
-          description: 'The Blood Axe Clan is unique amongst orks for their belief that battles ' +
-            'should be fought according to an actual plan. Blood Axes are not less courageous or ' +
-            'violent, they simply possess a rudimentary comprehension of strategy, tactics, and ' +
-            'stealth.',
+          description: 'The Blood Axe Clan is unique amongst orks for their belief that battles '
+            + 'should be fought according to an actual plan. Blood Axes are not less courageous or '
+            + 'violent, they simply possess a rudimentary comprehension of strategy, tactics, and '
+            + 'stealth.',
           effect: '+1 bonus dice to Leadership or Stealth tests.',
           modification: {},
         },
         {
           placeholder: '<Clan>',
           name: 'Snakebites',
-          description: 'Snakebites see themselves as staunch traditionalists, caring little that ' +
-            'the other clans mock them for their backward ways. Snakebites specialise in the ' +
-            'breeding of squigs (or squiggly beasts), the strange fungoid monsters that make up ' +
-            'much of the Orks’ bizarre ecosystem.',
+          description: 'Snakebites see themselves as staunch traditionalists, caring little that '
+            + 'the other clans mock them for their backward ways. Snakebites specialise in the '
+            + 'breeding of squigs (or squiggly beasts), the strange fungoid monsters that make up '
+            + 'much of the Orks’ bizarre ecosystem.',
           effect: '+2 bonus dice to Survival tests.',
           modification: {},
         },
 
-        //{ placeholder: '<>', name: '', description: '' },
+        // { placeholder: '<>', name: '', description: '' },
       ],
     };
   },

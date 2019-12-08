@@ -1,15 +1,13 @@
 <template>
-
   <v-footer
-   dark
-   class="caption"
-   style="background-color: #424242;"
+    dark
+    class="caption"
+    style="background-color: #424242;"
   >
     <span>&copy; {{ new Date().getFullYear() }} Doctors of Doom</span>
-    <v-spacer></v-spacer>
+    <v-spacer />
     <span><a href="/about">About & Private Policy</a></span>
   </v-footer>
-
 </template>
 
 <script>

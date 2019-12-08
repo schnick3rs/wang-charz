@@ -1,35 +1,27 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
   <div>
-
-    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <v-row justify="center">
-
-      <v-col v-bind:cols="11">
-
+      <v-col :cols="11">
         <v-card>
-
           <v-card-text>
-
-            <v-row justify="center" row wrap>
-
-              <v-col v-bind:cols="12" v-bind:xs="6">
-
+            <v-row justify="center">
+              <v-col :cols="12" :xs="6">
                 <v-text-field
                   v-model="searchQuery"
                   filled
                   dense
                   clearable
-                  label="Search"></v-text-field>
-
+                  label="Search"
+                />
               </v-col>
 
-              <v-col v-bind:cols="4">
+              <v-col :cols="4">
                 <v-select
                   v-model="filters.subtype.model"
-                  v-bind:items="filtersSubtypeOptions"
-                  v-bind:label="filters.subtype.label"
+                  :items="filtersSubtypeOptions"
+                  :label="filters.subtype.label"
                   filled
                   dense
                   clearable
@@ -37,15 +29,14 @@
                   chips
                   deletable-chips
                   single-line
-                >
-                </v-select>
+                />
               </v-col>
 
-              <v-col v-bind:cols="4">
+              <v-col :cols="4">
                 <v-select
                   v-model="filters.traits.model"
-                  v-bind:items="filterTraitsOptions"
-                  v-bind:label="filters.traits.label"
+                  :items="filterTraitsOptions"
+                  :label="filters.traits.label"
                   filled
                   dense
                   clearable
@@ -53,15 +44,14 @@
                   chips
                   deletable-chips
                   single-line
-                >
-                </v-select>
+                />
               </v-col>
 
-              <v-col v-bind:cols="4">
+              <v-col :cols="4">
                 <v-select
                   v-model="filters.keywords.model"
-                  v-bind:items="filterKeywordsOptions"
-                  v-bind:label="filters.keywords.label"
+                  :items="filterKeywordsOptions"
+                  :label="filters.keywords.label"
                   filled
                   dense
                   clearable
@@ -69,30 +59,24 @@
                   chips
                   deletable-chips
                   single-line
-                >
-                </v-select>
-
+                />
               </v-col>
-
             </v-row>
-
           </v-card-text>
-
         </v-card>
-
       </v-col>
 
-      <v-col v-bind:cols="11">
+      <v-col :cols="11">
         <v-card>
           <v-data-table
-            v-bind:headers="headers"
-            v-bind:items="searchResults"
-            v-bind:page.sync="pagination.page"
-            v-bind:search="searchQuery"
-            v-on:page-count="pagination.pageCount = $event"
+            :headers="headers"
+            :items="searchResults"
+            :page.sync="pagination.page"
+            :search="searchQuery"
             item-key="name"
             sort-by="name"
             hide-default-footer
+            @page-count="pagination.pageCount = $event"
           >
             <template v-slot:item="{ item }">
               <tr>
@@ -120,31 +104,24 @@
                 </td>
               </tr>
             </template>
-
           </v-data-table>
 
           <div class="text-center pt-2">
             <v-pagination
               v-model="pagination.page"
-              v-bind:length="pagination.pageCount"
+              :length="pagination.pageCount"
             />
           </div>
         </v-card>
       </v-col>
 
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <v-card>
-          <v-card-text>
-          </v-card-text>
+          <v-card-text />
         </v-card>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
@@ -165,12 +142,6 @@ export default {
     };
   },
   layout: 'library',
-  async asyncData({ app }) {
-    const response = await app.$axios.get(`/api/wargear/`);
-    return {
-      wargearRepository: response.data,
-    };
-  },
   data() {
     return {
       searchQuery: '',
@@ -179,15 +150,15 @@ export default {
       filters: {
         subtype: {
           model: [],
-          label: 'Filter by Subtypes'
+          label: 'Filter by Subtypes',
         },
         keywords: {
           model: [],
-          label: 'Filter by Keywords'
+          label: 'Filter by Keywords',
         },
         traits: {
           model: [],
-          label: 'Filter by Traits'
+          label: 'Filter by Traits',
         },
       },
       pagination: {
@@ -197,69 +168,91 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        { text: 'Name', align: 'left', value: 'name', class: '' },
-        { text: 'Subtype', align: 'left', value: 'subtype', class: '' },
-        { text: 'Damage', align: 'center', value: 'damage', class: '' },
-        { text: 'AP', align: 'center', value: 'ap', class: '' },
-        { text: 'Salvo', align: 'center', value: 'salvo', class: '' },
-        { text: 'Range', align: 'center', value: 'range', class: '' },
-        { text: 'Traits', align: 'left', value: 'traits', class: '' },
+        {
+          text: 'Name', align: 'left', value: 'name', class: '',
+        },
+        {
+          text: 'Subtype', align: 'left', value: 'subtype', class: '',
+        },
+        {
+          text: 'Damage', align: 'center', value: 'damage', class: '',
+        },
+        {
+          text: 'AP', align: 'center', value: 'ap', class: '',
+        },
+        {
+          text: 'Salvo', align: 'center', value: 'salvo', class: '',
+        },
+        {
+          text: 'Range', align: 'center', value: 'range', class: '',
+        },
+        {
+          text: 'Traits', align: 'left', value: 'traits', class: '',
+        },
       ],
       expand: false,
     };
   },
   computed: {
     weapons() {
-      return this.wargearRepository.filter( gear => ['Ranged Weapon', 'Melee Weapon'].includes(gear.type));
+      return this.wargearRepository.filter((gear) => ['Ranged Weapon', 'Melee Weapon'].includes(gear.type));
     },
     breadcrumbItems() {
       return [
-        { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
-        { text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library' },
-        { text: 'Wargear', disabled: false, nuxt: true, exact: true, to: '/library/wargear' },
-        { text: 'Weapons', disabled: false, nuxt: true, exact: true, to: '/library/wargear/weapons' },
+        {
+          text: '', disabled: false, nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library',
+        },
+        {
+          text: 'Wargear', disabled: false, nuxt: true, exact: true, to: '/library/wargear',
+        },
+        {
+          text: 'Weapons', disabled: false, nuxt: true, exact: true, to: '/library/wargear/weapons',
+        },
       ];
     },
     searchResults() {
       let filteredResults = this.weapons;
 
       if (this.searchQuery) {
-        //filteredResults = filteredResults.filter(h => (h.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
+        // filteredResults = filteredResults.filter(h => (h.title.toLowerCase().indexOf(this.searchQuery.toLowerCase()) >= 0))
       }
 
       if (this.filters.keywords.model.length > 0) {
-        filteredResults = filteredResults.filter( item => this.filters.keywords.model.some( m => item.keywords.includes(m) ));
+        filteredResults = filteredResults.filter((item) => this.filters.keywords.model.some((m) => item.keywords.includes(m)));
       }
 
       if (this.filters.traits.model.length > 0) {
-        filteredResults = filteredResults.filter( item => this.filters.traits.model.some( m => item.meta[0].traits.includes(m) ));
+        filteredResults = filteredResults.filter((item) => this.filters.traits.model.some((m) => item.meta[0].traits.includes(m)));
       }
 
       if (this.filters.subtype.model.length > 0) {
-        filteredResults = filteredResults.filter( item => this.filters.subtype.model.includes(item.subtype) );
+        filteredResults = filteredResults.filter((item) => this.filters.subtype.model.includes(item.subtype));
       }
 
       return filteredResults;
     },
     filtersSubtypeOptions() {
-      const reduce = this.weapons.map( item => item.subtype );
-      const distinct = [ ...new Set(reduce) ];
-      return distinct.filter( d => d !== null ).sort();
+      const reduce = this.weapons.map((item) => item.subtype);
+      const distinct = [...new Set(reduce)];
+      return distinct.filter((d) => d !== null).sort();
     },
     filterKeywordsOptions() {
-      let keywordArray = [];
-      this.weapons.forEach( item => {
-        keywordArray.push(...item.keywords)
+      const keywordArray = [];
+      this.weapons.forEach((item) => {
+        keywordArray.push(...item.keywords);
       });
-      const distinctOptions = [ ...new Set(keywordArray) ];
-      return distinctOptions.filter( o => o.indexOf('<') !== 0 ).sort();
+      const distinctOptions = [...new Set(keywordArray)];
+      return distinctOptions.filter((o) => o.indexOf('<') !== 0).sort();
     },
     filterTraitsOptions() {
-      let traitArray = [];
-      this.weapons.forEach( item => {
-        traitArray.push(...item.meta[0].traits)
+      const traitArray = [];
+      this.weapons.forEach((item) => {
+        traitArray.push(...item.meta[0].traits);
       });
-      const distinctOptions = [ ...new Set(traitArray) ];
+      const distinctOptions = [...new Set(traitArray)];
       return distinctOptions.sort();
     },
     pages() {
@@ -269,6 +262,12 @@ export default {
 
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
+  },
+  async asyncData({ app }) {
+    const response = await app.$axios.get('/api/wargear/');
+    return {
+      wargearRepository: response.data,
+    };
   },
   methods: {
     changeSort(column) {

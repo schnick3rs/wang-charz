@@ -1,8 +1,7 @@
 /**
  * @see https://hashrocket.com/blog/posts/faster-json-generation-with-postgresql
  */
-const sourceSqlSnippet = (mainTableSourceIdSnippet) => {
-  return ` ( 
+const sourceSqlSnippet = (mainTableSourceIdSnippet) => ` ( 
     select row_to_json(s) from ( 
       select 
         short_name as book, 
@@ -14,8 +13,7 @@ const sourceSqlSnippet = (mainTableSourceIdSnippet) => {
         where source_books.id = ${mainTableSourceIdSnippet} 
     ) s 
   ) `;
-};
 
 module.exports = {
   sourceSql: sourceSqlSnippet,
-}
+};

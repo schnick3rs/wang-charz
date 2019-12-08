@@ -9,13 +9,12 @@ const TABLE_FIELDS = ['id', 'title', 'subtitle', 'slug', 'version', 'author'];
 module.exports = router;
 
 router.get('/', async (request, response) => {
-
   let select = '*';
   const fieldsString = request.query.fields;
-  if ( fieldsString ) {
+  if (fieldsString) {
     const selectFields = [];
-    fieldsString.split(',').forEach( potentialField => {
-      if ( TABLE_FIELDS.includes(potentialField) ) {
+    fieldsString.split(',').forEach((potentialField) => {
+      if (TABLE_FIELDS.includes(potentialField)) {
         selectFields.push(potentialField);
       }
     });
@@ -34,8 +33,7 @@ router.get('/', async (request, response) => {
 });
 
 router.get('/:slug', async (request, response) => {
-
-  const slug = request.params.slug;
+  const { slug } = request.params;
 
   const { rows } = await db.queryAsyncAwait(
     'SELECT * FROM wrath_glory.homebrews WHERE slug = $1 LIMIT 1',

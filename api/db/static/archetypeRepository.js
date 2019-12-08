@@ -4,47 +4,75 @@
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
-  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
-  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
-  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
-  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
-  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
-  aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
-  tea: { book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
-  heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
-  goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
-  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
-  pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
-  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
-  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
+  aaoa: {
+    book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha',
+  },
+  lotn: {
+    book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr',
+  },
+  thaot: {
+    book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology',
+  },
+  ltgb: {
+    book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn',
+  },
+  aptb: {
+    book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary',
+  },
+  jtb: {
+    book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary',
+  },
+  aotgt: {
+    book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne',
+  },
+  tea: {
+    book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels',
+  },
+  heva: {
+    book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault',
+  },
+  goen: {
+    book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines',
+  },
+  tog: {
+    book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory',
+  },
+  pax: {
+    book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis',
+  },
+  sotah: {
+    book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde',
+  },
+  amb: {
+    book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew',
+  },
 };
 
-const stringToKebab = function(text) {
+const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
 };
 
-const kebabToCamel = function(slug) {
-  return slug.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
+const kebabToCamel = function (slug) {
+  return slug.replace(/-([a-z0-9])/g, (g) => g[1].toUpperCase());
 };
 
-const stringToKebabToCamel = function(text) {
-   const slug = stringToKebab(text);
+const stringToKebabToCamel = function (text) {
+  const slug = stringToKebab(text);
   return kebabToCamel(slug);
 };
 
-const simpleStub = function(sourceKey, sourcePage, species, group, name, bp, tier) {
+const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, tier) {
   return {
     source: {
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${stringToKebabToCamel(sourceKey+' '+name)}`,
-    name: name,
+    key: `${stringToKebabToCamel(`${sourceKey} ${name}`)}`,
+    name,
     cost: bp,
-    tier: tier,
-    group: group,
-    species: [ species ],
+    tier,
+    group,
+    species: [species],
     stub: true,
   };
 };
@@ -53,297 +81,337 @@ const core = [
   // Adeptus Ministorum
   {
     source: { ...source.core },
-    name: "Ministorum Priest",
+    name: 'Ministorum Priest',
     cost: 0,
     tier: 1,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 1,
-    keywords: "Imperium,Adeptus Ministorum",
+    keywords: 'Imperium,Adeptus Ministorum',
     abilities: [
-      { name: 'Fiery Invective', effect: 'Once per combat, the Ministorum priest may take ' +
-        'a free action to preach the Imperial Creed. The character and all his allies ' +
-        'with the Imperium Keyword within hearing range heal 1d3 + Rank Shock.' },
+      {
+        name: 'Fiery Invective',
+        effect: 'Once per combat, the Ministorum priest may take '
+        + 'a free action to preach the Imperial Creed. The character and all his allies '
+        + 'with the Imperium Keyword within hearing range heal 1d3 + Rank Shock.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'willpower', threshold: 3, },
-      { group: 'skills', value: 'scholar', threshold: 1, },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
     ],
-    group: "Adeptus Ministorum",
+    group: 'Adeptus Ministorum',
     key: 'ministorumPriest',
     description: null,
-    hint: "A zealous preacher of the Imperial Creed."
+    hint: 'A zealous preacher of the Imperial Creed.',
   },
   {
     source: { ...source.core },
-    name: "Death Cult Assassin",
+    name: 'Death Cult Assassin',
     cost: 20,
     tier: 2,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 0,
-    keywords: "Imperium,Adeptus Ministorum",
+    keywords: 'Imperium,Adeptus Ministorum',
     abilities: [
-      { name: 'Glancing Blow', effect: 'Death Cult Assassins depend upon their movement to ' +
-        'avoid harm. Unless they are immobilised or restrained, they may attempt to soak ' +
-        'Mortal Wounds, and may substitute their Agility for their Soak when doing so.' },
+      {
+        name: 'Glancing Blow',
+        effect: 'Death Cult Assassins depend upon their movement to '
+        + 'avoid harm. Unless they are immobilised or restrained, they may attempt to soak '
+        + 'Mortal Wounds, and may substitute their Agility for their Soak when doing so.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 4, },
-      { group: 'skills', value: 'weaponSkill', threshold: 2, },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
     ],
-    group: "Adeptus Ministorum",
-    key: "deathCultAssassin",
+    group: 'Adeptus Ministorum',
+    key: 'deathCultAssassin',
     description: null,
-    hint: "An agile killer, expressing worship through the art of death."
+    hint: 'An agile killer, expressing worship through the art of death.',
   },
   {
     source: { ...source.core },
-    name: "Crusader",
+    name: 'Crusader',
     cost: 40,
     tier: 3,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 1,
-    keywords: "Imperium,Adeptus Ministorum",
+    keywords: 'Imperium,Adeptus Ministorum',
     abilities: [
-      { name: 'Armour of Faith', effect: 'Crusaders rely upon their faith to carry them ' +
-        'through; they increase their Resolve by ½ Rank. Crusaders gain +Rank bonus ' +
-        'dice to melee attacks against any opponent with the Heretic or Chaos keywords.'},
+      {
+        name: 'Armour of Faith',
+        effect: 'Crusaders rely upon their faith to carry them '
+        + 'through; they increase their Resolve by ½ Rank. Crusaders gain +Rank bonus '
+        + 'dice to melee attacks against any opponent with the Heretic or Chaos keywords.',
+      },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'initiative', threshold: 3, },
-      { group: 'attributes', value: 'willpower', threshold: 3, },
-      { group: 'skills', value: 'weaponSkill', threshold: 3, },
-      { group: 'skills', value: 'scholar', threshold: 1, },
+      { group: 'attributes', value: 'initiative', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
     ],
-    group: "Adeptus Ministorum",
-    key: "adeptusMinistorum",
+    group: 'Adeptus Ministorum',
+    key: 'adeptusMinistorum',
     description: null,
-    hint: "A holy warrior with unfl agging devotion to the God-Emperor."
+    hint: 'A holy warrior with unfl agging devotion to the God-Emperor.',
   },
   // Adepta Sororitas
   {
     source: { ...source.core },
-    key: "sisterHospitaller",
-    name: "Sister Hospitaller",
-    hint: "A pious healer dedicated to care of both body and soul.",
-    group: "Adepta Sororitas",
+    key: 'sisterHospitaller',
+    name: 'Sister Hospitaller',
+    hint: 'A pious healer dedicated to care of both body and soul.',
+    group: 'Adepta Sororitas',
     cost: 0,
     tier: 1,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 0,
-    keywords: "Imperium,Adeptus Ministorum,Adeptus Sororitas,<Order>",
-    keywordOption: "<Order>",
+    keywords: 'Imperium,Adeptus Ministorum,Adeptus Sororitas,<Order>',
+    keywordOption: '<Order>',
     abilities: [
       {
         name: 'Loyal Compassion',
-        effect: 'A Sister Hospitaller adds +Rank on Medicae tests when treating characters ' +
-        'with the Imperium Keyword',
+        effect: 'A Sister Hospitaller adds +Rank on Medicae tests when treating characters '
+        + 'with the Imperium Keyword',
       },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 3, },
-      { group: 'attributes', value: 'willpower', threshold: 3, },
-      { group: 'skills', value: 'medicae', threshold: 1, },
-      { group: 'skills', value: 'scholar', threshold: 1, },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'medicae', threshold: 1 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
     ],
-    description: null
+    description: null,
   },
   {
     source: { ...source.core },
-    name: "Sister of Battle",
-    species: ["Human","Ogryn","Ratling"],
+    name: 'Sister of Battle',
+    species: ['Human', 'Ogryn', 'Ratling'],
     cost: 40,
     tier: 2,
     influence: 1,
-    keywords: "Imperium,Adeptus Ministorum,Adeptus Sororitas,<Order>",
+    keywords: 'Imperium,Adeptus Ministorum,Adeptus Sororitas,<Order>',
     abilities: [
-      { name: 'Purity of Faith', effect: 'Sisters of Battle and any allies within 15 ' +
-        'meters and line of sight add +Rank to Corruption Tests. Sisters of Battle gain ' +
-        '+Rank to any dice pool to resist psychic powers and effects.' },
+      {
+        name: 'Purity of Faith',
+        effect: 'Sisters of Battle and any allies within 15 '
+        + 'meters and line of sight add +Rank to Corruption Tests. Sisters of Battle gain '
+        + '+Rank to any dice pool to resist psychic powers and effects.',
+      },
     ],
-    keywordOption: "<Order>",
+    keywordOption: '<Order>',
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3, },
-      { group: 'attributes', value: 'agility', threshold: 3, },
-      { group: 'attributes', value: 'toughness', threshold: 3, },
-      { group: 'attributes', value: 'willpower', threshold: 3, },
-      { group: 'skills', value: 'scholar', threshold: 1, },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2, },
-      { group: 'skills', value: 'weaponSkill', threshold: 2, },
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
     ],
-    group: "Adepta Sororitas",
-    key: "sisterOfBattle",
-    description: "As the militant arm of the of the Adeptus Ministorum, the Sisters of Battle are equipped to engage any who would dare to oppose the Imperial Creed. It is their sacred duty to cleanse the galaxy of heresy and corruption, wherever they should fi nd it, including within the various organisations of the Imperium of Man. Due to their shared goals, the Orders Militant often work in conjunction with the Imperial Inquisition, though they remain distinct organisations. Many of the orders maintain convents on Shrine Worlds, so that they can more easily defend those places most blessed to the Imperial Creed.",
-    hint: "A determined warrior, filled with purity and faith."
+    group: 'Adepta Sororitas',
+    key: 'sisterOfBattle',
+    description: 'As the militant arm of the of the Adeptus Ministorum, the Sisters of Battle are equipped to engage any who would dare to oppose the Imperial Creed. It is their sacred duty to cleanse the galaxy of heresy and corruption, wherever they should fi nd it, including within the various organisations of the Imperium of Man. Due to their shared goals, the Orders Militant often work in conjunction with the Imperial Inquisition, though they remain distinct organisations. Many of the orders maintain convents on Shrine Worlds, so that they can more easily defend those places most blessed to the Imperial Creed.',
+    hint: 'A determined warrior, filled with purity and faith.',
   },
   // Adeptus Militarum
   {
     source: { ...source.core },
-    name: "Imperial Guardsman",
+    name: 'Imperial Guardsman',
     cost: 0,
     tier: 1,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 0,
-    keywords: "Imperium,Astra Militarum,<Regiment>",
+    keywords: 'Imperium,Astra Militarum,<Regiment>',
     abilities: [
-      { name: 'Look Out Sir', effect: 'Once per battle, an Imperial Guardsman may suffer ' +
-        'the effects of an attack that hits an ally instead of the allied character. ' +
-        'When doing so, increase the Guardsman’s resilience by +Rank for determining the ' +
-        'damage of the attack.' },
-      { name: 'Regimental Affiliation', effect: 'Select a regiment to which the character ' +
-        'belongs (see Regiments on page 114). The soldier gains + ½ Rank bonus dice ' +
-        'with that regiment’s bonus (either a Skill or Resolve test).' },
+      {
+        name: 'Look Out Sir',
+        effect: 'Once per battle, an Imperial Guardsman may suffer '
+        + 'the effects of an attack that hits an ally instead of the allied character. '
+        + 'When doing so, increase the Guardsman’s resilience by +Rank for determining the '
+        + 'damage of the attack.',
+      },
+      {
+        name: 'Regimental Affiliation',
+        effect: 'Select a regiment to which the character '
+        + 'belongs (see Regiments on page 114). The soldier gains + ½ Rank bonus dice '
+        + 'with that regiment’s bonus (either a Skill or Resolve test).',
+      },
     ],
-    keywordOption: "<Regiment>",
+    keywordOption: '<Regiment>',
     prerequisites: [
-      { group: 'skills', value: 'ballisticSkill', threshold: 2, },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
     ],
-    group: "Astra Militarum",
-    key: "imperialGuardsman",
+    group: 'Astra Militarum',
+    key: 'imperialGuardsman',
     description: null,
-    hint: "A disciplined soldier, used to fighting amid multitudes"
+    hint: 'A disciplined soldier, used to fighting amid multitudes',
   },
   {
     source: { ...source.core },
-    name: "Tempestus Scion",
+    name: 'Tempestus Scion',
     cost: 30,
     tier: 2,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 1,
-    keywords: "Imperium,Astra Militarum,Militarum Tempest",
+    keywords: 'Imperium,Astra Militarum,Militarum Tempest',
     abilities: [
-      { name: 'Elite Soldier', effect: 'After spending one or more Glory to increase ' +
-        'damage from a successful attack using a weapon with the Imperium and Astra ' +
-        'Militarum keywords, a Tempestus Scion may add +Rank to the fi nal damage value.' },
+      {
+        name: 'Elite Soldier',
+        effect: 'After spending one or more Glory to increase '
+        + 'damage from a successful attack using a weapon with the Imperium and Astra '
+        + 'Militarum keywords, a Tempestus Scion may add +Rank to the fi nal damage value.',
+      },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'initiative', threshold: 3, },
-      { group: 'attributes', value: 'strength', threshold: 3, },
-      { group: 'attributes', value: 'toughness', threshold: 3, },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2, },
-      { group: 'skills', value: 'weaponSkill', threshold: 2, },
-      { group: 'skills', value: 'stealth', threshold: 2, },
+      { group: 'attributes', value: 'initiative', threshold: 3 },
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+      { group: 'skills', value: 'stealth', threshold: 2 },
     ],
-    group: "Astra Militarum",
-    key: "tempestusScion",
+    group: 'Astra Militarum',
+    key: 'tempestusScion',
     description: null,
-    hint: "An elite, highly-trained soldier, used to undertaking special missions."
+    hint: 'An elite, highly-trained soldier, used to undertaking special missions.',
   },
   {
     source: { ...source.core },
-    name: "Commissar",
+    name: 'Commissar',
     cost: 50,
     tier: 3,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 3,
-    keywords: "Imperium,Astra Militarum,Officio Prefectus",
+    keywords: 'Imperium,Astra Militarum,Officio Prefectus',
     abilities: [
-      { name: 'Fearsome Respect', effect: 'Commissars and any allies within 15 metres and ' +
-        'line of sight add +Rank to Resolve tests. A commissar adds +Rank to ' +
-        'Intimidation tests, including Interaction attacks.' },
+      {
+        name: 'Fearsome Respect',
+        effect: 'Commissars and any allies within 15 metres and '
+        + 'line of sight add +Rank to Resolve tests. A commissar adds +Rank to '
+        + 'Intimidation tests, including Interaction attacks.',
+      },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3, },
-      { group: 'attributes', value: 'toughness', threshold: 3, },
-      { group: 'attributes', value: 'willpower', threshold: 4, },
-      { group: 'skills', value: 'intimidation', threshold: 2, },
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
     ],
-    group: "Astra Militarum",
-    key: "commissar",
+    group: 'Astra Militarum',
+    key: 'commissar',
     description: null,
-    hint: "A fearsome leader, inspiring both dread and respect in great measure."
+    hint: 'A fearsome leader, inspiring both dread and respect in great measure.',
   },
   // Agents of the Imperium
   {
     source: { ...source.core },
-    name: "Inquisitorial Acolyte",
+    name: 'Inquisitorial Acolyte',
     cost: 0,
     tier: 1,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 2,
-    keywords: "Imperium,Inquisition,<ANY>,<Ordo>",
+    keywords: 'Imperium,Inquisition,<ANY>,<Ordo>',
     abilities: [
-      { name: 'Inquisitorial Decree', effect: 'Once per scene, an Inquisitorial Acolyte ' +
-        'may invoke the name of their Inquisitor to gain +Rank to an Influence or ' +
-        'Interaction Skill test involving a being with the Imperium keyword.' },
+      {
+        name: 'Inquisitorial Decree',
+        effect: 'Once per scene, an Inquisitorial Acolyte '
+        + 'may invoke the name of their Inquisitor to gain +Rank to an Influence or '
+        + 'Interaction Skill test involving a being with the Imperium keyword.',
+      },
     ],
-    keywordOption: "<Ordo>",
+    keywordOption: '<Ordo>',
     skills: 'Any (2)',
-    /*prerequisites: [
+    /* prerequisites: [
       { group: 'skills', value: '<Any>', threshold: 2, },
-    ],*/
-    group: "Agents of the Imperium",
-    key: "inquisitorialAcolyte",
+    ], */
+    group: 'Agents of the Imperium',
+    key: 'inquisitorialAcolyte',
     description: null,
-    hint: "A representative of the Inquisition, adaptable and possessing great potential."
+    hint: 'A representative of the Inquisition, adaptable and possessing great potential.',
   },
   {
     source: { ...source.core },
-    name: "Inquisitorial Adept",
+    name: 'Inquisitorial Adept',
     cost: 0,
     tier: 1,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 1,
-    keywords: "Imperium,Inquisition,<Ordo>",
+    keywords: 'Imperium,Inquisition,<Ordo>',
     abilities: [
-      { name: 'Administratum Records', effect: 'he character is particularly adept at ' +
-        'navigating Imperial Bureaucracy. Add +Rank to Influence and Investigation tests ' +
-        'to acquire information.' }
+      {
+        name: 'Administratum Records',
+        effect: 'he character is particularly adept at '
+        + 'navigating Imperial Bureaucracy. Add +Rank to Influence and Investigation tests '
+        + 'to acquire information.',
+      },
     ],
-    keywordOption: "<Ordo>",
+    keywordOption: '<Ordo>',
     prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 3, },
-      { group: 'skills', value: 'scholar', threshold: 2, },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 2 },
     ],
-    group: "Agents of the Imperium",
-    key: "inquisitorialAdept",
+    group: 'Agents of the Imperium',
+    key: 'inquisitorialAdept',
     description: null,
-    hint: "A learned scholar and scribe, adept at navigating bureaucratic obstacles."
+    hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
   },
   {
     source: { ...source.core },
-    name: "Rogue Trader",
+    name: 'Rogue Trader',
     cost: 40,
     tier: 2,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 2,
-    keywords: "Imperium,Rogue Trader,<Dynasty>",
-    keywordOption: "<Dynasty>",
+    keywords: 'Imperium,Rogue Trader,<Dynasty>',
+    keywordOption: '<Dynasty>',
     abilities: [
-      { name: 'Warrant of Trade', effect: 'Rogue Traders are masters at manipulating ' +
-        'situations to their advantage. They receive +Rank to all Persuasion tests and ' +
-        'Influence tests to acquire goods or services.' },
+      {
+        name: 'Warrant of Trade',
+        effect: 'Rogue Traders are masters at manipulating '
+        + 'situations to their advantage. They receive +Rank to all Persuasion tests and '
+        + 'Influence tests to acquire goods or services.',
+      },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'fellowship', threshold: 3, },
-      { group: 'skills', value: 'cunning', threshold: 1, },
-      { group: 'skills', value: 'insight', threshold: 2, },
-      { group: 'skills', value: 'persuasion', threshold: 2, },
-      { group: 'skills', value: 'awareness', threshold: 1, },
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'cunning', threshold: 1 },
+      { group: 'skills', value: 'insight', threshold: 2 },
+      { group: 'skills', value: 'persuasion', threshold: 2 },
+      { group: 'skills', value: 'awareness', threshold: 1 },
     ],
-    group: "Agents of the Imperium",
-    key: "rogueTrader",
+    group: 'Agents of the Imperium',
+    key: 'rogueTrader',
     description: null,
-    hint: "An adventuresome and infl uential explorer with their own space vessel."
+    hint: 'An adventuresome and infl uential explorer with their own space vessel.',
   },
   {
     source: { ...source.core },
-    name: "Sanctioned Psyker",
+    name: 'Sanctioned Psyker',
     cost: 50,
     tier: 2,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 0,
-    keywords: "Imperium,Adptus Astartes Telepathica,Psyker,Scholastica Psykana",
+    keywords: 'Imperium,Adptus Astartes Telepathica,Psyker,Scholastica Psykana',
     abilities: [
-      { name: 'Psyker', effect: 'A Sanctioned Psyker begins play with one minor psychic ' +
-        'power and the smite psychic power. They may purchase additional Minor Psychic ' +
-        'Powers and Universal Psychic powers, subject to Tier restrictions.' }
+      {
+        name: 'Psyker',
+        effect: 'A Sanctioned Psyker begins play with one minor psychic '
+        + 'power and the smite psychic power. They may purchase additional Minor Psychic '
+        + 'Powers and Universal Psychic powers, subject to Tier restrictions.',
+      },
     ],
     psychicPowers: {
       discount: [
-        { name: 'smite', selected: 'Smite', query: {'discipline':'Universal'}, filter: power => ( power.name === 'Smite' ) },
-        { name: 'minor', selected: undefined, query: {'discipline':'Minor'}, filter: power => ( ['Minor'].includes(power.discipline) ) },
+        {
+          name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, filter: (power) => (power.name === 'Smite'),
+        },
+        {
+          name: 'minor', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)),
+        },
       ],
       access: [
         'Minor',
@@ -357,327 +425,357 @@ const core = [
     },
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'willpower', threshold: 4, },
-      { group: 'skills', value: 'psychicMastery', threshold: 1, },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'psychicMastery', threshold: 1 },
     ],
-    group: "Agents of the Imperium",
-    key: "sanctionedPsyker",
+    group: 'Agents of the Imperium',
+    key: 'sanctionedPsyker',
     description: null,
-    hint: "Able to focus the warp through their mind, they are blessed or cursed with psychic powers."
+    hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
   },
   {
     source: { ...source.core },
-    name: "Inquisitor",
+    name: 'Inquisitor',
     cost: 70,
     tier: 4,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 4,
-    keywords: "Imperium,Inquisition,<Any>,<Ordo>",
+    keywords: 'Imperium,Inquisition,<Any>,<Ordo>',
     abilities: [
-      { name: 'Unchecked Authority', effect: 'Inquisitors have supreme authority for ' +
-        'maintaining the security of the Imperium. They gain +Rank to all Influence and ' +
-        'Interaction skill tests involving characters with the Imperium Keyword.' },
+      {
+        name: 'Unchecked Authority',
+        effect: 'Inquisitors have supreme authority for '
+        + 'maintaining the security of the Imperium. They gain +Rank to all Influence and '
+        + 'Interaction skill tests involving characters with the Imperium Keyword.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 4, },
-      { group: 'attributes', value: 'willpower', threshold: 4, },
-      { group: 'skills', value: 'cunning', threshold: 2, },
-      { group: 'skills', value: 'insight', threshold: 2, },
-      { group: 'skills', value: 'intimidation', threshold: 2, },
-      { group: 'skills', value: 'awareness', threshold: 2, },
+      { group: 'attributes', value: 'intellect', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'cunning', threshold: 2 },
+      { group: 'skills', value: 'insight', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
+      { group: 'skills', value: 'awareness', threshold: 2 },
     ],
-    group: "Agents of the Imperium",
+    group: 'Agents of the Imperium',
     key: 'inquisitor',
     description: null,
-    hint: "A bearer of profound Imperial authority, adept at discovering the truth in the shadows."
+    hint: 'A bearer of profound Imperial authority, adept at discovering the truth in the shadows.',
   },
   // Adeptus Astartes
   {
     source: { ...source.core },
-    key: "spaceMarineScout",
-    name: "Space Marine Scout",
-    hint: "A stealthy warrior adept at reconnaissance.",
-    group: "Adeptus Astartes",
-    species: ["Adeptus Astartes"],
+    key: 'spaceMarineScout',
+    name: 'Space Marine Scout',
+    hint: 'A stealthy warrior adept at reconnaissance.',
+    group: 'Adeptus Astartes',
+    species: ['Adeptus Astartes'],
     cost: 20,
     tier: 2,
     influence: 1,
-    keywords: "Imperium,Adeptus Astartes,<Chapter>",
-    keywordOption: "<Chapter>",
+    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    keywordOption: '<Chapter>',
     abilities: [
-      { name: 'Use the Terrain', effect: 'Space Marine Scouts receive +Rank to all Stealth ' +
-        'tests if they are in cover.' }
+      {
+        name: 'Use the Terrain',
+        effect: 'Space Marine Scouts receive +Rank to all Stealth '
+        + 'tests if they are in cover.',
+      },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3, },
-      { group: 'attributes', value: 'agility', threshold: 3, },
-      { group: 'attributes', value: 'toughness', threshold: 3, },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2, },
-      { group: 'skills', value: 'weaponSkill', threshold: 2, },
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
     ],
-    description: null
+    description: null,
   },
   {
     source: { ...source.core },
-    name: "Tactical Space Marine",
-    species: ["Adeptus Astartes"],
+    name: 'Tactical Space Marine',
+    species: ['Adeptus Astartes'],
     cost: 50,
     tier: 3,
     influence: 2,
-    keywords: "Imperium,Adeptus Astartes,<Chapter>",
-    keywordOption: "<Chapter>",
+    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    keywordOption: '<Chapter>',
     abilities: [
-      { name: 'Tactical Versatility', effect: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).', },
+      { name: 'Tactical Versatility', effect: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4, },
-      { group: 'attributes', value: 'agility', threshold: 4, },
-      { group: 'attributes', value: 'toughness', threshold: 4, },
-      { group: 'skills', value: 'ballisticSkill', threshold: 3, },
-      { group: 'skills', value: 'weaponSkill', threshold: 3, },
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
     ],
-    group: "Adeptus Astartes",
-    key: "tacticalSpaceMarine",
+    group: 'Adeptus Astartes',
+    key: 'tacticalSpaceMarine',
     description: null,
-    hint: "A versatile warrior, veteran of a hundred battles."
+    hint: 'A versatile warrior, veteran of a hundred battles.',
   },
   {
     source: { ...source.core },
-    key: "primarisIntercessor",
-    name: "Primaris Intercessor",
-    hint: "A skilled and focused warrior, adept at bringing death at range.",
-    group: "Adeptus Astartes",
+    key: 'primarisIntercessor',
+    name: 'Primaris Intercessor',
+    hint: 'A skilled and focused warrior, adept at bringing death at range.',
+    group: 'Adeptus Astartes',
     cost: 60,
     tier: 4,
-    species: ["Primaris Astartes"],
+    species: ['Primaris Astartes'],
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4, },
-      { group: 'attributes', value: 'agility', threshold: 4, },
-      { group: 'attributes', value: 'toughness', threshold: 4, },
-      { group: 'skills', value: 'ballisticSkill', threshold: 4, },
-      { group: 'skills', value: 'weaponSkill', threshold: 4, },
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
     ],
     influence: 1,
-    keywords: "Imperium, Adeptus Astartes, Primaris, <Chapter>",
-    keywordOption: "<Chapter>",
+    keywords: 'Imperium, Adeptus Astartes, Primaris, <Chapter>',
+    keywordOption: '<Chapter>',
     abilities: [
       { name: 'Intercessor Focus', effect: 'When firing a bolt rifle or heavy bolt pistol they gain +Rank bonus to attack rolls.' },
     ],
-    description: ""
+    description: '',
   },
   // Adeptus Mechanicus
   {
     source: { ...source.core },
-    name: "Skitarius",
+    name: 'Skitarius',
     cost: 40,
     tier: 2,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 0,
-    keywords: "Imperium,Adeptus Mechanicus,Skitarii,<Forge World>",
+    keywords: 'Imperium,Adeptus Mechanicus,Skitarii,<Forge World>',
     abilities: [
-      { name: 'Heavily Augmented', effect: 'The Skitarius’ body is designed to withstand ' +
-        'the rigours of war. Skitarii do not bleed and gain +½ Rank to Soak tests.' },
+      {
+        name: 'Heavily Augmented',
+        effect: 'The Skitarius’ body is designed to withstand '
+        + 'the rigours of war. Skitarii do not bleed and gain +½ Rank to Soak tests.',
+      },
     ],
-    keywordOption: "<Forge World>",
+    keywordOption: '<Forge World>',
     prerequisites: [
-      { group: 'attributes', value: 'toughness', threshold: 3, },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2, },
-      { group: 'skills', value: 'tech', threshold: 1, },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'tech', threshold: 1 },
     ],
-    group: "Adeptus Mechanicus",
+    group: 'Adeptus Mechanicus',
     key: 'skitarius',
     description: null,
-    hint: "A warrior of the Machine Cult, sturdy and reliable."
+    hint: 'A warrior of the Machine Cult, sturdy and reliable.',
   },
   {
     source: { ...source.core },
-    name: "Tech-Priest",
+    name: 'Tech-Priest',
     cost: 60,
     tier: 3,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 2,
-    keywords: "Imperium,Adeptus Mechanicus,Cult Mechanicus,<Forge World>",
-    keywordOption: "<Forge World>",
+    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,<Forge World>',
+    keywordOption: '<Forge World>',
     abilities: [
-      { name: 'Rite of Repair', effect: 'Tech-Priests automatically reduce the time by ' +
-        'half for any Tech test. They receive +Rank on Tech tests to fix or repair a ' +
-        'damaged machine.' },
+      {
+        name: 'Rite of Repair',
+        effect: 'Tech-Priests automatically reduce the time by '
+        + 'half for any Tech test. They receive +Rank on Tech tests to fix or repair a '
+        + 'damaged machine.',
+      },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 3, },
-      { group: 'skills', value: 'tech', threshold: 3, },
-      { group: 'skills', value: 'scholar', threshold: 1, },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'tech', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
     ],
-    group: "Adeptus Mechanicus",
-    key: "techPriest",
+    group: 'Adeptus Mechanicus',
+    key: 'techPriest',
     description: null,
-    hint: "A priest of the Omnissiah, able to commune with the machine-spirits."
+    hint: 'A priest of the Omnissiah, able to commune with the machine-spirits.',
   },
   // Scum
   {
     source: { ...source.core },
-    name: "Ganger",
+    name: 'Ganger',
     cost: 0,
     tier: 1,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 1,
-    keywords: "Scum,<ANY>",
-    keywordOption: "<Any>",
+    keywords: 'Scum,<ANY>',
+    keywordOption: '<Any>',
     abilities: [
-      { name: 'Scrounger', effect: 'Gangers make use of every available resource, and ' +
-        'have a knack for „fi nding“ spares. They receive +Rank to Cunning tests, and ' +
-        'may make a single retroactive Infl uence test with a bonus of +Rank once per ' +
-        'session, representing an item that they had prepared in advance.' }
+      {
+        name: 'Scrounger',
+        effect: 'Gangers make use of every available resource, and '
+        + 'have a knack for „fi nding“ spares. They receive +Rank to Cunning tests, and '
+        + 'may make a single retroactive Infl uence test with a bonus of +Rank once per '
+        + 'session, representing an item that they had prepared in advance.',
+      },
     ],
     prerequisites: [
-      { group: 'skills', value: 'cunning', threshold: 1, },
+      { group: 'skills', value: 'cunning', threshold: 1 },
     ],
-    group: "Scum",
-    key: "ganger",
+    group: 'Scum',
+    key: 'ganger',
     description: null,
-    hint: "A resourceful and tenacious survivor from the depths of enormous industrial cities."
+    hint: 'A resourceful and tenacious survivor from the depths of enormous industrial cities.',
   },
   {
     source: { ...source.core },
-    name: "Scavvy",
+    name: 'Scavvy',
     cost: 10,
     tier: 2,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: -1,
     abilities: [
-      { name: 'Mutant', effect: 'The Scavvy may select one mutation (see Scavvy Mutations, ' +
-        'page 368). Every time the Scavvy gains a Rank, they may select an additional ' +
-        'mutation from that list.' }
+      {
+        name: 'Mutant',
+        effect: 'The Scavvy may select one mutation (see Scavvy Mutations, '
+        + 'page 368). Every time the Scavvy gains a Rank, they may select an additional '
+        + 'mutation from that list.',
+      },
     ],
     keywords: 'Scum,<Any>',
-    keywordOption: "<Any>",
+    keywordOption: '<Any>',
     prerequisites: [
-      { group: 'attributes', value: 'toughness', threshold: 2, },
-      { group: 'skills', value: 'survival', threshold: 1, },
+      { group: 'attributes', value: 'toughness', threshold: 2 },
+      { group: 'skills', value: 'survival', threshold: 1 },
     ],
-    group: "Scum",
+    group: 'Scum',
     key: 'scavvy',
     description: null,
-    hint: "A mutant—cast out and reviled—yet their mutations give them power."
+    hint: 'A mutant—cast out and reviled—yet their mutations give them power.',
   },
   {
     source: { ...source.core },
-    name: "Desperado",
+    name: 'Desperado',
     cost: 30,
     tier: 3,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 1,
     abilities: [
-      { name: 'Valuable Prey', effect: 'Desperados receive +Rank for Cunning tests. They ' +
-        'also receive +Rank to Awareness tests when tracking a target.' }
+      {
+        name: 'Valuable Prey',
+        effect: 'Desperados receive +Rank for Cunning tests. They '
+        + 'also receive +Rank to Awareness tests when tracking a target.',
+      },
     ],
     keywords: 'Scum,<Any>',
     keywordOptions: '<Any>',
     prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 3, },
-      { group: 'attributes', value: 'intellect', threshold: 2, },
-      { group: 'skills', value: 'awareness', threshold: 2, },
-      { group: 'skills', value: 'cunning', threshold: 2, },
-      { group: 'skills', value: 'investigation', threshold: 2, },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 2 },
+      { group: 'skills', value: 'awareness', threshold: 2 },
+      { group: 'skills', value: 'cunning', threshold: 2 },
+      { group: 'skills', value: 'investigation', threshold: 2 },
     ],
-    group: "Scum",
+    group: 'Scum',
     key: 'desperado',
     description: null,
-    hint: "A savvy and dangerous bounty hunter, mercenary, and gun for hire."
+    hint: 'A savvy and dangerous bounty hunter, mercenary, and gun for hire.',
   },
   // Renegades
   {
     source: { ...source.core },
-    name: "Cultist",
+    name: 'Cultist',
     cost: 0,
     tier: 1,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 2,
-    keywords: "Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Any>",
+    keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Any>',
     abilities: [
-      { name: 'From Within', effect: 'Cultists gain +Rank to Deception tests, including ' +
-        'Interaction attacks, against targets with the Imperium keyword.' }
+      {
+        name: 'From Within',
+        effect: 'Cultists gain +Rank to Deception tests, including '
+        + 'Interaction attacks, against targets with the Imperium keyword.',
+      },
     ],
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modification: 1 },
     ],
     prerequisites: [
-      { group: 'skills', value: 'deception', threshold: 1, },
+      { group: 'skills', value: 'deception', threshold: 1 },
     ],
-    group: "Renegades",
-    key: "cultist",
+    group: 'Renegades',
+    key: 'cultist',
     description: null,
-    hint: "A disciple of the Ruinous Powers, eager to gain their capricious favour."
+    hint: 'A disciple of the Ruinous Powers, eager to gain their capricious favour.',
   },
   {
     source: { ...source.core },
-    name: "Chaos Space Marine",
+    name: 'Chaos Space Marine',
     cost: 50,
     tier: 3,
-    species: ["Adeptus Astartes"],
+    species: ['Adeptus Astartes'],
     influence: 2,
-    keywords: "Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Legion>",
+    keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Legion>',
     abilities: [
-      { name: 'Tactical Versatility', effect: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).', },
+      { name: 'Tactical Versatility', effect: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
     ],
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4, },
-      { group: 'attributes', value: 'agility', threshold: 4, },
-      { group: 'attributes', value: 'toughness', threshold: 4, },
-      { group: 'skills', value: 'ballisticSkill', threshold: 3, },
-      { group: 'skills', value: 'weaponSkill', threshold: 3, },
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
     ],
-    group: "Renegades",
-    key: "chaosSpaceMarine",
+    group: 'Renegades',
+    key: 'chaosSpaceMarine',
     description: null,
-    hint: "A renegade warrior and death-dealer, a dark refl ection of their noble brethren."
+    hint: 'A renegade warrior and death-dealer, a dark refl ection of their noble brethren.',
   },
   {
     source: { ...source.core },
-    name: "Heretek",
+    name: 'Heretek',
     cost: 60,
     tier: 2,
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 1,
-    keywords: "Chaos,Heretic,Adeptus Mechanicus,Dark Mechanicus",
+    keywords: 'Chaos,Heretic,Adeptus Mechanicus,Dark Mechanicus',
     abilities: [
-      { name: 'Transformative Technology', effect: 'Hereteks automatically reduce the time ' +
-        'by half for any Tech test. They also gain +Rank for Tech interaction attacks.' }
+      {
+        name: 'Transformative Technology',
+        effect: 'Hereteks automatically reduce the time '
+        + 'by half for any Tech test. They also gain +Rank for Tech interaction attacks.',
+      },
     ],
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
     ],
     prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 3, },
-      { group: 'skills', value: 'tech', threshold: 3, },
-      { group: 'skills', value: 'scholar', threshold: 1, },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'tech', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
     ],
-    group: "Renegades",
-    key: "heretek",
+    group: 'Renegades',
+    key: 'heretek',
     description: null,
-    hint: "A tinkerer, corruptor of machine-spirits, a bearer of the sin of innovation."
+    hint: 'A tinkerer, corruptor of machine-spirits, a bearer of the sin of innovation.',
   },
   {
     source: { ...source.core },
-    key: "roguePsyker",
-    name: "Rogue Psyker",
-    group: "Renegades",
-    species: ["Human","Ogryn","Ratling"],
+    key: 'roguePsyker',
+    name: 'Rogue Psyker',
+    group: 'Renegades',
+    species: ['Human', 'Ogryn', 'Ratling'],
     cost: 50,
     tier: 2,
     abilities: [
-      { name: 'Psyker', effect: 'A rogue psyker begins play with one Minor Psychic Power, the ' +
-        'Smite Power and may purchase additional Minor Psychic Powers, Universal Psychic ' +
-        'Powers and Maleficarum Psychic Powers subject to Tier restrictions.' }
+      {
+        name: 'Psyker',
+        effect: 'A rogue psyker begins play with one Minor Psychic Power, the '
+        + 'Smite Power and may purchase additional Minor Psychic Powers, Universal Psychic '
+        + 'Powers and Maleficarum Psychic Powers subject to Tier restrictions.',
+      },
     ],
     psychicPowers: {
       discount: [
-        { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
-        { name: 'minor', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
+        { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
+        { name: 'minor', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
       ],
       access: [
         'Minor',
@@ -691,84 +789,93 @@ const core = [
       ],
     },
     prerequisites: [
-      { group: 'attributes', value: 'willpower', threshold: 4, },
-      { group: 'skills', value: 'psychicMastery', threshold: 1, },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'psychicMastery', threshold: 1 },
     ],
     influence: 0,
-    keywords: "Chaos,Heretic,Psyker",
+    keywords: 'Chaos,Heretic,Psyker',
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
     ],
     description: null,
-    hint: "An unsanctioned bearer of psychic powers, wielding the warp’s power without discipline."
+    hint: 'An unsanctioned bearer of psychic powers, wielding the warp’s power without discipline.',
   },
   // Aeldari
   {
     source: { ...source.core },
-    name: "Corsair",
+    name: 'Corsair',
     cost: 0,
     tier: 1,
-    species: ["Eldar"],
+    species: ['Eldar'],
     influence: 0,
-    keywords: "Aeldari,Anhrathe,<Coterie>",
+    keywords: 'Aeldari,Anhrathe,<Coterie>',
     abilities: [
-      { name: 'Dancing the Blade\'s Edge', effect: 'Choose one of the following Interaction ' +
-        'Attacks: Athletics or Persuasion. Corsairs get +Rank to the chosen Interaction ' +
-        'Attack and get the same bonus for resisting those same attacks. Corsairs suffer ' +
-        'a +1DN penalty to any Fear test.' }
+      {
+        name: 'Dancing the Blade\'s Edge',
+        effect: 'Choose one of the following Interaction '
+        + 'Attacks: Athletics or Persuasion. Corsairs get +Rank to the chosen Interaction '
+        + 'Attack and get the same bonus for resisting those same attacks. Corsairs suffer '
+        + 'a +1DN penalty to any Fear test.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 3, },
-      { group: 'skills', value: 'athletics', threshold: 2, },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'athletics', threshold: 2 },
     ],
-    group: "Aeldari",
+    group: 'Aeldari',
     key: 'corsair',
     description: null,
-    hint: "A space-faring pirate of an ancient race."
+    hint: 'A space-faring pirate of an ancient race.',
   },
   {
     source: { ...source.core },
-    name: "Ranger",
+    name: 'Ranger',
     cost: 30,
     tier: 2,
-    species: ["Eldar"],
+    species: ['Eldar'],
     influence: 0,
-    keywords: "Aeldari,Asuryani,<Craftworld>",
+    keywords: 'Aeldari,Asuryani,<Craftworld>',
     abilities: [
-      { name: 'From the Shadows', effect: 'Rangers are adept at exploiting any concealment. ' +
-        'Any penalties to detect (using Awareness) or attack a ranger due to lighting or ' +
-        'cover are increased by +½ Rank.' }
+      {
+        name: 'From the Shadows',
+        effect: 'Rangers are adept at exploiting any concealment. '
+        + 'Any penalties to detect (using Awareness) or attack a ranger due to lighting or '
+        + 'cover are increased by +½ Rank.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 3, },
-      { group: 'skills', value: 'stealth', threshold: 1, },
-      { group: 'skills', value: 'survival', threshold: 2, },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'stealth', threshold: 1 },
+      { group: 'skills', value: 'survival', threshold: 2 },
     ],
-    group: "Aeldari",
+    group: 'Aeldari',
     key: 'ranger',
     description: null,
-    hint: "A wanderer, a scout, and tracker for the good of their people."
+    hint: 'A wanderer, a scout, and tracker for the good of their people.',
   },
   {
     source: { ...source.core },
-    name: "Warlock",
+    name: 'Warlock',
     cost: 80,
     tier: 3,
-    species: ["Eldar"],
+    species: ['Eldar'],
     influence: 2,
-    keywords: "Aeldari,Asuryani,Psyker,<Craftworld>",
+    keywords: 'Aeldari,Asuryani,Psyker,<Craftworld>',
     abilities: [
-      { name: 'Runes of Battle', effect: 'A Warlock begins play with the Psyniscience and ' +
-        'smite psychic powers (these do not count towards the maximum), and may purchase ' +
-        'additional Minor Psychic Powers, Universal Psychic Powers, and Runes of Battle ' +
-        'Psychic Powers, subject to Tier restrictions.' }
+      {
+        name: 'Runes of Battle',
+        effect: 'A Warlock begins play with the Psyniscience and '
+        + 'smite psychic powers (these do not count towards the maximum), and may purchase '
+        + 'additional Minor Psychic Powers, Universal Psychic Powers, and Runes of Battle '
+        + 'Psychic Powers, subject to Tier restrictions.',
+      },
     ],
     psychicPowers: {
       discount: [
-        { name: 'psyniscience', selected: 'Psyniscience', filter: power => ( power.name === 'Psyniscience' ) },
-        { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
+        { name: 'psyniscience', selected: 'Psyniscience', filter: (power) => (power.name === 'Psyniscience') },
+        { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
       ],
       access: [
         'Minor',
@@ -783,115 +890,127 @@ const core = [
     },
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'willpower', threshold: 4, },
-      { group: 'skills', value: 'psychicMastery', threshold: 2, },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'psychicMastery', threshold: 2 },
     ],
-    group: "Aeldari",
+    group: 'Aeldari',
     key: 'warlock',
     description: null,
-    hint: "A powerful psyker, wielding strictly-guided powers for the Aeldari cause."
+    hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
   },
   // Orks
   {
     source: { ...source.core },
-    name: "Boy",
+    name: 'Boy',
     cost: 0,
     tier: 1,
-    species: ["Ork"],
+    species: ['Ork'],
     influence: 0,
-    keywords: "Ork,<Clan>",
+    keywords: 'Ork,<Clan>',
     abilities: [
-      { name: 'Get Stuck In', effect: 'A Boy gains +Rank to melee attacks for every ally ' +
-        'engaged in melee combat with the same target.' }
+      {
+        name: 'Get Stuck In',
+        effect: 'A Boy gains +Rank to melee attacks for every ally '
+        + 'engaged in melee combat with the same target.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'skills', value: 'weaponSkill', threshold: 2, },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
     ],
-    group: "Orks",
+    group: 'Orks',
     key: 'boy',
     description: null,
-    hint: "A brutish warrior and thug who believes that might makes right."
+    hint: 'A brutish warrior and thug who believes that might makes right.',
   },
   {
     source: { ...source.core },
-    name: "Kommando",
+    name: 'Kommando',
     cost: 30,
     tier: 2,
-    species: ["Ork"],
+    species: ['Ork'],
     influence: 0,
-    keywords: "Ork,<Clan>",
+    keywords: 'Ork,<Clan>',
     abilities: [
-      { name: 'Kunnin\' Plan', effect: 'A Kommando and any allies with the Ork Keyword ' +
-        'within 15 metres gain +½ Rank to Stealth tests.' }
+      {
+        name: 'Kunnin\' Plan',
+        effect: 'A Kommando and any allies with the Ork Keyword '
+        + 'within 15 metres gain +½ Rank to Stealth tests.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 2, },
-      { group: 'attributes', value: 'toughness', threshold: 2, },
-      { group: 'skills', value: 'stealth', threshold: 2, },
-      { group: 'skills', value: 'survival', threshold: 1, },
+      { group: 'attributes', value: 'agility', threshold: 2 },
+      { group: 'attributes', value: 'toughness', threshold: 2 },
+      { group: 'skills', value: 'stealth', threshold: 2 },
+      { group: 'skills', value: 'survival', threshold: 1 },
     ],
-    group: "Orks",
+    group: 'Orks',
     key: 'kommando',
     description: null,
-    hint: "A stealthy and cunning warrior who knows how to turn almost any battle to his advantage."
+    hint: 'A stealthy and cunning warrior who knows how to turn almost any battle to his advantage.',
   },
   {
     source: { ...source.core },
-    name: "Nob",
+    name: 'Nob',
     cost: 60,
     tier: 3,
-    species: ["Ork"],
+    species: ['Ork'],
     influence: 2,
-    keywords: "Ork,<Clan>",
+    keywords: 'Ork,<Clan>',
     abilities: [
-      { name: 'Boys', effect: 'A Nob commands a mob of Troops numbering up to Rank x 3 Boyz ' +
-        'who loyally follow his direction. These Ork Boyz use the profi le found on page ' +
-        '150.' }
+      {
+        name: 'Boys',
+        effect: 'A Nob commands a mob of Troops numbering up to Rank x 3 Boyz '
+        + 'who loyally follow his direction. These Ork Boyz use the profi le found on page '
+        + '150.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4, },
-      { group: 'attributes', value: 'toughness', threshold: 3, },
-      { group: 'skills', value: 'intimidation', threshold: 2, },
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
     ],
-    group: "Orks",
+    group: 'Orks',
     key: 'nob',
     description: null,
-    hint: "A savage warrior and capable leader, using brute force to succeed where others fail."
+    hint: 'A savage warrior and capable leader, using brute force to succeed where others fail.',
   },
 ];
 
 const dodScumPsyker = [
   {
-    name: "Scum Psyker",
+    name: 'Scum Psyker',
     cost: 50,
     tier: 2,
     source: {
       book: 'Doctors of Doom Compendium',
       key: 'dodc',
       version: '',
-      path: ''
+      path: '',
     },
-    species: ["Human","Ogryn","Ratling"],
+    species: ['Human', 'Ogryn', 'Ratling'],
     influence: 0,
-    keywords: "Imperium,Scum,Psyker",
+    keywords: 'Imperium,Scum,Psyker',
     abilities: [
-      { name: 'Psyker', effect: 'A Scum Psyker begins play with one minor psychic ' +
-        'power and the smite psychic power. They may purchase additional Minor Psychic ' +
-        'Powers and Universal Psychic powers, subject to Tier restrictions.' }
+      {
+        name: 'Psyker',
+        effect: 'A Scum Psyker begins play with one minor psychic '
+        + 'power and the smite psychic power. They may purchase additional Minor Psychic '
+        + 'Powers and Universal Psychic powers, subject to Tier restrictions.',
+      },
     ],
     keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'willpower', threshold: 4, },
-      { group: 'skills', value: 'psychicMastery', threshold: 1, },
-      { group: 'skills', value: 'cunning', threshold: 1, },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'psychicMastery', threshold: 1 },
+      { group: 'skills', value: 'cunning', threshold: 1 },
     ],
-    group: "Scum",
-    key: "dodcScumPsyker",
+    group: 'Scum',
+    key: 'dodcScumPsyker',
     description: null,
-    hint: "Able to focus the warp through their mind, they are blessed or cursed with psychic powers."
+    hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
   },
 ];
 

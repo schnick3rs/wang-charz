@@ -1,61 +1,58 @@
 <template>
   <div>
-
     <v-card v-show="loading">
       <v-card-text>
-        <v-progress-circular indeterminate color="success"></v-progress-circular>
+        <v-progress-circular indeterminate color="success" />
       </v-card-text>
     </v-card>
 
     <v-card v-if="!loading">
-
       <v-card-title>
         <span>User Account</span>
-        <v-spacer></v-spacer>
-        <v-btn v-on:click="$emit('close')" icon>
+        <v-spacer />
+        <v-btn icon @click="$emit('close')">
           <v-icon>close</v-icon>
         </v-btn>
       </v-card-title>
 
       <v-card-text>
-
         <div v-if="!isLoggedIn">
           <v-text-field
             v-model="username"
-            v-bind:rules="[rules.required]"
+            :rules="[rules.required]"
             label="Username"
             hint=""
-          ></v-text-field>
+          />
 
           <v-text-field
             v-model="password"
-            v-bind:append-icon="showPassword ? 'visibility' : 'visibility_off'"
-            v-bind:type="showPassword ? 'text' : 'password'"
-            v-bind:rules="[rules.required, rules.min]"
-            v-on:click:append="showPassword = !showPassword"
+            :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+            :type="showPassword ? 'text' : 'password'"
+            :rules="[rules.required, rules.min]"
             label="Password"
             hint="At least 8 characters"
             persistent-hint
-          ></v-text-field>
-
+            @click:append="showPassword = !showPassword"
+          />
         </div>
-
       </v-card-text>
 
       <v-card-actions>
-        <v-btn v-if="!isLoggedIn" block color="success" v-on:click="register">Register</v-btn>
-        <v-btn v-if="isLoggedIn" block color="error" v-on:click="$emit('close')">Logout</v-btn>
+        <v-btn v-if="!isLoggedIn" block color="success" @click="register">
+          Register
+        </v-btn>
+        <v-btn v-if="isLoggedIn" block color="error" @click="$emit('close')">
+          Logout
+        </v-btn>
       </v-card-actions>
-
     </v-card>
-
   </div>
 </template>
 
 <script lang="js">
-  import { mapGetters } from 'vuex';
+import { mapGetters } from 'vuex';
 
-  export default {
+export default {
   name: 'LoginDialog',
   data() {
     return {
@@ -63,8 +60,8 @@
       password: '',
       showPassword: false,
       rules: {
-        required: value => !!value || 'Required',
-        min: v => v.length >= 8 || 'Min 8 Characters'
+        required: (value) => !!value || 'Required',
+        min: (v) => v.length >= 8 || 'Min 8 Characters',
       },
       loading: false,
     };
@@ -80,12 +77,12 @@
         password: this.password,
       };
       this.$axios.post('/api/users/register', user)
-        .then( response => { } )
-        .catch( error => { console.warn('An unexpected error'); } )
-        .finally( () => { this.loading = false; } );
+        .then((response) => { })
+        .catch((error) => { console.warn('An unexpected error'); })
+        .finally(() => { this.loading = false; });
     },
   },
-}
+};
 </script>
 
 <style>

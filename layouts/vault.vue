@@ -4,39 +4,40 @@
       app
       dense
       dark
-      v-bind:fixed="toolbar.fixed"
-      v-bind:clipped-left="toolbar.clippedLeft"
+      :fixed="toolbar.fixed"
+      :clipped-left="toolbar.clippedLeft"
     >
       <v-toolbar-items>
-        <v-btn text small nuxt to="/">Doctors of Doom</v-btn>
+        <v-btn text small nuxt to="/">
+          Doctors of Doom
+        </v-btn>
       </v-toolbar-items>
 
-      <v-toolbar-title >
+      <v-toolbar-title>
         <span class="text-capitalize">Vault</span>
       </v-toolbar-title>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
-      <v-toolbar-items>
-
-      </v-toolbar-items>
+      <v-toolbar-items />
     </v-toolbar>
 
     <v-content>
-
       <v-container grid-list-md>
         <nuxt />
       </v-container>
-
     </v-content>
 
-    <v-footer v-bind:app="true" class="pa-2" dark>
-      <v-spacer></v-spacer>
-      <v-btn v-if="false" nuxt to="/private-policy">Private Policy</v-btn>
-      <v-btn nuxt to="/about">About</v-btn>
+    <v-footer :app="true" class="pa-2" dark>
+      <v-spacer />
+      <v-btn v-if="false" nuxt to="/private-policy">
+        Private Policy
+      </v-btn>
+      <v-btn nuxt to="/about">
+        About
+      </v-btn>
       <div>&copy; {{ new Date().getFullYear() }} Doctors of Doom</div>
     </v-footer>
-
   </v-app>
 </template>
 

@@ -1,81 +1,89 @@
 <template lang="html">
-
   <v-row justify="center">
-
-    <v-col v-bind:cols="12" v-bind:sm="6">
-
-      <h2 class="headline">Character</h2>
+    <v-col :cols="12" :sm="6">
+      <h2 class="headline">
+        Character
+      </h2>
       <p>Some Notes on the character</p>
 
       <v-text-field
         label="Character Name"
-        v-bind:value="characterName"
-        v-on:input="setCharacterName"
+        :value="characterName"
         dense
         filled
-      ></v-text-field>
+        @input="setCharacterName"
+      />
 
       <v-text-field
-        v-bind:value="customXp"
-        v-on:input="setCustomXp"
+        :value="customXp"
         class="pb-2"
         label="Additional eXperience Points"
         hint="Add the XP earend by playing the game. Usually granted by the GM."
-        dense filled persistent-hint type="number"
-      ></v-text-field>
+        dense
+        filled
+        persistent-hint
+        type="number"
+        @input="setCustomXp"
+      />
 
       <v-text-field
-        v-bind:value="characterCustomRank"
-        v-on:input="setCustomRank"
+        :value="characterCustomRank"
         class="pb-2"
         label="Rank"
         hint="Set your Characters Rank, usually between 1-5."
-        dense filled persistent-hint type="number"
-      ></v-text-field>
+        dense
+        filled
+        persistent-hint
+        type="number"
+        @input="setCustomRank"
+      />
 
       <v-slider
         v-if="false"
-        v-bind:min="1"
-        v-bind:max="5"
-        v-bind:thumb-size="24"
-        v-bind:value="characterCustomRank"
-        v-on:input="setCustomRank"
+        :min="1"
+        :max="5"
+        :thumb-size="24"
+        :value="characterCustomRank"
         class="pt-6"
         label="Rank"
         step="1"
         ticks
         thumb-label="always"
-      ></v-slider>
-
+        @input="setCustomRank"
+      />
     </v-col>
 
-    <v-col v-bind:cols="12" v-bind:sm="6">
-
-      <h2 class="headline">Framework</h2>
+    <v-col :cols="12" :sm="6">
+      <h2 class="headline">
+        Framework
+      </h2>
       <p>Define your campaign framework.</p>
 
       <v-select
         label="Select a fitting tier"
-        v-bind:value="settingTier"
-        v-bind:items="tierSelect.options"
-        v-on:change="setSettingTier"
-        dense filled
-      ></v-select>
+        :value="settingTier"
+        :items="tierSelect.options"
+        dense
+        filled
+        @change="setSettingTier"
+      />
 
       <v-text-field
-        v-bind:value="settingTitle"
-        v-on:input="setSettingTitle"
+        :value="settingTitle"
         class="pb-2"
         label="Describe your Setting or Campaign"
         hint="Only a few words"
-        dense filled persistent-hint
-      ></v-text-field>
+        dense
+        filled
+        persistent-hint
+        @input="setSettingTitle"
+      />
 
       <v-select
         v-if="false"
         label="Allowed Species"
-        v-bind:value="speciesRepository.map( s => s.name )"
-        v-bind:items="speciesRepository"
+        :value="speciesRepository.map( s => s.name )"
+        :items="speciesRepository"
         item-text="name"
         item-value="name"
         dense
@@ -85,12 +93,12 @@
         deletable-chips
         readonly
         hint="Select at least one species"
-      ></v-select>
+      />
 
       <v-select
         v-if="false"
         label="Excluded Archetypes"
-        v-bind:items="archetypeRepository"
+        :items="archetypeRepository"
         item-text="name"
         item-value="name"
         chips
@@ -101,48 +109,44 @@
         disabled
         hint="Select Archetypes that are not allowed to pick."
         persistent-hint
-      ></v-select>
+      />
 
       <div v-if="false">
+        <h2 class="title">
+          Homebrews
+        </h2>
 
-          <h2 class="title">Homebrews</h2>
+        <p>Allow specific homebrew content.</p>
 
-          <p>Allow specific homebrew content.</p>
-
-          <div
-            v-for="homebrew in settingHomebrewOptions"
-            v-bind:key="homebrew.key"
-          >
-
-            <v-switch
-              v-model="enabledHomebrews"
-              v-bind:label="homebrew.name"
-              v-bind:value="homebrew.key"
-              v-on:change="updateHomebrew(homebrew)"
-              color="primary"
-              class="mt-0 mb-0"
-            />
-
-          </div>
-
+        <div
+          v-for="homebrew in settingHomebrewOptions"
+          :key="homebrew.key"
+        >
+          <v-switch
+            v-model="enabledHomebrews"
+            :label="homebrew.name"
+            :value="homebrew.key"
+            color="primary"
+            class="mt-0 mb-0"
+            @change="updateHomebrew(homebrew)"
+          />
+        </div>
       </div>
     </v-col>
 
-    <v-col v-bind:cols="12">
-
-    </v-col>
+    <v-col :cols="12" />
 
     <v-col
-      v-if="false"
       v-for="item in settingTemplateOptions"
-      v-bind:key="item.name"
-      v-bind:cols="12"
-      v-bind:sm="6"
-      v-bind:md="4"
-      v-bind:lg="2"
+      v-if="false"
+      :key="item.name"
+      :cols="12"
+      :sm="6"
+      :md="4"
+      :lg="2"
     >
       <v-card>
-        <v-img v-if="false" v-bind:src="item.cover" height="150" />
+        <v-img v-if="false" :src="item.cover" height="150" />
         <v-card-title primary-title>
           <h3 class="title">
             {{ item.name }}
@@ -156,9 +160,7 @@
         </v-card-actions>
       </v-card>
     </v-col>
-
   </v-row>
-
 </template>
 
 <script lang="js">
@@ -166,13 +168,8 @@
 export default {
   name: 'Setting',
   layout: 'forge',
-  mixins: [ ],
+  mixins: [],
   props: [],
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
-  },
   data() {
     return {
       currentPage: 1,
@@ -226,37 +223,42 @@ export default {
     };
   },
   computed: {
-    customXp(){
+    customXp() {
       return this.$store.getters['characters/characterCampaignCustomXpById'](this.characterId);
     },
-    characterCustomRank(){
+    characterCustomRank() {
       return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
     },
-    characterName(){
+    characterName() {
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
-    settingTier(){
+    settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
-    settingTitle(){
+    settingTitle() {
       return this.$store.getters['characters/characterSettingTitleById'](this.characterId);
     },
   },
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   methods: {
-    setCharacterName(name){
-      this.$store.commit('characters/setCharacterName', {id: this.characterId, name: name});
+    setCharacterName(name) {
+      this.$store.commit('characters/setCharacterName', { id: this.characterId, name });
     },
-    setCustomXp(xp){
-      this.$store.commit('characters/setCustomXp', {id: this.characterId, xp: xp});
+    setCustomXp(xp) {
+      this.$store.commit('characters/setCustomXp', { id: this.characterId, xp });
     },
-    setCustomRank(rank){
-      this.$store.commit('characters/setCustomRank', {id: this.characterId, rank: rank});
+    setCustomRank(rank) {
+      this.$store.commit('characters/setCustomRank', { id: this.characterId, rank });
     },
     setSettingTier(tier) {
-      this.$store.commit('characters/setSettingTier', {id: this.characterId, tier: tier});
+      this.$store.commit('characters/setSettingTier', { id: this.characterId, tier });
     },
     setSettingTitle(title) {
-      this.$store.commit('characters/setSettingTitle', {id: this.characterId, title: title});
+      this.$store.commit('characters/setSettingTitle', { id: this.characterId, title });
     },
   },
 };

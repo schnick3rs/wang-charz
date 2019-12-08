@@ -1,42 +1,68 @@
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
-  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
-  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
-  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
-  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
-  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
-  aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
-  tea: { book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
-  heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
-  goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
-  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
-  pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
-  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
+  aaoa: {
+    book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha',
+  },
+  lotn: {
+    book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr',
+  },
+  thaot: {
+    book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology',
+  },
+  ltgb: {
+    book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn',
+  },
+  aptb: {
+    book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary',
+  },
+  jtb: {
+    book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary',
+  },
+  aotgt: {
+    book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne',
+  },
+  tea: {
+    book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels',
+  },
+  heva: {
+    book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault',
+  },
+  goen: {
+    book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines',
+  },
+  tog: {
+    book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory',
+  },
+  pax: {
+    book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis',
+  },
+  sotah: {
+    book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde',
+  },
 };
 
-const stringToKebab = function(text) {
+const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
 };
 
-const kebabToCamel = function(slug) {
-  return slug.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
+const kebabToCamel = function (slug) {
+  return slug.replace(/-([a-z0-9])/g, (g) => g[1].toUpperCase());
 };
 
-const stringToKebabToCamel = function(text) {
+const stringToKebabToCamel = function (text) {
   const slug = stringToKebab(text);
   return kebabToCamel(slug);
 };
 
-const simpleStub = function(sourceKey, sourcePage, name, hint) {
+const simpleStub = function (sourceKey, sourcePage, name, hint) {
   return {
     source: {
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${stringToKebabToCamel(sourceKey+' '+name)}`,
-    name: name,
-    hint: hint,
+    key: `${stringToKebabToCamel(`${sourceKey} ${name}`)}`,
+    name,
+    hint,
   };
 };
 
@@ -62,4 +88,3 @@ const ascensionRepository = [
 ];
 
 module.exports = ascensionRepository;
-
