@@ -61,7 +61,7 @@
 
               <p>
                 We decided, that the Setting would be Tier 3.
-                And that one player need to take a Rouge Trader.
+                And that one player needed to take a Rouge Trader.
                 The rest of the characters where free to choose.
                 Overall the group consist of 7 players plus the GM.
                 Regarding the chosen characters...
@@ -78,10 +78,10 @@
                 The Patriarch <strong>Fedor D. Vulpes</strong> is the Lord of a very old but faiding rogue trader house.
                 His sisters son is the Protagonist: <strong>Alexander B. Vulpes</strong>.
                 Alexander learned his trade as Seneschall of his cousin, <strong>Torben</strong>.
-                Over the years, he developed a unique skills set.
+                Over the years, he developed a unique skillset.
                 His political sense, high insight in the human desires and charisma,
                 allowed him to make some favourable deals. And, he also gathered some capable individuals
-                around him. Those would serve them well, once he would be assigned his own ship.
+                around him. Those would serve him well, once he would be assigned his own ship.
                 An this is where the story starts, Alexander is now Captain of the small Imperial
                 Frigate, the <em>Golden Goose</em>. It's not much, but it's (almost) honest work.
                 So, now let's take a look at those trusted advisors, shall we?
