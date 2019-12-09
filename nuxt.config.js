@@ -51,16 +51,25 @@ module.exports = {
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' },
       {
-        rel: 'preload', href: '/fonts/Material-Icons.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin'
+        rel: 'preload',
+        href: '/fonts/Material-Icons.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'crossorigin',
       },
       {
-        rel: 'preload', href: '/fonts/Roboto-Regular.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin'
+        rel: 'preload',
+        href: '/fonts/Roboto-Regular.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'crossorigin',
       },
       {
-        rel: 'preload', href: '/fonts/Roboto-Medium.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
-      },
-      {
-        rel: 'preload', href: '/fonts/Roboto-Bold.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin',
+        rel: 'preload',
+        href: '/fonts/Roboto-Bold.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'crossorigin',
       },
     ],
   },
