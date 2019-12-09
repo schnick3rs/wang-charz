@@ -299,6 +299,11 @@
                 want to know more: <a href="mailto:docsofdoom+posts@gmail.com?subject=Blog Feedback: #2 Golden Goose">docsofdoom+posts(at)gmail.com</a>.
               </p>
 
+              <p>
+                Last but not least, for those of you capable in the german language,
+                <a href="https://drive.google.com/open?id=1LIOQyo-iUivR1X-1Id5jng-3zUip5wZe">here is a in-game write up of the session (22 MB, PDF in Drive)</a>.
+              </p>
+
             </article>
 
           </v-col>
@@ -334,7 +339,8 @@ export default {
           name: 'Brother Lucius',
           avatar: '',
         },
-        image: '/img/artwork_posts.jpg',
+        image: '/img/chronic_goose_session-0.jpg',
+        //image: '/img/artwork_posts.jpg',
         tags: [
           'Setting',
           'Journey of the Golden Goose',
