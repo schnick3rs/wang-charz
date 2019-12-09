@@ -307,7 +307,7 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
-  name: 'OurMigrationFromDeathwatchToWrathAndGlory',
+  name: 'TheJourneyOfTheGoldenGooseSessionZero',
   components: {
     DodDefaultBreadcrumbs,
   },
@@ -318,13 +318,11 @@ export default {
     return {
       post: {
         id: 1,
-        title: 'Our migration from Deathwatch to Wrath and Glory',
-        shortTitle: 'From Deathwatch to Wrath & Glory',
-        slug: 'our-migration-from-deathwatch-to-wrath-and-glory',
+        title: 'The Journe of the Golden Goose - Session Zero',
+        shortTitle: 'The Golden Goose #0',
+        slug: 'the-journey-of-the-golden-goose-session-zero',
         abstract:
-          'Once you go Wrath & Glory, there is no turning back... '
-          + 'We migrated out FFG Deathwatch campaign to Wrath and Glory. '
-          + 'Here are the reasons why and how we did it.',
+          'Let\'s take a look at our first session from our log running tier 3 campaign',
         author: {
           id: 1,
           name: 'Brother Lucius',
@@ -332,13 +330,11 @@ export default {
         },
         image: '/img/artwork_posts.jpg',
         tags: [
-          'Migration Guide',
-          'Deathwatch',
           'Setting',
-          'The First Harvest',
+          'Journey of the Golden Goose',
         ],
-        publishedAt: '2019-12-01T08:00:00+08:00',
-        modifiedAt: '2019-12-01T08:00:00+08:00',
+        publishedAt: '2019-12-12T08:00:00+08:00',
+        modifiedAt: '2019-12-12T08:00:00+08:00',
       },
       showTooltip: false,
       tooltip: {
