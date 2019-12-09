@@ -1,95 +1,94 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+  <div>
+    <!-- Breadcrumbs -->
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
-<div>
+    <v-row justify="center">
+      <v-col :cols="8">
+        <div class="mb-4">
+          <h1 class="headline">
+            {{ item.title }}
+          </h1>
+          <h2 class="subtitle-2 grey--text">
+            {{ item.subtitle }}
+          </h2>
+        </div>
 
-  <!-- Breadcrumbs -->
-  <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
-
-  <v-row justify="center">
-
-    <v-col v-bind:cols="8" >
-
-      <div class="mb-4">
-        <h1 class="headline">{{ item.title }}</h1>
-        <h2 class="subtitle-2 grey--text">{{ item.subtitle }}</h2>
-      </div>
-
-      <v-row wrap>
-
-        <v-col v-bind:cols="12" v-bind:sm="6">
-
-          <h3 class="title">Author</h3>
-          <p>
-            {{ item.author }}
-          </p>
-
-          <div>
-            <h3 class="title">Version Info</h3>
+        <v-row>
+          <v-col :cols="12" :sm="6">
+            <h3 class="title">
+              Author
+            </h3>
             <p>
-              {{ item.status }} {{ item.version }}
+              {{ item.author }}
             </p>
-          </div>
 
-          <h3 class="title">Abstract</h3>
-          <p>
-            {{ item.abstract }}
-          </p>
+            <div>
+              <h3 class="title">
+                Version Info
+              </h3>
+              <p>
+                {{ item.status }} {{ item.version }}
+              </p>
+            </div>
 
-        </v-col>
+            <h3 class="title">
+              Abstract
+            </h3>
+            <p>
+              {{ item.abstract }}
+            </p>
+          </v-col>
 
-        <v-col v-bind:cols="12" v-bind:sm="3" v-if="item.thumbnail">
-          <v-img v-bind:src="item.thumbnail" />
-        </v-col>
+          <v-col v-if="item.thumbnail" :cols="12" :sm="3">
+            <v-img :src="item.thumbnail" />
+          </v-col>
 
-        <v-col v-bind:cols="12" v-bind:sm="3">
+          <v-col :cols="12" :sm="3">
             <span class="subtitle-2">Topics / Content:</span>
-          <ul>
-            <li v-for="parts in item.topics" v-bind:key="parts">
-              <span>{{ parts }}</span>
-            </li>
-          </ul>
+            <ul>
+              <li v-for="parts in item.topics" :key="parts">
+                <span>{{ parts }}</span>
+              </li>
+            </ul>
+          </v-col>
 
-        </v-col>
+          <v-col v-if="item.links && item.links.length > 0" :cols="12" :sm="3">
+            <span class="subtitle-2">Support or follow the author:</span>
 
-        <v-col v-bind:cols="12" v-bind:sm="3" v-if="item.links && item.links.length > 0">
+            <ul v-if="item.links && item.links.length > 0" class="mb-4">
+              <li v-for="link in item.links" :key="link.title">
+                <a class="mr-2" :href="link.url" target="_blank">{{ link.name }}</a>
+              </li>
+            </ul>
+          </v-col>
+        </v-row>
 
-          <span class="subtitle-2">Support or follow the author:</span>
+        <div>
+          <p v-if="item.keywords">
+            <span class="subtitle-2">Keywords / Tags:</span><br>
+            <v-chip
+              v-for="keyword in item.keywords"
+              :key="keyword"
+              class="mr-2 mb-1 mt-1"
+              small
+              label
+            >
+              {{ keyword }}
+            </v-chip>
+          </p>
+        </div>
 
-          <ul class="mb-4" v-if="item.links && item.links.length > 0">
-            <li v-for="link in item.links" v-bind:key="link.title">
-              <a class="mr-2" v-bind:href="link.url" target="_blank">{{ link.name }}</a>
-            </li>
-          </ul>
-
-        </v-col>
-
-      </v-row>
-
-      <div>
-        <p v-if="item.keywords">
-          <span class="subtitle-2">Keywords / Tags:</span><br/>
-          <v-chip
-            v-for="keyword in item.keywords"
-            v-bind:key="keyword"
-            class="mr-2 mb-1 mt-1"
-            small
-            label
-          >
-            {{ keyword }}
-          </v-chip>
-        </p>
-      </div>
-
-      <div>
-        <v-btn color="primary" v-bind:href="item.url" target="_blank" v-on:click="trackEvent(item.url)">
-          View the document
-          <v-icon right dark>launch</v-icon>
-        </v-btn>
-      </div>
-
-    </v-col>
-
-  </v-row>
+        <div>
+          <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">
+            View the document
+            <v-icon right dark>
+              launch
+            </v-icon>
+          </v-btn>
+        </div>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -99,14 +98,13 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 
 export default {
-  mixins: [
-    SluggerMixin,
-  ],
   components: {
     DodDefaultBreadcrumbs,
   },
+  mixins: [
+    SluggerMixin,
+  ],
   head() {
-
     const itemSchema = {
       ...SchemaDigitalDocument,
       name: this.item.title,
@@ -120,16 +118,14 @@ export default {
     };
 
     const breadcrumbListSchema = {
-      "@context": "https://schema.org",
-      "@type": "BreadcrumbList",
-      "itemListElement": this.breadcrumbItems.map( (item, index) => {
-        return {
-          "@type": "ListItem",
-          "position": index+1,
-          "name": ( index === 0 ? 'Doctors of Doom' : item.text),
-          "item": `https://www.doctors-of-doom.com${item.to}`
-        }
-      })
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: this.breadcrumbItems.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: (index === 0 ? 'Doctors of Doom' : item.text),
+        item: `https://www.doctors-of-doom.com${item.to}`,
+      })),
     };
 
     const title = `${this.item.title}`;
@@ -138,7 +134,7 @@ export default {
 
     return {
       titleTemplate: '%s | A Wrath & Glory Homebrew',
-      title: title,
+      title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
@@ -152,48 +148,50 @@ export default {
             'Homebrew',
             'Supplement',
             'Wrath & Glory',
-          ].join(',') ,
+          ].join(','),
         },
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(itemSchema), type: 'application/ld+json' },
         { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
-      ]
+      ],
     };
   },
   validate({}) {
     return true;
   },
-  async asyncData({ params, $axios, error }) {
-    const slug = params.slug;
-    const vaultItemResponse = await $axios.get(`/api/homebrews/${slug}`);
-    const vaultItem = vaultItemResponse.data;
-
-    if ( vaultItem === undefined || vaultItem.length <= 0 ) {
-      error({ statusCode: 404, message: 'Post not found' });
-    }
-
-    return {
-        item: vaultItem,
-        slug: slug,
-    };
-  },
   data() {
-    return {}
+    return {};
   },
   computed: {
     breadcrumbItems() {
       return [
         {
-          text: '', nuxt: true, exact: true, to: '/'
+          text: '', nuxt: true, exact: true, to: '/',
         },
         {
           text: 'Vault', nuxt: true, exact: true, to: '/vault',
         },
-        { text: this.item.title, disabled: true, nuxt: true, to: `/vault/${this.slug}` },
-      ]
+        {
+          text: this.item.title, disabled: true, nuxt: true, to: `/vault/${this.slug}`,
+        },
+      ];
     },
+  },
+  async asyncData({ params, $axios, error }) {
+    const { slug } = params;
+    const vaultItemResponse = await $axios.get(`/api/homebrews/${slug}`);
+    const vaultItem = vaultItemResponse.data;
+
+    if (vaultItem === undefined || vaultItem.length <= 0) {
+      error({ statusCode: 404, message: 'Post not found' });
+    }
+
+    return {
+      item: vaultItem,
+      slug,
+    };
   },
   methods: {
     trackEvent(url) {

@@ -1,16 +1,16 @@
 export const state = () => ({
   list: [],
   characters: {},
-  //version: 1,
+  // version: 1,
 });
 
 export const getters = {
   characterIds: (state) => state.list,
-  characterSets: (state) => state.list.map( charId => state.characters[charId] ),
+  characterSets: (state) => state.list.map((charId) => state.characters[charId]),
 
   characterEffectiveTierById: (state) => (id) => {
     const character = state.characters[id];
-    if ( character === undefined ) {
+    if (character === undefined) {
       return {};
     }
     const archetypeTier = character.archetype.tier || 0;
@@ -24,29 +24,17 @@ export const getters = {
   },
 
   // Character setting
-  characterSettingTierById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].settingTier : 1;
-  },
-  characterSettingTitleById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].settingTitle : getDefaultState().settingTitle;
-  },
-  characterCampaignCustomXpById: (state) => (id) => {
-    return state.characters[id] && state.characters[id].customXp ? parseInt(state.characters[id].customXp) : 0;
-  },
-  characterCampaignCustomRankById: (state) => (id) => {
-    return state.characters[id] && state.characters[id].customRank ? parseInt(state.characters[id].customRank) : 1;
-  },
+  characterSettingTierById: (state) => (id) => (state.characters[id] ? state.characters[id].settingTier : 1),
+  characterSettingTitleById: (state) => (id) => (state.characters[id] ? state.characters[id].settingTitle : getDefaultState().settingTitle),
+  characterCampaignCustomXpById: (state) => (id) => (state.characters[id] && state.characters[id].customXp ? parseInt(state.characters[id].customXp) : 0),
+  characterCampaignCustomRankById: (state) => (id) => (state.characters[id] && state.characters[id].customRank ? parseInt(state.characters[id].customRank) : 1),
 
   // Cost & Spending
-  characterSpeciesCostsById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].species.cost : 0;
-  },
-  characterArchetypeCostsById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].archetype.cost : 0;
-  },
+  characterSpeciesCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].species.cost : 0),
+  characterArchetypeCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.cost : 0),
   characterAttributeCostsById: (state) => (id) => {
-    let character = state.characters[id];
-    if ( character === undefined ) {
+    const character = state.characters[id];
+    if (character === undefined) {
       return 0;
     }
     const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
@@ -58,7 +46,7 @@ export const getters = {
   },
   characterSkillCostsById: (state) => (id) => {
     const character = state.characters[id];
-    if ( character === undefined ) {
+    if (character === undefined) {
       return 0;
     }
     const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
@@ -70,11 +58,11 @@ export const getters = {
   },
   characterTalentCostsById: (state) => (id) => {
     const character = state.characters[id];
-    if ( character === undefined ) {
+    if (character === undefined) {
       return 0;
     }
     let spending = 0;
-    character.talents.forEach( (talent) => {
+    character.talents.forEach((talent) => {
       spending += talent.cost;
       spending += talent.extraCost && parseInt(talent.extraCost) ? talent.extraCost : 0;
     });
@@ -82,7 +70,7 @@ export const getters = {
   },
   characterAscensionCostsById: (state) => (id) => {
     const character = state.characters[id];
-    if ( character === undefined ) {
+    if (character === undefined) {
       return 0;
     }
     let spending = 0;
@@ -93,7 +81,7 @@ export const getters = {
   },
   characterPsychicPowerCostsById: (state) => (id) => {
     const character = state.characters[id];
-    if ( character === undefined ) {
+    if (character === undefined) {
       return 0;
     }
     let spending = 0;
@@ -104,104 +92,90 @@ export const getters = {
   },
   // => total
   characterSpendBuildPointsById: (state, getters) => (id) => {
-      let spend = 0;
+    let spend = 0;
 
-      spend += getters.characterSpeciesCostsById(id);
-      spend += getters.characterArchetypeCostsById(id);
-      spend += getters.characterAttributeCostsById(id);
-      spend += getters.characterSkillCostsById(id);
-      spend += getters.characterTalentCostsById(id);
-      spend += getters.characterAscensionCostsById(id);
-      spend += getters.characterPsychicPowerCostsById(id);
+    spend += getters.characterSpeciesCostsById(id);
+    spend += getters.characterArchetypeCostsById(id);
+    spend += getters.characterAttributeCostsById(id);
+    spend += getters.characterSkillCostsById(id);
+    spend += getters.characterTalentCostsById(id);
+    spend += getters.characterAscensionCostsById(id);
+    spend += getters.characterPsychicPowerCostsById(id);
 
-      return spend;
+    return spend;
   },
   characterTotalBuildPointsById: (state, getters) => (id) => {
-      let total = 0;
-      total += getters.characterSettingTierById(id) * 100;
-      total += getters.characterCampaignCustomXpById(id);
-      return total;
+    let total = 0;
+    total += getters.characterSettingTierById(id) * 100;
+    total += getters.characterCampaignCustomXpById(id);
+    return total;
   },
-  characterRemainingBuildPointsById: (state, getters) => (id) => {
-    return getters.characterTotalBuildPointsById(id) - getters.characterSpendBuildPointsById(id);
-  },
+  characterRemainingBuildPointsById: (state, getters) => (id) => getters.characterTotalBuildPointsById(id) - getters.characterSpendBuildPointsById(id),
 
   // Character data
-  characterNameById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].name : getDefaultState().name;
-  },
-  characterSpeciesLabelById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].species.value : getDefaultState().species.value;
-  },
-  characterSpeciesAstartesChapterById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter;
-  },
-  characterArchetypeLabelById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].archetype.value : 'unknown';
-  },
-  characterAttributesById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].attributes : {};
-  },
+  characterNameById: (state) => (id) => (state.characters[id] ? state.characters[id].name : getDefaultState().name),
+  characterSpeciesLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].species.value : getDefaultState().species.value),
+  characterSpeciesAstartesChapterById: (state) => (id) => (state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter),
+  characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
+  characterAttributesById: (state) => (id) => (state.characters[id] ? state.characters[id].attributes : {}),
   characterAttributesEnhancedById: (state) => (id) => {
-    if ( state.characters[id] === undefined ) {
+    if (state.characters[id] === undefined) {
       return {};
     }
-    const enhanced = Object.assign({}, state.characters[id].attributes);
-    const attributeEnhancements = state.characters[id].enhancements.filter(e => e.targetGroup === 'attributes');
+    const enhanced = { ...state.characters[id].attributes };
+    const attributeEnhancements = state.characters[id].enhancements.filter((e) => e.targetGroup === 'attributes');
     attributeEnhancements.forEach((m) => {
       console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}/${m.hint}.`);
       enhanced[m.targetValue] += m.modifier;
     });
     return enhanced;
   },
-  characterSkillsById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].skills : {};
-  },
+  characterSkillsById: (state) => (id) => (state.characters[id] ? state.characters[id].skills : {}),
   characterTraitsById: (state, getters) => (id) => {
-    let character = state.characters[id];
-    let enhancedAttributes = getters.characterAttributesEnhancedById(id);
-    if ( character === undefined ) {
+    const character = state.characters[id];
+    const enhancedAttributes = getters.characterAttributesEnhancedById(id);
+    if (character === undefined) {
       return {};
     }
 
-    let traits = {};
-    traits['defence'] = enhancedAttributes.initiative-1;
-    traits['resilience'] = enhancedAttributes.toughness+1;
-    traits['soak'] = enhancedAttributes.toughness;
-    traits['wounds'] = enhancedAttributes.toughness+character.settingTier;
-    traits['shock'] = enhancedAttributes.willpower+character.settingTier;
-    traits['resolve'] = enhancedAttributes.willpower-1;
-    traits['conviction'] = enhancedAttributes.willpower;
-    traits['passiveAwareness'] = Math.round((enhancedAttributes.intellect+character.skills.awareness)/2);
+    const traits = {};
+    traits.defence = enhancedAttributes.initiative - 1;
+    traits.resilience = enhancedAttributes.toughness + 1;
+    traits.soak = enhancedAttributes.toughness;
+    traits.wounds = enhancedAttributes.toughness + character.settingTier;
+    traits.shock = enhancedAttributes.willpower + character.settingTier;
+    traits.resolve = enhancedAttributes.willpower - 1;
+    traits.conviction = enhancedAttributes.willpower;
+    traits.passiveAwareness = Math.round((enhancedAttributes.intellect + character.skills.awareness) / 2);
 
-    traits['influence'] = enhancedAttributes.fellowship-1;
-    if ( character.species.value && character.species.value === 'Ork' ) {
-      traits['influence'] = enhancedAttributes.strength-1;
+    traits.influence = enhancedAttributes.fellowship - 1;
+    if (character.species.value && character.species.value === 'Ork') {
+      traits.influence = enhancedAttributes.strength - 1;
     }
-    if ( character.archetype.value && character.archetype.value === 'Tech-Priest' ) {
-      traits['influence'] = enhancedAttributes.intellect-1;
-    }
-
-    traits['wealth'] = character.settingTier;
-    traits['speed'] = 6;
-    if ( character.species.value && character.species.value === 'Eldars' ) {
-      traits['speed'] = 8;
-    }
-    if ( character.species.value && character.species.value.endsWith('Astartes') ) {
-      traits['speed'] = 7;
+    if (character.archetype.value && character.archetype.value === 'Tech-Priest') {
+      traits.influence = enhancedAttributes.intellect - 1;
     }
 
-    traits['corruption'] = 0;
+    traits.wealth = character.settingTier;
+    traits.speed = 6;
+    if (character.species.value && character.species.value === 'Eldars') {
+      traits.speed = 8;
+    }
+    if (character.species.value && character.species.value.endsWith('Astartes')) {
+      traits.speed = 7;
+    }
+
+    traits.corruption = 0;
     return traits;
   },
   characterTraitsEnhancedById: (state, getters) => (id) => {
-    let character = state.characters[id];
-    if ( character === undefined ) {
+    const character = state.characters[id];
+    if (character === undefined) {
       return {};
     }
 
-    const enhanced = Object.assign({}, getters.characterTraitsById(id));
-    const traitEnhancements = character.enhancements.filter(e => e.targetGroup === 'traits');
+    const enhanced = { ...getters.characterTraitsById(id) };
+    const traitEnhancements = character.enhancements.filter((e) => e.targetGroup === 'traits');
     traitEnhancements.forEach((m) => {
       console.info(`Enhance ${m.targetValue} by ${m.modifier} due to ${m.source}.`);
       enhanced[m.targetValue] += m.modifier;
@@ -210,70 +184,58 @@ export const getters = {
   },
 
   // Talents
-  characterTalentsById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].talents : [];
-  },
+  characterTalentsById: (state) => (id) => (state.characters[id] ? state.characters[id].talents : []),
 
   // Wargear
-  characterWargearById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].wargear : [];
-  },
+  characterWargearById: (state) => (id) => (state.characters[id] ? state.characters[id].wargear : []),
 
   // Powers
-  characterPsychicPowersById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].psychicPowers : [];
-  },
+  characterPsychicPowersById: (state) => (id) => (state.characters[id] ? state.characters[id].psychicPowers : []),
 
   // Ascensions
-  characterAscensionPackagesById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].ascensionPackages : [];
-  },
+  characterAscensionPackagesById: (state) => (id) => (state.characters[id] ? state.characters[id].ascensionPackages : []),
 
   // Keywords
-  characterKeywordsRawById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].keywords : [];
-  },
+  characterKeywordsRawById: (state) => (id) => (state.characters[id] ? state.characters[id].keywords : []),
   characterKeywordsFinalById: (state) => (id) => {
     const keywords = state.characters[id] ? state.characters[id].keywords : [];
-    return keywords.map(k => k.replacement ? k.replacement : k.name);
+    return keywords.map((k) => (k.replacement ? k.replacement : k.name));
   },
 
-  characterBackgroundLabelById: (state) => (id) => {
-    return state.characters[id] ? state.characters[id].background : getDefaultState().background;
-  },
+  characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
 };
 
 export const mutations = {
-  setCharacterName(state, payload){
+  setCharacterName(state, payload) {
     state.characters[payload.id].name = payload.name;
   },
-  setSettingTier(state, payload){
+  setSettingTier(state, payload) {
     state.characters[payload.id].settingTier = payload.tier;
   },
-  setSettingTitle(state, payload){
+  setSettingTitle(state, payload) {
     state.characters[payload.id].settingTitle = payload.title;
   },
-  setCustomXp(state, payload){
+  setCustomXp(state, payload) {
     state.characters[payload.id].customXp = payload.xp;
   },
-  setCustomRank(state, payload){
+  setCustomRank(state, payload) {
     console.info(`Set Rank manually to ${payload.rank}.`);
     state.characters[payload.id].customRank = payload.rank;
   },
-  setCharacterSpecies(state, payload){
+  setCharacterSpecies(state, payload) {
     state.characters[payload.id].species = payload.species;
   },
-  setCharacterSpeciesAstartesChapter(state, payload){
+  setCharacterSpeciesAstartesChapter(state, payload) {
     console.info(`Set Species Astartes Chapter to ${payload.speciesAstartesChapter}.`);
     state.characters[payload.id].speciesAstartesChapter = payload.speciesAstartesChapter;
   },
-  setCharacterArchetype(state, payload){
+  setCharacterArchetype(state, payload) {
     state.characters[payload.id].archetype = payload.archetype;
   },
-  setCharacterSkill(state, payload){
+  setCharacterSkill(state, payload) {
     state.characters[payload.id].skills[payload.payload.key] = payload.payload.value;
   },
-  setCharacterAttribute(state, payload){
+  setCharacterAttribute(state, payload) {
     const char = state.characters[payload.id];
     const attribute = char.attributes[payload.payload.key];
     let theAttribute = state.characters[payload.id].attributes[payload.payload.key];
@@ -282,15 +244,15 @@ export const mutations = {
   },
   setCharacterModifications(state, payload) {
     const character = state.characters[payload.id];
-    const modifications = payload.content.modifications;
+    const { modifications } = payload.content;
     const source = payload.content.source || undefined;
     console.info(payload);
 
     console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
 
     // we remove all enhancements that share the cleanup value.
-    if ( source !== undefined ) {
-      character.enhancements = character.enhancements.filter(e => e.source !== source);
+    if (source !== undefined) {
+      character.enhancements = character.enhancements.filter((e) => e.source !== source);
     }
 
     modifications.forEach((item) => {
@@ -301,12 +263,12 @@ export const mutations = {
   clearCharacterEnhancementsBySource(state, payload) {
     const character = state.characters[payload.id];
 
-    character.enhancements = character.enhancements.filter(e => e.source !== undefined && e.source.indexOf(payload.source) < 0 );
+    character.enhancements = character.enhancements.filter((e) => e.source !== undefined && !e.source.includes(payload.source));
   },
   setCharacterSpeciesModifications(state, payload) {
     const character = state.characters[payload.id];
 
-    character.enhancements = character.enhancements.filter(e => e.source !== 'species');
+    character.enhancements = character.enhancements.filter((e) => e.source !== 'species');
     payload.content.modifications.forEach((item) => {
       item.source = 'species';
       character.enhancements.push(item);
@@ -316,44 +278,44 @@ export const mutations = {
   // Talents
   addCharacterTalent(state, payload) {
     const character = state.characters[payload.id];
-    const talent = payload.talent;
+    const { talent } = payload;
     const talentUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-    const hasTalent = character.talents.find(t => t.name === talent.name) !== undefined;
+    const hasTalent = character.talents.find((t) => t.name === talent.name) !== undefined;
     if (!hasTalent) {
-      character.talents.push( { id: talentUniqueId, ...talent } );
+      character.talents.push({ id: talentUniqueId, ...talent });
     }
   },
   removeCharacterTalent(state, payload) {
     const character = state.characters[payload.id];
-    const hasTalent = character.talents.find(t => t.name === payload.name) !== undefined;
+    const hasTalent = character.talents.find((t) => t.name === payload.name) !== undefined;
     if (hasTalent) {
-      character.talents = character.talents.filter(t => t.name !== payload.name);
+      character.talents = character.talents.filter((t) => t.name !== payload.name);
     }
   },
   setCharacterTalentSelected(state, payload) {
     const character = state.characters[payload.id];
     console.info(`Update ${payload.name} set selected = ${payload.selected}`);
-    const theTalent = character.talents.find(t => t.name === payload.name);
-    const theOtherTalents = character.talents.filter(t => t.name !== payload.name);
+    const theTalent = character.talents.find((t) => t.name === payload.name);
+    const theOtherTalents = character.talents.filter((t) => t.name !== payload.name);
 
     theTalent.selected = payload.selected;
 
     character.talents = [
       ...theOtherTalents,
-      theTalent
+      theTalent,
     ];
   },
   setCharacterTalentExtraCost(state, payload) {
     const character = state.characters[payload.id];
     console.info(`Update ${payload.name} set extraCost = ${payload.extraCost}`);
-    const theTalent = character.talents.find(t => t.name === payload.name);
-    const theOtherTalents = character.talents.filter(t => t.name !== payload.name);
+    const theTalent = character.talents.find((t) => t.name === payload.name);
+    const theOtherTalents = character.talents.filter((t) => t.name !== payload.name);
 
     theTalent.extraCost = payload.extraCost;
 
     character.talents = [
       ...theOtherTalents,
-      theTalent
+      theTalent,
     ];
   },
 
@@ -366,22 +328,22 @@ export const mutations = {
   },
   removeCharacterWargear(state, payload) {
     const character = state.characters[payload.id];
-    const gearId = payload.gearId;
-    const hasWargear = character.wargear.find(t => t.id === gearId) !== undefined;
+    const { gearId } = payload;
+    const hasWargear = character.wargear.find((t) => t.id === gearId) !== undefined;
     if (hasWargear) {
-      character.wargear = character.wargear.filter(t => t.id !== gearId);
+      character.wargear = character.wargear.filter((t) => t.id !== gearId);
     }
   },
   removeCharacterWargearBySource(state, payload) {
     const character = state.characters[payload.id];
-    const source = payload.source;
-    character.wargear = character.wargear.filter( item => item.source.indexOf(source) < 0 );
+    const { source } = payload;
+    character.wargear = character.wargear.filter((item) => !item.source.includes(source));
   },
 
   // Psychic Powers
   addCharacterPsychicPower(state, payload) {
     const character = state.characters[payload.id];
-    const hasPower = character.psychicPowers.find(t => t.name === payload.name) !== undefined;
+    const hasPower = character.psychicPowers.find((t) => t.name === payload.name) !== undefined;
     if (!hasPower) {
       console.info(`Adding '${payload.name}' by '${payload.source}'`);
       character.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
@@ -389,17 +351,17 @@ export const mutations = {
   },
   removeCharacterPsychicPower(state, payload) {
     const character = state.characters[payload.id];
-    const hasPower = character.psychicPowers.find(t => t.name === payload.name) !== undefined;
+    const hasPower = character.psychicPowers.find((t) => t.name === payload.name) !== undefined;
     if (hasPower) {
       console.info(`Removing '${payload.name}' by '${payload.source}'`);
-      character.psychicPowers = character.psychicPowers.filter(t => t.name !== payload.name);
+      character.psychicPowers = character.psychicPowers.filter((t) => t.name !== payload.name);
     }
   },
   clearCharacterPsychicPowersBySource(state, payload) {
     const character = state.characters[payload.id];
-    if ( character.psychicPowers.length > 0 ) {
+    if (character.psychicPowers.length > 0) {
       console.log(`found ${character.psychicPowers.length} psychic powers, clearing with source ${payload.source}...`);
-      character.psychicPowers = character.psychicPowers.filter( k => k.source === undefined || k.source.indexOf(payload.source) < 0 );
+      character.psychicPowers = character.psychicPowers.filter((k) => k.source === undefined || !k.source.includes(payload.source));
       console.log(`${character.psychicPowers.length} psychic powers remaining`);
     }
   },
@@ -416,25 +378,25 @@ export const mutations = {
       targetTier: payload.targetTier,
     });
   },
-  setCharacterAscensionPackageStoryElement(state, payload){
+  setCharacterAscensionPackageStoryElement(state, payload) {
     const character = state.characters[payload.id];
     console.info(`Set Ascension Story Element to ${payload.ascensionPackageStoryElementKey}`);
     // find package by payload.ascensionPackageKey and payload.ascensionPackage
-    const index = character.ascensionPackages.findIndex(a => (
-      a.key === payload.ascensionPackageKey &&
-      a.targetTier === payload.ascensionPackageTargetTier
+    const index = character.ascensionPackages.findIndex((a) => (
+      a.key === payload.ascensionPackageKey
+      && a.targetTier === payload.ascensionPackageTargetTier
     ));
     if (index >= 0) {
       character.ascensionPackages[index].storyElementChoice = payload.ascensionPackageStoryElementKey;
     }
   },
-  setCharacterAscensionPackageWargearOption(state, payload){
+  setCharacterAscensionPackageWargearOption(state, payload) {
     const character = state.characters[payload.id];
     console.info(`Set Ascension WargearOption to ${payload.ascensionPackageWargearOptionKey}`);
     // find package by payload.ascensionPackageKey and payload.ascensionPackage
-    const index = character.ascensionPackages.findIndex(a => (
-      a.key === payload.ascensionPackageKey &&
-      a.targetTier === payload.ascensionPackageTargetTier
+    const index = character.ascensionPackages.findIndex((a) => (
+      a.key === payload.ascensionPackageKey
+      && a.targetTier === payload.ascensionPackageTargetTier
     ));
     if (index >= 0) {
       character.ascensionPackages[index].wargearChoice = payload.ascensionPackageWargearOptionKey;
@@ -443,12 +405,12 @@ export const mutations = {
   removeCharacterAscensionPackage(state, payload) {
     const character = state.characters[payload.id];
     // remove the package from the ascension stacks
-    character.ascensionPackages = character.ascensionPackages.filter(a => (a.value !== payload.value));
+    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== payload.value));
 
     // remove all enhancements that are related to the package
-    character.enhancements = character.enhancements.filter(e => e.source === undefined || !e.source.startsWith(`ascension.${payload.key}`));
+    character.enhancements = character.enhancements.filter((e) => e.source === undefined || !e.source.startsWith(`ascension.${payload.key}`));
 
-    character.keywords = character.keywords.filter( k => k.source !== `ascension.${payload.key}`);
+    character.keywords = character.keywords.filter((k) => k.source !== `ascension.${payload.key}`);
 
     // ToDo: remove all wargear that is related to the package
   },
@@ -463,16 +425,16 @@ export const mutations = {
   // Keywords
   addCharacterKeyword(state, payload) {
     const character = state.characters[payload.id];
-    const keyword = payload.keyword;
+    const { keyword } = payload;
     console.log(`Adding keyword ${keyword.name} of type ${keyword.type}.`);
     character.keywords.push(keyword);
   },
-  clearCharacterKeywordsBySource: function (state, payload) {
+  clearCharacterKeywordsBySource(state, payload) {
     const character = state.characters[payload.id];
-    const source = payload.source;
+    const { source } = payload;
     if (character.keywords.length > 0) {
       console.log(`found ${character.keywords.length} keywords, clearing with source ${source}...`);
-      character.keywords = character.keywords.filter(k => k.source !== source);
+      character.keywords = character.keywords.filter((k) => k.source !== source);
       console.log(`${character.keywords.length} keywords remaining`);
     }
   },
@@ -482,25 +444,23 @@ export const mutations = {
    */
   replaceCharacterKeywordPlaceholder(state, payload) {
     const character = state.characters[payload.id];
-    if ( character.keywords.length > 0) {
-      let placeholderKeyword = character.keywords.find(k => {
-        return (k.source === payload.source && k.name === payload.placeholder);
-      });
-      if ( placeholderKeyword ) {
+    if (character.keywords.length > 0) {
+      const placeholderKeyword = character.keywords.find((k) => (k.source === payload.source && k.name === payload.placeholder));
+      if (placeholderKeyword) {
         placeholderKeyword.replacement = payload.replacement;
-        character.keywords = character.keywords.filter( k => !(k.source === payload.source && k.name === payload.placeholder) )
+        character.keywords = character.keywords.filter((k) => !(k.source === payload.source && k.name === payload.placeholder));
         character.keywords.push(placeholderKeyword);
-      };
+      }
     }
   },
 
   // character handling
-  create(state, id){
+  create(state, id) {
     state.list.push(id);
-    let newChar = {};
+    const newChar = {};
     Object.assign(newChar, getDefaultState());
     newChar.id = id;
-    let newObj = {};
+    const newObj = {};
     newObj[id] = newChar;
     state.characters = {
       ...state.characters,
@@ -513,7 +473,7 @@ export const mutations = {
   remove(state, characterId) {
     state.list.splice(state.list.indexOf(characterId), 1);
     delete state.characters[characterId];
-  }
+  },
 };
 
 const getDefaultState = () => ({

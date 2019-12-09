@@ -13,14 +13,14 @@ export default {
           prerequisites: (archetypePrerequisites) => {
             const prerequisites = [];
 
-            const skillPrerequisites = archetypePrerequisites.filter( i => i.group === 'skills' );
+            const skillPrerequisites = archetypePrerequisites.filter((i) => i.group === 'skills');
 
-            if ( skillPrerequisites ) {
-              skillPrerequisites.forEach( skillPrerequisite => {
+            if (skillPrerequisites) {
+              skillPrerequisites.forEach((skillPrerequisite) => {
                 prerequisites.push({
                   group: skillPrerequisite.group,
                   value: skillPrerequisite.value,
-                  threshold: skillPrerequisite.threshold+1,
+                  threshold: skillPrerequisite.threshold + 1,
                 });
               });
             }
@@ -37,7 +37,7 @@ export default {
                 {
                   targetGroup: 'traits',
                   targetValue: 'corruption',
-                  modifier: 3
+                  modifier: 3,
                 },
               ],
             },
@@ -48,7 +48,7 @@ export default {
                 {
                   targetGroup: 'abilities',
                   targetValue: '',
-                  effect: '+1 dice to Intimidation Tests.'
+                  effect: '+1 dice to Intimidation Tests.',
                 },
               ],
             },
@@ -65,26 +65,22 @@ export default {
                   key: 'firstItem',
                   text: 'Select on fitting item',
                   itemChoice: undefined,
-                  query: (tier) => {
-                    return (item) => {
-                      const valueReq = item.value <= 3 + tier;
-                      const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(item.rarity);
-                      //const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
-                      return (valueReq && rarityReq);
-                    }
+                  query: (tier) => (item) => {
+                    const valueReq = item.value <= 3 + tier;
+                    const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(item.rarity);
+                    // const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
+                    return (valueReq && rarityReq);
                   },
                 },
                 {
                   key: 'secondItem',
                   text: 'Select on fitting item',
                   itemChoice: undefined,
-                  query: (tier) => {
-                    return (item) => {
-                      const valueReq = item.value <= 3 + tier;
-                      const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(item.rarity);
-                      //const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
-                      return (valueReq && rarityReq);
-                    }
+                  query: (tier) => (item) => {
+                    const valueReq = item.value <= 3 + tier;
+                    const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(item.rarity);
+                    // const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
+                    return (valueReq && rarityReq);
                   },
                 },
               ],
@@ -97,13 +93,11 @@ export default {
                   key: 'firstItem',
                   text: 'Select on fitting item',
                   itemChoice: undefined,
-                  query: (tier) => {
-                    return (item) => {
-                      const valueReq = item.value <= 3 + tier;
-                      const rarityReq = ['Common', 'Uncommon', 'Rare', 'Very Rare'].includes(item.rarity);
-                      //const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
-                      return (valueReq && rarityReq);
-                    }
+                  query: (tier) => (item) => {
+                    const valueReq = item.value <= 3 + tier;
+                    const rarityReq = ['Common', 'Uncommon', 'Rare', 'Very Rare'].includes(item.rarity);
+                    // const keywordReq = ( item.keywords ) ? item.keywords.split(',').includes('Imperium') : false;
+                    return (valueReq && rarityReq);
                   },
                 },
               ],
@@ -121,8 +115,8 @@ export default {
           prerequisites: (archetypePrerequisites) => {
             const prerequisites = [];
 
-            const willpowerPrerequisite = archetypePrerequisites.filter( i => i.value === 'willpower' );
-            if ( willpowerPrerequisite ) {
+            const willpowerPrerequisite = archetypePrerequisites.filter((i) => i.value === 'willpower');
+            if (willpowerPrerequisite) {
               prerequisites.push({
                 group: willpowerPrerequisite.group,
                 value: willpowerPrerequisite.value,
@@ -147,12 +141,12 @@ export default {
               text: '',
               type: 'spells',
               discount: [
-                { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
-                { name: 'minor1', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
-                { name: 'minor2', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
-                { name: 'minor3', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
-              ]
-            }
+                { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
+                { name: 'minor1', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor2', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor3', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
+              ],
+            },
           ],
           storyElementChoice: '',
           wargearText: 'None',

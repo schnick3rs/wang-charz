@@ -18,7 +18,7 @@ export default {
                 modifier: 3,
                 hint: 'Origin as Background',
                 source: 'background.origin',
-              }
+              },
             },
             {
               key: 'wound',
@@ -29,7 +29,7 @@ export default {
                 modifier: 1,
                 hint: 'Origin as Background',
                 source: 'background.origin',
-              }
+              },
             },
           ],
         },
@@ -40,15 +40,15 @@ export default {
           description: 'Many archetypes include a keyword that indicates a grouping within their archetype. For Space Marines, this can be a chapter, while Inquisitors can indicate their Ordo. In cases where an archetype offers that option, choosing a keyword can be a vital point in defi ning the character. Different groups each have distinctive traditions, which can include their educational background as well as their personal preferences. A Space Marine of the Carcharodons chapter has a very different outlook than one from the Black Templars chapter. Similarly, an Eldar Ranger from Iyanden Craftworld is likely to have a different tactical approach than one from Ulthwé Craftworld.',
           bonus: 'Characters who choose a keyword as their background have a particularly close connection to that organisation, and it offers them a network of valuable contacts. The hero has a reliable and trustworthy contact who acts as their liaison to the group represented by the keyword. The character can send and receive messages to the contact, even over great distances (the specifi cs of this vary depending on the keyword group’s resources). The contact can provide the hero with information, equipment, or a minor favour once per session. In addition, the character counts the initial Reaction of an NPC who is a member of the keyword’s organisation as one step higher than normal (see the Table 5-4: Reactions on page 253).',
           modifier: {
-            effect: 'Characters who choose a keyword as their background have a particularly close ' +
-            'connection to that organisation, and it offers them a network of valuable contacts. ' +
-            'The hero has a reliable and trustworthy contact who acts as their liaison to the group ' +
-            'represented by the keyword. The character can send and receive messages to the contact, ' +
-            'even over great distances (the specifi cs of this vary depending on the keyword group’s ' +
-            'resources). The contact can provide the hero with information, equipment, or a minor ' +
-            'favour once per session. In addition, the character counts the initial Reaction of an ' +
-            'NPC who is a member of the keyword’s organisation as one step higher than normal (see ' +
-            'the Table 5-4: Reactions on page 253).',
+            effect: 'Characters who choose a keyword as their background have a particularly close '
+            + 'connection to that organisation, and it offers them a network of valuable contacts. '
+            + 'The hero has a reliable and trustworthy contact who acts as their liaison to the group '
+            + 'represented by the keyword. The character can send and receive messages to the contact, '
+            + 'even over great distances (the specifi cs of this vary depending on the keyword group’s '
+            + 'resources). The contact can provide the hero with information, equipment, or a minor '
+            + 'favour once per session. In addition, the character counts the initial Reaction of an '
+            + 'NPC who is a member of the keyword’s organisation as one step higher than normal (see '
+            + 'the Table 5-4: Reactions on page 253).',
             hint: 'Keywords as Background',
             source: 'background.keyword',
           },
@@ -69,7 +69,7 @@ export default {
                 modifier: 1,
                 hint: 'Accomplishments as Background',
                 source: 'background.accomplishment',
-              }
+              },
             },
             {
               key: 'wealth',
@@ -80,7 +80,7 @@ export default {
                 modifier: 2,
                 hint: 'Accomplishment as Background',
                 source: 'background.accomplishment',
-              }
+              },
             },
           ],
         },
@@ -97,6 +97,6 @@ export default {
           },
         },
       ],
-    }
+    };
   },
 };

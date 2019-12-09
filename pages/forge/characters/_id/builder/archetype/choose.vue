@@ -1,7 +1,5 @@
 <template>
-
   <v-row justify="center">
-
     <v-dialog
       v-model="previewDialog"
       width="600px"
@@ -9,113 +7,107 @@
     >
       <archetype-preview
         v-if="previewItem"
-        v-bind:characterId="characterId"
-        v-bind:item="previewItem"
-        v-on:select="selectArchetypeForChar"
-        v-on:cancel="previewDialog = false"
-        chooseMode
-      ></archetype-preview>
+        :character-id="characterId"
+        :item="previewItem"
+        choose-mode
+        @select="selectArchetypeForChar"
+        @cancel="previewDialog = false"
+      />
     </v-dialog>
 
     <v-col>
-      <h1 class="headline">Select an Archetype</h1>
+      <h1 class="headline">
+        Select an Archetype
+      </h1>
 
       <v-alert
-        v-bind:value="!characterSpeciesLabel"
+        :value="!characterSpeciesLabel"
         type="warning"
         dense
-      >You need to select a Species first.</v-alert>
+      >
+        You need to select a Species first.
+      </v-alert>
     </v-col>
 
-    <v-col v-bind:cols="12">
+    <v-col :cols="12">
       <v-text-field
+        v-model="searchQuery"
         solo
         placeholder="Search..."
-        v-model="searchQuery"
         prepend-inner-icon="search"
         clearable
-      ></v-text-field>
+      />
     </v-col>
 
-    <v-col v-bind:cols="12">
-
+    <v-col :cols="12">
       <v-card>
-
         <div
           v-for="(group, key) in archetypeGroups"
-          v-bind:key="key"
+          :key="key"
         >
+          <v-divider />
 
-          <v-divider></v-divider>
-
-          <v-list subheader v-if="archetypesByGroup(group).length > 0">
-
+          <v-list v-if="archetypesByGroup(group).length > 0" subheader>
             <v-subheader>{{ group }}</v-subheader>
 
             <v-list-item
-              two-line
               v-for="item in archetypesByGroup(group)"
-              v-bind:key="item.key"
-              v-on:click.stop="updatePreview(item)"
-              v-bind:disabled="!item.species.includes(characterSpeciesLabel) || item.tier > characterSettingTier"
+              :key="item.key"
+              two-line
+              :disabled="!item.species.includes(characterSpeciesLabel) || item.tier > characterSettingTier"
+              @click.stop="updatePreview(item)"
             >
-
               <v-list-item-avatar tile>
-                <img v-bind:src="getAvatar(item.name)">
+                <img :src="getAvatar(item.name)">
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title>{{item.name}}</v-list-item-title>
-                <v-list-item-subtitle>{{item.hint}}</v-list-item-subtitle>
+                <v-list-item-title>{{ item.name }}</v-list-item-title>
+                <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
               </v-list-item-content>
 
               <v-list-item-action class="hidden-sm-and-up">
                 <v-btn dense icon>
-                  <v-icon color="primary">arrow_forward_ios</v-icon>
+                  <v-icon color="primary">
+                    arrow_forward_ios
+                  </v-icon>
                 </v-btn>
               </v-list-item-action>
               <v-list-item-action class="hidden-xs-only">
                 <v-chip pill color="green" text-color="white">
-                  <v-avatar left class="green darken-4">{{item.cost}}</v-avatar>
+                  <v-avatar left class="green darken-4">
+                    {{ item.cost }}
+                  </v-avatar>
                   BP
                 </v-chip>
               </v-list-item-action>
               <v-list-item-action class="hidden-xs-only">
                 <v-chip pill color="red" text-color="white">
-                  <v-avatar left class="red darken-4">{{item.tier}}</v-avatar>
+                  <v-avatar left class="red darken-4">
+                    {{ item.tier }}
+                  </v-avatar>
                   Tier
                 </v-chip>
               </v-list-item-action>
-
             </v-list-item>
-
           </v-list>
-
         </div>
       </v-card>
-
     </v-col>
-
   </v-row>
-
 </template>
 
 <script>
+import { mapMutations } from 'vuex';
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
 import SluggerMixin from '~/mixins/SluggerMixin';
-import { mapMutations } from 'vuex';
 
 export default {
-  name: "archetype-choose",
+  name: 'ArchetypeChoose',
   components: { ArchetypePreview },
   mixins: [
     SluggerMixin,
   ],
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
-  },
   data() {
     return {
       itemList: undefined,
@@ -123,21 +115,11 @@ export default {
       previewDialog: false,
       previewItem: undefined,
       searchQuery: '',
-    }
-  },
-  watch: {
-    'sources': {
-      handler (newVal) {
-        if ( newVal ) {
-          this.getArchetypeList(newVal);
-        }
-      },
-      immediate: true, // make this watch function is called when component created
-    },
+    };
   },
   computed: {
     sources() {
-      return ['core','coreab'];
+      return ['core', 'coreab'];
     },
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
@@ -150,19 +132,34 @@ export default {
         let archetypes = this.itemList;
 
         if (this.characterSpeciesLabel !== undefined) {
-          archetypes = archetypes.filter( a => a.species.includes(this.characterSpeciesLabel) );
+          archetypes = archetypes.filter((a) => a.species.includes(this.characterSpeciesLabel));
         }
 
         if (this.characterSettingTier !== undefined) {
-          archetypes = archetypes.filter(a => a.tier <= this.characterSettingTier);
+          archetypes = archetypes.filter((a) => a.tier <= this.characterSettingTier);
         }
 
-        return [...new Set(archetypes.map(item => item.group))];
+        return [...new Set(archetypes.map((item) => item.group))];
       }
 
       return [];
     },
 
+  },
+  watch: {
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getArchetypeList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+  },
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
   },
   methods: {
     ...mapMutations('characters', ['setCharacterArchetype']),
@@ -172,7 +169,7 @@ export default {
           source: sources.join(','),
         },
       };
-      const { data } = await this.$axios.get(`/api/archetypes/`, config);
+      const { data } = await this.$axios.get('/api/archetypes/', config);
       this.itemList = data;
     },
     getAvatar(name) {
@@ -183,15 +180,15 @@ export default {
       let archetypes = this.itemList;
 
       /* filter by archetype group */
-      archetypes = archetypes.filter(a => a.group === groupName);
+      archetypes = archetypes.filter((a) => a.group === groupName);
 
       /* filter by  */
       if (this.characterSpeciesLabel) {
-        archetypes = archetypes.filter( a => a.species.includes(this.characterSpeciesLabel) );
+        archetypes = archetypes.filter((a) => a.species.includes(this.characterSpeciesLabel));
       }
 
       if (this.characterSettingTier !== undefined) {
-        archetypes = archetypes.filter(a => a.tier <= this.characterSettingTier);
+        archetypes = archetypes.filter((a) => a.tier <= this.characterSettingTier);
       }
 
       /* filter by search query */
@@ -213,28 +210,30 @@ export default {
       this.setCharacterArchetype({ id: this.characterId, archetype: { value: item.name, cost: item.cost, tier: item.tier } });
 
       const mods = [];
-      mods.push({ targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype'});
+      mods.push({
+        targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype',
+      });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype' });
       // keywords = String[]
-      if ( item.keywords ) {
+      if (item.keywords) {
         const itemKeywords = item.keywords.split(',');
-        itemKeywords.forEach(keyword => {
+        itemKeywords.forEach((keyword) => {
           const payload = {
             name: keyword,
             source: 'archetype',
-            type: (keyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
+            type: (keyword.includes('<')) ? 'placeholder' : 'keyword',
             replacement: undefined,
           };
           this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
         });
       }
 
-      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: 'archetype'});
-      if ( item.psychicPowers && item.psychicPowers.discount && item.psychicPowers.discount.length > 0 ) {
-        item.psychicPowers.discount.forEach( d => {
-          if ( d.selected ) {
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: 'archetype' });
+      if (item.psychicPowers && item.psychicPowers.discount && item.psychicPowers.discount.length > 0) {
+        item.psychicPowers.discount.forEach((d) => {
+          if (d.selected) {
             const payload = {
               id: this.characterId,
               name: d.selected,
@@ -247,10 +246,10 @@ export default {
       }
 
       this.previewDialog = false;
-      this.$router.push({ name: `forge-characters-id-builder-archetype-manage`, params: { id: this.characterId } });
+      this.$router.push({ name: 'forge-characters-id-builder-archetype-manage', params: { id: this.characterId } });
     },
   },
-}
+};
 </script>
 
 <style scoped>

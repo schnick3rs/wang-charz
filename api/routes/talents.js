@@ -9,10 +9,9 @@ const router = new Router();
 module.exports = router;
 
 router.get('/', async (request, response) => {
-
   const query = `select t.*, ${sourceSql('t.source_id')} as source from wrath_glory.talents t`;
 
-  const { rows } = await db.queryAsyncAwait(query, [], );
+  const { rows } = await db.queryAsyncAwait(query, []);
 
   const vaultItems = rows;
 
@@ -21,8 +20,7 @@ router.get('/', async (request, response) => {
 });
 
 router.get('/:id', async (request, response) => {
-
-  const id = request.params.id;
+  const { id } = request.params;
 
   const { rows } = await db.queryAsyncAwait(
     `SELECT t.*, ${sourceSql('t.source_id')} as source FROM wrath_glory.talents t WHERE t.id = $1 LIMIT 1`,

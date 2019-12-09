@@ -1,36 +1,29 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
   <div>
-
-    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <v-row justify="center">
-
       <v-col
-        v-bind:cols="12"
+        :cols="12"
       >
-
         <v-card>
-
           <v-card-text>
-
-            <v-row justify="center" row wrap>
-
-              <v-col v-bind:cols="12" >
-
+            <v-row justify="center">
+              <v-col :cols="12">
                 <v-text-field
                   v-model="searchQuery"
                   filled
                   dense
                   clearable
-                  label="Search"></v-text-field>
+                  label="Search"
+                />
               </v-col>
 
-              <v-col v-bind:cols="6">
+              <v-col :cols="6">
                 <v-select
                   v-model="filters.keywords.model"
-                  v-bind:items="filterKeywordsOptions"
-                  v-bind:label="filters.keywords.label"
+                  :items="filterKeywordsOptions"
+                  :label="filters.keywords.label"
                   filled
                   dense
                   clearable
@@ -38,72 +31,67 @@
                   chips
                   deletable-chips
                   single-line
-                >
-                </v-select>
+                />
               </v-col>
 
-              <v-col v-bind:cols="12">
-
+              <v-col :cols="12">
                 <v-chip-group
                   v-model="selectedTypeFilters"
                   active-class="primary--text"
                   column
                   multiple
                 >
-
                   <v-chip
                     v-for="filter in typeFilters"
-                    v-bind:key="filter.name"
-                    v-bind:value="filter.name"
+                    :key="filter.name"
+                    :value="filter.name"
                     filter
                     small
                     label
                   >
-                    {{filter.name}}
+                    {{ filter.name }}
                   </v-chip>
-
                 </v-chip-group>
-
               </v-col>
-
             </v-row>
-
           </v-card-text>
-
         </v-card>
-
       </v-col>
 
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <v-card>
-
           <v-data-table
-            v-bind:headers="headers"
-            v-bind:items="searchResult"
-            v-bind:page.sync="pagination.page"
-            v-bind:search="searchQuery"
-            v-on:page-count="pagination.pageCount = $event"
+            :headers="headers"
+            :items="searchResult"
+            :page.sync="pagination.page"
+            :search="searchQuery"
             item-key="name"
             sort-by="name"
             show-expand
             hide-default-footer
+            @page-count="pagination.pageCount = $event"
           >
-            <template v-slot:item.type="{ item }">{{ toTypeString(item) }}</template>
-            <template v-slot:item.value="{ item }">{{ item.value }} {{ item.rarity }}</template>
-            <template v-slot:item.keywords="{ item }">{{ item.keywords.join(', ') }}</template>
+            <template v-slot:item.type="{ item }">
+              {{ toTypeString(item) }}
+            </template>
+            <template v-slot:item.value="{ item }">
+              {{ item.value }} {{ item.rarity }}
+            </template>
+            <template v-slot:item.keywords="{ item }">
+              {{ item.keywords.join(', ') }}
+            </template>
 
             <!-- detail preview -->
             <template v-slot:expanded-item="{ headers, item }">
-
-              <td v-bind:colspan="headers.length">
-
+              <td :colspan="headers.length">
                 <div class="pt-4 pb-4">
-
                   <div>
-
-                    <h3 class="title-1">{{ item.name }}</h3>
-                    <h4 class="subtitle-2 grey--text">{{ toTypeString(item) }}</h4>
+                    <h3 class="title-1">
+                      {{ item.name }}
+                    </h3>
+                    <h4 class="subtitle-2 grey--text">
+                      {{ toTypeString(item) }}
+                    </h4>
 
                     <hr class="mb-0">
 
@@ -112,83 +100,75 @@
                       <span><strong>Value:</strong> {{ item.value }}</span>
                     </div>
 
-                    <p class="mt-2">{{ item.description }}</p>
+                    <p class="mt-2">
+                      {{ item.description }}
+                    </p>
 
                     <dod-simple-weapon-stats
                       v-if="item.meta !== undefined && item.meta.length > 0 && ['ranged-weapon','melee-weapon'].includes(item.meta[0].type)"
-                      v-bind:name="item.name"
-                      v-bind:stats="item.meta[0]"
+                      :name="item.name"
+                      :stats="item.meta[0]"
                       show-traits
                       class="mb-2"
-                    ></dod-simple-weapon-stats>
+                    />
                     <dod-simple-armour-stats
                       v-if="item.meta !== undefined && item.meta.length > 0 && ['armour'].includes(item.meta[0].type)"
-                      v-bind:name="item.name"
-                      v-bind:stats="item.meta[0]"
+                      :name="item.name"
+                      :stats="item.meta[0]"
                       show-traits
                       class="mb-2"
-                    ></dod-simple-armour-stats>
+                    />
 
                     <div>
                       <span>Keywords:</span>
                       <v-chip
                         v-for="keyword in item.keywords"
-                        v-bind:key="keyword"
+                        :key="keyword"
                         label
                         small
                         class="mr-1"
-                      >{{keyword}}</v-chip>
+                      >
+                        {{ keyword }}
+                      </v-chip>
                     </div>
-
                   </div>
 
                   <div class="pt-4">
-
                     <v-btn
                       nuxt
-                      v-bind:to="`/library/wargear/${item.id}-${textToKebab(item.name)}`"
+                      :to="`/library/wargear/${item.id}-${textToKebab(item.name)}`"
                       color="success"
                       small
-                    >Show Details Page</v-btn>
-
+                    >
+                      Show Details Page
+                    </v-btn>
                   </div>
-
                 </div>
-
               </td>
-
             </template>
-
           </v-data-table>
 
-          <div class="text-xs-center pt-2">
+          <div class="text-center pt-2">
             <v-pagination
               v-model="pagination.page"
-              v-bind:length="pagination.pageCount"
+              :length="pagination.pageCount"
             />
           </div>
-
         </v-card>
-
       </v-col>
 
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <v-card>
           <v-card-text>
             <h1>Search the Library for available wargear</h1>
             <p>
               This is a reference table for the wargear used in the Wrath and Glory Role Playing Game.
-             </p>
+            </p>
           </v-card-text>
         </v-card>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
@@ -215,7 +195,7 @@ export default {
     const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
 
     return {
-      title: title,
+      title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
@@ -225,19 +205,7 @@ export default {
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-      ]
-    };
-  },
-  async asyncData({ app }) {
-    const response = await app.$axios.get(`/api/wargear/`);
-    const items = response.data;
-
-    if ( items === undefined || items.length <= 0 ) {
-      error({ statusCode: 404, message: 'No Ascension Packages found!' });
-    }
-
-    return {
-      wargearRepository: items,
+      ],
     };
   },
   data() {
@@ -247,7 +215,7 @@ export default {
       filters: {
         keywords: {
           model: [],
-          label: 'Filter by Keywords'
+          label: 'Filter by Keywords',
         },
       },
       pagination: {
@@ -257,46 +225,60 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        { text: 'Name', align: 'left', value: 'name', class: '' },
-        { text: 'Type', align: 'left', value: 'type', class: '' },
-        { text: 'Value', align: 'left', value: 'value', class: '' },
-        { text: 'Keywords', align: 'left', value: 'keywords', class: '' },
+        {
+          text: 'Name', align: 'left', value: 'name', class: '',
+        },
+        {
+          text: 'Type', align: 'left', value: 'type', class: '',
+        },
+        {
+          text: 'Value', align: 'left', value: 'value', class: '',
+        },
+        {
+          text: 'Keywords', align: 'left', value: 'keywords', class: '',
+        },
       ],
     };
   },
   computed: {
     searchResult() {
-      if ( this.wargearRepository === undefined ) {
+      if (this.wargearRepository === undefined) {
         return [];
       }
       let searchResult = this.wargearRepository;
 
       console.log(this.selectedTypeFilters);
       if (this.selectedTypeFilters.length > 0) {
-        searchResult = searchResult.filter( item => this.selectedTypeFilters.includes(item.type));
+        searchResult = searchResult.filter((item) => this.selectedTypeFilters.includes(item.type));
       }
 
       return searchResult;
     },
     typeFilters() {
-      const reduceToType = this.wargearRepository.map( item => item.type );
-      const distinctTypes = [ ...new Set(reduceToType) ];
-      const types = distinctTypes.map( t => { return { name: t } });
+      const reduceToType = this.wargearRepository.map((item) => item.type);
+      const distinctTypes = [...new Set(reduceToType)];
+      const types = distinctTypes.map((t) => ({ name: t }));
       return types;
     },
     filterKeywordsOptions() {
-      let keywordArray = [];
-      this.wargearRepository.forEach( item => {
-        keywordArray.push(...item.keywords)
+      const keywordArray = [];
+      this.wargearRepository.forEach((item) => {
+        keywordArray.push(...item.keywords);
       });
-      const distinctOptions = [ ...new Set(keywordArray) ];
-      return distinctOptions.filter( o => o.indexOf('<') !== 0 ).sort();
+      const distinctOptions = [...new Set(keywordArray)];
+      return distinctOptions.filter((o) => o.indexOf('<') !== 0).sort();
     },
     breadcrumbItems() {
       return [
-        { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
-        { text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library' },
-        { text: 'Wargear', disabled: false, nuxt: true, exact: true, to: '/library/wargear' },
+        {
+          text: '', disabled: false, nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library',
+        },
+        {
+          text: 'Wargear', disabled: false, nuxt: true, exact: true, to: '/library/wargear',
+        },
       ];
     },
     pages() {
@@ -307,17 +289,29 @@ export default {
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
   },
+  async asyncData({ app }) {
+    const response = await app.$axios.get('/api/wargear/');
+    const items = response.data;
+
+    if (items === undefined || items.length <= 0) {
+      error({ statusCode: 404, message: 'No Ascension Packages found!' });
+    }
+
+    return {
+      wargearRepository: items,
+    };
+  },
   methods: {
     toTypeString(item) {
-      let types = [ item.type ];
-      if ( item.subtype ) {
-        types.push(item.subtype)
+      const types = [item.type];
+      if (item.subtype) {
+        types.push(item.subtype);
       }
       return types.join(' • ');
     },
     toggleTypeFilter(name) {
       if (this.selectedTypeFilters.includes(name)) {
-        this.selectedTypeFilters = this.selectedTypeFilters.filter(d => d != name);
+        this.selectedTypeFilters = this.selectedTypeFilters.filter((d) => d != name);
       } else {
         this.selectedTypeFilters.push(name);
       }

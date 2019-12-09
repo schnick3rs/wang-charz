@@ -1,7 +1,5 @@
 <template lang="html">
-
   <div>
-
     <v-dialog
       v-model="dialog"
       width="600px"
@@ -10,8 +8,8 @@
       <v-card>
         <v-card-text class="mt-4">
           <wargear-search
-            v-bind:repository="repository"
-            v-on:select="selectWargear"
+            :repository="repository"
+            @select="selectWargear"
           />
         </v-card-text>
       </v-card>
@@ -19,26 +17,26 @@
 
     <v-card>
       <v-card-text>
-      <v-btn
-        dense
-        right
-        small
-        color="info"
-        v-on:click.stop="dialog = true"
-      >Select item</v-btn>
+        <v-btn
+          dense
+          right
+          small
+          color="info"
+          @click.stop="dialog = true"
+        >
+          Select item
+        </v-btn>
         <span class="ml-4">{{ item }}</span>
       </v-card-text>
     </v-card>
-
   </div>
-
 </template>
 
 <script lang="js">
 import WargearSearch from '~/components/forge/WargearSearch.vue';
 
 export default {
-  name: 'wargear-select',
+  name: 'WargearSelect',
   components: { WargearSearch },
   props: {
     repository: Array,
@@ -56,12 +54,6 @@ export default {
       selected: undefined,
     };
   },
-  methods: {
-    selectWargear(payload) {
-      this.$emit('input', payload);
-      this.dialog = false;
-    }
-  },
   computed: {
     // helper
     mergedKeywords() {
@@ -69,17 +61,17 @@ export default {
     },
     // the options array containing potential replacements and their respective keyword
     options() {
-      const placeholder = this.placeholder;
+      const { placeholder } = this;
 
       let wordy = {};
-      if ( placeholder.toLowerCase() === '<any>' ) {
+      if (placeholder.toLowerCase() === '<any>') {
         const levelOneKeywords = this.keywordRepository
-          .filter(k => k.name.indexOf('<')<0)
-          .filter(k => k.name.toLowerCase() !== placeholder.toLowerCase());
-        wordy = { name: placeholder, options: levelOneKeywords, selected: '', };
+          .filter((k) => !k.name.includes('<'))
+          .filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
+        wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
       } else {
-        const subKeywords = this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
-        wordy = { name: placeholder, options: subKeywords, selected: '', };
+        const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
+        wordy = { name: placeholder, options: subKeywords, selected: '' };
       }
 
       return wordy.options;
@@ -89,31 +81,35 @@ export default {
     },
     hint() {
       if (this.value) {
-
         const keyword = this.value;
         const parentKeyword = this.placeholder;
 
-        let foundKeyword = this.mergedKeywords.find(k => k.name === keyword);
+        let foundKeyword = this.mergedKeywords.find((k) => k.name === keyword);
         if (foundKeyword !== undefined) {
           return foundKeyword.description;
         }
 
-        foundKeyword = this.mergedKeywords.find(k => k.name === parentKeyword);
+        foundKeyword = this.mergedKeywords.find((k) => k.name === parentKeyword);
         if (foundKeyword !== undefined) {
           return foundKeyword.description;
         }
-
       }
       return '';
     },
     effects() {
       if (this.value) {
-        let foundKeyword = this.keywordSubwordRepository.find(k => k.name === this.value);
+        const foundKeyword = this.keywordSubwordRepository.find((k) => k.name === this.value);
         if (foundKeyword !== undefined) {
           return foundKeyword.effect;
         }
       }
       return undefined;
+    },
+  },
+  methods: {
+    selectWargear(payload) {
+      this.$emit('input', payload);
+      this.dialog = false;
     },
   },
 };

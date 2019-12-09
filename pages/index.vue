@@ -1,54 +1,49 @@
 <template lang="html">
-
   <v-row
     justify="center"
     no-gutters
     dense
   >
-        <v-col
-          v-for="section in sections"
-          v-bind:key="section.key"
-          v-bind:cols="12"
-          v-bind:sm="12"
-          v-bind:md="6"
-          v-bind:lg="4"
-          v-bind:xl="4"
-          class="pa-3"
-        >
+    <v-col
+      v-for="section in sections"
+      :key="section.key"
+      :cols="12"
+      :sm="12"
+      :md="6"
+      :lg="4"
+      :xl="4"
+      class="pa-3"
+    >
+      <v-card
+        :to="section.link.route"
+        :disabled="!section.isActive"
+        class="card"
+        exact
+        nuxt
+        hover
+      >
+        <div class="card__image-container">
+          <div class="card__image" :style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading />
+        </div>
 
-          <v-card
-            v-bind:to="section.link.route"
-            v-bind:disabled="!section.isActive"
-            class="card"
-            exact
-            nuxt
-            hover
-          >
+        <div class="card__content-container pa-4">
+          <h2 class="headline" v-html="section.title" />
 
-            <div class="card__image-container">
-              <div class="card__image" v-bind:style="{ backgroundImage: 'url('+section.imageSrc+')' }" loading></div>
-            </div>
+          <h3 class="card__content-subtitle pb-4 subtitle-2">
+            {{ section.subtitle }}
+          </h3>
 
-            <div class="card__content-container pa-4">
+          <p class="body-2 d-none d-sm-block" v-html="section.htmlText" />
 
-              <h2 class="headline" v-html="section.title"></h2>
-
-              <h3 class="card__content-subtitle pb-4 subtitle-2">{{ section.subtitle }}</h3>
-
-              <p class="body-2 d-none d-sm-block" v-html="section.htmlText"></p>
-
-              <div class="card__content-footer d-none d-sm-block">
-                <v-btn block color="success">{{ section.link.text }}</v-btn>
-              </div>
-
-            </div>
-
-          </v-card>
-
-        </v-col>
-
+          <div class="card__content-footer d-none d-sm-block">
+            <v-btn block color="success">
+              {{ section.link.text }}
+            </v-btn>
+          </div>
+        </div>
+      </v-card>
+    </v-col>
   </v-row>
-
 </template>
 
 <script lang="js">
@@ -56,13 +51,12 @@ export default {
   components: {},
   head() {
     const title = 'Doctors of Doom | A Wrath & Glory fan page';
-    const description =
-      'Within the Warhammer 40k Universe, the Doctors of Doom are serving the Wrath & Glory roleplaying game community. ' +
-      'Here you can find homebrews and (in the future) other W&G related stuff.';
+    const description = 'Within the Warhammer 40k Universe, the Doctors of Doom are serving the Wrath & Glory roleplaying game community. '
+      + 'Here you can find homebrews and (in the future) other W&G related stuff.';
     const image = 'https://www.doctors-of-doom.com/img/background_abstract_green.jpg';
 
     return {
-      title: title,
+      title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         // Open Graph
@@ -87,26 +81,26 @@ export default {
           imageSrc: '/img/artwork_vault_bright.jpg',
           imageCredit: 'unknown, found at warhammer40k.fandom.com',
           htmlText:
-            'The <strong>Vault</strong> contains an expanding collection of ' +
-            '<strong>homebrews from fans</strong> of the Wrath & Glory Roleplaying Game.',
+            'The <strong>Vault</strong> contains an expanding collection of '
+            + '<strong>homebrews from fans</strong> of the Wrath & Glory Roleplaying Game.',
           link: { text: 'To the Vault', route: '/vault' },
           isActive: true,
-          classes: []
+          classes: [],
         },
         {
           key: 'forge',
           title: 'Character <strong>Forge</strong>',
           subtitle: 'A Character Builder for Wrath & Glory',
-          //imageSrc: '/img/artwork_mechanicus_aertist-alexboca_mozjpeg.jpg',
-          //imageCredit: 'Artwork by AlexBoca (DevianArt)',
+          // imageSrc: '/img/artwork_mechanicus_aertist-alexboca_mozjpeg.jpg',
+          // imageCredit: 'Artwork by AlexBoca (DevianArt)',
           imageSrc: '/img/artwork_abstract.jpg',
           imageCredit: 'Artwork by prettysleepy1 (Pixabay)',
           htmlText:
-            'Define the setting and tier of your campaign and <strong>start building a Wrath & ' +
-            'Glory Character</strong> for your session.',
+            'Define the setting and tier of your campaign and <strong>start building a Wrath & '
+            + 'Glory Character</strong> for your session.',
           link: { text: 'To the Forge', route: '/forge/my-characters' },
           isActive: true,
-          classes: [ ],
+          classes: [],
         },
         {
           key: 'bestiary',
@@ -115,12 +109,12 @@ export default {
           imageSrc: '/img/artwork_bestiary_death.png',
           imageCredit: 'Artwork from Pixabay',
           htmlText:
-            'In search of new <strong>threats</strong> for your players? ' +
-            'Check out the <strong>Wrath & Glory bestiary</strong>.' +
-            'Those also contain enemies from the fan homebrews you can find in the <strong>Vault</strong>.',
+            'In search of new <strong>threats</strong> for your players? '
+            + 'Check out the <strong>Wrath & Glory bestiary</strong>.'
+            + 'Those also contain enemies from the fan homebrews you can find in the <strong>Vault</strong>.',
           link: { text: 'To the Bestiary', route: '/bestiary' },
           isActive: true,
-          classes: [ ],
+          classes: [],
         },
         {
           key: 'network',
@@ -131,18 +125,18 @@ export default {
           htmlText: 'Check out some (one) of the assets provided by the community. E.g. some <strong>fillable character sheets</strong>.',
           link: { text: 'To the Network', route: '/network' },
           isActive: true,
-          classes: [ ],
+          classes: [],
         },
         {
-          key: 'codex',
-          title: 'Rules <strong>Codex</strong>',
-          subtitle: 'Quick Rules References',
-          imageSrc: '/img/artwork_codex_book.jpg',
+          key: 'posts',
+          title: 'Roleplaying <strong>Articles</strong>',
+          subtitle: 'Writings about the Hobby',
+          imageSrc: '/img/artwork_posts.jpg',
           imageCredit: 'Artwork from Pixabay',
-          htmlText: 'Need to know how bleeding work? Check the Rules reference.',
-          link: { text: 'To the Codex', route: '/codex' },
+          htmlText: '',
+          link: { text: 'To the Posts', route: '/posts' },
           isActive: true,
-          classes: [ ],
+          classes: [],
         },
         {
           key: 'library',
@@ -153,7 +147,18 @@ export default {
           htmlText: 'Browse through Species, Archetypes, Wargear and more...',
           link: { text: 'To the Library', route: '/library' },
           isActive: true,
-          classes: [ ],
+          classes: [],
+        },
+        {
+          key: 'codex',
+          title: 'Rules <strong>Codex</strong>',
+          subtitle: 'Quick Rules References',
+          imageSrc: '/img/artwork_codex_book.jpg',
+          imageCredit: 'Artwork from Pixabay',
+          htmlText: 'Need to know how bleeding work? Check the Rules reference.',
+          link: { text: 'To the Codex', route: '/codex' },
+          isActive: true,
+          classes: [],
         },
       ],
     };

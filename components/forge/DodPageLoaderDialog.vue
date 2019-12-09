@@ -4,14 +4,14 @@
     transition="false"
     persistent
     width="300"
-    v-bind:no-click-animation="true"
+    :no-click-animation="true"
   >
     <v-card
       dark
       min-height="300"
     >
       <v-card-text>
-        <v-progress-circular indeterminate color="success" size="128" width="12"></v-progress-circular>
+        <v-progress-circular indeterminate color="success" size="128" width="12" />
       </v-card-text>
     </v-card>
   </v-dialog>
@@ -19,11 +19,11 @@
 
 <script>
 export default {
-  name: "dod-page-loader-dialog",
+  name: 'DodPageLoaderDialog',
   props: {
     show: true,
   },
-}
+};
 </script>
 
 <style scoped>

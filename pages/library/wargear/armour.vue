@@ -1,37 +1,34 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
   <div>
-
-    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <v-row justify="center">
-
-      <v-col v-bind:cols="11">
+      <v-col :cols="11">
         <v-card>
           <v-card-text>
-            <v-row justify="center" >
-              <v-col v-bind:cols="12" v-bind:xs="6">
+            <v-row justify="center">
+              <v-col :cols="12" :xs="6">
                 <v-text-field
                   v-model="searchQuery"
                   box
                   dense
                   clearable
-                  label="Search"></v-text-field>
+                  label="Search"
+                />
               </v-col>
-
             </v-row>
           </v-card-text>
         </v-card>
       </v-col>
 
-      <v-col v-bind:cols="11">
+      <v-col :cols="11">
         <v-card>
           <v-data-table
-            v-bind:headers="headers"
-            v-bind:items="armour"
-            v-bind:pagination.sync="pagination"
-            v-bind:expand="expand"
-            v-bind:search="searchQuery"
+            :headers="headers"
+            :items="armour"
+            :pagination.sync="pagination"
+            :expand="expand"
+            :search="searchQuery"
             disable-initial-sort
             item-key="title"
             hide-actions
@@ -48,41 +45,29 @@
                 <td>{{ item.keywords.join(', ') }}</td>
               </tr>
             </template>
-
           </v-data-table>
 
           <div class="text-center pt-2">
-            <v-pagination v-model="pagination.page" v-bind:length="pages" />
+            <v-pagination v-model="pagination.page" :length="pages" />
           </div>
-
         </v-card>
-
       </v-col>
 
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <v-card>
-
           <v-card-text>
-
             <h1>Armour, protection and deflection.</h1>
-
           </v-card-text>
-
         </v-card>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
-  import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
+import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 
-  export default {
+export default {
   components: { DodDefaultBreadcrumbs },
   head() {
     return {
@@ -97,12 +82,6 @@
     };
   },
   layout: 'library',
-  async asyncData({ app }) {
-    const response = await app.$axios.get(`/api/wargear/`);
-    return {
-      wargearRepository: response.data,
-    };
-  },
   data() {
     return {
       searchQuery: '',
@@ -113,26 +92,46 @@
         rowsPerPage: -1,
       },
       headers: [
-        { text: 'Name', align: 'left', value: 'name', class: '' },
-        { text: 'Subtype', align: 'left', value: 'subtype', class: '' },
-        { text: 'Armour Rating', align: 'center', value: 'damage', class: '' },
-        { text: 'Traits', align: 'left', value: 'traits', class: '' },
-        { text: 'Value', align: 'left', value: 'value', class: '' },
-        { text: 'Keywords', align: 'left', value: 'keywords', class: '' },
+        {
+          text: 'Name', align: 'left', value: 'name', class: '',
+        },
+        {
+          text: 'Subtype', align: 'left', value: 'subtype', class: '',
+        },
+        {
+          text: 'Armour Rating', align: 'center', value: 'damage', class: '',
+        },
+        {
+          text: 'Traits', align: 'left', value: 'traits', class: '',
+        },
+        {
+          text: 'Value', align: 'left', value: 'value', class: '',
+        },
+        {
+          text: 'Keywords', align: 'left', value: 'keywords', class: '',
+        },
       ],
       expand: false,
     };
   },
   computed: {
     armour() {
-      return this.wargearRepository.filter( gear => ['Armour'].includes(gear.type));
+      return this.wargearRepository.filter((gear) => ['Armour'].includes(gear.type));
     },
     breadcrumbItems() {
       return [
-        { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
-        { text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library' },
-        { text: 'Wargear', disabled: false, nuxt: true, exact: true, to: '/library/wargear' },
-        { text: 'Armour', disabled: false, nuxt: true, exact: true, to: '/library/wargear/armour' },
+        {
+          text: '', disabled: false, nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Library', disabled: false, nuxt: true, exact: true, to: '/library',
+        },
+        {
+          text: 'Wargear', disabled: false, nuxt: true, exact: true, to: '/library/wargear',
+        },
+        {
+          text: 'Armour', disabled: false, nuxt: true, exact: true, to: '/library/wargear/armour',
+        },
       ];
     },
     searchResults() {
@@ -143,8 +142,8 @@
       }
 
       if (this.contentFilter.length > 0) {
-        filteredResults = filteredResults.filter(h => [...h.topics, ...h.keywords]
-          .some(c => this.contentFilter.includes(c)));
+        filteredResults = filteredResults.filter((h) => [...h.topics, ...h.keywords]
+          .some((c) => this.contentFilter.includes(c)));
       }
 
       return filteredResults;
@@ -157,11 +156,17 @@
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
   },
+  async asyncData({ app }) {
+    const response = await app.$axios.get('/api/wargear/');
+    return {
+      wargearRepository: response.data,
+    };
+  },
   methods: {
     toTraitString(item) {
-      const armourMeta = item.meta.filter( i => i.type === 'armour' )[0]  ;
-      if ( armourMeta ) {
-        if (armourMeta.traits && armourMeta.traits.length > 0 ) {
+      const armourMeta = item.meta.filter((i) => i.type === 'armour')[0];
+      if (armourMeta) {
+        if (armourMeta.traits && armourMeta.traits.length > 0) {
           return armourMeta.traits.join(', ');
         }
       }

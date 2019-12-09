@@ -1,55 +1,52 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
-  <v-row justify="center" row wrap>
-
+  <v-row justify="center">
     <v-col>
-      <h1 class="headline">Manage Powers</h1>
+      <h1 class="headline">
+        Manage Powers
+      </h1>
 
       <v-alert
         v-for="alert in alerts"
-        v-bind:key="alert.key"
-        v-bind:value="true"
-        v-bind:type="alert.type"
-      >{{ alert.text }}</v-alert>
+        :key="alert.key"
+        :value="true"
+        :type="alert.type"
+      >
+        {{ alert.text }}
+      </v-alert>
     </v-col>
 
-    <v-col v-bind:cols="12">
-
+    <v-col :cols="12">
       <v-card>
         <v-card-text>
           <v-chip
             v-for="item in characterPowers"
-            v-bind:key="item.name"
-            v-bind:close="item.cost !== 0"
-            v-on:click:close="removePower(item.name)"
-            class="mr-2"          
+            :key="item.name"
+            :close="item.cost !== 0"
+            class="mr-2"
+            @click:close="removePower(item.name)"
           >
-            {{item.name}}
+            {{ item.name }}
           </v-chip>
         </v-card-text>
       </v-card>
-
     </v-col>
 
-    <v-col v-bind:cols="12">
-
+    <v-col :cols="12">
       <v-chip
         v-for="discipline in disciplines"
-        v-bind:key="discipline.key"
-        v-bind:color="selectedDisciplines.includes(discipline.name) ? 'green' : ''"
-        v-on:click="toggleDisciplineFilter(discipline.name)"      
+        :key="discipline.key"
+        :color="selectedDisciplines.includes(discipline.name) ? 'green' : ''"
         small
         label
         class="mr-2"
+        @click="toggleDisciplineFilter(discipline.name)"
       >
-        {{discipline.name}}
+        {{ discipline.name }}
       </v-chip>
     </v-col>
 
-    <v-col v-bind:cols="12">
-
+    <v-col :cols="12">
       <v-card>
-
         <v-card-title>
           <v-text-field
             v-model="searchQuery"
@@ -57,27 +54,26 @@
             label="Search"
             single-line
             hide-details
-          ></v-text-field>
+          />
         </v-card-title>
 
         <v-data-table
-          v-bind:headers="headers"
-          v-bind:items="filteredPowers"
-          v-bind:search="searchQuery"        
-          v-bind:items-per-page="-1"
+          :headers="headers"
+          :items="filteredPowers"
+          :search="searchQuery"
+          :items-per-page="-1"
           sort-by="name"
           item-key="name"
           hide-default-footer
         >
-
           <template v-slot:item.learn="{ item }">
-              <span>              
-                <v-btn
-                v-on:click="addPower(item)"
-                v-bind:disabled="characterPowers.map(i=>i.name).includes(item.name)"
-                v-bind:color="affordableColor(item.cost)"
-                v-bind:dark="!characterPowers.map(i=>i.name).includes(item.name)"
+            <span>
+              <v-btn
+                :disabled="characterPowers.map(i=>i.name).includes(item.name)"
+                :color="affordableColor(item.cost)"
+                :dark="!characterPowers.map(i=>i.name).includes(item.name)"
                 x-small
+                @click="addPower(item)"
               >
                 add
               </v-btn>
@@ -85,34 +81,24 @@
           </template>
 
           <template v-slot:no-results>
-            <div class="text-lg-center">Your search for "{{ searchQuery }}" found no results.</div>
+            <div class="text-lg-center">
+              Your search for "{{ searchQuery }}" found no results.
+            </div>
           </template>
-
         </v-data-table>
-
       </v-card>
-
     </v-col>
-
   </v-row>
-
 </template>
 
 <script lang="js">
 export default {
-  name: 'psychic-powers',
+  name: 'PsychicPowers',
   layout: 'forge',
   props: [],
   head() {
     return {
       title: 'Select Psychic Powers',
-    }
-  },
-  async asyncData({ params, $axios, error }) {
-    const response = await $axios.get(`/api/psychic-powers/`);
-    return {
-      psychicPowersRepository: response.data,
-      characterId: params.id,
     };
   },
   data() {
@@ -205,9 +191,9 @@ export default {
   },
   computed: {
     allThe() {
-      this.psychicPowersRepository.forEach( w => {
-        //console.log(`INSERT INTO wrath_glory.psychic_powers (name, cost, keywords, effect) VALUES ('${w.name}', ${w.cost}, '{${w.keywords.join(',')}}', '${w.effect}' );`);
-        //console.log(`UPDATE wrath_glory.psychic_powers SET discipline = '${w.discipline}' WHERE name = '${w.name}';`);
+      this.psychicPowersRepository.forEach((w) => {
+        // console.log(`INSERT INTO wrath_glory.psychic_powers (name, cost, keywords, effect) VALUES ('${w.name}', ${w.cost}, '{${w.keywords.join(',')}}', '${w.effect}' );`);
+        // console.log(`UPDATE wrath_glory.psychic_powers SET discipline = '${w.discipline}' WHERE name = '${w.name}';`);
       });
     },
     alerts() {
@@ -229,7 +215,7 @@ export default {
       const hasKeyword = keywords.includes('Psychic');
       return (hasSkill || hasKeyword);
     },
-    settingTier(){
+    settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
     maximumMinorPowers() { return this.settingTier; },
@@ -246,7 +232,7 @@ export default {
       let filteredPowers = this.psychicPowersRepository;
 
       if (this.selectedDisciplines.length > 0) {
-        filteredPowers = filteredPowers.filter(p => this.selectedDisciplines.includes(p.discipline));
+        filteredPowers = filteredPowers.filter((p) => this.selectedDisciplines.includes(p.discipline));
       }
       // filteredTalents = filteredTalents.filter( t => !this.characterTalents.includes(t.name) );
 
@@ -255,6 +241,13 @@ export default {
     remainingBuildPoints() {
       return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
     },
+  },
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get('/api/psychic-powers/');
+    return {
+      psychicPowersRepository: response.data,
+      characterId: params.id,
+    };
   },
   methods: {
     affordableColor(cost) {
@@ -268,7 +261,7 @@ export default {
     },
     toggleDisciplineFilter(name) {
       if (this.selectedDisciplines.includes(name)) {
-        this.selectedDisciplines = this.selectedDisciplines.filter(d => d != name);
+        this.selectedDisciplines = this.selectedDisciplines.filter((d) => d != name);
       } else {
         this.selectedDisciplines.push(name);
       }

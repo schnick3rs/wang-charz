@@ -1,13 +1,8 @@
 <template lang="html">
-
   <section class="about">
-
     <v-container grid-list-md>
-
-      <v-row justify="center" row wrap>
-
-        <v-col v-bind:cols="12" sm10 md8 lg8>
-
+      <v-row justify="center">
+        <v-col :cols="12" sm="10" md="8" lg="8">
           <h1>About this page</h1>
 
           <p>
@@ -17,12 +12,16 @@
 
           <h2>The Character Generator</h2>
 
-          <p>I was heavily motivated and inspired by <a href="https://www.reddit.com/user/althalin/">reddit user althalin</a>
-             and his <a href="http://apps.ajott.io/dh2chargen/">Dark Heresy 2 Character Generator</a>. You should
-          definitely check it out!</p>
+          <p>
+            I was heavily motivated and inspired by <a href="https://www.reddit.com/user/althalin/">reddit user althalin</a>
+            and his <a href="http://apps.ajott.io/dh2chargen/">Dark Heresy 2 Character Generator</a>. You should
+            definitely check it out!
+          </p>
 
-          <p>Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
-            and draw inspiration how to organise the layout.</p>
+          <p>
+            Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
+            and draw inspiration how to organise the layout.
+          </p>
 
           <h2>Contact</h2>
           <p>
@@ -45,16 +44,11 @@
 
           <p>This page is not endorsed, sponsored, or affiliated with Games Workshop Ltd., Ulisses Spiele, Cubical 7, or the WARHAMMER 40,000 franchise.</p>
 
-          <p></p>
-
+          <p />
         </v-col>
-
       </v-row>
-
     </v-container>
-
   </section>
-
 </template>
 
 <script lang="js">
@@ -69,9 +63,9 @@ export default {
           content: 'A fan page for the Warhammer 40k universe, especially the Wrath & Glory Role Playing game.',
         },
       ],
-    }
+    };
   },
-}
+};
 </script>
 
 <style scoped lang="css">

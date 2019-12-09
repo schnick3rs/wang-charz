@@ -6,10 +6,10 @@ export const state = () => ({
 });
 
 export const getters = {
-  getUuid(state ) {
+  getUuid(state) {
     return state.uuid;
   },
-  isLoggedIn( state ) {
+  isLoggedIn(state) {
     return state.uuid !== undefined && state.uuid.length > 0;
   },
 };
@@ -22,7 +22,7 @@ export const mutations = {
 
 export const actions = {
   login(context, hash) {
-    if ( context.getters.isLoggedIn ) {
+    if (context.getters.isLoggedIn) {
       console.warn('Already logged in.');
       return;
     }
@@ -30,5 +30,5 @@ export const actions = {
   },
   logout(context) {
     context.commit('setHash', undefined);
-  }
+  },
 };

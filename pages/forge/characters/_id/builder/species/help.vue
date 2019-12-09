@@ -1,10 +1,9 @@
 <template>
-
   <v-row>
-
     <v-col>
-
-      <h1 class="headline">Choose a Species</h1>
+      <h1 class="headline">
+        Choose a Species
+      </h1>
 
       <p>
         Once the setting is defined, you need to select a Species. This choice defines the following:
@@ -18,37 +17,48 @@
         <li>and some (not you, Human) abilities.</li>
       </ul>
 
-      <h2 class="title">Species sections in detail</h2>
+      <h2 class="title">
+        Species sections in detail
+      </h2>
 
-      <h3 class="subtitle-1">Build Point Cost</h3>
-      <p></p>
+      <h3 class="subtitle-1">
+        Build Point Cost
+      </h3>
+      <p />
 
-      <h3 class="subtitle-1">Base Tier</h3>
-      <p></p>
+      <h3 class="subtitle-1">
+        Base Tier
+      </h3>
+      <p />
 
-      <h3 class="subtitle-1">Speed</h3>
-      <p></p>
+      <h3 class="subtitle-1">
+        Speed
+      </h3>
+      <p />
 
-      <h3 class="subtitle-1">Attribute Modifications</h3>
-      <p></p>
+      <h3 class="subtitle-1">
+        Attribute Modifications
+      </h3>
+      <p />
 
-      <h3 class="subtitle-1">Abilities</h3>
-      <p></p>
+      <h3 class="subtitle-1">
+        Abilities
+      </h3>
+      <p />
 
-      <h3 class="subtitle-1">Atribute Maxima</h3>
-      <p></p>
-
+      <h3 class="subtitle-1">
+        Atribute Maxima
+      </h3>
+      <p />
     </v-col>
-
   </v-row>
-
 </template>
 
 <script>
 export default {
-  name: "species-help",
+  name: 'SpeciesHelp',
 
-}
+};
 </script>
 
 <style scoped>

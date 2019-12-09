@@ -1,11 +1,10 @@
 // plugins/auth-login.js
-export default function({ app }) {
+export default function ({ app }) {
   app.$auth.onError((error, name, endpoint) => {
-    console.error(` errorName ${name}`, error)
+    console.error(` errorName ${name}`, error);
 
-    if ( name === 'TokenExpiredError' ) {
-      console.info(`logging outa`);
+    if (name === 'TokenExpiredError') {
+      console.info('logging outa');
     }
-
-  })
+  });
 }

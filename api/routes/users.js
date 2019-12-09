@@ -21,7 +21,6 @@ module.exports = router;
 
 // creates a user
 router.post('/register', async (request, response) => {
-
   // normalize email normalize.lower.trim
   const username = request.body.username.toLowerCase().trim();
   // TODO check if email exists => 4xx CONFLICT
@@ -65,7 +64,6 @@ router.post('/login', async (request, response) => {
 
 // login user
 router.get('/me', async (request, response) => {
-
   const decoded = authProvider.verifyRequest(request);
   // assert valid
 

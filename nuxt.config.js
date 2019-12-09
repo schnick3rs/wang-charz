@@ -16,6 +16,7 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
+
       { hid: 'robots', name: 'robots', content: 'index,follow' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
       { hid: 'keywords', name: 'keywords', content: 'Wrath and Glory,Wrath & Glory,W&G,Homebrew,40k,Warhammer,Roleplaying Game' },
@@ -38,15 +39,38 @@ module.exports = {
     ],
     link: [
       { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
-      { rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png' },
-      { rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png' },
-      { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png' },
+      {
+        rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png'
+      },
+      {
+        rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png'
+      },
+      {
+        rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png'
+      },
       { rel: 'manifest', href: '/site.webmanifest' },
       { rel: 'stylesheet', href: '/css/materialdesignicons.min.css' },
-      { rel: 'preload', href: '/fonts/Material-Icons.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin' },
-      { rel: 'preload', href: '/fonts/Roboto-Regular.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
-      { rel: 'preload', href: '/fonts/Roboto-Medium.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
-      { rel: 'preload', href: '/fonts/Roboto-Bold.woff2', as: 'font', type: 'font/woff2', crossorigin: 'crossorigin', },
+      {
+        rel: 'preload',
+        href: '/fonts/Material-Icons.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'crossorigin',
+      },
+      {
+        rel: 'preload',
+        href: '/fonts/Roboto-Regular.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'crossorigin',
+      },
+      {
+        rel: 'preload',
+        href: '/fonts/Roboto-Bold.woff2',
+        as: 'font',
+        type: 'font/woff2',
+        crossorigin: 'crossorigin',
+      },
     ],
   },
   /*
@@ -67,20 +91,28 @@ module.exports = {
     '~plugins/filters.js',
   ],
   /*
+  ** Nuxt.js dev-modules
+  */
+  buildModules: [
+    // Doc: https://github.com/nuxt-community/eslint-module
+    //'@nuxtjs/eslint-module',
+  ],
+  /*
   ** Nuxt.js modules
   */
   modules: [
+    // Doc: https://axios.nuxtjs.org/usage
     ['@nuxtjs/vuetify', {
       /* @see https://github.com/nuxt-community/vuetify-module#defaultassets */
-      defaultAssets: false
+      defaultAssets: false,
     }],
     '@nuxtjs/sitemap',
     '@nuxtjs/axios',
-    //'@nuxtjs/auth',
+    // '@nuxtjs/auth',
     ['@nuxtjs/redirect-module', [
-        { from: '^/builder.*', to: '/forge/my-characters', statusCode: 301 },
-        { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
-        { from: '^/blog/our-migration-from-deathwatch-to-wrath-and-glory', to: '/posts/1-our-migration-from-deathwatch-to-wrath-and-glory', statusCode: 301 },
+      { from: '^/builder.*', to: '/forge/my-characters', statusCode: 301 },
+      { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
+      { from: '^/blog/our-migration-from-deathwatch-to-wrath-and-glory', to: '/posts/1-our-migration-from-deathwatch-to-wrath-and-glory', statusCode: 301 },
     ]],
     // https://github.com/nuxt-community/redirect-module
     ['@nuxtjs/google-analytics', {
@@ -112,20 +144,18 @@ module.exports = {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
 
       const homebrewResponse = await axios.get(`${base}/api/homebrews/`);
-      const homebrewRoutes = homebrewResponse.data.map( (vaultItem) => `/vault/${vaultItem.slug}`);
+      const homebrewRoutes = homebrewResponse.data.map((vaultItem) => `/vault/${vaultItem.slug}`);
 
       const threatResponse = await axios.get(`${base}/api/threats/`);
       const threatRoutes = threatResponse.data
-        .filter( (vaultItem) => vaultItem.source.key !== 'core' )
-        .map( (vaultItem) => {
-          const slug = vaultItem.key.replace(/([a-z][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() })
+        .filter((vaultItem) => vaultItem.source.key !== 'core')
+        .map((vaultItem) => {
+          const slug = vaultItem.key.replace(/([a-z][A-Z])/g, (g) => `${g[0]}-${g[1].toLowerCase()}`);
           return `/bestiary/${slug}`;
-        })
-      ;
-
+        });
       return [
         ...homebrewRoutes,
-        ...threatRoutes
+        ...threatRoutes,
       ];
     },
     defaults: {
@@ -140,17 +170,17 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    //baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
-    //baseURL: 'https://www.doctors-of-doom.com',
-    //baseURL: 'http://localhost:3000',
+    // baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
+    // baseURL: 'https://www.doctors-of-doom.com',
+    // baseURL: 'http://localhost:3000',
     browserBaseURL: '/',
     // debug: process.env.NODE_ENV !== 'production',
   },
   proxy: {
-    //'/api/': 'https://www.doctors-of-doom.com', // only for development
+    // '/api/': 'https://www.doctors-of-doom.com', // only for development
   },
 
-  /*auth: {
+  /* auth: {
     strategies: {
       local: {
         endpoints: {
@@ -165,7 +195,7 @@ module.exports = {
     plugins: [
       '~/plugins/auth.js'
     ]
-  },*/
+  }, */
 
   /*
   ** vuetify module configuration

@@ -1,23 +1,19 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
   <div>
-
     <v-row justify="center">
-
-      <v-col v-bind:cols="12" class="elevation-4 mb-2 pa-0 ma-0">
-
+      <v-col :cols="12" class="elevation-4 mb-2 pa-0 ma-0">
         <v-breadcrumbs
-          v-bind:items="breadcrumbItems"
+          :items="breadcrumbItems"
           class="pa-2"
         >
           <template v-slot:item="{ item }">
             <v-breadcrumbs-item
-              v-bind:nuxt="true"
-              v-bind:to="item.to"
-              v-bind:disabled="item.disabled"
-              v-bind:exact="item.exact"
+              :nuxt="true"
+              :to="item.to"
+              :disabled="item.disabled"
+              :exact="item.exact"
             >
-              <img v-if="item.to == '/'" src="/favicon-16x16.png" />
+              <img v-if="item.to == '/'" src="/favicon-16x16.png">
               {{ item.text }}
             </v-breadcrumbs-item>
           </template>
@@ -25,41 +21,36 @@
           <template v-slot:divider>
             <v-icon>mdi-chevron-right</v-icon>
           </template>
-
         </v-breadcrumbs>
-
       </v-col>
-
     </v-row>
 
-    <v-row justify="center" >
-
+    <v-row justify="center">
       <v-col
         v-for="item in assets"
-        v-bind:key="item.name"
-        v-bind:cols="12"
-        v-bind:sm="5"
+        :key="item.name"
+        :cols="12"
+        :sm="5"
       >
-
         <v-card>
           <v-card-title>
-            <h2 class="headline">{{ item.name }}</h2>
+            <h2 class="headline">
+              {{ item.name }}
+            </h2>
           </v-card-title>
 
           <v-card-text>
-            <p>{{item.text}}</p>
+            <p>{{ item.text }}</p>
           </v-card-text>
 
           <v-list>
-
-            <v-divider></v-divider>
+            <v-divider />
 
             <v-list-item-group>
-
               <v-list-item
                 v-for="subitem in item.parts"
-                v-bind:key="subitem.title"
-                v-on:click="trackEvent(subitem.url)"
+                :key="subitem.title"
+                @click="trackEvent(subitem.url)"
               >
                 <v-list-item-content>
                   <v-list-item-title>{{ subitem.title }}</v-list-item-title>
@@ -68,25 +59,20 @@
                 <v-list-item-action>
                   <v-icon>launch</v-icon>
                 </v-list-item-action>
-
               </v-list-item>
-
             </v-list-item-group>
-
           </v-list>
 
-          <v-card-actions>
-          </v-card-actions>
-
+          <v-card-actions />
         </v-card>
-
       </v-col>
 
-      <v-col v-bind:cols="12">
-
+      <v-col :cols="12">
         <v-card>
           <v-card-text>
-            <h1 class="headline">Character Sheets for Wrath and Glory</h1>
+            <h1 class="headline">
+              Character Sheets for Wrath and Glory
+            </h1>
             <p>
               Your currently will find fan-made character sheets. We will add and link to other
               resources like community pages, reference sheets and roleplaying hooks in the future.
@@ -95,13 +81,9 @@
             </p>
           </v-card-text>
         </v-card>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
@@ -113,10 +95,10 @@ export default {
         {
           hid: 'description',
           name: 'description',
-          content: 'Searching for fillable character sheets for Wrath and Glory? Then check out the ' +
-            'network section for downloads and links to valuable stuff.',
+          content: 'Searching for fillable character sheets for Wrath and Glory? Then check out the '
+            + 'network section for downloads and links to valuable stuff.',
         },
-      ]
+      ],
     };
   },
   data() {
@@ -150,9 +132,9 @@ export default {
             { title: 'Psyker (Two additional pages) sheet', url: 'https://drive.google.com/open?id=1rs3aZH0M_SBZzGBv5tDeWUF1m5wvGtTS' },
             { title: 'Psychic Powers Only sheet', url: 'https://drive.google.com/open?id=1LlHLeGdb2h3DRd_qWAaroD07pEZzPDmB' },
           ],
-        }
+        },
       ],
-    }
+    };
   },
   methods: {
     trackEvent(url) {
@@ -160,5 +142,5 @@ export default {
       window.open(url);
     },
   },
-}
+};
 </script>

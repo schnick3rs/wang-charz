@@ -1,14 +1,13 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
-  <v-row justify="center" >
-
-    <v-col v-bind:cols="12">
-
+  <v-row justify="center">
+    <v-col :cols="12">
       <v-card
-        v-on:click="manageWargear = !manageWargear"
         class="mb-4"
-        dark dense outlined
-        v-bind:color=" manageWargear ? 'info' : '' "
+        dark
+        dense
+        outlined
+        :color=" manageWargear ? 'info' : '' "
+        @click="manageWargear = !manageWargear"
       >
         <v-card-text>
           <v-icon>{{ manageWargear ? 'expand_less' : 'expand_more' }}</v-icon>
@@ -17,44 +16,43 @@
       </v-card>
 
       <v-list
+        v-if="manageWargear && characterWargear"
         two-line
         avatar
         dense
-        v-if="manageWargear && characterWargear"
       >
-
         <v-list-item
           v-for="gear in characterWargear"
-          v-bind:key="gear.id"
+          :key="gear.id"
         >
-
           <v-list-item-avatar tile>
-            <img />
+            <img>
           </v-list-item-avatar>
 
           <v-list-item-content>
-            <v-list-item-title>{{gear.name}}</v-list-item-title>
-            <v-list-item-subtitle>{{wargearSubtitle(gear)}}</v-list-item-subtitle>
+            <v-list-item-title>{{ gear.name }}</v-list-item-title>
+            <v-list-item-subtitle>{{ wargearSubtitle(gear) }}</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-list-item-action>
-            <v-btn outlined x-small color="error" v-on:click="remove(gear)"><v-icon left>delete</v-icon>Remove</v-btn>
+            <v-btn outlined x-small color="error" @click="remove(gear)">
+              <v-icon left>
+                delete
+              </v-icon>Remove
+            </v-btn>
           </v-list-item-action>
-
         </v-list-item>
-
       </v-list>
-
-
     </v-col>
 
-    <v-col v-bind:cols="12" >
-
+    <v-col :cols="12">
       <v-card
-        v-on:click="startingWargearExpand = !startingWargearExpand"
         class="mb-4"
-        dark dense outlined
-        v-bind:color=" startingWargearExpand ? 'info' : '' "
+        dark
+        dense
+        outlined
+        :color=" startingWargearExpand ? 'info' : '' "
+        @click="startingWargearExpand = !startingWargearExpand"
       >
         <v-card-text>
           <v-icon>{{ startingWargearExpand ? 'expand_less' : 'expand_more' }}</v-icon>
@@ -63,47 +61,40 @@
       </v-card>
 
       <div v-if="startingWargearExpand">
-
         <div v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0">
-
           <v-card
             v-for="gear in startingWargear.options"
-            v-bind:key="gear.key"
-            outlined dense
+            :key="gear.key"
+            outlined
+            dense
             class="mb-2"
           >
-
             <v-card-title>
               <span class="subtitle-1 mb-0">{{ gear.name }}</span>
             </v-card-title>
 
             <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query">
-
               <wargear-select
-                v-bind:item="gear.selected"
-                v-bind:repository="wargearRepository.filter(gear.options[0].query)"
-                v-on:input="gear.selected = $event.name"
+                :item="gear.selected"
+                :repository="wargearRepository.filter(gear.options[0].query)"
                 class="mb-4"
-              ></wargear-select>
-
+                @input="gear.selected = $event.name"
+              />
             </v-card-text>
 
             <v-card-text v-else-if="gear.options">
-
               <v-radio-group
                 v-model="gear.selected"
                 class="mt-0"
               >
                 <v-radio
                   v-for="option in gear.options"
-                  v-bind:key="option.key"
-                  v-bind:label="option.name"
-                  v-bind:value="option.name"
-                ></v-radio>
+                  :key="option.key"
+                  :label="option.name"
+                  :value="option.name"
+                />
               </v-radio-group>
-
             </v-card-text>
-
           </v-card>
 
           <v-btn
@@ -111,9 +102,10 @@
             block
             dense
             color="green"
-            v-on:click="addWargearToCharacter(startingWargear.options)"
-          >Add starting wargear</v-btn>
-
+            @click="addWargearToCharacter(startingWargear.options)"
+          >
+            Add starting wargear
+          </v-btn>
         </div>
 
         <div v-else>
@@ -124,18 +116,17 @@
             </v-card-text>
           </v-card>
         </div>
-
       </div>
-
     </v-col>
 
-    <v-col v-bind:cols="12">
-
+    <v-col :cols="12">
       <v-card
-        v-on:click="wargearSearchActive = !wargearSearchActive"
         class="mb-4"
-        dark dense outlined
-        v-bind:color=" wargearSearchActive ? 'info' : '' "
+        dark
+        dense
+        outlined
+        :color=" wargearSearchActive ? 'info' : '' "
+        @click="wargearSearchActive = !wargearSearchActive"
       >
         <v-card-text>
           <v-icon>{{ wargearSearchActive ? 'expand_less' : 'expand_more' }}</v-icon>
@@ -145,14 +136,11 @@
 
       <wargear-search
         v-if="wargearSearchActive"
-        v-bind:repository="wargearRepository"
-        v-on:select="add"
-      ></wargear-search>
-
+        :repository="wargearRepository"
+        @select="add"
+      />
     </v-col>
-
   </v-row>
-
 </template>
 
 <script lang="js">
@@ -164,26 +152,18 @@ import SluggerMixin from '~/mixins/SluggerMixin';
 export default {
   name: 'Wargear',
   layout: 'forge',
-  mixins: [
-    WargearRepositoryMixin,
-    SluggerMixin,
-  ],
   components: {
     WargearSelect,
     WargearSearch,
   },
+  mixins: [
+    WargearRepositoryMixin,
+    SluggerMixin,
+  ],
   props: [],
   head() {
     return {
       title: 'Select Wargear',
-    }
-  },
-  async asyncData({ params, $axios, error }) {
-    const response = await $axios.get(`/api/wargear/`);
-    const wargearRepository = response.data;
-    return {
-      wargearRepository: wargearRepository,
-      characterId: params.id,
     };
   },
   data() {
@@ -200,48 +180,56 @@ export default {
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
-    characterWargearRaw(){
+    characterWargearRaw() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
     },
 
     startingWargear() {
-      return this.archetypeWargearRepository.find(i => i.name === this.characterArchetypeLabel);
+      return this.archetypeWargearRepository.find((i) => i.name === this.characterArchetypeLabel);
     },
     characterWargear() {
       const characterWargear = [];
-      this.characterWargearRaw.forEach(chargear => {
-         let gear = {};
-         gear = this.wargearRepository.find(wargear => wargear.name === chargear.name);
-         if ( gear ) {
-           gear.id = chargear.id;
-           gear.source = chargear.source;
-           characterWargear.push({
-             id: chargear.id,
-             name: chargear.name,
-             type: this.wargearSubtitle(gear),
-             source: chargear.source,
-           });
-         } else {
-           characterWargear.push( {
-             id: chargear.id,
-             name: chargear.name,
-             type: 'Misc',
-             source: chargear.source,
-           } );
-         }
+      this.characterWargearRaw.forEach((chargear) => {
+        let gear = {};
+        gear = this.wargearRepository.find((wargear) => wargear.name === chargear.name);
+        if (gear) {
+          gear.id = chargear.id;
+          gear.source = chargear.source;
+          characterWargear.push({
+            id: chargear.id,
+            name: chargear.name,
+            type: this.wargearSubtitle(gear),
+            source: chargear.source,
+          });
+        } else {
+          characterWargear.push({
+            id: chargear.id,
+            name: chargear.name,
+            type: 'Misc',
+            source: chargear.source,
+          });
+        }
       });
       return characterWargear;
     },
   },
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get('/api/wargear/');
+    const wargearRepository = response.data;
+    return {
+      wargearRepository,
+      characterId: params.id,
+    };
+  },
   methods: {
     wargearSubtitle(item) {
-      //const item = this.wargearRepository.find(i => i.name === gear);
+      // const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
-        let tags = [item.type];
-        if ( item.subtype ) {
+        const tags = [item.type];
+        if (item.subtype) {
           tags.push(item.subtype);
         }
-        return tags.filter(t=> t!== undefined).join(' • ');
+        return tags.filter((t) => t !== undefined).join(' • ');
       }
       return '';
     },
@@ -277,13 +265,13 @@ export default {
       this.$store.commit('characters/removeCharacterWargear', { id: this.characterId, gearId: gear.id });
     },
     wargearSubtitle(item) {
-      //const item = this.wargearRepository.find(i => i.name === gear);
+      // const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
-        let tags = [item.type];
-        if ( item.subtype ) {
+        const tags = [item.type];
+        if (item.subtype) {
           tags.push(item.subtype);
         }
-        return tags.filter(t=> t!== undefined).join(' • ');
+        return tags.filter((t) => t !== undefined).join(' • ');
       }
       return '';
     },

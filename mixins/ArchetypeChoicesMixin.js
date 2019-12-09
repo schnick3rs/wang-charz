@@ -1,13 +1,12 @@
 export default {
   data() {
-
     const core = [
       {
-        key: "sanctionedPsyker",
+        key: 'sanctionedPsyker',
         psychicPowers: {
           discount: [
-            { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
-            { name: 'minor', selected: undefined, filter: power => ( ['Minor'].includes(power.discipline) ) },
+            { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
+            { name: 'minor', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
           ],
           access: [
             'Minor',
@@ -21,14 +20,14 @@ export default {
         },
       },
       {
-        key: "roguePsyker",
+        key: 'roguePsyker',
         psychicPowers: {
           discount: [
-            { name: 'smite', selected: 'Smite', filter: power => (power.name === 'Smite') },
+            { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
             {
               name: 'minor',
               selected: undefined,
-              filter: power => (['Minor'].includes(power.discipline))
+              filter: (power) => (['Minor'].includes(power.discipline)),
             },
           ],
           access: [
@@ -47,8 +46,8 @@ export default {
         key: 'warlock',
         psychicPowers: {
           discount: [
-            { name: 'psyniscience', selected: 'Psyniscience', filter: power => ( power.name === 'Psyniscience' ) },
-            { name: 'smite', selected: 'Smite', filter: power => ( power.name === 'Smite' ) },
+            { name: 'psyniscience', selected: 'Psyniscience', filter: (power) => (power.name === 'Psyniscience') },
+            { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
           ],
           access: [
             'Minor',
@@ -68,11 +67,11 @@ export default {
       archetypePsychicPowersRepository: [
         ...core,
       ],
-    }
+    };
   },
   methods: {
     getPsychicPowerOptionsByArchetypeKey(key) {
-      return this.archetypePsychicPowersRepository.find( item => item.key === key);
+      return this.archetypePsychicPowersRepository.find((item) => item.key === key);
     },
   },
-}
+};

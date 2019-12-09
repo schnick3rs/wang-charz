@@ -1,9 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-
   <div>
-
     <v-card class="mb-4">
-
       <v-card-text>
         <v-text-field
           v-model="searchQuery"
@@ -13,34 +10,33 @@
           prepend-inner-icon="search"
           clearable
           label="Search"
-        ></v-text-field>
+        />
 
         <v-chip
-          v-if="typeFilters.length > 1"
           v-for="filter in typeFilters"
-          v-bind:key="filter.key"
-          v-bind:color="selectedTypeFilters.includes(filter.name) ? 'primary' : ''"
-          v-on:click="toggleTypeFilter(filter.name)"
+          v-if="typeFilters.length > 1"
+          :key="filter.key"
+          :color="selectedTypeFilters.includes(filter.name) ? 'primary' : ''"
           small
           label
           class="mr-2 mb-2"
+          @click="toggleTypeFilter(filter.name)"
         >
-          {{filter.name}}
+          {{ filter.name }}
         </v-chip>
       </v-card-text>
     </v-card>
 
     <v-card>
-
       <v-data-table
-        v-bind:headers="headers"
-        v-bind:items="searchResult"
+        :headers="headers"
+        :items="searchResult"
         item-key="name"
-        v-bind:search="searchQuery"
-        v-bind:page.sync="pagination.page"
-        v-on:page-count="pagination.pageCount = $event"
+        :search="searchQuery"
+        :page.sync="pagination.page"
         hide-default-footer
         show-expand
+        @page-count="pagination.pageCount = $event"
       >
         <template v-slot:item.name="{ item }">
           {{ item.name }} <br>
@@ -48,46 +44,40 @@
         </template>
 
         <template v-slot:item.action-add="{ item }">
-          <v-btn color="success" x-small v-on:click="$emit('select', item)">add</v-btn>
+          <v-btn color="success" x-small @click="$emit('select', item)">
+            add
+          </v-btn>
         </template>
 
         <template v-slot:expanded-item="{ headers, item }">
-          <td v-bind:colspan="headers.length">
-
+          <td :colspan="headers.length">
             <div class="pa-2 pt-4 pb-4">
-
               <span>{{ item.hint }}</span>
 
               <dod-simple-weapon-stats
                 v-if="item.meta !== undefined && item.meta.length > 0 && ['ranged-weapon','melee-weapon'].includes(item.meta[0].type)"
-                v-bind:name="item.name"
-                v-bind:stats="item.meta[0]"
-                v-bind:showTraits="false"
+                :name="item.name"
+                :stats="item.meta[0]"
+                :show-traits="false"
                 class="mb-2"
-              ></dod-simple-weapon-stats>
+              />
               <dod-simple-armour-stats
                 v-if="item.meta !== undefined && item.meta.length > 0 && ['armour'].includes(item.meta[0].type)"
-                v-bind:name="item.name"
-                v-bind:stats="item.meta[0]"
-                v-bind:showTraits="false"
+                :name="item.name"
+                :stats="item.meta[0]"
+                :show-traits="false"
                 class="mb-2"
-              ></dod-simple-armour-stats>
-
+              />
             </div>
-
           </td>
         </template>
-
       </v-data-table>
 
-      <div class="text-xs-center pt-2">
-        <v-pagination v-model="pagination.page" v-bind:length="pagination.pageCount" />
+      <div class="text-center pt-2">
+        <v-pagination v-model="pagination.page" :length="pagination.pageCount" />
       </div>
-
     </v-card>
-
   </div>
-
 </template>
 
 <script>
@@ -95,7 +85,7 @@ import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
 import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
 
 export default {
-  name: "wargear-search",
+  name: 'WargearSearch',
   components: {
     DodSimpleArmourStats,
     DodSimpleWeaponStats,
@@ -114,29 +104,33 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        { text: 'Name', align: 'left', value: 'name', class: '' },
-        { text: '', align: 'right', value: 'action-add', class: '' },
+        {
+          text: 'Name', align: 'left', value: 'name', class: '',
+        },
+        {
+          text: '', align: 'right', value: 'action-add', class: '',
+        },
       ],
     };
   },
   computed: {
     typeFilters() {
-      if ( this.repository === undefined ) {
+      if (this.repository === undefined) {
         return [];
       }
-      const reduceToType = this.repository.map( item => item.type );
-      const distinctTypes = [ ...new Set(reduceToType) ];
-      const types = distinctTypes.map( t => { return { name: t } });
+      const reduceToType = this.repository.map((item) => item.type);
+      const distinctTypes = [...new Set(reduceToType)];
+      const types = distinctTypes.map((t) => ({ name: t }));
       return types;
     },
     searchResult() {
-      if ( this.repository === undefined ) {
+      if (this.repository === undefined) {
         return [];
       }
       let searchResult = this.repository;
 
       if (this.selectedTypeFilters.length > 0) {
-        searchResult = searchResult.filter( item => this.selectedTypeFilters.includes(item.type));
+        searchResult = searchResult.filter((item) => this.selectedTypeFilters.includes(item.type));
       }
 
       return searchResult;
@@ -145,24 +139,24 @@ export default {
   methods: {
     toggleTypeFilter(name) {
       if (this.selectedTypeFilters.includes(name)) {
-        this.selectedTypeFilters = this.selectedTypeFilters.filter(d => d != name);
+        this.selectedTypeFilters = this.selectedTypeFilters.filter((d) => d != name);
       } else {
         this.selectedTypeFilters.push(name);
       }
     },
     wargearSubtitle(item) {
-      //const item = this.wargearRepository.find(i => i.name === gear);
+      // const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
-        let tags = [item.type];
-        if ( item.subtype ) {
+        const tags = [item.type];
+        if (item.subtype) {
           tags.push(item.subtype);
         }
-        return tags.filter(t=> t!== undefined).join(' • ');
+        return tags.filter((t) => t !== undefined).join(' • ');
       }
       return '';
     },
   },
-}
+};
 </script>
 
 <style scoped>

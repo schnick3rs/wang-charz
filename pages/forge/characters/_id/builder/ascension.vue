@@ -1,7 +1,5 @@
 <template lang="html">
-
   <v-row justify="center" no-gutters>
-
     <!-- Ascension Dialog -->
     <v-dialog
       v-model="dialog"
@@ -10,39 +8,42 @@
     >
       <ascension-preview
         v-if="selectedPreview"
-        v-bind:item="selectedPreview"
-        v-bind:currentCharacterTier="effectiveCharacterTier"
-        v-bind:maxTargetTier="settingTier"
-        v-on:select="selectPackageForChar"
-        v-on:cancel="dialog = false"
-        chooseMode
-      ></ascension-preview>
+        :item="selectedPreview"
+        :current-character-tier="effectiveCharacterTier"
+        :max-target-tier="settingTier"
+        choose-mode
+        @select="selectPackageForChar"
+        @cancel="dialog = false"
+      />
     </v-dialog>
 
     <!-- selected ascension -->
     <v-col
-      v-bind:cols="12"
       v-if="characterAscensionPackages.length > 0"
+      :cols="12"
     >
-
       <v-card
         v-for="characterAscension in characterAscensionPackages"
-        v-bind:key="characterAscension.key"
+        :key="characterAscension.key"
         class="mb-2"
       >
-
         <v-card-title primary-title>
           <div>
-            <div class="headline">{{ characterAscension.name }}</div>
+            <div class="headline">
+              {{ characterAscension.name }}
+            </div>
             <span class="subtitle-1 grey--text">{{ characterAscension.teaser }}</span>
           </div>
           <div>
             <v-btn
-              small outlined
+              small
+              outlined
               color="red"
-              v-on:click="removePackage(characterAscension)"
+              @click="removePackage(characterAscension)"
             >
-              <v-icon left>remove_circle</v-icon>
+              <v-icon left>
+                remove_circle
+              </v-icon>
               remove package
             </v-btn>
           </div>
@@ -59,104 +60,107 @@
           </p>
 
           <span class="mt-2 grey--text">Prerequisites</span>
-          <v-divider class="mb-2"></v-divider>
+          <v-divider class="mb-2" />
 
           <div>
             {{ characterAscension.effectivePrerequisites.map(a => `${a.value} (${a.threshold})`).join(", ") }}
           </div>
 
           <span class="mt-2 grey--text">Benefits</span>
-          <v-divider class="mb-2"></v-divider>
+          <v-divider class="mb-2" />
 
-          <p class="text-lg-justify"><strong>Keywords:</strong> {{ characterAscension.keywords.join(', ') }}</p>
+          <p class="text-lg-justify">
+            <strong>Keywords:</strong> {{ characterAscension.keywords.join(', ') }}
+          </p>
 
           <div
             v-for="placeholderName in characterAscension.keywords.filter(k=>k.indexOf('<')>=0)"
-            v-bind:key="placeholderName.key"
+            :key="placeholderName.key"
           >
             <keyword-select
               v-model="characterAscension.selected"
-              v-bind:placeholder="placeholderName"
-              v-bind:selection="characterAscension.selected"
-              v-bind:exclude="finalKeywords.filter(k=>k.indexOf('<')<0)"
-              v-on:input="updateKeyword($event, placeholderName, characterAscension)"
+              :placeholder="placeholderName"
+              :selection="characterAscension.selected"
+              :exclude="finalKeywords.filter(k=>k.indexOf('<')<0)"
+              @input="updateKeyword($event, placeholderName, characterAscension)"
             />
           </div>
 
           <!-- selection for the sub keyword -->
 
-          <v-divider class="mb-2"></v-divider>
+          <v-divider class="mb-2" />
 
           <p class="text-lg-justify">
             <strong>Influence Bonus: </strong>
             {{ characterAscension.influencePerTier * (characterAscension.targetTier - characterAscension.sourceTier) }}
-            ( {{characterAscension.influencePerTier}} per tier ascended)
+            ( {{ characterAscension.influencePerTier }} per tier ascended)
           </p>
 
           <!-- Story Element -->
 
-          <v-divider class="mb-2"></v-divider>
+          <v-divider class="mb-2" />
 
-          <p class="text-lg-justify"><strong>Story Element:</strong> {{ characterAscension.storyElementText }}</p>
+          <p class="text-lg-justify">
+            <strong>Story Element:</strong> {{ characterAscension.storyElementText }}
+          </p>
 
           <div
             v-if="characterAscension.storyElementOptions.length > 0"
           >
-
             <div
               v-if="characterAscension.storyElementOptions[0].type === 'spells'"
             >
               <div
                 v-for="option in characterAscension.storyElementOptions[0].discount.slice(0,3)"
-                v-bind:key="option.name"
+                :key="option.name"
               >
-              <v-select
-                v-bind:readonly="psychicPowersRepository.filter(option.filter).length <= 1"
-                v-model="option.selected"
-                v-bind:items="psychicPowersRepository.filter(option.filter)"
-                v-bind:hint="psychicPowerHint(option.selected)"
-                v-on:change="updatePsychicPowers(characterAscension, option)"
-                item-value="name"
-                item-text="name"
-                persistent-hint
-                dense
-                solo
-                class="ml-2 mr-2"
-              ></v-select>
+                <v-select
+                  v-model="option.selected"
+                  :readonly="psychicPowersRepository.filter(option.filter).length <= 1"
+                  :items="psychicPowersRepository.filter(option.filter)"
+                  :hint="psychicPowerHint(option.selected)"
+                  item-value="name"
+                  item-text="name"
+                  persistent-hint
+                  dense
+                  solo
+                  class="ml-2 mr-2"
+                  @change="updatePsychicPowers(characterAscension, option)"
+                />
               </div>
             </div>
 
             <v-select
               v-else
               v-model="characterAscension.storyElementChoice"
-              v-bind:items="characterAscension.storyElementOptions"
-              v-on:input="updateAscensionPackageStoryElement($event, characterAscension)"
+              :items="characterAscension.storyElementOptions"
               item-text="text"
               item-value="key"
               label="Story Element"
               solo
               dense
-            ></v-select>
-
+              @input="updateAscensionPackageStoryElement($event, characterAscension)"
+            />
           </div>
 
-          <v-divider class="mb-2"></v-divider>
+          <v-divider class="mb-2" />
 
-          <p class="text-lg-justify"><strong>Wargear:</strong> {{ characterAscension.wargearText }}</p>
+          <p class="text-lg-justify">
+            <strong>Wargear:</strong> {{ characterAscension.wargearText }}
+          </p>
 
           <div class="ml-2 mr-2">
-
             <v-select
               v-if="characterAscension.wargearOptions.length > 0"
               v-model="characterAscension.wargearChoice"
-              v-bind:items="characterAscension.wargearOptions"
-              v-on:input="updateAscensionPackageWargearOption($event, characterAscension)"
+              :items="characterAscension.wargearOptions"
               item-text="text"
               item-value="key"
               label="Wargear Options"
               solo
               dense
-            ></v-select>
+              @input="updateAscensionPackageWargearOption($event, characterAscension)"
+            />
 
             <div
               v-if="characterAscension.wargearChoice"
@@ -164,82 +168,71 @@
             >
               <div
                 v-for="selectItem in characterAscension.wargearOptions.find( o => o.key === characterAscension.wargearChoice ).selectList"
-                v-bind:key="selectItem.key"
+                :key="selectItem.key"
               >
-
                 <wargear-select
-                  v-bind:item="selectItem.itemChoice"
-                  v-bind:repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
-                  v-on:input="updateAscensionPackageWargearOptionChoice($event.name, selectItem.key, characterAscension)"
+                  :item="selectItem.itemChoice"
+                  :repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
                   class="mb-4"
-                ></wargear-select>
-
+                  @input="updateAscensionPackageWargearOptionChoice($event.name, selectItem.key, characterAscension)"
+                />
               </div>
-
             </div>
-
           </div>
-
         </v-card-text>
-
       </v-card>
-
     </v-col>
 
     <!-- ascension list -->
     <v-col>
-      <h1 class="headline">Select an Ascension Package</h1>
+      <h1 class="headline">
+        Select an Ascension Package
+      </h1>
 
       <v-alert
         v-for="alert in alerts"
-        v-bind:key="alert.key"
-        v-bind:value="true"
-        v-bind:type="alert.type"
-      >{{alert.text}}</v-alert>
-
+        :key="alert.key"
+        :value="true"
+        :type="alert.type"
+      >
+        {{ alert.text }}
+      </v-alert>
     </v-col>
 
     <!-- ascension options -->
     <v-col
-      v-bind:cols="12"
       v-if="alerts.length === 0"
+      :cols="12"
     >
       <v-card>
-
         <v-list>
-
           <v-list-item
-            two-line
             v-for="item in ascensionRepository"
-            v-bind:key="item.key"
-            v-on:click.stop="openDialog(item)"
+            :key="item.key"
+            two-line
+            @click.stop="openDialog(item)"
           >
-
             <v-list-item-avatar tile>
-              <img />
+              <img>
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>{{item.name}}</v-list-item-title>
-              <v-list-item-subtitle>{{item.teaser}}</v-list-item-subtitle>
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+              <v-list-item-subtitle>{{ item.teaser }}</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
               <v-btn dense icon>
-                <v-icon color="primary">arrow_forward_ios</v-icon>
+                <v-icon color="primary">
+                  arrow_forward_ios
+                </v-icon>
               </v-btn>
             </v-list-item-action>
-
           </v-list-item>
-
         </v-list>
-
       </v-card>
-
     </v-col>
-
   </v-row>
-
 </template>
 
 <script lang="js">
@@ -252,26 +245,15 @@ import WargearSelect from '~/components/forge/WargearSelect.vue';
 export default {
   name: 'Ascension',
   layout: 'forge',
-  props: [],
+  components: { AscensionPreview, KeywordSelect, WargearSelect },
   mixins: [
     AscensionRepositoryMixin,
-    KeywordRepositoryMixin
+    KeywordRepositoryMixin,
   ],
-  components: { AscensionPreview, KeywordSelect, WargearSelect },
+  props: [],
   head() {
     return {
       title: 'Select Ascension Package',
-    }
-  },
-  async asyncData({ params, $axios, error }) {
-    const wargearResponse = await $axios.get(`/api/wargear/`);
-    const powersResponse = await $axios.get(`/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal`);
-    const archetypeResponse = await $axios.get(`/api/archetypes/?source=core,coreab`);
-    return {
-      characterId: params.id,
-      archetypeRepository: archetypeResponse.data,
-      psychicPowersRepository: powersResponse.data,
-      wargearRepository: wargearResponse.data,
     };
   },
   data() {
@@ -294,16 +276,16 @@ export default {
       }
       return alerts;
     },
-    settingTier(){
+    settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
-    keywords(){
+    keywords() {
       return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
     },
-    finalKeywords(){
+    finalKeywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
     characterWargear() {
@@ -311,36 +293,33 @@ export default {
     },
     characterAscensionPackages() {
       const characterAscensionPackages = this.$store.getters['characters/characterAscensionPackagesById'](this.characterId);
-      return characterAscensionPackages.map(ascensionPackage => {
-
-        const characterPackage = this.ascensionRepository.find(j => {
-          return j.name === ascensionPackage.value;
-        });
+      return characterAscensionPackages.map((ascensionPackage) => {
+        const characterPackage = this.ascensionRepository.find((j) => j.name === ascensionPackage.value);
         characterPackage.sourceTier = ascensionPackage.sourceTier;
         characterPackage.targetTier = ascensionPackage.targetTier;
         characterPackage.storyElementChoice = ascensionPackage.storyElementChoice;
         characterPackage.wargearChoice = ascensionPackage.wargearChoice;
 
-        if ( this.characterArchetypeLabel && this.archetypeRepository ) {
-          const archetype = this.archetypeRepository.find( archetype => archetype.name === this.characterArchetypeLabel );
-          if ( archetype && archetype.prerequisites && archetype.prerequisites.length > 0 ) {
+        if (this.characterArchetypeLabel && this.archetypeRepository) {
+          const archetype = this.archetypeRepository.find((archetype) => archetype.name === this.characterArchetypeLabel);
+          if (archetype && archetype.prerequisites && archetype.prerequisites.length > 0) {
             characterPackage.effectivePrerequisites = characterPackage.prerequisites(archetype.prerequisites);
           }
         }
 
         const sourceKey = `ascension.${characterPackage.key}.${characterPackage.wargearChoice}`;
-        const gear = this.characterWargear.filter(gear => gear.source && gear.source.startsWith(sourceKey));
+        const gear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourceKey));
         if (gear) {
-          gear.forEach(g=>{
+          gear.forEach((g) => {
             characterPackage
-              .wargearOptions.find(o=>o.key === characterPackage.wargearChoice)
-              .selectList.find(s=> g.source.endsWith(s.key))
-              .itemChoice = g.name
+              .wargearOptions.find((o) => o.key === characterPackage.wargearChoice)
+              .selectList.find((s) => g.source.endsWith(s.key))
+              .itemChoice = g.name;
           });
         }
 
-        const packageKeyword = this.keywords.find(k => k.source === `ascension.${characterPackage.key}`);
-        if(packageKeyword && packageKeyword.replacement) {
+        const packageKeyword = this.keywords.find((k) => k.source === `ascension.${characterPackage.key}`);
+        if (packageKeyword && packageKeyword.replacement) {
           characterPackage.selected = packageKeyword.replacement;
         } else {
           characterPackage.selected = '';
@@ -349,13 +328,13 @@ export default {
         /**
          * Enrich the spell options with the selected ones. We fetch the psychic powers and check for matching sources.
          */
-        if ( characterPackage.storyElementOptions && characterPackage.storyElementOptions.length > 0 ) {
-          const storyElementOptions = characterPackage.storyElementOptions;
+        if (characterPackage.storyElementOptions && characterPackage.storyElementOptions.length > 0) {
+          const { storyElementOptions } = characterPackage;
 
-          storyElementOptions.forEach( storyElementOption => {
-            if ( storyElementOption.type === 'spells' && storyElementOption.discount.length > 0 ) {
-              storyElementOption.discount.forEach( d => {
-                if ( !d.selected ) {
+          storyElementOptions.forEach((storyElementOption) => {
+            if (storyElementOption.type === 'spells' && storyElementOption.discount.length > 0) {
+              storyElementOption.discount.forEach((d) => {
+                if (!d.selected) {
                   // ToDo
                 }
               });
@@ -367,26 +346,37 @@ export default {
         return characterPackage;
       });
     },
-    characterAscensionKeywordPlaceholders(){
-      let placeholderSet = [];
+    characterAscensionKeywordPlaceholders() {
+      const placeholderSet = [];
 
-      this.characterAscensionPackages()
+      this.characterAscensionPackages();
 
-      const placeholderKeywords = this.item.keywords.split(',').filter( (k) => { return k.indexOf('<')>=0; } );
-      placeholderKeywords.forEach(placeholder => {
-        let wordy= {};
-        if ( placeholder.toLowerCase() === '<any>' ) {
-          const levelOneKeywords = this.keywordRepository.filter(k => k.name.toLowerCase() !== placeholder.toLowerCase());
-          wordy = { name: placeholder, options: levelOneKeywords, selected: '', };
+      const placeholderKeywords = this.item.keywords.split(',').filter((k) => k.includes('<'));
+      placeholderKeywords.forEach((placeholder) => {
+        let wordy = {};
+        if (placeholder.toLowerCase() === '<any>') {
+          const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
+          wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
         } else {
-          const subKeywords = this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
-          wordy = { name: placeholder, options: subKeywords, selected: '', };
+          const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
+          wordy = { name: placeholder, options: subKeywords, selected: '' };
         }
         placeholderSet.push(wordy);
       });
 
       return placeholderSet;
     },
+  },
+  async asyncData({ params, $axios, error }) {
+    const wargearResponse = await $axios.get('/api/wargear/');
+    const powersResponse = await $axios.get('/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal');
+    const archetypeResponse = await $axios.get('/api/archetypes/?source=core,coreab');
+    return {
+      characterId: params.id,
+      archetypeRepository: archetypeResponse.data,
+      psychicPowersRepository: powersResponse.data,
+      wargearRepository: wargearResponse.data,
+    };
   },
   methods: {
     openDialog(item) {
@@ -403,19 +393,19 @@ export default {
         value: ascensionPackage.name,
         cost: ascensionPackage.cost * targetTier,
         sourceTier: ascensionPackage.sourceTier,
-        targetTier: targetTier,
+        targetTier,
       };
       this.$store.commit('characters/addCharacterAscensionPackage', payload);
 
-      if ( ascensionPackage.keywords ) {
-        ascensionPackage.keywords.forEach(ascensionKeyword => {
+      if (ascensionPackage.keywords) {
+        ascensionPackage.keywords.forEach((ascensionKeyword) => {
           const keyword = {
             name: ascensionKeyword,
             source: `ascension.${ascensionPackage.key}`,
-            type: (ascensionKeyword.indexOf('<')>=0) ? 'placeholder': 'keyword',
+            type: (ascensionKeyword.includes('<')) ? 'placeholder' : 'keyword',
             replacement: undefined,
           };
-          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: keyword });
+          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword });
         });
       }
 
@@ -429,12 +419,12 @@ export default {
       };
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: [modificationPayload] } });
 
-      if ( ascensionPackage.storyElementOptions && ascensionPackage.storyElementOptions.length > 0 ) {
-        const storyElementOptions = ascensionPackage.storyElementOptions;
-        storyElementOptions.forEach( storyElementOption => {
-          if ( storyElementOption.type === 'spells' && storyElementOption.discount.length > 0 ) {
-            storyElementOption.discount.forEach( d => {
-              if ( d.selected ) {
+      if (ascensionPackage.storyElementOptions && ascensionPackage.storyElementOptions.length > 0) {
+        const { storyElementOptions } = ascensionPackage;
+        storyElementOptions.forEach((storyElementOption) => {
+          if (storyElementOption.type === 'spells' && storyElementOption.discount.length > 0) {
+            storyElementOption.discount.forEach((d) => {
+              if (d.selected) {
                 const payload = {
                   id: this.characterId,
                   name: d.selected,
@@ -462,7 +452,7 @@ export default {
       this.$store.commit('characters/replaceCharacterKeywordPlaceholder', {
         id: this.characterId,
         // the name of the keyword to be replaced
-        placeholder: placeholder,
+        placeholder,
         // the new selected choice
         replacement: selected,
         // the source of the keyword
@@ -474,8 +464,8 @@ export default {
     /**
      * @param modificationList [ {} ]
      */
-    updateAscensionPackageStoryElement(choiceValue, ascensionObject){
-      const storyElementOption = ascensionObject.storyElementOptions.find(o => o.key === choiceValue);
+    updateAscensionPackageStoryElement(choiceValue, ascensionObject) {
+      const storyElementOption = ascensionObject.storyElementOptions.find((o) => o.key === choiceValue);
       const modification = {
         ...storyElementOption.modifications[0],
         source: `ascension.${ascensionObject.key}.storyElement`,
@@ -489,8 +479,8 @@ export default {
       };
       this.$store.commit('characters/setCharacterAscensionPackageStoryElement', storyPayload);
     },
-    updateAscensionPackageWargearOption(choiceValue, ascensionObject){
-      const wargearOption = ascensionObject.wargearOptions.find(o => o.key === choiceValue);
+    updateAscensionPackageWargearOption(choiceValue, ascensionObject) {
+      const wargearOption = ascensionObject.wargearOptions.find((o) => o.key === choiceValue);
       const wargearOptionPayload = {
         id: this.characterId,
         ascensionPackageKey: ascensionObject.key,
@@ -499,8 +489,8 @@ export default {
       };
       this.$store.commit('characters/setCharacterAscensionPackageWargearOption', wargearOptionPayload);
     },
-    updateAscensionPackageWargearOptionChoice(choiceValue, itemKey, ascensionObject){
-      const wargearOption = ascensionObject.wargearOptions.find(o => o.key === ascensionObject.wargearChoice);
+    updateAscensionPackageWargearOptionChoice(choiceValue, itemKey, ascensionObject) {
+      const wargearOption = ascensionObject.wargearOptions.find((o) => o.key === ascensionObject.wargearChoice);
       const payload = {
         id: this.characterId,
         name: choiceValue,
@@ -521,18 +511,17 @@ export default {
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {
         // return all but the any keyword
-        return this.keywordRepository.filter(k => k.name !== '<Any>');
+        return this.keywordRepository.filter((k) => k.name !== '<Any>');
       }
-      return this.keywordRepository.filter(k => k.name === wildcard);
+      return this.keywordRepository.filter((k) => k.name === wildcard);
     },
     subKeywordOptions(placeholder) {
-      return this.keywordSubwordRepository.filter(k => k.placeholder === placeholder);
+      return this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
     },
     psychicPowerHint(powerName) {
+      const power = this.psychicPowersRepository.find((p) => p.name === powerName);
 
-      const power = this.psychicPowersRepository.find( p => p.name === powerName );
-
-      if ( power ) {
+      if (power) {
         return power.effect;
       }
 

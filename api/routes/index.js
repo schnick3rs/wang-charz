@@ -11,7 +11,7 @@ const threats = require('./threats');
 const users = require('./users');
 const characters = require('./characters');
 
-module.exports = app => {
+module.exports = (app) => {
   app.use('/homebrews', homebrews);
   app.use('/talents', talents);
   app.use('/wargear', wargear);

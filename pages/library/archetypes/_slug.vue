@@ -1,32 +1,19 @@
 <template>
-
-
   <div>
-
     <!-- Breadcrumbs -->
-    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <!-- Species Details -->
     <v-row justify="center" no-gutters>
-
-      <v-col v-bind:cols="12" v-bind:sm="10">
-
+      <v-col :cols="12" :sm="10">
         <v-row justify="center">
-
-          <v-col v-bind:cols="12">
-
-            <archetype-preview v-bind:item="item"></archetype-preview>
-
+          <v-col :cols="12">
+            <archetype-preview :item="item" />
           </v-col>
-
         </v-row>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
@@ -35,7 +22,7 @@ import ArchetypePreview from '~/components/forge/ArchetypePreviewV2';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
-  name: "archetype",
+  name: 'Archetype',
   components: {
     ArchetypePreview,
     DodDefaultBreadcrumbs,
@@ -45,13 +32,12 @@ export default {
   ],
   head() {
     const title = 'Archetypes - Wrath & Glory Reference | Library';
-    const description =
-      'Oh there are way to many archetypes written by fans. Filter a little and then pick the one you want.' +
-      ' Check the linked homebrews for details.';
+    const description = 'Oh there are way to many archetypes written by fans. Filter a little and then pick the one you want.'
+      + ' Check the linked homebrews for details.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
 
     return {
-      title: title,
+      title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
@@ -65,27 +51,35 @@ export default {
     };
   },
   async asyncData({ params, $axios, error }) {
-    const slug = params.slug;
+    const { slug } = params;
 
     const response = await $axios.get(`/api/archetypes/${slug}`);
     const item = response.data;
 
-    if ( item === undefined || item.length <= 0 ) {
+    if (item === undefined || item.length <= 0) {
       error({ statusCode: 404, message: 'Archetype not found' });
     }
 
     return {
-      item: item,
-      slug: slug,
+      item,
+      slug,
       breadcrumbItems: [
-        { text: '', nuxt: true, exact: true, to: '/', },
-        { text: 'Library', nuxt: true, exact: true, to: '/library', },
-        { text: 'Archetypes', nuxt: true, exact: true, to: '/library/archetypes', },
-        { text: item.name, disabled: true, nuxt: true, to: `/library/archetypes/${slug}`, },
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Library', nuxt: true, exact: true, to: '/library',
+        },
+        {
+          text: 'Archetypes', nuxt: true, exact: true, to: '/library/archetypes',
+        },
+        {
+          text: item.name, disabled: true, nuxt: true, to: `/library/archetypes/${slug}`,
+        },
       ],
     };
   },
-}
+};
 </script>
 
 <style scoped>

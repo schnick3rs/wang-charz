@@ -1,67 +1,64 @@
 <template>
-
   <v-app>
-
     <v-app-bar
       app
       dark
       dense
       style="background-color: #212121;"
-      v-bind:fixed="toolbar.fixed"
-      v-bind:clipped-left="toolbar.clippedLeft"
+      :fixed="toolbar.fixed"
+      :clipped-left="toolbar.clippedLeft"
     >
-
       <v-toolbar-items>
-        <v-btn icon nuxt to="/"><v-icon>home</v-icon></v-btn>
+        <v-btn icon nuxt to="/">
+          <v-icon>home</v-icon>
+        </v-btn>
       </v-toolbar-items>
 
-      <v-toolbar-title class="pl-4">Doctors of Doom</v-toolbar-title>
+      <v-toolbar-title class="pl-4">
+        Doctors of Doom
+      </v-toolbar-title>
 
-      <v-spacer></v-spacer>
+      <v-spacer />
 
       <v-toolbar-items>
-        <v-btn icon nuxt to="/about"><v-icon>help</v-icon></v-btn>
+        <v-btn icon nuxt to="/about">
+          <v-icon>help</v-icon>
+        </v-btn>
       </v-toolbar-items>
-
     </v-app-bar>
 
     <v-content>
-
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
-          <v-btn text small nuxt to="/library/wargear/weapons">Weapons</v-btn>
-          <v-btn text small nuxt to="/library/wargear/armour">Armour</v-btn>
+          <v-btn text small nuxt to="/library/wargear/weapons">
+            Weapons
+          </v-btn>
+          <v-btn text small nuxt to="/library/wargear/armour">
+            Armour
+          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
       <v-container>
-
         <v-row justify="center" no-gutters>
-
           <v-col
-            v-bind:cols="12"
-            v-bind:xl="8"
+            :cols="12"
+            :xl="8"
           >
-
             <nuxt />
-
           </v-col>
-
         </v-row>
-
       </v-container>
-
     </v-content>
 
     <default-footer />
-
   </v-app>
 </template>
 
 <script>
-  import DefaultFooter from '~/components/DefaultFooter';
+import DefaultFooter from '~/components/DefaultFooter';
 
-  export default {
+export default {
   components: { DefaultFooter },
   head() {
     return {

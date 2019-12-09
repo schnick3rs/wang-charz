@@ -1,23 +1,15 @@
 <template>
-
   <div>
-
     <!-- Breadcrumbs -->
-    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <!-- Species Details -->
     <v-row justify="center" no-gutters>
-
-      <v-col v-bind:cols="12" v-bind:sm="10">
-
-        <dod-species-details v-bind:item="item" ></dod-species-details>
-
+      <v-col :cols="12" :sm="10">
+        <dod-species-details :item="item" />
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
@@ -26,17 +18,17 @@ import DodSpeciesDetails from '~/components/DodSpeciesDetails';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
-  name: "species",
+  name: 'Species',
   components: {
     DodDefaultBreadcrumbs,
     DodSpeciesDetails,
   },
   mixins: [
-    BreadcrumbSchemaMixin
+    BreadcrumbSchemaMixin,
   ],
   head() {
     const title = `${this.item.name} - Species`;
-    const description = this.item.source.key.indexOf('core') >= 0
+    const description = this.item.source.key.includes('core')
       ? `The ${this.item.name} from ${this.item.group} is an official Species described in the ${this.item.source.book}.`
       : `The ${this.item.name} from ${this.item.group} is a homebrew Species provided by ${this.item.source.book}.`;
     const image = this.item.thumbnail
@@ -45,7 +37,7 @@ export default {
 
     return {
       titleTemplate: '%s | Wrath & Glory Library',
-      title: title,
+      title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
@@ -55,31 +47,39 @@ export default {
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-      ]
+      ],
     };
   },
   async asyncData({ params, $axios, error }) {
-    const slug = params.slug;
+    const { slug } = params;
 
     const response = await $axios.get(`/api/species/${slug}`);
     const item = response.data;
 
-    if ( item === undefined || item.length <= 0 ) {
+    if (item === undefined || item.length <= 0) {
       error({ statusCode: 404, message: 'Species not found' });
     }
 
     return {
-      item: item,
-      slug: slug,
+      item,
+      slug,
       breadcrumbItems: [
-        { text: '', nuxt: true, exact: true, to: '/', },
-        { text: 'Library', nuxt: true, exact: true, to: '/library', },
-        { text: 'Species', nuxt: true, exact: true, to: '/library/species', },
-        { text: item.name, disabled: true, nuxt: true, to: `/library/species/${slug}`, },
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Library', nuxt: true, exact: true, to: '/library',
+        },
+        {
+          text: 'Species', nuxt: true, exact: true, to: '/library/species',
+        },
+        {
+          text: item.name, disabled: true, nuxt: true, to: `/library/species/${slug}`,
+        },
       ],
     };
   },
-}
+};
 </script>
 
 <style scoped>

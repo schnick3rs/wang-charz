@@ -18,11 +18,11 @@ export default {
      * @returns lowerCamelCase
      */
     kebabToCamel(kebab) {
-      return kebab.replace(/-([a-z0-9])/g, function (g) { return g[1].toUpperCase(); });
+      return kebab.replace(/-([a-z0-9])/g, (g) => g[1].toUpperCase());
     },
 
-    camelToKebab(camel){
-      return camel.replace(/([a-z0-9][A-Z])/g, function (g) { return g[0] + '-' + g[1].toLowerCase() });
-    }
-  }
-}
+    camelToKebab(camel) {
+      return camel.replace(/([a-z0-9][A-Z])/g, (g) => `${g[0]}-${g[1].toLowerCase()}`);
+    },
+  },
+};

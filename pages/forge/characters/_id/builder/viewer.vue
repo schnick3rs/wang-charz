@@ -1,49 +1,43 @@
 <template>
-
   <div
     v-touch="{
-        left: () => next(),
-        right: () => prev(),
-      }"
+      left: () => next(),
+      right: () => prev(),
+    }"
   >
-
     <!-- mobile attribute view -->
     <div>
-
       <v-card>
         <v-card-text>{{ active.label }}</v-card-text>
       </v-card>
-
     </div>
-
   </div>
-
 </template>
 
 <script>
 export default {
-  name: "viewer",
+  name: 'Viewer',
   layout: 'print',
-  async asyncData({ params }) {
-    const sourceFilter = `?source=core,coreab`;
-
-    return {
-      characterId: params.id,
-    };
-  },
   data() {
     return {
       activeComponent: 'attributes',
       children: {
         attributes: { id: 1, label: 'Attributes' },
         skills: { id: 2, label: 'skills' },
-      }
-    }
+      },
+    };
   },
   computed: {
     active() {
       return this.children[this.activeComponent];
     },
+  },
+  async asyncData({ params }) {
+    const sourceFilter = '?source=core,coreab';
+
+    return {
+      characterId: params.id,
+    };
   },
   methods: {
     prev() {
@@ -58,7 +52,7 @@ export default {
       this.activeComponent = index;
     },
   },
-}
+};
 </script>
 
 <style scoped>

@@ -1,27 +1,24 @@
 <template>
-
   <div>
-
     <div
       v-show="showTooltip"
       class="tooltip-container"
-      v-bind:style="{ left: tooltip.position.x, top: tooltip.position.y }"
+      :style="{ left: tooltip.position.x, top: tooltip.position.y }"
     >
       <v-card v-if="tooltip.loading" dark color="success" class="text-center">
-        <v-progress-circular indeterminate></v-progress-circular>
+        <v-progress-circular indeterminate />
       </v-card>
-      <v-card v-else raised  dark color="success">
+      <v-card v-else raised dark color="success">
         <v-card-title class="tooltip-container__header">
-          {{hintBoxItem.title}}
+          {{ hintBoxItem.title }}
         </v-card-title>
         <v-card-text>
-          {{hintBoxItem.description}}
+          {{ hintBoxItem.description }}
         </v-card-text>
-
       </v-card>
     </div>
 
-    <dod-default-breadcrumbs v-bind:items="breadcrumbItems" />
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <v-row
       justify="center"
@@ -30,21 +27,18 @@
       class="mt-4"
     >
       <v-col
-        v-bind:cols="12"
-        v-bind:md="10"
+        :cols="12"
+        :md="10"
       >
-
         <v-row>
-
           <v-col
-            v-bind:cols="12"
+            :cols="12"
           >
             <header class="page-header page-header--doom-green">
               <h1>{{ post.title }}</h1>
             </header>
 
-            <div class="post-html-container">
-
+            <article class="post-html-container">
               <p>{{ post.abstract }}</p>
 
               <h2>Premise / A short overview of the setting</h2>
@@ -80,7 +74,7 @@
                 Storm Warden Chapter), we have Brother <strong>Ferris</strong>. An agile duelist that chose
                 the garments of the Assault Marine. The other two came from the House
                 Hironiat (reflavored Imperial Fist Chapter). One is a born leader, <strong>Yordrik
-                ‘Steelvoice’</strong>. Born to lead from the front, he also was destined to join the
+                  ‘Steelvoice’</strong>. Born to lead from the front, he also was destined to join the
                 Assault Marines. His fellow brother from the same house, was a Scout during
                 is time as mere Human. His name is <strong>Gar</strong>, a quiet, determined and disturbing
                 fellow that was accompanied by an animal companion: a falcon that he also
@@ -167,7 +161,7 @@
                 Ah, the Techmarine. At first, I was tempted to use the Techmarine Archetype from one
                 of the supplements. But then, in regard to the scoutish heritage of the
                 character, I decided to take the <strong>Scout Archetype</strong> and Ascend with the <strong>Stay
-                the Course Package</strong>. This would give me some custom gear and augments and
+                  the Course Package</strong>. This would give me some custom gear and augments and
                 also the <strong>Adeptus Mechanicus</strong> Keyword.
               </p>
 
@@ -178,16 +172,18 @@
               <ol class="mb-4">
                 <li>First: Agility, Ballistic Skill and Stealth, representing the Scout part. </li>
                 <li>And second: Intellect and Tech.</li>
-                <li>Finally, some supporting skills are: Awareness, Investigation, Pilot and
-                  Scholar.</li>
+                <li>
+                  Finally, some supporting skills are: Awareness, Investigation, Pilot and
+                  Scholar.
+                </li>
               </ol>
 
               <p>
                 Ok let’s check the Talents.
-                <a class="tooltip tooltip--talent" href="/library/talents/37-steel-and-doom" v-on:mouseover="setHintBoxItem($event, 37)" v-on:mouseleave="showTooltip = false">Steel and Doom</a> was mandatory and thus set.
+                <a class="tooltip tooltip--talent" href="/library/talents/37-steel-and-doom" @mouseover="setHintBoxItem($event, 37)" @mouseleave="showTooltip = false">Steel and Doom</a> was mandatory and thus set.
                 I wandered through the talent section multiple times, but couldn’t find one
                 that hooked me. Finally, I decided the
-                <a class="tooltip tooltip-talent" href="/library/talents/4-bombardment" v-on:mouseover="setHintBoxItem($event, 4)" v-on:mouseleave="showTooltip = false">Bombardment</a>
+                <a class="tooltip tooltip-talent" href="/library/talents/4-bombardment" @mouseover="setHintBoxItem($event, 4)" @mouseleave="showTooltip = false">Bombardment</a>
                 talent would ne fitting. It’s quite
                 costly and I needed to convince my GM to ignore the Rank 3+ restriction
                 (great success). I would reflavor the Talent so that it represents
@@ -198,7 +194,9 @@
 
               <p>
                 And that’s mostly it. There is some final tweaking to do, but I think this will work well.
-                I <nuxt-link to="/forge/my-characters">build the character with the Forge</nuxt-link> (of course) and
+                I <nuxt-link to="/forge/my-characters">
+                  build the character with the Forge
+                </nuxt-link> (of course) and
                 <a href="/characters/first-generation_brother-gar_v1.pdf">uploaded the
                   respective PDF</a>, if you want a closer look into the details..
               </p>
@@ -215,19 +213,13 @@
                 I can also give more details on the narrative and history of the
                 Recruitment World, the Chapter or the Characters, if you wish.
               </p>
-
-            </div>
+            </article>
 
           </v-col>
-
         </v-row>
-
       </v-col>
-
     </v-row>
-
   </div>
-
 </template>
 
 <script>
@@ -235,9 +227,9 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
-  name: 'our-migration-from-deathwatch-to-wrath-and-glory',
+  name: 'OurMigrationFromDeathwatchToWrathAndGlory',
   components: {
-    DodDefaultBreadcrumbs
+    DodDefaultBreadcrumbs,
   },
   mixins: [
     BreadcrumbSchemaMixin,
@@ -250,9 +242,9 @@ export default {
         shortTitle: 'From Deathwatch to Wrath & Glory',
         slug: 'our-migration-from-deathwatch-to-wrath-and-glory',
         abstract:
-          'Once you go Wrath & Glory, there is no turning back... ' +
-          'We migrated out FFG Deathwatch campaign to Wrath and Glory. ' +
-          'Here are the reasons why and how we did it.',
+          'Once you go Wrath & Glory, there is no turning back... '
+          + 'We migrated out FFG Deathwatch campaign to Wrath and Glory. '
+          + 'Here are the reasons why and how we did it.',
         author: {
           id: 1,
           name: 'Brother Lucius',
@@ -263,7 +255,7 @@ export default {
           'Migration Guide',
           'Deathwatch',
           'Setting',
-          'The First Harvest'
+          'The First Harvest',
         ],
         publishedAt: '2019-12-01T08:00:00+08:00',
         modifiedAt: '2019-12-01T08:00:00+08:00',
@@ -277,26 +269,26 @@ export default {
     };
   },
   head() {
-    const title = this.post.title;
+    const { title } = this.post;
     const description = this.post.abstract;
     const image = `https://www.doctors-of-doom.com${this.post.image}`;
 
     const articleJsonLdSchema = {
-      "@context": "https://schema.org",
-      "@type": "BlogPost",
-      "datePublished": this.post.publishedAt,
-      "dateModified": this.post.modifiedAt,
-      "headline": title,
-      "description": description,
-      "image": image,
-      "author": {
-        "@type": "Person",
-        "name": this.post.author.name,
+      '@context': 'https://schema.org',
+      '@type': 'BlogPost',
+      datePublished: this.post.publishedAt,
+      dateModified: this.post.modifiedAt,
+      headline: title,
+      description,
+      image,
+      author: {
+        '@type': 'Person',
+        name: this.post.author.name,
       },
     };
 
     return {
-      title: title,
+      title,
       titleTemplate: '%s | Blog',
       meta: [
         { hid: 'description', name: 'description', content: description },
@@ -314,24 +306,29 @@ export default {
       script: [
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
         { innerHTML: JSON.stringify(articleJsonLdSchema), type: 'application/ld+json' },
-      ]
+      ],
     };
   },
   computed: {
     breadcrumbItems() {
       return [
-        { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
-        { text: 'Posts' , disabled: false, nuxt: true, exact: true, to: '/posts' },
-        { text: this.post.shortTitle , disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.id}-${this.post.slug}` },
+        {
+          text: '', disabled: false, nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Posts', disabled: false, nuxt: true, exact: true, to: '/posts',
+        },
+        {
+          text: this.post.shortTitle, disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.id}-${this.post.slug}`,
+        },
       ];
     },
   },
   methods: {
     setHintBoxItem($event, talentId) {
-
       this.tooltip.loading = true;
       this.$axios.get(`/api/talents/${talentId}`)
-        .then( ( {data} ) => {
+        .then(({ data }) => {
           this.hintBoxItem = {
             title: data.name,
             description: data.effect,
@@ -341,11 +338,11 @@ export default {
         });
 
       this.showTooltip = true;
-      this.tooltip.position.x = $event.pageX+'px';
-      this.tooltip.position.y = $event.pageY+'px';
-    }
+      this.tooltip.position.x = `${$event.pageX}px`;
+      this.tooltip.position.y = `${$event.pageY}px`;
+    },
   },
-}
+};
 </script>
 
 <style scoped lang="scss">
