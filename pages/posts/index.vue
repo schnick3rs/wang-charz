@@ -110,6 +110,13 @@ export default {
           + 'We migrated out FFG Deathwatch campaign to Wrath and Glory. '
           + 'Here are the reasons why and how we did it.',
       },
+      {
+        id: 2,
+        slug: 'the-journey-of-the-golden-goose-session-zero',
+        shortTitle: 'The Golden Goose #0',
+        abstract:
+          'Let\'s take a look at our first session from our log running tier 3 campaign',
+      }
     ];
 
     return {

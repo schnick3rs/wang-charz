@@ -45,14 +45,14 @@
 
               <p>
                 Hey, listen. When Wrath & Glory was announced, we where excited. Once the
-                pre-ordered PDF was availible, we kicked of our first Wrath & Glory campaign.
+                pre-ordered PDF was available, we kicked of our first Wrath & Glory campaign.
                 The Campaign started in 2018 and we are currently approaching our #25 Session.
                 I will write a little about that campaign, delve into the background and history of
                 the sessions and will occasionally explore house rules that we established.
               </p>
 
               <p>
-                Feedback is highly welcome, wether you want wo know more about the characters involved,
+                Feedback is highly welcome, weather you want to know more about the characters involved,
                 or more details regarding the specific session. Just let me know via
                 <a href="mailto:docsofdoom+posts@gmail.com?subject=Blog Feedback: #2 Golden Goose">docsofdoom+posts(at)gmail.com</a>.
               </p>
@@ -60,23 +60,29 @@
               <h2>The Setup</h2>
 
               <p>
-                We decided, that the Setting would be Tier 3. And that one player need to take a Rouge Trader.
-                The rest of the characters where free to choose. Overall the group consist of 7 players plus the GM.
-                Regarding the choosen characters. Those would be created as Tier 1 to 2 Characters at first. But I'm getting ahead.
-                For the first session not everybody had to have their character. Sure, we would have a Tier 2 Rogue Trader, but the rest...
-                Well, let's meet them in cronological order, shall we.
+                We decided, that the Setting would be Tier 3.
+                And that one player need to take a Rouge Trader.
+                The rest of the characters where free to choose.
+                Overall the group consist of 7 players plus the GM.
+                Regarding the chosen characters...
+                Those would be created as Tier 1 to 2 Characters at first.
+                But I'm getting ahead.
+                For the first session not everybody had to have their character.
+                Sure, we would have a Tier 2 Rogue Trader, but the rest...
+                Well, let's meet them in chronological order, shall we.
               </p>
 
               <h3>The Rogue Trader</h3>
 
               <p>
-                The Patriarch Fedor D. Vulpes is the Lord of a very old but faiding rogue trader house.
+                The Patriarch <strong>Fedor D. Vulpes</strong> is the Lord of a very old but faiding rogue trader house.
                 His sisters son is the Protagonist: <strong>Alexander B. Vulpes</strong>.
-                Alexander learend his trade as Seneschall of his cousin, Torben. Over the years, he developed
-                a unique skills set. His political sense, high insight in the human desires and charisma,
-                allowed him to make some favourable deals. And, he also geathered some capable individualls
+                Alexander learned his trade as Seneschall of his cousin, <strong>Torben</strong>.
+                Over the years, he developed a unique skills set.
+                His political sense, high insight in the human desires and charisma,
+                allowed him to make some favourable deals. And, he also gathered some capable individuals
                 around him. Those would serve them well, once he would be assigned his own ship.
-                An this is where the story starts, Alexander is now Captain of the small Imperiall
+                An this is where the story starts, Alexander is now Captain of the small Imperial
                 Frigate, the <em>Golden Goose</em>. It's not much, but it's (almost) honest work.
                 So, now let's take a look at those trusted advisors, shall we?
               </p>
@@ -145,7 +151,7 @@
                 unloved cousin of Captain Alexander.
 
                 House Vulpes was not the first to claim the cemetery and this expedition was less
-                an exciting hunt for archotech and more the feast of vultures on an old
+                an exciting hunt for archeotech and more the feast of vultures on an old
                 battlefield.
 
                 The finest days of House Vulpes were long gone.
@@ -153,22 +159,22 @@
 
               <p>
                 Ok, so Alexander is joining a meeting that the old Patriarch Vulpes had ordered.
-                Onboard of the flagship, the old Lord welcommed Alexander and his entourage.
+                On board of the flagship, the old Lord welcomed Alexander and his entourage.
                 Oddly enough, next to the Patriarch's throne stood an unexpected guest,
-                an Adeptus Astartes. His black skin, red glowing, deamonlike eyes and the green
+                an Adeptus Astartes. His black skin, red glowing, deamon-like eyes and the green
                 carapace of a scout armour, identified him as Battle Brother from the Salamander
                 Chapter.
               </p>
 
               <p>
-                The Patriach talks, about the ancient pacts between Rouge Traders and Astartes Chapters,
+                The Patriarch talks, about the ancient pacts between Rouge Traders and Astartes Chapters,
                 old as the Empire itself, almost 10,000 years ago. In the first decades of existence,
                 the Salamanders joined the vast Rogue Trader explorations and while not many Houses
                 still honor those oaths, House Vulpes does. He proclaims:
               </p>
 
               <blockquote class="blockquote" style="font-style: italic;">
-                “This is Brother Epimeteus from the third company of the Slamanders Chapter; born from
+                “This is Brother Epimeteus from the third company of the Salamanders Chapter; born from
                 the XVIII. Legion.
 
                 The customs demand, that he will be part of your crew until seven decades have passed
@@ -184,17 +190,17 @@
 
               <p>
                 The pact is sealed, and new plans await. But a sudden intruder demands attention.
-                The Augor telemetry discovered multiple enemy ships that were hidden within the
-                asteriod belt. Now they approach the waiting ships.
+                The Augur-Telemetry discovered multiple enemy ships that were hidden within the
+                asteroid belt. Now they approach the waiting ships.
 
-                The old patriach orders Alexander and Antonius to man their ship and escape this
+                The old patriarch orders Alexander and Antonius to man their ship and escape this
                 ambush.
               </p>
 
               <p>
                 To make things short, Alexander reaches the Golden Goose and discovers, that the
-                options are fading. The telemetry is exhausted from the swarms of enemies, orks,
-                to be precise. The sister ships of Alexanders Goose, are heavyly damaged and
+                options are fading. The telemetry is exhausted from the swarms of enemies, Orks,
+                to be precise. The sister ships of Alexanders Goose, are heavily damaged and
                 it's not sure if they will make it. Lord Vulpes commands that the navigator
                 finds an route for an escape jump, most preferably to the near <em>Hethgart</em>
                 System. That system had previously send a distress call and Alexander was out of
@@ -214,8 +220,8 @@
               <p>
                 Thanks GM... So the ship enters realspace. Behind a Tyranid fleet that is attacking
                 the Imperial naval defences of the Hethgart system. But wait, whats with the objects
-                following in the warpspace? Could it be the other Vulpes ships? Nope, its hordes
-                of orks.
+                following in the immaterium? Could it be the other Vulpes ships? Nope, <em>it's hordes
+                of Orks</em>.
               </p>
 
               <blockquote class="blockquote" style="font-style: italic">
@@ -225,7 +231,7 @@
               <p>
                 Heldenreich (roughly Heroesrealm in english) seems to be in charge of the defence
                 force. Alexander uses whats left as options, he charges through the Tyranide vessels,
-                dragging the orks behind him right into the melee, so that both Xenos are decemating
+                dragging the Orks behind him right into the melee, so that both Xenos are decimating
                 each other. What a cunning plan! Well, it works, and the remaining survivors
                 are finished off.
               </p>
@@ -234,7 +240,7 @@
                 Alexander sells his entry into the war as 'just as planned' and is praised for his
                 cunning approach. Lord Heldenreich, the Lord of one of the great Rogue Trader Houses
                 of this region, congratulates Alexander Vulpes, and gives him a nickname, the Greyfox,
-                after a small, cunning animal on his homeplanet. Cunning!
+                after a small, cunning animal on his homeland. Cunning!
               </p>
 
               <p>
@@ -262,7 +268,7 @@
               </p>
 
               <p>
-                Both of those are wellcome assets for Lord Vulpes. Some more will join in the next Session.
+                Both of those are welcome assets for Lord Vulpes. Some more will join in the next Session.
                 At this point, we leave the entourage behind. They will become NPC's with the rich
                 background of a full evening of action. And the players will join lord Vulpes with a
                 mix of approx. Tier 2 characters. For now, we have:
@@ -317,8 +323,8 @@ export default {
   data() {
     return {
       post: {
-        id: 1,
-        title: 'The Journe of the Golden Goose - Session Zero',
+        id: 2,
+        title: 'The Journey of the Golden Goose - Session Zero',
         shortTitle: 'The Golden Goose #0',
         slug: 'the-journey-of-the-golden-goose-session-zero',
         abstract:
