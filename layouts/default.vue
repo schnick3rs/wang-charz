@@ -1,5 +1,59 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-app>
+    <v-navigation-drawer
+      v-model="drawer.open"
+      :clipped="drawer.clipped"
+      :fixed="drawer.fixed"
+      :permanent="drawer.permanent"
+      :mini-variant="drawer.mini"
+      app
+      right
+    >
+      <v-list
+      >
+        <div
+          v-for="item in navigation"
+          :key="item.to"
+        >
+          <v-list-group
+            v-if="item.children"
+          >
+            <template v-slot:activator>
+              <v-list-item-content>
+                <v-list-item-title>{{ item.title }}</v-list-item-title>
+                <v-list-item-subtitle>{{ item.subtitle }}</v-list-item-subtitle>
+              </v-list-item-content>
+            </template>
+              <v-list-item
+                class="ml-4"
+                v-for="child in item.children"
+                :key="child.to"
+                :to="child.to"
+                nuxt
+              >
+                <v-list-item-title>{{ child.title }}</v-list-item-title>
+              </v-list-item>
+
+          </v-list-group>
+          <v-list-item
+            v-else
+            :to="item.to"
+            nuxt
+          >
+            <v-list-item-content>
+              <v-list-item-title>
+                {{ item.title }}
+              </v-list-item-title>
+              <v-list-item-subtitle>
+                {{ item.subtitle }}
+              </v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+          <v-divider />
+        </div>
+      </v-list>
+    </v-navigation-drawer>
+
     <v-app-bar
       app
       dark
@@ -29,7 +83,6 @@
             width="24"
             version="1.1"
             xmlns="http://www.w3.org/2000/svg"
-            xmlns:xlink="http://www.w3.org/1999/xlink"
             x="0px"
             y="0px"
             viewBox="0 0 400 400"
@@ -53,9 +106,27 @@
           </svg>
         </v-btn>
       </v-toolbar-items>
+
+      <v-app-bar-nav-icon @click.stop="toggleDrawer" class="d-md-none" />
     </v-app-bar>
 
     <v-content>
+
+      <v-toolbar dense class="d-none d-md-block">
+        <v-toolbar-items>
+          <v-btn
+            v-for="item in navigation"
+            :key="item.to"
+            small
+            text
+            nuxt
+            :to="item.to"
+          >
+            {{ item.title }}
+          </v-btn>
+        </v-toolbar-items>
+      </v-toolbar>
+
       <v-container>
         <v-row justify="center" no-gutters>
           <v-col
@@ -91,14 +162,27 @@ export default {
   data() {
     return {
       navigation: [
-        { title: 'Setting', icon: 'dashboard' },
-        { title: 'Species', icon: 'dashboard' },
+        { to: '/vault', title: 'Vault', subtitle: 'Browse Homebrews', icon: '' },
+        { to: '/forge/my-characters', title: 'Forge', subtitle: 'Create Characters', icon: '' },
+        { to: '/bestiary', title: 'Bestiary', subtitle: 'Find Threats', icon: '' },
+        { to: '/library', title: 'Library', subtitle: 'Browse ', icon: '',
+          children: [
+            { to: '/library/species', title: 'Species', subtitle: 'Browse ', icon: '', },
+            { to: '/library/archetypes', title: 'Archetypes', subtitle: 'Browse ', icon: '', },
+            { to: '/library/ascension-packages', title: 'Species', subtitle: 'Browse ', icon: '', },
+            { to: '/library/talents', title: 'Talents', subtitle: 'Browse ', icon: '', },
+            { to: '/library/wargear', title: 'Wargear', subtitle: 'Browse ', icon: '', },
+            { to: '/library/psychic-powers', title: 'Psychic Powers', subtitle: 'Browse ', icon: '', },
+          ],
+        },
+        { to: '/codex', title: 'Codex', subtitle: 'Lookup Rules-snippet', icon: '' },
+        { to: '/network', title: 'Network', subtitle: 'Find Assets', icon: '' },
       ],
       drawer: {
         // sets the open status of the drawer
         open: false,
         // sets if the drawer is shown above (false) or below (true) the toolbar
-        clipped: true,
+        clipped: false,
         // sets if the drawer is CSS positioned as 'fixed'
         fixed: false,
         // sets if the drawer remains visible all the time (true) or not (false)
@@ -119,6 +203,19 @@ export default {
         clippedLeft: true,
       },
     };
+  },
+  methods: {
+    toggleDrawer() {
+      if (this.drawer.permanent) {
+        this.drawer.permanent = !this.drawer.permanent;
+        // set the clipped state of the drawer and toolbar
+        this.drawer.clipped = true;
+        this.toolbar.clippedLeft = true;
+      } else {
+        // normal drawer
+        this.drawer.open = !this.drawer.open;
+      }
+    },
   },
 };
 </script>
