@@ -339,8 +339,8 @@ export default {
           name: 'Brother Lucius',
           avatar: '',
         },
-        image: '/img/chronic_goose_session-0.jpg',
-        //image: '/img/artwork_posts.jpg',
+        //image: '/img/chronic_goose_session-0.jpg',
+        image: '/img/artwork_posts.jpg',
         tags: [
           'Setting',
           'Journey of the Golden Goose',
