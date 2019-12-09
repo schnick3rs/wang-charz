@@ -38,7 +38,7 @@
               <h1>{{ post.title }}</h1>
             </header>
 
-            <div class="post-html-container">
+            <article class="post-html-container">
               <p>{{ post.abstract }}</p>
 
               <h2>Premise / A short overview of the setting</h2>
@@ -104,15 +104,9 @@
                 The general Setting Tier would be Tier 3 and the respective Rules regarding
                 ascension and archetype requirements would apply. Due to the lack of
                 Assault and Techmarines, we would consider taking Archetypes from some of
-                the Homebrews (check out the <nuxt-link to="/vault">
-                  Vault
-                </nuxt-link>!):
-                <nuxt-link to="/vault/the-emperors-angels">
-                  The Emperor's Angles
-                </nuxt-link> or
-                <nuxt-link to="/vault/an-abundance-of-apocrypha">
-                  An abundance of Apocrypha
-                </nuxt-link>.
+                the Homebrews (check out the <nuxt-link to="/vault">Vault</nuxt-link>!):
+                <nuxt-link to="/vault/the-emperors-angels">The Emperor's Angles</nuxt-link> or
+                <nuxt-link to="/vault/an-abundance-of-apocrypha">An abundance of Apocrypha</nuxt-link>.
                 <em>The Emperor's Angles</em> supplement would also provide us with rules for House Isenwell (read: Storm Wardens).
               </p>
 
@@ -219,7 +213,8 @@
                 I can also give more details on the narrative and history of the
                 Recruitment World, the Chapter or the Characters, if you wish.
               </p>
-            </div>
+            </article>
+
           </v-col>
         </v-row>
       </v-col>
