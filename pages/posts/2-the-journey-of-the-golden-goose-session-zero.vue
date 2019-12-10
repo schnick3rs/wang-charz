@@ -246,7 +246,7 @@
               <p>
                 Also, Heldenreich announces that (as a gift) he will grant the Greyfox the right
                 to lead the expansion into newly discovered lands (more on that in a different
-                article). Fun fact: it's not a gift, it's a shore. But well, The House Vulpes is
+                article). Fun fact: it's not a gift, it's a chore. But well, The House Vulpes is
                 even more decimated, Alexander is the last remaining heir and the Goose their last
                 ship. So he will do what he does best, roll with the dice and see were it lands.
               </p>
