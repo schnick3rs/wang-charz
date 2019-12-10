@@ -103,15 +103,15 @@
 
               <p>
                 Ahh, what could be a better asset than a flamethrower wielding,
-                litany chanting and heresy expecting priest be?
-                Probably everybody else for a shadowy, soon-to-be to be captain.
-                But this priest at least know how to motivate some troops!
+                litany chanting and heresy expecting priest?
+                Probably everybody else for a shadowy, soon-to-be captain.
+                But this priest at least knows how to motivate some troops!
                 His name is <strong>Orpheus Isiminga</strong> and he adds an old age,
                 a slow walk and a grumpy personality to his skill set.
               </p>
 
               <p>
-                No entourage would be complete with an Arch Militant whose purpose is to protect
+                No entourage would be complete without an Arch Militant whose purpose is to protect
                 the Captain and lead the troops. This role is filled by the wannabe highborn
                 <strong>Anastasia Argent</strong>, also called <em>'The Lady'</em> by the subordinates.
                 Protective in regard to her Lord, Alexander Vulpes,
