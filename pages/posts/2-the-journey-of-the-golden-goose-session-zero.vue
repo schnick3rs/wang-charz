@@ -52,7 +52,7 @@
               </p>
 
               <p>
-                Feedback is highly welcome, weather you want to know more about the characters involved,
+                Feedback is highly welcome, wether you want to know more about the characters involved,
                 or more details regarding the specific session. Just let me know via
                 <a href="mailto:docsofdoom+posts@gmail.com?subject=Blog Feedback: #2 Golden Goose">docsofdoom+posts(at)gmail.com</a>.
               </p>
