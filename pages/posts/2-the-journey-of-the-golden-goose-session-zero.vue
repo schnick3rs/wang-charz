@@ -229,7 +229,7 @@
               </blockquote>
 
               <p>
-                Heldenreich (roughly Heroesrealm in english) seems to be in charge of the defence
+                Heldenreich (roughly Heroesrealm or herorich in english) seems to be in charge of the defence
                 force. Alexander uses whats left as options, he charges through the Tyranide vessels,
                 dragging the Orks behind him right into the melee, so that both Xenos are decimating
                 each other. What a cunning plan! Well, it works, and the remaining survivors
