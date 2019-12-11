@@ -622,6 +622,16 @@ export default {
         }
       }
 
+      if (this.keywords.find( k => k ==='Adeptus Mechanicus')) {
+        abilities.push({
+          name: 'Data is Currency',
+          effect:
+            'Characters with the Adeptus Mechanicus keyword may use Intellect ' +
+            'in place of Fellowship when calculating Influence.',
+          source: 'Adeptus Mechanicus'
+        });
+      }
+
       // background abilities
       if (this.characterBackground) {
         const background = this.backgroundRepository

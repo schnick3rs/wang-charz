@@ -18,14 +18,14 @@ _A view (not an edit) of the current character. Should be responsive._
 #### Manager
 
 * `[_]` Persist Character (needs refinement, cloud, local)
-* `[_]` My Characteres overview
-* `[_]` Delete character option
+* `[x]` My Characteres overview
+* `[x]` Delete character option
 
 #### Generator
 
 ###### CORE Functionality
 
-* `[_]` traits: add Data is Currency functionality
+* `[x]` traits: add Data is Currency functionality
 
 
     Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Influence.

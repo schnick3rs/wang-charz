@@ -134,6 +134,7 @@ export const getters = {
   characterTraitsById: (state, getters) => (id) => {
     const character = state.characters[id];
     const enhancedAttributes = getters.characterAttributesEnhancedById(id);
+    const keywords = getters.characterKeywordsFinalById(id);
     if (character === undefined) {
       return {};
     }
@@ -152,9 +153,14 @@ export const getters = {
     if (character.species.value && character.species.value === 'Ork') {
       traits.influence = enhancedAttributes.strength - 1;
     }
-    if (character.archetype.value && character.archetype.value === 'Tech-Priest') {
+
+    // Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Influence.
+    const hasMechanicusKeyword = keywords.find( k => k === 'Adeptus Mechanicus') !== undefined;
+    const intellectGtFellowsip = enhancedAttributes.intellect > enhancedAttributes.fellowship;
+    if ( hasMechanicusKeyword && intellectGtFellowsip ) {
       traits.influence = enhancedAttributes.intellect - 1;
     }
+
 
     traits.wealth = character.settingTier;
     traits.speed = 6;
