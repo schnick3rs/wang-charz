@@ -51,12 +51,6 @@
                 the sessions and will occasionally explore house rules that we established.
               </p>
 
-              <p>
-                Feedback is highly welcome, weather you want to know more about the characters involved,
-                or more details regarding the specific session. Just let me know via
-                <a href="mailto:docsofdoom+posts@gmail.com?subject=Blog Feedback: #2 Golden Goose">docsofdoom+posts(at)gmail.com</a>.
-              </p>
-
               <h2>The Setup</h2>
 
               <p>
@@ -295,11 +289,6 @@
               </p>
 
               <p>
-                Tell me what you think and if you
-                want to know more: <a href="mailto:docsofdoom+posts@gmail.com?subject=Blog Feedback: #2 Golden Goose">docsofdoom+posts(at)gmail.com</a>.
-              </p>
-
-              <p>
                 Last but not least, for those of you capable in the german language,
                 <a href="https://drive.google.com/open?id=1LIOQyo-iUivR1X-1Id5jng-3zUip5wZe">here is a in-game write up of the session (22 MB, PDF in Drive)</a>.
               </p>
@@ -345,8 +334,8 @@ export default {
           'Setting',
           'Journey of the Golden Goose',
         ],
-        publishedAt: '2019-12-12T08:00:00+08:00',
-        modifiedAt: '2019-12-12T08:00:00+08:00',
+        publishedAt: '2019-12-09T08:00:00+08:00',
+        modifiedAt: '2019-12-09T08:00:00+08:00',
       },
       showTooltip: false,
       tooltip: {
