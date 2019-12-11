@@ -305,6 +305,7 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+import ArticleSchemaMixin from '~/mixins/ArticleSchemaMixin';
 
 export default {
   name: 'TheJourneyOfTheGoldenGooseSessionZero',
@@ -312,6 +313,7 @@ export default {
     DodDefaultBreadcrumbs,
   },
   mixins: [
+    ArticleSchemaMixin,
     BreadcrumbSchemaMixin,
   ],
   data() {
@@ -349,19 +351,7 @@ export default {
     const { title } = this.post;
     const description = this.post.abstract;
     const image = `https://www.doctors-of-doom.com${this.post.image}`;
-    const articleJsonLdSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'BlogPost',
-      datePublished: this.post.publishedAt,
-      dateModified: this.post.modifiedAt,
-      headline: title,
-      description,
-      image,
-      author: {
-        '@type': 'Person',
-        name: this.post.author.name,
-      },
-    };
+
     return {
       title,
       titleTemplate: '%s | Blog',
@@ -378,7 +368,7 @@ export default {
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-        { innerHTML: JSON.stringify(articleJsonLdSchema), type: 'application/ld+json' },
+        { innerHTML: JSON.stringify(this.articleJsonLdSchema(this.post, title, description, image)), type: 'application/ld+json' },
       ],
     };
   },
