@@ -28,7 +28,7 @@
     >
       <v-col
         :cols="12"
-        :md="10"
+        :md="12"
       >
         <v-row>
           <v-col
@@ -43,16 +43,36 @@
             v-for="post in posts"
             :key="post.id"
             :cols="12"
-            :md="6"
+            :sm="6"
+            :md="4"
           >
             <v-card
-              :to="`/posts/${post.id}-${post.slug}`"
+              :to="`/posts/${post.attributes.id}-${post.attributes.slug}`"
               nuxt
               exact
               hover
+              height="400px"
             >
-              <v-card-title>{{ post.shortTitle }}</v-card-title>
-              <v-card-text>{{ post.abstract }}</v-card-text>
+              <v-img
+                v-if="post.attributes.image"
+                :src="post.attributes.image"
+                min-height="180px"
+                max-height="180px"
+                class="align-end justify-end"
+              >
+                <div class="image-caption pa-2 pt-1 pb-1 caption">
+                   <span
+                     class="image-caption__time-since white--text"
+                   >
+                    {{ post.attributes.publishedAt | timeSince }} by
+                  </span>
+                  <span class="image-caption__by-author success--text ml-1">
+                    {{ post.attributes.author }}
+                  </span>
+                </div>
+              </v-img>
+              <v-card-title>{{ post.attributes.shortTitle }}</v-card-title>
+              <v-card-text>{{ post.attributes.description }}</v-card-text>
             </v-card>
           </v-col>
         </v-row>
@@ -99,8 +119,17 @@ export default {
       ];
     },
   },
-  asyncData() {
+  async asyncData() {
+    const resolve = require.context("~/posts/", true, /\.md$/);
+    const imports = resolve.keys()
+    .map((key) => {
+      const [, name] = key.match(/\/(.+)\.md$/);
+      return resolve(key);
+    }).sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt) )
+    .filter( p => !p.attributes.status || p.attributes.status === 'Draft');
     const posts = [
+      ...imports,
+      /*
       {
         id: 1,
         slug: 'our-migration-from-deathwatch-to-wrath-and-glory',
@@ -116,7 +145,8 @@ export default {
         shortTitle: 'The Golden Goose #0',
         abstract:
           'Let\'s take a look at our first session from our log running tier 3 campaign',
-      }
+      },
+      */
     ];
 
     return {
@@ -149,6 +179,34 @@ export default {
       ],
     };
   },
+  filters: {
+    timeSince(value) {
+      const date = new Date(value);
+      const seconds = Math.floor((new Date() - date) / 1000);
+
+      let interval = Math.floor(seconds / 31536000);
+
+      interval = Math.floor(seconds / 86400);
+
+      if (interval > 7) {
+        let options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString("en-US", options);
+      }
+
+      if (interval > 1) {
+        return interval + " days ago";
+      }
+      interval = Math.floor(seconds / 3600);
+      if (interval > 1) {
+        return interval + " hours ago";
+      }
+      interval = Math.floor(seconds / 60);
+      if (interval > 1) {
+        return interval + " minutes ago";
+      }
+      return Math.floor(seconds) + " seconds ago";
+    },
+  }
 };
 </script>
 
@@ -160,6 +218,20 @@ export default {
 
     &--doom-green {
       border-color: hsl(122, 39%, 49%);
+    }
+  }
+
+  .image-caption {
+    background-color: hsla(300, 6%, 3%, 0.8);
+    justify-content: flex-end;
+    display: flex;
+
+    &__time-since {
+
+    }
+
+    &__by-author {
+
     }
   }
 

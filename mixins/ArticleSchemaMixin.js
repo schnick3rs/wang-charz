@@ -1,17 +1,17 @@
 export default {
   methods: {
-    articleJsonLdSchema(post, title, description, image) {
+    articleJsonLdSchema(post, image) {
       return {
         '@context': 'https://schema.org',
         '@type': 'Article',
-        datePublished: post.publishedAt,
-        dateModified: post.modifiedAt,
-        headline: title,
-        description,
+        datePublished: post.attributes.publishedAt,
+        dateModified: post.attributes.modifiedAt,
+        headline: post.attributes.title,
+        description: post.attributes.description,
         image,
         author: {
           '@type': 'Person',
-          name: post.author.name,
+          name: post.attributes.author,
         },
         "publisher": {
           "@type": "Organization",

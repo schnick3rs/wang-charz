@@ -1,4 +1,5 @@
 const colors = require('vuetify/es5/util/colors').default;
+import path from 'path';
 
 const axios = require('axios');
 
@@ -227,6 +228,15 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+
+      // add frontmatter-markdown-loader
+      config.module.rules.push(
+        {
+          test: /\.md$/,
+          include: path.resolve(__dirname, "posts"),
+          loader: "frontmatter-markdown-loader",
+        },
+      );
     },
   },
 };
