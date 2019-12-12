@@ -77,7 +77,6 @@ export default {
     const slug = params.slug;
     try {
       let post = await import(`~/posts/${slug}.md`);
-      console.info(post);
       return {
         post,
         slug,

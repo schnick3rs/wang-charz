@@ -1,5 +1,5 @@
 const colors = require('vuetify/es5/util/colors').default;
-import path from 'path';
+const path = require('path');
 
 const axios = require('axios');
 
