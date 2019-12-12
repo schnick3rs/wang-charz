@@ -7,7 +7,7 @@ shortTitle: From Deathwatch to Wrath & Glory - Part 1
 description: Once you go Wrath & Glory, there is no turning back... We migrated out FFG Deathwatch campaign to Wrath and Glory. Here are the reasons why and how we did it.
 publishedAt: 2019-12-01T08:00:00+08:00
 modifiedAt: 2019-12-01T08:00:00+08:00 
-image: /img/posts/squad-ferocia.jpg
+image: /img/posts/squad-ferocia_600.jpg
 ---
 
 ## Premise / A short overview of the setting

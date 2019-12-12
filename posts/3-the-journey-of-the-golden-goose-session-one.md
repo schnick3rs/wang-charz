@@ -7,7 +7,7 @@ shortTitle: The Golden Goose - Session 1
 description:  
 publishedAt: 2019-12-10T08:00:00+08:00
 modifiedAt: 2019-12-10T08:00:00+08:00
-image: /img/posts/golden-goose-map-honk-honk.jpg
+image: /img/posts/golden-goose-map-honk-honk_600.jpg
 status: draft
 ---
 
