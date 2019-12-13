@@ -19,18 +19,18 @@ This a write-up from our Rouge Trader Style Wrath & Glory Campaign. I will talk 
 So, last session, **Lord Vulpes** escaped an ork ambush with the last remaining
 ship of House Vulpes, the _Goolden Goose_.
 Now he seeks to rebuild his fortune and the name of his Rouge Trader House. 
-He was granted the opportunity to load the exploration into the W22 System, a System, 
+He was granted the opportunity to lead the exploration into the W22 System, a System, 
 that had been cut off by a warpstorm that was now fading. 
 Treasure and horror awaits (probably). But he is not alone. 
 First, he has a trusted crew, and second he has some self proclaimed passengers (more are coming!).
 
 One of those is the **Tech-Prist Koreljow**, 
-who wants to investigate and decipher a stellar phenomen, the _Koreljow-Line_. 
-Named by them man (parts) himself, because he found this anomaly. What a machine!
+who wants to investigate and decipher a stellar phenomenon, the _Koreljow-Line_. 
+Named by the man (in parts) himself, because he found this anomaly. What a machine!
 
 Next, we have **Commissar Orlow**. 
 Leading by example (and fear, well... mostly fear). 
-Fresh from the academy, his has the order to recruit as much man as needed to support the Exploration Force. 
+He comes fresh from the academy and has the order to recruit as much man as needed to support the Exploration Force. 
 Assigned to him are two Bulklander, hughe landing vassels to bring the imperial forces to the enemy.
 
 The **Astartes Epimetheus** from the Salamanders Chapter. 
@@ -48,7 +48,7 @@ _Cheribdion Alpha_, shall we?
 So, we will visit two locations to wrap up the remaining PCs. 
 First _Aiden Hive_, the main Hive on the planet _Cheribdion Alpha_.
  Here we will follow the journey of the local scum, **Cassidy Gaines** 
- and how a ordered recruitment machine can suck an unviling individuall 
+ and how a ordered recruitment machine can suck an unwilling  individuall 
  into the training meatgrinder of Commissar Orlow.
 
 After that, we check out how an aspiring Inquisitorial Akolyth 
