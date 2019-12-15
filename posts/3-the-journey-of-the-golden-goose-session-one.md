@@ -56,11 +56,14 @@ and a Sister Hospitaller join forces.
 
 ### The scum psyker
 
-**Cassidy Gaines** was (is? will ever be?) a lowborn scum, born into the bazzilions of a hive world. destined to live and die on this planet. Or so he thought. 
+**Cassidy Gaines** was (is? will ever be?) a lowborn scum, born into the bazzilions of a hive world. 
+Destined to live and die on this planet. Or so he thought.
+During gang conflicts, an enemy leader leaked knowledge about Cassidy's latent Psychic Powers 
+to the Authorities and so he was captured and contained so he can collected by the black ships.
 
-During gang conflicts, an enemy leader leaked knowledge about Cassidy's latent Psychic Powers to the Authorities and so he was captured and contained so he can collected by the black ships.
-
-But he was freed by a shady (very shady (very, very, VERY shady)) individual: **Vega Bolsota**. Cassidy received training by an accompanied and unsanctioned Psyker **Alfera**. They where later joined by an additional apprentice **Skoteinos Andras**.
+But he was freed by a shady (very shady (very, very, VERY shady)) individual: **Vega Bolsota**. 
+Cassidy received training by an accompanied and unsanctioned Psyker **Alfera**. 
+They where later joined by an additional apprentice **Skoteinos Andras**.
 
 So, to wrap this up. 
 Shady training occurs, and one day, **Vega Bolsota** announces, 
@@ -100,7 +103,7 @@ The Inquisitor contacts the Rogue Trader **Alexander Vulpes** and invites himsel
 ## Cheribdion Alpha
 
 Lets wrap a little togather so that we can finally please make that jump. First, a short view on the
-Hive World Cherib.. Alpha. An Occean Planet, that produces the _World-Fish_, a lot! 
+Hive World Cherib... Alpha. An Occean Planet, that produces the _World-Fish_, a lot! 
 The planets output is responsible to support large parts of the System with food.
 The planet was covered in polluted, blackish water with Hive Islands.
 Overssen by the Gouveneur _Ganthet Veneratio_ from _Aidon-Hive_.
@@ -112,7 +115,7 @@ improves the output of several food production centers and also of underwater pr
 Anyways, once the Warp Storm declines, the Goose, the two Bulklander ()packed with fresh meat)
 and the *Saint Celestine* do the jump.
 
-## The Jump to System 'W22'
+## The Jump through the immaterial curtain
 
 > Right through the eye of the storm. The red giant that gave life to the system
 > illuminated all planets in the orange light of an approaching dusk.
@@ -125,7 +128,7 @@ and the *Saint Celestine* do the jump.
 ### Whos the 'true' empire here?
 
 So that was the setup. A message from the planet informed Vulpes, 
-that **Canceller Obedia** was the elected (did Commissar Orlow just fainted?)
+that **Chancellor Obedia** was the elected (did Commissar Orlow just fainted?)
 Defender of the Planet, and he was not shy with some threats.
 
 Vulpes proclaimed, that he is here to claim this system in the **name of the    
@@ -137,7 +140,7 @@ fire.
 Again, the Captain proclaimed his demands. Three of the Hives followed the call, but
 the remaining 6 allied and **Obedia** announced them to be the "true" Empire (good lck with that).
 
-Some planning occurred. Then the execution of those plans: The Scout Epimetheus 
+Some planning occurred. Then the execution of those plans: The Astartes Scout Epimetheus 
 and the Magos would infiltrate the main Hive and deactivate the remaining planetary
 defence systems. Once they where disabled, the landing operation would start.
 
@@ -146,5 +149,58 @@ defence systems. Once they where disabled, the landing operation would start.
 The fight within the hive was brutal, bloody, exhausting and deadly
 (as Orlow will point out in one of his many reports). During th Raid, **Cassidy**
 was split from his squad of guardsman, and started to wander around, having visions
-of golden throne rooms and Eldar who flighted all a leader clad in golden 
-armour. (man, this did has issues...)
+of golden throne rooms and Eldar who flighted alongside a leader, clad in golden 
+armour. (man, this guy **do** has issues...)
+
+In the meantime, Captain Vulpes and his entourage and his allies lead the charge and breached the
+central building, where the self named governor was expected. But right after the group with a few
+imperial guardsman entered the central room, all occupants (including the furniture) where teleport away.
+
+### Throne Room
+
+The teleportion sickness was not the only problem. The group also found themselves at the receiving 
+end of an ambush. The room was covered in golden colors and they where surrounded by enemy
+troops. The chancellor and his first officer were clad in precious power armour.    
+
+Seconds later, hell broke lose, when Las- and Bolter-fire erupted. The forfeitures gave at least a little cover.
+And the Magos was able to manipulate the electronics, so that a platform in the center of the room, where the trapped
+hold their ground, moved downwards. Som plasma and grenades eliminated some of the ambushers. And 
+also the Chancellor officier was slain by a well placed plasma shot from Lord Vulpes Plasmagun.
+
+The wandering and vision having **Cassidy* also found himself in the room, ambushing the ambushers,
+he was (to his surprise) able to mind control one mob to eradicated one of their allies. He then
+joins the group in the center platform, and Lord Vulpes, lusting for his (Cassidy's) potential,
+enlisted the (obvious) Psyker on the spot.
+
+But the battle was far from over, the Sister Superiour was killed by a Bolter salvo.
+The accompanied Sister Hospitaller was overcome with grief and revenge and took the inferno pistol
+from her slayed Sister.
+
+Someone ordered the magos to lift the machanical platform back up. There, the Chancellor awaited them
+wounded the Inquisitor and was about to finish him. While the Acolyte was about to sacrifice himself,
+by jumping over to his Master, the Sister Hospitaller unleashed a burning shot from the inferno Pistol
+killing the Enemy leader.
+
+### Countdown
+
+While the tides of battle changed in the protagonists favour. Lord Vulpes was notified, that the
+Warp was about to close again. This was unexpected and would leave the exploration force trapped in
+this system, not knowing when the warp will allow passage again.
+
+Time was short, Syrene and Josef took the remains of the Sister Superior and the group started the
+controlled retreat. While Vulpes calculated the odds of reaching one of the bulk landers in time
+the magos anounced that the room they where in is not a building but a ship, merged into the 
+hive probably decateded ago.
+
+But this would only allow them to evacuate a small part of the Forces, so Vulpes made the bitter
+choice and ordered The Lady Anastasia to conquer the Hive in his name. While the Group used some of
+the escape vessels of the 'Ship' to escape to the Golden Goose. The log fragments from this ship
+revealed, that this was the Captains Shuttle of the *Bringer of Wrath*, the lost flagship
+of a Great Admiral of the Imperial (we will probably learn more about this in the feature).
+
+### Back on the Goose
+
+Back on his Ship. Phew.. the survivors prepared to make the Jump. But something was not settled yet.
+The **Inquisitor Morosow** declared, that the obviously unsanctioned Psyker (scum) **Cassidy**
+has to be executed. Lord Vulpes, seeing the value in the asset Cassidy, was arguing for his survival.
+
