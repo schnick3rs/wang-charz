@@ -84,6 +84,7 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+const fixedTime = new Date();
 
 export default {
   name: 'OurMigrationFromDeathwatchToWrathAndGlory',
@@ -151,6 +152,7 @@ export default {
 
     return {
       posts,
+      fixedTime: new Date(),
     };
   },
   head() {
@@ -182,7 +184,7 @@ export default {
   filters: {
     timeSince(value) {
       const date = new Date(value);
-      const seconds = Math.floor((new Date() - date) / 1000);
+      const seconds = Math.floor((fixedTime - date) / 1000);
 
       let interval = Math.floor(seconds / 31536000);
 

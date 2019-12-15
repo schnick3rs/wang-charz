@@ -5,9 +5,9 @@ title: The Journey of the Golden Goose - Session Zero
 author: Brother Lucius
 shortTitle: The Golden Goose - Session 0
 description: Let's take a look at our first session from our long running tier 3 campaign. This as a Rogue Trader Setting with a bit of Dark Heresy.
-publishedAt: 2019-12-09T08:00:00+08:00
-modifiedAt: 2019-12-09T08:00:00+08:00
-image: /img/posts/golden-goose-map-honk-honk_600.jpg
+publishedAt: 2019-12-09T08:00:00+01:00
+modifiedAt: 2019-12-09T08:00:00+01:00
+image: /img/posts/golden-goose-map-2528477_600.jpg
 ---
 
 ## New Astropath, who dis?

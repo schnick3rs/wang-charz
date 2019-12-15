@@ -154,9 +154,17 @@ module.exports = {
           const slug = vaultItem.key.replace(/([a-z][A-Z])/g, (g) => `${g[0]}-${g[1].toLowerCase()}`);
           return `/bestiary/${slug}`;
         });
+
+      const postRoutes = [
+        '/posts/1-our-migration-from-deathwatch-to-wrath-and-glory',
+        '/posts/2-the-journey-of-the-golden-goose-session-zero',
+        '/posts/3-the-journey-of-the-golden-goose-session-one',
+      ];
+
       return [
         ...homebrewRoutes,
         ...threatRoutes,
+        ...postRoutes,
       ];
     },
     defaults: {

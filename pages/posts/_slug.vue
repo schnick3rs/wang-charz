@@ -57,6 +57,7 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 import ArticleSchemaMixin from '~/mixins/ArticleSchemaMixin';
+const fixedTime = new Date();
 
 export default {
   name: 'TheJourneyOfTheGoldenGooseSessionZero',
