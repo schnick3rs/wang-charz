@@ -5,9 +5,9 @@ title: The Journey of the Golden Goose - Session 1
 author: Brother Lucius
 shortTitle: The Golden Goose - Session 1
 description: The story of Captain Vulpes continuous. We will meet the missing PCs and make a warp jump into unknown territory.
-publishedAt: 2019-12-13T08:00:00+08:00
-modifiedAt: 2019-12-13T08:00:00+08:00
-image: /img/posts/golden-goose-map-honk-honk_600.jpg
+publishedAt: 2019-12-15T22:30:00+01:00
+modifiedAt: 2019-12-15T20:00:00+01:00
+image: /img/posts/golden-goose-map-2528477_600.jpg
 ---
 
 ## New reader?
@@ -209,7 +209,7 @@ territory. And the Rogue Traders *Warrant of Trade* granted the additional, near
 to expand the Empire in the Name of the God Emperor. The 'Debate' grow heated and almost escalated,
 when Lord Vulpes turned to his Logbook memorator and announced:
 
-> Please not in the Log, the Inquisitor did not Survive the journey.
+> Please, add to the Log: 'The Inquisitor did not Survive the expedition.'
 
 Tension on the Bridge was... troubling, when the Astartes himself took the side of the Psyker,
 mentioning how his appearance has saved the group in the Ambush. In the end, it looked like the

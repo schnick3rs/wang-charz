@@ -5,8 +5,8 @@ title: Our migration from Deathwatch to Wrath and Glory
 author: Brother Lucius
 shortTitle: From Deathwatch to Wrath & Glory - Part 1      
 description: Once you go Wrath & Glory, there is no turning back... We migrated out FFG Deathwatch campaign to Wrath and Glory. Here are the reasons why and how we did it.
-publishedAt: 2019-12-01T08:00:00+08:00
-modifiedAt: 2019-12-01T08:00:00+08:00 
+publishedAt: 2019-12-01T08:00:00+01:00
+modifiedAt: 2019-12-01T08:00:00+01:00 
 image: /img/posts/squad-ferocia_600.jpg
 ---
 
