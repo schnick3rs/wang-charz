@@ -5,8 +5,8 @@ title: The Journey of the Golden Goose - Session 1
 author: Brother Lucius
 shortTitle: The Golden Goose - Session 1
 description: The story of Captain Vulpes continues. We will meet the missing PCs and make a warp jump into unknown territory.
-publishedAt: 2019-12-15T22:30:00+01:00
-modifiedAt: 2019-12-15T20:00:00+01:00
+publishedAt: 2019-12-16T00:00:00+01:00
+modifiedAt: 2019-12-16T00:00:00+01:00
 image: /img/posts/golden-goose-map-2528477_600.jpg
 ---
 
