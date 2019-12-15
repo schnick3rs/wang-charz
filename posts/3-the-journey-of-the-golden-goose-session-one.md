@@ -4,7 +4,7 @@ slug: the-journey-of-the-golden-goose-session-one
 title: The Journey of the Golden Goose - Session 1
 author: Brother Lucius
 shortTitle: The Golden Goose - Session 1
-description: The story of Captain Vulpes continuous. We will meet the missing PCs and make a warp jump into unknown territory.
+description: The story of Captain Vulpes continues. We will meet the missing PCs and make a warp jump into unknown territory.
 publishedAt: 2019-12-15T22:30:00+01:00
 modifiedAt: 2019-12-15T20:00:00+01:00
 image: /img/posts/golden-goose-map-2528477_600.jpg
@@ -12,21 +12,24 @@ image: /img/posts/golden-goose-map-2528477_600.jpg
 
 ## New reader?
 
-This a write-up from our Rouge Trader Style Wrath & Glory Campaign. I will talk about story, characters and (a little) about rulesCheck out [the kickoff session](/posts/2-the-journey-of-the-golden-goose-session-zero), in case you missed it.
+This a write-up from our Rogue Trader Style Wrath & Glory Campaign. 
+I will talk about story, characters and (a little) about rules. Check out 
+[the kickoff session](/posts/2-the-journey-of-the-golden-goose-session-zero),
+ in case you missed it.
 
 ## Recap
 
 So, last session, **Lord Vulpes** escaped an ork ambush with the last remaining
-ship of House Vulpes, the _Goolden Goose_.
-Now he seeks to rebuild his fortune and the name of his Rouge Trader House. 
-He was granted the opportunity to lead the exploration into the W22 System, a System, 
-that had been cut off by a warpstorm that was now fading. 
+ship of house Vulpes, the _Goolden Goose_.
+Now he seeks to rebuild his fortune and the name of his Rogue Trader house. 
+He was granted the opportunity to lead the exploration into a system, 
+that had been cut off by a warpstorm that was fading. 
 Treasure and horror awaits (probably). But he is not alone. 
-First, he has a trusted crew, and second he has some self proclaimed passengers (more are coming!).
+First, he has a trusted crew, and second, he has some self-proclaimed passengers (more are coming!).
 
-One of those is the **Tech-Prist Koreljow**, 
+One of those is the **Tech-Priest Koreljow** (sometimes just called the Magos), 
 who wants to investigate and decipher a stellar phenomenon, the _Koreljow-Line_. 
-Named by the man (in parts) himself, because he found this anomaly. What a machine!
+Named by 'the man' (in parts) himself, because he discovered this anomaly. What a machine!
 
 Next, we have **Commissar Orlow**. 
 Leading by example (and fear, well... mostly fear). 
