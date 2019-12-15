@@ -204,3 +204,28 @@ Back on his Ship. Phew.. the survivors prepared to make the Jump. But something 
 The **Inquisitor Morosow** declared, that the obviously unsanctioned Psyker (scum) **Cassidy**
 has to be executed. Lord Vulpes, seeing the value in the asset Cassidy, was arguing for his survival.
 
+You see, the Inquisitor has nearly complete authority in the Imperium. But, this was Rogue Trader
+territory. And the Rogue Traders *Warrant of Trade* granted the additional, nearly exclusive rights,
+to expand the Empire in the Name of the God Emperor. The 'Debate' grow heated and almost escalated,
+when Lord Vulpes turned to his Logbook memorator and announced:
+
+> Please not in the Log, the Inquisitor did not Survive the journey.
+
+Tension on the Bridge was... troubling, when the Astartes himself took the side of the Psyker,
+mentioning how his appearance has saved the group in the Ambush. In the end, it looked like the
+Inquisitor changed his mind. But his plans and ambitions stayed hidden. So the situation was
+deescalated.
+
+## Conclusion
+
+So the Golden Goose is traveling back to Cheribdion Alpha, while the warp closes again behind them.
+The characters will go their ways and we will see how they develop until they are gathered again
+when the warp reopens some years from now. The Characters wil change, some more than the others.
+
+For example the Sister Hospitaller will leave her Order behind and join the Order Militant.
+In the end, all characters will now spend ther remaining points, and ascend (if needed) so that when
+wee met again, all will have full grown **Tier 3** Characters.
+   
+We are two sessions in now. Various (now) NPC's have deep background and connections to the other
+characters in the campaign. And when we meet again, the group already have a dynamic and a small net
+of trust and conflict. An excellent mixture.  
