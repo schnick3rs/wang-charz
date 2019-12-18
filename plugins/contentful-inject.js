@@ -1,5 +1,5 @@
 // ~/plugins/contentful-inject.js
-import Vue from 'vue';
+require('dotenv').config();
 import { createClient } from 'contentful';
 
 export default ({ app }, inject) => {

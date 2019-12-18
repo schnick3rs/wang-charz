@@ -120,11 +120,11 @@ export default {
       ];
     },
   },
-  async asyncData({ app, env }) {
+  async asyncData({ app }) {
 
     // fetch all blog posts sorted by creation date
     const entries = await app.myContentful.getEntries({
-      'content_type': env.CTF_BLOG_POST_TYPE_ID,
+      'content_type': 'blogPost',
     });
     const posts = entries.items.sort((a, b) => new Date(b.fields.publishedAt) - new Date(a.fields.publishedAt) );
 
