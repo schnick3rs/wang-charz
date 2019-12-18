@@ -61,7 +61,10 @@ I then increased Attributes and Skills with a focus on
 2.  And second: Intellect and Tech.
 3.  Finally, some supporting skills are: Awareness, Investigation, Pilot and Scholar.
 
-Ok let’s check the Talents. [Steel and Doom](/library/talents/37-steel-and-doom) was mandatory and thus set. I wandered through the talent section multiple times, but couldn’t find one that hooked me. Finally, I decided the [Bombardment](/library/talents/4-bombardment) talent would ne fitting. It’s quite costly and I needed to convince my GM to ignore the Rank 3+ restriction (great success). I would reflavor the Talent so that it represents preparation by Gar, setting traps and explosives on key locations, to be triggered once the enemies are in place. His gift would allow him to estimate precisely where enemies would stand.
+Ok let’s check the Talents. [`Steel and Doom`](/library/talents/37-steel-and-doom) was mandatory and
+thus set. I wandered through the talent section multiple times, but couldn’t find one that hooked me.
+Finally, I decided the [`Bombardment`](/library/talents/4-bombardment) talent would ne fitting. 
+It’s quite costly and I needed to convince my GM to ignore the Rank 3+ restriction (great success). I would reflavor the Talent so that it represents preparation by Gar, setting traps and explosives on key locations, to be triggered once the enemies are in place. His gift would allow him to estimate precisely where enemies would stand.
 
 And that’s mostly it. There is some final tweaking to do, but I think this will work well. I [build the character with the Forge](/forge/my-characters) (of course) and [uploaded the respective PDF](/characters/first-generation_brother-gar_v1.pdf), if you want a closer look into the details..
 

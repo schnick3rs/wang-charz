@@ -19,7 +19,6 @@
     </div>
 
     <dod-default-breadcrumbs :items="breadcrumbItems" />
-
     <v-row
       justify="center"
       no-gutters
@@ -37,6 +36,42 @@
             <header class="page-header page-header--doom-green">
               <h1>{{ page.title }}</h1>
             </header>
+          </v-col>
+
+          <v-col
+            v-for="post in contentPosts.items"
+            :key="post.id"
+            :cols="12"
+            :sm="6"
+            :md="4"
+          >
+            <v-card
+              nuxt
+              exact
+              hover
+              height="400px"
+            >
+              <v-img
+                v-if="post.fields.imageTwitter"
+                :src="post.fields.imageTwitter.fields.file.url"
+                min-height="180px"
+                max-height="180px"
+                class="align-end justify-end"
+              >
+                <div class="image-caption pa-2 pt-1 pb-1 caption">
+                   <span
+                     class="image-caption__time-since white--text"
+                   >
+                     {{ post.fields.publishedAt | timeSince }} by
+                  </span>
+                  <span class="image-caption__by-author success--text ml-1">
+                    {{ post.fields.author }}
+                  </span>
+                </div>
+              </v-img>
+              <v-card-title>{{ post.fields.shortTitle }}</v-card-title>
+              <v-card-text>{{ post.fields.description }}</v-card-text>
+            </v-card>
           </v-col>
 
           <v-col
@@ -84,6 +119,9 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+import {createClient} from '~/plugins/contentful';
+
+const client = createClient();
 const fixedTime = new Date();
 
 export default {
@@ -120,7 +158,18 @@ export default {
       ];
     },
   },
-  async asyncData() {
+  async asyncData({ env }) {
+
+    // fetch all blog posts sorted by creation date
+    try {
+      const contentPosts = await client.getEntries({
+        'content_type': env.CTF_BLOG_POST_TYPE_ID,
+        order: '-sys.fields.publishedAt'
+      });
+    } catch (error) {
+      console.warn(error);
+    }
+
     const resolve = require.context("~/posts/", true, /\.md$/);
     const imports = resolve.keys()
     .map((key) => {
@@ -153,6 +202,7 @@ export default {
     return {
       posts,
       fixedTime: new Date(),
+      contentPosts,
     };
   },
   head() {

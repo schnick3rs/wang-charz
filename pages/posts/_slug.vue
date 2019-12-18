@@ -57,6 +57,10 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 import ArticleSchemaMixin from '~/mixins/ArticleSchemaMixin';
+import { createClient } from '~/plugins/contentful.js';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
+const client = createClient();
 const fixedTime = new Date();
 
 export default {
@@ -74,13 +78,22 @@ export default {
    * @param params
    * @returns {Promise<*>}
    */
-  async asyncData({ params }) {
+  async asyncData({ params, env }) {
     const slug = params.slug;
+
+    // fetch all blog posts sorted by creation date
+    const contentPosts = await client.getEntries({
+      'content_type': env.CTF_BLOG_POST_TYPE_ID,
+      'fields.slug[in]': '2-the-journey-of-the-golden-goose-session-zero',
+    });
+
+
     try {
       let post = await import(`~/posts/${slug}.md`);
       return {
         post,
         slug,
+        contentPosts,
       };
     } catch(err) {
       console.warn(err);
@@ -139,6 +152,9 @@ export default {
     },
   },
   methods: {
+    toHtml(rich) {
+      return documentToHtmlString(rich);
+    },
     setHintBoxItem($event, talentId) {
       this.tooltip.loading = true;
       this.$axios.get(`/api/talents/${talentId}`)
@@ -164,6 +180,10 @@ export default {
 
     & ul,ol {
       margin-bottom: 16px !important;
+    }
+
+    & code {
+      color: hsl(122, 39%, 49%)
     }
 
     & blockquote {

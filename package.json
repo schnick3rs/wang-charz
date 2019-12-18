@@ -19,6 +19,7 @@
     "lintFix": "eslint --fix --ext .js,.vue --ignore-path .gitignore ."
   },
   "dependencies": {
+    "@contentful/rich-text-html-renderer": "^13.4.0",
     "@nuxtjs/auth": "^4.8.1",
     "@nuxtjs/axios": "^5.8.0",
     "@nuxtjs/google-analytics": "^2.2.1",
@@ -27,6 +28,7 @@
     "@nuxtjs/redirect-module": "^0.2.0",
     "@nuxtjs/sitemap": "^2.0.1",
     "bcrypt": "^3.0.7",
+    "contentful": "^7.11.1",
     "cross-env": "^5.2.1",
     "dotenv": "^8.2.0",
     "express": "^4.16.4",
