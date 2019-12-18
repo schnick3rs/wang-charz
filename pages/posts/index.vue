@@ -39,13 +39,14 @@
           </v-col>
 
           <v-col
-            v-for="post in contentPosts.items"
-            :key="post.id"
+            v-for="post in posts"
+            :key="post.fields.id"
             :cols="12"
             :sm="6"
             :md="4"
           >
             <v-card
+              :to="`/posts/${post.fields.slug}`"
               nuxt
               exact
               hover
@@ -74,42 +75,6 @@
             </v-card>
           </v-col>
 
-          <v-col
-            v-for="post in posts"
-            :key="post.id"
-            :cols="12"
-            :sm="6"
-            :md="4"
-          >
-            <v-card
-              :to="`/posts/${post.attributes.id}-${post.attributes.slug}`"
-              nuxt
-              exact
-              hover
-              height="400px"
-            >
-              <v-img
-                v-if="post.attributes.image"
-                :src="post.attributes.image"
-                min-height="180px"
-                max-height="180px"
-                class="align-end justify-end"
-              >
-                <div class="image-caption pa-2 pt-1 pb-1 caption">
-                   <span
-                     class="image-caption__time-since white--text"
-                   >
-                    {{ post.attributes.publishedAt | timeSince }} by
-                  </span>
-                  <span class="image-caption__by-author success--text ml-1">
-                    {{ post.attributes.author }}
-                  </span>
-                </div>
-              </v-img>
-              <v-card-title>{{ post.attributes.shortTitle }}</v-card-title>
-              <v-card-text>{{ post.attributes.description }}</v-card-text>
-            </v-card>
-          </v-col>
         </v-row>
       </v-col>
     </v-row>
@@ -119,9 +84,6 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
-import {createClient} from '~/plugins/contentful';
-
-const client = createClient();
 const fixedTime = new Date();
 
 export default {
@@ -135,8 +97,8 @@ export default {
   data() {
     return {
       page: {
-        title: 'Posts',
-        description: 'some text',
+        title: 'Roleplaying Articles',
+        description: 'Session Reports and other related articles from the Wrath & Glory Universe.',
       },
       showTooltip: false,
       tooltip: {
@@ -158,56 +120,21 @@ export default {
       ];
     },
   },
-  async asyncData({ env }) {
+  async asyncData({ app, env }) {
 
     // fetch all blog posts sorted by creation date
-    try {
-      const contentPosts = await client.getEntries({
-        'content_type': env.CTF_BLOG_POST_TYPE_ID,
-        order: '-sys.fields.publishedAt'
-      });
-    } catch (error) {
-      console.warn(error);
-    }
-
-    const resolve = require.context("~/posts/", true, /\.md$/);
-    const imports = resolve.keys()
-    .map((key) => {
-      const [, name] = key.match(/\/(.+)\.md$/);
-      return resolve(key);
-    }).sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt) )
-    .filter( p => !p.attributes.status || p.attributes.status === 'Draft');
-    const posts = [
-      ...imports,
-      /*
-      {
-        id: 1,
-        slug: 'our-migration-from-deathwatch-to-wrath-and-glory',
-        shortTitle: 'From Deathwatch to Wrath & Glory',
-        abstract:
-          'Once you go Wrath & Glory, there is no turning back... '
-          + 'We migrated out FFG Deathwatch campaign to Wrath and Glory. '
-          + 'Here are the reasons why and how we did it.',
-      },
-      {
-        id: 2,
-        slug: 'the-journey-of-the-golden-goose-session-zero',
-        shortTitle: 'The Golden Goose #0',
-        abstract:
-          'Let\'s take a look at our first session from our log running tier 3 campaign',
-      },
-      */
-    ];
+    const entries = await app.myContentful.getEntries({
+      'content_type': env.CTF_BLOG_POST_TYPE_ID,
+    });
+    const posts = entries.items.sort((a, b) => new Date(b.fields.publishedAt) - new Date(a.fields.publishedAt) );
 
     return {
-      posts,
       fixedTime: new Date(),
-      contentPosts,
+      posts,
     };
   },
   head() {
-    const { title } = this.page;
-    const { description } = this.page;
+    const { title, description } = this.page;
     // const image = `https://www.doctors-of-doom.com${this.post.image}`;
 
     return {

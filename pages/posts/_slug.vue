@@ -35,14 +35,14 @@
             :cols="12"
           >
             <header class="page-header page-header--doom-green">
-              <h1>{{ post.attributes.title }}</h1>
+              <h1>{{ post.fields.title }}</h1>
             </header>
 
             <article class="post-html-container">
 
-              <p>{{ post.attributes.description }}</p>
+              <p>{{ post.fields.description }}</p>
 
-              <div v-html="post.html" class="markdown-html"></div>
+              <div v-html="toHtml(post.fields.content)" class="markdown-html"></div>
 
             </article>
 
@@ -57,10 +57,8 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 import ArticleSchemaMixin from '~/mixins/ArticleSchemaMixin';
-import { createClient } from '~/plugins/contentful.js';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
-const client = createClient();
 const fixedTime = new Date();
 
 export default {
@@ -78,22 +76,20 @@ export default {
    * @param params
    * @returns {Promise<*>}
    */
-  async asyncData({ params, env }) {
+  async asyncData({ params, env, app }) {
     const slug = params.slug;
 
-    // fetch all blog posts sorted by creation date
-    const contentPosts = await client.getEntries({
-      'content_type': env.CTF_BLOG_POST_TYPE_ID,
-      'fields.slug[in]': '2-the-journey-of-the-golden-goose-session-zero',
-    });
-
-
     try {
-      let post = await import(`~/posts/${slug}.md`);
+      // fetch all blog posts sorted by creation date
+      const entries = await app.myContentful.getEntries({
+        'content_type': env.CTF_BLOG_POST_TYPE_ID,
+        'fields.slug[in]': slug,
+      });
+      const post = entries.items[0];
+
       return {
         post,
         slug,
-        contentPosts,
       };
     } catch(err) {
       console.warn(err);
@@ -111,9 +107,9 @@ export default {
     };
   },
   head() {
-    const { title, description } = this.post.attributes;
-    const image = this.post.attributes.image
-      ? `https://www.doctors-of-doom.com${this.post.attributes.image}`
+    const { title, description } = this.post.fields;
+    const image = this.post.fields.imageTwitter
+      ? `https://www.doctors-of-doom.com${this.post.fields.imageTwitter.fields.file.url}`
       : `https://www.doctors-of-doom.com/img/artwork_posts.jpg`;
 
     return {
@@ -146,7 +142,7 @@ export default {
           text: 'Posts', disabled: false, nuxt: true, exact: true, to: '/posts',
         },
         {
-          text: this.post.attributes.shortTitle, disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.attributes.id}-${this.post.attributes.slug}`,
+          text: this.post.fields.shortTitle, disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.fields.slug}`,
         },
       ];
     },
