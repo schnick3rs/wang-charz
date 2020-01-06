@@ -90,7 +90,6 @@ module.exports = {
   plugins: [
     { src: '~/plugins/vuex-persist', ssr: false },
     '~/plugins/filters.js',
-    //'~/plugins/contentful-inject.js',
   ],
   /*
   ** Nuxt.js dev-modules
