@@ -127,7 +127,7 @@ export default {
     /*const entries = await app.$myContentful().getEntries({
       'content_type': 'blogPost',
     });*/
-    const posts = data.items.sort((a, b) => new Date(b.fields.publishedAt) - new Date(a.fields.publishedAt) );
+    const posts = data;
 
     return {
       fixedTime: new Date(),

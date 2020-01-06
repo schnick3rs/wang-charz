@@ -82,7 +82,7 @@ export default {
     try {
       // fetch all blog posts sorted by creation date
       const { data } = await app.$axios.get(`/api/posts/${slug}`);
-      const post = data.items[0];
+      const post = data[0];
 
       return {
         post,

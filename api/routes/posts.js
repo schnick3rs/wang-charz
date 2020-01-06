@@ -19,11 +19,12 @@ router.get('/', (request, response) => {
   const query = {
     'content_type': 'blogPost',
     'sys.revision[gt]': 1,
+    'order': '-fields.publishedAt',
   };
   client.getEntries(query)
   .then( (data) => {
     response.set('Cache-Control', 'public, max-age=1800'); // 1/2 hour
-    response.status(200).json(data);
+    response.status(200).json(data.items);
   })
   .catch( (error) => {
     console.warn(error);
@@ -42,7 +43,7 @@ router.get('/:slug', (request, response) => {
   client.getEntries(query)
   .then( (data) => {
     response.set('Cache-Control', 'public, max-age=1800'); // 1/2 hour
-    response.status(200).json(data);
+    response.status(200).json(data.items);
   })
   .catch( (error) => {
     console.warn(error);
