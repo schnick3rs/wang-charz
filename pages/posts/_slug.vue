@@ -81,11 +81,8 @@ export default {
 
     try {
       // fetch all blog posts sorted by creation date
-      const entries = await app.myContentful.getEntries({
-        'content_type': 'blogPost',
-        'fields.slug[in]': slug,
-      });
-      const post = entries.items[0];
+      const { data } = await app.$axios.get(`/api/posts/${slug}`);
+      const post = data.items[0];
 
       return {
         post,

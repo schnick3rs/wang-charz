@@ -8,6 +8,8 @@ const archetypes = require('./archetypes');
 const ascensionPackages = require('./ascensionPackages');
 const threats = require('./threats');
 
+const posts = require('./posts');
+
 const users = require('./users');
 const characters = require('./characters');
 
@@ -21,6 +23,8 @@ module.exports = (app) => {
   app.use('/archetypes', archetypes);
   app.use('/ascension-packages', ascensionPackages);
   app.use('/threats', threats);
+
+  app.use('/posts', posts);
 
   app.use('/users', users);
   app.use('/characters', characters);

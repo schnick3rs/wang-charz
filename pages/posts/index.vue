@@ -122,11 +122,12 @@ export default {
   },
   async asyncData({ app }) {
 
+    const { data } = await app.$axios.get('/api/posts');
     // fetch all blog posts sorted by creation date
-    const entries = await app.myContentful.getEntries({
+    /*const entries = await app.$myContentful().getEntries({
       'content_type': 'blogPost',
-    });
-    const posts = entries.items.sort((a, b) => new Date(b.fields.publishedAt) - new Date(a.fields.publishedAt) );
+    });*/
+    const posts = data.items.sort((a, b) => new Date(b.fields.publishedAt) - new Date(a.fields.publishedAt) );
 
     return {
       fixedTime: new Date(),
