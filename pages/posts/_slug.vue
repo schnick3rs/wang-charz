@@ -35,14 +35,14 @@
             :cols="12"
           >
             <header class="page-header page-header--doom-green">
-              <h1>{{ post.attributes.title }}</h1>
+              <h1>{{ post.fields.title }}</h1>
             </header>
 
             <article class="post-html-container">
 
-              <p>{{ post.attributes.description }}</p>
+              <p>{{ post.fields.description }}</p>
 
-              <div v-html="post.html" class="markdown-html"></div>
+              <div v-html="toHtml(post.fields.content)" class="markdown-html"></div>
 
             </article>
 
@@ -57,6 +57,8 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 import ArticleSchemaMixin from '~/mixins/ArticleSchemaMixin';
+import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+
 const fixedTime = new Date();
 
 export default {
@@ -74,10 +76,14 @@ export default {
    * @param params
    * @returns {Promise<*>}
    */
-  async asyncData({ params }) {
+  async asyncData({ params, env, app }) {
     const slug = params.slug;
+
     try {
-      let post = await import(`~/posts/${slug}.md`);
+      // fetch all blog posts sorted by creation date
+      const { data } = await app.$axios.get(`/api/posts/${slug}`);
+      const post = data[0];
+
       return {
         post,
         slug,
@@ -98,9 +104,9 @@ export default {
     };
   },
   head() {
-    const { title, description } = this.post.attributes;
-    const image = this.post.attributes.image
-      ? `https://www.doctors-of-doom.com${this.post.attributes.image}`
+    const { title, description } = this.post.fields;
+    const image = this.post.fields.imageTwitter
+      ? `https://www.doctors-of-doom.com${this.post.fields.imageTwitter.fields.file.url}`
       : `https://www.doctors-of-doom.com/img/artwork_posts.jpg`;
 
     return {
@@ -133,12 +139,15 @@ export default {
           text: 'Posts', disabled: false, nuxt: true, exact: true, to: '/posts',
         },
         {
-          text: this.post.attributes.shortTitle, disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.attributes.id}-${this.post.attributes.slug}`,
+          text: this.post.fields.shortTitle, disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.fields.slug}`,
         },
       ];
     },
   },
   methods: {
+    toHtml(rich) {
+      return documentToHtmlString(rich);
+    },
     setHintBoxItem($event, talentId) {
       this.tooltip.loading = true;
       this.$axios.get(`/api/talents/${talentId}`)
@@ -164,6 +173,10 @@ export default {
 
     & ul,ol {
       margin-bottom: 16px !important;
+    }
+
+    & code {
+      color: hsl(122, 39%, 49%)
     }
 
     & blockquote {

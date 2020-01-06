@@ -18,8 +18,6 @@ _A view (not an edit) of the current character. Should be responsive._
 #### Manager
 
 * `[_]` Persist Character (needs refinement, cloud, local)
-* `[x]` My Characteres overview
-* `[x]` Delete character option
 
 #### Generator
 

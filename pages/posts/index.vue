@@ -19,7 +19,6 @@
     </div>
 
     <dod-default-breadcrumbs :items="breadcrumbItems" />
-
     <v-row
       justify="center"
       no-gutters
@@ -41,21 +40,21 @@
 
           <v-col
             v-for="post in posts"
-            :key="post.id"
+            :key="post.fields.id"
             :cols="12"
             :sm="6"
             :md="4"
           >
             <v-card
-              :to="`/posts/${post.attributes.id}-${post.attributes.slug}`"
+              :to="`/posts/${post.fields.slug}`"
               nuxt
               exact
               hover
               height="400px"
             >
               <v-img
-                v-if="post.attributes.image"
-                :src="post.attributes.image"
+                v-if="post.fields.imageTwitter"
+                :src="post.fields.imageTwitter.fields.file.url"
                 min-height="180px"
                 max-height="180px"
                 class="align-end justify-end"
@@ -64,17 +63,18 @@
                    <span
                      class="image-caption__time-since white--text"
                    >
-                    {{ post.attributes.publishedAt | timeSince }} by
+                     {{ post.fields.publishedAt | timeSince }} by
                   </span>
                   <span class="image-caption__by-author success--text ml-1">
-                    {{ post.attributes.author }}
+                    {{ post.fields.author }}
                   </span>
                 </div>
               </v-img>
-              <v-card-title>{{ post.attributes.shortTitle }}</v-card-title>
-              <v-card-text>{{ post.attributes.description }}</v-card-text>
+              <v-card-title>{{ post.fields.shortTitle }}</v-card-title>
+              <v-card-text>{{ post.fields.description }}</v-card-text>
             </v-card>
           </v-col>
+
         </v-row>
       </v-col>
     </v-row>
@@ -97,8 +97,8 @@ export default {
   data() {
     return {
       page: {
-        title: 'Posts',
-        description: 'some text',
+        title: 'Roleplaying Articles',
+        description: 'Session Reports and other related articles from the Wrath & Glory Universe.',
       },
       showTooltip: false,
       tooltip: {
@@ -120,44 +120,22 @@ export default {
       ];
     },
   },
-  async asyncData() {
-    const resolve = require.context("~/posts/", true, /\.md$/);
-    const imports = resolve.keys()
-    .map((key) => {
-      const [, name] = key.match(/\/(.+)\.md$/);
-      return resolve(key);
-    }).sort((a, b) => new Date(b.attributes.publishedAt) - new Date(a.attributes.publishedAt) )
-    .filter( p => !p.attributes.status || p.attributes.status === 'Draft');
-    const posts = [
-      ...imports,
-      /*
-      {
-        id: 1,
-        slug: 'our-migration-from-deathwatch-to-wrath-and-glory',
-        shortTitle: 'From Deathwatch to Wrath & Glory',
-        abstract:
-          'Once you go Wrath & Glory, there is no turning back... '
-          + 'We migrated out FFG Deathwatch campaign to Wrath and Glory. '
-          + 'Here are the reasons why and how we did it.',
-      },
-      {
-        id: 2,
-        slug: 'the-journey-of-the-golden-goose-session-zero',
-        shortTitle: 'The Golden Goose #0',
-        abstract:
-          'Let\'s take a look at our first session from our log running tier 3 campaign',
-      },
-      */
-    ];
+  async asyncData({ app }) {
+
+    const { data } = await app.$axios.get('/api/posts');
+    // fetch all blog posts sorted by creation date
+    /*const entries = await app.$myContentful().getEntries({
+      'content_type': 'blogPost',
+    });*/
+    const posts = data;
 
     return {
-      posts,
       fixedTime: new Date(),
+      posts,
     };
   },
   head() {
-    const { title } = this.page;
-    const { description } = this.page;
+    const { title, description } = this.page;
     // const image = `https://www.doctors-of-doom.com${this.post.image}`;
 
     return {

@@ -4,7 +4,7 @@ export default function ({ app }) {
     console.error(` errorName ${name}`, error);
 
     if (name === 'TokenExpiredError') {
-      console.info('logging outa');
+      console.info('token expired, logging out');
     }
   });
 }

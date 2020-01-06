@@ -4,14 +4,14 @@ export default {
       return {
         '@context': 'https://schema.org',
         '@type': 'Article',
-        datePublished: post.attributes.publishedAt,
-        dateModified: post.attributes.modifiedAt,
-        headline: post.attributes.title,
-        description: post.attributes.description,
+        datePublished: post.fields.publishedAt,
+        dateModified: post.fields.modifiedAt,
+        headline: post.fields.title,
+        description: post.fields.description,
         image,
         author: {
           '@type': 'Person',
-          name: post.attributes.author,
+          name: post.fields.author,
         },
         "publisher": {
           "@type": "Organization",

@@ -89,7 +89,7 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vuex-persist', ssr: false },
-    '~plugins/filters.js',
+    '~/plugins/filters.js',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -179,11 +179,7 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    // baseURL: process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000',
-    // baseURL: 'https://www.doctors-of-doom.com',
-    // baseURL: 'http://localhost:3000',
     browserBaseURL: '/',
-    // debug: process.env.NODE_ENV !== 'production',
   },
   proxy: {
     // '/api/': 'https://www.doctors-of-doom.com', // only for development
@@ -236,6 +232,10 @@ module.exports = {
     ** You can extend webpack config here
     */
     extend(config, ctx) {
+
+      config.node = {
+        fs: 'empty'
+      },
 
       // add frontmatter-markdown-loader
       config.module.rules.push(
