@@ -145,7 +145,14 @@ module.exports = {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
 
       const homebrewResponse = await axios.get(`${base}/api/homebrews/`);
-      const homebrewRoutes = homebrewResponse.data.map((vaultItem) => `/vault/${vaultItem.slug}`);
+      const homebrewRoutes = homebrewResponse.data.map( (vaultItem) => {
+        return {
+          url: `/vault/${vaultItem.slug}`,
+          changefreq: 'weekly',
+          priority: 1,
+          lastmod: vaultItem.last_modified_at,
+        };
+      });
 
       const threatResponse = await axios.get(`${base}/api/threats/`);
       const threatRoutes = threatResponse.data
@@ -155,11 +162,17 @@ module.exports = {
           return `/bestiary/${slug}`;
         });
 
-      const postRoutes = [
-        '/posts/1-our-migration-from-deathwatch-to-wrath-and-glory',
-        '/posts/2-the-journey-of-the-golden-goose-session-zero',
-        '/posts/3-the-journey-of-the-golden-goose-session-one',
-      ];
+      const postResponse = await axios.get(`${base}/api/posts/`);
+
+      const postRoutes = postResponse.data
+        .map( (postItem) => {
+          return {
+            url: `/posts/${postItem.fields.slug}`,
+            changefreq: 'weekly',
+            priority: 1,
+            lastmod: postItem.sys.updatedAt,
+          };
+        });
 
       return [
         ...homebrewRoutes,
@@ -168,7 +181,7 @@ module.exports = {
       ];
     },
     defaults: {
-      changefreq: 'daily',
+      changefreq: 'weekly',
       priority: 1,
       lastmod: new Date(),
       lastmodrealtime: true,
