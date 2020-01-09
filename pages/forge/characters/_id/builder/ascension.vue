@@ -415,9 +415,9 @@ export default {
         targetGroup: 'traits',
         targetValue: 'influence',
         modifier: influenceModifier,
-        source: `ascension.${ascensionPackage.key}.influence`,
       };
-      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: [modificationPayload] } });
+      const content = { modifications: [modificationPayload], source: `ascension.${ascensionPackage.key}.influence`, };
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: content });
 
       if (ascensionPackage.storyElementOptions && ascensionPackage.storyElementOptions.length > 0) {
         const { storyElementOptions } = ascensionPackage;
@@ -466,11 +466,11 @@ export default {
      */
     updateAscensionPackageStoryElement(choiceValue, ascensionObject) {
       const storyElementOption = ascensionObject.storyElementOptions.find((o) => o.key === choiceValue);
-      const modification = {
-        ...storyElementOption.modifications[0],
+      const content = {
+        modifications: [storyElementOption.modifications[0]],
         source: `ascension.${ascensionObject.key}.storyElement`,
       };
-      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: [modification] } });
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: content });
       const storyPayload = {
         id: this.characterId,
         ascensionPackageKey: ascensionObject.key,

@@ -577,6 +577,9 @@ export default {
         enhancedValue: skills[s.key],
       }));
     },
+    enhancements() {
+      return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
+    },
 
     abilities() {
       const abilities = [];
@@ -645,8 +648,22 @@ export default {
       }
 
       // other
+      if (this.customAbilities) {
+        this.customAbilities.forEach((item) => {
+          const ability = {
+            name: item.name,
+            effect: item.effect,
+            source: 'Ascension?',
+          };
+          abilities.push(ability);
+        });
+      }
 
       return abilities;
+    },
+    customAbilities() {
+      const characterEnhancements = this.$store.getters['characters/characterEnhancementsById'](this.characterId);
+      return characterEnhancements ? characterEnhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
     },
     talents() {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);

@@ -189,6 +189,9 @@ export const getters = {
     return enhanced;
   },
 
+  //
+  characterEnhancementsById: (state) => (id) => (state.characters[id] ? state.characters[id].enhancements : []),
+
   // Talents
   characterTalentsById: (state) => (id) => (state.characters[id] ? state.characters[id].talents : []),
 

@@ -46,6 +46,7 @@ export default {
               text: 'Memorable Injury',
               modifications: [
                 {
+                  name: 'Memorable Injury',
                   targetGroup: 'abilities',
                   targetValue: '',
                   effect: '+1 dice to Intimidation Tests.',
