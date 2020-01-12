@@ -107,7 +107,7 @@ export default {
   head() {
     const { title, description } = this.post.fields;
     const image = this.post.fields.imageTwitter
-      ? this.post.fields.imageTwitter.fields.file.url
+      ? `https:${this.post.fields.imageTwitter.fields.file.url}`
       : `https://www.doctors-of-doom.com/img/artwork_posts.jpg`;
 
     return {
