@@ -255,6 +255,9 @@ export default {
     }
     & p {
     }
+    & li > p {
+      margin-bottom: 0;
+    }
     & img {
       width: 100%;
     }
