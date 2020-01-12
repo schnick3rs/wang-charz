@@ -57,12 +57,13 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 import ArticleSchemaMixin from '~/mixins/ArticleSchemaMixin';
+import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 
 const fixedTime = new Date();
 
 export default {
-  name: 'TheJourneyOfTheGoldenGooseSessionZero',
+  name: 'BlogPostDetail',
   components: {
     DodDefaultBreadcrumbs,
   },
@@ -146,7 +147,12 @@ export default {
   },
   methods: {
     toHtml(rich) {
-      return documentToHtmlString(rich);
+      const options = {
+        renderNode: {
+          [BLOCKS.EMBEDDED_ASSET]: (node) => `<img src="https:${node.data.target.fields.file.url}"/>`,
+        }
+      };
+      return documentToHtmlString(rich, options);
     },
     setHintBoxItem($event, talentId) {
       this.tooltip.loading = true;
@@ -248,6 +254,9 @@ export default {
       //column-span: all;
     }
     & p {
+    }
+    & img {
+      width: 100%;
     }
   }
 
