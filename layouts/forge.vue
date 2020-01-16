@@ -150,6 +150,7 @@
             small
             nuxt
             icon
+            exact
             :to="`/forge/characters/${$route.params.id}`"
             :disabled="!settingSelected"
           >
@@ -159,6 +160,7 @@
             small
             nuxt
             icon
+            exact
             :to="`/forge/characters/${$route.params.id}/builder/print`"
             :disabled="!settingSelected"
             target="_blank"

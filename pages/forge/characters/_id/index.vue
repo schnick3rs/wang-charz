@@ -36,13 +36,13 @@
       </v-col>
 
       <!-- avatar, name, rank, tier, archetype, species -->
-      <v-col :cols="8" :sm="4" :md="4">
+      <v-col :cols="8" :sm="4" :md="6">
         <v-row no-gutters>
           <v-col :cols="12">{{ characterName }}</v-col>
           <v-col :cols="12" class="caption">{{ [ characterSpeciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
           <v-col :cols="12" class="caption">
-            <span>{{ [ `Rank ${characterRank}`, `Tier ${characterSettingTier}`].join(' • ') }}</span>
-            <v-progress-linear value="46"></v-progress-linear>
+            <span>{{ [ `Tier ${characterSettingTier}`, `Rank ${characterRank}`, `${campaignCustomXp} XP`].join(' • ') }}</span>
+            <v-progress-linear :value="campaignCustomXp"></v-progress-linear>
           </v-col>
           <v-col :cols="12" class="caption" align="center">{{ keywords.join(' • ') }}</v-col>
         </v-row>
@@ -50,7 +50,7 @@
       </v-col>
 
       <!-- actions -->
-      <v-col :cols="12" :sm="6" :md="7" align="right">
+      <v-col :cols="12" :sm="6" :md="5" align="right">
         <v-btn small outlined color="success" v-if="false">share</v-btn>
         <v-btn small outlined color="success" v-if="false">campaign</v-btn>
         <v-btn
@@ -620,6 +620,9 @@ export default {
     },
     characterRank() {
       return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
+    },
+    campaignCustomXp() {
+      return this.$store.getters['characters/characterCampaignCustomXpById'](this.characterId);
     },
 
     characterSpeciesLabel() {
