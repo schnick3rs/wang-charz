@@ -150,11 +150,20 @@
             small
             nuxt
             icon
+            :to="`/forge/characters/${$route.params.id}`"
+            :disabled="!settingSelected"
+          >
+            <v-icon>description</v-icon>
+          </v-btn>
+          <v-btn
+            small
+            nuxt
+            icon
             :to="`/forge/characters/${$route.params.id}/builder/print`"
             :disabled="!settingSelected"
             target="_blank"
           >
-            <v-icon>description</v-icon>
+            <v-icon>print</v-icon>
           </v-btn>
         </v-toolbar-items>
       </v-toolbar>

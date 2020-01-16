@@ -2,21 +2,46 @@
 
   <div>
 
+    <v-row justify="center">
+      <v-col :cols="12" class="elevation-4 mb-2 pa-0 ma-0">
+        <v-breadcrumbs
+          :items="breadcrumbItems"
+          class="pa-2"
+        >
+          <template v-slot:item="{ item }">
+            <v-breadcrumbs-item
+              :nuxt="true"
+              :to="item.to"
+              :disabled="item.disabled"
+              :exact="item.exact"
+            >
+              <img v-if="item.to == '/'" src="/favicon-16x16.png">
+              {{ item.text }}
+            </v-breadcrumbs-item>
+          </template>
+
+          <template v-slot:divider>
+            <v-icon>mdi-chevron-right</v-icon>
+          </template>
+        </v-breadcrumbs>
+      </v-col>
+    </v-row>
+
     <v-row justify="center" align="center">
 
-      <v-col :cols="2" :md="1">
+      <v-col :cols="4" :sm="2" :md="1">
         <v-avatar tile size="64">
-          <img src="/img/icon/archetype/archetype_ministorum-priest_avatar.png" >
+          <img :src="avatar" >
         </v-avatar>
       </v-col>
 
       <!-- avatar, name, rank, tier, archetype, species -->
-      <v-col :cols="4" :md="4">
+      <v-col :cols="8" :sm="4" :md="4">
         <v-row no-gutters>
           <v-col :cols="12">{{ characterName }}</v-col>
           <v-col :cols="12" class="caption">{{ [ characterSpeciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
           <v-col :cols="12" class="caption">
-            <span>Rank {{ characterRank }}</span>
+            <span>{{ [ `Rank ${characterRank}`, `Tier ${characterSettingTier}`].join(' • ') }}</span>
             <v-progress-linear value="46"></v-progress-linear>
           </v-col>
           <v-col :cols="12" class="caption" align="center">{{ keywords.join(' • ') }}</v-col>
@@ -25,10 +50,29 @@
       </v-col>
 
       <!-- actions -->
-      <v-col :cols="6" :md="7" align="right">
-        <v-btn small outlined color="success">share</v-btn>
-        <v-btn small outlined color="success">campaign</v-btn>
-        <v-btn small outlined color="success">edit</v-btn>
+      <v-col :cols="12" :sm="6" :md="7" align="right">
+        <v-btn small outlined color="success" v-if="false">share</v-btn>
+        <v-btn small outlined color="success" v-if="false">campaign</v-btn>
+        <v-btn
+          nuxt
+          :to="`/forge/characters/${characterId}/builder/print`"
+          color="success"
+          target="_blank"
+          outlined
+          small
+        >
+          <v-icon left small>print</v-icon>
+          Print View
+        </v-btn>
+        <v-btn
+          nuxt
+          :to="`/forge/characters/${characterId}/builder/setting`"
+          color="success"
+          small
+        >
+          <v-icon left small>edit</v-icon>
+          Edit
+        </v-btn>
       </v-col>
 
     </v-row>
@@ -38,7 +82,7 @@
       <!-- attributes and traits -->
       <v-col :cols="12" :sm="6" :md="3">
 
-        <v-row  no-gutters>
+        <v-row no-gutters>
          <v-col :cols="12" class="pa-1">
           <v-card>
             <v-toolbar color="red" dark dense height="32">
@@ -73,7 +117,7 @@
         </v-col>
         </v-row>
 
-        <v-row  no-gutters>
+        <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
           <v-card>
             <v-toolbar color="red" dark dense height="32">
@@ -175,7 +219,7 @@
       <v-col :cols="12" :sm="6" :md="3">
         <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
-          <v-card>
+          <v-card style="height: 612px;">
             <v-toolbar color="red" dark dense height="32">
               <v-toolbar-title>Skills</v-toolbar-title>
             </v-toolbar>
@@ -213,7 +257,7 @@
       </v-col>
 
       <!-- actions, gear, feats, spells, ... -->
-      <v-col :cols="12" :sm="12" :md="6" class="pa-1" style="height: 500px; overflow-y: auto; ">
+      <v-col :cols="12" :sm="12" :md="6" class="pa-1 ">
         <v-card>
 
           <v-tabs centered grow>
@@ -260,6 +304,7 @@
 
             <!-- actions (all, weapons, powers, other) -->
             <v-tab-item
+              class="my-tab-item"
               key="actions"
               :value="`tab-actions`"
             >
@@ -298,42 +343,57 @@
                     </tr>
                   </template>
                 </v-data-table>
+                <div class="mt-4">
+                  <p
+                    v-for="trait in weaponsTraitSet"
+                    v-if="traitByName(trait)"
+                    :key="trait"
+                    class="body-2 mb-2 caption"
+                  >
+                    <strong>{{ traitByName(trait).name }}: </strong>
+                    <span v-if="traitByName(trait).crunch">{{ traitByName(trait).crunch }}</span>
+                    <span v-else>{{ traitByName(trait).description }}</span>
+                  </p>
+                </div>
               </div>
             </v-tab-item>
 
             <!-- wargear (All, Weapons, Armour, Gear, Other Possessions) -->
             <v-tab-item
+              class="my-tab-item"
               key="wargear"
               :value="`tab-wargear`"
             >
               <div class="pa-2">
-                <div v-for="gearItem in wargear" :key="gearItem.name" class="pb-2 caption">
-                  <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
+                <div v-for="gearItem in wargear" :key="gearItem.name" class="caption">
+                  <strong>{{ gearItem.name }}</strong>
+                  <p>{{ gearItem.description }}</p>
                 </div>
+
               </div>
             </v-tab-item>
 
             <!-- abilities (All, Race, Archetype, Talents, Other) -->
             <v-tab-item
+              class="my-tab-item"
               key="abilities-talents"
               :value="`tab-abilities-talents`"
             >
               <div class="pa-2">
-                <div v-for="ability in abilities" :key="ability.name" class="pb-2 caption">
+                <div v-for="ability in abilities" :key="ability.name" class="caption">
                   <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                  <br>
-                  <span v-html="computeFormatedText(ability.effect)" />
+                  <p v-html="computeFormatedText(ability.effect)" />
                 </div>
-                <div v-for="talent in talents" :key="talent.name" class="pb-2 caption">
-                  <strong>{{ talent.name }}</strong>
-                  <br/>
-                  <span v-html="computeFormatedText(talent.description)" />
+                <div v-for="talent in talents" :key="talent.name" class="caption">
+                  <strong>{{ talent.name }}</strong><em> • Talent</em>
+                  <p v-html="computeFormatedText(talent.description)" />
                 </div>
               </div>
             </v-tab-item>
 
             <!-- powers -->
             <v-tab-item
+              class="my-tab-item"
               key="psychic-powers"
               :value="`tab-psychic-powers`"
             >
@@ -374,6 +434,7 @@
 
             <!-- objectives -->
             <v-tab-item
+              class="my-tab-item"
               key="objectives"
               :value="`tab-objectives`"
             >
@@ -457,6 +518,8 @@
 <script lang="js">
 import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import SluggerMixin from '~/mixins/SluggerMixin';
+import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
 
 export default {
   name: 'in-app-view',
@@ -464,6 +527,8 @@ export default {
   mixins: [
     BackgroundRepositoryMixin,
     StatRepositoryMixin,
+    SluggerMixin,
+    WargearTraitRepositoryMixin,
   ],
   props: [],
   data() {
@@ -571,7 +636,17 @@ export default {
     keywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
+    avatar() {
+      if (this.archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(this.characterSpeciesLabel)) {
+        return `/img/icon/archetype/archetype_${this.textToKebab(this.archetypeLabel)}_avatar.png`;
+      }
 
+      if (this.characterSpeciesLabel !== undefined) {
+        return `/img/icon/species/species_${this.textToKebab(this.characterSpeciesLabel)}_avatar.png`;
+      }
+
+      return '/img/icon/species/species_human_avatar.png';
+    },
     archetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
@@ -754,6 +829,19 @@ export default {
       }
       return [];
     },
+    weaponsTraitSet() {
+      let weaponsTraitSet = [];
+      const { weapons } = this;
+
+      weapons.forEach((weapon) => {
+        // item.meta[0].traits
+        if (weapon.meta[0] && weapon.meta[0].traits && weapon.meta[0].traits.length > 0) {
+          weaponsTraitSet = [...weaponsTraitSet, ...weapon.meta[0].traits];
+        }
+      });
+      weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+      return [...new Set(weaponsTraitSet)].sort();
+    },
   },
   async asyncData({ params, $axios }) {
     const sourceFilter = '?source=core,coreab';
@@ -774,6 +862,17 @@ export default {
       archetypeRepository: archetypeResponse.data,
       talentRepository: talentResponse.data,
       wargearRepository: wargearResponse.data,
+      breadcrumbItems: [
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters',
+        },
+        {
+          text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}`,
+        },
+      ],
     };
   },
   head() {
@@ -784,6 +883,11 @@ export default {
     };
   },
   methods: {
+    traitByName(name) {
+      // const prefix = name.split(/ ?\(/)[0];
+      // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
+      return this.wargearTraitRepository.find((item) => item.name === name);
+    },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
       return attribute.enhancedValue + skill.enhancedValue;
@@ -818,6 +922,16 @@ export default {
 
   td.small {
     font-size: 12px;
+  }
+
+  .my-tabs-container {
+    height: 620px;
+    overflow: hidden;
+  }
+
+  .my-tab-item {
+    height: 564px;
+    overflow-y: auto;
   }
 
   .sexy_line{
