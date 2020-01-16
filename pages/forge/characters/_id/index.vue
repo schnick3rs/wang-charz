@@ -46,7 +46,6 @@
           </v-col>
           <v-col :cols="12" class="caption" align="center">{{ keywords.join(' • ') }}</v-col>
         </v-row>
-
       </v-col>
 
       <!-- actions -->
