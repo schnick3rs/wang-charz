@@ -535,9 +535,9 @@
                       class="caption"
                     >
                       <strong>{{ keyword }}</strong>
-                      <em> • {{ keywordCombinedRepository.find(i=>i.name===keyword).type }}</em>
+                      <em> • {{ keywordCombinedRepository.find(i=>i.name===keyword) && keywordCombinedRepository.find(i=>i.name===keyword).type }}</em>
                       <p>
-                        {{ keywordCombinedRepository.find(i=>i.name===keyword).description }}
+                        {{ keywordCombinedRepository.find(i=>i.name===keyword) && keywordCombinedRepository.find(i=>i.name===keyword).description }}
                       </p>
                     </div>
                   </div>
