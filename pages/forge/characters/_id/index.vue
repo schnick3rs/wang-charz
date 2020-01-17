@@ -381,7 +381,7 @@
               :value="`tab-abilities-talents`"
             >
               <div class="pa-2">
-                <v-chip-group mandatory active-class="red--text">
+                <v-chip-group mandatory active-class="red--text"  v-if="false">
                   <v-chip label small v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Other`]" :key="item">{{item}}</v-chip>
                 </v-chip-group>
                 <div v-for="ability in abilities" :key="ability.name" class="caption">
