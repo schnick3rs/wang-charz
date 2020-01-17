@@ -134,6 +134,7 @@ export const getters = {
   characterTraitsById: (state, getters) => (id) => {
     const character = state.characters[id];
     const enhancedAttributes = getters.characterAttributesEnhancedById(id);
+    const skills = getters.characterSkillsById(id);
     const keywords = getters.characterKeywordsFinalById(id);
     if (character === undefined) {
       return {};
@@ -147,7 +148,7 @@ export const getters = {
     traits.shock = enhancedAttributes.willpower + character.settingTier;
     traits.resolve = enhancedAttributes.willpower - 1;
     traits.conviction = enhancedAttributes.willpower;
-    traits.passiveAwareness = Math.round((enhancedAttributes.intellect + character.skills.awareness) / 2);
+    traits.passiveAwareness = Math.round((enhancedAttributes.intellect + skills.awareness) / 2);
 
     traits.influence = enhancedAttributes.fellowship - 1;
     if (character.species.value && character.species.value === 'Ork') {
