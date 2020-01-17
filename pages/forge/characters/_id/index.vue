@@ -301,7 +301,7 @@
             <v-tab class="caption" key="wargear" :href="`#tab-wargear`">Wargear</v-tab>
             <v-tab class="caption" key="abilities-talents" :href="`#tab-abilities-talents`">Abilities</v-tab>
             <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`">Powers</v-tab>
-            <v-tab class="caption" key="objectives" :href="`#tab-objectives`">Objectives</v-tab>
+            <v-tab class="caption" key="objectives" :href="`#tab-objectives`">Description</v-tab>
 
             <!-- actions (all, weapons, powers, other) -->
             <v-tab-item
@@ -381,18 +381,70 @@
               :value="`tab-abilities-talents`"
             >
               <div class="pa-2">
-                <v-chip-group mandatory active-class="red--text"  v-if="false">
-                  <v-chip label small v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Other`]" :key="item">{{item}}</v-chip>
+
+                <v-chip-group mandatory active-class="red--text" v-model="abilitySection.selection">
+                  <v-chip
+                    label
+                    small
+                    v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Other`]"
+                    :key="item.toLowerCase()"
+                    :value="item.toLowerCase()"
+                  >
+                    {{item}}
+                  </v-chip>
                 </v-chip-group>
-                <div v-for="ability in abilities" :key="ability.name" class="caption">
-                  <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                  <p v-html="computeFormatedText(ability.effect)" />
+
+                <div style="height: 505px; overflow-y: auto;">
+
+                  <!-- species < abilities -->
+                  <div v-show="['all', 'species'].some(i=>i===abilitySection.selection)">
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Species</span>
+                    </div>
+                    <div v-for="ability in speciesAbilities" :key="ability.name" class="caption">
+                      <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
+                      <p v-html="computeFormatedText(ability.effect)" />
+                    </div>
+                  </div>
+
+                  <!-- archetype < abilities -->
+                  <div v-show="['all', 'archetype'].some(i=>i===abilitySection.selection)">
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Archetype</span>
+                    </div>
+                    <div v-for="ability in archetypeAbilities" :key="ability.name" class="caption">
+                      <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
+                      <p v-html="computeFormatedText(ability.effect)" />
+                    </div>
+                  </div>
+
+                  <!-- talents < abilities -->
+                  <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)">
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Talents</span>
+                    </div>
+                    <div v-for="talent in talents" :key="talent.name" class="caption">
+                      <strong>{{ talent.name }}</strong><em> • Talent</em>
+                      <p v-html="computeFormatedText(talent.description)" />
+                    </div>
+                  </div>
+
+
+                  <!-- other < abilities -->
+                  <div v-show="['all', 'other'].some(i=>i===abilitySection.selection)">
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Other</span>
+                    </div>
+                    <div v-for="ability in otherAbilities" :key="ability.name" class="caption">
+                      <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
+                      <p v-html="computeFormatedText(ability.effect)" />
+                    </div>
+                  </div>
+
                 </div>
-                <div v-for="talent in talents" :key="talent.name" class="caption">
-                  <strong>{{ talent.name }}</strong><em> • Talent</em>
-                  <p v-html="computeFormatedText(talent.description)" />
-                </div>
+
               </div>
+
             </v-tab-item>
 
             <!-- powers -->
@@ -443,16 +495,58 @@
               :value="`tab-objectives`"
             >
               <div class="pa-2">
-                <div
-                  v-for="(objective, index) in objectives"
-                  :key="objective.name"
-                  class="pl-2 pr-2 pt-1 pb-1 caption"
-                >
-                  <strong>{{ index+1 }}:</strong> {{ objective.text }}
+
+                <v-chip-group mandatory active-class="red--text" v-model="descriptionSection.selection">
+                  <v-chip
+                    label
+                    small
+                    v-for="item in [`All`,`Objectives`,`Keywords`]"
+                    :key="item.toLowerCase()"
+                    :value="item.toLowerCase()"
+                  >
+                    {{item}}
+                  </v-chip>
+                </v-chip-group>
+
+                <div style="height: 505px; overflow-y: auto;">
+
+                  <!-- objectives < description -->
+                  <div v-show="['all', 'objectives'].some(i=>i===descriptionSection.selection)">
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Objectives</span>
+                    </div>
+                    <div
+                      v-for="(objective, index) in objectives"
+                      :key="objective.name"
+                      class="pl-2 pr-2 pt-1 pb-1 caption"
+                    >
+                      <strong>{{ index+1 }}:</strong> {{ objective.text }}
+                    </div>
+                  </div>
+
+                  <!-- keywords < description -->
+                  <div v-show="['all', 'keywords'].some(i=>i===descriptionSection.selection)">
+                    <div class="mb-2" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Keywords</span>
+                    </div>
+                    <div
+                      v-for="keyword in keywords"
+                      :key="keyword"
+                      class="caption"
+                    >
+                      <strong>{{ keyword }}</strong>
+                      <em> • {{ keywordCombinedRepository.find(i=>i.name===keyword).type }}</em>
+                      <p>
+                        {{ keywordCombinedRepository.find(i=>i.name===keyword).description }}
+                      </p>
+                    </div>
+                  </div>
+
                 </div>
+
               </div>
 
-              <v-row no-gutters>
+              <v-row v-if="false" no-gutters>
                 <v-col :cols="6" class="pa-1">
                   <v-card height="100%" class="flexcard">
                     <v-card-text>
@@ -524,6 +618,7 @@ import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
 export default {
   name: 'in-app-view',
@@ -533,6 +628,7 @@ export default {
     StatRepositoryMixin,
     SluggerMixin,
     WargearTraitRepositoryMixin,
+    KeywordRepository,
   ],
   props: [],
   data() {
@@ -613,6 +709,8 @@ export default {
           text: 'Effect', sortable: false, align: 'left', class: 'small pa-1',
         },
       ],
+      descriptionSection: { selection: 'all' },
+      abilitySection: { filter: 'all' },
     };
   },
   computed: {
@@ -696,10 +794,8 @@ export default {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
     },
 
-    abilities() {
+    speciesAbilities(){
       const abilities = [];
-
-      // species
       if (this.characterSpeciesLabel !== undefined) {
         const species = this.speciesRepository.find((s) => s.name === this.characterSpeciesLabel);
         if (species !== undefined && species.abilities) {
@@ -728,8 +824,10 @@ export default {
           }
         }
       }
-
-      // archetype
+      return abilities;
+    },
+    archetypeAbilities() {
+      const abilities = [];
       if (this.archetypeLabel !== undefined) {
         const archetype = this.archetypeRepository.find((a) => a.name === this.archetypeLabel);
         if (archetype !== undefined) {
@@ -739,7 +837,12 @@ export default {
           });
         }
       }
+      return abilities;
+    },
+    otherAbilities() {
+      const abilities = [];
 
+      // keyword abilities
       if (this.keywords.find( k => k ==='Adeptus Mechanicus')) {
         abilities.push({
           name: 'Data is Currency',
@@ -753,12 +856,12 @@ export default {
       // background abilities
       if (this.characterBackground) {
         const background = this.backgroundRepository
-          .filter((b) => b.name === this.characterBackground)
-          .map((b) => ({
-            name: b.name,
-            effect: b.bonus,
-            source: 'Background',
-          }));
+        .filter((b) => b.name === this.characterBackground)
+        .map((b) => ({
+          name: b.name,
+          effect: b.bonus,
+          source: 'Background',
+        }));
         abilities.push(background[0]);
       }
 
@@ -773,6 +876,15 @@ export default {
           abilities.push(ability);
         });
       }
+
+      return abilities;
+    },
+    abilities() {
+      const abilities = [
+        ...this.speciesAbilities,
+        ...this.archetypeAbilities,
+        ...this.otherAbilities
+      ];
 
       return abilities;
     },

@@ -1,121 +1,120 @@
 export default {
   data() {
-    return {
-      keywordRepository: [
-        // General Keywords
-        {
-          name: 'Psyker', type: 'General', parentKeyword: undefined, description: 'Those who can wield psychic powers, channeling the warp through their mind.',
-        },
-        {
-          name: '<Any>', type: 'General', parentKeyword: undefined, description: 'This keyword represents a free choice by the player at character creation; the GM deter-mines which selections are appropriate for the character.',
-        },
+    const keywordRepository = [
+      // General Keywords
+      {
+        name: 'Psyker', type: 'General', parentKeyword: undefined, description: 'Those who can wield psychic powers, channeling the warp through their mind.',
+      },
+      {
+        name: '<Any>', type: 'General', parentKeyword: undefined, description: 'This keyword represents a free choice by the player at character creation; the GM deter-mines which selections are appropriate for the character.',
+      },
 
-        // Species Keywords
-        {
-          name: 'Aeldari', type: 'Species', parentKeyword: undefined, description: 'The Eldar race.',
-        },
-        {
-          name: 'Anhrathe', type: 'Species', parentKeyword: undefined, description: 'Eldar Corsairs, spacefaring pirates and raiders.',
-        },
-        {
-          name: '<Coterie>', type: 'Species', parentKeyword: 'Anhrathe', description: 'A specific Eldar Corsair band (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Asuryani', type: 'Species', parentKeyword: undefined, description: 'Eldar of the Craftworlds.',
-        },
-        {
-          name: '<Craftworld>', type: 'Species', parentKeyword: 'Asuryani', description: 'A specific Eldar Craftworld (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Ork', type: 'Species', parentKeyword: undefined, description: 'The Ork race.',
-        },
-        {
-          name: '<Clan>', type: 'Species', parentKeyword: 'Ork', description: 'A specific Ork clan (replaces this keyword when chosen).',
-        },
+      // Species Keywords
+      {
+        name: 'Aeldari', type: 'Species', parentKeyword: undefined, description: 'The Eldar race.',
+      },
+      {
+        name: 'Anhrathe', type: 'Species', parentKeyword: undefined, description: 'Eldar Corsairs, spacefaring pirates and raiders.',
+      },
+      {
+        name: '<Coterie>', type: 'Species', parentKeyword: 'Anhrathe', description: 'A specific Eldar Corsair band (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Asuryani', type: 'Species', parentKeyword: undefined, description: 'Eldar of the Craftworlds.',
+      },
+      {
+        name: '<Craftworld>', type: 'Species', parentKeyword: 'Asuryani', description: 'A specific Eldar Craftworld (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Ork', type: 'Species', parentKeyword: undefined, description: 'The Ork race.',
+      },
+      {
+        name: '<Clan>', type: 'Species', parentKeyword: 'Ork', description: 'A specific Ork clan (replaces this keyword when chosen).',
+      },
 
-        // Imperium Keywords
-        {
-          name: 'Adepta Sororitas', type: 'Imperium', parentKeyword: undefined, description: 'The Sisters of Battle, warriors of the Ecclesiarchy.',
-        },
-        {
-          name: '<Order>', type: 'Imperium', parentKeyword: 'Adepta Sororitas', description: 'A specific Adepta Sororitas Order (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Adeptus Astartes', type: 'Imperium', parentKeyword: undefined, description: 'The Space Marines, superhuman elite warriors of the Imperium.',
-        },
-        {
-          name: '<Chapter>', type: 'Imperium', parentKeyword: 'Adeptus Astartes', description: 'A specific Adeptus Astartes Chapter (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Adeptus Astra Telepathica', type: 'Imperium', parentKeyword: undefined, description: 'They administrate the role of psykers in the Imperium.',
-        },
-        {
-          name: 'Adeptus Mechanicus', type: 'Imperium', parentKeyword: undefined, description: 'The Tech-Priesthood of Mars, they are entrusted with the secrets of tech-nology; allied to the Imperium.',
-        },
-        {
-          name: '<Forge World>', type: 'Imperium', parentKeyword: 'Adeptus Mechanicus', description: 'A specific Adeptus Mechanicus Forge World (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Adeptus Ministorum', type: 'Imperium', parentKeyword: undefined, description: 'Those who preach the Imperial Creed.',
-        },
-        {
-          name: 'Astra Militarum', type: 'Imperium', parentKeyword: undefined, description: 'The Imperial Guard, soldiers of the Imperium’s main ground forces.',
-        },
-        {
-          name: '<Regiment>', type: 'Imperium', parentKeyword: 'Astra Militarum', description: 'A specific Astra Militarum Regiment (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Cult Mechanicus', type: 'Imperium', parentKeyword: undefined, description: 'The Priesthood of the Omnissiah, a subset of the Adeptus Mechanicus.',
-        },
-        {
-          name: 'Imperium', type: 'Imperium', parentKeyword: undefined, description: 'The Imperium of Man, a galaxy-spanning civilisation 10,000 years old.',
-        },
-        {
-          name: 'Inquisition', type: 'Imperium', parentKeyword: undefined, description: 'Investigators and questioners, they wield great authority to root out threats to the Imperium.',
-        },
-        {
-          name: '<Ordo>', type: 'Imperium', parentKeyword: 'Inquisition', description: 'A specific Ordo of the Inquisition (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Militarum Tempestus', type: 'Imperium', parentKeyword: undefined, description: 'Elite, specially-trained and equipped soldiers of the Astra Militarum.',
-        },
-        {
-          name: 'Officio Prefectus', type: 'Imperium', parentKeyword: undefined, description: 'Elite leaders and disciplinarians of the Imperium’s military.',
-        },
-        {
-          name: 'Primaris', type: 'Imperium', parentKeyword: undefined, description: 'A new, improved breed of Space Marine.',
-        },
-        {
-          name: 'Rogue Trader', type: 'Imperium', parentKeyword: undefined, description: 'Space-faring merchant princes and explorers, granted great authority to expand the Imperium’s borders.',
-        },
-        {
-          name: '<Dynasty>', type: 'Imperium', parentKeyword: 'Rogue Trader', description: 'A specific Rogue Trader Dynasty (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Scholastica Psycana', type: 'Imperium', parentKeyword: undefined, description: 'A subset of the Adeptus Astra Telepathica, they train psykers in the use of their powers.',
-        },
-        {
-          name: 'Scum', type: 'Imperium', parentKeyword: undefined, description: 'Those who live upon the fringes of Imperial society, often in the underhive or criminal syndicates.',
-        },
-        {
-          name: 'Skitarii', type: 'Imperium', parentKeyword: undefined, description: 'The warriors of the Omnissiah, devout troops who wield ancient technology.',
-        },
+      // Imperium Keywords
+      {
+        name: 'Adepta Sororitas', type: 'Imperium', parentKeyword: undefined, description: 'The Sisters of Battle, warriors of the Ecclesiarchy.',
+      },
+      {
+        name: '<Order>', type: 'Imperium', parentKeyword: 'Adepta Sororitas', description: 'A specific Adepta Sororitas Order (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Adeptus Astartes', type: 'Imperium', parentKeyword: undefined, description: 'The Space Marines, superhuman elite warriors of the Imperium.',
+      },
+      {
+        name: '<Chapter>', type: 'Imperium', parentKeyword: 'Adeptus Astartes', description: 'A specific Adeptus Astartes Chapter (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Adeptus Astra Telepathica', type: 'Imperium', parentKeyword: undefined, description: 'They administrate the role of psykers in the Imperium.',
+      },
+      {
+        name: 'Adeptus Mechanicus', type: 'Imperium', parentKeyword: undefined, description: 'The Tech-Priesthood of Mars, they are entrusted with the secrets of tech-nology; allied to the Imperium.',
+      },
+      {
+        name: '<Forge World>', type: 'Imperium', parentKeyword: 'Adeptus Mechanicus', description: 'A specific Adeptus Mechanicus Forge World (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Adeptus Ministorum', type: 'Imperium', parentKeyword: undefined, description: 'Those who preach the Imperial Creed.',
+      },
+      {
+        name: 'Astra Militarum', type: 'Imperium', parentKeyword: undefined, description: 'The Imperial Guard, soldiers of the Imperium’s main ground forces.',
+      },
+      {
+        name: '<Regiment>', type: 'Imperium', parentKeyword: 'Astra Militarum', description: 'A specific Astra Militarum Regiment (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Cult Mechanicus', type: 'Imperium', parentKeyword: undefined, description: 'The Priesthood of the Omnissiah, a subset of the Adeptus Mechanicus.',
+      },
+      {
+        name: 'Imperium', type: 'Imperium', parentKeyword: undefined, description: 'The Imperium of Man, a galaxy-spanning civilisation 10,000 years old.',
+      },
+      {
+        name: 'Inquisition', type: 'Imperium', parentKeyword: undefined, description: 'Investigators and questioners, they wield great authority to root out threats to the Imperium.',
+      },
+      {
+        name: '<Ordo>', type: 'Imperium', parentKeyword: 'Inquisition', description: 'A specific Ordo of the Inquisition (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Militarum Tempestus', type: 'Imperium', parentKeyword: undefined, description: 'Elite, specially-trained and equipped soldiers of the Astra Militarum.',
+      },
+      {
+        name: 'Officio Prefectus', type: 'Imperium', parentKeyword: undefined, description: 'Elite leaders and disciplinarians of the Imperium’s military.',
+      },
+      {
+        name: 'Primaris', type: 'Imperium', parentKeyword: undefined, description: 'A new, improved breed of Space Marine.',
+      },
+      {
+        name: 'Rogue Trader', type: 'Imperium', parentKeyword: undefined, description: 'Space-faring merchant princes and explorers, granted great authority to expand the Imperium’s borders.',
+      },
+      {
+        name: '<Dynasty>', type: 'Imperium', parentKeyword: 'Rogue Trader', description: 'A specific Rogue Trader Dynasty (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Scholastica Psycana', type: 'Imperium', parentKeyword: undefined, description: 'A subset of the Adeptus Astra Telepathica, they train psykers in the use of their powers.',
+      },
+      {
+        name: 'Scum', type: 'Imperium', parentKeyword: undefined, description: 'Those who live upon the fringes of Imperial society, often in the underhive or criminal syndicates.',
+      },
+      {
+        name: 'Skitarii', type: 'Imperium', parentKeyword: undefined, description: 'The warriors of the Omnissiah, devout troops who wield ancient technology.',
+      },
 
-        // Renegade and Heretic Keywords
-        {
-          name: 'Chaos', type: 'Renegade', parentKeyword: undefined, description: 'Those who serve the Dark Gods, knowingly or otherwise.',
-        },
-        {
-          name: '<Mark of Chaos>', type: 'Renegade', parentKeyword: undefined, description: 'A specific Chaos God (replaces this keyword when chosen).',
-        },
-        {
-          name: 'Dark Mechanicus', type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.',
-        },
-        {
-          name: 'Heretic', type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.',
-        },
-      ],
-      keywordSubwordRepository: [
+      // Renegade and Heretic Keywords
+      {
+        name: 'Chaos', type: 'Renegade', parentKeyword: undefined, description: 'Those who serve the Dark Gods, knowingly or otherwise.',
+      },
+      {
+        name: '<Mark of Chaos>', type: 'Renegade', parentKeyword: undefined, description: 'A specific Chaos God (replaces this keyword when chosen).',
+      },
+      {
+        name: 'Dark Mechanicus', type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.',
+      },
+      {
+        name: 'Heretic', type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.',
+      },
+    ];
+    const keywordSubwordRepository = [
 
         // Orders of the Adepta Sororitas
         { placeholder: '<Order>', name: 'Order of the Bloody Rose', description: 'Formed from the bodyguards of an Abbess, this order honours the martyrdom of a sister who died in exceptionally bloody battle.' },
@@ -155,54 +154,54 @@ export default {
           placeholder: '<Ordo>',
           name: 'Ordo Hereticus',
           description: 'The Ordo Hereticus hunts down heretics, mutants, and rogue psykers. It '
-            + 'is their responsibility to police the Adeptus Ministorum. Their most common ally is '
-            + 'the Order Militant of the Ecclesiarchy, the Sisters of Battle.',
+          + 'is their responsibility to police the Adeptus Ministorum. Their most common ally is '
+          + 'the Order Militant of the Ecclesiarchy, the Sisters of Battle.',
           effect: 'Choose one: You gain +2 bonus dice to resist psychic powers, or you gain +2 '
-            + 'bonus dice to resist Corruption tests.',
+          + 'bonus dice to resist Corruption tests.',
           modification: { },
         },
         {
           placeholder: '<Ordo>',
           name: 'Ordo Xenos',
           description: 'The Ordo Xenos is tasked with defeating the alien in all its loathsome '
-            + 'forms. They study their foe, always probing for more information about the '
-            + 'weaknesses of alien species and civilisations. It is their duty to investigate '
-            + 'xenos influence over Imperial domains. Their operations often see them working '
-            + 'alongside the Space Marines of the Deathwatch.',
+          + 'forms. They study their foe, always probing for more information about the '
+          + 'weaknesses of alien species and civilisations. It is their duty to investigate '
+          + 'xenos influence over Imperial domains. Their operations often see them working '
+          + 'alongside the Space Marines of the Deathwatch.',
           effect: 'The character is fluent in one alien language; choose an alien species and '
-            + 'write it down on the character sheet. In addition, the character gains +2 bonus '
-            + 'dice for any Scholar or Investigation tests related to xenos.',
+          + 'write it down on the character sheet. In addition, the character gains +2 bonus '
+          + 'dice for any Scholar or Investigation tests related to xenos.',
           modification: { },
         },
         {
           placeholder: '<Ordo>',
           name: 'Ordo Malleus',
           description: 'The Ordo Malleus were established to fi ght against mankind’s greatest '
-            + 'menace the corrupting influence of Chaos. The Chamber Militant of the Ordo Malleus '
-            + 'are the Grey Knights, and they sometimes campaign together under a dual command '
-            + 'structure.',
+          + 'menace the corrupting influence of Chaos. The Chamber Militant of the Ordo Malleus '
+          + 'are the Grey Knights, and they sometimes campaign together under a dual command '
+          + 'structure.',
           effect: 'Either the character gains 2 Corruption points, or gain +2 bonus dice for any '
-            + 'Scholar or Investigation tests related to daemons and the warp.',
+          + 'Scholar or Investigation tests related to daemons and the warp.',
           modification: { },
         },
         {
           placeholder: '<Ordo>',
           name: 'Other Ordo',
           description: 'Inquisitors are as varied in appearance, manner and method as the worlds '
-            + 'of the Imperium they strive to protect.',
+          + 'of the Imperium they strive to protect.',
           effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, '
-            + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
-            + 'Gain +½ Rank bonus dice with that skill.',
+          + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
+          + 'Gain +½ Rank bonus dice with that skill.',
           modification: { },
         },
         {
           placeholder: '<Ordo>',
           name: 'No Ordo',
           description: 'Inquisitors are as varied in appearance, manner and method as the worlds '
-            + 'of the Imperium they strive to protect.',
+          + 'of the Imperium they strive to protect.',
           effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, '
-            + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
-            + 'Gain +½ Rank bonus dice with that skill.',
+          + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
+          + 'Gain +½ Rank bonus dice with that skill.',
           modification: { },
         },
 
@@ -254,8 +253,8 @@ export default {
           placeholder: '<Clan>',
           name: 'Goffs',
           description: 'Goffs have a prominent place in the battle line and can usually be found '
-            + 'where the fi ghting is thickest. Goffs consider massed infantry charges the only '
-            + 'true way for Orks to fi ght, declaring anything else to be “muckin’ about.”',
+          + 'where the fi ghting is thickest. Goffs consider massed infantry charges the only '
+          + 'true way for Orks to fi ght, declaring anything else to be “muckin’ about.”',
           effect: '+1 bonus dice to melee attacks when charging (see page 221).',
           modification: {},
         },
@@ -263,18 +262,18 @@ export default {
           placeholder: '<Clan>',
           name: 'Evil Sunz',
           description: 'The Evil Sunz Clan embodies the Orks’ obsessive love for speed. Evil '
-            + 'Sunz typically pile aboard the fastest vehicles they can fi nd to hurtle into battle '
-            + 'at the vanguard of the Waaagh!',
+          + 'Sunz typically pile aboard the fastest vehicles they can fi nd to hurtle into battle '
+          + 'at the vanguard of the Waaagh!',
           effect: '+1d3 bonus dice to Piloting tests when the vehicle is moving as fast as '
-            + 'possible. Roll to see how many bonus dice you receive at the beginning of each round.',
+          + 'possible. Roll to see how many bonus dice you receive at the beginning of each round.',
           modification: {},
         },
         {
           placeholder: '<Clan>',
           name: 'Bad Moons',
           description: 'The Bad Moons Clan is the richest of their kind, for their teeth the '
-            + 'basis of Ork economy grow at twice the normal rate. Because of their wealth, Bad '
-            + 'Moons possess the best and shiniest gear, and are not shy about bragging about it.',
+          + 'basis of Ork economy grow at twice the normal rate. Because of their wealth, Bad '
+          + 'Moons possess the best and shiniest gear, and are not shy about bragging about it.',
           effect: '+2 Wealth',
           modification: {},
         },
@@ -282,9 +281,9 @@ export default {
           placeholder: '<Clan>',
           name: 'Deathskulls',
           description: 'Deathskulls are light-fi ngered thieves who share an almost Mekboylike '
-            + 'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as '
-            + 'much as the next Ork, their innate kleptomania makes them see every battle as an '
-            + 'excuse to scavenge or loot anything they can get their hands on.',
+          + 'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as '
+          + 'much as the next Ork, their innate kleptomania makes them see every battle as an '
+          + 'excuse to scavenge or loot anything they can get their hands on.',
           effect: '+1 bonus dice to Tech tests and Infl uence tests to acquire items.',
           modification: {},
         },
@@ -292,9 +291,9 @@ export default {
           placeholder: '<Clan>',
           name: 'Blood Axe',
           description: 'The Blood Axe Clan is unique amongst orks for their belief that battles '
-            + 'should be fought according to an actual plan. Blood Axes are not less courageous or '
-            + 'violent, they simply possess a rudimentary comprehension of strategy, tactics, and '
-            + 'stealth.',
+          + 'should be fought according to an actual plan. Blood Axes are not less courageous or '
+          + 'violent, they simply possess a rudimentary comprehension of strategy, tactics, and '
+          + 'stealth.',
           effect: '+1 bonus dice to Leadership or Stealth tests.',
           modification: {},
         },
@@ -302,15 +301,19 @@ export default {
           placeholder: '<Clan>',
           name: 'Snakebites',
           description: 'Snakebites see themselves as staunch traditionalists, caring little that '
-            + 'the other clans mock them for their backward ways. Snakebites specialise in the '
-            + 'breeding of squigs (or squiggly beasts), the strange fungoid monsters that make up '
-            + 'much of the Orks’ bizarre ecosystem.',
+          + 'the other clans mock them for their backward ways. Snakebites specialise in the '
+          + 'breeding of squigs (or squiggly beasts), the strange fungoid monsters that make up '
+          + 'much of the Orks’ bizarre ecosystem.',
           effect: '+2 bonus dice to Survival tests.',
           modification: {},
         },
 
         // { placeholder: '<>', name: '', description: '' },
-      ],
+      ];
+    return {
+      keywordRepository,
+      keywordSubwordRepository,
+      keywordCombinedRepository: [ ...keywordRepository, ...keywordSubwordRepository],
     };
   },
 };
