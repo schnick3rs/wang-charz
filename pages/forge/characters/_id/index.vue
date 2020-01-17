@@ -63,7 +63,7 @@
           small
         >
           <v-icon left small>print</v-icon>
-          Print View
+          Print
         </v-btn>
         <v-btn
           nuxt

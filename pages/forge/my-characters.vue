@@ -141,6 +141,7 @@
                   :to="`/forge/characters/${character.id}/builder/print`"
                   target="_blank"
                   color="primary"
+                  class="d-none d-sm-block"
                   outlined
                   small
                 >
