@@ -558,8 +558,8 @@ export default {
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
       return this.traitRepository.map((t) => ({
         ...t,
-        value: traits[t.name.toLowerCase()],
-        enhancedValue: traitsEnhanced[t.name.toLowerCase()],
+        value: traits[t.key],
+        enhancedValue: traitsEnhanced[t.key],
       }));
     },
     groupedTraits() {
