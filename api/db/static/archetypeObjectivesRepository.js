@@ -130,13 +130,13 @@ const core = [
     objectives: [
       'Compare the current situation to a crime you once observed (or participated in).',
       'Verbally estimate the potential value of an item (or person!) if it were in your possession. This may be as subtle or as overt as you wish.',
-      'Describe a desperate act of survival you attempted under diffi cult circumstances.',
+      'Describe a desperate act of survival you attempted under difficult circumstances.',
     ],
   },
   {
-    group: 'Renegade',
+    group: 'Renegades',
     objectives: [
-      'Describe the benefi ts (or lack thereof!) of gaining the attention of the Ruinous Powers.',
+      'Describe the benefits (or lack thereof!) of gaining the attention of the Ruinous Powers.',
       'Proclaim how a fl aw of the Imperium shall lead to its downfall.',
       'Bear witness to an act that you consider a sign of the Ruinous Powers’ favour (or contempt).',
     ],
@@ -145,7 +145,7 @@ const core = [
     group: 'Aeldari',
     objectives: [
       'Unfavourably evaluate a facet of another species against Eldar culture, technology, or art.',
-      'Call upon one of the gods of the Eldar as you accomplish a diffi cult task or defeat an enemy.',
+      'Call upon one of the gods of the Eldar as you accomplish a difficult task or defeat an enemy.',
       'Reminisce upon the traditions of an Eldar Craftworld, and compare it to the current situation.',
     ],
   },
