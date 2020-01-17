@@ -2,7 +2,6 @@
 
   <div>
 
-
     <v-row justify="center">
       <v-col :cols="12" class="elevation-4 mb-2 pa-0 ma-0">
         <v-breadcrumbs
@@ -30,27 +29,29 @@
 
     <v-row justify="center" align="center">
 
-      <v-col :cols="4" :sm="2" :md="1">
+      <v-col :cols="3" :sm="2" :md="1">
         <v-avatar tile size="64">
           <img :src="avatar" >
         </v-avatar>
       </v-col>
 
       <!-- avatar, name, rank, tier, archetype, species -->
-      <v-col :cols="8" :sm="4" :md="6">
+      <v-col :cols="8" :sm="6" :md="6">
         <v-row no-gutters>
           <v-col :cols="12">{{ characterName }}</v-col>
           <v-col :cols="12" class="caption">{{ [ characterSpeciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
           <v-col :cols="12" class="caption">
             <span>{{ [ `Tier ${characterSettingTier}`, `Rank ${characterRank}`, `${campaignCustomXp} XP`].join(' • ') }}</span>
-            <v-progress-linear :value="campaignCustomXp"></v-progress-linear>
+          </v-col>
+          <v-col :cols="12" class="caption">
+            <v-progress-linear :value="campaignCustomXp" height="2" color="red"></v-progress-linear>
           </v-col>
           <v-col :cols="12" class="caption" align="center">{{ keywords.join(' • ') }}</v-col>
         </v-row>
       </v-col>
 
       <!-- actions -->
-      <v-col :cols="12" :sm="6" :md="5" align="right">
+      <v-col :cols="12" :sm="4" :md="5" align="right">
         <v-btn small outlined color="success" v-if="false">share</v-btn>
         <v-btn small outlined color="success" v-if="false">campaign</v-btn>
         <v-btn
@@ -260,7 +261,7 @@
       <v-col :cols="12" :sm="12" :md="6" class="pa-1 ">
         <v-card>
 
-          <v-tabs centered grow>
+          <v-tabs centered grow color="red">
 
             <!--  DNDBYOND
               Actions
@@ -380,6 +381,9 @@
               :value="`tab-abilities-talents`"
             >
               <div class="pa-2">
+                <v-chip-group mandatory active-class="red--text">
+                  <v-chip label small v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Other`]" :key="item">{{item}}</v-chip>
+                </v-chip-group>
                 <div v-for="ability in abilities" :key="ability.name" class="caption">
                   <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
                   <p v-html="computeFormatedText(ability.effect)" />
