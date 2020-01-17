@@ -432,6 +432,28 @@
                     </div>
                   </div>
 
+                  <!-- talents (with faith) < abilities -->
+                  <div v-show="['all', 'faith'].some(i=>i===abilitySection.selection)" class="caption">
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
+                      <span class="body-2 red--text" style="flex: 1;">Faith</span>
+                      <div style="flex-wrap: wrap; display: flex;">
+                        <div
+                          v-for="pointIndex in characterResources.faith.points"
+                          class="faith-box"
+                          :class="{ 'faith-box--filled': pointIndex <= characterResources.faith.spend }"
+                        ></div>
+                        <span class="body-2 ml-2">Faith Points</span>
+                      </div>
+                    </div>
+                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" >
+                      <strong>{{ talent.name }}</strong><em> • Talent</em>
+                      <p v-html="computeFormatedText(talent.description)" />
+                    </div>
+                    <div v-if="talentsForFaith.length === 0" align="center" class="mt-2 mb-2">
+                      <em>The heretic does not live the imperial creed.</em>
+                    </div>
+                  </div>
+
                   <!-- other < abilities -->
                   <div v-show="['all', 'other'].some(i=>i===abilitySection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
@@ -918,6 +940,12 @@ export default {
         finalTalents.push(rawTalent);
       });
       return finalTalents;
+    },
+    talentsForFaith() {
+      if ( this.talents.length > 0 ) {
+        return this.talents.filter( talent => talent.tags.some( t => t === 'Faith' ) );
+      }
+      return [];
     },
     wargear() {
       const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
