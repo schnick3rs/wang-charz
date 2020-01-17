@@ -374,7 +374,7 @@
               </div>
             </v-tab-item>
 
-            <!-- abilities (All, Race, Archetype, Talents, Other) -->
+            <!-- abilities (All, Race, Archetype, Talents, Faith?, Other) -->
             <v-tab-item
               class="my-tab-item"
               key="abilities-talents"
@@ -386,7 +386,7 @@
                   <v-chip
                     label
                     small
-                    v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Other`]"
+                    v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Faith`, `Other`]"
                     :key="item.toLowerCase()"
                     :value="item.toLowerCase()"
                   >
@@ -784,6 +784,18 @@ export default {
         ...this.traits.filter((i) => i.type === 'Social'),
       ];
     },
+    characterResources() {
+      return {
+        faith: {
+          points: 3,
+          spend: 1,
+        },
+        assets: {
+          points: 3,
+          spend: 0,
+        }
+      };
+    },
     skills() {
       const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
       return this.skillRepository.map((s) => ({
@@ -1062,5 +1074,35 @@ export default {
     height:1px;
     background:black;
     background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
+  }
+
+  .faith-box {
+    min-height: 20px;
+    max-height: 20px;
+    min-width: 20px;
+    max-width: 20px;
+    border: 1px solid hsl(0, 0%, 85%);
+    box-shadow: inset 0 0 4px 0 hsl(0, 0%, 85%);
+    cursor: pointer;
+
+    box-sizing: inherit;
+    margin: 2px;
+
+    &--filled {
+
+      &:before {
+        content: "";
+        display: block;
+        height: 10px;
+        width: 10px;
+        margin-top: 4px;
+        margin-left: 4px;
+      }
+
+      &::before {
+        background-color: hsl(0, 100%, 37%);
+      }
+
+    }
   }
 </style>
