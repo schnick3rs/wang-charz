@@ -419,16 +419,18 @@
                   </div>
 
                   <!-- talents < abilities -->
-                  <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)">
+                  <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" class="caption">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Talents</span>
                     </div>
-                    <div v-for="talent in talents" :key="talent.name" class="caption">
+                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" >
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
                       <p v-html="computeFormatedText(talent.description)" />
                     </div>
+                    <div v-if="talents.length === 0" align="center" class="mt-2 mb-2">
+                      <em>Knowledge is treason.</em>
+                    </div>
                   </div>
-
 
                   <!-- other < abilities -->
                   <div v-show="['all', 'other'].some(i=>i===abilitySection.selection)">
