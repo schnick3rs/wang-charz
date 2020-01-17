@@ -127,6 +127,17 @@
                 </v-btn>
                 <v-btn
                   nuxt
+                  :to="`/forge/characters/${character.id}`"
+                  color="primary"
+                  small
+                >
+                  <v-icon small left>
+                    description
+                  </v-icon>
+                  View
+                </v-btn>
+                <v-btn
+                  nuxt
                   :to="`/forge/characters/${character.id}/builder/print`"
                   target="_blank"
                   color="primary"
@@ -134,7 +145,7 @@
                   small
                 >
                   <v-icon small left>
-                    description
+                    print
                   </v-icon>
                   Print
                 </v-btn>
