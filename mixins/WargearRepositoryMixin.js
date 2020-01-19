@@ -229,6 +229,15 @@ export default {
           ],
         },
         {
+          name: 'Rogue Psyker',
+          options: [
+            { name: 'Laspistol' },
+            { name: 'Psychic focus' },
+            { name: 'Tattered blanket' },
+            { name: 'Guard issue mess kit' },
+          ],
+        },
+        {
           name: 'Space Marine Scout',
           options: [
             { name: 'Scout Armour' },
