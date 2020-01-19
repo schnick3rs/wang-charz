@@ -161,8 +161,8 @@ const core = [
   // Adepta Sororitas
   {
     source: { ...source.core },
-    key: 'core-sister-hospitaller',
     name: 'Sister Hospitaller',
+    key: 'core-sister-hospitaller',
     hint: 'A pious healer dedicated to care of both body and soul.',
     group: 'Adepta Sororitas',
     cost: 0,
@@ -466,8 +466,8 @@ const core = [
   // Adeptus Astartes
   {
     source: { ...source.core },
-    key: 'core-space-marine-scout',
     name: 'Space Marine Scout',
+    key: 'core-space-marine-scout',
     hint: 'A stealthy warrior adept at reconnaissance.',
     group: 'Adeptus Astartes',
     species: ['Adeptus Astartes'],
@@ -518,8 +518,8 @@ const core = [
   },
   {
     source: { ...source.core },
-    key: 'core-primaris-intercessor',
     name: 'Primaris Intercessor',
+    key: 'core-primaris-intercessor',
     hint: 'A skilled and focused warrior, adept at bringing death at range.',
     group: 'Adeptus Astartes',
     cost: 60,
@@ -758,8 +758,8 @@ const core = [
   },
   {
     source: { ...source.core },
-    key: 'core-rogue-psyker',
     name: 'Rogue Psyker',
+    key: 'core-rogue-psyker',
     group: 'Renegades',
     species: ['Human', 'Ogryn', 'Ratling'],
     cost: 50,
