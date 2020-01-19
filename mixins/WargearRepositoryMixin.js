@@ -232,7 +232,7 @@ export default {
           name: 'Rogue Psyker',
           options: [
             { name: 'Laspistol' },
-            { name: 'Psychic focus' },
+            { name: 'Psychic Focus' },
             { name: 'Tattered blanket' },
             { name: 'Guard issue mess kit' },
           ],
