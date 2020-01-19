@@ -67,7 +67,7 @@ const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, ti
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${stringToKebabToCamel(`${sourceKey} ${name}`)}`,
+    key: `${stringToKebab(`${sourceKey} ${name}`)}`,
     name,
     cost: bp,
     tier,

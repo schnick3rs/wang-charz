@@ -34,6 +34,19 @@
         <v-btn large color="primary" @click="newCharacter">
           Create a Character
         </v-btn>
+
+        <v-btn
+          v-if="hasUnmigratedCharacters"
+          @click="migrateAllCharacters"
+          color="warning"
+          large
+        >
+          <v-icon left small>
+            cloud_upload
+          </v-icon>
+          Update
+        </v-btn>
+
       </v-col>
 
       <!-- No Chars yet info text -->
@@ -93,6 +106,20 @@
                 <v-card-text class="pa-0">
                   <div class="card__content-container pa-4">
                     <h3>{{ characterName(character.id) }}</h3>
+                    <div
+                      v-if="characterVersion(character.id) < builderVersion"
+                    >
+                      <v-btn
+                        @click="migrateCharacter(character.id)"
+                        color="warning"
+                        x-small
+                      >
+                        <v-icon left small>
+                          cloud_upload
+                        </v-icon>
+                        Update
+                      </v-btn>
+                    </div>
 
                     <div>
                       <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
@@ -141,7 +168,7 @@
                   :to="`/forge/characters/${character.id}/builder/print`"
                   target="_blank"
                   color="primary"
-                  class="d-none d-sm-block"
+                  class="d-none d-md-flex"
                   outlined
                   small
                 >
@@ -286,6 +313,7 @@ export default {
     },
     ...mapGetters({
       version: 'version',
+      builderVersion: 'builderVersion',
       characterIds: 'characters/characterIds',
       characterSets: 'characters/characterSets',
     }),
@@ -298,8 +326,26 @@ export default {
         storage: 'local',
       }];
     },
+    hasUnmigratedCharacters() {
+      if ( this.characterIds === undefined ) {
+        return false;
+      }
+      return this.characterIds.map( (id) => this.characterVersion(id) ).some( (version) => version < this.builderVersion );
+    },
   },
   methods: {
+    migrateAllCharacters() {
+      this.migrateCharacters( this.characterIds );
+    },
+    migrateCharacters(ids){
+      ids.forEach( (id) => this.migrateCharacter(id));
+    },
+    migrateCharacter(id) {
+      this.$store.dispatch('characters/migrate', {characterId:id});
+    },
+    characterVersion(id) {
+      return this.$store.getters['characters/characterVersionById'](id);
+    },
     characterName(id) {
       return this.$store.getters['characters/characterNameById'](id);
     },

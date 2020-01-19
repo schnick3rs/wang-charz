@@ -31,6 +31,9 @@ export default {
     };
   },
   computed: {
+    characterArchetypeKey() {
+      return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
+    },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
@@ -39,7 +42,7 @@ export default {
     },
   },
   watch: {
-    characterArchetypeLabel: {
+    characterArchetypeKey: {
       handler(newVal) {
         if (newVal && newVal !== 'unknown') {
           this.getArchetype(newVal);
@@ -56,10 +59,9 @@ export default {
   mounted() {
   },
   methods: {
-    async getArchetype(name) {
+    async getArchetype(key) {
       this.loading = true;
-      const slug = this.textToKebab(name);
-      const { data } = await this.$axios.get(`/api/archetypes/${slug}`);
+      const { data } = await this.$axios.get(`/api/archetypes/${key}`);
       this.loading = false;
       this.item = data;
     },

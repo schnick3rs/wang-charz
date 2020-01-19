@@ -259,7 +259,7 @@ export default {
       });
     },
     add(gear) {
-      this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: gear.name, source: 'custom' });
+      this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: gear.name, source: 'custom', gear });
     },
     remove(gear) {
       this.$store.commit('characters/removeCharacterWargear', { id: this.characterId, gearId: gear.id });
