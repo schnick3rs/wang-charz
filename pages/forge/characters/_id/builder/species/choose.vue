@@ -89,7 +89,6 @@ export default {
       return [
         'core',
         'coreab',
-        'pax',
       ];
     },
     characterSettingTier() {
