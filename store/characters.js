@@ -512,22 +512,28 @@ export const mutations = {
           label: v1Species.value ? v1Species.value : '',
           cost: v1Species.cost,
           value: v1Species.value,
-        }
+        };
         character.species = v2Species;
 
+        console.info(`v1 -> v2 : Archetypes with keys instead of labels`);
         const v1archetype = character.archetype;
         console.info(v1archetype);
         const archetypeKeyPrefix = 'core';
         let v2archetype = {
           key:
             v1archetype.value
-              ? `${keyPrefix}-${v1archetype.value.toLowerCase().split(' ').join('-')}`
+              ? `${archetypeKeyPrefix}-${v1archetype.value.toLowerCase().split(' ').join('-')}`
               : undefined,
           label: v1archetype.value ? v1archetype.value : '',
           cost: v1archetype.cost,
           value: v1archetype.value,
-        }
+        };
         character.archetype = v2archetype;
+
+        const objIndex = character.keywords.findIndex((obj => obj.name === 'Adptus Astartes Telepathica'));
+        if ( objIndex > 0 ) {
+          character.keywords[objIndex].name = 'Adeptus Astra Telepathica';
+        }
 
         character.version = 2;
         console.info('Character migrated to v2.');
