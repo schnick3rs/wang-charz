@@ -216,7 +216,9 @@ export const getters = {
     return keywords.map((k) => (k.replacement ? k.replacement : k.name));
   },
 
-  characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
+  characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
+  characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
+  characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
 };
 
 export const mutations = {
@@ -435,8 +437,11 @@ export const mutations = {
   // Background
   setCharacterBackground(state, payload) {
     const character = state.characters[payload.id];
-    console.info(`Background: ${payload.backgroundName} selected.`);
-    character.background = payload.backgroundName;
+    const background = payload.content;
+    console.info(`Background: ${background.label} selected.`);
+    character.background.key = background.key;
+    character.background.label = background.label;
+    character.background.optionSelectedKey = background.optionSelectedKey;
   },
 
   // Keywords
@@ -529,6 +534,12 @@ export const mutations = {
           value: v1archetype.value,
         };
         character.archetype = v2archetype;
+
+        console.info(`v1 -> v2 : Backgrounds with keys instead of labels`);
+        let v2background = getDefaultState().background;
+        v2background.key = character.background ? character.background.toLowerCase() : undefined;
+        v2background.label = character.background;
+        character.background = v2background;
 
         const objIndex = character.keywords.findIndex((obj => obj.name === 'Adptus Astartes Telepathica'));
         if ( objIndex > 0 ) {
@@ -626,6 +637,10 @@ const getDefaultState = () => ({
   psychicPowers: [],
   ascensionPackages: [],
   wargear: [],
-  background: '',
+  background: {
+    key: undefined, // e.g. goal
+    label: '', // e.g. Goal
+    optionSelectedKey: undefined, // e.g.
+  },
   enhancements: [],
 });

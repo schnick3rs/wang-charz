@@ -531,8 +531,8 @@ export default {
       return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
     },
 
-    characterBackground() {
-      return this.$store.getters['characters/characterBackgroundLabelById'](this.characterId);
+    characterBackgroundKey() {
+      return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
     },
 
     keywords() {
@@ -636,9 +636,9 @@ export default {
       }
 
       // background abilities
-      if (this.characterBackground) {
+      if (this.characterBackgroundKey) {
         const background = this.backgroundRepository
-          .filter((b) => b.name === this.characterBackground)
+          .filter((b) => b.key === this.characterBackgroundKey)
           .map((b) => ({
             name: b.name,
             effect: b.bonus,
