@@ -395,7 +395,7 @@ const core = [
     tier: 2,
     species: ['Human', 'Ogryn', 'Ratling'],
     influence: 0,
-    keywords: 'Imperium,Adptus Astartes Telepathica,Psyker,Scholastica Psykana',
+    keywords: 'Imperium,Adeptus Astra Telepathica,Psyker,Scholastica Psykana',
     abilities: [
       {
         name: 'Psyker',
