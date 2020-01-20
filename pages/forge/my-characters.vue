@@ -35,18 +35,6 @@
           Create a Character
         </v-btn>
 
-        <v-btn
-          v-if="hasUnmigratedCharacters"
-          @click="migrateAllCharacters"
-          color="warning"
-          large
-        >
-          <v-icon left small>
-            cloud_upload
-          </v-icon>
-          Update
-        </v-btn>
-
       </v-col>
 
       <!-- No Chars yet info text -->
@@ -79,9 +67,42 @@
       </v-col>
 
       <v-col :cols="12">
-        <div>
-          <v-card />
-        </div>
+
+        <v-row justify="center" v-if="hasUnmigratedCharacters">
+
+          <v-col
+            :cols="12"
+            :sm="12"
+            :md="12"
+            :lg="8"
+          >
+
+            <v-card>
+              <v-card-title>Updates Available</v-card-title>
+              <v-card-text>
+                This characters were build with an older version and need to be updated to ensure all
+                fields are up to date. Just hit the <strong>update button</strong> to bring all
+                characters back in line.
+              </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  @click="migrateAllCharacters"
+                  color="warning"
+                  block
+                >
+                  <v-icon left small>
+                    cloud_upload
+                  </v-icon>
+                  Update all Characters
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+
+
+
+          </v-col>
+
+        </v-row>
 
         <v-row justify="left">
           <v-col

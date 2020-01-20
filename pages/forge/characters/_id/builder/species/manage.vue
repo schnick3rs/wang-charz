@@ -54,8 +54,6 @@ export default {
       characterId: params.id,
     };
   },
-  mounted() {
-  },
   methods: {
     async getSpecies(key) {
       this.loading = true;
