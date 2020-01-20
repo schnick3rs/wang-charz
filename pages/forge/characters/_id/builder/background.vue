@@ -114,21 +114,24 @@ export default {
         'Add option to select specific keyword for "Keywords as a Background" Option',
         'Allow to select a second background if the respective talent is chosen',
       ],
+      characterBackground: undefined,
     };
   },
   computed: {
-    characterBackgroundSnippet() {
-      return this.$store.getters['characters/characterBackgroundById'](this.characterId);
-    },
     characterBackgroundKey() {
       return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
     },
-    characterBackground() {
-      const background = this.backgroundRepository.find((i) => i.key === this.characterBackgroundKey);
-      if ( background ){
-        background.selected = this.characterBackgroundSnippet.optionSelectedKey;
-      }
-      return background;
+    characterBackgroundSnippet() {
+      return this.$store.getters['characters/characterBackgroundById'](this.characterId);
+    },
+  },
+  watch: {
+    characterBackgroundKey: {
+      handler(newVal) {
+        console.log(`key change ${newVal}`)
+        this.getBackground(newVal);
+      },
+      immediate: true, // make this watch function is called when component created
     },
   },
   asyncData({ params }) {
@@ -142,6 +145,13 @@ export default {
     };
   },
   methods: {
+    getBackground(key) {
+      const background = this.backgroundRepository.find((i) => i.key === key);
+      if ( background ){
+        background.selected = this.characterBackgroundSnippet.optionSelectedKey;
+      }
+      this.characterBackground = background;
+    },
     openDialog(item) {
       this.dialogItem = item;
       this.dialog = true;
