@@ -140,6 +140,7 @@ module.exports = {
     gzip: true,
     exclude: [
       // dynamic and user specific parts should not be sitemaped
+      '/about',
       '/forge/characters/**',
     ],
     routes: async () => {
