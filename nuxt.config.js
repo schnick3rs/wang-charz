@@ -89,8 +89,8 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vuex-persist', ssr: false },
-    '~/plugins/filters.js',
     { src: '~/plugins/vue-croppa.js', ssr: false },
+    '~/plugins/filters.js',
   ],
   /*
   ** Nuxt.js dev-modules
