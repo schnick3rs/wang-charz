@@ -103,6 +103,8 @@
       />
 
       <div class="mb-2">
+
+        <!-- custom avatar -->
         <v-badge
           bordered
           overlap
@@ -120,6 +122,8 @@
             <v-img :src="characterAvatarUrl" ></v-img>
           </v-avatar>
         </v-badge>
+
+        <!-- placeholder -->
         <v-avatar
           size="86"
           tile
@@ -128,6 +132,8 @@
         >
           <v-img src="/img/avatar_placeholder_grey.png" ></v-img>
         </v-avatar>
+
+        <em class="d-none">{{ characterAvatarUrl ? characterAvatarUrl.length : 0 }}</em>
         <div><a @click="selectAvatarDialog = true">change picture</a></div>
       </div>
 
