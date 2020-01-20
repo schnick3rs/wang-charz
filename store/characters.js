@@ -505,10 +505,9 @@ export const mutations = {
 
     switch (character.version) {
       case 1:
-        console.info(`v1 -> v2 : Species with keys instead of labels`);
+        console.debug(`v1 -> v2 : Species with keys instead of labels`);
 
         const v1Species = character.species;
-        console.info(v1Species);
         const keyPrefix =
           ['Ratling', 'Ogryn'].some(i => i === v1Species.value)
           ? 'coreab'
@@ -524,9 +523,8 @@ export const mutations = {
         };
         character.species = v2Species;
 
-        console.info(`v1 -> v2 : Archetypes with keys instead of labels`);
+        console.debug(`v1 -> v2 : Archetypes with keys instead of labels`);
         const v1archetype = character.archetype;
-        console.info(v1archetype);
         const archetypeKeyPrefix = 'core';
         let v2archetype = {
           key:
@@ -539,7 +537,7 @@ export const mutations = {
         };
         character.archetype = v2archetype;
 
-        console.info(`v1 -> v2 : Backgrounds with keys instead of labels`);
+        console.debug(`v1 -> v2 : Backgrounds with keys instead of labels`);
         let v2background = getDefaultState().background;
         v2background.key = character.background ? character.background.toLowerCase() : undefined;
         v2background.label = character.background;
@@ -551,7 +549,7 @@ export const mutations = {
         }
 
         character.version = 2;
-        console.info('Character migrated to v2.');
+        console.info(`Character migrated to v2.`);
     }
 
   },
@@ -572,7 +570,6 @@ export const actions = {
     const characterVersion = character.version;
     const builderVersion = rootState.builderVersion;
 
-    console.info(`${characterVersion} < ${builderVersion}`);
     if ( characterVersion < builderVersion ) {
       console.info(`Migrate character from ${characterVersion} to ${characterVersion+1}`);
       const config = {

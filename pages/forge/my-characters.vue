@@ -87,7 +87,7 @@
               <v-card-actions>
                 <v-btn
                   @click="migrateAllCharacters"
-                  color="warning"
+                    color="success"
                   block
                 >
                   <v-icon left small>
@@ -114,7 +114,7 @@
             :md="6"
             :lg="4"
           >
-            <v-card v-if="character">
+            <v-card v-if="character" :disabled="characterVersion(character.id) < builderVersion">
               <div class="card">
                 <div class="card__image-container">
                   <div
