@@ -23,16 +23,11 @@ _A view (not an edit) of the current character. Should be responsive._
 
 ###### CORE Functionality
 
-* `[x]` traits: add Data is Currency functionality
-
-
-    Data is Currency: Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Influence.
-
 * `[_]` Handle additional powers for eldar species
 
 ##### Extended CORE
 
-* `[_]` talent: hatred keyword handling
+* `[x]` talent: hatred keyword handling
 * `[_]` faith talent / resource handling
 * `[_]` Traits: Add asserts and allow to buy (up to # tier) during creation
 * `[_]` Languages: Allow to by (custom field with autocomplete for known languages)

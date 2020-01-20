@@ -1,5 +1,55 @@
 <template lang="html">
   <v-row justify="center">
+
+    <v-dialog
+      v-model="selectAvatarDialog"
+      width="600px"
+      scrollable
+      :fullscreen="$vuetify.breakpoint.xsOnly"
+    >
+
+      <v-card class="pa-0">
+
+        <v-card-title style="background-color: #262e37; color: #fff;">
+          <span>Confirm Portrait</span>
+          <v-spacer />
+          <v-icon dark @click="selectAvatarDialog = false">
+            close
+          </v-icon>
+        </v-card-title>
+
+        <v-card-text class="pt-4">
+
+          <div>
+            <no-ssr>
+              <croppa
+                v-model="myCroppa"
+                :file-size-limit="31457280"
+                :width="200"
+                :height="200"
+                :prevent-white-space="true"
+              ></croppa>
+            </no-ssr>
+          </div>
+
+          <span class="caption">Drag and zoom until it fits.</span>
+
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn left outlined color="red" @click="selectAvatarDialog = false">
+            Cancel
+          </v-btn>
+          <v-spacer />
+          <v-btn right color="green" @click="setNewAvatar">
+            Select Portrait
+          </v-btn>
+        </v-card-actions>
+
+      </v-card>
+
+    </v-dialog>
+
     <v-col :cols="12" :sm="6">
       <h2 class="headline">
         Character
@@ -51,6 +101,36 @@
         thumb-label="always"
         @input="setCustomRank"
       />
+
+      <div class="mb-2">
+        <v-badge
+          bordered
+          overlap
+          color="error"
+          v-show="characterAvatarUrl"
+        >
+          <template v-slot:badge>
+              <v-icon color="white" @click.stop="setCharacterAvatar(undefined)">close</v-icon>
+          </template>
+          <v-avatar
+            size="86"
+            tile
+            @click="selectAvatarDialog = true"
+          >
+            <v-img :src="characterAvatarUrl" ></v-img>
+          </v-avatar>
+        </v-badge>
+        <v-avatar
+          size="86"
+          tile
+          @click="selectAvatarDialog = true"
+          v-show="!characterAvatarUrl"
+        >
+          <v-img src="/img/avatar_placeholder_grey.png" ></v-img>
+        </v-avatar>
+        <div><a @click="selectAvatarDialog = true">change picture</a></div>
+      </div>
+
     </v-col>
 
     <v-col :cols="12" :sm="6">
@@ -113,7 +193,7 @@
 
     </v-col>
 
-    <v-col :cols="12" v-if="true">
+    <v-col :cols="12" v-if="false">
         <h2 class="title">Homebrews</h2>
         <p>Allow specific homebrew content.</p>
         <div
@@ -180,6 +260,9 @@ export default {
           isAllowHomebrews: false,
         },
       },
+      avatar: '',
+      selectAvatarDialog: false,
+      myCroppa: {},
       tierSelect: {
         // One among billions','stalwart Defenders','Elite Guardians','Heroic Operatives','Agents of Fate
         selected: 1,
@@ -235,6 +318,9 @@ export default {
     characterCustomRank() {
       return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
     },
+    characterAvatarUrl() {
+      return this.$store.getters['characters/characterAvatarUrlById'](this.characterId);
+    },
     characterName() {
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
@@ -251,6 +337,20 @@ export default {
     };
   },
   methods: {
+    setNewAvatar: function() {
+      const url = this.myCroppa.generateDataUrl('jpg', 0.8);
+      if (!url) {
+        console.warn('no image');
+        return undefined;
+      }
+      console.info(`Create an image with size: ${url.length}`);
+      this.setCharacterAvatar(url);
+      this.selectAvatarDialog = false;
+    },
+    setCharacterAvatar(url) {
+      this.$store.commit('characters/setCharacterAvatar', { id: this.characterId, url: url });
+      this.avatar = url;
+    },
     setCharacterName(name) {
       this.$store.commit('characters/setCharacterName', { id: this.characterId, name });
     },
@@ -273,6 +373,8 @@ export default {
 };
 </script>
 
-<style scoped lang="css">
-
+<style lang="scss">
+  .croppa-container canvas {
+    border: 0.5px dashed grey;
+  }
 </style>

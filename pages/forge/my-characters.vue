@@ -98,7 +98,7 @@
                 <div class="card__image-container">
                   <div
                     class="card__image"
-                    :style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
+                    :style="{ backgroundImage: 'url('+characterAvatar(character.id)+')' }"
                     loading
                   />
                 </div>
@@ -370,7 +370,14 @@ export default {
     characterSettingTier(id) {
       return this.$store.getters['characters/characterSettingTierById'](id);
     },
-    getAvatar(speciesLabel, archetypeLabel) {
+    characterAvatar(id) {
+      const customAvatarUrl = this.$store.getters['characters/characterAvatarUrlById'](id);
+      if ( customAvatarUrl ) {
+        return customAvatarUrl;
+      }
+
+      const archetypeLabel = this.characterArchetypeLabel(id);
+      const speciesLabel = this.characterSpeciesLabel(id);
       if (archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(speciesLabel)) {
         return `/img/icon/archetype/archetype_${this.textToKebab(archetypeLabel)}_avatar.png`;
       }

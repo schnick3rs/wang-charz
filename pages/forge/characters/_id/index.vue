@@ -758,6 +758,12 @@ export default {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
     avatar() {
+      const customAvatarUrl = this.$store.getters['characters/characterAvatarUrlById'](this.characterId);
+
+      if ( customAvatarUrl ) {
+        return customAvatarUrl;
+      }
+
       if (this.archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(this.characterSpeciesLabel)) {
         return `/img/icon/archetype/archetype_${this.textToKebab(this.archetypeLabel)}_avatar.png`;
       }

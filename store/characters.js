@@ -116,6 +116,7 @@ export const getters = {
 
   // Character data
   characterNameById: (state) => (id) => (state.characters[id] ? state.characters[id].name : getDefaultState().name),
+  characterAvatarUrlById: (state) => (id) => (state.characters[id] ? state.characters[id].avatarUrl : getDefaultState().avatarUrl),
   characterSpeciesKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].species.key : getDefaultState().species.key),
   characterSpeciesLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].species.label : getDefaultState().species.label),
   characterSpeciesAstartesChapterById: (state) => (id) => (state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter),
@@ -224,6 +225,9 @@ export const getters = {
 export const mutations = {
   setCharacterName(state, payload) {
     state.characters[payload.id].name = payload.name;
+  },
+  setCharacterAvatar(state, payload) {
+    state.characters[payload.id].avatarUrl = payload.url;
   },
   setSettingTier(state, payload) {
     state.characters[payload.id].settingTier = payload.tier;
@@ -592,6 +596,7 @@ const getDefaultState = () => ({
   customXp: 0,
   customRank: 1,
   name: 'Simsel Simselman',
+  avatarUrl: undefined,
   species: {
     key: undefined,
     label: '',
