@@ -169,6 +169,11 @@ export default {
       type: Array,
       required: false,
     },
+    psychicPowers: {
+      type: Array,
+      required: false,
+      default: [],
+    },
     manageMode: {
       type: Boolean,
       default: false,
@@ -260,14 +265,20 @@ export default {
   created() {
     if (this.item.psychicPowers) {
       this.item.psychicPowers.discount.forEach(async (d) => {
-        const con = {
+        const config = {
           params: {
             ...d.query,
             fields: 'id,name,effect,discipline',
           },
         };
-        const powersResponse = await this.$axios.get('/api/psychic-powers/', con);
-        d.values = powersResponse.data;
+        const { data } = await this.$axios.get('/api/psychic-powers/', config);
+        d.values = data;
+
+        const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${d.name}`);
+        if ( found ) {
+          d.selected = found.name;
+        }
+
         this.psychicPowersDiscount.push(d);
       });
     }

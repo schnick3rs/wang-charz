@@ -111,13 +111,11 @@
         persistent-hint
       />
 
-      <div v-if="false">
-        <h2 class="title">
-          Homebrews
-        </h2>
+    </v-col>
 
+    <v-col :cols="12" v-if="true">
+        <h2 class="title">Homebrews</h2>
         <p>Allow specific homebrew content.</p>
-
         <div
           v-for="homebrew in settingHomebrewOptions"
           :key="homebrew.key"
@@ -128,10 +126,10 @@
             :value="homebrew.key"
             color="primary"
             class="mt-0 mb-0"
+            dense
             @change="updateHomebrew(homebrew)"
           />
         </div>
-      </div>
     </v-col>
 
     <v-col :cols="12" />
@@ -205,15 +203,23 @@ export default {
       settingHomebrewOptions: [
         {
           active: true,
-          key: 'dodScumPsyker',
+          key: 'dod-scum-psyker',
           name: 'Scum Psyker (Doctors of Doom Homebrew)',
           enabled: false,
           source: undefined,
         },
         {
           active: true,
-          key: 'agentsOfTheGoldenThrone',
+          key: 'aotgt',
           name: '\'Agents of the Golden Throne\' content (Fan supplement)',
+          enabled: false,
+          nuxt: '/vault/agents-of-the-golden-throne',
+          source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
+        },
+        {
+          active: true,
+          key: 'pax',
+          name: '\'Pax Imperialis\' content (Fan supplement)',
           enabled: false,
           nuxt: '/vault/agents-of-the-golden-throne',
           source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
@@ -260,6 +266,9 @@ export default {
     setSettingTitle(title) {
       this.$store.commit('characters/setSettingTitle', { id: this.characterId, title });
     },
+    updateHomebrew() {
+
+    }
   },
 };
 </script>

@@ -31,12 +31,6 @@ export const mutations = {
     state.setting = payload.setting;
     state.settingSelected = true;
   },
-  addPower(state, payload) {
-    const hasPower = state.psychicPowers.find((t) => t.name === payload.name) !== undefined;
-    if (!hasPower) {
-      state.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
-    }
-  },
 };
 
 const baseApiUrl = 'http://localhost:3000';

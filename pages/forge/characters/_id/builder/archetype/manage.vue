@@ -7,6 +7,7 @@
         :character-id="characterId"
         :item="item"
         :keywords="keywords"
+        :psychic-powers="psychicPowers"
         manage-mode
         @change="doChangeMode"
       />
@@ -40,6 +41,9 @@ export default {
     keywords() {
       return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
     },
+    psychicPowers() {
+      return this.$store.getters['characters/characterPsychicPowersById'](this.characterId);
+    }
   },
   watch: {
     characterArchetypeKey: {

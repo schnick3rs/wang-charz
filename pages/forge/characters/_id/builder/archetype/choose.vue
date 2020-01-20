@@ -238,7 +238,7 @@ export default {
               id: this.characterId,
               name: d.selected,
               cost: 0,
-              source: 'archetype',
+              source: `archetype.${d.name}`,
             };
             this.$store.commit('characters/addCharacterPsychicPower', payload);
           }
