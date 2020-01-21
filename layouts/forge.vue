@@ -192,9 +192,10 @@
               character back in line. Or go to the overview page, and update all characters there.
             </p>
             <p>
-              <v-alert type="warning" dense outlined>I <strong>strongly</strong> recommend to
-                reselect potential ascension packages after the update. To ensure that influence
-                is computed correctly.</v-alert>
+              <v-alert type="warning" dense outlined>
+                After thy update, please <strong>reselect potential ascension packages</strong>
+                to ensure that influence is computed correctly.
+              </v-alert>
             </p>
             <v-btn small color="success" @click="migrateCharacter">Update Character</v-btn>
             <v-btn small color="success" nuxt exact :to="`/forge/my-characters`">To the Character Overview</v-btn>

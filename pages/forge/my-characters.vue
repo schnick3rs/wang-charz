@@ -85,8 +85,10 @@
                   characters back in line.
               </v-card-text>
               <v-card-text>
-              <v-alert type="warning" dense outlined>I <strong>strongly</strong> recommend to reselect potential ascension packages after the update. To ensure that influence
-                is computed correctly.</v-alert>
+                <v-alert type="warning" dense outlined>
+                  After thy update, please <strong>reselect potential ascension packages</strong>
+                  to ensure that influence is computed correctly.
+                </v-alert>
               </v-card-text>
               <v-card-actions>
                 <v-btn
