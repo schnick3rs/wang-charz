@@ -142,10 +142,18 @@ export default {
               text: '',
               type: 'spells',
               discount: [
+                /*
+                { name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, filter: (power) => (power.name === 'Smite') },
+                { name: 'minor1', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor2', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor3', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor4', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)) },
+                */
                 { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
                 { name: 'minor1', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
                 { name: 'minor2', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
                 { name: 'minor3', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor4', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
               ],
             },
           ],
