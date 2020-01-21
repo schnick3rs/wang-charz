@@ -25,14 +25,22 @@
               <croppa
                 v-model="myCroppa"
                 :file-size-limit="31457280"
-                :width="200"
-                :height="200"
-                :prevent-white-space="true"
+                :width="300"
+                :height="300"
+                :prevent-white-space="myCroppaConfig.preventWhiteSpace"
               ></croppa>
             </no-ssr>
           </div>
+          <span class="caption">Drag and zoom (by scrolling) until it fits.</span>
 
-          <span class="caption">Drag and zoom until it fits.</span>
+          <div>
+            <v-switch
+              v-model="myCroppaConfig.preventWhiteSpace"
+              label="Prevent whitespace, thus the image must be within borders."
+              dense
+            ></v-switch>
+          </div>
+
 
         </v-card-text>
 
@@ -269,6 +277,9 @@ export default {
       avatar: '',
       selectAvatarDialog: false,
       myCroppa: {},
+      myCroppaConfig: {
+        preventWhiteSpace: true,
+      },
       tierSelect: {
         // One among billions','stalwart Defenders','Elite Guardians','Heroic Operatives','Agents of Fate
         selected: 1,
