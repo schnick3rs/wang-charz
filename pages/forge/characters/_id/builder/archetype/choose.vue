@@ -207,7 +207,7 @@ export default {
       this.previewDialog = true;
     },
     selectArchetypeForChar(item) {
-      this.setCharacterArchetype({ id: this.characterId, archetype: { value: item.name, cost: item.cost, tier: item.tier } });
+      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.cost, tier: item.tier } });
 
       const mods = [];
       mods.push({
@@ -238,7 +238,7 @@ export default {
               id: this.characterId,
               name: d.selected,
               cost: 0,
-              source: 'archetype',
+              source: `archetype.${d.name}`,
             };
             this.$store.commit('characters/addCharacterPsychicPower', payload);
           }

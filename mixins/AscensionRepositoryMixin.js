@@ -24,6 +24,7 @@ export default {
                 });
               });
             }
+
             return prerequisites;
           },
           keywords: ['<Any>'],
@@ -116,12 +117,12 @@ export default {
           prerequisites: (archetypePrerequisites) => {
             const prerequisites = [];
 
-            const willpowerPrerequisite = archetypePrerequisites.filter((i) => i.value === 'willpower');
-            if (willpowerPrerequisite) {
+            const willpowerPrerequisite = archetypePrerequisites.filter((i) => i.value === 'willpower'); // []
+            if (willpowerPrerequisite && willpowerPrerequisite.length > 0) {
               prerequisites.push({
-                group: willpowerPrerequisite.group,
-                value: willpowerPrerequisite.value,
-                threshold: Math.max(willpowerPrerequisite.threshold, 3),
+                group: willpowerPrerequisite[0].group,
+                value: willpowerPrerequisite[0].value,
+                threshold: Math.max(willpowerPrerequisite[0].threshold, 3),
               });
             } else {
               prerequisites.push({
@@ -142,10 +143,18 @@ export default {
               text: '',
               type: 'spells',
               discount: [
+                /*
+                { name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, filter: (power) => (power.name === 'Smite') },
+                { name: 'minor1', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor2', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor3', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor4', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)) },
+                */
                 { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
                 { name: 'minor1', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
                 { name: 'minor2', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
                 { name: 'minor3', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
+                { name: 'minor4', selected: undefined, filter: (power) => (['Minor'].includes(power.discipline)) },
               ],
             },
           ],

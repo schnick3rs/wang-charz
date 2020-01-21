@@ -32,15 +32,15 @@ export default {
     };
   },
   computed: {
-    characterSpeciesLabel() {
-      return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
+    characterSpeciesKey() {
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
     },
     characterSpeciesAstartesChapter() {
       return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
     },
   },
   watch: {
-    characterSpeciesLabel: {
+    characterSpeciesKey: {
       handler(newVal) {
         if (newVal) {
           this.getSpecies(newVal);
@@ -54,13 +54,10 @@ export default {
       characterId: params.id,
     };
   },
-  mounted() {
-  },
   methods: {
-    async getSpecies(name) {
+    async getSpecies(key) {
       this.loading = true;
-      const slug = this.textToKebab(name);
-      const { data } = await this.$axios.get(`/api/species/${slug}`);
+      const { data } = await this.$axios.get(`/api/species/${key}`);
       const chapter = this.characterSpeciesAstartesChapter;
       if (chapter) {
         data.chapter = chapter;

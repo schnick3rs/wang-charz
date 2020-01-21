@@ -60,7 +60,7 @@ const simpleStub = function (sourceKey, sourcePage, name, hint) {
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${stringToKebabToCamel(`${sourceKey} ${name}`)}`,
+    key: `${stringToKebab(`${sourceKey} ${name}`)}`,
     name,
     hint,
   };

@@ -86,7 +86,10 @@ export default {
   },
   computed: {
     sources() {
-      return ['core', 'coreab'];
+      return [
+        'core',
+        'coreab',
+      ];
     },
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
@@ -128,7 +131,7 @@ export default {
       this.speciesDialog = true;
     },
     selectSpeciesForChar(species) {
-      this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { value: species.name, cost: species.cost } });
+      this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { key: species.key, label: species.name, cost: species.cost } });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: species.modifications, source: 'species' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'species' });

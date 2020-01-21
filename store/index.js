@@ -2,10 +2,12 @@ import axios from 'axios';
 
 export const state = () => ({
   version: 1,
+  builderVersion: 2,
 });
 
 export const getters = {
   version: (state) => state.version || 0,
+  builderVersion: (state) => state.builderVersion || 2,
   /*
   isAuthenticated(state) {
     return state.auth.loggedIn
@@ -28,12 +30,6 @@ export const mutations = {
   setSetting(state, payload) {
     state.setting = payload.setting;
     state.settingSelected = true;
-  },
-  addPower(state, payload) {
-    const hasPower = state.psychicPowers.find((t) => t.name === payload.name) !== undefined;
-    if (!hasPower) {
-      state.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
-    }
   },
 };
 

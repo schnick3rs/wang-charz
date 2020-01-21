@@ -212,7 +212,7 @@ export default {
       const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
       const keywords = this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
       const hasSkill = skills.psychicMastery > 0;
-      const hasKeyword = keywords.includes('Psychic');
+      const hasKeyword = keywords.some( (k) => k.name === 'Psyker');
       return (hasSkill || hasKeyword);
     },
     settingTier() {

@@ -114,14 +114,24 @@ export default {
         'Add option to select specific keyword for "Keywords as a Background" Option',
         'Allow to select a second background if the respective talent is chosen',
       ],
+      characterBackground: undefined,
     };
   },
   computed: {
-    characterBackgroundName() {
-      return this.$store.getters['characters/characterBackgroundLabelById'](this.characterId);
+    characterBackgroundKey() {
+      return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
     },
-    characterBackground() {
-      return this.backgroundRepository.find((i) => i.name === this.characterBackgroundName);
+    characterBackgroundSnippet() {
+      return this.$store.getters['characters/characterBackgroundById'](this.characterId);
+    },
+  },
+  watch: {
+    characterBackgroundKey: {
+      handler(newVal) {
+        console.log(`key change ${newVal}`)
+        this.getBackground(newVal);
+      },
+      immediate: true, // make this watch function is called when component created
     },
   },
   asyncData({ params }) {
@@ -135,26 +145,39 @@ export default {
     };
   },
   methods: {
+    getBackground(key) {
+      const background = this.backgroundRepository.find((i) => i.key === key);
+      if ( background ){
+        background.selected = this.characterBackgroundSnippet.optionSelectedKey;
+      }
+      this.characterBackground = background;
+    },
     openDialog(item) {
       this.dialogItem = item;
       this.dialog = true;
     },
     selectBackgroundForChar(item) {
-      this.$store.commit('characters/setCharacterBackground', { id: this.characterId, backgroundName: item.name });
+      const backgroundContent = { key: item.key, label: item.name };
+      this.$store.commit('characters/setCharacterBackground', { id: this.characterId, content: backgroundContent });
+
       if (item.modifier) {
         const content = { modifications: [item.modifier], source: item.modifier.source };
         this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });
       }
+
       this.dialog = false;
     },
     removeBackground(item) {
-      this.$store.commit('characters/setCharacterBackground', { id: this.characterId, backgroundName: undefined });
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `background.${item.key}` });
+      const backgroundContent = { key: undefined, label: '', optionSelectedKey: undefined };
+      this.$store.commit('characters/setCharacterBackground', { id: this.characterId, content: backgroundContent });
     },
     selectBackgroundChoice(background, choiceKey) {
       const choice = background.choice.find((choice) => choice.key === choiceKey);
 
       console.info(`Background ${background.name} with choice ${choice.name}.`);
+      const backgroundContent = { key: background.key, label: background.name, optionSelectedKey: choice.key };
+      this.$store.commit('characters/setCharacterBackground', { id: this.characterId, content: backgroundContent });
 
       const content = { modifications: [choice.modifier], source: choice.modifier.source };
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });

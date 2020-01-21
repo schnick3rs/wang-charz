@@ -91,7 +91,7 @@ export default {
         name: '<Dynasty>', type: 'Imperium', parentKeyword: 'Rogue Trader', description: 'A specific Rogue Trader Dynasty (replaces this keyword when chosen).',
       },
       {
-        name: 'Adptus Astartes Telepathica', type: 'Imperium', parentKeyword: undefined, description: 'This Organisation is responsible for the recruitment and training of psykers.',
+        name: 'Adeptus Astra Telepathica', type: 'Imperium', parentKeyword: undefined, description: 'This Organisation is responsible for the recruitment and training of psykers.',
       },
       {
         name: 'Scholastica Psykana', type: 'Imperium', parentKeyword: undefined, description: 'A subset of the Adeptus Astra Telepathica, they train psykers in the use of their powers.',

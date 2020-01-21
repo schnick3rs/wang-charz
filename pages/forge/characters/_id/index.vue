@@ -419,11 +419,11 @@
                   </div>
 
                   <!-- talents < abilities -->
-                  <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" class="caption">
+                  <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" >
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Talents</span>
                     </div>
-                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" >
+                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption">
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
                       <p v-html="computeFormatedText(talent.description)" />
                     </div>
@@ -433,11 +433,11 @@
                   </div>
 
                   <!-- talents (with faith) < abilities -->
-                  <div v-show="['all', 'faith'].some(i=>i===abilitySection.selection)" class="caption">
+                  <div v-show="['all', 'faith'].some(i=>i===abilitySection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
                       <span class="body-2 red--text" style="flex: 1;">Faith</span>
                     </div>
-                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" >
+                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" class="caption">
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
                       <p v-html="computeFormatedText(talent.description)" />
                     </div>
@@ -750,14 +750,20 @@ export default {
       return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
     },
 
-    characterBackground() {
-      return this.$store.getters['characters/characterBackgroundLabelById'](this.characterId);
+    characterBackgroundKey() {
+      return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
     },
 
     keywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
     avatar() {
+      const customAvatarUrl = this.$store.getters['characters/characterAvatarUrlById'](this.characterId);
+
+      if ( customAvatarUrl ) {
+        return customAvatarUrl;
+      }
+
       if (this.archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(this.characterSpeciesLabel)) {
         return `/img/icon/archetype/archetype_${this.textToKebab(this.archetypeLabel)}_avatar.png`;
       }
@@ -785,11 +791,12 @@ export default {
     traits() {
       const traits = this.$store.getters['characters/characterTraitsById'](this.characterId);
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
-      return this.traitRepository.map((t) => ({
+      const finalTraits = this.traitRepository.map((t) => ({
         ...t,
         value: traits[t.key],
         enhancedValue: traitsEnhanced[t.key],
       }));
+      return finalTraits;
     },
     groupedTraits() {
       return [
@@ -870,9 +877,9 @@ export default {
       }
 
       // background abilities
-      if (this.characterBackground) {
+      if (this.characterBackgroundKey) {
         const background = this.backgroundRepository
-        .filter((b) => b.name === this.characterBackground)
+        .filter((b) => b.key === this.characterBackgroundKey)
         .map((b) => ({
           name: b.name,
           effect: b.bonus,

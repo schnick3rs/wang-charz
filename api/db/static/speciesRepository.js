@@ -61,19 +61,20 @@ const simpleStub = function (sourceKey, sourcePage, group, name, hint, bp, tier)
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${stringToKebabToCamel(`${sourceKey} ${name}`)}`,
+    key: `${stringToKebab(`${sourceKey} ${name}`)}`,
     name,
     hint,
     group,
     cost: bp,
     baseTier: tier,
     stub: true,
+    keywords: [],
   };
 };
 
 const coreRep = [
   {
-    key: 'human',
+    key: 'core-human',
     name: 'Human',
     group: 'Mankind',
     hint: 'The humble human',
@@ -90,7 +91,7 @@ const coreRep = [
     theme: null,
   },
   {
-    key: 'ratling',
+    key: 'coreab-ratling',
     name: 'Ratling',
     group: 'Mankind',
     hint: 'Half-man by name, but not by nature',
@@ -132,7 +133,7 @@ const coreRep = [
     theme: null,
   },
   {
-    key: 'ogryn',
+    key: 'coreab-ogryn',
     name: 'Ogryn',
     group: 'Mankind',
     hint: 'The brutal, eeh... human?',
@@ -169,7 +170,7 @@ const coreRep = [
     theme: null,
   },
   {
-    key: 'eldar',
+    key: 'core-eldar',
     name: 'Eldar',
     group: 'Aeldari',
     hint: 'The Mysterious Aeldari',
@@ -212,7 +213,7 @@ const coreRep = [
     theme: null,
   },
   {
-    key: 'ork',
+    key: 'core-ork',
     name: 'Ork',
     group: 'Orks',
     source: { ...source.core, page: 88 },
@@ -255,7 +256,7 @@ const coreRep = [
     theme: null,
   },
   {
-    key: 'adeptusAstartes',
+    key: 'core-adeptus-astartes',
     name: 'Adeptus Astartes',
     group: 'Mankind',
     source: { ...source.core, page: 92 },
@@ -297,7 +298,7 @@ const coreRep = [
     theme: null,
   },
   {
-    key: 'primarisAstartes',
+    key: 'core-primaris-astartes',
     name: 'Primaris Astartes',
     group: 'Mankind',
     hint: 'the newborn breed',
@@ -362,8 +363,8 @@ const homebrewReps = [
     attributes: 'Fellowship -1, Toughness +1 or Strength +1',
     modifications: [
       { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
-      { targetGroup: 'attributes', targetValue: 'Toughness', modifier: 1 },
-      { targetGroup: 'attributes', targetValue: 'Stregnth', modifier: 1 },
+      { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+      { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
     ],
     abilities: 'Abhuman, Stable Mutation',
     abilityObjects: [
