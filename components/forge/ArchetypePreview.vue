@@ -172,7 +172,7 @@ export default {
     psychicPowers: {
       type: Array,
       required: false,
-      default: [],
+      default: () => [],
     },
     manageMode: {
       type: Boolean,

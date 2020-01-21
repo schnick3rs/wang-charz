@@ -29,9 +29,7 @@
       >
         <v-card-title primary-title>
           <div>
-            <div class="headline">
-              {{ characterAscension.name }}
-            </div>
+            <div class="headline">{{ characterAscension.name }}</div>
             <span class="subtitle-1 grey--text">{{ characterAscension.teaser }}</span>
           </div>
           <div>

@@ -534,6 +534,7 @@ export const mutations = {
           label: v1archetype.value ? v1archetype.value : '',
           cost: v1archetype.cost,
           value: v1archetype.value,
+          tier: v1archetype.tier
         };
         character.archetype = v2archetype;
 
