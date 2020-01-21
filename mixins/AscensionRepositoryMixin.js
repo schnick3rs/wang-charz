@@ -24,6 +24,7 @@ export default {
                 });
               });
             }
+
             return prerequisites;
           },
           keywords: ['<Any>'],
@@ -116,12 +117,12 @@ export default {
           prerequisites: (archetypePrerequisites) => {
             const prerequisites = [];
 
-            const willpowerPrerequisite = archetypePrerequisites.filter((i) => i.value === 'willpower');
-            if (willpowerPrerequisite) {
+            const willpowerPrerequisite = archetypePrerequisites.filter((i) => i.value === 'willpower'); // []
+            if (willpowerPrerequisite && willpowerPrerequisite.length > 0) {
               prerequisites.push({
-                group: willpowerPrerequisite.group,
-                value: willpowerPrerequisite.value,
-                threshold: Math.max(willpowerPrerequisite.threshold, 3),
+                group: willpowerPrerequisite[0].group,
+                value: willpowerPrerequisite[0].value,
+                threshold: Math.max(willpowerPrerequisite[0].threshold, 3),
               });
             } else {
               prerequisites.push({
