@@ -82,7 +82,11 @@
               <v-card-text>
                 This characters were build with an older version and need to be updated to ensure all
                 fields are up to date. Just hit the <strong>update button</strong> to bring all
-                characters back in line.
+                  characters back in line.
+              </v-card-text>
+              <v-card-text>
+              <v-alert type="warning" dense outlined>I <strong>strongly</strong> recommend to reselect potential ascension packages after the update. To ensure that influence
+                is computed correctly.</v-alert>
               </v-card-text>
               <v-card-actions>
                 <v-btn

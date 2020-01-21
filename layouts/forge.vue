@@ -191,6 +191,11 @@
               fields are up to date. Just hit the <strong>update button</strong> to bring this
               character back in line. Or go to the overview page, and update all characters there.
             </p>
+            <p>
+              <v-alert type="warning" dense outlined>I <strong>strongly</strong> recommend to
+                reselect potential ascension packages after the update. To ensure that influence
+                is computed correctly.</v-alert>
+            </p>
             <v-btn small color="success" @click="migrateCharacter">Update Character</v-btn>
             <v-btn small color="success" nuxt exact :to="`/forge/my-characters`">To the Character Overview</v-btn>
           </v-col>

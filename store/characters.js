@@ -549,6 +549,10 @@ export const mutations = {
           character.keywords[objIndex].name = 'Adeptus Astra Telepathica';
         }
 
+        console.debug(`v1 -> v2 : Cleanup enhancements that do NOT have a sources`);
+        character.enhancements = character.enhancements.filter( (e) => e.source !== undefined);
+        character.enhancements = character.enhancements.filter( (e) => e.source !== '');
+
         character.version = 2;
         console.info(`Character migrated to v2.`);
     }
