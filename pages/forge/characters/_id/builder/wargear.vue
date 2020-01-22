@@ -9,7 +9,7 @@
         :color=" manageWargear ? 'info' : '' "
         @click="manageWargear = !manageWargear"
       >
-        <v-card-text>
+        <v-card-text class="pa-1">
           <v-icon>{{ manageWargear ? 'expand_less' : 'expand_more' }}</v-icon>
           Manage Wargear
         </v-card-text>
@@ -54,14 +54,14 @@
         :color=" startingWargearExpand ? 'info' : '' "
         @click="startingWargearExpand = !startingWargearExpand"
       >
-        <v-card-text>
+        <v-card-text class="pa-1">
           <v-icon>{{ startingWargearExpand ? 'expand_less' : 'expand_more' }}</v-icon>
           Add Starting Wargear
         </v-card-text>
       </v-card>
 
       <div v-if="startingWargearExpand">
-        <div v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0">
+        <div v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0" align="center">
           <v-card
             v-for="gear in startingWargear.options"
             :key="gear.key"
@@ -69,11 +69,11 @@
             dense
             class="mb-2"
           >
-            <v-card-title>
+            <v-card-title class="pa-2">
               <span class="subtitle-1 mb-0">{{ gear.name }}</span>
             </v-card-title>
 
-            <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query">
+            <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query" >
               <wargear-select
                 :item="gear.selected"
                 :repository="wargearRepository.filter(gear.options[0].query)"
@@ -99,10 +99,11 @@
 
           <v-btn
             v-if="startingWargearExpand"
-            block
+            small
             dense
             color="green"
             @click="addWargearToCharacter(startingWargear.options)"
+            dark
           >
             Add starting wargear
           </v-btn>
@@ -123,12 +124,11 @@
       <v-card
         class="mb-4"
         dark
-        dense
         outlined
         :color=" wargearSearchActive ? 'info' : '' "
         @click="wargearSearchActive = !wargearSearchActive"
       >
-        <v-card-text>
+        <v-card-text class="pa-1">
           <v-icon>{{ wargearSearchActive ? 'expand_less' : 'expand_more' }}</v-icon>
           Add additional Wargear
         </v-card-text>

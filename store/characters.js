@@ -345,7 +345,7 @@ export const mutations = {
     const wargearUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
     console.info(`Adding '${payload.name}' by '${payload.source}' [${wargearUniqueId}]`);
     if ( payload.gear && payload.gear.modifiers ) {
-      state.commit()
+
     }
     character.wargear.push({ id: wargearUniqueId, name: payload.name, source: payload.source });
   },
