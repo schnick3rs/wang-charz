@@ -234,12 +234,6 @@ const core = [
         + 'When doing so, increase the Guardsman’s resilience by +Rank for determining the '
         + 'damage of the attack.',
       },
-      {
-        name: 'Regimental Affiliation',
-        effect: 'Select a regiment to which the character '
-        + 'belongs (see Regiments on page 114). The soldier gains + ½ Rank bonus dice '
-        + 'with that regiment’s bonus (either a Skill or Resolve test).',
-      },
     ],
     keywordOption: '<Regiment>',
     prerequisites: [
@@ -325,6 +319,7 @@ const core = [
     ],
     keywordOption: '<Ordo>',
     skills: 'Any (2)',
+    prerequisites: [],
     /* prerequisites: [
       { group: 'skills', value: '<Any>', threshold: 2, },
     ], */

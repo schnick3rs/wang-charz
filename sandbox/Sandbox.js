@@ -189,3 +189,21 @@ var backgrounds = [
     shortDescription: '', // html
   }
 ]
+
+/**
+ * name
+ * discipline
+ * cost
+ * castingTime:
+ *
+ *
+ *
+ * @type {{name: string}[]}
+ */
+var spells = [
+  {
+    name: 'Mindfuck the Hive',
+    cost: '',
+
+  }
+];

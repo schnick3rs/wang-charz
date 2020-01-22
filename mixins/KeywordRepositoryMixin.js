@@ -49,7 +49,13 @@ export default {
         name: 'Adeptus Astra Telepathica', type: 'Imperium', parentKeyword: undefined, description: 'They administrate the role of psykers in the Imperium.',
       },
       {
-        name: 'Adeptus Mechanicus', type: 'Imperium', parentKeyword: undefined, description: 'The Tech-Priesthood of Mars, they are entrusted with the secrets of tech-nology; allied to the Imperium.',
+        name: 'Adeptus Mechanicus',
+        type: 'Imperium',
+        parentKeyword: undefined,
+        description: 'The Tech-Priesthood of Mars, they are entrusted with the secrets of tech-nology; allied to the Imperium.',
+        // Data is Currency
+        effectLabel: 'Data is Currency',
+        effect: 'Characters with the Adeptus Mechanicus keyword may use Intellect in place of Fellowship when calculating Influence.',
       },
       {
         name: '<Forge World>', type: 'Imperium', parentKeyword: 'Adeptus Mechanicus', description: 'A specific Adeptus Mechanicus Forge World (replaces this keyword when chosen).',
@@ -130,24 +136,45 @@ export default {
         // Regiments of the Astra Militarum
         // (i) Characters with the <Regiment> keyword must have the Astra Militarum keyword as well.
         {
-          placeholder: '<Regiment>', name: 'Death Korps of Krieg', type: 'Regiment of the Astra Militarum', description: 'Founded on the toxic, radioactive world of Krieg, these soldiers are grim and disciplined, accepting even the most dangerous missions.', modification: { },
+          placeholder: '<Regiment>',
+          name: 'Death Korps of Krieg',
+          type: 'Regiment of the Astra Militarum',
+          description: 'Founded on the toxic, radioactive world of Krieg, these soldiers are grim and disciplined, accepting even the most dangerous missions.',
+          effectLabel: 'Regimental Affiliation',
+          effect: '+½ Rank dice to Intimidation tests.',
+          modification: { },
         },
         {
-          placeholder: '<Regiment>', name: 'Cadian Shock Troopers', type: 'Regiment of the Astra Militarum', description: 'Founded on the Fortress World of Cadia, these disciplined soldiers suffered greatly when their home world was overwhelmed and razed by the forces of Chaos.', modification: { },
+          effectLabel: 'Regimental Affiliation',
+          effect: '+½ Rank dice to Resolve tests.',
+          placeholder: '<Regiment>',
+          name: 'Cadian Shock Troopers',
+          type: 'Regiment of the Astra Militarum',
+          description: 'Founded on the Fortress World of Cadia, these disciplined soldiers suffered greatly when their home world was overwhelmed and razed by the forces of Chaos.', modification: { },
         },
         {
+          effectLabel: 'Regimental Affiliation',
+          effect: '+½ Rank dice to Survival tests.',
           placeholder: '<Regiment>', name: 'Catachan Jungle Fighters', type: 'Regiment of the Astra Militarum', description: 'Founded on the incredibly lethal Death World of Catachan, these warriors are famed for their resourcefulness and ability to survive in nearly any battlefi eld.', modification: { },
         },
         {
+          effectLabel: 'Regimental Affiliation',
+          effect: '+½ Rank dice to Pilot tests.',
           placeholder: '<Regiment>', name: 'Armageddon Steel Legion', type: 'Regiment of the Astra Militarum', description: 'Founded upon the war-torn world of Armageddon, the Steel Legion commonly ride to war through the polluted wastes of their planet inside armoured vehicles.', modification: { },
         },
         {
+          effectLabel: 'Regimental Affiliation',
+          effect: '+½ Rank dice to Leadership tests.',
           placeholder: '<Regiment>', name: 'Vostroyan Firstborn', type: 'Regiment of the Astra Militarum', description: 'Founded on the Hive World of Vostroya, this regiment is made up of the fi rstborn sons of every family. This tradition was born from an ancient refusal to tithe soldiers to the Imperium, a mistake they have atoned for ever since. Offi cers are of noble birth, while common soldiery are made up of worker families.', modification: { },
         },
         {
+          effectLabel: 'Regimental Affiliation',
+          effect: '+½ Rank dice to Resolve tests.',
           placeholder: '<Regiment>', name: 'Valhallan Ice Warriors', type: 'Regiment of the Astra Militarum', description: 'Founded on the desolate Ice World of Valhalla, this regiment is made up of stern, stubborn soldiers who are all but impervious to harsh conditions.', modification: { },
         },
         {
+          effectLabel: 'Regimental Affiliation',
+          effect: '+½ Rank dice to Awareness tests.',
           placeholder: '<Regiment>', name: 'Tallarn Desert Raiders', type: 'Regiment of the Astra Militarum', description: 'Founded on the Desert World of Tallarn, this regiment is highly skilled at mobile warfare. Patient and determined, Tallarn soldiers are ferocious in pursuit of their enemies.', modification: { },
         },
 
@@ -219,12 +246,12 @@ export default {
 
         // Forge Worlds of the Adeptus Mechanicus
         { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Mars', description: 'The Red Planet: Birthplace of the Cult Mechanicus, considered the holiest of all celestial orbs. Tech-Priests of Mars consider themselves the most blessed of the Cult Mechanicus, and their ability to placate machine spirits is second to none.' },
-        { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Lucius', description: 'The Hollow Forge: A hollow world, Lucius is powered by an artifi cial sun in the planet’s core. This Forge World is known for creating a unique, sought-after alloy known as Luciun.' },
+        { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Lucius', description: 'The Hollow Forge: A hollow world, Lucius is powered by an artificial sun in the planet’s core. This Forge World is known for creating a unique, sought-after alloy known as Luciun.' },
         { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Agripinaa', description: 'Orb of a Million Scars: This Forge World exists on the threshold of the Eye of Terror. Agripinaa has fought off countless, relentless invasions by the forces of Chaos.' },
         { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Stygies VIII', description: 'The Ever-Staring Cyclops: Considered untrustworthy by other Forge Worlds, Stygies VIII nearly fell to heresy but was saved by an Aeldari intervention. It is home to a secretive sect dedicated to the study of alien technology known as Xenarites.' },
         { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Graia', description: 'The Crown of Miracles: Graia’s forges exist as a geometrically-perfect network of space stations known as the Crown. The tenacity of this Forge World is legendary, and they are known for their steadfast pursuit of their goals, no matter the cost.' },
         { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Metalica', description: 'The Gleaming Giant of Ultima Segmentum: This Forge World is formed nearly entirely from metal, having exterminated all biological life. It is a world of hissing pistons, glowing forges, and strata upon strata of industrial waste. The Tech-Priests of Metalica take pride in the sterile perfection of their lifeless world.' },
-        { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Ryza', description: 'Furnace of Shackled Stars: Famed for producing containment fi elds and plasma weaponry, Ryza is locked in a battle of survival against the invasion of two major Ork Waaagh!s. The residents of this Forge World have a reputation for fi erceness.' },
+        { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Ryza', description: 'Furnace of Shackled Stars: Famed for producing containment fields and plasma weaponry, Ryza is locked in a battle of survival against the invasion of two major Ork Waaagh!s. The residents of this Forge World have a reputation for fi erceness.' },
         { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Triplex / Phall', description: 'Forge of the Eastern Frontier: Isolated on the Eastern Fringe, this Forge World is considered somewhat insubordinate to Mars. Autonomous and independently-minded, Triplex Phall sends numerous explorator fl eets to discover new worlds and resources.' },
         { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Daimos', description: 'The Gift of the Sigillite: Relocated from the orbit of Mars to Titan, this heavily-industrialised moon produces highly-specialised wargear for the Grey Knights—a secret Chapter of Space Marines tasked with directly combating the threat of daemons and Chaos.' },
         { type: 'Forge World of the Adeptus Mechanicus', placeholder: '<Forge World>', name: 'Voss Prime', description: 'The Right Hand of Mars: Modelled after Mars, Voss Prime is second only to that world in production of armaments for the Imperium. The Forge World’s vaunted capacity has gai-ned them praise for Vosspattern vehicles, but they have struggled to master replicating plasma technology.' },
@@ -237,7 +264,7 @@ export default {
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Iron Hands', description: 'The Iron Hands see fl esh and emotion as weaknesses to be excised. In battle, they always strive to fight without emotion, following a strategy directed entirely by logic. To purge themselves of weakness, Iron Hands replace their body’s fl esh with cybernetics—including the replacement of healthy tissues. These beliefs have led the chapter to build close ties to the Adeptus Mechanicus.' },
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Raven Guard', description: 'The Raven Guard prefer to fight covertly, executing swift strikes from the shadows and rapid withdrawals instead of protracted engagements on open battlefi elds. While they are fully capable and equipped to execute more straightforward attacks, their numbers are limited due to fl aws in their gene-seed. Consequently, they prefer to execute focused attacks, exploiting what they can identify as the enemy’s weakest points.' },
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Salamanders', description: 'The Salamanders’ Seed World is the planet Nocturne, a planet of exotic radiation and constant lava fl ows. They are known for their fi erce determination and endurance, which complement their skill at arms. The Salamanders are the only legion that did not divide into other chapters during the Second Founding, due to the severe losses they suffered during the Horus Heresy.' },
-        { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Space Wolves', description: 'The Space Wolves are fi ercely loyal to the Imperium, but they are a savage and boastful lot. They have no patience for the rules of the Codex Astartes or any other Imperial authority. Instead, they revel in their feral actions and appearance as they overcome any who would dare to oppose the Imperium.' },
+        { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Space Wolves', description: 'The Space Wolves are fiercely loyal to the Imperium, but they are a savage and boastful lot. They have no patience for the rules of the Codex Astartes or any other Imperial authority. Instead, they revel in their feral actions and appearance as they overcome any who would dare to oppose the Imperium.' },
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Ultramarines', description: 'Ultramarines are renowned for their discipline, honour, and tactical acumen. In the wake of the Horus Heresy, the Ultramarines Legion composed nearly half of the Space Marines in the galaxy. By willingly dividing the Legion into chapters, they set the example that enabled the second founding to succeed and provide a basis for the other legions to embrace the Codex Astartes.' },
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'White Scars', description: 'The White Scars embrace strategies built around rapid and savage attacks, striking at an opponent and withdrawing before the foe has any opportunity to make a counterstrike. They prefer to attack from vehicles, deploying from transports or riding bikes or Land Speeders into battle. Their traditions prize ferocity, tempered by an inherent sense of honour and justice.' },
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Other Chapter', description: 'An unkown chapter in the vast space.' },
@@ -292,11 +319,11 @@ export default {
           placeholder: '<Clan>',
           type: 'Ork Clan',
           name: 'Deathskulls',
-          description: 'Deathskulls are light-fi ngered thieves who share an almost Mekboylike '
+          description: 'Deathskulls are light-fingered thieves who share an almost Mekboylike '
           + 'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as '
           + 'much as the next Ork, their innate kleptomania makes them see every battle as an '
           + 'excuse to scavenge or loot anything they can get their hands on.',
-          effect: '+1 bonus dice to Tech tests and Infl uence tests to acquire items.',
+          effect: '+1 bonus dice to Tech tests and Influence tests to acquire items.',
           modification: {},
         },
         {

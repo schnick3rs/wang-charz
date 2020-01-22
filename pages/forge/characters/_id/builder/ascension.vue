@@ -60,8 +60,11 @@
           <span class="mt-2 grey--text">Prerequisites</span>
           <v-divider class="mb-2" />
 
-          <div>
+          <div v-if="characterAscension.effectivePrerequisites">
             {{ characterAscension.effectivePrerequisites.map(a => `${a.name} (${a.threshold})`).join(", ") }}
+          </div>
+          <div v-else>
+            {{ characterAscension.skillPrerequisites.join(', ' )}}
           </div>
 
           <span class="mt-2 grey--text">Benefits</span>

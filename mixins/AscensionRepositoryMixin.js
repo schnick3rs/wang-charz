@@ -9,7 +9,7 @@ export default {
           cost: 10,
           minimumCampaignTier: 2,
           attributePrerequisites: [],
-          skillPrerequisites: ['required +1'],
+          skillPrerequisites: ['Required Archetype Skills +1'],
           prerequisites: (archetypePrerequisites) => {
             const prerequisites = [];
 

@@ -397,7 +397,7 @@
                 <div style="height: 505px; overflow-y: auto;">
 
                   <!-- species < abilities -->
-                  <div v-show="['all', 'species'].some(i=>i===abilitySection.selection)">
+                  <div v-show="abilitySection.selection === 'species' || (abilitySection.selection === 'all' && speciesAbilities.length > 0 )">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Species</span>
                     </div>
@@ -862,19 +862,22 @@ export default {
       }
       return abilities;
     },
+
     otherAbilities() {
       const abilities = [];
 
       // keyword abilities
-      if (this.keywords.find( k => k ==='Adeptus Mechanicus')) {
-        abilities.push({
-          name: 'Data is Currency',
-          effect:
-            'Characters with the Adeptus Mechanicus keyword may use Intellect ' +
-            'in place of Fellowship when calculating Influence.',
-          source: 'Adeptus Mechanicus'
-        });
-      }
+      this.keywords.forEach( k => {
+        const keyword = this.keywordCombinedRepository.find( i => i.name === k );
+        if ( keyword.effect ) {
+          const keywordAbility = {
+            name: keyword.effectLabel ? keyword.effectLabel : keyword.name,
+            effect: keyword.effect,
+            source: keyword.effectLabel ? `${keyword.name} Keyword` : `${keyword.type} Keyword`,
+          };
+          abilities.push(keywordAbility);
+        }
+      });
 
       // background abilities
       if (this.characterBackgroundKey) {
