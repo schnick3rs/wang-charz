@@ -300,7 +300,7 @@
             <v-tab class="caption" key="actions" :href="`#tab-actions`">Weapons</v-tab>
             <v-tab class="caption" key="wargear" :href="`#tab-wargear`">Wargear</v-tab>
             <v-tab class="caption" key="abilities-talents" :href="`#tab-abilities-talents`">Abilities</v-tab>
-            <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`">Powers</v-tab>
+            <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`" v-if="psychicPowers.length > 0">Powers</v-tab>
             <v-tab class="caption" key="objectives" :href="`#tab-objectives`">Description</v-tab>
 
             <!-- actions (all, weapons, powers, other) -->
@@ -321,6 +321,10 @@
                         {{ item.name }}
                       </td>
                       <td class="text-center pa-1 small">
+                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
+                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
+                      </td>
+                      <td class="text-center pa-1 small">
                         <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
                           <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + characterAttributesEnhanced.strength }}*</span>
                           <span v-else>{{ item.meta[0].damage.static }}</span>
@@ -333,10 +337,6 @@
                       </td>
                       <td class="text-center pa-1 small">
                         <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo < 0 ? '-' : item.meta[0].salvo }}</span>
-                      </td>
-                      <td class="text-center pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
                       </td>
                       <td class="text-left pa-1 small">
                         <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
@@ -537,6 +537,7 @@
                   <div v-show="['all', 'objectives'].some(i=>i===descriptionSection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Objectives</span>
+                      <v-icon small v-if="false" @click="objectiveEditorOpen">edit</v-icon>
                     </div>
                     <div
                       v-for="(objective, index) in objectives"
@@ -544,6 +545,17 @@
                       class="pl-2 pr-2 pt-1 pb-1 caption"
                     >
                       <strong>{{ index+1 }}:</strong> {{ objective.text }}
+                    </div>
+                    <div v-if="false">
+                      <span class="caption" @click="objectiveEditorOpen">+ Add/edit objectives</span>
+                    </div>
+                    <div style="display: flex;" justify="center" align v-if="objectiveEditorShow">
+                      <v-textarea
+                        flat
+                        single-lined
+                        dense
+                        v-model="objectiveEditorValue"
+                      ></v-textarea>
                     </div>
                   </div>
 
@@ -687,22 +699,22 @@ export default {
       ],
       weaponHeaders: [
         {
-          text: 'Name', sortable: false, align: 'left', class: 'small pa-1',
+          text: 'Name', sortable: false, align: 'left', class: 'small pa-1'
         },
         {
-          text: 'Damage', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Range', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'AP', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Damage', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Salvo', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'AP', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Range', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Salvo', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Traits', sortable: false, align: 'left', class: 'small pa-1',
+          text: 'Traits', sortable: false, align: 'left', class: 'small pa-1'
         },
       ],
       psychicPowersHeaders: [
