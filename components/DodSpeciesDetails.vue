@@ -85,7 +85,7 @@ export default {
   },
   computed: {
     avatar() {
-      return `/img/icon/species/species_${this.textToKebab(this.item.name)}_avatar.png`;
+      return `/img/icon/species/species_${this.item.key}_avatar.png`;
     },
   },
   methods: {

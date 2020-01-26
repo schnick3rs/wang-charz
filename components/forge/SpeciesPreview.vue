@@ -29,7 +29,7 @@
       </div>
       <v-spacer />
       <div class="hidden-xs-only">
-        <img :src="getAvatar(species.name)" style="width:96px">
+        <img :src="getAvatar(species.key)" style="width:96px">
       </div>
     </v-card-title>
 
@@ -158,8 +158,8 @@ export default {
     }
   },
   methods: {
-    getAvatar(name) {
-      return `/img/icon/species/species_${this.textToKebab(name)}_avatar.png`;
+    getAvatar(key) {
+      return `/img/icon/species/species_${key}_avatar.png`;
     },
     getChapterTraditions(chapterName) {
       const chapter = this.astartesChapterRepository.find((a) => a.name === chapterName) || [];

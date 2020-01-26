@@ -787,10 +787,10 @@ export default {
       }
 
       if (this.characterSpeciesLabel !== undefined) {
-        return `/img/icon/species/species_${this.textToKebab(this.characterSpeciesLabel)}_avatar.png`;
+        return `/img/icon/species/species_${this.characterSpeciesKey}_avatar.png`;
       }
 
-      return '/img/icon/species/species_human_avatar.png';
+      return '/img/icon/species/species_core-human_avatar.png';
     },
     archetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);

@@ -33,7 +33,7 @@
             @click.stop="updatePreview(item)"
           >
             <v-list-item-avatar tile>
-              <img :src="getAvatar(item.name)">
+              <img :src="getAvatar(item.key)">
             </v-list-item-avatar>
 
             <v-list-item-content>
@@ -121,9 +121,8 @@ export default {
       const { data } = await this.$axios.get('/api/species/', config);
       this.speciesList = data;
     },
-    getAvatar(name) {
-      const slug = this.textToKebab(name);
-      return `/img/icon/species/species_${slug}_avatar.png`;
+    getAvatar(key) {
+      return `/img/icon/species/species_${key}_avatar.png`;
     },
     async updatePreview(item) {
       const slug = this.camelToKebab(item.key);

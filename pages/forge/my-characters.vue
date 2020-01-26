@@ -376,6 +376,9 @@ export default {
     characterName(id) {
       return this.$store.getters['characters/characterNameById'](id);
     },
+    characterSpeciesKey(id) {
+      return this.$store.getters['characters/characterSpeciesKeyById'](id);
+    },
     characterSpeciesLabel(id) {
       return this.$store.getters['characters/characterSpeciesLabelById'](id);
     },
@@ -404,16 +407,16 @@ export default {
       }
 
       const archetypeLabel = this.characterArchetypeLabel(id);
-      const speciesLabel = this.characterSpeciesLabel(id);
-      if (archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(speciesLabel)) {
+      const speciesKey = this.characterSpeciesKey(id);
+      if (archetypeLabel !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
         return `/img/icon/archetype/archetype_${this.textToKebab(archetypeLabel)}_avatar.png`;
       }
 
-      if (speciesLabel !== undefined) {
-        return `/img/icon/species/species_${this.textToKebab(speciesLabel)}_avatar.png`;
+      if (speciesKey !== undefined) {
+        return `/img/icon/species/species_${speciesKey}_avatar.png`;
       }
 
-      return '/img/icon/species/species_human_avatar.png';
+      return '/img/icon/species/species_core-human_avatar.png';
     },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)
