@@ -869,7 +869,9 @@ export default {
       // keyword abilities
       this.keywords.forEach( k => {
         const keyword = this.keywordCombinedRepository.find( i => i.name === k );
-        if ( keyword.effect ) {
+        if ( keyword === undefined ) {
+          console.warn(`Now keyword found for ${k}`);
+        } else if ( keyword.effect ) {
           const keywordAbility = {
             name: keyword.effectLabel ? keyword.effectLabel : keyword.name,
             effect: keyword.effect,

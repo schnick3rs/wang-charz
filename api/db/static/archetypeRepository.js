@@ -169,7 +169,7 @@ const core = [
     tier: 1,
     species: ['Human', 'Ogryn', 'Ratling'],
     influence: 0,
-    keywords: 'Imperium,Adeptus Ministorum,Adeptus Sororitas,<Order>',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
     keywordOption: '<Order>',
     abilities: [
       {
@@ -193,7 +193,7 @@ const core = [
     cost: 40,
     tier: 2,
     influence: 1,
-    keywords: 'Imperium,Adeptus Ministorum,Adeptus Sororitas,<Order>',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
     abilities: [
       {
         name: 'Purity of Faith',
