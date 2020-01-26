@@ -54,7 +54,7 @@
               v-for="item in archetypesByGroup(group)"
               :key="item.key"
               two-line
-              :disabled="!item.species.includes(characterSpeciesLabel) || item.tier > characterSettingTier"
+              :disabled="item.tier > characterSettingTier"
               @click.stop="updatePreview(item)"
             >
               <v-list-item-avatar tile>
@@ -115,6 +115,7 @@ export default {
       previewDialog: false,
       previewItem: undefined,
       searchQuery: '',
+      characterSpecies: undefined,
     };
   },
   computed: {
@@ -127,12 +128,23 @@ export default {
     characterSpeciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
+    characterSpeciesKey(){
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
     archetypeGroups() {
       if (this.itemList !== undefined) {
         let archetypes = this.itemList;
 
-        if (this.characterSpeciesLabel !== undefined) {
-          archetypes = archetypes.filter((a) => a.species.includes(this.characterSpeciesLabel));
+        if (this.characterSpecies) {
+          archetypes = archetypes.filter((a) => {
+            if ( a.speciesKey.includes(this.characterSpecies.key) ) return true;
+            if ( a.speciesKey.includes(this.characterSpecies.variant) ) return true;
+            return false;
+          });
+
+          if (this.characterSpecies.archetypeRestrictionsMaxTier) {
+            archetypes = archetypes.filter((a) => a.tier <= this.characterSpecies.archetypeRestrictionsMaxTier);
+          }
         }
 
         if (this.characterSettingTier !== undefined) {
@@ -147,6 +159,14 @@ export default {
 
   },
   watch: {
+    characterSpeciesKey: {
+      handler(newKey) {
+        if (newKey) {
+          this.loadSpecies(newKey);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
     sources: {
       handler(newVal) {
         if (newVal) {
@@ -172,6 +192,12 @@ export default {
       const { data } = await this.$axios.get('/api/archetypes/', config);
       this.itemList = data;
     },
+    async loadSpecies(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/species/${key}`);
+        this.characterSpecies = data;
+      }
+    },
     getAvatar(name) {
       const slug = this.textToKebab(name);
       return `/img/icon/archetype/archetype_${slug}_avatar.png`;
@@ -182,9 +208,17 @@ export default {
       /* filter by archetype group */
       archetypes = archetypes.filter((a) => a.group === groupName);
 
-      /* filter by  */
-      if (this.characterSpeciesLabel) {
-        archetypes = archetypes.filter((a) => a.species.includes(this.characterSpeciesLabel));
+      if (this.characterSpecies) {
+        archetypes = archetypes.filter((a) => {
+          if ( a.speciesKey.includes(this.characterSpecies.key) ) return true;
+          if ( a.speciesKey.includes(this.characterSpecies.variant) ) return true;
+          return false;
+        });
+
+        if (this.characterSpecies.archetypeRestrictionsMaxTier) {
+          archetypes = archetypes.filter((a) => a.tier <= this.characterSpecies.archetypeRestrictionsMaxTier);
+        }
+
       }
 
       if (this.characterSettingTier !== undefined) {

@@ -56,20 +56,24 @@
           v-for="speciesTrait in species.speciesTraits"
           class="text-lg-justify"
         >
-          <p><strong>{{ speciesTrait.name }}:</strong> {{ speciesTrait.snippet }}</p>
+          <p><strong>{{ speciesTrait.name }}:</strong> {{ speciesTrait.description ? speciesTrait.description : speciesTrait.snippet }}</p>
 
-          <div v-if="speciesTrait.options && speciesTrait.options.length > 0">
+          <div v-if="manageMode && speciesTrait.options && speciesTrait.options.length > 0">
             <v-select
               :items="speciesTrait.options"
               v-model="speciesTrait.selected"
               item-value="name"
               item-text="name"
-              :hint="speciesTrait.options.find((o)=>o.name === speciesTrait.selected) ? speciesTrait.options.find((o)=>o.name === speciesTrait.selected).snippet : ''"
               @change="$emit('changeSpeciesTraitOption', speciesTrait)"
-              persistent-hint
               dense
               solo
             ></v-select>
+            <div
+              v-if="speciesTrait.selected && speciesTrait.selected.length > 0"
+              class="ml-4 mr-4"
+            >
+              <div v-html="speciesTrait.options.find((o)=>o.name === speciesTrait.selected).description"></div>
+            </div>
           </div>
 
           <div

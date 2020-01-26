@@ -65,7 +65,6 @@ export default {
       data.speciesTraits.filter((t) => t.options).forEach((t) => {
         const enhancement = this.enhancements.find((m) => m.source.startsWith(`species.${t.name}`) );
         if ( enhancement ) {
-          console.info(enhancement.source)
           t.selected = enhancement.source.split('.').pop();
         }
       });
@@ -97,6 +96,7 @@ export default {
     setSpeciesTraitOption(speciesTrait) {
       const selectedOption =  speciesTrait.options.find( (o) => o.name === speciesTrait.selected );
 
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `species.${speciesTrait.name}.` });
       // the option has a snippet, that is thus added as a custom ability
       if ( selectedOption.snippet ) {
         const content = {
@@ -108,8 +108,7 @@ export default {
           }],
           source: `species.${speciesTrait.name}.${selectedOption.name}`,
         };
-        this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `species.${speciesTrait.name}.` });
-        this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });
+        this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
       }
 
       // the selected option has modifications that are saved as such
@@ -118,8 +117,7 @@ export default {
           modifications: selectedOption.modifications,
           source: `species.${speciesTrait.name}.${selectedOption.name}`,
         };
-        this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `species.${speciesTrait.name}.` });
-        this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });
+        this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
       }
     },
   },

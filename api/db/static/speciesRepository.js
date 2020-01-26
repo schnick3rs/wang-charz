@@ -128,7 +128,7 @@ const coreRep = [
       }
     ],
     avatar: null,
-    archetypeRestrictionsSpecies: ['Human'],
+    variant: 'core-human',
   },
   {
     key: 'coreab-ogryn',
@@ -169,7 +169,7 @@ const coreRep = [
       },
     ],
     avatar: null,
-    archetypeRestrictionsSpecies: ['Human'],
+    variant: 'core-human',
   },
   {
     key: 'core-eldar',
@@ -466,7 +466,7 @@ const homebrewReps = [
           'In addition, there are Untouchable exclusive archetypes.',
       },
     ],
-    archetypeRestrictionsSpecies: ['Human', 'Untouchable'],
+    variant: 'core-human',
   },
   {
     ...simpleStub('pax', 13, 'Mankind', 'Beastman', 'Beastly touch of unknown origin', 10, 1),
@@ -506,7 +506,12 @@ const homebrewReps = [
          options: [
           {
             name: 'Horse',
-            snippet: 'The character gains +1 modified Toughness and +1 Speed.',
+            snippet: 'You increase Toughness and Speed by 1.',
+            description:
+              '<p>The character’s body is covered with fur, their head distends into that of an equine, ' +
+              'and they grow a lengthy mane and tail. Their feet transform into hooves and their ' +
+              'legs become digitigrade. The character must modify any clothing worn on the head or ' +
+              'lower body to have it fit.</p><p>The character gains +1 modified Toughness and +1 Speed.</p>',
             modifications: [
               { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
               { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
@@ -514,7 +519,12 @@ const homebrewReps = [
           },
           {
             name: 'Tortoise',
-            snippet: 'The character gains +1 modified Toughness and +1 Resilience.',
+            snippet: 'You increase Toughness and Resilience by 1.',
+            description:
+              '<p>The character loses all body hair, and their torso becomes encased in a thick shell, ' +
+              'into which they may withdraw their head and limbs. All clothing and armour must be ' +
+              'modified to accommodate the extreme physiological transformation.</p>' +
+              '<p>The character gains +1 modified Toughness and +1 Resilience.</p>',
             modifications: [
               { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
               { targetGroup: 'traits', targetValue: 'resilience', modifier: 1 },
@@ -522,24 +532,42 @@ const homebrewReps = [
           },
           {
             name: 'Goat',
-            snippet:
-              'The character gains +1d to Athletics tests. ' +
+            snippet: 'Add +1 dice to Athletics test and you horns are a natural weapon (count as knife).',
+            description:
+              '<p>The character’s body is covered with fur, their head distends into that of a goat, ' +
+              'and they grow horns upon their brow. Their feet transform into hooves and their ' +
+              'legs become digitigrade. The character must modify any clothing worn on the head or ' +
+              'lower body to have it fit.</p>' +
+              '<p>The character gains +1d to Athletics tests. ' +
               'They may make melee attacks with their horns, treating them as if they were a knife. ' +
               'Consequently, the character is never unarmed. ' +
-              'When these growths are visible, the character suffers +1DN to all social interactions unless the character has the Chaos keyword.',
+              'When these growths are visible, the character suffers +1DN to all social interactions unless the character has the Chaos keyword.</p>',
             modifications: [
               { targetGroup: 'skills', targetValue: 'athletics', modifier: 1 },
             ],
           },
           {
             name: 'Shark',
-            snippet: 'The character cannot drown underwater. They may make melee attacks with their fangs, treating them as if they were a knife. Consequently, the character is never unarmed.',
+            snippet: 'You can breath underwater and your fangs are natural weapons (count as knife).',
+            description:
+              '<p>The character loses all body hair, and their skin becomes rough to the touch. ' +
+              'They grow gills, which they can distend at will for aquatic respiration. ' +
+              'Their mouth expands and fills with massive fangs.</p>' +
+              '<p>The character cannot drown underwater. ' +
+              'They may make melee attacks with their fangs, treating them as if they were a knife. ' +
+              'Consequently, the character is never unarmed.</p>',
             modifications: [
             ],
           },
           {
             name: 'Dog',
-            snippet: 'The character gains +1 Speed and +2d to all Awareness tests.',
+            snippet: 'Increase Speed by 1 and add +2 dice to Awareness tests.',
+            description:
+              '<p>The character’s body is covered with fur, their head distends into that of a dog, ' +
+              'including pointed or dropped ears. Their senses of smell and hearing improve. ' +
+              'Their feet transform into paws and their legs become digitigrade. The character ' +
+              'must modify any clothing worn on the head or lower body to have it fit.</p>' +
+              '<p>The character gains +1 Speed and +2d to all Awareness tests.</p>',
             modifications: [
               { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
               { targetGroup: 'skills', targetValue: 'awareness', modifier: 2 },
@@ -547,10 +575,18 @@ const homebrewReps = [
           },
           {
             name: 'Eagle',
-            snippet:
+            snippet: 'Add +1 die to Awareness tests and your beak is a natural melee weapon (count as knife).',
+            description:
+              '<p>The character’s body is covered in feathers, and a hooked beak emerges from their face. ' +
+              'Their vision sharpens substantially. Their feet transform into scaly, ' +
+              'hooked talons, and their legs become digitigrade. ' +
+              'The character must modify any clothing worn on the head or lower body to have it fit. ' +
               'The character gains +1d to Awareness tests. ' +
               'They may make melee attacks with their beak, treating it as if it was a knife. ' +
-              'Consequently, the character is never unarmed.',
+              'Consequently, the character is never unarmed.</p>' +
+              '<p>The character gains +1d to Awareness tests. ' +
+              'They may make melee attacks with their beak, treating it as if it was a knife. ' +
+              'Consequently, the character is never unarmed.</p>',
             modifications: [
               { targetGroup: 'skills', targetValue: 'awareness', modifier: 1 },
             ],
@@ -558,7 +594,7 @@ const homebrewReps = [
         ],
       }
     ],
-    archetypeRestrictionsSpecies: ['Human'],
+    variant: 'core-human',
     archetypeRestrictionsMaxTier: 1,
   },
 ];

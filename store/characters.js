@@ -290,6 +290,19 @@ export const mutations = {
       character.enhancements.push(item);
     });
   },
+  addCharacterModifications(state, payload) {
+    const character = state.characters[payload.id];
+    const { modifications } = payload.content;
+    const source = payload.content.source || undefined;
+    console.info(payload);
+
+    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
+
+    modifications.forEach((item) => {
+      item.source = source;
+      character.enhancements.push(item);
+    });
+  },
   clearCharacterEnhancementsBySource(state, payload) {
     const character = state.characters[payload.id];
 
