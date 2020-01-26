@@ -83,7 +83,8 @@ const coreRep = [
         name: 'The Red Thirst',
         origin: 'Gene-seed',
         effect: 'After engaging in melee combat, Blood Angels must pass a Willpower test (DN 3). On a failure, the Blood Angels Space Marine feels a strong urge to drink the blood of the fallen—the player may choose how to respond to this urge. If the failure involves a complication, the Blood Angels Space Marine may not resist this urge. The Game Master may alter the DN based on how long it has been since the character has tasted blood.',
-      }],
+      }
+      ],
   },
   {
     key: 'darkAngles',

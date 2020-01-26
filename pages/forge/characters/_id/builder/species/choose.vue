@@ -89,6 +89,7 @@ export default {
       return [
         'core',
         'coreab',
+        'pax',
       ];
     },
     characterSettingTier() {
@@ -131,21 +132,26 @@ export default {
       this.speciesDialog = true;
     },
     selectSpeciesForChar(species) {
+      let modifications = [];
+      species.speciesTraits
+        .filter( (t) => t.modifications !== undefined )
+        .forEach( (t) => {
+          modifications = [ ...t.modifications ];
+        });
+
       this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { key: species.key, label: species.name, cost: species.cost } });
-      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: species.modifications, source: 'species' } });
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: modifications, source: 'species' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'species' });
-      if (species.keywords.length > 0) {
-        species.keywords.forEach((keyword) => {
-          const payload = {
-            name: keyword,
-            source: 'species',
-            type: 'keyword',
-            replacement: undefined,
-          };
-          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
-        });
-      }
+      modifications.filter( (m) => m.targetGroup === 'keywords' ).forEach( (k) => {
+        const payload = {
+          name: k.targetValue,
+          source: 'species',
+          type: 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+      });
 
       this.speciesDialog = false;
       this.$router.push({

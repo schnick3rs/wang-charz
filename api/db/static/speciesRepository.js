@@ -78,59 +78,57 @@ const coreRep = [
     name: 'Human',
     group: 'Mankind',
     hint: 'The humble human',
+    description: 'Each human is just one of untold billions spread across the galaxy over millions of planets. Those in the Imperium live under the authority of the Emperor, but He has not stirred from His Golden Throne on Holy Terra for over ten thousand years. The remorseless government agencies of the Imperium use His authority to mercilessly rule Humanity according to their interpretations of the Emperor’s will. Every planet has its own culture and unique interpretations of the Imperium’s laws and sacred beliefs, but a few things are especially common.',
     source: { ...source.core, page: 86 },
     cost: 0,
     baseTier: 1,
     speed: 6,
-    attributes: 'None',
-    modifications: [],
-    keywords: [],
-    abilities: null,
-    description: 'Each human is just one of untold billions spread across the galaxy over millions of planets. Those in the Imperium live under the authority of the Emperor, but He has not stirred from His Golden Throne on Holy Terra for over ten thousand years. The remorseless government agencies of the Imperium use His authority to mercilessly rule Humanity according to their interpretations of the Emperor’s will. Every planet has its own culture and unique interpretations of the Imperium’s laws and sacred beliefs, but a few things are especially common.',
+    speciesTraits: [],
     avatar: null,
-    theme: null,
   },
   {
     key: 'coreab-ratling',
     name: 'Ratling',
     group: 'Mankind',
     hint: 'Half-man by name, but not by nature',
-    description: 'These small Abhumans are loud, lecherous, hungry, and always on the lookout for something to steal. They like to go into battle barefoot so they can feel the ground beneath their feet. They are often referred to as akin to a plague of rats, for a squad of these Ratlings can strip an Imperial Guard canteen bare in the time it takes the cook to call a squad to mess. Despite this, Ratlings are considered a valuable resource for the Astra Militarum.',
+    description:
+      'These small Abhumans are loud, lecherous, hungry, and always on the lookout for something to steal. ' +
+      'They like to go into battle barefoot so they can feel the ground beneath their feet. ' +
+      'They are often referred to as akin to a plague of rats, for a squad of these Ratlings can ' +
+      'strip an Imperial Guard canteen bare in the time it takes the cook to call a squad to mess. ' +
+      'Despite this, Ratlings are considered a valuable resource for the Astra Militarum.',
     source: { ...source.coreab },
     cost: 15,
     baseTier: 1,
     speed: 5,
     size: 'Small',
-    attributes: 'Agility +1, Strength -1',
-    modifications: [
-      { targetGroup: 'attributes', targetValue: 'strength', modifier: -1 },
-      { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
-    ],
-    keywords: ['Scum'],
-    abilities: 'Abhuman,Born Sharpshooter,Conniving',
-    abilityObjects: [
+    speciesTraits: [
       {
-        key: null,
-        name: 'Abhuman',
-        effect: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
-        description: null,
-        archdescription: null,
+        name: 'Attribute Modifications',
+        snippet: 'Decrease Strength by 1. Increase Agility by 1.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'strength', modifier: -1 },
+          { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
+        ],
       },
       {
-        key: null,
-        name: 'Born Sharpshooter',
-        effect: ' +2d to all Ballistic Skill tests.',
-        description: null,
-      },
-      {
-        key: null,
         name: 'Conniving',
-        effect: 'Ratlings begin play with the Scum keyword.',
-        description: null,
+        snippet: 'You gain the Scum Keyword',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Scum' },
+        ],
       },
+      {
+        name: 'Abhuman',
+        snippet: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
+      },
+      {
+        name: 'Born Sharpshooter',
+        snippet: '+2d to all Ballistic Skill tests.',
+      }
     ],
     avatar: null,
-    theme: null,
+    archetypeRestrictionsSpecies: ['Human'],
   },
   {
     key: 'coreab-ogryn',
@@ -138,122 +136,128 @@ const coreRep = [
     group: 'Mankind',
     hint: 'The brutal, eeh... human?',
     source: { ...source.coreab },
-    description: 'Ogryns are the heavy assault backbone of the Astra Militarum, usually attached to the various regiments of the Imperial Guard. These Abhumans are loyal, stalwart, brutal, and extremely strong. They are capable of shrugging off damage that would slaughter a human outright; in short, they make perfect assault and shock troopers when the Imperial Guard requires a heavy fist. Some Ogryns take this to heart, bearing shields and clubs to act as melee powerhouses, whilst many others use their prized (and heavily constructed) Ripper guns.',
+    description:
+      'Ogryns are the heavy assault backbone of the Astra Militarum, ' +
+      'usually attached to the various regiments of the Imperial Guard. ' +
+      'These Abhumans are loyal, stalwart, brutal, and extremely strong. ' +
+      'They are capable of shrugging off damage that would slaughter a human outright; in short, ' +
+      'they make perfect assault and shock troopers when the Imperial Guard requires a heavy fist. ' +
+      'Some Ogryns take this to heart, bearing shields and clubs to act as melee powerhouses, ' +
+      'whilst many others use their prized (and heavily constructed) Ripper guns.',
     cost: 15,
     baseTier: 2,
     speed: 4,
     size: 'Large',
-    attributes: 'Strength +2, Toughness +2, Fellowship -1, Intellect -1',
-    modifications: [
-      { targetGroup: 'attributes', targetValue: 'strength', modifier: 2 },
-      { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2 },
-      { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
-      { targetGroup: 'attributes', targetValue: 'intellect', modifier: -1 },
-    ],
-    keywords: [],
-    abilities: 'Abhuman,Burly',
-    abilityObjects: [
+    speciesTraits: [
       {
-        key: null,
-        name: 'Abhuman',
-        effect: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
-        description: null,
+        name: 'Attribute Modifications',
+        snippet: 'Decrease Fellowship and Intellect by 1. Increase Strength and Toughness by 2.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
+          { targetGroup: 'attributes', targetValue: 'intellect', modifier: -1 },
+          { targetGroup: 'attributes', targetValue: 'strength', modifier: 2 },
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2 },
+        ],
       },
       {
-        key: null,
+        name: 'Abhuman',
+        snippet: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
+      },
+      {
         name: 'Burly',
-        effect: ' +2d to all Intimidation tests.',
-        description: null,
+        snippet: '+2d to all Intimidation tests.',
       },
     ],
     avatar: null,
-    theme: null,
+    archetypeRestrictionsSpecies: ['Human'],
   },
   {
     key: 'core-eldar',
     name: 'Eldar',
     group: 'Aeldari',
     hint: 'The Mysterious Aeldari',
+    description:
+      'The Aeldari ruled the galaxy for millions of years. During their rise to power, ' +
+      'this species uncovered secrets of the galaxy’s very essence, ' +
+      'learning to create and shatter entire worlds. They discovered and developed the webway, ' +
+      'enabling them to quickly travel across the galaxy without the risk of warp travel. ' +
+      'Their collective knowledge eventually reached the point that any drive to learn dampened, ' +
+      'as they could accomplish virtually any task they could imagine. ' +
+      'The longlived Aeldari existed in luxury, pursuing whatever interests drew their attention. ' +
+      'Eventually, such leisure led to increasingly hedonistic pursuits that spread in cults ' +
+      'across their entire population. Those moral failings, over time, coalesced within the warp, ' +
+      'giving birth to Slaanesh.',
     source: { ...source.core, page: 90 },
     cost: 10,
     baseTier: 1,
     speed: 8,
-    attributes: 'Agility +1',
-    modifications: [
+    speciesTraits: [
       {
-        targetGroup: 'attributes',
-        targetValue: 'agility',
-        modifier: 1,
+        name: 'Attribute Modifications',
+        snippet: 'Increase Agility by 1.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
+        ],
       },
-    ],
-    keywords: [],
-    abilities: 'Outsider,Intense Emotion,Psychosensitive',
-    abilityObjects: [
       {
-        key: null,
         name: 'Outsider',
-        effect: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
-        description: null,
+        snippet: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
       },
       {
-        key: null,
         name: 'Intense Emotion',
-        effect: '+1DN to all Resolve tests. Failing a Willpower-based test in a scene involving intense emotion grants the GM +1 Ruin.',
-        description: null,
+        snippet: '+1DN to all Resolve tests. Failing a Willpower-based test in a scene involving intense emotion grants the GM +1 Ruin.',
       },
       {
-        key: null,
+        name: 'Outsider',
+        snippet: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
+      },
+      {
         name: 'Psychosensitive',
-        effect: 'All Eldar may purchase 1 Minor Psychic Power if they also purchase the Psychic Mastery skill. This purchase also gives them the Psyker keyword. In addition, the Tier Restriction for Maximum Psychic Powers for Eldar Characters is increased by 1 to accommodate this purchase.',
-        description: null,
+        snippet: 'All Eldar may purchase 1 Minor Psychic Power if they also purchase the Psychic Mastery skill. This purchase also gives them the Psyker keyword. In addition, the Tier Restriction for Maximum Psychic Powers for Eldar Characters is increased by 1 to accommodate this purchase.',
       },
     ],
-    description: 'The Aeldari ruled the galaxy for millions of years. During their rise to power, this species uncovered secrets of the galaxy’s very essence, learning to create and shatter entire worlds. They discovered and developed the webway, enabling them to quickly travel across the galaxy without the risk of warp travel. Their collective knowledge eventually reached the point that any drive to learn dampened, as they could accomplish virtually any task they could imagine. The longlived Aeldari existed in luxury, pursuing whatever interests drew their attention. Eventually, such leisure led to increasingly hedonistic pursuits that spread in cults across their entire population. Those moral failings, over time, coalesced within the warp, giving birth to Slaanesh.',
     avatar: null,
-    theme: null,
   },
   {
     key: 'core-ork',
     name: 'Ork',
     group: 'Orks',
+    hint: 'The savage brute',
+    description:
+      'Orks are ubiquitous throughout the galaxy. Their incomprehensible physiology and ecosystem ' +
+      'is capable of actively proliferating in even the most hostile of environments—from ash ' +
+      'wastes, to overgrown Death Worlds, to barren asteroids. Even a small tribe of a few dozen ' +
+      'Orks can inexplicably grow into a force of tens of thousands in relatively short order. ' +
+      'The biological mechanisms behind this growth and adaptability confound even the most ' +
+      'accomplished scholars of the Adeptus Mechanicus. There are no consistent requirements for ' +
+      'Orks to thrive within any climate. However, their functionality is clearly evident on the ' +
+      'countless worlds they have subsumed.',
     source: { ...source.core, page: 88 },
     cost: 10,
     baseTier: 1,
     speed: 6,
-    attributes: 'Toughness +1',
-    modifications: [
+    speciesTraits: [
       {
-        targetGroup: 'attributes',
-        targetValue: 'toughness',
-        modifier: 1,
+        name: 'Attribute Modifications',
+        snippet: 'Increase Toughness by 1.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+        ],
       },
-    ],
-    keywords: [],
-    abilities: 'Outsider,Orky,Bigger is Better',
-    abilityObjects: [
       {
-        key: null,
         name: 'Outsider',
-        effect: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
-        description: null,
+        snippet: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
       },
       {
-        key: null,
         name: 'Orky',
-        effect: '+1 to all Intimidation tests.',
-        description: null,
+        snippet: '+1 to all Intimidation tests.',
       },
       {
-        key: null,
         name: 'Bigger is Better',
-        effect: 'Orks calculate Infl uence using their Strength in place of Fellowship.',
-        description: null,
+        snippet: 'Orks calculate Influence using their Strength in place of Fellowship.',
       },
     ],
-    hint: 'The savage brute',
-    description: 'Orks are ubiquitous throughout the galaxy. Their incomprehensible physiology and ecosystem is capable of actively proliferating in even the most hostile of environments—from ash wastes, to overgrown Death Worlds, to barren asteroids. Even a small tribe of a few dozen Orks can inexplicably grow into a force of tens of thousands in relatively short order. The biological mechanisms behind this growth and adaptability confound even the most accomplished scholars of the Adeptus Mechanicus. There are no consistent requirements for Orks to thrive within any climate. However, their functionality is clearly evident on the countless worlds they have subsumed.',
     avatar: null,
-    theme: null,
   },
   {
     key: 'core-adeptus-astartes',
@@ -263,82 +267,70 @@ const coreRep = [
     cost: 50,
     baseTier: 2,
     speed: 7,
-    attributes: 'Strength +1, Agility +1, Toughness +1, Resolve +1',
-    modifications: [
-      { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
-      { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
-      { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
-      { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
-    ],
-    keywords: [],
-    abilities: 'Angel of Death,Honour the Chapter,Space Marine Implants',
-    abilityObjects: [
+    speciesTraits: [
       {
-        key: null,
+        name: 'Attribute Modifications',
+        snippet: 'Increase Strength, Ability, Toughness and Resolve by 1.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
+        ],
+      },
+      {
         name: 'Angel of Death',
-        effect: 'Space Marines add +½ Rank icons to any successful attack against a Mob.',
-        description: null,
+        snippet: 'Space Marines add +½ Rank icons to any successful attack against a Mob.',
       },
       {
-        key: null,
         name: 'Honour the Chapter',
-        effect: 'You are subject to the orders of your chapter master, and must honour both the beliefs and traditions of your chapter.',
-        description: null,
+        snippet: 'You are subject to the orders of your chapter master, and must honour both the beliefs and traditions of your chapter.',
       },
       {
-        key: null,
         name: 'Space Marine Implants',
-        effect: 'Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifier to any test if the Game Master deems it appropriate for one of the 19 implants.',
-        description: null,
+        snippet: 'Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifier to any test if the Game Master deems it appropriate for one of the 19 implants.',
       },
     ],
     hint: 'the sword of mankind',
     description: 'Prior to launching the Great Crusade, the Emperor of Man created the Adeptus Astartes and assembled them into his legions. Each began as a mortal man, but a combination of genetic manipulations and physical implantations transformed each into a superhuman warrior—an Imperial Space Marine. The Emperor initially created twenty legions of Space Marines, each one containing vast numbers. All members of each of the twenty legions used a gene-seed developed from one of the twenty godlike Primarchs, whom the emperor also created. During the Great Crusade, Primarchs served as the generals of the Space Marine Legions, as the Emperor strove to reunify all lost human worlds, bringing the galaxy into Imperial Compliance.',
     avatar: null,
-    theme: null,
   },
   {
     key: 'core-primaris-astartes',
     name: 'Primaris Astartes',
     group: 'Mankind',
     hint: 'the newborn breed',
+    description: 'In the wake of the Horus Heresy, after completing the Codex Astartes, Primarch Roboute Guilliman decided that the Adeptus Astartes needed further enhancements to better defend the Imperium from outside threats—including those Space Marines who had turned traitor. He assigned the job of improving them to Archmagos Dominus Belisarius Cawl of the Adeptus Mechanicus. To aid the Tech-Priest, Guilliman provided him with an archive of genetic material taken from his fellow Primarchs, called the Sangprimus Portum.',
     source: { ...source.core, page: 98 },
     cost: 100,
     baseTier: 4,
     speed: 7,
-    attributes: 'Strength +2, Agility +1,Toughness: +1, Resolve +1, Wounds +4',
-    modifications: [
-      { targetGroup: 'attributes', targetValue: 'strength', modifier: 2 },
-      { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
-      { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
-      { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
-      { targetGroup: 'traits', targetValue: 'wound', modifier: 4 },
-    ],
-    keywords: [],
-    abilities: 'Angel of Death,Honour the Chapter (Primaris),Space Marine Implants',
-    abilityObjects: [
+    speciesTraits: [
       {
-        key: null,
+        name: 'Attribute Modifications',
+        snippet: 'Increase Strength by 2, increase Ability, Toughness and Resolve by 1 and increase Wounds by 4.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'strength', modifier: 2 },
+          { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
+          { targetGroup: 'traits', targetValue: 'wound', modifier: 4 },
+        ],
+      },
+      {
         name: 'Angel of Death',
-        effect: 'Space Marines add +½ Rank icons to any successful attack against a Mob.',
-        description: null,
+        snippet: 'Space Marines add +½ Rank icons to any successful attack against a Mob.',
       },
       {
-        key: null,
         name: 'Honour the Chapter (Primaris)',
-        effect: 'You are subject to the orders of your chapter master and the beliefs and traditions of your chapter. Primaris Space Marines gain the fi rst special rule from their Chapter and ignore any penalties or drawbacks from the second if it is marked as being related to the Chapter’s gene-seed.',
-        description: null,
+        snippet: 'You are subject to the orders of your chapter master and the beliefs and traditions of your chapter. Primaris Space Marines gain the fi rst special rule from their Chapter and ignore any penalties or drawbacks from the second if it is marked as being related to the Chapter’s gene-seed.',
       },
       {
-        key: null,
         name: 'Space Marine Implants',
-        effect: 'Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifier to any test if the Game Master deems it appropriate for one of the 19 implants.',
-        description: null,
+        snippet: 'Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifier to any test if the Game Master deems it appropriate for one of the 19 implants.',
       },
     ],
-    description: 'In the wake of the Horus Heresy, after completing the Codex Astartes, Primarch Roboute Guilliman decided that the Adeptus Astartes needed further enhancements to better defend the Imperium from outside threats—including those Space Marines who had turned traitor. He assigned the job of improving them to Archmagos Dominus Belisarius Cawl of the Adeptus Mechanicus. To aid the Tech-Priest, Guilliman provided him with an archive of genetic material taken from his fellow Primarchs, called the Sangprimus Portum.',
     avatar: null,
-    theme: null,
   },
 ];
 
@@ -354,33 +346,220 @@ const homebrewReps = [
   simpleStub('aaoa', 16, 'Mankind', 'Pharia', 'The blank, the untouched, the hated', 30, 2),
   simpleStub('aaoa', 17, 'Mankind', 'Squat', 'Abhuman and dwarfish underground variant', 15, 1),
   simpleStub('aaoa', 18, 'Mankind', 'Beastman', 'Touched by fate... eeh chaos.', 20, 1),
-  simpleStub('pax', 14, 'Mankind', 'Navigator', 'Blessed with the third eye', 50, 1),
-  simpleStub('pax', 18, 'Mankind', 'Untouchable', 'The soulless', 20, 1),
+  {
+    ...simpleStub('pax', 14, 'Mankind', 'Navigator', 'Blessed with the third eye', 50, 1),
+    stub: false,
+    speed: 6,
+    speciesTraits: [
+      {
+        name: 'Attribute Modifications',
+        snippet: 'Decrease Fellowship by 1. Increase Willpower by 1.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
+          { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 },
+        ],
+      },
+      {
+        name: 'Warp Eye',
+        snippet: 'Gain the Lidless Stare Power. Lean or improve powers with each Rank or point buy.',
+        description:
+          'All Navigators begin with the Lidless Stare Navigator power and may select an ' +
+          'additional navigator power or improve an existing power (see Navigator Powers) at each ' +
+          'additional Rank. They may also purchase additional powers, subject to Tier ' +
+          'restrictions (as if they were psychic powers), including powers gained for free.',
+      },
+      {
+        name: 'Stared into the Abyss',
+        snippet: 'Gain +1 die to Fear tests against daemons. +2 DN to Melificarum, Chaos and Daemonic Powers against you.',
+        description:
+          'All Navigators have witnessed the horrors of the Warp many times, because of this ' +
+          'they gain +1 bonus die to Fear tests when confronted by any daemonic creatures.' +
+          'Navigators are also resistant to Chaos, so any psychic powers from the Malificarum discipline ' +
+          'or possessing the <Chaos> or <Daemonic> keywords have a reduced effect against Navigators, ' +
+          'with the Navigator inflicting a +2 DN penalty to such powers that target him.',
+      },
+      {
+        name: 'Are Navigators Psykers?',
+        snippet: 'You are considered a Psyker. But you can never lear powers, the keyword or respective ascension packages.',
+        description:
+          'Navigators are not marked as psykers in the traditional sense within the Imperium, ' +
+          'though they do have a connection with the warp and use its power to fuel their abilities. ' +
+          'For all game purposes, however, a Navigator character is considered a psyker. ' +
+          'This means that weapons, powers, and creatures that have special effects on a character ' +
+          'that possess the Psyker keyword will have similar effects on a Navigator character. ' +
+          'However, Navigators can never gain the Psyker keyword, nor gain psychic powers or take the Psychic Revelation ascension package.',
+      },
+      {
+        name: 'Navigator Mutation',
+        snippet: 'Roll a random mutation or select Strangely Jointed Limbs, Elongated Form, Pale and Hairless Flesh, Eyes as Dark as the Void.',
+        description:
+          'Navigators begin play with a single mutations randomly determined from Table: Navigator Mutations, ' +
+          'or chosen from the following options: ' +
+          'Strangely Jointed Limbs, Elongated Form, Pale and Hairless Flesh, Eyes as Dark as the Void.',
+        options: [
+          { name: 'Strangely Jointed Limbs', snippet: 'You gain +2 bd to Agility attribute tests when performing acts of contortionism or similar acrobatic feats requiring flexibility.' },
+          { name: 'Elongated Form', snippet: 'You lose -1 Toughness permanently. Re-roll this mutation if you already have the Bloated Form mutation.' },
+          { name: 'Pale and Hairless Flesh', snippet: 'Your skin is pale, marbled with veins and completely without hair.' },
+          { name: 'Eyes as Dark as the Void', snippet: 'you gain the ability to see in the dark, and never suffer penalties to your vision from it.' },
+          { name: 'Withered Form', snippet: 'You reduce your Strength Attribute species maximum by 1 permanently and reduce your Speed by 2. Re-roll this mutation if you already have the Bloated Form mutation.' },
+          { name: 'Bloated Form', snippet: 'You gain 1 Resilience and increase your Shock value by 2 but may no longer run. Re-roll this mutation if you already have the Elongated Form or Withered Form mutations.' },
+          { name: 'Membranous Growths', snippet: 'you suffer -1 to your Fellowship attribute species maximum.' },
+          { name: 'Inhuman Visage', snippet: 'You gain the Fear (1) Trait.' },
+          { name: 'Fingers like Talons', snippet: 'Your unarmed attacks gain an AP value of -1' },
+          { name: 'Teeth as Sharp as Needles', snippet: 'Your unarmed attacks gain an AP value of -1 and suffer -1 to your Fellowship attribute species maximum.' },
+          { name: 'Disturbing Grace', snippet: 'You gain +2 Speed' },
+          { name: 'Strange Vitality', snippet: 'You gain +2 Resilience.' },
+          { name: 'Unnatural Presence', snippet: 'All your tests that involve positive social interaction increase their DN by 1, whilst all those that involve intimidation or inducing fear gain +1 bd.' },
+        ],
+      },
+      {
+        name: 'Navigating the Warp',
+        snippet: 'Use Willpower instead of Agility for warp-travel related Pilot tests.',
+        description:
+          'When making Pilot tests when traveling the warp (see Travelling the Immaterium, ' +
+          'page 249 of the Wrath & Glory core rulebook), a Navigator combines her Pilot skill with ' +
+          'her Willpower Attribute instead of Intellect',
+      }
+    ],
+  },
+  {
+    ...simpleStub('pax', 18, 'Mankind', 'Untouchable', 'The soulless', 20, 1),
+    stub: false,
+    speed: 6,
+    speciesTraits: [
+      {
+        name: 'The Untouchable and the Profane',
+        snippet: 'May not use, utilize or suffer from force, warp or deamon weapons.',
+        description:
+          'A force weapon, daemon weapon, or occult artefact (or the like) in the hands of an ' +
+          'untouchable is merely a weapon or object of its type. The character may not unleash or ' +
+          'benefit from any of the weapon’s special powers or abilities, or (in the case of a daemon weapon) master it. ' +
+          'However, the same also applies to such items and weapons used against the untouchable. ' +
+          'Other than base damage listed (a sword in the guts is still a sword in the guts after all) ' +
+          'any other particular effect such a weapon would normally have on the untouchable is likewise ignored.',
+      },
+      {
+        name: 'Psychic Null',
+        snippet: 'Immune to positive and negative effects from Powers, unnatural talents, traits or abilities.',
+        description:
+          'An untouchable (thanks to his special nature) is spared the perils of interaction with the Warp. ' +
+          'The untouchable can never gain nor benefit from the positive effects of psychic powers ' +
+          'or any other related unnatural talents, traits, or abilities that call on the Warp for ' +
+          'power, including sorcery, dark pacts or acts of faith. ' +
+          'They may not take the psychic revelation ascension and can never gain the <Psyker> keyword. ' +
+          'However, they are completely immune to the negative consequences of psychic power and ' +
+          'similar abilities, and ignore any such effects that target them outright.',
+      },
+      {
+        name: 'Soulless',
+        snippet: '+1 DN to all interactions tests with other characters.',
+        description:
+          'Psychic Untouchables are incredibly rare, and often live lonely and short lives due ' +
+          'to the effect they have on all living beings that get near them. ' +
+          'They suffer +1 DN to all interaction tests with other characters.',
+      },
+      {
+        name: 'Human',
+        snippet: 'May select Archetypes for Humans and Untouchables.',
+        description:
+          'Untouchables can take any archetypes listed with a prerequisite species of Human. ' +
+          'In addition, there are Untouchable exclusive archetypes.',
+      },
+    ],
+    archetypeRestrictionsSpecies: ['Human', 'Untouchable'],
+  },
   {
     ...simpleStub('pax', 13, 'Mankind', 'Beastman', 'Beastly touch of unknown origin', 10, 1),
     stub: false,
     speed: 8,
-    attributes: 'Fellowship -1, Toughness +1 or Strength +1',
-    modifications: [
-      { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
-      { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
-      { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
-    ],
-    abilities: 'Abhuman, Stable Mutation',
-    abilityObjects: [
+    speciesTraits: [
       {
-        key: null,
+        name: 'Attribute Modifications',
+        snippet: 'Decrease Fellowship by 1. Increase Toughness or Strength by 1.',
+        options: [
+          { name: 'Toughness', modifications: [ { name: 'Toughness', targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 } ] },
+          { name: 'Strength', modifications: [ { name: 'Toughness', targetGroup: 'attributes', targetValue: 'strength', modifier: 1 } ] },
+        ],
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
+        ],
+      },
+      {
         name: 'Abhuman',
-        effect: '+1 DN to all interaction tests with characters possessing the Imperium keyword. Beastmen can take any Tier 1 archetypes listed with a prerequisite species of Human.',
-        description: null,
+        snippet: '+1 DN to all interaction tests with characters possessing the Imperium keyword.',
       },
       {
-        key: null,
-        name: 'Stable Mutation',
-        effect: 'All Beastmen have the Aberration Mutation (page 374 of the Wrath & Glory core rulebook) and choose an animal hybrid from Table 7-14: Hybrid Merges (page 375).',
-        description: null,
+        name: 'Restricted Archetypes',
+        snippet: 'Beastmen can take any Tier 1 archetypes listed with a prerequisite species of Human.',
       },
+      {
+        name: 'Stable Mutation',
+        snippet: 'All Beastmen have the Aberration Mutation (page 374 of the Wrath & Glory core rulebook) and choose an animal hybrid from Table 7-14: Hybrid Merges (page 375).',
+        description:
+          'The force of Corruption transforms the mutant, merging their flesh with that of a ' +
+          'nearby animal to turn them into a hybrid beastman. If an animal. is in the immediate ' +
+          'vicinity, choose that species or the nearest approximation from Table 7-14: Hybrid Merges. ' +
+          'If no animals are nearby, roll on the chart, assuming that beast was the closest, even ' +
+          'if it was on a distant world. While the example animals are all terrestrial, players are ' +
+          'encouraged to coin names for species from other planets that fulfil similar niches. ' +
+          'If the player and GM wish to use another animal, they are encouraged to do so using these examples as a model.',
+         options: [
+          {
+            name: 'Horse',
+            snippet: 'The character gains +1 modified Toughness and +1 Speed.',
+            modifications: [
+              { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+              { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
+            ],
+          },
+          {
+            name: 'Tortoise',
+            snippet: 'The character gains +1 modified Toughness and +1 Resilience.',
+            modifications: [
+              { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+              { targetGroup: 'traits', targetValue: 'resilience', modifier: 1 },
+            ],
+          },
+          {
+            name: 'Goat',
+            snippet:
+              'The character gains +1d to Athletics tests. ' +
+              'They may make melee attacks with their horns, treating them as if they were a knife. ' +
+              'Consequently, the character is never unarmed. ' +
+              'When these growths are visible, the character suffers +1DN to all social interactions unless the character has the Chaos keyword.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'athletics', modifier: 1 },
+            ],
+          },
+          {
+            name: 'Shark',
+            snippet: 'The character cannot drown underwater. They may make melee attacks with their fangs, treating them as if they were a knife. Consequently, the character is never unarmed.',
+            modifications: [
+            ],
+          },
+          {
+            name: 'Dog',
+            snippet: 'The character gains +1 Speed and +2d to all Awareness tests.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 2 },
+            ],
+          },
+          {
+            name: 'Eagle',
+            snippet:
+              'The character gains +1d to Awareness tests. ' +
+              'They may make melee attacks with their beak, treating it as if it was a knife. ' +
+              'Consequently, the character is never unarmed.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 1 },
+            ],
+          },
+        ],
+      }
     ],
+    archetypeRestrictionsSpecies: ['Human'],
+    archetypeRestrictionsMaxTier: 1,
   },
 ];
 

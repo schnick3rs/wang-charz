@@ -262,6 +262,16 @@ export const mutations = {
     theAttribute = payload.payload.value;
     state.characters[payload.id].attributes[payload.payload.key] = payload.payload.value;
   },
+  /**
+   * @param state
+   * @param payload {
+   *   id
+   *   content {
+   *     modifications
+   *     source
+   *   }
+   * }
+   */
   setCharacterModifications(state, payload) {
     const character = state.characters[payload.id];
     const { modifications } = payload.content;

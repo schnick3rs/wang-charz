@@ -401,9 +401,16 @@
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Species</span>
                     </div>
-                    <div v-for="ability in speciesAbilities" :key="ability.name" class="caption">
+                    <div v-for="ability in speciesAbilities" :key="ability.name" class="caption mb-2">
                       <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                      <p v-html="computeFormatedText(ability.effect)" />
+                      <div v-html="computeFormatedText(ability.effect)" />
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
+                        <strong>{{ ability.selectedOption.name }}</strong>
+                        <p>{{ability.selectedOption.effect}}</p>
+                      </div>
+                    </div>
+                    <div v-if="speciesAbilities.length === 0" align="center" class="mt-2 mb-2">
+                      <em>No abilities? Human eh?</em>
                     </div>
                   </div>
 
@@ -649,37 +656,33 @@ export default {
   props: [],
   data() {
     return {
+      objectiveEditorShow: false,
+      objectiveEditorValue: '',
       attributeHeaders: [
-        {
-          text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1',
-        },
+        { text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       traitHeaders: [
         {
-          text: 'Trait', sortable: false, align: 'left', class: 'small pa-1',
+          text: 'Trait', sortable: false, align: 'left', class: 'small pa-1'
         },
         {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1'
         },
       ],
       skillHeaders: [
         {
-          text: 'Skill', sortable: false, align: 'left', class: 'small pa-1',
+          text: 'Skill', sortable: false, align: 'left', class: 'small pa-1'
         },
         {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Att', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Att', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Total', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Total', sortable: false, align: 'center', class: 'small pa-1'
         },
       ],
       weaponHeaders: [
@@ -704,25 +707,25 @@ export default {
       ],
       psychicPowersHeaders: [
         {
-          text: 'Name', sortable: false, align: 'left', class: 'small pa-1',
+          text: 'Name', sortable: false, align: 'left', class: 'small pa-1'
         },
         {
-          text: 'DN', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'DN', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Activation', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Activation', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Duration', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Duration', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Range', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Range', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Multi-Target', sortable: false, align: 'center', class: 'small pa-1',
+          text: 'Multi-Target', sortable: false, align: 'center', class: 'small pa-1'
         },
         {
-          text: 'Effect', sortable: false, align: 'left', class: 'small pa-1',
+          text: 'Effect', sortable: false, align: 'left', class: 'small pa-1'
         },
       ],
       descriptionSection: { selection: 'all' },
@@ -743,6 +746,9 @@ export default {
       return this.$store.getters['characters/characterCampaignCustomXpById'](this.characterId);
     },
 
+    characterSpeciesKey() {
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
     characterSpeciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
@@ -819,32 +825,47 @@ export default {
 
     speciesAbilities(){
       const abilities = [];
-      if (this.characterSpeciesLabel !== undefined) {
-        const species = this.speciesRepository.find((s) => s.name === this.characterSpeciesLabel);
-        if (species !== undefined && species.abilities) {
-          const speciesAbilityNames = species.abilities.split(',');
-          if (speciesAbilityNames.length > 0) {
-            speciesAbilityNames.forEach((speciesAbilityName) => {
-              if (speciesAbilityName === 'Honour the Chapter') {
-                const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
-                const traditions = chapter.beliefsAndTraditions;
-                if (traditions !== undefined) {
-                  traditions.forEach((t) => {
-                    const tradition = {
-                      name: t.name,
-                      effect: t.effect,
-                      source: this.speciesAstartesChapter,
-                    };
-                    abilities.push(tradition);
-                  });
-                }
-              } else {
-                const ability = species.abilityObjects.find((a) => a.name === speciesAbilityName);
-                ability.source = this.characterSpeciesLabel;
-                abilities.push(ability);
+
+      if (this.characterSpeciesKey !== undefined) {
+        const species = this.speciesRepository.find((s) => s.key === this.characterSpeciesKey);
+        if (species !== undefined && species.speciesTraits) {
+
+          species.speciesTraits.forEach( (speciesTrait) => {
+            // Honour the Chapter
+            if (speciesTrait.name === 'Honour the Chapter') {
+              const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
+              const traditions = chapter.beliefsAndTraditions;
+              if (traditions !== undefined) {
+                traditions.forEach((t) => {
+                  const tradition = {
+                    name: t.name,
+                    effect: t.effect,
+                    source: this.speciesAstartesChapter,
+                  };
+                  abilities.push(tradition);
+                });
               }
-            });
-          }
+            } else {
+            // other abilities
+              const ability = {
+                name: speciesTrait.name,
+                effect: speciesTrait.snippet,
+                source: this.characterSpeciesLabel,
+                hint: this.characterSpeciesLabel,
+              };
+              if ( speciesTrait.options ) {
+                const traitSelection = this.enhancements.find( (e) => e.source.startsWith(`species.${speciesTrait.name}.`));
+                console.log(traitSelection)
+                if ( traitSelection && traitSelection.effect ) {
+                  ability['selectedOption'] = {
+                    name: traitSelection.name,
+                    effect: traitSelection.effect,
+                  };
+                }
+              }
+              abilities.push(ability);
+            }
+          });
         }
       }
       return abilities;
@@ -893,11 +914,10 @@ export default {
 
       // other
       if (this.customAbilities) {
-        this.customAbilities.forEach((item) => {
+        this.customAbilities.filter( (a) => a.source && !a.source.startsWith('species.') ).forEach((item) => {
           const ability = {
             name: item.name,
             effect: item.effect,
-            source: 'Ascension?',
           };
           abilities.push(ability);
         });
@@ -915,8 +935,7 @@ export default {
       return abilities;
     },
     customAbilities() {
-      const characterEnhancements = this.$store.getters['characters/characterEnhancementsById'](this.characterId);
-      return characterEnhancements ? characterEnhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
+      return this.enhancements ? this.enhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
     },
     talents() {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
@@ -995,7 +1014,7 @@ export default {
     },
   },
   async asyncData({ params, $axios }) {
-    const sourceFilter = '?source=core,coreab';
+    const sourceFilter = '?source=core,coreab,pax';
     const talentResponse = await $axios.get('/api/talents/');
     const wargearResponse = await $axios.get('/api/wargear/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
@@ -1034,6 +1053,14 @@ export default {
     };
   },
   methods: {
+    objectiveEditorOpen() {
+      this.objectiveEditorValue = this.objectives.map((o) => o.text).join('\r\n');
+      this.objectiveEditorShow = true;
+    },
+    addObjective(value) {
+      console.info(`Add new objective: ${value}`);
+      this.objectiveEditorShow = false;
+    },
     traitByName(name) {
       // const prefix = name.split(/ ?\(/)[0];
       // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);

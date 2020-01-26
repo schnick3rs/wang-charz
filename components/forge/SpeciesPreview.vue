@@ -48,23 +48,32 @@
         <strong>Speed:</strong> {{ species.speed }}
       </p>
 
-      <p class="text-lg-justify">
-        <strong>Attribute Modifications:</strong> {{ species.attributes || 'None' }}
-      </p>
-
-      <div v-if="species.abilities">
+      <div v-if="species.speciesTraits">
         <span class="mt-2 grey--text">Abilities</span>
         <p><v-divider /></p>
 
         <div
-          v-for="ability in species.abilityObjects"
-          v-if="species.abilities"
+          v-for="speciesTrait in species.speciesTraits"
           class="text-lg-justify"
         >
-          <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
+          <p><strong>{{ speciesTrait.name }}:</strong> {{ speciesTrait.snippet }}</p>
+
+          <div v-if="speciesTrait.options && speciesTrait.options.length > 0">
+            <v-select
+              :items="speciesTrait.options"
+              v-model="speciesTrait.selected"
+              item-value="name"
+              item-text="name"
+              :hint="speciesTrait.options.find((o)=>o.name === speciesTrait.selected) ? speciesTrait.options.find((o)=>o.name === speciesTrait.selected).snippet : ''"
+              @change="$emit('changeSpeciesTraitOption', speciesTrait)"
+              persistent-hint
+              dense
+              solo
+            ></v-select>
+          </div>
 
           <div
-            v-if="manageMode && ability.name.indexOf('Honour the Chapter') >= 0"
+            v-if="manageMode && speciesTrait.name.indexOf('Honour the Chapter') >= 0"
           >
             <v-select
               v-model="species['chapter']"
@@ -80,7 +89,7 @@
 
             <p
               v-for="tradition in getChapterTraditions(species['chapter'])"
-              v-if="ability.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
+              v-if="speciesTrait.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
               :key="tradition.key"
               class="ml-4 mr-4"
             >

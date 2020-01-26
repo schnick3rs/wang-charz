@@ -184,12 +184,25 @@ export default {
           placeholder: '<Ordo>',
           type: 'Ordo of the Inquisiton',
           name: 'Ordo Hereticus',
-          description: 'The Ordo Hereticus hunts down heretics, mutants, and rogue psykers. It '
-          + 'is their responsibility to police the Adeptus Ministorum. Their most common ally is '
-          + 'the Order Militant of the Ecclesiarchy, the Sisters of Battle.',
+          description:
+            'The Ordo Hereticus hunts down heretics, mutants, and rogue psykers. It is their ' +
+            'responsibility to police the Adeptus Ministorum. Their most common ally is the Order ' +
+            'Militant of the Ecclesiarchy, the Sisters of Battle.',
           effect: 'Choose one: You gain +2 bonus dice to resist psychic powers, or you gain +2 '
           + 'bonus dice to resist Corruption tests.',
-          modification: { },
+          modification: {},
+          options: [
+            {
+              name: 'Ordo Hereticus Specialisaton',
+              snippet: 'You gain +2 bonus dice to resist psychic powers.',
+              description: ''
+            },
+            {
+              name: 'Ordo Hereticus Specialisaton',
+              snippet: 'You gain +2 bonus dice to resist Corruption tests.',
+              description: ''
+            },
+          ],
         },
         {
           placeholder: '<Ordo>',
@@ -203,7 +216,12 @@ export default {
           effect: 'The character is fluent in one alien language; choose an alien species and '
           + 'write it down on the character sheet. In addition, the character gains +2 bonus '
           + 'dice for any Scholar or Investigation tests related to xenos.',
-          modification: { },
+          modification: {},
+          modifications: [
+            { name: 'Understand your enemies', snippet: 'The character is fluent in one alien language,' },
+            { name: 'Know your enemies', snippet: '+2 bonus dice to Scholar tests related to xenos.' },
+            { name: 'Exploit your enemies', snippet: '+2 bonus dice to Investigation tests related to xenos.' },
+          ],
         },
         {
           placeholder: '<Ordo>',
@@ -215,7 +233,19 @@ export default {
           + 'structure.',
           effect: 'Either the character gains 2 Corruption points, or gain +2 bonus dice for any '
           + 'Scholar or Investigation tests related to daemons and the warp.',
-          modification: { },
+          modification: {},
+          options: [
+            {
+              name: 'Ordo Malleus Specialisaton',
+              snippet: 'You gain +2 Corruption points.',
+              description: ''
+            },
+            {
+              name: 'Ordo Malleus Specialisaton',
+              snippet: 'You gain +2 bonus dice to Scholar or Investigation tests related to daemons and the warp.',
+              description: ''
+            },
+          ],
         },
         {
           placeholder: '<Ordo>',
@@ -226,7 +256,19 @@ export default {
           effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, '
           + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
           + 'Gain +½ Rank bonus dice with that skill.',
-          modification: { },
+          modification: {},
+          options: [
+            { name: 'Cunning', snippet: 'Gain +½ Rank bonus dice to Cunning Tests.' },
+            { name: 'Deception', snippet: 'Gain +½ Rank bonus dice to Deception Tests.' },
+            { name: 'Insight', snippet: 'Gain +½ Rank bonus dice to Insight Tests.' },
+            { name: 'Intimidation', snippet: 'Gain +½ Rank bonus dice to Intimidation Tests.' },
+            { name: 'Persuasion', snippet: 'Gain +½ Rank bonus dice to Persuasion Tests.' },
+            { name: 'Psychic Mastery', snippet: 'Gain +½ Rank bonus dice to Psychic Mastery Tests.' },
+            { name: 'Scholar', snippet: 'Gain +½ Rank bonus dice to Scholar Tests.' },
+            { name: 'Stealth', snippet: 'Gain +½ Rank bonus dice to Stealth Tests.' },
+            { name: 'Survival', snippet: 'Gain +½ Rank bonus dice to Survival Tests.' },
+            { name: 'Tech', snippet: 'Gain +½ Rank bonus dice to Tech Tests.' },
+          ],
         },
         {
           placeholder: '<Ordo>',
@@ -237,7 +279,19 @@ export default {
           effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, '
           + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
           + 'Gain +½ Rank bonus dice with that skill.',
-          modification: { },
+          modification: {},
+          options: [
+            { name: 'Cunning', snippet: 'Gain +½ Rank bonus dice to Cunning Tests.' },
+            { name: 'Deception', snippet: 'Gain +½ Rank bonus dice to Deception Tests.' },
+            { name: 'Insight', snippet: 'Gain +½ Rank bonus dice to Insight Tests.' },
+            { name: 'Intimidation', snippet: 'Gain +½ Rank bonus dice to Intimidation Tests.' },
+            { name: 'Persuasion', snippet: 'Gain +½ Rank bonus dice to Persuasion Tests.' },
+            { name: 'Psychic Mastery', snippet: 'Gain +½ Rank bonus dice to Psychic Mastery Tests.' },
+            { name: 'Scholar', snippet: 'Gain +½ Rank bonus dice to Scholar Tests.' },
+            { name: 'Stealth', snippet: 'Gain +½ Rank bonus dice to Stealth Tests.' },
+            { name: 'Survival', snippet: 'Gain +½ Rank bonus dice to Survival Tests.' },
+            { name: 'Tech', snippet: 'Gain +½ Rank bonus dice to Tech Tests.' },
+          ],
         },
 
         // Rogue Trader Dystanies

@@ -8,6 +8,7 @@
         manage-mode
         @changeSpecies="doChangeSpeciesMode"
         @changeChapter="updateAstartesChapter"
+        @changeSpeciesTraitOption="setSpeciesTraitOption"
       />
     </v-col>
   </v-row>
@@ -38,6 +39,9 @@ export default {
     characterSpeciesAstartesChapter() {
       return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
     },
+    enhancements() {
+      return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
+    },
   },
   watch: {
     characterSpeciesKey: {
@@ -55,9 +59,16 @@ export default {
     };
   },
   methods: {
-    async getSpecies(key) {
+    getSpecies: async function (key) {
       this.loading = true;
       const { data } = await this.$axios.get(`/api/species/${key}`);
+      data.speciesTraits.filter((t) => t.options).forEach((t) => {
+        const enhancement = this.enhancements.find((m) => m.source.startsWith(`species.${t.name}`) );
+        if ( enhancement ) {
+          console.info(enhancement.source)
+          t.selected = enhancement.source.split('.').pop();
+        }
+      });
       const chapter = this.characterSpeciesAstartesChapter;
       if (chapter) {
         data.chapter = chapter;
@@ -77,6 +88,39 @@ export default {
     },
     updateAstartesChapter(chapterName) {
       this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id: this.characterId, speciesAstartesChapter: chapterName });
+    },
+    /**
+     * clear previous option
+     *
+     * @param speciesTrait
+     */
+    setSpeciesTraitOption(speciesTrait) {
+      const selectedOption =  speciesTrait.options.find( (o) => o.name === speciesTrait.selected );
+
+      // the option has a snippet, that is thus added as a custom ability
+      if ( selectedOption.snippet ) {
+        const content = {
+          modifications: [{
+            name: selectedOption.name,
+            targetGroup: 'abilities',
+            targetValue: '',
+            effect: selectedOption.snippet,
+          }],
+          source: `species.${speciesTrait.name}.${selectedOption.name}`,
+        };
+        this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `species.${speciesTrait.name}.` });
+        this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });
+      }
+
+      // the selected option has modifications that are saved as such
+      if ( selectedOption.modifications ) {
+        const content = {
+          modifications: selectedOption.modifications,
+          source: `species.${speciesTrait.name}.${selectedOption.name}`,
+        };
+        this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `species.${speciesTrait.name}.` });
+        this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });
+      }
     },
   },
 };
