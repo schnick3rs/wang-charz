@@ -383,7 +383,7 @@ export default {
       return this.$store.getters['characters/characterSpeciesLabelById'](id);
     },
     characterArchetypeKey(id) {
-      return this.$store.getters['characters/characterArchetypeLabelById'](id);
+      return this.$store.getters['characters/characterArchetypeKeyById'](id);
     },
     characterArchetypeLabel(id) {
       return this.$store.getters['characters/characterArchetypeLabelById'](id);

@@ -1293,6 +1293,7 @@ const paxRep = [
   {
     ...simpleStub('pax', 195, 'pax-navigator', 'Navis Nobility Houses', 'Navis Scion', 20, 1),
     stub: false,
+    hint: 'A young navigator, groomed for diplomacy since birth.',
     prerequisites: [
       { group: 'attributes', value: 'fellowship', threshold: 3 },
       { group: 'skills', value: 'leadership', threshold: 2 },
@@ -1330,6 +1331,7 @@ const paxRep = [
   {
     ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Nobilite Emissary', 10, 1),
     stub: false,
+    hint: 'A representative of the Navis Nobilite, empowered to enact the will of a houses Novators.',
     species: [ 'Human (Core)', 'Navigator (Pex)' ],
     speciesKey: [ 'core-human', 'pax-navigator' ],
     prerequisites: [
@@ -1351,6 +1353,7 @@ const paxRep = [
   {
     ...simpleStub('pax','-','pax-navigator','Navis Nobility Houses','Navigator Primaris',30,2),
     stub: false,
+    hint: 'A warp guide, tasked with the sacred charge of guiding voidships through the immaterium.',
     prerequisites: [
      { group: 'attributes', value: 'willpower', threshold: 4 },
      { group: 'skills', value: 'pilot', threshold: 2 },
@@ -1369,6 +1372,7 @@ const paxRep = [
   {
     ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Novator', 40, 3),
     stub: false,
+    hint: 'An elder navigator who directs the interests of their house.',
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 6 },
       { group: 'skills', value: 'pilot', threshold: 5 },
@@ -1391,6 +1395,7 @@ const paxRep = [
   {
     ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Heir-Apparent', 50, 4),
     stub: false,
+    hint: 'The strongest navigators, primed to become the next paternova.',
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 7 },
       { group: 'skills', value: 'persuasion', threshold: 5 },
