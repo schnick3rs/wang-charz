@@ -250,6 +250,9 @@ export default {
       return [];
     },
     wargearText() {
+      if ( this.item.wargearString ) {
+        return this.item.wargearString;
+      }
       const charGear = this.archetypeWargearRepository.find((a) => a.name === this.item.name);
       if (charGear) {
         return charGear.options.map((g) => {

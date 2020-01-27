@@ -1310,22 +1310,12 @@ const paxRep = [
     ],
     // new
     wargearString: 'Staff, mesh armor, nobilite robes, charm (silk headscarf), flask of amasec',
-    archetypeBenefits: [
-      {
-        name: 'Keywords',
-        snippet: 'You gain the Imperium, Navis Nobilite, <Navis House> and NobilitykKeywords.',
-      },
-      {
-        name: 'Influence',
-        snippet: 'You gain +1 Influence.',
-        modifications: [
-          { targetGroup: 'trait', targetValue: 'influence', modifier: 1 },
-        ],
-      },
-      {
-        name: 'Groomed from Birth',
-        snippet: 'Navis Scions begin play without an initial mutation. Additionally, they gain a +½ Rank bonus to Persuade skill tests.',
-      },
+    wargear: [
+      { name: 'Staff' },
+      { name: 'Mesh Armour' },
+      { name: 'Nobilite Robes' }, // possession
+      { name: 'Charm', variant: 'Silk headscarf' }, // possession
+      { name: 'Flask of amasec' }, // possession
     ],
   },
   {
@@ -1349,6 +1339,25 @@ const paxRep = [
       },
     ],
     wargearString: 'Laspistol, staff, nobilite robes or imperial robes, charm (silk headscarf) or micro-bead, gene-coded slate monitron.',
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Staff' },
+      {
+        name: 'Nobilite Robes or Imperial Robes',
+        options: [
+          { name: 'Nobilite Robes' },
+          { name: 'Imperial Robes' },
+        ],
+      },
+      {
+        name: 'Charm or micro-bead',
+        options: [
+          { name: 'Charm', variant: 'Silk headscarf' }, // possession
+          { name: 'Micro-bead' },
+        ],
+      },
+      { name: 'gene-coded slate monitron' }, // possession
+    ],
   },
   {
     ...simpleStub('pax','-','pax-navigator','Navis Nobility Houses','Navigator Primaris',30,2),
@@ -1367,7 +1376,25 @@ const paxRep = [
         effect: 'The Navigator Primaris gains +Rank bonus dice to Pilot skill tests when steering a voidship through the Warp. Additionally, he gains +½ Rank to Conviction tests.',
       },
     ],
-    wargearString: 'Dueling laspistol or hand cannon, staff, mesh armor, emperor’s tarot deck, nobilite robes, charm (silk headscarf), charm (navis occulta), micro-bead.',
+    wargearString:
+      'Dueling laspistol or hand cannon, staff, mesh armor, emperor’s tarot deck, nobilite robes, ' +
+      'charm (silk headscarf), charm (navis occulta), micro-bead.',
+    wargear: [
+      {
+        name: 'Dueling laspistol or hand cannon',
+        options: [
+          { name: 'Dueling laspistol' },
+          { name: 'Hand Cannon' },
+        ],
+      },
+      { name: 'Staff' },
+      { name: 'Mesh Armor' },
+      { name: 'Emperor`s tarot deck' },
+      { name: 'Nobilite Robes' },
+      { name: 'Charm', variant: 'Silk headscarf' }, // possession
+      { name: 'Charm', variant: 'Navis Occulta' }, // possession
+      { name: 'Micro-bead' },
+    ],
   },
   {
     ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Novator', 40, 3),
@@ -1390,7 +1417,32 @@ const paxRep = [
         effect: 'As the head of a family of the most ancient and powerful houses of the Imperium, the Novator is able to utilize his prestige among the nobility of the Imperium. The Novator may call upon his lineage in social situations and gains +Rank bonus to any Interaction Skill tests when dealing with characters with both the <Nobility> and <Imperium> keywords',
       },
     ],
-    wargearString: 'Digi-weapon or infernal pistol, staff, mesh armor, emperor’s tarot deck, charm (silk headscarf), nobilite robes, devoted attendant or mono-tasked servo-skull, choice of augmetic',
+    wargearString:
+      'Digi-weapon or infernal pistol, staff, mesh armor, emperor’s tarot deck, ' +
+      'charm (silk headscarf), nobilite robes, devoted attendant or mono-tasked servo-skull, ' +
+      'choice of augmetic',
+    wargear: [
+      {
+        name: 'Digi-Weapon or Infernal Pistol',
+        options: [
+          { name: 'Digi Weapon' },
+          { name: 'Inferno Pistol' },
+        ],
+      },
+      { name: 'Staff' },
+      { name: 'Mesh Armor' },
+      { name: 'Emperor`s tarot deck' },
+      { name: 'Nobilite Robes' },
+      { name: 'Charm', variant: 'Silk headscarf' }, // possession
+      {
+        name: 'devoted attendant or mono-tasked servo-skull',
+        options: [
+          { name: 'Devoted Attendant' },
+          { name: 'mono-tasked servo-skull' },
+        ],
+      },
+      { name: 'Choice of Augmetic' },
+    ],
   },
   {
     ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Heir-Apparent', 50, 4),
@@ -1411,7 +1463,30 @@ const paxRep = [
         effect: 'As Heir-Apparents are inexorably drawn to each, their power waxes in preparation of contending to become the next Paternova. Heir-Apparents gains a chosen Navigator Mutation with each Rank and also gain +Rank when utilizing his Lidless Stare power.',
       },
     ],
-    wargearString: 'Hotshot laspistol or hand cannon, staff, mesh armor or carapace armor, emperor’s tarot deck, nobilite robes, charm (silk headscarf), micro-bead',
+    wargearString:
+      'Hotshot laspistol or hand cannon, staff, mesh armor or carapace armor, emperor’s tarot deck, ' +
+      'nobilite robes, charm (silk headscarf), micro-bead',
+    wargear: [
+      {
+        name: 'Hotshot laspistol or hand cannon',
+        options: [
+          { name: 'Hotshot Laspistol' },
+          { name: 'Hand Cannon' },
+        ],
+      },
+      { name: 'Staff' },
+      {
+        name: 'Mesh Armor or Carapace',
+        options: [
+          { name: 'Mesh Armor' },
+          { name: 'Carapace Armor' },
+        ],
+      },
+      { name: 'Emperor`s tarot deck' },
+      { name: 'Nobilite Robes' },
+      { name: 'Charm', variant: 'Silk headscarf' }, // possession
+      { name: 'Micro-bead' },
+    ],
   },
   simpleStub('pax', '-', 'core-human', 'Questoris Famila', 'Bannerman', 10, 1),
   simpleStub('pax', '-', 'core-human', 'Questoris Famila', 'Boundsman', 30, 1),

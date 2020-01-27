@@ -60,10 +60,10 @@
         </v-card-text>
       </v-card>
 
-      <div v-if="startingWargearExpand">
+      <div v-if="startingWargearExpand && !loading">
         <div v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0" align="center">
           <v-card
-            v-for="gear in startingWargear.options"
+            v-for="gear in startingWargear"
             :key="gear.key"
             outlined
             dense
@@ -102,7 +102,7 @@
             small
             dense
             color="green"
-            @click="addWargearToCharacter(startingWargear.options)"
+            @click="addWargearToCharacter(startingWargear)"
             dark
           >
             Add starting wargear
@@ -166,16 +166,29 @@ export default {
       title: 'Select Wargear',
     };
   },
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get('/api/wargear/');
+    const wargearRepository = response.data;
+    return {
+      wargearRepository,
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       manageWargear: true,
       startingWargearExpand: true,
       wargearSearchActive: false,
+      loading: false,
+      archetype: undefined,
     };
   },
   computed: {
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterArchetypeKey() {
+      return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
@@ -183,9 +196,15 @@ export default {
     characterWargearRaw() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
     },
-
     startingWargear() {
-      return this.archetypeWargearRepository.find((i) => i.name === this.characterArchetypeLabel);
+      const startingGear = this.archetypeWargearRepository.find((i) => i.name === this.characterArchetypeLabel);
+      if ( startingGear ) {
+        return startingGear.options;
+      }
+      if ( this.archetype ) {
+        return this.archetype.wargear;
+      }
+      return [];
     },
     characterWargear() {
       const characterWargear = [];
@@ -213,15 +232,23 @@ export default {
       return characterWargear;
     },
   },
-  async asyncData({ params, $axios, error }) {
-    const response = await $axios.get('/api/wargear/');
-    const wargearRepository = response.data;
-    return {
-      wargearRepository,
-      characterId: params.id,
-    };
+  watch: {
+    characterArchetypeKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.getArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
+    async getArchetype(key) {
+      this.loading = true;
+      const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+      this.loading = false;
+      this.archetype = data;
+    },
     wargearSubtitle(item) {
       // const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
