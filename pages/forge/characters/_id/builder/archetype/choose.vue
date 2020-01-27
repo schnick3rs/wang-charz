@@ -190,7 +190,7 @@ export default {
         },
       };
       const { data } = await this.$axios.get('/api/archetypes/', config);
-      this.itemList = data;
+      this.itemList = data.filter((i) => i.stub === undefined || i.stub === false);
     },
     async loadSpecies(key) {
       if ( key ) {

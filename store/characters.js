@@ -305,8 +305,9 @@ export const mutations = {
   },
   clearCharacterEnhancementsBySource(state, payload) {
     const character = state.characters[payload.id];
-
-    character.enhancements = character.enhancements.filter((e) => e.source !== undefined && !e.source.includes(payload.source));
+    console.log(`Clearing ${character.enhancements.length} enhancements for source ${payload.source}...`);
+    character.enhancements = character.enhancements.filter((e) => !e.source.includes(payload.source));
+    console.log(`Done, ${character.enhancements.length} enhancements remain.`);
   },
   setCharacterSpeciesModifications(state, payload) {
     const character = state.characters[payload.id];

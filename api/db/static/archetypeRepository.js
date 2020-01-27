@@ -1911,9 +1911,128 @@ const paxRep = [
   simpleStub('pax', '-', 'core-human', 'Underworld Syndicates', 'Thug', 0, 1),
   simpleStub('pax', '-', 'core-human', 'Underworld Syndicates', 'Cold Trader', 30, 2),
   simpleStub('pax', '-', 'core-human', 'Underworld Syndicates', 'Crime Lord', 40, 2),
-  simpleStub('pax', '-', 'core-untouchable', 'Untouchables', 'Blank', 0, 1),
-  simpleStub('pax', '-', 'core-untouchable', 'Untouchables', 'Null', 20, 2),
-  simpleStub('pax', '-', 'core-untouchable', 'Untouchables', 'Pariah', 50, 3),
+  {
+    ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Blank', 0, 1),
+    stub: false,
+    hint: 'Blank',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 2 },
+      { group: 'skills', value: 'survival', threshold: 2 },
+    ],
+    keywords: 'Imperium,Untouchable,Lower Class or Outcast',
+    influence: -1,
+    abilities: [
+      {
+        name: 'Soulless Aura',
+        effect: 'The Many feel the Untouchable’s unnatural essence as a subconscious irritation. Those unused to this often find their emotional stability irritated to distraction from his mere presence. Characters within a distance of meters equal to the Untouchables Willpower x ½ Rank suffer a +Rank increase to all Social skill test Difficulty Numbers. Characters with the <Eldar> or <Psyker> keyword suffer a single point of Shock for every Round they remain within this area of effect.',
+      },
+    ],
+    // Rag-robes, uniform or street clothes, sword or mace or autogun, null-limiter or flak armor.
+    wargear: [
+      {
+        name: 'Rag-robes, uniform or street clothes',
+        options: [
+          { name: 'Rag-Robes' },
+          { name: 'Uniform' },
+          { name: 'Street Clothes' },
+        ],
+      },
+      {
+        name: 'sword or mace or autogun',
+        options: [
+          { name: 'Sword' },
+          { name: 'Mace' },
+          { name: 'Autogun' },
+        ],
+      },
+      {
+        name: 'null-limiter or flak armor',
+        options: [
+          { name: 'Null-Limiter' },
+          { name: 'Flak Armor' },
+        ],
+      },
+    ],
+  },
+  {
+    ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Null', 20, 2),
+    stub: false,
+    hint: 'Null',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'survival', threshold: 2 },
+    ],
+    keywords: 'Imperium,Untouchable,Lower Class or Outcast',
+    influence: -2,
+    abilities: [
+      {
+        name: 'Null-Field',
+        effect: 'Untouchables of greater power present a stronger aversion to the Immaterium, encompassing a wider area surrounding them. In this region, psykers see their powers fail and despair, knowing an Untouchable is nearby. The characters Psychic Null traits extend outwards, protecting a number of allies equal to his Rank who are nearby, no further than a distance in meters equal to his Passive Awareness +½ Rank. Characters with the <Eldar> or <Psyker> keyword suffer ½ Rank points of Shock for every Round they remain within this area of effect.',
+      },
+    ],
+    // Rag-robes, uniform or street clothes, trade tools, laspistol or autopistol, null-limiter or flak armor.
+    wargear: [
+      {
+        name: 'Rag-robes, uniform or street clothes',
+        options: [
+          { name: 'Rag-Robes' },
+          { name: 'Uniform' },
+          { name: 'Street Clothes' },
+        ],
+      },
+      { name: 'trade tools' },
+      {
+        name: 'laspistol or autopistol',
+        options: [
+          { name: 'Laspistol' },
+          { name: 'Autopistol' },
+        ],
+      },
+      {
+        name: 'null-limiter or flak armor',
+        options: [
+          { name: 'Null-Limiter' },
+          { name: 'Flak Armor' },
+        ],
+      },
+    ],
+  },
+  {
+    ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Pariah', 50, 3),
+    stub: false,
+    hint: 'Pariah',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'survival', threshold: 3 },
+    ],
+    keywords: 'Imperium,Untouchable,Lower Class or Outcast',
+    influence: -3,
+    abilities: [
+      {
+        name: 'Bane of the Immaterium',
+        effect: 'The abyss where the Untouchable’s soul should be is unrelenting in its psychic hemorrhage, and increases the anathema he projects into larger areas. Psykers can suddenly find themselves diminished as an Untouchable charges forward, emanating a wavefront they find terrible to contemplate. All character with the <Psyker> keyword increase the DN to manifest their powers by +Rank while they remain within a distance from the untouchable equal to his Willpower x ½ Rank. Characters with the <Eldar> or <Psyker> keyword suffer Rank points of Shock for every Round they remain within this area of effect, which automatically heal any Shock the Untouchable may have incurred with an equal amount. Additionally, creatures with the <Daemonic> keyword suffer a penalty to all skill tests equal to the Untouchables ½ Rank within the same area of effect.',
+      },
+    ],
+    // Flak or mesh armor or symbol of inquisitorial authority, boltgun or bolt pistol and chainsword, null-limiter
+    wargear: [
+      {
+        name: 'Flak or mesh armor or symbol of inquisitorial authority',
+        options: [
+          { name: 'Flak Armor' },
+          { name: 'Mesh Armor' },
+          { name: 'Symbol of Authority' },
+        ],
+      },
+      {
+        name: 'boltgun or bolt pistol and chainsword',
+        options: [
+          { name: 'Boltgun' },
+          { name: 'Bolt Pistol and Chainsword' },
+        ],
+      },
+      { name: 'Null-Limiter' },
+    ],
+  },
   simpleStub('pax', '-', 'core-human', 'Voidfarers', 'Dark-Holder', 10, 1),
   simpleStub('pax', '-', 'core-human', 'Voidfarers', 'Pilgrim', 10, 1),
   simpleStub('pax', '-', 'core-human', 'Voidfarers', 'Voidborn Clanner', 0, 1),

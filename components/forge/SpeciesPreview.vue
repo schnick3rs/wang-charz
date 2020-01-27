@@ -52,7 +52,7 @@
         <span class="mt-2 grey--text">Abilities</span>
         <p><v-divider /></p>
 
-        <span v-id="species.speciesTraits.length <= 0">No Abilities? At least your base tier is low...</span>
+        <span v-if="species.speciesTraits.length <= 0">No Abilities? At least your base tier is low...</span>
 
         <div
           v-for="speciesTrait in species.speciesTraits"

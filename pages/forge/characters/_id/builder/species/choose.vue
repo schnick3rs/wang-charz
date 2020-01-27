@@ -138,6 +138,7 @@ export default {
           modifications = [ ...t.modifications ];
         });
 
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: 'species' });
       this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { key: species.key, label: species.name, cost: species.cost } });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: modifications, source: 'species' } });
 
