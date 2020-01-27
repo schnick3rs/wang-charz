@@ -84,7 +84,6 @@
 <script lang="js">
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
-import WargearRepository from '~/mixins/WargearRepositoryMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
@@ -132,15 +131,6 @@ export default {
       return [];
     },
     wargearText() {
-      const charGear = this.archetypeWargearRepository.find((a) => a.name === this.item.name);
-      if (charGear) {
-        return charGear.options.map((g) => {
-          if (g.amount) {
-            return `${g.amount}x ${g.name}`;
-          }
-          return `${g.name}`;
-        }).join(', ');
-      }
       return this.item.wargear;
     },
     keywords() {

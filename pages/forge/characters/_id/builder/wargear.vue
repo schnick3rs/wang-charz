@@ -73,10 +73,10 @@
               <span class="subtitle-1 mb-0">{{ gear.name }}</span>
             </v-card-title>
 
-            <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query" >
+            <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].filter" >
               <wargear-select
                 :item="gear.selected"
-                :repository="wargearRepository.filter(gear.options[0].query)"
+                :repository="computeWargearOptionsByFilter(gear.options[0])"
                 class="mb-4"
                 @input="gear.selected = $event.name"
               />
@@ -144,7 +144,6 @@
 </template>
 
 <script lang="js">
-import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin';
 import WargearSearch from '~/components/forge/WargearSearch.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
 import SluggerMixin from '~/mixins/SluggerMixin';
@@ -157,7 +156,6 @@ export default {
     WargearSearch,
   },
   mixins: [
-    WargearRepositoryMixin,
     SluggerMixin,
   ],
   props: [],
@@ -197,10 +195,6 @@ export default {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
     },
     startingWargear() {
-      const startingGear = this.archetypeWargearRepository.find((i) => i.name === this.characterArchetypeLabel);
-      if ( startingGear ) {
-        return startingGear.options;
-      }
       if ( this.archetype ) {
         return this.archetype.wargear;
       }
@@ -290,6 +284,41 @@ export default {
     },
     remove(gear) {
       this.$store.commit('characters/removeCharacterWargear', { id: this.characterId, gearId: gear.id });
+    },
+    /**
+     * {
+        filter: true,
+        valueFilter: { useCharacterTier: false, useSettingTier: true, fixedValue: 4 },
+        rarityFilter: ['Uncommon', 'Common', 'Rare'],
+        typeFilter: 'Ranged Weapon',
+        subtypeFilter: 'Augmetics',
+        keywordFilter: 'Imperium',
+     * },
+     * @param filter
+     */
+    /*
+       item.value <= (this.settingTier + 4)
+    && ['Uncommon', 'Common', 'Rare'].includes(item.rarity)
+    && item.type.includes('Ranged Weapon')
+    const keywordReq = (item.keywords) ? item.keywords.split(',').includes('Imperium') : false;
+     */
+    computeWargearOptionsByFilter(filter) {
+      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;
+      return this.wargearRepository.filter( (gear) => {
+        let valueReq = true;
+        if ( valueFilter ) {
+          let maxValue = 0;
+          maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
+          maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
+          // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
+          valueReq = gear.value <= maxValue;
+        }
+        const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
+        const typeReq = typeFilter ? gear.type.includes(typeFilter) : true;
+        const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
+        const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
+        return valueReq && rarityReq && typeReq && subtypeReq && keywordReq;
+      });
     },
     wargearSubtitle(item) {
       // const item = this.wargearRepository.find(i => i.name === gear);

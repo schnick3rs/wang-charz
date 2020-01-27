@@ -106,6 +106,13 @@ const core = [
     key: 'core-ministorum-priest',
     description: null,
     hint: 'A zealous preacher of the Imperial Creed.',
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Rosarius' },
+      { name: 'Knife' },
+      { name: 'Clothing', variant: 'Ministorum robes' },
+      { name: 'Missionary Kit' },
+    ],
   },
   {
     source: { ...source.core },
@@ -133,6 +140,14 @@ const core = [
     key: 'core-death-cult-assassin',
     description: null,
     hint: 'An agile killer, expressing worship through the art of death.',
+    wargear: [
+      { name: 'Bodyglove' },
+      { name: 'Death Cult Powerblade' },
+      { name: 'Death Cult Powerblade' },
+      { name: 'Knife' },
+      { name: 'Laspistol' },
+      { name: 'Doses of stimm', amount: 3 },
+    ],
   },
   {
     source: { ...source.core },
@@ -161,6 +176,12 @@ const core = [
     key: 'core-Crusader',
     description: null,
     hint: 'A holy warrior with unfl agging devotion to the God-Emperor.',
+    wargear: [
+      { name: 'Power Sword' },
+      { name: 'Storm Shield' },
+      { name: 'Carapace Armour' },
+      { name: 'Clothing', variant: 'Ministorum robes' },
+    ],
   },
   // Adepta Sororitas
   {
@@ -190,6 +211,13 @@ const core = [
       { group: 'skills', value: 'scholar', threshold: 1 },
     ],
     description: null,
+    wargear: [
+      { name: 'Sororitas Powered Armour' },
+      { name: 'Chirurgeon\'s Tools' },
+      { name: 'Laspistol' },
+      { name: 'Clothing', variant: 'Sororitas vestments' },
+      { name: 'Copy of the Rule of the Sororitas' },
+    ],
   },
   {
     source: { ...source.core },
@@ -222,6 +250,21 @@ const core = [
     key: 'core-sister-of-battle',
     description: 'As the militant arm of the of the Adeptus Ministorum, the Sisters of Battle are equipped to engage any who would dare to oppose the Imperial Creed. It is their sacred duty to cleanse the galaxy of heresy and corruption, wherever they should fi nd it, including within the various organisations of the Imperium of Man. Due to their shared goals, the Orders Militant often work in conjunction with the Imperial Inquisition, though they remain distinct organisations. Many of the orders maintain convents on Shrine Worlds, so that they can more easily defend those places most blessed to the Imperial Creed.',
     hint: 'A determined warrior, filled with purity and faith.',
+    wargear: [
+      { name: 'Sororitas Powered Armour' },
+      { name: 'Chaplet Ecclesiasticus' },
+      {
+        name: 'Either a boltgun OR a chainsword and bolt pistol.',
+        selected: 'Boltgun',
+        options: [
+          { name: 'Boltgun' },
+          { name: 'Chainsword and Bold pistol' },
+        ],
+      },
+      { name: 'Clothing', variant: 'Sororitas vestments' },
+      { name: 'Writing Kit' },
+      { name: 'Copy of the Rule of the Sororitas' },
+    ],
   },
   // Adeptus Militarum
   {
@@ -250,6 +293,16 @@ const core = [
     key: 'core-imperial-guardsman',
     description: null,
     hint: 'A disciplined soldier, used to fighting amid multitudes',
+    wargear: [
+      { name: 'Flak Armour' },
+      { name: 'Lasgun' },
+      { name: 'Knife' },
+      { name: 'Guard issue mess kit' },
+      { name: 'Blanket' },
+      { name: 'Grooming kit' },
+      { name: 'Uplifting Primer' },
+      { name: 'Ration Packs', amount: 3 },
+    ],
   },
   {
     source: { ...source.core },
@@ -280,6 +333,17 @@ const core = [
     key: 'core-tempestus-scion',
     description: null,
     hint: 'An elite, highly-trained soldier, used to undertaking special missions.',
+    wargear: [
+      { name: 'Carapace Armour' },
+      { name: 'Hot-Shot Lasgun' },
+      { name: 'Grav-chute' },
+      { name: 'Knife' },
+      { name: 'Guard issue mess kit' },
+      { name: 'Blanket' },
+      { name: 'Grooming kit' },
+      { name: 'Uplifting Primer' },
+      { name: 'Ration Packs', amount: 3 },
+    ],
   },
   {
     source: { ...source.core },
@@ -308,6 +372,16 @@ const core = [
     key: 'core-commissar',
     description: null,
     hint: 'A fearsome leader, inspiring both dread and respect in great measure.',
+    wargear: [
+      { name: 'Flak Coat' },
+      { name: 'Bold pistol' },
+      { name: 'Chain Sword' },
+      { name: 'Guard issue mess kit' },
+      { name: 'Blanket' },
+      { name: 'Grooming kit' },
+      { name: 'Uplifting Primer' },
+      { name: 'Ration Packs', amount: 3 },
+    ],
   },
   // Agents of the Imperium
   {
@@ -337,6 +411,23 @@ const core = [
     key: 'core-inquisitorial-acolyte',
     description: null,
     hint: 'A representative of the Inquisition, adaptable and possessing great potential.',
+    wargear: [
+      { name: 'Flak Armour' },
+      {
+        name: 'Range weapon of value 5 or less of up to Uncommon rarity (must have the Imperium keyword)',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
+            rarityFilter: ['Common', 'Uncommon'],
+            typeFilter: 'Ranged Weapon',
+            keywordFilter: 'Imperium',
+          },
+        ],
+      },
+      { name: 'Knife' },
+    ],
   },
   {
     source: { ...source.core },
@@ -364,6 +455,14 @@ const core = [
     key: 'core-inquisitorial-adept',
     description: null,
     hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
+    wargear: [
+      { name: 'Flak Armour' },
+      { name: 'Laspistol' },
+      { name: 'Knife' },
+      { name: 'Auto quill' },
+      { name: 'Data-slate' },
+      { name: 'Ancient Records', amount: 3 },
+    ],
   },
   {
     source: { ...source.core },
@@ -393,7 +492,42 @@ const core = [
     group: 'Agents of the Imperium',
     key: 'core-rogue-trader',
     description: null,
-    hint: 'An adventuresome and infl uential explorer with their own space vessel.',
+    hint: 'An adventuresome and influential explorer with their own space vessel.',
+    wargear: [
+      {
+        name: 'Choice of Flak Coat, carapace armour or Light Power Armour',
+        options: [
+          { name: 'Flak Coat' },
+          { name: 'Carapace Armour' },
+          { name: 'Light Power Armour' },
+        ],
+      },
+      {
+        name: 'Ranged weapon up to value Tier+4 and rarity Rare',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: true, fixedValue: 4 },
+            rarityFilter: ['Uncommon', 'Common', 'Rare'],
+            typeFilter: 'Ranged Weapon',
+          },
+        ],
+      },
+      {
+        name: 'Melee weapon up to value Tier+4 and rarity Rare',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: true, fixedValue: 4 },
+            rarityFilter: ['Uncommon', 'Common', 'Rare'],
+            typeFilter: 'Melee Weapon',
+          },
+        ],
+      },
+      { name: 'Imperial Frigate' },
+    ],
   },
   {
     source: { ...source.core },
@@ -418,7 +552,7 @@ const core = [
           name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, filter: (power) => (power.name === 'Smite'),
         },
         {
-          name: 'minor', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)),
+          name: 'minor', selected: '', query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)),
         },
       ],
       access: [
@@ -440,6 +574,15 @@ const core = [
     key: 'core-sanctioned-psyker',
     description: null,
     hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Force rod' },
+      { name: 'Psykana Mercy Blade' },
+      { name: 'Guard issue mess kit' },
+      { name: 'Blanket' },
+      { name: 'Grooming kit' },
+      { name: 'Ration Packs', amount: 2 },
+    ],
   },
   {
     source: { ...source.core },
@@ -471,6 +614,42 @@ const core = [
     key: 'core-inquisitor',
     description: null,
     hint: 'A bearer of profound Imperial authority, adept at discovering the truth in the shadows.',
+    wargear: [
+      {
+        name: 'Choice of Flak Coat, Ignatus Power Armour or Light Power Armour',
+        selected: '',
+        options: [
+          { name: 'Flak Coat' },
+          { name: 'Ignatus Power Armour' },
+          { name: 'Light Power Armour' },
+        ],
+      },
+      {
+        name: 'Ranged weapon up to availability 7 and rarity Very Rare.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+            rarityFilter: ['Uncommon', 'Common', 'Rare', 'Very Rare'],
+            typeFilter: 'Ranged Weapon',
+          },
+        ],
+      },
+      {
+        name: 'Melee weapon up to availability 7 and rarity Very Rare.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+            rarityFilter: ['Uncommon', 'Common', 'Rare', 'Very Rare'],
+            typeFilter: 'Melee Weapon',
+          },
+        ],
+      },
+      { name: 'Symbol of authority' },
+    ],
   },
   // Adeptus Astartes
   {
@@ -501,6 +680,20 @@ const core = [
       { group: 'skills', value: 'weaponSkill', threshold: 2 },
     ],
     description: null,
+    wargear: [
+      { name: 'Scout Armour' },
+      {
+        name: 'Either a boltgun OR a bolt pistol.',
+        selected: 'Boltgun',
+        options: [
+          { name: 'Boltgun' },
+          { name: 'Bold Pistol' },
+        ],
+      },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
   },
   {
     source: { ...source.core },
@@ -526,6 +719,14 @@ const core = [
     key: 'core-tactical-space-marine',
     description: null,
     hint: 'A versatile warrior, veteran of a hundred battles.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Boltgun' },
+      { name: 'Bolt Pistol' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
   },
   {
     source: { ...source.core },
@@ -551,6 +752,20 @@ const core = [
       { name: 'Intercessor Focus', effect: 'When firing a bolt rifle or heavy bolt pistol they gain +Rank bonus to attack rolls.' },
     ],
     description: '',
+    wargear: [
+      { name: 'Mark X Tacticus Power Armour' },
+      {
+        name: 'Either a bolt rifle OR a heavy bolt pistol.',
+        selected: 'Bolt Rifle',
+        options: [
+          { name: 'Bolt Rifle' },
+          { name: 'Heavy Bold pistol' },
+        ],
+      },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
   },
   // Adeptus Mechanicus
   {
@@ -579,6 +794,10 @@ const core = [
     key: 'core-skitarius',
     description: null,
     hint: 'A warrior of the Machine Cult, sturdy and reliable.',
+    wargear: [
+      { name: 'Skatarii Auto-Cuirass' },
+      { name: 'Galvanic Rifle' },
+    ],
   },
   {
     source: { ...source.core },
@@ -607,6 +826,32 @@ const core = [
     key: 'core-tech-priest',
     description: null,
     hint: 'A priest of the Omnissiah, able to commune with the machine-spirits.',
+    wargear: [
+      { name: 'Light Power Armour' },
+      { name: 'Ommnissian Axe' },
+      { name: 'Laspistol' },
+      { name: 'Mechandrites (Servo-Arm)' },
+      {
+        name: 'One augmentic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: 'Augmentic',
+          },
+        ],
+      },
+      {
+        name: 'One augmentic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: 'Augmentic',
+          },
+        ],
+      },
+    ],
   },
   // Scum
   {
@@ -635,6 +880,29 @@ const core = [
     key: 'core-ganger',
     description: null,
     hint: 'A resourceful and tenacious survivor from the depths of enormous industrial cities.',
+    wargear: [
+      {
+        name: 'Choice of Laspistol, Autopistol, Hand Cannon or Stub Gun.',
+        selected: 'Laspistol',
+        options: [
+          { name: 'Laspistol' },
+          { name: 'Autpistol' },
+          { name: 'Hand Cannon' },
+          { name: 'Stub Gun' },
+        ],
+      },
+      {
+        name: 'Choice of Knife or Sword.',
+        selected: 'Knife',
+        options: [
+          { name: 'Knife' },
+          { name: 'Sword' },
+        ],
+      },
+      { name: 'Bedroll' },
+      { name: 'Canteen' },
+      { name: 'Clothing', variant: 'Gang Colours' },
+    ],
   },
   {
     source: { ...source.core },
@@ -662,6 +930,20 @@ const core = [
     key: 'core-scavvy',
     description: null,
     hint: 'A mutant—cast out and reviled—yet their mutations give them power.',
+    wargear: [
+      {
+        name: 'Choice of Laspistol or Autopistol.',
+        selected: 'Laspistol',
+        options: [
+          { name: 'Laspistol' },
+          { name: 'Autpistol' },
+        ],
+      },
+      { name: 'Knife' },
+      { name: 'Bedroll' },
+      { name: 'Canteen' },
+      { name: 'Clothing', variant: 'Tattered' },
+    ],
   },
   {
     source: { ...source.core },
@@ -691,6 +973,20 @@ const core = [
     key: 'core-desperado',
     description: null,
     hint: 'A savvy and dangerous bounty hunter, mercenary, and gun for hire.',
+    wargear: [
+      {
+        name: 'Choce of boltgun OR a chainsword and bolt pistol.',
+        selected: 'Boltgun',
+        options: [
+          { name: 'Boltgun' },
+          { name: 'Chainsword and Bold pistol' },
+        ],
+      },
+      { name: 'Flak Coat' },
+      { name: 'Prysense Googles' },
+      { name: 'Various Maps' },
+      { name: 'Combi Tool' },
+    ],
   },
   // Renegades
   {
@@ -719,6 +1015,20 @@ const core = [
     key: 'core-cultist',
     description: null,
     hint: 'A disciple of the Ruinous Powers, eager to gain their capricious favour.',
+    wargear: [
+      {
+        name: 'Choce of lasgun OR autogun.',
+        selected: 'Lasgun',
+        options: [
+          { name: 'Lasgun' },
+          { name: 'Autogun' },
+        ],
+      },
+      { name: 'Knife' },
+      { name: 'Symbol of Authority', variant: 'Unholy icon' },
+      { name: 'Guard issue mess kit' },
+      { name: 'blanket', variant: 'tattered' },
+    ],
   },
   {
     source: { ...source.core },
@@ -745,7 +1055,15 @@ const core = [
     group: 'Renegades',
     key: 'core-chaos-space-marine',
     description: null,
-    hint: 'A renegade warrior and death-dealer, a dark refl ection of their noble brethren.',
+    hint: 'A renegade warrior and death-dealer, a dark reflection of their noble brethren.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Boltgun' },
+      { name: 'Bolt Pistol' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
   },
   {
     source: { ...source.core },
@@ -775,6 +1093,30 @@ const core = [
     key: 'core-heretek',
     description: null,
     hint: 'A tinkerer, corruptor of machine-spirits, a bearer of the sin of innovation.',
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Mechandrites (Servo-Arm)' },
+      {
+        name: 'One augmentic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: 'Cybernetic',
+          },
+        ],
+      },
+      {
+        name: 'One augmentic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: 'Cybernetic',
+          },
+        ],
+      },
+    ],
   },
   {
     source: { ...source.core },
@@ -799,7 +1141,7 @@ const core = [
           name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, filter: (power) => (power.name === 'Smite'),
         },
         {
-          name: 'minor', selected: undefined, query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)),
+          name: 'minor', selected: '', query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)),
         },
       ],
       access: [
@@ -824,6 +1166,12 @@ const core = [
     ],
     description: null,
     hint: 'An unsanctioned bearer of psychic powers, wielding the warp’s power without discipline.',
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Psychic Focus' },
+      { name: 'Tattered blanket' },
+      { name: 'Guard issue mess kit' },
+    ],
   },
   // Aeldari
   {
@@ -853,6 +1201,14 @@ const core = [
     key: 'core-corsair',
     description: null,
     hint: 'A space-faring pirate of an ancient race.',
+    wargear: [
+      { name: 'Corsair Armour' },
+      { name: 'Shuriken Pistol' },
+      { name: 'Lasblaster' },
+      { name: 'Spirit Stone' },
+      { name: 'Plasma Grenades', amount: 3 },
+      { name: 'Void Suite' },
+    ],
   },
   {
     source: { ...source.core },
@@ -881,6 +1237,16 @@ const core = [
     key: 'core-ranger',
     description: null,
     hint: 'A wanderer, a scout, and tracker for the good of their people.',
+    wargear: [
+      { name: 'Chameleoline Cloak' },
+      { name: 'Eldar Mesh Armour' },
+      { name: 'Ranger Long Rifle' },
+      { name: 'Shuriken Pistol' },
+      { name: 'Spirit Stone' },
+      { name: 'Knife' },
+      { name: 'Bedroll' },
+      { name: 'Blanket' },
+    ],
   },
   {
     source: { ...source.core },
@@ -925,6 +1291,13 @@ const core = [
     key: 'core-warlock',
     description: null,
     hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
+    wargear: [
+      { name: 'Rune Armour' },
+      { name: 'Shuriken Pistol' },
+      { name: 'Witchblade' },
+      { name: 'A set of Wraithbone Runes' },
+      { name: 'Spirit Stone' },
+    ],
   },
   // Orks
   {
@@ -951,6 +1324,11 @@ const core = [
     key: 'core-boy',
     description: null,
     hint: 'A brutish warrior and thug who believes that might makes right.',
+    wargear: [
+      { name: 'Shoota' },
+      { name: 'Slugga' },
+      { name: 'Choppa' },
+    ],
   },
   {
     source: { ...source.core },
@@ -979,6 +1357,12 @@ const core = [
     key: 'core-kommando',
     description: null,
     hint: 'A stealthy and cunning warrior who knows how to turn almost any battle to his advantage.',
+    wargear: [
+      { name: 'Shoota' },
+      { name: 'Slugga' },
+      { name: 'Choppa' },
+      { name: 'Stikkbombs' },
+    ],
   },
   {
     source: { ...source.core },
@@ -1007,6 +1391,11 @@ const core = [
     key: 'core-nob',
     description: null,
     hint: 'A savage warrior and capable leader, using brute force to succeed where others fail.',
+    wargear: [
+      { name: '\'Eavy Armour' },
+      { name: 'Kustom Slugga' },
+      { name: 'Kustom Choppa' },
+    ],
   },
 ];
 

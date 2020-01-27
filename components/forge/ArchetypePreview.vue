@@ -145,7 +145,6 @@
 <script lang="js">
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
-import WargearRepository from '~/mixins/WargearRepositoryMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
@@ -153,7 +152,6 @@ export default {
   mixins: [
     KeywordRepository,
     StatRepository,
-    WargearRepository,
     SluggerMixin,
   ],
   props: {
@@ -253,9 +251,8 @@ export default {
       if ( this.item.wargearString ) {
         return this.item.wargearString;
       }
-      const charGear = this.archetypeWargearRepository.find((a) => a.name === this.item.name);
-      if (charGear) {
-        return charGear.options.map((g) => {
+      if ( this.item.wargear && this.item.wargear.length > 0 ) {
+        return this.item.wargear.map((g) => {
           if (g.amount) {
             return `${g.amount}x ${g.name}`;
           }
