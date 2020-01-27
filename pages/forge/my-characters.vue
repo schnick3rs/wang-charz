@@ -382,6 +382,9 @@ export default {
     characterSpeciesLabel(id) {
       return this.$store.getters['characters/characterSpeciesLabelById'](id);
     },
+    characterArchetypeKey(id) {
+      return this.$store.getters['characters/characterArchetypeLabelById'](id);
+    },
     characterArchetypeLabel(id) {
       return this.$store.getters['characters/characterArchetypeLabelById'](id);
     },
@@ -406,10 +409,10 @@ export default {
         return customAvatarUrl;
       }
 
-      const archetypeLabel = this.characterArchetypeLabel(id);
+      const archetypeKey = this.characterArchetypeKey(id);
       const speciesKey = this.characterSpeciesKey(id);
-      if (archetypeLabel !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
-        return `/img/icon/archetype/archetype_${this.textToKebab(archetypeLabel)}_avatar.png`;
+      if (archetypeKey !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
+        return `/img/icon/archetype/archetype_${archetypeKey}_avatar.png`;
       }
 
       if (speciesKey !== undefined) {

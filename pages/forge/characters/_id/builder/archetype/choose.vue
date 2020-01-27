@@ -58,7 +58,7 @@
               @click.stop="updatePreview(item)"
             >
               <v-list-item-avatar tile>
-                <img :src="getAvatar(item.name)">
+                <img :src="getAvatar(item.key)">
               </v-list-item-avatar>
 
               <v-list-item-content>
@@ -120,7 +120,7 @@ export default {
   },
   computed: {
     sources() {
-      return ['core', 'coreab'];
+      return ['core', 'coreab', 'pax'];
     },
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
@@ -198,9 +198,8 @@ export default {
         this.characterSpecies = data;
       }
     },
-    getAvatar(name) {
-      const slug = this.textToKebab(name);
-      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+    getAvatar(key) {
+      return `/img/icon/archetype/archetype_${key}_avatar.png`;
     },
     archetypesByGroup(groupName) {
       let archetypes = this.itemList;

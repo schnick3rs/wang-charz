@@ -10,7 +10,7 @@
 
     <v-card-text class="pt-4">
       <div class="hidden-xs-only" style="float: right;">
-        <img :src="getAvatar(item.name)" style="width:96px">
+        <img :src="getAvatar(item.key)" style="width:96px">
       </div>
 
       <div style="width: 75%">
@@ -284,9 +284,8 @@ export default {
     }
   },
   methods: {
-    getAvatar(name) {
-      const slug = this.textToKebab(name);
-      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+    getAvatar(key) {
+      return `/img/icon/archetype/archetype_${key}_avatar.png`;
     },
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {
