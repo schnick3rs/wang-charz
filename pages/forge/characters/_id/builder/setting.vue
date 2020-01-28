@@ -205,13 +205,11 @@
         persistent-hint
       />
 
-    </v-col>
-
-    <v-col :cols="12" v-if="false">
+      <div>
         <h2 class="title">Homebrews</h2>
-        <p>Allow specific homebrew content.</p>
+        <p>Allow specific homebrew content to be used for this character.</p>
         <div
-          v-for="homebrew in settingHomebrewOptions"
+          v-for="homebrew in settingHomebrewOptions.filter((h)=>h.active)"
           :key="homebrew.key"
         >
           <v-switch
@@ -223,7 +221,10 @@
             dense
             @change="updateHomebrew(homebrew)"
           />
+          <span class="caption">{{homebrew.hint}}</span>
         </div>
+      </div>
+
     </v-col>
 
     <v-col :cols="12" />
@@ -238,7 +239,7 @@
       :lg="2"
     >
       <v-card>
-        <v-img v-if="false" :src="item.cover" height="150" />
+        <v-img v-if="true" :src="item.cover" height="150" />
         <v-card-title primary-title>
           <h3 class="title">
             {{ item.name }}
@@ -262,6 +263,11 @@ export default {
   layout: 'forge',
   mixins: [],
   props: [],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       currentPage: 1,
@@ -270,9 +276,7 @@ export default {
         tier: 3,
         species: { exclude: [] },
         archetypes: { exclude: [] },
-        sources: {
-          isAllowHomebrews: false,
-        },
+        homebrews: [],
       },
       avatar: '',
       selectAvatarDialog: false,
@@ -302,14 +306,14 @@ export default {
       ],
       settingHomebrewOptions: [
         {
-          active: true,
+          active: false,
           key: 'dod-scum-psyker',
           name: 'Scum Psyker (Doctors of Doom Homebrew)',
           enabled: false,
           source: undefined,
         },
         {
-          active: true,
+          active: false,
           key: 'aotgt',
           name: '\'Agents of the Golden Throne\' content (Fan supplement)',
           enabled: false,
@@ -320,6 +324,7 @@ export default {
           active: true,
           key: 'pax',
           name: '\'Pax Imperialis\' content (Fan supplement)',
+          hint: 'Add Beastman, Navigators and Untouchables and their respective archetypes.',
           enabled: false,
           nuxt: '/vault/agents-of-the-golden-throne',
           source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
@@ -347,11 +352,19 @@ export default {
     settingTitle() {
       return this.$store.getters['characters/characterSettingTitleById'](this.characterId);
     },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
   },
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
+  watch: {
+    settingHomebrews: {
+      handler(newVal) {
+        if (newVal) {
+          this.enabledHomebrews = newVal;
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
     setNewAvatar: function() {
@@ -383,8 +396,8 @@ export default {
     setSettingTitle(title) {
       this.$store.commit('characters/setSettingTitle', { id: this.characterId, title });
     },
-    updateHomebrew() {
-
+    updateHomebrew(event) {
+      this.$store.commit('characters/setSettingHomebrews', { id: this.characterId, content: this.enabledHomebrews });
     }
   },
 };

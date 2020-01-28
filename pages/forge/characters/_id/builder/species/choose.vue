@@ -89,8 +89,11 @@ export default {
       return [
         'core',
         'coreab',
-        'pax',
+        ...this.settingHomebrews
       ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
     },
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);

@@ -108,6 +108,24 @@ export default {
       {
         name: 'Skitarii', type: 'Imperium', parentKeyword: undefined, description: 'The warriors of the Omnissiah, devout troops who wield ancient technology.',
       },
+      {
+        name: 'Navis Nobilite',
+        type: 'Imperium',
+        parentKeyword: undefined,
+        description: 'The mutants whose abilities allow starships to pass through the warp and so travel between distant stars.',
+        source: 'pax',
+        // Data is Currency
+        effectLabel: 'Nobilite Encoding',
+        effect: 'A number of archaic, dead tongues or dialects, now only know to the ancient Nobilite families that keep the old languages alive. A Navis Nobilite House character may choose this language as one of his initial languages, or purchase it for 1 BP at a later time.',
+      },
+      {
+        name: '<Navis House>',
+        type: 'Imperium',
+        parentKeyword: 'Navis Nobilite',
+        description: 'A specific type of Navis Nobilite house (replaces this keyword when chosen).',
+        source: 'pax',
+      },
+      { name: 'Untouchable', type: 'Imperium', parentKeyword: undefined, description: 'Those unfortunate few whose very presence is unnaturally ‘wrong’, and intrinsically opposed to the Immaterium.', source: 'pax' },
 
       // Renegade and Heretic Keywords
       {
@@ -119,9 +137,12 @@ export default {
       {
         name: 'Dark Mechanicus', type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.',
       },
-      {
-        name: 'Heretic', type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.',
-      },
+      { name: 'Heretic', type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.' },
+
+      // Social PAX
+      { name: 'Nobility', type: 'Social', parentKeyword: undefined, description: 'The high born elite of the Imperium.', source: 'pax' },
+      { name: 'Lower Class', type: 'Social', parentKeyword: undefined, description: 'Those who in their uncountable numbers toil at industry, agriculture or another manual trade.', source: 'pax' },
+      { name: 'Outcast', type: 'Social', parentKeyword: undefined, description: 'Those unfortunates who have slipped through the cracks of society.', source: 'pax' },
     ];
     const keywordSubwordRepository = [
 
@@ -402,6 +423,12 @@ export default {
           effect: '+2 bonus dice to Survival tests.',
           modification: {},
         },
+
+        // PAX Navigator Houses
+        { type: 'Navigator House', placeholder: '<Navis House>', name: 'Magisterial House', description: 'Greatest in size and power are the Magisterial Houses. The roots of the original Navigator families, these Houses maintain mighty palaces on Terra and their influence reaches to the very edges of the light of the Astronomican. The Magisterial Houses maintain traditions and practices that have served them for millennia. They are masters of the traditional Navigator crafts and have more control over the malign mutations that afflict those with the gene. To be part of a Magisterial House is to know without question the purity of your blood and the ancient power and nobility of your family.' },
+        { type: 'Navigator House', placeholder: '<Navis House>', name: 'Nomadic House', description: 'Some of the Great Houses have forsaken ties of sector and system, relinquishing their terrestrial holdings. Instead, over the centuries, these Navigator Houses have taken wholly to the stars to become wanderers and gypsies, their lines preserved on vast fleets of ships constantly on the move. To be part of a Nomadic House is to be born between the stars and spurn the life of a dirt dweller. It is also this long term exposure to both the void and the Immaterium that hones the skills of Navigators from Nomadic Houses, giving them an understanding of space and warp second to none' },
+        { type: 'Navigator House', placeholder: '<Navis House>', name: 'Renegade House', description: 'Some of the Great Houses have completely forsaken the traditions and ancient practices of the Navigator families in their quest for power, or may have been turned on by the rest of the Navis Nobilite, harrowed, and driven into exile. Dabbling heavily in the genes of their children in order to improve their lot, their tampering often leads to hideous mutations and unconscionable monsters in their lineage, which in turn leads to rejection by the Paternova and a hunt to extinction by the Inquisition. In some cases, however, it has birthed new strains of the gene and given rise to families with unique abilities and potent powers. To be a part of a Renegade House is to have cast aside the sacred Navigator traditions as small minded and restrictive and instead embraced the glory and limitless potential of your ancestry - or so the houses believe, to comfort themselves.' },
+        { type: 'Navigator House', placeholder: '<Navis House>', name: 'Shrouded House', description: 'Shrouded houses have suffered great losses or shame within the more established dominions of the Imperium. They have opted to move their powerbase completely to the edge of known space, where they cling to the barest strands of their former status and power. Though they may be rich in skill, knowledge or lore, something in the past of Shrouded Houses has blighted them and reduced them to a state so far from their once exalted position that they are sometimes cruelly called ‘beggar houses’ by their more successful counterparts. To be part of a Shrouded House is to be part of a fallen line that is slowly rising again to stand defiant against those that once cast them down - or at least, so you are told by your elders. Their loss in standing has often forced such houses to flee to the margins of the Imperium and to develop a cunning and opportunistic mindset alongside a skill that is often lacked by more comfortably indolent houses.' },
 
         // { placeholder: '<>', name: '', description: '' },
       ];

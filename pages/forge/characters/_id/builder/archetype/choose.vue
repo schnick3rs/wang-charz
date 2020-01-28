@@ -100,14 +100,16 @@
 <script>
 import { mapMutations } from 'vuex';
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
-import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: 'ArchetypeChoose',
   components: { ArchetypePreview },
-  mixins: [
-    SluggerMixin,
-  ],
+  mixins: [],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       itemList: undefined,
@@ -120,7 +122,14 @@ export default {
   },
   computed: {
     sources() {
-      return ['core', 'coreab', 'pax'];
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
     },
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
@@ -175,11 +184,6 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
-  },
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
   },
   methods: {
     ...mapMutations('characters', ['setCharacterArchetype']),

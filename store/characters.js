@@ -31,6 +31,8 @@ export const getters = {
   characterCampaignCustomXpById: (state) => (id) => (state.characters[id] && state.characters[id].customXp ? parseInt(state.characters[id].customXp) : 0),
   characterCampaignCustomRankById: (state) => (id) => (state.characters[id] && state.characters[id].customRank ? parseInt(state.characters[id].customRank) : 1),
 
+  characterSettingHomebrewsById: (state) => (id) => (state.characters[id] && state.characters[id].settingHomebrewContent ? state.characters[id].settingHomebrewContent : []),
+
   // Cost & Spending
   characterSpeciesCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].species.cost : 0),
   characterArchetypeCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.cost : 0),
@@ -234,6 +236,9 @@ export const mutations = {
   },
   setSettingTitle(state, payload) {
     state.characters[payload.id].settingTitle = payload.title;
+  },
+  setSettingHomebrews(state, payload) {
+    state.characters[payload.id].settingHomebrewContent = payload.content;
   },
   setCustomXp(state, payload) {
     state.characters[payload.id].customXp = payload.xp;
@@ -618,7 +623,7 @@ const getDefaultState = () => ({
   settingSelected: true,
   settingTier: 3,
   settingTitle: '',
-  settingHomebrewContent: [],
+  settingHomebrewContent: [], // e.g. pax
   customXp: 0,
   customRank: 1,
   name: 'Simsel Simselman',

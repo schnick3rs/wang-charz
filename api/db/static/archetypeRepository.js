@@ -1914,7 +1914,7 @@ const paxRep = [
   {
     ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Blank', 0, 1),
     stub: false,
-    hint: 'Blank',
+    hint: 'An untouchable, whose aura of ‘wrongness’ sets them apart from his fellow man.',
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 2 },
       { group: 'skills', value: 'survival', threshold: 2 },
@@ -1925,6 +1925,13 @@ const paxRep = [
       {
         name: 'Soulless Aura',
         effect: 'The Many feel the Untouchable’s unnatural essence as a subconscious irritation. Those unused to this often find their emotional stability irritated to distraction from his mere presence. Characters within a distance of meters equal to the Untouchables Willpower x ½ Rank suffer a +Rank increase to all Social skill test Difficulty Numbers. Characters with the <Eldar> or <Psyker> keyword suffer a single point of Shock for every Round they remain within this area of effect.',
+        snippet: 'All Characters within the Untouchables Willpower x ½ Rank meters suffer a +Rank DN increase to all Social skill test. Characters with the <Eldar> or <Psyker> keyword suffer a single point of Shock for every Round they remain within this area of effect.',
+        description:
+          '<p>The Many feel the Untouchable’s unnatural essence as a subconscious irritation. ' +
+          'Those unused to this often find their emotional stability irritated to distraction ' +
+          'from his mere presence. Characters within a distance of meters equal to the ' +
+          'Untouchables Willpower x ½ Rank suffer a +Rank increase to all Social skill test Difficulty Numbers.</p>' +
+          '<p>Characters with the &lt;Eldar&gt; or &lt;Psyker&gt; keyword suffer a single point of Shock for every Round they remain within this area of effect.</p>'
       },
     ],
     // Rag-robes, uniform or street clothes, sword or mace or autogun, null-limiter or flak armor.
@@ -1957,7 +1964,7 @@ const paxRep = [
   {
     ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Null', 20, 2),
     stub: false,
-    hint: 'Null',
+    hint: 'A more unnatural untouchable, whose presence can harm the psychically gifted and ward of the daemonic.',
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 3 },
       { group: 'skills', value: 'survival', threshold: 2 },
@@ -2000,7 +2007,7 @@ const paxRep = [
   {
     ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Pariah', 50, 3),
     stub: false,
-    hint: 'Pariah',
+    hint: 'A particularly powerful untouchable, whose aura is palpable and capable of disrupting the strongest of psychic manifestations.',
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'survival', threshold: 3 },
