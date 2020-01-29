@@ -55,35 +55,35 @@
         <span v-if="species.speciesFeatures.length <= 0">No Abilities? At least your base tier is low...</span>
 
         <div
-          v-for="speciesTrait in species.speciesFeatures"
+          v-for="feature in species.speciesFeatures"
           class="text-lg-justify"
         >
-          <p><strong>{{ speciesTrait.name }}:</strong> {{ speciesTrait.description ? speciesTrait.description : speciesTrait.snippet }}</p>
+          <p><strong>{{ feature.name }}:</strong> {{ feature.description ? feature.description : feature.snippet }}</p>
 
-          <div v-if="manageMode && speciesTrait.options && speciesTrait.options.length > 0">
+          <div v-if="manageMode && feature.options && feature.options.length > 0">
             <v-select
-              :items="speciesTrait.options"
-              v-model="speciesTrait.selected"
+              :items="feature.options"
+              v-model="feature.selected"
               item-value="name"
               item-text="name"
-              @change="$emit('changeSpeciesTraitOption', speciesTrait)"
+              @change="$emit('changeSpeciesTraitOption', feature)"
               dense
               solo
             ></v-select>
             <div
-              v-if="speciesTrait.selected && speciesTrait.selected.length > 0"
+              v-if="feature.selected && feature.selected.length > 0"
               class="ml-4 mr-4"
             >
               <div
-                v-if="speciesTrait.options.find((o)=>o.name === speciesTrait.selected).description"
-                v-html="speciesTrait.options.find((o)=>o.name === speciesTrait.selected).description"
+                v-if="feature.options.find((o)=>o.name === feature.selected).description"
+                v-html="feature.options.find((o)=>o.name === feature.selected).description"
               ></div>
-              <p v-else>{{speciesTrait.options.find((o)=>o.name === speciesTrait.selected).snippet}}</p>
+              <p v-else>{{feature.options.find((o)=>o.name === feature.selected).snippet}}</p>
             </div>
           </div>
 
           <div
-            v-if="manageMode && speciesTrait.name.indexOf('Honour the Chapter') >= 0"
+            v-if="manageMode && feature.name.indexOf('Honour the Chapter') >= 0"
           >
             <v-select
               v-model="species['chapter']"
@@ -99,7 +99,7 @@
 
             <p
               v-for="tradition in getChapterTraditions(species['chapter'])"
-              v-if="speciesTrait.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
+              v-if="feature.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
               :key="tradition.key"
               class="ml-4 mr-4"
             >

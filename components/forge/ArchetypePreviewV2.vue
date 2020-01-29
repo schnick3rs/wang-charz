@@ -44,10 +44,12 @@
 
     <div
       v-if="item.archetypeFeatures"
-      v-for="features in item.archetypeFeatures"
+      v-for="feature in item.archetypeFeatures"
       class="text-lg-justify"
     >
-      <p><strong>{{ features.name }}:</strong> {{ features.effect }}</p>
+      <strong>{{ feature.name }}</strong>
+      <div v-if="feature.description" v-html="feature.description"></div>
+      <p v-else>{{ feature.snippet }}</p>
     </div>
 
     <p class="text-lg-justify">
@@ -113,6 +115,17 @@ export default {
       return [];
     },
     wargearText() {
+      if ( this.item.wargearString ) {
+        return this.item.wargearString;
+      }
+      if ( this.item.wargear && this.item.wargear.length > 0 ) {
+        return this.item.wargear.map((g) => {
+          if (g.amount) {
+            return `${g.amount}x ${g.name}`;
+          }
+          return `${g.name}`;
+        }).join(', ');
+      }
       return this.item.wargear;
     },
     keywords() {
