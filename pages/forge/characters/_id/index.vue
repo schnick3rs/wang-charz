@@ -39,7 +39,7 @@
       <v-col :cols="8" :sm="6" :md="6">
         <v-row no-gutters>
           <v-col :cols="12">{{ characterName }}</v-col>
-          <v-col :cols="12" class="caption">{{ [ characterSpeciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
+          <v-col :cols="12" class="caption">{{ [ speciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
           <v-col :cols="12" class="caption">
             <span>{{ [ `Tier ${characterSettingTier}`, `Rank ${characterRank}`, `${campaignCustomXp} XP`].join(' • ') }}</span>
           </v-col>
@@ -666,6 +666,34 @@ export default {
     KeywordRepository,
   ],
   props: [],
+  async asyncData({ params, $axios }) {
+    const sourceFilter = '?source=core,coreab,pax';
+    const talentResponse = await $axios.get('/api/talents/');
+    const wargearResponse = await $axios.get('/api/wargear/');
+    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
+    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
+    const chaptersResponse = await $axios.get('/api/species/chapters/');
+
+    return {
+      characterId: params.id,
+      astartesChapterRepository: chaptersResponse.data,
+      objectiveRepository: objectiveResponse.data,
+      psychicPowersRepository: psychicPowersResponse.data,
+      talentRepository: talentResponse.data,
+      wargearRepository: wargearResponse.data,
+      breadcrumbItems: [
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters',
+        },
+        {
+          text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}`,
+        },
+      ],
+    };
+  },
   data() {
     return {
       objectiveEditorShow: false,
@@ -742,6 +770,9 @@ export default {
       ],
       descriptionSection: { selection: 'all' },
       abilitySection: { filter: 'all' },
+      //
+      characterSpecies: undefined,
+      characterArchetype: undefined,
     };
   },
   computed: {
@@ -758,14 +789,21 @@ export default {
       return this.$store.getters['characters/characterCampaignCustomXpById'](this.characterId);
     },
 
-    characterSpeciesKey() {
+    speciesKey() {
       return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
     },
-    characterSpeciesLabel() {
+    speciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
     speciesAstartesChapter() {
       return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
+    },
+
+    archetypeKey() {
+      return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
+    },
+    archetypeLabel() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
 
     characterBackgroundKey() {
@@ -782,19 +820,17 @@ export default {
         return customAvatarUrl;
       }
 
-      if (this.archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(this.characterSpeciesLabel)) {
+      if (this.archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(this.speciesLabel)) {
         return `/img/icon/archetype/archetype_${this.textToKebab(this.archetypeLabel)}_avatar.png`;
       }
 
-      if (this.characterSpeciesLabel !== undefined) {
-        return `/img/icon/species/species_${this.characterSpeciesKey}_avatar.png`;
+      if (this.speciesLabel !== undefined) {
+        return `/img/icon/species/species_${this.speciesKey}_avatar.png`;
       }
 
       return '/img/icon/species/species_core-human_avatar.png';
     },
-    archetypeLabel() {
-      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
-    },
+
     characterAttributesEnhanced() {
       return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
     },
@@ -838,11 +874,9 @@ export default {
     speciesAbilities(){
       const abilities = [];
 
-      if (this.characterSpeciesKey !== undefined) {
-        const species = this.speciesRepository.find((s) => s.key === this.characterSpeciesKey);
-        if (species !== undefined && species.speciesTraits) {
+      if (this.characterSpecies !== undefined && this.characterSpecies.speciesTraits) {
 
-          species.speciesTraits.forEach( (speciesTrait) => {
+          this.characterSpecies.speciesTraits.forEach( (speciesTrait) => {
             // Honour the Chapter
             if (speciesTrait.name === 'Honour the Chapter') {
               const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
@@ -862,12 +896,11 @@ export default {
               const ability = {
                 name: speciesTrait.name,
                 effect: speciesTrait.snippet,
-                source: this.characterSpeciesLabel,
-                hint: this.characterSpeciesLabel,
+                source: this.speciesLabel,
+                hint: this.speciesLabel,
               };
               if ( speciesTrait.options ) {
                 const traitSelection = this.enhancements.find( (e) => e.source.startsWith(`species.${speciesTrait.name}.`));
-                console.log(traitSelection)
                 if ( traitSelection && traitSelection.effect ) {
                   ability['selectedOption'] = {
                     name: traitSelection.name,
@@ -879,19 +912,23 @@ export default {
             }
           });
         }
-      }
+
       return abilities;
     },
     archetypeAbilities() {
       const abilities = [];
-      if (this.archetypeLabel !== undefined) {
-        const archetype = this.archetypeRepository.find((a) => a.name === this.archetypeLabel);
-        if (archetype !== undefined) {
-          archetype.abilities.forEach((a) => {
-            a.source = this.archetypeLabel;
-            abilities.push(a);
-          });
-        }
+      const archetype = this.characterArchetype;
+
+      if (archetype && archetype.archetypeTraits) {
+        archetype.archetypeTraits.forEach( (item) => {
+          const ability = {
+            name: item.name,
+            effect: item.snippet,
+            source: archetype.label,
+            hint: archetype.label,
+          };
+          abilities.push(ability);
+        });
       }
       return abilities;
     },
@@ -1002,13 +1039,10 @@ export default {
       return items;
     },
     objectives() {
-      if (this.archetypeLabel && this.objectiveRepository) {
-        const archetype = this.archetypeRepository.find((a) => a.name === this.archetypeLabel);
-        if (archetype) {
-          const objectiveList = this.objectiveRepository.find((o) => o.group === archetype.group);
-          if (objectiveList) {
-            return objectiveList.objectives.map((o) => ({ text: o }));
-          }
+      if (this.characterArchetype && this.objectiveRepository) {
+        const objectiveList = this.objectiveRepository.find((o) => o.group === this.characterArchetype.group);
+        if (objectiveList) {
+          return objectiveList.objectives.map((o) => ({ text: o }));
         }
       }
       return [];
@@ -1027,38 +1061,6 @@ export default {
       return [...new Set(weaponsTraitSet)].sort();
     },
   },
-  async asyncData({ params, $axios }) {
-    const sourceFilter = '?source=core,coreab,pax';
-    const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/');
-    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
-    const archetypeResponse = await $axios.get(`/api/archetypes/${sourceFilter}`);
-    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
-    const chaptersResponse = await $axios.get('/api/species/chapters/');
-    const speciesResponse = await $axios.get(`/api/species/${sourceFilter}`);
-
-    return {
-      characterId: params.id,
-      astartesChapterRepository: chaptersResponse.data,
-      objectiveRepository: objectiveResponse.data,
-      psychicPowersRepository: psychicPowersResponse.data,
-      speciesRepository: speciesResponse.data,
-      archetypeRepository: archetypeResponse.data,
-      talentRepository: talentResponse.data,
-      wargearRepository: wargearResponse.data,
-      breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters',
-        },
-        {
-          text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}`,
-        },
-      ],
-    };
-  },
   head() {
     return {
       // title: [this.name, this.species, this.archetype].join(' • '),
@@ -1066,7 +1068,37 @@ export default {
       // titleTemplate: '%s | W&G Character Sheet',
     };
   },
+  watch: {
+    speciesKey: {
+      handler(newVal) {
+        if (newVal && newVal !== 'unknown') {
+          this.loadSpecies(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    archetypeKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.loadArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+  },
   methods: {
+    async loadSpecies(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/species/${key}`);
+        this.characterSpecies = data;
+      }
+    },
+    async loadArchetype(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+        this.characterArchetype = data;
+      }
+    },
     objectiveEditorOpen() {
       this.objectiveEditorValue = this.objectives.map((o) => o.text).join('\r\n');
       this.objectiveEditorShow = true;
@@ -1085,6 +1117,9 @@ export default {
       return attribute.enhancedValue + skill.enhancedValue;
     },
     computeFormatedText(text) {
+      if ( text === undefined ) {
+        return text;
+      }
       const rank = this.characterRank;
       let computed = text;
 

@@ -91,12 +91,34 @@
       </p>
 
       <div
-        v-for="ability in abilityObjects"
-        v-if="item.abilities"
+        v-for="trait in item.archetypeTraits"
         class="text-lg-justify"
       >
-        <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
-        <div v-if="item.psychicPowers">
+        <div>
+          <strong>{{ trait.name }}</strong>
+          <div v-if="trait.description" v-html="trait.description"></div>
+          <p v-else>{{ trait.snippet }}</p>
+        </div>
+
+        <div v-if="manageMode && trait.options && trait.options.length > 0">
+          <v-select
+            :items="trait.options"
+            v-model="trait.selected"
+            item-value="name"
+            item-text="name"
+            @change="$emit('changeTraitOption', trait)"
+            dense
+            solo
+          ></v-select>
+          <div
+            v-if="trait.selected && trait.selected.length > 0"
+            class="ml-4 mr-4"
+          >
+            <div v-html="trait.options.find((o)=>o.name === trait.selected).description"></div>
+          </div>
+        </div>
+
+        <div v-if="manageMode && item.psychicPowers">
           <div v-for="option in psychicPowersDiscount" :key="option.name">
             <v-select
               v-if="option.values"
@@ -114,6 +136,7 @@
             />
           </div>
         </div>
+
       </div>
 
       <p class="text-lg-justify">

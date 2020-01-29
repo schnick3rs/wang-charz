@@ -89,10 +89,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Adeptus Ministorum',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Fiery Invective',
-        effect: 'Once per combat, the Ministorum priest may take '
+        snippet: 'Once per combat, the Ministorum priest may take '
         + 'a free action to preach the Imperial Creed. The character and all his allies '
         + 'with the Imperium Keyword within hearing range heal 1d3 + Rank Shock.',
       },
@@ -123,10 +123,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Ministorum',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Glancing Blow',
-        effect: 'Death Cult Assassins depend upon their movement to '
+        snippet: 'Death Cult Assassins depend upon their movement to '
         + 'avoid harm. Unless they are immobilised or restrained, they may attempt to soak '
         + 'Mortal Wounds, and may substitute their Agility for their Soak when doing so.',
       },
@@ -158,10 +158,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Adeptus Ministorum',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Armour of Faith',
-        effect: 'Crusaders rely upon their faith to carry them '
+        snippet: 'Crusaders rely upon their faith to carry them '
         + 'through; they increase their Resolve by ½ Rank. Crusaders gain +Rank bonus '
         + 'dice to melee attacks against any opponent with the Heretic or Chaos keywords.',
       },
@@ -197,10 +197,10 @@ const core = [
     influence: 0,
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
     keywordOption: '<Order>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Loyal Compassion',
-        effect: 'A Sister Hospitaller adds +Rank on Medicae tests when treating characters '
+        snippet: 'A Sister Hospitaller adds +Rank on Medicae tests when treating characters '
         + 'with the Imperium Keyword',
       },
     ],
@@ -228,10 +228,10 @@ const core = [
     tier: 2,
     influence: 1,
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Purity of Faith',
-        effect: 'Sisters of Battle and any allies within 15 '
+        snippet: 'Sisters of Battle and any allies within 15 '
         + 'meters and line of sight add +Rank to Corruption Tests. Sisters of Battle gain '
         + '+Rank to any dice pool to resist psychic powers and effects.',
       },
@@ -276,10 +276,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Astra Militarum,<Regiment>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Look Out Sir',
-        effect: 'Once per battle, an Imperial Guardsman may suffer '
+        snippet: 'Once per battle, an Imperial Guardsman may suffer '
         + 'the effects of an attack that hits an ally instead of the allied character. '
         + 'When doing so, increase the Guardsman’s resilience by +Rank for determining the '
         + 'damage of the attack.',
@@ -313,10 +313,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Astra Militarum,Militarum Tempest',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Elite Soldier',
-        effect: 'After spending one or more Glory to increase '
+        snippet: 'After spending one or more Glory to increase '
         + 'damage from a successful attack using a weapon with the Imperium and Astra '
         + 'Militarum keywords, a Tempestus Scion may add +Rank to the fi nal damage value.',
       },
@@ -354,10 +354,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 3,
     keywords: 'Imperium,Astra Militarum,Officio Prefectus',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Fearsome Respect',
-        effect: 'Commissars and any allies within 15 metres and '
+        snippet: 'Commissars and any allies within 15 metres and '
         + 'line of sight add +Rank to Resolve tests. A commissar adds +Rank to '
         + 'Intimidation tests, including Interaction attacks.',
       },
@@ -393,10 +393,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 2,
     keywords: 'Imperium,Inquisition,<ANY>,<Ordo>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Inquisitorial Decree',
-        effect: 'Once per scene, an Inquisitorial Acolyte '
+        snippet: 'Once per scene, an Inquisitorial Acolyte '
         + 'may invoke the name of their Inquisitor to gain +Rank to an Influence or '
         + 'Interaction Skill test involving a being with the Imperium keyword.',
       },
@@ -438,10 +438,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Inquisition,<Ordo>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Administratum Records',
-        effect: 'he character is particularly adept at '
+        snippet: 'he character is particularly adept at '
         + 'navigating Imperial Bureaucracy. Add +Rank to Influence and Investigation tests '
         + 'to acquire information.',
       },
@@ -474,10 +474,10 @@ const core = [
     influence: 2,
     keywords: 'Imperium,Rogue Trader,<Dynasty>',
     keywordOption: '<Dynasty>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Warrant of Trade',
-        effect: 'Rogue Traders are masters at manipulating '
+        snippet: 'Rogue Traders are masters at manipulating '
         + 'situations to their advantage. They receive +Rank to all Persuasion tests and '
         + 'Influence tests to acquire goods or services.',
       },
@@ -538,13 +538,29 @@ const core = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Astra Telepathica,Psyker,Scholastica Psykana',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Psyker',
-        effect: 'A Sanctioned Psyker begins play with one minor psychic '
-        + 'power and the smite psychic power. They may purchase additional Minor Psychic '
-        + 'Powers and Universal Psychic powers, subject to Tier restrictions.',
-      },
+        snippet: 'You learn the Smite power and one additional minor power. You gain access to Minor and Universal powers.',
+        description:
+          '<p>A Sanctioned Psyker begins play with <strong>one minor psychic power</strong> ' +
+          'and the <string>smite psychic power</string>.</p>' +
+          '<p>They may purchase additional Minor Psychic Powers and Universal Psychic powers, ' +
+          'subject to Tier restrictions.</p>',
+        psychicPowers: [
+          { name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, },
+          { name: 'minor', selected: '', query: { discipline: 'Minor' }, },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Universal',
+        ],
+      }
     ],
     psychicPowers: {
       discount: [
@@ -593,10 +609,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 4,
     keywords: 'Imperium,Inquisition,<Any>,<Ordo>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Unchecked Authority',
-        effect: 'Inquisitors have supreme authority for '
+        snippet: 'Inquisitors have supreme authority for '
         + 'maintaining the security of the Imperium. They gain +Rank to all Influence and '
         + 'Interaction skill tests involving characters with the Imperium Keyword.',
       },
@@ -665,10 +681,10 @@ const core = [
     influence: 1,
     keywords: 'Imperium,Adeptus Astartes,<Chapter>',
     keywordOption: '<Chapter>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Use the Terrain',
-        effect: 'Space Marine Scouts receive +Rank to all Stealth '
+        snippet: 'Space Marine Scouts receive +Rank to all Stealth '
         + 'tests if they are in cover.',
       },
     ],
@@ -705,8 +721,8 @@ const core = [
     influence: 2,
     keywords: 'Imperium,Adeptus Astartes,<Chapter>',
     keywordOption: '<Chapter>',
-    abilities: [
-      { name: 'Tactical Versatility', effect: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
+    archetypeTraits: [
+      { name: 'Tactical Versatility', snippet: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
     ],
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -748,8 +764,8 @@ const core = [
     influence: 1,
     keywords: 'Imperium, Adeptus Astartes, Primaris, <Chapter>',
     keywordOption: '<Chapter>',
-    abilities: [
-      { name: 'Intercessor Focus', effect: 'When firing a bolt rifle or heavy bolt pistol they gain +Rank bonus to attack rolls.' },
+    archetypeTraits: [
+      { name: 'Intercessor Focus', snippet: 'When firing a bolt rifle or heavy bolt pistol they gain +Rank bonus to attack rolls.' },
     ],
     description: '',
     wargear: [
@@ -777,10 +793,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Mechanicus,Skitarii,<Forge World>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Heavily Augmented',
-        effect: 'The Skitarius’ body is designed to withstand '
+        snippet: 'The Skitarius’ body is designed to withstand '
         + 'the rigours of war. Skitarii do not bleed and gain +½ Rank to Soak tests.',
       },
     ],
@@ -809,10 +825,10 @@ const core = [
     influence: 2,
     keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,<Forge World>',
     keywordOption: '<Forge World>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Rite of Repair',
-        effect: 'Tech-Priests automatically reduce the time by '
+        snippet: 'Tech-Priests automatically reduce the time by '
         + 'half for any Tech test. They receive +Rank on Tech tests to fix or repair a '
         + 'damaged machine.',
       },
@@ -864,10 +880,10 @@ const core = [
     influence: 1,
     keywords: 'Scum,<ANY>',
     keywordOption: '<Any>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Scrounger',
-        effect: 'Gangers make use of every available resource, and '
+        snippet: 'Gangers make use of every available resource, and '
         + 'have a knack for „fi nding“ spares. They receive +Rank to Cunning tests, and '
         + 'may make a single retroactive Infl uence test with a bonus of +Rank once per '
         + 'session, representing an item that they had prepared in advance.',
@@ -912,10 +928,10 @@ const core = [
     species: ['Human (Core)'],
     speciesKey: ['core-human'],
     influence: -1,
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Mutant',
-        effect: 'The Scavvy may select one mutation (see Scavvy Mutations, '
+        snippet: 'The Scavvy may select one mutation (see Scavvy Mutations, '
         + 'page 368). Every time the Scavvy gains a Rank, they may select an additional '
         + 'mutation from that list.',
       },
@@ -953,10 +969,10 @@ const core = [
     species: ['Human (Core)'],
     speciesKey: ['core-human'],
     influence: 1,
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Valuable Prey',
-        effect: 'Desperados receive +Rank for Cunning tests. They '
+        snippet: 'Desperados receive +Rank for Cunning tests. They '
         + 'also receive +Rank to Awareness tests when tracking a target.',
       },
     ],
@@ -998,10 +1014,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 2,
     keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Any>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'From Within',
-        effect: 'Cultists gain +Rank to Deception tests, including '
+        snippet: 'Cultists gain +Rank to Deception tests, including '
         + 'Interaction attacks, against targets with the Imperium keyword.',
       },
     ],
@@ -1039,8 +1055,8 @@ const core = [
     speciesKey: ['core-adeptus-astartes'],
     influence: 2,
     keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Legion>',
-    abilities: [
-      { name: 'Tactical Versatility', effect: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
+    archetypeTraits: [
+      { name: 'Tactical Versatility', snippet: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
     ],
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
@@ -1074,10 +1090,10 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Chaos,Heretic,Adeptus Mechanicus,Dark Mechanicus',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Transformative Technology',
-        effect: 'Hereteks automatically reduce the time '
+        snippet: 'Hereteks automatically reduce the time '
         + 'by half for any Tech test. They also gain +Rank for Tech interaction attacks.',
       },
     ],
@@ -1127,10 +1143,10 @@ const core = [
     speciesKey: ['core-human'],
     cost: 50,
     tier: 2,
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Psyker',
-        effect: 'A rogue psyker begins play with one Minor Psychic Power, the '
+        snippet: 'A rogue psyker begins play with one Minor Psychic Power, the '
         + 'Smite Power and may purchase additional Minor Psychic Powers, Universal Psychic '
         + 'Powers and Maleficarum Psychic Powers subject to Tier restrictions.',
       },
@@ -1183,10 +1199,10 @@ const core = [
     speciesKey: ['core-eldar'],
     influence: 0,
     keywords: 'Aeldari,Anhrathe,<Coterie>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Dancing the Blade\'s Edge',
-        effect: 'Choose one of the following Interaction '
+        snippet: 'Choose one of the following Interaction '
         + 'Attacks: Athletics or Persuasion. Corsairs get +Rank to the chosen Interaction '
         + 'Attack and get the same bonus for resisting those same attacks. Corsairs suffer '
         + 'a +1DN penalty to any Fear test.',
@@ -1219,10 +1235,10 @@ const core = [
     speciesKey: ['core-eldar'],
     influence: 0,
     keywords: 'Aeldari,Asuryani,<Craftworld>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'From the Shadows',
-        effect: 'Rangers are adept at exploiting any concealment. '
+        snippet: 'Rangers are adept at exploiting any concealment. '
         + 'Any penalties to detect (using Awareness) or attack a ranger due to lighting or '
         + 'cover are increased by +½ Rank.',
       },
@@ -1257,10 +1273,10 @@ const core = [
     speciesKey: ['core-eldar'],
     influence: 2,
     keywords: 'Aeldari,Asuryani,Psyker,<Craftworld>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Runes of Battle',
-        effect: 'A Warlock begins play with the Psyniscience and '
+        snippet: 'A Warlock begins play with the Psyniscience and '
         + 'smite psychic powers (these do not count towards the maximum), and may purchase '
         + 'additional Minor Psychic Powers, Universal Psychic Powers, and Runes of Battle '
         + 'Psychic Powers, subject to Tier restrictions.',
@@ -1309,10 +1325,10 @@ const core = [
     speciesKey: ['core-ork'],
     influence: 0,
     keywords: 'Ork,<Clan>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Get Stuck In',
-        effect: 'A Boy gains +Rank to melee attacks for every ally '
+        snippet: 'A Boy gains +Rank to melee attacks for every ally '
         + 'engaged in melee combat with the same target.',
       },
     ],
@@ -1339,10 +1355,10 @@ const core = [
     speciesKey: ['core-ork'],
     influence: 0,
     keywords: 'Ork,<Clan>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Kunnin\' Plan',
-        effect: 'A Kommando and any allies with the Ork Keyword '
+        snippet: 'A Kommando and any allies with the Ork Keyword '
         + 'within 15 metres gain +½ Rank to Stealth tests.',
       },
     ],
@@ -1373,10 +1389,10 @@ const core = [
     speciesKey: ['core-ork'],
     influence: 2,
     keywords: 'Ork,<Clan>',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Boys',
-        effect: 'A Nob commands a mob of Troops numbering up to Rank x 3 Boyz '
+        snippet: 'A Nob commands a mob of Troops numbering up to Rank x 3 Boyz '
         + 'who loyally follow his direction. These Ork Boyz use the profi le found on page '
         + '150.',
       },
@@ -1414,10 +1430,10 @@ const dodScumPsyker = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Scum,Psyker',
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Psyker',
-        effect: 'A Scum Psyker begins play with one minor psychic '
+        snippet: 'A Scum Psyker begins play with one minor psychic '
         + 'power and the smite psychic power. They may purchase additional Minor Psychic '
         + 'Powers and Universal Psychic powers, subject to Tier restrictions.',
       },
@@ -1691,10 +1707,10 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 1,
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Groomed from Birth',
-        effect: 'Navis Scions begin play without an initial mutation. Additionally, they gain a +½ Rank bonus to Persuasion skill tests.',
+        snippet: 'Navis Scions begin play without an initial mutation. Additionally, they gain a +½ Rank bonus to Persuasion skill tests.',
       },
     ],
     // new
@@ -1721,10 +1737,10 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 1,
-    abilities: [
+    archetypeTraits: [
       {
         name: 'House Operative',
-        effect: 'A Nobilite Emissary gains +Rank to opposed skill tests to resist the effects of seduction and interrogation. In addition, the Nobilite Emissary character may utilize an interrogator’s questions and techniques to garner detailed information about the nature, aims, and motivations of the interrogator himself and those he works for. If the Nobilite Emissary is subjected to interrogation, and wins an opposed test, he may immediately make an Awareness Test (DN 4). On a success and for every shifted icon, he can learn one detail about his captors (what he can and cannot learn is ultimately up to the GM but it should be something valuable).',
+        snippet: 'A Nobilite Emissary gains +Rank to opposed skill tests to resist the effects of seduction and interrogation. In addition, the Nobilite Emissary character may utilize an interrogator’s questions and techniques to garner detailed information about the nature, aims, and motivations of the interrogator himself and those he works for. If the Nobilite Emissary is subjected to interrogation, and wins an opposed test, he may immediately make an Awareness Test (DN 4). On a success and for every shifted icon, he can learn one detail about his captors (what he can and cannot learn is ultimately up to the GM but it should be something valuable).',
       },
     ],
     wargearString: 'Laspistol, staff, nobilite robes or imperial robes, charm (silk headscarf) or micro-bead, gene-coded slate monitron.',
@@ -1759,10 +1775,10 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 2,
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Warp Guide',
-        effect: 'The Navigator Primaris gains +Rank bonus dice to Pilot skill tests when steering a voidship through the Warp. Additionally, he gains +½ Rank to Conviction tests.',
+        snippet: 'The Navigator Primaris gains +Rank bonus dice to Pilot skill tests when steering a voidship through the Warp. Additionally, he gains +½ Rank to Conviction tests.',
       },
     ],
     wargearString:
@@ -1800,10 +1816,10 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 3,
-    abilities: [
+    archetypeTraits: [
       {
         name: 'Exalted Lineage',
-        effect: 'As the head of a family of the most ancient and powerful houses of the Imperium, the Novator is able to utilize his prestige among the nobility of the Imperium. The Novator may call upon his lineage in social situations and gains +Rank bonus to any Interaction Skill tests when dealing with characters with both the <Nobility> and <Imperium> keywords',
+        snippet: 'As the head of a family of the most ancient and powerful houses of the Imperium, the Novator is able to utilize his prestige among the nobility of the Imperium. The Novator may call upon his lineage in social situations and gains +Rank bonus to any Interaction Skill tests when dealing with characters with both the <Nobility> and <Imperium> keywords',
       },
     ],
     wargearString:
@@ -1846,10 +1862,10 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 3,
-    abilities: [
+    archetypeTraits: [
       {
         name: 'The Call of the Paternova',
-        effect: 'As Heir-Apparents are inexorably drawn to each, their power waxes in preparation of contending to become the next Paternova. Heir-Apparents gains a chosen Navigator Mutation with each Rank and also gain +Rank when utilizing his Lidless Stare power.',
+        snippet: 'As Heir-Apparents are inexorably drawn to each, their power waxes in preparation of contending to become the next Paternova. Heir-Apparents gains a chosen Navigator Mutation with each Rank and also gain +Rank when utilizing his Lidless Stare power.',
       },
     ],
     wargearString:
@@ -1921,10 +1937,21 @@ const paxRep = [
     ],
     keywords: 'Imperium,Untouchable,Lower Class or Outcast',
     influence: -1,
-    abilities: [
+    archetypeTraits: [
+      {
+        name: 'Keywords',
+        snippet: 'Imperium, Untouchable, Lower Class or Outcast',
+        options: [
+          { name: 'Lower Class', modifications: [ { name: 'Lower Class', targetGroup: 'keywords', targetValue: 'Lower Class' } ] },
+          { name: 'Outcast', modifications: [ { name: 'Outcast', targetGroup: 'keywords', targetValue: 'Outcast' } ] },
+        ],
+        modifications: [
+          { name: 'Imperium', targetGroup: 'keywords', targetValue: 'Imperium' },
+          { name: 'Untouchable', targetGroup: 'keywords', targetValue: 'Untouchable' },
+        ],
+      },
       {
         name: 'Soulless Aura',
-        effect: 'The Many feel the Untouchable’s unnatural essence as a subconscious irritation. Those unused to this often find their emotional stability irritated to distraction from his mere presence. Characters within a distance of meters equal to the Untouchables Willpower x ½ Rank suffer a +Rank increase to all Social skill test Difficulty Numbers. Characters with the <Eldar> or <Psyker> keyword suffer a single point of Shock for every Round they remain within this area of effect.',
         snippet: 'All Characters within the Untouchables Willpower x ½ Rank meters suffer a +Rank DN increase to all Social skill test. Characters with the <Eldar> or <Psyker> keyword suffer a single point of Shock for every Round they remain within this area of effect.',
         description:
           '<p>The Many feel the Untouchable’s unnatural essence as a subconscious irritation. ' +
@@ -1934,7 +1961,6 @@ const paxRep = [
           '<p>Characters with the &lt;Eldar&gt; or &lt;Psyker&gt; keyword suffer a single point of Shock for every Round they remain within this area of effect.</p>'
       },
     ],
-    // Rag-robes, uniform or street clothes, sword or mace or autogun, null-limiter or flak armor.
     wargear: [
       {
         name: 'Rag-robes, uniform or street clothes',
@@ -1971,10 +1997,24 @@ const paxRep = [
     ],
     keywords: 'Imperium,Untouchable,Lower Class or Outcast',
     influence: -2,
-    abilities: [
+    archetypeTraits: [
+      {
+        name: 'Keywords',
+        snippet: 'Imperium, Untouchable, Lower Class or Outcast',
+        options: [
+          { name: 'Lower Class', modifications: [ { name: 'Lower Class', targetGroup: 'keywords', targetValue: 'Lower Class' } ] },
+          { name: 'Outcast', modifications: [ { name: 'Outcast', targetGroup: 'keywords', targetValue: 'Outcast' } ] },
+        ],
+        modifications: [
+          { name: 'Imperium', targetGroup: 'keywords', targetValue: 'Imperium' },
+          { name: 'Untouchable', targetGroup: 'keywords', targetValue: 'Untouchable' },
+        ],
+      },
       {
         name: 'Null-Field',
-        effect: 'Untouchables of greater power present a stronger aversion to the Immaterium, encompassing a wider area surrounding them. In this region, psykers see their powers fail and despair, knowing an Untouchable is nearby. The characters Psychic Null traits extend outwards, protecting a number of allies equal to his Rank who are nearby, no further than a distance in meters equal to his Passive Awareness +½ Rank. Characters with the <Eldar> or <Psyker> keyword suffer ½ Rank points of Shock for every Round they remain within this area of effect.',
+        snippet: '',
+        description:
+          '<p>Untouchables of greater power present a stronger aversion to the Immaterium, encompassing a wider area surrounding them. In this region, psykers see their powers fail and despair, knowing an Untouchable is nearby. The characters Psychic Null traits extend outwards, protecting a number of allies equal to his Rank who are nearby, no further than a distance in meters equal to his Passive Awareness +½ Rank. Characters with the <Eldar> or <Psyker> keyword suffer ½ Rank points of Shock for every Round they remain within this area of effect.</p>'
       },
     ],
     // Rag-robes, uniform or street clothes, trade tools, laspistol or autopistol, null-limiter or flak armor.
@@ -2014,10 +2054,38 @@ const paxRep = [
     ],
     keywords: 'Imperium,Untouchable,Lower Class or Outcast',
     influence: -3,
-    abilities: [
+    archetypeTraits: [
+      {
+        name: 'Keywords',
+        snippet: 'Imperium, Untouchable, Lower Class or Outcast',
+        options: [
+          { name: 'Lower Class', modifications: [ { name: 'Lower Class', targetGroup: 'keywords', targetValue: 'Lower Class' } ] },
+          { name: 'Outcast', modifications: [ { name: 'Outcast', targetGroup: 'keywords', targetValue: 'Outcast' } ] },
+        ],
+        modifications: [
+          { name: 'Imperium', targetGroup: 'keywords', targetValue: 'Imperium' },
+          { name: 'Untouchable', targetGroup: 'keywords', targetValue: 'Untouchable' },
+        ],
+      },
       {
         name: 'Bane of the Immaterium',
-        effect: 'The abyss where the Untouchable’s soul should be is unrelenting in its psychic hemorrhage, and increases the anathema he projects into larger areas. Psykers can suddenly find themselves diminished as an Untouchable charges forward, emanating a wavefront they find terrible to contemplate. All character with the <Psyker> keyword increase the DN to manifest their powers by +Rank while they remain within a distance from the untouchable equal to his Willpower x ½ Rank. Characters with the <Eldar> or <Psyker> keyword suffer Rank points of Shock for every Round they remain within this area of effect, which automatically heal any Shock the Untouchable may have incurred with an equal amount. Additionally, creatures with the <Daemonic> keyword suffer a penalty to all skill tests equal to the Untouchables ½ Rank within the same area of effect.',
+        snippet:
+          '<Psyker>s within Willpower x ½ Rank suffer + Rank DN to manifest Powers. ' +
+          '<Eldar> and <Psyker>s in range also suffer Rank points of shock each round. ' +
+          'The Character is healed by an equal amount shock that is suffered. ' +
+          'Also, <Deamonic>s within range suffer +½ Rank DN to Skill Tests.',
+        description:
+          '<p>The abyss where the Untouchable’s soul should be is unrelenting in its psychic hemorrhage, ' +
+          'and increases the anathema he projects into larger areas. ' +
+          'Psykers can suddenly find themselves diminished as an Untouchable charges forward, ' +
+          'emanating a wavefront they find terrible to contemplate. All character with the &lt;Psyker&gt; ' +
+          'keyword increase the DN to manifest their powers by +Rank while they remain within a ' +
+          'distance from the untouchable equal to his Willpower x ½ Rank.</p>' +
+          '<p>Characters with the &lt;Eldar&gt; or &lt;Psyker&gt; keyword suffer Rank points of Shock for ' +
+          'every Round they remain within this area of effect, which automatically ' +
+          'heal any Shock the Untouchable may have incurred with an equal amount. ' +
+          'Additionally, creatures with the &lt;Daemonic&gt; keyword suffer a penalty to all skill tests ' +
+          'equal to the Untouchables ½ Rank within the same area of effect.</p>',
       },
     ],
     // Flak or mesh armor or symbol of inquisitorial authority, boltgun or bolt pistol and chainsword, null-limiter

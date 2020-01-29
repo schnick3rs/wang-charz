@@ -243,3 +243,17 @@ var spells = [
 
   }
 ];
+
+/*
+  <psychic-powers-select>
+    props: {
+      repository: Array,
+      value: String,
+      item: String,
+      selection: {
+        type: String,
+        required: false,
+        default: undefined,
+      },
+    },
+*/
