@@ -135,7 +135,7 @@ export default {
     },
     selectSpeciesForChar(species) {
       let modifications = [];
-      species.speciesTraits
+      species.speciesFeatures
         .filter( (t) => t.modifications !== undefined )
         .forEach( (t) => {
           modifications = [ ...t.modifications ];

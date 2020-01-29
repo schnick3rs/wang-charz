@@ -48,14 +48,14 @@
         <strong>Speed:</strong> {{ species.speed }}
       </p>
 
-      <div v-if="species.speciesTraits">
+      <div v-if="species.speciesFeatures">
         <span class="mt-2 grey--text">Abilities</span>
         <p><v-divider /></p>
 
-        <span v-if="species.speciesTraits.length <= 0">No Abilities? At least your base tier is low...</span>
+        <span v-if="species.speciesFeatures.length <= 0">No Abilities? At least your base tier is low...</span>
 
         <div
-          v-for="speciesTrait in species.speciesTraits"
+          v-for="speciesTrait in species.speciesFeatures"
           class="text-lg-justify"
         >
           <p><strong>{{ speciesTrait.name }}:</strong> {{ speciesTrait.description ? speciesTrait.description : speciesTrait.snippet }}</p>
@@ -74,7 +74,11 @@
               v-if="speciesTrait.selected && speciesTrait.selected.length > 0"
               class="ml-4 mr-4"
             >
-              <div v-html="speciesTrait.options.find((o)=>o.name === speciesTrait.selected).description"></div>
+              <div
+                v-if="speciesTrait.options.find((o)=>o.name === speciesTrait.selected).description"
+                v-html="speciesTrait.options.find((o)=>o.name === speciesTrait.selected).description"
+              ></div>
+              <p v-else>{{speciesTrait.options.find((o)=>o.name === speciesTrait.selected).snippet}}</p>
             </div>
           </div>
 

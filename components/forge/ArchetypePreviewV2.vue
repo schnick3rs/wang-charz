@@ -43,28 +43,11 @@
     </p>
 
     <div
-      v-for="ability in abilityObjects"
-      v-if="item.abilities"
+      v-if="item.archetypeFeatures"
+      v-for="features in item.archetypeFeatures"
       class="text-lg-justify"
     >
-      <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
-      <div v-if="item.psychicPowers && psychicPowersRepository">
-        <div v-for="option in item.psychicPowers.discount" :key="option.name">
-          <v-select
-            v-model="option.selected"
-            :readonly="psychicPowersRepository.filter(option.filter).length <= 1"
-            :items="psychicPowersRepository.filter(option.filter)"
-            :hint="psychicPowerHint(option.selected)"
-            item-value="name"
-            item-text="name"
-            persistent-hint
-            dense
-            solo
-            class="ml-2 mr-2"
-            @change="updatePsychicPowers(option)"
-          />
-        </div>
-      </div>
+      <p><strong>{{ features.name }}:</strong> {{ features.effect }}</p>
     </div>
 
     <p class="text-lg-justify">
@@ -91,7 +74,6 @@ export default {
   mixins: [
     KeywordRepository,
     StatRepository,
-    WargearRepository,
     SluggerMixin,
   ],
   props: {

@@ -83,7 +83,7 @@ const coreRep = [
     cost: 0,
     baseTier: 1,
     speed: 6,
-    speciesTraits: [],
+    speciesFeatures: [],
     avatar: null,
   },
   {
@@ -102,7 +102,7 @@ const coreRep = [
     baseTier: 1,
     speed: 5,
     size: 'Small',
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'Attribute Modifications',
         snippet: 'Decrease Strength by 1. Increase Agility by 1.',
@@ -148,7 +148,7 @@ const coreRep = [
     baseTier: 2,
     speed: 4,
     size: 'Large',
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'Attribute Modifications',
         snippet: 'Decrease Fellowship and Intellect by 1. Increase Strength and Toughness by 2.',
@@ -191,7 +191,7 @@ const coreRep = [
     cost: 10,
     baseTier: 1,
     speed: 8,
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'Attribute Modifications',
         snippet: 'Increase Agility by 1.',
@@ -236,7 +236,7 @@ const coreRep = [
     cost: 10,
     baseTier: 1,
     speed: 6,
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'Attribute Modifications',
         snippet: 'Increase Toughness by 1.',
@@ -267,7 +267,7 @@ const coreRep = [
     cost: 50,
     baseTier: 2,
     speed: 7,
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'Attribute Modifications',
         snippet: 'Increase Strength, Ability, Toughness and Resolve by 1.',
@@ -305,7 +305,7 @@ const coreRep = [
     cost: 100,
     baseTier: 4,
     speed: 7,
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'Attribute Modifications',
         snippet: 'Increase Strength by 2, increase Ability, Toughness and Resolve by 1 and increase Wounds by 4.',
@@ -350,7 +350,7 @@ const homebrewReps = [
     ...simpleStub('pax', 14, 'Mankind', 'Navigator', 'Blessed with the third eye', 50, 1),
     stub: false,
     speed: 6,
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'Attribute Modifications',
         snippet: 'Decrease Fellowship by 1. Increase Willpower by 1.',
@@ -426,7 +426,7 @@ const homebrewReps = [
     ...simpleStub('pax', 18, 'Mankind', 'Untouchable', 'The soulless', 20, 1),
     stub: false,
     speed: 6,
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'The Untouchable and the Profane',
         snippet: 'May not use, utilize or suffer from force, warp or deamon weapons.',
@@ -472,7 +472,7 @@ const homebrewReps = [
     ...simpleStub('pax', 13, 'Mankind', 'Beastman', 'Beastly touch of unknown origin', 10, 1),
     stub: false,
     speed: 8,
-    speciesTraits: [
+    speciesFeatures: [
       {
         name: 'Attribute Modifications',
         snippet: 'Decrease Fellowship by 1. Increase Toughness or Strength by 1.',

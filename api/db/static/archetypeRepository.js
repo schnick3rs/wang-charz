@@ -62,6 +62,28 @@ const stringToKebabToCamel = function (text) {
 };
 
 const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, tier) {
+  let speciesSourceKey = 'core';
+  let speciesName = 'Human';
+
+  let split = [];
+
+  split = species.split('/');
+  if ( split.length === 2) {
+    speciesSourceKey = split[0];
+    speciesName = split[1];
+  } else {
+    split = species.split('-');
+    if ( split.length >= 2 ){
+      speciesSourceKey = split[0];
+      speciesName = split.splice(1).map((i)=>i.charAt(0).toUpperCase() + i.slice(1)).join(' ');
+    } else {
+      speciesName = species;
+    }
+  }
+
+  const speciesLabel = `${speciesName} (${speciesSourceKey.toLowerCase()})`;
+  const speciesKey = `${speciesSourceKey.toLowerCase()}-${stringToKebab(speciesName)}`;
+
   return {
     source: {
       ...source[sourceKey],
@@ -72,8 +94,8 @@ const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, ti
     cost: bp,
     tier,
     group,
-    species: [ species ],
-    speciesKey: [ species ],
+    species: [ speciesLabel ],
+    speciesKey: [ speciesKey ],
     stub: true,
   };
 };
@@ -85,7 +107,7 @@ const core = [
     name: 'Ministorum Priest',
     cost: 0,
     tier: 1,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Adeptus Ministorum',
@@ -119,7 +141,7 @@ const core = [
     name: 'Death Cult Assassin',
     cost: 20,
     tier: 2,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Ministorum',
@@ -154,7 +176,7 @@ const core = [
     name: 'Crusader',
     cost: 40,
     tier: 3,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Adeptus Ministorum',
@@ -192,7 +214,7 @@ const core = [
     group: 'Adepta Sororitas',
     cost: 0,
     tier: 1,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
@@ -222,7 +244,7 @@ const core = [
   {
     source: { ...source.core },
     name: 'Sister of Battle',
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     cost: 40,
     tier: 2,
@@ -272,7 +294,7 @@ const core = [
     name: 'Imperial Guardsman',
     cost: 0,
     tier: 1,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Astra Militarum,<Regiment>',
@@ -309,7 +331,7 @@ const core = [
     name: 'Tempestus Scion',
     cost: 30,
     tier: 2,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Astra Militarum,Militarum Tempest',
@@ -350,7 +372,7 @@ const core = [
     name: 'Commissar',
     cost: 50,
     tier: 3,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 3,
     keywords: 'Imperium,Astra Militarum,Officio Prefectus',
@@ -389,7 +411,7 @@ const core = [
     name: 'Inquisitorial Acolyte',
     cost: 0,
     tier: 1,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 2,
     keywords: 'Imperium,Inquisition,<ANY>,<Ordo>',
@@ -434,7 +456,7 @@ const core = [
     name: 'Inquisitorial Adept',
     cost: 0,
     tier: 1,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Inquisition,<Ordo>',
@@ -469,7 +491,7 @@ const core = [
     name: 'Rogue Trader',
     cost: 40,
     tier: 2,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 2,
     keywords: 'Imperium,Rogue Trader,<Dynasty>',
@@ -534,7 +556,7 @@ const core = [
     name: 'Sanctioned Psyker',
     cost: 50,
     tier: 2,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Astra Telepathica,Psyker,Scholastica Psykana',
@@ -605,7 +627,7 @@ const core = [
     name: 'Inquisitor',
     cost: 70,
     tier: 4,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 4,
     keywords: 'Imperium,Inquisition,<Any>,<Ordo>',
@@ -672,7 +694,7 @@ const core = [
     source: { ...source.core },
     name: 'Space Marine Scout',
     key: 'core-space-marine-scout',
-    species: ['Aceptus Astartes (Core)'],
+    species: ['Adeptus Astartes (core)'],
     speciesKey: ['core-adeptus-astartes'],
     hint: 'A stealthy warrior adept at reconnaissance.',
     group: 'Adeptus Astartes',
@@ -714,7 +736,7 @@ const core = [
   {
     source: { ...source.core },
     name: 'Tactical Space Marine',
-    species: ['Aceptus Astartes (Core)'],
+    species: ['Aceptus Astartes (core)'],
     speciesKey: ['core-adeptus-astartes'],
     cost: 50,
     tier: 3,
@@ -752,7 +774,7 @@ const core = [
     group: 'Adeptus Astartes',
     cost: 60,
     tier: 4,
-    species: ['Primaris Astartes (Core)'],
+    species: ['Primaris Astartes (core)'],
     speciesKey: ['core-primaris-astartes'],
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -789,7 +811,7 @@ const core = [
     name: 'Skitarius',
     cost: 40,
     tier: 2,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Mechanicus,Skitarii,<Forge World>',
@@ -820,7 +842,7 @@ const core = [
     name: 'Tech-Priest',
     cost: 60,
     tier: 3,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 2,
     keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,<Forge World>',
@@ -875,7 +897,7 @@ const core = [
     name: 'Ganger',
     cost: 0,
     tier: 1,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Scum,<ANY>',
@@ -925,7 +947,7 @@ const core = [
     name: 'Scavvy',
     cost: 10,
     tier: 2,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: -1,
     archetypeFeatures: [
@@ -966,7 +988,7 @@ const core = [
     name: 'Desperado',
     cost: 30,
     tier: 3,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 1,
     archetypeFeatures: [
@@ -1010,7 +1032,7 @@ const core = [
     name: 'Cultist',
     cost: 0,
     tier: 1,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 2,
     keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Any>',
@@ -1051,7 +1073,7 @@ const core = [
     name: 'Chaos Space Marine',
     cost: 50,
     tier: 3,
-    species: ['Aceptus Astartes (Core)'],
+    species: ['Aceptus Astartes (core)'],
     speciesKey: ['core-adeptus-astartes'],
     influence: 2,
     keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Legion>',
@@ -1086,7 +1108,7 @@ const core = [
     name: 'Heretek',
     cost: 60,
     tier: 2,
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Chaos,Heretic,Adeptus Mechanicus,Dark Mechanicus',
@@ -1139,7 +1161,7 @@ const core = [
     name: 'Rogue Psyker',
     key: 'core-rogue-psyker',
     group: 'Renegades',
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     cost: 50,
     tier: 2,
@@ -1195,7 +1217,7 @@ const core = [
     name: 'Corsair',
     cost: 0,
     tier: 1,
-    species: ['Eldar (Core)'],
+    species: ['Eldar (core)'],
     speciesKey: ['core-eldar'],
     influence: 0,
     keywords: 'Aeldari,Anhrathe,<Coterie>',
@@ -1231,7 +1253,7 @@ const core = [
     name: 'Ranger',
     cost: 30,
     tier: 2,
-    species: ['Eldar (Core)'],
+    species: ['Eldar (core)'],
     speciesKey: ['core-eldar'],
     influence: 0,
     keywords: 'Aeldari,Asuryani,<Craftworld>',
@@ -1269,7 +1291,7 @@ const core = [
     name: 'Warlock',
     cost: 80,
     tier: 3,
-    species: ['Eldar (Core)'],
+    species: ['Eldar (core)'],
     speciesKey: ['core-eldar'],
     influence: 2,
     keywords: 'Aeldari,Asuryani,Psyker,<Craftworld>',
@@ -1321,7 +1343,7 @@ const core = [
     name: 'Boy',
     cost: 0,
     tier: 1,
-    species: ['Ork (Core)'],
+    species: ['Ork (core)'],
     speciesKey: ['core-ork'],
     influence: 0,
     keywords: 'Ork,<Clan>',
@@ -1351,7 +1373,7 @@ const core = [
     name: 'Kommando',
     cost: 30,
     tier: 2,
-    species: ['Ork (Core)'],
+    species: ['Ork (core)'],
     speciesKey: ['core-ork'],
     influence: 0,
     keywords: 'Ork,<Clan>',
@@ -1385,7 +1407,7 @@ const core = [
     name: 'Nob',
     cost: 60,
     tier: 3,
-    species: ['Ork (Core)'],
+    species: ['Ork (core)'],
     speciesKey: ['core-ork'],
     influence: 2,
     keywords: 'Ork,<Clan>',
@@ -1426,7 +1448,7 @@ const dodScumPsyker = [
       version: '',
       path: '',
     },
-    species: ['Human (Core)'],
+    species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Scum,Psyker',
@@ -1470,10 +1492,10 @@ const aaoaRep = [
   simpleStub('aaoa', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 60, 3),
   simpleStub('aaoa', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 60, 3),
   simpleStub('aaoa', 27, 'core-adeptus-astartes', 'Adeptus Astartes', 'Grey Knight', 70, 3),
-  simpleStub('aaoa', 27, 'core-primaris-astartes', 'core-adeptus-astartes', 'Primaris Marine Hellblaster', 70, 4),
-  simpleStub('aaoa', 28, 'core-primaris-astartes', 'core-adeptus-astartes', 'Primaris Marine Inceptor', 80, 4),
-  simpleStub('aaoa', 28, 'core-primaris-astartes', 'core-adeptus-astartes', 'Primaris Marine Reiver', 50, 4),
-  simpleStub('aaoa', 29, 'core-primaris-astartes', 'core-adeptus-astartes', 'Primaris Marine Aggressor', 80, 4),
+  simpleStub('aaoa', 27, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Marine Hellblaster', 70, 4),
+  simpleStub('aaoa', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Marine Inceptor', 80, 4),
+  simpleStub('aaoa', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Marine Reiver', 50, 4),
+  simpleStub('aaoa', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Marine Aggressor', 80, 4),
   simpleStub('aaoa', 29, 'core-adeptus-astartes', 'Adeptus Astartes', 'Librarian', 90, 4),
   simpleStub('aaoa', 30, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 60, 3),
   simpleStub('aaoa', 30, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 60, 3),
@@ -1599,18 +1621,18 @@ const togRep = [
 ];
 
 const lotnRep = [
-  simpleStub('lotn', 5, 'lotn-necron', 'Necrons', 'Immortal', 60, 3),
-  simpleStub('lotn', 5, 'lotn-necron', 'Necrons', 'Deathmark', 65, 3),
-  simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Destroyer', 85, 3),
-  simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Lichguard', 70, 4),
-  simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Triarch Praetorian', 70, 4),
-  simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Lord', 80, 4),
-  simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Cryptek', 75, 4),
-  simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Destroyer Lord', 95, 4),
+  simpleStub('lotn', 5, 'lotn/Necron', 'Necrons', 'Immortal', 60, 3),
+  simpleStub('lotn', 5, 'lotn/Necron', 'Necrons', 'Deathmark', 65, 3),
+  simpleStub('lotn', 6, 'lotn/Necron', 'Necrons', 'Destroyer', 85, 3),
+  simpleStub('lotn', 6, 'lotn/Necron', 'Necrons', 'Lichguard', 70, 4),
+  simpleStub('lotn', 7, 'lotn/Necron', 'Necrons', 'Triarch Praetorian', 70, 4),
+  simpleStub('lotn', 7, 'lotn/Necron', 'Necrons', 'Lord', 80, 4),
+  simpleStub('lotn', 8, 'lotn/Necron', 'Necrons', 'Cryptek', 75, 4),
+  simpleStub('lotn', 8, 'lotn/Necron', 'Necrons', 'Destroyer Lord', 95, 4),
 ];
 
 const paxRep = [
-  simpleStub('pax', '-', 'core-human', 'Adeptus Administratum', 'Scribe', 0, 1),
+  simpleStub('pax', '-', 'core/Human', 'Adeptus Administratum', 'Scribe', 0, 1),
   simpleStub('pax', '-', 'core-human', 'Adeptus Administratum', 'Ordinate', 10, 2),
   simpleStub('pax', '-', 'core-human', 'Adeptus Administratum', 'Sage', 30, 3),
   simpleStub('pax', '-', 'core-human', 'Adeptus Administratum', 'Prefect', 40, 4),
@@ -1727,7 +1749,7 @@ const paxRep = [
     ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Nobilite Emissary', 10, 1),
     stub: false,
     hint: 'A representative of the Navis Nobilite, empowered to enact the will of a houses Novators.',
-    species: [ 'Human (Core)', 'Navigator (Pex)' ],
+    species: [ 'Human (core)', 'Navigator (pax)' ],
     speciesKey: [ 'core-human', 'pax-navigator' ],
     prerequisites: [
       { group: 'attributes', value: 'fellowship', threshold: 2 },

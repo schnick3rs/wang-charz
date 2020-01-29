@@ -62,7 +62,7 @@ export default {
     getSpecies: async function (key) {
       this.loading = true;
       const { data } = await this.$axios.get(`/api/species/${key}`);
-      data.speciesTraits.filter((t) => t.options).forEach((t) => {
+      data.speciesFeatures.filter((t) => t.options).forEach((t) => {
         const enhancement = this.enhancements.find((m) => m.source.startsWith(`species.${t.name}`) );
         if ( enhancement ) {
           t.selected = enhancement.source.split('.').pop();

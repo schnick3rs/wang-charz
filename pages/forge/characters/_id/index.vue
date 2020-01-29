@@ -366,7 +366,7 @@
               :value="`tab-wargear`"
             >
               <div class="pa-2">
-                <div v-for="gearItem in wargear" :key="gearItem.name" class="caption">
+                <div v-for="gearItem in wargear.filter((w)=>!['Ranged Weapon','Melee Weapon'].includes(w.type))" :key="gearItem.name" class="caption">
                   <strong>{{ gearItem.name }}</strong>
                   <p>{{ gearItem.description }}</p>
                 </div>
@@ -386,7 +386,7 @@
                   <v-chip
                     label
                     small
-                    v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Faith`, `Other`]"
+                    v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Other`]"
                     :key="item.toLowerCase()"
                     :value="item.toLowerCase()"
                   >
@@ -440,7 +440,7 @@
                   </div>
 
                   <!-- talents (with faith) < abilities -->
-                  <div v-show="['all', 'faith'].some(i=>i===abilitySection.selection)">
+                  <div v-if="false" v-show="['all', 'faith'].some(i=>i===abilitySection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
                       <span class="body-2 red--text" style="flex: 1;">Faith</span>
                     </div>
@@ -820,11 +820,11 @@ export default {
         return customAvatarUrl;
       }
 
-      if (this.archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(this.speciesLabel)) {
-        return `/img/icon/archetype/archetype_${this.textToKebab(this.archetypeLabel)}_avatar.png`;
+      if (this.archetypeKey !== undefined && !['Ratling', 'Ogryn'].includes(this.speciesLabel)) {
+        return `/img/icon/archetype/archetype_${this.archetypeKey}_avatar.png`;
       }
 
-      if (this.speciesLabel !== undefined) {
+      if (this.speciesKey !== undefined) {
         return `/img/icon/species/species_${this.speciesKey}_avatar.png`;
       }
 
@@ -874,9 +874,9 @@ export default {
     speciesAbilities(){
       const abilities = [];
 
-      if (this.characterSpecies !== undefined && this.characterSpecies.speciesTraits) {
+      if (this.characterSpecies !== undefined && this.characterSpecies.speciesFeatures) {
 
-          this.characterSpecies.speciesTraits.forEach( (speciesTrait) => {
+          this.characterSpecies.speciesFeatures.forEach( (speciesTrait) => {
             // Honour the Chapter
             if (speciesTrait.name === 'Honour the Chapter') {
               const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
@@ -1011,6 +1011,7 @@ export default {
       const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
       const wargear = [];
       wargearLabels.forEach((wargearName) => {
+        console.info(wargearName)
         const foundGear = this.wargearRepository.find((w) => w.name === wargearName);
         if (foundGear) {
           wargear.push(foundGear);
