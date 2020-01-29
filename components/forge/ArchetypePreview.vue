@@ -91,7 +91,7 @@
       </p>
 
       <div
-        v-for="trait in item.archetypeTraits"
+        v-for="trait in item.archetypeFeatures"
         class="text-lg-justify"
       >
         <div>

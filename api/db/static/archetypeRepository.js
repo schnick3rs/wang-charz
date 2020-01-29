@@ -89,7 +89,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Adeptus Ministorum',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Fiery Invective',
         snippet: 'Once per combat, the Ministorum priest may take '
@@ -123,7 +123,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Ministorum',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Glancing Blow',
         snippet: 'Death Cult Assassins depend upon their movement to '
@@ -158,7 +158,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Adeptus Ministorum',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Armour of Faith',
         snippet: 'Crusaders rely upon their faith to carry them '
@@ -197,7 +197,7 @@ const core = [
     influence: 0,
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
     keywordOption: '<Order>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Loyal Compassion',
         snippet: 'A Sister Hospitaller adds +Rank on Medicae tests when treating characters '
@@ -228,7 +228,7 @@ const core = [
     tier: 2,
     influence: 1,
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Purity of Faith',
         snippet: 'Sisters of Battle and any allies within 15 '
@@ -276,7 +276,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Astra Militarum,<Regiment>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Look Out Sir',
         snippet: 'Once per battle, an Imperial Guardsman may suffer '
@@ -313,7 +313,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Astra Militarum,Militarum Tempest',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Elite Soldier',
         snippet: 'After spending one or more Glory to increase '
@@ -354,7 +354,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 3,
     keywords: 'Imperium,Astra Militarum,Officio Prefectus',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Fearsome Respect',
         snippet: 'Commissars and any allies within 15 metres and '
@@ -393,7 +393,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 2,
     keywords: 'Imperium,Inquisition,<ANY>,<Ordo>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Inquisitorial Decree',
         snippet: 'Once per scene, an Inquisitorial Acolyte '
@@ -438,7 +438,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Imperium,Inquisition,<Ordo>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Administratum Records',
         snippet: 'he character is particularly adept at '
@@ -474,7 +474,7 @@ const core = [
     influence: 2,
     keywords: 'Imperium,Rogue Trader,<Dynasty>',
     keywordOption: '<Dynasty>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Warrant of Trade',
         snippet: 'Rogue Traders are masters at manipulating '
@@ -538,7 +538,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Astra Telepathica,Psyker,Scholastica Psykana',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Psyker',
         snippet: 'You learn the Smite power and one additional minor power. You gain access to Minor and Universal powers.',
@@ -609,7 +609,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 4,
     keywords: 'Imperium,Inquisition,<Any>,<Ordo>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Unchecked Authority',
         snippet: 'Inquisitors have supreme authority for '
@@ -681,7 +681,7 @@ const core = [
     influence: 1,
     keywords: 'Imperium,Adeptus Astartes,<Chapter>',
     keywordOption: '<Chapter>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Use the Terrain',
         snippet: 'Space Marine Scouts receive +Rank to all Stealth '
@@ -721,7 +721,7 @@ const core = [
     influence: 2,
     keywords: 'Imperium,Adeptus Astartes,<Chapter>',
     keywordOption: '<Chapter>',
-    archetypeTraits: [
+    archetypeFeatures: [
       { name: 'Tactical Versatility', snippet: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
     ],
     prerequisites: [
@@ -764,7 +764,7 @@ const core = [
     influence: 1,
     keywords: 'Imperium, Adeptus Astartes, Primaris, <Chapter>',
     keywordOption: '<Chapter>',
-    archetypeTraits: [
+    archetypeFeatures: [
       { name: 'Intercessor Focus', snippet: 'When firing a bolt rifle or heavy bolt pistol they gain +Rank bonus to attack rolls.' },
     ],
     description: '',
@@ -793,7 +793,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Adeptus Mechanicus,Skitarii,<Forge World>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Heavily Augmented',
         snippet: 'The Skitarius’ body is designed to withstand '
@@ -825,7 +825,7 @@ const core = [
     influence: 2,
     keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,<Forge World>',
     keywordOption: '<Forge World>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Rite of Repair',
         snippet: 'Tech-Priests automatically reduce the time by '
@@ -880,7 +880,7 @@ const core = [
     influence: 1,
     keywords: 'Scum,<ANY>',
     keywordOption: '<Any>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Scrounger',
         snippet: 'Gangers make use of every available resource, and '
@@ -928,7 +928,7 @@ const core = [
     species: ['Human (Core)'],
     speciesKey: ['core-human'],
     influence: -1,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Mutant',
         snippet: 'The Scavvy may select one mutation (see Scavvy Mutations, '
@@ -969,7 +969,7 @@ const core = [
     species: ['Human (Core)'],
     speciesKey: ['core-human'],
     influence: 1,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Valuable Prey',
         snippet: 'Desperados receive +Rank for Cunning tests. They '
@@ -1014,7 +1014,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 2,
     keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Any>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'From Within',
         snippet: 'Cultists gain +Rank to Deception tests, including '
@@ -1055,7 +1055,7 @@ const core = [
     speciesKey: ['core-adeptus-astartes'],
     influence: 2,
     keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Legion>',
-    archetypeTraits: [
+    archetypeFeatures: [
       { name: 'Tactical Versatility', snippet: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
     ],
     modifications: [
@@ -1090,7 +1090,7 @@ const core = [
     speciesKey: ['core-human'],
     influence: 1,
     keywords: 'Chaos,Heretic,Adeptus Mechanicus,Dark Mechanicus',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Transformative Technology',
         snippet: 'Hereteks automatically reduce the time '
@@ -1143,7 +1143,7 @@ const core = [
     speciesKey: ['core-human'],
     cost: 50,
     tier: 2,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Psyker',
         snippet: 'A rogue psyker begins play with one Minor Psychic Power, the '
@@ -1199,7 +1199,7 @@ const core = [
     speciesKey: ['core-eldar'],
     influence: 0,
     keywords: 'Aeldari,Anhrathe,<Coterie>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Dancing the Blade\'s Edge',
         snippet: 'Choose one of the following Interaction '
@@ -1235,7 +1235,7 @@ const core = [
     speciesKey: ['core-eldar'],
     influence: 0,
     keywords: 'Aeldari,Asuryani,<Craftworld>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'From the Shadows',
         snippet: 'Rangers are adept at exploiting any concealment. '
@@ -1273,7 +1273,7 @@ const core = [
     speciesKey: ['core-eldar'],
     influence: 2,
     keywords: 'Aeldari,Asuryani,Psyker,<Craftworld>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Runes of Battle',
         snippet: 'A Warlock begins play with the Psyniscience and '
@@ -1325,7 +1325,7 @@ const core = [
     speciesKey: ['core-ork'],
     influence: 0,
     keywords: 'Ork,<Clan>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Get Stuck In',
         snippet: 'A Boy gains +Rank to melee attacks for every ally '
@@ -1355,7 +1355,7 @@ const core = [
     speciesKey: ['core-ork'],
     influence: 0,
     keywords: 'Ork,<Clan>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Kunnin\' Plan',
         snippet: 'A Kommando and any allies with the Ork Keyword '
@@ -1389,7 +1389,7 @@ const core = [
     speciesKey: ['core-ork'],
     influence: 2,
     keywords: 'Ork,<Clan>',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Boys',
         snippet: 'A Nob commands a mob of Troops numbering up to Rank x 3 Boyz '
@@ -1430,7 +1430,7 @@ const dodScumPsyker = [
     speciesKey: ['core-human'],
     influence: 0,
     keywords: 'Imperium,Scum,Psyker',
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Psyker',
         snippet: 'A Scum Psyker begins play with one minor psychic '
@@ -1707,7 +1707,7 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 1,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Groomed from Birth',
         snippet: 'Navis Scions begin play without an initial mutation. Additionally, they gain a +½ Rank bonus to Persuasion skill tests.',
@@ -1737,7 +1737,7 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 1,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'House Operative',
         snippet: 'A Nobilite Emissary gains +Rank to opposed skill tests to resist the effects of seduction and interrogation. In addition, the Nobilite Emissary character may utilize an interrogator’s questions and techniques to garner detailed information about the nature, aims, and motivations of the interrogator himself and those he works for. If the Nobilite Emissary is subjected to interrogation, and wins an opposed test, he may immediately make an Awareness Test (DN 4). On a success and for every shifted icon, he can learn one detail about his captors (what he can and cannot learn is ultimately up to the GM but it should be something valuable).',
@@ -1775,7 +1775,7 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 2,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Warp Guide',
         snippet: 'The Navigator Primaris gains +Rank bonus dice to Pilot skill tests when steering a voidship through the Warp. Additionally, he gains +½ Rank to Conviction tests.',
@@ -1816,7 +1816,7 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 3,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Exalted Lineage',
         snippet: 'As the head of a family of the most ancient and powerful houses of the Imperium, the Novator is able to utilize his prestige among the nobility of the Imperium. The Novator may call upon his lineage in social situations and gains +Rank bonus to any Interaction Skill tests when dealing with characters with both the <Nobility> and <Imperium> keywords',
@@ -1862,7 +1862,7 @@ const paxRep = [
     ],
     keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
     influence: 3,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'The Call of the Paternova',
         snippet: 'As Heir-Apparents are inexorably drawn to each, their power waxes in preparation of contending to become the next Paternova. Heir-Apparents gains a chosen Navigator Mutation with each Rank and also gain +Rank when utilizing his Lidless Stare power.',
@@ -1937,7 +1937,7 @@ const paxRep = [
     ],
     keywords: 'Imperium,Untouchable,Lower Class or Outcast',
     influence: -1,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Keywords',
         snippet: 'Imperium, Untouchable, Lower Class or Outcast',
@@ -1997,7 +1997,7 @@ const paxRep = [
     ],
     keywords: 'Imperium,Untouchable,Lower Class or Outcast',
     influence: -2,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Keywords',
         snippet: 'Imperium, Untouchable, Lower Class or Outcast',
@@ -2054,7 +2054,7 @@ const paxRep = [
     ],
     keywords: 'Imperium,Untouchable,Lower Class or Outcast',
     influence: -3,
-    archetypeTraits: [
+    archetypeFeatures: [
       {
         name: 'Keywords',
         snippet: 'Imperium, Untouchable, Lower Class or Outcast',

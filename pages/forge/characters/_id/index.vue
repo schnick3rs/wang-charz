@@ -919,8 +919,8 @@ export default {
       const abilities = [];
       const archetype = this.characterArchetype;
 
-      if (archetype && archetype.archetypeTraits) {
-        archetype.archetypeTraits.forEach( (item) => {
+      if (archetype && archetype.archetypeFeatures) {
+        archetype.archetypeFeatures.forEach( (item) => {
           const ability = {
             name: item.name,
             effect: item.snippet,
