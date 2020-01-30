@@ -43,7 +43,7 @@ export default {
               selected: 'Boltgun',
               options: [
                 { name: 'Boltgun' },
-                { name: 'Chain Sword and Bold Pistol' },
+                { name: 'Chain Sword and Bolt Pistol' },
               ],
             },
             { name: 'Clothing', variant: 'Sororitas vestments' },
@@ -65,7 +65,7 @@ export default {
           name: 'Commissar',
           options: [
             { name: 'Flak Coat' },
-            { name: 'Bold pistol' },
+            { name: 'Bolt pistol' },
             { name: 'Chain Sword' },
             { name: 'Guard issue mess kit' },
             { name: 'Blanket' },
@@ -246,7 +246,7 @@ export default {
               selected: 'Boltgun',
               options: [
                 { name: 'Boltgun' },
-                { name: 'Bold Pistol' },
+                { name: 'Bolt Pistol' },
               ],
             },
             { name: 'Astartes Combat Knife' },
@@ -274,7 +274,7 @@ export default {
               selected: 'Bolt Rifle',
               options: [
                 { name: 'Bolt Rifle' },
-                { name: 'Heavy Bold pistol' },
+                { name: 'Heavy Bolt pistol' },
               ],
             },
             { name: 'Astartes Combat Knife' },
@@ -363,7 +363,7 @@ export default {
               selected: 'Boltgun',
               options: [
                 { name: 'Boltgun' },
-                { name: 'Chain Sword and Bold Pistol' },
+                { name: 'Chain Sword and Bolt Pistol' },
               ],
             },
             { name: 'Flak Coat' },
