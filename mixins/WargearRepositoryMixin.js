@@ -43,7 +43,7 @@ export default {
               selected: 'Boltgun',
               options: [
                 { name: 'Boltgun' },
-                { name: 'Chainsword and Bold pistol' },
+                { name: 'Chain Sword and Bold Pistol' },
               ],
             },
             { name: 'Clothing', variant: 'Sororitas vestments' },
@@ -363,7 +363,7 @@ export default {
               selected: 'Boltgun',
               options: [
                 { name: 'Boltgun' },
-                { name: 'Chainsword and Bold pistol' },
+                { name: 'Chain Sword and Bold Pistol' },
               ],
             },
             { name: 'Flak Coat' },
