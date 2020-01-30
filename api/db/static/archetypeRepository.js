@@ -276,11 +276,11 @@ const core = [
       { name: 'Sororitas Powered Armour' },
       { name: 'Chaplet Ecclesiasticus' },
       {
-        name: 'Either a boltgun OR a chainsword and bolt pistol.',
+        name: 'Either a boltgun OR a Chain Sword and bolt pistol.',
         selected: 'Boltgun',
         options: [
           { name: 'Boltgun' },
-          { name: 'Chainsword and Bold pistol' },
+          { name: 'Chain Sword and Bolt Pistol' },
         ],
       },
       { name: 'Clothing', variant: 'Sororitas vestments' },
@@ -396,7 +396,7 @@ const core = [
     hint: 'A fearsome leader, inspiring both dread and respect in great measure.',
     wargear: [
       { name: 'Flak Coat' },
-      { name: 'Bold pistol' },
+      { name: 'Bolt Pistol' },
       { name: 'Chain Sword' },
       { name: 'Guard issue mess kit' },
       { name: 'Blanket' },
@@ -725,7 +725,7 @@ const core = [
         selected: 'Boltgun',
         options: [
           { name: 'Boltgun' },
-          { name: 'Bold Pistol' },
+          { name: 'Bolt Pistol' },
         ],
       },
       { name: 'Astartes Combat Knife' },
@@ -797,7 +797,7 @@ const core = [
         selected: 'Bolt Rifle',
         options: [
           { name: 'Bolt Rifle' },
-          { name: 'Heavy Bold pistol' },
+          { name: 'Heavy Bolt Pistol' },
         ],
       },
       { name: 'Astartes Combat Knife' },
@@ -1013,11 +1013,11 @@ const core = [
     hint: 'A savvy and dangerous bounty hunter, mercenary, and gun for hire.',
     wargear: [
       {
-        name: 'Choce of boltgun OR a chainsword and bolt pistol.',
+        name: 'Choce of boltgun OR a Chain Sword and bolt pistol.',
         selected: 'Boltgun',
         options: [
           { name: 'Boltgun' },
-          { name: 'Chainsword and Bold pistol' },
+          { name: 'Chain Sword and Bolt Pistol' },
         ],
       },
       { name: 'Flak Coat' },
@@ -2110,7 +2110,7 @@ const paxRep = [
           'equal to the Untouchables ½ Rank within the same area of effect.</p>',
       },
     ],
-    // Flak or mesh armor or symbol of inquisitorial authority, boltgun or bolt pistol and chainsword, null-limiter
+    // Flak or mesh armor or symbol of inquisitorial authority, boltgun or bolt pistol and Chain Sword, null-limiter
     wargear: [
       {
         name: 'Flak or mesh armor or symbol of inquisitorial authority',
@@ -2121,10 +2121,10 @@ const paxRep = [
         ],
       },
       {
-        name: 'boltgun or bolt pistol and chainsword',
+        name: 'boltgun or bolt pistol and Chain Sword',
         options: [
           { name: 'Boltgun' },
-          { name: 'Bolt Pistol and Chainsword' },
+          { name: 'Bolt Pistol and Chain Sword' },
         ],
       },
       { name: 'Null-Limiter' },
