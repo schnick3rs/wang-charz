@@ -361,6 +361,7 @@
                     <br>
                     <span v-html="computeFormatedText(ability.effect)" />
                   </v-card-text>
+
                 </v-card>
               </v-col>
 
@@ -368,11 +369,11 @@
                 <v-col v-if="talents.length > 0" :cols="12" class="pa-1">
                   <v-card>
                     <v-toolbar color="red" dark dense height="32">
-                      <v-toolbar-title>Talents (Short)</v-toolbar-title>
+                      <v-toolbar-title>Talents</v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text v-for="talent in talents" :key="talent.name" class="pa-2 caption">
-                      <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.effect)" />
+                      <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)" />
                     </v-card-text>
                   </v-card>
                 </v-col>
@@ -380,56 +381,15 @@
                 <v-col v-if="gear.length > 0" :cols="12" class="pa-1">
                   <v-card>
                     <v-toolbar color="red" dark dense height="32">
-                      <v-toolbar-title>Gear (Short)</v-toolbar-title>
+                      <v-toolbar-title>Gear</v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-2 caption">
-                      <strong>{{ gearItem.name }}:</strong> {{ gearItem.hint }}
+                      <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
                     </v-card-text>
                   </v-card>
                 </v-col>
               </v-col>
-
-            </v-row>
-          </v-col>
-
-
-        </v-row>
-      </v-container>
-    </div>
-
-    <div class="page page--din-a-4">
-      <!-- grid list with low margin -->
-      <v-container>
-        <v-row justify="center" no-gutters>
-          <v-col :cols="12">
-            <v-row justify="left" no-gutters>
-
-              <v-col v-if="gear.length > 0" :cols="6" class="pa-1">
-                <v-card>
-                  <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-title>Gear</v-toolbar-title>
-                  </v-toolbar>
-
-                  <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-2 caption">
-                    <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
-                  </v-card-text>
-                </v-card>
-              </v-col>
-
-              <v-col v-if="talents.length > 0" :cols="6" class="pa-1">
-                <v-card>
-                  <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-title>Talents</v-toolbar-title>
-                  </v-toolbar>
-
-                  <v-card-text v-for="talent in talents" :key="talent.name" class="pa-2 caption">
-                    <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)" />
-                  </v-card-text>
-                </v-card>
-              </v-col>
-
-
 
             </v-row>
           </v-col>
