@@ -229,6 +229,40 @@ const coreRep = [
       },
     ],
   },
+  {
+    key: 'dodHouseIsenwell',
+    name: 'House Isenwell',
+    beliefsAndTraditions: [
+      {
+        name: 'Thunder’s Call',
+        effect: 'Blade in hand, Isenwellers loudly issue challenges to those enemies they deem worthy to face them. A Isenweller may spend a Glory as a free action to issue a Thunder’s Call, picking out a specific threat. So long as he spends his next action(s) attempting to engage that enemy in melee, the target of the Call suffers a +½ Rank DN penalty to all attacks against targets that are not the Warden, and the Warden gains +½ Rank bonus dice to all melee attacks against the target until the target is dead or combat has ended. Only one enemy may be the target of a specific Isenweller’s Thunder’s Call at a time.',
+      },
+      {
+        name: 'My Oath is My Bond',
+        origin: 'Tradition',
+        effect: 'A Isenweller who breaks his word is without honor, and to purposefully use a false oath to deceive an enemy is the lowest cowardice. If the Isenweller says that he will perform an action, and then does not at least earnestly attempt to perform that action, then the GM gains 2 ruin. ',
+      },
+    ],
+  },
+  {
+    key: 'sosHouseHironiat',
+    name: 'Houst Hironiat',
+    beliefsAndTraditions: [
+      {
+        name: 'Siege Masters',
+        effect: 'Hironians immediately recognise the weaknesses in any fortification. '
+          + 'An Imperial Fists Space Marine may add his Rank bonus to damage when attacking '
+          + 'any building or fortification. An Hironian Space Marine may spend a '
+          + 'Glory point to ignore any bonuses to an enemy’s Defence from cover on any attack.',
+      },
+      {
+        name: 'No Retreat',
+        origin: 'Tradition',
+        effect: 'Hironians are stubborn, tenacious and stoic. If an Hironian '
+          + 'Space Marine fails a Willpower test, the GM gains 1 Ruin.',
+      },
+    ],
+  },
 ];
 
 const homebrewReps = [
