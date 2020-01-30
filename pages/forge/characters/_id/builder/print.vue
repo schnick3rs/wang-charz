@@ -186,45 +186,71 @@
             </v-col>
           </v-col>
 
-          <!-- abilities -->
           <v-col :cols="4">
-            <v-col :cols="12" class="pa-1">
-              <v-card>
-                <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-title>Abilities</v-toolbar-title>
-                </v-toolbar>
+            <v-row justify="center" no-gutters>
+              <v-col :cols="12" class="pa-1">
+                <v-card >
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Objectives</v-toolbar-title>
+                  </v-toolbar>
 
-                <v-card-text v-for="ability in abilities" :key="ability.name" class="pa-1 caption">
-                  <strong>{{ ability.name }}</strong><em v-if="ability.source">  • {{ ability.source }}</em>
-                  <br>
-                  <span v-html="computeFormatedText(ability.effect)" />
-                </v-card-text>
-              </v-card>
-            </v-col>
+                  <v-card-text
+                    v-for="(objective, index) in objectives"
+                    :key="objective.name"
+                    class="pl-2 pr-2 pt-1 pb-1 caption"
+                  >
+                    <strong>{{ index+1 }}:</strong> {{ objective.text }}
+                  </v-card-text>
+                </v-card>
+              </v-col>
 
-            <v-col v-if="talents.length > 0" :cols="12" class="pa-1">
-              <v-card>
-                <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-title>Talents</v-toolbar-title>
-                </v-toolbar>
+              <v-col :cols="12" class="pa-1">
+                <v-card >
+                  <v-card-text>
+                    <p class="caption">
+                      Spend one <strong>Wrath</strong> to:
+                    </p>
+                    <ul class="pl-3">
+                      <li class="caption">
+                        Re-roll failures once on a test
+                      </li>
+                      <li class="caption">
+                        Re-roll failures once on a soak attempt
+                      </li>
+                      <li class="caption">
+                        Add +1 to a Defiance check
+                      </li>
+                      <li class="caption">
+                        Make a narrative declaration
+                      </li>
+                      <li class="caption">
+                        As an Action: restore 1d3+1 Shock
+                      </li>
+                    </ul>
+                  </v-card-text>
 
-                <v-card-text v-for="talent in talents" :key="talent.name" class="pa-1 caption">
-                  <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.effect)" />
-                </v-card-text>
-              </v-card>
-            </v-col>
-
-            <v-col v-if="gear.length > 0" :cols="12" class="pa-1">
-              <v-card>
-                <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-title>Gear</v-toolbar-title>
-                </v-toolbar>
-
-                <v-card-text v-for="gearItem in gear" :key="gearItem.id" class="pa-1 caption">
-                  <strong>{{ gearItem.name }}:</strong> {{ gearItem.hint }}
-                </v-card-text>
-              </v-card>
-            </v-col>
+                  <v-card-text>
+                    <p class="caption">
+                      Spend one <strong>Glory</strong> to:
+                    </p>
+                    <ul class="pl-3">
+                      <li class="caption">
+                        Add +1d to a test after any re-rolls
+                      </li>
+                      <li class="caption">
+                        Add +1 damage to a successful attack
+                      </li>
+                      <li class="caption">
+                        Increase the severity of a Critical Hit
+                      </li>
+                      <li class="caption">
+                        Seize the Initiative
+                      </li>
+                    </ul>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+            </v-row>
           </v-col>
 
           <v-col :cols="12">
@@ -279,145 +305,100 @@
         <v-row justify="center" no-gutters>
           <v-col :cols="12">
             <v-row justify="left" no-gutters>
-              <v-col v-if="gear.length > 0" :cols="6" class="pa-1">
-                <v-card>
+
+
+              <!-- powers -->
+              <v-col :cols="12" class="pa-1">
+                <v-card v-if="psychicPowers.length > 0">
                   <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-title>Gear</v-toolbar-title>
+                    <v-toolbar-title>Psychic Powers</v-toolbar-title>
                   </v-toolbar>
 
-                  <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-2 caption">
-                    <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
-                  </v-card-text>
-                </v-card>
-              </v-col>
-
-              <v-col v-if="talents.length > 0" :cols="6" class="pa-1">
-                <v-card>
-                  <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-title>Talents</v-toolbar-title>
-                  </v-toolbar>
-
-                  <v-card-text v-for="talent in talents" :key="talent.name" class="pa-2 caption">
-                    <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)" />
-                  </v-card-text>
-                </v-card>
-              </v-col>
-            </v-row>
-          </v-col>
-
-          <v-col :cols="12" class="pa-1">
-            <v-card v-if="psychicPowers.length > 0">
-              <v-toolbar color="red" dark dense height="32">
-                <v-toolbar-title>Psychic Powers</v-toolbar-title>
-              </v-toolbar>
-
-              <v-data-table
-                :headers="psychicPowersHeaders"
-                :items="psychicPowers"
-                hide-default-footer
-              >
-                <template v-slot:item="{ item }">
-                  <tr>
-                    <td class="text-left pa-1 small">
-                      {{ item.name }}
-                    </td>
-                    <td class="text-center pa-1 small">
-                      {{ item.crunch_difficulty_number }}
-                    </td>
-                    <td class="text-center pa-1 small">
-                      {{ item.crunch_activation }}
-                    </td>
-                    <td class="text-center pa-1 small">
-                      {{ item.crunch_duration }}
-                    </td>
-                    <td class="text-center pa-1 small">
-                      {{ item.crunch_range }}
-                    </td>
-                    <td class="text-center pa-1 small">
-                      {{ item.crunch_multi_target }}
-                    </td>
-                    <td class="text-left pa-1 small">
-                      {{ item.effect }}
-                    </td>
-                  </tr>
-                </template>
-              </v-data-table>
-            </v-card>
-          </v-col>
-
-          <v-col :cols="12">
-            <v-row justify="center" no-gutters>
-              <v-col :cols="4" class="pa-1">
-                <v-card height="100%" class="flexcard">
-                  <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-title>Objectives</v-toolbar-title>
-                  </v-toolbar>
-
-                  <v-card-text
-                    v-for="(objective, index) in objectives"
-                    :key="objective.name"
-                    class="pl-2 pr-2 pt-1 pb-1 caption"
+                  <v-data-table
+                    :headers="psychicPowersHeaders"
+                    :items="psychicPowers"
+                    hide-default-footer
                   >
-                    <strong>{{ index+1 }}:</strong> {{ objective.text }}
-                  </v-card-text>
+                    <template v-slot:item="{ item }">
+                      <tr>
+                        <td class="text-left pa-1 small">
+                          {{ item.name }}
+                        </td>
+                        <td class="text-center pa-1 small">
+                          {{ item.crunch_difficulty_number }}
+                        </td>
+                        <td class="text-center pa-1 small">
+                          {{ item.crunch_activation }}
+                        </td>
+                        <td class="text-center pa-1 small">
+                          {{ item.crunch_duration }}
+                        </td>
+                        <td class="text-center pa-1 small">
+                          {{ item.crunch_range }}
+                        </td>
+                        <td class="text-center pa-1 small">
+                          {{ item.crunch_multi_target }}
+                        </td>
+                        <td class="text-left pa-1 small">
+                          {{ item.effect }}
+                        </td>
+                      </tr>
+                    </template>
+                  </v-data-table>
                 </v-card>
               </v-col>
 
-              <v-col :cols="4" class="pa-1">
-                <v-card height="100%" class="flexcard">
-                  <v-card-text>
-                    <p class="caption">
-                      Spend one <strong>Wrath</strong> to:
-                    </p>
-                    <ul class="pl-3">
-                      <li class="caption">
-                        Re-roll failures once on a test
-                      </li>
-                      <li class="caption">
-                        Re-roll failures once on a soak attempt
-                      </li>
-                      <li class="caption">
-                        Add +1 to a Defiance check
-                      </li>
-                      <li class="caption">
-                        Make a narrative declaration
-                      </li>
-                      <li class="caption">
-                        As an Action: restore 1d3+1 Shock
-                      </li>
-                    </ul>
+              <!-- abilities -->
+
+              <v-col :cols="6" class="pa-1">
+                <v-card>
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Abilities</v-toolbar-title>
+                  </v-toolbar>
+
+                  <v-card-text v-for="ability in abilities" :key="ability.name" class="pa-1 caption">
+                    <strong>{{ ability.name }}</strong><em v-if="ability.source">  • {{ ability.source }}</em>
+                    <br>
+                    <span v-html="computeFormatedText(ability.effect)" />
                   </v-card-text>
+
                 </v-card>
               </v-col>
 
-              <v-col :cols="4" class="pa-1">
-                <v-card height="100%" class="flexcard">
-                  <v-card-text>
-                    <p class="caption">
-                      Spend one <strong>Glory</strong> to:
-                    </p>
-                    <ul class="pl-3">
-                      <li class="caption">
-                        Add +1d to a test after any re-rolls
-                      </li>
-                      <li class="caption">
-                        Add +1 damage to a successful attack
-                      </li>
-                      <li class="caption">
-                        Increase the severity of a Critical Hit
-                      </li>
-                      <li class="caption">
-                        Seize the Initiative
-                      </li>
-                    </ul>
-                  </v-card-text>
-                </v-card>
+              <v-col :cols="6">
+                <v-col v-if="talents.length > 0" :cols="12" class="pa-1">
+                  <v-card>
+                    <v-toolbar color="red" dark dense height="32">
+                      <v-toolbar-title>Talents</v-toolbar-title>
+                    </v-toolbar>
+
+                    <v-card-text v-for="talent in talents" :key="talent.name" class="pa-2 caption">
+                      <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)" />
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+
+                <v-col v-if="gear.length > 0" :cols="12" class="pa-1">
+                  <v-card>
+                    <v-toolbar color="red" dark dense height="32">
+                      <v-toolbar-title>Gear</v-toolbar-title>
+                    </v-toolbar>
+
+                    <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-2 caption">
+                      <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
+                    </v-card-text>
+                  </v-card>
+                </v-col>
               </v-col>
+
             </v-row>
           </v-col>
+
+
         </v-row>
       </v-container>
     </div>
+
   </div>
 </template>
 
@@ -698,7 +679,7 @@ export default {
       return this.wargear.filter((w) => ['Armour'].includes(w.type));
     },
     gear() {
-      return this.wargear.filter((w) => !['Armour', 'Ranged Weapon', 'Melee Weapon'].includes(w.type));
+      return this.wargear.filter((w) => !['Ranged Weapon', 'Melee Weapon'].includes(w.type));
     },
     psychicPowers() {
       const powers = this.$store.getters['characters/characterPsychicPowersById'](this.characterId).map((p) => p.name);
