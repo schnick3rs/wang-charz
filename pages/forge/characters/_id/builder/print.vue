@@ -22,7 +22,7 @@
             <v-col :cols="12" class="pa-1">
               <v-card>
                 <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-subtitle>Attributes</v-toolbar-subtitle>
+                  <v-toolbar-title>Attributes</v-toolbar-title>
                 </v-toolbar>
 
                 <v-simple-table
@@ -55,7 +55,7 @@
             <v-col :cols="12" class="pa-1">
               <v-card>
                 <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-subtitle>Traits</v-toolbar-subtitle>
+                  <v-toolbar-title>Traits</v-toolbar-title>
                 </v-toolbar>
 
                 <v-simple-table
@@ -152,7 +152,7 @@
             <v-col :cols="12" class="pa-1">
               <v-card>
                 <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-subtitle>Skills</v-toolbar-subtitle>
+                  <v-toolbar-title>Skills</v-toolbar-title>
                 </v-toolbar>
 
                 <v-simple-table
@@ -191,7 +191,7 @@
               <v-col :cols="12" class="pa-1">
                 <v-card >
                   <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-subtitle>Objectives</v-toolbar-subtitle>
+                    <v-toolbar-title>Objectives</v-toolbar-title>
                   </v-toolbar>
 
                   <v-card-text
@@ -256,7 +256,7 @@
           <v-col :cols="12">
             <v-card>
               <v-toolbar color="red" dark dense height="32">
-                  <v-toolbar-subtitle>Weapons</v-toolbar-subtitle>
+                  <v-toolbar-title>Weapons</v-toolbar-title>
               </v-toolbar>
 
               <v-data-table
@@ -325,7 +325,7 @@
               <v-col :cols="12" class="pa-1">
                 <v-card v-if="psychicPowers.length > 0">
                   <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-subtitle>Psychic Powers</v-toolbar-subtitle>
+                    <v-toolbar-title>Psychic Powers</v-toolbar-title>
                   </v-toolbar>
 
                   <v-data-table
@@ -367,7 +367,7 @@
               <v-col :cols="6" class="pa-1">
                 <v-card>
                   <v-toolbar color="red" dark dense height="32">
-                    <v-toolbar-subtitle>Abilities</v-toolbar-subtitle>
+                    <v-toolbar-title>Abilities</v-toolbar-title>
                   </v-toolbar>
 
                   <v-card-text v-for="ability in abilities" :key="ability.name" class="pa-1 caption">
@@ -383,7 +383,7 @@
                 <v-col v-if="talents.length > 0" :cols="12" class="pa-1">
                   <v-card>
                     <v-toolbar color="red" dark dense height="32">
-                      <v-toolbar-subtitle>Talents</v-toolbar-subtitle>
+                      <v-toolbar-title>Talents</v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text v-for="talent in talents" :key="talent.name" class="pa-2 caption">
@@ -395,11 +395,26 @@
                 <v-col v-if="gear.length > 0" :cols="12" class="pa-1">
                   <v-card>
                     <v-toolbar color="red" dark dense height="32">
-                      <v-toolbar-subtitle>Gear</v-toolbar-subtitle>
+                      <v-toolbar-title>Gear</v-toolbar-title>
                     </v-toolbar>
 
                     <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-2 caption">
                       <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
+
+                      <div
+                        v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                      >
+                          <p
+                            class="ml-3 mt-2 mb-0"
+                            v-for="trait in gearItem.meta[0].traits"
+                            v-if="traitByName(trait, true)"
+                            :key="trait"
+                          >
+                            <strong>{{ trait }}: </strong>
+                            {{ traitByName(trait, true).effect }}
+                          </p>
+                      </div>
+
                     </v-card-text>
                   </v-card>
                 </v-col>
@@ -424,6 +439,7 @@ import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
 export default {
   name: 'Print',
   layout: 'print',
+  components: {},
   mixins: [
     BackgroundRepositoryMixin,
     StatRepositoryMixin,
@@ -768,8 +784,11 @@ export default {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
       return attribute.enhancedValue + skill.enhancedValue;
     },
-    traitByName(name) {
-      // const prefix = name.split(/ ?\(/)[0];
+    traitByName(name, withParanteris) {
+      if ( withParanteris ) {
+        // weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+        name = name.split(/ ?\(/)[0];
+      }
       // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
       return this.wargearTraitRepository.find((item) => item.name === name);
     },

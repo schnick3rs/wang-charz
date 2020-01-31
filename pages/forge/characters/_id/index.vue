@@ -682,14 +682,11 @@ export default {
       talentRepository: talentResponse.data,
       wargearRepository: wargearResponse.data,
       breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
+        { text: '', nuxt: true, exact: true, to: '/',
         },
-        {
-          text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters',
+        { text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters',
         },
-        {
-          text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}`,
+        { text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}`,
         },
       ],
     };
@@ -704,69 +701,31 @@ export default {
         { text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       traitHeaders: [
-        {
-          text: 'Trait', sortable: false, align: 'left', class: 'small pa-1'
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1'
-        },
+        { text: 'Trait', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       skillHeaders: [
-        {
-          text: 'Skill', sortable: false, align: 'left', class: 'small pa-1'
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Att', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Total', sortable: false, align: 'center', class: 'small pa-1'
-        },
+        { text: 'Skill', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Att', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Total', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       weaponHeaders: [
-        {
-          text: 'Name', sortable: false, align: 'left', class: 'small pa-1'
-        },
-        {
-          text: 'Range', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Damage', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'AP', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Salvo', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Traits', sortable: false, align: 'left', class: 'small pa-1'
-        },
+        { text: 'Name', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Range', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Damage', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'AP', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Salvo', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Traits', sortable: false, align: 'left', class: 'small pa-1' },
       ],
       psychicPowersHeaders: [
-        {
-          text: 'Name', sortable: false, align: 'left', class: 'small pa-1'
-        },
-        {
-          text: 'DN', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Activation', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Duration', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Range', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Multi-Target', sortable: false, align: 'center', class: 'small pa-1'
-        },
-        {
-          text: 'Effect', sortable: false, align: 'left', class: 'small pa-1'
-        },
+        { text: 'Name', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'DN', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Activation', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Duration', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Range', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Multi-Target', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Effect', sortable: false, align: 'left', class: 'small pa-1' },
       ],
       descriptionSection: { selection: 'all' },
       abilitySection: { filter: 'all' },
