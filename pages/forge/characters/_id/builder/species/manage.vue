@@ -4,7 +4,9 @@
 
     <v-col v-if="species" :xs="12">
       <species-preview
+        :character-id="characterId"
         :species="species"
+        :psychic-powers="psychicPowers"
         manage-mode
         @changeSpecies="doChangeSpeciesMode"
         @changeChapter="updateAstartesChapter"
@@ -42,6 +44,9 @@ export default {
     enhancements() {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
     },
+    psychicPowers() {
+      return this.$store.getters['characters/characterPsychicPowersById'](this.characterId);
+    }
   },
   watch: {
     characterSpeciesKey: {

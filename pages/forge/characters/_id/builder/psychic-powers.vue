@@ -144,6 +144,7 @@ export default {
         { name: 'Telepathy' },
         { name: 'Maleficarum' },
         { name: 'Runes of Battle' },
+        { name: 'Navigator Powers' }, // PAX only
       ],
       selectedDisciplines: [],
       access: [

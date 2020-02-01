@@ -570,8 +570,8 @@ const core = [
           '<p>They may purchase additional Minor Psychic Powers and Universal Psychic powers, ' +
           'subject to Tier restrictions.</p>',
         psychicPowers: [
-          { name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, },
-          { name: 'minor', selected: '', query: { discipline: 'Minor' }, },
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
         ],
         psychicDisciplines: [
           'Minor',
@@ -584,25 +584,6 @@ const core = [
         ],
       }
     ],
-    psychicPowers: {
-      discount: [
-        {
-          name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, filter: (power) => (power.name === 'Smite'),
-        },
-        {
-          name: 'minor', selected: '', query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)),
-        },
-      ],
-      access: [
-        'Minor',
-        'Biomancy',
-        'Divination',
-        'Pyromancy',
-        'Telekinesis',
-        'Telepathy',
-        'Universal',
-      ],
-    },
     keywordOption: null,
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 4 },
@@ -1171,28 +1152,22 @@ const core = [
         snippet: 'A rogue psyker begins play with one Minor Psychic Power, the '
         + 'Smite Power and may purchase additional Minor Psychic Powers, Universal Psychic '
         + 'Powers and Maleficarum Psychic Powers subject to Tier restrictions.',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Maleficarum',
+          'Universal',
+        ],
       },
     ],
-    psychicPowers: {
-      discount: [
-        {
-          name: 'smite', selected: 'Smite', query: { discipline: 'Universal' }, filter: (power) => (power.name === 'Smite'),
-        },
-        {
-          name: 'minor', selected: '', query: { discipline: 'Minor' }, filter: (power) => (['Minor'].includes(power.discipline)),
-        },
-      ],
-      access: [
-        'Minor',
-        'Biomancy',
-        'Divination',
-        'Pyromancy',
-        'Telekinesis',
-        'Telepathy',
-        'Maleficarum',
-        'Universal',
-      ],
-    },
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'psychicMastery', threshold: 1 },
@@ -1302,24 +1277,22 @@ const core = [
         + 'smite psychic powers (these do not count towards the maximum), and may purchase '
         + 'additional Minor Psychic Powers, Universal Psychic Powers, and Runes of Battle '
         + 'Psychic Powers, subject to Tier restrictions.',
+        psychicPowers: [
+          { name: 'psykerSmmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Universal',
+          'Runes of Battle',
+        ],
       },
     ],
-    psychicPowers: {
-      discount: [
-        { name: 'psyniscience', selected: 'Psyniscience', filter: (power) => (power.name === 'Psyniscience') },
-        { name: 'smite', selected: 'Smite', filter: (power) => (power.name === 'Smite') },
-      ],
-      access: [
-        'Minor',
-        'Biomancy',
-        'Divination',
-        'Pyromancy',
-        'Telekinesis',
-        'Telepathy',
-        'Universal',
-        'Runes of Battle',
-      ],
-    },
     keywordOption: null,
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 4 },
@@ -1458,6 +1431,19 @@ const dodScumPsyker = [
         snippet: 'A Scum Psyker begins play with one minor psychic '
         + 'power and the smite psychic power. They may purchase additional Minor Psychic '
         + 'Powers and Universal Psychic powers, subject to Tier restrictions.',
+        psychicPowers: [
+          { name: 'psykerSmmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerMinot', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Universal',
+        ],
       },
     ],
     keywordOption: null,

@@ -14,6 +14,7 @@
     >
       <species-preview
         v-if="selectedSpecies"
+        :character-id="characterId"
         :species="selectedSpecies"
         choose-mode
         @select="selectSpeciesForChar"
@@ -155,6 +156,24 @@ export default {
         };
         this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
       });
+
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: 'species' });
+      const featuresWithPowers = species.speciesFeatures.filter( (f) => f.psychicPowers !== undefined);
+      if ( featuresWithPowers ) {
+        featuresWithPowers.forEach( (feature) => {
+          feature.psychicPowers.forEach( (powerSelections) => {
+            if ( powerSelections.selected ) {
+              const payload = {
+                id: this.characterId,
+                name: powerSelections.selected,
+                cost: 0,
+                source: `species.${powerSelections.selected.name}`,
+              };
+              this.$store.commit('characters/addCharacterPsychicPower', payload);
+            }
+          });
+        });
+      }
 
       this.speciesDialog = false;
       this.$router.push({

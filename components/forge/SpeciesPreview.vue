@@ -82,6 +82,25 @@
             </div>
           </div>
 
+          <div v-if="manageMode && feature.psychicPowers">
+
+            <div v-for="selections in feature.psychicPowers" :key="selections.name">
+              <v-select
+                v-if="selections.options"
+                v-model="selections.selected"
+                :readonly="selections.options.length <= 1"
+                :items="selections.options"
+                item-value="name"
+                item-text="name"
+                persistent-hint
+                dense
+                solo
+                class="ml-2 mr-2"
+                @change="updatePsychicPowers(selections)"
+              />
+            </div>
+          </div>
+
           <div
             v-if="manageMode && feature.name.indexOf('Honour the Chapter') >= 0"
           >
@@ -125,7 +144,7 @@
         Cancel
       </v-btn>
       <v-spacer />
-      <v-btn color="success" right @click="$emit('select', species);">
+      <v-btn color="success" right @click="$emit('select', species)">
         Select Species
       </v-btn>
     </v-card-actions>
@@ -141,9 +160,18 @@ export default {
     SluggerMixin,
   ],
   props: {
+    characterId: {
+      type: String,
+      required: true,
+    },
     species: {
       type: Object,
       required: true,
+    },
+    psychicPowers: {
+      type: Array,
+      required: false,
+      default: () => [],
     },
     manageMode: {
       type: Boolean,
@@ -166,8 +194,34 @@ export default {
       const chaptersResponse = await this.$axios.get('/api/species/chapters/?source=core,coreab');
       this.astartesChapterRepository = chaptersResponse.data;
     }
+    const featuresWithPowers = this.species.speciesFeatures.filter( (f) => f.psychicPowers !== undefined);
+    if ( featuresWithPowers ) {
+      featuresWithPowers.forEach( (feature) => {
+        feature.psychicPowers.forEach( (powerSelections) => {
+          this.getPsychicPowerOptions(powerSelections);
+          const found = this.psychicPowers.find( (p) => p.source && p.source === `species.${powerSelections.name}`);
+          if ( found ) {
+            console.info(`Power ${found.name} found for the species feature ${feature.name} / power ${powerSelections.name}.`);
+            powerSelections.selected = found.name;
+          }
+        });
+      });
+    }
   },
   methods: {
+    getPsychicPowerOptions(psychicPowerSelection) {
+      const config = {
+        params: {
+          ...psychicPowerSelection.query,
+          fields: 'id,name,effect,discipline,cost',
+        },
+      };
+
+      this.$axios.get('/api/psychic-powers/', config)
+        .then( (response) => {
+          psychicPowerSelection.options = response.data;
+        });
+    },
     getAvatar(key) {
       return `/img/icon/species/species_${key}_avatar.png`;
     },
@@ -177,6 +231,16 @@ export default {
         return chapter.beliefsAndTraditions;
       }
       return [];
+    },
+    updatePsychicPowers(option) {
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource',
+        { id: this.characterId, source: `species.${option.name}` });
+      this.$store.commit('characters/addCharacterPsychicPower', {
+        id: this.characterId,
+        name: option.selected,
+        cost: option.free ? 0 : option.options.find((o)=>o.name === option.selected).cost,
+        source: `species.${option.name}`,
+      });
     },
   },
 };

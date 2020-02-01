@@ -200,10 +200,6 @@ const coreRep = [
         ],
       },
       {
-        name: 'Outsider',
-        snippet: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
-      },
-      {
         name: 'Intense Emotion',
         snippet: '+1DN to all Resolve tests. Failing a Willpower-based test in a scene involving intense emotion grants the GM +1 Ruin.',
       },
@@ -214,6 +210,10 @@ const coreRep = [
       {
         name: 'Psychosensitive',
         snippet: 'All Eldar may purchase 1 Minor Psychic Power if they also purchase the Psychic Mastery skill. This purchase also gives them the Psyker keyword. In addition, the Tier Restriction for Maximum Psychic Powers for Eldar Characters is increased by 1 to accommodate this purchase.',
+        psychicDisciplines: [ 'Minor' ],
+        psychicPowers: [
+          { name: 'psychosensitive', selected: '', query: { discipline: 'Minor' }, options: [], free: false },
+        ],
       },
     ],
     avatar: null,
@@ -367,6 +367,10 @@ const homebrewReps = [
           'additional navigator power or improve an existing power (see Navigator Powers) at each ' +
           'additional Rank. They may also purchase additional powers, subject to Tier ' +
           'restrictions (as if they were psychic powers), including powers gained for free.',
+        psychicDisciplines: [ 'Navigator Powers '],
+        psychicPowers: [
+          { name: 'navigatorPowers', selected: 'The Lidless Stare', query: { name: 'The Lidless Stare' }, options: [], free: true },
+        ],
       },
       {
         name: 'Stared into the Abyss',
