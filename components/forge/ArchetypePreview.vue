@@ -106,7 +106,7 @@
             v-model="trait.selected"
             item-value="name"
             item-text="name"
-            @change="$emit('changeTraitOption', trait)"
+            @change="changeTraitOption(trait)"
             dense
             solo
           ></v-select>
@@ -285,6 +285,7 @@ export default {
     },
   },
   mounted() {
+
     const featuresWithPowers = this.item.archetypeFeatures.filter( (f) => f.psychicPowers !== undefined);
     if ( featuresWithPowers ) {
       featuresWithPowers.forEach( (feature) => {
@@ -295,6 +296,17 @@ export default {
             console.info(`Power ${found.name} found for the archetype feature ${feature.name} / power ${powerSelections.name}.`);
             powerSelections.selected = found.name;
           }
+        });
+      });
+    }
+
+    const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
+    if ( featuresWithOptions ) {
+      featuresWithOptions.forEach((feature) => {
+        const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
+        feature.options.forEach((options) => {
+          console.info(`Keyword ${found.name} found for the archetype feature ${feature.name}.`);
+          feature.selected = found.name;
         });
       });
     }
@@ -372,6 +384,48 @@ export default {
       .then( (response) => {
         psychicPowerSelection.options = response.data;
       });
+    },
+    changeTraitOption(trait) {
+      const selectedOption =  trait.options.find( (o) => o.name === trait.selected );
+
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `archetype.${trait.name}.` });
+      // the option has a snippet, that is thus added as a custom ability
+      if ( selectedOption.snippet ) {
+        const content = {
+          modifications: [{
+            name: selectedOption.name,
+            targetGroup: 'abilities',
+            targetValue: '',
+            effect: selectedOption.snippet,
+          }],
+          source: `archetype.${trait.name}.${selectedOption.name}`,
+        };
+        this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
+      }
+
+      // the selected option has modifications that are saved as such
+      if ( selectedOption.modifications ) {
+        const content = {
+          modifications: selectedOption.modifications,
+          source: `archetype.${trait.name}.${selectedOption.name}`,
+        };
+        this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
+      }
+
+      if ( selectedOption.keywords ) {
+        const payload = { id: this.characterId, source: `archetype.${trait.name}`, cascade: true };
+        this.$store.commit('characters/clearCharacterKeywordsBySource', payload);
+        selectedOption.keywords.forEach( (keyword) => {
+          const payload = {
+            name: keyword,
+            source: `archetype.${trait.name}`,
+            type: 'keyword',
+            replacement: undefined,
+          };
+          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+        });
+      }
+
     },
     updatePsychicPowers(option) {
       const payload = { id: this.characterId, source: `archetype.${option.name}` };

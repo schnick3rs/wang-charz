@@ -486,11 +486,15 @@ export const mutations = {
   },
   clearCharacterKeywordsBySource(state, payload) {
     const character = state.characters[payload.id];
-    const { source } = payload;
+    const { source, cascade } = payload;
     if (character.keywords.length > 0) {
       console.log(`found ${character.keywords.length} keywords, clearing with source ${source}...`);
       character.keywords = character.keywords.filter((k) => k.source !== source);
+      if ( cascade ) {
+        character.keywords = character.keywords.filter((k) => !k.source.startsWith(source));
+      }
       console.log(`${character.keywords.length} keywords remaining`);
+
     }
   },
   /**

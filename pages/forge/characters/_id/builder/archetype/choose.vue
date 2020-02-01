@@ -252,7 +252,7 @@ export default {
       });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
 
-      this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype' });
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype', cascade: true });
       // keywords = String[]
       if (item.keywords) {
         const itemKeywords = item.keywords.split(',');

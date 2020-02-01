@@ -1943,19 +1943,16 @@ const paxRep = [
       { group: 'attributes', value: 'willpower', threshold: 2 },
       { group: 'skills', value: 'survival', threshold: 2 },
     ],
-    keywords: 'Imperium,Untouchable,Lower Class or Outcast',
+    keywords: 'Imperium,Untouchable',
     influence: -1,
     archetypeFeatures: [
       {
-        name: 'Keywords',
-        snippet: 'Imperium, Untouchable, Lower Class or Outcast',
+        name: 'Social Pariah',
+        snippet: 'You obtain the Lower Class or Outcast Keyword',
+        selected: '',
         options: [
-          { name: 'Lower Class', modifications: [ { name: 'Lower Class', targetGroup: 'keywords', targetValue: 'Lower Class' } ] },
-          { name: 'Outcast', modifications: [ { name: 'Outcast', targetGroup: 'keywords', targetValue: 'Outcast' } ] },
-        ],
-        modifications: [
-          { name: 'Imperium', targetGroup: 'keywords', targetValue: 'Imperium' },
-          { name: 'Untouchable', targetGroup: 'keywords', targetValue: 'Untouchable' },
+          { name: 'Lower Class', keywords: [ 'Lower Class' ] },
+          { name: 'Outcast', keywords: [ 'Outcast' ] },
         ],
       },
       {
