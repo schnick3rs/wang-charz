@@ -117,7 +117,18 @@ const paxNavigatorPowers = [
     ...simpleStub(104, 'pax', 191, 8, 'Held in my Gaze', 'Navigator Powers', 'Prevent Movement and Ruin Powers of the subject.'),
     ...simpleCrunch('Resolve','Action','Sustained','5m', false, '', '[2] Increase range by +5m;[3] +1 Mortal Wounds'),
     keywords: ['Navigator','Psychic'],
-    description: 'The unflinching eye of a Navigator locks a creature in place with a gaze that pierces flesh and bone to see the immaterial essence of all things. Most commonly employed against psykers, this ability can be used to render them effectively powerless and prevent them from calling upon their abilities. It is also undeniably effective against creatures with a strong connection to the warp, such as daemons, for which it can have spectacular and devastating consequences. The Navigator chooses a target which he has line of sight to and within range. If he is successful, then the target is locked and cannot make a Move. A locked target must beat the Navigator in an opposed Willpower test each time it wishes to use a psychic power or invoke the Ruin abilities. Daemons affected by this power suffer 1 Mortal Wound.',
+    description:
+      '<p>The unflinching eye of a Navigator locks a creature in place with a gaze that pierces ' +
+      'flesh and bone to see the immaterial essence of all things. ' +
+      'Most commonly employed against psykers, this ability can be used to render them effectively ' +
+      'powerless and prevent them from calling upon their abilities. It is also undeniably ' +
+      'effective against creatures with a strong connection to the warp, such as daemons, ' +
+      'for which it can have spectacular and devastating consequences.</p>' +
+      '<p>The Navigator chooses a target which he has line of sight to and within range. ' +
+      'If he is successful, then the target is locked and cannot make a Move. ' +
+      'A locked target must beat the Navigator in an opposed Willpower test each time it wishes ' +
+      'to use a psychic power or invoke the Ruin abilities. ' +
+      'Daemons affected by this power suffer 1 Mortal Wound.</p>',
   },
   {
     ...simpleStub(105, 'pax', 192, 10, 'Inertia', 'Navigator Powers', 'Increase the DN for an targeted Psyker to manifest powers.'),

@@ -199,7 +199,7 @@ export default {
       return (hasSkill || hasKeyword);
     },
     isNavigator() { // from the PAX Homebrew
-      const key = this.$store.getters['characters/characterSpeciesKey'](this.characterId);
+      const key = this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
       return key === 'pax-navigator';
     },
     settingTier() {
