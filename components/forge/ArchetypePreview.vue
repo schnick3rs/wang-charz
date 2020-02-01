@@ -305,7 +305,7 @@ export default {
       featuresWithOptions.forEach((feature) => {
         const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
         feature.options.forEach((options) => {
-          console.info(`Keyword ${found.name} found for the archetype feature ${feature.name}.`);
+          console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
           feature.selected = found.name;
         });
       });
