@@ -403,9 +403,9 @@ export const mutations = {
   },
   removeCharacterPsychicPower(state, payload) {
     const character = state.characters[payload.id];
-    const hasPower = character.psychicPowers.find((t) => t.name === payload.name) !== undefined;
-    if (hasPower) {
-      console.info(`Removing '${payload.name}' by '${payload.source}'`);
+    const foundPower = character.psychicPowers.find((t) => t.name === payload.name);
+    if (foundPower) {
+      console.info(`Removing '${payload.name}' by '${foundPower.source}'`);
       character.psychicPowers = character.psychicPowers.filter((t) => t.name !== payload.name);
     }
   },

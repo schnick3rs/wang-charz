@@ -241,6 +241,17 @@ export default {
         cost: option.free ? 0 : option.options.find((o)=>o.name === option.selected).cost,
         source: `species.${option.name}`,
       });
+
+      // SPECIAL for Eldar
+      if ( option.name === 'psychosensitive') {
+        const payload = {
+          name: 'Psyker',
+          source: 'species',
+          type: 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+      }
     },
   },
 };

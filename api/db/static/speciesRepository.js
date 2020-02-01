@@ -367,7 +367,7 @@ const homebrewReps = [
           'additional navigator power or improve an existing power (see Navigator Powers) at each ' +
           'additional Rank. They may also purchase additional powers, subject to Tier ' +
           'restrictions (as if they were psychic powers), including powers gained for free.',
-        psychicDisciplines: [ 'Navigator Powers '],
+        psychicDisciplines: [ 'Navigator Powers'],
         psychicPowers: [
           { name: 'navigatorPowers', selected: 'The Lidless Stare', query: { name: 'The Lidless Stare' }, options: [], free: true },
         ],
