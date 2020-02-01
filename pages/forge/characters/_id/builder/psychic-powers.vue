@@ -102,10 +102,8 @@ export default {
       title: 'Select Psychic Powers',
     };
   },
-  async asyncData({ params, $axios, error }) {
-    const response = await $axios.get('/api/psychic-powers/');
+  asyncData({ params, $axios, error }) {
     return {
-      psychicPowersRepository: response.data,
       characterId: params.id,
     };
   },
@@ -142,7 +140,8 @@ export default {
           sortable: false,
         },
       ],
-      disciplines: [
+      selectedDisciplines: [],
+      disciplinesRepository: [
         { name: 'Minor', source: 'core' },
         { name: 'Universal', source: 'core' },
         { name: 'Biomancy', source: 'core' },
@@ -154,13 +153,26 @@ export default {
         { name: 'Runes of Battle', source: 'core' },
         { name: 'Navigator Powers', source: 'pax' },
       ],
-      selectedDisciplines: [],
       species: undefined,
       archetype: undefined,
+      psychicPowersList: undefined,
       loading: false,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    disciplines() {
+      return this.disciplinesRepository.filter((d)=>this.sources.includes(d.source));
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
     characterSpeciesKey() {
       return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
     },
@@ -216,11 +228,11 @@ export default {
       return access;
     },
     filteredPowers() {
-      if (this.psychicPowersRepository === undefined) {
+      if (this.psychicPowersList === undefined) {
         return [];
       }
 
-      let filteredPowers = this.psychicPowersRepository;
+      let filteredPowers = this.psychicPowersList;
 
       if (this.selectedDisciplines.length > 0) {
         filteredPowers = filteredPowers.filter((p) => this.selectedDisciplines.includes(p.discipline));
@@ -236,6 +248,14 @@ export default {
     },
   },
   watch: {
+    settingHomebrews: {
+      handler(newVal) {
+        if (newVal) {
+          this.getPsychicPowers(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
     characterSpeciesKey: {
       handler(newVal) {
         if (newVal) {
@@ -268,6 +288,15 @@ export default {
       const { data } = await this.$axios.get(`/api/archetypes/${key}`);
       this.loading = false;
       this.archetype = data;
+    },
+    async getPsychicPowers(sources) {
+      const config = {
+        params: { source: this.sources.join(','), },
+      };
+      this.loading = true;
+      const { data } = await this.$axios.get('/api/psychic-powers/', config);
+      this.loading = false;
+      this.psychicPowersList = data;
     },
     addPower(power) {
       this.$store.commit('characters/addCharacterPsychicPower', { id: this.characterId, name: power.name, cost: power.cost });

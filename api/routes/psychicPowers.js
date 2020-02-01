@@ -51,10 +51,18 @@ router.get('/', async (request, response) => {
   const query = `select p.*, ${sourceSql('1')} as source from wrath_glory.psychic_powers p ${where}`;
   const { rows } = await db.queryAsyncAwait(query, []);
 
-  const merged = [
+  let merged = [
     ...rows,
     ...homebrewPowers,
   ];
+
+  const filterSourceString = request.query.source;
+  if (filterSourceString) {
+    filter.source = filterSourceString.split(',');
+    if (filter.source) {
+      merged = merged.filter((item) => filter.source.includes(item.source.key));
+    }
+  }
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(merged);
