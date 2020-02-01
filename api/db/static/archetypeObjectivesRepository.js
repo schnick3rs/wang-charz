@@ -157,6 +157,20 @@ const core = [
       'Sincerely express a desire for brutal, uncompromising combat.',
     ],
   },
+  {
+    group: 'Navis Nobility Houses',
+    objectives: [
+      '',
+    ],
+    source: 'pax',
+  },
+  {
+    group: 'Untouchables',
+    objectives: [
+      '',
+    ],
+    source: 'pax',
+  },
 ];
 
 const objectivesRepository = [

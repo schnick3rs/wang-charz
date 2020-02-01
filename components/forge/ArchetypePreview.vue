@@ -10,7 +10,7 @@
 
     <v-card-text class="pt-4">
       <div class="hidden-xs-only" style="float: right;">
-        <img :src="getAvatar(item.name)" style="width:96px">
+        <img :src="getAvatar(item.key)" style="width:96px">
       </div>
 
       <div style="width: 75%">
@@ -91,29 +91,52 @@
       </p>
 
       <div
-        v-for="ability in abilityObjects"
-        v-if="item.abilities"
+        v-for="trait in item.archetypeFeatures"
         class="text-lg-justify"
       >
-        <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
-        <div v-if="item.psychicPowers">
-          <div v-for="option in psychicPowersDiscount" :key="option.name">
+        <div>
+          <strong>{{ trait.name }}</strong>
+          <div v-if="trait.description" v-html="trait.description"></div>
+          <p v-else>{{ trait.snippet }}</p>
+        </div>
+
+        <div v-if="manageMode && trait.options && trait.options.length > 0">
+          <v-select
+            :items="trait.options"
+            v-model="trait.selected"
+            item-value="name"
+            item-text="name"
+            @change="changeTraitOption(trait)"
+            dense
+            solo
+          ></v-select>
+          <div
+            v-if="trait.selected && trait.selected.length > 0"
+            class="ml-4 mr-4"
+          >
+            <div v-html="trait.options.find((o)=>o.name === trait.selected).description"></div>
+          </div>
+        </div>
+
+        <div v-if="manageMode && trait.psychicPowers">
+
+          <div v-for="selections in trait.psychicPowers" :key="selections.name">
             <v-select
-              v-if="option.values"
-              v-model="option.selected"
-              :readonly="option.values.length <= 1"
-              :items="option.values"
-              :hint="psychicPowerHint(option.selected)"
+              v-if="selections.options"
+              v-model="selections.selected"
+              :readonly="selections.options.length <= 1"
+              :items="selections.options"
               item-value="name"
               item-text="name"
               persistent-hint
               dense
               solo
               class="ml-2 mr-2"
-              @change="updatePsychicPowers(option)"
+              @change="updatePsychicPowers(selections)"
             />
           </div>
         </div>
+
       </div>
 
       <p class="text-lg-justify">
@@ -145,7 +168,6 @@
 <script lang="js">
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
-import WargearRepository from '~/mixins/WargearRepositoryMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
@@ -153,7 +175,6 @@ export default {
   mixins: [
     KeywordRepository,
     StatRepository,
-    WargearRepository,
     SluggerMixin,
   ],
   props: {
@@ -216,7 +237,6 @@ export default {
           const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
           wordy = { name: placeholder, options: subKeywords, selected: '' };
         }
-        console.log(this.selectedKeywords[placeholder]);
         if (this.selectedKeywords[placeholder]) {
           wordy.selected = this.selectedKeywords[placeholder];
         }
@@ -250,9 +270,11 @@ export default {
       return [];
     },
     wargearText() {
-      const charGear = this.archetypeWargearRepository.find((a) => a.name === this.item.name);
-      if (charGear) {
-        return charGear.options.map((g) => {
+      if ( this.item.wargearString ) {
+        return this.item.wargearString;
+      }
+      if ( this.item.wargear && this.item.wargear.length > 0 ) {
+        return this.item.wargear.map((g) => {
           if (g.amount) {
             return `${g.amount}x ${g.name}`;
           }
@@ -262,31 +284,36 @@ export default {
       return this.item.wargear;
     },
   },
-  created() {
-    if (this.item.psychicPowers) {
-      this.item.psychicPowers.discount.forEach(async (d) => {
-        const config = {
-          params: {
-            ...d.query,
-            fields: 'id,name,effect,discipline',
-          },
-        };
-        const { data } = await this.$axios.get('/api/psychic-powers/', config);
-        d.values = data;
+  mounted() {
 
-        const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${d.name}`);
-        if ( found ) {
-          d.selected = found.name;
-        }
+    const featuresWithPowers = this.item.archetypeFeatures.filter( (f) => f.psychicPowers !== undefined);
+    if ( featuresWithPowers ) {
+      featuresWithPowers.forEach( (feature) => {
+        feature.psychicPowers.forEach( (powerSelections) => {
+          this.getPsychicPowerOptions(powerSelections);
+          const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${powerSelections.name}`);
+          if ( found ) {
+            console.info(`Power ${found.name} found for the archetype feature ${feature.name} / power ${powerSelections.name}.`);
+            powerSelections.selected = found.name;
+          }
+        });
+      });
+    }
 
-        this.psychicPowersDiscount.push(d);
+    const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
+    if ( featuresWithOptions ) {
+      featuresWithOptions.forEach((feature) => {
+        const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
+        feature.options.forEach((options) => {
+          console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
+          feature.selected = found.name;
+        });
       });
     }
   },
   methods: {
-    getAvatar(name) {
-      const slug = this.textToKebab(name);
-      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+    getAvatar(key) {
+      return `/img/icon/archetype/archetype_${key}_avatar.png`;
     },
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {
@@ -345,12 +372,68 @@ export default {
 */
       return '';
     },
+    getPsychicPowerOptions(psychicPowerSelection) {
+      const config = {
+        params: {
+          ...psychicPowerSelection.query,
+          fields: 'id,name,effect,discipline',
+        },
+      };
+
+      this.$axios.get('/api/psychic-powers/', config)
+      .then( (response) => {
+        psychicPowerSelection.options = response.data;
+      });
+    },
+    changeTraitOption(trait) {
+      const selectedOption =  trait.options.find( (o) => o.name === trait.selected );
+
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `archetype.${trait.name}.` });
+      // the option has a snippet, that is thus added as a custom ability
+      if ( selectedOption.snippet ) {
+        const content = {
+          modifications: [{
+            name: selectedOption.name,
+            targetGroup: 'abilities',
+            targetValue: '',
+            effect: selectedOption.snippet,
+          }],
+          source: `archetype.${trait.name}.${selectedOption.name}`,
+        };
+        this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
+      }
+
+      // the selected option has modifications that are saved as such
+      if ( selectedOption.modifications ) {
+        const content = {
+          modifications: selectedOption.modifications,
+          source: `archetype.${trait.name}.${selectedOption.name}`,
+        };
+        this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
+      }
+
+      if ( selectedOption.keywords ) {
+        const payload = { id: this.characterId, source: `archetype.${trait.name}`, cascade: true };
+        this.$store.commit('characters/clearCharacterKeywordsBySource', payload);
+        selectedOption.keywords.forEach( (keyword) => {
+          const payload = {
+            name: keyword,
+            source: `archetype.${trait.name}`,
+            type: 'keyword',
+            replacement: undefined,
+          };
+          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+        });
+      }
+
+    },
     updatePsychicPowers(option) {
-      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: `archetype.${option.name}` });
+      const payload = { id: this.characterId, source: `archetype.${option.name}` };
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', payload);
       this.$store.commit('characters/addCharacterPsychicPower', {
         id: this.characterId,
         name: option.selected,
-        cost: 0,
+        cost: option.free ? 0 : option.options.find((o)=>o.name === option.selected).cost,
         source: `archetype.${option.name}`,
       });
     },

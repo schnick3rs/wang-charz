@@ -376,8 +376,14 @@ export default {
     characterName(id) {
       return this.$store.getters['characters/characterNameById'](id);
     },
+    characterSpeciesKey(id) {
+      return this.$store.getters['characters/characterSpeciesKeyById'](id);
+    },
     characterSpeciesLabel(id) {
       return this.$store.getters['characters/characterSpeciesLabelById'](id);
+    },
+    characterArchetypeKey(id) {
+      return this.$store.getters['characters/characterArchetypeKeyById'](id);
     },
     characterArchetypeLabel(id) {
       return this.$store.getters['characters/characterArchetypeLabelById'](id);
@@ -403,17 +409,17 @@ export default {
         return customAvatarUrl;
       }
 
-      const archetypeLabel = this.characterArchetypeLabel(id);
-      const speciesLabel = this.characterSpeciesLabel(id);
-      if (archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(speciesLabel)) {
-        return `/img/icon/archetype/archetype_${this.textToKebab(archetypeLabel)}_avatar.png`;
+      const archetypeKey = this.characterArchetypeKey(id);
+      const speciesKey = this.characterSpeciesKey(id);
+      if (archetypeKey !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
+        return `/img/icon/archetype/archetype_${archetypeKey}_avatar.png`;
       }
 
-      if (speciesLabel !== undefined) {
-        return `/img/icon/species/species_${this.textToKebab(speciesLabel)}_avatar.png`;
+      if (speciesKey !== undefined) {
+        return `/img/icon/species/species_${speciesKey}_avatar.png`;
       }
 
-      return '/img/icon/species/species_human_avatar.png';
+      return '/img/icon/species/species_core-human_avatar.png';
     },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)

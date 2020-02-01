@@ -60,10 +60,10 @@
         </v-card-text>
       </v-card>
 
-      <div v-if="startingWargearExpand">
+      <div v-if="startingWargearExpand && !loading">
         <div v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0" align="center">
           <v-card
-            v-for="gear in startingWargear.options"
+            v-for="gear in startingWargear"
             :key="gear.key"
             outlined
             dense
@@ -73,10 +73,10 @@
               <span class="subtitle-1 mb-0">{{ gear.name }}</span>
             </v-card-title>
 
-            <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].query" >
+            <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].filter" >
               <wargear-select
                 :item="gear.selected"
-                :repository="wargearRepository.filter(gear.options[0].query)"
+                :repository="computeWargearOptionsByFilter(gear.options[0])"
                 class="mb-4"
                 @input="gear.selected = $event.name"
               />
@@ -102,7 +102,7 @@
             small
             dense
             color="green"
-            @click="addWargearToCharacter(startingWargear.options)"
+            @click="addWargearToCharacter(startingWargear)"
             dark
           >
             Add starting wargear
@@ -144,7 +144,6 @@
 </template>
 
 <script lang="js">
-import WargearRepositoryMixin from '~/mixins/WargearRepositoryMixin';
 import WargearSearch from '~/components/forge/WargearSearch.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
 import SluggerMixin from '~/mixins/SluggerMixin';
@@ -157,7 +156,6 @@ export default {
     WargearSearch,
   },
   mixins: [
-    WargearRepositoryMixin,
     SluggerMixin,
   ],
   props: [],
@@ -166,16 +164,29 @@ export default {
       title: 'Select Wargear',
     };
   },
+  async asyncData({ params, $axios, error }) {
+    const response = await $axios.get('/api/wargear/');
+    const wargearRepository = response.data;
+    return {
+      wargearRepository,
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       manageWargear: true,
       startingWargearExpand: true,
       wargearSearchActive: false,
+      loading: false,
+      archetype: undefined,
     };
   },
   computed: {
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterArchetypeKey() {
+      return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
@@ -183,9 +194,11 @@ export default {
     characterWargearRaw() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
     },
-
     startingWargear() {
-      return this.archetypeWargearRepository.find((i) => i.name === this.characterArchetypeLabel);
+      if ( this.archetype ) {
+        return this.archetype.wargear;
+      }
+      return [];
     },
     characterWargear() {
       const characterWargear = [];
@@ -213,15 +226,23 @@ export default {
       return characterWargear;
     },
   },
-  async asyncData({ params, $axios, error }) {
-    const response = await $axios.get('/api/wargear/');
-    const wargearRepository = response.data;
-    return {
-      wargearRepository,
-      characterId: params.id,
-    };
+  watch: {
+    characterArchetypeKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.getArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
+    async getArchetype(key) {
+      this.loading = true;
+      const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+      this.loading = false;
+      this.archetype = data;
+    },
     wargearSubtitle(item) {
       // const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
@@ -263,6 +284,41 @@ export default {
     },
     remove(gear) {
       this.$store.commit('characters/removeCharacterWargear', { id: this.characterId, gearId: gear.id });
+    },
+    /**
+     * {
+        filter: true,
+        valueFilter: { useCharacterTier: false, useSettingTier: true, fixedValue: 4 },
+        rarityFilter: ['Uncommon', 'Common', 'Rare'],
+        typeFilter: 'Ranged Weapon',
+        subtypeFilter: 'Augmetics',
+        keywordFilter: 'Imperium',
+     * },
+     * @param filter
+     */
+    /*
+       item.value <= (this.settingTier + 4)
+    && ['Uncommon', 'Common', 'Rare'].includes(item.rarity)
+    && item.type.includes('Ranged Weapon')
+    const keywordReq = (item.keywords) ? item.keywords.split(',').includes('Imperium') : false;
+     */
+    computeWargearOptionsByFilter(filter) {
+      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;
+      return this.wargearRepository.filter( (gear) => {
+        let valueReq = true;
+        if ( valueFilter ) {
+          let maxValue = 0;
+          maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
+          maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
+          // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
+          valueReq = gear.value <= maxValue;
+        }
+        const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
+        const typeReq = typeFilter ? gear.type.includes(typeFilter) : true;
+        const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
+        const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
+        return valueReq && rarityReq && typeReq && subtypeReq && keywordReq;
+      });
     },
     wargearSubtitle(item) {
       // const item = this.wargearRepository.find(i => i.name === gear);

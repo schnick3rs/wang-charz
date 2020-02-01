@@ -31,6 +31,8 @@ export const getters = {
   characterCampaignCustomXpById: (state) => (id) => (state.characters[id] && state.characters[id].customXp ? parseInt(state.characters[id].customXp) : 0),
   characterCampaignCustomRankById: (state) => (id) => (state.characters[id] && state.characters[id].customRank ? parseInt(state.characters[id].customRank) : 1),
 
+  characterSettingHomebrewsById: (state) => (id) => (state.characters[id] && state.characters[id].settingHomebrewContent ? state.characters[id].settingHomebrewContent : []),
+
   // Cost & Spending
   characterSpeciesCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].species.cost : 0),
   characterArchetypeCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.cost : 0),
@@ -235,6 +237,9 @@ export const mutations = {
   setSettingTitle(state, payload) {
     state.characters[payload.id].settingTitle = payload.title;
   },
+  setSettingHomebrews(state, payload) {
+    state.characters[payload.id].settingHomebrewContent = payload.content;
+  },
   setCustomXp(state, payload) {
     state.characters[payload.id].customXp = payload.xp;
   },
@@ -262,6 +267,16 @@ export const mutations = {
     theAttribute = payload.payload.value;
     state.characters[payload.id].attributes[payload.payload.key] = payload.payload.value;
   },
+  /**
+   * @param state
+   * @param payload {
+   *   id
+   *   content {
+   *     modifications
+   *     source
+   *   }
+   * }
+   */
   setCharacterModifications(state, payload) {
     const character = state.characters[payload.id];
     const { modifications } = payload.content;
@@ -280,10 +295,24 @@ export const mutations = {
       character.enhancements.push(item);
     });
   },
+  addCharacterModifications(state, payload) {
+    const character = state.characters[payload.id];
+    const { modifications } = payload.content;
+    const source = payload.content.source || undefined;
+    console.info(payload);
+
+    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
+
+    modifications.forEach((item) => {
+      item.source = source;
+      character.enhancements.push(item);
+    });
+  },
   clearCharacterEnhancementsBySource(state, payload) {
     const character = state.characters[payload.id];
-
-    character.enhancements = character.enhancements.filter((e) => e.source !== undefined && !e.source.includes(payload.source));
+    console.log(`Clearing ${character.enhancements.length} enhancements for source ${payload.source}...`);
+    character.enhancements = character.enhancements.filter((e) => !e.source.includes(payload.source));
+    console.log(`Done, ${character.enhancements.length} enhancements remain.`);
   },
   setCharacterSpeciesModifications(state, payload) {
     const character = state.characters[payload.id];
@@ -374,9 +403,9 @@ export const mutations = {
   },
   removeCharacterPsychicPower(state, payload) {
     const character = state.characters[payload.id];
-    const hasPower = character.psychicPowers.find((t) => t.name === payload.name) !== undefined;
-    if (hasPower) {
-      console.info(`Removing '${payload.name}' by '${payload.source}'`);
+    const foundPower = character.psychicPowers.find((t) => t.name === payload.name);
+    if (foundPower) {
+      console.info(`Removing '${payload.name}' by '${foundPower.source}'`);
       character.psychicPowers = character.psychicPowers.filter((t) => t.name !== payload.name);
     }
   },
@@ -457,11 +486,15 @@ export const mutations = {
   },
   clearCharacterKeywordsBySource(state, payload) {
     const character = state.characters[payload.id];
-    const { source } = payload;
+    const { source, cascade } = payload;
     if (character.keywords.length > 0) {
       console.log(`found ${character.keywords.length} keywords, clearing with source ${source}...`);
       character.keywords = character.keywords.filter((k) => k.source !== source);
+      if ( cascade ) {
+        character.keywords = character.keywords.filter((k) => !k.source.startsWith(source));
+      }
       console.log(`${character.keywords.length} keywords remaining`);
+
     }
   },
   /**
@@ -594,7 +627,7 @@ const getDefaultState = () => ({
   settingSelected: true,
   settingTier: 3,
   settingTitle: '',
-  settingHomebrewContent: [],
+  settingHomebrewContent: [], // e.g. pax
   customXp: 0,
   customRank: 1,
   name: 'Simsel Simselman',

@@ -3,6 +3,8 @@ const Router = require('express-promise-router');
 const db = require('../db');
 const { sourceSql } = require('./_sqlSnippets');
 
+const psychicPowersRepository = require('../db/static/psychicPowersRepository');
+
 const router = new Router();
 
 module.exports = router;
@@ -22,13 +24,26 @@ router.get('/', async (request, response) => {
     select = selectFields.join(',');
   }
 
-  let where = '';
+  let homebrewPowers = psychicPowersRepository;
+
+  let where = ' WHERE 1=1';
   const filter = {};
+
   const filterDisciplineString = request.query.discipline;
   if (filterDisciplineString) {
     filter.discipline = filterDisciplineString.split(',');
     if (filter.discipline) {
-      where = `WHERE discipline in ( '${filter.discipline.join("','")}' )`;
+      where += ` AND discipline in ( '${filter.discipline.join("','")}' )`;
+      homebrewPowers = homebrewPowers.filter( (p) => filter.discipline.includes(p.discipline));
+    }
+  }
+
+  const filterNameString = request.query.name;
+  if (filterNameString) {
+    filter.name = filterNameString.split(',');
+    if (filter.name) {
+      where += ` AND name in ( '${filter.name.join("','")}' )`;
+      homebrewPowers = homebrewPowers.filter( (p) => filter.name.includes(p.name));
     }
   }
 
@@ -36,8 +51,21 @@ router.get('/', async (request, response) => {
   const query = `select p.*, ${sourceSql('1')} as source from wrath_glory.psychic_powers p ${where}`;
   const { rows } = await db.queryAsyncAwait(query, []);
 
+  let merged = [
+    ...rows,
+    ...homebrewPowers,
+  ];
+
+  const filterSourceString = request.query.source;
+  if (filterSourceString) {
+    filter.source = filterSourceString.split(',');
+    if (filter.source) {
+      merged = merged.filter((item) => filter.source.includes(item.source.key));
+    }
+  }
+
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
-  response.status(200).json(rows);
+  response.status(200).json(merged);
 });
 
 router.get('/:id', async (request, response) => {

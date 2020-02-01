@@ -16,10 +16,10 @@
     </v-dialog>
 
     <v-card>
-      <v-card-text>
+      <v-card-text align="start">
         <v-btn
           dense
-          right
+
           small
           color="info"
           @click.stop="dialog = true"
@@ -53,58 +53,6 @@ export default {
       dialog: false,
       selected: undefined,
     };
-  },
-  computed: {
-    // helper
-    mergedKeywords() {
-      return [...this.keywordRepository, ...this.keywordSubwordRepository];
-    },
-    // the options array containing potential replacements and their respective keyword
-    options() {
-      const { placeholder } = this;
-
-      let wordy = {};
-      if (placeholder.toLowerCase() === '<any>') {
-        const levelOneKeywords = this.keywordRepository
-          .filter((k) => !k.name.includes('<'))
-          .filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
-        wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
-      } else {
-        const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
-        wordy = { name: placeholder, options: subKeywords, selected: '' };
-      }
-
-      return wordy.options;
-    },
-    label() {
-      return `${this.placeholder} Keyword`;
-    },
-    hint() {
-      if (this.value) {
-        const keyword = this.value;
-        const parentKeyword = this.placeholder;
-
-        let foundKeyword = this.mergedKeywords.find((k) => k.name === keyword);
-        if (foundKeyword !== undefined) {
-          return foundKeyword.description;
-        }
-
-        foundKeyword = this.mergedKeywords.find((k) => k.name === parentKeyword);
-        if (foundKeyword !== undefined) {
-          return foundKeyword.description;
-        }
-      }
-      return '';
-    },
-    effects() {
-      if (this.value) {
-        const foundKeyword = this.keywordSubwordRepository.find((k) => k.name === this.value);
-        if (foundKeyword !== undefined) {
-          return foundKeyword.effect;
-        }
-      }
-      return undefined;
-    },
   },
   methods: {
     selectWargear(payload) {

@@ -3,18 +3,18 @@
     <div class="page page--din-a-4">
       <!-- grid list with low margin -->
       <v-container>
-        <v-row justify="center" no-gutters>
-          <v-col :cols="12">
-            <p class="display-1 text-center mb-0">
+        <v-row no-gutters>
+          <v-col :cols="12" style="text-align: center;">
+            <h1 class="headline" >
               {{ characterName }}
-            </p>
-            <p class="text-center mb-0">
-              {{ [ `Rank ${characterRank}`, characterSpeciesLabel, archetypeLabel, `Tier ${characterSettingTier}` ].join(' • ') }}
-            </p>
+            </h1>
+            <span class="caption" >
+              {{ [ `Rank ${characterRank}`, speciesLabel, archetypeLabel, `Tier ${characterSettingTier}` ].join(' • ') }}
+            </span>
             <span class="sexy_line" />
-            <p class="text-center">
+            <span class="caption mb-2">
               {{ keywords.join(' • ') }}
-            </p>
+            </span>
           </v-col>
 
           <!-- attributes and traits -->
@@ -256,7 +256,7 @@
           <v-col :cols="12">
             <v-card>
               <v-toolbar color="red" dark dense height="32">
-                <v-toolbar-title>Weapons</v-toolbar-title>
+                  <v-toolbar-title>Weapons</v-toolbar-title>
               </v-toolbar>
 
               <v-data-table
@@ -293,6 +293,20 @@
                   </tr>
                 </template>
               </v-data-table>
+
+              <div class="ma-1">
+                <p
+                  v-for="trait in weaponsTraitSet"
+                  v-if="traitByName(trait)"
+                  :key="trait"
+                  class="body-2 mb-1 caption"
+                >
+                  <strong>{{ traitByName(trait).name }}: </strong>
+                  <span v-if="traitByName(trait).crunch">{{ traitByName(trait).crunch }}</span>
+                  <span v-else>{{ traitByName(trait).description }}</span>
+                </p>
+              </div>
+
             </v-card>
           </v-col>
         </v-row>
@@ -386,6 +400,21 @@
 
                     <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-2 caption">
                       <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
+
+                      <div
+                        v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                      >
+                          <p
+                            class="ml-3 mt-2 mb-0"
+                            v-for="trait in gearItem.meta[0].traits"
+                            v-if="traitByName(trait, true)"
+                            :key="trait"
+                          >
+                            <strong>{{ trait }}: </strong>
+                            {{ traitByName(trait, true).effect }}
+                          </p>
+                      </div>
+
                     </v-card-text>
                   </v-card>
                 </v-col>
@@ -405,93 +434,56 @@
 <script lang="js">
 import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
 
 export default {
   name: 'Print',
   layout: 'print',
+  components: {},
   mixins: [
     BackgroundRepositoryMixin,
     StatRepositoryMixin,
+    WargearTraitRepositoryMixin,
   ],
   props: [],
   data() {
     return {
       attributeHeaders: [
-        {
-          text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1',
-        },
+        { text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       traitHeaders: [
-        {
-          text: 'Trait', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
+         { text: 'Trait', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
         },
       ],
       skillHeaders: [
-        {
-          text: 'Skill', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Att', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Total', sortable: false, align: 'center', class: 'small pa-1',
-        },
+        { text: 'Skill', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Val', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Att', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Total', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       weaponHeaders: [
-        {
-          text: 'Name', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Damage', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'AP', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Salvo', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Range', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Traits', sortable: false, align: 'left', class: 'small pa-1',
-        },
+        { text: 'Name', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Damage', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'AP', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Salvo', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Range', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Traits', sortable: false, align: 'left', class: 'small pa-1' },
       ],
       psychicPowersHeaders: [
-        {
-          text: 'Name', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'DN', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Activation', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Duration', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Range', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Multi-Target', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Effect', sortable: false, align: 'left', class: 'small pa-1',
-        },
+         { text: 'Name', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'DN', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Activation', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Duration', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Range', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Multi-Target', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Effect', sortable: false, align: 'left', class: 'small pa-1' },
       ],
+      //
+      characterSpecies: undefined,
+      characterArchetype: undefined,
     };
   },
   computed: {
@@ -505,13 +497,23 @@ export default {
       return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
     },
 
-    characterSpeciesLabel() {
+
+    speciesKey() {
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
+    speciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
     speciesAstartesChapter() {
       return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
     },
 
+    archetypeKey() {
+      return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
+    },
+    archetypeLabel() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
     characterBackgroundKey() {
       return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
     },
@@ -520,9 +522,6 @@ export default {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
 
-    archetypeLabel() {
-      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
-    },
     characterAttributesEnhanced() {
       return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
     },
@@ -566,44 +565,57 @@ export default {
       const abilities = [];
 
       // species
-      if (this.characterSpeciesLabel !== undefined) {
-        const species = this.speciesRepository.find((s) => s.name === this.characterSpeciesLabel);
-        if (species !== undefined && species.abilities) {
-          const speciesAbilityNames = species.abilities.split(',');
-          if (speciesAbilityNames.length > 0) {
-            speciesAbilityNames.forEach((speciesAbilityName) => {
-              if (speciesAbilityName === 'Honour the Chapter') {
-                const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
-                const traditions = chapter.beliefsAndTraditions;
-                if (traditions !== undefined) {
-                  traditions.forEach((t) => {
-                    const tradition = {
-                      name: t.name,
-                      effect: t.effect,
-                      source: this.speciesAstartesChapter,
-                    };
-                    abilities.push(tradition);
-                  });
-                }
-              } else {
-                const ability = species.abilityObjects.find((a) => a.name === speciesAbilityName);
-                ability.source = this.characterSpeciesLabel;
-                abilities.push(ability);
+      const species = this.characterSpecies;
+      if (species && species.speciesFeatures) {
+        species.speciesFeatures.forEach( (feature) => {
+          // Honour the Chapter
+          if (feature.name === 'Honour the Chapter') {
+            const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
+            const traditions = chapter.beliefsAndTraditions;
+            if (traditions !== undefined) {
+              traditions.forEach((t) => {
+                const tradition = {
+                  name: t.name,
+                  effect: t.effect,
+                  source: this.speciesAstartesChapter,
+                };
+                abilities.push(tradition);
+              });
+            }
+          } else {
+            // other abilities
+            const ability = {
+              name: feature.name,
+              effect: feature.snippet,
+              source: this.speciesLabel,
+              hint: this.speciesLabel,
+            };
+            if ( feature.options ) {
+              const traitSelection = this.enhancements.find( (e) => e.source.startsWith(`species.${feature.name}.`));
+              if ( traitSelection && traitSelection.effect ) {
+                ability['selectedOption'] = {
+                  name: traitSelection.name,
+                  effect: traitSelection.effect,
+                };
               }
-            });
+            }
+            abilities.push(ability);
           }
-        }
+        });
       }
 
       // archetype
-      if (this.archetypeLabel !== undefined) {
-        const archetype = this.archetypeRepository.find((a) => a.name === this.archetypeLabel);
-        if (archetype !== undefined) {
-          archetype.abilities.forEach((a) => {
-            a.source = this.archetypeLabel;
-            abilities.push(a);
-          });
-        }
+      const archetype = this.characterArchetype;
+      if (archetype && archetype.archetypeFeatures) {
+        archetype.archetypeFeatures.forEach( (item) => {
+          const ability = {
+            name: item.name,
+            effect: item.snippet,
+            source: archetype.label,
+            hint: archetype.label,
+          };
+          abilities.push(ability);
+        });
       }
 
       if (this.keywords.find( k => k ==='Adeptus Mechanicus')) {
@@ -691,16 +703,26 @@ export default {
       return items;
     },
     objectives() {
-      if (this.archetypeLabel && this.objectiveRepository) {
-        const archetype = this.archetypeRepository.find((a) => a.name === this.archetypeLabel);
-        if (archetype) {
-          const objectiveList = this.objectiveRepository.find((o) => o.group === archetype.group);
-          if (objectiveList) {
-            return objectiveList.objectives.map((o) => ({ text: o }));
-          }
+      if (this.characterArchetype && this.objectiveRepository) {
+        const objectiveList = this.objectiveRepository.find((o) => o.group === this.characterArchetype.group);
+        if (objectiveList) {
+          return objectiveList.objectives.map((o) => ({ text: o }));
         }
       }
       return [];
+    },
+    weaponsTraitSet() {
+      let weaponsTraitSet = [];
+      const { weapons } = this;
+
+      weapons.forEach((weapon) => {
+        // item.meta[0].traits
+        if (weapon.meta[0] && weapon.meta[0].traits && weapon.meta[0].traits.length > 0) {
+          weaponsTraitSet = [...weaponsTraitSet, ...weapon.meta[0].traits];
+        }
+      });
+      weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+      return [...new Set(weaponsTraitSet)].sort();
     },
   },
   async asyncData({ params, $axios }) {
@@ -708,18 +730,14 @@ export default {
     const talentResponse = await $axios.get('/api/talents/');
     const wargearResponse = await $axios.get('/api/wargear/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
-    const archetypeResponse = await $axios.get(`/api/archetypes/${sourceFilter}`);
     const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
-    const speciesResponse = await $axios.get(`/api/species/${sourceFilter}`);
 
     return {
       characterId: params.id,
       astartesChapterRepository: chaptersResponse.data,
       objectiveRepository: objectiveResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
-      speciesRepository: speciesResponse.data,
-      archetypeRepository: archetypeResponse.data,
       talentRepository: talentResponse.data,
       wargearRepository: wargearResponse.data,
     };
@@ -731,10 +749,48 @@ export default {
       // titleTemplate: '%s | W&G Character Sheet',
     };
   },
+  watch: {
+    speciesKey: {
+      handler(newVal) {
+        if (newVal && newVal !== 'unknown') {
+          this.loadSpecies(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    archetypeKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.loadArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+  },
   methods: {
+    async loadSpecies(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/species/${key}`);
+        this.characterSpecies = data;
+      }
+    },
+    async loadArchetype(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+        this.characterArchetype = data;
+      }
+    },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
       return attribute.enhancedValue + skill.enhancedValue;
+    },
+    traitByName(name, withParanteris) {
+      if ( withParanteris ) {
+        // weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+        name = name.split(/ ?\(/)[0];
+      }
+      // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
+      return this.wargearTraitRepository.find((item) => item.name === name);
     },
     computeFormatedText(text) {
       const rank = this.characterRank;
@@ -764,6 +820,7 @@ export default {
   .page--din-a-4 {
     height: 297mm;
     width: 220mm;
+    overflow: hidden;
   }
 
   .page-title {

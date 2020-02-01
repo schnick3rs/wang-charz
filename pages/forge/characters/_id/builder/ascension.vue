@@ -17,7 +17,7 @@
       />
     </v-dialog>
 
-    <!-- selected ascension -->
+    <!-- selected ascensions -->
     <v-col
       v-if="characterAscensionPackages.length > 0"
       :cols="12"

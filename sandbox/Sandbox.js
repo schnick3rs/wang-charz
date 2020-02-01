@@ -190,6 +190,42 @@ var backgrounds = [
   }
 ]
 
+var wargear = [
+  {
+    name: 'Bolter',
+    type: 'Ranged Weapon',
+    subtype: 'Bolt Weapon',
+    value: 8,
+    rarity: 'Very Rare',
+    keywords: [ 'Adeputs Astarte', 'Imperium' ],
+    weapon: {
+      range: 36,
+      salvo: 3,
+      damage: { static: 12, ed: 2, isMortal: false },
+      armourPiercing: -1,
+      traits: [ 'Assault', 'Brutal' ],
+    },
+  },
+  {
+    name: 'Silencer',
+    type: 'Weapon Upgrade',
+    subtype: null,
+    value: 3,
+    rarity: 'Uncommon',
+    Keywords: [],
+    upgradeRestrictions: [
+      { condition: 'must', type: undefined, subtype: ['Bolt Weapon', 'Projectile'], trait: undefined },
+      { condition: 'not', type: undefined, subtype: undefined, trait: ['Heavy'] },
+    ],
+    snippet: 'Add +4 DN to Awareness Test to detect shots.',
+    description:
+      'This weapon upgrade muffles the sound of gunfire. This upgrade is only available for ' +
+      'bolt weapons and projectile weapons, and it is not appropriate for weapons with the Heavy ' +
+      'trait. Weapons with this upgrade are very difficult to hear when they fire. ' +
+      'There is a +4DN penalty for any Awareness test to hear the gunshots of a weapon with this upgrade.',
+  },
+];
+
 /**
  * name
  * discipline
@@ -207,3 +243,17 @@ var spells = [
 
   }
 ];
+
+/*
+  <psychic-powers-select>
+    props: {
+      repository: Array,
+      value: String,
+      item: String,
+      selection: {
+        type: String,
+        required: false,
+        default: undefined,
+      },
+    },
+*/

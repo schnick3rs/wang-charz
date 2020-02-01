@@ -4904,7 +4904,7 @@
           "friendlyTypeName": "Proficiency",
           "friendlySubtypeName": "Athletics",
           "isGranted": false,
-          "bonusTypes": [],
+          "bonusTypes": [],a
           "value": null,
           "componentId": 459,
           "componentTypeId": 12168134
