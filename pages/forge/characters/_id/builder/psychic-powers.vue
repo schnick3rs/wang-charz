@@ -182,10 +182,10 @@ export default {
     alerts() {
       const alerts = [];
 
-      if (!this.isPsychic) {
+      if (!this.isPsychic && !this.isNavigator) {
         const alert = {
           type: 'warning',
-          text: 'You need to either possess the Psychic Keyword or have at least learned one rank in the Psychic Mastery skill',
+          text: 'You need to either possess the Psychic Keyword or have at least learned one rank in the Psychic Mastery skill.',
         };
         alerts.push(alert);
       }
@@ -197,6 +197,10 @@ export default {
       const hasSkill = skills.psychicMastery > 0;
       const hasKeyword = keywords.some( (k) => k.name === 'Psyker');
       return (hasSkill || hasKeyword);
+    },
+    isNavigator() { // from the PAX Homebrew
+      const key = this.$store.getters['characters/characterSpeciesKey'](this.characterId);
+      return key === 'pax-navigator';
     },
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
