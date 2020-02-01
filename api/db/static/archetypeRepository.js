@@ -1722,7 +1722,7 @@ const paxRep = [
       },
     ],
     // new
-    wargearString: 'Staff, mesh armor, nobilite robes, charm (silk headscarf), flask of amasec',
+    wargearString: 'Staff, Mesh Armour, nobilite robes, charm (silk headscarf), flask of amasec',
     wargear: [
       { name: 'Staff' },
       { name: 'Mesh Armour' },
@@ -1790,18 +1790,18 @@ const paxRep = [
       },
     ],
     wargearString:
-      'Dueling laspistol or hand cannon, staff, mesh armor, emperor’s tarot deck, nobilite robes, ' +
+      'Dueling Laspistol or hand cannon, staff, Mesh Armour, emperor’s tarot deck, nobilite robes, ' +
       'charm (silk headscarf), charm (navis occulta), micro-bead.',
     wargear: [
       {
-        name: 'Dueling laspistol or hand cannon',
+        name: 'Dueling Laspistol or hand cannon',
         options: [
-          { name: 'Dueling laspistol' },
+          { name: 'Dueling Laspistol' },
           { name: 'Hand Cannon' },
         ],
       },
       { name: 'Staff' },
-      { name: 'Mesh Armor' },
+      { name: 'Mesh Armour' },
       { name: 'Emperor`s tarot deck' },
       { name: 'Nobilite Robes' },
       { name: 'Charm', variant: 'Silk headscarf' }, // possession
@@ -1831,7 +1831,7 @@ const paxRep = [
       },
     ],
     wargearString:
-      'Digi-weapon or infernal pistol, staff, mesh armor, emperor’s tarot deck, ' +
+      'Digi-weapon or infernal pistol, staff, Mesh Armour, emperor’s tarot deck, ' +
       'charm (silk headscarf), nobilite robes, devoted attendant or mono-tasked servo-skull, ' +
       'choice of augmetic',
     wargear: [
@@ -1843,7 +1843,7 @@ const paxRep = [
         ],
       },
       { name: 'Staff' },
-      { name: 'Mesh Armor' },
+      { name: 'Mesh Armour' },
       { name: 'Emperor`s tarot deck' },
       { name: 'Nobilite Robes' },
       { name: 'Charm', variant: 'Silk headscarf' }, // possession
@@ -1877,7 +1877,7 @@ const paxRep = [
       },
     ],
     wargearString:
-      'Hotshot laspistol or hand cannon, staff, mesh armor or carapace armor, emperor’s tarot deck, ' +
+      'Hotshot laspistol or hand cannon, staff, Mesh Armour or carapace Armour, emperor’s tarot deck, ' +
       'nobilite robes, charm (silk headscarf), micro-bead',
     wargear: [
       {
@@ -1889,10 +1889,10 @@ const paxRep = [
       },
       { name: 'Staff' },
       {
-        name: 'Mesh Armor or Carapace',
+        name: 'Mesh Armour or Carapace',
         options: [
-          { name: 'Mesh Armor' },
-          { name: 'Carapace Armor' },
+          { name: 'Mesh Armour' },
+          { name: 'Carapace Armour' },
         ],
       },
       { name: 'Emperor`s tarot deck' },
@@ -1984,10 +1984,10 @@ const paxRep = [
         ],
       },
       {
-        name: 'null-limiter or flak armor',
+        name: 'null-limiter or Flak Armour',
         options: [
           { name: 'Null-Limiter' },
-          { name: 'Flak Armor' },
+          { name: 'Flak Armour' },
         ],
       },
     ],
@@ -2019,7 +2019,7 @@ const paxRep = [
           '<p>Untouchables of greater power present a stronger aversion to the Immaterium, encompassing a wider area surrounding them. In this region, psykers see their powers fail and despair, knowing an Untouchable is nearby. The characters Psychic Null traits extend outwards, protecting a number of allies equal to his Rank who are nearby, no further than a distance in meters equal to his Passive Awareness +½ Rank. Characters with the <Eldar> or <Psyker> keyword suffer ½ Rank points of Shock for every Round they remain within this area of effect.</p>'
       },
     ],
-    // Rag-robes, uniform or street clothes, trade tools, laspistol or autopistol, null-limiter or flak armor.
+    // Rag-robes, uniform or street clothes, trade tools, laspistol or autopistol, null-limiter or Flak Armour.
     wargear: [
       {
         name: 'Rag-robes, uniform or street clothes',
@@ -2038,10 +2038,10 @@ const paxRep = [
         ],
       },
       {
-        name: 'null-limiter or flak armor',
+        name: 'null-limiter or Flak Armour',
         options: [
           { name: 'Null-Limiter' },
-          { name: 'Flak Armor' },
+          { name: 'Flak Armour' },
         ],
       },
     ],
@@ -2087,13 +2087,13 @@ const paxRep = [
           'equal to the Untouchables ½ Rank within the same area of effect.</p>',
       },
     ],
-    // Flak or mesh armor or symbol of inquisitorial authority, boltgun or bolt pistol and Chain Sword, null-limiter
+    // Flak or Mesh Armour or symbol of inquisitorial authority, boltgun or bolt pistol and Chain Sword, null-limiter
     wargear: [
       {
-        name: 'Flak or mesh armor or symbol of inquisitorial authority',
+        name: 'Flak or Mesh Armour or symbol of inquisitorial authority',
         options: [
-          { name: 'Flak Armor' },
-          { name: 'Mesh Armor' },
+          { name: 'Flak Armour' },
+          { name: 'Mesh Armour' },
           { name: 'Symbol of Authority' },
         ],
       },
