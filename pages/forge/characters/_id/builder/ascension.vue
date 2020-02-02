@@ -1,5 +1,8 @@
 <template lang="html">
   <v-row justify="center" no-gutters>
+
+    <nuxt-child />
+
     <!-- Ascension Dialog -->
     <v-dialog
       v-model="dialog"
@@ -208,7 +211,7 @@
       <v-card>
         <v-list>
           <v-list-item
-            v-for="item in ascensionRepository"
+            v-for="item in ascensionPackagesList"
             :key="item.key"
             two-line
             @click.stop="openDialog(item)"
@@ -219,7 +222,7 @@
 
             <v-list-item-content>
               <v-list-item-title>{{ item.name }}</v-list-item-title>
-              <v-list-item-subtitle>{{ item.teaser }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
             </v-list-item-content>
 
             <v-list-item-action>
@@ -237,7 +240,6 @@
 </template>
 
 <script lang="js">
-import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
 import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 import AscensionPreview from '~/components/forge/AscensionPreview.vue';
 import KeywordSelect from '~/components/forge/KeywordSelect.vue';
@@ -249,7 +251,6 @@ export default {
   layout: 'forge',
   components: { AscensionPreview, KeywordSelect, WargearSelect },
   mixins: [
-    AscensionRepositoryMixin,
     KeywordRepositoryMixin,
     StatRepositoryMixin,
   ],
@@ -259,13 +260,35 @@ export default {
       title: 'Select Ascension Package',
     };
   },
+  async asyncData({ params, $axios, error }) {
+    const wargearResponse = await $axios.get('/api/wargear/');
+    const powersResponse = await $axios.get('/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal');
+    const archetypeResponse = await $axios.get('/api/archetypes/?source=core,coreab');
+    return {
+      characterId: params.id,
+      archetypeRepository: archetypeResponse.data,
+      psychicPowersRepository: powersResponse.data,
+      wargearRepository: wargearResponse.data,
+    };
+  },
   data() {
     return {
       dialog: false,
       selectedPreview: undefined,
+      ascensionPackagesList: undefined,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
     effectiveCharacterTier() {
       return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
     },
@@ -378,18 +401,27 @@ export default {
       return placeholderSet;
     },
   },
-  async asyncData({ params, $axios, error }) {
-    const wargearResponse = await $axios.get('/api/wargear/');
-    const powersResponse = await $axios.get('/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal');
-    const archetypeResponse = await $axios.get('/api/archetypes/?source=core,coreab');
-    return {
-      characterId: params.id,
-      archetypeRepository: archetypeResponse.data,
-      psychicPowersRepository: powersResponse.data,
-      wargearRepository: wargearResponse.data,
-    };
+  watch: {
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getAscensionPackageList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
+    async getAscensionPackageList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/ascension-packages/', config);
+      //this.itemList = data.filter((i) => i.stub === undefined || i.stub === false);
+      this.ascensionPackagesList = data;
+    },
     openDialog(item) {
       this.selectedPreview = item;
       this.dialog = true;

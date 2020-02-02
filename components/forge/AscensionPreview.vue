@@ -26,17 +26,17 @@
         <strong>Minimum Campaign Tier:</strong> {{ item.minimumCampaignTier }}+
       </p>
       <p class="text-lg-justify">
-        <strong>Attribute:</strong> {{ item.attributePrerequisites.length > 0 ? item.attributePrerequisites.join(', ') : 'none' }}
+        <strong>Attribute:</strong> {{ item.attributePrerequisites && item.attributePrerequisites.length > 0 ? item.attributePrerequisites.join(', ') : 'none' }}
       </p>
       <p class="text-lg-justify">
-        <strong>Skill:</strong> {{ item.skillPrerequisites.length > 0 ? item.skillPrerequisites.join(', ') : 'none' }}
+        <strong>Skill:</strong> {{ item.skillPrerequisites && item.skillPrerequisites.length > 0 ? item.skillPrerequisites.join(', ') : 'none' }}
       </p>
 
       <span class="mt-2 grey--text">Benefits</span>
       <v-divider class="mb-2" />
 
       <p class="text-lg-justify">
-        <strong>Keywords:</strong> {{ item.keywords.join(', ') }}
+        <strong>Keywords:</strong> {{ item.keywords ? item.keywords.join(', ') : '' }}
       </p>
 
       <p class="text-lg-justify">
