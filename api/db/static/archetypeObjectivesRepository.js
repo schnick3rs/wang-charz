@@ -171,6 +171,15 @@ const core = [
     ],
     source: 'pax',
   },
+  {
+    group: 'Hive Ganger',
+    objectives: [
+      'Threaten, extort, or physically assault an NPC for violating the downhive code, explaining what they did wrong (even if it shouldn’t apply to them)',
+      'Size up the competition as weak prey or a worth adversary, using local slang or jargon that makes no sense to your current companions.',
+      'Mark, tag, or deface imperial property, describing the significance the vandalizing method utilized by your gang.',
+    ],
+    source: 'pax',
+  },
 ];
 
 const objectivesRepository = [

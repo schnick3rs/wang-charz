@@ -61,7 +61,7 @@ const stringToKebabToCamel = function (text) {
   return kebabToCamel(slug);
 };
 
-const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, tier) {
+const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, tier, stub = true) {
   let speciesSourceKey = 'core';
   let speciesName = 'Human';
 
@@ -96,7 +96,7 @@ const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, ti
     group,
     species: [ speciesLabel ],
     speciesKey: [ speciesKey ],
-    stub: true,
+    stub: stub,
   };
 };
 
@@ -1661,7 +1661,52 @@ const paxRep = [
   simpleStub('pax', '-', 'core-human', 'Hired Guns', 'Veteran Guardsman', 40, 2),
   simpleStub('pax', '-', 'core-human', 'Hired Guns', 'Arch-Militant', 40, 3),
   simpleStub('pax', '-', 'core-human', 'Hired Guns', 'ArchGunslinger', 30, 3),
-  simpleStub('pax', '-', 'core-human', 'Hive Hanger', 'Juve', 0, 1),
+  {
+    ...simpleStub('pax', '-', 'core-human', 'Hive Ganger', 'Juve', 0, 1, false),
+    hint: '',
+    prerequisites: [],
+    prerequisiteText: 'The respective <Gang> Skill at (1).',
+    keywords: 'Imperium,Scum,<Gang>,Outcast',
+    influence: -1,
+    archetypeFeatures: [
+      {
+        name: 'Eager to kill',
+        snippet: 'Once per combat, a Juve can add +Rank to a single Action. They also gain a +½ Rank bonus to Resolve tests in combat.',
+      },
+    ],
+    wargearString:
+      'Hive leathers or outlandish attire, ' +
+      'stubber, knife or brass knuckles, ' +
+      '3 doses of narcotics or graphic memento, ' +
+      'lho-sticks, ' +
+      'gang trappings.',
+    wargear: [
+      {
+        name: 'Hive leathers or outlandish attire',
+        options: [
+          { name: 'Hive leathers' },
+          { name: 'outlandish attire' },
+        ],
+      },
+      {
+        name: 'stubber, knife or brass knuckles',
+        options: [
+          { name: 'Stubber' },
+          { name: 'Knife' },
+          { name: 'Brass Knuckles' },
+        ],
+      },
+      {
+        name: '3 doses of narcotics or graphic memento',
+        options: [
+          { name: 'doses of narcotics', amount: 3 },
+          { name: 'graphic memento' },
+        ],
+      },
+      { name: 'lho-sticks' },
+      { name: 'gang trappings' },
+    ],
+  },
   simpleStub('pax', '-', 'core-human', 'Hive Hanger', 'Ganger', 10, 1),
   simpleStub('pax', '-', 'core-human', 'Hive Hanger', 'Heavy', 20, 1),
   simpleStub('pax', '-', 'core-human', 'Hive Hanger', 'Gang Leader', 30, 2),
