@@ -1662,8 +1662,8 @@ const paxRep = [
   simpleStub('pax', '-', 'core-human', 'Hired Guns', 'Arch-Militant', 40, 3),
   simpleStub('pax', '-', 'core-human', 'Hired Guns', 'ArchGunslinger', 30, 3),
   {
-    ...simpleStub('pax', '-', 'core-human', 'Hive Ganger', 'Juve', 0, 1, false),
-    hint: '',
+    ...simpleStub('pax',116, 'core-human', 'Hive Ganger', 'Juve', 0, 1, false),
+    hint: 'An inexperienced youth, eager for chance to prove themselves.',
     prerequisites: [],
     prerequisiteText: 'The respective <Gang> Skill at (1).',
     keywords: 'Imperium,Scum,<Gang>,Outcast',
@@ -1676,10 +1676,114 @@ const paxRep = [
     ],
     wargearString:
       'Hive leathers or outlandish attire, ' +
-      'stubber, knife or brass knuckles, ' +
+      'stubber, ' +
+      'knife or brass knuckles, ' +
       '3 doses of narcotics or graphic memento, ' +
       'lho-sticks, ' +
       'gang trappings.',
+    wargear: [
+      {
+        name: 'Hive leathers or outlandish attire',
+        options: [
+          { name: 'Hive leathers' },
+          { name: 'outlandish attire' },
+        ],
+      },
+      { name: 'stubber' },
+      {
+        name: 'knife or brass knuckles',
+        options: [
+          { name: 'Knife' },
+          { name: 'Brass Knuckles' },
+        ],
+      },
+      {
+        name: '3 doses of narcotics or graphic memento',
+        options: [
+          { name: 'doses of narcotics', amount: 3 },
+          { name: 'graphic memento' },
+        ],
+      },
+      { name: 'lho-sticks' },
+      { name: 'gang trappings' },
+    ],
+  },
+  {
+    ...simpleStub('pax', 117, 'core-human', 'Hive Ganger', 'Ganger', 10, 1, false),
+    hint: 'Competent and trusted fighters, accustomed to brutality and violence.',
+    prerequisites: [
+      { group: 'skills', value: 'cunning', threshold: 1 },
+    ],
+    prerequisiteText: 'The respective <Gang> Skill at (3).',
+    keywords: 'Imperium,Scum,<Gang>,Outcast',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Hab-wise',
+        snippet: 'Gangers are accustomed to the deadly environs of the underhives. They gain +Rank to Cunning and Insight tests when interacting with underworld or similar characters.',
+      },
+    ],
+    wargearString:
+      'Hive leathers or outlandish attire, ' +
+      'stubber, autogun or combat shotgun, ' +
+      'knife or brass knuckles, ' +
+      'flask of amasec or 3 doses of narcotics, ' +
+      'lho-sticks, ' +
+      'charm (graphic memento), ' +
+      'gang trappings',
+    wargear: [
+      {
+        name: 'Hive leathers or outlandish attire',
+        options: [
+          { name: 'Hive leathers' },
+          { name: 'outlandish attire' },
+        ],
+      },
+      {
+        name: 'stubber, autogun or combat shotgun',
+        options: [
+          { name: 'Stubber' },
+          { name: 'Autogun' },
+          { name: 'Combat Shotgun' },
+        ],
+      },
+      {
+        name: 'knife or brass knuckles',
+        options: [
+          { name: 'Knife' },
+          { name: 'Brass Knuckles' },
+        ],
+      },
+      {
+        name: 'flask of amasec or 3 doses of narcotics',
+        options: [
+          { name: 'Flask of amasec' },
+          { name: 'doses of narcotics', amount: 3 },
+        ],
+      },
+      { name: 'lho-sticks' },
+      { name: 'charm (graphic memento)' },
+      { name: 'gang trappings' },
+    ], // TODO
+  },
+  {
+    ...simpleStub('pax', 118, 'core-human', 'Hive Ganger', 'Heavy', 20, 1, false),
+    hint: 'A strong warrior, bigger and burlier than ordinary gangers.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+    ],
+    prerequisiteText: 'The respective <Gang> Skill at (1).',
+    keywords: 'Imperium,Scum,<Gang>,Outcast',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Pure muscle',
+        snippet: 'Heavies are capable of shouldering many weapons other gangers find difficult to wield properly. They gain +Rank when determining their Strength for the Heavy weapon trait. Additionally, they gain +1/2 Rank damage to their melee attacks.',
+      },
+    ],
+    wargearString:
+      'Hive leathers or flak armor, heavy stubber or chainaxe, knife, lho-sticks, charm (graphic memento) or dog, gang trappings.',
     wargear: [
       {
         name: 'Hive leathers or outlandish attire',
@@ -1707,9 +1811,65 @@ const paxRep = [
       { name: 'gang trappings' },
     ],
   },
-  simpleStub('pax', '-', 'core-human', 'Hive Hanger', 'Ganger', 10, 1),
-  simpleStub('pax', '-', 'core-human', 'Hive Hanger', 'Heavy', 20, 1),
-  simpleStub('pax', '-', 'core-human', 'Hive Hanger', 'Gang Leader', 30, 2),
+  {
+    ...simpleStub('pax', 118, 'core-human', 'Hive Ganger', 'Gang Leader', 30, 2, false),
+    hint: 'A terrifying leader, leading by strength and will',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'attributes', value: 'strength', threshold: 3 },
+    ],
+    prerequisiteText: 'The respective <Gang> Skill at (4).',
+    keywords: 'Imperium,Scum,<Gang>,Outcast',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Bigger and badder',
+        snippet: 'The gang leaders are often the biggest (next to the heavies) and the baddest member of his crew. The gang leader gains +Rank bonus to his Gang Skill. During a combat, he also gains +1/2 Rank bonus to his Resolve tests',
+      },
+    ],
+    wargearString:
+      'Outlandish garb or attire, ' +
+      'flak armor or carapace armor, ' +
+      'chainsword, bolt pistol or plasma pistol, ' +
+      'charm (grisly trophies) or dog, ' +
+      'stimm-injector, ' +
+      'lho sticks, ' +
+      'gang trappings.',
+    wargear: [
+      {
+        name: 'Outlandish garb or outlandish attire',
+        options: [
+          { name: 'Outlandish garb' },
+          { name: 'outlandish attire' },
+        ],
+      },
+      {
+        name: 'flak armor or carapace armor',
+        options: [
+          { name: 'Flak Armour' },
+          { name: 'Carapace Armour' },
+        ],
+      },
+      {
+        name: 'chainsword, bolt pistol or plasma pistol',
+        options: [
+          { name: 'Chain Sword' },
+          { name: 'Bolt Pistol' },
+          { name: 'Plasma Pistol' },
+        ],
+      },
+      {
+        name: 'charm (grisly trophies) or dog',
+        options: [
+          { name: 'Charm (Grisly Thropies)' },
+          { name: 'Dog' },
+        ],
+      },
+      { name: 'Stimm-injector' },
+      { name: 'Lho-sticks' },
+      { name: 'Gang trappings' },
+    ],
+  },
   simpleStub('pax', '-', 'core-human', 'Imperial Civilians', 'Scholar', 10, 1),
   simpleStub('pax', '-', 'core-human', 'Imperial Civilians', 'Artisan', 10, 1),
   simpleStub('pax', '-', 'core-human', 'Imperial Civilians', 'Chirurgeon', 10, 1),

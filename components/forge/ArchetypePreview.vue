@@ -52,6 +52,9 @@
       <p class="text-lg-justify">
         <strong>Skills:</strong> {{ skillPrerequisites }}
       </p>
+      <p class="text-lg-justify" v-if="item.prerequisiteText">
+        <strong>Others:</strong> {{ item.prerequisiteText }}
+      </p>
 
       <span class="mt-2 grey--text">Benefits</span>
       <p><v-divider /></p>
