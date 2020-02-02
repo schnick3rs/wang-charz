@@ -232,7 +232,7 @@ const coreRep = [
   },
   {
     key: 'dodHouseIsenwell',
-    name: 'House Isenwell',
+    name: 'Doctors of Doom (House Isenwell)',
     beliefsAndTraditions: [
       {
         name: 'Thunder’s Call',
@@ -247,12 +247,12 @@ const coreRep = [
   },
   {
     key: 'sosHouseHironiat',
-    name: 'Houst Hironiat',
+    name: 'Doctors of Doom (House Hironiat)',
     beliefsAndTraditions: [
       {
         name: 'Siege Masters',
         effect: 'Hironians immediately recognise the weaknesses in any fortification. '
-          + 'An Imperial Fists Space Marine may add his Rank bonus to damage when attacking '
+          + 'An Hironian Space Marine may add his Rank bonus to damage when attacking '
           + 'any building or fortification. An Hironian Space Marine may spend a '
           + 'Glory point to ignore any bonuses to an enemy’s Defence from cover on any attack.',
       },

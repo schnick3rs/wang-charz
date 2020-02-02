@@ -140,9 +140,9 @@ export default {
       { name: 'Heretic', type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.' },
 
       // Social PAX
-      { name: 'Nobility', type: 'Social', parentKeyword: undefined, description: 'The high born elite of the Imperium.', source: 'pax' },
-      { name: 'Lower Class', type: 'Social', parentKeyword: undefined, description: 'Those who in their uncountable numbers toil at industry, agriculture or another manual trade.', source: 'pax' },
-      { name: 'Outcast', type: 'Social', parentKeyword: undefined, description: 'Those unfortunates who have slipped through the cracks of society.', source: 'pax' },
+      { source: 'pax', name: 'Nobility', type: 'Social', parentKeyword: undefined, description: 'The high born elite of the Imperium.' },
+      { source: 'pax', name: 'Lower Class', type: 'Social', parentKeyword: undefined, description: 'Those who in their uncountable numbers toil at industry, agriculture or another manual trade.' },
+      { source: 'pax', name: 'Outcast', type: 'Social', parentKeyword: undefined, description: 'Those unfortunates who have slipped through the cracks of society.' },
     ];
     const keywordSubwordRepository = [
 
@@ -343,8 +343,8 @@ export default {
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Ultramarines', description: 'Ultramarines are renowned for their discipline, honour, and tactical acumen. In the wake of the Horus Heresy, the Ultramarines Legion composed nearly half of the Space Marines in the galaxy. By willingly dividing the Legion into chapters, they set the example that enabled the second founding to succeed and provide a basis for the other legions to embrace the Codex Astartes.' },
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'White Scars', description: 'The White Scars embrace strategies built around rapid and savage attacks, striking at an opponent and withdrawing before the foe has any opportunity to make a counterstrike. They prefer to attack from vehicles, deploying from transports or riding bikes or Land Speeders into battle. Their traditions prize ferocity, tempered by an inherent sense of honour and justice.' },
         { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Other Chapter', description: 'An unkown chapter in the vast space.' },
-        { type: 'House of the Doctors of Doom', placeholder: '<Chapter>', name: 'House Isenwell', description: 'Thrive for excellence.' },
-        { type: 'House of the Doctors of Doom', placeholder: '<Chapter>', name: 'House Hironiat', description: 'Break the Tide.' },
+        { type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Isenwell)', description: 'Thrive for excellence.' },
+        { type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Hironiat)', description: 'Break the Tide.' },
 
         // Marks of the Chaos Goods
         { type: 'Mark of Chaos', placeholder: '<Mark of Chaos>', name: 'Mark of Khorne', description: '' },
