@@ -412,7 +412,7 @@ export default {
       const archetypeKey = this.characterArchetypeKey(id);
       const speciesKey = this.characterSpeciesKey(id);
       if (archetypeKey !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
-        return `/img/icon/archetype/archetype_${archetypeKey}_avatar.png`;
+        return `/img/avatar/archetype/${archetypeKey}.png`;
       }
 
       if (speciesKey !== undefined) {

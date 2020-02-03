@@ -19,7 +19,7 @@
                 />
               </v-col>
 
-              <!-- filter species -->
+              <!-- filter homebrew -->
               <v-col :cols="12" :sm="6">
                 <v-select
                   v-model="filters.source.model"
@@ -194,9 +194,7 @@ export default {
       return distinct.filter((d) => d !== null).sort();
     },
   },
-  async asyncData({
-    $axios, query, params, error,
-  }) {
+  async asyncData({ $axios, query, params, error }) {
     const response = await $axios.get('/api/ascension-packages/');
     const items = response.data;
 

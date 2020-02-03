@@ -56,7 +56,7 @@ export default {
   methods: {
     ...mapMutations('characters', ['setCharacterArchetype']),
     getAvatar(key) {
-      return `/img/icon/archetype/archetype_${key}_avatar.png`;
+      return `/img/avatar/archetype/${key}.png`;
     },
     doChangeMode() {
       this.changeMode = true;
