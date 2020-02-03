@@ -379,7 +379,7 @@ export default {
     },
   },
   async asyncData({ params, $axios, error }) {
-    const wargearResponse = await $axios.get('/api/wargear/');
+    const wargearResponse = await $axios.get('/api/wargear/?source=core');
     const powersResponse = await $axios.get('/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal');
     const archetypeResponse = await $axios.get('/api/archetypes/?source=core,coreab');
     return {

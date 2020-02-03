@@ -165,7 +165,7 @@ export default {
     };
   },
   async asyncData({ params, $axios, error }) {
-    const response = await $axios.get('/api/wargear/');
+    const response = await $axios.get('/api/wargear/?source=core');
     const wargearRepository = response.data;
     return {
       wargearRepository,

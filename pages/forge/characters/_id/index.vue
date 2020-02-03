@@ -669,7 +669,7 @@ export default {
   async asyncData({ params, $axios }) {
     const sourceFilter = '?source=core,coreab,pax';
     const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/');
+    const wargearResponse = await $axios.get('/api/wargear/?source=core');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
     const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
@@ -780,7 +780,7 @@ export default {
       }
 
       if (this.archetypeKey !== undefined && !['Ratling', 'Ogryn'].includes(this.speciesLabel)) {
-        return `/img/icon/archetype/archetype_${this.archetypeKey}_avatar.png`;
+        return `/img/avatar/archetype/${this.archetypeKey}.png`;
       }
 
       if (this.speciesKey !== undefined) {
