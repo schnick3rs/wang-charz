@@ -126,7 +126,7 @@ export default {
       this.speciesList = data;
     },
     getAvatar(key) {
-      return `/img/icon/species/species_${key}_avatar.png`;
+      return `/img/avatar/species/(.*).png`;
     },
     async updatePreview(item) {
       const slug = this.camelToKebab(item.key);

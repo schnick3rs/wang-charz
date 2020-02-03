@@ -223,7 +223,7 @@ export default {
         });
     },
     getAvatar(key) {
-      return `/img/icon/species/species_${key}_avatar.png`;
+      return `/img/avatar/species/(.*).png`;
     },
     getChapterTraditions(chapterName) {
       const chapter = this.astartesChapterRepository.find((a) => a.name === chapterName) || [];
