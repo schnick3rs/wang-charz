@@ -416,10 +416,10 @@ export default {
       }
 
       if (speciesKey !== undefined) {
-        return `/img/avatars/species/(.*).png`;
+        return `/img/avatars/species/${speciesKey}.png`;
       }
 
-      return '/img/avatars/species/(.*).png';
+      return '/img/avatars/species/core-human.png';
     },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)

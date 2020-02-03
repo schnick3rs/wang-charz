@@ -784,10 +784,10 @@ export default {
       }
 
       if (this.speciesKey !== undefined) {
-        return `/img/avatars/species/(.*).png`;
+        return `/img/avatars/species/${this.speciesKey}.png`;
       }
 
-      return '/img/avatars/species/(.*).png';
+      return '/img/avatars/species/core-human.png';
     },
 
     characterAttributesEnhanced() {
