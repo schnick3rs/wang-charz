@@ -412,14 +412,14 @@ export default {
       const archetypeKey = this.characterArchetypeKey(id);
       const speciesKey = this.characterSpeciesKey(id);
       if (archetypeKey !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
-        return `/img/avatar/archetype/${archetypeKey}.png`;
+        return `/img/avatars/archetype/${archetypeKey}.png`;
       }
 
       if (speciesKey !== undefined) {
-        return `/img/avatar/species/(.*).png`;
+        return `/img/avatars/species/(.*).png`;
       }
 
-      return '/img/avatar/species/(.*).png';
+      return '/img/avatars/species/(.*).png';
     },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)

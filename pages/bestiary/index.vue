@@ -387,7 +387,7 @@ export default {
       if (factionLabel !== undefined) {
         return `/img/bestiary/faction_${this.textToKebab(factionLabel)}_avatar.png`;
       }
-      return '/img/avatar/species/(.*).png';
+      return '/img/avatars/species/(.*).png';
     },
     changeSort(column) {
       if (this.pagination.sortBy === column) {

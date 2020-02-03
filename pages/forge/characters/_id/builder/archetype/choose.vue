@@ -203,7 +203,7 @@ export default {
       }
     },
     getAvatar(key) {
-      return `/img/avatar/archetype/${key}.png`;
+      return `/img/avatars/archetype/${key}.png`;
     },
     archetypesByGroup(groupName) {
       let archetypes = this.itemList;

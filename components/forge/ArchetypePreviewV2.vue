@@ -137,7 +137,7 @@ export default {
   },
   methods: {
     getAvatar(key) {
-      return `/img/avatar/archetype/${key}.png`;
+      return `/img/avatars/archetype/${key}.png`;
     },
   },
 };

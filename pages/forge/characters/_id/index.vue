@@ -780,14 +780,14 @@ export default {
       }
 
       if (this.archetypeKey !== undefined && !['Ratling', 'Ogryn'].includes(this.speciesLabel)) {
-        return `/img/avatar/archetype/${this.archetypeKey}.png`;
+        return `/img/avatars/archetype/${this.archetypeKey}.png`;
       }
 
       if (this.speciesKey !== undefined) {
-        return `/img/avatar/species/(.*).png`;
+        return `/img/avatars/species/(.*).png`;
       }
 
-      return '/img/avatar/species/(.*).png';
+      return '/img/avatars/species/(.*).png';
     },
 
     characterAttributesEnhanced() {
