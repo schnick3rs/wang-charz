@@ -125,12 +125,36 @@ export default {
         description: 'A specific type of Navis Nobilite house (replaces this keyword when chosen).',
         source: 'pax',
       },
-      { name: 'Untouchable', type: 'Imperium', parentKeyword: undefined, description: 'Those unfortunate few whose very presence is unnaturally ‘wrong’, and intrinsically opposed to the Immaterium.', source: 'pax' },
+      {
+        name: 'Untouchable',
+        type: 'Imperium',
+        parentKeyword: undefined,
+        description: 'Those unfortunate few whose very presence is unnaturally ‘wrong’, and intrinsically opposed to the Immaterium.',
+        source: 'pax'
+      },
       {
         name: '<Gang>',
         type: 'Imperium',
         parentKeyword: undefined,
         description: '',
+        source: 'pax',
+      },
+      {
+        name: 'Adeptus Arbites',
+        type: 'Imperium',
+        parentKeyword: undefined,
+        description: 'The keepers of Imperial law and enforcers of loyalty to the Golden Throne.',
+        effect: 
+          'You are immune to Terror or Fear originating from enemies with the <Imperium> keyword. ' +
+          'In addition, you gain +2 bonus dice to any Scholar or Investigation tests related to recidivists or heretics.',
+        source: 'pax',
+      },
+
+      {
+        name: '<Predict>',
+        type: 'Imperium',
+        parentKeyword: 'Adeptus Arbites',
+        description: 'A specific type of Arbites precinct (replaces this keyword when chosen).',
         source: 'pax',
       },
 
@@ -438,6 +462,13 @@ export default {
       { type: 'Navigator House', placeholder: '<Navis House>', name: 'Nomadic House', description: 'Some of the Great Houses have forsaken ties of sector and system, relinquishing their terrestrial holdings. Instead, over the centuries, these Navigator Houses have taken wholly to the stars to become wanderers and gypsies, their lines preserved on vast fleets of ships constantly on the move. To be part of a Nomadic House is to be born between the stars and spurn the life of a dirt dweller. It is also this long term exposure to both the void and the Immaterium that hones the skills of Navigators from Nomadic Houses, giving them an understanding of space and warp second to none' },
       { type: 'Navigator House', placeholder: '<Navis House>', name: 'Renegade House', description: 'Some of the Great Houses have completely forsaken the traditions and ancient practices of the Navigator families in their quest for power, or may have been turned on by the rest of the Navis Nobilite, harrowed, and driven into exile. Dabbling heavily in the genes of their children in order to improve their lot, their tampering often leads to hideous mutations and unconscionable monsters in their lineage, which in turn leads to rejection by the Paternova and a hunt to extinction by the Inquisition. In some cases, however, it has birthed new strains of the gene and given rise to families with unique abilities and potent powers. To be a part of a Renegade House is to have cast aside the sacred Navigator traditions as small minded and restrictive and instead embraced the glory and limitless potential of your ancestry - or so the houses believe, to comfort themselves.' },
       { type: 'Navigator House', placeholder: '<Navis House>', name: 'Shrouded House', description: 'Shrouded houses have suffered great losses or shame within the more established dominions of the Imperium. They have opted to move their powerbase completely to the edge of known space, where they cling to the barest strands of their former status and power. Though they may be rich in skill, knowledge or lore, something in the past of Shrouded Houses has blighted them and reduced them to a state so far from their once exalted position that they are sometimes cruelly called ‘beggar houses’ by their more successful counterparts. To be part of a Shrouded House is to be part of a fallen line that is slowly rising again to stand defiant against those that once cast them down - or at least, so you are told by your elders. Their loss in standing has often forced such houses to flee to the margins of the Imperium and to develop a cunning and opportunistic mindset alongside a skill that is often lacked by more comfortably indolent houses.' },
+
+      // PAX Adeptus Arbites Predict
+      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Astra', description: 'Precinct Astra is the designation for the diffused networks of a local sector, tasked with patrolling interstellar trade routes and monitoring crime within the void.' },
+      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Courthouse', description: 'Sprawling hive cities typically also have their own Courthouse Precinct to aid in large scale monitoring, reporting to their central Precinct Fortress.' },
+      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Fortress', description: 'Most Arbitrators operate out of massive Precinct Fortresses, located within capital cities in close proximity to the Planetary Governor of major Imperial worlds.' },
+      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'House', description: 'Remote planets of little importance typically have just a single fortified Precinct House for the single Arbitrator stationed there.' },
+      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Op-Center', description: 'Operational centers are forward operating bases maintained throughout Imperial worlds, particularly hive or industrial worlds, with each being a garrison for a few dozen Arbitrators who report to their nearest precinct.' },
 
       {
         name: 'Anarcho-Gang',

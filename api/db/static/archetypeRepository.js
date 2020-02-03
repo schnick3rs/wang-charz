@@ -1622,10 +1622,278 @@ const paxRep = [
   simpleStub('pax', '-', 'core-human', 'Adeptus Administratum', 'Ordinate', 10, 2),
   simpleStub('pax', '-', 'core-human', 'Adeptus Administratum', 'Sage', 30, 3),
   simpleStub('pax', '-', 'core-human', 'Adeptus Administratum', 'Prefect', 40, 4),
-  simpleStub('pax', '-', 'core-human', 'Adeptus Arbites', 'Arbitrator', 10, 1),
-  simpleStub('pax', '-', 'core-human', 'Adeptus Arbites', 'Proctor', 30, 1),
-  simpleStub('pax', '-', 'core-human', 'Adeptus Arbites', 'Marshal', 60, 3),
-  simpleStub('pax', '-', 'core-human', 'Adeptus Arbites', 'Judge', 80, 4),
+  {
+    ...simpleStub('pax', 37, 'core-human', 'Adeptus Arbites', 'Arbitrator', 10, 1, false),
+    hint: 'A guardian of imperial law, ruthless and implacable.',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
+    ],
+    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'The Face of the Law',
+        snippet: 'The character is an embodiment of the Lex Imperialis itself, bringing fear and terror to those bound by its laws. Add +Rank to Intimidation tests against any with the <Imperium> keywords.',
+      },
+    ],
+    wargearString:
+      'Carapace armor, ' +
+      'bolt pistol or riot shield, ' +
+      'shock maul, ' +
+      'book of law, ' +
+      'manacles, ' +
+      'arbitrator ID, ' +
+      'chrono, ' +
+      'pack of lho-sticks or flask of amasec.',
+    wargear: [
+      { name: 'Carapace Armour' },
+      {
+        name: 'bolt pistol or riot shield',
+        options: [
+          { name: 'Bolt Pistol' },
+          { name: 'Riot Shield' },
+        ],
+      },
+      { name: 'Shock Maul' },
+      { name: 'Book of Law' },
+      { name: 'Manacles' },
+      { name: 'Arbitrator ID' },
+      { name: 'Chrono' },
+      {
+        name: 'pack of lho-sticks or flask of amasec',
+        options: [
+          { name: 'Pack of loh-sticks' },
+          { name: 'flask of amasec' },
+        ],
+      },
+    ],
+  },
+  {
+    ...simpleStub('pax', 38, 'core-human', 'Adeptus Arbites', 'Proctor', 30, 1, false),
+    hint: 'An unrelenting warrior, adept at tracking down the most recalcitrant recidivist.',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'attributes', value: 'initiative', threshold: 2 },
+      { group: 'attributes', value: 'agility', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 3 },
+    ],
+    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Imperial Authority',
+        snippet: 'The character is an embodiment of the Lex Imperialis itself, bringing fear and terror to those bound by its laws. They gain +1/2 Rank to Resolve and Corruption Tests, and add +Rank to Intimidation tests against any with the <Imperium> keyword.',
+      },
+    ],
+    wargearString:
+      'Carapace armor, ' +
+      'combat shotgun or boltgun or riot shield, ' +
+      'power maul, ' +
+      'book of law, ' +
+      'manacles, ' +
+      'arbitrator ID, ' +
+      'chrono, ' +
+      'pack of lho-sticks or flask of amasec',
+    wargear: [
+      { name: 'Carapace Armour' },
+      {
+        name: 'combat shotgun or boltgun or riot shield',
+        options: [
+          { name: 'Combat Shotgun' },
+          { name: 'Boltgun' },
+          { name: 'Riot Shield' },
+        ],
+      },
+      { name: 'Power Maul' },
+      { name: 'Book of Law' },
+      { name: 'Manacles' },
+      { name: 'Arbitrator ID' },
+      { name: 'Chrono' },
+      {
+        name: 'pack of lho-sticks or flask of amasec',
+        options: [
+          { name: 'Pack of loh-sticks' },
+          { name: 'flask of amasec' },
+        ],
+      },
+    ],
+  },
+  {
+    ...simpleStub('pax', 38, 'core-human', 'Adeptus Arbites', 'Mortiurge', 50, 3, false),
+    hint: 'Little more than judicially recognized assassins',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'attributes', value: 'intellect', threshold: 2 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'investigation', threshold: 3 },
+      { group: 'skills', value: 'survival', threshold: 2 },
+      { group: 'skills', value: 'Stealth', threshold: 2 },
+    ],
+    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    influence: 3,
+    archetypeFeatures: [
+      {
+        name: 'Last Killer Standing',
+        snippet: 'Veteran of a hundred gun battles, summary executions and black operations, a Mortiurge has learned to stay alive regardless of the odds when the bullets and las-bolts fly by, using them environment to their best advantage. They are immune to pinning from personal small arms excluding weapons with the Heavy (x) trait. Additionally, they add +1 to the defensive value of any cover except when ambushed in combat.',
+      },
+    ],
+    wargearString:
+      'Bolt pistol or needle pistol, ' +
+      'sniper rifle or needle rifle, ' +
+      'arbites carapace armor, ' +
+      'arbitrator ID (Symbol of Authority), ' +
+      'abridged copy of the Lex Imperialis.',
+    wargear: [
+      {
+        name: 'Bolt pistol or needle pistol',
+        options: [
+          { name: 'Bolt Pistol' },
+          { name: 'Needle Pistol' },
+        ],
+      },
+      {
+        name: 'Sniper Rifle or Needle Rifle',
+        options: [
+          { name: 'Sniper Rifle' },
+          { name: 'Needle Rifle' },
+        ],
+      },
+      { name: 'Arbites Carapace Armour' },
+      { name: 'Symbol of Authority', variant: 'Arbitrator ID' },
+      { name: 'abridged copy of the Lex Imperialis' },
+    ],
+  },
+  {
+    ...simpleStub('pax', 39, 'core-human', 'Adeptus Arbites', 'Marshal', 60, 3, false),
+    hint: 'A fearsome commander, championing the righteous Imperial law.',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'attributes', value: 'initiative', threshold: 2 },
+      { group: 'attributes', value: 'agility', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 4 },
+    ],
+    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    influence: 3,
+    archetypeFeatures: [
+      {
+        name: 'The Thin Black Line',
+        snippet: 'The character is an embodiment of the Lex Imperialis itself, bringing fear and terror to those bound by its laws. They gain +1/2 Rank to Corruption Tests and add +Rank to Intimidation and Resolve tests against any with the <Imperium> keywords.',
+      },
+      {
+        name: 'Psi-Marshal',
+        snippet: 'Arbites Psi-Marshals are rare solitary figures, held at bay by their own men as much as the citizenry. Each precinct-house will have a single Psi-Marshal assigned under ideal conditions to lend their unique talents to the Arbites law-enforcement efforts. Adeptus Arbites Marshals who ascend with the Psychic Revelations package gain access to the Judicium psychic discipline.',
+      },
+    ],
+    wargearString:
+      'Carapace armor, ' +
+      'combat shotgun or bolt pistol, ' +
+      'power maul, ' +
+      'book of law, ' +
+      'manacles, ' +
+      'cyber-mastiff, ' +
+      'arbitrator ID, ' +
+      'chrono, ' +
+      'pack of lho-sticks or flask of amasec',
+    wargear: [
+      { name: 'Carapace Armour' },
+      {
+        name: 'combat shotgun or Bolt Pistol',
+        options: [
+          { name: 'Combat Shotgun' },
+          { name: 'Bolt Pistol' },
+        ],
+      },
+      { name: 'Power Maul' },
+      { name: 'Book of Law' },
+      { name: 'Manacles' },
+      { name: 'Cyber-mastiff' },
+      { name: 'Arbitrator ID' },
+      { name: 'Chrono' },
+      {
+        name: 'pack of lho-sticks or flask of amasec',
+        options: [
+          { name: 'Pack of loh-sticks' },
+          { name: 'flask of amasec' },
+        ],
+      },
+    ],
+  },
+  {
+    ...simpleStub('pax', 40, 'core-human', 'Adeptus Arbites', 'Judge', 80, 4,false),
+    hint: 'A lord of justice, inspiring both dread and respect in great measure.',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 5 },
+      { group: 'attributes', value: 'initiative', threshold: 2 },
+      { group: 'attributes', value: 'agility', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 5 },
+    ],
+    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    influence: 3,
+    archetypeFeatures: [
+      {
+        name: 'Hammer of Heretics',
+        snippet: 'The character is the very embodiment of imperial law and retribution, striking fear to recidivists and heretics alike.. Add +Rank to Intimidation, Resolve, and Corruption tests against any with the <Imperium> and <Chaos> keywords.',
+      },
+    ],
+    wargearString:
+      'Judge carapace armor, ' +
+      'combat shotgun or bolt gun, ' +
+      'bolt pistol, ' +
+      'power maul or shock maul, ' +
+      'book of law, ' +
+      'manacles, ' +
+      'cyber-mastiff, ' +
+      'grapplehawk or patrol bike, ' +
+      'arbitrator ID, ' +
+      'chrono, ' +
+      'pack of lho-sticks or flask of amasec.',
+    wargear: [
+      { name: 'Judge Carapace Armour' },
+      {
+        name: 'combat shotgun or Boltgun',
+        options: [
+          { name: 'Combat Shotgun' },
+          { name: 'Boltgun' },
+        ],
+      },
+      {
+        name: 'Power Maul or Shock Maul',
+        options: [
+          { name: 'Power Mail' },
+          { name: 'Shock Maul' },
+        ],
+      },
+      { name: 'Book of Law' },
+      { name: 'Manacles' },
+      {
+        name: 'Grapplehawk or Patrol Bike',
+        options: [
+          { name: 'Grapplehawk' },
+          { name: 'Ptarol Bike' },
+        ]
+      },
+      { name: 'Cyber-mastiff' },
+      { name: 'Arbitrator ID' },
+      { name: 'Chrono' },
+      {
+        name: 'pack of lho-sticks or flask of amasec',
+        options: [
+          { name: 'Pack of loh-sticks' },
+          { name: 'flask of amasec' },
+        ],
+      },
+    ],
+  },
   simpleStub('pax', '-', 'core-human', 'Adeptus Ministorum', 'Cleric', 0, 1),
   simpleStub('pax', '-', 'core-human', 'Adeptus Ministorum', 'Confessor', 10, 1),
   simpleStub('pax', '-', 'core-human', 'Adeptus Ministorum', 'Deacon', 0, 1),

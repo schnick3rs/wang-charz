@@ -172,6 +172,15 @@ const core = [
     source: 'pax',
   },
   {
+    group: 'Adeptus Arbites',
+    objectives: [
+      'Recite a passage from the lex Imperialis, relating how the current situation is within compliance (or violation) of the law.',
+      'Solve a problem with brute force or violence when using wealth, influence, psychic powers or guile would have been better alternatives.',
+      'Reminiscence about a Precinct you have visited and compare it to the current location.',
+    ],
+    source: 'pax',
+  },
+  {
     group: 'Hive Ganger',
     objectives: [
       'Threaten, extort, or physically assault an NPC for violating the downhive code, explaining what they did wrong (even if it shouldn’t apply to them)',
