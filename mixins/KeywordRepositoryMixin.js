@@ -174,6 +174,7 @@ export default {
       { source: 'pax', name: 'Nobility', type: 'Social', parentKeyword: undefined, description: 'The high born elite of the Imperium.' },
       { source: 'pax', name: 'Lower Class', type: 'Social', parentKeyword: undefined, description: 'Those who in their uncountable numbers toil at industry, agriculture or another manual trade.' },
       { source: 'pax', name: 'Outcast', type: 'Social', parentKeyword: undefined, description: 'Those unfortunates who have slipped through the cracks of society.' },
+      { source: 'pax', name: 'Military', type: 'Social', parentKeyword: undefined, description: 'Those whose craft is the waging of war.' },
     ];
     const keywordSubwordRepository = [
 
