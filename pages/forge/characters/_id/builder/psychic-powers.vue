@@ -3,13 +3,25 @@
     <v-col>
       <h1 class="headline">
         Manage Powers
+        <span>
+          <v-icon v-if="alerts && alerts.length <= 0">error_outline</v-icon>
+          <v-btn color="warning" v-else-if="showAlerts" @click="showAlerts = !showAlerts" small><v-icon small left>error</v-icon> Hide warnings</v-btn>
+          <v-btn color="warning" v-else @click="showAlerts = !showAlerts" outlined small>
+            <v-icon small left>error_outline</v-icon>show {{alerts.length}} warning{{ alerts.length > 1 ? 's' : '' }}
+          </v-btn>
+        </span>
       </h1>
+    </v-col>
 
+    <v-col :cols="12" v-if="showAlerts">
       <v-alert
         v-for="alert in alerts"
         :key="alert.key"
         :value="true"
         :type="alert.type"
+        text
+        dense
+        border="left"
       >
         {{ alert.text }}
       </v-alert>
@@ -157,6 +169,7 @@ export default {
       archetype: undefined,
       psychicPowersList: undefined,
       loading: false,
+      showAlerts: false,
     };
   },
   computed: {
