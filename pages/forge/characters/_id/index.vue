@@ -365,7 +365,7 @@
               key="wargear"
               :value="`tab-wargear`"
             >
-              <div class="pa-2">
+              <div class="pa-2 pt-1 pb-1">
                 <div v-for="gearItem in wargear.filter((w)=>!['Ranged Weapon','Melee Weapon'].includes(w.type))" :key="gearItem.name" class="caption">
                   <div v-if="gearItem.variant" style="display: inline;">
                     <strong >{{ gearItem.variant }}</strong>
@@ -376,7 +376,7 @@
                   <span v-if="gearItem.source">
                     <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
                   </span>
-                  <p>{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
+                  <p class="mb-1">{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
                 </div>
 
               </div>

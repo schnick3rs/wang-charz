@@ -386,7 +386,7 @@
                       <v-toolbar-title>Talents</v-toolbar-title>
                     </v-toolbar>
 
-                    <v-card-text v-for="talent in talents" :key="talent.name" class="pa-2 caption">
+                    <v-card-text v-for="talent in talents" :key="talent.name" class="pa-1 caption">
                       <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)" />
                     </v-card-text>
                   </v-card>
@@ -398,8 +398,17 @@
                       <v-toolbar-title>Gear</v-toolbar-title>
                     </v-toolbar>
 
-                    <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-2 caption">
-                      <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
+                    <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-1 caption">
+                      <div v-if="gearItem.variant" style="display: inline;">
+                        <strong >{{ gearItem.variant }}</strong>
+                        <span> ({{ gearItem.name }})</span>
+                      </div>
+                      <strong v-else>{{ gearItem.name }}</strong>
+                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                      <span v-if="gearItem.source">
+                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                      </span>
+                      <p class="mb-0">{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
 
                       <div
                         v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
@@ -672,14 +681,14 @@ export default {
       return finalTalents;
     },
     wargear() {
-      const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
+      const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
-      wargearLabels.forEach((wargearName) => {
-        const foundGear = this.wargearRepository.find((w) => w.name === wargearName);
+      chargear.forEach((gear) => {
+        const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
         if (foundGear) {
-          wargear.push(foundGear);
+          wargear.push({ ...foundGear, variant: gear.variant });
         } else {
-          wargear.push({ name: wargearName, type: 'Misc' });
+          wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
         }
       });
       return wargear;

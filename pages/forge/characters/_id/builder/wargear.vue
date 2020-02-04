@@ -135,8 +135,8 @@
       </v-card>
 
       <wargear-search
-        v-if="wargearSearchActive"
-        :repository="wargearRepository"
+        v-if="wargearSearchActive && wargearList"
+        :repository="wargearList"
         @select="add"
       />
     </v-col>
@@ -164,11 +164,8 @@ export default {
       title: 'Select Wargear',
     };
   },
-  async asyncData({ params, $axios, error }) {
-    const response = await $axios.get('/api/wargear/?source=core');
-    const wargearRepository = response.data;
+  asyncData({ params }) {
     return {
-      wargearRepository,
       characterId: params.id,
     };
   },
@@ -179,9 +176,20 @@ export default {
       wargearSearchActive: false,
       loading: false,
       archetype: undefined,
+      wargearList: undefined,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
@@ -202,31 +210,33 @@ export default {
     },
     characterWargear() {
       const characterWargear = [];
-      this.characterWargearRaw.forEach((chargear) => {
-        let gear = {};
-        gear = this.wargearRepository.find((wargear) => {
-          const compare = chargear.name.localeCompare(wargear.name, 'en' , {sensitivity: 'accent'});
-          //console.info(`${chargear.name} <-> ${wargear.name} : ${compare}`);
-          return compare === 0
+      if (this.wargearList){
+        this.characterWargearRaw.forEach((chargear) => {
+          let gear = {};
+          gear = this.wargearList.find((wargear) => {
+            const compare = chargear.name.localeCompare(wargear.name, 'en' , {sensitivity: 'accent'});
+            //console.info(`${chargear.name} <-> ${wargear.name} : ${compare}`);
+            return compare === 0
+          });
+          if (gear) {
+            gear.id = chargear.id;
+            gear.source = chargear.source;
+            characterWargear.push({
+              id: chargear.id,
+              name: chargear.name,
+              type: this.wargearSubtitle(gear),
+              source: chargear.source,
+            });
+          } else {
+            characterWargear.push({
+              id: chargear.id,
+              name: chargear.name,
+              type: 'Misc',
+              source: chargear.source,
+            });
+          }
         });
-        if (gear) {
-          gear.id = chargear.id;
-          gear.source = chargear.source;
-          characterWargear.push({
-            id: chargear.id,
-            name: chargear.name,
-            type: this.wargearSubtitle(gear),
-            source: chargear.source,
-          });
-        } else {
-          characterWargear.push({
-            id: chargear.id,
-            name: chargear.name,
-            type: 'Misc',
-            source: chargear.source,
-          });
-        }
-      });
+      }
       return characterWargear;
     },
   },
@@ -239,6 +249,14 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getWargearList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
     async getArchetype(key) {
@@ -246,6 +264,15 @@ export default {
       const { data } = await this.$axios.get(`/api/archetypes/${key}`);
       this.loading = false;
       this.archetype = data;
+    },
+    async getWargearList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/wargear/', config);
+      this.wargearList = data.filter((i) => i.stub === undefined || i.stub === false);
     },
     wargearSubtitle(item) {
       // const item = this.wargearRepository.find(i => i.name === gear);
@@ -308,24 +335,26 @@ export default {
      */
     computeWargearOptionsByFilter(filter) {
       const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;
-      return this.wargearRepository.filter( (gear) => {
-        let valueReq = true;
-        if ( valueFilter ) {
-          let maxValue = 0;
-          maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
-          maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
-          // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
-          valueReq = gear.value <= maxValue;
-        }
-        const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
-        const typeReq = typeFilter ? gear.type.includes(typeFilter) : true;
-        const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
-        const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
-        return valueReq && rarityReq && typeReq && subtypeReq && keywordReq;
-      });
+      if ( this.wargearList ) {
+        return this.wargearRepository.filter( (gear) => {
+          let valueReq = true;
+          if ( valueFilter ) {
+            let maxValue = 0;
+            maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
+            maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
+            // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
+            valueReq = gear.value <= maxValue;
+          }
+          const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
+          const typeReq = typeFilter ? gear.type.includes(typeFilter) : true;
+          const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
+          const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
+          return valueReq && rarityReq && typeReq && subtypeReq && keywordReq;
+        });
+      }
+      return [];
     },
     wargearSubtitle(item) {
-      // const item = this.wargearRepository.find(i => i.name === gear);
       if (item) {
         const tags = [item.type];
         if (item.subtype) {
