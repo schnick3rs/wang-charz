@@ -158,13 +158,13 @@ const pax = [
     ...armour('Carapace',4,'Bulk (1)'),
   },
   {
-    ...simpleStub(14280,'pax',428,'Lho-sticks', '2c', 'Narcotic, Imperium, Addictive, Astra Militarum, Lower Class', ''),
+    ...simpleStub(14280,'pax',428,'Lho-sticks', '2C', 'Narcotic, Imperium, Addictive, Astra Militarum, Lower Class', ''),
     type: 'Drugs',
     subtype: 'Stimulants',
     snippet: 'Consume to enter a relaxed state for 1d6 minutes.',
   },
   {
-    ...simpleStub(15810,'pax',581,'Improvised Weapon', '1c', 'Low-Tech, Impact or Blade, Imperium, <Any>', ''),
+    ...simpleStub(15810,'pax',581,'Improvised Weapon', '1C', 'Low-Tech, Impact or Blade, Imperium, <Any>', ''),
     ...meleePax('Damage 2+1ED; AP 0; Range M; Steadfast'),
   },
   {
