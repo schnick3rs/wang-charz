@@ -367,8 +367,16 @@
             >
               <div class="pa-2">
                 <div v-for="gearItem in wargear.filter((w)=>!['Ranged Weapon','Melee Weapon'].includes(w.type))" :key="gearItem.name" class="caption">
-                  <strong>{{ gearItem.name }}</strong>
-                  <p>{{ gearItem.description }}</p>
+                  <div v-if="gearItem.variant" style="display: inline;">
+                    <strong >{{ gearItem.variant }}</strong>
+                    <span> ({{ gearItem.name }})</span>
+                  </div>
+                  <strong v-else>{{ gearItem.name }}</strong>
+                  <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                  <span v-if="gearItem.source">
+                    <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                  </span>
+                  <p>{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
                 </div>
 
               </div>
@@ -667,9 +675,11 @@ export default {
   ],
   props: [],
   async asyncData({ params, $axios }) {
-    const sourceFilter = '?source=core,coreab,pax';
+    const config = {
+      params: { source: 'core,coreab,pax', },
+    };
     const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/?source=core');
+    const wargearResponse = await $axios.get('/api/wargear/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
     const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
@@ -967,15 +977,14 @@ export default {
       return [];
     },
     wargear() {
-      const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
+      const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
-      wargearLabels.forEach((wargearName) => {
-        console.info(wargearName)
-        const foundGear = this.wargearRepository.find((w) => w.name === wargearName);
+      chargear.forEach((gear) => {
+        const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
         if (foundGear) {
-          wargear.push(foundGear);
+          wargear.push({ ...foundGear, variant: gear.variant });
         } else {
-          wargear.push({ name: wargearName, type: 'Misc' });
+          wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
         }
       });
       return wargear;

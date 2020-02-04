@@ -376,7 +376,7 @@ export const mutations = {
     if ( payload.gear && payload.gear.modifiers ) {
 
     }
-    character.wargear.push({ id: wargearUniqueId, name: payload.name, source: payload.source });
+    character.wargear.push({ id: wargearUniqueId, name: payload.name, variant: payload.variant, source: payload.source });
   },
   removeCharacterWargear(state, payload) {
     const character = state.characters[payload.id];

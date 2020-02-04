@@ -1957,12 +1957,12 @@ const paxRep = [
           { name: 'outlandish attire' },
         ],
       },
-      { name: 'stubber' },
+      { name: 'Stubber' },
       {
         name: 'knife or brass knuckles',
         options: [
           { name: 'Knife' },
-          { name: 'Brass Knuckles' },
+          { name: 'Improvised Weapon', variant: 'Brass Knuckles' },
         ],
       },
       {
@@ -1973,7 +1973,7 @@ const paxRep = [
         ],
       },
       { name: 'lho-sticks' },
-      { name: 'gang trappings' },
+      { name: 'Trappings', variant: 'Gang Trappings' },
     ],
   },
   {
@@ -2019,7 +2019,7 @@ const paxRep = [
         name: 'knife or brass knuckles',
         options: [
           { name: 'Knife' },
-          { name: 'Brass Knuckles' },
+          { name: 'Improvised Weapon', variant: 'Brass Knuckles' },
         ],
       },
       {
@@ -2030,9 +2030,9 @@ const paxRep = [
         ],
       },
       { name: 'lho-sticks' },
-      { name: 'charm (graphic memento)' },
-      { name: 'gang trappings' },
-    ], // TODO
+      { name: 'charm', variant: 'graphic memento' },
+      { name: 'Trappings', variant: 'Gang Trappings' },
+    ],
   },
   {
     ...simpleStub('pax', 118, 'core-human', 'Hive Ganger', 'Heavy', 20, 1, false),
@@ -2065,7 +2065,7 @@ const paxRep = [
         options: [
           { name: 'Stubber' },
           { name: 'Knife' },
-          { name: 'Brass Knuckles' },
+          { name: 'Improvised Weapon', variant: 'Brass Knuckles' },
         ],
       },
       {
@@ -2076,7 +2076,7 @@ const paxRep = [
         ],
       },
       { name: 'lho-sticks' },
-      { name: 'gang trappings' },
+      { name: 'Trappings', variant: 'Gang Trappings' },
     ],
   },
   {
@@ -2129,13 +2129,13 @@ const paxRep = [
       {
         name: 'charm (grisly trophies) or dog',
         options: [
-          { name: 'Charm (Grisly Thropies)' },
+          { name: 'Charm', variant: 'Grisly Thropies)' },
           { name: 'Dog' },
         ],
       },
       { name: 'Stimm-injector' },
       { name: 'Lho-sticks' },
-      { name: 'Gang trappings' },
+      { name: 'Trappings', variant: 'Gang Trappings' },
     ],
   },
   simpleStub('pax', '-', 'core-human', 'Imperial Civilians', 'Scholar', 10, 1),
