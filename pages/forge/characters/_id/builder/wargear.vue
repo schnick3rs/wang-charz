@@ -204,7 +204,11 @@ export default {
       const characterWargear = [];
       this.characterWargearRaw.forEach((chargear) => {
         let gear = {};
-        gear = this.wargearRepository.find((wargear) => wargear.name === chargear.name);
+        gear = this.wargearRepository.find((wargear) => {
+          const compare = chargear.name.localeCompare(wargear.name, 'en' , {sensitivity: 'accent'});
+          //console.info(`${chargear.name} <-> ${wargear.name} : ${compare}`);
+          return compare === 0
+        });
         if (gear) {
           gear.id = chargear.id;
           gear.source = chargear.source;
@@ -265,18 +269,18 @@ export default {
           if (i.selected) {
             if (i.selected.indexOf(' and ') > 0) {
               i.selected.split(' and ').forEach((o) => {
-                finalWargear.push(o);
+                finalWargear.push({name:o});
               });
             } else {
-              finalWargear.push(i.selected);
+              finalWargear.push({name: i.selected});
             }
           }
         } else {
-          finalWargear.push(i.name);
+          finalWargear.push({name: i.name, variant: i.variant});
         }
       });
       finalWargear.forEach((w) => {
-        this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: w, source: 'archetype' });
+        this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: w.name, variant: w.variant, source: 'archetype' });
       });
     },
     add(gear) {
