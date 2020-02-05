@@ -1674,31 +1674,36 @@ const lotnRep = [
   },
   {
     ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Lichguard', 70, 4, true),
-    hint: 'Awoken with their minds decayed and damaged.',
+    hint: 'The Royal Guard of the Necron Dynasties.',
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'strength', threshold: 5 },
       { group: 'attributes', value: 'agility', threshold: 4 },
       { group: 'attributes', value: 'toughness', threshold: 5 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
-      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+      { group: 'attributes', value: 'initiative', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 5 },
+      { group: 'skills', value: 'awareness', threshold: 4 },
     ],
     keywords: 'Necron, <Dynasty>',
-    influence: 1,
+    influence: 2,
     archetypeFeatures: [
       {
-        name: 'Hardwired Hatred',
-        snippet: 'You add +½ Rank bonus dice to Attack Tests against organic targets. You suffer +2 DN to Social Tests with non-Destroyer Necrons.',
+        name: 'Guardian Protocols',
         description:
-          '<p>A Destroyer gains +½ Rank to Attack tests against organic targets, ' +
-          'but suffers a +2DN penalty to social tests with non-Destroyer Necrons.</p>',
+          '<p>The Lychguard may designate another &lt;Dynasty&gt; Necron as its Charge as a free action. ' +
+          'If the Lychguard is within 6m of its charge, it may make a DN 3 Agility test when the Charge is attacked or ' +
+          'would otherwise take damage from an outside source. If it succeeds on this test, the ' +
+          'Lychguard takes the place of its Charge as the target of the attack or effect. ' +
+          'If the effect would harm both the Lychguard and its charge, such as a weapon with the Blast trait, ' +
+          'the Lychguard takes the damage for both itself and its charge separately. ' +
+          'If the Lychguard loses wounds by taking damage for its charge, reduce any wounds lost by the Lychguard by ½ Rank.</p>',
       },
     ],
     wargearString:
-      'Heavy plating, Gauss Cannon, Grav-platform',
+      'Heavy plating, Warscythe, Dynastic Crest (symbol of authority)',
     wargear: [
       { name: 'Heavy plating' },
-      { name: 'Gauss Cannon' },
-      { name: 'Grav-platform' },
+      { name: 'Warscythe' },
+      { name: 'symbol of authority', variant: 'Dynastic Crest' },
     ],
   },
   simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Triarch Praetorian', 70, 4),

@@ -84,6 +84,25 @@ const range = function (subtype, range, damageStatic, damageEd, ap, salvo, trait
   };
 };
 
+const melee = function (subtype, range, damageStatic, damageEd, ap, traits) {
+  return {
+    type: 'Malee Weapon',
+    subtype: subtype,
+    meta: [
+      {
+        type: 'malee-weapon',
+        range: range <= 1 ? 'melee' : range+'m',
+        damage: {
+          static: damageStatic,
+          ed: damageEd,
+        },
+        ap: ap,
+        traits: traits ? traits.split(',').map((k)=>k.trim()) : [],
+      }
+    ],
+  };
+};
+
 /**
  * Damage 2+1ED; AP 0; Range M; Steadfast
  * [Damage 2+1ED][AP 0][Range M]; Steadfast
@@ -149,8 +168,33 @@ const lotn = [
     //Tesla : These weapons are designed to fire arcs  of energy that seem to bounce between  targets, creating chains of death that can  reduce entire squads to smoking ash.  Whenever one or more 6s are shifted to  damage after hitting with a Tesla weapon, up  to two other enemies within 4m of the original  target are also considered to be hit, so long as  their defense is equal to or less than that of the  original target. If the original target was a mob,  the mob is considered to have been hit three  times instead of only once. The weapon’s full  damage is dealt to all three targets, or three  times to a mob.
   },
   {
+    ...simpleStub(20111 , 'lotn',11,'Particle Caster', '6R', 'Particle,Necron', ''),
+    ...range('Particle Weapon', 24, 14, 1, 0, 1, 'Pistol'),
+  },
+  {
     ...simpleStub(20112 , 'lotn',11,'Synaptic Disintegrator', '7R', 'Necron', ''),
     ...range('Exotic Weapon', 48, 10, 1, 0, 1, 'Rapid Fire (1), Sniper (2)'),
+  },
+  {
+    ...simpleStub(20113 , 'lotn',11,'Tachyon Arrow', '9V', 'Necron', ''),
+    ...range('Exotic Weapon', 240, 20, 3, -5, '-', 'Assault'),
+    // A Tachyon Arrow must be reloaded after each use, taking 1 hour and a successful DN 4 Tech test to do so.
+  },
+  {
+    ...simpleStub(20114 , 'lotn',11,'Hyperphase Sword', '7R', 'Necron', ''),
+    ...melee('Necron Weapon', 1, 6, 1, -3, 'Parry'),
+  },
+  {
+    ...simpleStub(20115 , 'lotn',11,'Voidblade', '6R', 'Necron', ''),
+    ...melee('Necron Weapon', 1, 5, 1, -3, ''),
+  },
+  {
+    ...simpleStub(20116 , 'lotn',11,'Voidscythe', '9V', 'Necron,Two-Handed', ''),
+    ...melee('Necron Weapon', 2, 8, 3, -4, 'Unwieldy (2)'),
+  },
+  {
+    ...simpleStub(20116 , 'lotn',11,'Warscythe', '8V', 'Necron,Two-Handed', ''),
+    ...melee('Necron Weapon', 1, 7, 2, -4, ''),
   },
   {
     ...simpleStub(20119, 'lotn',11,'Heavy Plating', '7R', 'Necron', ''),
