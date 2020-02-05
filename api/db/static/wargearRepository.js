@@ -64,6 +64,26 @@ const armour = function (subtype, armourRating, traits) {
   };
 };
 
+const range = function (subtype, range, damageStatic, damageEd, ap, salvo, traits) {
+  return {
+    type: 'Ranged Weapon',
+    subtype: subtype,
+    meta: [
+      {
+        type: 'range-weapon',
+        range: range+'m',
+        damage: {
+          static: damageStatic,
+          ed: damageEd,
+        },
+        ap: ap,
+        salvo: salvo,
+        traits: traits ? traits.split(',').map((k)=>k.trim()) : [],
+      }
+    ],
+  };
+};
+
 /**
  * Damage 2+1ED; AP 0; Range M; Steadfast
  * [Damage 2+1ED][AP 0][Range M]; Steadfast
@@ -105,6 +125,22 @@ const meleePax = function (paxString, subtype = '') {
 
 
 const core = [];
+
+const lotn = [
+  {
+    ...simpleStub(20101, 'lotn',10,'Gauss Blaster', '6R', 'Gauss,Necron', ''),
+    ...range('Gauss Weapon', 48, 10, 1, -1, 2, 'Rapid Fire (2)'),
+  },
+  {
+    ...simpleStub(20110 , 'lotn',11,'Tesla Carbine', '5R', 'Tesla,Necron', ''),
+    ...range('Tesla Weapon', 48, 12, 1, 0, 2, 'Assault,Tesla'),
+    //Tesla : These weapons are designed to fire arcs  of energy that seem to bounce between  targets, creating chains of death that can  reduce entire squads to smoking ash.  Whenever one or more 6s are shifted to  damage after hitting with a Tesla weapon, up  to two other enemies within 4m of the original  target are also considered to be hit, so long as  their defense is equal to or less than that of the  original target. If the original target was a mob,  the mob is considered to have been hit three  times instead of only once. The weapon’s full  damage is dealt to all three targets, or three  times to a mob.
+  },
+  {
+    ...simpleStub(20119, 'lotn',11,'Heavy Plating', '7R', 'Necron', ''),
+    ...armour('Necron Armour', 5),
+  },
+];
 
 const pax = [
   {
@@ -191,4 +227,5 @@ const pax = [
 module.exports = [
   ...core,
   ...pax,
+  ...lotn,
 ];

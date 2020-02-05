@@ -329,9 +329,59 @@ const coreRep = [
 
 const homebrewReps = [
   simpleStub('heva', 6, 'Aeldari', 'Dark Eldar', 'From the shadows, from the Dark City', 20, 1),
-  simpleStub('lotn', 3, 'Necrons', 'Necron', 'Living metal form the deepest slumber', 60, 3),
   {
-    ...simpleStub('aaoa', 10, 'Mankind', 'Death World Origin', 'Humans from the deadly worlds', 10, 1),
+    ...simpleStub('lotn', 3, 'Necrons', 'Necron', 'Living metal form the deepest slumber', 60, 3),
+    stub: false,
+    speed: 5,
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: 'Increase Strength, Toughness, Resolve and Wounds by 1.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
+          { targetGroup: 'traits', targetValue: 'wounds', modifier: 1 },
+        ],
+      },
+      {
+        name: 'Reanimation Protocols',
+        description:
+          'A Necron reduced to 0 wounds gains +1 to the die result of its Defiance checks, ' +
+          'and if it rolls a 6 (after bonuses) it returns to consciousness with d6 wounds remaining rather than 1. ' +
+          'If a Necron fails 3 defiance checks and would “die”, it is instead returned to its home tomb for repairs via teleportation. ' +
+          'It remains dead and leaves behind a body only if the defiance check that “killed” the Necron was a 1, or if the Necron was killed by Annihilation.'
+      },
+      {
+        name: 'Living Metal',
+        description:
+          'A Necron regenerates 1 wound at the beginning of each of its turns if it has more than 0 wounds. ' +
+          'It does not need to eat, sleep, or breathe, and is immune to disease, poison, or blood loss. ' +
+          'If not equipped with other plating, a Necron is considered to have AV 4. ' +
+          'For the purposes of weapons and abilities that affect machines, a Necron is considered a machine.'
+      },
+      {
+        name: 'Soulless Machine',
+        description:
+          'A Necron cannot be affected by any ability or psychic power that would inflict fear or affect the target’s emotions or soul. ' +
+          'A Necron never needs to pass Resolve tests in order to keep fighting. ' +
+          'A Necron’s Corruption is permanently locked at 0.'
+      },
+      {
+        name: 'A Galaxy of Enemies',
+        snippet: 'You suffer +3 DN to Social Tests (not Intimidation) with non-Necrons.',
+        description:
+          'A Necron is generally hated by all other races.' +
+          ' It suffers a +3DN penalty to all social tests apart from Intimidate when dealing with non-Necrons.'
+      },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 10, 'Mankind', 'Death World Origin', 'Born to harsh, savage worlds, which are hostile to human life.', 10, 1),
+    description: 
+      'Born to harsh, savage worlds, which are hostile to human life. ' +
+      'To survive in such places creates people as fierce and unforgiving as the worlds that raised them, ' +
+      'and many of the mightiest defenders of the Imperium hail from worlds where existence is a daily struggle for survival.',
     stub: false,
     speed: 6,
     speciesFeatures: [
@@ -361,7 +411,12 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 10, 'Mankind', 'Hive World Origin', 'Humans from the overcrowded cities', 10, 1),
+    ...simpleStub('aaoa', 10, 'Mankind', 'Hive World Origin', 'Born in the towering, overcrowded megacities dominating polluted worlds.', 10, 1),
+    description:
+      'Towering, overcrowded megacities dominating polluted worlds, even the smallest hive city is home to billions of souls. ' +
+      'These people toil in obscurity, slaving away for their entire lives in vast manufactories, ' +
+      'or battling for survival in breadline riots or territorial skirmishes. ' +
+      'For most, the only hope of seeing open sky is to leave their homes and fight for the Imperium.',
     stub: false,
     speed: 6,
     speciesFeatures: [
@@ -392,7 +447,11 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 10, 'Mankind', 'Voidborn Origin', 'Humans form the void of space', 10, 1),
+    ...simpleStub('aaoa', 10, 'Mankind', 'Voidborn Origin', 'Born and raised in the darkness between the stars.', 10, 1),
+    description:
+      'Born and raised in the darkness between the stars, the voidborn are a strange breed. ' +
+      'Accustomed to the peculiar life aboard city-sized voidships and vast orbital stations, ' +
+      'they are often seen as warp-touched, and the weird, insular customs of life in space often set them apart from planetborn people.',
     stub: false,
     speed: 6,
     speciesFeatures: [
@@ -427,7 +486,10 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 11, 'Mankind', 'Forge World Origin', 'Humans form the mechanical grindhouse', 10, 1),
+    ...simpleStub('aaoa', 11, 'Mankind', 'Forge World Origin', 'You hail from a domain of the Adeptus Mechanicus', 10, 1),
+    description:
+      'You hail from a domain of the Adeptus Mechanicus and were raised invoking psalms to the Omnissiah rather than prayers to the God-Emperor. ' +
+      'You are a cog within a grand machine that contains trillions of souls, honed to serve your specific purpose',
     stub: false,
     speed: 6,
     speciesFeatures: [
@@ -464,7 +526,11 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 11, 'Mankind', 'Scholar Progenium Origin', 'Humans form the noble orphanage', 25, 2),
+    ...simpleStub('aaoa', 11, 'Mankind', 'Scholar Progenium Origin', 'You were an orphaned child of a notable servant of the Imperium.', 25, 2),
+    description:
+      'You were an orphaned child of a notable servant of the Imperium, raised in one of the Schola Progenium abbeys scattered across the galaxy. ' +
+      'Under the tutelage of Drill-Abbots and other stern teachers, young Progena are honed into devout, highly capable servants of Him-on-Terra. Many of the most renowned figures in Imperial history are former Progena, recruited into positions of status and power. ' +
+      'At GM’s discretion, the Adepta Sororitas, Tempestus Scion, and Commissar archetypes may only be selected by Progena.',
     stub: false,
     speed: 6,
     speciesFeatures: [
@@ -514,7 +580,10 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 11, 'Mankind', 'Shrine World Origin', 'Humans form the cradle of the imperial creed', 10, 1),
+    ...simpleStub('aaoa', 11, 'Mankind', 'Shrine World Origin', 'Raised on a world which exists to exalt the God-Emperor.', 10, 1),
+    description:
+      'You were raised on a world which exists to exalt the God-Emperor. ' +
+      'You were raised amidst faith and fury, exposed to lore of saints and martyrs and the Emperor’s righteousness at every moment of every day.',
     stub: false,
     speed: 6,
     speciesFeatures: [
@@ -545,7 +614,10 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 16, 'Mankind', 'Pharia', 'The blank, the untouched, the hated', 30, 2),
+    ...simpleStub('aaoa', 16, 'Mankind', 'Pharia', 'A rare form of human mutant that possess no presence in the Warp.', 30, 2),
+    description:
+      'Pariahs, also known as untouchables, nulls, and blanks, are a rare form of human mutant that possess no presence in the Warp. ' +
+      'Indeed, their souls actively blot it out, disrupting psychic phenomena in their proximity and rendering them utterly impervious to psychic effects.',
     stub: false,
     speed: 6,
     speciesFeatures: [
@@ -574,8 +646,14 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 17, 'Mankind', 'Squat', 'Abhuman and dwarfish underground variant', 15, 1),
+    ...simpleStub('aaoa', 17, 'Mankind', 'Squat', 'An Abhuman breed from the inhospitable high-gravity worlds near the galactic core.', 15, 1),
     ...statMax(9,7,10,8,10,8,7,6),
+    description:
+      'An Abhuman breed from the inhospitable high-gravity worlds near the galactic core, ' +
+      'the Squats once ruled empires of their own. ' +
+      'Descended from the colonists sent to mine the resource-rich worlds of that region long ago, ' +
+      'they were cut off from humanity during the Age of Strife, and evolved to suit their environments, ' +
+      'becoming short, solid, and hardy folk.',
     stub: false,
     speed: 6,
     speciesFeatures: [
@@ -618,7 +696,14 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 18, 'Chaos', 'Beastman', 'Touched by fate... eeh chaos.', 20, 1),
+    ...simpleStub('aaoa', 18, 'Chaos', 'Beastman', 'More mutant then Abhuman and blessed with bestial features.', 20, 1),
+    description:
+      'Often regarded as mutants, rather than Abhumans, Beastmen possess numerous bestial features. ' +
+      'However, unlike mutants, Beastmen are relatively stable in form, and tend to possess similar features. ' +
+      'The average Beastman has a thick hide covered in patches of wiry fur, the head of a ruminant mammal, ' +
+      'with sturdy horns, and digitigrade legs ending in cloven hooves. ' +
+      'They stand slightly taller and broader than the average human, ' +
+      'and are generally stronger, faster, and more resilient, but their intellect is as close to the beasts they resemble as it is to that of humans.',
     stub: false,
     speed: 6,
     ...statMax(10,10,12,6,8,6,10,9),

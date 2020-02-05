@@ -864,7 +864,7 @@ export default {
             // other abilities
               const ability = {
                 name: speciesTrait.name,
-                effect: speciesTrait.snippet,
+                effect: speciesTrait.snippet ? speciesTrait.snippet : speciesTrait.description,
                 source: this.speciesLabel,
                 hint: this.speciesLabel,
               };

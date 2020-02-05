@@ -1579,8 +1579,75 @@ const togRep = [
 ];
 
 const lotnRep = [
-  simpleStub('lotn', 5, 'lotn/Necron', 'Necrons', 'Immortal', 60, 3),
-  simpleStub('lotn', 5, 'lotn/Necron', 'Necrons', 'Deathmark', 65, 3),
+  {
+    ...simpleStub('lotn', 5, 'lotn/Necron', 'Necrons', 'Immortal', 60, 3, false),
+    hint: 'Formerly members of the Necrontyr’s professional military, the Immortals were known for their peerless skill and resolve.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
+    ],
+    keywords: 'Necron, <Dynasty>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Undying Warrior',
+        snippet: 'An Immortal reduces the amount of shock it loses when soaking wounds by ½ Rank.',
+      },
+    ],
+    wargearString:
+      'Heavy plating, Gauss blaster or Tesla carbine',
+    wargear: [
+      { name: 'Heavy plating' },
+      {
+        name: 'Gauss blaster or Tesla carbine',
+        options: [
+          { name: 'Gauss blaster' },
+          { name: 'Tesla carbine' },
+        ],
+      },
+    ],
+  },
+  {
+    ...simpleStub('lotn', 5, 'lotn/Necron', 'Necrons', 'Deathmark', 65, 3),
+    hint: 'Assassins without peer, the Deathmarks are highly accurate and well-trained soldiers',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 5 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'stealth', threshold: 4 },
+      { group: 'skills', value: 'awareness', threshold: 3 },
+    ],
+    keywords: 'Necron, <Dynasty>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Hunter’s Mark',
+        description:
+          'A Deathmark may declare a single elite or adversary-level threat as its  “mark” as a free action. ' +
+          'Once a target has been marked in such a way, ' +
+          'the Deathmark will know the marked target’s exact geographic location relative to the Deathmark, ' +
+          'as well as his status as alive or dead. ' +
+          'This does not give the Deathmark information about the surroundings of the target, ' +
+          'only its relative location. It may use this ability ½ Rank times per day.',
+      },
+    ],
+    wargearString:
+      'Heavy plating, Gauss blaster or Tesla carbine',
+    wargear: [
+      { name: 'Heavy plating' },
+      {
+        name: 'Gauss blaster or Tesla carbine',
+        options: [
+          { name: 'Gauss blaster' },
+          { name: 'Tesla carbine' },
+        ],
+      },
+    ],
+  },
   simpleStub('lotn', 6, 'lotn/Necron', 'Necrons', 'Destroyer', 85, 3),
   simpleStub('lotn', 6, 'lotn/Necron', 'Necrons', 'Lichguard', 70, 4),
   simpleStub('lotn', 7, 'lotn/Necron', 'Necrons', 'Triarch Praetorian', 70, 4),
