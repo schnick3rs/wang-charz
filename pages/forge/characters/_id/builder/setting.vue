@@ -340,6 +340,15 @@ export default {
           nuxt: '/vault/an-abundance-of-apocrypha',
           source: '',
         },
+        {
+          active: true,
+          key: 'lotn',
+          name: '\'Legacy of the Necrontyr\' content',
+          hint: 'Add tier 3 necron species and archetypes.',
+          enabled: false,
+          nuxt: '/vault/legacy-of-the-necrontyr',
+          source: '',
+        },
       ],
       enabledHomebrews: [],
     };
