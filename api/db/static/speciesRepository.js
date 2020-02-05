@@ -618,7 +618,7 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 18, 'Mankind', 'Beastman', 'Touched by fate... eeh chaos.', 20, 1),
+    ...simpleStub('aaoa', 18, 'Chaos', 'Beastman', 'Touched by fate... eeh chaos.', 20, 1),
     stub: false,
     speed: 6,
     ...statMax(10,10,12,6,8,6,10,9),
@@ -656,7 +656,6 @@ const homebrewReps = [
         ],
       },
     ],
-    variant: 'core-human',
   },
   {
     ...simpleStub('pax', 14, 'Mankind', 'Navigator', 'Blessed with the third eye', 50, 1),
