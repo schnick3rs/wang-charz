@@ -1,45 +1,20 @@
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  aaoa: {
-    book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha',
-  },
-  lotn: {
-    book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr',
-  },
-  thaot: {
-    book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology',
-  },
-  ltgb: {
-    book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn',
-  },
-  aptb: {
-    book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary',
-  },
-  jtb: {
-    book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary',
-  },
-  aotgt: {
-    book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne',
-  },
-  tea: {
-    book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels',
-  },
-  heva: {
-    book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault',
-  },
-  goen: {
-    book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines',
-  },
-  tog: {
-    book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory',
-  },
-  pax: {
-    book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis',
-  },
-  sotah: {
-    book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde',
-  },
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
+  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
+  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
+  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
+  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
+  aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
+  tea: { book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
+  heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
+  goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
+  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
+  pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
+  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
+  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
 };
 
 const stringToKebab = function (text) {
@@ -53,6 +28,23 @@ const kebabToCamel = function (slug) {
 const stringToKebabToCamel = function (text) {
   const slug = stringToKebab(text);
   return kebabToCamel(slug);
+};
+
+const statMax = function (str, agi, tou, int, wil, fel, ini, spe) {
+  return {
+    attributeMaximums: [
+      { name: 'Strength', value: str },
+      { name: 'Agility', value: agi },
+      { name: 'Toughness', value: tou },
+      { name: 'Intellect', value: int },
+      { name: 'Willpower', value: wil },
+      { name: 'Fellowship', value: fel },
+      { name: 'Initiative', value: ini },
+    ],
+    traitMaximums: [
+      { name: 'Speed', value: spe },
+    ],
+  }
 };
 
 const simpleStub = function (sourceKey, sourcePage, group, name, hint, bp, tier) {
@@ -69,6 +61,7 @@ const simpleStub = function (sourceKey, sourcePage, group, name, hint, bp, tier)
     baseTier: tier,
     stub: true,
     keywords: [],
+    ...statMax(8,8,8,8,8,8,8,8),
   };
 };
 
@@ -107,8 +100,8 @@ const coreRep = [
         name: 'Attribute Modifications',
         snippet: 'Decrease Strength by 1. Increase Agility by 1.',
         modifications: [
-          { targetGroup: 'attributes', targetValue: 'strength', modifier: -1 },
           { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'strength', modifier: -1 },
         ],
       },
       {
@@ -337,15 +330,334 @@ const coreRep = [
 const homebrewReps = [
   simpleStub('heva', 6, 'Aeldari', 'Dark Eldar', 'From the shadows, from the Dark City', 20, 1),
   simpleStub('lotn', 3, 'Necrons', 'Necron', 'Living metal form the deepest slumber', 60, 3),
-  simpleStub('aaoa', 10, 'Mankind', 'Death World Origin', 'Humans from the deadly worlds', 10, 1),
-  simpleStub('aaoa', 10, 'Mankind', 'Hive World Origin', 'Humans from the overcrowded cities', 10, 1),
-  simpleStub('aaoa', 10, 'Mankind', 'Voidborn Origin', 'Humans form the void of space', 10, 1),
-  simpleStub('aaoa', 11, 'Mankind', 'Forge World Origin', 'Humans form the mechanical grindhouse', 10, 1),
-  simpleStub('aaoa', 11, 'Mankind', 'Scholar Progenium Origin', 'Humans form the nobel orphanage', 25, 1),
-  simpleStub('aaoa', 11, 'Mankind', 'Shrine World Origin', 'Humans form the cradle of the imperial creed', 10, 1),
-  simpleStub('aaoa', 16, 'Mankind', 'Pharia', 'The blank, the untouched, the hated', 30, 2),
-  simpleStub('aaoa', 17, 'Mankind', 'Squat', 'Abhuman and dwarfish underground variant', 15, 1),
-  simpleStub('aaoa', 18, 'Mankind', 'Beastman', 'Touched by fate... eeh chaos.', 20, 1),
+  {
+    ...simpleStub('aaoa', 10, 'Mankind', 'Death World Origin', 'Humans from the deadly worlds', 10, 1),
+    stub: false,
+    speed: 6,
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: '+1 Strength or +1 Toughness',
+        options: [
+          { name: 'Strength', modifications: [ { name: 'Strength', targetGroup: 'attributes', targetValue: 'strength', modifier: 1 } ] },
+          { name: 'Toughness', modifications: [ { name: 'Toughness', targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 } ] },
+        ],
+      },
+      {
+        name: 'Bitter Survivor',
+        snippet: 'You add +1 bonus die to all Soak Tests and may re-roll one Defiance roll per scene.',
+        description:
+          'The character clings onto life and is well-versed in eluding death’s grasp. ' +
+          'The character receives +1d on all Soak tests and may re-roll one Defiance roll per scene.'
+      },
+      {
+        name: 'Not One of Us',
+        snippet: 'You suffer +1 DN to Interaction Tests with non-Deathworldlers.',
+        description:
+          'Deathworlders don’t easily trust those who haven’t endured the same kind of hostile environments. ' +
+          'They suffer +1DN to all Interaction tests with those who aren’t Deathworlders.'
+      },
+    ],
+    variant: 'core-human',
+  },
+  {
+    ...simpleStub('aaoa', 10, 'Mankind', 'Hive World Origin', 'Humans from the overcrowded cities', 10, 1),
+    stub: false,
+    speed: 6,
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: '+1 Agility or +1 Initiative',
+        options: [
+          { name: 'Agility', modifications: [ { name: 'Agility', targetGroup: 'attributes', targetValue: 'agility', modifier: 1 } ] },
+          { name: 'Initiative', modifications: [ { name: 'Initiative', targetGroup: 'attributes', targetValue: 'initiative', modifier: 1 } ] },
+        ],
+      },
+      {
+        name: 'Caves of Steel',
+        snippet: 'You add +1 bonus die to Tech Tests.',
+        description:
+          'The character has been surrounded by technology, some of which may be centuries or millennia old, ' +
+          'for their entire lives. The character gains +1 to Tech tests.'
+      },
+      {
+        name: 'Hivebound',
+        snippet: 'You suffer +1 DN to Survival Tests when not in urban or manufactured environment.',
+        description:
+          'Hivers are unaccustomed to the ways of wild, untamed places. ' +
+          'Even the wilderness of underhive levels and abandoned habs is still built around artificial structures. ' +
+          'Hiveworlders suffer +1DN on all Survival tests made when not in an urban or manufactured environment.'
+      },
+    ],
+    variant: 'core-human',
+  },
+  {
+    ...simpleStub('aaoa', 10, 'Mankind', 'Voidborn Origin', 'Humans form the void of space', 10, 1),
+    stub: false,
+    speed: 6,
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: '+1 Willpower or +1 Initiative',
+        options: [
+          { name: 'Willpower', modifications: [ { name: 'Willpower', targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 } ] },
+          { name: 'Initiative', modifications: [ { name: 'Initiative', targetGroup: 'attributes', targetValue: 'initiative', modifier: 1 } ] },
+        ],
+      },
+      {
+        name: 'Voidwise',
+        snippet: 'You add +1 bonus die to tests resisting radiation and you ignore all penalties to actions caused by low- or Zero-gravity.',
+        description:
+          'The character is accustomed to the vagaries of life aboard ship or station and ' +
+          'is well-versed in protective rites and emergency doctrines. ' +
+          'The character gains +1d on all tests to resist radiation and ignores all ' +
+          'penalties to action caused by low- or zero-gravity environments.'
+      },
+      {
+        name: 'Ill-Omened',
+        snippet: 'Your Interaction Tests with non-Voidbornd use 2 wrath dice and you can\'t crit.',
+        description:
+          'Voidborn are considered strange and inauspicious by others, ' +
+          'who look for even the slightest sign of ill-fortune. ' +
+          'When attempting an interaction test with a non-Voidborn, ' +
+          'two dice are treated as Wrath dice, rather than one, ' +
+          'and the character is unable to score criticals on these tests.'
+      },
+    ],
+    variant: 'core-human',
+  },
+  {
+    ...simpleStub('aaoa', 11, 'Mankind', 'Forge World Origin', 'Humans form the mechanical grindhouse', 10, 1),
+    stub: false,
+    speed: 6,
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: '+1 to one Attribute of your choice',
+        options: [
+          { name: 'Strength', modifications: [ { name: 'Strength', targetGroup: 'attributes', targetValue: 'strength', modifier: 1 } ] },
+          { name: 'Agility', modifications: [ { name: 'Agility', targetGroup: 'attributes', targetValue: 'agility', modifier: 1 } ] },
+          { name: 'Toughness', modifications: [ { name: 'Willpower', targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 } ] },
+          { name: 'Intellect', modifications: [ { name: 'Intellect', targetGroup: 'attributes', targetValue: 'intellect', modifier: 1 } ] },
+          { name: 'Fellowship', modifications: [ { name: 'Fellowship', targetGroup: 'attributes', targetValue: 'fellowship', modifier: 1 } ] },
+          { name: 'Willpower', modifications: [ { name: 'Willpower', targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 } ] },
+          { name: 'Initiative', modifications: [ { name: 'Initiative', targetGroup: 'attributes', targetValue: 'initiative', modifier: 1 } ] },
+        ],
+      },
+      {
+        name: 'Ave Omnissiah',
+        snippet: 'You ad +1 bonus die to Tech and Scholar Tests relating to the Adeptus Mechanicus.',
+        description:
+          'The character has memorised countless operation litanies and maintenance hymnals, ' +
+          'giving them an innate familiarity with machines and the Cult Mechanicus. ' +
+          'They receive +1d on all Tech tests and Scholar tests relating to the Adeptus Mechanicus.'
+      },
+      {
+        name: 'Stranger to the Church',
+        snippet: 'You suffer +2 DN to Lore Tests relating to the Imperial Creed. You may not take archetypes with the Adeptus Ministorum keyword.',
+        description:
+          'Forgeworlders are unfamiliar with the ways of the Ministorum and the Imperial Creed ' +
+          'and suffer +2DN on all Lore tests relating to the Imperial Creed. ' +
+          'The character may not take any archetypes with the Adeptus Ministorum keyword.'
+      },
+    ],
+    variant: 'core-human',
+  },
+  {
+    ...simpleStub('aaoa', 11, 'Mankind', 'Scholar Progenium Origin', 'Humans form the nobel orphanage', 25, 2),
+    stub: false,
+    speed: 6,
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: '+1 to Toughness or Willpower',
+        options: [
+          { name: 'Toughness', modifications: [ { name: 'Willpower', targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 } ] },
+          { name: 'Willpower', modifications: [ { name: 'Willpower', targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 } ] },
+        ],
+      },
+      {
+        name: 'Schola Education (1)',
+        snippet: 'You add +1 bonus die to any two of the following skill tests.',
+        description:
+          'The character was groomed from a young age to be an example to others. ' +
+          'You gain +1d on any two of the following skills, chosen during character creation: Insight, Intimidate, Leadership, Scholar.',
+        options: [
+          { name: 'Insight', modifications: [ { name: 'Insight', targetGroup: 'skills', targetValue: 'insight', modifier: 1 } ] },
+          { name: 'Intimidate', modifications: [ { name: 'Intimidate', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 } ] },
+          { name: 'Leadership', modifications: [ { name: 'Leadership', targetGroup: 'skills', targetValue: 'leadership', modifier: 1 } ] },
+          { name: 'Scholar', modifications: [ { name: 'Scholar', targetGroup: 'skills', targetValue: 'Scholar', modifier: 1 } ] },
+        ],
+      },
+
+      {
+        name: 'Schola Education (2)',
+        snippet: 'You add +1 bonus die to any two of the following skill tests.',
+        description:
+          'The character was groomed from a young age to be an example to others. ' +
+          'You gain +1d on any two of the following skills, chosen during character creation: Insight, Intimidate, Leadership, Scholar.',
+        options: [
+          { name: 'Insight', modifications: [ { name: 'Insight', targetGroup: 'skills', targetValue: 'insight', modifier: 1 } ] },
+          { name: 'Intimidate', modifications: [ { name: 'Intimidate', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 } ] },
+          { name: 'Leadership', modifications: [ { name: 'Leadership', targetGroup: 'skills', targetValue: 'leadership', modifier: 1 } ] },
+          { name: 'Scholar', modifications: [ { name: 'Scholar', targetGroup: 'skills', targetValue: 'Scholar', modifier: 1 } ] },
+        ],
+      },
+      {
+        name: 'Cloistered Upbringing',
+        snippet: 'You suffer +2 DN to non-hostile Interaction Tests when dealing with characters with the Scum keyword.',
+        description:
+          'Progena have little patience for, or understanding of, the dregs of society. ' +
+          'The character suffers +2DN on all non-hostile Interaction tests made when dealing with characters who have the Scum keyword.'
+      },
+    ],
+    variant: 'core-human',
+  },
+  {
+    ...simpleStub('aaoa', 11, 'Mankind', 'Shrine World Origin', 'Humans form the cradle of the imperial creed', 10, 1),
+    stub: false,
+    speed: 6,
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: '+1 to Willpower or Fellowship',
+        options: [
+          { name: 'Fellowship', modifications: [ { name: 'Fellowship', targetGroup: 'attributes', targetValue: 'fellowship', modifier: 1 } ] },
+          { name: 'Willpower', modifications: [ { name: 'Willpower', targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 } ] },
+        ],
+      },
+      {
+        name: 'The Scorn of the Devout',
+        snippet: 'You add +1 bonus die to Resolve and Conviction Tests and +1 bonus die to Weapon Skill Tests against enemies with the Heretic Keyword.',
+        description:
+          'The character is filled with holy hatred and fury. ' +
+          'They receive +1 to Resolve and Conviction, and +1d on all Weapon Skill tests made to attack enemies with the Heretic keyword.'
+      },
+      {
+        name: 'Abhor the Unhallowed',
+        snippet: 'You suffer +1 DN to Scholar and Tech Tests related to Chaos or Heretic items, or those of Xenos Origin.',
+        description:
+          'The character is filled with an instinctive revulsion for the unholy or unclean. ' +
+          'They suffer +1DN on all Scholar or Tech tests relating to items or characters with the Heretic or ' +
+          'Chaos keywords, or with any keyword belonging to a Xenos species.'
+      },
+    ],
+    variant: 'core-human',
+  },
+  {
+    ...simpleStub('aaoa', 16, 'Mankind', 'Pharia', 'The blank, the untouched, the hated', 30, 2),
+    stub: false,
+    speed: 6,
+    speciesFeatures: [
+      {
+        name: 'Abhorrent Presence',
+        snippet: 'You Suffer +2 DN to Interaction Tests with non-Pariahs and +4 DN with Psykers.',
+        description:
+          '+2DN to all interaction tests with non-pariah characters. +4DN to interaction tests with psykers. Pariahs reduce their Influence by 1.',
+        modifications: [ { targetGroup: 'traits', targetValue: 'Influence', modifier: -1 } ]
+      },
+      {
+        name: 'Indistinguishable from Human',
+        snippet: 'You are considered Human for all purposes.',
+        description:
+          'Pariahs are considered to be Human for all purposes.'
+      },
+      {
+        name: 'Psychic Abomination',
+        snippet: 'Within Willpower Meters, each Psychic Power that originate or target that area increase their DN by Rank x2',
+        description:
+          'A pariah cannot be directly affected by psychic powers or other warp phenomena, whether positive or negative. ' +
+          'A pariah can never gain the Psyker keyword, nor can they ever gain Faith points or any other ability that requires drawing upon the Warp for power. ' +
+          'Any psychic powers attempted or targeted within a number of metres of the Pariah equal to their Willpower increase their DN by twice the Pariah’s Rank.'
+      },
+    ],
+    variant: 'core-human',
+  },
+  {
+    ...simpleStub('aaoa', 17, 'Mankind', 'Squat', 'Abhuman and dwarfish underground variant', 15, 1),
+    ...statMax(9,7,10,8,10,8,7,6),
+    stub: false,
+    speed: 6,
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: 'Increase Toughness and Willpower by 1.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 },
+        ],
+      },
+      {
+        name: 'Abhuman',
+        snippet: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
+      },
+      {
+        name: 'Grudges',
+        snippet: 'You add +1 bonus die to Melee Attack tests against characters possessing the Ork or Chaos Keyword. ' +
+          'You suffer +2 DN to non-hostile Interaction tests against the same targets.',
+        description:
+          '+1d to all melee attacks against characters possessing the Ork or Chaos keywords. ' +
+          '+2DN penalty on all non-hostile Interaction skill tests vs. targets possessing the Ork or Chaos keywords.'
+      },
+      {
+        name: 'Technology Without Superstition',
+        snippet: 'You add +1 bonus die to Tech Tests.',
+        description:
+          '+1d bonus to all Tech tests.'
+      },
+      {
+        name: 'Legacy of the Cataclysm',
+        snippet: 'You begin play with 3 points corruption.',
+        description:
+          'You begin play with +3 corruption.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+        ],
+      },
+    ],
+    variant: 'core-human',
+  },
+  {
+    ...simpleStub('aaoa', 18, 'Mankind', 'Beastman', 'Touched by fate... eeh chaos.', 20, 1),
+    stub: false,
+    speed: 6,
+    ...statMax(10,10,12,6,8,6,10,9),
+    speciesFeatures: [
+      {
+        name: 'Attribute Modifications',
+        snippet: 'Increase Strength and Toughness by 1, and Wounds by 2. Decrease Intellect and Fellowship by 1.',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'intellect', modifier: -1 },
+          { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
+          { targetGroup: 'traits', targetValue: 'wounds', modifier: 2 },
+        ],
+      },
+      {
+        name: 'Reviled Abhuman',
+        snippet: 'You suffer +2 DN to Interaction Tests with characters not-possessing the Chaos keyword.',
+      },
+      {
+        name: 'Horns',
+        snippet: 'You may make melee attacks with your horns (5+1ED; AP 0). Thus, you are always armed.',
+      },
+      {
+        name: 'Bestial Savagery',
+        snippet: 'You add +1 bonus die to Intimidation tests.',
+      },
+      {
+        name: 'Child of Chaos',
+        snippet: 'You begin play with 3 points corruption.',
+        description:
+          'You begin play with +3 corruption.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+        ],
+      },
+    ],
+    variant: 'core-human',
+  },
   {
     ...simpleStub('pax', 14, 'Mankind', 'Navigator', 'Blessed with the third eye', 50, 1),
     stub: false,
@@ -482,7 +794,7 @@ const homebrewReps = [
         snippet: 'Decrease Fellowship by 1. Increase Toughness or Strength by 1.',
         options: [
           { name: 'Toughness', modifications: [ { name: 'Toughness', targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 } ] },
-          { name: 'Strength', modifications: [ { name: 'Toughness', targetGroup: 'attributes', targetValue: 'strength', modifier: 1 } ] },
+          { name: 'Strength', modifications: [ { name: 'Strength', targetGroup: 'attributes', targetValue: 'strength', modifier: 1 } ] },
         ],
         modifications: [
           { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },

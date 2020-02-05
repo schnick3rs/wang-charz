@@ -205,6 +205,9 @@
         persistent-hint
       />
 
+    </v-col>
+
+    <v-col :cols="12">
       <div>
         <h2 class="title">Homebrews</h2>
         <p>Allow specific homebrew content to be used for this character.</p>
@@ -216,15 +219,14 @@
             v-model="enabledHomebrews"
             :label="homebrew.name"
             :value="homebrew.key"
+            :hint="homebrew.hint"
+            persistent-hint
             color="primary"
-            class="mt-0 mb-0"
             dense
             @change="updateHomebrew(homebrew)"
           />
-          <span class="caption">{{homebrew.hint}}</span>
         </div>
       </div>
-
     </v-col>
 
     <v-col :cols="12" />
@@ -323,11 +325,20 @@ export default {
         {
           active: true,
           key: 'pax',
-          name: '\'Pax Imperialis\' content (Fan supplement)',
+          name: '\'Pax Imperialis\' content',
           hint: 'Add Beastman, Navigators and Untouchables and their respective archetypes.',
           enabled: false,
-          nuxt: '/vault/agents-of-the-golden-throne',
+          nuxt: '/vault/pax-imperialis',
           source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
+        },
+        {
+          active: true,
+          key: 'aaoa',
+          name: '\'An abundance of Apocrypha\' content',
+          hint: 'Add Human Origin Variants.',
+          enabled: false,
+          nuxt: '/vault/an-abundance-of-apocrypha',
+          source: '',
         },
       ],
       enabledHomebrews: [],

@@ -281,9 +281,8 @@ export const mutations = {
     const character = state.characters[payload.id];
     const { modifications } = payload.content;
     const source = payload.content.source || undefined;
-    console.info(payload);
 
-    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
+    console.info(`Enhance/Modify: Adding ${modifications.length} from '${source}'.`);
 
     // we remove all enhancements that share the cleanup value.
     if (source !== undefined) {
@@ -292,6 +291,7 @@ export const mutations = {
 
     modifications.forEach((item) => {
       item.source = source;
+      console.info(`Enhance ${item.targetGroup}/${item.targetValue} by ${item.modifier} [${item.source}].`);
       character.enhancements.push(item);
     });
   },

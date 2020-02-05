@@ -139,7 +139,7 @@ export default {
       species.speciesFeatures
         .filter( (t) => t.modifications !== undefined )
         .forEach( (t) => {
-          modifications = [ ...t.modifications ];
+          modifications = [ ...modifications, ...t.modifications ];
         });
 
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: 'species' });
