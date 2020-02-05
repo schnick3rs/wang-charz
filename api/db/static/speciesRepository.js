@@ -464,7 +464,7 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 11, 'Mankind', 'Scholar Progenium Origin', 'Humans form the nobel orphanage', 25, 2),
+    ...simpleStub('aaoa', 11, 'Mankind', 'Scholar Progenium Origin', 'Humans form the noble orphanage', 25, 2),
     stub: false,
     speed: 6,
     speciesFeatures: [
