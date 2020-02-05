@@ -335,7 +335,7 @@ export default {
           active: true,
           key: 'aaoa',
           name: '\'An abundance of Apocrypha\' content',
-          hint: 'Add Human Origin Variants.',
+          hint: 'Add Human Homeworlds, Squad, Pariah and Beastman.',
           enabled: false,
           nuxt: '/vault/an-abundance-of-apocrypha',
           source: '',
