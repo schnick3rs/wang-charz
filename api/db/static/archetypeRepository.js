@@ -1580,7 +1580,7 @@ const togRep = [
 
 const lotnRep = [
   {
-    ...simpleStub('lotn', 5, 'lotn/Necron', 'Necrons', 'Immortal', 60, 3, false),
+    ...simpleStub('lotn', 5, 'lotn-necron', 'Necrons', 'Immortal', 60, 3, false),
     hint: 'Formerly members of the Necrontyr’s professional military, the Immortals were known for their peerless skill and resolve.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -1611,7 +1611,7 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 5, 'lotn/Necron', 'Necrons', 'Deathmark', 65, 3),
+    ...simpleStub('lotn', 5, 'lotn-necron', 'Necrons', 'Deathmark', 65, 3, false),
     hint: 'Assassins without peer, the Deathmarks are highly accurate and well-trained soldiers',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -1636,24 +1636,75 @@ const lotnRep = [
       },
     ],
     wargearString:
-      'Heavy plating, Gauss blaster or Tesla carbine',
+      'Heavy plating, Synaptic Disintegrator, Dimensional Oubliette generator',
     wargear: [
       { name: 'Heavy plating' },
-      {
-        name: 'Gauss blaster or Tesla carbine',
-        options: [
-          { name: 'Gauss blaster' },
-          { name: 'Tesla carbine' },
-        ],
-      },
+      { name: 'Synaptic Disintegrator' },
+      { name: 'Dimensional Oubliette generator' },
     ],
   },
-  simpleStub('lotn', 6, 'lotn/Necron', 'Necrons', 'Destroyer', 85, 3),
-  simpleStub('lotn', 6, 'lotn/Necron', 'Necrons', 'Lichguard', 70, 4),
-  simpleStub('lotn', 7, 'lotn/Necron', 'Necrons', 'Triarch Praetorian', 70, 4),
-  simpleStub('lotn', 7, 'lotn/Necron', 'Necrons', 'Lord', 80, 4),
-  simpleStub('lotn', 8, 'lotn/Necron', 'Necrons', 'Cryptek', 75, 4),
-  simpleStub('lotn', 8, 'lotn/Necron', 'Necrons', 'Destroyer Lord', 95, 4),
+  {
+    ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Destroyer', 85, 3, false),
+    hint: 'Awoken with their minds decayed and damaged.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+    ],
+    keywords: 'Necron, <Dynasty>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Hardwired Hatred',
+        snippet: 'You add +½ Rank bonus dice to Attack Tests against organic targets. You suffer +2 DN to Social Tests with non-Destroyer Necrons.',
+        description:
+          '<p>A Destroyer gains +½ Rank to Attack tests against organic targets, ' +
+          'but suffers a +2DN penalty to social tests with non-Destroyer Necrons.</p>',
+      },
+    ],
+    wargearString:
+      'Heavy plating, Gauss Cannon, Grav-platform',
+    wargear: [
+      { name: 'Heavy plating' },
+      { name: 'Gauss Cannon' },
+      { name: 'Grav-platform' },
+    ],
+  },
+  {
+    ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Lichguard', 70, 4, true),
+    hint: 'Awoken with their minds decayed and damaged.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+    ],
+    keywords: 'Necron, <Dynasty>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Hardwired Hatred',
+        snippet: 'You add +½ Rank bonus dice to Attack Tests against organic targets. You suffer +2 DN to Social Tests with non-Destroyer Necrons.',
+        description:
+          '<p>A Destroyer gains +½ Rank to Attack tests against organic targets, ' +
+          'but suffers a +2DN penalty to social tests with non-Destroyer Necrons.</p>',
+      },
+    ],
+    wargearString:
+      'Heavy plating, Gauss Cannon, Grav-platform',
+    wargear: [
+      { name: 'Heavy plating' },
+      { name: 'Gauss Cannon' },
+      { name: 'Grav-platform' },
+    ],
+  },
+  simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Triarch Praetorian', 70, 4),
+  simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Lord', 80, 4),
+  simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Cryptek', 75, 4),
+  simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Destroyer Lord', 95, 4),
 ];
 
 const paxRep = [

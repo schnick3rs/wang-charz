@@ -614,7 +614,7 @@ const homebrewReps = [
     variant: 'core-human',
   },
   {
-    ...simpleStub('aaoa', 16, 'Mankind', 'Pharia', 'A rare form of human mutant that possess no presence in the Warp.', 30, 2),
+    ...simpleStub('aaoa', 16, 'Mankind', 'Pariah', 'A rare form of human mutant that possess no presence in the Warp.', 30, 2),
     description:
       'Pariahs, also known as untouchables, nulls, and blanks, are a rare form of human mutant that possess no presence in the Warp. ' +
       'Indeed, their souls actively blot it out, disrupting psychic phenomena in their proximity and rendering them utterly impervious to psychic effects.',

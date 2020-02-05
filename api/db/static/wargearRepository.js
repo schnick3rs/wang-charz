@@ -128,8 +128,20 @@ const core = [];
 
 const lotn = [
   {
-    ...simpleStub(20101, 'lotn',10,'Gauss Blaster', '6R', 'Gauss,Necron', ''),
+    ...simpleStub(20100, 'lotn',10,'Gauss Flayer', '5U', 'Gauss,Necron', ''),
     ...range('Gauss Weapon', 48, 10, 1, -1, 2, 'Rapid Fire (2)'),
+  },
+  {
+    ...simpleStub(20101, 'lotn',10,'Gauss Blaster', '6R', 'Gauss,Necron', ''),
+    ...range('Gauss Weapon', 48, 12, 1, -2, 2, 'Rapid Fire (2)'),
+  },
+  {
+    ...simpleStub(20102, 'lotn',10,'Gauss Cannon', '7R', 'Gauss,Necron', ''),
+    ...range('Gauss Weapon', 48, 14, 2, -3, 3, 'Heavy'),
+  },
+  {
+    ...simpleStub(20103, 'lotn',10,'Heavy Gauss Cannon', '8R', 'Gauss,Necron', ''),
+    ...range('Gauss Weapon', 72, 18, 1, -4, 1, 'Heavy'),
   },
   {
     ...simpleStub(20110 , 'lotn',11,'Tesla Carbine', '5R', 'Tesla,Necron', ''),
@@ -137,8 +149,32 @@ const lotn = [
     //Tesla : These weapons are designed to fire arcs  of energy that seem to bounce between  targets, creating chains of death that can  reduce entire squads to smoking ash.  Whenever one or more 6s are shifted to  damage after hitting with a Tesla weapon, up  to two other enemies within 4m of the original  target are also considered to be hit, so long as  their defense is equal to or less than that of the  original target. If the original target was a mob,  the mob is considered to have been hit three  times instead of only once. The weapon’s full  damage is dealt to all three targets, or three  times to a mob.
   },
   {
+    ...simpleStub(20112 , 'lotn',11,'Synaptic Disintegrator', '7R', 'Necron', ''),
+    ...range('Exotic Weapon', 48, 10, 1, 0, 1, 'Rapid Fire (1), Sniper (2)'),
+  },
+  {
     ...simpleStub(20119, 'lotn',11,'Heavy Plating', '7R', 'Necron', ''),
     ...armour('Necron Armour', 5),
+  },
+  {
+    ...simpleStub(20125, 'lotn',12,'Dimensional Oubliette Generator', '7V', 'Necron', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Necron Equipment',
+    description:
+      'The possessor of this device can, at will, generate a dimensional oubliette, an extradimensional space that can hold a single individual Necron and its wargear. ' +
+      'The Necron inside is undetectable by any means, but can see out. ' +
+      'It cannot affect the outside world without fully exiting the oubliette. ' +
+      'Only the character carrying the generator can enter the Oubliette, and only a Necron can survive inside the airless, hostile environment.',
+  },
+  {
+    ...simpleStub(20126, 'lotn',12,'Grav-Platform', '7V', 'Necron', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Necron Equipment',
+    snippet: 'Your speed increased by 10, and you may fly like a vehicle with the Hover trait. Considered Braced for Heavy Weapons.',
+    description:
+      '<p>Less a piece of wargear and more a permanent modification, a Grav Platform replaces the user’s lower half. ' +
+      'The bearer’s Speed is increased to 10, and it may fly like a vehicle with the Hover trait. ' +
+      'A Necron with a Grav-Platform is always considered to be braced for the purposes of firing heavy weapons.</p>',
   },
 ];
 
