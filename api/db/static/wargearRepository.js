@@ -71,7 +71,7 @@ const range = function (subtype, range, damageStatic, damageEd, ap, salvo, trait
     meta: [
       {
         type: 'range-weapon',
-        range: range+'m',
+        range: range,
         damage: {
           static: damageStatic,
           ed: damageEd,
@@ -91,7 +91,7 @@ const melee = function (subtype, range, damageStatic, damageEd, ap, traits) {
     meta: [
       {
         type: 'malee-weapon',
-        range: range <= 1 ? 'melee' : range+'m',
+        range: range < 1 ? 1 : range,
         damage: {
           static: damageStatic,
           ed: damageEd,
