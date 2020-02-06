@@ -163,6 +163,16 @@ const lotn = [
     ...range('Gauss Weapon', 72, 18, 1, -4, 1, 'Heavy'),
   },
   {
+    ...simpleStub(20104, 'lotn',10,'Rod of Covenant', '7V', 'Gauss,Necron', ''),
+    ...range('Gauss Weapons', 24, 12, 1, -3, 1, 'Assault'),
+    //...melee('', 1, 5, 1, -3, '')
+  },
+  {
+    ...simpleStub(20105, 'lotn',10,'Staff of Light', '8V', 'Gauss,Necron', ''),
+    ...range('Gauss Weapons', 24, 12, 1, -2, 3, 'Assault'),
+    //...melee('', 1, 5, 1, -2, '')
+  },
+  {
     ...simpleStub(20110 , 'lotn',11,'Tesla Carbine', '5R', 'Tesla,Necron', ''),
     ...range('Tesla Weapon', 48, 12, 1, 0, 2, 'Assault,Tesla'),
     //Tesla : These weapons are designed to fire arcs  of energy that seem to bounce between  targets, creating chains of death that can  reduce entire squads to smoking ash.  Whenever one or more 6s are shifted to  damage after hitting with a Tesla weapon, up  to two other enemies within 4m of the original  target are also considered to be hit, so long as  their defense is equal to or less than that of the  original target. If the original target was a mob,  the mob is considered to have been hit three  times instead of only once. The weapon’s full  damage is dealt to all three targets, or three  times to a mob.
@@ -201,14 +211,40 @@ const lotn = [
     ...armour('Necron Armour', 5),
   },
   {
+    ...simpleStub(20120, 'lotn',12,'Scaled Cloak', '8V', 'Necron', ''),
+    ...armour('Necron Armour', 6),
+  },
+  {
+    ...simpleStub(20121, 'lotn',12,'Phase Shifter', '7V', 'Necron', ''),
+    ...armour('Necron Armour', 4, 'Force Shield'),
+  },
+  {
+    ...simpleStub(20122, 'lotn',12,'Dispersion Shield', '8V', 'Necron', ''),
+    ...armour('Necron Armour', 1, 'Force Shield, Shield'),
+  },
+  {
+    ...simpleStub(20123, 'lotn',12,'Chronometron', '8L', 'Necron', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Necron Equipment',
+    description:
+      '<p>Rarely carried by any but Crypteks who understand its arcane machinery, this device allows the bearer to warp the temporal fabric of reality, allowing those near the bearer to move slightly out of sync with the galaxy’s normal flow. Necrons within 6m of a Chronometron gain AV *3 with the Force Shield trait, and gain +1 to Defense. Additionally, once per combat, the bearer of a Chronometron may Seize the Initiative without spending glory.</p>',
+  },
+  {
+    ...simpleStub(20124, 'lotn',12,'Canoptek Cloak', '8V', 'Necron', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Necron Equipment',
+    description:
+      '<p>A specialized platform designed to carry aloft a Cryptek, a Necron with a Canoptek Cloak increases its Speed characteristic to 10, and may fly like a vehicle with the Hover trait. In addition, once per round as a free action, the user may select a vehicle within 6m with the Living Metal trait and make a DN 4 Tech test. It heals d6 wounds instead of d3 wounds that turn if successful.</p>',
+  },
+  {
     ...simpleStub(20125, 'lotn',12,'Dimensional Oubliette Generator', '7V', 'Necron', ''),
     type: 'Tools & Equipment',
     subtype: 'Necron Equipment',
     description:
-      'The possessor of this device can, at will, generate a dimensional oubliette, an extradimensional space that can hold a single individual Necron and its wargear. ' +
+      '<p>The possessor of this device can, at will, generate a dimensional oubliette, an extradimensional space that can hold a single individual Necron and its wargear. ' +
       'The Necron inside is undetectable by any means, but can see out. ' +
       'It cannot affect the outside world without fully exiting the oubliette. ' +
-      'Only the character carrying the generator can enter the Oubliette, and only a Necron can survive inside the airless, hostile environment.',
+      'Only the character carrying the generator can enter the Oubliette, and only a Necron can survive inside the airless, hostile environment.</p>',
   },
   {
     ...simpleStub(20126, 'lotn',12,'Grav-Platform', '7V', 'Necron', ''),
@@ -219,6 +255,26 @@ const lotn = [
       '<p>Less a piece of wargear and more a permanent modification, a Grav Platform replaces the user’s lower half. ' +
       'The bearer’s Speed is increased to 10, and it may fly like a vehicle with the Hover trait. ' +
       'A Necron with a Grav-Platform is always considered to be braced for the purposes of firing heavy weapons.</p>',
+  },
+  {
+    ...simpleStub(20127, 'lotn',12,'Phylactery', '8V', 'Necron', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Necron Equipment',
+    snippet: 'Your `Living Metal` ability heals 1d3 wounds instead of 1.',
+    description:
+      '<p>A small device that produces nano-scarabs that passively repair the bearer’s body, a Phylactery speeds up the natural healing of a Necron. ' +
+      'A Necron with a Phylactery heals d3 wounds rather than 1 wound from its Living Metal ability each turn.</p>',
+  },
+  {
+    ...simpleStub(20128, 'lotn',12,'Resurrection Orb', '9L', 'Necron', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Necron Equipment',
+    snippet: 'Activate as an Action once per session: All Necrons within 6m that are at 0 Wounds or dead my take a Defiance Check and, on success, resurect with 1d6 wounds remaining.',
+    description:
+      '<pAn arcane relic, this device releases a pulse of energy that can return destroyed and damaged Necrons to functionality, but it requires quite a long time to recharge. ' +
+      'Once per session, the bearer of a Resurrection Orb may activate it as an action. ' +
+      'When this occurs, all Necrons within 6m that are at 0 wounds or are dead may make an immediate Defiance check. ' +
+      'If successful, they return to consciousness with d6 Wounds remaining, even if they were dead.</p>',
   },
 ];
 

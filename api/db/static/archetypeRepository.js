@@ -1673,7 +1673,7 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Lichguard', 70, 4, true),
+    ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Lichguard', 70, 4, false),
     hint: 'The Royal Guard of the Necron Dynasties.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },
@@ -1706,10 +1706,137 @@ const lotnRep = [
       { name: 'symbol of authority', variant: 'Dynastic Crest' },
     ],
   },
-  simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Triarch Praetorian', 70, 4),
-  simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Lord', 80, 4),
-  simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Cryptek', 75, 4),
-  simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Destroyer Lord', 95, 4),
+  {
+    ...simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Triarch Praetorian', 70, 4, false),
+    hint: 'The law enforcing arm of the old triarch.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 5 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 5 },
+      { group: 'attributes', value: 'intellect', threshold: 4 },
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+      { group: 'skills', value: 'scholar', threshold: 5 },
+      { group: 'skills', value: 'persuasion', threshold: 3 },
+    ],
+    keywords: 'Necron, Triarch',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Codes of Combat',
+        description:
+          '<p>A Triarch gains +Rank bonus dice to all Scholar tests to decide matters of Necrontyr law. ' +
+          'A Praetorian may make choose a single non-Necron elite or adversary-tier threat and make a DN 4 Scholar test as an action. ' +
+          'If successful, the Triarch may declare that threat Honorable or Dishonorable. ' +
+          'If it is Honorable, all Necrons within 12m gain +½ Rank to Weapon Skill tests against that threat. ' +
+          'If it is Dishonorable, all Necrons within 12m gain +½ Rank to Ballistic Skill tests against that target, ' +
+          'and certain tactics and cruelties may be permissible to use against it.</p>',
+      },
+    ],
+    wargearString:
+      'Heavy plating, Rod of Covenant, Crest of the Triarch (Symbol of Authority)',
+    wargear: [
+      { name: 'Heavy plating' },
+      { name: 'Rod of Covenant' },
+      { name: 'symbol of authority', variant: 'Crest of the Triarch' },
+    ],
+  },
+  {
+    ...simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Lord', 80, 4, false),
+    hint: 'The least of the many nobles that make up a Necron Dynasty.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 5 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 5 },
+      { group: 'attributes', value: 'initiative', threshold: 4 },
+      { group: 'attributes', value: 'fellowship', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+      { group: 'skills', value: 'leadership', threshold: 5 },
+      { group: 'skills', value: 'persuasion', threshold: 3 },
+    ],
+    keywords: 'Necron, <Dynasty>',
+    influence: 3,
+    archetypeFeatures: [
+      {
+        name: 'The Lord`s will',
+        description:
+          '<p>A Lord may make a DN 4 Leadership test and designate a specific threat as a free ' +
+          'action at the beginning of each of its turns. If it is successful, ' +
+          'all other <Dynasty> Necrons within 12m that are not Lords or Overlords may reroll ' +
+          'up to Rank failed ED on damage rolls against that threat.</p>',
+      },
+    ],
+    wargearString:
+      'Heavy plating, Staff of Light, Dynastic Crest (symbol of authority)',
+    wargear: [
+      { name: 'Heavy plating' },
+      { name: 'Staff of Light' },
+      { name: 'symbol of authority', variant: 'Dynastic Crest' },
+    ],
+  },
+  {
+    ...simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Cryptek', 75, 4, false),
+    hint: 'Techno-Wizzards that dedicated their lives to understanding and working with the many Necron technologies.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'intellect', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+      { group: 'skills', value: 'tech', threshold: 5 },
+      { group: 'skills', value: 'scholar', threshold: 4 },
+    ],
+    keywords: 'Necron, <Dynasty>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Technomancer',
+        description:
+          '<p>A Cryptek gains +½ Rank to Tech tests when working on any item with the Necron keyword. All Necrons within 6m of a Cryptek gain +1 to Defiance tests.</p>',
+      },
+    ],
+    wargearString:
+      'Staff of Light',
+    wargear: [
+      { name: 'Staff of Light' },
+    ],
+  },
+  {
+    ...simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Destroyer Lord', 95, 5, false),
+    hint: 'Of those that fall victim to the path of the Destroyer, few are seemingly as insane as the Destroyer Lords.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 5 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 6 },
+      { group: 'attributes', value: 'initiative', threshold: 4 },
+      { group: 'attributes', value: 'fellowship', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+      { group: 'skills', value: 'leadership', threshold: 5 },
+      { group: 'skills', value: 'persuasion', threshold: 4 },
+    ],
+    keywords: 'Necron, <Dynasty>',
+    influence: 3,
+    archetypeFeatures: [
+      {
+        name: 'United Hatred',
+        description:
+          '<p>A Destroyer Lord may issue orders to Destroyers. The Destroyer Lord and all Destroyers within 12m may reroll up to ½ Rank ED on damage rolls when attacking organic targets.</p>',
+      },
+    ],
+    wargearString:
+      'Heavy plating, Staff of Light, Dynastic Crest (symbol of authority), Phase Shifter, Grav-Platform',
+    wargear: [
+      { name: 'Heavy plating' },
+      { name: 'Staff of light' },
+      { name: 'symbol of authority', variant: 'Dynastic Crest' },
+      { name: 'Phase Shifter' },
+      { name: 'Grav-platform' },
+    ],
+  },
 ];
 
 const paxRep = [
