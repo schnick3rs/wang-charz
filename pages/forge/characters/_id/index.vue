@@ -892,7 +892,7 @@ export default {
         archetype.archetypeFeatures.forEach( (item) => {
           const ability = {
             name: item.name,
-            effect: item.snippet,
+            effect: item.snippet ? item.snippet : item.description,
             source: archetype.label,
             hint: archetype.label,
           };

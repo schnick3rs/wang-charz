@@ -595,7 +595,7 @@ export default {
             // other abilities
             const ability = {
               name: feature.name,
-              effect: feature.snippet,
+              effect: feature.snippet ? feature.snippet : feature.description,
               source: this.speciesLabel,
               hint: this.speciesLabel,
             };
@@ -619,7 +619,7 @@ export default {
         archetype.archetypeFeatures.forEach( (item) => {
           const ability = {
             name: item.name,
-            effect: item.snippet,
+            effect: item.snippet ? item.snippet : item.description,
             source: archetype.label,
             hint: archetype.label,
           };
@@ -802,6 +802,9 @@ export default {
       return this.wargearTraitRepository.find((item) => item.name === name);
     },
     computeFormatedText(text) {
+      if ( text === undefined ) {
+        return text;
+      }
       const rank = this.characterRank;
       let computed = text;
 
