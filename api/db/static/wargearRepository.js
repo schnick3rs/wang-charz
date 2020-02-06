@@ -86,11 +86,11 @@ const range = function (subtype, range, damageStatic, damageEd, ap, salvo, trait
 
 const melee = function (subtype, range, damageStatic, damageEd, ap, traits) {
   return {
-    type: 'Malee Weapon',
+    type: 'Melee Weapon',
     subtype: subtype,
     meta: [
       {
-        type: 'malee-weapon',
+        type: 'melee-weapon',
         range: range < 1 ? 1 : range,
         damage: {
           static: damageStatic,
