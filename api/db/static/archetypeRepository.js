@@ -1395,6 +1395,7 @@ const dodScumPsyker = [
     },
     species: ['Human (core)'],
     speciesKey: ['core-human'],
+    hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
     influence: 0,
     keywords: 'Imperium,Scum,Psyker',
     archetypeFeatures: [
@@ -1405,7 +1406,7 @@ const dodScumPsyker = [
         + 'Powers and Universal Psychic powers, subject to Tier restrictions.',
         psychicPowers: [
           { name: 'psykerSmmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerMinot', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
         ],
         psychicDisciplines: [
           'Minor',
@@ -1427,7 +1428,6 @@ const dodScumPsyker = [
     group: 'Scum',
     key: 'core-scum-psyker',
     description: null,
-    hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
   },
 ];
 
@@ -1565,11 +1565,156 @@ const aaoaRep = [
       { name: 'Dok Bag' },
     ],
   },
-  simpleStub('aaoa', 59, 'Ork', 'Orks', 'Burna Boy', 30, 2),
-  simpleStub('aaoa', 59, 'Ork', 'Orks', 'Flash Git', 60, 3),
-  simpleStub('aaoa', 60, 'Ork', 'Orks', 'Tankbusta', 30, 2),
-  simpleStub('aaoa', 60, 'Ork', 'Orks', 'Runtherd', 30, 2),
-  simpleStub('aaoa', 61, 'Ork', 'Orks', 'Weirdboy', 60, 3),
+  {
+    ...simpleStub('aaoa', 59, 'Ork', 'Orks', 'Burna Boy', 30, 2, false),
+    hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
+    keywords: 'Ork,<Clan>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Da Burny Dance',
+        snippet: 'You gain +1 icon on Resolve Tests for every burning creature you can see.',
+        description:
+          '<p>Burnas revel in the flames they spread. A Burna gains +1 icon on Resolve tests for every creature they can see who is currently burning.</p>',
+      },
+    ],
+    wargearString:
+      'Burna, Ork Flak armour, 3 stikkbombs',
+    wargear: [
+      { name: 'Burna' },
+      { name: 'Ork Flak armour' },
+      { name: 'Stikkbombs', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 59, 'Ork', 'Orks', 'Flash Git', 60, 3, false),
+    hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'cunning', threshold: 2 },
+    ],
+    keywords: 'Ork,<Clan>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Gun Crazy Show-Offs',
+        description:
+          '<p>If a Flash Git rolls a 6 on their Wrath die during a shooting attack, they may spend a Reload to immediately make a second shooting attack with that weapon at the nearest target.</p>',
+      },
+    ],
+    wargearString:
+      'Snazzgun, ‘Eavy armour, 3 stikkbombs, ammo runt',
+    wargear: [
+      { name: 'Snazzgun' },
+      { name: '‘Eavy armour' },
+      { name: 'Stikkbombs', amount: 3 },
+      { name: 'Ammo runt' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 60, 'Ork', 'Orks', 'Tankbusta', 30, 2, false),
+    hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+    ],
+    keywords: 'Ork,<Clan>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Tank Hunters',
+        description:
+          '<p>When making a ranged attack against a vehicle, a Tankbusta may re-roll failures on their attack.</p>',
+      },
+    ],
+    wargearString:
+      'Rokkit Launcha, Ork Flak armour, 3 stikkbombs, 1 tankbusta bomb',
+    wargear: [
+      { name: 'Rokkit Launcha' },
+      { name: 'Ork Flak armour' },
+      { name: 'Stikkbombs', amount: 3 },
+      { name: 'tankbusta bomb', amount: 1 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 60, 'Ork', 'Orks', 'Runtherd', 30, 2, false),
+    hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'intimidation', threshold: 3 },
+      { group: 'skills', value: 'leadership', threshold: 2 },
+    ],
+    keywords: 'Ork,<Clan>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Slaver',
+        description:
+          '<p>A Runtherd is accompanied by a mob of Gretchin (Rank x 3 Gretchin in total). ' +
+          'Gretchin, Snotlings, and Squigs owned by the Runtherd within 10+Rank metres add the Runtherd’s Leadership to their Resolve, ' +
+          'and as a bonus on any skill test they are commanded to make by the Runtherd.</p>',
+      },
+    ],
+    wargearString:
+      'Slugga, grabba-stikk, 3 stikkbombs, grot lash, Ork Flak armour.',
+    wargear: [
+      { name: 'Slugga' },
+      { name: 'grabba-stikk' },
+      { name: 'Stikkbombs', amount: 3 },
+      { name: 'Grot lash' },
+      { name: 'Ork Flak armour' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 61, 'Ork', 'Orks', 'Weirdboy', 60, 3, false),
+    hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'psychicMastery', threshold: 2 },
+    ],
+    keywords: 'Ork,Psyker,<Clan>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'The Power of the WAAAGH!',
+        description:
+          '<p>Weirdboyz begin play with the shove, inflict pain, and smite psychic powers, ' +
+          'and they may purchase additional Power of the WAAAGH psychic powers, subject to Tier restrictions. ' +
+          'A Weirdboy may not gain additional Wrath dice by drawing on the Warp as other psykers do. ' +
+          'Rather, they gain one additional Wrath die for every five Orks (but not other greenskins such as Gretchin, Snotlings, and squigs) within 20 metres. ' +
+          'They must use these Wrath dice—they cannot choose not to. ' +
+          'Each 1 rolled on a Wrath die for a Weirdboy using a psychic power ' +
+          'inflicts one Mortal Wound to the Weirdboy instead of a roll on the Perils of the Warp table, ' +
+          'and a Weirdboy who is reduced to 0 wounds by this damage explodes, ' +
+          'inflicting 1d3 Mortal Wounds to all Orks within 15m.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerShove', selected: 'Shove', query: { name: 'Shove' }, options: [], free: true },
+          { name: 'psykerInflictPain', selected: 'Inflict Pain', query: { name: 'Inflict Pain' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'WAAAGH!',
+        ],
+      },
+    ],
+    wargearString:
+      'Weirdboy Staff, Ork Flak armour.',
+    wargear: [
+      { name: 'Weirdboy Staff' },
+      { name: 'Ork Flak armour' },
+    ],
+  },
   simpleStub('aaoa', 63, 'Squat', 'Squats', 'War-Pledged Warrior', 0, 1),
   simpleStub('aaoa', 63, 'Squat', 'Squats', 'Guild Engineer', 60, 3),
   simpleStub('aaoa', 64, 'Squat', 'Squats', 'Hearthguard', 60, 3),

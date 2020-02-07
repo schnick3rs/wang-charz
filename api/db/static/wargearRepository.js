@@ -205,6 +205,14 @@ const aaoa = [
     // The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.
   },
   {
+    ...simpleStub(31053, 'aaoa',105,'Tankbusta Bomb', '7R', 'Explosive, Ork', ''),
+    ...rangeAaoa('16+3ED; AP -2; Salvo –; Blast [Small], Waaagh!', 'Ork Ranged Weapon', 'Cannot be thrown or fired from a launcher. They are placed as a melee attack against a vehicle. An Ork placing a Tankbusta bomb may immediately Disengage as a free action.'),
+  },
+  {
+    ...simpleStub(31053, 'aaoa',105,'Tankbusta Bomb', '7R', 'Explosive, Ork', ''),
+    ...rangeAaoa('16+3ED; AP -2; Salvo –; Blast [Small], Waaagh!', 'Ork Ranged Weapon', 'Cannot be thrown or fired from a launcher. They are placed as a melee attack against a vehicle. An Ork placing a Tankbusta bomb may immediately Disengage as a free action.'),
+  },
+  {
     ...simpleStub(31154, 'aaoa',115,'‘Urty Syringe', '4U', 'Exotic, Ork', ''),
     ...meleeAaoa('4+2ED; AP 0; Toxic (4), Waaagh!', 'Ork Melee Weapon'),
     description:
