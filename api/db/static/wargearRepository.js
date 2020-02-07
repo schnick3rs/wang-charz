@@ -64,7 +64,14 @@ const armour = function (subtype, armourRating, traits) {
   };
 };
 
-const range = function (subtype, range, damageStatic, damageEd, ap, salvo, traits) {
+const simpleRange = function (subtype, range, damageStatic, damageEd, ap, salvo, traits, specialTrait) {
+
+  let finalTraits = traits ? traits.split(',').map((k)=>k.trim()) : [];
+
+  if (specialTrait) {
+    finalTraits.push('Special*');
+  }
+
   return {
     type: 'Ranged Weapon',
     subtype: subtype,
@@ -73,18 +80,19 @@ const range = function (subtype, range, damageStatic, damageEd, ap, salvo, trait
         type: 'range-weapon',
         range: range,
         damage: {
-          static: damageStatic,
-          ed: damageEd,
+          static: parseIntdamageStatic,
+          ed: parseInt(damageEd),
         },
         ap: ap,
         salvo: salvo,
-        traits: traits ? traits.split(',').map((k)=>k.trim()) : [],
+        traits: finalTraits,
+        special: specialTrait,
       }
     ],
   };
 };
 
-const melee = function (subtype, range, damageStatic, damageEd, ap, traits) {
+const simpleMelee = function (subtype, range, damageStatic, damageEd, ap, traits) {
   return {
     type: 'Melee Weapon',
     subtype: subtype,
@@ -101,6 +109,51 @@ const melee = function (subtype, range, damageStatic, damageEd, ap, traits) {
       }
     ],
   };
+};
+
+/**
+ * 16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!
+ *
+ * @param brewString
+ * @param subtype
+ * @returns {{subtype: string, meta: [{damage: {static: *, ed: *}, traits: (*|[]), range: (number|*), type: string, ap: *}], type: string}|{subtype: *, meta: [{damage: {static: *, ed: *}, traits: (*|[]), salvo: *, range: *, type: string, ap: *}], type: string}}
+ */
+const rangeAaoa = function (brewString, subtype = '', specialTrait = '') {
+  const parts = brewString.split(';').map((k)=>k.trim());
+
+  const damageString = parts[0]; // 4+1ED
+  const ap = parts[1].split(' ')[1]; // AP -1
+  const rangeValue = parts[2].split(' ')[1].split('m')[0]; // Range 48m
+  const salvo = parts[3];
+  const traitString = parts[4];
+
+  const damageParts = damageString.split('+');
+  const damageStatic = damageParts[0];
+  const damageEd = damageParts[1].split('ED')[0];
+  const traits = traitString ? traitString.split(',').map((k)=>k.trim()) : [];
+
+  return simpleRange(subtype, rangeValue, damageStatic, damageEd, ap, salvo, traitString, specialTrait);
+};
+
+/**
+ *
+ * @param brewString -> 4+2ED; AP 0; Toxic [4], Waaagh!
+ * @param subtype
+ * @returns {{subtype: *, meta: [{damage: {static: *, ed: *}, traits: (*|[]), salvo: *, range: *, type: string, ap: *}], type: string}}
+ */
+const meleeAaoa = function (brewString, subtype = '') {
+  const parts = brewString.split(';').map((k)=>k.trim());
+
+  const damageString = parts[0]; // 4+1ED
+  const ap = parts[1].split(' ')[1]; // AP -1
+  const traitString = parts[2]; // a, b, c
+
+  const damageParts = damageString.split('+'); // 4+1ED -> 4 1ED
+  const damageStatic = damageParts[0];
+  const damageEd = damageParts[1].split('ED')[0];
+  const traits = traitString ? traitString.split(',').map((k)=>k.trim()) : [];
+
+  return simpleMelee(subtype, 1, damageStatic, damageEd, ap, traitString);
 };
 
 /**
@@ -145,66 +198,80 @@ const meleePax = function (paxString, subtype = '') {
 
 const core = [];
 
+const aaoa = [
+  {
+    ...simpleStub(31050, 'aaoa',105,'Kustom Mega-Blasta', '7R', 'Kustom, Plasma, Ork', ''),
+    ...rangeAaoa('16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!', 'Ork Ranged Weapon', 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.'),
+    // The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.
+  },
+  {
+    ...simpleStub(31154, 'aaoa',115,'‘Urty Syringe', '4U', 'Exotic, Ork', ''),
+    ...meleeAaoa('4+2ED; AP 0; Toxic (4), Waaagh!', 'Ork Melee Weapon'),
+    description:
+      'This massive metal syringe superficially resembles a tool of the chirurgeon’s craft and tend to be filled with whatever toxic sludge the Painboy is able to find or create.',
+  },
+];
+
 const lotn = [
   {
     ...simpleStub(20100, 'lotn',10,'Gauss Flayer', '5U', 'Gauss,Necron', ''),
-    ...range('Gauss Weapon', 48, 10, 1, -1, 2, 'Rapid Fire (2)'),
+    ...simpleRange('Gauss Weapon', 48, 10, 1, -1, 2, 'Rapid Fire (2)'),
   },
   {
     ...simpleStub(20101, 'lotn',10,'Gauss Blaster', '6R', 'Gauss,Necron', ''),
-    ...range('Gauss Weapon', 48, 12, 1, -2, 2, 'Rapid Fire (2)'),
+    ...simpleRange('Gauss Weapon', 48, 12, 1, -2, 2, 'Rapid Fire (2)'),
   },
   {
     ...simpleStub(20102, 'lotn',10,'Gauss Cannon', '7R', 'Gauss,Necron', ''),
-    ...range('Gauss Weapon', 48, 14, 2, -3, 3, 'Heavy'),
+    ...simpleRange('Gauss Weapon', 48, 14, 2, -3, 3, 'Heavy'),
   },
   {
     ...simpleStub(20103, 'lotn',10,'Heavy Gauss Cannon', '8R', 'Gauss,Necron', ''),
-    ...range('Gauss Weapon', 72, 18, 1, -4, 1, 'Heavy'),
+    ...simpleRange('Gauss Weapon', 72, 18, 1, -4, 1, 'Heavy'),
   },
   {
     ...simpleStub(20104, 'lotn',10,'Rod of Covenant', '7V', 'Gauss,Necron', ''),
-    ...range('Gauss Weapons', 24, 12, 1, -3, 1, 'Assault'),
+    ...simpleRange('Gauss Weapons', 24, 12, 1, -3, 1, 'Assault'),
     //...melee('', 1, 5, 1, -3, '')
   },
   {
     ...simpleStub(20105, 'lotn',10,'Staff of Light', '8V', 'Gauss,Necron', ''),
-    ...range('Gauss Weapons', 24, 12, 1, -2, 3, 'Assault'),
+    ...simpleRange('Gauss Weapons', 24, 12, 1, -2, 3, 'Assault'),
     //...melee('', 1, 5, 1, -2, '')
   },
   {
     ...simpleStub(20110 , 'lotn',11,'Tesla Carbine', '5R', 'Tesla,Necron', ''),
-    ...range('Tesla Weapon', 48, 12, 1, 0, 2, 'Assault,Tesla'),
+    ...simpleRange('Tesla Weapon', 48, 12, 1, 0, 2, 'Assault,Tesla'),
     //Tesla : These weapons are designed to fire arcs  of energy that seem to bounce between  targets, creating chains of death that can  reduce entire squads to smoking ash.  Whenever one or more 6s are shifted to  damage after hitting with a Tesla weapon, up  to two other enemies within 4m of the original  target are also considered to be hit, so long as  their defense is equal to or less than that of the  original target. If the original target was a mob,  the mob is considered to have been hit three  times instead of only once. The weapon’s full  damage is dealt to all three targets, or three  times to a mob.
   },
   {
     ...simpleStub(20111 , 'lotn',11,'Particle Caster', '6R', 'Particle,Necron', ''),
-    ...range('Particle Weapon', 24, 14, 1, 0, 1, 'Pistol'),
+    ...simpleRange('Particle Weapon', 24, 14, 1, 0, 1, 'Pistol'),
   },
   {
     ...simpleStub(20112 , 'lotn',11,'Synaptic Disintegrator', '7R', 'Necron', ''),
-    ...range('Exotic Weapon', 48, 10, 1, 0, 1, 'Rapid Fire (1), Sniper (2)'),
+    ...simpleRange('Exotic Weapon', 48, 10, 1, 0, 1, 'Rapid Fire (1), Sniper (2)'),
   },
   {
     ...simpleStub(20113 , 'lotn',11,'Tachyon Arrow', '9V', 'Necron', ''),
-    ...range('Exotic Weapon', 240, 20, 3, -5, '-', 'Assault'),
+    ...simpleRange('Exotic Weapon', 240, 20, 3, -5, '-', 'Assault'),
     // A Tachyon Arrow must be reloaded after each use, taking 1 hour and a successful DN 4 Tech test to do so.
   },
   {
     ...simpleStub(20114 , 'lotn',11,'Hyperphase Sword', '7R', 'Necron', ''),
-    ...melee('Necron Weapon', 1, 6, 1, -3, 'Parry'),
+    ...simpleMelee('Necron Weapon', 1, 6, 1, -3, 'Parry'),
   },
   {
     ...simpleStub(20115 , 'lotn',11,'Voidblade', '6R', 'Necron', ''),
-    ...melee('Necron Weapon', 1, 5, 1, -3, ''),
+    ...simpleMelee('Necron Weapon', 1, 5, 1, -3, ''),
   },
   {
     ...simpleStub(20116 , 'lotn',11,'Voidscythe', '9V', 'Necron,Two-Handed', ''),
-    ...melee('Necron Weapon', 2, 8, 3, -4, 'Unwieldy (2)'),
+    ...simpleMelee('Necron Weapon', 2, 8, 3, -4, 'Unwieldy (2)'),
   },
   {
     ...simpleStub(20116 , 'lotn',11,'Warscythe', '8V', 'Necron,Two-Handed', ''),
-    ...melee('Necron Weapon', 1, 7, 2, -4, ''),
+    ...simpleMelee('Necron Weapon', 1, 7, 2, -4, ''),
   },
   {
     ...simpleStub(20119, 'lotn',11,'Heavy Plating', '7R', 'Necron', ''),
@@ -364,4 +431,5 @@ module.exports = [
   ...core,
   ...pax,
   ...lotn,
+  ...aaoa,
 ];

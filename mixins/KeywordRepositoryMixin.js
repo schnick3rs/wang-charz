@@ -425,9 +425,9 @@ export default {
         modification: {},
       },
       {
-        placeholder: '<Clan>',
-        type: 'Ork Clan',
         name: 'Deathskulls',
+        type: 'Ork Clan',
+        placeholder: '<Clan>',
         description: 'Deathskulls are light-fingered thieves who share an almost Mekboylike '
         + 'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as '
         + 'much as the next Ork, their innate kleptomania makes them see every battle as an '

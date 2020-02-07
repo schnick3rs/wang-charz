@@ -1505,8 +1505,66 @@ const aaoaRep = [
   simpleStub('aaoa', 56, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
   simpleStub('aaoa', 56, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
   simpleStub('aaoa', 57, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
-  simpleStub('aaoa', 58, 'Ork', 'Orks', 'Mekboy', 30, 2),
-  simpleStub('aaoa', 58, 'Ork', 'Orks', 'Painboy', 30, 2),
+  {
+    ...simpleStub('aaoa', 58, 'Ork', 'Orks', 'Mekboy', 30, 2, false),
+    hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'tech', threshold: 3 },
+    ],
+    keywords: 'Ork,<Clan>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Fix It Proppa',
+        description:
+          '<p>A Mek gains +Rank on Tech tests to fix any weapon, vehicle, or other machine with the Ork keyword. ' +
+          'In addition, during a regroup or respite, a Mek may tinker with a weapon, vehicle, or other machine with the Ork keyword. ' +
+          'Weapons gain ED equal to ½ the Mek’s Rank. ' +
+          'Vehicles gain +1/2 Rank to their Cruising Speed, Wounds, or Resilience. ' +
+          'Other machines gain a bonus of the GM’s discretion. ' +
+          'These bonuses last until the Mek’s next respite, or until the machine suffers a complication, whichever comes first.</p>',
+      },
+    ],
+    wargearString:
+      'Kustom Mega Blasta, Choppa, 3 Stikkbombs, Ork Flak armour, Mek Toolz',
+    wargear: [
+      { name: 'Kustom Mega-Blasta' },
+      { name: 'Choppa' },
+      { name: 'Stikkbombs', amount: 3 },
+      { name: 'Ork Flak armour' },
+      { name: 'Mek Toolz' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 58, 'Ork', 'Orks', 'Painboy', 30, 2, false),
+    hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'medicae', threshold: 3 },
+    ],
+    keywords: 'Ork,<Clan>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Make It All Betta',
+        snippet: 'You add +1/2 Rank to Medicae Tests on characters with the Ork Keyword. Additionally, a stabilasing an Ork restores Rank Wounds (rather then 1).',
+        description:
+          '<p>A Painboy may add +1/2 Rank to all Medicae tests made on characters with the Ork keyword. ' +
+          'In addition, a successful Medicae test to stabilise a dying character with the Ork keyword restores Rank wounds rather than 1.</p>',
+      },
+    ],
+    wargearString:
+      '‘Urty Syringe, Choppa, Ork Flak armour, Dok Bag',
+    wargear: [
+      { name: '‘Urty Syringe' },
+      { name: 'Choppa' },
+      { name: 'Ork Flak armour' },
+      { name: 'Dok Bag' },
+    ],
+  },
   simpleStub('aaoa', 59, 'Ork', 'Orks', 'Burna Boy', 30, 2),
   simpleStub('aaoa', 59, 'Ork', 'Orks', 'Flash Git', 60, 3),
   simpleStub('aaoa', 60, 'Ork', 'Orks', 'Tankbusta', 30, 2),
@@ -1589,7 +1647,7 @@ const lotnRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 4 },
       { group: 'skills', value: 'weaponSkill', threshold: 3 },
     ],
-    keywords: 'Necron, <Dynasty>',
+    keywords: 'Necron,<Dynasty>',
     influence: 1,
     archetypeFeatures: [
       {
@@ -1621,7 +1679,7 @@ const lotnRep = [
       { group: 'skills', value: 'stealth', threshold: 4 },
       { group: 'skills', value: 'awareness', threshold: 3 },
     ],
-    keywords: 'Necron, <Dynasty>',
+    keywords: 'Necron,<Dynasty>',
     influence: 1,
     archetypeFeatures: [
       {
@@ -1653,7 +1711,7 @@ const lotnRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 4 },
       { group: 'skills', value: 'weaponSkill', threshold: 4 },
     ],
-    keywords: 'Necron, <Dynasty>',
+    keywords: 'Necron,<Dynasty>',
     influence: 1,
     archetypeFeatures: [
       {
@@ -1683,7 +1741,7 @@ const lotnRep = [
       { group: 'skills', value: 'weaponSkill', threshold: 5 },
       { group: 'skills', value: 'awareness', threshold: 4 },
     ],
-    keywords: 'Necron, <Dynasty>',
+    keywords: 'Necron,<Dynasty>',
     influence: 2,
     archetypeFeatures: [
       {
@@ -1756,7 +1814,7 @@ const lotnRep = [
       { group: 'skills', value: 'leadership', threshold: 5 },
       { group: 'skills', value: 'persuasion', threshold: 3 },
     ],
-    keywords: 'Necron, <Dynasty>',
+    keywords: 'Necron,<Dynasty>',
     influence: 3,
     archetypeFeatures: [
       {
@@ -1789,7 +1847,7 @@ const lotnRep = [
       { group: 'skills', value: 'tech', threshold: 5 },
       { group: 'skills', value: 'scholar', threshold: 4 },
     ],
-    keywords: 'Necron, <Dynasty>',
+    keywords: 'Necron,<Dynasty>',
     influence: 2,
     archetypeFeatures: [
       {
@@ -1818,7 +1876,7 @@ const lotnRep = [
       { group: 'skills', value: 'leadership', threshold: 5 },
       { group: 'skills', value: 'persuasion', threshold: 4 },
     ],
-    keywords: 'Necron, <Dynasty>',
+    keywords: 'Necron,<Dynasty>',
     influence: 3,
     archetypeFeatures: [
       {

@@ -980,6 +980,7 @@ export default {
       const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
       chargear.forEach((gear) => {
+        console.log(`Searching for [${gear.name}] in repository...`);
         const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
         if (foundGear) {
           wargear.push({ ...foundGear, variant: gear.variant });
