@@ -1778,7 +1778,7 @@ const lotnRep = [
   },
   {
     ...simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Cryptek', 75, 4, false),
-    hint: 'Techno-Wizzards that dedicated their lives to understanding and working with the many Necron technologies.',
+    hint: 'Techno-Wizards that dedicated their lives to understanding and working with the many Necron technologies.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'agility', threshold: 4 },
