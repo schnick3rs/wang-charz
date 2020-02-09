@@ -693,7 +693,6 @@ const homebrewReps = [
         ],
       },
     ],
-    variant: 'core-human',
   },
   {
     ...simpleStub('aaoa', 18, 'Chaos', 'Beastman', 'More mutant then Abhuman and blessed with bestial features.', 20, 1),

@@ -214,6 +214,17 @@ const aaoa = [
     description:
       'This massive metal syringe superficially resembles a tool of the chirurgeon’s craft and tend to be filled with whatever toxic sludge the Painboy is able to find or create.',
   },
+  {
+    ...simpleStub(31333, 'aaoa',133,'Ionclad Carapace Armour', '6R', 'Heavy, Squat', ''),
+    ...armour('Squat Armour',5),
+    description:
+      'While seeming like ordinary carapace armour—a suit of thick plates of ceramite and plasteel—Ionclad armour represents the cunning artifice of the Squats. ' +
+      'Each layer of the armour, crafted using alloys and alchemical processes only Squat Engineers can perform, ' +
+      'is configured to conduct a potent electromagnetic charge that hardens the armour and allows ' +
+      'it to resist attacks more effectively than material strength alone would permit. ' +
+      'During the height of Squat civilisation, Ionclad armour was commonly used by elite soldiers such as Hearthguard—at least, ' +
+      'those who couldn’t afford Exo-Armour—and by the rank-and-file War-Pledged from wealthier Strongholds.',
+  },
 ];
 
 const lotn = [

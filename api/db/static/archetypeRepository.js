@@ -1715,10 +1715,144 @@ const aaoaRep = [
       { name: 'Ork Flak armour' },
     ],
   },
-  simpleStub('aaoa', 63, 'Squat', 'Squats', 'War-Pledged Warrior', 0, 1),
-  simpleStub('aaoa', 63, 'Squat', 'Squats', 'Guild Engineer', 60, 3),
-  simpleStub('aaoa', 64, 'Squat', 'Squats', 'Hearthguard', 60, 3),
-  simpleStub('aaoa', 64, 'Squat', 'Squats', 'Ancestor Lord', 100, 4),
+  {
+    ...simpleStub('aaoa', 63, 'aaoa-squat', 'Squats', 'War-Pledged Warrior', 0, 1, false),
+    hint: 'The rank and file of a Squat Stronghold.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'cunning', threshold: 2 },
+    ],
+    keywords: 'Squat,<League>',
+    influence: 0,
+    archetypeFeatures: [
+      {
+        name: 'War-Pledged',
+        description:
+          '<p>A War-Pledged Warrior is bound by oaths of loyalty and duty and stands united with their comrades-in-arms.</p>' +
+          'Whenever a War-Pledged Warrior attacks an enemy who has been attacked by an ' +
+          'ally already during this round (including Interaction attacks), ' +
+          'they gain a bonus of +1/2 Rank to their attack.</p>',
+      },
+    ],
+    wargearString:
+      'Bolter, hand-cannon, mono-knife, Flak armour, 3 frag and 3 krak grenades.',
+    wargear: [
+      { name: 'Bolter' },
+      { name: 'Hand-cannon' },
+      { name: 'mono-knife' },
+      { name: 'Flak armour' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 63, 'aaoa-squat', 'Squats', 'Guild Engineer', 60, 3, false),
+    hint: 'Masterful artisans, creating the devices necessary for survival.',
+    prerequisites: [
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'tech', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
+    ],
+    keywords: 'Squat,<League>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Guild Techniques',
+        description:
+          '<p>Guild Engineers receive +Rank on Tech tests to repair a damaged machine. They may re-roll up to ½ Rank dice on any skill test to use a device that they have personally built or repaired. They are considered to have built all of their starting wargear.</p>',
+      },
+    ],
+    wargearString:
+      'Bolter, Power Axe, augmetic servo-arm, Ionclad Carapace armour, Refractor field, Guild Engineer’s tools.',
+    wargear: [
+      { name: 'Bolter' },
+      { name: 'Power Axe' },
+      { name: 'Augmetic Servo Arm' },
+      { name: 'Ionclad Carapace Armour' },
+      { name: 'Refractor field' },
+      { name: 'Guild Engineer’s tools' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 64, 'aaoa-squat', 'Squats', 'Hearthguard', 60, 3, false),
+    hint: 'Doughty elite warriors pledged to defend hearth and home.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'leadership', threshold: 2 },
+    ],
+    keywords: 'Squat,<League>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Bodyguard',
+        description:
+          '<p>A Hearthguard is unstinting in their devotion to their comrades, ' +
+          'and they will not permit their allies to come to harm if it can be helped. ' +
+          'When an enemy makes an attack against a character within 5m of the Hearthguard (and who is one of the Hearthguard’s allies), the DN of the attack is increased by ½ the Hearthguard’s Rank.</p>',
+      },
+    ],
+    wargearString:
+      'Bolter, Power Axe, Bolt Pistol, mono-knife, Ionclad Carapace Armour, 3 frag and 3 krak grenades.',
+    wargear: [
+      { name: 'Bolter' },
+      { name: 'Power Axe' },
+      { name: 'Bolt Pistol' },
+      { name: 'Mono-Knife' },
+      { name: 'Ionclad Carapace Armour' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 64, 'aaoa-squat', 'Squats', 'Ancestor Lord', 100, 4, false),
+    hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 5 },
+      { group: 'attributes', value: 'fellowship', threshold: 4 },
+      { group: 'skills', value: 'leadership', threshold: 3 },
+      { group: 'skills', value: 'psychicMastery', threshold: 3 },
+    ],
+    keywords: 'Squat,<League>,Psyker',
+    influence: 4,
+    archetypeFeatures: [
+      {
+        name: 'Psychic Protector',
+        description:
+          '<p>An Ancestor Lord begins play with the Psyniscience and smite psychic powers (which do not count towards the maximum), ' +
+          'and may purchase additional Minor Psychic Powers, Universal Psychic Powers, and Ancestral Rites Psychic Powers, ' +
+          'subject to Tier restrictions.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Universal',
+          'Ancestreal Rites',
+        ],
+      },
+    ],
+    wargearString:
+      'Master-Crafted Force Rod, Ionclad Carapace armour, clothing (Ancestor’s robes).',
+    wargear: [
+      { name: 'Force Rod', variant: 'Master-Crafted Force Rod' },
+      { name: 'Ionclad Carapace Armour' },
+      { name: 'Clothing', variant: 'Ancestor’s robes' },
+    ],
+  },
+
 ];
 
 const ltgbRep = [
