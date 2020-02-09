@@ -164,6 +164,7 @@ export default {
         { name: 'Maleficarum', source: 'core' },
         { name: 'Runes of Battle', source: 'core' },
         { name: 'Navigator Powers', source: 'pax' },
+        { name: 'WAAAGH!', source: 'aaoa' },
       ],
       species: undefined,
       archetype: undefined,

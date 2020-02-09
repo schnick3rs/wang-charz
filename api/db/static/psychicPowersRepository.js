@@ -1,45 +1,20 @@
-
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
-  aaoa: {
-    book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha',
-  },
-  lotn: {
-    book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr',
-  },
-  thaot: {
-    book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology',
-  },
-  ltgb: {
-    book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn',
-  },
-  aptb: {
-    book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary',
-  },
-  jtb: {
-    book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary',
-  },
-  aotgt: {
-    book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne',
-  },
-  tea: {
-    book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels',
-  },
-  heva: {
-    book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault',
-  },
-  goen: {
-    book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines',
-  },
-  tog: {
-    book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory',
-  },
-  pax: {
-    book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis',
-  },
-  sotah: {
-    book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde',
-  },
+  coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
+  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
+  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
+  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
+  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
+  aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
+  tea: { book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
+  heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
+  goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
+  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
+  pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
+  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
+  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
 };
 
 const stringToKebab = function (text) {
@@ -150,8 +125,72 @@ const paxNavigatorPowers = [
   },
 ];
 
+
+const aaoaWaaaghPowers = [
+  {
+    ...simpleStub(200, 'aaoa', 181, 20, '‘Eadbanger', 'WAAAGH!', 'Bring the closest enemy to zero wounds.'),
+    ...simpleCrunch('8', 'Action', 'Instant', '35m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>A bolt of raw power erupts from the Weirdboy’s forehead and rockets across the battlefield, ' +
+      'causing the head of the first unfortunate victim caught in its path to explode in a shower of brains and gore.</p>' +
+      '<p>This power targets the closest enemy, who must pass a Toughness test (DN 3) or reduced to 0 Wounds immediately.</p>',
+  },
+  {
+    ...simpleStub(201, 'aaoa', 181, 15, 'Da Jump', 'WAAAGH!', 'Short Teloport yourself and allied orks.'),
+    ...simpleCrunch('7', 'Full Action', 'Instant', '25m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>The Weirdboy closes his eyes tight and, in a storm of flashing green light, teleports a mass of confused greenskins to another part of the battlefield. ' +
+      'Select a number of allies with the Ork keyword equal to the psyker’s Willpower within range. ' +
+      'Those allies vanish, and then reappear moments later anywhere within 500m. ' +
+      'They must reappear more than 20m from an enemy, and they forfeit their move action in their following turns.</p>',
+  },
+  {
+    ...simpleStub(202, 'aaoa', 181, 15, 'Da Krunch', 'WAAAGH!', 'Stomp enemies with mortal force and knock them prone.'),
+    ...simpleCrunch('8', 'Action', 'Instant', '35m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>Green energies erupt form the Weirdboy’s eyes, ears, nose, and mouth, and coalesce into a roiling cloud above the enemy. ' +
+      'That cloud then solidifies into the vast green foot of Gork (or Mork) himself, which commences to stamp down upon the foe. ' +
+      'This power affects all enemies in a Medium blast within range. ' +
+      'Affected enemies take 1d3 Mortal Wounds and are knocked prone.' +
+      ' Foes who were already prone become staggered as well. ' +
+      'Then, roll a d6: on a roll of a 6, repeat the power’s effects as the foot stamps down again.</p>',
+  },
+  {
+    ...simpleStub(203, 'aaoa', 181, 8, 'Fists of Gork', 'WAAAGH!', 'Boost yourself or an allie with great Strength.'),
+    ...simpleCrunch('6', 'Action', '1 Round', '25m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>The Weirdboy channels Waaagh energy into his own fists or those of another Ork, providing strength enough to punch through the armour of tanks. ' +
+      'This power affects the psyker or one ally with the Ork keyword within range. ' +
+      'Until the end of the psyker’s next turn, the affected character’s Strength is increased by +4 and they receive +2d on all melee attacks.</p>',
+  },
+  {
+    ...simpleStub(204, 'aaoa', 182, 10, 'Roar of Mork', 'WAAAGH!', 'Enemies within range reduce their resolve by 2.'),
+    ...simpleCrunch('8', 'Full Action', 'Sustained', '35m', false, ''),
+    keywords: ['Ork','Telepathy','Psychic'],
+    description:
+      '<p>The Weirdboy opens his gob impossibly wide and gives vent to a bellowing roar that reverberates through his enemies’ minds. ' +
+      'Coherent thought becomes nigh-impossible, and as the roar thunders on, panic begins to spread. ' +
+      'While this power remains in effect, all enemies within range reduce their Resolve by 2.</p>',
+  },
+  {
+    ...simpleStub(205, 'aaoa', 182, 10, 'Warpath', 'WAAAGH!', 'Allies within range increase strength and make more multi-actions or attacks.'),
+    ...simpleCrunch('7', 'Action', 'Instant', '35m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>The Weirdboy disperses the Waaagh energy coursing through his frame into the Ork warriors around him, ' +
+      'stoking their already bellicose nature into a roaring fever pitch. Select a number of allies with the Ork keyword within range. ' +
+      'The affected allies add +2d to all melee attacks they attempt until the start of the psyker’s next turn, ' +
+      'and they may ignore up to 2 points of DN increase for taking the Multi-Attack or Multi-Action options.</p>',
+  },
+];
+
 const psychicPowersRepository = [
   ...paxNavigatorPowers,
+  ...aaoaWaaaghPowers,
 ];
 
 module.exports = psychicPowersRepository;
