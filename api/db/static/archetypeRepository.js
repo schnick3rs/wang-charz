@@ -1738,11 +1738,11 @@ const aaoaRep = [
       },
     ],
     wargearString:
-      'Bolter, hand-cannon, mono-knife, Flak armour, 3 frag and 3 krak grenades.',
+      'Boltgun, hand-cannon, mono knife, Flak armour, 3 frag and 3 krak grenades.',
     wargear: [
-      { name: 'Bolter' },
+      { name: 'Boltgun' },
       { name: 'Hand-cannon' },
-      { name: 'mono-knife' },
+      { name: 'mono knife' },
       { name: 'Flak armour' },
       { name: 'Frag Grenades', amount: 3 },
       { name: 'Krak Grenades', amount: 3 },
@@ -1766,11 +1766,11 @@ const aaoaRep = [
       },
     ],
     wargearString:
-      'Bolter, Power Axe, augmetic servo-arm, Ionclad Carapace armour, Refractor field, Guild Engineer’s tools.',
+      'Boltgun, Power Axe, augmetic servo-arm, Ionclad Carapace armour, Refractor field, Guild Engineer’s tools.',
     wargear: [
-      { name: 'Bolter' },
+      { name: 'Boltgun' },
       { name: 'Power Axe' },
-      { name: 'Augmetic Servo Arm' },
+      { name: 'Mechandrites (servo arm)', variant: 'Augmetic Servo Arm' },
       { name: 'Ionclad Carapace Armour' },
       { name: 'Refractor field' },
       { name: 'Guild Engineer’s tools' },
@@ -1799,12 +1799,12 @@ const aaoaRep = [
       },
     ],
     wargearString:
-      'Bolter, Power Axe, Bolt Pistol, mono-knife, Ionclad Carapace Armour, 3 frag and 3 krak grenades.',
+      'Boltgun, Power Axe, Bolt Pistol, mono knife, Ionclad Carapace Armour, 3 frag and 3 krak grenades.',
     wargear: [
-      { name: 'Bolter' },
+      { name: 'Boltgun' },
       { name: 'Power Axe' },
       { name: 'Bolt Pistol' },
-      { name: 'Mono-Knife' },
+      { name: 'Mono Knife' },
       { name: 'Ionclad Carapace Armour' },
       { name: 'Frag Grenades', amount: 3 },
       { name: 'Krak Grenades', amount: 3 },
@@ -3130,7 +3130,7 @@ const paxRep = [
         ],
       },
       {
-        name: 'boltgun or bolt pistol and Chain Sword',
+        name: 'Boltgun or bolt pistol and Chain Sword',
         options: [
           { name: 'Boltgun' },
           { name: 'Bolt Pistol and Chain Sword' },

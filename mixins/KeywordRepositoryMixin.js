@@ -32,6 +32,8 @@ export default {
         name: '<Clan>', type: 'Species', parentKeyword: 'Ork', description: 'A specific Ork clan (replaces this keyword when chosen).',
       },
 
+      { source: 'aaoa', name: '<League>', type: 'Species', parentKeyword: 'Squat', description: 'A specific Squat league (replaces this keyword when chosen).' },
+
       // Imperium Keywords
       {
         name: 'Adepta Sororitas', type: 'Imperium', parentKeyword: undefined, description: 'The Sisters of Battle, warriors of the Ecclesiarchy.',
@@ -169,6 +171,8 @@ export default {
         name: 'Dark Mechanicus', type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.',
       },
       { name: 'Heretic', type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.' },
+
+      //
 
       // Social PAX
       { source: 'pax', name: 'Nobility', type: 'Social', parentKeyword: undefined, description: 'The high born elite of the Imperium.' },
@@ -471,6 +475,14 @@ export default {
       { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'House', description: 'Remote planets of little importance typically have just a single fortified Precinct House for the single Arbitrator stationed there.' },
       { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Op-Center', description: 'Operational centers are forward operating bases maintained throughout Imperial worlds, particularly hive or industrial worlds, with each being a garrison for a few dozen Arbitrators who report to their nearest precinct.' },
 
+      // AAOA Squat Leagues
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Thor', description: 'The most powerful and influential League, once containing more than three hundred Strongholds. What remains is a fleet of a thousand ships, sailing through the inky void of the Imperium Nihilus, seeking allies.' },
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Emberg', description: 'The furthest League from the galactic core, lying near to the Eye of Terror. The remnants gathered up with survivors from Cadia and are currently waging a crusade of vengeance against any of the forces of Chaos they encounter.' },
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Kapellar', description: 'The League with the greatest number of member Strongholds, though none so influential as those within the League of Thor. The remnants are scattered far and wide and can normally be found hiring themselves out as mercenaries as they search for signs of their kin.' },
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Norgyr', description: 'The first of the Leagues to be discovered by the Great Crusades, due to its relative proximity with Earth. Most of the survivors rallied to the Imperium after the cataclysm, and now scour the western edge of the rift looking for other Squats and for Chaos raiders.' },
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Grindel', description: 'A rival to the League of Thor, who waged war against them in the 39th Millennium until they united in the face of WAAAGH Grunhag. Few survived the cataclysm, and the survivors have tried to settle a world near the rift in the Imperium Nihilus.' },
+
+      // PAX Hive Gang
       {
         name: 'Anarcho-Gang',
         type: 'Hive Gang',
