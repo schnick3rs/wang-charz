@@ -189,7 +189,7 @@ const aaoaWaaaghPowers = [
 
 const aaoaAncestrialRites = [
   {
-    ...simpleStub(210, 'aaoa', 183, 20, 'Domination', 'Ancestrial Rites', ''),
+    ...simpleStub(210, 'aaoa', 183, 20, 'Domination', 'Ancestral Rites', 'Command a single action of the target at the cost of some shock.'),
     ...simpleCrunch('Willpower (Opposed)', 'Full Action', 'Instant', '25m', false, ''),
     keywords: ['Squat','Telepathy','Psychic'],
     description:
@@ -200,7 +200,7 @@ const aaoaAncestrialRites = [
       'The Ancestor Lord suffers 1d3+1 Shock after this power is used.</p>',
   },
   {
-    ...simpleStub(211, 'aaoa', 183, 20, 'Force Dome', 'Ancestrial Rites', ''),
+    ...simpleStub(211, 'aaoa', 183, 20, 'Force Dome', 'Ancestral Rites', 'Create a Protective Dome.'),
     ...simpleCrunch('8', 'Action', 'Sustained', '50m', false, ''),
     keywords: ['Squat','Kinetic','Psychic'],
     description:
@@ -212,18 +212,22 @@ const aaoaAncestrialRites = [
       'The Ancestor Lord suffers 1 Shock at the end of each turn they sustain this power.</p>',
   },
   {
-    ...simpleStub(212, 'aaoa', 184, 20, 'Hammer of Fury', 'Ancestrial Rites', ''),
+    ...simpleStub(212, 'aaoa', 184, 20, 'Hammer of Fury', 'Ancestral Rites', 'Deal mortal wounds in a large (18m) range.'),
     ...simpleCrunch('8', 'Action', 'Instant', '18m', false, ''),
     keywords: ['Squat','Kinetic','Psychic'],
     description:
-      '<p>The Ancestor Lord unleashes a mighty psychic hammer blow against their foes, smashing them back with an inexorable kinetic impact. All enemies within range suffer 1d3+1 Mortal Wounds. In addition, enemies must pass a Strength test (DN 5) or be knocked prone and moved away from the Ancestor Lord a number of metres equal to the number of Mortal Wounds they suffered.</p>',
+      '<p>The Ancestor Lord unleashes a mighty psychic hammer blow against their foes, smashing them back with an inexorable kinetic impact. ' +
+      'All enemies within range suffer 1d3+1 Mortal Wounds. ' +
+      'In addition, enemies must pass a Strength test (DN 5) or be knocked prone and moved away from ' +
+      'the Ancestor Lord a number of metres equal to the number of Mortal Wounds they suffered.</p>',
   },
   {
-    ...simpleStub(214, 'aaoa', 184, 20, 'Mental Fortress', 'Ancestrial Rites', ''),
+    ...simpleStub(214, 'aaoa', 184, 20, 'Mental Fortress', 'Ancestral Rites', 'Hinder hostile psychic powers that affect you or you allies.'),
     ...simpleCrunch('8', 'Action', 'Sustained', '25m', false, ''),
     keywords: ['Squat','Psychic'],
     description:
-      '<p>The Ancestor Lord weaves a powerful mental barrier around themselves and those nearby, warding them from mental assault. While this power remains in effect, any hostile psychic power targeted at the Ancestor Lord or an ally within range suffers +4 DN.</p>',
+      '<p>The Ancestor Lord weaves a powerful mental barrier around themselves and those nearby, warding them from mental assault. ' +
+      'While this power remains in effect, any hostile psychic power targeted at the Ancestor Lord or an ally within range suffers +4 DN.</p>',
   },
 ];
 

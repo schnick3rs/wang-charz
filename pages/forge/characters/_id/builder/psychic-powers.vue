@@ -165,6 +165,7 @@ export default {
         { name: 'Runes of Battle', source: 'core' },
         { name: 'Navigator Powers', source: 'pax' },
         { name: 'WAAAGH!', source: 'aaoa' },
+        { name: 'Ancestral Rites', source: 'aaoa' },
       ],
       species: undefined,
       archetype: undefined,

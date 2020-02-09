@@ -1840,7 +1840,7 @@ const aaoaRep = [
           'Telekinesis',
           'Telepathy',
           'Universal',
-          'Ancestreal Rites',
+          'Ancestral Rites',
         ],
       },
     ],
