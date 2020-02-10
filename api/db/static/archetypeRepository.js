@@ -1935,7 +1935,43 @@ const teaRep = [
     ],
   },
   simpleStub('tea', 23, 'core-adeptus-astartes', 'Adeptus Astartes', 'Tactical Marine', 50, 3),
-  simpleStub('tea', 24, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 85, 3),
+  {
+    ...simpleStub('tea', 24, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 85, 3, false),
+    hint: '',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'intellect', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'tech', threshold: 4 },
+      { group: 'skills', value: 'pilot', threshold: 3 },
+    ],
+    keywords: 'Imperium,Adeptus Astartes,Adeptus Mechanicus,<Chapter>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Master of the Forge',
+        snippet: 'A Techmarine gains +Rank to all Scholar, Pilot and Tech tests involving vehicles, weapons, armor, and wargear with the Adeptus Astartes keyword and +½ Rank to all other Imperium items.',
+      },
+    ],
+    wargearString:
+      'Aquila power armor, bolt pistol or boltgun, Omnissian Axe, 3 frag and krak grenades, augmetic Servo Arm.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      {
+        name: 'Bolt Pistol or Boltgun',
+        options: [
+          { name: 'Bolt Pistol' },
+          { name: 'Boltgun' },
+        ],
+      },
+      { name: 'Omnissian Axe' },
+      { name: 'Mechandrites (servo arm)', variant: 'Augmetic Servo Arm' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
+  },
   simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 70, 3),
   simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Librarian', 80, 3),
   simpleStub('tea', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Chaplain', 85, 4),

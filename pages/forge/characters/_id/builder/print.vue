@@ -793,12 +793,10 @@ export default {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
       return attribute.enhancedValue + skill.enhancedValue;
     },
-    traitByName(name, withParanteris) {
-      if ( withParanteris ) {
-        // weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+    traitByName(name, withParantesis = false) {
+      if ( withParantesis ) {
         name = name.split(/ ?\(/)[0];
       }
-      // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
       return this.wargearTraitRepository.find((item) => item.name === name);
     },
     computeFormatedText(text) {
