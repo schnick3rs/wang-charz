@@ -231,10 +231,56 @@ const aaoaAncestrialRites = [
   },
 ];
 
+const teaLibrariusPowers = [
+  {
+    ...simpleStub(300, 'tea', 72, 15, 'Veil of Time', 'Librarius', 'Grants the target the ability to interfere with the standard flow of time'),
+    ...simpleCrunch('6', 'Action', 'Sustained', '40m', true, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>The psyker projects his will beyond the regular passage of time, taking in the strands of fate before returning to the present to sway the tide of battle. If successful, those affected may choose which threat will take its turn next after each of their turns.</p>',
+  },
+  {
+    ...simpleStub(301, 'tea', 73, 15, 'Might of Heroes', 'Librarius', 'Fills the target with psychic might, enhancing their strength and durability'),
+    ...simpleCrunch('6', 'Action', 'Sustained', '25m', true, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>The psyker cages the immense power of the immaterium within his physical form and becomes the Emperor’s vengeance made manifest. If successful, those affected gain +1 ED on all melee attacks, +1 to Resilience, and may ignore up to +2DN penalty for making melee multi-attacks.</p>',
+  },
+  {
+    ...simpleStub(302, 'tea', 73, 15, 'Psychic Scourge', 'Librarius', 'Forces a battle of wills, harming and stunning the enemy if the psyker wins'),
+    ...simpleCrunch('Willpower (Opposed)', 'Action', 'Instant', '40m', false, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>The psyker pits his superhuman willpower against that of his enemies in a battle of mental fortitude, seeking to destroy their minds in a burst of psychic fury. If the opposed test is won by the psyker, the target takes d3 Mortal Wounds and d3 Shock. If the test was a tie, the target takes 1 Mortal Wound and 1 shock.</p>',
+  },
+  {
+    ...simpleStub(303, 'tea', 73, 15, 'Fury of the Ancients', 'Librarius', 'Selects a target for the psyker’s wrath, harming all enemies in the way'),
+    ...simpleCrunch('Defense', 'Action', 'Instant', '25m', false, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>Calling upon the myths and legends of his Chapter’s home world, the psyker sends forth a terrifying monstrosity wrought from psychic energy. If successful, draw a line from the psyker to the target, noting any enemies the line passes over. If using theater of the mind, any enemies that could be reasonably assumed to be between the psyker and the target are affected instead. Each enemy the line crosses, including the target, suffers a Mortal Wound.</p>',
+  },
+  {
+    ...simpleStub(304, 'tea', 73, 15, 'Psychic Fortress', 'Librarius', 'Places a shield of energy, protecting against the warp and reinforcing the will'),
+    ...simpleCrunch('5', 'Full Action', 'Sustained', '40m', true, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>Drawing on boundless reserves of inner strength, the psyker shields his mind – and those of his battle-brothers – from mortal fears and the threat of sorcerous assault. If successful, all affected automatically pass Resolve tests. Additionally, if dealt Mortal Wounds by a psychic power, roll a d6 per Mortal Wound. On a result 4, 5, or 6, the Mortal Wound is negated.</p>',
+  },
+  {
+    ...simpleStub(305, 'tea', 74, 15, 'Null Zone', 'Librarius', 'Purges psychic energies and protective fields from an area'),
+    ...simpleCrunch('8', 'Full Action', 'Sustained', '15m (Radius)', true, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>The psyker unleashes the full might of his mind to cast down his opponent’s defences, both technological and mystical, rendering them vulnerable to the retribution of the Adeptus Astartes. If successful, for as long as the power is sustained, each enemy psyker within range must subtract 1 from the result of each die on Psychic Mastery tests. In addition, enemies may not attempt to soak Mortal Wounds while within range or benefit from armor with the Force Shield trait.</p>',
+  },
+];
+
 const psychicPowersRepository = [
   ...paxNavigatorPowers,
   ...aaoaWaaaghPowers,
   ...aaoaAncestrialRites,
+  ...teaLibrariusPowers,
 ];
 
 module.exports = psychicPowersRepository;

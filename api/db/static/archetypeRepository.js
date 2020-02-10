@@ -1877,7 +1877,7 @@ const ltgbRep = [
 const teaRep = [
   {
     ...simpleStub('tea', 22, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 60, 3, false),
-    hint: '',
+    hint: 'Devastate the wast masses of enemies with your focus fire.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'agility', threshold: 4 },
@@ -1907,7 +1907,7 @@ const teaRep = [
   },
   {
     ...simpleStub('tea', 23, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3, false),
-    hint: '',
+    hint: 'Decent like a meteor into the enemy lines.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'agility', threshold: 4 },
@@ -1937,13 +1937,14 @@ const teaRep = [
   simpleStub('tea', 23, 'core-adeptus-astartes', 'Adeptus Astartes', 'Tactical Marine', 50, 3),
   {
     ...simpleStub('tea', 24, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 85, 3, false),
-    hint: '',
+    hint: 'Support the Chapter with your craftsmanship and technical knock.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'agility', threshold: 4 },
       { group: 'attributes', value: 'toughness', threshold: 4 },
       { group: 'attributes', value: 'intellect', threshold: 5 },
       { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'weaponskill', threshold: 3 },
       { group: 'skills', value: 'tech', threshold: 4 },
       { group: 'skills', value: 'pilot', threshold: 3 },
     ],
@@ -1972,8 +1973,107 @@ const teaRep = [
       { name: 'Krak Grenades', amount: 3 },
     ],
   },
-  simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 70, 3),
-  simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Librarian', 80, 3),
+  {
+    ...simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 70, 3, false),
+    hint: 'Rescue the dying from their well earned retirement.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'intellect', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'weaponskill', threshold: 3 },
+      { group: 'skills', value: 'medicae', threshold: 4 },
+      { group: 'skills', value: 'scholar', threshold: 3 },
+    ],
+    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Prime Helix',
+        snippet: 'An Apothecary adds +½ Rank to the number of wounds he heals when performing first aid. He gains +Rank bonus dice to all Scholar and Medicae tests he makes regarding Adeptus Astartes or Primaris Astartes. An Apothecary will never willingly leave recoverable gene-seed behind, and is duty-bound to recover any that can be.',
+      },
+    ],
+    wargearString:
+      'Aquila power armor with Diagnostor helmet, bolt pistol, boltgun or chain sword, 3 frag and krak grenades, narthecium, reductor',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Diagnostor Helmet' },
+      { name: 'Bolt Pistol' },
+      {
+        name: 'Boltgun or Chain Sword',
+        options: [
+          { name: 'Boltgun' },
+          { name: 'Chain Sword' },
+        ],
+      },
+      { name: 'Narthecium' },
+      { name: 'Reductor' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
+  },
+
+  {
+    ...simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Librarian', 80, 3, false),
+    hint: '',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'weaponskill', threshold: 3 },
+      { group: 'skills', value: 'psychicMastery', threshold: 4 },
+      { group: 'skills', value: 'scholar', threshold: 4 },
+    ],
+    keywords: 'Imperium,Adeptus Astartes,Psyker,<Chapter>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Psyker',
+        snippet: 'You gain the Smite Power and one Minor or Librarius Power. You gain access To Minor, Universal and Librarius powers.',
+        description:
+          '<p>A Librarian begins play with one minor or Librarius psychic power and the smite psychic power. ' +
+          'They may purchase additional Minor psychic powers, Librarius psychic powers, and powers from up to one other discipline, ' +
+          'subject to Tier restrictions.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerMinorOrLibrarius', selected: '', query: { discipline: 'Minor,Librarius' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Universal',
+          'Librarius',
+        ],
+      },
+      {
+        name: 'Abandon the Witch',
+        snippet: 'Marines from the Black Templars Chapter may not choose this Archetype.',
+      },
+    ],
+    wargearString:
+      'Aquila power armor with psychic hood, bolt pistol, force sword or force staff, 3 frag and krak grenades',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Psychic Hood' },
+      { name: 'Bolt Pistol' },
+      {
+        name: 'force sword or force staff',
+        options: [
+          { name: 'Force Sword' },
+          { name: 'Force Staff' },
+        ],
+      },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
+  },
   simpleStub('tea', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Chaplain', 85, 4),
   simpleStub('tea', 27, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Intercessor', 60, 4),
   simpleStub('tea', 27, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Hellblaster', 75, 4),
