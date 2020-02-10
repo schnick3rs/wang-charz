@@ -1875,8 +1875,65 @@ const ltgbRep = [
 ];
 
 const teaRep = [
-  simpleStub('tea', 22, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 60, 3),
-  simpleStub('tea', 23, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3),
+  {
+    ...simpleStub('tea', 22, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 60, 3, false),
+    hint: '',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
+    ],
+    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Focus Fire',
+        snippet: 'Devastator Marines are known for their ability to lay down waves of suppressive fire, cutting down any enemy foolish enough to approach them. They add +Rank bonus dice to hit with weapons with the Heavy trait, but only if they did not move that turn.',
+      },
+    ],
+    wargearString:
+      'Aquila power armor, heavy bolter with ammunition backpack, bolt pistol, Astartes combat knife, 3 frag and krak grenades.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Heavy Bolter' },
+      { name: 'Ammunition Backpack' },
+      { name: 'Bolt Pistol' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('tea', 23, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3, false),
+    hint: '',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+    ],
+    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Meteoric Descent',
+        snippet: 'An Assault Marine uses his jump pack to its fullest potential, using his momentum as a weapon. After charging while equipped with a jump pack, an Assault Marine may add +Rank ED to any melee attacks he makes that round.',
+      },
+    ],
+    wargearString:
+      'Aquila power armor, chain sword, bolt pistol, jump pack, 3 frag and krak grenades.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Chain Sword' },
+      { name: 'Bolt Pistol' },
+      { name: 'Jump Pack' },
+      { name: 'Frag Grenades', amount: 3 },
+      { name: 'Krak Grenades', amount: 3 },
+    ],
+  },
   simpleStub('tea', 23, 'core-adeptus-astartes', 'Adeptus Astartes', 'Tactical Marine', 50, 3),
   simpleStub('tea', 24, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 85, 3),
   simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 70, 3),

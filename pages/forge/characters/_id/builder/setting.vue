@@ -349,6 +349,15 @@ export default {
           nuxt: '/vault/legacy-of-the-necrontyr',
           source: '',
         },
+        {
+          active: true,
+          key: 'lotn',
+          name: '\'Legacy of the Necrontyr\' content',
+          hint: 'Add Necron species and archetypes.',
+          enabled: false,
+          nuxt: '/vault/legacy-of-the-necrontyr',
+          source: '',
+        },
       ],
       enabledHomebrews: [],
     };
