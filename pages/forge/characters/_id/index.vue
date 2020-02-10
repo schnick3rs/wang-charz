@@ -376,7 +376,23 @@
                   <span v-if="gearItem.source">
                     <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
                   </span>
+
                   <p class="mb-1">{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
+
+                  <div
+                    v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                  >
+                    <p
+                      class="ml-3 mt-1 mb-2"
+                      v-for="trait in gearItem.meta[0].traits"
+                      v-if="traitByName(trait, true)"
+                      :key="trait"
+                    >
+                      <strong>{{ trait }}: </strong>
+                      {{ traitByName(trait, true).effect }}
+                    </p>
+                  </div>
+
                 </div>
 
               </div>
@@ -1077,8 +1093,11 @@ export default {
       console.info(`Add new objective: ${value}`);
       this.objectiveEditorShow = false;
     },
-    traitByName(name) {
-      // const prefix = name.split(/ ?\(/)[0];
+    traitByName(name, withParanteris) {
+      if ( withParanteris ) {
+        // weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+        name = name.split(/ ?\(/)[0];
+      }
       // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
       return this.wargearTraitRepository.find((item) => item.name === name);
     },
