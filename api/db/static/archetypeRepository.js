@@ -2485,7 +2485,7 @@ const paxRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 4 },
       { group: 'skills', value: 'investigation', threshold: 3 },
       { group: 'skills', value: 'survival', threshold: 2 },
-      { group: 'skills', value: 'Stealth', threshold: 2 },
+      { group: 'skills', value: 'stealth', threshold: 2 },
     ],
     keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
     influence: 3,
