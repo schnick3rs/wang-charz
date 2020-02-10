@@ -2010,7 +2010,7 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Lichguard', 70, 4, false),
+    ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Lychguard', 70, 4, false),
     hint: 'The Royal Guard of the Necron Dynasties.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },
