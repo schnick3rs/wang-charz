@@ -442,9 +442,54 @@ const pax = [
   },
 ];
 
+const tea = [
+  {
+    ...simpleStub(30530,'tea',53,'Narthecium', '6R', 'Imperium,Adeptus Astartes', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Armour Upgrades/Attachments',
+    snippet:
+      'Count as Medikit that may be used without penalty on fully armoured patients. ' +
+      'Add +2 bonus die to Medicae Test on <Adeptus Astartes> characters. ' +
+      'Also, you may instantly kill any helpless Marine using the build in Emperor´s peace.',
+    description:
+      '<p>Mounted on an Apothecary’s arm, the Narthecium includes a suite of tools, like micro-saws, injectors, extended surgical implements, ' +
+      'flesh-grafts, and a drill designed to cut a hole in power armor, all for the purposes of field surgery. ' +
+      'A character equipped with a Narthecium is considered to have a medikit, and may use Medicae on fully armored characters without removing the armor. ' +
+      'The user also gains a +2d bonus to Medicae when attempting to heal a character with the Adeptus Astartes keyword. ' +
+      'Finally, the Narthecium also incorporates a device known as The Emperor’s Peace, a spring-loaded piston that ' +
+      'can be used to euthanize a marine too badly wounded to be savable. This device cannot be used in combat, but can instantly kill any helpless marine.</p>',
+  },
+  {
+    ...simpleStub(30531,'tea',53,'Reductor', '5R', 'Imperium,Adeptus Astartes', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Armour Upgrades/Attachments',
+    snippet:
+      'Recover the gene-seeds with a DN 3 Medicae Test (The GM may apply bonus/penalty depending on state of the body and time since death.',
+    description:
+      '<p>A device mounted below the Narthecium, the Reductor has one use, and one alone--To recover the gene-seed of a fallen battle-brother. ' +
+      'After drilling into the armor, the device is used to extract the progenoid glands found in the chest and neck of the dead marine, ' +
+      'storing them in stasis vials contained within the reductor. ' +
+      'Recovering gene-seed takes a DN 3 Medicae test, with penalties or bonuses depending on the state of the body or the time since death. ' +
+      'Without a reductor, the test increases to DN 6, and the user must still have a medical kit and stasis vial in order to keep the gene-seed from spoiling before it can be cultivated. While a Reductor can hold up to 3 stasis vials at once, Apothecaries often carry more, especially if they expect heavy combat.</p>',
+  },
+  {
+    ...simpleStub(30531,'tea',53,'Psychic Hood', '6V', 'Imperium,Adeptus Astartes', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Armour Upgrades/Attachments',
+    snippet: 'Add +1 bonus die to Deny the Witch tests. Reroll the first psycic test complication per combat.',
+    description:
+      '<p>This device attaches to the collar of a suit of power armor, surrounding the bearer’s ' +
+      'helmet and granting him increased focus and control over his psychic might, ' +
+      'as well as allowing him to more easily calm the tides of the warp around him. ' +
+      'The wearer of a Psychic Hood gains a +1d bonus to Deny the Witch, ' +
+      'and may reroll the first complication per combat he rolls on a psychic test.</p>',
+  },
+];
+
 module.exports = [
   ...core,
   ...pax,
   ...lotn,
   ...aaoa,
+  ...tea,
 ];
