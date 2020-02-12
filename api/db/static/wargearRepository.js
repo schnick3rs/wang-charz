@@ -444,6 +444,22 @@ const pax = [
 
 const tea = [
   {
+    ...simpleStub(30521,'tea',52,'Diagnostor Helm', '6V', 'Imperium,Adeptus Astartes', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Armour Upgrades/Attachments',
+    snippet:
+      'You add +1 bonus die to Medicae Tests to detect and diagnose diseases, injuries and ailments. ' +
+      'You add +1 bonus die to Awareness and Investigation Tests to examine a corpse to determine cause of death. ' +
+      'This does not stack with a normal diagnostor.',
+    description:
+      '<p>Issued to Apothecaries in place of their normal helmet, ' +
+      'the Diagnostor Helm upgrades the already advanced hardware of a power armor helmet with a suite of medical sensors. ' +
+      'In addition to the full suite of abilities granted by a power armor helm, a character ' +
+      'wearing a diagnostor helm gains a +1d bonus to Medicae tests made to detect and diagnose diseases, ' +
+      'injuries, and ailments, and to Awareness and Investigation tests made when examining a corpse to ' +
+      'determine cause of death. This does not stack with a normal diagnostor.</p>',
+  },
+  {
     ...simpleStub(30530,'tea',53,'Narthecium', '6R', 'Imperium,Adeptus Astartes', ''),
     type: 'Tools & Equipment',
     subtype: 'Armour Upgrades/Attachments',

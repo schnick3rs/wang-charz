@@ -29,7 +29,7 @@
         <v-list>
           <v-list-item
             v-for="item in speciesList"
-            :key="item.name"
+            :key="item.key"
             :disabled="item.baseTier > characterSettingTier"
             @click.stop="updatePreview(item)"
           >
