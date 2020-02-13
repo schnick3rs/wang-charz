@@ -201,7 +201,8 @@
                   nuxt
                   :to="`/forge/characters/${character.id}/builder/setting`"
                   color="primary"
-                  small
+                  x-small
+                  text
                 >
                   <v-icon left small>
                     edit
@@ -212,7 +213,8 @@
                   nuxt
                   :to="`/forge/characters/${character.id}`"
                   color="primary"
-                  small
+                  text
+                  x-small
                 >
                   <v-icon small left>
                     description
@@ -225,8 +227,8 @@
                   target="_blank"
                   color="primary"
                   class="d-none d-md-flex"
-                  outlined
-                  small
+                  text
+                  x-small
                   v-if="false"
                 >
                   <v-icon small left>print</v-icon>Print
@@ -235,54 +237,72 @@
                 <v-btn
                   color="primary"
                   text
-                  small
+                  x-small
                   @click="openExportDialog(character.id)"
                 >
                   <v-icon small left>cloud_download</v-icon>
                   Export
                 </v-btn>
-                <v-dialog
-                  v-model="exportDialog"
-                  width="600px"
-                  scrollable
-                  :fullscreen="$vuetify.breakpoint.xsOnly"
-                >
-                  <v-card class="pa-0">
 
-                    <v-card-title style="background-color: #262e37; color: #fff;">
-                      <span>Export Character</span>
-                      <v-spacer />
-                      <v-icon dark @click="exportDialog = false">
-                        close
-                      </v-icon>
-                    </v-card-title>
-                    <v-card-text>
-                      <v-textarea
-                        id="exportSnippetId"
-                        rows="10"
-                        v-model="exportSnippet"
-                      ></v-textarea>
-                    </v-card-text>
-                    <v-card-actions>
-                      <v-btn outlined block color="primary" @click="copyToClipboard"><v-icon>file_copy</v-icon>Copy to clipboard</v-btn>
-                    </v-card-actions>
-                  </v-card>
-                </v-dialog>
-
-                <v-btn
-                  color="error"
-                  text
-                  small
-                  @click="deleteCharacter(character.id)"
-                >
-                  <v-icon small>
-                    delete
-                  </v-icon>
-                  Delete
+                <v-btn color="error" text small @click="openDeleteDialog(character.id)">
+                  <v-icon small>delete</v-icon>Delete
                 </v-btn>
+
               </v-card-actions>
             </v-card>
           </v-col>
+
+          <v-dialog
+            v-model="exportDialog"
+            width="600px"
+            scrollable
+            :fullscreen="$vuetify.breakpoint.xsOnly"
+          >
+            <v-card class="pa-0">
+
+              <v-card-title style="background-color: #262e37; color: #fff;">
+                <span>Export Character</span>
+                <v-spacer />
+                <v-icon dark @click="exportDialog = false">
+                  close
+                </v-icon>
+              </v-card-title>
+              <v-card-text>
+                <v-textarea
+                  id="exportSnippetId"
+                  rows="10"
+                  v-model="exportSnippet"
+                ></v-textarea>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn outlined block color="primary" @click="copyToClipboard"><v-icon>file_copy</v-icon>Copy to clipboard</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog
+            v-model="deleteDialog"
+            width="350"
+            persistent
+            :fullscreen="$vuetify.breakpoint.xsOnly"
+          >
+            <v-card>
+              <v-card-title style="background-color: #262e37; color: #fff;">
+                <span>Delete Character confirmation</span>
+                <v-spacer />
+                <v-icon dark @click="deleteDialog = false">close</v-icon>
+              </v-card-title>
+              <v-card-text>
+                <div class="pt-2 pb-2">
+                  <p>Do you really want to delete the character permanently?</p>
+                </div>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn block color="primary" @click="deleteCharacter">Delete permanently</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
         </v-row>
       </v-col>
 
@@ -327,6 +347,8 @@ export default {
       importSnippet: '',
       exportDialog: false,
       exportSnippet: '',
+      deleteDialog: false,
+      deleteId: undefined,
       breadcrumbItems: [
         {
           text: '', nuxt: true, exact: true, to: '/',
@@ -509,8 +531,14 @@ export default {
       this.$store.commit('characters/create', newCharId);
       this.$ga.event('New Character', 'click', newCharId, 10);
     },
-    deleteCharacter(id) {
+    openDeleteDialog(id){
+      this.deleteId = id;
+      this.deleteDialog = true;
+    },
+    deleteCharacter() {
+      const id = this.deleteId;
       this.$store.commit('characters/remove', id);
+      this.deleteDialog = false;
       this.$ga.event('Delete Character', 'click', id, 1);
     },
     openExportDialog(id) {
