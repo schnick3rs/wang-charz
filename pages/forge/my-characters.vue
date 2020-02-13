@@ -55,11 +55,15 @@
             </v-card-title>
             <v-card-text>
               <v-textarea
+                class="mt-4"
                 v-model="importSnippet"
+                persistent-hint
+                dense
+                hint="Paste the exported character string into the field and hit the 'import' button."
               ></v-textarea>
             </v-card-text>
             <v-card-actions>
-              <v-btn @click="importCharacter(importSnippet)">import</v-btn>
+              <v-btn block color="success" @click="importCharacter(importSnippet)" :disabled="!importSnippet">import</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -272,6 +276,10 @@
                   id="exportSnippetId"
                   rows="10"
                   readonly
+                  class="mt-4"
+                  persistent-hint
+                  dense
+                  hint="The character is exported without his custom image."
                   v-model="exportSnippet"
                 ></v-textarea>
               </v-card-text>
@@ -286,7 +294,6 @@
             v-model="deleteDialog"
             width="350"
             persistent
-            :fullscreen="$vuetify.breakpoint.xsOnly"
           >
             <v-card>
               <v-card-title style="background-color: #262e37; color: #fff;">
@@ -560,6 +567,7 @@ export default {
         stateString: atob(stateString),
       };
       this.$store.commit('characters/import', payload);
+      this.importSnippet = '';
       this.importDialog = false;
       this.$ga.event('Import Character', 'click', newCharId, 1);
     }

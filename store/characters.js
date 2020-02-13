@@ -24,7 +24,10 @@ export const getters = {
   },
 
   characterStateJsonById: (state) => (id) => {
-    return JSON.stringify(state.characters[id]);
+    const character = state.characters[id];
+    let cleanCharacter = JSON.parse(JSON.stringify(character));
+    cleanCharacter.avatarUrl = undefined;
+    return JSON.stringify(cleanCharacter);
   },
 
   characterVersionById: (state) => (id) => (state.characters[id] ? state.characters[id].version : undefined),
