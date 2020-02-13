@@ -271,9 +271,11 @@
                 <v-textarea
                   id="exportSnippetId"
                   rows="10"
+                  readonly
                   v-model="exportSnippet"
                 ></v-textarea>
               </v-card-text>
+              <v-divider></v-divider>
               <v-card-actions>
                 <v-btn outlined block color="primary" @click="copyToClipboard"><v-icon>file_copy</v-icon>Copy to clipboard</v-btn>
               </v-card-actions>
@@ -297,6 +299,7 @@
                   <p>Do you really want to delete the character permanently?</p>
                 </div>
               </v-card-text>
+              <v-divider></v-divider>
               <v-card-actions>
                 <v-btn block color="primary" @click="deleteCharacter">Delete permanently</v-btn>
               </v-card-actions>
