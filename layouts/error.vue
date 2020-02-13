@@ -15,7 +15,7 @@
             <h1>Stop right here, heretic!</h1>
             <p>
               Something went wrong, and until I figure out who is responsible,
-              you better check out a different site
+              you better check out a different page.
             </p>
           </div>
           <NuxtLink to="/">

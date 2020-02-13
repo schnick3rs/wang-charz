@@ -61,7 +61,7 @@ const simpleStub = function (sourceKey, sourcePage, group, name, hint, bp, tier)
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${stringToKebabToCamel(`${sourceKey} ${name}`)}`,
+    key: `${stringToKebab(`${sourceKey} ${name}`)}`,
     name,
     hint,
     group,
@@ -83,7 +83,8 @@ const coreRep = [
         name: 'The Red Thirst',
         origin: 'Gene-seed',
         effect: 'After engaging in melee combat, Blood Angels must pass a Willpower test (DN 3). On a failure, the Blood Angels Space Marine feels a strong urge to drink the blood of the fallen—the player may choose how to respond to this urge. If the failure involves a complication, the Blood Angels Space Marine may not resist this urge. The Game Master may alter the DN based on how long it has been since the character has tasted blood.',
-      }],
+      }
+      ],
   },
   {
     key: 'darkAngles',
@@ -226,6 +227,40 @@ const coreRep = [
         effect: 'White Scars value swift action and are reluctant to give up the chase '
         + 'when hunting their foes. A White Scars Space Marine must spend a point of Glory '
         + 'to Hold Action (see page 222).',
+      },
+    ],
+  },
+  {
+    key: 'dodHouseIsenwell',
+    name: 'Doctors of Doom (House Isenwell)',
+    beliefsAndTraditions: [
+      {
+        name: 'Thunder’s Call',
+        effect: 'Blade in hand, Isenwellers loudly issue challenges to those enemies they deem worthy to face them. A Isenweller may spend a Glory as a free action to issue a Thunder’s Call, picking out a specific threat. So long as he spends his next action(s) attempting to engage that enemy in melee, the target of the Call suffers a +½ Rank DN penalty to all attacks against targets that are not the Warden, and the Warden gains +½ Rank bonus dice to all melee attacks against the target until the target is dead or combat has ended. Only one enemy may be the target of a specific Isenweller’s Thunder’s Call at a time.',
+      },
+      {
+        name: 'My Oath is My Bond',
+        origin: 'Tradition',
+        effect: 'A Isenweller who breaks his word is without honor, and to purposefully use a false oath to deceive an enemy is the lowest cowardice. If the Isenweller says that he will perform an action, and then does not at least earnestly attempt to perform that action, then the GM gains 2 ruin. ',
+      },
+    ],
+  },
+  {
+    key: 'sosHouseHironiat',
+    name: 'Doctors of Doom (House Hironiat)',
+    beliefsAndTraditions: [
+      {
+        name: 'Siege Masters',
+        effect: 'Hironians immediately recognise the weaknesses in any fortification. '
+          + 'An Hironian Space Marine may add his Rank bonus to damage when attacking '
+          + 'any building or fortification. An Hironian Space Marine may spend a '
+          + 'Glory point to ignore any bonuses to an enemy’s Defence from cover on any attack.',
+      },
+      {
+        name: 'No Retreat',
+        origin: 'Tradition',
+        effect: 'Hironians are stubborn, tenacious and stoic. If an Hironian '
+          + 'Space Marine fails a Willpower test, the GM gains 1 Ruin.',
       },
     ],
   },

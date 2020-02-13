@@ -451,7 +451,7 @@ export default {
   },
   async asyncData({ params, $axios, error }) {
     const talentResponse = await $axios.get('/api/talents/');
-    const wargeaResponse = await $axios.get('/api/wargear/');
+    const wargeaResponse = await $axios.get('/api/wargear/?source=core');
     return {
       talentRepository: talentResponse.data,
       wargearRepository: wargeaResponse.data,

@@ -39,7 +39,7 @@
       <v-col :cols="8" :sm="6" :md="6">
         <v-row no-gutters>
           <v-col :cols="12">{{ characterName }}</v-col>
-          <v-col :cols="12" class="caption">{{ [ characterSpeciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
+          <v-col :cols="12" class="caption">{{ [ speciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
           <v-col :cols="12" class="caption">
             <span>{{ [ `Tier ${characterSettingTier}`, `Rank ${characterRank}`, `${campaignCustomXp} XP`].join(' • ') }}</span>
           </v-col>
@@ -300,7 +300,7 @@
             <v-tab class="caption" key="actions" :href="`#tab-actions`">Weapons</v-tab>
             <v-tab class="caption" key="wargear" :href="`#tab-wargear`">Wargear</v-tab>
             <v-tab class="caption" key="abilities-talents" :href="`#tab-abilities-talents`">Abilities</v-tab>
-            <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`">Powers</v-tab>
+            <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`" v-if="psychicPowers.length > 0">Powers</v-tab>
             <v-tab class="caption" key="objectives" :href="`#tab-objectives`">Description</v-tab>
 
             <!-- actions (all, weapons, powers, other) -->
@@ -321,6 +321,10 @@
                         {{ item.name }}
                       </td>
                       <td class="text-center pa-1 small">
+                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
+                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
+                      </td>
+                      <td class="text-center pa-1 small">
                         <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
                           <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + characterAttributesEnhanced.strength }}*</span>
                           <span v-else>{{ item.meta[0].damage.static }}</span>
@@ -333,10 +337,6 @@
                       </td>
                       <td class="text-center pa-1 small">
                         <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo < 0 ? '-' : item.meta[0].salvo }}</span>
-                      </td>
-                      <td class="text-center pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
                       </td>
                       <td class="text-left pa-1 small">
                         <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
@@ -365,10 +365,34 @@
               key="wargear"
               :value="`tab-wargear`"
             >
-              <div class="pa-2">
-                <div v-for="gearItem in wargear" :key="gearItem.name" class="caption">
-                  <strong>{{ gearItem.name }}</strong>
-                  <p>{{ gearItem.description }}</p>
+              <div class="pa-2 pt-1 pb-1">
+                <div v-for="gearItem in wargear.filter((w)=>!['Ranged Weapon','Melee Weapon'].includes(w.type))" :key="gearItem.name" class="caption">
+                  <div v-if="gearItem.variant" style="display: inline;">
+                    <strong >{{ gearItem.variant }}</strong>
+                    <span> ({{ gearItem.name }})</span>
+                  </div>
+                  <strong v-else>{{ gearItem.name }}</strong>
+                  <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                  <span v-if="gearItem.source">
+                    <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                  </span>
+
+                  <p class="mb-1">{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
+
+                  <div
+                    v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                  >
+                    <p
+                      class="ml-3 mt-1 mb-2"
+                      v-for="trait in gearItem.meta[0].traits"
+                      v-if="traitByName(trait, true)"
+                      :key="trait"
+                    >
+                      <strong>{{ trait }}: </strong>
+                      {{ traitByName(trait, true).effect }}
+                    </p>
+                  </div>
+
                 </div>
 
               </div>
@@ -397,13 +421,20 @@
                 <div style="height: 505px; overflow-y: auto;">
 
                   <!-- species < abilities -->
-                  <div v-show="['all', 'species'].some(i=>i===abilitySection.selection)">
+                  <div v-show="abilitySection.selection === 'species' || (abilitySection.selection === 'all' && speciesAbilities.length > 0 )">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Species</span>
                     </div>
-                    <div v-for="ability in speciesAbilities" :key="ability.name" class="caption">
+                    <div v-for="ability in speciesAbilities" :key="ability.name" class="caption mb-2">
                       <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                      <p v-html="computeFormatedText(ability.effect)" />
+                      <div v-html="computeFormatedText(ability.effect)" />
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
+                        <strong>{{ ability.selectedOption.name }}</strong>
+                        <p>{{ability.selectedOption.effect}}</p>
+                      </div>
+                    </div>
+                    <div v-if="speciesAbilities.length === 0" align="center" class="mt-2 mb-2">
+                      <em>No abilities? Human eh?</em>
                     </div>
                   </div>
 
@@ -419,11 +450,11 @@
                   </div>
 
                   <!-- talents < abilities -->
-                  <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" class="caption">
+                  <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" >
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Talents</span>
                     </div>
-                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" >
+                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption">
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
                       <p v-html="computeFormatedText(talent.description)" />
                     </div>
@@ -538,6 +569,7 @@
                   <div v-show="['all', 'objectives'].some(i=>i===descriptionSection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Objectives</span>
+                      <v-icon small v-if="false" @click="objectiveEditorOpen">edit</v-icon>
                     </div>
                     <div
                       v-for="(objective, index) in objectives"
@@ -545,6 +577,17 @@
                       class="pl-2 pr-2 pt-1 pb-1 caption"
                     >
                       <strong>{{ index+1 }}:</strong> {{ objective.text }}
+                    </div>
+                    <div v-if="false">
+                      <span class="caption" @click="objectiveEditorOpen">+ Add/edit objectives</span>
+                    </div>
+                    <div style="display: flex;" justify="center" align v-if="objectiveEditorShow">
+                      <v-textarea
+                        flat
+                        single-lined
+                        dense
+                        v-model="objectiveEditorValue"
+                      ></v-textarea>
                     </div>
                   </div>
 
@@ -655,86 +698,74 @@ export default {
     KeywordRepository,
   ],
   props: [],
+  async asyncData({ params, $axios }) {
+    const config = {
+      params: { source: 'core,coreab,pax', },
+    };
+    const talentResponse = await $axios.get('/api/talents/');
+    const wargearResponse = await $axios.get('/api/wargear/');
+    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
+    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
+    const chaptersResponse = await $axios.get('/api/species/chapters/');
+
+    return {
+      characterId: params.id,
+      astartesChapterRepository: chaptersResponse.data,
+      objectiveRepository: objectiveResponse.data,
+      psychicPowersRepository: psychicPowersResponse.data,
+      talentRepository: talentResponse.data,
+      wargearRepository: wargearResponse.data,
+      breadcrumbItems: [
+        { text: '', nuxt: true, exact: true, to: '/',
+        },
+        { text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters',
+        },
+        { text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}`,
+        },
+      ],
+    };
+  },
   data() {
     return {
+      objectiveEditorShow: false,
+      objectiveEditorValue: '',
       attributeHeaders: [
-        {
-          text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1',
-        },
+        { text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       traitHeaders: [
-        {
-          text: 'Trait', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
-        },
+        { text: 'Trait', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       skillHeaders: [
-        {
-          text: 'Skill', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Rating', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Att', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Total', sortable: false, align: 'center', class: 'small pa-1',
-        },
+        { text: 'Skill', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Att', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Total', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       weaponHeaders: [
-        {
-          text: 'Name', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'Damage', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'AP', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Salvo', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Range', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Traits', sortable: false, align: 'left', class: 'small pa-1',
-        },
+        { text: 'Name', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'Range', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Damage', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'AP', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Salvo', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Traits', sortable: false, align: 'left', class: 'small pa-1' },
       ],
       psychicPowersHeaders: [
-        {
-          text: 'Name', sortable: false, align: 'left', class: 'small pa-1',
-        },
-        {
-          text: 'DN', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Activation', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Duration', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Range', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Multi-Target', sortable: false, align: 'center', class: 'small pa-1',
-        },
-        {
-          text: 'Effect', sortable: false, align: 'left', class: 'small pa-1',
-        },
+        { text: 'Name', sortable: false, align: 'left', class: 'small pa-1' },
+        { text: 'DN', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Activation', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Duration', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Range', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Multi-Target', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Effect', sortable: false, align: 'left', class: 'small pa-1' },
       ],
       descriptionSection: { selection: 'all' },
       abilitySection: { filter: 'all' },
+      //
+      characterSpecies: undefined,
+      characterArchetype: undefined,
     };
   },
   computed: {
@@ -751,34 +782,48 @@ export default {
       return this.$store.getters['characters/characterCampaignCustomXpById'](this.characterId);
     },
 
-    characterSpeciesLabel() {
+    speciesKey() {
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
+    speciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
     speciesAstartesChapter() {
       return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
     },
 
-    characterBackground() {
-      return this.$store.getters['characters/characterBackgroundLabelById'](this.characterId);
+    archetypeKey() {
+      return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
+    },
+    archetypeLabel() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+
+    characterBackgroundKey() {
+      return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
     },
 
     keywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
     avatar() {
-      if (this.archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(this.characterSpeciesLabel)) {
-        return `/img/icon/archetype/archetype_${this.textToKebab(this.archetypeLabel)}_avatar.png`;
+      const customAvatarUrl = this.$store.getters['characters/characterAvatarUrlById'](this.characterId);
+
+      if ( customAvatarUrl ) {
+        return customAvatarUrl;
       }
 
-      if (this.characterSpeciesLabel !== undefined) {
-        return `/img/icon/species/species_${this.textToKebab(this.characterSpeciesLabel)}_avatar.png`;
+      if (this.archetypeKey !== undefined && !['Ratling', 'Ogryn'].includes(this.speciesLabel)) {
+        return `/img/avatars/archetype/${this.archetypeKey}.png`;
       }
 
-      return '/img/icon/species/species_human_avatar.png';
+      if (this.speciesKey !== undefined) {
+        return `/img/avatars/species/${this.speciesKey}.png`;
+      }
+
+      return '/img/avatars/species/core-human.png';
     },
-    archetypeLabel() {
-      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
-    },
+
     characterAttributesEnhanced() {
       return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
     },
@@ -793,11 +838,12 @@ export default {
     traits() {
       const traits = this.$store.getters['characters/characterTraitsById'](this.characterId);
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
-      return this.traitRepository.map((t) => ({
+      const finalTraits = this.traitRepository.map((t) => ({
         ...t,
         value: traits[t.key],
         enhancedValue: traitsEnhanced[t.key],
       }));
+      return finalTraits;
     },
     groupedTraits() {
       return [
@@ -832,67 +878,88 @@ export default {
 
     speciesAbilities(){
       const abilities = [];
-      if (this.characterSpeciesLabel !== undefined) {
-        const species = this.speciesRepository.find((s) => s.name === this.characterSpeciesLabel);
-        if (species !== undefined && species.abilities) {
-          const speciesAbilityNames = species.abilities.split(',');
-          if (speciesAbilityNames.length > 0) {
-            speciesAbilityNames.forEach((speciesAbilityName) => {
-              if (speciesAbilityName === 'Honour the Chapter') {
-                const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
-                const traditions = chapter.beliefsAndTraditions;
-                if (traditions !== undefined) {
-                  traditions.forEach((t) => {
-                    const tradition = {
-                      name: t.name,
-                      effect: t.effect,
-                      source: this.speciesAstartesChapter,
-                    };
-                    abilities.push(tradition);
-                  });
-                }
-              } else {
-                const ability = species.abilityObjects.find((a) => a.name === speciesAbilityName);
-                ability.source = this.characterSpeciesLabel;
-                abilities.push(ability);
+
+      if (this.characterSpecies !== undefined && this.characterSpecies.speciesFeatures) {
+
+          this.characterSpecies.speciesFeatures.forEach( (speciesTrait) => {
+            // Honour the Chapter
+            if (speciesTrait.name === 'Honour the Chapter') {
+              const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
+              const traditions = chapter.beliefsAndTraditions;
+              if (traditions !== undefined) {
+                traditions.forEach((t) => {
+                  const tradition = {
+                    name: t.name,
+                    effect: t.effect,
+                    source: this.speciesAstartesChapter,
+                  };
+                  abilities.push(tradition);
+                });
               }
-            });
-          }
+            } else {
+            // other abilities
+              const ability = {
+                name: speciesTrait.name,
+                effect: speciesTrait.snippet ? speciesTrait.snippet : speciesTrait.description,
+                source: this.speciesLabel,
+                hint: this.speciesLabel,
+              };
+              if ( speciesTrait.options ) {
+                const traitSelection = this.enhancements.find( (e) => e.source.startsWith(`species.${speciesTrait.name}.`));
+                if ( traitSelection && traitSelection.effect ) {
+                  ability['selectedOption'] = {
+                    name: traitSelection.name,
+                    effect: traitSelection.effect,
+                  };
+                }
+              }
+              abilities.push(ability);
+            }
+          });
         }
-      }
+
       return abilities;
     },
     archetypeAbilities() {
       const abilities = [];
-      if (this.archetypeLabel !== undefined) {
-        const archetype = this.archetypeRepository.find((a) => a.name === this.archetypeLabel);
-        if (archetype !== undefined) {
-          archetype.abilities.forEach((a) => {
-            a.source = this.archetypeLabel;
-            abilities.push(a);
-          });
-        }
+      const archetype = this.characterArchetype;
+
+      if (archetype && archetype.archetypeFeatures) {
+        archetype.archetypeFeatures.forEach( (item) => {
+          const ability = {
+            name: item.name,
+            effect: item.snippet ? item.snippet : item.description,
+            source: archetype.label,
+            hint: archetype.label,
+          };
+          abilities.push(ability);
+        });
       }
       return abilities;
     },
+
     otherAbilities() {
       const abilities = [];
 
       // keyword abilities
-      if (this.keywords.find( k => k ==='Adeptus Mechanicus')) {
-        abilities.push({
-          name: 'Data is Currency',
-          effect:
-            'Characters with the Adeptus Mechanicus keyword may use Intellect ' +
-            'in place of Fellowship when calculating Influence.',
-          source: 'Adeptus Mechanicus'
-        });
-      }
+      this.keywords.forEach( k => {
+        const keyword = this.keywordCombinedRepository.find( i => i.name === k );
+        if ( keyword === undefined ) {
+          console.warn(`Now keyword found for ${k}`);
+        } else if ( keyword.effect ) {
+          const keywordAbility = {
+            name: keyword.effectLabel ? keyword.effectLabel : keyword.name,
+            effect: keyword.effect,
+            source: keyword.effectLabel ? `${keyword.name} Keyword` : `${keyword.type} Keyword`,
+          };
+          abilities.push(keywordAbility);
+        }
+      });
 
       // background abilities
-      if (this.characterBackground) {
+      if (this.characterBackgroundKey) {
         const background = this.backgroundRepository
-        .filter((b) => b.name === this.characterBackground)
+        .filter((b) => b.key === this.characterBackgroundKey)
         .map((b) => ({
           name: b.name,
           effect: b.bonus,
@@ -903,11 +970,10 @@ export default {
 
       // other
       if (this.customAbilities) {
-        this.customAbilities.forEach((item) => {
+        this.customAbilities.filter( (a) => a.source && !a.source.startsWith('species.') ).forEach((item) => {
           const ability = {
             name: item.name,
             effect: item.effect,
-            source: 'Ascension?',
           };
           abilities.push(ability);
         });
@@ -925,8 +991,7 @@ export default {
       return abilities;
     },
     customAbilities() {
-      const characterEnhancements = this.$store.getters['characters/characterEnhancementsById'](this.characterId);
-      return characterEnhancements ? characterEnhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
+      return this.enhancements ? this.enhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
     },
     talents() {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
@@ -948,14 +1013,15 @@ export default {
       return [];
     },
     wargear() {
-      const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
+      const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
-      wargearLabels.forEach((wargearName) => {
-        const foundGear = this.wargearRepository.find((w) => w.name === wargearName);
+      chargear.forEach((gear) => {
+        console.log(`Searching for [${gear.name}] in repository...`);
+        const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
         if (foundGear) {
-          wargear.push(foundGear);
+          wargear.push({ ...foundGear, variant: gear.variant });
         } else {
-          wargear.push({ name: wargearName, type: 'Misc' });
+          wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
         }
       });
       return wargear;
@@ -979,13 +1045,10 @@ export default {
       return items;
     },
     objectives() {
-      if (this.archetypeLabel && this.objectiveRepository) {
-        const archetype = this.archetypeRepository.find((a) => a.name === this.archetypeLabel);
-        if (archetype) {
-          const objectiveList = this.objectiveRepository.find((o) => o.group === archetype.group);
-          if (objectiveList) {
-            return objectiveList.objectives.map((o) => ({ text: o }));
-          }
+      if (this.characterArchetype && this.objectiveRepository) {
+        const objectiveList = this.objectiveRepository.find((o) => o.group === this.characterArchetype.group);
+        if (objectiveList) {
+          return objectiveList.objectives.map((o) => ({ text: o }));
         }
       }
       return [];
@@ -1004,38 +1067,6 @@ export default {
       return [...new Set(weaponsTraitSet)].sort();
     },
   },
-  async asyncData({ params, $axios }) {
-    const sourceFilter = '?source=core,coreab';
-    const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/');
-    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
-    const archetypeResponse = await $axios.get(`/api/archetypes/${sourceFilter}`);
-    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
-    const chaptersResponse = await $axios.get('/api/species/chapters/');
-    const speciesResponse = await $axios.get(`/api/species/${sourceFilter}`);
-
-    return {
-      characterId: params.id,
-      astartesChapterRepository: chaptersResponse.data,
-      objectiveRepository: objectiveResponse.data,
-      psychicPowersRepository: psychicPowersResponse.data,
-      speciesRepository: speciesResponse.data,
-      archetypeRepository: archetypeResponse.data,
-      talentRepository: talentResponse.data,
-      wargearRepository: wargearResponse.data,
-      breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters',
-        },
-        {
-          text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}`,
-        },
-      ],
-    };
-  },
   head() {
     return {
       // title: [this.name, this.species, this.archetype].join(' • '),
@@ -1043,9 +1074,50 @@ export default {
       // titleTemplate: '%s | W&G Character Sheet',
     };
   },
+  watch: {
+    speciesKey: {
+      handler(newVal) {
+        if (newVal && newVal !== 'unknown') {
+          this.loadSpecies(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    archetypeKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.loadArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+  },
   methods: {
-    traitByName(name) {
-      // const prefix = name.split(/ ?\(/)[0];
+    async loadSpecies(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/species/${key}`);
+        this.characterSpecies = data;
+      }
+    },
+    async loadArchetype(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+        this.characterArchetype = data;
+      }
+    },
+    objectiveEditorOpen() {
+      this.objectiveEditorValue = this.objectives.map((o) => o.text).join('\r\n');
+      this.objectiveEditorShow = true;
+    },
+    addObjective(value) {
+      console.info(`Add new objective: ${value}`);
+      this.objectiveEditorShow = false;
+    },
+    traitByName(name, withParanteris) {
+      if ( withParanteris ) {
+        // weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+        name = name.split(/ ?\(/)[0];
+      }
       // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
       return this.wargearTraitRepository.find((item) => item.name === name);
     },
@@ -1054,6 +1126,9 @@ export default {
       return attribute.enhancedValue + skill.enhancedValue;
     },
     computeFormatedText(text) {
+      if ( text === undefined ) {
+        return text;
+      }
       const rank = this.characterRank;
       let computed = text;
 

@@ -1,5 +1,6 @@
 <template>
   <v-app>
+
     <v-navigation-drawer
       v-model="drawer.open"
       app
@@ -114,6 +115,7 @@
     </v-app-bar>
 
     <v-content>
+
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
           <v-btn small text nuxt :to="`/forge/my-characters`" icon>
@@ -156,21 +158,11 @@
           >
             <v-icon>description</v-icon>
           </v-btn>
-          <v-btn
-            small
-            nuxt
-            icon
-            exact
-            :to="`/forge/characters/${$route.params.id}/builder/print`"
-            :disabled="!settingSelected"
-            target="_blank"
-          >
-            <v-icon>print</v-icon>
-          </v-btn>
         </v-toolbar-items>
       </v-toolbar>
 
       <v-container>
+
         <v-btn
           v-if="false"
           small
@@ -180,7 +172,26 @@
           <v-icon>chevron_left</v-icon>
         </v-btn>
 
-        <v-row justify="center">
+        <v-row v-if="isOutdated" align="center" justify="center">
+          <v-col :cols="12" :sm="10">
+            <h2>Update Available</h2>
+            <p>
+              This character was build with an older version and needs to be updated to ensure all
+              fields are up to date. Just hit the <strong>update button</strong> to bring this
+              character back in line. Or go to the overview page, and update all characters there.
+            </p>
+            <p>
+              <v-alert type="warning" dense outlined>
+                After thy update, please <strong>reselect potential ascension packages</strong>
+                to ensure that influence is computed correctly.
+              </v-alert>
+            </p>
+            <v-btn small color="success" @click="migrateCharacter">Update Character</v-btn>
+            <v-btn small color="success" nuxt exact :to="`/forge/my-characters`">To the Character Overview</v-btn>
+          </v-col>
+        </v-row>
+
+        <v-row justify="center" v-if="!isOutdated">
           <v-col
             :cols="12"
             :sm="10"
@@ -200,6 +211,7 @@
           <v-icon>chevron_right</v-icon>
         </v-btn>
       </v-container>
+
     </v-content>
 
     <v-footer
@@ -228,6 +240,7 @@
       <v-spacer />
       <span>&copy; {{ new Date().getFullYear() }}</span><span class="d-none d-md-block"> Doctors of Doom</span>
     </v-footer>
+
   </v-app>
 </template>
 
@@ -362,6 +375,15 @@ export default {
     maximumStartingTalents() { return Math.min(5, this.settingTier + 1); },
     maximumPsychicPowers() { return this.settingTier + 3; },
 
+    isOutdated() {
+      return this.characterVersion < this.builderVersion;
+    },
+    builderVersion(id) {
+      return this.$store.getters['builderVersion'];
+    },
+    characterVersion(id) {
+      return this.$store.getters['characters/characterVersionById'](this.$route.params.id);
+    },
     characterSpeciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.$route.params.id);
     },
@@ -458,6 +480,9 @@ export default {
         return { name: `forge-characters-id-builder-${parent}-${child}`, params: { id: this.$route.params.id } };
       }
       return { name: `forge-characters-id-builder-${parent}`, params: { id: this.$route.params.id } };
+    },
+    migrateCharacter() {
+      this.$store.dispatch('characters/migrate', { characterId: this.$route.params.id });
     },
   },
 };

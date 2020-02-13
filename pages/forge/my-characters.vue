@@ -34,6 +34,7 @@
         <v-btn large color="primary" @click="newCharacter">
           Create a Character
         </v-btn>
+
       </v-col>
 
       <!-- No Chars yet info text -->
@@ -66,9 +67,48 @@
       </v-col>
 
       <v-col :cols="12">
-        <div>
-          <v-card />
-        </div>
+
+        <v-row justify="center" v-if="hasUnmigratedCharacters">
+
+          <v-col
+            :cols="12"
+            :sm="12"
+            :md="12"
+            :lg="8"
+          >
+
+            <v-card>
+              <v-card-title>Updates Available</v-card-title>
+              <v-card-text>
+                This characters were build with an older version and need to be updated to ensure all
+                fields are up to date. Just hit the <strong>update button</strong> to bring all
+                  characters back in line.
+              </v-card-text>
+              <v-card-text>
+                <v-alert type="warning" dense outlined>
+                  After thy update, please <strong>reselect potential ascension packages</strong>
+                  to ensure that influence is computed correctly.
+                </v-alert>
+              </v-card-text>
+              <v-card-actions>
+                <v-btn
+                  @click="migrateAllCharacters"
+                    color="success"
+                  block
+                >
+                  <v-icon left small>
+                    cloud_upload
+                  </v-icon>
+                  Update all Characters
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+
+
+
+          </v-col>
+
+        </v-row>
 
         <v-row justify="left">
           <v-col
@@ -80,12 +120,12 @@
             :md="6"
             :lg="4"
           >
-            <v-card v-if="character">
+            <v-card v-if="character" :disabled="characterVersion(character.id) < builderVersion">
               <div class="card">
                 <div class="card__image-container">
                   <div
                     class="card__image"
-                    :style="{ backgroundImage: 'url('+getAvatar(characterSpeciesLabel(character.id), characterArchetypeLabel(character.id))+')' }"
+                    :style="{ backgroundImage: 'url('+characterAvatar(character.id)+')' }"
                     loading
                   />
                 </div>
@@ -93,6 +133,20 @@
                 <v-card-text class="pa-0">
                   <div class="card__content-container pa-4">
                     <h3>{{ characterName(character.id) }}</h3>
+                    <div
+                      v-if="characterVersion(character.id) < builderVersion"
+                    >
+                      <v-btn
+                        @click="migrateCharacter(character.id)"
+                        color="warning"
+                        x-small
+                      >
+                        <v-icon left small>
+                          cloud_upload
+                        </v-icon>
+                        Update
+                      </v-btn>
+                    </div>
 
                     <div>
                       <span>{{ characterSpeciesLabel(character.id) }} • {{ characterArchetypeLabel(character.id) }}</span>
@@ -141,7 +195,7 @@
                   :to="`/forge/characters/${character.id}/builder/print`"
                   target="_blank"
                   color="primary"
-                  class="d-none d-sm-block"
+                  class="d-none d-md-flex"
                   outlined
                   small
                 >
@@ -286,6 +340,7 @@ export default {
     },
     ...mapGetters({
       version: 'version',
+      builderVersion: 'builderVersion',
       characterIds: 'characters/characterIds',
       characterSets: 'characters/characterSets',
     }),
@@ -298,13 +353,37 @@ export default {
         storage: 'local',
       }];
     },
+    hasUnmigratedCharacters() {
+      if ( this.characterIds === undefined ) {
+        return false;
+      }
+      return this.characterIds.map( (id) => this.characterVersion(id) ).some( (version) => version < this.builderVersion );
+    },
   },
   methods: {
+    migrateAllCharacters() {
+      this.migrateCharacters( this.characterIds );
+    },
+    migrateCharacters(ids){
+      ids.forEach( (id) => this.migrateCharacter(id));
+    },
+    migrateCharacter(id) {
+      this.$store.dispatch('characters/migrate', {characterId:id});
+    },
+    characterVersion(id) {
+      return this.$store.getters['characters/characterVersionById'](id);
+    },
     characterName(id) {
       return this.$store.getters['characters/characterNameById'](id);
     },
+    characterSpeciesKey(id) {
+      return this.$store.getters['characters/characterSpeciesKeyById'](id);
+    },
     characterSpeciesLabel(id) {
       return this.$store.getters['characters/characterSpeciesLabelById'](id);
+    },
+    characterArchetypeKey(id) {
+      return this.$store.getters['characters/characterArchetypeKeyById'](id);
     },
     characterArchetypeLabel(id) {
       return this.$store.getters['characters/characterArchetypeLabelById'](id);
@@ -324,16 +403,23 @@ export default {
     characterSettingTier(id) {
       return this.$store.getters['characters/characterSettingTierById'](id);
     },
-    getAvatar(speciesLabel, archetypeLabel) {
-      if (archetypeLabel !== undefined && !['Ratling', 'Ogryn'].includes(speciesLabel)) {
-        return `/img/icon/archetype/archetype_${this.textToKebab(archetypeLabel)}_avatar.png`;
+    characterAvatar(id) {
+      const customAvatarUrl = this.$store.getters['characters/characterAvatarUrlById'](id);
+      if ( customAvatarUrl ) {
+        return customAvatarUrl;
       }
 
-      if (speciesLabel !== undefined) {
-        return `/img/icon/species/species_${this.textToKebab(speciesLabel)}_avatar.png`;
+      const archetypeKey = this.characterArchetypeKey(id);
+      const speciesKey = this.characterSpeciesKey(id);
+      if (archetypeKey !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
+        return `/img/avatars/archetype/${archetypeKey}.png`;
       }
 
-      return '/img/icon/species/species_human_avatar.png';
+      if (speciesKey !== undefined) {
+        return `/img/avatars/species/${speciesKey}.png`;
+      }
+
+      return '/img/avatars/species/core-human.png';
     },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)

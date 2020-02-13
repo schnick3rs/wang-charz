@@ -36,20 +36,16 @@
         <strong>Speed:</strong> {{ item.speed }}
       </p>
 
-      <p class="text-lg-justify">
-        <strong>Attribute Modifications:</strong> {{ item.attributes || 'None' }}
-      </p>
-
-      <div v-if="item.abilities">
+      <div v-if="item.speciesFeatures">
         <span class="mt-2 grey--text">Abilities</span>
-        <v-divider />
+        <p><v-divider /></p>
 
         <div
-          v-for="ability in item.abilityObjects"
-          v-if="item.abilities"
+          v-if="item.speciesFeatures"
+          v-for="feature in item.speciesFeatures"
           class="text-lg-justify"
         >
-          <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
+          <p><strong>{{ feature.name }}:</strong> {{ feature.description ? feature.description : feature.snippet }}</p>
         </div>
 
         <div v-if="item.description && item.description.length > 0">
@@ -85,7 +81,7 @@ export default {
   },
   computed: {
     avatar() {
-      return `/img/icon/species/species_${this.textToKebab(this.item.name)}_avatar.png`;
+      return `/img/avatars/species/${item.key}.png`;
     },
   },
   methods: {

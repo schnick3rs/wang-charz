@@ -3,13 +3,25 @@
     <v-col>
       <h1 class="headline">
         Manage Powers
+        <span>
+          <v-icon v-if="alerts && alerts.length <= 0">error_outline</v-icon>
+          <v-btn color="warning" v-else-if="showAlerts" @click="showAlerts = !showAlerts" small><v-icon small left>error</v-icon> Hide warnings</v-btn>
+          <v-btn color="warning" v-else @click="showAlerts = !showAlerts" outlined small>
+            <v-icon small left>error_outline</v-icon>show {{alerts.length}} warning{{ alerts.length > 1 ? 's' : '' }}
+          </v-btn>
+        </span>
       </h1>
+    </v-col>
 
+    <v-col :cols="12" v-if="showAlerts">
       <v-alert
         v-for="alert in alerts"
         :key="alert.key"
         :value="true"
         :type="alert.type"
+        text
+        dense
+        border="left"
       >
         {{ alert.text }}
       </v-alert>
@@ -36,6 +48,7 @@
         v-for="discipline in disciplines"
         :key="discipline.key"
         :color="selectedDisciplines.includes(discipline.name) ? 'green' : ''"
+        :disabled="!allowedDisciplines.includes(discipline.name)"
         small
         label
         class="mr-2"
@@ -101,6 +114,11 @@ export default {
       title: 'Select Psychic Powers',
     };
   },
+  asyncData({ params, $axios, error }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       searchQuery: '',
@@ -134,75 +152,56 @@ export default {
           sortable: false,
         },
       ],
-      disciplines: [
-        { name: 'Minor' },
-        { name: 'Universal' },
-        { name: 'Biomancy' },
-        { name: 'Divination' },
-        { name: 'Pyromancy' },
-        { name: 'Telekinesis' },
-        { name: 'Telepathy' },
-        { name: 'Maleficarum' },
-        { name: 'Runes of Battle' },
-      ],
       selectedDisciplines: [],
-      access: [
-        {
-          source: 'Eldar',
-          disciplines: [],
-          permission: [
-            { type: 'Discipline', value: 'Minor' },
-          ],
-        },
-        {
-          source: 'Sanctioned Psyker',
-          disciplines: ['Minor', 'Universal'],
-          free: [
-            { type: 'Power', value: 'Smite' },
-            { type: 'Discipline', value: 'Minor' },
-          ],
-        },
-        {
-          source: 'Rogue Psyker',
-          disciplines: ['Minor', 'Universal', 'Maleficarum'],
-          free: [
-            { type: 'Power', value: 'Smite' },
-            { type: 'Discipline', value: 'Minor' },
-          ],
-        },
-        {
-          source: 'Warlock',
-          disciplines: ['Minor', 'Universal', 'Runes of Battle'],
-          free: [
-            { type: 'Power', value: 'Psyniscience' },
-            { type: 'Power', value: 'Smite' },
-          ],
-        },
-        {
-          source: 'Psychic Revelations',
-          disciplines: ['Minor', 'Universal', '*'],
-          free: [
-            { type: 'Power', value: 'Smite' },
-            { type: 'Discipline', value: 'Minor' },
-          ],
-        },
+      disciplinesRepository: [
+        { name: 'Minor', source: 'core' },
+        { name: 'Universal', source: 'core' },
+        { name: 'Biomancy', source: 'core' },
+        { name: 'Divination', source: 'core' },
+        { name: 'Pyromancy', source: 'core' },
+        { name: 'Telekinesis', source: 'core' },
+        { name: 'Telepathy', source: 'core' },
+        { name: 'Maleficarum', source: 'core' },
+        { name: 'Runes of Battle', source: 'core' },
+        { name: 'Navigator Powers', source: 'pax' },
+        { name: 'WAAAGH!', source: 'aaoa' },
+        { name: 'Ancestral Rites', source: 'aaoa' },
+        { name: 'Librarius', source: 'tea' },
       ],
+      species: undefined,
+      archetype: undefined,
+      psychicPowersList: undefined,
+      loading: false,
+      showAlerts: false,
     };
   },
   computed: {
-    allThe() {
-      this.psychicPowersRepository.forEach((w) => {
-        // console.log(`INSERT INTO wrath_glory.psychic_powers (name, cost, keywords, effect) VALUES ('${w.name}', ${w.cost}, '{${w.keywords.join(',')}}', '${w.effect}' );`);
-        // console.log(`UPDATE wrath_glory.psychic_powers SET discipline = '${w.discipline}' WHERE name = '${w.name}';`);
-      });
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    disciplines() {
+      return this.disciplinesRepository.filter((d)=>this.sources.includes(d.source));
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
+    characterSpeciesKey() {
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
+    characterArchetypeKey() {
+      return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
     alerts() {
       const alerts = [];
 
-      if (!this.isPsychic) {
+      if (!this.isPsychic && !this.isNavigator) {
         const alert = {
           type: 'warning',
-          text: 'You need to either possess the Psychic Keyword or have at least learned one rank in the Psychic Mastery skill',
+          text: 'You need to either possess the Psychic Keyword or have at least learned one rank in the Psychic Mastery skill.',
         };
         alerts.push(alert);
       }
@@ -212,8 +211,12 @@ export default {
       const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
       const keywords = this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
       const hasSkill = skills.psychicMastery > 0;
-      const hasKeyword = keywords.includes('Psychic');
+      const hasKeyword = keywords.some( (k) => k.name === 'Psyker');
       return (hasSkill || hasKeyword);
+    },
+    isNavigator() { // from the PAX Homebrew
+      const key = this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+      return key === 'pax-navigator';
     },
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
@@ -224,15 +227,37 @@ export default {
     characterPowers() {
       return this.$store.getters['characters/characterPsychicPowersById'](this.characterId);
     },
+    allowedDisciplines() {
+      let access = [];
+
+      if(this.species && this.species.speciesFeatures) {
+        this.species.speciesFeatures
+          .filter((f)=> f.psychicDisciplines)
+          .map((f)=> f.psychicDisciplines)
+          .forEach((disciplines) => access = [ ...access, ...disciplines]);
+      }
+
+      if(this.archetype && this.archetype.archetypeFeatures) {
+        this.archetype.archetypeFeatures
+        .filter((f)=> f.psychicDisciplines)
+        .map((f)=> f.psychicDisciplines)
+        .forEach((disciplines) => access = [ ...access, ...disciplines]);
+      }
+
+      access = [...new Set(access)].sort();
+      return access;
+    },
     filteredPowers() {
-      if (this.psychicPowersRepository === undefined) {
+      if (this.psychicPowersList === undefined) {
         return [];
       }
 
-      let filteredPowers = this.psychicPowersRepository;
+      let filteredPowers = this.psychicPowersList;
 
       if (this.selectedDisciplines.length > 0) {
         filteredPowers = filteredPowers.filter((p) => this.selectedDisciplines.includes(p.discipline));
+      } else {
+        filteredPowers = filteredPowers.filter((p) => this.allowedDisciplines.includes(p.discipline));
       }
       // filteredTalents = filteredTalents.filter( t => !this.characterTalents.includes(t.name) );
 
@@ -242,26 +267,66 @@ export default {
       return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
     },
   },
-  async asyncData({ params, $axios, error }) {
-    const response = await $axios.get('/api/psychic-powers/');
-    return {
-      psychicPowersRepository: response.data,
-      characterId: params.id,
-    };
+  watch: {
+    settingHomebrews: {
+      handler(newVal) {
+        if (newVal) {
+          this.getPsychicPowers(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    characterSpeciesKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.getSpecies(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    characterArchetypeKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.getArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
     affordableColor(cost) {
       return (cost <= this.remainingBuildPoints) ? 'green' : 'grey';
     },
+    async getSpecies(key) {
+      this.loading = true;
+      const { data } = await this.$axios.get(`/api/species/${key}`);
+      this.loading = false;
+      this.species = data;
+    },
+    async getArchetype(key) {
+      this.loading = true;
+      const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+      this.loading = false;
+      this.archetype = data;
+    },
+    async getPsychicPowers(sources) {
+      const config = {
+        params: { source: this.sources.join(','), },
+      };
+      this.loading = true;
+      const { data } = await this.$axios.get('/api/psychic-powers/', config);
+      this.loading = false;
+      this.psychicPowersList = data;
+    },
     addPower(power) {
       this.$store.commit('characters/addCharacterPsychicPower', { id: this.characterId, name: power.name, cost: power.cost });
     },
-    removePower(power) {
-      this.$store.commit('characters/removeCharacterPsychicPower', { id: this.characterId, name: power });
+    removePower(powerName) {
+      this.$store.commit('characters/removeCharacterPsychicPower', { id: this.characterId, name: powerName });
     },
     toggleDisciplineFilter(name) {
       if (this.selectedDisciplines.includes(name)) {
-        this.selectedDisciplines = this.selectedDisciplines.filter((d) => d != name);
+        this.selectedDisciplines = this.selectedDisciplines.filter((d) => d !== name);
       } else {
         this.selectedDisciplines.push(name);
       }

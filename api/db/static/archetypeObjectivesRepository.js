@@ -67,7 +67,7 @@ const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, ti
       ...source[sourceKey],
       page: sourcePage,
     },
-    key: `${stringToKebabToCamel(`${sourceKey} ${name}`)}`,
+    key: `${stringToKebab(`${sourceKey} ${name}`)}`,
     name,
     cost: bp,
     tier,
@@ -156,6 +156,38 @@ const core = [
       'Use your size, physical might, or reputation in a fearsome manner.',
       'Sincerely express a desire for brutal, uncompromising combat.',
     ],
+  },
+  {
+    group: 'Navis Nobility Houses',
+    objectives: [
+      '',
+    ],
+    source: 'pax',
+  },
+  {
+    group: 'Untouchables',
+    objectives: [
+      '',
+    ],
+    source: 'pax',
+  },
+  {
+    group: 'Adeptus Arbites',
+    objectives: [
+      'Recite a passage from the lex Imperialis, relating how the current situation is within compliance (or violation) of the law.',
+      'Solve a problem with brute force or violence when using wealth, influence, psychic powers or guile would have been better alternatives.',
+      'Reminiscence about a Precinct you have visited and compare it to the current location.',
+    ],
+    source: 'pax',
+  },
+  {
+    group: 'Hive Ganger',
+    objectives: [
+      'Threaten, extort, or physically assault an NPC for violating the downhive code, explaining what they did wrong (even if it shouldn’t apply to them)',
+      'Size up the competition as weak prey or a worth adversary, using local slang or jargon that makes no sense to your current companions.',
+      'Mark, tag, or deface imperial property, describing the significance the vandalizing method utilized by your gang.',
+    ],
+    source: 'pax',
   },
 ];
 

@@ -14,6 +14,7 @@
     >
       <species-preview
         v-if="selectedSpecies"
+        :character-id="characterId"
         :species="selectedSpecies"
         choose-mode
         @select="selectSpeciesForChar"
@@ -28,16 +29,28 @@
         <v-list>
           <v-list-item
             v-for="item in speciesList"
-            :key="item.name"
+            :key="item.key"
             :disabled="item.baseTier > characterSettingTier"
             @click.stop="updatePreview(item)"
           >
             <v-list-item-avatar tile>
-              <img :src="getAvatar(item.name)">
+              <img :src="getAvatar(item.key)">
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.name }}</v-list-item-title>
+              <v-list-item-title>
+                {{ item.name }}
+                <v-chip
+                  v-if="item.source && !['core', 'coreab'].includes(item.source.key)"
+                  color="info"
+                  outlined
+                  tags
+                  x-small
+                  label
+                >
+                  {{item.source.key.toUpperCase()}}
+                </v-chip>
+              </v-list-item-title>
               <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
             </v-list-item-content>
 
@@ -86,7 +99,14 @@ export default {
   },
   computed: {
     sources() {
-      return ['core', 'coreab'];
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
     },
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
@@ -117,9 +137,8 @@ export default {
       const { data } = await this.$axios.get('/api/species/', config);
       this.speciesList = data;
     },
-    getAvatar(name) {
-      const slug = this.textToKebab(name);
-      return `/img/icon/species/species_${slug}_avatar.png`;
+    getAvatar(key) {
+      return `/img/avatars/species/${key}.png`;
     },
     async updatePreview(item) {
       const slug = this.camelToKebab(item.key);
@@ -128,19 +147,43 @@ export default {
       this.speciesDialog = true;
     },
     selectSpeciesForChar(species) {
-      this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { value: species.name, cost: species.cost } });
-      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: species.modifications, source: 'species' } });
+      let modifications = [];
+      species.speciesFeatures
+        .filter( (t) => t.modifications !== undefined )
+        .forEach( (t) => {
+          modifications = [ ...modifications, ...t.modifications ];
+        });
+
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: 'species' });
+      this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { key: species.key, label: species.name, cost: species.cost } });
+      this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: modifications, source: 'species' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'species' });
-      if (species.keywords.length > 0) {
-        species.keywords.forEach((keyword) => {
-          const payload = {
-            name: keyword,
-            source: 'species',
-            type: 'keyword',
-            replacement: undefined,
-          };
-          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+      modifications.filter( (m) => m.targetGroup === 'keywords' ).forEach( (k) => {
+        const payload = {
+          name: k.targetValue,
+          source: 'species',
+          type: 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+      });
+
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: 'species' });
+      const featuresWithPowers = species.speciesFeatures.filter( (f) => f.psychicPowers !== undefined);
+      if ( featuresWithPowers ) {
+        featuresWithPowers.forEach( (feature) => {
+          feature.psychicPowers.forEach( (powerSelections) => {
+            if ( powerSelections.selected ) {
+              const payload = {
+                id: this.characterId,
+                name: powerSelections.selected,
+                cost: 0,
+                source: `species.${powerSelections.selected.name}`,
+              };
+              this.$store.commit('characters/addCharacterPsychicPower', payload);
+            }
+          });
         });
       }
 

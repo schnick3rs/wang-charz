@@ -1,6 +1,64 @@
 <template lang="html">
-  <v-row justify="center">
-    <v-col :cols="12" :sm="6">
+  <v-row justify="left">
+
+    <v-dialog
+      v-model="selectAvatarDialog"
+      width="600px"
+      scrollable
+      :fullscreen="$vuetify.breakpoint.xsOnly"
+    >
+
+      <v-card class="pa-0">
+
+        <v-card-title style="background-color: #262e37; color: #fff;">
+          <span>Confirm Portrait</span>
+          <v-spacer />
+          <v-icon dark @click="selectAvatarDialog = false">
+            close
+          </v-icon>
+        </v-card-title>
+
+        <v-card-text class="pt-4">
+
+          <div>
+            <no-ssr>
+              <croppa
+                v-model="myCroppa"
+                :file-size-limit="31457280"
+                :width="300"
+                :height="300"
+                :prevent-white-space="myCroppaConfig.preventWhiteSpace"
+              ></croppa>
+            </no-ssr>
+          </div>
+          <span class="caption">Drag and zoom (by scrolling) until it fits.</span>
+
+          <div>
+            <v-switch
+              v-model="myCroppaConfig.preventWhiteSpace"
+              label="Prevent whitespace, thus the image must be within borders."
+              dense
+            ></v-switch>
+          </div>
+
+
+        </v-card-text>
+
+        <v-card-actions>
+          <v-btn left outlined color="red" @click="selectAvatarDialog = false">
+            Cancel
+          </v-btn>
+          <v-spacer />
+          <v-btn right color="green" @click="setNewAvatar">
+            Select Portrait
+          </v-btn>
+        </v-card-actions>
+
+      </v-card>
+
+    </v-dialog>
+
+    <v-col :cols="12" :sm="7">
       <h2 class="headline">
         Character
       </h2>
@@ -10,7 +68,7 @@
         label="Character Name"
         :value="characterName"
         dense
-        filled
+        outlined
         @input="setCharacterName"
       />
 
@@ -20,7 +78,7 @@
         label="Additional eXperience Points"
         hint="Add the XP earend by playing the game. Usually granted by the GM."
         dense
-        filled
+        outlined
         persistent-hint
         type="number"
         @input="setCustomXp"
@@ -32,7 +90,7 @@
         label="Rank"
         hint="Set your Characters Rank, usually between 1-5."
         dense
-        filled
+        outlined
         persistent-hint
         type="number"
         @input="setCustomRank"
@@ -51,9 +109,49 @@
         thumb-label="always"
         @input="setCustomRank"
       />
+
+
+
     </v-col>
 
-    <v-col :cols="12" :sm="6">
+    <v-col :cols="12" :sm="5">
+      <div class="mb-2">
+
+        <!-- custom avatar -->
+        <v-badge
+          bordered
+          overlap
+          color="error"
+          v-show="characterAvatarUrl"
+        >
+          <template v-slot:badge>
+            <v-icon color="white" @click.stop="setCharacterAvatar(undefined)">close</v-icon>
+          </template>
+          <v-avatar
+            size="86"
+            tile
+            @click="selectAvatarDialog = true"
+          >
+            <v-img :src="characterAvatarUrl" ></v-img>
+          </v-avatar>
+        </v-badge>
+
+        <!-- placeholder -->
+        <v-avatar
+          size="86"
+          tile
+          @click="selectAvatarDialog = true"
+          v-show="!characterAvatarUrl"
+        >
+          <v-img src="/img/avatar_placeholder_grey.png" ></v-img>
+        </v-avatar>
+
+        <em class="d-none">{{ characterAvatarUrl ? characterAvatarUrl.length : 0 }}</em>
+        <div><a @click="selectAvatarDialog = true">change picture</a></div>
+      </div>
+    </v-col>
+
+    <v-col :cols="12" :sm="7">
       <h2 class="headline">
         Framework
       </h2>
@@ -64,7 +162,7 @@
         :value="settingTier"
         :items="tierSelect.options"
         dense
-        filled
+        outlined
         @change="setSettingTier"
       />
 
@@ -74,7 +172,7 @@
         label="Describe your Setting or Campaign"
         hint="Only a few words"
         dense
-        filled
+        outlined
         persistent-hint
         @input="setSettingTitle"
       />
@@ -87,7 +185,7 @@
         item-text="name"
         item-value="name"
         dense
-        filled
+        outlined
         multiple
         chips
         deletable-chips
@@ -111,23 +209,24 @@
         persistent-hint
       />
 
-      <div v-if="false">
-        <h2 class="title">
-          Homebrews
-        </h2>
+    </v-col>
 
-        <p>Allow specific homebrew content.</p>
-
+    <v-col :cols="12">
+      <div>
+        <h2 class="title">Homebrews</h2>
+        <p>Allow specific homebrew content to be used for this character.</p>
         <div
-          v-for="homebrew in settingHomebrewOptions"
+          v-for="homebrew in settingHomebrewOptions.filter((h)=>h.active)"
           :key="homebrew.key"
         >
           <v-switch
             v-model="enabledHomebrews"
             :label="homebrew.name"
             :value="homebrew.key"
+            :hint="homebrew.hint"
+            persistent-hint
             color="primary"
-            class="mt-0 mb-0"
+            dense
             @change="updateHomebrew(homebrew)"
           />
         </div>
@@ -146,7 +245,7 @@
       :lg="2"
     >
       <v-card>
-        <v-img v-if="false" :src="item.cover" height="150" />
+        <v-img v-if="true" :src="item.cover" height="150" />
         <v-card-title primary-title>
           <h3 class="title">
             {{ item.name }}
@@ -170,6 +269,11 @@ export default {
   layout: 'forge',
   mixins: [],
   props: [],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       currentPage: 1,
@@ -178,9 +282,13 @@ export default {
         tier: 3,
         species: { exclude: [] },
         archetypes: { exclude: [] },
-        sources: {
-          isAllowHomebrews: false,
-        },
+        homebrews: [],
+      },
+      avatar: '',
+      selectAvatarDialog: false,
+      myCroppa: {},
+      myCroppaConfig: {
+        preventWhiteSpace: true,
       },
       tierSelect: {
         // One among billions','stalwart Defenders','Elite Guardians','Heroic Operatives','Agents of Fate
@@ -204,19 +312,55 @@ export default {
       ],
       settingHomebrewOptions: [
         {
-          active: true,
-          key: 'dodScumPsyker',
+          active: false,
+          key: 'dod-scum-psyker',
           name: 'Scum Psyker (Doctors of Doom Homebrew)',
           enabled: false,
           source: undefined,
         },
         {
-          active: true,
-          key: 'agentsOfTheGoldenThrone',
+          active: false,
+          key: 'aotgt',
           name: '\'Agents of the Golden Throne\' content (Fan supplement)',
           enabled: false,
           nuxt: '/vault/agents-of-the-golden-throne',
           source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
+        },
+        {
+          active: true,
+          key: 'pax',
+          name: '\'Pax Imperialis\' content',
+          hint: 'Add Beastman, Navigators and Untouchables and their respective archetypes.',
+          enabled: false,
+          nuxt: '/vault/pax-imperialis',
+          source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
+        },
+        {
+          active: true,
+          key: 'aaoa',
+          name: '\'An abundance of Apocrypha\' content',
+          hint: 'Add Human Homeworlds, Squad, Pariah, Beastman and the Mek & Pain Ork Archetypes.',
+          enabled: false,
+          nuxt: '/vault/an-abundance-of-apocrypha',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'tea',
+          name: '\'The Emperor´s Angels\' content',
+          hint: 'Add Space Marine archetypes and Librarius Powers.',
+          enabled: false,
+          nuxt: '/vault/the-emperors-angels',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'lotn',
+          name: '\'Legacy of the Necrontyr\' content',
+          hint: 'Add Necron species and archetypes.',
+          enabled: false,
+          nuxt: '/vault/legacy-of-the-necrontyr',
+          source: '',
         },
       ],
       enabledHomebrews: [],
@@ -229,6 +373,9 @@ export default {
     characterCustomRank() {
       return this.$store.getters['characters/characterCampaignCustomRankById'](this.characterId);
     },
+    characterAvatarUrl() {
+      return this.$store.getters['characters/characterAvatarUrlById'](this.characterId);
+    },
     characterName() {
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
@@ -238,13 +385,35 @@ export default {
     settingTitle() {
       return this.$store.getters['characters/characterSettingTitleById'](this.characterId);
     },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
   },
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
+  watch: {
+    settingHomebrews: {
+      handler(newVal) {
+        if (newVal) {
+          this.enabledHomebrews = newVal;
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
+    setNewAvatar: function() {
+      const url = this.myCroppa.generateDataUrl('jpg', 0.8);
+      if (!url) {
+        console.warn('no image');
+        return undefined;
+      }
+      console.info(`Create an image with size: ${url.length}`);
+      this.setCharacterAvatar(url);
+      this.selectAvatarDialog = false;
+    },
+    setCharacterAvatar(url) {
+      this.$store.commit('characters/setCharacterAvatar', { id: this.characterId, url: url });
+      this.avatar = url;
+    },
     setCharacterName(name) {
       this.$store.commit('characters/setCharacterName', { id: this.characterId, name });
     },
@@ -260,10 +429,15 @@ export default {
     setSettingTitle(title) {
       this.$store.commit('characters/setSettingTitle', { id: this.characterId, title });
     },
+    updateHomebrew(event) {
+      this.$store.commit('characters/setSettingHomebrews', { id: this.characterId, content: this.enabledHomebrews });
+    }
   },
 };
 </script>
 
-<style scoped lang="css">
-
+<style lang="scss">
+  .croppa-container canvas {
+    border: 0.5px dashed grey;
+  }
 </style>

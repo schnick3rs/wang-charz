@@ -3,27 +3,39 @@
     <v-col :cols="12">
       <h1 class="headline">
         Select Attributes and Skills
+        <span>
+          <v-icon v-if="alerts && alerts.length <= 0">error_outline</v-icon>
+          <v-btn color="warning" v-else-if="showAlerts" @click="showAlerts = !showAlerts" small><v-icon small left>error</v-icon> Hide warnings</v-btn>
+          <v-btn color="warning" v-else @click="showAlerts = !showAlerts" outlined small>
+            <v-icon small left>error_outline</v-icon>show {{alerts.length}} warning{{ alerts.length > 1 ? 's' : '' }}
+          </v-btn>
+        </span>
       </h1>
     </v-col>
 
-    <v-col :cols="12">
+    <v-progress-circular v-if="!archetype" indeterminate color="success" size="128" width="12" />
+
+    <v-col :cols="12" v-if="showAlerts">
       <v-alert
         v-for="alert in alerts"
         :key="alert.key"
         :type="alert.type"
         :value="true"
+        text
+        dense
+        border="left"
       >
         {{ alert.text }}
-        <v-btn v-if="alert.key === 'prerequisites'" color="primary" @click="ensurePrerequisites">
+        <v-btn v-if="alert.key === 'prerequisites'" color="primary" @click="ensurePrerequisites" small>
           Increase stats to meet prerequisites.
-          <v-icon right>
+          <v-icon right small>
             library_add
           </v-icon>
         </v-btn>
       </v-alert>
     </v-col>
 
-    <v-col :cols="12" :md="6">
+    <v-col :cols="12" :md="6" v-if="archetype">
       <v-card>
         <v-simple-table dense>
           <template v-slot:default>
@@ -69,9 +81,9 @@
           </template>
         </v-simple-table>
       </v-card>
-    </v-col>
+    </v-col >
 
-    <v-col :cols="12" :md="6">
+    <v-col :cols="12" :md="6" v-if="archetype">
       <v-card>
         <v-simple-table dense>
           <template v-slot:default>
@@ -105,6 +117,7 @@
         </v-simple-table>
       </v-card>
     </v-col>
+
   </v-row>
 </template>
 
@@ -120,10 +133,22 @@ export default {
     StatRepositoryMixin,
   ],
   props: [],
+  async asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       selectedAttribute: undefined,
-      archetypeRepository: [],
+      showAlerts: false,
+      archetype: undefined,
+      loading: false,
+    };
+  },
+  head() {
+    return {
+      title: 'Select Attributes & Skills',
     };
   },
   computed: {
@@ -161,7 +186,7 @@ export default {
       return alerts;
     },
     archetypePrerequisitesValid() {
-      const archetype = this.archetypeRepository.find((archetype) => archetype.name == this.characterArchetypeLabel);
+      const archetype = this.archetype;
 
       let fulfilled = true;
       if (archetype && archetype.prerequisites.length > 0) {
@@ -216,8 +241,8 @@ export default {
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
-    characterArchetypeLabel() {
-      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    characterArchetypeKey() {
+      return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
     characterAttributeCosts() {
       return this.$store.getters['characters/characterAttributeCostsById'](this.characterId);
@@ -238,19 +263,23 @@ export default {
       return this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
     },
   },
-  async asyncData({ params, $axios }) {
-    const archetypeResponse = await $axios.get('/api/archetypes/?source=core,coreab');
-    return {
-      characterId: params.id,
-      archetypeRepository: archetypeResponse.data,
-    };
-  },
-  head() {
-    return {
-      title: 'Select Attributes & Skills',
-    };
+  watch: {
+    characterArchetypeKey: {
+      handler(newVal) {
+        if (newVal && newVal !== 'unknown') {
+          this.getArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
+    async getArchetype(key) {
+      this.loading = true;
+      const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+      this.loading = false;
+      this.archetype = data;
+    },
     incrementSkill(skill) {
       const newValue = this.characterSkills[skill] + 1;
       this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: skill, value: newValue } });
@@ -295,7 +324,7 @@ export default {
       return 3 + tier;
     },
     ensurePrerequisites() {
-      const archetype = this.archetypeRepository.find((archetype) => archetype.name == this.characterArchetypeLabel);
+      const archetype = this.archetype;
 
       if (archetype && archetype.prerequisites.length > 0) {
         archetype.prerequisites.forEach((prerequisite) => {

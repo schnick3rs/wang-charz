@@ -144,6 +144,31 @@ export default {
       ],
     };
   },
+  async asyncData({ $axios, query, params, error }) {
+    const response = await $axios.get('/api/species/');
+    const { data } = response;
+
+    if (data === undefined || data.length <= 0) {
+      error({ statusCode: 404, message: 'No Ascension Packages found!' });
+    }
+
+    const groupFilterSelections = [];
+    if (query['filter-group']) {
+      // factionFilterSelections.push(query['filter-faction']);
+    }
+
+    const filtersSourceModel = [];
+    if (query['filter-source']) {
+      filtersSourceModel.push(query['filter-source']);
+    }
+
+    return {
+      items: data,
+      filters: {
+        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
+      },
+    };
+  },
   data() {
     return {
       breadcrumbItems: [
@@ -237,33 +262,6 @@ export default {
       const distinct = [...new Set(reduce)];
       return distinct.filter((d) => d !== null).sort();
     },
-  },
-  async asyncData({
-    $axios, query, params, error,
-  }) {
-    const response = await $axios.get('/api/species/');
-    const items = response.data;
-
-    if (items === undefined || items.length <= 0) {
-      error({ statusCode: 404, message: 'No Ascension Packages found!' });
-    }
-
-    const groupFilterSelections = [];
-    if (query['filter-group']) {
-      // factionFilterSelections.push(query['filter-faction']);
-    }
-
-    const filtersSourceModel = [];
-    if (query['filter-source']) {
-      filtersSourceModel.push(query['filter-source']);
-    }
-
-    return {
-      items,
-      filters: {
-        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
-      },
-    };
   },
   methods: {
   },

@@ -23,11 +23,15 @@ export const getters = {
     return Math.max(archetypeTier, ascensionTier);
   },
 
+  characterVersionById: (state) => (id) => (state.characters[id] ? state.characters[id].version : undefined),
+
   // Character setting
   characterSettingTierById: (state) => (id) => (state.characters[id] ? state.characters[id].settingTier : 1),
   characterSettingTitleById: (state) => (id) => (state.characters[id] ? state.characters[id].settingTitle : getDefaultState().settingTitle),
   characterCampaignCustomXpById: (state) => (id) => (state.characters[id] && state.characters[id].customXp ? parseInt(state.characters[id].customXp) : 0),
   characterCampaignCustomRankById: (state) => (id) => (state.characters[id] && state.characters[id].customRank ? parseInt(state.characters[id].customRank) : 1),
+
+  characterSettingHomebrewsById: (state) => (id) => (state.characters[id] && state.characters[id].settingHomebrewContent ? state.characters[id].settingHomebrewContent : []),
 
   // Cost & Spending
   characterSpeciesCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].species.cost : 0),
@@ -114,8 +118,11 @@ export const getters = {
 
   // Character data
   characterNameById: (state) => (id) => (state.characters[id] ? state.characters[id].name : getDefaultState().name),
-  characterSpeciesLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].species.value : getDefaultState().species.value),
+  characterAvatarUrlById: (state) => (id) => (state.characters[id] ? state.characters[id].avatarUrl : getDefaultState().avatarUrl),
+  characterSpeciesKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].species.key : getDefaultState().species.key),
+  characterSpeciesLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].species.label : getDefaultState().species.label),
   characterSpeciesAstartesChapterById: (state) => (id) => (state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter),
+  characterArchetypeKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.key : getDefaultState().archetype.key),
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
   characterAttributesById: (state) => (id) => (state.characters[id] ? state.characters[id].attributes : {}),
   characterAttributesEnhancedById: (state) => (id) => {
@@ -151,7 +158,7 @@ export const getters = {
     traits.passiveAwareness = Math.round((enhancedAttributes.intellect + skills.awareness) / 2);
 
     traits.influence = enhancedAttributes.fellowship - 1;
-    if (character.species.value && character.species.value === 'Ork') {
+    if (character.species.key && character.species.key === 'core-ork') {
       traits.influence = enhancedAttributes.strength - 1;
     }
 
@@ -165,10 +172,10 @@ export const getters = {
 
     traits.wealth = character.settingTier;
     traits.speed = 6;
-    if (character.species.value && character.species.value === 'Eldars') {
+    if (character.species.key && character.species.key === 'core-eldar') {
       traits.speed = 8;
     }
-    if (character.species.value && character.species.value.endsWith('Astartes')) {
+    if (character.species.key && character.species.key.endsWith('-astartes')) {
       traits.speed = 7;
     }
 
@@ -212,18 +219,26 @@ export const getters = {
     return keywords.map((k) => (k.replacement ? k.replacement : k.name));
   },
 
-  characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
+  characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
+  characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
+  characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
 };
 
 export const mutations = {
   setCharacterName(state, payload) {
     state.characters[payload.id].name = payload.name;
   },
+  setCharacterAvatar(state, payload) {
+    state.characters[payload.id].avatarUrl = payload.url;
+  },
   setSettingTier(state, payload) {
     state.characters[payload.id].settingTier = payload.tier;
   },
   setSettingTitle(state, payload) {
     state.characters[payload.id].settingTitle = payload.title;
+  },
+  setSettingHomebrews(state, payload) {
+    state.characters[payload.id].settingHomebrewContent = payload.content;
   },
   setCustomXp(state, payload) {
     state.characters[payload.id].customXp = payload.xp;
@@ -252,13 +267,22 @@ export const mutations = {
     theAttribute = payload.payload.value;
     state.characters[payload.id].attributes[payload.payload.key] = payload.payload.value;
   },
+  /**
+   * @param state
+   * @param payload {
+   *   id
+   *   content {
+   *     modifications
+   *     source
+   *   }
+   * }
+   */
   setCharacterModifications(state, payload) {
     const character = state.characters[payload.id];
     const { modifications } = payload.content;
     const source = payload.content.source || undefined;
-    console.info(payload);
 
-    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
+    console.info(`Enhance/Modify: Adding ${modifications.length} from '${source}'.`);
 
     // we remove all enhancements that share the cleanup value.
     if (source !== undefined) {
@@ -267,13 +291,28 @@ export const mutations = {
 
     modifications.forEach((item) => {
       item.source = source;
+      console.info(`Enhance ${item.targetGroup}/${item.targetValue} by ${item.modifier} [${item.source}].`);
+      character.enhancements.push(item);
+    });
+  },
+  addCharacterModifications(state, payload) {
+    const character = state.characters[payload.id];
+    const { modifications } = payload.content;
+    const source = payload.content.source || undefined;
+    console.info(payload);
+
+    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
+
+    modifications.forEach((item) => {
+      item.source = source;
       character.enhancements.push(item);
     });
   },
   clearCharacterEnhancementsBySource(state, payload) {
     const character = state.characters[payload.id];
-
-    character.enhancements = character.enhancements.filter((e) => e.source !== undefined && !e.source.includes(payload.source));
+    console.log(`Clearing ${character.enhancements.length} enhancements for source ${payload.source}...`);
+    character.enhancements = character.enhancements.filter((e) => !e.source.includes(payload.source));
+    console.log(`Done, ${character.enhancements.length} enhancements remain.`);
   },
   setCharacterSpeciesModifications(state, payload) {
     const character = state.characters[payload.id];
@@ -334,7 +373,10 @@ export const mutations = {
     const character = state.characters[payload.id];
     const wargearUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
     console.info(`Adding '${payload.name}' by '${payload.source}' [${wargearUniqueId}]`);
-    character.wargear.push({ id: wargearUniqueId, name: payload.name, source: payload.source });
+    if ( payload.gear && payload.gear.modifiers ) {
+
+    }
+    character.wargear.push({ id: wargearUniqueId, name: payload.name, variant: payload.variant, source: payload.source });
   },
   removeCharacterWargear(state, payload) {
     const character = state.characters[payload.id];
@@ -361,9 +403,9 @@ export const mutations = {
   },
   removeCharacterPsychicPower(state, payload) {
     const character = state.characters[payload.id];
-    const hasPower = character.psychicPowers.find((t) => t.name === payload.name) !== undefined;
-    if (hasPower) {
-      console.info(`Removing '${payload.name}' by '${payload.source}'`);
+    const foundPower = character.psychicPowers.find((t) => t.name === payload.name);
+    if (foundPower) {
+      console.info(`Removing '${payload.name}' by '${foundPower.source}'`);
       character.psychicPowers = character.psychicPowers.filter((t) => t.name !== payload.name);
     }
   },
@@ -428,8 +470,11 @@ export const mutations = {
   // Background
   setCharacterBackground(state, payload) {
     const character = state.characters[payload.id];
-    console.info(`Background: ${payload.backgroundName} selected.`);
-    character.background = payload.backgroundName;
+    const background = payload.content;
+    console.info(`Background: ${background.label} selected.`);
+    character.background.key = background.key;
+    character.background.label = background.label;
+    character.background.optionSelectedKey = background.optionSelectedKey;
   },
 
   // Keywords
@@ -441,11 +486,15 @@ export const mutations = {
   },
   clearCharacterKeywordsBySource(state, payload) {
     const character = state.characters[payload.id];
-    const { source } = payload;
+    const { source, cascade } = payload;
     if (character.keywords.length > 0) {
       console.log(`found ${character.keywords.length} keywords, clearing with source ${source}...`);
       character.keywords = character.keywords.filter((k) => k.source !== source);
+      if ( cascade ) {
+        character.keywords = character.keywords.filter((k) => !k.source.startsWith(source));
+      }
       console.log(`${character.keywords.length} keywords remaining`);
+
     }
   },
   /**
@@ -484,22 +533,116 @@ export const mutations = {
     state.list.splice(state.list.indexOf(characterId), 1);
     delete state.characters[characterId];
   },
+  migrate(state, config) {
+    const character = state.characters[config.characterId];
+
+    switch (character.version) {
+      case 1:
+        console.debug(`v1 -> v2 : Species with keys instead of labels`);
+
+        const v1Species = character.species;
+        const keyPrefix =
+          ['Ratling', 'Ogryn'].some(i => i === v1Species.value)
+          ? 'coreab'
+          : 'core';
+        let v2Species = {
+          key:
+            v1Species.value
+            ? `${keyPrefix}-${v1Species.value.toLowerCase().split(' ').join('-')}`
+            : undefined,
+          label: v1Species.value ? v1Species.value : '',
+          cost: v1Species.cost,
+          value: v1Species.value,
+        };
+        character.species = v2Species;
+
+        console.debug(`v1 -> v2 : Archetypes with keys instead of labels`);
+        const v1archetype = character.archetype;
+        const archetypeKeyPrefix = 'core';
+        let v2archetype = {
+          key:
+            v1archetype.value
+              ? `${archetypeKeyPrefix}-${v1archetype.value.toLowerCase().split(' ').join('-')}`
+              : undefined,
+          label: v1archetype.value ? v1archetype.value : '',
+          cost: v1archetype.cost,
+          value: v1archetype.value,
+          tier: v1archetype.tier
+        };
+        character.archetype = v2archetype;
+
+        console.debug(`v1 -> v2 : Backgrounds with keys instead of labels`);
+        let v2background = getDefaultState().background;
+        v2background.key = character.background ? character.background.toLowerCase() : undefined;
+        v2background.label = character.background;
+        character.background = v2background;
+
+        const objIndex = character.keywords.findIndex((obj => obj.name === 'Adptus Astartes Telepathica'));
+        if ( objIndex > 0 ) {
+          character.keywords[objIndex].name = 'Adeptus Astra Telepathica';
+        }
+
+        console.debug(`v1 -> v2 : Cleanup enhancements that do NOT have a sources`);
+        character.enhancements = character.enhancements.filter( (e) => e.source !== undefined);
+        character.enhancements = character.enhancements.filter( (e) => e.source !== '');
+
+        character.version = 2;
+        console.info(`Character migrated to v2.`);
+    }
+
+  },
+};
+
+export const actions = {
+  /**
+   * migrate the character object to a newer version
+   * @param context
+   * @param payload
+   * {
+   *   characterId: Integer,
+   * }
+   */
+  migrate( {commit, state, rootState}, payload) {
+
+    const character = state.characters[payload.characterId];
+    const characterVersion = character.version;
+    const builderVersion = rootState.builderVersion;
+
+    if ( characterVersion < builderVersion ) {
+      console.info(`Migrate character from ${characterVersion} to ${characterVersion+1}`);
+      const config = {
+        characterId: character.id,
+        currentVersion: characterVersion,
+        targetVersion: characterVersion+1,
+      };
+      commit('migrate', config);
+    }
+  },
 };
 
 const getDefaultState = () => ({
   id: -1,
-  version: 1,
+  version: 2,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
   settingTitle: '',
-  settingHomebrewContent: [],
+  settingHomebrewContent: [], // e.g. pax
   customXp: 0,
   customRank: 1,
   name: 'Simsel Simselman',
-  species: { value: undefined, cost: 0 },
+  avatarUrl: undefined,
+  species: {
+    key: undefined,
+    label: '',
+    cost: 0,
+  },
   speciesAstartesChapter: undefined,
-  archetype: { value: undefined, cost: 0 },
+  archetype: {
+    key: undefined,
+    label: '',
+    cost: 0,
+  },
   attributes: {
     strength: 1,
     agility: 1,
@@ -534,6 +677,10 @@ const getDefaultState = () => ({
   psychicPowers: [],
   ascensionPackages: [],
   wargear: [],
-  background: '',
+  background: {
+    key: undefined, // e.g. goal
+    label: '', // e.g. Goal
+    optionSelectedKey: undefined, // e.g.
+  },
   enhancements: [],
 });

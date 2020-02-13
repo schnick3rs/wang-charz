@@ -58,9 +58,7 @@ router.get('/objectives/', (request, response) => {
 router.get('/:slug', (request, response) => {
   const { slug } = request.params;
 
-  const key = slug.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-
-  const item = archetypeRepository.find((archetype) => archetype.key === key);
+  const item = archetypeRepository.find((archetype) => archetype.key === slug);
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);

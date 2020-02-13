@@ -1,7 +1,7 @@
 <template lang="html">
   <div>
     <div class="hidden-xs-only" style="float: right;">
-      <img :src="getAvatar(item.name)" style="width:96px">
+      <img :src="getAvatar(item.key)" style="width:96px">
     </div>
 
     <div style="width: 75%">
@@ -43,28 +43,13 @@
     </p>
 
     <div
-      v-for="ability in abilityObjects"
-      v-if="item.abilities"
+      v-if="item.archetypeFeatures"
+      v-for="feature in item.archetypeFeatures"
       class="text-lg-justify"
     >
-      <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
-      <div v-if="item.psychicPowers && psychicPowersRepository">
-        <div v-for="option in item.psychicPowers.discount" :key="option.name">
-          <v-select
-            v-model="option.selected"
-            :readonly="psychicPowersRepository.filter(option.filter).length <= 1"
-            :items="psychicPowersRepository.filter(option.filter)"
-            :hint="psychicPowerHint(option.selected)"
-            item-value="name"
-            item-text="name"
-            persistent-hint
-            dense
-            solo
-            class="ml-2 mr-2"
-            @change="updatePsychicPowers(option)"
-          />
-        </div>
-      </div>
+      <strong>{{ feature.name }}</strong>
+      <div v-if="feature.description" v-html="feature.description"></div>
+      <p v-else>{{ feature.snippet }}</p>
     </div>
 
     <p class="text-lg-justify">
@@ -84,7 +69,6 @@
 <script lang="js">
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
-import WargearRepository from '~/mixins/WargearRepositoryMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
@@ -92,7 +76,6 @@ export default {
   mixins: [
     KeywordRepository,
     StatRepository,
-    WargearRepository,
     SluggerMixin,
   ],
   props: {
@@ -132,9 +115,11 @@ export default {
       return [];
     },
     wargearText() {
-      const charGear = this.archetypeWargearRepository.find((a) => a.name === this.item.name);
-      if (charGear) {
-        return charGear.options.map((g) => {
+      if ( this.item.wargearString ) {
+        return this.item.wargearString;
+      }
+      if ( this.item.wargear && this.item.wargear.length > 0 ) {
+        return this.item.wargear.map((g) => {
           if (g.amount) {
             return `${g.amount}x ${g.name}`;
           }
@@ -151,9 +136,8 @@ export default {
     },
   },
   methods: {
-    getAvatar(name) {
-      const slug = this.textToKebab(name);
-      return `/img/icon/archetype/archetype_${slug}_avatar.png`;
+    getAvatar(key) {
+      return `/img/avatars/archetype/${key}.png`;
     },
   },
 };

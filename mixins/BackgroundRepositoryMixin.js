@@ -57,8 +57,8 @@ export default {
           key: 'accomplishment',
           name: 'Accomplishment',
           hint: 'Increase Influence or Wealth',
-          description: 'Characters with a few missions under their belt may have completed noteworthy tasks prior to the start of the fi rst adventure. This is particularly relevant for protagonists starting out at Tier 2 or higher. In many cases, a character might even be recognised as the person who performed some noteworthy deed—for good or for ill. A particularly ignominious incident can be a major hook for a character, such as „Coward of the Battle for Red Peak“ or „Martinet Lieutenant of 3rd Company,“ immediately establishing the character’s interactions with many NPCs.',
-          bonus: 'Characters who choose an accomplishment as their background may choose to gain either +1 Infl uence or +2 Wealth.',
+          description: 'Characters with a few missions under their belt may have completed noteworthy tasks prior to the start of the first adventure. This is particularly relevant for protagonists starting out at Tier 2 or higher. In many cases, a character might even be recognised as the person who performed some noteworthy deed—for good or for ill. A particularly ignominious incident can be a major hook for a character, such as „Coward of the Battle for Red Peak“ or „Martinet Lieutenant of 3rd Company,“ immediately establishing the character’s interactions with many NPCs.',
+          bonus: 'Characters who choose an accomplishment as their background may choose to gain either +1 Influence or +2 Wealth.',
           choice: [
             {
               key: 'influence',

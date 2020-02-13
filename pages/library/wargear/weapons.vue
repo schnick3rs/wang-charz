@@ -3,6 +3,8 @@
     <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <v-row justify="center">
+
+      <!-- Filter -->
       <v-col :cols="11">
         <v-card>
           <v-card-text>
@@ -66,6 +68,7 @@
         </v-card>
       </v-col>
 
+      <!-- Table -->
       <v-col :cols="11">
         <v-card>
           <v-data-table
@@ -78,32 +81,59 @@
             hide-default-footer
             @page-count="pagination.pageCount = $event"
           >
-            <template v-slot:item="{ item }">
-              <tr>
-                <td>{{ item.name }}</td>
-                <td>{{ item.subtype }}</td>
-                <td class="text-sm-center">
-                  <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                    <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static }}*</span>
-                    <span v-else>{{ item.meta[0].damage.static }}</span>
-                    <span> + </span>
-                    <span>{{ item.meta[0].damage.ed }} ED</span>
-                  </div>
-                </td>
-                <td class="text-sm-center">
-                  <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
-                </td>
-                <td class="text-sm-center">
-                  <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo }}</span>
-                </td>
-                <td class="text-sm-center">
-                  <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].range }} m</span>
-                </td>
-                <td>
-                  <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
-                </td>
-              </tr>
+
+            <template v-slot:item.name="{ item }">
+              <v-row no-gutters>
+                <v-col :cols="12">
+                  {{ item.name }}
+                </v-col>
+                <v-col v-if="item.subtype" :cols="12" class="caption grey--text">
+                  {{ item.subtype }}
+                </v-col>
+              </v-row>
             </template>
+
+            <template v-slot:item.range="{ item }">
+              <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].range }} m</span>
+            </template>
+
+            <template v-slot:item.damage="{ item }">
+              <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
+                <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static }}*</span>
+                <span v-else>{{ item.meta[0].damage.static }}</span>
+                <span> + </span>
+                <span>{{ item.meta[0].damage.ed }} ED</span>
+              </div>
+            </template>
+
+            <template v-slot:item.ap="{ item }">
+              <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
+            </template>
+
+            <template v-slot:item.salvo="{ item }">
+              <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo }}</span>
+            </template>
+
+            <template v-slot:item.traits="{ item }">
+              <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
+            </template>
+
+            <template v-slot:item.source.book="{ item }">
+              <v-row no-gutters>
+                <v-col :cols="12">
+                  {{ item.source.book }}
+                  <NuxtLink v-if="item.source.path" :to="item.source.path" target="_blank">
+                    <v-icon small>
+                      launch
+                    </v-icon>
+                  </NuxtLink>
+                </v-col>
+                <v-col v-if="item.source.page" :cols="12" class="caption grey--text">
+                  pg. {{ item.source.page }}
+                </v-col>
+              </v-row>
+            </template>
+
           </v-data-table>
 
           <div class="text-center pt-2">
@@ -168,27 +198,13 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        {
-          text: 'Name', align: 'left', value: 'name', class: '',
-        },
-        {
-          text: 'Subtype', align: 'left', value: 'subtype', class: '',
-        },
-        {
-          text: 'Damage', align: 'center', value: 'damage', class: '',
-        },
-        {
-          text: 'AP', align: 'center', value: 'ap', class: '',
-        },
-        {
-          text: 'Salvo', align: 'center', value: 'salvo', class: '',
-        },
-        {
-          text: 'Range', align: 'center', value: 'range', class: '',
-        },
-        {
-          text: 'Traits', align: 'left', value: 'traits', class: '',
-        },
+        { text: 'Name', align: 'left', value: 'name', class: '' },
+        { text: 'Range', align: 'center', value: 'range', class: '' },
+        { text: 'Damage', align: 'center', value: 'damage', class: '' },
+        { text: 'AP', align: 'center', value: 'ap', class: '' },
+        { text: 'Salvo', align: 'center', value: 'salvo', class: '' },
+        { text: 'Traits', align: 'left', value: 'traits', class: '' },
+        { text: 'Source', align: 'left', value: 'source.book', class: '' },
       ],
       expand: false,
     };

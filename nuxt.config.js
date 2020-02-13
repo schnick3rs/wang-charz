@@ -89,6 +89,7 @@ module.exports = {
   */
   plugins: [
     { src: '~/plugins/vuex-persist', ssr: false },
+    { src: '~/plugins/vue-croppa.js', ssr: false },
     '~/plugins/filters.js',
   ],
   /*
@@ -139,6 +140,7 @@ module.exports = {
     gzip: true,
     exclude: [
       // dynamic and user specific parts should not be sitemaped
+      '/about',
       '/forge/characters/**',
     ],
     routes: async () => {

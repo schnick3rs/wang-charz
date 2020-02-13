@@ -17,7 +17,7 @@
       />
     </v-dialog>
 
-    <!-- selected ascension -->
+    <!-- selected ascensions -->
     <v-col
       v-if="characterAscensionPackages.length > 0"
       :cols="12"
@@ -29,9 +29,7 @@
       >
         <v-card-title primary-title>
           <div>
-            <div class="headline">
-              {{ characterAscension.name }}
-            </div>
+            <div class="headline">{{ characterAscension.name }}</div>
             <span class="subtitle-1 grey--text">{{ characterAscension.teaser }}</span>
           </div>
           <div>
@@ -62,8 +60,11 @@
           <span class="mt-2 grey--text">Prerequisites</span>
           <v-divider class="mb-2" />
 
-          <div>
-            {{ characterAscension.effectivePrerequisites.map(a => `${a.value} (${a.threshold})`).join(", ") }}
+          <div v-if="characterAscension.effectivePrerequisites">
+            {{ characterAscension.effectivePrerequisites.map(a => `${a.name} (${a.threshold})`).join(", ") }}
+          </div>
+          <div v-else>
+            {{ characterAscension.skillPrerequisites.join(', ' )}}
           </div>
 
           <span class="mt-2 grey--text">Benefits</span>
@@ -241,6 +242,7 @@ import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 import AscensionPreview from '~/components/forge/AscensionPreview.vue';
 import KeywordSelect from '~/components/forge/KeywordSelect.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Ascension',
@@ -249,6 +251,7 @@ export default {
   mixins: [
     AscensionRepositoryMixin,
     KeywordRepositoryMixin,
+    StatRepositoryMixin,
   ],
   props: [],
   head() {
@@ -303,7 +306,15 @@ export default {
         if (this.characterArchetypeLabel && this.archetypeRepository) {
           const archetype = this.archetypeRepository.find((archetype) => archetype.name === this.characterArchetypeLabel);
           if (archetype && archetype.prerequisites && archetype.prerequisites.length > 0) {
-            characterPackage.effectivePrerequisites = characterPackage.prerequisites(archetype.prerequisites);
+            let effPreq = [];
+            const ascensionPrerequisites = characterPackage.prerequisites(archetype.prerequisites);
+            effPreq = ascensionPrerequisites.map( (p) => {
+                return {
+                  ...p,
+                  name: p.group === 'attributes' ? this.getAttributeByKey(p.value).name : this.getSkillByKey(p.value).name,
+                };
+              });
+            characterPackage.effectivePrerequisites = effPreq;
           }
         }
 
@@ -368,7 +379,7 @@ export default {
     },
   },
   async asyncData({ params, $axios, error }) {
-    const wargearResponse = await $axios.get('/api/wargear/');
+    const wargearResponse = await $axios.get('/api/wargear/?source=core');
     const powersResponse = await $axios.get('/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal');
     const archetypeResponse = await $axios.get('/api/archetypes/?source=core,coreab');
     return {

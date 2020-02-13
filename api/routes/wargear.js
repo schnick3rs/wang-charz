@@ -1,5 +1,6 @@
 const Router = require('express-promise-router');
 
+const wargearRepository = require('../db/static/wargearRepository');
 const db = require('../db');
 
 const router = new Router();
@@ -17,6 +18,8 @@ router.get('/', async (request, response) => {
   const filter = {};
   const params = [];
 
+  let homebrewWargear = wargearRepository;
+
   const filterTypeString = request.query.type;
   if (filterTypeString) {
     filter.type = filterTypeString.split(',');
@@ -24,6 +27,7 @@ router.get('/', async (request, response) => {
       where += (where.length > 0) ? ' AND ' : ' WHERE ';
       where += ` type in ( ${toP(filter.type, params.length).join(',')} )`;
       params.push(...filter.type);
+      homebrewWargear.filter((w)=>filter.type.includes(w.type));
     }
   }
 
@@ -34,6 +38,7 @@ router.get('/', async (request, response) => {
       where += (where.length > 0) ? ' AND ' : ' WHERE ';
       where += ` rarity in ( ${toP(filter.rarity, params.length).join(',')} )`;
       params.push(...filter.rarity);
+      homebrewWargear.filter((w)=>filter.rarity.includes(w.rarity));
     }
   }
 
@@ -44,6 +49,7 @@ router.get('/', async (request, response) => {
       where += (where.length > 0) ? ' AND ' : ' WHERE ';
       where += ` value <= ${toP(filter['value-leq'], params.length)}  `;
       params.push(...filter['value-leq']);
+      homebrewWargear.filter((w)=>w.value <= filter['value-leq']);
     }
   }
 
@@ -54,6 +60,7 @@ router.get('/', async (request, response) => {
       where += (where.length > 0) ? ' AND ' : ' WHERE ';
       where += ` name in ( ${toP(filter.name, params.length).join(',')} )`;
       params.push(...filter.name);
+      homebrewWargear.filter((w)=>filter.name.includes(w.name));
     }
   }
 
@@ -62,10 +69,34 @@ router.get('/', async (request, response) => {
     params,
   );
 
-  const vaultItems = rows;
+  sourcedRows = rows.map((r)=>{
+    return {
+      ...r,
+      source: {
+        book: 'Core Rules',
+        key: 'core',
+        version: '1',
+        path: undefined,
+        page: '-'
+      },
+    };
+  });
+
+  let merged = [
+    ...sourcedRows,
+    ...homebrewWargear,
+  ];
+
+  const filterSourceString = request.query.source;
+  if (filterSourceString) {
+    filter.source = filterSourceString.split(',');
+    if (filter.source) {
+      merged = merged.filter((item) => filter.source.includes(item.source.key));
+    }
+  }
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
-  response.status(200).json(vaultItems);
+  response.status(200).json(merged);
 });
 
 router.get('/:id', async (request, response) => {
@@ -76,8 +107,14 @@ router.get('/:id', async (request, response) => {
     [id],
   );
 
-  const item = rows[0];
+  let responseItem = {};
+
+  if (rows && rows.length >= 1) {
+    responseItem = rows[0];
+  } else {
+    responseItem = wargearRepository.find((i) => i.id == id);
+  }
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
-  response.status(200).json(item);
+  response.status(200).json(responseItem );
 });

@@ -55,8 +55,8 @@ export default {
   },
   methods: {
     ...mapMutations('characters', ['setCharacterArchetype']),
-    getAvatar(name) {
-      return `/img/icon/archetype/archetype_${this.textToKebab(name)}_avatar.png`;
+    getAvatar(key) {
+      return `/img/avatars/archetype/${key}.png`;
     },
     doChangeMode() {
       this.changeMode = true;

@@ -29,7 +29,7 @@
       </div>
       <v-spacer />
       <div class="hidden-xs-only">
-        <img :src="getAvatar(species.name)" style="width:96px">
+        <img :src="getAvatar(species.key)" style="width:96px">
       </div>
     </v-card-title>
 
@@ -48,23 +48,61 @@
         <strong>Speed:</strong> {{ species.speed }}
       </p>
 
-      <p class="text-lg-justify">
-        <strong>Attribute Modifications:</strong> {{ species.attributes || 'None' }}
-      </p>
-
-      <div v-if="species.abilities">
+      <div v-if="species.speciesFeatures">
         <span class="mt-2 grey--text">Abilities</span>
         <p><v-divider /></p>
 
+        <span v-if="species.speciesFeatures.length <= 0">No Abilities? At least your base tier is low...</span>
+
         <div
-          v-for="ability in species.abilityObjects"
-          v-if="species.abilities"
+          v-for="feature in species.speciesFeatures"
           class="text-lg-justify"
         >
-          <p><strong>{{ ability.name }}:</strong> {{ ability.effect }}</p>
+          <p><strong>{{ feature.name }}:</strong> {{ feature.description ? feature.description : feature.snippet }}</p>
+
+          <div v-if="manageMode && feature.options && feature.options.length > 0">
+            <v-select
+              :items="feature.options"
+              v-model="feature.selected"
+              item-value="name"
+              item-text="name"
+              @change="$emit('changeSpeciesTraitOption', feature)"
+              dense
+              solo
+            ></v-select>
+            <div
+              v-if="feature.selected && feature.selected.length > 0"
+              class="ml-4 mr-4"
+            >
+              <div
+                v-if="feature.options.find((o)=>o.name === feature.selected).description"
+                v-html="feature.options.find((o)=>o.name === feature.selected).description"
+              ></div>
+              <p v-else>{{feature.options.find((o)=>o.name === feature.selected).snippet}}</p>
+            </div>
+          </div>
+
+          <div v-if="manageMode && feature.psychicPowers">
+
+            <div v-for="selections in feature.psychicPowers" :key="selections.name">
+              <v-select
+                v-if="selections.options"
+                v-model="selections.selected"
+                :readonly="selections.options.length <= 1"
+                :items="selections.options"
+                item-value="name"
+                item-text="name"
+                persistent-hint
+                dense
+                solo
+                class="ml-2 mr-2"
+                @change="updatePsychicPowers(selections)"
+              />
+            </div>
+          </div>
 
           <div
-            v-if="manageMode && ability.name.indexOf('Honour the Chapter') >= 0"
+            v-if="manageMode && feature.name.indexOf('Honour the Chapter') >= 0"
           >
             <v-select
               v-model="species['chapter']"
@@ -80,7 +118,7 @@
 
             <p
               v-for="tradition in getChapterTraditions(species['chapter'])"
-              v-if="ability.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
+              v-if="feature.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
               :key="tradition.key"
               class="ml-4 mr-4"
             >
@@ -106,7 +144,7 @@
         Cancel
       </v-btn>
       <v-spacer />
-      <v-btn color="success" right @click="$emit('select', species);">
+      <v-btn color="success" right @click="$emit('select', species)">
         Select Species
       </v-btn>
     </v-card-actions>
@@ -122,9 +160,18 @@ export default {
     SluggerMixin,
   ],
   props: {
+    characterId: {
+      type: String,
+      required: true,
+    },
     species: {
       type: Object,
       required: true,
+    },
+    psychicPowers: {
+      type: Array,
+      required: false,
+      default: () => [],
     },
     manageMode: {
       type: Boolean,
@@ -147,10 +194,36 @@ export default {
       const chaptersResponse = await this.$axios.get('/api/species/chapters/?source=core,coreab');
       this.astartesChapterRepository = chaptersResponse.data;
     }
+    const featuresWithPowers = this.species.speciesFeatures.filter( (f) => f.psychicPowers !== undefined);
+    if ( featuresWithPowers ) {
+      featuresWithPowers.forEach( (feature) => {
+        feature.psychicPowers.forEach( (powerSelections) => {
+          this.getPsychicPowerOptions(powerSelections);
+          const found = this.psychicPowers.find( (p) => p.source && p.source === `species.${powerSelections.name}`);
+          if ( found ) {
+            console.info(`Power ${found.name} found for the species feature ${feature.name} / power ${powerSelections.name}.`);
+            powerSelections.selected = found.name;
+          }
+        });
+      });
+    }
   },
   methods: {
-    getAvatar(name) {
-      return `/img/icon/species/species_${this.textToKebab(name)}_avatar.png`;
+    getPsychicPowerOptions(psychicPowerSelection) {
+      const config = {
+        params: {
+          ...psychicPowerSelection.query,
+          fields: 'id,name,effect,discipline,cost',
+        },
+      };
+
+      this.$axios.get('/api/psychic-powers/', config)
+        .then( (response) => {
+          psychicPowerSelection.options = response.data;
+        });
+    },
+    getAvatar(key) {
+      return `/img/avatars/species/${key}.png`;
     },
     getChapterTraditions(chapterName) {
       const chapter = this.astartesChapterRepository.find((a) => a.name === chapterName) || [];
@@ -158,6 +231,27 @@ export default {
         return chapter.beliefsAndTraditions;
       }
       return [];
+    },
+    updatePsychicPowers(option) {
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource',
+        { id: this.characterId, source: `species.${option.name}` });
+      this.$store.commit('characters/addCharacterPsychicPower', {
+        id: this.characterId,
+        name: option.selected,
+        cost: option.free ? 0 : option.options.find((o)=>o.name === option.selected).cost,
+        source: `species.${option.name}`,
+      });
+
+      // SPECIAL for Eldar
+      if ( option.name === 'psychosensitive') {
+        const payload = {
+          name: 'Psyker',
+          source: 'species',
+          type: 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+      }
     },
   },
 };
