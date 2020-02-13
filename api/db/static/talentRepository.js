@@ -47,6 +47,58 @@ const simpleStub = function (sourceKey, sourcePage, name, cost, hint) {
 
 const core = [
   {
+    ...simpleStub('core', 171, 'Acts of Faith', 40, 'Grants Faith and bonuses with various options.'),
+    // condensed and data-drive summary for the character sheet
+    snippet:
+      'You gain 2 Faith and select two effects. ' +
+      'Once per round, as an Action, suffer 1 Shock and spend 1 Faith to activate one effect',
+    // an extensive summary
+    description: // html
+      '<p>Each time you select this Talent, ' +
+      'you gain 2 Faith and you may choose to gain access ' +
+      'to two effects from the list below. ' +
+      'To gain access to all four effects, ' +
+      'you must purchase this Talent twice.</p>' +
+      '<p>You may use this talent only once per round. ' +
+      'As an action, suffer 1 Shock and spend 1 Faith to activate one of the chosen effects.</p>',
+    // check to hide this ability in the builder
+    hideInBuilder: false,
+    // check to hide this ability in the characterSheet
+    hideInSheet: false,
+    prerequisites: [
+      {
+        description: 'Have the Adeptus Ministorum or Adepta Sororitas Keyword',
+        condition: 'must',
+        type: 'keyword',
+        value: [ 'Adeptus Ministorum', 'Adepta Sororita' ],
+      },
+      {
+        description: 'Willpower 3 or higher',
+        condition: 'must',
+        type: 'attribute',
+        subType: 'willpower',
+        value: 3,
+      },
+      {
+        description: 'Does not have the Chaos Keyword',
+        condition: 'not',
+        type: 'keyword',
+        value: [ 'Chaos' ],
+      },
+    ],
+    modifications: [
+      { targetGroup: 'resources', targetValue: 'faith', modifier: 2 },
+    ],
+    selectMultipleTimes: true,
+    optionsChoices: 2,
+    options: [
+      { name: 'Hand of the Emperor', snippet: 'You may immediately move up to your Speed as a free action.' },
+      { name: 'Divine Guidance', snippet: 'You gain +Rank to Ballistic Skill tests for 1 round.' },
+      { name: 'The Passion', snippet: 'You gain +Rank to Weapon Skill tests for 1 round.' },
+      { name: 'Spirit of the Martyr', snippet: 'You recover 1d3 Wounds.' },
+    ],
+  },
+  {
     ...simpleStub('core', '-', 'Mark of Chaos', 30, 'Dedicate yourself to a Chaos God to gain a benefit.'),
     prerequisites: [],
     selectMultipleTimes: true,
