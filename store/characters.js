@@ -23,6 +23,10 @@ export const getters = {
     return Math.max(archetypeTier, ascensionTier);
   },
 
+  characterStateJsonById: (state) => (id) => {
+    return JSON.stringify(state.characters[id]);
+  },
+
   characterVersionById: (state) => (id) => (state.characters[id] ? state.characters[id].version : undefined),
 
   // Character setting
@@ -521,6 +525,18 @@ export const mutations = {
     newChar.id = id;
     const newObj = {};
     newObj[id] = newChar;
+    state.characters = {
+      ...state.characters,
+      ...newObj,
+    };
+  },
+  import(state, payload) {
+    state.list.push(payload.id);
+    const newChar = {};
+    Object.assign(newChar, JSON.parse(payload.stateString));
+    newChar.id = payload.id;
+    const newObj = {};
+    newObj[payload.id] = newChar;
     state.characters = {
       ...state.characters,
       ...newObj,

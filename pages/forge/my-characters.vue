@@ -35,6 +35,35 @@
           Create a Character
         </v-btn>
 
+        <v-btn large color="primary" outlined @click="importDialog = true">
+          <v-icon left>cloud_upload</v-icon>
+          Import a Character
+        </v-btn>
+
+        <v-dialog
+          v-model="importDialog"
+          width="600px"
+          scrollable
+          :fullscreen="$vuetify.breakpoint.xsOnly"
+        >
+          <v-card class="pa-0">
+
+            <v-card-title style="background-color: #262e37; color: #fff;">
+              <span>Import Character</span>
+              <v-spacer />
+              <v-icon dark @click="importDialog = false">close</v-icon>
+            </v-card-title>
+            <v-card-text>
+              <v-textarea
+                v-model="importSnippet"
+              ></v-textarea>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn @click="importCharacter(importSnippet)">import</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
       </v-col>
 
       <!-- No Chars yet info text -->
@@ -198,14 +227,50 @@
                   class="d-none d-md-flex"
                   outlined
                   small
+                  v-if="false"
                 >
-                  <v-icon small left>
-                    print
-                  </v-icon>
-                  Print
+                  <v-icon small left>print</v-icon>Print
                 </v-btn>
+
                 <v-btn
-                  color="red"
+                  color="primary"
+                  text
+                  small
+                  @click="openExportDialog(character.id)"
+                >
+                  <v-icon small left>cloud_download</v-icon>
+                  Export
+                </v-btn>
+                <v-dialog
+                  v-model="exportDialog"
+                  width="600px"
+                  scrollable
+                  :fullscreen="$vuetify.breakpoint.xsOnly"
+                >
+                  <v-card class="pa-0">
+
+                    <v-card-title style="background-color: #262e37; color: #fff;">
+                      <span>Export Character</span>
+                      <v-spacer />
+                      <v-icon dark @click="exportDialog = false">
+                        close
+                      </v-icon>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-textarea
+                        id="exportSnippetId"
+                        rows="10"
+                        v-model="exportSnippet"
+                      ></v-textarea>
+                    </v-card-text>
+                    <v-card-actions>
+                      <v-btn outlined block color="primary" @click="copyToClipboard"><v-icon>file_copy</v-icon>Copy to clipboard</v-btn>
+                    </v-card-actions>
+                  </v-card>
+                </v-dialog>
+
+                <v-btn
+                  color="error"
                   text
                   small
                   @click="deleteCharacter(character.id)"
@@ -258,6 +323,10 @@ export default {
   props: [],
   data() {
     return {
+      importDialog: false,
+      importSnippet: '',
+      exportDialog: false,
+      exportSnippet: '',
       breadcrumbItems: [
         {
           text: '', nuxt: true, exact: true, to: '/',
@@ -444,6 +513,25 @@ export default {
       this.$store.commit('characters/remove', id);
       this.$ga.event('Delete Character', 'click', id, 1);
     },
+    openExportDialog(id) {
+      const characterJsonString = this.$store.getters['characters/characterStateJsonById'](id);
+      this.exportSnippet = btoa(characterJsonString);
+      this.exportDialog = true;
+    },
+    copyToClipboard() {
+      document.getElementById('exportSnippetId').select();
+      document.execCommand("copy");
+    },
+    importCharacter(stateString) {
+      const newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+      const payload = {
+        id: newCharId,
+        stateString: atob(stateString),
+      };
+      this.$store.commit('characters/import', payload);
+      this.importDialog = false;
+      this.$ga.event('Import Character', 'click', newCharId, 1);
+    }
   },
 };
 </script>
