@@ -101,6 +101,17 @@ export const getters = {
     });
     return spending;
   },
+  characterLanguagesCostsById: (state) => (id) => {
+    const character = state.characters[id];
+    if (character === undefined) {
+      return 0;
+    }
+    let spending = 0;
+    character.languages.forEach((language) => {
+      spending += language.cost;
+    });
+    return spending;
+  },
   // => total
   characterSpendBuildPointsById: (state, getters) => (id) => {
     let spend = 0;
@@ -112,6 +123,7 @@ export const getters = {
     spend += getters.characterTalentCostsById(id);
     spend += getters.characterAscensionCostsById(id);
     spend += getters.characterPsychicPowerCostsById(id);
+    spend += getters.characterLanguagesCostsById(id);
 
     return spend;
   },
@@ -229,6 +241,17 @@ export const getters = {
   characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
   characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
   characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
+
+  characterLanguagesById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return [];
+    }
+    if ( character.languages === undefined ) {
+      character.languages = getDefaultState().languages; // language migration
+    }
+    return character.languages;
+  },
 };
 
 export const mutations = {
@@ -483,6 +506,19 @@ export const mutations = {
     character.background.label = background.label;
     character.background.optionSelectedKey = background.optionSelectedKey;
   },
+  
+  // languages
+  addCharacterLanguage(state, payload) {
+    const character = state.characters[payload.id];
+    const { name, cost, source } = payload;
+    const language = { name, cost, source };
+    character.languages.push(language);
+  },
+  removeCharacterLanguage(state, payload) {
+    const character = state.characters[payload.id];
+    const { name } = payload;
+    character.languages = character.languages.filter( (language) => language.name.localeCompare(name, 'en') !== 0);
+  },
 
   // Keywords
   addCharacterKeyword(state, payload) {
@@ -691,6 +727,9 @@ const getDefaultState = () => ({
     tech: 0,
     weaponSkill: 0,
   },
+  languages: [
+    { name: 'Low Gothic', cost: 0, source: '' },
+  ],
   keywords: [],
   talents: [],
   psychicPowers: [],
