@@ -206,8 +206,8 @@
 
               <v-col :cols="12" class="pa-1">
                 <v-card >
-                  <v-card-text>
-                    <p class="caption">
+                  <v-card-text class="pa-1 pl-2 pr-2">
+                    <p class="caption mb-1">
                       Spend one <strong>Wrath</strong> to:
                     </p>
                     <ul class="pl-3">
@@ -229,8 +229,8 @@
                     </ul>
                   </v-card-text>
 
-                  <v-card-text>
-                    <p class="caption">
+                  <v-card-text class="pa-1 pl-2 pr-2">
+                    <p class="caption mb-1">
                       Spend one <strong>Glory</strong> to:
                     </p>
                     <ul class="pl-3">
@@ -250,8 +250,21 @@
                   </v-card-text>
                 </v-card>
               </v-col>
+
+              <v-col :cols="12" class="pa-1">
+                <v-card>
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Languages</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text>
+                    <p>{{ languages.map((l)=>l.name).join(' • ') }}</p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+
             </v-row>
           </v-col>
+
 
           <v-col :cols="12">
             <v-card>
@@ -529,6 +542,10 @@ export default {
 
     keywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
+    },
+
+    languages() {
+      return this.$store.getters['characters/characterLanguagesById'](this.characterId);
     },
 
     characterAttributesEnhanced() {

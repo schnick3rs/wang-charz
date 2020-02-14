@@ -293,7 +293,7 @@
                 All, <Disciplines>
 
               Description
-                All, Background, Objectives, Keywords
+                All, (Background), Languages, Objectives, Keywords,
 
             -->
 
@@ -547,7 +547,7 @@
                   <v-chip
                     label
                     small
-                    v-for="item in [`All`,`Objectives`,`Keywords`]"
+                    v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`]"
                     :key="item.toLowerCase()"
                     :value="item.toLowerCase()"
                   >
@@ -580,6 +580,19 @@
                         dense
                         v-model="objectiveEditorValue"
                       ></v-textarea>
+                    </div>
+                  </div>
+
+                  <!-- languages < description -->
+                  <div v-show="['all', 'languages'].some(i=>i===descriptionSection.selection)">
+                    <div class="mb-2" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Languages</span>
+                    </div>
+                    <div
+                      v-if="languages.length > 0"
+                      class="caption"
+                    >
+                      {{ languages.map((l)=>l.name).join(' • ') }}
                     </div>
                   </div>
 
@@ -797,6 +810,9 @@ export default {
 
     keywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
+    },
+    languages() {
+      return this.$store.getters['characters/characterLanguagesById'](this.characterId);
     },
     avatar() {
       const customAvatarUrl = this.$store.getters['characters/characterAvatarUrlById'](this.characterId);

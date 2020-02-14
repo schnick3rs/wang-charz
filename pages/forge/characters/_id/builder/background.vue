@@ -96,7 +96,7 @@
         <v-card-title>Manage Languages</v-card-title>
         <v-card-text>
           <p><em>Learned languages:</em></p>
-          <v-chip-group>
+          <v-chip-group column>
             <v-chip
               v-for="language in characterLanguages"
               :key="language.name"
@@ -113,7 +113,7 @@
         <v-divider></v-divider>
         <v-card-text>
           <p>
-            Every character starts with two languages, <strong>Low Gothic</strong> and an additional common to your homeworld or origin.
+            Every character starts with <strong>Low Gothic</strong> and an additional language, common to your homeworld or origin.
           </p>
           <p>
             You can learn additional languages for 1 BP each. Exotic languages might cost more. Check with your GM.
