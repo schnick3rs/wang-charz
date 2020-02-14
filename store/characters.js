@@ -103,7 +103,7 @@ export const getters = {
   },
   characterLanguagesCostsById: (state) => (id) => {
     const character = state.characters[id];
-    if (character === undefined) {
+    if (character === undefined || character.languages === undefined) {
       return 0;
     }
     let spending = 0;
