@@ -160,7 +160,7 @@
                       <li v-for="parts in item.topics" :key="parts">
                         <nuxt-link
                           v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
-                          :to="`/library/${camelToKebab(parts)}?filter-source=${item.key}`"
+                          :to="`/library/${textToKebab(parts)}?filter-source=${item.key}`"
                         >
                           {{ parts }}
                         </nuxt-link>
