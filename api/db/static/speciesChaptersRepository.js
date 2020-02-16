@@ -56,7 +56,6 @@ const simpleChapter = function (sourceKey, sourcePage, name, primarch, affiliati
 const core = [
   {
     ...simpleChapter('core',95,'Blood Angles','Sanguinius','Imperium','First Founding (IX Legion)'),
-    key: 'bloodAngles',
     hint: 'Masters of Melee, compelled to drink the enemies blood.',
     beliefsAndTraditions: [
       {
@@ -77,7 +76,6 @@ const core = [
   },
   {
     ...simpleChapter('core',95,'Dark Angles','Lion El`Jonson','Imperium','First Founding (I Legion)'),
-    key: 'darkAngles',
     beliefsAndTraditions: [
       {
         name: 'Fire Discipline',
@@ -92,7 +90,6 @@ const core = [
   },
   {
     ...simpleChapter('core',95,'Imperial Fists','Regal Dorn','Imperium','First Founding (VII Legion)'),
-    key: 'imperialFists',
     beliefsAndTraditions: [
       {
         name: 'Siege Masters',
@@ -111,7 +108,6 @@ const core = [
   },
   {
     ...simpleChapter('core',96,'Iron Hands','Ferrus Manus','Imperium','First Founding (X Legion)'),
-    key: 'ironHands',
     beliefsAndTraditions: [
       {
         name: 'The Flesh is Weak',
@@ -127,7 +123,6 @@ const core = [
   },
   {
     ...simpleChapter('core',96,'Raven Guard','Corvus Corax','Imperium','First Founding (XIX Legion)'),
-    key: 'ravenGuard',
     beliefsAndTraditions: [
       {
         name: 'Master of Shadows',
@@ -146,7 +141,6 @@ const core = [
   },
   {
     ...simpleChapter('core',96,'Salamander','Vulkan','Imperium','First Founding (XVIII Legion)'),
-    key: 'salamanders',
     beliefsAndTraditions: [
       {
         name: 'Fire Born',
@@ -164,7 +158,6 @@ const core = [
   },
   {
     ...simpleChapter('core',96,'Space Wolves','Lemon Russ','Imperium','First Founding (VI Legion)'),
-    key: 'spaceWolves',
     beliefsAndTraditions: [
       {
         name: 'Heightened Senses',
@@ -181,7 +174,6 @@ const core = [
   },
   {
     ...simpleChapter('core',96,'Ultramarines','Roboute Guilliman','Imperium','First Founding (XIII Legion)'),
-    key: 'ultramarines',
     beliefsAndTraditions: [
       {
         name: 'Courage and Honour',
@@ -202,7 +194,6 @@ const core = [
   },
   {
     ...simpleChapter('core',97,'White Scars','Jaghatai Khan','Imperium','First Founding (V Legion)'),
-    key: 'whiteScars',
     beliefsAndTraditions: [
       {
         name: 'Swift as the Wind',

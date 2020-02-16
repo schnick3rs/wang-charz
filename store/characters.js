@@ -1,3 +1,5 @@
+const BUILDER_VERSION = 3;
+
 export const state = () => ({
   list: [],
   characters: {},
@@ -140,18 +142,7 @@ export const getters = {
   characterAvatarUrlById: (state) => (id) => (state.characters[id] ? state.characters[id].avatarUrl : getDefaultState().avatarUrl),
   characterSpeciesKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].species.key : getDefaultState().species.key),
   characterSpeciesLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].species.label : getDefaultState().species.label),
-  characterSpeciesAstartesChapterById: (state) => (id) => {
-    const character = state.characters[id];
-    if (character) {
-      const chapter = character.speciesAstartesChapter;
-      if ( chapter.includes(' ') ) { // its an ol chapter name, using CORE
-        character.speciesAstartesChapter = `core ${chapter}`.toLowerCase().replace(/\W/gm, '-');
-      }
-      console.info(`chapter: ${chapter}`)
-      return character.speciesAstartesChapter;
-    }
-    return getDefaultState().speciesAstartesChapter;
-  },
+  characterSpeciesAstartesChapterById: (state) => (id) => (state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter),
   characterArchetypeKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.key : getDefaultState().archetype.key),
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
   characterAttributesById: (state) => (id) => (state.characters[id] ? state.characters[id].attributes : {}),
@@ -606,6 +597,18 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 2:
+        console.debug(`v2 -> v3 : Species chapters with source-keys instead of names`);
+        const v2chapter = character.speciesAstartesChapter;
+        let v3chapter = v2chapter;
+        if ( v2chapter && v2chapter.includes(' ') ) { // its an old chapter name, using CORE
+          v3chapter = `core ${v2chapter}`.toLowerCase().replace(/\W/gm, '-');
+          console.info(`Migrating [${character.name}]: ${v2chapter} -> ${v3chapter}`);
+        }
+        character.speciesAstartesChapter = v3chapter;
+        character.version = 3;
+        console.info(`Character migrated to v3.`);
+        break;
       case 1:
         console.debug(`v1 -> v2 : Species with keys instead of labels`);
 
@@ -657,6 +660,7 @@ export const mutations = {
 
         character.version = 2;
         console.info(`Character migrated to v2.`);
+        break;
     }
 
   },
@@ -675,23 +679,25 @@ export const actions = {
 
     const character = state.characters[payload.characterId];
     const characterVersion = character.version;
-    const builderVersion = rootState.builderVersion;
+    const builderVersion = BUILDER_VERSION;
 
     if ( characterVersion < builderVersion ) {
-      console.info(`Migrate character from ${characterVersion} to ${characterVersion+1}`);
+      console.info(`Migrate [${character.name}] from ${characterVersion} to ${characterVersion+1}`);
       const config = {
         characterId: character.id,
         currentVersion: characterVersion,
         targetVersion: characterVersion+1,
       };
       commit('migrate', config);
+    } else {
+      console.info(`[${character.name}] is up to date. ${characterVersion} / ${builderVersion}.`);
     }
   },
 };
 
 const getDefaultState = () => ({
   id: -1,
-  version: 2,
+  version: 3,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,

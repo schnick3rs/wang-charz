@@ -794,7 +794,11 @@ export default {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
     speciesAstartesChapter() {
-      return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
+      let chapter = this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
+      if ( chapter && chapter.includes(' ') ) { // its an old chapter name, using CORE
+        chapter = `core ${chapter}`.toLowerCase().replace(/\W/gm, '-');
+      }
+      return chapter;
     },
 
     archetypeKey() {
