@@ -678,6 +678,12 @@ export const actions = {
   migrate( {commit, state, rootState}, payload) {
 
     const character = state.characters[payload.characterId];
+
+    if (character === undefined) {
+      console.warn(`Could not read character for id [${payload.characterId}].`);
+      return;
+    }
+
     const characterVersion = character.version;
     const builderVersion = BUILDER_VERSION;
 
