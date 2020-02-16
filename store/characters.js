@@ -140,7 +140,18 @@ export const getters = {
   characterAvatarUrlById: (state) => (id) => (state.characters[id] ? state.characters[id].avatarUrl : getDefaultState().avatarUrl),
   characterSpeciesKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].species.key : getDefaultState().species.key),
   characterSpeciesLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].species.label : getDefaultState().species.label),
-  characterSpeciesAstartesChapterById: (state) => (id) => (state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter),
+  characterSpeciesAstartesChapterById: (state) => (id) => {
+    const character = state.characters[id];
+    if (character) {
+      const chapter = character.speciesAstartesChapter;
+      if ( chapter.includes(' ') ) { // its an ol chapter name, using CORE
+        character.speciesAstartesChapter = `core ${chapter}`.toLowerCase().replace(/\W/gm, '-');
+      }
+      console.info(`chapter: ${chapter}`)
+      return character.speciesAstartesChapter;
+    }
+    return getDefaultState().speciesAstartesChapter;
+  },
   characterArchetypeKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.key : getDefaultState().archetype.key),
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
   characterAttributesById: (state) => (id) => (state.characters[id] ? state.characters[id].attributes : {}),
@@ -266,6 +277,9 @@ export const mutations = {
   },
   setSettingTitle(state, payload) {
     state.characters[payload.id].settingTitle = payload.title;
+  },
+  enableSettingHomebrews(state, payload) {
+    state.characters[payload.id].settingHomebrewContent.push(payload.content);
   },
   setSettingHomebrews(state, payload) {
     state.characters[payload.id].settingHomebrewContent = payload.content;

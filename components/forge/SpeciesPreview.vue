@@ -102,14 +102,27 @@
           </div>
 
           <div
-            v-if="manageMode && feature.name.indexOf('Honour the Chapter') >= 0"
+            v-if="manageMode && feature.name.indexOf('Honour the Chapter') >= 0 && chapterList"
           >
+            <v-alert
+              text border-left dense color="primary" class="caption"
+            >
+              <em>Some homebrews contain additional chapters. Click on the (+) after the homebrew to enable it's rules for this character:
+                An Abundane of Aphocrypha
+                <v-icon v-if="settingHomebrews.includes('aaoa')" small color="success">check_circle</v-icon>
+                <v-icon v-else @click="enableHomebrew('aaoa')" small color="primary">add_circle</v-icon>
+                or
+                Let the Galaxy Burn
+                <v-icon v-if="settingHomebrews.includes('ltgb')" small color="success">check_circle</v-icon>
+                <v-icon v-else @click="enableHomebrew('ltgb')" small color="primary">add_circle</v-icon>
+              </em>
+            </v-alert>
             <v-select
               v-model="species['chapter']"
-              :items="astartesChapterRepository"
+              :items="chapterList"
               label="Select your Chapter"
-              item-value="name"
-              item-text="name"
+              item-value="key"
+              item-text="label"
               class="ml-2 mr-2"
               dense
               solo
@@ -184,16 +197,32 @@ export default {
   },
   data() {
     return {
-      astartesChapterRepository: [],
+      chapterList: undefined,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
+  },
+  watch: {
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getChapterList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   async mounted() {
-    if (this.manageMode) {
-      const chaptersResponse = await this.$axios.get('/api/species/chapters/?source=core,coreab');
-      this.astartesChapterRepository = chaptersResponse.data;
-    }
     const featuresWithPowers = this.species.speciesFeatures.filter( (f) => f.psychicPowers !== undefined);
     if ( featuresWithPowers ) {
       featuresWithPowers.forEach( (feature) => {
@@ -209,6 +238,18 @@ export default {
     }
   },
   methods: {
+    async getChapterList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/species/chapters/', config);
+      this.chapterList = data;
+    },
+    enableHomebrew(sourceKey) {
+      this.$store.commit('characters/enableSettingHomebrews', { id: this.characterId, content: sourceKey });
+    },
     getPsychicPowerOptions(psychicPowerSelection) {
       const config = {
         params: {
@@ -225,10 +266,12 @@ export default {
     getAvatar(key) {
       return `/img/avatars/species/${key}.png`;
     },
-    getChapterTraditions(chapterName) {
-      const chapter = this.astartesChapterRepository.find((a) => a.name === chapterName) || [];
-      if (chapter) {
-        return chapter.beliefsAndTraditions;
+    getChapterTraditions(chapterKey) {
+      if ( this.chapterList ) {
+        const chapter = this.chapterList.find((a) => a.key === chapterKey) || [];
+        if (chapter) {
+          return chapter.beliefsAndTraditions;
+        }
       }
       return [];
     },

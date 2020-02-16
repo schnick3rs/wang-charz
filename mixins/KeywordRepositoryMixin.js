@@ -41,9 +41,7 @@ export default {
       {
         name: '<Order>', type: 'Imperium', parentKeyword: 'Adepta Sororitas', description: 'A specific Adepta Sororitas Order (replaces this keyword when chosen).',
       },
-      {
-        name: 'Adeptus Astartes', type: 'Imperium', parentKeyword: undefined, description: 'The Space Marines, superhuman elite warriors of the Imperium.',
-      },
+      { name: 'Adeptus Astartes', type: 'Imperium', parentKeyword: undefined, description: 'The Space Marines, superhuman elite warriors of the Imperium.' },
       {
         name: '<Chapter>', type: 'Imperium', parentKeyword: 'Adeptus Astartes', description: 'A specific Adeptus Astartes Chapter (replaces this keyword when chosen).',
       },
@@ -161,18 +159,12 @@ export default {
       },
 
       // Renegade and Heretic Keywords
-      {
-        name: 'Chaos', type: 'Renegade', parentKeyword: undefined, description: 'Those who serve the Dark Gods, knowingly or otherwise.',
-      },
-      {
-        name: '<Mark of Chaos>', type: 'Renegade', parentKeyword: undefined, description: 'A specific Chaos God (replaces this keyword when chosen).',
-      },
-      {
-        name: 'Dark Mechanicus', type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.',
-      },
+      { name: 'Chaos', type: 'Renegade', parentKeyword: undefined, description: 'Those who serve the Dark Gods, knowingly or otherwise.' },
+      { name: '<Mark of Chaos>', type: 'Renegade', parentKeyword: undefined, description: 'A specific Chaos God (replaces this keyword when chosen).' },
+      { name: 'Dark Mechanicus', type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.' },
       { name: 'Heretic', type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.' },
-
-      //
+      { name: 'Heretic Astartes', type: 'Renegade', parentKeyword: undefined, description: 'Once loyal to the imperium but now outlawed and enemies of mankind.' },
+      { name: '<Legion>', type: 'Renegade', parentKeyword: undefined, description: 'A specific Heretic Astartes Legion (replaces this keyword when chosen).' },
 
       // Social PAX
       { source: 'pax', name: 'Nobility', type: 'Social', parentKeyword: undefined, description: 'The high born elite of the Imperium.' },
@@ -379,8 +371,21 @@ export default {
       { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Ultramarines', description: 'Ultramarines are renowned for their discipline, honour, and tactical acumen. In the wake of the Horus Heresy, the Ultramarines Legion composed nearly half of the Space Marines in the galaxy. By willingly dividing the Legion into chapters, they set the example that enabled the second founding to succeed and provide a basis for the other legions to embrace the Codex Astartes.' },
       { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'White Scars', description: 'The White Scars embrace strategies built around rapid and savage attacks, striking at an opponent and withdrawing before the foe has any opportunity to make a counterstrike. They prefer to attack from vehicles, deploying from transports or riding bikes or Land Speeders into battle. Their traditions prize ferocity, tempered by an inherent sense of honour and justice.' },
       { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Other Chapter', description: 'An unkown chapter in the vast space.' },
-      { type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Isenwell)', description: 'Thrive for excellence.' },
-      { type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Hironiat)', description: 'Break the Tide.' },
+
+      // Doctors of Doom
+      { source: 'dod', type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Isenwell)', description: 'Thrive for excellence.' },
+      { source: 'dod', type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Hironiat)', description: 'Break the Tide.' },
+
+      // <Legion> -> Let the Galaxy Burn
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Black Legion', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Iron Warriors', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Night Lords', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'World Bearers', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Alpha Legion', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Death Guard', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Emperor`s Children', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Thousand Suns', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'World Eaters', description: '' },
 
       // Marks of the Chaos Goods
       { type: 'Mark of Chaos', placeholder: '<Mark of Chaos>', name: 'Mark of Khorne', description: '' },
@@ -469,11 +474,11 @@ export default {
       { type: 'Navigator House', placeholder: '<Navis House>', name: 'Shrouded House', description: 'Shrouded houses have suffered great losses or shame within the more established dominions of the Imperium. They have opted to move their powerbase completely to the edge of known space, where they cling to the barest strands of their former status and power. Though they may be rich in skill, knowledge or lore, something in the past of Shrouded Houses has blighted them and reduced them to a state so far from their once exalted position that they are sometimes cruelly called ‘beggar houses’ by their more successful counterparts. To be part of a Shrouded House is to be part of a fallen line that is slowly rising again to stand defiant against those that once cast them down - or at least, so you are told by your elders. Their loss in standing has often forced such houses to flee to the margins of the Imperium and to develop a cunning and opportunistic mindset alongside a skill that is often lacked by more comfortably indolent houses.' },
 
       // PAX Adeptus Arbites Predict
-      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Astra', description: 'Precinct Astra is the designation for the diffused networks of a local sector, tasked with patrolling interstellar trade routes and monitoring crime within the void.' },
-      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Courthouse', description: 'Sprawling hive cities typically also have their own Courthouse Precinct to aid in large scale monitoring, reporting to their central Precinct Fortress.' },
-      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Fortress', description: 'Most Arbitrators operate out of massive Precinct Fortresses, located within capital cities in close proximity to the Planetary Governor of major Imperial worlds.' },
-      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'House', description: 'Remote planets of little importance typically have just a single fortified Precinct House for the single Arbitrator stationed there.' },
-      { type: 'Adeptus Astartes Predict', placeholder: '<Predict>', name: 'Op-Center', description: 'Operational centers are forward operating bases maintained throughout Imperial worlds, particularly hive or industrial worlds, with each being a garrison for a few dozen Arbitrators who report to their nearest precinct.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'Astra', description: 'Precinct Astra is the designation for the diffused networks of a local sector, tasked with patrolling interstellar trade routes and monitoring crime within the void.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'Courthouse', description: 'Sprawling hive cities typically also have their own Courthouse Precinct to aid in large scale monitoring, reporting to their central Precinct Fortress.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'Fortress', description: 'Most Arbitrators operate out of massive Precinct Fortresses, located within capital cities in close proximity to the Planetary Governor of major Imperial worlds.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'House', description: 'Remote planets of little importance typically have just a single fortified Precinct House for the single Arbitrator stationed there.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'Op-Center', description: 'Operational centers are forward operating bases maintained throughout Imperial worlds, particularly hive or industrial worlds, with each being a garrison for a few dozen Arbitrators who report to their nearest precinct.' },
 
       // AAOA Squat Leagues
       { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Thor', description: 'The most powerful and influential League, once containing more than three hundred Strongholds. What remains is a fleet of a thousand ships, sailing through the inky void of the Imperium Nihilus, seeking allies.' },

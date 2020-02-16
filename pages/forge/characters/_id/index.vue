@@ -880,14 +880,14 @@ export default {
           this.characterSpecies.speciesFeatures.forEach( (speciesTrait) => {
             // Honour the Chapter
             if (speciesTrait.name === 'Honour the Chapter') {
-              const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
+              const chapter = this.astartesChapterRepository.find((a) => a.key === this.speciesAstartesChapter) || [];
               const traditions = chapter.beliefsAndTraditions;
               if (traditions !== undefined) {
                 traditions.forEach((t) => {
                   const tradition = {
                     name: t.name,
                     effect: t.effect,
-                    source: this.speciesAstartesChapter,
+                    source: chapter.name,
                   };
                   abilities.push(tradition);
                 });

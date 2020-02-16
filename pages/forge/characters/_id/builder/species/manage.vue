@@ -91,7 +91,10 @@ export default {
       });
     },
     updateAstartesChapter(chapterName) {
-      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id: this.characterId, speciesAstartesChapter: chapterName });
+      const content = {
+        speciesAstartesChapter: chapterName,
+      };
+      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id: this.characterId, ...content });
     },
     /**
      * clear previous option
