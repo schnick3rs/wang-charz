@@ -840,16 +840,15 @@ export default {
       let enhancedAttributes = this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
       // enrich with (equipped) gear
       if ( this.armour ) {
-        this.armour.forEach((armour)=>{
-          const traits = armour.meta[0].traits;
-          let poweredString = traits.find((trait)=>trait.includes('Powered'));
-          if (poweredString) {
-            const trait = this.normalizeTrait(poweredString);
-            if ( trait.variant) {
-              enhancedAttributes.strength = parseInt(enhancedAttributes.strength) + parseInt(trait.variant);
-            }
+        const armour = this.armour[0];
+        const traits = armour.meta[0].traits;
+        let poweredString = traits.find((trait)=>trait.includes('Powered'));
+        if (poweredString) {
+          const trait = this.normalizeTrait(poweredString);
+          if ( trait.variant) {
+            enhancedAttributes.strength = parseInt(enhancedAttributes.strength) + parseInt(trait.variant);
           }
-        });
+        }
       }
 
       return enhancedAttributes;
