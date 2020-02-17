@@ -944,7 +944,6 @@ export default {
             name: item.name,
             effect: item.snippet ? item.snippet : item.description,
             source: archetype.label,
-            source: archetype.label,
             hint: archetype.label,
           };
           abilities.push(ability);
