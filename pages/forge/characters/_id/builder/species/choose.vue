@@ -1,5 +1,6 @@
 <template>
   <v-row justify="center">
+
     <v-col :cols="12">
       <h1 class="headline">
         Select a Species
@@ -23,6 +24,7 @@
     </v-dialog>
 
     <v-col cols="12">
+
       <v-progress-circular v-if="!speciesList" indeterminate color="success" size="128" width="12" />
 
       <v-card v-if="speciesList">
@@ -74,7 +76,15 @@
           </v-list-item>
         </v-list>
       </v-card>
+
+      <v-card>
+        <v-card-text>
+          <v-btn @click="customDialog = true">Add custom Species</v-btn>
+        </v-card-text>
+      </v-card>
+
     </v-col>
+
   </v-row>
 </template>
 
