@@ -332,7 +332,7 @@
                       </td>
                       <td class="text-center pa-1 small">
                         <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                          <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + characterAttributesEnhanced.strength }}*</span>
+                          <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
                           <span v-else>{{ item.meta[0].damage.static }}</span>
                           <span> + </span>
                           <span>{{ item.meta[0].damage.ed }} ED</span>
