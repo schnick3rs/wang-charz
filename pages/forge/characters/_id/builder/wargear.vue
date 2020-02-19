@@ -336,7 +336,7 @@ export default {
     computeWargearOptionsByFilter(filter) {
       const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;
       if ( this.wargearList ) {
-        return this.wargearRepository.filter( (gear) => {
+        return this.wargearList.filter( (gear) => {
           let valueReq = true;
           if ( valueFilter ) {
             let maxValue = 0;
