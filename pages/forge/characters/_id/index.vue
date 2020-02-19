@@ -90,26 +90,32 @@
               <v-toolbar-title>Attributes</v-toolbar-title>
             </v-toolbar>
 
-            <v-simple-table
-              dense
-            >
+            <v-simple-table dense>
               <thead>
-              <tr>
-                <th v-for="header in attributeHeaders">
-                  {{ header.text }}
-                </th>
-              </tr>
+                <tr>
+                  <th v-for="header in attributeHeaders" :class="header.class" style="font-size: 11px;">
+                    {{ header.text }}
+                  </th>
+                </tr>
               </thead>
               <tbody>
               <tr v-for="item in attributes">
-                <td class="text-left pa-1 small">
-                  {{ item.name }}
-                </td>
+                <td class="text-left pa-1 small">{{ item.name }}</td>
+                <td class="text-center pa-1 small">{{ item.rating }}</td>
+                <td class="text-center pa-1 small">{{ item.adjustedRating }}</td>
                 <td class="text-center pa-1 small">
-                  {{ item.value }}
-                </td>
-                <td class="text-center pa-1 small">
-                  {{ item.enhancedValue }}
+                  <v-tooltip bottom v-if="item.adjustment > 0">
+                    <template v-slot:activator="{ on }">
+                      <v-avatar color="success" size="12" v-on="on"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
+                    </template>
+                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                  </v-tooltip>
+                  <v-tooltip bottom v-if="item.adjustment < 0">
+                    <template v-slot:activator="{ on }">
+                      <v-avatar color="error" size="12" v-on="on"><v-icon dark small>arrow_drop_down</v-icon></v-avatar>
+                    </template>
+                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                  </v-tooltip>
                 </td>
               </tr>
               </tbody>
@@ -220,7 +226,7 @@
       <v-col :cols="12" :sm="6" :md="3">
         <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
-          <v-card style="height: 612px;">
+          <v-card style="height: 595px;">
             <v-toolbar color="red" dark dense height="32">
               <v-toolbar-title>Skills</v-toolbar-title>
             </v-toolbar>
@@ -735,9 +741,10 @@ export default {
       objectiveEditorShow: false,
       objectiveEditorValue: '',
       attributeHeaders: [
-        { text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1' },
-        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
-        { text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Attribute', sortable: false, align: 'left', class: 'text-left small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'text-center small pa-1' },
+        { text: 'Enhanced', sortable: false, align: 'right', class: 'text-center small pa-1' },
+        { text: 'Notes', sortable: false, style: 'center', class: 'text-center small pa-1' },
       ],
       traitHeaders: [
         { text: 'Trait', sortable: false, align: 'left', class: 'small pa-1' },
@@ -838,6 +845,54 @@ export default {
 
     characterAttributesEnhanced() {
       let enhancedAttributes = this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      return enhancedAttributes;
+    },
+
+    /**
+     * {
+     *  name: 'Strength',
+     *  key: 'strength,
+     *  rating: 3, // aka bought value / rating
+     *  adjustedRating: 5, // adjuste rating,
+     *  adjustment: 2, // the adjusted amount
+     *  modifiers: [
+     *    // +1 from Attribute Modification * Space Marine Species
+     *    // +3 from Powered(3) * Astartes MK VII
+     *    { static: 1, rank: false, halfRank: false, }
+     *  ],
+     * }
+     */
+    attributes() {
+
+      const characterAttributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
+      let attributes = this.attributeRepository.map((repositoryAttribute) => {
+         /* {
+            key: 'strength',
+            name: 'Strength',
+            description: 'Raw physical power.',
+          } */
+        return {
+          ...repositoryAttribute,
+          value: characterAttributes[repositoryAttribute.key],
+          enhancedValue: parseInt(this.characterAttributesEnhanced[repositoryAttribute.key]),
+          rating: characterAttributes[repositoryAttribute.key],
+          adjustedRating: parseInt(characterAttributes[repositoryAttribute.key]),
+          adjustment: 0,
+          modifiers: [],
+        };
+      });
+
+      this.enhancements
+      .filter((enhancement)=>enhancement.targetGroup==='attributes')
+      .forEach((enhancement)=>{
+        // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
+        let attr = attributes.find((a)=>a.key===enhancement.targetValue);
+        attr.adjustment += enhancement.modifier;
+        attr.adjustedRating += enhancement.modifier;
+        attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+      });
+
+      let poweredStrength = 0;
       // enrich with (equipped) gear
       if ( this.armour && this.armour.length > 0 ) {
         const armour = this.armour[0];
@@ -846,29 +901,40 @@ export default {
         if (poweredString) {
           const trait = this.normalizeTrait(poweredString);
           if ( trait.variant) {
-            enhancedAttributes.strength = parseInt(enhancedAttributes.strength) + parseInt(trait.variant);
+            poweredStrength = parseInt(trait.variant);
+            let strength = attributes.find((a)=>a.key==='strength');
+            strength.adjustedRating += poweredStrength;
+            strength.adjustment += poweredStrength;
+            strength.modifiers.push(`+${poweredStrength} from Armour • ${armour.name}`);
           }
         }
       }
 
-      return enhancedAttributes;
-    },
-    attributes() {
-      const attributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
-      return this.attributeRepository.map((a) => ({
-        ...a,
-        value: attributes[a.name.toLowerCase()],
-        enhancedValue: this.characterAttributesEnhanced[a.name.toLowerCase()],
-      }));
+      return attributes;
     },
     traits() {
-      const traits = this.$store.getters['characters/characterTraitsById'](this.characterId);
+      const characterTraits = this.$store.getters['characters/characterTraitsById'](this.characterId);
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
-      const finalTraits = this.traitRepository.map((t) => ({
+      let finalTraits = this.traitRepository.map((t) => ({
         ...t,
-        value: traits[t.key],
-        enhancedValue: traitsEnhanced[t.key],
+        value: characterTraits[t.key],
+        enhancedValue: parseInt(traitsEnhanced[t.key]),
+        rating: characterTraits[t.key],
+        adjustedRating: parseInt(characterTraits[t.key]),
+        adjustment: 0,
+        modifiers: [],
       }));
+
+      this.enhancements
+      .filter((enhancement)=>enhancement.targetGroup==='traits')
+      .forEach((enhancement)=>{
+        // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
+        let traity = finalTraits.find((a)=>a.key===enhancement.targetValue);
+        traity.adjustment += enhancement.modifier;
+        traity.adjustedRating += enhancement.modifier;
+        traity.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+      });
+
       return finalTraits;
     },
     groupedTraits() {
@@ -1146,7 +1212,7 @@ export default {
     },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
-      return attribute.enhancedValue + skill.enhancedValue;
+      return attribute.adjustedRating + skill.enhancedValue;
     },
     computeFormatedText(text) {
       if ( text === undefined ) {
@@ -1189,7 +1255,7 @@ export default {
   }
 
   .my-tab-item {
-    height: 564px;
+    height: 547px;
     overflow-y: auto;
   }
 

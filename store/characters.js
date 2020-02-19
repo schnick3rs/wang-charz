@@ -4,7 +4,7 @@ export const state = () => ({
   list: [],
   characters: {},
   // version: 1,
-});
+})
 
 export const getters = {
   characterIds: (state) => state.list,
