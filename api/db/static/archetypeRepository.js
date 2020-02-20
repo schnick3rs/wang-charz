@@ -1662,8 +1662,84 @@ const aaoaRep = [
       { name: 'Clothing', variant: 'tattered penitent robes' },
     ],
   },
-  simpleStub('aaoa', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Medic', 0, 1),
-  simpleStub('aaoa', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Officer', 15, 1),
+  {
+    ...simpleStub('aaoa', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Medic', 0, 1, false),
+    hint: 'A disciplined soldier trained to treat the injuries of their comrades.',
+    prerequisites: [
+      reqAttribute('intellect', 3),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('medicae', 2),
+    ],
+    keywords: 'Imperium,Astra Militarum,<Regiment>',
+    influence: 0,
+    archetypeFeatures: [
+      {
+        name: 'Field Medic',
+        snippet:
+          'When an Imperial Guard Medic stabilises a dying character, each shifted Exalted Icon restores one additional wound in the character being stabilised.'
+      },
+      {
+        name: 'Regiment Affiliation',
+        snippet:
+          'Select a regiment to which the character belongs (see Regiments on page 114 of the Wrath & Glory rulebook).'
+      },
+    ],
+    wargearString:
+      'Flak armour, Lasgun, knife, guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration packs, medikit.',
+    wargear: [
+      { name: 'Flak Armour' },
+      { name: 'Lasgun' },
+      { name: 'Knife' },
+      { name: 'Guard Issue Mess Kit' },
+      { name: 'Blanket' },
+      { name: 'Grooming kit' },
+      { name: 'Uplifting Primer' },
+      { name: 'Ration Packs', amount: 3 },
+      { name: 'Medkit' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Officer', 15, 1, false),
+    hint: 'A stern commander trained to inspire and lead others into the fray.',
+    prerequisites: [
+      reqAttribute('fellowship', 3),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('leadership', 2),
+    ],
+    keywords: 'Imperium,Astra Militarum,<Regiment>,Officer',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Voice of Command',
+        description:
+          '<p>An Officer may spend an action giving an order to a character with the Astra Militarum keyword who is within hearing range and subordinate to the officer. This requires a Leadership test (DN 3). A successful test allows the ordered character to gain one of the following benefits (Officer’s choice) on their next turn:</p>' +
+          '<ul>' +
+            '<li>Reduce the DN penalty for taking a Multi-action by the Officer’s Rank.</li>' +
+            '<li>Add the Officer’s Rank as a bonus on one test they attempt.</li>' +
+            '<li>Add the Officer’s Rank as +ED on the damage of one successful attack they make.</li>' +
+          '</ul>' +
+          '<p>An officer may issue orders to multiple characters, adding +2 to the DN of the leadership test for each character after the first being orders. All character ordered must receive the same benefit.</p>'
+      },
+      {
+        name: 'Regiment Affiliation',
+        snippet:
+          'Select a regiment to which the character belongs (see Regiments on page 114 of the Wrath & Glory rulebook).'
+      },
+    ],
+    wargearString:
+      'Flak armour, Laspistol, chainsword, knife, guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration packs.',
+    wargear: [
+      { name: 'Flak Armour' },
+      { name: 'Lasgun' },
+      { name: 'Chain Sword' },
+      { name: 'Knife' },
+      { name: 'Guard Issue Mess Kit' },
+      { name: 'Blanket' },
+      { name: 'Grooming kit' },
+      { name: 'Uplifting Primer' },
+      { name: 'Ration Packs', amount: 3 },
+    ],
+  },
   simpleStub('aaoa', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 60, 3),
   simpleStub('aaoa', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 60, 3),
   simpleStub('aaoa', 27, 'core-adeptus-astartes', 'Adeptus Astartes', 'Grey Knight', 70, 3),
