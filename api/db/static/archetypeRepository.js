@@ -72,6 +72,22 @@ const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, ti
   };
 };
 
+const reqAttribute = function(key, value) {
+  return {
+    group: 'attributes',
+    value: key,
+    threshold: value,
+  };
+};
+
+const reqSkill = function(key, value) {
+  return {
+    group: 'skills',
+    value: key,
+    threshold: value,
+  };
+};
+
 const core = [
   // Adeptus Ministorum
   {
@@ -415,7 +431,7 @@ const core = [
             filter: true,
             valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
             rarityFilter: ['Common', 'Uncommon'],
-            typeFilter: 'Ranged Weapon',
+            typeFilter: ['Ranged Weapon'],
             keywordFilter: 'Imperium',
           },
         ],
@@ -504,7 +520,7 @@ const core = [
             filter: true,
             valueFilter: { useCharacterTier: false, useSettingTier: true, fixedValue: 4 },
             rarityFilter: ['Uncommon', 'Common', 'Rare'],
-            typeFilter: 'Ranged Weapon',
+            typeFilter: ['Ranged Weapon'],
           },
         ],
       },
@@ -516,7 +532,7 @@ const core = [
             filter: true,
             valueFilter: { useCharacterTier: false, useSettingTier: true, fixedValue: 4 },
             rarityFilter: ['Uncommon', 'Common', 'Rare'],
-            typeFilter: 'Melee Weapon',
+            typeFilter: ['Melee Weapon'],
           },
         ],
       },
@@ -623,7 +639,7 @@ const core = [
             filter: true,
             valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
             rarityFilter: ['Uncommon', 'Common', 'Rare', 'Very Rare'],
-            typeFilter: 'Ranged Weapon',
+            typeFilter: ['Ranged Weapon'],
           },
         ],
       },
@@ -635,7 +651,7 @@ const core = [
             filter: true,
             valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
             rarityFilter: ['Uncommon', 'Common', 'Rare', 'Very Rare'],
-            typeFilter: 'Melee Weapon',
+            typeFilter: ['Melee Weapon'],
           },
         ],
       },
@@ -828,7 +844,7 @@ const core = [
         options: [
           {
             filter: true,
-            subtypeFilter: 'Augmentic',
+            subtypeFilter: ['Augmentic'],
           },
         ],
       },
@@ -838,7 +854,7 @@ const core = [
         options: [
           {
             filter: true,
-            subtypeFilter: 'Augmentic',
+            subtypeFilter: ['Augmentic'],
           },
         ],
       },
@@ -1093,7 +1109,7 @@ const core = [
         options: [
           {
             filter: true,
-            typeFilter: 'Cybernetic',
+            typeFilter: ['Cybernetic'],
           },
         ],
       },
@@ -1103,7 +1119,7 @@ const core = [
         options: [
           {
             filter: true,
-            typeFilter: 'Cybernetic',
+            typeFilter: ['Cybernetic'],
           },
         ],
       },
@@ -1439,8 +1455,88 @@ const aotgtRep = [
 ];
 
 const aaoaRep = [
-  simpleStub('aaoa', 22, 'core-human', 'Adeptus Ministorum', 'Frateris Militia', 0, 1),
-  simpleStub('aaoa', 22, 'core-human', 'Adeptus Ministorum', 'Confessor', 40, 3),
+  {
+    ...simpleStub('aaoa', 22, 'core-human', 'Adeptus Ministorum', 'Frateris Militia', 0, 1, false),
+    hint: 'A faithful citizen whipped into a fervour and eager to slay in the Emperor’s name.',
+    prerequisites: [
+      reqAttribute('willpower', 2),
+      reqSkill('ballisticSkill', 1),
+      reqSkill('weaponSkill', 1),
+    ],
+    keywords: 'Imperium',
+    influence: 0,
+    archetypeFeatures: [
+      {
+        name: 'Fevour',
+        snippet:
+          'When within hearing range of a character with the Adeptus Ministorum keyword, ' +
+          'a Frateris Militiaman increases their Resolve by +½ Rank. ' +
+          'In addition, if that Adeptus Ministorum character has suffered any wounds during the current scene, ' +
+          'the Frateris Militiaman’s Soak is increased by +½ Rank while they remain within ten metres.'
+      },
+    ],
+    wargearString: 'One ranged or melee weapon of Value 3 or less of up to Common rarity, knife, symbol of devotion (tin aquila, devotional scroll, etc.).',
+    wargear: [
+      {
+        name: 'One ranged or melee weapon of Value 3 or less of up to Common rarity',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 3 },
+            rarityFilter: ['Common'],
+            typeFilter: ['Ranged Weapon', 'Melee Weapon'],
+          },
+        ],
+      },
+      { name: 'Knife' },
+      { name: 'Symbol of devotion' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 22, 'core-human', 'Adeptus Ministorum', 'Confessor', 40, 3, false),
+    hint: 'A high-ranking priest whose rhetoric inspires zeal and piety wherever they go.',
+    prerequisites: [
+      reqAttribute('willpower', 4),
+      reqAttribute('fellowship', 4),
+      reqSkill('persuasion', 3),
+      reqSkill('scholar', 2),
+    ],
+    keywords: 'Imperium,Adeptus Ministorum,Priest',
+    influence: 3,
+    archetypeFeatures: [
+      {
+        name: 'Incite Zeal',
+        snippet:
+          'A Confessor adds +Rank to all Persuade Interaction attacks against targets with the Imperium, Scum, or Heretic keywords. ' +
+          'In addition, a Confessor may spend a Wrath point to make themselves frenzied; ' +
+          'If they do so, they may also make all allies with the Imperium keyword within 15+Rank metres frenzied too.'
+      },
+    ],
+    wargearString:
+      'Laspistol, one melee weapon or one ranged weapon of up to Value 7 and a rarity of up to Rare, ' +
+      'Rosarius, knife, clothing (Ministorum robes), missionary kit, symbol of authority.',
+    wargear: [
+      { name: 'Laspistol' },
+      {
+        name: 'one melee weapon or one ranged weapon of up to Value 7 and a rarity of up to Rare',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 3 },
+            rarityFilter: ['Common','Uncommon','Rare'],
+            typeFilter: ['Ranged Weapon', 'Melee Weapon'],
+          },
+        ],
+      },
+      { name: 'Rosarius' },
+      { name: 'Knife' },
+      { name: 'Clothing', variant: 'Ministorum robes' },
+      { name: 'Missionary kit' },
+      { name: 'symbol of authority' },
+    ],
+  },
   simpleStub('aaoa', 23, 'core-human', 'Adepta Sororitas', 'Sister Dialogous', 0, 1),
   simpleStub('aaoa', 23, 'core-human', 'Adepta Sororitas', 'Sister Famulous', 10, 1),
   simpleStub('aaoa', 24, 'core-human', 'Adepta Sororitas', 'Sister Seraphim', 55, 3),
@@ -1465,7 +1561,7 @@ const aaoaRep = [
   simpleStub('aaoa', 34, 'core-human', 'Agents of the Imperium', 'Callidus Assassin', 150, 5),
   {
     ...simpleStub('aaoa', 35, 'aaoa-pariah', 'Agents of the Imperium', 'Culexus Assassin', 150, 5, false),
-    hint: 'killy mc kill kill',
+    hint: 'Witch-slayer, wyrd-bane, living nightmare to all psykers.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },
       { group: 'attributes', value: 'agility', threshold: 5 },
@@ -1888,7 +1984,6 @@ const aaoaRep = [
       { name: 'Clothing', variant: 'Ancestor’s robes' },
     ],
   },
-
 ];
 
 const ltgbRep = [
