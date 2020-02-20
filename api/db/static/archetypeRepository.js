@@ -1537,10 +1537,131 @@ const aaoaRep = [
       { name: 'symbol of authority' },
     ],
   },
-  simpleStub('aaoa', 23, 'core-human', 'Adepta Sororitas', 'Sister Dialogous', 0, 1),
-  simpleStub('aaoa', 23, 'core-human', 'Adepta Sororitas', 'Sister Famulous', 10, 1),
-  simpleStub('aaoa', 24, 'core-human', 'Adepta Sororitas', 'Sister Seraphim', 55, 3),
-  simpleStub('aaoa', 24, 'core-human', 'Adepta Sororitas', 'Sister Repentia', 40, 2),
+  {
+    ...simpleStub('aaoa', 23, 'core-human', 'Adepta Sororitas', 'Sister Dialogous', 0, 1, false),
+    hint: 'A devout scholar of language, ensuring that the Emperor’s Word is understood by all.',
+    prerequisites: [
+      reqAttribute('intellect', 2),
+      reqAttribute('willpower', 3),
+      reqSkill('persuasion', 1),
+      reqSkill('scholar', 2),
+    ],
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Linguist',
+        snippet:
+          'A Sister Dialogous knows three additional languages and adds +Rank on Scholar tests relating to language. In addition, an ally may attempt Persuade or Intimidation tests against characters who do not share a common language so long as a Sister Dialogous is present and knows the target’s language – the Sister translates for her ally.'
+      },
+    ],
+    wargearString:
+      'Laspistol, clothing (Sororitas vestments), copy of the Rule of the Sororitas, collection of reference books, vox-caster.',
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Clothing', variant: 'Sororitas vestments' },
+      { name: 'copy of the Rule of the Sororitas' },
+      { name: 'collection of reference books' },
+      { name: 'vox-caster' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 23, 'core-human', 'Adepta Sororitas', 'Sister Famulous', 10, 1, false),
+    hint: 'A pious advisor to those of noble birth and ancient bloodlines.',
+    prerequisites: [
+      reqAttribute('intellect', 2),
+      reqAttribute('willpower', 3),
+      reqAttribute('fellowship', 3),
+      reqSkill('leadership', 1),
+      reqSkill('scholar', 1),
+    ],
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Major-domo',
+        snippet:
+          'A Sister Famulous adds +Rank to Scholar tests to know information about noble families and similar high-status groups. In addition, a Sister Famulous may, when acting on behalf of a client, add +Rank to Influence tests and interaction skills where social status is relevant.'
+      },
+    ],
+    wargearString:
+      'Laspistol, clothing (Sororitas vestments), copy of the Rule of the Sororitas, collection of reference books, vox-caster.',
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Clothing', variant: 'Sororitas vestments' },
+      { name: 'copy of the Rule of the Sororitas' },
+      { name: 'collection of reference books' },
+      { name: 'vox-caster' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 24, 'core-human', 'Adepta Sororitas', 'Sister Seraphim', 55, 3, false),
+    hint: 'An elite and zealous warrior, faithful even compared to other Sisters of Battle.',
+    prerequisites: [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 5),
+      reqAttribute('toughness', 3),
+      reqAttribute('willpower', 4),
+      reqSkill('scholar', 2),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('weaponSkill', 4),
+      reqSkill('pilot', 4),
+    ],
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Angelic',
+        snippet:
+          'Sisters Seraphim and allies within 15 metres and line of sight add +Rank to Corruption tests. Sisters Seraphim gain +Rank to any dice pool to resist psychic powers and effects. Sisters Seraphim also have +1 Faith.'
+      },
+    ],
+    wargearString:
+      'Sororitas power armour, Chaplet Ecclesiasticus, two bolt pistols (with Matched Pair upgrade), ' +
+      'jump pack, clothing (Sororitas vestments), writing kit, copy of the Rule of the Sororitas.',
+    wargear: [
+      { name: 'Sororitas Powered Armour' },
+      { name: 'Chaplet Ecclesiasticus' },
+      { name: 'Bolt Pistol', variant: 'Bolt Pistol with Matched Pair upgrade' },
+      { name: 'Bolt Pistol', variant: 'Bolt Pistol with Matched Pair upgrade' },
+      { name: 'Jump Pack' },
+      { name: 'Clothing', variant: 'Sororitas vestments' },
+      { name: 'Writing Kit' },
+      { name: 'copy of the Rule of the Sororitas' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 24, 'core-human', 'Adepta Sororitas', 'Sister Repentia', 40, 2, false),
+    hint: 'A penitent soul, seeking atonement for her sins through death and pain.',
+    prerequisites: [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 3),
+      reqAttribute('toughness', 4),
+      reqAttribute('willpower', 3),
+      reqSkill('scholar', 2),
+      reqSkill('weaponSkill', 4),
+    ],
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Outcast',
+        snippet:
+          'Sisters Repentia add +2DN to all interaction tests with other characters with the Adeptus Ministorum or Adepta Sororitas keywords and may not benefit from their Adepta Sororitas keyword in social situations.'
+      },
+      {
+        name: 'Penitent',
+        snippet:
+          'Sisters Repentia add +Rank to Corruption tests and all dice pools to resist psychic powers and effects. Sisters Repentia may become frenzied at will and may re-roll up to Rank dice on Soak rolls.'
+      },
+    ],
+    wargearString:
+      'Eviscerator, clothes (tattered penitent robes).',
+    wargear: [
+      { name: 'Eviscerator' },
+      { name: 'Clothing', variant: 'tattered penitent robes' },
+    ],
+  },
   simpleStub('aaoa', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Medic', 0, 1),
   simpleStub('aaoa', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Officer', 15, 1),
   simpleStub('aaoa', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 60, 3),
