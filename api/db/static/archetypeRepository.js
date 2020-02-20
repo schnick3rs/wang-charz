@@ -1608,7 +1608,7 @@ const aaoaRep = [
       reqSkill('pilot', 4),
     ],
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
-    influence: 1,
+    influence: 2,
     archetypeFeatures: [
       {
         name: 'Angelic',
@@ -1642,7 +1642,7 @@ const aaoaRep = [
       reqSkill('weaponSkill', 4),
     ],
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
-    influence: 1,
+    influence: -2,
     archetypeFeatures: [
       {
         name: 'Outcast',
