@@ -1463,7 +1463,43 @@ const aaoaRep = [
   simpleStub('aaoa', 33, 'core-human', 'Agents of the Imperium', 'Arbitrator', 30, 3),
   simpleStub('aaoa', 34, 'core-human', 'Agents of the Imperium', 'Eversor Assassin', 150, 5),
   simpleStub('aaoa', 34, 'core-human', 'Agents of the Imperium', 'Callidus Assassin', 150, 5),
-  simpleStub('aaoa', 35, 'Pariah', 'Agents of the Imperium', 'Culexus Assassin', 150, 5),
+  {
+    ...simpleStub('aaoa', 35, 'aaoa-pariah', 'Agents of the Imperium', 'Culexus Assassin', 150, 5, false),
+    hint: 'killy mc kill kill',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 5 },
+      { group: 'attributes', value: 'agility', threshold: 5 },
+      { group: 'attributes', value: 'initiative', threshold: 5 },
+      { group: 'attributes', value: 'willpower', threshold: 5 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 5 },
+      { group: 'skills', value: 'weaponSkill', threshold: 5 },
+      { group: 'skills', value: 'stealth', threshold: 5 },
+    ],
+    keywords: 'Imperium,Officio Assassinorum,Templum Culexus',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Dodge',
+        snippet: 'You my soak mortal wounds and use agility when doing so.',
+        description:
+          '<p>A Culexus Assassin may Soak mortal wounds and may roll Agility rather than Toughness when doing so.</p>',
+      },
+      {
+        name: 'Life Drain',
+        description:
+          '<p>A character with the Psyker keyword who ends their turn within 2m of a Culexus Assassin must pass a Willpower test (DN is the Culexus Assassin’s Willpower) or suffer 1d3+2 Shock.</p>',
+      },
+    ],
+    wargearString:
+      'Etherium, Force Matrix, Animus Speculum, Psyk-Out Grenades, Bodyglove',
+    wargear: [
+      { name: 'Etherium' },
+      { name: 'Force Matrix' },
+      { name: 'Animus Speculum' },
+      { name: 'Psyk-Out Grenades' },
+      { name: 'Bodyglove' },
+    ],
+  },
   simpleStub('aaoa', 35, 'core-human', 'Agents of the Imperium', 'Vindicare Assassin', 150, 5),
   simpleStub('aaoa', 37, 'core-human', 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 40, 2),
   simpleStub('aaoa', 37, 'core-human', 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 40, 2),

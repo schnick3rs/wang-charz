@@ -124,7 +124,7 @@ const rangeAaoa = function (brewString, subtype = '', specialTrait = '') {
   const damageString = parts[0]; // 4+1ED
   const ap = parts[1].split(' ')[1]; // AP -1
   const rangeValue = parts[2].split(' ')[1].split('m')[0]; // Range 48m
-  const salvo = parts[3];
+  const salvo = parts[3].split(' ')[1];
   const traitString = parts[4];
 
   const damageParts = damageString.split('+');
@@ -224,6 +224,48 @@ const aaoa = [
       'it to resist attacks more effectively than material strength alone would permit. ' +
       'During the height of Squat civilisation, Ionclad armour was commonly used by elite soldiers such as Hearthguard—at least, ' +
       'those who couldn’t afford Exo-Armour—and by the rank-and-file War-Pledged from wealthier Strongholds.',
+  },
+  {
+    ...simpleStub(30935, 'aaoa', 93, 'Psyk-Out Grenades', '8L', 'Explosive, Imperium, Inquisition, Grey Knights, Silent Sisterhood, Templum Culexus', ''),
+    ...rangeAaoa('8+1ED; AP 0; Range Strength x 4 metres [T] or as launcher [R]; Salvo –; Blast [Medium]', 'Grenades', 'Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.'),
+    // Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.
+    description:
+      '<p>Psyk-out grenades are anti-psyker weapons. When they detonate, they release fine dust particles which are heavily impregnated with negative psychic energy. This form of energy is extremely rare; in all of human space it can be obtained only as a by-product of the Emperor\'s metabolism. Using the material to create anti-psyker weapons is considered by many to be a great waste, and their issue is strictly controlled. Psyk-out weapons are nigh-useless against non-psychic targets. Against psychic creatures such as daemons and psykers, however, their effects are devastating.</p>',
+  },
+  {
+    ...simpleStub(30952, 'aaoa', 95, 'Animus Speculum', '10L', 'Exotic, Imperium, Officio Assassinorum, Templum Culexus', ''),
+    ...rangeAaoa('12+1ED; AP -4; Range 36m; Salvo 3; Agonizing, Assault', 'Exotic Ranged Weapon', 'the animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.'),
+    // the animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.
+    description:
+      '<p>A helmet-mounted psychic weapon, the animus speculum focusses the negative psychic presence of the wearer into bolts of energy that overwhelm the minds and souls of others. They draw additional power from nearby psykers, becoming deadlier with each psyker nearby.</p>',
+  },
+  {
+    // Etherium
+    ...simpleStub(31353, 'aaoa', 135, 'Etherium', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
+    snippet: 'Attackers must pass Willpower Test (DN 7) or refuse to believe the Culexus exists and cannot continue their attacks. You lose this ability while wounded.',
+    description:
+      '<p>The Etherium is a highly advanced form of the same kinds of psychic-resistant technology found in Hexagrammic Wards, ' +
+      'Null Rods, and the Aegis-pattern armour worn by the Grey Knights. ' +
+      'This, in combination with the Culexus Assassin’s innate abilities, ' +
+      'is so psychically disruptive that most minds struggle to perceive the assassin, ' +
+      'as physical senses and psychic instincts conflict.</p>' +
+      '<p>Whenever an enemy attempts to attack a Culexus Assassin, they must pass a Willpower test (DN 7). ' +
+      'Failure means that they refuse to believe the Culexus exists and cannot continue their attacks. ' +
+      'The Culexus loses this ability while wounded.</p>',
+  },
+  {
+    ...simpleStub(31354, 'aaoa', 135, 'Force Matrix', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
+    snippet:
+      'This device gains charges when a Psyker within 25m attempts to use a psychic power (other than Deny the Witch) or when a psyker suffers psychic phenomena. ' +
+      'Charges may be used as Reloads for the Animus Speculum, and dissipate after a few minutes.',
+    description:
+      '<p>The Force Matrix consists of a series of psychic conduits which are made of a material similar to that used in the construction of Force Weapons. ' +
+      'When connected to a Culexus Assassin, the Force Matrix gathers excess warp energy drawn upon by nearby psykers, ' +
+      'storing it so that it can be used to fuel the assassin’s Animus Speculum.</p>' +
+      '<p>Whenever a Psyker within 25m of the wearer attempts to use a psychic power (other than Deny the Witch), the Force Matrix gains a single charge. ' +
+      'If a Psyker within that range suffers psychic phenomena, then the Force Matrix gains one additional charge. ' +
+      'Charges may be used as Reloads for the Animus Speculum.</p>' +
+      '<p>Charges gained dissipate after a few minutes, and thus cannot be carried over from fight to fight.</p>',
   },
 ];
 
