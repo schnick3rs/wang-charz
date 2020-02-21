@@ -214,6 +214,13 @@ const core = [
 
 const aaoa = [
   {
+    ...simpleChapter('aaoa',12,'Grey Knights','','Mankind',''),
+    beliefsAndTraditions: [
+      simpleEffect('Daemonbane: When attacking a creature with the Daemon keyword in melee combat, a Grey Knights Space Marine adds +1/2 Rank ED to the attack’s damage. The character also gains the Psyker, Inquisition, and Ordo Malleus keywords, if their archetype does not already provide them.'),
+      simpleEffect('Secretive (Tradition): Grey Knights do not trust outsiders, and their nature cannot be permitted to be known to any outside the chapter. They suffer a +2DN penalty for Interaction tests involving anyone who lacks the Grey Knights or Inquisition keywords.'),
+    ],
+  },
+  {
     ...simpleChapter('aaoa',13,'Emperor`s Children','Fulgrim','Chaos','First Founding (III Legion)'),
     beliefsAndTraditions: [
       simpleEffect('In Pursuit of Perfection: Each Emperor’s Children Space Marine seeks to perfect a single aspect of the arts of warfare. Select one of the following skills: Awareness, Ballistic Skill, Leadership, Pilot, Weapon Skill. The character gains +1/2 Rank as a bonus to all uses of that skill.'),

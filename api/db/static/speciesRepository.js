@@ -307,7 +307,7 @@ const coreRep = [
           { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
           { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
           { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
-          { targetGroup: 'traits', targetValue: 'wound', modifier: 4 },
+          { targetGroup: 'traits', targetValue: 'wounds', modifier: 4 },
         ],
       },
       {

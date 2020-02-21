@@ -930,9 +930,13 @@ export default {
       .forEach((enhancement)=>{
         // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
         let traity = finalTraits.find((a)=>a.key===enhancement.targetValue);
-        traity.adjustment += enhancement.modifier;
-        traity.adjustedRating += enhancement.modifier;
-        traity.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+        if ( traity ) {
+          traity.adjustment += enhancement.modifier;
+          traity.adjustedRating += enhancement.modifier;
+          traity.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+        } else {
+          console.warn(`Unexpected undefined trait for ${enhancement.targetValue}.`);
+        }
       });
 
       return finalTraits;

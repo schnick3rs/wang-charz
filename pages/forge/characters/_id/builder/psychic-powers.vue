@@ -166,6 +166,7 @@ export default {
         { name: 'Navigator Powers', source: 'pax' },
         { name: 'WAAAGH!', source: 'aaoa' },
         { name: 'Ancestral Rites', source: 'aaoa' },
+        { name: 'Sanctic', source: 'aaoa' },
         { name: 'Librarius', source: 'tea' },
       ],
       species: undefined,
