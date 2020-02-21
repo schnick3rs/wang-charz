@@ -227,7 +227,7 @@ export default {
       return [...this.keywordRepository, ...this.keywordSubwordRepository];
     },
     itemKeywordPlaceholders() {
-      const placeholderKeywords = this.item.keywords.split(',').filter((k) => k.includes('<'));
+      const placeholderKeywords = this.item.keywords.split(',').map((i)=>i.trim()).filter((k) => k.includes('<'));
 
       const placeholderSet = [];
 

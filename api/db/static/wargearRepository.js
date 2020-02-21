@@ -215,6 +215,27 @@ const aaoa = [
       'This massive metal syringe superficially resembles a tool of the chirurgeon’s craft and tend to be filled with whatever toxic sludge the Painboy is able to find or create.',
   },
   {
+    ...simpleStub(31262, 'aaoa',126,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
+    ...armour('Astartes Armour', 5, 'Bulk (1), Powered (4)'),
+    snippet: 'Reinforced: The wearer adds +2 to their Toughness while wearing this armour.',
+    description:
+      '<p>Mark X power armour comes in a number of varieties, as the underlying armour system is designed to be modular and customisable according to battlefield role. The heavier variant is known as Gravis armour, which incorporates additional cowling, and ablative armour layers to increase the wearer’s durability in battle, at the cost of reduced mobility.</p>',
+  },
+  {
+    ...simpleStub(31263, 'aaoa',126,'Phobos Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
+    ...armour('Astartes Armour', 5, 'Powered (3)'),
+    snippet: 'Silenced: The wearer may re-roll up to two dice when making a Stealth test.',
+    description:
+      '<p>Phobos armour is a lightweight variant of Mark X power armour, with lighter plating and tuned servos that operate silently and virtually no loss of protection, though the reduced bulk of the armour does mean it provides less of a boost to the wearer’s strength. It’s favoured by Reivers and other Vanguard Primaris, who operate deep behind enemy lines and rely on stealth and evasion to wage war.</p>',
+  },
+  {
+    ...simpleStub(31264, 'aaoa',126,'Aegis Power Armour', '9V', 'Powered, Imperium, Adeptus Astartes, Grey Knights', ''),
+    ...armour('Astartes Armour', 5, 'Powered (3)'),
+    snippet: 'The Aegis: Enemy psychic powers which target the wearer suffer +2DN. In addition, the wearer adds +1d when rolling to Soak any attack from a Daemon.',
+    description:
+      '<p>Aegis Armour is a specialized form of Astartes Power Armour worn by members of the Grey Knights chapter. Worked into their Armour, each Aegis Suit contains a lattice of psycho-conductive filaments and protective amulets, wrought into hexagrammic wards and inscribed with anti-daemonic prayers. Aegis Armour allows Grey Knights to better combat Warp Entities and Rogue Psykers by protecting them from psychic attack. The technology incorporated into The Aegis represents the most potent anti-psychic defences in the Imperium of Man.</p>',
+  },
+  {
     ...simpleStub(31333, 'aaoa',133,'Ionclad Carapace Armour', '6R', 'Heavy, Squat', ''),
     ...armour('Squat Armour',5),
     description:
