@@ -167,6 +167,7 @@ export default {
         { name: 'WAAAGH!', source: 'aaoa' },
         { name: 'Ancestral Rites', source: 'aaoa' },
         { name: 'Sanctic', source: 'aaoa' },
+        { name: 'Librarius', source: 'aaoa' },
         { name: 'Librarius', source: 'tea' },
       ],
       species: undefined,
