@@ -710,11 +710,8 @@ export default {
   ],
   props: [],
   async asyncData({ params, $axios }) {
-    const config = {
-      params: { source: 'core,coreab,pax', },
-    };
+
     const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
     const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
@@ -725,7 +722,6 @@ export default {
       objectiveRepository: objectiveResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
       talentRepository: talentResponse.data,
-      wargearRepository: wargearResponse.data,
       breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/',
         },
@@ -778,9 +774,20 @@ export default {
       //
       characterSpecies: undefined,
       characterArchetype: undefined,
+      wargearRepository: undefined,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
     characterName() {
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
@@ -1099,15 +1106,17 @@ export default {
     wargear() {
       const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
-      chargear.forEach((gear) => {
-        console.log(`Searching for [${gear.name}] in repository...`);
-        const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
-        if (foundGear) {
-          wargear.push({ ...foundGear, variant: gear.variant });
-        } else {
-          wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
-        }
-      });
+      if(this.wargearRepository) {
+        chargear.forEach((gear) => {
+          console.log(`Searching for [${gear.name}] in repository (${this.wargearRepository.length} items) ...`);
+          const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
+          if (foundGear) {
+            wargear.push({ ...foundGear, variant: gear.variant });
+          } else {
+            wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
+          }
+        });
+      }
       return wargear;
     },
     weapons() {
@@ -1175,6 +1184,14 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getWargearList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
     async loadSpecies(key) {
@@ -1188,6 +1205,16 @@ export default {
         const { data } = await this.$axios.get(`/api/archetypes/${key}`);
         this.characterArchetype = data;
       }
+    },
+    async getWargearList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/wargear/', config);
+      //this.wargearRepository = data.filter((i) => i.stub === undefined || i.stub === false);
+      this.wargearRepository = data;
     },
     objectiveEditorOpen() {
       this.objectiveEditorValue = this.objectives.map((o) => o.text).join('\r\n');
