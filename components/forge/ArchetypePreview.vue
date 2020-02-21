@@ -212,6 +212,33 @@ export default {
       psychicPowersDiscount: [],
     };
   },
+  mounted() {
+
+    const featuresWithPowers = this.item.archetypeFeatures.filter( (f) => f.psychicPowers !== undefined);
+    if ( featuresWithPowers ) {
+      featuresWithPowers.forEach( (feature) => {
+        feature.psychicPowers.forEach( (powerSelections) => {
+          this.getPsychicPowerOptions(powerSelections);
+          const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${powerSelections.name}`);
+          if ( found ) {
+            console.info(`Power ${found.name} found for the archetype feature ${feature.name} / power ${powerSelections.name}.`);
+            powerSelections.selected = found.name;
+          }
+        });
+      });
+    }
+
+    const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
+    if ( featuresWithOptions ) {
+      featuresWithOptions.forEach((feature) => {
+        const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
+        feature.options.forEach((options) => {
+          console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
+          feature.selected = found.name;
+        });
+      });
+    }
+  },
   computed: {
     selectedKeywords() {
       const selectedKeywords = {};
@@ -286,33 +313,6 @@ export default {
       }
       return this.item.wargear;
     },
-  },
-  mounted() {
-
-    const featuresWithPowers = this.item.archetypeFeatures.filter( (f) => f.psychicPowers !== undefined);
-    if ( featuresWithPowers ) {
-      featuresWithPowers.forEach( (feature) => {
-        feature.psychicPowers.forEach( (powerSelections) => {
-          this.getPsychicPowerOptions(powerSelections);
-          const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${powerSelections.name}`);
-          if ( found ) {
-            console.info(`Power ${found.name} found for the archetype feature ${feature.name} / power ${powerSelections.name}.`);
-            powerSelections.selected = found.name;
-          }
-        });
-      });
-    }
-
-    const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
-    if ( featuresWithOptions ) {
-      featuresWithOptions.forEach((feature) => {
-        const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
-        feature.options.forEach((options) => {
-          console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
-          feature.selected = found.name;
-        });
-      });
-    }
   },
   methods: {
     getAvatar(key) {

@@ -205,7 +205,6 @@ export default {
       return [
         'core',
         'coreab',
-        'dod',
         ...this.settingHomebrews
       ];
     },

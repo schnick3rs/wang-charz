@@ -313,13 +313,6 @@ export default {
       settingHomebrewOptions: [
         {
           active: false,
-          key: 'dod-scum-psyker',
-          name: 'Scum Psyker (Doctors of Doom Homebrew)',
-          enabled: false,
-          source: undefined,
-        },
-        {
-          active: false,
           key: 'aotgt',
           name: '\'Agents of the Golden Throne\' content (Fan supplement)',
           enabled: false,
@@ -369,6 +362,15 @@ export default {
           hint: 'Add Heretic Astartes Chapters.',
           enabled: false,
           nuxt: '/vault/let-the-galaxy-burn',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'dod',
+          name: '\'Doctors of Doom Sandbox\' content',
+          hint: 'Add Chapter Houses and Roguish Archetypes.',
+          enabled: false,
+          nuxt: undefined,
           source: '',
         },
       ],

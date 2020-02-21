@@ -372,7 +372,7 @@
               :value="`tab-wargear`"
             >
               <div class="pa-2 pt-1 pb-1">
-                <div v-for="gearItem in wargear.filter((w)=>!['Ranged Weapon','Melee Weapon'].includes(w.type))" :key="gearItem.name" class="caption">
+                <div v-for="gearItem in wargear" :key="gearItem.name" class="caption">
                   <div v-if="gearItem.variant" style="display: inline;">
                     <strong >{{ gearItem.variant }}</strong>
                     <span> ({{ gearItem.name }})</span>
