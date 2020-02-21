@@ -226,7 +226,7 @@
       <v-col :cols="12" :sm="6" :md="3">
         <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
-          <v-card style="height: 595px;">
+          <v-card style="height: 612px;">
             <v-toolbar color="red" dark dense height="32">
               <v-toolbar-title>Skills</v-toolbar-title>
             </v-toolbar>
@@ -383,7 +383,8 @@
                     <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
                   </span>
 
-                  <p class="mb-1">{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
+                  <p class="mb-1" v-if="gearItem.snippet">{{ gearItem.snippet }}</p>
+                  <div class="mb-1" v-else v-html="gearItem.description"></div>
 
                   <div
                     v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
@@ -1286,7 +1287,7 @@ export default {
   }
 
   .my-tab-item {
-    height: 547px;
+    height: 564px;
     overflow-y: auto;
   }
 
