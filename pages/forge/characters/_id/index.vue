@@ -90,26 +90,32 @@
               <v-toolbar-title>Attributes</v-toolbar-title>
             </v-toolbar>
 
-            <v-simple-table
-              dense
-            >
+            <v-simple-table dense>
               <thead>
-              <tr>
-                <th v-for="header in attributeHeaders">
-                  {{ header.text }}
-                </th>
-              </tr>
+                <tr>
+                  <th v-for="header in attributeHeaders" :class="header.class" style="font-size: 11px;">
+                    {{ header.text }}
+                  </th>
+                </tr>
               </thead>
               <tbody>
               <tr v-for="item in attributes">
-                <td class="text-left pa-1 small">
-                  {{ item.name }}
-                </td>
+                <td class="text-left pa-1 small">{{ item.name }}</td>
+                <td class="text-center pa-1 small">{{ item.rating }}</td>
+                <td class="text-center pa-1 small">{{ item.adjustedRating }}</td>
                 <td class="text-center pa-1 small">
-                  {{ item.value }}
-                </td>
-                <td class="text-center pa-1 small">
-                  {{ item.enhancedValue }}
+                  <v-tooltip bottom v-if="item.adjustment > 0">
+                    <template v-slot:activator="{ on }">
+                      <v-avatar color="success" size="12" v-on="on"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
+                    </template>
+                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                  </v-tooltip>
+                  <v-tooltip bottom v-if="item.adjustment < 0">
+                    <template v-slot:activator="{ on }">
+                      <v-avatar color="error" size="12" v-on="on"><v-icon dark small>arrow_drop_down</v-icon></v-avatar>
+                    </template>
+                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                  </v-tooltip>
                 </td>
               </tr>
               </tbody>
@@ -326,7 +332,7 @@
                       </td>
                       <td class="text-center pa-1 small">
                         <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                          <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + characterAttributesEnhanced.strength }}*</span>
+                          <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
                           <span v-else>{{ item.meta[0].damage.static }}</span>
                           <span> + </span>
                           <span>{{ item.meta[0].damage.ed }} ED</span>
@@ -366,7 +372,7 @@
               :value="`tab-wargear`"
             >
               <div class="pa-2 pt-1 pb-1">
-                <div v-for="gearItem in wargear.filter((w)=>!['Ranged Weapon','Melee Weapon'].includes(w.type))" :key="gearItem.name" class="caption">
+                <div v-for="gearItem in wargear" :key="gearItem.name" class="caption">
                   <div v-if="gearItem.variant" style="display: inline;">
                     <strong >{{ gearItem.variant }}</strong>
                     <span> ({{ gearItem.name }})</span>
@@ -377,7 +383,8 @@
                     <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
                   </span>
 
-                  <p class="mb-1">{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
+                  <p class="mb-1" v-if="gearItem.snippet">{{ gearItem.snippet }}</p>
+                  <div class="mb-1" v-else v-html="gearItem.description"></div>
 
                   <div
                     v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
@@ -704,11 +711,8 @@ export default {
   ],
   props: [],
   async asyncData({ params, $axios }) {
-    const config = {
-      params: { source: 'core,coreab,pax', },
-    };
+
     const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
     const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
@@ -719,7 +723,6 @@ export default {
       objectiveRepository: objectiveResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
       talentRepository: talentResponse.data,
-      wargearRepository: wargearResponse.data,
       breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/',
         },
@@ -735,9 +738,10 @@ export default {
       objectiveEditorShow: false,
       objectiveEditorValue: '',
       attributeHeaders: [
-        { text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1' },
-        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
-        { text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Attribute', sortable: false, align: 'left', class: 'text-left small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'text-center small pa-1' },
+        { text: 'Enhanced', sortable: false, align: 'right', class: 'text-center small pa-1' },
+        { text: 'Notes', sortable: false, style: 'center', class: 'text-center small pa-1' },
       ],
       traitHeaders: [
         { text: 'Trait', sortable: false, align: 'left', class: 'small pa-1' },
@@ -771,9 +775,20 @@ export default {
       //
       characterSpecies: undefined,
       characterArchetype: undefined,
+      wargearRepository: undefined,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
     characterName() {
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
@@ -837,24 +852,101 @@ export default {
     },
 
     characterAttributesEnhanced() {
-      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      let enhancedAttributes = this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      return enhancedAttributes;
     },
+
+    /**
+     * {
+     *  name: 'Strength',
+     *  key: 'strength,
+     *  rating: 3, // aka bought value / rating
+     *  adjustedRating: 5, // adjuste rating,
+     *  adjustment: 2, // the adjusted amount
+     *  modifiers: [
+     *    // +1 from Attribute Modification * Space Marine Species
+     *    // +3 from Powered(3) * Astartes MK VII
+     *    { static: 1, rank: false, halfRank: false, }
+     *  ],
+     * }
+     */
     attributes() {
-      const attributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
-      return this.attributeRepository.map((a) => ({
-        ...a,
-        value: attributes[a.name.toLowerCase()],
-        enhancedValue: this.characterAttributesEnhanced[a.name.toLowerCase()],
-      }));
+
+      const characterAttributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
+      let attributes = this.attributeRepository.map((repositoryAttribute) => {
+         /* {
+            key: 'strength',
+            name: 'Strength',
+            description: 'Raw physical power.',
+          } */
+        return {
+          ...repositoryAttribute,
+          value: characterAttributes[repositoryAttribute.key],
+          enhancedValue: parseInt(this.characterAttributesEnhanced[repositoryAttribute.key]),
+          rating: characterAttributes[repositoryAttribute.key],
+          adjustedRating: parseInt(characterAttributes[repositoryAttribute.key]),
+          adjustment: 0,
+          modifiers: [],
+        };
+      });
+
+      this.enhancements
+      .filter((enhancement)=>enhancement.targetGroup==='attributes')
+      .forEach((enhancement)=>{
+        // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
+        let attr = attributes.find((a)=>a.key===enhancement.targetValue);
+        attr.adjustment += enhancement.modifier;
+        attr.adjustedRating += enhancement.modifier;
+        attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+      });
+
+      let poweredStrength = 0;
+      // enrich with (equipped) gear
+      if ( this.armour && this.armour.length > 0 ) {
+        const armour = this.armour[0];
+        const traits = armour.meta[0].traits;
+        let poweredString = traits.find((trait)=>trait.includes('Powered'));
+        if (poweredString) {
+          const trait = this.normalizeTrait(poweredString);
+          if ( trait.variant) {
+            poweredStrength = parseInt(trait.variant);
+            let strength = attributes.find((a)=>a.key==='strength');
+            strength.adjustedRating += poweredStrength;
+            strength.adjustment += poweredStrength;
+            strength.modifiers.push(`+${poweredStrength} from Armour • ${armour.name}`);
+          }
+        }
+      }
+
+      return attributes;
     },
     traits() {
-      const traits = this.$store.getters['characters/characterTraitsById'](this.characterId);
+      const characterTraits = this.$store.getters['characters/characterTraitsById'](this.characterId);
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
-      const finalTraits = this.traitRepository.map((t) => ({
+      let finalTraits = this.traitRepository.map((t) => ({
         ...t,
-        value: traits[t.key],
-        enhancedValue: traitsEnhanced[t.key],
+        value: characterTraits[t.key],
+        enhancedValue: parseInt(traitsEnhanced[t.key]),
+        rating: characterTraits[t.key],
+        adjustedRating: parseInt(characterTraits[t.key]),
+        adjustment: 0,
+        modifiers: [],
       }));
+
+      this.enhancements
+      .filter((enhancement)=>enhancement.targetGroup==='traits')
+      .forEach((enhancement)=>{
+        // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
+        let traity = finalTraits.find((a)=>a.key===enhancement.targetValue);
+        if ( traity ) {
+          traity.adjustment += enhancement.modifier;
+          traity.adjustedRating += enhancement.modifier;
+          traity.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+        } else {
+          console.warn(`Unexpected undefined trait for ${enhancement.targetValue}.`);
+        }
+      });
+
       return finalTraits;
     },
     groupedTraits() {
@@ -1015,15 +1107,17 @@ export default {
     wargear() {
       const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
-      chargear.forEach((gear) => {
-        console.log(`Searching for [${gear.name}] in repository...`);
-        const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
-        if (foundGear) {
-          wargear.push({ ...foundGear, variant: gear.variant });
-        } else {
-          wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
-        }
-      });
+      if(this.wargearRepository) {
+        chargear.forEach((gear) => {
+          console.log(`Searching for [${gear.name}] in repository (${this.wargearRepository.length} items) ...`);
+          const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
+          if (foundGear) {
+            wargear.push({ ...foundGear, variant: gear.variant });
+          } else {
+            wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
+          }
+        });
+      }
       return wargear;
     },
     weapons() {
@@ -1091,6 +1185,14 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getWargearList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
     async loadSpecies(key) {
@@ -1105,6 +1207,16 @@ export default {
         this.characterArchetype = data;
       }
     },
+    async getWargearList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/wargear/', config);
+      //this.wargearRepository = data.filter((i) => i.stub === undefined || i.stub === false);
+      this.wargearRepository = data;
+    },
     objectiveEditorOpen() {
       this.objectiveEditorValue = this.objectives.map((o) => o.text).join('\r\n');
       this.objectiveEditorShow = true;
@@ -1112,6 +1224,15 @@ export default {
     addObjective(value) {
       console.info(`Add new objective: ${value}`);
       this.objectiveEditorShow = false;
+    },
+    normalizeTrait(traitString) {
+      const regex = /(\w+) ?\(?(\w+)?\)?/m;
+      let trait = traitString.match(regex);
+      let traitFromRep = this.wargearTraitRepository.find((item) => item.name === trait[1]);
+      return {
+        ...traitFromRep,
+        variant: trait[2],
+      };
     },
     traitByName(name, withParanteris) {
       if ( withParanteris ) {
@@ -1123,7 +1244,7 @@ export default {
     },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
-      return attribute.enhancedValue + skill.enhancedValue;
+      return attribute.adjustedRating + skill.enhancedValue;
     },
     computeFormatedText(text) {
       if ( text === undefined ) {

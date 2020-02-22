@@ -215,6 +215,15 @@
       <div>
         <h2 class="title">Homebrews</h2>
         <p>Allow specific homebrew content to be used for this character.</p>
+        <div v-if="settingHomebrews.includes('aaoa') && settingHomebrews.includes('tea')">
+          <v-alert
+            text border-left dense color="warning" class="caption"
+          >
+            You selected two homebrews, the <em>Abundance of Apocrypha</em> and <em>The Emperors Angels</em>.
+            Both introduce similar Astartes Archetypes, Wargear and Powers.
+            This lead to duplicated entries and thus, <strong>it is NOT recommended to use both</strong> at the same time.
+          </v-alert>
+        </div>
         <div
           v-for="homebrew in settingHomebrewOptions.filter((h)=>h.active)"
           :key="homebrew.key"
@@ -313,13 +322,6 @@ export default {
       settingHomebrewOptions: [
         {
           active: false,
-          key: 'dod-scum-psyker',
-          name: 'Scum Psyker (Doctors of Doom Homebrew)',
-          enabled: false,
-          source: undefined,
-        },
-        {
-          active: false,
           key: 'aotgt',
           name: '\'Agents of the Golden Throne\' content (Fan supplement)',
           enabled: false,
@@ -338,8 +340,8 @@ export default {
         {
           active: true,
           key: 'aaoa',
-          name: '\'An abundance of Apocrypha\' content',
-          hint: 'Add Human Homeworlds, Squad, Pariah, Beastman, Ork Archetypes, Heretic Legion Chapters.',
+          name: '\'An Abundance of Apocrypha\' content',
+          hint: 'Add Human Homeworlds, Squad, Pariah, Beastman, Ork and Astartes Archetypes, Heretic Legion Chapters.',
           enabled: false,
           nuxt: '/vault/an-abundance-of-apocrypha',
           source: '',
@@ -369,6 +371,15 @@ export default {
           hint: 'Add Heretic Astartes Chapters.',
           enabled: false,
           nuxt: '/vault/let-the-galaxy-burn',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'dod',
+          name: '\'Doctors of Doom Sandbox\' content',
+          hint: 'Add Chapter Houses and Roguish Archetypes.',
+          enabled: false,
+          nuxt: undefined,
           source: '',
         },
       ],
