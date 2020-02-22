@@ -77,9 +77,9 @@
         </v-list>
       </v-card>
 
-      <v-card>
+      <v-card class="mt-4">
         <v-card-text>
-          <v-btn @click="customDialog = true">Add custom Species</v-btn>
+          <v-btn color="success" small @click="openCustomEditor">Add custom Species</v-btn>
         </v-card-text>
       </v-card>
 
@@ -201,6 +201,12 @@ export default {
       this.$router.push({
         name: 'forge-characters-id-builder-species-manage',
         params: { id: this.characterId },
+      });
+    },
+    openCustomEditor() {
+      this.$router.push({
+        name: 'forge-characters-id-builder-species-edit',
+        params: { id: this.characterId, speciesKey: undefined },
       });
     },
   },

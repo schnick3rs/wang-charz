@@ -1,16 +1,18 @@
 <template>
   <v-row justify="center">
 
-    <v-col :xs="12">
+    <v-col :cols="12">
 
       <v-card>
         <v-card-title></v-card-title>
         <v-divider></v-divider>
         <v-card-text class="pt-4">
-          <v-text-field v-model="species.name" label="Name" dense outlined></v-text-field>
-          <v-text-field v-model="species.cost" label="BP Cost" dense outlined></v-text-field>
-          <v-text-field v-model="species.baseTier" label="Base Tier" dense outlined></v-text-field>
-          <v-text-field v-model="species.speed" label="Speed" dense outlined></v-text-field>
+          <v-text-field v-model="species.name" label="Name" dense ></v-text-field>
+          <v-row>
+            <v-col><v-text-field v-model="species.cost" label="BP Cost" dense></v-text-field></v-col>
+            <v-col><v-text-field v-model="species.baseTier" label="Base Tier" dense></v-text-field></v-col>
+            <v-col><v-text-field v-model="species.speed" label="Speed" dense></v-text-field></v-col>
+          </v-row>
           <div>
             <h5>Abilities</h5>
             <div v-for="feature in species.speciesFeatures">
@@ -26,7 +28,7 @@
           <v-row>
             <v-col :cols="7" :sm="8">
               <v-select
-                outlined dense
+                dense
                 v-model="statKey"
                 :items="[...attributeRepository, ...traitRepository]"
                 item-text="name"
@@ -37,7 +39,7 @@
               <v-text-field
                 v-model="statValue"
                 label="Modification"
-                dense outlined
+                dense
                 append-outer-icon="add_circle"
                 @click:append-outer="addModification"
               ></v-text-field>
@@ -46,15 +48,24 @@
         </v-card-text>
         <v-divider></v-divider>
         <v-card-text v-if="showAbilityEditor">
-          <v-text-field v-model="featureName" label="Name" dense outlined></v-text-field>
-          <v-textarea v-model="featureSnippet" label="Effect" dense outlined></v-textarea>
+          <v-text-field v-model="featureName" label="Name" dense></v-text-field>
+          <v-textarea v-model="featureSnippet" label="Effect" dense></v-textarea>
           <v-btn outlined x-small color="primary" @click="addAbility">Add Ability</v-btn>
         </v-card-text>
         <v-divider></v-divider>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="success" small @click="addCustomSpecies">Save changes</v-btn>
+          <v-btn color="success" small @click="addCustomSpecies">Save and select character</v-btn>
         </v-card-actions>
+      </v-card>
+
+    </v-col>
+
+    <v-col :cols="12">
+      <v-card class="mt-2">
+        <v-card-text>
+          <pre>{{species}}</pre>
+        </v-card-text>
       </v-card>
 
     </v-col>
@@ -66,7 +77,7 @@ import SluggerMixin from '~/mixins/SluggerMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
-  name: 'Manage',
+  name: 'Edit',
   components: {},
   mixins: [
     SluggerMixin,
@@ -133,6 +144,12 @@ export default {
     },
     addCustomSpecies() {
 
+
+
+      this.$router.push({
+        name: 'forge-characters-id-builder-species-manage',
+        params: { id: this.characterId },
+      });
     },
     addAbility() {
       const ability = {
