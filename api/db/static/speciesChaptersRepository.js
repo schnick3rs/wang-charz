@@ -214,6 +214,21 @@ const core = [
 
 const aaoa = [
   {
+    ...simpleChapter('aaoa',12,'Black Templars','','Mankind',''),
+    beliefsAndTraditions: [
+      simpleEffect('Righteous Zeal: When charging, a Black Templars Space Marine may re-roll up to 1/2 Rank dice on their Weapon Skill test.'),
+      simpleEffect('No Retreat (Tradition): Like their Imperial Fists progenitors, Black Templars are tenacious and stubborn. If a Black Templars Space Marine fails a Willpower test, the GM gains 1 Ruin.'),
+      simpleEffect('Deny the Witch: Characters with the Black Templars keyword may not, under any circumstances, take the Psyker keyword: the Black Templars accept no psykers within their ranks.'),
+    ],
+  },
+  {
+    ...simpleChapter('aaoa',12,'Crimson Fists','','Mankind',''),
+    beliefsAndTraditions: [
+      simpleEffect('No Matter The Odds: When making an attack while outnumbered at least two-to-one, a Crimson Fists Space Marine may add +1/2 Rank dice to their Ballistic Skill or Weapon Skill test.'),
+      simpleEffect('No Retreat (Tradition): Like their Imperial Fists progenitors, Crimson Fists are tenacious and stubborn. If a Crimson Fists Space Marine fails a Willpower test, the GM gains 1 Ruin.'),
+    ],
+  },
+  {
     ...simpleChapter('aaoa',12,'Grey Knights','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('Daemonbane: When attacking a creature with the Daemon keyword in melee combat, a Grey Knights Space Marine adds +1/2 Rank ED to the attack’s damage. The character also gains the Psyker, Inquisition, and Ordo Malleus keywords, if their archetype does not already provide them.'),
@@ -450,7 +465,6 @@ const ltgb = [
 ];
 
 const dod = [
-
   {
     ...simpleChapter('dod','-','Doctors of Doom (House Isenwell)','-','Imperium','Unknown'),
     beliefsAndTraditions: [
