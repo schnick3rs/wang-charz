@@ -809,10 +809,15 @@ export default {
   },
   methods: {
     async loadSpecies(key) {
-      if ( key ) {
+      let finalData = {};
+      if ( key.startsWith('custom-')) {
+        const speciesDetails = this.$store.getters['species/getSpecies'](key);
+        finalData = speciesDetails;
+      } else {
         const { data } = await this.$axios.get(`/api/species/${key}`);
-        this.characterSpecies = data;
+        finalData = data;
       }
+      this.characterSpecies = finalData;
     },
     async loadArchetype(key) {
       if ( key ) {
