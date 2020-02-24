@@ -81,7 +81,7 @@ export default {
   },
   computed: {
     avatar() {
-      return `/img/avatars/species/${item.key}.png`;
+      return `/img/avatars/species/${this.item.key}.png`;
     },
   },
   methods: {
