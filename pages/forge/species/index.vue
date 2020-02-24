@@ -84,7 +84,7 @@ export default {
     return {
       breadcrumbItems: [
         { text: '', disabled: false, nuxt: true, exact: true, to: '/' },
-        { text: 'Forge', disabled: false, nuxt: true, exact: true, to: '/forge/my-characters' },
+        { text: 'Forge', disabled: false, nuxt: true, exact: true, to: '/forge' },
         { text: 'Species', disabled: false, nuxt: true, exact: true, to: '/forge/species' },
       ],
       headers: [

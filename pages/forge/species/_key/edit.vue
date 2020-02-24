@@ -20,7 +20,7 @@
             <v-select
               dense outlined
               v-model="statKey"
-              :items="[...attributeRepository, ...traitRepository]"
+              :items="[...attributeRepository, ...traitRepository].filter((i)=>i.key !== 'speed')"
               item-text="name"
               item-value="key"
             ></v-select>

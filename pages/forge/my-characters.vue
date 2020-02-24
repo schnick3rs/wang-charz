@@ -359,7 +359,8 @@ export default {
       deleteId: undefined,
       breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/' },
-        { text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters' },
+        { text: 'Forge', nuxt: true, exact: true, to: '/forge' },
+        { text: 'Characters', nuxt: true, exact: true, to: '/forge/my-characters' },
       ],
       howTo: {
         steps: [
