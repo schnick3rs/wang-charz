@@ -146,14 +146,22 @@ export default {
       };
       const { data } = await this.$axios.get('/api/species/', config);
       this.speciesList = data;
+
+      const customSpecies = this.$store.getters['species/speciesSets'];
+      this.speciesList.push(...customSpecies);
     },
     getAvatar(key) {
       return `/img/avatars/species/${key}.png`;
     },
     async updatePreview(item) {
       const slug = this.camelToKebab(item.key);
-      const speciesDetails = await this.$axios.get(`/api/species/${slug}`);
-      this.selectedSpecies = speciesDetails.data;
+      if ( item.key.startsWith('custom-')) {
+        const speciesDetails = this.$store.getters['species/getSpecies'](item.key);
+        this.selectedSpecies = speciesDetails;
+      } else {
+        const speciesDetails = await this.$axios.get(`/api/species/${slug}`);
+        this.selectedSpecies = speciesDetails.data;
+      }
       this.speciesDialog = true;
     },
     selectSpeciesForChar(species) {

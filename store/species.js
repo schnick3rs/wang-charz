@@ -27,6 +27,9 @@ export const mutations = {
   },
   update(state, payload) {
     const { key, species } = payload;
+    species.cost = parseInt(species.cost);
+    species.speed = parseInt(species.speed);
+    species.baseTier = parseInt(species.baseTier);
     state.species[key] = species;
   },
   delete(state, payload) {

@@ -14,9 +14,7 @@
           <v-card-title style="background-color: #262e37; color: #fff;">
             Select Attribute modification
             <v-spacer />
-            <v-icon dark @click="attributeDialog = false">
-              close
-            </v-icon>
+            <v-icon dark @click="attributeDialog = false">close</v-icon>
           </v-card-title>
           <v-card-text class="pt-4">
             <v-select
@@ -30,6 +28,7 @@
             <v-text-field
               v-model="statValue"
               label="Modification"
+              type="number"
               dense outlined
             ></v-text-field>
           </v-card-text>
@@ -40,6 +39,7 @@
           </v-card-actions>
         </v-card>
       </v-dialog>
+
       <v-dialog
         v-model="abilityDialog"
         width="600px"
@@ -55,8 +55,8 @@
             </v-icon>
           </v-card-title>
           <v-card-text class="pt-4">
-            <v-text-field v-model="featureName" label="Name" dense outlined></v-text-field>
-            <v-textarea v-model="featureSnippet" label="Effect" dense outlined></v-textarea>
+            <v-text-field v-model="featureName" label="Name" dense outlined required></v-text-field>
+            <v-textarea v-model="featureSnippet" label="Effect" dense outlined required></v-textarea>
           </v-card-text>
           <v-card-actions>
             <v-btn color="error" @click="abilityDialog = false">Cancel</v-btn>
@@ -105,10 +105,11 @@
             <div>
               <h5>Abilities</h5>
               <div v-for="feature in species.speciesFeatures">
-                <p v-if="feature.modifications"><strong>{{ feature.name }}</strong>
-                  {{ feature.modifications.map((m)=>`${m.targetValue} ${m.modifier>0?'+':''}${m.modifier}`).join(', ') }}
+                <p v-if="feature.modifications"><strong>{{ feature.name }}:</strong>
+                  <span v-for="m in feature.modifications">{{`${m.targetValue} ${m.modifier>0?'+':''}${m.modifier}`}}
+                    <v-icon color="error" small @click="removeModification(m.targetValue)">remove_circle</v-icon>, </span>
                 </p>
-                <p v-else><strong>{{ feature.name }}</strong> {{ feature.snippet }}</p>
+                <p v-else><strong>{{ feature.name }}:</strong> {{ feature.snippet }} <v-icon color="error" small @click="removeAbility(feature.name)">remove_circle</v-icon></p>
               </div>
             </div>
           </v-card-text>
@@ -229,10 +230,22 @@ export default {
       const modification = {
         targetGroup: newModification.type ? 'traits' : 'attributes',
         targetValue: this.statKey,
-        modifier: this.statValue,
+        modifier: parseInt(this.statValue),
       };
       currentAttributeMod.modifications.push(modification);
+      currentAttributeMod.snippet = currentAttributeMod.modifications.map((m) => `${m.targetValue} ${m.modifier>0?'+':''}${m.modifier}`).join(', ');
       this.attributeDialog = false;
+    },
+    removeModification(key) {
+      let currentAttributeMod = this.species.speciesFeatures.find((f) => f.name === 'Attribute Modifications');
+      if (currentAttributeMod) {
+        currentAttributeMod.modifications = currentAttributeMod.modifications.filter((m)=>m.targetValue !== key);
+      }
+      if (currentAttributeMod.modifications.length<=0) {
+        this.species.speciesFeatures = this.species.speciesFeatures.filter((f) => f.name !== 'Attribute Modifications');
+      } else {
+        currentAttributeMod.snippet = currentAttributeMod.modifications.map((m) => `${m.targetValue} ${m.modifier>0?'+':''}${m.modifier}`).join(', ');
+      }
     },
     addCustomSpecies() {
       const key = this.speciesKey;
@@ -254,6 +267,9 @@ export default {
       this.featureName  = '';
       this.featureSnippet  = '';
       this.abilityDialog = false;
+    },
+    removeAbility(abilityName){
+      this.species.speciesFeatures = this.species.speciesFeatures.filter((f) => f.name !== abilityName);
     },
     addAttributes() {
       const modifications = [];
