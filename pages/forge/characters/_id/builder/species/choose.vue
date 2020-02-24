@@ -79,7 +79,7 @@
 
       <v-card class="mt-4">
         <v-card-text>
-          <v-btn color="success" small @click="openCustomEditor">Add custom Species</v-btn>
+          <p>You can add your own <strong>custom species</strong> <nuxt-link to="/forge/species">here</nuxt-link>. You can then select it here.</p>
         </v-card-text>
       </v-card>
 
