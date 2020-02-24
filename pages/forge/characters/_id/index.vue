@@ -693,13 +693,13 @@
 </template>
 
 <script lang="js">
-import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
-import SluggerMixin from '~/mixins/SluggerMixin';
-import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
-import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+  import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+  import SluggerMixin from '~/mixins/SluggerMixin';
+  import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
-export default {
+  export default {
   name: 'in-app-view',
   //layout: '',
   mixins: [
@@ -1199,8 +1199,7 @@ export default {
       if ( key ) {
         let finalData = {};
         if ( key.startsWith('custom-')) {
-          const speciesDetails = this.$store.getters['species/getSpecies'](key);
-          finalData = speciesDetails;
+          finalData = this.$store.getters['species/getSpecies'](key);
         } else {
           const { data } = await this.$axios.get(`/api/species/${key}`);
           finalData = data;
