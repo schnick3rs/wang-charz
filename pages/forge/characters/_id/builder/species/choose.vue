@@ -147,8 +147,10 @@ export default {
       const { data } = await this.$axios.get('/api/species/', config);
       this.speciesList = data;
 
-      const customSpecies = this.$store.getters['species/speciesSets'];
-      this.speciesList.push(...customSpecies);
+      if ( sources.includes('custom') ) {
+        const customSpecies = this.$store.getters['species/speciesSets'];
+        this.speciesList.push(...customSpecies);
+      }
     },
     getAvatar(key) {
       return `/img/avatars/species/${key}.png`;

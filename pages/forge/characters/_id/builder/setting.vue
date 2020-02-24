@@ -330,6 +330,15 @@ export default {
         },
         {
           active: true,
+          key: 'custom',
+          name: '\'Your own Custom\' content',
+          hint: 'You homebrew species.',
+          enabled: true,
+          nuxt: '',
+          source: '',
+        },
+        {
+          active: true,
           key: 'pax',
           name: '\'Pax Imperialis\' content',
           hint: 'Add Beastman, Navigators and Untouchables and their respective archetypes.',
