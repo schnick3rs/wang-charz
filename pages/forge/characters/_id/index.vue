@@ -1197,8 +1197,15 @@ export default {
   methods: {
     async loadSpecies(key) {
       if ( key ) {
-        const { data } = await this.$axios.get(`/api/species/${key}`);
-        this.characterSpecies = data;
+        let finalData = {};
+        if ( key.startsWith('custom-')) {
+          const speciesDetails = this.$store.getters['species/getSpecies'](key);
+          finalData = speciesDetails;
+        } else {
+          const { data } = await this.$axios.get(`/api/species/${key}`);
+          finalData = data;
+        }
+        this.characterSpecies = finalData;
       }
     },
     async loadArchetype(key) {

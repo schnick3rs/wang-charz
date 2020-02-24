@@ -40,6 +40,10 @@
           Import a Character
         </v-btn>
 
+        <v-btn large color="primary" outlined nuxt to="/forge/species">
+          Custom Species
+        </v-btn>
+
         <v-dialog
           v-model="importDialog"
           width="600px"
@@ -354,12 +358,8 @@ export default {
       deleteDialog: false,
       deleteId: undefined,
       breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters',
-        },
+        { text: '', nuxt: true, exact: true, to: '/' },
+        { text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters' },
       ],
       howTo: {
         steps: [
