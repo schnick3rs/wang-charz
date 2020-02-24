@@ -254,6 +254,18 @@ export const getters = {
     }
     return character.languages;
   },
+
+  characterFaithPointsById: (state) => (id) => (state.characters[id] && state.characters[id].faith ? state.characters[id].faith.points : getDefaultState().faith.points),
+  characterFaithSpendById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    if ( character.faith === undefined ) {
+      character.faith = getDefaultState().faith; // faith resource migration
+    }
+    return character.faith.spend;
+  },
 };
 
 export const mutations = {
@@ -561,6 +573,13 @@ export const mutations = {
     }
   },
 
+  setCharacterFaithSpend(state, payload) {
+    const { id, spend } = payload;
+    const character = state.characters[id];
+    const faith = character.faith;
+    faith.spend = spend;
+  },
+
   // character handling
   create(state, id) {
     state.list.push(id);
@@ -767,4 +786,6 @@ const getDefaultState = () => ({
     optionSelectedKey: undefined, // e.g.
   },
   enhancements: [],
+  faith: { points: 3, spend: 0 },
+  assets: { points: 0, spend: 0 },
 });

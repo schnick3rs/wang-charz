@@ -27,10 +27,8 @@ _A view (not an edit) of the current character. Should be responsive._
 
 ##### Extended CORE
 
-* `[x]` talent: hatred keyword handling
 * `[_]` faith talent / resource handling
 * `[_]` Traits: Add asserts and allow to buy (up to # tier) during creation
-* `[x]` Languages: Allow to by (custom field with autocomplete for known languages)
 * `[_]` Keywords: Custom text for some (or all) sub keywordsd
 * `[_]` Keywords: Allow for custom strings
 * `[_]` Background: Keyword selection
