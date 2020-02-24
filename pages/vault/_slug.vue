@@ -48,7 +48,19 @@
             <span class="subtitle-2">Topics / Content:</span>
             <ul>
               <li v-for="parts in item.topics" :key="parts">
-                <span>{{ parts }}</span>
+                <nuxt-link
+                  v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
+                  :to="`/library/${textToKebab(parts)}?filter-source=${item.key}`"
+                >
+                  {{ parts }}
+                </nuxt-link>
+                <nuxt-link
+                  v-else-if="['Threats'].includes(parts)"
+                  :to="`/bestiary?filter-source=${item.key}`"
+                >
+                  {{ parts }}
+                </nuxt-link>
+                <span v-else>{{ parts }}</span>
               </li>
             </ul>
           </v-col>
@@ -93,9 +105,9 @@
 </template>
 
 <script>
-import SluggerMixin from '~/mixins/SluggerMixin';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
+import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   components: {

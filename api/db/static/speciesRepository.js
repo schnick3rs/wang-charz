@@ -307,7 +307,7 @@ const coreRep = [
           { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
           { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
           { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
-          { targetGroup: 'traits', targetValue: 'wound', modifier: 4 },
+          { targetGroup: 'traits', targetValue: 'wounds', modifier: 4 },
         ],
       },
       {
@@ -626,7 +626,7 @@ const homebrewReps = [
         snippet: 'You Suffer +2 DN to Interaction Tests with non-Pariahs and +4 DN with Psykers.',
         description:
           '+2DN to all interaction tests with non-pariah characters. +4DN to interaction tests with psykers. Pariahs reduce their Influence by 1.',
-        modifications: [ { targetGroup: 'traits', targetValue: 'Influence', modifier: -1 } ]
+        modifications: [ { targetGroup: 'traits', targetValue: 'influence', modifier: -1 } ]
       },
       {
         name: 'Indistinguishable from Human',

@@ -1,8 +1,10 @@
+const BUILDER_VERSION = 3;
+
 export const state = () => ({
   list: [],
   characters: {},
   // version: 1,
-});
+})
 
 export const getters = {
   characterIds: (state) => state.list,
@@ -21,6 +23,13 @@ export const getters = {
       }
     });
     return Math.max(archetypeTier, ascensionTier);
+  },
+
+  characterStateJsonById: (state) => (id) => {
+    const character = state.characters[id];
+    let cleanCharacter = JSON.parse(JSON.stringify(character));
+    cleanCharacter.avatarUrl = undefined;
+    return JSON.stringify(cleanCharacter);
   },
 
   characterVersionById: (state) => (id) => (state.characters[id] ? state.characters[id].version : undefined),
@@ -94,6 +103,17 @@ export const getters = {
     });
     return spending;
   },
+  characterLanguagesCostsById: (state) => (id) => {
+    const character = state.characters[id];
+    if (character === undefined || character.languages === undefined) {
+      return 0;
+    }
+    let spending = 0;
+    character.languages.forEach((language) => {
+      spending += language.cost;
+    });
+    return spending;
+  },
   // => total
   characterSpendBuildPointsById: (state, getters) => (id) => {
     let spend = 0;
@@ -105,6 +125,7 @@ export const getters = {
     spend += getters.characterTalentCostsById(id);
     spend += getters.characterAscensionCostsById(id);
     spend += getters.characterPsychicPowerCostsById(id);
+    spend += getters.characterLanguagesCostsById(id);
 
     return spend;
   },
@@ -222,6 +243,17 @@ export const getters = {
   characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
   characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
   characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
+
+  characterLanguagesById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return [];
+    }
+    if ( character.languages === undefined ) {
+      character.languages = getDefaultState().languages; // language migration
+    }
+    return character.languages;
+  },
 };
 
 export const mutations = {
@@ -236,6 +268,9 @@ export const mutations = {
   },
   setSettingTitle(state, payload) {
     state.characters[payload.id].settingTitle = payload.title;
+  },
+  enableSettingHomebrews(state, payload) {
+    state.characters[payload.id].settingHomebrewContent.push(payload.content);
   },
   setSettingHomebrews(state, payload) {
     state.characters[payload.id].settingHomebrewContent = payload.content;
@@ -476,6 +511,19 @@ export const mutations = {
     character.background.label = background.label;
     character.background.optionSelectedKey = background.optionSelectedKey;
   },
+  
+  // languages
+  addCharacterLanguage(state, payload) {
+    const character = state.characters[payload.id];
+    const { name, cost, source } = payload;
+    const language = { name, cost, source };
+    character.languages.push(language);
+  },
+  removeCharacterLanguage(state, payload) {
+    const character = state.characters[payload.id];
+    const { name } = payload;
+    character.languages = character.languages.filter( (language) => language.name.localeCompare(name, 'en') !== 0);
+  },
 
   // Keywords
   addCharacterKeyword(state, payload) {
@@ -526,6 +574,18 @@ export const mutations = {
       ...newObj,
     };
   },
+  import(state, payload) {
+    state.list.push(payload.id);
+    const newChar = {};
+    Object.assign(newChar, JSON.parse(payload.stateString));
+    newChar.id = payload.id;
+    const newObj = {};
+    newObj[payload.id] = newChar;
+    state.characters = {
+      ...state.characters,
+      ...newObj,
+    };
+  },
   add(state, character) {
     state.list.push(character.id);
   },
@@ -537,6 +597,18 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 2:
+        console.debug(`v2 -> v3 : Species chapters with source-keys instead of names`);
+        const v2chapter = character.speciesAstartesChapter;
+        let v3chapter = v2chapter;
+        if ( v2chapter && v2chapter.includes(' ') ) { // its an old chapter name, using CORE
+          v3chapter = `core ${v2chapter}`.toLowerCase().replace(/\W/gm, '-');
+          console.info(`Migrating [${character.name}]: ${v2chapter} -> ${v3chapter}`);
+        }
+        character.speciesAstartesChapter = v3chapter;
+        character.version = 3;
+        console.info(`Character migrated to v3.`);
+        break;
       case 1:
         console.debug(`v1 -> v2 : Species with keys instead of labels`);
 
@@ -588,6 +660,7 @@ export const mutations = {
 
         character.version = 2;
         console.info(`Character migrated to v2.`);
+        break;
     }
 
   },
@@ -605,24 +678,32 @@ export const actions = {
   migrate( {commit, state, rootState}, payload) {
 
     const character = state.characters[payload.characterId];
+
+    if (character === undefined) {
+      console.warn(`Could not read character for id [${payload.characterId}].`);
+      return;
+    }
+
     const characterVersion = character.version;
-    const builderVersion = rootState.builderVersion;
+    const builderVersion = BUILDER_VERSION;
 
     if ( characterVersion < builderVersion ) {
-      console.info(`Migrate character from ${characterVersion} to ${characterVersion+1}`);
+      console.info(`Migrate [${character.name}] from ${characterVersion} to ${characterVersion+1}`);
       const config = {
         characterId: character.id,
         currentVersion: characterVersion,
         targetVersion: characterVersion+1,
       };
       commit('migrate', config);
+    } else {
+      console.info(`[${character.name}] is up to date. ${characterVersion} / ${builderVersion}.`);
     }
   },
 };
 
 const getDefaultState = () => ({
   id: -1,
-  version: 2,
+  version: 3,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
@@ -672,6 +753,9 @@ const getDefaultState = () => ({
     tech: 0,
     weaponSkill: 0,
   },
+  languages: [
+    { name: 'Low Gothic', cost: 0, source: '' },
+  ],
   keywords: [],
   talents: [],
   psychicPowers: [],

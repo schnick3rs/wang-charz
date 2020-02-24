@@ -31,6 +31,25 @@ router.get('/chapters/', (request, response) => {
   let items = [];
   items = chaptersRepository;
 
+  const filter = {};
+  const filterSourceString = request.query.source;
+  if (filterSourceString) {
+    filter.source = filterSourceString.split(',');
+    if (filter.source) {
+      items = items.filter((item) => filter.source.includes(item.source.key));
+    }
+  }
+
+  items = items.map( (chapter) => {
+    const label = chapter.source.key === 'core' ? chapter.name : `${chapter.name} [${chapter.source.book}]` ;
+    return {
+      ...chapter,
+      label,
+    }
+  });
+
+  items = items.sort((a, b) => a.name.localeCompare(b.name));
+
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);
 });

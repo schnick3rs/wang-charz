@@ -66,8 +66,15 @@ export default {
   methods: {
     getSpecies: async function (key) {
       this.loading = true;
-      const { data } = await this.$axios.get(`/api/species/${key}`);
-      data.speciesFeatures.filter((t) => t.options).forEach((t) => {
+      let finalData = {};
+      if ( key.startsWith('custom-')) {
+        const speciesDetails = this.$store.getters['species/getSpecies'](key);
+        finalData = speciesDetails;
+      } else {
+        const { data } = await this.$axios.get(`/api/species/${key}`);
+        finalData = data;
+      }
+      finalData.speciesFeatures.filter((t) => t.options).forEach((t) => {
         const enhancement = this.enhancements.find((m) => m.source.startsWith(`species.${t.name}`) );
         if ( enhancement ) {
           t.selected = enhancement.source.split('.').pop();
@@ -75,10 +82,10 @@ export default {
       });
       const chapter = this.characterSpeciesAstartesChapter;
       if (chapter) {
-        data.chapter = chapter;
+        finalData.chapter = chapter;
       }
       this.loading = false;
-      this.species = data;
+      this.species = finalData;
     },
     resetSpecies() {
       this.selectedSpecies = undefined;
@@ -91,7 +98,10 @@ export default {
       });
     },
     updateAstartesChapter(chapterName) {
-      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id: this.characterId, speciesAstartesChapter: chapterName });
+      const content = {
+        speciesAstartesChapter: chapterName,
+      };
+      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id: this.characterId, ...content });
     },
     /**
      * clear previous option

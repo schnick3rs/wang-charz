@@ -124,7 +124,7 @@ const rangeAaoa = function (brewString, subtype = '', specialTrait = '') {
   const damageString = parts[0]; // 4+1ED
   const ap = parts[1].split(' ')[1]; // AP -1
   const rangeValue = parts[2].split(' ')[1].split('m')[0]; // Range 48m
-  const salvo = parts[3];
+  const salvo = parts[3].split(' ')[1];
   const traitString = parts[4];
 
   const damageParts = damageString.split('+');
@@ -200,19 +200,124 @@ const core = [];
 
 const aaoa = [
   {
+    ...simpleStub(30901, 'aaoa',90,'Absolvor Bolt Pistol', '8V','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('12+2ED; AP -1; Range 35m; Salvo 1; Brutal, Pistol', 'Bolt Weapon',''),
+  },
+  {
+    ...simpleStub(30903, 'aaoa',90,'Auto-Boltstorm Gauntlet', '8V','Bolt, Power Field, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('10+1ED; AP 0; Range 24m; Salvo 3; Assault, Brutal, Paired', 'Bolt Weapon',''),
+    description:
+      '<p>Larger, and more stable than the conventional Boltstorm Gauntlet, the bolter component of these weapons allows them to sustain a higher rate of fire while on the move, compared to the close quarters burst fire of the smaller version. Auto Boltstorm Gauntlets are normally wielded in pairs by Primaris Aggressors; when operated as a pair, they may fire as a single weapon, but with a Salvo value of 6.</p>' +
+      '<p>The profile below describes the gun component, though the Value and Keywords apply to the whole weapon. The power fist uses the profile found on page 293 of the Wrath & Glory rulebook but gains the Paired trait.</p>',
+  },
+  {
+    ...simpleStub(30904, 'aaoa',90,'Bolt Carbine', '6R', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('10+1ED; AP 0; Range 40m; Salvo 2; Assault, Brutal, Steadfast', 'Bolt Weapon', ''),
+  },
+  {
+    ...simpleStub(30905, 'aaoa',90,'Bolt Sniper Rifle', '8V', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('12+1ED; AP 0; Range 75m; Salvo 1; Heavy [6], Sniper [2]', 'Bolt Weapon','When firing a Bolt Sniper Rifle, choose a single ammo type: Executioner (AP -1, +2d to the attack roll and ignore cover), Hyperfrag (add the Blast [Small] trait), or Mortis (+1ED, AP -2, add Toxic [5] trait)'),
+  },
+  {
+    ...simpleStub(30921, 'aaoa',92,'Instigator Bolt Carbine', '7R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('10+2ED; AP -1; Range 40m; Salvo 1; Assault, Brutal, Sniper [1]', 'Bolt Weapon', ''),
+    snippet: 'Instigator Bolt Carbines are fitted with silencers as standard.',
+  },
+  {
+    ...simpleStub(30922, 'aaoa',92,'Marksman Bolt Carbine', '6R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('10+1ED; AP 0; Range 40m; Salvo 1; Brutal, Rapid Fire, Sniper [1]', 'Bolt Weapon', ''),
+    snippet: 'Marksman Bolt Carbines are fitted with a Monoscope as standard.',
+  },
+  {
+    ...simpleStub(30923, 'aaoa',92,'Occulus Bolt Carbine', '6R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('10+1ED; AP 0; Range 40m; Salvo 1; Brutal, Rapid Fire','Bolt Weapon','If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.'),
+    snippet: 'Occulus Bolt Carbines are fitted with a Preysense Sight as standard. If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.',
+    // If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.
+  },
+  {
+    ...simpleStub(30925, 'aaoa',92,'Plasma Incinerator', '7V', 'Plasma, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('15+1ED; AP -4; Range 60m; Salvo 2; Rapid Fire [1], Supercharge', 'Plasma Weapon', ''),
+    description:
+      '<p>A more advanced version of the standard plasma gun, the Mark III Belisarius-pattern plasma incinerator is the primary weapon of Primaris Hellblasters, used to deliver death and destruction to armoured targets from afar.</p>',
+  },
+  {
+    ...simpleStub(30934, 'aaoa', 93, 'Fragstorm Grenade Launcher', '6V', 'Explosive, Imperium, Adeptus Astartes, Primaris', ''),
+    ...rangeAaoa('10+1ED; AP 0; Range 35m; Salvo 3; Assault, Blast (Medium)', 'Grenades and Grenade Launchers', ''),
+    description:
+      '<p>Utilised by Primaris Aggressors and aboard certain Astartes vehicles, Fragstorm grenade launchers fire salvoes of charges similar to frag grenades, though somewhat denser and more compact, raining down fire and shrapnel upon the enemy.</p>',
+  },
+  {
+    ...simpleStub(30936, 'aaoa', 93, 'Psyk-Out Grenades', '8L', 'Explosive, Imperium, Inquisition, Grey Knights, Silent Sisterhood, Templum Culexus', ''),
+    ...rangeAaoa('8+1ED; AP 0; Range Strength x 4 metres [T] or as launcher [R]; Salvo –; Blast [Medium]', 'Grenades and Grenade Launchers', 'Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.'),
+    snippet: 'Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.',
+    description:
+      '<p>Psyk-out grenades are anti-psyker weapons. When they detonate, they release fine dust particles which are heavily impregnated with negative psychic energy. This form of energy is extremely rare; in all of human space it can be obtained only as a by-product of the Emperor\'s metabolism. Using the material to create anti-psyker weapons is considered by many to be a great waste, and their issue is strictly controlled. Psyk-out weapons are nigh-useless against non-psychic targets. Against psychic creatures such as daemons and psykers, however, their effects are devastating.</p>',
+  },
+  {
+    ...simpleStub(30941, 'aaoa',94,'Shock Grenade', '7V','Explosive, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleRange('Grenades and Grenade Launchers', '', '-', '-', '-', '-', 'Blast (Medium)', 'Shock Grenades do not inflict damage. Rather, to use a Shock Grenade, make a Ballistic Skill test as an Interaction Attack against your targets’ Resolve (make one test and compare it individually to the Resolve of each enemy in the blast). This inflicts the normal results from an Interaction Attack on each affected target, and all targets must either be hindered or vulnerable – you can’t mix and match.'),
+    snippet: 'Shock Grenades do not inflict damage. Rather, to use a Shock Grenade, make a Ballistic Skill test as an Interaction Attack against your targets’ Resolve (make one test and compare it individually to the Resolve of each enemy in the blast). This inflicts the normal results from an Interaction Attack on each affected target, and all targets must either be hindered or vulnerable – you can’t mix and match.',
+  },
+  {
+    ...simpleStub(30942, 'aaoa',94,'Smoke Grenade', '4C','Explosive, Imperium', ''),
+    ...simpleRange('Grenades and Grenade Launchers', '', '-', '-', '-', '-', 'Blast (Large)', 'Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round.'),
+    snippet: 'Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round.',
+  },
+  {
+    ...simpleStub(30952, 'aaoa', 95, 'Animus Speculum', '10L', 'Exotic, Imperium, Officio Assassinorum, Templum Culexus', ''),
+    ...rangeAaoa('12+1ED; AP -4; Range 36m; Salvo 3; Agonizing, Assault', 'Exotic Ranged Weapon', 'the animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.'),
+    snippet: 'The animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.',
+    description:
+      '<p>A helmet-mounted psychic weapon, the animus speculum focusses the negative psychic presence of the wearer into bolts of energy that overwhelm the minds and souls of others. They draw additional power from nearby psykers, becoming deadlier with each psyker nearby.</p>',
+  },
+  {
     ...simpleStub(31050, 'aaoa',105,'Kustom Mega-Blasta', '7R', 'Kustom, Plasma, Ork', ''),
     ...rangeAaoa('16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!', 'Ork Ranged Weapon', 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.'),
-    // The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.
+    snippet: 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.',
   },
   {
     ...simpleStub(31053, 'aaoa',105,'Tankbusta Bomb', '7R', 'Explosive, Ork', ''),
-    ...rangeAaoa('16+3ED; AP -2; Salvo –; Blast [Small], Waaagh!', 'Ork Ranged Weapon', 'Cannot be thrown or fired from a launcher. They are placed as a melee attack against a vehicle. An Ork placing a Tankbusta bomb may immediately Disengage as a free action.'),
+    ...rangeAaoa('16+3ED; AP -2; Salvo –; Blast (Small), Waaagh!', 'Ork Ranged Weapon', 'Cannot be thrown or fired from a launcher. They are placed as a melee attack against a vehicle. An Ork placing a Tankbusta bomb may immediately Disengage as a free action.'),
+  },
+  {
+    ...simpleStub(31099, 'aaoa',109,'Nemesis Force Sword', '6V', 'Force, Imperium, Adeptus Astartes, Grey Knights', ''),
+    ...meleeAaoa('5+1ED; AP -3; Force, Nemesis, Parry'),
+    description:
+      '<p>The most common type of weapon wielded by the Grey Knights is the Nemesis Force Sword. It exemplifies the mixture of magick and science utilized by the Grey Knights. The blade is tempered iron, flecked with shards of silver and inset with ancient runes of daemon slaying. Advanced power field generators are also contained within.</p>',
+  },
+  {
+    ...simpleStub(31102, 'aaoa',110,'Crozius Arcanum', '6V', 'Power, Imperium, Adeptus Astartes', ''),
+    ...meleeAaoa('5+2ED; AP -1; Brutal'),
+    description:
+      '<p>Serving as both a sceptre of office and a weapon for Astartes Chaplains, each Crozius Arcanum is a staff or maul with a head shaped like an aquila or other symbol of significance to the Imperium or the chapter. Inside this sceptre is a power field generator, allowing it to function similarly to a power maul.</p>' +
+      '<p>The Dark Apostles of Heretic Astartes forces use a debased counterpart to this weapon, the Accursed Crozius.</p>',
   },
   {
     ...simpleStub(31154, 'aaoa',115,'‘Urty Syringe', '4U', 'Exotic, Ork', ''),
     ...meleeAaoa('4+2ED; AP 0; Toxic (4), Waaagh!', 'Ork Melee Weapon'),
     description:
       'This massive metal syringe superficially resembles a tool of the chirurgeon’s craft and tend to be filled with whatever toxic sludge the Painboy is able to find or create.',
+  },
+  {
+    ...simpleStub(31262, 'aaoa',126,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
+    ...armour('Astartes Armour', 5, 'Bulk (1), Powered (4)'),
+    snippet: 'Reinforced: The wearer adds +2 to their Toughness while wearing this armour.',
+    description:
+      '<p>Mark X power armour comes in a number of varieties, as the underlying armour system is designed to be modular and customisable according to battlefield role. The heavier variant is known as Gravis armour, which incorporates additional cowling, and ablative armour layers to increase the wearer’s durability in battle, at the cost of reduced mobility.</p>',
+  },
+  {
+    ...simpleStub(31263, 'aaoa',126,'Phobos Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
+    ...armour('Astartes Armour', 5, 'Powered (3)'),
+    snippet: 'Silenced: The wearer may re-roll up to two dice when making a Stealth test.',
+    description:
+      '<p>Phobos armour is a lightweight variant of Mark X power armour, with lighter plating and tuned servos that operate silently and virtually no loss of protection, though the reduced bulk of the armour does mean it provides less of a boost to the wearer’s strength. It’s favoured by Reivers and other Vanguard Primaris, who operate deep behind enemy lines and rely on stealth and evasion to wage war.</p>',
+  },
+  {
+    ...simpleStub(31264, 'aaoa',126,'Aegis Power Armour', '9V', 'Powered, Imperium, Adeptus Astartes, Grey Knights', ''),
+    ...armour('Astartes Armour', 5, 'Powered (3)'),
+    snippet: 'The Aegis: Enemy psychic powers which target the wearer suffer +2DN. In addition, the wearer adds +1d when rolling to Soak any attack from a Daemon.',
+    description:
+      '<p>Aegis Armour is a specialized form of Astartes Power Armour worn by members of the Grey Knights chapter. Worked into their Armour, each Aegis Suit contains a lattice of psycho-conductive filaments and protective amulets, wrought into hexagrammic wards and inscribed with anti-daemonic prayers. Aegis Armour allows Grey Knights to better combat Warp Entities and Rogue Psykers by protecting them from psychic attack. The technology incorporated into The Aegis represents the most potent anti-psychic defences in the Imperium of Man.</p>',
   },
   {
     ...simpleStub(31333, 'aaoa',133,'Ionclad Carapace Armour', '6R', 'Heavy, Squat', ''),
@@ -224,6 +329,106 @@ const aaoa = [
       'it to resist attacks more effectively than material strength alone would permit. ' +
       'During the height of Squat civilisation, Ionclad armour was commonly used by elite soldiers such as Hearthguard—at least, ' +
       'those who couldn’t afford Exo-Armour—and by the rank-and-file War-Pledged from wealthier Strongholds.',
+  },
+  {
+    ...simpleStub(31352, 'aaoa', 135, 'Divinator-class Auspex', '7V', 'Imperium, Adeptus Astartes, Primaris', ''),
+    snippet: 'Counts as Auspex. Spend 1 Glory when an enemy within 25 moves to make an immediate ranged attac (with +2 DN) against that enemy.',
+    description:
+      '<p>These sophisticated forms of auspex provide a remarkable combination of visual and multi-spectral observation-and-analysis technologies, which gather every scrap of data from the wearer\'s surroundings. The auspex’s machine spirit to collate the findings far faster than human thought, feeding the resultant data into the wearer\'s visor.</p>' +
+      '<p>With training, this flood of information allows the wearer to fight in an almost precognitive fashion, responding to situations far more swiftly than they would be able to unaided.</p>' +
+      '<p>A Divinator-class Auspex functions like a normal Auspex in all regards. ' +
+      'In addition, the wearer may spend 1 Glory when an enemy within 25m moves; ' +
+      'if they do so, they may make an immediate ranged attack, at +2 DN, against that enemy.</p>',
+  },
+  {
+    ...simpleStub(31353, 'aaoa', 135, 'Etherium', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
+    snippet: 'Attackers must pass Willpower Test (DN 7) or refuse to believe the Culexus exists and cannot continue their attacks. You lose this ability while wounded.',
+    description:
+      '<p>The Etherium is a highly advanced form of the same kinds of psychic-resistant technology found in Hexagrammic Wards, ' +
+      'Null Rods, and the Aegis-pattern armour worn by the Grey Knights. ' +
+      'This, in combination with the Culexus Assassin’s innate abilities, ' +
+      'is so psychically disruptive that most minds struggle to perceive the assassin, ' +
+      'as physical senses and psychic instincts conflict.</p>' +
+      '<p>Whenever an enemy attempts to attack a Culexus Assassin, they must pass a Willpower test (DN 7). ' +
+      'Failure means that they refuse to believe the Culexus exists and cannot continue their attacks. ' +
+      'The Culexus loses this ability while wounded.</p>',
+  },
+  {
+    ...simpleStub(31354, 'aaoa', 135, 'Force Matrix', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
+    snippet:
+      'This device gains charges when a Psyker within 25m attempts to use a psychic power (other than Deny the Witch) or when a psyker suffers psychic phenomena. ' +
+      'Charges may be used as Reloads for the Animus Speculum, and dissipate after a few minutes.',
+    description:
+      '<p>The Force Matrix consists of a series of psychic conduits which are made of a material similar to that used in the construction of Force Weapons. ' +
+      'When connected to a Culexus Assassin, the Force Matrix gathers excess warp energy drawn upon by nearby psykers, ' +
+      'storing it so that it can be used to fuel the assassin’s Animus Speculum.</p>' +
+      '<p>Whenever a Psyker within 25m of the wearer attempts to use a psychic power (other than Deny the Witch), the Force Matrix gains a single charge. ' +
+      'If a Psyker within that range suffers psychic phenomena, then the Force Matrix gains one additional charge. ' +
+      'Charges may be used as Reloads for the Animus Speculum.</p>' +
+      '<p>Charges gained dissipate after a few minutes, and thus cannot be carried over from fight to fight.</p>',
+  },
+  {
+    ...simpleStub(31355, 'aaoa', 135, 'Grapple Gun', '2U', '<Any>', ''),
+    description:
+      '<p>These devices, appearing similar to a normal firearm, use gas pressure or magnetic impulse to propel a sturdy metal hook attached to a cable. ' +
+      'They’re favoured by shock troops fighting in dense terrain, ' +
+      'as it allows them to attack from unexpected directions and position themselves in hard-to-reach vantages.</p>',
+  },
+  {
+    ...simpleStub(31361, 'aaoa', 136, 'Liber Daemonica', '8V', 'Imperium, Inquisition, Ordo Malleus', ''),
+    snippet:
+      'Reading from this book may add +2 bonus dice to Scholar Tests regarding combating Daemons and their allies. ' +
+      'Reading the book routinely grants +2 Conviction.',
+    description:
+      '<p>The Liber Daemonica is the Grey Knights Chapter\'s sacred book that contains prayers, battle rituals, litanies, funeral rites, and Chaos lore. Inquisitors of the Ordo Malleus are also known to possess copies of the book. While it may appear to be a normal book, opening it will reveal a series of wafer-screens that contain instructional hololiths and reactive picts which respond to the reader’s needs. Page after page discusses tactics and how to fight the denizens of the Immaterium, as well as listing the True Names of a great many Daemonic entities, information collected from the Librarium Daemonica, and the repository of dangerous knowledge pieced together by the Ordo Malleus over the millennia. The book pulls no punches; it includes an extensive discourse of when to terminate compromised allies and a whole chapter discussing the moral implications and appropriate use of Exterminatus.</p>' +
+      '<p>Each Grey Knight fights with a copy of the book displayed in a ceramite case fastened to his breastplate or hanging from a chain around his neck. ' +
+      'The book is also represented in Grey Knight iconography, on the chestplate and pauldron of both power armour and Terminator Armour. ' +
+      'It is a symbol of the greatest weapon against the forces of Chaos - an unshakable faith in the Emperor of Mankind.</p>' +
+      '<p>A character reading from the Liber Daemonica may add +2d to any Scholar test regarding combating Daemons and their allies. ' +
+      'A character who keeps the book on their person and reads from it routinely gains +2 Conviction.</p>',
+  },
+  {
+    ...simpleStub(31363, 'aaoa', 136, 'Narthecium', '5R', 'Imperium, Adeptus Astartes', ''),
+    snippet:
+      'Count`s as Medikit. You add +2 bonus dice to Medicae tests when treating <Adeptus Astartes>. ' +
+      'A Complication will inflict 1 Mortal Wound on a non Astartes Patient.',
+    description:
+      '<p>A Narthecium is a tool of a Space Marine Apothecary\'s trade, containing implements specially designed for treating the Astartes\' genetically engineered physiology and for performing first aid without having to remove the patient\'s Power Armour.</p>' +
+      '<p>It also comprises various counterseptics, synthderm patches, transfusions and other compounds engineered for the Space Marines’ physiology, and several stasis tubes for storing any recovered gene-seed taken from a dead Space Marine\'s Progenoid Glands.</p>' +
+      '<p>In battle, an Apothecary carries a number of specialised items of equipment, integrating a variety of tools into a customised backpack, with delivery systems in a device mounted on the Apothecary’s vambrace. The Apothecary may have crafted many of these tools himself according to his own needs.</p>' +
+      '<p>A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. ' +
+      'It also adds +2 to Medicae tests to treat the injuries of characters with the Adeptus Astartes keyword. ' +
+      'On characters who lack the Adeptus Astartes keyword, use of a Narthecium can cause problems, ' +
+      'as the equipment within is not meant for frail mortal physiology: ' +
+      'a complication will inflict 1 Mortal Wound on a non-Astartes patient.</p>',
+  },
+  {
+    ...simpleStub(31371, 'aaoa', 137, 'Psychic Hood', '7V', 'Imperium, Adeptus Astartes, Inquisition', ''),
+    snippet:
+      'You add +2 bonus dice to Deny the Witch Tests. You may attempt to Deny the Witch once per round as a Free Action.',
+    description:
+      '<p>The Psychic Hood is an arcane device utilised by Space Marine Librarians to amplify the wearer\'s psychic powers ' +
+      'and protect against an assault by enemy psykers. ' +
+      'Most importantly, a Psychic Hood renders the wearer more able to counter the effects that other psykers have on the Warp nearby. ' +
+      'Distinguished by the trademark metal hood that rises from the backplate of a Librarian\'s Power Armour, ' +
+      'a Psychic Hood uses a set of interwoven, intricately aligned crystals to nullify an opponent\'s psychic attacks.</p>' +
+      '<p>A character wearing a psychic hood may attempt to Deny the Witch once per round as a Free Action in response to an enemy psyker using a power. ' +
+      'Further, they may add +2d on their Psychic Mastery test to use Deny the Witch.</p>',
+  },
+  {
+    ...simpleStub(31372, 'aaoa', 137, 'Reductor', '5R', 'Imperium, Adeptus Astartes', ''),
+    snippet:
+      'As an Action, extract the gene-seed of a deceased Marine with a Medicae Test (DN 3). You gain 1 Wrath immediatly. ' +
+      'If the geen-seed belongs to a player character, he gains +25 BP during character creation.',
+    description:
+      '<p>A Reductor is a special tool used by Adeptus Astartes Apothecaries and Primaris Apothecaries to retrieve the crucial gene-seed of their fallen Battle-Brothers so that new Astartes might be raised from among their Chapter\'s Aspirants. Retrieval and storage of a fallen Battle-Brother\'s gene-seed is so critical that Apothecaries carry a special tool for this operation, often included as part of the Narthecium.</p>' +
+      '<p>While a Reductor is not required for Progenoid removal, it significantly reduces the time. This surgical implement fastens under the wrist and is often integrated into the Apothecary’s Narthecium. It includes a monomolecular saw for penetrating Power Armour and Ossmodula-enhanced rib cages, and a diamantine-tipped extractor drill.</p>' +
+      '<p>As an action, an Apothecary can use a Reductor to remove the gene-seed of a deceased Space Marine. ' +
+      'This requires a Medicae test (DN 3). ' +
+      'Though a grim task, it is a vital one, and an Apothecary who extracts a fallen brother’s gene-seed gains 1 Wrath immediately, ' +
+      'as their duty drives them to press on.</p>' +
+      '<p>In addition, if the gene-seed recovered belonged to a player character, ' +
+      'then that player’s next character receives an additional 25 BPs during character creation, in honour of their sacrifice.</p>',
   },
 ];
 

@@ -70,7 +70,7 @@
 
             <!-- Detail Page link -->
             <template v-slot:item.actions="{ item }">
-              <v-btn v-if="item.stub === undefined || !item.stub" small icon nuxt :to="`/library/species/${camelToKebab(item.key)}`">
+              <v-btn v-if="item.stub === undefined || !item.stub" small icon nuxt :to="`/library/species/${textToKebab(item.key)}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
@@ -87,7 +87,7 @@
                   <v-btn
                     v-if="item.stub === undefined || !item.stub"
                     nuxt
-                    :to="`/library/species/${camelToKebab(item.key)}`"
+                    :to="`/library/species/${textToKebab(item.key)}`"
                     color="success"
                   >
                     Show Details Page

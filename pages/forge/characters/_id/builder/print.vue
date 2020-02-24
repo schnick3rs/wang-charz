@@ -206,8 +206,8 @@
 
               <v-col :cols="12" class="pa-1">
                 <v-card >
-                  <v-card-text>
-                    <p class="caption">
+                  <v-card-text class="pa-1 pl-2 pr-2">
+                    <p class="caption mb-1">
                       Spend one <strong>Wrath</strong> to:
                     </p>
                     <ul class="pl-3">
@@ -229,8 +229,8 @@
                     </ul>
                   </v-card-text>
 
-                  <v-card-text>
-                    <p class="caption">
+                  <v-card-text class="pa-1 pl-2 pr-2">
+                    <p class="caption mb-1">
                       Spend one <strong>Glory</strong> to:
                     </p>
                     <ul class="pl-3">
@@ -250,8 +250,21 @@
                   </v-card-text>
                 </v-card>
               </v-col>
+
+              <v-col :cols="12" class="pa-1">
+                <v-card>
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Languages</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text>
+                    <p>{{ languages.map((l)=>l.name).join(' • ') }}</p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+
             </v-row>
           </v-col>
+
 
           <v-col :cols="12">
             <v-card>
@@ -531,8 +544,26 @@ export default {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
 
+    languages() {
+      return this.$store.getters['characters/characterLanguagesById'](this.characterId);
+    },
+
     characterAttributesEnhanced() {
-      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      let enhancedAttributes = this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      // enrich with (equipped) gear
+      if ( this.armour && this.armour.length > 0 ) {
+        const armour = this.armour[0];
+        const traits = armour.meta[0].traits;
+        let poweredString = traits.find((trait)=>trait.includes('Powered'));
+        if (poweredString) {
+          const trait = this.normalizeTrait(poweredString);
+          if ( trait.variant) {
+            enhancedAttributes.strength = parseInt(enhancedAttributes.strength) + parseInt(trait.variant);
+          }
+        }
+      }
+
+      return enhancedAttributes;
     },
     attributes() {
       const attributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
@@ -778,10 +809,15 @@ export default {
   },
   methods: {
     async loadSpecies(key) {
-      if ( key ) {
+      let finalData = {};
+      if ( key.startsWith('custom-')) {
+        const speciesDetails = this.$store.getters['species/getSpecies'](key);
+        finalData = speciesDetails;
+      } else {
         const { data } = await this.$axios.get(`/api/species/${key}`);
-        this.characterSpecies = data;
+        finalData = data;
       }
+      this.characterSpecies = finalData;
     },
     async loadArchetype(key) {
       if ( key ) {
@@ -792,6 +828,15 @@ export default {
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
       return attribute.enhancedValue + skill.enhancedValue;
+    },
+    normalizeTrait(traitString) {
+      const regex = /(\w+) ?\(?(\w+)?\)?/m;
+      let trait = traitString.match(regex);
+      let traitFromRep = this.wargearTraitRepository.find((item) => item.name === trait[1]);
+      return {
+        ...traitFromRep,
+        variant: trait[2],
+      };
     },
     traitByName(name, withParantesis = false) {
       if ( withParantesis ) {

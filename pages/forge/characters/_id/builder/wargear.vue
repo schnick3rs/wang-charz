@@ -336,7 +336,7 @@ export default {
     computeWargearOptionsByFilter(filter) {
       const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;
       if ( this.wargearList ) {
-        return this.wargearRepository.filter( (gear) => {
+        return this.wargearList.filter( (gear) => {
           let valueReq = true;
           if ( valueFilter ) {
             let maxValue = 0;
@@ -346,7 +346,7 @@ export default {
             valueReq = gear.value <= maxValue;
           }
           const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
-          const typeReq = typeFilter ? gear.type.includes(typeFilter) : true;
+          const typeReq = typeFilter ? typeFilter.includes(gear.type) : true;
           const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
           const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
           return valueReq && rarityReq && typeReq && subtypeReq && keywordReq;
