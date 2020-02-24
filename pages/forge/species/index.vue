@@ -49,7 +49,7 @@
                     color="success"
                     small
                     nuxt
-                    :to="`/forge/species/${textToKebab(item.key)}`"
+                    :to="`/forge/species/${textToKebab(item.key)}/edit`"
                   >
                     Edit
                   </v-btn>
@@ -108,6 +108,7 @@ export default {
       const hash = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       const key = `custom-${hash}`;
       this.$store.commit('species/create', { key });
+      this.$ga.event('New Species', 'click', key, 1);
     },
     deleteSpecies(key) {
       this.$store.commit('species/delete', { key });
