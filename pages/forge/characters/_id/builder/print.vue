@@ -73,6 +73,7 @@
                           {{ '☐'.repeat( Math.floor(item.enhancedValue/2) ) }}
                         </span>
                         <span v-if="item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
+                        <span v-if="item.name === 'Wealth'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
                         <em v-if="item.name==='Resilience' && armour.length>0">
                           @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
                         </em>
