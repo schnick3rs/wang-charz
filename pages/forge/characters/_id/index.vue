@@ -405,7 +405,7 @@
               </div>
             </v-tab-item>
 
-            <!-- abilities (All, Race, Archetype, Talents, Other) -->
+            <!-- abilities (All, Race, Archetype, Talents, Faith?, Other) -->
             <v-tab-item
               class="my-tab-item"
               key="abilities-talents"
@@ -458,12 +458,30 @@
 
                   <!-- talents < abilities -->
                   <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" >
-                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-                      <span class="body-2 red--text">Talents</span>
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
+                      <span class="body-2 red--text" style="flex: 1;">Talents</span>
+                      <div style="flex-wrap: wrap; display: flex;" v-if="characterFaith.points > 0">
+                        <div
+                          v-for="pointIndex in characterFaith.points"
+                          class="faith-box"
+                          :class="{ 'faith-box--filled': pointIndex <= characterFaith.spend }"
+                          @click="toggleResourceFaith(pointIndex)"
+                        ></div>
+                        <span class="caption ml-2">/ Faith Points</span>
+                      </div>
                     </div>
-                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption">
+                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption mb-3">
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
-                      <p v-html="computeFormatedText(talent.description)" />
+                      <p class="mt-1 mb-1" v-html="computeFormatedText(talent.description)" />
+                      <div v-if="false" class="mt-1 mb-1 ml-1 pl-2" style="flex-wrap: wrap; display: flex; border-left: solid 3px lightgrey;" >
+                        <div
+                          v-for="pointIndex in characterFaith.points"
+                          class="faith-box"
+                          :class="{ 'faith-box--filled': pointIndex <= characterFaith.spend }"
+                          @click="toggleResourceFaith(pointIndex)"
+                        ></div>
+                        <span class="caption ml-2">/ Faith Points</span>
+                      </div>
                     </div>
                     <div v-if="talents.length === 0" align="center" class="mt-2 mb-2">
                       <em>Knowledge is treason.</em>
@@ -471,11 +489,20 @@
                   </div>
 
                   <!-- talents (with faith) < abilities -->
-                  <div v-if="false" v-show="['all', 'faith'].some(i=>i===abilitySection.selection)">
+                  <div v-if="false" v-show="['all', 'faith'].some(i=>i===abilitySection.selection)" class="caption">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
                       <span class="body-2 red--text" style="flex: 1;">Faith</span>
+                      <div style="flex-wrap: wrap; display: flex;">
+                        <div
+                          v-for="pointIndex in characterFaith.points"
+                          class="faith-box"
+                          :class="{ 'faith-box--filled': pointIndex <= characterFaith.spend }"
+                          @click="toggleResourceFaith(pointIndex)"
+                        ></div>
+                        <span class="body-2 ml-2">Faith Points</span>
+                      </div>
                     </div>
-                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" class="caption">
+                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" >
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
                       <p v-html="computeFormatedText(talent.description)" />
                     </div>
@@ -956,6 +983,30 @@
         ...this.traits.filter((i) => i.type === 'Social'),
       ];
     },
+    characterFaith() {
+      //const points = this.$store.getters['characters/characterFaithPointsById'](this.characterId);
+      const spend = this.$store.getters['characters/characterFaithSpendById'](this.characterId);
+      let points = 0;
+      this.talentsForFaith.forEach((t)=>{
+        if(['core-inspired-blessing','core-the-emperor-s-light','core-unquestioning-faith'].includes(t.key)) {
+          points += 1;
+        }
+        if(['core-acts-of-faith'].includes(t.key)) {
+          points += 2;
+        }
+      });
+
+      return { points, spend };
+    },
+    characterResources() {
+      return {
+        faith: this.characterFaith,
+        assets: {
+          points: 3,
+          spend: 0,
+        }
+      };
+    },
     skills() {
       const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
       return this.skillRepository.map((s) => ({
@@ -1270,6 +1321,12 @@
 
       return computed;
     },
+    toggleResourceFaith(index) {
+      const id = this.characterId;
+      const current = this.characterFaith.spend;
+      const spend = (index > current) ? current+1 : current-1;
+      this.$store.commit('characters/setCharacterFaithSpend', { id, spend });
+    }
   },
 };
 </script>
@@ -1304,5 +1361,35 @@
     height:1px;
     background:black;
     background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
+  }
+
+  .faith-box {
+    min-height: 20px;
+    max-height: 20px;
+    min-width: 20px;
+    max-width: 20px;
+    border: 1px solid hsl(0, 0%, 85%);
+    box-shadow: inset 0 0 4px 0 hsl(0, 0%, 85%);
+    cursor: pointer;
+
+    box-sizing: inherit;
+    margin: 2px;
+
+    &--filled {
+
+      &:before {
+        content: "";
+        display: block;
+        height: 10px;
+        width: 10px;
+        margin-top: 4px;
+        margin-left: 4px;
+      }
+
+      &::before {
+        background-color: hsl(0, 100%, 37%);
+      }
+
+    }
   }
 </style>
