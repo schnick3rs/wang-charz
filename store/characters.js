@@ -669,7 +669,7 @@ export const mutations = {
 
     switch (character.version) {
       case 3:
-        console.debug(`v3 -> v4 : Adding resources, set defaults.`);
+        console.debug(`v3 -> v4 : Adding resources, defiance and objective basics, set defaults.`);
         const newPart = {
           faith: getDefaultState().faith,
           wounds: getDefaultState().wounds,
@@ -677,6 +677,9 @@ export const mutations = {
           wrath: getDefaultState().wrath,
           reloads: getDefaultState().reloads,
           wealth: getDefaultState().wealth,
+          defiance: getDefaultState().defiance,
+          objectiveArchived: getDefaultState().objectiveArchived,
+          objectives: getDefaultState().objectives,
         };
         character.version = 4;
         state.characters[config.characterId] = {
@@ -865,6 +868,8 @@ const getDefaultState = () => ({
    * > wealth, by trait and boni
    * > reloads, 3 + gear
    */
+  objectives: [],
+  objectiveArchived: false,
   faith: {
     points: 0, // computed from obtained talents
     spend: 0,
@@ -886,5 +891,9 @@ const getDefaultState = () => ({
   reloads: {
     points: 3, // or more, by gear
     spend: 0,
-  }
+  },
+  defiance: {
+    passed: 0,
+    failed: 0,
+  },
 });
