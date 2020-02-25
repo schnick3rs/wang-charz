@@ -786,6 +786,12 @@ const getDefaultState = () => ({
     optionSelectedKey: undefined, // e.g.
   },
   enhancements: [],
-  faith: { points: 3, spend: 0 },
-  assets: { points: 0, spend: 0 },
+  faith: {
+    points: 0, // computed from obtained talents
+    spend: 0,
+  },
+  wealth: {
+    points: 0, // aka trait
+    spend: 0,
+  },
 });
