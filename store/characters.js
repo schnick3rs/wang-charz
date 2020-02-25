@@ -838,6 +838,16 @@ const getDefaultState = () => ({
     optionSelectedKey: undefined, // e.g.
   },
   enhancements: [],
+
+  /**
+   * spendable resources are:
+   * > Faith, granted by talents, long rest
+   * > wrath, 2 plus talents and objectives, long rest
+   * > shock, by trait and boni
+   * > wounds, by trait and boni
+   * > wealth, by trait and boni
+   * > reloads, 3 + gear
+   */
   faith: {
     points: 0, // computed from obtained talents
     spend: 0,
