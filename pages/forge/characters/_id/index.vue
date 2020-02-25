@@ -140,12 +140,16 @@
               <tr v-for="item in groupedTraits">
                 <td class="text-left pa-1 small">
                   <span>{{ item.name }}</span>
-                  <span v-if="item.name === 'Wounds'" style="float: right;">
-                          {{ '☐'.repeat( Math.ceil(item.enhancedValue/2) ) }}
-                          •
-                          {{ '☐'.repeat( Math.floor(item.enhancedValue/2) ) }}
-                        </span>
-                  <span v-if="item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
+                  <div v-if="['Wealth','Shock','Wounds'].includes(item.name)" style="float: right;">
+                    <div style="flex-wrap: wrap; display: flex;" v-if="item.enhancedValue > 0">
+                        <div
+                          v-for="pointIndex in item.enhancedValue"
+                          class="resource-box"
+                          :class="{ 'resource-box--filled': pointIndex <= item.spend, 'resource-box--filled-light': item.key === 'wounds' && item.spend < Math.ceil(item.enhancedValue/2) }"
+                          @click="toggleResource(item, pointIndex)"
+                        ></div>
+                      </div>
+                  </div>
                   <em v-if="item.name==='Resilience' && armour.length>0">
                     @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
                   </em>
@@ -974,6 +978,12 @@
         }
       });
 
+      finalTraits
+      .filter((t)=>['wounds', 'shock', 'wealth'].includes(t.key))
+      .forEach((t)=>{
+        t.spend = this.$store.getters['characters/characterResourceSpendById'](this.characterId, t.key);
+      });
+
       return finalTraits;
     },
     groupedTraits() {
@@ -1321,6 +1331,15 @@
 
       return computed;
     },
+    toggleResource(resourceItem, index) {
+      const id = this.characterId;
+      const resourceKey = resourceItem.key;
+
+      const current = this.$store.getters['characters/characterResourceSpendById'](this.characterId, resourceKey);
+      const spend = (index > current) ? current+1 : current-1;
+
+      this.$store.commit('characters/setCharacterResourceSpend', { id, resourceKey, spend });
+    },
     toggleResourceFaith(index) {
       const id = this.characterId;
       const current = this.characterFaith.spend;
@@ -1363,6 +1382,40 @@
     background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
   }
 
+  .resource-box {
+    $size: 12px;
+    min-height: $size;
+    max-height: $size;
+    min-width: $size;
+    max-width: $size;
+    border: 1px solid hsl(0, 0%, 85%);
+    box-shadow: inset 0 0 4px 0 hsl(0, 0%, 85%);
+    cursor: pointer;
+
+    box-sizing: inherit;
+    margin: 2px;
+
+    &--filled {
+
+      &:before {
+        content: "";
+        display: block;
+        height: 7px;
+        width: 7px;
+        margin-top: 1.5px;
+        margin-left: 1.5px;
+      }
+
+      &::before {
+        background-color: hsl(0, 100%, 37%);
+      }
+    }
+
+    &--filled-light::before {
+      background-color: hsl(62, 70%, 44%) !important;
+    }
+  }
+
   .faith-box {
     min-height: 20px;
     max-height: 20px;
@@ -1389,7 +1442,7 @@
       &::before {
         background-color: hsl(0, 100%, 37%);
       }
-
     }
+
   }
 </style>

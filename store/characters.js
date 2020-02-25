@@ -255,6 +255,17 @@ export const getters = {
     return character.languages;
   },
 
+  characterResourceSpendById: (state, getters) => (id, resourceKey) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    if ( character[resourceKey] === undefined ) {
+      character[resourceKey] = getDefaultState()[resourceKey]; // resource migration
+    }
+    return character[resourceKey].spend;
+  },
+
   characterFaithPointsById: (state) => (id) => (state.characters[id] && state.characters[id].faith ? state.characters[id].faith.points : getDefaultState().faith.points),
   characterFaithSpendById: (state) => (id) => {
     const character = state.characters[id];
@@ -262,9 +273,43 @@ export const getters = {
       return 0;
     }
     if ( character.faith === undefined ) {
-      character.faith = getDefaultState().faith; // faith resource migration
+      character.faith = getDefaultState().faith; // resource migration
     }
     return character.faith.spend;
+  },
+
+  characterWoundsPointsById: (state, getters) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    return getters.characterTraitsById(id)['wounds'];
+  },
+
+  characterShockPointsById: (state, getters) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    return getters.characterTraitsById(id)['shock'];
+  },
+
+  characterWealthPointsById: (state, getters) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    return getters.characterTraitsById(id)['wealth'];
+  },
+  characterWealthSpendById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    if ( character.wealth === undefined ) {
+      character.wealth = getDefaultState().wealth; // resource migration
+    }
+    return character.wealth.spend;
   },
 };
 
@@ -573,6 +618,13 @@ export const mutations = {
     }
   },
 
+  setCharacterResourceSpend(state, payload) {
+    const { id, spend, resourceKey } = payload;
+    const character = state.characters[id];
+    const resource = character[resourceKey];
+    resource.spend = spend;
+  },
+
   setCharacterFaithSpend(state, payload) {
     const { id, spend } = payload;
     const character = state.characters[id];
@@ -790,8 +842,22 @@ const getDefaultState = () => ({
     points: 0, // computed from obtained talents
     spend: 0,
   },
+  wounds: {
+    spend: 0,
+  },
+  shock: {
+    spend: 0,
+  },
   wealth: {
     points: 0, // aka trait
     spend: 0,
   },
+  wrath: {
+    points: 2, // or more, if objective is fullfiled or talents
+    spend: 0,
+  },
+  reloads: {
+    points: 3, // or more, by gear
+    spend: 0,
+  }
 });
