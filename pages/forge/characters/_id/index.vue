@@ -145,7 +145,7 @@
                         <div
                           v-for="pointIndex in item.enhancedValue"
                           class="resource-box"
-                          :class="{ 'resource-box--filled': pointIndex <= item.spend, 'resource-box--filled-light': item.key === 'wounds' && item.spend < Math.ceil(item.enhancedValue/2) }"
+                          :class="{ 'resource-box--filled': pointIndex <= item.spend, 'resource-box--filled-light': item.key === 'wounds' && item.spend <= Math.floor(item.enhancedValue/2) }"
                           @click="toggleResource(item, pointIndex)"
                         ></div>
                       </div>
