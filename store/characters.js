@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 3;
+const BUILDER_VERSION = 4;
 
 export const state = () => ({
   list: [],
@@ -668,6 +668,23 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 3:
+        console.debug(`v3 -> v4 : Adding resources, set defaults.`);
+        const newPart = {
+          faith: getDefaultState().faith,
+          wounds: getDefaultState().wounds,
+          shock: getDefaultState().shock,
+          wrath: getDefaultState().wrath,
+          reloads: getDefaultState().reloads,
+          wealth: getDefaultState().wealth,
+        };
+        character.version = 4;
+        state.characters[config.characterId] = {
+          ...character,
+          ...newPart,
+        };
+        console.info(`Character migrated to v4.`);
+        break;
       case 2:
         console.debug(`v2 -> v3 : Species chapters with source-keys instead of names`);
         const v2chapter = character.speciesAstartesChapter;
