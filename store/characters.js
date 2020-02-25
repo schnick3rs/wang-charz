@@ -794,7 +794,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 3,
+  version: 4,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
