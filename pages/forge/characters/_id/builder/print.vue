@@ -591,12 +591,22 @@ export default {
       ];
     },
     skills() {
+      let finalSkills = [];
       const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
-      return this.skillRepository.map((s) => ({
+      const customSkills = this.$store.getters['characters/characterCustomSkillsById'](this.characterId);
+
+      const skillInfos = [
+        ...this.skillRepository,
+        ...customSkills,
+      ];
+
+      finalSkills = skillInfos.map((s) => ({
         ...s,
         value: skills[s.key],
         enhancedValue: skills[s.key],
       }));
+
+      return finalSkills;
     },
     enhancements() {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
@@ -828,7 +838,10 @@ export default {
     },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
-      return attribute.enhancedValue + skill.enhancedValue;
+      if (attribute) {
+        return attribute.enhancedValue + skill.enhancedValue;
+      }
+      return skill.enhancedValue;
     },
     normalizeTrait(traitString) {
       const regex = /(\w+) ?\(?(\w+)?\)?/m;

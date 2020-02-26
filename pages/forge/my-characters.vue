@@ -175,7 +175,7 @@
                         <v-icon left small>
                           cloud_upload
                         </v-icon>
-                        Update
+                        Update (v{{characterVersion(character.id)}})
                       </v-btn>
                     </div>
 
