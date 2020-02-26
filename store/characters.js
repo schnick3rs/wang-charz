@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 4;
+const BUILDER_VERSION = 5;
 
 export const state = () => ({
   list: [],
@@ -307,9 +307,20 @@ export const getters = {
       return 0;
     }
     if ( character.wealth === undefined ) {
-      character.wealth = getDefaultState().wealth; // resource migration
+      character.wealth = getDefaultState().wealth; // resource migration NOT REACTIVE
     }
     return character.wealth.spend;
+  },
+
+  characterCustomSkillsById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return [];
+    }
+    if ( character.customSkills === undefined ) {
+      character.customSkills = getDefaultState().customSkills; // migration  NOT REACTIVE
+    }
+    return character.customSkills;
   },
 };
 
@@ -355,10 +366,34 @@ export const mutations = {
   setCharacterAttribute(state, payload) {
     const char = state.characters[payload.id];
     const attribute = char.attributes[payload.payload.key];
-    let theAttribute = state.characters[payload.id].attributes[payload.payload.key];
+    let theAttribute = state.characters[payload.id].attributes[payload.payloadaddCharacterCustomSkill.key];
     theAttribute = payload.payload.value;
     state.characters[payload.id].attributes[payload.payload.key] = payload.payload.value;
   },
+  addCharacterCustomSkill(state, payload) {
+    let { id, skill } = payload;
+    const character = state.characters[id];
+
+    skill.custom = true;
+    let newSkill = {};
+    newSkill[skill.key] = 0;
+    character.skills = {
+      ...character.skills,
+      ...newSkill,
+    };
+    console.info(`Adding ${skill.name} Skill:`);
+    console.info(skill);
+    character.customSkills.push(skill);
+  },
+  removeCharacterCustomSkill(state, payload) {
+    const { id, key } = payload;
+    const character = state.characters[id];
+
+    console.info(`Removing ${key} Skill.`);
+    delete character.skills[key];
+    character.customSkills = character.customSkills.filter((s)=>s.key !== key);
+  },
+
   /**
    * @param state
    * @param payload {
@@ -668,6 +703,18 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 4:
+        console.debug(`v4 -> v5 : Adding custom skill handling.`);
+        const customSkills = {
+          customSkills: getDefaultState().customSkills,
+        };
+        character.version = 5;
+        state.characters[config.characterId] = {
+          ...character,
+          ...customSkills,
+        };
+        console.info(`Character migrated to v5.`);
+        break;
       case 3:
         console.debug(`v3 -> v4 : Adding resources, defiance and objective basics, set defaults.`);
         const newPart = {
@@ -794,7 +841,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 4,
+  version: 5,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
@@ -844,6 +891,7 @@ const getDefaultState = () => ({
     tech: 0,
     weaponSkill: 0,
   },
+  customSkills: [],
   languages: [
     { name: 'Low Gothic', cost: 0, source: '' },
   ],

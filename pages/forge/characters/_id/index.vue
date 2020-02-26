@@ -86,14 +86,14 @@
         <v-row no-gutters>
          <v-col :cols="12" class="pa-1">
           <v-card>
-            <v-toolbar color="red" dark dense height="32">
-              <v-toolbar-title>Attributes</v-toolbar-title>
-            </v-toolbar>
+            <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
+              Attributes
+            </v-card-title>
 
             <v-simple-table dense>
               <thead>
                 <tr>
-                  <th v-for="header in attributeHeaders" :class="header.class" style="font-size: 11px;">
+                  <th v-for="header in attributeHeaders" :class="header.class">
                     {{ header.text }}
                   </th>
                 </tr>
@@ -127,9 +127,9 @@
         <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
           <v-card>
-            <v-toolbar color="red" dark dense height="32">
-              <v-toolbar-title>Traits</v-toolbar-title>
-            </v-toolbar>
+            <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
+              Traits
+            </v-card-title>
 
             <v-simple-table
               :headers="traitHeaders"
@@ -137,89 +137,33 @@
               dense
             >
               <tbody>
-              <tr v-for="item in groupedTraits">
-                <td class="text-left pa-1 small">
-                  <span>{{ item.name }}</span>
-                  <div v-if="['Wealth','Shock','Wounds'].includes(item.name)" style="float: right;">
-                    <div style="flex-wrap: wrap; display: flex;" v-if="item.enhancedValue > 0">
-                        <div
-                          v-for="pointIndex in item.enhancedValue"
-                          class="resource-box"
-                          :class="{ 'resource-box--filled': pointIndex <= item.spend, 'resource-box--filled-light': item.key === 'wounds' && item.spend <= Math.floor(item.enhancedValue/2) }"
-                          @click="toggleResource(item, pointIndex)"
-                        ></div>
-                      </div>
-                  </div>
-                  <em v-if="item.name==='Resilience' && armour.length>0">
-                    @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
-                  </em>
-                </td>
-                <td v-if="item.name==='Resilience'" class="text-center pa-1 small">
-                  {{ item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
-                </td>
-                <td v-else class="text-center pa-1 small">
-                  {{ item.enhancedValue }}
-                </td>
-              </tr>
+                <tr v-for="item in groupedTraits">
+                  <td class="text-left pa-1 small">
+                    <span>{{ item.name }}</span>
+                    <div v-if="['Wealth','Shock','Wounds'].includes(item.name)" style="float: right;">
+                      <div style="flex-wrap: wrap; display: flex;" v-if="item.enhancedValue > 0">
+                          <div
+                            v-for="pointIndex in item.enhancedValue"
+                            class="resource-box"
+                            :class="{ 'resource-box--filled': pointIndex <= item.spend, 'resource-box--filled-light': item.key === 'wounds' && item.spend <= Math.floor(item.enhancedValue/2) }"
+                            @click="toggleResource(item, pointIndex)"
+                          ></div>
+                        </div>
+                    </div>
+                    <em v-if="item.name==='Resilience' && armour.length>0">
+                      @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
+                    </em>
+                  </td>
+                  <td v-if="item.name==='Resilience'" class="text-center pa-1 small">
+                    {{ item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
+                  </td>
+                  <td v-else class="text-center pa-1 small">
+                    {{ item.enhancedValue }}
+                  </td>
+                </tr>
               </tbody>
             </v-simple-table>
 
-            <v-data-table
-              v-if="false"
-              :headers="traitHeaders"
-              :items="traits.filter(i=>i.type === 'Combat')"
-              hide-footer
-              hide-actions
-            >
-              <template v-slot:items="props">
-                <tr>
-                  <td class="text-left pa-1 small">
-                    {{ item.name }}
-                  </td>
-                  <td class="text-center pa-1 small">
-                    {{ item.enhancedValue }}
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
-
-            <v-data-table
-              v-if="false"
-              :headers="traitHeaders"
-              :items="traits.filter(i=>i.type === 'Mental')"
-              hide-footer
-              hide-actions
-            >
-              <template v-slot:items="props">
-                <tr>
-                  <td class="text-left pa-1 small">
-                    {{ item.name }}
-                  </td>
-                  <td class="text-center pa-1 small">
-                    {{ item.enhancedValue }}
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
-
-            <v-data-table
-              v-if="false"
-              :headers="traitHeaders"
-              :items="traits.filter(i=>i.type === 'Social')"
-              hide-footer
-              hide-actions
-            >
-              <template v-slot:items="props">
-                <tr>
-                  <td class="text-left pa-1 small">
-                    {{ item.name }}
-                  </td>
-                  <td class="text-center pa-1 small">
-                    {{ item.enhancedValue }}
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
           </v-card>
         </v-col>
         </v-row>
@@ -230,17 +174,18 @@
       <v-col :cols="12" :sm="6" :md="3">
         <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
-          <v-card style="height: 612px;">
-            <v-toolbar color="red" dark dense height="32">
-              <v-toolbar-title>Skills</v-toolbar-title>
-            </v-toolbar>
+          <v-card style="height: 612px; display: flex; flex-flow: column;">
+            <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
+              Skills
+            </v-card-title>
 
             <v-simple-table
               dense
+              style="overflow-y: auto"
             >
               <thead>
               <tr>
-                <th v-for="header in skillHeaders">
+                <th v-for="header in skillHeaders" :class="header.class">
                   {{ header.text }}
                 </th>
               </tr>
@@ -249,6 +194,7 @@
               <tr v-for="item in skills">
                 <td class="text-left pa-1 small">
                   {{ item.name }}
+                  <v-icon v-if="item.custom" color="error" small @click="removeCustomSkill(item.key)">remove_circle</v-icon>
                 </td>
                 <td class="text-center pa-1 small">
                   {{ item.value }}
@@ -262,10 +208,47 @@
               </tr>
               </tbody>
             </v-simple-table>
-          </v-card>
-        </v-col>
+
+            <v-spacer></v-spacer>
+
+            <v-card-actions style="justify-content: center;">
+              <v-btn x-small text @click="openSkillsSettings">Additional Skill <v-icon small>settings</v-icon></v-btn>
+            </v-card-actions>
+
+            </v-card>
+          </v-col>
         </v-row>
       </v-col>
+
+      <v-dialog
+        v-model="skillsEditorDialog"
+        width="600px"
+        scrollable
+        :fullscreen="$vuetify.breakpoint.xsOnly"
+      >
+        <v-card>
+          <v-card-title style="background-color: #262e37; color: #fff;">
+            Edit Custom Skill
+            <v-spacer />
+            <v-icon dark @click="closeSkillsSettings">close</v-icon>
+          </v-card-title>
+          <v-card-text class="pt-4">
+            <v-text-field v-model="customSkill.name" dense label="Skill Name"></v-text-field>
+            <v-select
+              v-model="customSkill.attribute"
+              :items="attributeRepository"
+              item-value="name" item-text="name"
+              dense label="Accosiated Attribute"
+            ></v-select>
+            <v-textarea v-model="customSkill.description" dense label="Description"></v-textarea>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn small right color="success" @click="saveCustomSkill">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
       <!-- actions, gear, feats, spells, ... -->
       <v-col :cols="12" :sm="12" :md="6" class="pa-1 ">
@@ -766,8 +749,6 @@
   },
   data() {
     return {
-      objectiveEditorShow: false,
-      objectiveEditorValue: '',
       attributeHeaders: [
         { text: 'Attribute', sortable: false, align: 'left', class: 'text-left small pa-1' },
         { text: 'Rating', sortable: false, align: 'center', class: 'text-center small pa-1' },
@@ -803,6 +784,17 @@
       ],
       descriptionSection: { selection: 'all' },
       abilitySection: { filter: 'all' },
+      //
+      objectiveEditorShow: false,
+      objectiveEditorValue: '',
+      //
+      skillsEditorDialog: false,
+      customSkill: {
+        key: undefined,
+        name: 'Custom Skill',
+        attribute: '',
+        description: '',
+      },
       //
       characterSpecies: undefined,
       characterArchetype: undefined,
@@ -1018,12 +1010,22 @@
       };
     },
     skills() {
+      let finalSkills = [];
       const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
-      return this.skillRepository.map((s) => ({
+      const customSkills = this.$store.getters['characters/characterCustomSkillsById'](this.characterId);
+
+      const skillInfos = [
+        ...this.skillRepository,
+        ...customSkills,
+      ];
+
+      finalSkills = skillInfos.map((s) => ({
         ...s,
         value: skills[s.key],
         enhancedValue: skills[s.key],
       }));
+
+      return finalSkills;
     },
     enhancements() {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
@@ -1311,7 +1313,10 @@
     },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
-      return attribute.adjustedRating + skill.enhancedValue;
+      if (attribute) {
+        return attribute.adjustedRating + skill.enhancedValue;
+      }
+      return skill.enhancedValue;
     },
     computeFormatedText(text) {
       if ( text === undefined ) {
@@ -1345,7 +1350,37 @@
       const current = this.characterFaith.spend;
       const spend = (index > current) ? current+1 : current-1;
       this.$store.commit('characters/setCharacterFaithSpend', { id, spend });
-    }
+    },
+    openSkillsSettings(){
+      this.skillsEditorDialog = true;
+    },
+    closeSkillsSettings() {
+      this.customSkill = {
+        key: undefined,
+        name: 'Custom Skill',
+        atttribute: '',
+        description: '',
+      };
+      this.skillsEditorDialog = false;
+    },
+    saveCustomSkill() {
+      const skill = {
+        key: this.textToCamel(this.customSkill.name),
+        name: this.customSkill.name,
+        attribute: this.customSkill.attribute,
+        description: this.customSkill.description,
+      };
+      this.addCustomSkill(skill);
+      this.closeSkillsSettings();
+    },
+    addCustomSkill(skill) {
+      const id = this.characterId;
+      this.$store.commit('characters/addCharacterCustomSkill', { id, skill });
+    },
+    removeCustomSkill(key) {
+      const id = this.characterId;
+      this.$store.commit('characters/removeCharacterCustomSkill', { id, key });
+    },
   },
 };
 </script>

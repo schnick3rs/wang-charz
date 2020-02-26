@@ -89,7 +89,7 @@
           <template v-slot:default>
             <tbody>
               <tr
-                v-for="skill in skillRepository"
+                v-for="skill in finalSkillRepository"
                 :key="skill.key"
               >
                 <td>{{ skill.name }}</td>
@@ -110,7 +110,7 @@
                     </v-icon>
                   </v-btn>
                 </td>
-                <td>{{ characterSkills[skill.key]+characterAttributesEnhanced[skill.attribute.toLowerCase()] }}</td>
+                <td>{{ computeSkillPool(skill) }}</td>
               </tr>
             </tbody>
           </template>
@@ -262,6 +262,15 @@ export default {
     characterTraitsEnhanced() {
       return this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
     },
+    characterCustomSkills() {
+      return this.$store.getters['characters/characterCustomSkillsById'](this.characterId);
+    },
+    finalSkillRepository() {
+      return [
+        ...this.skillRepository,
+        ...this.characterCustomSkills,
+      ];
+    }
   },
   watch: {
     characterArchetypeKey: {
@@ -297,8 +306,8 @@ export default {
       this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: attribute, value: newValue } });
     },
     skillsByAttribute(attribute) {
-      if (this.skillRepository !== undefined) {
-        return this.skillRepository.filter((s) => s.attribute === attribute);
+      if (this.finalSkillRepository !== undefined) {
+        return this.finalSkillRepository.filter((s) => s.attribute === attribute);
       }
       return [];
     },
@@ -322,6 +331,13 @@ export default {
     },
     skillMaximumBy(tier) {
       return 3 + tier;
+    },
+    computeSkillPool(skill) {
+      const attribute = this.characterAttributesEnhanced[skill.attribute.toLowerCase()];
+      if (attribute) {
+        return attribute + this.characterSkills[skill.key];
+      }
+      return this.characterSkills[skill.key];
     },
     ensurePrerequisites() {
       const archetype = this.archetype;
