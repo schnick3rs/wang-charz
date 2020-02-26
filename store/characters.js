@@ -366,7 +366,7 @@ export const mutations = {
   setCharacterAttribute(state, payload) {
     const char = state.characters[payload.id];
     const attribute = char.attributes[payload.payload.key];
-    let theAttribute = state.characters[payload.id].attributes[payload.payloadaddCharacterCustomSkill.key];
+    let theAttribute = state.characters[payload.id].attributes[payload.key];
     theAttribute = payload.payload.value;
     state.characters[payload.id].attributes[payload.payload.key] = payload.payload.value;
   },
@@ -374,13 +374,14 @@ export const mutations = {
     let { id, skill } = payload;
     const character = state.characters[id];
 
-    skill.custom = true;
     let newSkill = {};
     newSkill[skill.key] = 0;
     character.skills = {
       ...character.skills,
       ...newSkill,
     };
+
+    skill.custom = true;
     console.info(`Adding ${skill.name} Skill:`);
     console.info(skill);
     character.customSkills.push(skill);
