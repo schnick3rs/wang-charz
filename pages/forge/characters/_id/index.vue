@@ -194,7 +194,16 @@
               <tr v-for="item in skills">
                 <td class="text-left pa-1 small">
                   {{ item.name }}
-                  <v-icon v-if="item.custom" color="error" small @click="removeCustomSkill(item.key)">remove_circle</v-icon>
+                  <span v-if="item.custom">
+                    <v-hover>
+                      <v-icon
+                        small
+                        @click="removeCustomSkill(item.key)"
+                        slot-scope="{ hover }"
+                        :color="`${ hover ? 'error' : '' }`"
+                      >delete</v-icon>
+                    </v-hover>
+                  </span>
                 </td>
                 <td class="text-center pa-1 small">
                   {{ item.value }}
@@ -1364,14 +1373,21 @@
       this.skillsEditorDialog = false;
     },
     saveCustomSkill() {
+      // validate
       const skill = {
         key: this.textToCamel(this.customSkill.name),
         name: this.customSkill.name,
         attribute: this.customSkill.attribute,
         description: this.customSkill.description,
       };
-      this.addCustomSkill(skill);
-      this.closeSkillsSettings();
+
+      const doExist = this.skills.find((s)=>s.key===skill.key);
+      if ( doExist ) {
+        console.warn(`Skill ${skill.name} already exists.`);
+      } else {
+        this.addCustomSkill(skill);
+        this.closeSkillsSettings();
+      }
     },
     addCustomSkill(skill) {
       const id = this.characterId;
