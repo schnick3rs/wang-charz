@@ -1,13 +1,6 @@
 # doctors-of-doom
 
-#Features
-
-# ToDo's
-
-#### Cloud Character Sheet
-_A view (not an edit) of the current character. Should be responsive._
-
-* `[_]` Add toolbar and Layout
+# Feature List
 
 #### User Account
 
@@ -15,19 +8,17 @@ _A view (not an edit) of the current character. Should be responsive._
 * `[_]` Login
 * `[_]` Logout
 
-#### Manager
+#### Forge
 
-* `[_]` Persist Character (needs refinement, cloud, local)
-
-#### Generator
+* `[x]` Persist Character (needs refinement, cloud, local)
 
 ###### CORE Functionality
 
-* `[_]` Handle additional powers for eldar species
+* `[x]` Handle additional powers for eldar species
 
 ##### Extended CORE
 
-* `[_]` faith talent / resource handling
+* `[x]` faith talent / resource handling
 * `[_]` Traits: Add asserts and allow to buy (up to # tier) during creation
 * `[_]` Keywords: Custom text for some (or all) sub keywordsd
 * `[_]` Keywords: Allow for custom strings
@@ -38,16 +29,11 @@ _A view (not an edit) of the current character. Should be responsive._
 * `[_]` stats: more verbose archetype prerequisite notes
 * `[_]` Handle Ascension and Archetype Stat prerequisites
 * `[_]` Helper: Attribute and Skill packages for beginners
-* `[_]` Astartes: Default Archetype Chapter Keyword derived from Species selection (and vice versa)
 
 ###### Others
 
 * `[_]` Allow for the Optional Wargear Rules
 * `[_]` Allow for custom Gear to be added: Misc, Armour, Weapon
-
-#### Homebrew Support
-
-* `[_]` Add homebrew support
 
 ### Backlog
 * (?) Keyword overview tab

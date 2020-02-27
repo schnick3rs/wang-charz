@@ -2532,9 +2532,111 @@ const aaoaRep = [
   simpleStub('aaoa', 40, 'core-human', 'Adeptus Mechanicus', 'Magos', 80, 4),
   simpleStub('aaoa', 41, 'core-human', 'Adeptus Mechanicus', 'Genetor', 80, 4),
   simpleStub('aaoa', 41, 'core-human', 'Adeptus Mechanicus', 'Logis', 80, 4),
-  simpleStub('aaoa', 42, 'core-human', 'Renegades', 'Chaos Space Marine', 50, 3),
-  simpleStub('aaoa', 42, 'core-human', 'Renegades', 'Chaos Space Marine Raptor', 60, 3),
-  simpleStub('aaoa', 43, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Havoc', 60, 3),
+  {
+    ...simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine', 50, 3, false),
+    hint: ' ',
+    prerequisites: [
+      reqAttribute('strength', 4),
+      reqAttribute('agility', 4),
+      reqAttribute('toughness', 4),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('weaponSkill', 3),
+    ],
+    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
+    influence: 2,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Masters of Slaughter: The cruelty and malice of a Chaos Space Marine knows no limit, and few can endure their wrath. When making a critical hit, they count as improving the severity of the critical hit as if they had spent one Glory. They may still spend additional Glory to increase the severity further.'),
+    ],
+    wargearString:
+      'Aquila power armour, boltgun or chainsword, bolt pistol, Astartes combat knife, 3 frag and 3 krak grenades.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      {
+        name: 'Boltgun or Chain Sword',
+        options: [
+          { name: 'Boltgun' },
+          { name: 'Chain Sword' },
+        ]
+      },
+      { name: 'Bolt Pistol' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Raptor', 60, 3, false),
+    hint: ' ',
+    prerequisites: [
+      reqAttribute('strength', 4),
+      reqAttribute('agility', 4),
+      reqAttribute('toughness', 4),
+      reqSkill('weaponSkill', 4),
+      reqSkill('pilot', 3),
+      reqSkill('intimidation', 3),
+    ],
+    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
+    influence: 2,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Cruel Hunters: Enemies within 15m of a Chaos Space Marine Raptor add +1/2 Rank to the DN of any Resolve tests they are required to make.'),
+    ],
+    wargearString:
+      'Aquila power armour, bolt pistol, chainsword, 3 frag and krak grenades, jump pack.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Jump Pack' },
+      { name: 'Chain Sword' },
+      { name: 'Bolt Pistol' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 45, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Havoc', 60, 3),
+    hint: ' ',
+    prerequisites: [
+      reqAttribute('strength', 4),
+      reqAttribute('agility', 4),
+      reqAttribute('toughness', 4),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('tech', 3),
+    ],
+    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
+    influence: 2,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Addicted to Destruction: When a Chaos Space Marine Havoc rolls a 6 on their Wrath die when making a ranged attack, they may forego their critical hit and spend a reload in order to make a second ranged attack with that weapon. This second attack may not allow them to make any additional attacks.'),
+    ],
+    wargearString:
+      'Aquila power armour, bolt pistol, 3 frag and krak grenades, and one of the following weapons: autocannon, flamer, heavy bolter, missile launcher with 6 frag and 6 krak missiles, lascannon, melta gun, or plasma gun.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Bolt Pistol' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+      {
+        name: 'Krak Grenade',
+        options: [
+          { name: 'autocannon' },
+          { name: 'flamer' },
+          { name: 'heavy bolter' },
+          { name: 'missile launcher' },
+          { name: 'lascannon' },
+          { name: 'melta gun' },
+          { name: 'plasma gun' },
+        ],
+      },
+    ],
+  },
   simpleStub('aaoa', 43, 'core-adeptus-astartes', 'Renegades', 'Khorne Berzerker', 80, 3),
   simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Nurgle Plague Marine', 70, 3),
   simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Slaanesh Noise Marine', 60, 3),

@@ -550,7 +550,7 @@ const homebrewReps = [
           'You gain +1d on any two of the following skills, chosen during character creation: Insight, Intimidate, Leadership, Scholar.',
         options: [
           { name: 'Insight', modifications: [ { name: 'Insight', targetGroup: 'skills', targetValue: 'insight', modifier: 1 } ] },
-          { name: 'Intimidate', modifications: [ { name: 'Intimidate', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 } ] },
+          { name: 'Intimidation', modifications: [ { name: 'Intimidation', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 } ] },
           { name: 'Leadership', modifications: [ { name: 'Leadership', targetGroup: 'skills', targetValue: 'leadership', modifier: 1 } ] },
           { name: 'Scholar', modifications: [ { name: 'Scholar', targetGroup: 'skills', targetValue: 'Scholar', modifier: 1 } ] },
         ],
@@ -564,7 +564,7 @@ const homebrewReps = [
           'You gain +1d on any two of the following skills, chosen during character creation: Insight, Intimidate, Leadership, Scholar.',
         options: [
           { name: 'Insight', modifications: [ { name: 'Insight', targetGroup: 'skills', targetValue: 'insight', modifier: 1 } ] },
-          { name: 'Intimidate', modifications: [ { name: 'Intimidate', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 } ] },
+          { name: 'Intimidation', modifications: [ { name: 'Intimidation', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 } ] },
           { name: 'Leadership', modifications: [ { name: 'Leadership', targetGroup: 'skills', targetValue: 'leadership', modifier: 1 } ] },
           { name: 'Scholar', modifications: [ { name: 'Scholar', targetGroup: 'skills', targetValue: 'Scholar', modifier: 1 } ] },
         ],
