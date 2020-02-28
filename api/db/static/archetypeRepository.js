@@ -2534,7 +2534,7 @@ const aaoaRep = [
   simpleStub('aaoa', 41, 'core-human', 'Adeptus Mechanicus', 'Logis', 80, 4),
   {
     ...simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine', 50, 3, false),
-    hint: ' ',
+    hint: 'Monstrous traitors and savage posthuman killers',
     prerequisites: [
       reqAttribute('strength', 4),
       reqAttribute('agility', 4),
@@ -2569,7 +2569,7 @@ const aaoaRep = [
   },
   {
     ...simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Raptor', 60, 3, false),
-    hint: ' ',
+    hint: 'Cruel hunters who descent upon shrieking wings of fire',
     prerequisites: [
       reqAttribute('strength', 4),
       reqAttribute('agility', 4),
@@ -2599,8 +2599,8 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 45, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Havoc', 60, 3),
-    hint: ' ',
+    ...simpleStub('aaoa', 45, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Havoc', 60, 3, false),
+    hint: 'Heavy weapon specialists who revel in endless destruction',
     prerequisites: [
       reqAttribute('strength', 4),
       reqAttribute('agility', 4),
@@ -2637,16 +2637,346 @@ const aaoaRep = [
       },
     ],
   },
-  simpleStub('aaoa', 43, 'core-adeptus-astartes', 'Renegades', 'Khorne Berzerker', 80, 3),
-  simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Nurgle Plague Marine', 70, 3),
-  simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Slaanesh Noise Marine', 60, 3),
-  simpleStub('aaoa', 45, 'core-adeptus-astartes', 'Renegades', 'Sorcerer', 90, 4),
-  simpleStub('aaoa', 45, 'core-adeptus-astartes', 'Renegades', 'Warpsmith', 60, 3),
-  simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Dark Apostle', 60, 4),
-  simpleStub('aaoa', 46, 'Beastman', 'Renegades', 'Khorngor', 20, 1),
-  simpleStub('aaoa', 47, 'Beastman', 'Renegades', 'Pestigor', 20, 1),
-  simpleStub('aaoa', 47, 'Beastman', 'Renegades', 'Slaangor', 20, 1),
-  simpleStub('aaoa', 48, 'Beastman', 'Renegades', 'Tzaangor', 20, 1),
+  {
+    ...simpleStub('aaoa', 43, 'core-adeptus-astartes', 'Renegades', 'Khorne Berzerker', 80, 3, false),
+    hint: 'Frenzied, bloodthirsty killers who have devoted themselves to the Blood God',
+    prerequisites: [
+      reqAttribute('strength', 4),
+      reqAttribute('agility', 4),
+      reqAttribute('toughness', 4),
+      reqSkill('weaponSkill', 5),
+    ],
+    keywords: 'Heretic, Chaos, Khorne, Heretic Astartes, <Legion>',
+    influence: 1,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Blood for the Blood God!: When a Khorne Berzerker makes an All-Out Attack, they may choose up to 1/2 Rank dice in their dice pool to be Wrath dice, in addition to the normal Wrath die. If any of these Wrath dice are 6s, then the character scores a critical hit. They gain one level of extra severity on that critical hit, as if a Glory had been spent, for every Wrath die after the first which rolls a 6.'),
+    ],
+    wargearString:
+      'Aquila power armour, chainsword or chain axe, bolt pistol, 3 frag and 3 krak grenades.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      {
+        name: 'Chain Sword or chain axe',
+        options: [
+          { name: 'chain sword' },
+          { name: 'chain axe' },
+        ],
+      },
+      { name: 'Bolt Pistol' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Nurgle Plague Marine', 70, 3),
+    hint: 'Nigh-unstoppable foot-soldiers of the God of Disease',
+    prerequisites: [
+      reqAttribute('strength', 4),
+      reqAttribute('agility', 3),
+      reqAttribute('toughness', 5),
+      reqSkill('ballisticSkill', 4),
+    ],
+    keywords: 'Heretic, Chaos, Nurgle, Heretic Astartes, <Legion>',
+    influence: 1,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'speed', modification: -1 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Disgustingly Resilient: Plague Marines are extraordinarily durable, as they feel no pain and they draw their nauseating vitality from their patron god. A Plague Marine may Soak mortal wounds and does not cost them any Shock.'),
+      {
+        name: 'Bulky and Bloated',
+        snippet: 'Your speed is decreased by 1.',
+        description: '<p>Plague Marines reduce their Speed by 1.</p>',
+      }
+    ],
+    wargearString:
+      'Aquila power armour, bolt gun, plague knife, 3 blight grenades and 3 krak grenades.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Bolt Gun' },
+      { name: 'Plague Knife' },
+      { name: 'Blight Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Slaanesh Noise Marine', 60, 3),
+    hint: 'Sensation-addicted warriors of the Prince of Pleasure, armed with sonic weaponry',
+    prerequisites: [
+      reqAttribute('strength', 4),
+      reqAttribute('agility', 5),
+      reqAttribute('intellect', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('awareness', 4),
+    ],
+    keywords: 'Heretic, Chaos, Slaanesh, Heretic Astartes, <Legion>',
+    influence: 1,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Cacophony and Ecstasy: Noise Marines gain +Rank on all skill tests that relate specifically to hearing, and can pick out sounds, and variations in sounds that a normal human cannot. Further, a Noise Marine heals 1/2 Rank shock at the end of every turn, as they revel in the sensations of battle. However, a Noise Marine who is reduced to 0 Shock is staggered as well as exhausted, as they are overcome by sensation.'),
+    ],
+    wargearString:
+      'Aquila power armour, bolt gun or sonic blaster, Astartes combat knife, 3 frag and 3 krak grenades.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      {
+        name: 'bolt gun or sonic blaster',
+        options: [
+          { name: 'Bolt Gun' },
+          { name: 'Sonic Blaster' },
+        ],
+      },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 47, 'core-adeptus-astartes', 'Renegades', 'Chaos Sorcerer', 60, 3),
+    hint: 'Warrior-mystics who have dabbled in the blasphemous powers of the Warp',
+    prerequisites: [
+      reqAttribute('strength', 4),
+      reqAttribute('agility', 4),
+      reqAttribute('toughness', 4),
+      reqAttribute('willpower', 2),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('weaponSkill', 2),
+      reqSkill('scholar', 2),
+      reqSkill('psychicMastery', 3),
+    ],
+    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Psyker',
+    influence: 3,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Psyker',
+        snippet: 'You learn the Smite power and one additional minor power. You gain access to Minor and Universal powers. You also gain access to either Librarius or Chapter specifc powers',
+        description:
+          '<p>A Sorcerer begins play with the smite psychic power and one minor psychic power. ' +
+          'He may also purchase additional minor psychic powers and Universal Psychic powers, ' +
+          'Maleficarum Psychic Powers, or Dark Hereticus discipline, subject to Tier restrictions.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Universal',
+          'Maleficarum',
+          'Dark Hereticus', // AAOA Spells
+        ],
+      },
+      simpleAbility('Hatred of Khorne', 'Sorcerers may never choose the Khorne keyword.'),
+    ],
+    wargearString:
+      'Aquila power armour, force sword, bolt pistol, 3 frag and 3 krak grenades.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Force Sword' },
+      { name: 'Bolt Pistol' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Warpsmith', 55, 3, false),
+    hint: 'An artisan who blends warpcraft and engineering to create daemonic machines of war.',
+    prerequisites: [
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 4),
+      reqAttribute('intellect', 3),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('weaponSkill', 3),
+      reqSkill('scholar', 1),
+      reqSkill('tech', 3),
+    ],
+    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Dark Mechanicus',
+    influence: 1,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Master of Mechanisms: Warpsmiths automatically reduce the time by half for any Tech test. They receive +Rank on any test to summon or bind a daemon into a machine, or to command a daemonic machine.'),
+    ],
+    wargearString:
+      'Fleshmetal armour, bolt pistol, power axe, 3 frag and krak grenades, augmetic servo-arm, choice of two augmetics',
+    wargear: [
+      { name: 'Fleshmeta Armor' },
+      { name: 'Bolt Pistol' },
+      { name: 'Power Axe' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+      { name: 'Mechandrites (Servo-Arm)' },
+      {
+        name: 'One augmentic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: ['Augmentic'],
+          },
+        ],
+      },
+      {
+        name: 'One augmentic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: ['Augmentic'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Dark Apostle', 60, 4, false),
+    hint: 'A furious zealot-priest, speaking blasphemous prayers from blood-flecked lips.',
+    prerequisites: [
+      reqAttribute('strength', 5),
+      reqAttribute('agility', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('fellowship', 3),
+      reqSkill('weaponSkill', 4),
+      reqSkill('scholar', 4),
+      reqSkill('intimidation', 4),
+    ],
+    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Priest',
+    influence: 3,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Demagogue: A Chaplain, and all allies with the Chaos keyword within 15+Rank metres, may add +Rank to their Resolve.'),
+    ],
+    wargearString:
+      'Aquila power armour, bolt pistol, Accursed Crozius (Crozius Arcanum), 3 frag and krak grenades, Sigil of Corruption.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Crozius Arcanum', variant: 'Accused Crozium' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+      { name: 'Sigil of Corruption' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 48, 'aaoa-beastman', 'Renegades', 'Khorngor', 20, 1, false),
+    hint: 'Savage beastmen, driven to a berserk rage by the scent of blood.',
+    prerequisites: [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 3),
+      reqSkill('weaponSkill', 2),
+    ],
+    keywords: 'Heretic, Chaos, Khorne',
+    influence: 0,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('The Scent of Blood: After an enemy has been killed in a scene, a Khorngor becomes frenzied, and must make WP tests to restrain themselves. While frenzied, however, they add +1/2 Rank ED to all melee damage rolls they make.'),
+    ],
+    wargearString:
+      'Two axes, or chainaxe and Autopistol, flak armour',
+    wargear: [
+      { name: 'Flak Armour' },
+      {
+        name: 'Two axes, or chainaxe and Autopistol, flak armour',
+        options: [
+          { name: 'Axe', amount: 2 },
+          { name: 'Chain Axe and Autopistol' },
+        ],
+      },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 49, 'aaoa-beastman', 'Renegades', 'Pestigor', 20, 1, false),
+    hint: 'Monstrous beastmen, uncaring to pain or fear.',
+    prerequisites: [
+      reqAttribute('agility', 3),
+      reqSkill('weaponSkill', 2),
+      reqSkill('intimidation', 1),
+    ],
+    keywords: 'Heretic, Chaos, Nurgle',
+    influence: 1,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Inured to Suffering: Pestigor know no pain or fear, and little can dissuade them from their task. They increase both their Resolve and their Soak by +1/2 Rank.'),
+    ],
+    wargearString:
+      'Autogun, plague knife, flak armour',
+    wargear: [
+      { name: 'Flak Armour' },
+      { name: 'Autogun' },
+      { name: 'Plague Knife' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 49, 'aaoa-beastman', 'Renegades', 'Slaangor', 20, 1,false),
+    hint: 'Beastmen who glory in the name of the Prince of Pleasure',
+    prerequisites: [
+      reqAttribute('agility', 3),
+      reqSkill('weaponSkill', 2),
+      reqSkill('persuasion', 1),
+    ],
+    keywords: 'Heretic, Chaos, Slaanesh',
+    influence: 1,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Distracting Musk: Slaangor exude a faintly soporific musk that disrupts the concentration of any who stray too close. Characters within 5m of a Slaangor increase the DN of all Willpower and Resolve tests by 1/2 Rank. This does not affect characters with the Slaanesh keyword, who’ve already built up a resistance to it.'),
+    ],
+    wargearString:
+      'Two swords, mesh armour.',
+    wargear: [
+      { name: 'Mesh Armour' },
+      { name: 'Sword' },
+      { name: 'Sword' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 50, 'aaoa-beastman', 'Renegades', 'Tzaangor', 20, 1,false),
+    hint: 'Twisted, cunning Beastmen who serve sorcerous masters',
+    prerequisites: [
+      reqAttribute('intellect', 3),
+      reqSkill('weaponSkill', 2),
+      reqSkill('scholar', 1),
+    ],
+    keywords: 'Heretic, Chaos, Tzeentch',
+    influence: 1,
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+    ],
+    archetypeFeatures: [
+      simpleAbility('Aura of Change: Tzaangor are wreathed in an aura of warp energy and twisted probabilities, which shields them from harm. A Tzaangor may Soak Mortal Wounds and increases their Resilience by +1/2 Rank. This increase to their Resilience is considered to be a force field, and thus cannot be reduced by an attack’s AP.'),
+    ],
+    wargearString:
+      'Two swords, or chainsword and autopistol.',
+    wargear: [
+      {
+        name: 'Two swords, or chainsword and autopistol.',
+        options: [
+          { name: 'Sword', amount: 2 },
+          { name: 'Chain Sword and Autopistl' },
+        ],
+      },
+    ],
+  },
   simpleStub('aaoa', 49, 'Eldar', 'Aeldari', 'Guardian', 0, 1),
   simpleStub('aaoa', 49, 'Eldar', 'Aeldari', 'Dire Avenger', 50, 3),
   simpleStub('aaoa', 50, 'Eldar', 'Aeldari', 'Dark Reaper', 70, 3),
