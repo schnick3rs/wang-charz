@@ -271,6 +271,14 @@ const aaoa = [
       '<p>A helmet-mounted psychic weapon, the animus speculum focusses the negative psychic presence of the wearer into bolts of energy that overwhelm the minds and souls of others. They draw additional power from nearby psykers, becoming deadlier with each psyker nearby.</p>',
   },
   {
+    ...simpleStub(30982, 'aaoa',98,'Blight Grenade', '4U', 'Explosive, Chaos, Nurgle', ''),
+    ...simpleRange('Grenades and Grenade Launchers', '', '10', '1', '0', '-', 'Blast (Medium),Toxic (5)', ''),
+  },
+  {
+    ...simpleStub(30992, 'aaoa',99,'Sonic Blaster', '6R','Sonic, Chaos, Slaanesh', ''),
+    ...rangeAaoa('10+1ED; AP 0; Range 48m; Salvo 3; Assault, Cacophony'),
+  },
+  {
     ...simpleStub(31050, 'aaoa',105,'Kustom Mega-Blasta', '7R', 'Kustom, Plasma, Ork', ''),
     ...rangeAaoa('16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!', 'Ork Ranged Weapon', 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.'),
     snippet: 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.',
@@ -291,6 +299,14 @@ const aaoa = [
     description:
       '<p>Serving as both a sceptre of office and a weapon for Astartes Chaplains, each Crozius Arcanum is a staff or maul with a head shaped like an aquila or other symbol of significance to the Imperium or the chapter. Inside this sceptre is a power field generator, allowing it to function similarly to a power maul.</p>' +
       '<p>The Dark Apostles of Heretic Astartes forces use a debased counterpart to this weapon, the Accursed Crozius.</p>',
+  },
+  {
+    ...simpleStub(31131, 'aaoa',113,'Plague Knife', '5U', 'Pestilent, Chaos, Nurgle', ''),
+    ...meleeAaoa('3+1ED; AP 0; Steadfast, Toxic (7)', 'Chaos Melee Weapon'),
+  },
+  {
+    ...simpleStub(31132, 'aaoa',113,'Plague Sword', '7R', 'Pestilent, Chaos, Daemon, Nurgle', ''),
+    ...meleeAaoa('5+1ED; AP 0; Parry, Toxic (7)', 'Chaos Melee Weapon'),
   },
   {
     ...simpleStub(31154, 'aaoa',115,'‘Urty Syringe', '4U', 'Exotic, Ork', ''),
@@ -318,6 +334,11 @@ const aaoa = [
     snippet: 'The Aegis: Enemy psychic powers which target the wearer suffer +2DN. In addition, the wearer adds +1d when rolling to Soak any attack from a Daemon.',
     description:
       '<p>Aegis Armour is a specialized form of Astartes Power Armour worn by members of the Grey Knights chapter. Worked into their Armour, each Aegis Suit contains a lattice of psycho-conductive filaments and protective amulets, wrought into hexagrammic wards and inscribed with anti-daemonic prayers. Aegis Armour allows Grey Knights to better combat Warp Entities and Rogue Psykers by protecting them from psychic attack. The technology incorporated into The Aegis represents the most potent anti-psychic defences in the Imperium of Man.</p>',
+  },
+  {
+    ...simpleStub(313302, 'aaoa',130,'Sigil of Corruption', '8L', 'Daemonic, Chaos', ''),
+    ...armour('Chaos Armour', 4, 'Force Shield'),
+    snippet: 'Blasphemy: The first time a character dons a Sigil of Corruption, they gain +2 Corruption Points.',
   },
   {
     ...simpleStub(31333, 'aaoa',133,'Ionclad Carapace Armour', '6R', 'Heavy, Squat', ''),
