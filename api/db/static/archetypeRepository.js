@@ -1030,7 +1030,7 @@ const core = [
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 1 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
     ],
     prerequisites: [
       { group: 'skills', value: 'deception', threshold: 1 },
@@ -1067,7 +1067,7 @@ const core = [
       { name: 'Tactical Versatility', snippet: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -1106,7 +1106,7 @@ const core = [
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     prerequisites: [
       { group: 'attributes', value: 'intellect', threshold: 3 },
@@ -1180,7 +1180,7 @@ const core = [
     influence: 0,
     keywords: 'Chaos,Heretic,Psyker',
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     description: null,
     hint: 'An unsanctioned bearer of psychic powers, wielding the warp’s power without discipline.',
@@ -2545,7 +2545,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
     influence: 2,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Masters of Slaughter: The cruelty and malice of a Chaos Space Marine knows no limit, and few can endure their wrath. When making a critical hit, they count as improving the severity of the critical hit as if they had spent one Glory. They may still spend additional Glory to increase the severity further.'),
@@ -2581,7 +2581,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
     influence: 2,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Cruel Hunters: Enemies within 15m of a Chaos Space Marine Raptor add +1/2 Rank to the DN of any Resolve tests they are required to make.'),
@@ -2611,7 +2611,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
     influence: 2,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Addicted to Destruction: When a Chaos Space Marine Havoc rolls a 6 on their Wrath die when making a ranged attack, they may forego their critical hit and spend a reload in order to make a second ranged attack with that weapon. This second attack may not allow them to make any additional attacks.'),
@@ -2649,7 +2649,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, Khorne, Heretic Astartes, <Legion>',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Blood for the Blood God!: When a Khorne Berzerker makes an All-Out Attack, they may choose up to 1/2 Rank dice in their dice pool to be Wrath dice, in addition to the normal Wrath die. If any of these Wrath dice are 6s, then the character scores a critical hit. They gain one level of extra severity on that critical hit, as if a Glory had been spent, for every Wrath die after the first which rolls a 6.'),
@@ -2682,7 +2682,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, Nurgle, Heretic Astartes, <Legion>',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
       { targetGroup: 'traits', targetValue: 'speed', modification: -1 },
     ],
     archetypeFeatures: [
@@ -2716,7 +2716,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, Slaanesh, Heretic Astartes, <Legion>',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Cacophony and Ecstasy: Noise Marines gain +Rank on all skill tests that relate specifically to hearing, and can pick out sounds, and variations in sounds that a normal human cannot. Further, a Noise Marine heals 1/2 Rank shock at the end of every turn, as they revel in the sensations of battle. However, a Noise Marine who is reduced to 0 Shock is staggered as well as exhausted, as they are overcome by sensation.'),
@@ -2753,7 +2753,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Psyker',
     influence: 3,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       {
@@ -2806,7 +2806,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Dark Mechanicus',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Master of Mechanisms: Warpsmiths automatically reduce the time by half for any Tech test. They receive +Rank on any test to summon or bind a daemon into a machine, or to command a daemonic machine.'),
@@ -2857,7 +2857,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Priest',
     influence: 3,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Demagogue: A Chaplain, and all allies with the Chaos keyword within 15+Rank metres, may add +Rank to their Resolve.'),
@@ -2883,7 +2883,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, Khorne',
     influence: 0,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('The Scent of Blood: After an enemy has been killed in a scene, a Khorngor becomes frenzied, and must make WP tests to restrain themselves. While frenzied, however, they add +1/2 Rank ED to all melee damage rolls they make.'),
@@ -2912,7 +2912,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, Nurgle',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Inured to Suffering: Pestigor know no pain or fear, and little can dissuade them from their task. They increase both their Resolve and their Soak by +1/2 Rank.'),
@@ -2936,7 +2936,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, Slaanesh',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Distracting Musk: Slaangor exude a faintly soporific musk that disrupts the concentration of any who stray too close. Characters within 5m of a Slaangor increase the DN of all Willpower and Resolve tests by 1/2 Rank. This does not affect characters with the Slaanesh keyword, who’ve already built up a resistance to it.'),
@@ -2960,7 +2960,7 @@ const aaoaRep = [
     keywords: 'Heretic, Chaos, Tzeentch',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modification: 3 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Aura of Change: Tzaangor are wreathed in an aura of warp energy and twisted probabilities, which shields them from harm. A Tzaangor may Soak Mortal Wounds and increases their Resilience by +1/2 Rank. This increase to their Resilience is considered to be a force field, and thus cannot be reduced by an attack’s AP.'),

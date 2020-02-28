@@ -262,6 +262,9 @@ export default {
       mods.push({
         targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype',
       });
+      if (item.modifications){
+        mods.push(...item.modifications);
+      }
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype', cascade: true });
