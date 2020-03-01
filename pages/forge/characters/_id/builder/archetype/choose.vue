@@ -62,7 +62,19 @@
               </v-list-item-avatar>
 
               <v-list-item-content>
-                <v-list-item-title>{{ item.name }}</v-list-item-title>
+                <v-list-item-title>
+                  {{ item.name }}
+                  <v-chip
+                    v-if="item.source && !['core', 'coreab'].includes(item.source.key)"
+                    color="info"
+                    outlined
+                    tags
+                    x-small
+                    label
+                  >
+                    {{item.source.key.toUpperCase()}}
+                  </v-chip>
+                </v-list-item-title>
                 <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
               </v-list-item-content>
 
@@ -194,7 +206,7 @@ export default {
         },
       };
       const { data } = await this.$axios.get('/api/archetypes/', config);
-      this.itemList = data.filter((i) => i.stub === undefined || i.stub === false);
+      this.itemList = data.filter((i) => i.hint);
     },
     async loadSpecies(key) {
       if ( key ) {
@@ -203,7 +215,7 @@ export default {
       }
     },
     getAvatar(key) {
-      return `/img/icon/archetype/archetype_${key}_avatar.png`;
+      return `/img/avatars/archetype/${key}.png`;
     },
     archetypesByGroup(groupName) {
       let archetypes = this.itemList;
@@ -250,6 +262,9 @@ export default {
       mods.push({
         targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype',
       });
+      if (item.modifications){
+        mods.push(...item.modifications);
+      }
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype', cascade: true });

@@ -52,6 +52,9 @@
       <p class="text-lg-justify">
         <strong>Skills:</strong> {{ skillPrerequisites }}
       </p>
+      <p class="text-lg-justify" v-if="item.prerequisiteText">
+        <strong>Others:</strong> {{ item.prerequisiteText }}
+      </p>
 
       <span class="mt-2 grey--text">Benefits</span>
       <p><v-divider /></p>
@@ -209,6 +212,33 @@ export default {
       psychicPowersDiscount: [],
     };
   },
+  mounted() {
+
+    const featuresWithPowers = this.item.archetypeFeatures.filter( (f) => f.psychicPowers !== undefined);
+    if ( featuresWithPowers ) {
+      featuresWithPowers.forEach( (feature) => {
+        feature.psychicPowers.forEach( (powerSelections) => {
+          this.getPsychicPowerOptions(powerSelections);
+          const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${powerSelections.name}`);
+          if ( found ) {
+            console.info(`Power ${found.name} found for the archetype feature ${feature.name} / power ${powerSelections.name}.`);
+            powerSelections.selected = found.name;
+          }
+        });
+      });
+    }
+
+    const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
+    if ( featuresWithOptions ) {
+      featuresWithOptions.forEach((feature) => {
+        const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
+        feature.options.forEach((options) => {
+          console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
+          feature.selected = found.name;
+        });
+      });
+    }
+  },
   computed: {
     selectedKeywords() {
       const selectedKeywords = {};
@@ -224,7 +254,7 @@ export default {
       return [...this.keywordRepository, ...this.keywordSubwordRepository];
     },
     itemKeywordPlaceholders() {
-      const placeholderKeywords = this.item.keywords.split(',').filter((k) => k.includes('<'));
+      const placeholderKeywords = this.item.keywords.split(',').map((i)=>i.trim()).filter((k) => k.includes('<'));
 
       const placeholderSet = [];
 
@@ -284,36 +314,9 @@ export default {
       return this.item.wargear;
     },
   },
-  mounted() {
-
-    const featuresWithPowers = this.item.archetypeFeatures.filter( (f) => f.psychicPowers !== undefined);
-    if ( featuresWithPowers ) {
-      featuresWithPowers.forEach( (feature) => {
-        feature.psychicPowers.forEach( (powerSelections) => {
-          this.getPsychicPowerOptions(powerSelections);
-          const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${powerSelections.name}`);
-          if ( found ) {
-            console.info(`Power ${found.name} found for the archetype feature ${feature.name} / power ${powerSelections.name}.`);
-            powerSelections.selected = found.name;
-          }
-        });
-      });
-    }
-
-    const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
-    if ( featuresWithOptions ) {
-      featuresWithOptions.forEach((feature) => {
-        const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
-        feature.options.forEach((options) => {
-          console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
-          feature.selected = found.name;
-        });
-      });
-    }
-  },
   methods: {
     getAvatar(key) {
-      return `/img/icon/archetype/archetype_${key}_avatar.png`;
+      return `/img/avatars/archetype/${key}.png`;
     },
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {

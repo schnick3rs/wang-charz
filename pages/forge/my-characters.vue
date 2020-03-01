@@ -35,6 +35,43 @@
           Create a Character
         </v-btn>
 
+        <v-btn large color="primary" outlined @click="importDialog = true">
+          <v-icon left>cloud_upload</v-icon>
+          Import a Character
+        </v-btn>
+
+        <v-btn large color="primary" outlined nuxt to="/forge/species">
+          Custom Species
+        </v-btn>
+
+        <v-dialog
+          v-model="importDialog"
+          width="600px"
+          scrollable
+          :fullscreen="$vuetify.breakpoint.xsOnly"
+        >
+          <v-card class="pa-0">
+
+            <v-card-title style="background-color: #262e37; color: #fff;">
+              <span>Import Character</span>
+              <v-spacer />
+              <v-icon dark @click="importDialog = false">close</v-icon>
+            </v-card-title>
+            <v-card-text>
+              <v-textarea
+                class="mt-4"
+                v-model="importSnippet"
+                persistent-hint
+                dense
+                hint="Paste the exported character string into the field and hit the 'import' button."
+              ></v-textarea>
+            </v-card-text>
+            <v-card-actions>
+              <v-btn block color="success" @click="importCharacter(importSnippet)" :disabled="!importSnippet">import</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
+
       </v-col>
 
       <!-- No Chars yet info text -->
@@ -83,12 +120,6 @@
                 This characters were build with an older version and need to be updated to ensure all
                 fields are up to date. Just hit the <strong>update button</strong> to bring all
                   characters back in line.
-              </v-card-text>
-              <v-card-text>
-                <v-alert type="warning" dense outlined>
-                  After thy update, please <strong>reselect potential ascension packages</strong>
-                  to ensure that influence is computed correctly.
-                </v-alert>
               </v-card-text>
               <v-card-actions>
                 <v-btn
@@ -144,7 +175,7 @@
                         <v-icon left small>
                           cloud_upload
                         </v-icon>
-                        Update
+                        Update (v{{characterVersion(character.id)}})
                       </v-btn>
                     </div>
 
@@ -172,7 +203,8 @@
                   nuxt
                   :to="`/forge/characters/${character.id}/builder/setting`"
                   color="primary"
-                  small
+                  x-small
+                  text
                 >
                   <v-icon left small>
                     edit
@@ -183,7 +215,8 @@
                   nuxt
                   :to="`/forge/characters/${character.id}`"
                   color="primary"
-                  small
+                  text
+                  x-small
                 >
                   <v-icon small left>
                     description
@@ -196,28 +229,88 @@
                   target="_blank"
                   color="primary"
                   class="d-none d-md-flex"
-                  outlined
-                  small
-                >
-                  <v-icon small left>
-                    print
-                  </v-icon>
-                  Print
-                </v-btn>
-                <v-btn
-                  color="red"
                   text
-                  small
-                  @click="deleteCharacter(character.id)"
+                  x-small
+                  v-if="false"
                 >
-                  <v-icon small>
-                    delete
-                  </v-icon>
-                  Delete
+                  <v-icon small left>print</v-icon>Print
                 </v-btn>
+
+                <v-btn
+                  color="primary"
+                  text
+                  x-small
+                  @click="openExportDialog(character.id)"
+                >
+                  <v-icon small left>cloud_download</v-icon>
+                  Export
+                </v-btn>
+
+                <v-btn color="error" text small @click="openDeleteDialog(character.id)">
+                  <v-icon small>delete</v-icon>Delete
+                </v-btn>
+
               </v-card-actions>
             </v-card>
           </v-col>
+
+          <v-dialog
+            v-model="exportDialog"
+            width="600px"
+            scrollable
+            :fullscreen="$vuetify.breakpoint.xsOnly"
+          >
+            <v-card class="pa-0">
+
+              <v-card-title style="background-color: #262e37; color: #fff;">
+                <span>Export Character</span>
+                <v-spacer />
+                <v-icon dark @click="exportDialog = false">
+                  close
+                </v-icon>
+              </v-card-title>
+              <v-card-text>
+                <v-textarea
+                  id="exportSnippetId"
+                  rows="10"
+                  readonly
+                  class="mt-4"
+                  persistent-hint
+                  dense
+                  hint="The character is exported without his custom image."
+                  v-model="exportSnippet"
+                ></v-textarea>
+              </v-card-text>
+              <v-divider></v-divider>
+              <v-card-actions>
+                <v-btn outlined block color="primary" @click="copyToClipboard"><v-icon>file_copy</v-icon>Copy to clipboard</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
+          <v-dialog
+            v-model="deleteDialog"
+            width="350"
+            persistent
+          >
+            <v-card>
+              <v-card-title style="background-color: #262e37; color: #fff;">
+                <span>Delete Character confirmation</span>
+                <v-spacer />
+                <v-icon dark @click="deleteDialog = false">close</v-icon>
+              </v-card-title>
+              <v-card-text>
+                <div class="pt-2 pb-2">
+                  <p>Do you really want to delete the character permanently?</p>
+                </div>
+              </v-card-text>
+              <v-divider></v-divider>
+              <v-card-actions>
+                <v-btn block color="primary" @click="deleteCharacter">Delete permanently</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+
         </v-row>
       </v-col>
 
@@ -258,13 +351,16 @@ export default {
   props: [],
   data() {
     return {
+      importDialog: false,
+      importSnippet: '',
+      exportDialog: false,
+      exportSnippet: '',
+      deleteDialog: false,
+      deleteId: undefined,
       breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Forge - My Characters', nuxt: true, exact: true, to: '/forge/my-characters',
-        },
+        { text: '', nuxt: true, exact: true, to: '/' },
+        { text: 'Forge', nuxt: true, exact: true, to: '/forge' },
+        { text: 'Characters', nuxt: true, exact: true, to: '/forge/my-characters' },
       ],
       howTo: {
         steps: [
@@ -412,14 +508,14 @@ export default {
       const archetypeKey = this.characterArchetypeKey(id);
       const speciesKey = this.characterSpeciesKey(id);
       if (archetypeKey !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
-        return `/img/icon/archetype/archetype_${archetypeKey}_avatar.png`;
+        return `/img/avatars/archetype/${archetypeKey}.png`;
       }
 
       if (speciesKey !== undefined) {
-        return `/img/icon/species/species_${speciesKey}_avatar.png`;
+        return `/img/avatars/species/${speciesKey}.png`;
       }
 
-      return '/img/icon/species/species_core-human_avatar.png';
+      return '/img/avatars/species/core-human.png';
     },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)
@@ -440,10 +536,36 @@ export default {
       this.$store.commit('characters/create', newCharId);
       this.$ga.event('New Character', 'click', newCharId, 10);
     },
-    deleteCharacter(id) {
+    openDeleteDialog(id){
+      this.deleteId = id;
+      this.deleteDialog = true;
+    },
+    deleteCharacter() {
+      const id = this.deleteId;
       this.$store.commit('characters/remove', id);
+      this.deleteDialog = false;
       this.$ga.event('Delete Character', 'click', id, 1);
     },
+    openExportDialog(id) {
+      const characterJsonString = this.$store.getters['characters/characterStateJsonById'](id);
+      this.exportSnippet = btoa(characterJsonString);
+      this.exportDialog = true;
+    },
+    copyToClipboard() {
+      document.getElementById('exportSnippetId').select();
+      document.execCommand("copy");
+    },
+    importCharacter(stateString) {
+      const newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+      const payload = {
+        id: newCharId,
+        stateString: atob(stateString),
+      };
+      this.$store.commit('characters/import', payload);
+      this.importSnippet = '';
+      this.importDialog = false;
+      this.$ga.event('Import Character', 'click', newCharId, 1);
+    }
   },
 };
 </script>

@@ -91,6 +91,47 @@
       </v-card>
     </v-col>
 
+    <v-col :cols="12">
+      <v-card>
+        <v-card-title>Manage Languages</v-card-title>
+        <v-card-text>
+          <p><em>Learned languages:</em></p>
+          <v-chip-group column>
+            <v-chip
+              v-for="language in characterLanguages"
+              :key="language.name"
+              label
+              small
+              :close="language.name != 'Low Gothic'"
+              @click:close="removeLanguage(language.name)"
+            >
+              <strong>{{language.name}}</strong>&nbsp;
+              <span v-if="language.cost > 0">({{ language.cost }} BP)</span>
+            </v-chip>
+          </v-chip-group>
+        </v-card-text>
+        <v-divider></v-divider>
+        <v-card-text>
+          <p>
+            Every character starts with <strong>Low Gothic</strong> and an additional language, common to your homeworld or origin.
+          </p>
+          <p>
+            You can learn additional languages for 1 BP each. Exotic languages might cost more. Check with your GM.
+          </p>
+          <v-text-field
+            v-model="languageInput"
+            persistent-hint
+            hint="Enter a custom language and hit enter or click the [+] icon. Toggle the [$] for 0/1 BP."
+            :prepend-icon="languageCostMarker ? 'attach_money' : 'money_off'"
+            @click:prepend="languageCostMarker = !languageCostMarker"
+            append-outer-icon="add_box"
+            @click:append-outer="addLanguage(languageInput)"
+            @keypress.enter="addLanguage(languageInput)"
+          ></v-text-field>
+        </v-card-text>
+      </v-card>
+    </v-col>
+
     <issue-list :items="issues" />
   </v-row>
 </template>
@@ -115,6 +156,8 @@ export default {
         'Allow to select a second background if the respective talent is chosen',
       ],
       characterBackground: undefined,
+      languageInput: '',
+      languageCostMarker: false,
     };
   },
   computed: {
@@ -123,6 +166,9 @@ export default {
     },
     characterBackgroundSnippet() {
       return this.$store.getters['characters/characterBackgroundById'](this.characterId);
+    },
+    characterLanguages() {
+      return this.$store.getters['characters/characterLanguagesById'](this.characterId);
     },
   },
   watch: {
@@ -145,6 +191,16 @@ export default {
     };
   },
   methods: {
+    addLanguage(language) {
+      const name = language;
+      const cost = this.languageCostMarker ? 1 : 0;
+      const source = 'creation';
+      this.$store.commit('characters/addCharacterLanguage', { id: this.characterId, name, cost, source })
+      this.languageInput = '';
+    },
+    removeLanguage(name) {
+      this.$store.commit('characters/removeCharacterLanguage', { id: this.characterId, name })
+    },
     getBackground(key) {
       const background = this.backgroundRepository.find((i) => i.key === key);
       if ( background ){

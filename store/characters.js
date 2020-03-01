@@ -1,8 +1,10 @@
+const BUILDER_VERSION = 5;
+
 export const state = () => ({
   list: [],
   characters: {},
   // version: 1,
-});
+})
 
 export const getters = {
   characterIds: (state) => state.list,
@@ -21,6 +23,13 @@ export const getters = {
       }
     });
     return Math.max(archetypeTier, ascensionTier);
+  },
+
+  characterStateJsonById: (state) => (id) => {
+    const character = state.characters[id];
+    let cleanCharacter = JSON.parse(JSON.stringify(character));
+    cleanCharacter.avatarUrl = undefined;
+    return JSON.stringify(cleanCharacter);
   },
 
   characterVersionById: (state) => (id) => (state.characters[id] ? state.characters[id].version : undefined),
@@ -94,6 +103,17 @@ export const getters = {
     });
     return spending;
   },
+  characterLanguagesCostsById: (state) => (id) => {
+    const character = state.characters[id];
+    if (character === undefined || character.languages === undefined) {
+      return 0;
+    }
+    let spending = 0;
+    character.languages.forEach((language) => {
+      spending += language.cost;
+    });
+    return spending;
+  },
   // => total
   characterSpendBuildPointsById: (state, getters) => (id) => {
     let spend = 0;
@@ -105,6 +125,7 @@ export const getters = {
     spend += getters.characterTalentCostsById(id);
     spend += getters.characterAscensionCostsById(id);
     spend += getters.characterPsychicPowerCostsById(id);
+    spend += getters.characterLanguagesCostsById(id);
 
     return spend;
   },
@@ -222,6 +243,85 @@ export const getters = {
   characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
   characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
   characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
+
+  characterLanguagesById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return [];
+    }
+    if ( character.languages === undefined ) {
+      character.languages = getDefaultState().languages; // language migration
+    }
+    return character.languages;
+  },
+
+  characterResourceSpendById: (state, getters) => (id, resourceKey) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    if ( character[resourceKey] === undefined ) {
+      character[resourceKey] = getDefaultState()[resourceKey]; // resource migration
+    }
+    return character[resourceKey].spend;
+  },
+
+  characterFaithPointsById: (state) => (id) => (state.characters[id] && state.characters[id].faith ? state.characters[id].faith.points : getDefaultState().faith.points),
+  characterFaithSpendById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    if ( character.faith === undefined ) {
+      character.faith = getDefaultState().faith; // resource migration
+    }
+    return character.faith.spend;
+  },
+
+  characterWoundsPointsById: (state, getters) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    return getters.characterTraitsById(id)['wounds'];
+  },
+
+  characterShockPointsById: (state, getters) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    return getters.characterTraitsById(id)['shock'];
+  },
+
+  characterWealthPointsById: (state, getters) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    return getters.characterTraitsById(id)['wealth'];
+  },
+  characterWealthSpendById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    if ( character.wealth === undefined ) {
+      character.wealth = getDefaultState().wealth; // resource migration NOT REACTIVE
+    }
+    return character.wealth.spend;
+  },
+
+  characterCustomSkillsById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return [];
+    }
+    if ( character.customSkills === undefined ) {
+      character.customSkills = getDefaultState().customSkills; // migration  NOT REACTIVE
+    }
+    return character.customSkills;
+  },
 };
 
 export const mutations = {
@@ -236,6 +336,9 @@ export const mutations = {
   },
   setSettingTitle(state, payload) {
     state.characters[payload.id].settingTitle = payload.title;
+  },
+  enableSettingHomebrews(state, payload) {
+    state.characters[payload.id].settingHomebrewContent.push(payload.content);
   },
   setSettingHomebrews(state, payload) {
     state.characters[payload.id].settingHomebrewContent = payload.content;
@@ -263,10 +366,35 @@ export const mutations = {
   setCharacterAttribute(state, payload) {
     const char = state.characters[payload.id];
     const attribute = char.attributes[payload.payload.key];
-    let theAttribute = state.characters[payload.id].attributes[payload.payload.key];
+    let theAttribute = state.characters[payload.id].attributes[payload.key];
     theAttribute = payload.payload.value;
     state.characters[payload.id].attributes[payload.payload.key] = payload.payload.value;
   },
+  addCharacterCustomSkill(state, payload) {
+    let { id, skill } = payload;
+    const character = state.characters[id];
+
+    let newSkill = {};
+    newSkill[skill.key] = 0;
+    character.skills = {
+      ...character.skills,
+      ...newSkill,
+    };
+
+    skill.custom = true;
+    console.info(`Adding ${skill.name} Skill:`);
+    console.info(skill);
+    character.customSkills.push(skill);
+  },
+  removeCharacterCustomSkill(state, payload) {
+    const { id, key } = payload;
+    const character = state.characters[id];
+
+    console.info(`Removing ${key} Skill.`);
+    delete character.skills[key];
+    character.customSkills = character.customSkills.filter((s)=>s.key !== key);
+  },
+
   /**
    * @param state
    * @param payload {
@@ -281,9 +409,8 @@ export const mutations = {
     const character = state.characters[payload.id];
     const { modifications } = payload.content;
     const source = payload.content.source || undefined;
-    console.info(payload);
 
-    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
+    console.info(`Enhance/Modify: Adding ${modifications.length} from '${source}'.`);
 
     // we remove all enhancements that share the cleanup value.
     if (source !== undefined) {
@@ -292,6 +419,7 @@ export const mutations = {
 
     modifications.forEach((item) => {
       item.source = source;
+      console.info(`Enhance ${item.targetGroup}/${item.targetValue} by ${item.modifier} [${item.source}].`);
       character.enhancements.push(item);
     });
   },
@@ -376,7 +504,7 @@ export const mutations = {
     if ( payload.gear && payload.gear.modifiers ) {
 
     }
-    character.wargear.push({ id: wargearUniqueId, name: payload.name, source: payload.source });
+    character.wargear.push({ id: wargearUniqueId, name: payload.name, variant: payload.variant, source: payload.source });
   },
   removeCharacterWargear(state, payload) {
     const character = state.characters[payload.id];
@@ -476,6 +604,19 @@ export const mutations = {
     character.background.label = background.label;
     character.background.optionSelectedKey = background.optionSelectedKey;
   },
+  
+  // languages
+  addCharacterLanguage(state, payload) {
+    const character = state.characters[payload.id];
+    const { name, cost, source } = payload;
+    const language = { name, cost, source };
+    character.languages.push(language);
+  },
+  removeCharacterLanguage(state, payload) {
+    const character = state.characters[payload.id];
+    const { name } = payload;
+    character.languages = character.languages.filter( (language) => language.name.localeCompare(name, 'en') !== 0);
+  },
 
   // Keywords
   addCharacterKeyword(state, payload) {
@@ -513,6 +654,20 @@ export const mutations = {
     }
   },
 
+  setCharacterResourceSpend(state, payload) {
+    const { id, spend, resourceKey } = payload;
+    const character = state.characters[id];
+    const resource = character[resourceKey];
+    resource.spend = spend;
+  },
+
+  setCharacterFaithSpend(state, payload) {
+    const { id, spend } = payload;
+    const character = state.characters[id];
+    const faith = character.faith;
+    faith.spend = spend;
+  },
+
   // character handling
   create(state, id) {
     state.list.push(id);
@@ -521,6 +676,18 @@ export const mutations = {
     newChar.id = id;
     const newObj = {};
     newObj[id] = newChar;
+    state.characters = {
+      ...state.characters,
+      ...newObj,
+    };
+  },
+  import(state, payload) {
+    state.list.push(payload.id);
+    const newChar = {};
+    Object.assign(newChar, JSON.parse(payload.stateString));
+    newChar.id = payload.id;
+    const newObj = {};
+    newObj[payload.id] = newChar;
     state.characters = {
       ...state.characters,
       ...newObj,
@@ -537,6 +704,50 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 4:
+        console.debug(`v4 -> v5 : Adding custom skill handling.`);
+        const customSkills = {
+          customSkills: getDefaultState().customSkills,
+        };
+        character.version = 5;
+        state.characters[config.characterId] = {
+          ...character,
+          ...customSkills,
+        };
+        console.info(`Character migrated to v5.`);
+        break;
+      case 3:
+        console.debug(`v3 -> v4 : Adding resources, defiance and objective basics, set defaults.`);
+        const newPart = {
+          faith: getDefaultState().faith,
+          wounds: getDefaultState().wounds,
+          shock: getDefaultState().shock,
+          wrath: getDefaultState().wrath,
+          reloads: getDefaultState().reloads,
+          wealth: getDefaultState().wealth,
+          defiance: getDefaultState().defiance,
+          objectiveArchived: getDefaultState().objectiveArchived,
+          objectives: getDefaultState().objectives,
+        };
+        character.version = 4;
+        state.characters[config.characterId] = {
+          ...character,
+          ...newPart,
+        };
+        console.info(`Character migrated to v4.`);
+        break;
+      case 2:
+        console.debug(`v2 -> v3 : Species chapters with source-keys instead of names`);
+        const v2chapter = character.speciesAstartesChapter;
+        let v3chapter = v2chapter;
+        if ( v2chapter && v2chapter.includes(' ') ) { // its an old chapter name, using CORE
+          v3chapter = `core ${v2chapter}`.toLowerCase().replace(/\W/gm, '-');
+          console.info(`Migrating [${character.name}]: ${v2chapter} -> ${v3chapter}`);
+        }
+        character.speciesAstartesChapter = v3chapter;
+        character.version = 3;
+        console.info(`Character migrated to v3.`);
+        break;
       case 1:
         console.debug(`v1 -> v2 : Species with keys instead of labels`);
 
@@ -588,6 +799,7 @@ export const mutations = {
 
         character.version = 2;
         console.info(`Character migrated to v2.`);
+        break;
     }
 
   },
@@ -605,24 +817,32 @@ export const actions = {
   migrate( {commit, state, rootState}, payload) {
 
     const character = state.characters[payload.characterId];
+
+    if (character === undefined) {
+      console.warn(`Could not read character for id [${payload.characterId}].`);
+      return;
+    }
+
     const characterVersion = character.version;
-    const builderVersion = rootState.builderVersion;
+    const builderVersion = BUILDER_VERSION;
 
     if ( characterVersion < builderVersion ) {
-      console.info(`Migrate character from ${characterVersion} to ${characterVersion+1}`);
+      console.info(`Migrate [${character.name}] from ${characterVersion} to ${characterVersion+1}`);
       const config = {
         characterId: character.id,
         currentVersion: characterVersion,
         targetVersion: characterVersion+1,
       };
       commit('migrate', config);
+    } else {
+      console.info(`[${character.name}] is up to date. ${characterVersion} / ${builderVersion}.`);
     }
   },
 };
 
 const getDefaultState = () => ({
   id: -1,
-  version: 2,
+  version: 5,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
@@ -672,6 +892,10 @@ const getDefaultState = () => ({
     tech: 0,
     weaponSkill: 0,
   },
+  customSkills: [],
+  languages: [
+    { name: 'Low Gothic', cost: 0, source: '' },
+  ],
   keywords: [],
   talents: [],
   psychicPowers: [],
@@ -683,4 +907,42 @@ const getDefaultState = () => ({
     optionSelectedKey: undefined, // e.g.
   },
   enhancements: [],
+
+  /**
+   * spendable resources are:
+   * > Faith, granted by talents, long rest
+   * > wrath, 2 plus talents and objectives, long rest
+   * > shock, by trait and boni
+   * > wounds, by trait and boni
+   * > wealth, by trait and boni
+   * > reloads, 3 + gear
+   */
+  objectives: [],
+  objectiveArchived: false,
+  faith: {
+    points: 0, // computed from obtained talents
+    spend: 0,
+  },
+  wounds: {
+    spend: 0,
+  },
+  shock: {
+    spend: 0,
+  },
+  wealth: {
+    points: 0, // aka trait
+    spend: 0,
+  },
+  wrath: {
+    points: 2, // or more, if objective is fullfiled or talents
+    spend: 0,
+  },
+  reloads: {
+    points: 3, // or more, by gear
+    spend: 0,
+  },
+  defiance: {
+    passed: 0,
+    failed: 0,
+  },
 });

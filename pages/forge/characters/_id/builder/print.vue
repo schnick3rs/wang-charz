@@ -73,6 +73,7 @@
                           {{ '☐'.repeat( Math.floor(item.enhancedValue/2) ) }}
                         </span>
                         <span v-if="item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
+                        <span v-if="item.name === 'Wealth'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
                         <em v-if="item.name==='Resilience' && armour.length>0">
                           @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
                         </em>
@@ -206,8 +207,8 @@
 
               <v-col :cols="12" class="pa-1">
                 <v-card >
-                  <v-card-text>
-                    <p class="caption">
+                  <v-card-text class="pa-1 pl-2 pr-2">
+                    <p class="caption mb-1">
                       Spend one <strong>Wrath</strong> to:
                     </p>
                     <ul class="pl-3">
@@ -229,8 +230,8 @@
                     </ul>
                   </v-card-text>
 
-                  <v-card-text>
-                    <p class="caption">
+                  <v-card-text class="pa-1 pl-2 pr-2">
+                    <p class="caption mb-1">
                       Spend one <strong>Glory</strong> to:
                     </p>
                     <ul class="pl-3">
@@ -250,8 +251,21 @@
                   </v-card-text>
                 </v-card>
               </v-col>
+
+              <v-col :cols="12" class="pa-1">
+                <v-card>
+                  <v-toolbar color="red" dark dense height="32">
+                    <v-toolbar-title>Languages</v-toolbar-title>
+                  </v-toolbar>
+                  <v-card-text>
+                    <p>{{ languages.map((l)=>l.name).join(' • ') }}</p>
+                  </v-card-text>
+                </v-card>
+              </v-col>
+
             </v-row>
           </v-col>
+
 
           <v-col :cols="12">
             <v-card>
@@ -386,7 +400,7 @@
                       <v-toolbar-title>Talents</v-toolbar-title>
                     </v-toolbar>
 
-                    <v-card-text v-for="talent in talents" :key="talent.name" class="pa-2 caption">
+                    <v-card-text v-for="talent in talents" :key="talent.name" class="pa-1 caption">
                       <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)" />
                     </v-card-text>
                   </v-card>
@@ -398,8 +412,17 @@
                       <v-toolbar-title>Gear</v-toolbar-title>
                     </v-toolbar>
 
-                    <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-2 caption">
-                      <strong>{{ gearItem.name }}:</strong> {{ gearItem.description }}
+                    <v-card-text v-for="gearItem in gear" :key="gearItem.name" class="pa-1 caption">
+                      <div v-if="gearItem.variant" style="display: inline;">
+                        <strong >{{ gearItem.variant }}</strong>
+                        <span> ({{ gearItem.name }})</span>
+                      </div>
+                      <strong v-else>{{ gearItem.name }}</strong>
+                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                      <span v-if="gearItem.source">
+                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                      </span>
+                      <p class="mb-0">{{ gearItem.snippet ? gearItem.snippet : gearItem.description }}</p>
 
                       <div
                         v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
@@ -522,8 +545,26 @@ export default {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
 
+    languages() {
+      return this.$store.getters['characters/characterLanguagesById'](this.characterId);
+    },
+
     characterAttributesEnhanced() {
-      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      let enhancedAttributes = this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      // enrich with (equipped) gear
+      if ( this.armour && this.armour.length > 0 ) {
+        const armour = this.armour[0];
+        const traits = armour.meta[0].traits;
+        let poweredString = traits.find((trait)=>trait.includes('Powered'));
+        if (poweredString) {
+          const trait = this.normalizeTrait(poweredString);
+          if ( trait.variant) {
+            enhancedAttributes.strength = parseInt(enhancedAttributes.strength) + parseInt(trait.variant);
+          }
+        }
+      }
+
+      return enhancedAttributes;
     },
     attributes() {
       const attributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
@@ -550,12 +591,22 @@ export default {
       ];
     },
     skills() {
+      let finalSkills = [];
       const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
-      return this.skillRepository.map((s) => ({
+      const customSkills = this.$store.getters['characters/characterCustomSkillsById'](this.characterId);
+
+      const skillInfos = [
+        ...this.skillRepository,
+        ...customSkills,
+      ];
+
+      finalSkills = skillInfos.map((s) => ({
         ...s,
         value: skills[s.key],
         enhancedValue: skills[s.key],
       }));
+
+      return finalSkills;
     },
     enhancements() {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
@@ -586,7 +637,7 @@ export default {
             // other abilities
             const ability = {
               name: feature.name,
-              effect: feature.snippet,
+              effect: feature.snippet ? feature.snippet : feature.description,
               source: this.speciesLabel,
               hint: this.speciesLabel,
             };
@@ -610,7 +661,7 @@ export default {
         archetype.archetypeFeatures.forEach( (item) => {
           const ability = {
             name: item.name,
-            effect: item.snippet,
+            effect: item.snippet ? item.snippet : item.description,
             source: archetype.label,
             hint: archetype.label,
           };
@@ -672,14 +723,14 @@ export default {
       return finalTalents;
     },
     wargear() {
-      const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
+      const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
-      wargearLabels.forEach((wargearName) => {
-        const foundGear = this.wargearRepository.find((w) => w.name === wargearName);
+      chargear.forEach((gear) => {
+        const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
         if (foundGear) {
-          wargear.push(foundGear);
+          wargear.push({ ...foundGear, variant: gear.variant });
         } else {
-          wargear.push({ name: wargearName, type: 'Misc' });
+          wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
         }
       });
       return wargear;
@@ -769,10 +820,15 @@ export default {
   },
   methods: {
     async loadSpecies(key) {
-      if ( key ) {
+      let finalData = {};
+      if ( key.startsWith('custom-')) {
+        const speciesDetails = this.$store.getters['species/getSpecies'](key);
+        finalData = speciesDetails;
+      } else {
         const { data } = await this.$axios.get(`/api/species/${key}`);
-        this.characterSpecies = data;
+        finalData = data;
       }
+      this.characterSpecies = finalData;
     },
     async loadArchetype(key) {
       if ( key ) {
@@ -782,17 +838,30 @@ export default {
     },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
-      return attribute.enhancedValue + skill.enhancedValue;
+      if (attribute) {
+        return attribute.enhancedValue + skill.enhancedValue;
+      }
+      return skill.enhancedValue;
     },
-    traitByName(name, withParanteris) {
-      if ( withParanteris ) {
-        // weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+    normalizeTrait(traitString) {
+      const regex = /(\w+) ?\(?(\w+)?\)?/m;
+      let trait = traitString.match(regex);
+      let traitFromRep = this.wargearTraitRepository.find((item) => item.name === trait[1]);
+      return {
+        ...traitFromRep,
+        variant: trait[2],
+      };
+    },
+    traitByName(name, withParantesis = false) {
+      if ( withParantesis ) {
         name = name.split(/ ?\(/)[0];
       }
-      // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
       return this.wargearTraitRepository.find((item) => item.name === name);
     },
     computeFormatedText(text) {
+      if ( text === undefined ) {
+        return text;
+      }
       const rank = this.characterRank;
       let computed = text;
 

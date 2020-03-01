@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-row justify="center">
+  <v-row justify="left">
 
     <v-dialog
       v-model="selectAvatarDialog"
@@ -58,7 +58,7 @@
 
     </v-dialog>
 
-    <v-col :cols="12" :sm="6">
+    <v-col :cols="12" :sm="7">
       <h2 class="headline">
         Character
       </h2>
@@ -68,7 +68,7 @@
         label="Character Name"
         :value="characterName"
         dense
-        filled
+        outlined
         @input="setCharacterName"
       />
 
@@ -78,7 +78,7 @@
         label="Additional eXperience Points"
         hint="Add the XP earend by playing the game. Usually granted by the GM."
         dense
-        filled
+        outlined
         persistent-hint
         type="number"
         @input="setCustomXp"
@@ -90,7 +90,7 @@
         label="Rank"
         hint="Set your Characters Rank, usually between 1-5."
         dense
-        filled
+        outlined
         persistent-hint
         type="number"
         @input="setCustomRank"
@@ -110,6 +110,11 @@
         @input="setCustomRank"
       />
 
+
+
+    </v-col>
+
+    <v-col :cols="12" :sm="5">
       <div class="mb-2">
 
         <!-- custom avatar -->
@@ -120,7 +125,7 @@
           v-show="characterAvatarUrl"
         >
           <template v-slot:badge>
-              <v-icon color="white" @click.stop="setCharacterAvatar(undefined)">close</v-icon>
+            <v-icon color="white" @click.stop="setCharacterAvatar(undefined)">close</v-icon>
           </template>
           <v-avatar
             size="86"
@@ -144,10 +149,9 @@
         <em class="d-none">{{ characterAvatarUrl ? characterAvatarUrl.length : 0 }}</em>
         <div><a @click="selectAvatarDialog = true">change picture</a></div>
       </div>
-
     </v-col>
 
-    <v-col :cols="12" :sm="6">
+    <v-col :cols="12" :sm="7">
       <h2 class="headline">
         Framework
       </h2>
@@ -158,7 +162,7 @@
         :value="settingTier"
         :items="tierSelect.options"
         dense
-        filled
+        outlined
         @change="setSettingTier"
       />
 
@@ -168,7 +172,7 @@
         label="Describe your Setting or Campaign"
         hint="Only a few words"
         dense
-        filled
+        outlined
         persistent-hint
         @input="setSettingTitle"
       />
@@ -181,7 +185,7 @@
         item-text="name"
         item-value="name"
         dense
-        filled
+        outlined
         multiple
         chips
         deletable-chips
@@ -205,9 +209,21 @@
         persistent-hint
       />
 
+    </v-col>
+
+    <v-col :cols="12">
       <div>
         <h2 class="title">Homebrews</h2>
         <p>Allow specific homebrew content to be used for this character.</p>
+        <div v-if="settingHomebrews.includes('aaoa') && settingHomebrews.includes('tea')">
+          <v-alert
+            text border-left dense color="warning" class="caption"
+          >
+            You selected two homebrews, the <em>Abundance of Apocrypha</em> and <em>The Emperors Angels</em>.
+            Both introduce similar Astartes Archetypes, Wargear and Powers.
+            This lead to duplicated entries and thus, <strong>it is NOT recommended to use both</strong> at the same time.
+          </v-alert>
+        </div>
         <div
           v-for="homebrew in settingHomebrewOptions.filter((h)=>h.active)"
           :key="homebrew.key"
@@ -216,15 +232,14 @@
             v-model="enabledHomebrews"
             :label="homebrew.name"
             :value="homebrew.key"
+            :hint="homebrew.hint"
+            persistent-hint
             color="primary"
-            class="mt-0 mb-0"
             dense
             @change="updateHomebrew(homebrew)"
           />
-          <span class="caption">{{homebrew.hint}}</span>
         </div>
       </div>
-
     </v-col>
 
     <v-col :cols="12" />
@@ -307,13 +322,6 @@ export default {
       settingHomebrewOptions: [
         {
           active: false,
-          key: 'dod-scum-psyker',
-          name: 'Scum Psyker (Doctors of Doom Homebrew)',
-          enabled: false,
-          source: undefined,
-        },
-        {
-          active: false,
           key: 'aotgt',
           name: '\'Agents of the Golden Throne\' content (Fan supplement)',
           enabled: false,
@@ -322,12 +330,66 @@ export default {
         },
         {
           active: true,
+          key: 'custom',
+          name: '\'Your own Custom\' content',
+          hint: 'You homebrew species.',
+          enabled: true,
+          nuxt: '',
+          source: '',
+        },
+        {
+          active: true,
           key: 'pax',
-          name: '\'Pax Imperialis\' content (Fan supplement)',
+          name: '\'Pax Imperialis\' content',
           hint: 'Add Beastman, Navigators and Untouchables and their respective archetypes.',
           enabled: false,
-          nuxt: '/vault/agents-of-the-golden-throne',
+          nuxt: '/vault/pax-imperialis',
           source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
+        },
+        {
+          active: true,
+          key: 'aaoa',
+          name: '\'An Abundance of Apocrypha\' content',
+          hint: 'Add Human Homeworlds, Squad, Pariah, Beastman, Ork and Astartes Archetypes, Heretic Legion Chapters.',
+          enabled: false,
+          nuxt: '/vault/an-abundance-of-apocrypha',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'tea',
+          name: '\'The Emperor´s Angels\' content',
+          hint: 'Add Space Marine archetypes and Librarius Powers.',
+          enabled: false,
+          nuxt: '/vault/the-emperors-angels',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'lotn',
+          name: '\'Legacy of the Necrontyr\' content',
+          hint: 'Add Necron species and archetypes.',
+          enabled: false,
+          nuxt: '/vault/legacy-of-the-necrontyr',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'ltgb',
+          name: '\'Let the Galaxy Burn\' content',
+          hint: 'Add Heretic Astartes Chapters.',
+          enabled: false,
+          nuxt: '/vault/let-the-galaxy-burn',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'dod',
+          name: '\'Doctors of Doom Sandbox\' content',
+          hint: 'Add Chapter Houses and Roguish Archetypes.',
+          enabled: false,
+          nuxt: undefined,
+          source: '',
         },
       ],
       enabledHomebrews: [],

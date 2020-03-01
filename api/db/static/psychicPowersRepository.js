@@ -1,45 +1,20 @@
-
 const source = {
   core: { book: 'Core Rules', key: 'core', version: 'v1' },
-  aaoa: {
-    book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha',
-  },
-  lotn: {
-    book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr',
-  },
-  thaot: {
-    book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology',
-  },
-  ltgb: {
-    book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn',
-  },
-  aptb: {
-    book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary',
-  },
-  jtb: {
-    book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary',
-  },
-  aotgt: {
-    book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne',
-  },
-  tea: {
-    book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels',
-  },
-  heva: {
-    book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault',
-  },
-  goen: {
-    book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines',
-  },
-  tog: {
-    book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory',
-  },
-  pax: {
-    book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis',
-  },
-  sotah: {
-    book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde',
-  },
+  coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
+  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
+  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
+  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
+  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
+  aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
+  tea: { book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
+  heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
+  goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
+  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
+  pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
+  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
+  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
 };
 
 const stringToKebab = function (text) {
@@ -150,8 +125,281 @@ const paxNavigatorPowers = [
   },
 ];
 
+const aaoaWaaaghPowers = [
+  {
+    ...simpleStub(200, 'aaoa', 181, 20, '‘Eadbanger', 'WAAAGH!', 'Bring the closest enemy to zero wounds.'),
+    ...simpleCrunch('8', 'Action', 'Instant', '35m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>A bolt of raw power erupts from the Weirdboy’s forehead and rockets across the battlefield, ' +
+      'causing the head of the first unfortunate victim caught in its path to explode in a shower of brains and gore.</p>' +
+      '<p>This power targets the closest enemy, who must pass a Toughness test (DN 3) or reduced to 0 Wounds immediately.</p>',
+  },
+  {
+    ...simpleStub(201, 'aaoa', 181, 15, 'Da Jump', 'WAAAGH!', 'Short Teloport yourself and allied orks.'),
+    ...simpleCrunch('7', 'Full Action', 'Instant', '25m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>The Weirdboy closes his eyes tight and, in a storm of flashing green light, teleports a mass of confused greenskins to another part of the battlefield. ' +
+      'Select a number of allies with the Ork keyword equal to the psyker’s Willpower within range. ' +
+      'Those allies vanish, and then reappear moments later anywhere within 500m. ' +
+      'They must reappear more than 20m from an enemy, and they forfeit their move action in their following turns.</p>',
+  },
+  {
+    ...simpleStub(202, 'aaoa', 181, 15, 'Da Krunch', 'WAAAGH!', 'Stomp enemies with mortal force and knock them prone.'),
+    ...simpleCrunch('8', 'Action', 'Instant', '35m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>Green energies erupt form the Weirdboy’s eyes, ears, nose, and mouth, and coalesce into a roiling cloud above the enemy. ' +
+      'That cloud then solidifies into the vast green foot of Gork (or Mork) himself, which commences to stamp down upon the foe. ' +
+      'This power affects all enemies in a Medium blast within range. ' +
+      'Affected enemies take 1d3 Mortal Wounds and are knocked prone.' +
+      ' Foes who were already prone become staggered as well. ' +
+      'Then, roll a d6: on a roll of a 6, repeat the power’s effects as the foot stamps down again.</p>',
+  },
+  {
+    ...simpleStub(203, 'aaoa', 181, 8, 'Fists of Gork', 'WAAAGH!', 'Boost yourself or an allie with great Strength.'),
+    ...simpleCrunch('6', 'Action', '1 Round', '25m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>The Weirdboy channels Waaagh energy into his own fists or those of another Ork, providing strength enough to punch through the armour of tanks. ' +
+      'This power affects the psyker or one ally with the Ork keyword within range. ' +
+      'Until the end of the psyker’s next turn, the affected character’s Strength is increased by +4 and they receive +2d on all melee attacks.</p>',
+  },
+  {
+    ...simpleStub(204, 'aaoa', 182, 10, 'Roar of Mork', 'WAAAGH!', 'Enemies within range reduce their resolve by 2.'),
+    ...simpleCrunch('8', 'Full Action', 'Sustained', '35m', false, ''),
+    keywords: ['Ork','Telepathy','Psychic'],
+    description:
+      '<p>The Weirdboy opens his gob impossibly wide and gives vent to a bellowing roar that reverberates through his enemies’ minds. ' +
+      'Coherent thought becomes nigh-impossible, and as the roar thunders on, panic begins to spread. ' +
+      'While this power remains in effect, all enemies within range reduce their Resolve by 2.</p>',
+  },
+  {
+    ...simpleStub(205, 'aaoa', 182, 10, 'Warpath', 'WAAAGH!', 'Allies within range increase strength and make more multi-actions or attacks.'),
+    ...simpleCrunch('7', 'Action', 'Instant', '35m', false, ''),
+    keywords: ['Ork','Psychic'],
+    description:
+      '<p>The Weirdboy disperses the Waaagh energy coursing through his frame into the Ork warriors around him, ' +
+      'stoking their already bellicose nature into a roaring fever pitch. Select a number of allies with the Ork keyword within range. ' +
+      'The affected allies add +2d to all melee attacks they attempt until the start of the psyker’s next turn, ' +
+      'and they may ignore up to 2 points of DN increase for taking the Multi-Attack or Multi-Action options.</p>',
+  },
+];
+
+const aaoaSancticPowers = [
+  {
+    ...simpleStub(220, 'aaoa', 157, 20, 'Astral Aim', 'Sanctic', ''),
+    ...simpleCrunch('5', 'Action', '1 Round', '5m', false, '', '[2] +1d bonus to ranged attacks;[3] +5m range'),
+    keywords: ['Psychic'],
+    description:
+      '<p>The psyker reaches to the minds of his battle-brothers, guiding their aim to the chosen target. ' +
+      'The psyker, and all allies within 5m, may make ranged attacks against enemies they cannot see, ' +
+      'and ignore any bonuses to Defence from cover on those ranged attacks, until the start of your next turn.</p>',
+  },
+  {
+    ...simpleStub(221, 'aaoa', 157, 20, 'Gate of Infinity', 'Sanctic', ''),
+    ...simpleCrunch('6', 'Full Action', 'Instant', '500m', false, '', '[3] +500m range'),
+    keywords: ['Psychic'],
+    description:
+      '<p>The psyker punches a corridor through the roiling immaterium, allowing him to cross great distances in the blink of an eye. ' +
+      'The psyker, and all allies within 5m immediately vanish, and reappear anywhere within range, ' +
+      'which must also be more than 20m from an enemy.</p>',
+  },
+  {
+    ...simpleStub(222, 'aaoa', 157, 20, 'Hammerhand', 'Sanctic', ''),
+    ...simpleCrunch('6', 'Action', '1 Round', '5m', false, '', '[2] +1ED to damage,[3] +5m range'),
+    keywords: ['Psychic'],
+    description:
+      '<p>Focusing the raging power of his mind, the psyker augments the strength of his comrades ' +
+      'to the point where they can crush flesh and bone with a single blow. ' +
+      'The psyker, and all allies within 5m, add +1ED to the damage of all melee attacks they make until the start of the psyker’s next turn.</p>',
+  },
+  {
+    ...simpleStub(223, 'aaoa', 157, 15, 'Purge Soul', 'Sanctic', ''),
+    ...simpleCrunch('Resolve', 'Action', 'Instant', '25m', true, '', '[1] +1 Mortal Wound'),
+    keywords: ['Psychic'],
+    description:
+      '<p>The psyker draws upon all of his willpower to purge the evil of his foes’ souls, ' +
+      'scouring every trace of corruption even if it destroys them in the process. ' +
+      'The psyker targets one enemy with a psychic ranged attack. ' +
+      'If hit, the target suffers 1 Mortal Wound and is staggered until the start of its next turn.</p>' +
+      '<p>Creatures with the Daemon keyword may not Soak any Mortal Wounds inflicted by this power.</p>',
+  },
+  {
+    ...simpleStub(224, 'aaoa', 158, 10, 'Rites of Banishment', 'Sanctic', ''),
+    ...simpleCrunch('Defence', 'Action', 'Instant', '25m', true, '', '[2] +1 Mortal Wound'),
+    keywords: ['Psychic'],
+    description:
+      '<p>The psyker utters prayers and litanies of detestation and antipathy, which sever the bonds holding Daemons to the material universe, ' +
+      'banishing them to the roiling hellscape from whence they came. ' +
+      'The psyker targets one enemy with a psychic ranged attack. ' +
+      'If hit, the target suffers 1d3 Mortal Wounds, or 1d3+3 Mortal Wounds if they have the Daemon keyword.</p>' +
+      '<p>Creatures with the Daemon keyword may not Soak any Mortal Wounds inflicted by this power.</p>',
+  },
+  {
+    ...simpleStub(225, 'aaoa', 158, 25, 'Sanctuary', 'Sanctic', ''),
+    ...simpleCrunch('25', 'Action', '1 Round', '5m', false, '', '[2] +1d to Soak rolls;[3] +5m range.'),
+    keywords: ['Psychic'],
+    description:
+      '<p>Chanting words of warding, the psyker creates a zone of light around him that can protect him from harm and repel daemonic creatures. ' +
+      'The psyker, and all allies within 5m, add +1d to all Soak tests, may Soak Mortal Wounds, and do not suffer Shock when they Soak damage, ' +
+      'until the start of next turn. ' +
+      'Further, creatures with the Daemon keyword treat the area within range of the psyker as difficult terrain until the start of your next turn.</p>',
+  },
+  {
+    ...simpleStub(226, 'aaoa', 158, 30, 'Vortex of Doom', 'Sanctic', ''),
+    ...simpleCrunch('8', 'Full Action', '1 Round', '25m', false, '', '[2] +1 Mortal Wound per target.;*[2] Increase the area of effect to a Large Blast.;*[2] Time to activate reduced to an Action.'),
+    keywords: ['Psychic'],
+    description:
+      '<p>The psyker tears a rift between realspace and the Warp, condemning his foes to oblivion. ' +
+      'The power affects all creatures in a Medium Blast, dragging them into a howling vortex. ' +
+      'Every creature within the area suffers 1d3 Mortal Wounds.</p>' +
+      '<p>Creatures with the Daemon keyword may not Soak any Mortal Wounds inflicted by this power.</p>',
+  },
+];
+
+const aaoaAncestrialRites = [
+  {
+    ...simpleStub(210, 'aaoa', 183, 20, 'Domination', 'Ancestral Rites', 'Command a single action of the target at the cost of some shock.'),
+    ...simpleCrunch('Willpower (Opposed)', 'Full Action', 'Instant', '25m', false, ''),
+    keywords: ['Squat','Telepathy','Psychic'],
+    description:
+      '<p>The Ancestor Lord turns his immense willpower on the mind of a single enemy and takes over its body for a moment. ' +
+      'Select an enemy within range: if the psyker wins an opposed willpower test against the target, ' +
+      'the target immediately takes a single action of the Ancestor Lord’s choice, following all the normal rules. ' +
+      'This power cannot force a creature to take an action which would kill them. ' +
+      'The Ancestor Lord suffers 1d3+1 Shock after this power is used.</p>',
+  },
+  {
+    ...simpleStub(211, 'aaoa', 183, 20, 'Force Dome', 'Ancestral Rites', 'Create a Protective Dome.'),
+    ...simpleCrunch('8', 'Action', 'Sustained', '50m', false, ''),
+    keywords: ['Squat','Kinetic','Psychic'],
+    description:
+      '<p>At the Ancestor Lord’s command, a dome of energy erupts from the ground, and it is as unyielding as the Ancestor Lord’s own mind. ' +
+      'The dome appears at anywhere within range, with a radius of 5m (so, it’s 10m across and 5m tall). ' +
+      'The dome blocks all line of sight, and ranged attacks cannot damage it. ' +
+      'The dome can be attacked in melee: attacks automatically hit, and the dome has a Resilience equal to three times the Ancestor Lord’s Willpower, ' +
+      'and Wounds equal to twice the Ancestor Lord’s Psychic Mastery score. It collapses and dissipates when reduced to 0 Wounds. ' +
+      'The Ancestor Lord suffers 1 Shock at the end of each turn they sustain this power.</p>',
+  },
+  {
+    ...simpleStub(212, 'aaoa', 184, 20, 'Hammer of Fury', 'Ancestral Rites', 'Deal mortal wounds in a large (18m) range.'),
+    ...simpleCrunch('8', 'Action', 'Instant', '18m', false, ''),
+    keywords: ['Squat','Kinetic','Psychic'],
+    description:
+      '<p>The Ancestor Lord unleashes a mighty psychic hammer blow against their foes, smashing them back with an inexorable kinetic impact. ' +
+      'All enemies within range suffer 1d3+1 Mortal Wounds. ' +
+      'In addition, enemies must pass a Strength test (DN 5) or be knocked prone and moved away from ' +
+      'the Ancestor Lord a number of metres equal to the number of Mortal Wounds they suffered.</p>',
+  },
+  {
+    ...simpleStub(214, 'aaoa', 184, 20, 'Mental Fortress', 'Ancestral Rites', 'Hinder hostile psychic powers that affect you or you allies.'),
+    ...simpleCrunch('8', 'Action', 'Sustained', '25m', false, ''),
+    keywords: ['Squat','Psychic'],
+    description:
+      '<p>The Ancestor Lord weaves a powerful mental barrier around themselves and those nearby, warding them from mental assault. ' +
+      'While this power remains in effect, any hostile psychic power targeted at the Ancestor Lord or an ally within range suffers +4 DN.</p>',
+  },
+];
+
+const aaoaLibrariusPowers = [
+  {
+    ...simpleStub(241, 'aaoa', 283, 15, 'Fury of the Ancients', 'Librarius', ''),
+    ...simpleCrunch('7', 'Action', 'Instant', '*', false, '', '[2] +1 Mortal Wound per target.;[2] Increase the range by +1d6.'),
+    keywords: ['Psychic'],
+    description:
+      '<p>Calling upon the myths and legends of his Chapter’s homeworld, the Librarian sends forth a terrifying monstrosity wrought from psychic energy. If successful, roll a number of d6 equal to the psyker’s Willpower. This power projects a monstrous psychic projection two metres wide in a straight line which extends out a number of metres equal to the total rolled. Any enemy touched by the projection suffers 1d3 Mortal Wounds.</p>',
+  },
+  {
+    ...simpleStub(242, 'aaoa', 283, 20, 'Might of Heroes', 'Librarius', ''),
+    ...simpleCrunch('6', 'Action', '1 Combat', '25m', false, '', '[2] Bonuses to Strength, Toughness, and DN reduction increase by +1.'),
+    keywords: ['Psychic'],
+    description:
+      '<p>The psyker cages the immense power of the immaterium within his physical form and becomes the Emperor’s vengeance given flesh. If successful, select an ally with the Adeptus Astartes keyword (which may include yourself) within range. While the power remains in effect, the chosen character increases his Strength and Toughness by +4, and he ignores up to 4 points of DN increase for taking</p>',
+  },
+  {
+    ...simpleStub(243, 'aaoa', 283, 30, 'Null Zone', 'Librarius', ''),
+    ...simpleCrunch('8', 'Full Action', 'Sustained', '25m', false, '', '[2] +6m range.;*[2] Time to activate reduced to an Action.'),
+    keywords: ['Psychic'],
+    description:
+      '<p>The psyker unleashes the full might of his mind to cast down his opponent’s defences, both technological and mystical. While this power remains in effect, enemies within range of the psyker may not attempt to Soak and increase the DN for all Psychic Mastery tests by +4. This power is taxing to sustain, so the psyker suffers 1 Shock each turn they sustain the power.</p>',
+  },
+  {
+    ...simpleStub(244, 'aaoa', 283, 15, 'Psychic Fortress', 'Librarius', ''),
+    ...simpleCrunch('5', 'Action', 'Sustained', '35m', true, '', '[2] +5m range.;*[2] The target is also automatically successful on Conviction tests.'),
+    keywords: ['Psychic'],
+    description:
+      '<p>Drawing on boundless reserves of inner strength, the psyker shields his battle-brothers from mortal fears and the threat of sorcerous assault. If successful, select an ally within range. That ally will automatically succeed at all Resolve tests and are immune to fear, terror, and intimidation-based Interaction attacks. Further, each time the ally Soaks to resist damage from a psychic power, they gain bonus dice equal to your Psychic Mastery, and may Soak Mortal Wounds.</p>',
+  },
+  {
+    ...simpleStub(245, 'aaoa', 284, 15, 'Psychic Scourge', 'Librarius', ''),
+    ...simpleCrunch('Resolve', 'Action', 'Instant', '35m', true, '', '[1] +1 Mortal Wound.'),
+    keywords: ['Psychic', 'Telepathy'],
+    description:
+      '<p>The psyker pits his superhuman willpower against that of his enemies in a battle of mental fortitude, seeking to destroy their minds in a burst of psychic fury. The psyker targets one enemy with a psychic ranged attack. If hit, the target suffers 1d3 Mortal Wounds.</p>',
+  },
+  {
+    ...simpleStub(246, 'aaoa', 284, 20, 'Veil of Time', 'Librarius', ''),
+    ...simpleCrunch('6', 'Action', 'Instant', '35m', true, '', '[2] Bonus to Speed increases by +1.'),
+    keywords: ['Psychic'],
+    description:
+      '<p>The psyker projects their will beyond the regular passage of time, taking in the strands of fate before returning to the present to sway the tide of battle. If successful, select an ally within range. That ally increases their Speed by +2 when charging, advancing, or running. In addition, it does not cost Glory for that ally to Seize the Initiative.</p>',
+  },
+];
+
+const teaLibrariusPowers = [
+  {
+    ...simpleStub(300, 'tea', 72, 15, 'Veil of Time', 'Librarius', 'Grants the target the ability to interfere with the standard flow of time'),
+    ...simpleCrunch('6', 'Action', 'Sustained', '40m', true, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>The psyker projects his will beyond the regular passage of time, taking in the strands of fate before returning to the present to sway the tide of battle. If successful, those affected may choose which threat will take its turn next after each of their turns.</p>',
+  },
+  {
+    ...simpleStub(301, 'tea', 73, 15, 'Might of Heroes', 'Librarius', 'Fills the target with psychic might, enhancing their strength and durability'),
+    ...simpleCrunch('6', 'Action', 'Sustained', '25m', true, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>The psyker cages the immense power of the immaterium within his physical form and becomes the Emperor’s vengeance made manifest. If successful, those affected gain +1 ED on all melee attacks, +1 to Resilience, and may ignore up to +2DN penalty for making melee multi-attacks.</p>',
+  },
+  {
+    ...simpleStub(302, 'tea', 73, 15, 'Psychic Scourge', 'Librarius', 'Forces a battle of wills, harming and stunning the enemy if the psyker wins'),
+    ...simpleCrunch('Willpower (Opposed)', 'Action', 'Instant', '40m', false, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>The psyker pits his superhuman willpower against that of his enemies in a battle of mental fortitude, seeking to destroy their minds in a burst of psychic fury. If the opposed test is won by the psyker, the target takes d3 Mortal Wounds and d3 Shock. If the test was a tie, the target takes 1 Mortal Wound and 1 shock.</p>',
+  },
+  {
+    ...simpleStub(303, 'tea', 73, 15, 'Fury of the Ancients', 'Librarius', 'Selects a target for the psyker’s wrath, harming all enemies in the way'),
+    ...simpleCrunch('Defense', 'Action', 'Instant', '25m', false, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>Calling upon the myths and legends of his Chapter’s home world, the psyker sends forth a terrifying monstrosity wrought from psychic energy. If successful, draw a line from the psyker to the target, noting any enemies the line passes over. If using theater of the mind, any enemies that could be reasonably assumed to be between the psyker and the target are affected instead. Each enemy the line crosses, including the target, suffers a Mortal Wound.</p>',
+  },
+  {
+    ...simpleStub(304, 'tea', 73, 15, 'Psychic Fortress', 'Librarius', 'Places a shield of energy, protecting against the warp and reinforcing the will'),
+    ...simpleCrunch('5', 'Full Action', 'Sustained', '40m', true, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>Drawing on boundless reserves of inner strength, the psyker shields his mind – and those of his battle-brothers – from mortal fears and the threat of sorcerous assault. If successful, all affected automatically pass Resolve tests. Additionally, if dealt Mortal Wounds by a psychic power, roll a d6 per Mortal Wound. On a result 4, 5, or 6, the Mortal Wound is negated.</p>',
+  },
+  {
+    ...simpleStub(305, 'tea', 74, 15, 'Null Zone', 'Librarius', 'Purges psychic energies and protective fields from an area'),
+    ...simpleCrunch('8', 'Full Action', 'Sustained', '15m (Radius)', true, ''),
+    keywords: ['Adeptus Astartes','Psychic'],
+    description:
+      '<p>The psyker unleashes the full might of his mind to cast down his opponent’s defences, both technological and mystical, rendering them vulnerable to the retribution of the Adeptus Astartes. If successful, for as long as the power is sustained, each enemy psyker within range must subtract 1 from the result of each die on Psychic Mastery tests. In addition, enemies may not attempt to soak Mortal Wounds while within range or benefit from armor with the Force Shield trait.</p>',
+  },
+];
+
 const psychicPowersRepository = [
   ...paxNavigatorPowers,
+  ...aaoaWaaaghPowers,
+  ...aaoaSancticPowers,
+  ...aaoaAncestrialRites,
+  ...aaoaLibrariusPowers,
+  ...teaLibrariusPowers,
 ];
 
 module.exports = psychicPowersRepository;

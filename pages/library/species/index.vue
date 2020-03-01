@@ -70,7 +70,7 @@
 
             <!-- Detail Page link -->
             <template v-slot:item.actions="{ item }">
-              <v-btn v-if="item.stub === undefined || !item.stub" small icon nuxt :to="`/library/species/${camelToKebab(item.key)}`">
+              <v-btn v-if="item.stub === undefined || !item.stub" small icon nuxt :to="`/library/species/${textToKebab(item.key)}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
@@ -87,7 +87,7 @@
                   <v-btn
                     v-if="item.stub === undefined || !item.stub"
                     nuxt
-                    :to="`/library/species/${camelToKebab(item.key)}`"
+                    :to="`/library/species/${textToKebab(item.key)}`"
                     color="success"
                   >
                     Show Details Page
@@ -142,6 +142,31 @@ export default {
       script: [
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
       ],
+    };
+  },
+  async asyncData({ $axios, query, params, error }) {
+    const response = await $axios.get('/api/species/');
+    const { data } = response;
+
+    if (data === undefined || data.length <= 0) {
+      error({ statusCode: 404, message: 'No Ascension Packages found!' });
+    }
+
+    const groupFilterSelections = [];
+    if (query['filter-group']) {
+      // factionFilterSelections.push(query['filter-faction']);
+    }
+
+    const filtersSourceModel = [];
+    if (query['filter-source']) {
+      filtersSourceModel.push(query['filter-source']);
+    }
+
+    return {
+      items: data,
+      filters: {
+        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
+      },
     };
   },
   data() {
@@ -237,33 +262,6 @@ export default {
       const distinct = [...new Set(reduce)];
       return distinct.filter((d) => d !== null).sort();
     },
-  },
-  async asyncData({
-    $axios, query, params, error,
-  }) {
-    const response = await $axios.get('/api/species/');
-    const items = response.data;
-
-    if (items === undefined || items.length <= 0) {
-      error({ statusCode: 404, message: 'No Ascension Packages found!' });
-    }
-
-    const groupFilterSelections = [];
-    if (query['filter-group']) {
-      // factionFilterSelections.push(query['filter-faction']);
-    }
-
-    const filtersSourceModel = [];
-    if (query['filter-source']) {
-      filtersSourceModel.push(query['filter-source']);
-    }
-
-    return {
-      items,
-      filters: {
-        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
-      },
-    };
   },
   methods: {
   },

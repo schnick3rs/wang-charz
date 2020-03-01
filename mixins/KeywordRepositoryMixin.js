@@ -32,6 +32,8 @@ export default {
         name: '<Clan>', type: 'Species', parentKeyword: 'Ork', description: 'A specific Ork clan (replaces this keyword when chosen).',
       },
 
+      { source: 'aaoa', name: '<League>', type: 'Species', parentKeyword: 'Squat', description: 'A specific Squat league (replaces this keyword when chosen).' },
+
       // Imperium Keywords
       {
         name: 'Adepta Sororitas', type: 'Imperium', parentKeyword: undefined, description: 'The Sisters of Battle, warriors of the Ecclesiarchy.',
@@ -39,9 +41,7 @@ export default {
       {
         name: '<Order>', type: 'Imperium', parentKeyword: 'Adepta Sororitas', description: 'A specific Adepta Sororitas Order (replaces this keyword when chosen).',
       },
-      {
-        name: 'Adeptus Astartes', type: 'Imperium', parentKeyword: undefined, description: 'The Space Marines, superhuman elite warriors of the Imperium.',
-      },
+      { name: 'Adeptus Astartes', type: 'Imperium', parentKeyword: undefined, description: 'The Space Marines, superhuman elite warriors of the Imperium.' },
       {
         name: '<Chapter>', type: 'Imperium', parentKeyword: 'Adeptus Astartes', description: 'A specific Adeptus Astartes Chapter (replaces this keyword when chosen).',
       },
@@ -125,7 +125,13 @@ export default {
         description: 'A specific type of Navis Nobilite house (replaces this keyword when chosen).',
         source: 'pax',
       },
-      { name: 'Untouchable', type: 'Imperium', parentKeyword: undefined, description: 'Those unfortunate few whose very presence is unnaturally ‘wrong’, and intrinsically opposed to the Immaterium.', source: 'pax' },
+      {
+        name: 'Untouchable',
+        type: 'Imperium',
+        parentKeyword: undefined,
+        description: 'Those unfortunate few whose very presence is unnaturally ‘wrong’, and intrinsically opposed to the Immaterium.',
+        source: 'pax'
+      },
       {
         name: '<Gang>',
         type: 'Imperium',
@@ -133,23 +139,38 @@ export default {
         description: '',
         source: 'pax',
       },
+      {
+        name: 'Adeptus Arbites',
+        type: 'Imperium',
+        parentKeyword: undefined,
+        description: 'The keepers of Imperial law and enforcers of loyalty to the Golden Throne.',
+        effect: 
+          'You are immune to Terror or Fear originating from enemies with the <Imperium> keyword. ' +
+          'In addition, you gain +2 bonus dice to any Scholar or Investigation tests related to recidivists or heretics.',
+        source: 'pax',
+      },
+
+      {
+        name: '<Predict>',
+        type: 'Imperium',
+        parentKeyword: 'Adeptus Arbites',
+        description: 'A specific type of Arbites precinct (replaces this keyword when chosen).',
+        source: 'pax',
+      },
 
       // Renegade and Heretic Keywords
-      {
-        name: 'Chaos', type: 'Renegade', parentKeyword: undefined, description: 'Those who serve the Dark Gods, knowingly or otherwise.',
-      },
-      {
-        name: '<Mark of Chaos>', type: 'Renegade', parentKeyword: undefined, description: 'A specific Chaos God (replaces this keyword when chosen).',
-      },
-      {
-        name: 'Dark Mechanicus', type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.',
-      },
+      { name: 'Chaos', type: 'Renegade', parentKeyword: undefined, description: 'Those who serve the Dark Gods, knowingly or otherwise.' },
+      { name: '<Mark of Chaos>', type: 'Renegade', parentKeyword: undefined, description: 'A specific Chaos God (replaces this keyword when chosen).' },
+      { name: 'Dark Mechanicus', type: 'Renegade', parentKeyword: undefined, description: 'Small groups of Tech-Priests who have rejected the doctrines of Mars and work with the forces of Chaos.' },
       { name: 'Heretic', type: 'Renegade', parentKeyword: undefined, description: 'Those who have rejected the Imperial Creed.' },
+      { name: 'Heretic Astartes', type: 'Renegade', parentKeyword: undefined, description: 'Once loyal to the imperium but now outlawed and enemies of mankind.' },
+      { name: '<Legion>', type: 'Renegade', parentKeyword: undefined, description: 'A specific Heretic Astartes Legion (replaces this keyword when chosen).' },
 
       // Social PAX
       { source: 'pax', name: 'Nobility', type: 'Social', parentKeyword: undefined, description: 'The high born elite of the Imperium.' },
       { source: 'pax', name: 'Lower Class', type: 'Social', parentKeyword: undefined, description: 'Those who in their uncountable numbers toil at industry, agriculture or another manual trade.' },
       { source: 'pax', name: 'Outcast', type: 'Social', parentKeyword: undefined, description: 'Those unfortunates who have slipped through the cracks of society.' },
+      { source: 'pax', name: 'Military', type: 'Social', parentKeyword: undefined, description: 'Those whose craft is the waging of war.' },
     ];
     const keywordSubwordRepository = [
 
@@ -350,8 +371,21 @@ export default {
       { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Ultramarines', description: 'Ultramarines are renowned for their discipline, honour, and tactical acumen. In the wake of the Horus Heresy, the Ultramarines Legion composed nearly half of the Space Marines in the galaxy. By willingly dividing the Legion into chapters, they set the example that enabled the second founding to succeed and provide a basis for the other legions to embrace the Codex Astartes.' },
       { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'White Scars', description: 'The White Scars embrace strategies built around rapid and savage attacks, striking at an opponent and withdrawing before the foe has any opportunity to make a counterstrike. They prefer to attack from vehicles, deploying from transports or riding bikes or Land Speeders into battle. Their traditions prize ferocity, tempered by an inherent sense of honour and justice.' },
       { type: 'Chapter of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Other Chapter', description: 'An unkown chapter in the vast space.' },
-      { type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Isenwell)', description: 'Thrive for excellence.' },
-      { type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Hironiat)', description: 'Break the Tide.' },
+
+      // Doctors of Doom
+      { source: 'dod', type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Isenwell)', description: 'Thrive for excellence.' },
+      { source: 'dod', type: 'Chapter House of the Adeptus Astartes', placeholder: '<Chapter>', name: 'Doctors of Doom (House Hironiat)', description: 'Break the Tide.' },
+
+      // <Legion> -> Let the Galaxy Burn
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Black Legion', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Iron Warriors', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Night Lords', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'World Bearers', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Alpha Legion', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Death Guard', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Emperor`s Children', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'Thousand Suns', description: '' },
+      { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '<Legion>', name: 'World Eaters', description: '' },
 
       // Marks of the Chaos Goods
       { type: 'Mark of Chaos', placeholder: '<Mark of Chaos>', name: 'Mark of Khorne', description: '' },
@@ -400,9 +434,9 @@ export default {
         modification: {},
       },
       {
-        placeholder: '<Clan>',
-        type: 'Ork Clan',
         name: 'Deathskulls',
+        type: 'Ork Clan',
+        placeholder: '<Clan>',
         description: 'Deathskulls are light-fingered thieves who share an almost Mekboylike '
         + 'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as '
         + 'much as the next Ork, their innate kleptomania makes them see every battle as an '
@@ -439,6 +473,21 @@ export default {
       { type: 'Navigator House', placeholder: '<Navis House>', name: 'Renegade House', description: 'Some of the Great Houses have completely forsaken the traditions and ancient practices of the Navigator families in their quest for power, or may have been turned on by the rest of the Navis Nobilite, harrowed, and driven into exile. Dabbling heavily in the genes of their children in order to improve their lot, their tampering often leads to hideous mutations and unconscionable monsters in their lineage, which in turn leads to rejection by the Paternova and a hunt to extinction by the Inquisition. In some cases, however, it has birthed new strains of the gene and given rise to families with unique abilities and potent powers. To be a part of a Renegade House is to have cast aside the sacred Navigator traditions as small minded and restrictive and instead embraced the glory and limitless potential of your ancestry - or so the houses believe, to comfort themselves.' },
       { type: 'Navigator House', placeholder: '<Navis House>', name: 'Shrouded House', description: 'Shrouded houses have suffered great losses or shame within the more established dominions of the Imperium. They have opted to move their powerbase completely to the edge of known space, where they cling to the barest strands of their former status and power. Though they may be rich in skill, knowledge or lore, something in the past of Shrouded Houses has blighted them and reduced them to a state so far from their once exalted position that they are sometimes cruelly called ‘beggar houses’ by their more successful counterparts. To be part of a Shrouded House is to be part of a fallen line that is slowly rising again to stand defiant against those that once cast them down - or at least, so you are told by your elders. Their loss in standing has often forced such houses to flee to the margins of the Imperium and to develop a cunning and opportunistic mindset alongside a skill that is often lacked by more comfortably indolent houses.' },
 
+      // PAX Adeptus Arbites Predict
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'Astra', description: 'Precinct Astra is the designation for the diffused networks of a local sector, tasked with patrolling interstellar trade routes and monitoring crime within the void.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'Courthouse', description: 'Sprawling hive cities typically also have their own Courthouse Precinct to aid in large scale monitoring, reporting to their central Precinct Fortress.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'Fortress', description: 'Most Arbitrators operate out of massive Precinct Fortresses, located within capital cities in close proximity to the Planetary Governor of major Imperial worlds.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'House', description: 'Remote planets of little importance typically have just a single fortified Precinct House for the single Arbitrator stationed there.' },
+      { type: 'Adeptus Arbited Predict', placeholder: '<Predict>', name: 'Op-Center', description: 'Operational centers are forward operating bases maintained throughout Imperial worlds, particularly hive or industrial worlds, with each being a garrison for a few dozen Arbitrators who report to their nearest precinct.' },
+
+      // AAOA Squat Leagues
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Thor', description: 'The most powerful and influential League, once containing more than three hundred Strongholds. What remains is a fleet of a thousand ships, sailing through the inky void of the Imperium Nihilus, seeking allies.' },
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Emberg', description: 'The furthest League from the galactic core, lying near to the Eye of Terror. The remnants gathered up with survivors from Cadia and are currently waging a crusade of vengeance against any of the forces of Chaos they encounter.' },
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Kapellar', description: 'The League with the greatest number of member Strongholds, though none so influential as those within the League of Thor. The remnants are scattered far and wide and can normally be found hiring themselves out as mercenaries as they search for signs of their kin.' },
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Norgyr', description: 'The first of the Leagues to be discovered by the Great Crusades, due to its relative proximity with Earth. Most of the survivors rallied to the Imperium after the cataclysm, and now scour the western edge of the rift looking for other Squats and for Chaos raiders.' },
+      { source: 'aaoa', type: 'Squat League', placeholder: '<League>', name: 'League of Grindel', description: 'A rival to the League of Thor, who waged war against them in the 39th Millennium until they united in the face of WAAAGH Grunhag. Few survived the cataclysm, and the survivors have tried to settle a world near the rift in the Imperium Nihilus.' },
+
+      // PAX Hive Gang
       {
         name: 'Anarcho-Gang',
         type: 'Hive Gang',

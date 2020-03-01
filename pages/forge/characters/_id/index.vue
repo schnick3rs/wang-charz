@@ -86,30 +86,36 @@
         <v-row no-gutters>
          <v-col :cols="12" class="pa-1">
           <v-card>
-            <v-toolbar color="red" dark dense height="32">
-              <v-toolbar-title>Attributes</v-toolbar-title>
-            </v-toolbar>
+            <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
+              Attributes
+            </v-card-title>
 
-            <v-simple-table
-              dense
-            >
+            <v-simple-table dense>
               <thead>
-              <tr>
-                <th v-for="header in attributeHeaders">
-                  {{ header.text }}
-                </th>
-              </tr>
+                <tr>
+                  <th v-for="header in attributeHeaders" :class="header.class">
+                    {{ header.text }}
+                  </th>
+                </tr>
               </thead>
               <tbody>
               <tr v-for="item in attributes">
-                <td class="text-left pa-1 small">
-                  {{ item.name }}
-                </td>
+                <td class="text-left pa-1 small">{{ item.name }}</td>
+                <td class="text-center pa-1 small">{{ item.rating }}</td>
+                <td class="text-center pa-1 small">{{ item.adjustedRating }}</td>
                 <td class="text-center pa-1 small">
-                  {{ item.value }}
-                </td>
-                <td class="text-center pa-1 small">
-                  {{ item.enhancedValue }}
+                  <v-tooltip bottom v-if="item.adjustment > 0">
+                    <template v-slot:activator="{ on }">
+                      <v-avatar color="success" size="12" v-on="on"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
+                    </template>
+                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                  </v-tooltip>
+                  <v-tooltip bottom v-if="item.adjustment < 0">
+                    <template v-slot:activator="{ on }">
+                      <v-avatar color="error" size="12" v-on="on"><v-icon dark small>arrow_drop_down</v-icon></v-avatar>
+                    </template>
+                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                  </v-tooltip>
                 </td>
               </tr>
               </tbody>
@@ -121,9 +127,9 @@
         <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
           <v-card>
-            <v-toolbar color="red" dark dense height="32">
-              <v-toolbar-title>Traits</v-toolbar-title>
-            </v-toolbar>
+            <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
+              Traits
+            </v-card-title>
 
             <v-simple-table
               :headers="traitHeaders"
@@ -131,85 +137,33 @@
               dense
             >
               <tbody>
-              <tr v-for="item in groupedTraits">
-                <td class="text-left pa-1 small">
-                  <span>{{ item.name }}</span>
-                  <span v-if="item.name === 'Wounds'" style="float: right;">
-                          {{ '☐'.repeat( Math.ceil(item.enhancedValue/2) ) }}
-                          •
-                          {{ '☐'.repeat( Math.floor(item.enhancedValue/2) ) }}
-                        </span>
-                  <span v-if="item.name === 'Shock'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
-                  <em v-if="item.name==='Resilience' && armour.length>0">
-                    @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
-                  </em>
-                </td>
-                <td v-if="item.name==='Resilience'" class="text-center pa-1 small">
-                  {{ item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
-                </td>
-                <td v-else class="text-center pa-1 small">
-                  {{ item.enhancedValue }}
-                </td>
-              </tr>
+                <tr v-for="item in groupedTraits">
+                  <td class="text-left pa-1 small">
+                    <span>{{ item.name }}</span>
+                    <div v-if="['Wealth','Shock','Wounds'].includes(item.name)" style="float: right;">
+                      <div style="flex-wrap: wrap; display: flex;" v-if="item.enhancedValue > 0">
+                          <div
+                            v-for="pointIndex in item.enhancedValue"
+                            class="resource-box"
+                            :class="{ 'resource-box--filled': pointIndex <= item.spend, 'resource-box--filled-light': item.key === 'wounds' && item.spend <= Math.floor(item.enhancedValue/2) }"
+                            @click="toggleResource(item, pointIndex)"
+                          ></div>
+                        </div>
+                    </div>
+                    <em v-if="item.name==='Resilience' && armour.length>0">
+                      @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
+                    </em>
+                  </td>
+                  <td v-if="item.name==='Resilience'" class="text-center pa-1 small">
+                    {{ item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
+                  </td>
+                  <td v-else class="text-center pa-1 small">
+                    {{ item.enhancedValue }}
+                  </td>
+                </tr>
               </tbody>
             </v-simple-table>
 
-            <v-data-table
-              v-if="false"
-              :headers="traitHeaders"
-              :items="traits.filter(i=>i.type === 'Combat')"
-              hide-footer
-              hide-actions
-            >
-              <template v-slot:items="props">
-                <tr>
-                  <td class="text-left pa-1 small">
-                    {{ item.name }}
-                  </td>
-                  <td class="text-center pa-1 small">
-                    {{ item.enhancedValue }}
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
-
-            <v-data-table
-              v-if="false"
-              :headers="traitHeaders"
-              :items="traits.filter(i=>i.type === 'Mental')"
-              hide-footer
-              hide-actions
-            >
-              <template v-slot:items="props">
-                <tr>
-                  <td class="text-left pa-1 small">
-                    {{ item.name }}
-                  </td>
-                  <td class="text-center pa-1 small">
-                    {{ item.enhancedValue }}
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
-
-            <v-data-table
-              v-if="false"
-              :headers="traitHeaders"
-              :items="traits.filter(i=>i.type === 'Social')"
-              hide-footer
-              hide-actions
-            >
-              <template v-slot:items="props">
-                <tr>
-                  <td class="text-left pa-1 small">
-                    {{ item.name }}
-                  </td>
-                  <td class="text-center pa-1 small">
-                    {{ item.enhancedValue }}
-                  </td>
-                </tr>
-              </template>
-            </v-data-table>
           </v-card>
         </v-col>
         </v-row>
@@ -220,17 +174,18 @@
       <v-col :cols="12" :sm="6" :md="3">
         <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
-          <v-card style="height: 612px;">
-            <v-toolbar color="red" dark dense height="32">
-              <v-toolbar-title>Skills</v-toolbar-title>
-            </v-toolbar>
+          <v-card style="height: 612px; display: flex; flex-flow: column;">
+            <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
+              Skills
+            </v-card-title>
 
             <v-simple-table
               dense
+              style="overflow-y: auto"
             >
               <thead>
               <tr>
-                <th v-for="header in skillHeaders">
+                <th v-for="header in skillHeaders" :class="header.class">
                   {{ header.text }}
                 </th>
               </tr>
@@ -239,6 +194,16 @@
               <tr v-for="item in skills">
                 <td class="text-left pa-1 small">
                   {{ item.name }}
+                  <span v-if="item.custom">
+                    <v-hover>
+                      <v-icon
+                        small
+                        @click="removeCustomSkill(item.key)"
+                        slot-scope="{ hover }"
+                        :color="`${ hover ? 'error' : '' }`"
+                      >delete</v-icon>
+                    </v-hover>
+                  </span>
                 </td>
                 <td class="text-center pa-1 small">
                   {{ item.value }}
@@ -252,10 +217,47 @@
               </tr>
               </tbody>
             </v-simple-table>
-          </v-card>
-        </v-col>
+
+            <v-spacer></v-spacer>
+
+            <v-card-actions style="justify-content: center;">
+              <v-btn x-small text @click="openSkillsSettings">Additional Skill <v-icon small>settings</v-icon></v-btn>
+            </v-card-actions>
+
+            </v-card>
+          </v-col>
         </v-row>
       </v-col>
+
+      <v-dialog
+        v-model="skillsEditorDialog"
+        width="600px"
+        scrollable
+        :fullscreen="$vuetify.breakpoint.xsOnly"
+      >
+        <v-card>
+          <v-card-title style="background-color: #262e37; color: #fff;">
+            Edit Custom Skill
+            <v-spacer />
+            <v-icon dark @click="closeSkillsSettings">close</v-icon>
+          </v-card-title>
+          <v-card-text class="pt-4">
+            <v-text-field v-model="customSkill.name" dense label="Skill Name"></v-text-field>
+            <v-select
+              v-model="customSkill.attribute"
+              :items="attributeRepository"
+              item-value="name" item-text="name"
+              dense label="Accosiated Attribute"
+            ></v-select>
+            <v-textarea v-model="customSkill.description" dense label="Description"></v-textarea>
+          </v-card-text>
+          <v-divider></v-divider>
+          <v-card-actions>
+            <v-spacer />
+            <v-btn small right color="success" @click="saveCustomSkill">Save</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
 
       <!-- actions, gear, feats, spells, ... -->
       <v-col :cols="12" :sm="12" :md="6" class="pa-1 ">
@@ -293,7 +295,7 @@
                 All, <Disciplines>
 
               Description
-                All, Background, Objectives, Keywords
+                All, (Background), Languages, Objectives, Keywords,
 
             -->
 
@@ -326,7 +328,7 @@
                       </td>
                       <td class="text-center pa-1 small">
                         <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                          <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + characterAttributesEnhanced.strength }}*</span>
+                          <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
                           <span v-else>{{ item.meta[0].damage.static }}</span>
                           <span> + </span>
                           <span>{{ item.meta[0].damage.ed }} ED</span>
@@ -365,16 +367,41 @@
               key="wargear"
               :value="`tab-wargear`"
             >
-              <div class="pa-2">
-                <div v-for="gearItem in wargear.filter((w)=>!['Ranged Weapon','Melee Weapon'].includes(w.type))" :key="gearItem.name" class="caption">
-                  <strong>{{ gearItem.name }}</strong>
-                  <p>{{ gearItem.description }}</p>
+              <div class="pa-2 pt-1 pb-1">
+                <div v-for="gearItem in wargear" :key="gearItem.name" class="caption">
+                  <div v-if="gearItem.variant" style="display: inline;">
+                    <strong >{{ gearItem.variant }}</strong>
+                    <span> ({{ gearItem.name }})</span>
+                  </div>
+                  <strong v-else>{{ gearItem.name }}</strong>
+                  <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                  <span v-if="gearItem.source">
+                    <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                  </span>
+
+                  <p class="mb-1" v-if="gearItem.snippet">{{ gearItem.snippet }}</p>
+                  <div class="mb-1" v-else v-html="gearItem.description"></div>
+
+                  <div
+                    v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                  >
+                    <p
+                      class="ml-3 mt-1 mb-2"
+                      v-for="trait in gearItem.meta[0].traits"
+                      v-if="traitByName(trait, true)"
+                      :key="trait"
+                    >
+                      <strong>{{ trait }}: </strong>
+                      {{ traitByName(trait, true).effect }}
+                    </p>
+                  </div>
+
                 </div>
 
               </div>
             </v-tab-item>
 
-            <!-- abilities (All, Race, Archetype, Talents, Other) -->
+            <!-- abilities (All, Race, Archetype, Talents, Faith?, Other) -->
             <v-tab-item
               class="my-tab-item"
               key="abilities-talents"
@@ -427,12 +454,30 @@
 
                   <!-- talents < abilities -->
                   <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" >
-                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-                      <span class="body-2 red--text">Talents</span>
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
+                      <span class="body-2 red--text" style="flex: 1;">Talents</span>
+                      <div style="flex-wrap: wrap; display: flex;" v-if="characterFaith.points > 0">
+                        <div
+                          v-for="pointIndex in characterFaith.points"
+                          class="faith-box"
+                          :class="{ 'faith-box--filled': pointIndex <= characterFaith.spend }"
+                          @click="toggleResourceFaith(pointIndex)"
+                        ></div>
+                        <span class="caption ml-2">/ Faith Points</span>
+                      </div>
                     </div>
-                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption">
+                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption mb-3">
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
-                      <p v-html="computeFormatedText(talent.description)" />
+                      <p class="mt-1 mb-1" v-html="computeFormatedText(talent.description)" />
+                      <div v-if="false" class="mt-1 mb-1 ml-1 pl-2" style="flex-wrap: wrap; display: flex; border-left: solid 3px lightgrey;" >
+                        <div
+                          v-for="pointIndex in characterFaith.points"
+                          class="faith-box"
+                          :class="{ 'faith-box--filled': pointIndex <= characterFaith.spend }"
+                          @click="toggleResourceFaith(pointIndex)"
+                        ></div>
+                        <span class="caption ml-2">/ Faith Points</span>
+                      </div>
                     </div>
                     <div v-if="talents.length === 0" align="center" class="mt-2 mb-2">
                       <em>Knowledge is treason.</em>
@@ -440,11 +485,20 @@
                   </div>
 
                   <!-- talents (with faith) < abilities -->
-                  <div v-if="false" v-show="['all', 'faith'].some(i=>i===abilitySection.selection)">
+                  <div v-if="false" v-show="['all', 'faith'].some(i=>i===abilitySection.selection)" class="caption">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
                       <span class="body-2 red--text" style="flex: 1;">Faith</span>
+                      <div style="flex-wrap: wrap; display: flex;">
+                        <div
+                          v-for="pointIndex in characterFaith.points"
+                          class="faith-box"
+                          :class="{ 'faith-box--filled': pointIndex <= characterFaith.spend }"
+                          @click="toggleResourceFaith(pointIndex)"
+                        ></div>
+                        <span class="body-2 ml-2">Faith Points</span>
+                      </div>
                     </div>
-                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" class="caption">
+                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" >
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
                       <p v-html="computeFormatedText(talent.description)" />
                     </div>
@@ -523,7 +577,7 @@
                   <v-chip
                     label
                     small
-                    v-for="item in [`All`,`Objectives`,`Keywords`]"
+                    v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`]"
                     :key="item.toLowerCase()"
                     :value="item.toLowerCase()"
                   >
@@ -556,6 +610,19 @@
                         dense
                         v-model="objectiveEditorValue"
                       ></v-textarea>
+                    </div>
+                  </div>
+
+                  <!-- languages < description -->
+                  <div v-show="['all', 'languages'].some(i=>i===descriptionSection.selection)">
+                    <div class="mb-2" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Languages</span>
+                    </div>
+                    <div
+                      v-if="languages.length > 0"
+                      class="caption"
+                    >
+                      {{ languages.map((l)=>l.name).join(' • ') }}
                     </div>
                   </div>
 
@@ -649,13 +716,13 @@
 </template>
 
 <script lang="js">
-import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
-import SluggerMixin from '~/mixins/SluggerMixin';
-import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
-import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+  import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+  import SluggerMixin from '~/mixins/SluggerMixin';
+  import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
-export default {
+  export default {
   name: 'in-app-view',
   //layout: '',
   mixins: [
@@ -667,9 +734,8 @@ export default {
   ],
   props: [],
   async asyncData({ params, $axios }) {
-    const sourceFilter = '?source=core,coreab,pax';
+
     const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
     const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
@@ -680,7 +746,6 @@ export default {
       objectiveRepository: objectiveResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
       talentRepository: talentResponse.data,
-      wargearRepository: wargearResponse.data,
       breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/',
         },
@@ -693,12 +758,11 @@ export default {
   },
   data() {
     return {
-      objectiveEditorShow: false,
-      objectiveEditorValue: '',
       attributeHeaders: [
-        { text: 'Attribute', sortable: false, align: 'left', class: 'small pa-1' },
-        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
-        { text: 'Adjusted', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Attribute', sortable: false, align: 'left', class: 'text-left small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'text-center small pa-1' },
+        { text: 'Enhanced', sortable: false, align: 'right', class: 'text-center small pa-1' },
+        { text: 'Notes', sortable: false, style: 'center', class: 'text-center small pa-1' },
       ],
       traitHeaders: [
         { text: 'Trait', sortable: false, align: 'left', class: 'small pa-1' },
@@ -730,11 +794,33 @@ export default {
       descriptionSection: { selection: 'all' },
       abilitySection: { filter: 'all' },
       //
+      objectiveEditorShow: false,
+      objectiveEditorValue: '',
+      //
+      skillsEditorDialog: false,
+      customSkill: {
+        key: undefined,
+        name: 'Custom Skill',
+        attribute: '',
+        description: '',
+      },
+      //
       characterSpecies: undefined,
       characterArchetype: undefined,
+      wargearRepository: undefined,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
     characterName() {
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
@@ -755,7 +841,11 @@ export default {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
     },
     speciesAstartesChapter() {
-      return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
+      let chapter = this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
+      if ( chapter && chapter.includes(' ') ) { // its an old chapter name, using CORE
+        chapter = `core ${chapter}`.toLowerCase().replace(/\W/gm, '-');
+      }
+      return chapter;
     },
 
     archetypeKey() {
@@ -772,6 +862,9 @@ export default {
     keywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
+    languages() {
+      return this.$store.getters['characters/characterLanguagesById'](this.characterId);
+    },
     avatar() {
       const customAvatarUrl = this.$store.getters['characters/characterAvatarUrlById'](this.characterId);
 
@@ -780,35 +873,118 @@ export default {
       }
 
       if (this.archetypeKey !== undefined && !['Ratling', 'Ogryn'].includes(this.speciesLabel)) {
-        return `/img/icon/archetype/archetype_${this.archetypeKey}_avatar.png`;
+        return `/img/avatars/archetype/${this.archetypeKey}.png`;
       }
 
       if (this.speciesKey !== undefined) {
-        return `/img/icon/species/species_${this.speciesKey}_avatar.png`;
+        return `/img/avatars/species/${this.speciesKey}.png`;
       }
 
-      return '/img/icon/species/species_core-human_avatar.png';
+      return '/img/avatars/species/core-human.png';
     },
 
     characterAttributesEnhanced() {
-      return this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      let enhancedAttributes = this.$store.getters['characters/characterAttributesEnhancedById'](this.characterId);
+      return enhancedAttributes;
     },
+
+    /**
+     * {
+     *  name: 'Strength',
+     *  key: 'strength,
+     *  rating: 3, // aka bought value / rating
+     *  adjustedRating: 5, // adjuste rating,
+     *  adjustment: 2, // the adjusted amount
+     *  modifiers: [
+     *    // +1 from Attribute Modification * Space Marine Species
+     *    // +3 from Powered(3) * Astartes MK VII
+     *    { static: 1, rank: false, halfRank: false, }
+     *  ],
+     * }
+     */
     attributes() {
-      const attributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
-      return this.attributeRepository.map((a) => ({
-        ...a,
-        value: attributes[a.name.toLowerCase()],
-        enhancedValue: this.characterAttributesEnhanced[a.name.toLowerCase()],
-      }));
+
+      const characterAttributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
+      let attributes = this.attributeRepository.map((repositoryAttribute) => {
+         /* {
+            key: 'strength',
+            name: 'Strength',
+            description: 'Raw physical power.',
+          } */
+        return {
+          ...repositoryAttribute,
+          value: characterAttributes[repositoryAttribute.key],
+          enhancedValue: parseInt(this.characterAttributesEnhanced[repositoryAttribute.key]),
+          rating: characterAttributes[repositoryAttribute.key],
+          adjustedRating: parseInt(characterAttributes[repositoryAttribute.key]),
+          adjustment: 0,
+          modifiers: [],
+        };
+      });
+
+      this.enhancements
+      .filter((enhancement)=>enhancement.targetGroup==='attributes')
+      .forEach((enhancement)=>{
+        // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
+        let attr = attributes.find((a)=>a.key===enhancement.targetValue);
+        attr.adjustment += enhancement.modifier;
+        attr.adjustedRating += enhancement.modifier;
+        attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+      });
+
+      let poweredStrength = 0;
+      // enrich with (equipped) gear
+      if ( this.armour && this.armour.length > 0 ) {
+        const armour = this.armour[0];
+        const traits = armour.meta[0].traits;
+        let poweredString = traits.find((trait)=>trait.includes('Powered'));
+        if (poweredString) {
+          const trait = this.normalizeTrait(poweredString);
+          if ( trait.variant) {
+            poweredStrength = parseInt(trait.variant);
+            let strength = attributes.find((a)=>a.key==='strength');
+            strength.adjustedRating += poweredStrength;
+            strength.adjustment += poweredStrength;
+            strength.modifiers.push(`+${poweredStrength} from Armour • ${armour.name}`);
+          }
+        }
+      }
+
+      return attributes;
     },
     traits() {
-      const traits = this.$store.getters['characters/characterTraitsById'](this.characterId);
+      const characterTraits = this.$store.getters['characters/characterTraitsById'](this.characterId);
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
-      const finalTraits = this.traitRepository.map((t) => ({
+      let finalTraits = this.traitRepository.map((t) => ({
         ...t,
-        value: traits[t.key],
-        enhancedValue: traitsEnhanced[t.key],
+        value: characterTraits[t.key],
+        enhancedValue: parseInt(traitsEnhanced[t.key]),
+        rating: characterTraits[t.key],
+        adjustedRating: parseInt(characterTraits[t.key]),
+        adjustment: 0,
+        modifiers: [],
       }));
+
+      this.enhancements
+      .filter((enhancement)=>enhancement.targetGroup==='traits')
+      .forEach((enhancement)=>{
+        // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
+        let traity = finalTraits.find((a)=>a.key===enhancement.targetValue);
+        if ( traity ) {
+          traity.adjustment += enhancement.modifier;
+          traity.adjustedRating += enhancement.modifier;
+          traity.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+        } else {
+          console.warn(`Unexpected undefined trait for ${enhancement.targetValue}.`);
+        }
+      });
+
+      finalTraits
+      .filter((t)=>['wounds', 'shock', 'wealth'].includes(t.key))
+      .forEach((t)=>{
+        t.spend = this.$store.getters['characters/characterResourceSpendById'](this.characterId, t.key);
+      });
+
       return finalTraits;
     },
     groupedTraits() {
@@ -818,13 +994,47 @@ export default {
         ...this.traits.filter((i) => i.type === 'Social'),
       ];
     },
+    characterFaith() {
+      //const points = this.$store.getters['characters/characterFaithPointsById'](this.characterId);
+      const spend = this.$store.getters['characters/characterFaithSpendById'](this.characterId);
+      let points = 0;
+      this.talentsForFaith.forEach((t)=>{
+        if(['core-inspired-blessing','core-the-emperor-s-light','core-unquestioning-faith'].includes(t.key)) {
+          points += 1;
+        }
+        if(['core-acts-of-faith'].includes(t.key)) {
+          points += 2;
+        }
+      });
+
+      return { points, spend };
+    },
+    characterResources() {
+      return {
+        faith: this.characterFaith,
+        assets: {
+          points: 3,
+          spend: 0,
+        }
+      };
+    },
     skills() {
+      let finalSkills = [];
       const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
-      return this.skillRepository.map((s) => ({
+      const customSkills = this.$store.getters['characters/characterCustomSkillsById'](this.characterId);
+
+      const skillInfos = [
+        ...this.skillRepository,
+        ...customSkills,
+      ];
+
+      finalSkills = skillInfos.map((s) => ({
         ...s,
         value: skills[s.key],
         enhancedValue: skills[s.key],
       }));
+
+      return finalSkills;
     },
     enhancements() {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
@@ -838,14 +1048,14 @@ export default {
           this.characterSpecies.speciesFeatures.forEach( (speciesTrait) => {
             // Honour the Chapter
             if (speciesTrait.name === 'Honour the Chapter') {
-              const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
+              const chapter = this.astartesChapterRepository.find((a) => a.key === this.speciesAstartesChapter) || [];
               const traditions = chapter.beliefsAndTraditions;
               if (traditions !== undefined) {
                 traditions.forEach((t) => {
                   const tradition = {
                     name: t.name,
                     effect: t.effect,
-                    source: this.speciesAstartesChapter,
+                    source: chapter.name,
                   };
                   abilities.push(tradition);
                 });
@@ -854,7 +1064,7 @@ export default {
             // other abilities
               const ability = {
                 name: speciesTrait.name,
-                effect: speciesTrait.snippet,
+                effect: speciesTrait.snippet ? speciesTrait.snippet : speciesTrait.description,
                 source: this.speciesLabel,
                 hint: this.speciesLabel,
               };
@@ -882,7 +1092,7 @@ export default {
         archetype.archetypeFeatures.forEach( (item) => {
           const ability = {
             name: item.name,
-            effect: item.snippet,
+            effect: item.snippet ? item.snippet : item.description,
             source: archetype.label,
             hint: archetype.label,
           };
@@ -967,17 +1177,19 @@ export default {
       return [];
     },
     wargear() {
-      const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
+      const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
-      wargearLabels.forEach((wargearName) => {
-        console.info(wargearName)
-        const foundGear = this.wargearRepository.find((w) => w.name === wargearName);
-        if (foundGear) {
-          wargear.push(foundGear);
-        } else {
-          wargear.push({ name: wargearName, type: 'Misc' });
-        }
-      });
+      if(this.wargearRepository) {
+        chargear.forEach((gear) => {
+          console.log(`Searching for [${gear.name}] in repository (${this.wargearRepository.length} items) ...`);
+          const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
+          if (foundGear) {
+            wargear.push({ ...foundGear, variant: gear.variant });
+          } else {
+            wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
+          }
+        });
+      }
       return wargear;
     },
     weapons() {
@@ -1045,12 +1257,26 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getWargearList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
     async loadSpecies(key) {
       if ( key ) {
-        const { data } = await this.$axios.get(`/api/species/${key}`);
-        this.characterSpecies = data;
+        let finalData = {};
+        if ( key.startsWith('custom-')) {
+          finalData = this.$store.getters['species/getSpecies'](key);
+        } else {
+          const { data } = await this.$axios.get(`/api/species/${key}`);
+          finalData = data;
+        }
+        this.characterSpecies = finalData;
       }
     },
     async loadArchetype(key) {
@@ -1058,6 +1284,16 @@ export default {
         const { data } = await this.$axios.get(`/api/archetypes/${key}`);
         this.characterArchetype = data;
       }
+    },
+    async getWargearList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/wargear/', config);
+      //this.wargearRepository = data.filter((i) => i.stub === undefined || i.stub === false);
+      this.wargearRepository = data;
     },
     objectiveEditorOpen() {
       this.objectiveEditorValue = this.objectives.map((o) => o.text).join('\r\n');
@@ -1067,14 +1303,29 @@ export default {
       console.info(`Add new objective: ${value}`);
       this.objectiveEditorShow = false;
     },
-    traitByName(name) {
-      // const prefix = name.split(/ ?\(/)[0];
+    normalizeTrait(traitString) {
+      const regex = /(\w+) ?\(?(\w+)?\)?/m;
+      let trait = traitString.match(regex);
+      let traitFromRep = this.wargearTraitRepository.find((item) => item.name === trait[1]);
+      return {
+        ...traitFromRep,
+        variant: trait[2],
+      };
+    },
+    traitByName(name, withParanteris) {
+      if ( withParanteris ) {
+        // weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
+        name = name.split(/ ?\(/)[0];
+      }
       // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
       return this.wargearTraitRepository.find((item) => item.name === name);
     },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
-      return attribute.enhancedValue + skill.enhancedValue;
+      if (attribute) {
+        return attribute.adjustedRating + skill.enhancedValue;
+      }
+      return skill.enhancedValue;
     },
     computeFormatedText(text) {
       if ( text === undefined ) {
@@ -1093,6 +1344,58 @@ export default {
       computed = computed.replace(/\+ ?Rank/g, `<strong data-hint="+ Rank">+${rank}</strong>`);
 
       return computed;
+    },
+    toggleResource(resourceItem, index) {
+      const id = this.characterId;
+      const resourceKey = resourceItem.key;
+
+      const current = this.$store.getters['characters/characterResourceSpendById'](this.characterId, resourceKey);
+      const spend = (index > current) ? current+1 : current-1;
+
+      this.$store.commit('characters/setCharacterResourceSpend', { id, resourceKey, spend });
+    },
+    toggleResourceFaith(index) {
+      const id = this.characterId;
+      const current = this.characterFaith.spend;
+      const spend = (index > current) ? current+1 : current-1;
+      this.$store.commit('characters/setCharacterFaithSpend', { id, spend });
+    },
+    openSkillsSettings(){
+      this.skillsEditorDialog = true;
+    },
+    closeSkillsSettings() {
+      this.customSkill = {
+        key: undefined,
+        name: 'Custom Skill',
+        atttribute: '',
+        description: '',
+      };
+      this.skillsEditorDialog = false;
+    },
+    saveCustomSkill() {
+      // validate
+      const skill = {
+        key: this.textToCamel(this.customSkill.name),
+        name: this.customSkill.name,
+        attribute: this.customSkill.attribute,
+        description: this.customSkill.description,
+      };
+
+      const doExist = this.skills.find((s)=>s.key===skill.key);
+      if ( doExist ) {
+        console.warn(`Skill ${skill.name} already exists.`);
+      } else {
+        this.addCustomSkill(skill);
+        this.closeSkillsSettings();
+      }
+    },
+    addCustomSkill(skill) {
+      const id = this.characterId;
+      this.$store.commit('characters/addCharacterCustomSkill', { id, skill });
+    },
+    removeCustomSkill(key) {
+      const id = this.characterId;
+      this.$store.commit('characters/removeCharacterCustomSkill', { id, key });
     },
   },
 };
@@ -1128,5 +1431,69 @@ export default {
     height:1px;
     background:black;
     background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
+  }
+
+  .resource-box {
+    $size: 12px;
+    min-height: $size;
+    max-height: $size;
+    min-width: $size;
+    max-width: $size;
+    border: 1px solid hsl(0, 0%, 85%);
+    box-shadow: inset 0 0 4px 0 hsl(0, 0%, 85%);
+    cursor: pointer;
+
+    box-sizing: inherit;
+    margin: 2px;
+
+    &--filled {
+
+      &:before {
+        content: "";
+        display: block;
+        height: 7px;
+        width: 7px;
+        margin-top: 1.5px;
+        margin-left: 1.5px;
+      }
+
+      &::before {
+        background-color: hsl(0, 100%, 37%);
+      }
+    }
+
+    &--filled-light::before {
+      background-color: hsl(62, 70%, 44%) !important;
+    }
+  }
+
+  .faith-box {
+    min-height: 20px;
+    max-height: 20px;
+    min-width: 20px;
+    max-width: 20px;
+    border: 1px solid hsl(0, 0%, 85%);
+    box-shadow: inset 0 0 4px 0 hsl(0, 0%, 85%);
+    cursor: pointer;
+
+    box-sizing: inherit;
+    margin: 2px;
+
+    &--filled {
+
+      &:before {
+        content: "";
+        display: block;
+        height: 10px;
+        width: 10px;
+        margin-top: 4px;
+        margin-left: 4px;
+      }
+
+      &::before {
+        background-color: hsl(0, 100%, 37%);
+      }
+    }
+
   }
 </style>

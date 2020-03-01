@@ -257,3 +257,36 @@ var spells = [
       },
     },
 */
+
+let wargear = [
+  {
+    "id": 20,
+    "name": "Augmentic Arm",
+    "type": "Cybernetic",
+    "subtype": "Augmentic",
+    "value": 4,
+    "rarity": "Rare",
+    "keywords": [
+      "<Any>"
+    ],
+    "hint": "Add +1 to strength for melee damage. Stacks when wielding a weapon with two augmented arms.",
+    "description": "An augmented arm replaces joints and muscles with fl exible cables and servomotors, making the new limb both faster and stronger than the limb it replaces. An augmetic arm increases the Strength attribute bonus to melee weapon damage by 1. A character with a pair of augmetic arms can stack the bonus to Strength when wielding a melee weapon with both hands.",
+    "meta": [
+
+    ],
+    "modifiers": [
+
+    ],
+  },
+  {
+    id: 101,
+    key: 'pax-hive-leathers',
+    name: 'Hive Leathers',
+    source: 'pax',
+    hint: '',
+    description:
+      '<p>Hive scum, gangers, and other outcasts of the underhive often sport leather vestments made from whatever sources are available. These leathers can be made from grox hide, human or mutant skin, or worse, but all are tailored to create a tough and threatening appearance.</p>' +
+      '<p>At the GM’s discretion, Hive Leathers may allow, once per encounter, a re-roll of a failed Intimidate skill test.</p>'
+
+  }
+];

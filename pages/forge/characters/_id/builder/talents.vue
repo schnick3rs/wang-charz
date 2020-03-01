@@ -451,7 +451,7 @@ export default {
   },
   async asyncData({ params, $axios, error }) {
     const talentResponse = await $axios.get('/api/talents/');
-    const wargeaResponse = await $axios.get('/api/wargear/');
+    const wargeaResponse = await $axios.get('/api/wargear/?source=core');
     return {
       talentRepository: talentResponse.data,
       wargearRepository: wargeaResponse.data,
@@ -480,6 +480,7 @@ export default {
       const match = talent.name.match(/(<.*>)/);
       const payload = {
         name: talent.name,
+        key: talent.key,
         cost: talent.cost,
         placeholder: (match !== null && match !== undefined) ? match[1] : undefined,
         selected: undefined,
@@ -491,6 +492,7 @@ export default {
         id: this.characterId,
         source: `talent.${talent.id}`,
       };
+      // ToDo? clear modifications by source
       this.$store.commit('characters/removeCharacterWargearBySource', payload);
       this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent.name });
     },

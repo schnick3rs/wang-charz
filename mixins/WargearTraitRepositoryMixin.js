@@ -1,5 +1,4 @@
 export default {
-
   data() {
     return {
       /**
@@ -269,6 +268,17 @@ export default {
           + 'A shield adds its Armour Rating to both Resilience and Defence against attacks coming from the front and side of the bearer. '
           + 'The GM has final say on how far around the bearer a shield’s protection extends. '
           + 'Some types of shields are invulnerable (designated with an asterisk next to the armour rating) and thus may not be reduced by AP.',
+        },
+        {
+          source: 'aaoa',
+          key: 'aaoa-nemesis',
+          name: 'Nemesis',
+          hint: '',
+          effect: 'Deamons may not soak wound or mortal wounds inflicted by this weapon.',
+          description:
+            'Nemesis weapons are created to be bane to daemons. ' +
+            'The daemonic cannot bear the touch of their rune-etched, silvered steel. ' +
+            'Daemons may not Soak wounds or mortal wounds inflicted by Nemesis weapons.',
         },
       ],
     };

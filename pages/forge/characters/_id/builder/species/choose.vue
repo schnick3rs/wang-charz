@@ -1,5 +1,6 @@
 <template>
   <v-row justify="center">
+
     <v-col :cols="12">
       <h1 class="headline">
         Select a Species
@@ -23,13 +24,14 @@
     </v-dialog>
 
     <v-col cols="12">
+
       <v-progress-circular v-if="!speciesList" indeterminate color="success" size="128" width="12" />
 
       <v-card v-if="speciesList">
         <v-list>
           <v-list-item
             v-for="item in speciesList"
-            :key="item.name"
+            :key="item.key"
             :disabled="item.baseTier > characterSettingTier"
             @click.stop="updatePreview(item)"
           >
@@ -38,7 +40,19 @@
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.name }}</v-list-item-title>
+              <v-list-item-title>
+                {{ item.name }}
+                <v-chip
+                  v-if="item.source && !['core', 'coreab'].includes(item.source.key)"
+                  color="info"
+                  outlined
+                  tags
+                  x-small
+                  label
+                >
+                  {{item.source.key.toUpperCase()}}
+                </v-chip>
+              </v-list-item-title>
               <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
             </v-list-item-content>
 
@@ -62,7 +76,15 @@
           </v-list-item>
         </v-list>
       </v-card>
+
+      <v-card class="mt-4">
+        <v-card-text>
+          <p>You can add your own <strong>custom species</strong> <nuxt-link to="/forge/species">here</nuxt-link>. You can then select it here.</p>
+        </v-card-text>
+      </v-card>
+
     </v-col>
+
   </v-row>
 </template>
 
@@ -124,14 +146,24 @@ export default {
       };
       const { data } = await this.$axios.get('/api/species/', config);
       this.speciesList = data;
+
+      if ( sources.includes('custom') ) {
+        const customSpecies = this.$store.getters['species/speciesSets'];
+        this.speciesList.push(...customSpecies);
+      }
     },
     getAvatar(key) {
-      return `/img/icon/species/species_${key}_avatar.png`;
+      return `/img/avatars/species/${key}.png`;
     },
     async updatePreview(item) {
       const slug = this.camelToKebab(item.key);
-      const speciesDetails = await this.$axios.get(`/api/species/${slug}`);
-      this.selectedSpecies = speciesDetails.data;
+      if ( item.key.startsWith('custom-')) {
+        const speciesDetails = this.$store.getters['species/getSpecies'](item.key);
+        this.selectedSpecies = speciesDetails;
+      } else {
+        const speciesDetails = await this.$axios.get(`/api/species/${slug}`);
+        this.selectedSpecies = speciesDetails.data;
+      }
       this.speciesDialog = true;
     },
     selectSpeciesForChar(species) {
@@ -139,7 +171,7 @@ export default {
       species.speciesFeatures
         .filter( (t) => t.modifications !== undefined )
         .forEach( (t) => {
-          modifications = [ ...t.modifications ];
+          modifications = [ ...modifications, ...t.modifications ];
         });
 
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: 'species' });
@@ -179,6 +211,12 @@ export default {
       this.$router.push({
         name: 'forge-characters-id-builder-species-manage',
         params: { id: this.characterId },
+      });
+    },
+    openCustomEditor() {
+      this.$router.push({
+        name: 'forge-characters-id-builder-species-edit',
+        params: { id: this.characterId, speciesKey: undefined },
       });
     },
   },

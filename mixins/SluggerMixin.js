@@ -12,6 +12,12 @@ export default {
     textToKebab(text) {
       return text.toLowerCase().replace(/\W/gm, '-');
     },
+    textToCamel(text) {
+      return text
+                .replace(/\s(.)/g, function($1) { return $1.toUpperCase(); })
+                .replace(/\s/g, '')
+                .replace(/^(.)/, function($1) { return $1.toLowerCase(); });
+    },
     /**
      * converst 'some-kebab-slug' to 'someKebabSlug'
      * @param kebab

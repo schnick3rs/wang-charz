@@ -19,7 +19,7 @@
                 />
               </v-col>
 
-              <v-col :cols="6">
+              <v-col :cols="12" :sm="6">
                 <v-select
                   v-model="filters.keywords.model"
                   :items="filterKeywordsOptions"
@@ -30,6 +30,21 @@
                   multiple
                   chips
                   deletable-chips
+                  single-line
+                />
+              </v-col>
+
+
+              <!-- filter species -->
+              <v-col :cols="12" :sm="6">
+                <v-select
+                  v-model="filters.source.model"
+                  :items="filterSourceOptions"
+                  :label="filters.source.label"
+                  filled
+                  clearable
+                  multiple
+                  dense
                   single-line
                 />
               </v-col>
@@ -77,8 +92,25 @@
             <template v-slot:item.value="{ item }">
               {{ item.value }} {{ item.rarity }}
             </template>
+            <!--
             <template v-slot:item.keywords="{ item }">
               {{ item.keywords.join(', ') }}
+            </template>
+            -->
+            <template v-slot:item.source.book="{ item }">
+              <v-row no-gutters>
+                <v-col :cols="12">
+                  {{ item.source.book }}
+                  <NuxtLink v-if="item.source.path" :to="item.source.path" target="_blank">
+                    <v-icon small>
+                      launch
+                    </v-icon>
+                  </NuxtLink>
+                </v-col>
+                <v-col v-if="item.source.page" :cols="12" class="caption grey--text">
+                  pg. {{ item.source.page }}
+                </v-col>
+              </v-row>
             </template>
 
             <!-- detail preview -->
@@ -172,13 +204,13 @@
 </template>
 
 <script>
-import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
-import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
-import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
-import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
-import SluggerMixin from '~/mixins/SluggerMixin';
+  import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
+  import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
+  import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
+  import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+  import SluggerMixin from '~/mixins/SluggerMixin';
 
-export default {
+  export default {
   layout: 'library',
   components: {
     DodDefaultBreadcrumbs,
@@ -208,16 +240,31 @@ export default {
       ],
     };
   },
+  async asyncData({ $axios, query, params, error }) {
+    const response = await $axios.get('/api/wargear/');
+    const { data } = response;
+
+    if (data === undefined || data.length <= 0) {
+      error({ statusCode: 404, message: 'No Wargear found!' });
+    }
+
+    const filtersSourceModel = [];
+    if (query['filter-source']) {
+      filtersSourceModel.push(query['filter-source']);
+    }
+
+    return {
+      items: data,
+      filters: {
+        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
+        keywords: { model: [], label: 'Filter by Keywords' },
+      },
+    };
+  },
   data() {
     return {
       searchQuery: '',
       selectedTypeFilters: [],
-      filters: {
-        keywords: {
-          model: [],
-          label: 'Filter by Keywords',
-        },
-      },
       pagination: {
         page: 1,
         pageCount: 0,
@@ -225,48 +272,53 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        {
-          text: 'Name', align: 'left', value: 'name', class: '',
-        },
-        {
-          text: 'Type', align: 'left', value: 'type', class: '',
-        },
-        {
-          text: 'Value', align: 'left', value: 'value', class: '',
-        },
-        {
-          text: 'Keywords', align: 'left', value: 'keywords', class: '',
-        },
+        { text: 'Name', align: 'left', value: 'name', class: '' },
+        { text: 'Type', align: 'left', value: 'type', class: '' },
+        { text: 'Value', align: 'left', value: 'value', class: '' },
+        //{ text: 'Keywords', align: 'left', value: 'keywords', class: '' },
+        { text: 'Source', align: 'start', value: 'source.book', class: '' },
       ],
     };
   },
   computed: {
+    activeRepository() {
+      return this.items;
+    },
     searchResult() {
-      if (this.wargearRepository === undefined) {
+      if (this.activeRepository === undefined) {
         return [];
       }
-      let searchResult = this.wargearRepository;
+      let filteredResults = this.activeRepository;
 
-      console.log(this.selectedTypeFilters);
       if (this.selectedTypeFilters.length > 0) {
-        searchResult = searchResult.filter((item) => this.selectedTypeFilters.includes(item.type));
+        filteredResults = filteredResults.filter((item) => this.selectedTypeFilters.includes(item.type));
       }
 
-      return searchResult;
+      let filter;
+
+      filter = this.filters.source;
+      if (filter.model.length > 0) {
+        filteredResults = filteredResults.filter((i) => filter.model.includes(i.source.key));
+      }
+
+      return filteredResults;
     },
     typeFilters() {
-      const reduceToType = this.wargearRepository.map((item) => item.type);
+      const reduceToType = this.activeRepository.map((item) => item.type);
       const distinctTypes = [...new Set(reduceToType)];
-      const types = distinctTypes.map((t) => ({ name: t }));
-      return types;
+      return distinctTypes.map((t) => ({ name: t }));
     },
     filterKeywordsOptions() {
       const keywordArray = [];
-      this.wargearRepository.forEach((item) => {
+      this.activeRepository.forEach((item) => {
         keywordArray.push(...item.keywords);
       });
       const distinctOptions = [...new Set(keywordArray)];
       return distinctOptions.filter((o) => o.indexOf('<') !== 0).sort();
+    },
+    filterSourceOptions() {
+      const options = this.activeRepository.map((i) => ({ value: i.source.key, text: i.source.book }));
+      return [...new Set(options)].sort((a, b) => a.text.localeCompare(b.text));
     },
     breadcrumbItems() {
       return [
@@ -288,18 +340,6 @@ export default {
 
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
-  },
-  async asyncData({ app }) {
-    const response = await app.$axios.get('/api/wargear/');
-    const items = response.data;
-
-    if (items === undefined || items.length <= 0) {
-      error({ statusCode: 404, message: 'No Ascension Packages found!' });
-    }
-
-    return {
-      wargearRepository: items,
-    };
   },
   methods: {
     toTypeString(item) {
