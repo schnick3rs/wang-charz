@@ -63,6 +63,8 @@
         v-model="grantAllAccess"
         color="primary"
         label="Allow all access"
+        hint="This is a workaround to access all powers"
+        persistent-hint
         class="pl-2"
       />
     </v-col>
