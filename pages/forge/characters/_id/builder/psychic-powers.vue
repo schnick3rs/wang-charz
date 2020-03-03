@@ -59,6 +59,15 @@
     </v-col>
 
     <v-col :cols="12">
+      <v-switch
+        v-model="grantAllAccess"
+        color="primary"
+        label="Allow all access"
+        class="pl-2"
+      />
+    </v-col>
+
+    <v-col :cols="12">
       <v-card>
         <v-card-title>
           <v-text-field
@@ -152,6 +161,7 @@ export default {
           sortable: false,
         },
       ],
+      grantAllAccess: false,
       selectedDisciplines: [],
       disciplinesRepository: [
         { name: 'Minor', source: 'core' },
@@ -231,6 +241,10 @@ export default {
     },
     allowedDisciplines() {
       let access = [];
+
+      if (this.grantAllAccess) {
+        return this.disciplines.map((d)=>d.name);
+      }
 
       if(this.species && this.species.speciesFeatures) {
         this.species.speciesFeatures
