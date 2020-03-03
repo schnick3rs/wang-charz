@@ -35,8 +35,6 @@ export default {
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
-
-
   },
 };
 </script>
