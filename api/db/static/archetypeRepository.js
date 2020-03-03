@@ -722,7 +722,7 @@ const core = [
   {
     source: { ...source.core },
     name: 'Tactical Space Marine',
-    species: ['Aceptus Astartes (core)'],
+    species: ['Adeptus Astartes (core)'],
     speciesKey: ['core-adeptus-astartes'],
     cost: 50,
     tier: 3,
@@ -1059,7 +1059,7 @@ const core = [
     name: 'Chaos Space Marine',
     cost: 50,
     tier: 3,
-    species: ['Aceptus Astartes (core)'],
+    species: ['Adeptus Astartes (core)'],
     speciesKey: ['core-adeptus-astartes'],
     influence: 2,
     keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Legion>',
