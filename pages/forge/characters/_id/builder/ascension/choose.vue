@@ -1,10 +1,221 @@
 <template>
+
+  <v-row>
+
+    <!-- Ascension Dialog -->
+    <v-dialog
+      v-model="dialog"
+      width="600px"
+      scrollable
+    >
+      <ascension-preview
+        v-if="selectedPreview"
+        :item="selectedPreview"
+        :current-character-tier="effectiveCharacterTier"
+        :max-target-tier="settingTier"
+        choose-mode
+        @select="selectPackageForChar"
+        @cancel="dialog = false"
+      />
+    </v-dialog>
+
+    <!-- ascension headline -->
+    <v-col>
+      <h1 class="headline">
+        Select an Ascension Package
+      </h1>
+
+      <v-alert
+        v-for="alert in alerts"
+        :key="alert.key"
+        :value="true"
+        :type="alert.type"
+      >
+        {{ alert.text }}
+      </v-alert>
+    </v-col>
+
+    <!-- ascension options -->
+    <v-col
+      :cols="12"
+    >
+      <v-card>
+        <v-list>
+          <v-list-item
+            v-for="item in ascensionPackagesList"
+            :key="item.key"
+            two-line
+            @click.stop="openDialog(item)"
+          >
+            <v-list-item-avatar tile>
+              <img>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ item.name }}</v-list-item-title>
+              <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
+            </v-list-item-content>
+
+            <v-list-item-action>
+              <v-btn dense icon>
+                <v-icon color="primary">
+                  arrow_forward_ios
+                </v-icon>
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
+      </v-card>
+    </v-col>
+
+  </v-row>
+
 </template>
 
 <script lang="js">
+import AscensionPreview from '~/components/forge/AscensionPreview.vue';
+
 export default {
   name: 'ascension-choose',
+  components: {
+    AscensionPreview,
+  },
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
+  data() {
+    return {
+      dialog: false,
+      ascensionPackagesList: undefined,
+      selectedPreview: undefined,
+    };
+  },
+  computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
+    settingTier() {
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    characterArchetypeLabel() {
+      return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+    effectiveCharacterTier() {
+      return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
+    },
+    alerts() {
+      const alerts = [];
+      if (!this.characterArchetypeLabel) {
+        alerts.push({ type: 'warning', text: 'You need to select an Archetype first.' });
+      }
+      if (this.effectiveCharacterTier >= this.settingTier) {
+        alerts.push({ type: 'warning', text: 'Your character already has reached a tier sufficient for the Campaign Tier.' });
+      }
+      return alerts;
+    },
+  },
+  watch: {
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getAscensionPackageList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+  },
+  methods: {
+    async getAscensionPackageList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/ascension-packages/', config);
 
+      this.ascensionPackagesList = data;
+    },
+    openDialog(item) {
+      this.selectedPreview = item;
+      this.dialog = true;
+    },
+    selectPackageForChar(ascensionPackage, targetTier) {
+      const id = this.characterId;
+
+      ascensionPackage.sourceTier = this.effectiveCharacterTier;
+      ascensionPackage.targetTier = targetTier;
+
+      const payload = {
+        id: this.characterId,
+        key: ascensionPackage.key,
+        value: ascensionPackage.name,
+        cost: ascensionPackage.cost * targetTier,
+        sourceTier: ascensionPackage.sourceTier,
+        targetTier,
+      };
+      this.$store.commit('characters/addCharacterAscensionPackage', payload);
+
+      if ( ascensionPackage.influencePerTier !== 0 ) {
+        const influenceDifference = ascensionPackage.targetTier - ascensionPackage.sourceTier;
+        const influenceModifier = influenceDifference * ascensionPackage.influencePerTier;
+        const modificationPayload = {
+          targetGroup: 'traits',
+          targetValue: 'influence',
+          modifier: influenceModifier,
+        };
+        const content = { modifications: [modificationPayload], source: `ascension.${ascensionPackage.key}.influence`, };
+        this.$store.commit('characters/setCharacterModifications', { id, content });
+      } else {
+        const influenceDifference = ascensionPackage.targetTier - ascensionPackage.sourceTier;
+        const influenceModifier = influenceDifference * ascensionPackage.influencePerTier;
+        const modificationPayload = {
+          targetGroup: 'traits',
+          targetValue: 'influence',
+          modifier: ascensionPackage.influenceBonus,
+        };
+        const content = { modifications: [modificationPayload], source: `ascension.${ascensionPackage.key}.influence`, };
+        this.$store.commit('characters/setCharacterModifications', { id, content });
+      }
+
+      let modifications = [];
+      console.info(ascensionPackage.ascensionFeatures);
+      ascensionPackage.ascensionFeatures
+      .filter( (feature) => feature.modifications !== undefined )
+      .forEach( (feature) => {
+        console.info(feature);
+        modifications = [ ...modifications, ...feature.modifications ];
+      });
+      console.info(modifications);
+      this.$store.commit('characters/setCharacterModifications', { id, content: { modifications: modifications, source: `ascension.${ascensionPackage.key}` } });
+
+      modifications
+      .filter( (m) => m.targetGroup === 'keywords' )
+      .forEach( (k) => {
+        const payload = {
+          name: k.targetValue,
+          source: `ascension.${ascensionPackage.key}.${k.name}`,
+          type: 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+      });
+
+      this.dialog = false;
+      this.$router.push({
+        name: 'forge-characters-id-builder-ascension-manage',
+        params: { id },
+      });
+    },
+  },
 }
 </script>
 

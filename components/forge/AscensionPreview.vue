@@ -1,5 +1,7 @@
 <template lang="html">
+
   <v-card v-if="item">
+
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Ascension</span>
       <v-spacer />
@@ -44,11 +46,11 @@
       </p>
 
       <p class="text-lg-justify">
-        <strong>Story Element:</strong> {{ item.storyElementText }}
+        <strong>Story Element:</strong> {{ item.storyElementString }}
       </p>
 
       <p class="text-lg-justify">
-        <strong>Wargear:</strong> {{ item.wargearText }}
+        <strong>Wargear:</strong> {{ item.wargearString }}
       </p>
     </v-card-text>
 

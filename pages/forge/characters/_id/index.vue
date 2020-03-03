@@ -807,6 +807,7 @@
       //
       characterSpecies: undefined,
       characterArchetype: undefined,
+      ascensionPackagesRepository: undefined,
       wargearRepository: undefined,
     };
   },
@@ -857,6 +858,9 @@
 
     characterBackgroundKey() {
       return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
+    },
+    characterAscensionPackages() {
+      return this.$store.getters['characters/characterAscensionPackagesById'](this.characterId);
     },
 
     keywords() {
@@ -1101,7 +1105,29 @@
       }
       return abilities;
     },
+    ascensionAbilities() {
+      const abilities = [];
 
+      const ascensionPackages = this.characterAscensionPackages;
+      const ascensionRepository = this.ascensionPackagesRepository;
+
+      if (ascensionRepository && ascensionRepository.length > 0) {
+
+        ascensionRepository.forEach((ascension) => {
+          ascension.ascensionFeatures.forEach( (item) => {
+            const ability = {
+              name: item.name,
+              effect: item.snippet ? item.snippet : item.description,
+              source: ascension.name,
+              hint: ascension.name,
+            };
+            abilities.push(ability);
+          });
+        });
+      }
+
+      return abilities;
+    },
     otherAbilities() {
       const abilities = [];
 
@@ -1143,7 +1169,10 @@
         });
       }
 
-      return abilities;
+      return [
+        ...abilities,
+        ...this.ascensionAbilities,
+        ];
     },
     abilities() {
       const abilities = [
@@ -1257,6 +1286,14 @@
       },
       immediate: true, // make this watch function is called when component created
     },
+    characterAscensionPackages: {
+      handler(newVal) {
+        if (newVal && newVal !== 'unknown') {
+          this.getAscensionPackageList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
     sources: {
       handler(newVal) {
         if (newVal) {
@@ -1284,6 +1321,18 @@
         const { data } = await this.$axios.get(`/api/archetypes/${key}`);
         this.characterArchetype = data;
       }
+    },
+    async getAscensionPackageList(ascensionList) {
+
+      let packages = [];
+
+      if ( ascensionList.length > 0 ){
+        for (const ascension of ascensionList) {
+          const { data } = await this.$axios.get(`/api/ascension-packages/${ascension.key}`);
+          packages.push(data);
+        }
+      }
+      this.ascensionPackagesRepository = packages;
     },
     async getWargearList(sources) {
       const config = {

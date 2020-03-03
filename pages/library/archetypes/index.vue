@@ -276,9 +276,7 @@ export default {
       return distinct.filter((d) => d !== null).sort();
     },
   },
-  async asyncData({
-    $axios, query, params, error,
-  }) {
+  async asyncData({ $axios, query, error }) {
     const archetypeResponse = await $axios.get('/api/archetypes/');
     const items = archetypeResponse.data;
 
