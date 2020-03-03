@@ -518,6 +518,7 @@ export default {
         targetTier: ascensionPackage.targetTier,
       };
       this.$store.commit('characters/removeCharacterAscensionPackage', payload);
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: `ascension.${ascensionPackage.key}` });
     },
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {
