@@ -246,6 +246,9 @@ export default {
         .forEach((disciplines) => access = [ ...access, ...disciplines]);
       }
 
+      // if there is no discipline access and the psyker keyword -> allow Minor
+      access.push('Minor');
+
       access = [...new Set(access)].sort();
       return access;
     },
