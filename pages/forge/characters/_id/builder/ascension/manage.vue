@@ -1,10 +1,6 @@
 <template>
   <v-row justify="center">
 
-    <v-col>
-      <v-btn @click="choosePackage">Select Package</v-btn>
-    </v-col>
-
     <v-col
       v-if="characterAscensionPackages.length > 0"
       :cols="12"
@@ -14,17 +10,17 @@
         :key="characterAscension.key"
         class="mb-2"
       >
-        <v-card-title primary-title>
+        <div class="d-flex flex-no-wrap justify-space-between">
 
           <div>
-            <div class="headline">{{ characterAscension.name }}</div>
-            <span class="subtitle-1 grey--text">{{ characterAscension.teaser }}</span>
-          </div>
-
-          <div>
+            <v-card-title
+              class="headline"
+              v-text="characterAscension.name"
+            ></v-card-title>
+            <v-card-subtitle v-text="characterAscension.teaser"></v-card-subtitle>
             <v-btn
               small
-              outlined
+              text
               color="red"
               @click="removePackage(characterAscension)"
             >
@@ -35,7 +31,14 @@
             </v-btn>
           </div>
 
-        </v-card-title>
+            <v-avatar
+              class="ma-2"
+              size="100"
+              tile
+            >
+              <img :alt="characterAscension.name" :src="`/img/avatars/ascension/${characterAscension.key}.png`" />
+            </v-avatar>
+        </div>
 
         <v-card-text>
           <p class="text-lg-justify">
@@ -43,8 +46,8 @@
           </p>
           <p class="text-lg-justify">
             <strong>Build Point Cost: </strong>
-            {{ characterAscension.targetTier * characterAscension.costPerTier }}
-            (New Tier x {{ characterAscension.costPerTier }})
+            {{ (characterAscension.targetTier * characterAscension.costPerTier) + characterAscension.cost }}
+            <span v-if="characterAscension.costPerTier > 0">(New Tier x {{ characterAscension.costPerTier }})</span>
           </p>
 
           <span class="mt-2 grey--text">Prerequisites</span>
@@ -55,8 +58,8 @@
 
           <p class="text-lg-justify">
             <strong>Influence Bonus: </strong>
-            {{ characterAscension.influencePerTier * (characterAscension.targetTier - characterAscension.sourceTier) }}
-            ( {{ characterAscension.influencePerTier }} per tier ascended)
+            {{ (characterAscension.influencePerTier * (characterAscension.targetTier - characterAscension.sourceTier)) + characterAscension.influenceBonus }}
+            <span v-if="characterAscension.influencePerTier > 0">( {{ characterAscension.influencePerTier }} per tier ascended)</span>
           </p>
 
           <div
@@ -71,6 +74,17 @@
 
         </v-card-text>
       </v-card>
+    </v-col>
+
+    <v-col>
+      <v-btn
+        @click="choosePackage"
+        color="success"
+        text
+      >
+        <v-icon>add</v-icon>
+        Add an Ascension Package
+      </v-btn>
     </v-col>
 
   </v-row>
@@ -299,14 +313,15 @@ export default {
       this.$store.commit('characters/addCharacterWargear', payload);
     },
     removePackage(ascensionPackage) {
+      const id = this.characterId;
       const payload = {
-        id: this.characterId,
+        id,
         value: ascensionPackage.name,
         key: ascensionPackage.key,
         sourceTier: ascensionPackage.sourceTier,
         targetTier: ascensionPackage.targetTier,
       };
-      this.$store.commit('characters/removeCharacterAscensionPackage', payload);
+      this.$store.dispatch('characters/clearCharacterAscensionPackage', payload);
     },
     keywordOptions(wildcard) {
       if (wildcard === '<Any>') {

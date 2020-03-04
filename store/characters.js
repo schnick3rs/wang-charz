@@ -582,17 +582,10 @@ export const mutations = {
       character.ascensionPackages[index].wargearChoice = payload.ascensionPackageWargearOptionKey;
     }
   },
-  removeCharacterAscensionPackage(state, payload) {
-    const character = state.characters[payload.id];
-    // remove the package from the ascension stacks
-    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== payload.value));
-
-    // remove all enhancements that are related to the package
-    character.enhancements = character.enhancements.filter((e) => e.source === undefined || !e.source.startsWith(`ascension.${payload.key}`));
-
-    character.keywords = character.keywords.filter((k) => k.source !== `ascension.${payload.key}`);
-
-    // ToDo: remove all wargear that is related to the package
+  clearCharacterAscensionPackage(state, payload) {
+    const { id, value } = payload;
+    const character = state.characters[id];
+    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== value));
   },
 
   // Background
@@ -806,6 +799,31 @@ export const mutations = {
 };
 
 export const actions = {
+
+  clearCharacterAscensionPackage({ commit, state }, payload) {
+    const { id, value, key } = payload;
+
+    console.info(`Ascension [${value}] : Purge > START`);
+
+    console.info(`Ascension [${value}] : Purge > Enhancements`);
+    commit('clearCharacterEnhancementsBySource', { id, source: `ascension.${key}` });
+
+    console.info(`Ascension [${value}] : Purge > Keywords`);
+    commit('clearCharacterKeywordsBySource', { id, source: `ascension.${key}`, cascade: true });
+
+    console.info(`Ascension [${value}] : Purge > Psychic Powers`);
+    commit('clearCharacterPsychicPowersBySource', { id, source: `ascension.${key}` });
+
+    console.info(`Ascension [${value}] : Purge > Wargear`);
+    commit('removeCharacterWargearBySource', { id, source: `ascension.${key}` });
+
+    console.info(`Ascension [${value}] : Purge > Package`);
+    commit('clearCharacterAscensionPackage', { id, value });
+
+    // ToDo: remove all wargear that is related to the package
+    console.info(`Ascension [${value}] : Purge > DONE`);
+  },
+
   /**
    * migrate the character object to a newer version
    * @param context

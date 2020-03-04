@@ -40,13 +40,30 @@ const simpleStub = function (sourceKey, sourcePage, name, hint, stub = true) {
 const core = [
   {
     ...simpleStub('core', 199, 'Stay The Course', 'Overcome struggles, build alliances, acquire equipment.', false),
-    cost: 10, // per tier difference
+    cost: 0,
+    costPerTier: 10,
     minimumCampaignTier: 2,
     attributePrerequisites: [],
     skillPrerequisites: ['Required Archetype Skills +1'],
+    // Benefits
+    influenceBonus: 0,
     influencePerTier: 1,
+    storyElementString:
+      'The character gains the smite psychic power. ' +
+      'They also may choose one Minor Psychic power per Tier ' +
+      'ascended and may purchase powers from one Discipline of their choice. ' +
+      'The character must purchase the Psychic Mastery Skill.',
+    wargearString:
+      'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value ' +
+      'equal or lesser than 3 + the new Tier. This may include cybernetics.',
     ascensionFeatures: [
-      { name: 'Keyword', /*<Any>*/ },
+      {
+        name: 'Keyword',
+        snippet: 'You gain the <Any> keyword.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: '<Any>' },
+        ],
+      },
       {
         name: 'Story Element',
         snippet: '',
@@ -117,11 +134,20 @@ const core = [
   },
   {
     ...simpleStub('core', 200, 'Psychic Revelations', 'Tap into the warp, awaken powers, lure the Immaterium.', false),
-    cost: 10, // per tier difference
+    cost: 0,
+    costPerTier: 10,
     minimumCampaignTier: 2,
     attributePrerequisites: ['Willpower 3'],
     skillPrerequisites: [],
+    // Benefits
+    influenceBonus: 0,
     influencePerTier: 1,
+    storyElementString:
+      'The character gains the smite psychic power. ' +
+      'They also may choose one Minor Psychic power per Tier ' +
+      'ascended and may purchase powers from one Discipline of their choice. ' +
+      'The character must purchase the Psychic Mastery Skill.',
+    wargearString: 'none',
     ascensionFeatures: [
       {
         name: 'Psyker',
@@ -165,14 +191,25 @@ const aaoa = [
     ],
     attributePrerequisites: ['Willpower 3'],
     skillPrerequisites: ['Insight 2', 'Awareness 2'],
+    // Benefits
+    influenceBonus: 0,
     influencePerTier: 1,
+    storyElementString:
+      'The character’s status means that they may invoke the name and authority of their ' +
+      'Inquisitor to gain +Rank to an Influence or Interaction skill test involving a ' +
+      'being with the Imperium keyword. However, because of the character’s experiences, ' +
+      'they gain 3 Corruption points or a Memorable Injury of their choice.',
+    wargearString:
+      'Inquisitorial Rosette (symbol of authority), plus up to two items of Rare Wargear, ' +
+      'or one item of Very Rare Wargear, with a Value up to 3 + the new Tier.',
     ascensionFeatures: [
       {
         name: 'Keywords',
-        keywords: [
-          'Inquisition',
-          '<Ordo>',
-        ]
+        snippet: 'You gain the Inquisition and <Ordo> keyword.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Inquisition' },
+          { targetGroup: 'keywords', targetValue: '<Ordo>' },
+        ],
       },
       {
         name: 'Story Element',
@@ -183,7 +220,7 @@ const aaoa = [
           'However, because of the character’s experiences, they gain 3 Corruption points or a Memorable Injury of their choice.</p>',
       },
       {
-        name: 'Scorged from experience',
+        name: 'Scourged from experience',
         description: '<p>Because of the character’s experiences, they gain 3 Corruption points or a Memorable Injury of their choice.</p>',
         selected: '',
         options: [
@@ -255,15 +292,28 @@ const aaoa = [
       'Ballistic Skill 5 OR Weapon Skill 5',
       '<Adeptus Astartes> Keyword',
     ],
+    // Benefits
+    influenceBonus: 0,
     influencePerTier: 1,
+    storyElementString:
+      'initiated into secrets that allow you to hunt Xenos more effectively. ' +
+      'You receive the normal benefit for having the Ordo Xenos keyword (page 119 of the ' +
+      'Wrath & Glory core rulebook) and have access to special Deathwatch arsenals containing ' +
+      'rare and specialised equipment. In addition, so efficiently do you coordinate with your ' +
+      'Kill-Team that at any time you may spend one Wrath in order to give one Wrath to any ' +
+      'other character with the Deathwatch keyword.',
+    wargearString:
+      'One reload each of Dragonfire, Hellfire, Kraken, and Vengeance bolt rounds, ' +
+      'and one Weapon Upgrade with a value of up to 7 (Very Rare).',
     ascensionFeatures: [
       {
         name: 'Keywords',
-        keywords: [
-          'Deathwatch',
-          'Inquisition',
-          'Ordo Xenos',
-        ]
+        snippet: 'You gain the Deathwatch, Inquisition and Ordo Xenos keyword.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Deathwatch' },
+          { targetGroup: 'keywords', targetValue: 'Inquisition' },
+          { targetGroup: 'keywords', targetValue: 'Ordo Xenos' },
+        ],
       },
       {
         name: 'Deathwatch Arsenal',
@@ -311,15 +361,20 @@ const aaoa = [
     prerequisites: [
       '<Imperium> Keyword',
     ],
+    // Benefits
+    influenceBonus: 0,
     influencePerTier: 1,
+    storyElementString: 'You lose the Imperium keyword. If you had the Adeptus Astartes keyword, you replace it with the Heretic Astartes keyword. If you had the Adeptus Mechanicus keyword, you replace it with the Dark Mechanicus keyword. If you had any talents that required you not to have the Chaos keyword, the build points from those talents are refunded. The recent nature of your betrayal means that you gain +2d on all Deception tests to pretend that you are still loyal.',
+    wargearString: 'None.',
     ascensionFeatures: [
       {
         name: 'Keywords',
-        keywords: [
-          'Heretic',
-          'Chaos',
-          '<Mark of Chaos>',
-        ]
+        snippet: 'You gain the Heretic, Chaos and <Mark of Chaos> keywords.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Heretic' },
+          { targetGroup: 'keywords', targetValue: 'Chaos' },
+          { targetGroup: 'keywords', targetValue: '<Mark of Chaos>' },
+        ],
       },
       {
         name: 'Story Element',
@@ -377,7 +432,7 @@ const aaoa = [
           'they may shift a single exalted icon to allow themselves and all allies with the Imperium keyword within 15m to heal 1+Rank Shock.</p>',
       },
       {
-        name: 'Terminator',
+        name: 'Terminator Armour Requisition',
         snippet: 'The character may request a Terminator Armour and accompanying Weapons.',
         description:
           '<p>The character may request the use of Terminator Armour and accompanying weapons ' +
@@ -413,7 +468,10 @@ const aaoa = [
     ascensionFeatures: [
       {
         name: 'Keyword',
-        keywords: ['Primaris Astartes'],
+        snippet: 'You gain the Primaris Astartes keyword.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Primaris Astartes' },
+        ],
       },
     ],
   },
@@ -494,7 +552,6 @@ const aaoa = [
     // Benefits
     influenceBonus: 3,
     influencePerTier: 0,
-    influenceString: '+3. You may use your Willpower instead of your Fellowship to determine your Influence.',
     storyElementString:
       'You gain the Prophetic Visions and Scry psychic powers. ' +
       'In addition, you may purchase additional Runes of Fate psychic powers, subject to Tier restrictions. ' +
@@ -506,24 +563,28 @@ const aaoa = [
     ascensionFeatures: [
       {
         name: 'Keyword',
+        snippet: 'You gain the Farseer Keyword.',
+        description: '<p>You gain the <em>Farseer</em> Keyword.</p>',
         keywords: ['Farseer'],
       },
       {
         name: 'Recognisable Fortitude',
-        //snippet: '',
         description:
           '<p>You may use your Willpower instead of your Fellowship to determine your Influence.</p>',
       },
       {
         name: 'Unlock Powers',
-        snippet: 'You gain the Prophetic Visions and Scry psychic powers.',
+        snippet: 'You gain the Prophetic Visions and Scry psychic powers and access to Runes of Faith Discipline.',
+        description:
+          '<p>You gain the <em>Prophetic Visions</em> and <em>Scry</em> psychic powers and access to <em>Runes of Faith</em> Discipline.</p>',
         // powers: Prophetic Visions, Scry
         // discipline access: Runes of Fate
         // increase power tier +2
         // may trade powers
       },
       {
-        name: 'Unique Weapon',
+        name: 'Seer Wargear',
+        snippet: 'Ghosthelm, Runes of Witnessing, Runes of Warding.',
         wargear: [
           { name: 'Ghosthelm' },
           { name: 'Runes of Witnessing' },
@@ -569,7 +630,10 @@ const aaoa = [
     ascensionFeatures: [
       {
         name: 'Keyword',
-        keywords: ['Daemon'],
+        snippet: 'You gain the Daemon keyword.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Daemon' },
+        ],
       },
       {
         name: 'Corruption',
@@ -671,6 +735,92 @@ const aaoa = [
   },
 ];
 
+const ltgb = [
+  {
+    ...simpleStub('ltgb', 3, 'Forsake Your Chains (Ascension)', 'Leave the Imperium (Keyword) behind and join the Chaos or it\'s various factions.',false),
+    description: '<p>Many worshippers of the Gods were once loyal servants of the Imperium, and Chaos can corrupt anyone and anything. This ascension package does not require one to ascend a er, though you may if you wish, it merely represents an existing character joining the powers of Chaos, which may be done either mid-campaign or be part of the backstory of an existing character. This would be the foundation for an Inquisitor whose radical nature became too much for his superiors to bear, or a loyal commissar forcibly broken through torture and brainwashing. There are as many reasons for one to choose to join Chaos as there are worshippers of the Dark Gods.</p>',
+    cost: 0,
+    costPerTier: 10,
+    // Prerequisites
+    minimumCampaignTier: 2,
+    prerequisites: [
+      '<Imperium> Keyword',
+    ],
+    // Benefits
+    influenceBonus: 2,
+    influencePerTier: 0,
+    storyElementString: 'The character gains 3 corruption. Any enemy that is a part of an organization the character was part of gains the Hatred talent against them.',
+    wargearString:
+      'A character only gains Wargear if they ascend a tier. Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3  the new Tier. This may include cybernetics and must have the Imperium keyword.',
+    // Crunch
+    ascensionFeatures: [
+      {
+        name: 'Corruption',
+        snippet: 'You gain 3 points of Corruption.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+        ],
+      },
+      {
+        name: 'Betrayed allies',
+        snippet: 'Any enemy that is a part of an organization the character was part of gains the Hatred talent against them.',
+      },
+      {
+        name: 'Wargear',
+        snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3  the new Tier. This may include cybernetics and must have the Imperium keyword.',
+        options: [
+          {
+            name: 'Two Rare Items ',
+            wargear: [
+              {
+                name: 'First Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+              {
+                name: 'Second Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            name: 'One Very Rare Item ',
+            wargear: [
+              {
+                name: 'Very Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+            ],
+          },
+        ]
+      }
+    ],
+  },
+];
+
 const ascensionRepository = [
   simpleStub('aotgt', 4, 'Rosette in Hand', 'Join the Inquisition and brag with new gear.'),
   simpleStub('goen', 9, 'The Titan walks', 'Gain a ship, but it can\'t fly, has feet and is a Titan and not a ship.'),
@@ -680,11 +830,11 @@ const ascensionRepository = [
   simpleStub('thaot', 25, 'Chosen by the Omnissiah', 'Damaged, broken, repaired, enlisted, welcome on Mars.'),
   simpleStub('sotah', 2, 'To Hunt the Alien', 'Join the Deathwatch, gain neat Ammunition.'),
   simpleStub('sotah', 3, 'Unnumbered Sons', 'Aaah, the Grayshields. Wait, what?'),
-  simpleStub('ltgb', 3, 'Forsake Your Chains', 'Leave the Imperium (Keyword) behind and join the Chaos or it\'s various factions.'),
 ];
 
 module.exports = [
   ...core,
   ...aaoa,
+  ...ltgb,
   ...ascensionRepository,
 ];

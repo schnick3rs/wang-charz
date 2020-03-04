@@ -47,12 +47,24 @@
             two-line
             @click.stop="openDialog(item)"
           >
-            <v-list-item-avatar tile>
-              <img>
+            <v-list-item-avatar tile size="64">
+              <img :alt="item.name" :src="`/img/avatars/ascension/${item.key}.png`" />
             </v-list-item-avatar>
 
             <v-list-item-content>
-              <v-list-item-title>{{ item.name }}</v-list-item-title>
+              <v-list-item-title>
+                {{ item.name }}
+                <v-chip
+                  v-if="item.source && !['core', 'coreab'].includes(item.source.key)"
+                  color="info"
+                  outlined
+                  tags
+                  x-small
+                  label
+                >
+                  {{item.source.key.toUpperCase()}}
+                </v-chip>
+              </v-list-item-title>
               <v-list-item-subtitle>{{ item.hint }}</v-list-item-subtitle>
             </v-list-item-content>
 
@@ -158,7 +170,7 @@ export default {
         id: this.characterId,
         key: ascensionPackage.key,
         value: ascensionPackage.name,
-        cost: ascensionPackage.cost * targetTier,
+        cost: ascensionPackage.costPerTier * targetTier + ascensionPackage.cost,
         sourceTier: ascensionPackage.sourceTier,
         targetTier,
       };
@@ -208,6 +220,21 @@ export default {
         };
         this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
       });
+
+      {
+        ascensionPackage.ascensionFeatures
+        .filter( (feature) => feature.wargear !== undefined )
+        .forEach( (feature) => {
+          feature.wargear.forEach((wargear)=>{
+            const payload = {
+              id,
+              name: wargear.name,
+              source: `ascension.${ascensionPackage.key}.${feature.name}`,
+            };
+            this.$store.commit('characters/addCharacterWargear', payload);
+          });
+        });
+      }
 
       this.dialog = false;
       this.$router.push({

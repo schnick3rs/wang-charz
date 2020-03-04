@@ -10,13 +10,22 @@
       </v-icon>
     </v-card-title>
 
-    <v-card-text class="pt-4">
-      <div class="pb-2">
-        <div class="headline">
+    <v-card-title primary-title>
+      <div>
+        <h3 class="headline md0">
           {{ item.name }}
-        </div>
+        </h3>
         <span class="subtitle-1 grey--text">{{ item.teaser }}</span>
       </div>
+      <v-spacer />
+      <div class="hidden-xs-only">
+        <v-avatar tile size="140">
+          <img :src="`/img/avatars/ascension/${item.key}.png`">
+        </v-avatar>
+      </div>
+    </v-card-title>
+
+    <v-card-text class="pt-4">
 
       <p class="text-lg-justify">
         <strong>Build Point Cost:</strong> (New Tier x {{ item.cost }})

@@ -12,7 +12,6 @@ export default {
       title: 'Select Ascension Package',
     };
   },
-
   data() {
     return {
     };
@@ -31,7 +30,6 @@ export default {
     effectiveCharacterTier() {
       return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
     },
-
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
