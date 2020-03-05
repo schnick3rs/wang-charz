@@ -39,15 +39,18 @@ const simpleStub = function (sourceKey, sourcePage, name, hint, stub = true) {
 
 const core = [
   {
+    name: 'Stay The Course',
     ...simpleStub('core', 199, 'Stay The Course', 'Overcome struggles, build alliances, acquire equipment.', false),
     cost: 0,
     costPerTier: 10,
     minimumCampaignTier: 2,
-    attributePrerequisites: [],
-    skillPrerequisites: ['Required Archetype Skills +1'],
+    prerequisites: [
+      'Required Skills +1',
+    ],
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
+    keywordString: '<Any>',
     storyElementString:
       'The character gains the smite psychic power. ' +
       'They also may choose one Minor Psychic power per Tier ' +
@@ -66,7 +69,6 @@ const core = [
       },
       {
         name: 'Story Element',
-        snippet: '',
         description:
           '<p>The character gains their choice of either 3 Corruption points or ' +
           'a Memorable Injury (see page 233) of their choice and the +1D Bonus to ' +
@@ -136,9 +138,11 @@ const core = [
     ...simpleStub('core', 200, 'Psychic Revelations', 'Tap into the warp, awaken powers, lure the Immaterium.', false),
     cost: 0,
     costPerTier: 10,
+    // Prerequisites
     minimumCampaignTier: 2,
-    attributePrerequisites: ['Willpower 3'],
-    skillPrerequisites: [],
+    prerequisites: [
+      'Willpower 3',
+    ],
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
@@ -821,20 +825,299 @@ const ltgb = [
   },
 ];
 
-const ascensionRepository = [
-  simpleStub('aotgt', 4, 'Rosette in Hand', 'Join the Inquisition and brag with new gear.'),
-  simpleStub('goen', 9, 'The Titan walks', 'Gain a ship, but it can\'t fly, has feet and is a Titan and not a ship.'),
-  simpleStub('tog', 14, 'Veteran of the Long War', 'You have a burning Hatred for (well, against) the Imperium.'),
+const aotgt = [
+  {
+    ...simpleStub('aotgt', 4, 'Rosette in Hand', 'Join the Inquisition and brag with new gear.',false),
+    description: '<p>Many worshippers of the Gods were once loyal servants of the Imperium, and Chaos can corrupt anyone and anything. This ascension package does not require one to ascend a er, though you may if you wish, it merely represents an existing character joining the powers of Chaos, which may be done either mid-campaign or be part of the backstory of an existing character. This would be the foundation for an Inquisitor whose radical nature became too much for his superiors to bear, or a loyal commissar forcibly broken through torture and brainwashing. There are as many reasons for one to choose to join Chaos as there are worshippers of the Dark Gods.</p>',
+    cost: 0,
+    costPerTier: 15,
+    // Prerequisites
+    minimumCampaignTier: 4,
+    prerequisites: [
+      'Intellect 4',
+      'Willpower 4',
+      'Required Skills +1',
+      'Insight 2',
+      'Intimidation 2',
+      '<Imperium> Keyword',
+    ],
+    // Benefits
+    influenceBonus: 2,
+    influencePerTier: 0,
+    storyElementString: 'Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword. ' +
+      'The character may gain either a memorable injury or a strange artifact (GM’s choice) related to their Ordo.',
+    wargearString: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3 + the new Tier. This may include cybernetics. The character gains a Rosette (Symbol of Authority).',
+    // Crunch
+    ascensionFeatures: [
+      {
+        name: 'Keywords',
+        snippet: 'Gain the Inquisition and <Ordo> keywords if the character did not have them.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Inquisition' },
+          { targetGroup: 'keywords', targetValue: '<Ordo>' },
+        ],
+      },
+      {
+        name: 'Unchecked Authority',
+        description: '<p>Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword.</p>',
+      },
+      {
+        name: 'Wargear',
+        snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3  the new Tier. This may include cybernetics and must have the Imperium keyword. The character gains a Rosette (Symbol of Authority).',
+        wargear: [
+          { name: 'Symbol of Authority', variant: 'Rosette' },
+        ],
+        options: [
+          {
+            name: 'Two Rare Items ',
+            wargear: [
+              {
+                name: 'First Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+              {
+                name: 'Second Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            name: 'One Very Rare Item ',
+            wargear: [
+              {
+                name: 'Very Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+            ],
+          },
+        ]
+      }
+    ],
+  },
+];
+
+const thaot = [
+  {
+    ...simpleStub('thaot', 25, 'Chosen by the Omnissiah', 'Damaged, broken, repaired, enlisted, welcome on Mars.',false),
+    description: '<p>Many worshippers of the Gods were once loyal servants of the Imperium, and Chaos can corrupt anyone and anything. This ascension package does not require one to ascend a er, though you may if you wish, it merely represents an existing character joining the powers of Chaos, which may be done either mid-campaign or be part of the backstory of an existing character. This would be the foundation for an Inquisitor whose radical nature became too much for his superiors to bear, or a loyal commissar forcibly broken through torture and brainwashing. There are as many reasons for one to choose to join Chaos as there are worshippers of the Dark Gods.</p>',
+    cost: 0,
+    costPerTier: 10,
+    // Prerequisites
+    minimumCampaignTier: 3,
+    prerequisites: [
+      'Intellect 3',
+      'Tech 2',
+    ],
+    // Benefits
+    influenceBonus: 2,
+    influencePerTier: 0,
+    storyElementString: 'Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword. ' +
+      'The character may gain either a memorable injury or a strange artifact (GM’s choice) related to their Ordo.',
+    wargearString: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3 + the new Tier. This may include cybernetics. The character gains a Rosette (Symbol of Authority).',
+    // Crunch
+    ascensionFeatures: [
+      {
+        name: 'Keywords',
+        snippet: 'Gain the Inquisition and <Ordo> keywords if the character did not have them.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Inquisition' },
+          { targetGroup: 'keywords', targetValue: '<Ordo>' },
+        ],
+      },
+      {
+        name: 'Unchecked Authority',
+        description: '<p>Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword.</p>',
+      },
+      {
+        name: 'Wargear',
+        snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3  the new Tier. This may include cybernetics and must have the Imperium keyword. The character gains a Rosette (Symbol of Authority).',
+        wargear: [
+          { name: 'Symbol of Authority', variant: 'Rosette' },
+        ],
+        options: [
+          {
+            name: 'Two Rare Items ',
+            wargear: [
+              {
+                name: 'First Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+              {
+                name: 'Second Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            name: 'One Very Rare Item ',
+            wargear: [
+              {
+                name: 'Very Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+            ],
+          },
+        ]
+      }
+    ],
+  },
+];
+
+const tog = [
+  {
+    ...simpleStub('tog', 14, 'Veteran of the Long War', 'You have a burning Hatred for (well, against) the Imperium.'),
+    cost: 0,
+    costPerTier: 15,
+    // Prerequisites
+    minimumCampaignTier: 4,
+    prerequisites: [
+      'Required Skills +1',
+      'Heretic Astartes',
+      'Hatred <Imperium>',
+    ],
+    // Benefits
+    influenceBonus: 0,
+    influencePerTier: 1,
+    storyElementString: '',
+    wargearString: '',
+    // Crunch
+    ascensionFeatures: [
+      {
+        name: 'Keywords',
+        snippet: 'Gain the Inquisition and <Ordo> keywords if the character did not have them.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Inquisition' },
+          { targetGroup: 'keywords', targetValue: '<Ordo>' },
+        ],
+      },
+      {
+        name: 'Unchecked Authority',
+        description: '<p>Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword.</p>',
+      },
+      {
+        name: 'Wargear',
+        snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3  the new Tier. This may include cybernetics and must have the Imperium keyword. The character gains a Rosette (Symbol of Authority).',
+        wargear: [
+          { name: 'Symbol of Authority', variant: 'Rosette' },
+        ],
+        options: [
+          {
+            name: 'Two Rare Items ',
+            wargear: [
+              {
+                name: 'First Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+              {
+                name: 'Second Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            name: 'One Very Rare Item ',
+            wargear: [
+              {
+                name: 'Very Rare Item of Value new Tier+3',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+                    keywordFilter: 'Imperium',
+                  },
+                ],
+              },
+            ],
+          },
+        ]
+      }
+    ],
+  },
   simpleStub('tog', 14, 'Traitor', 'It\'s like Stay the Course, but with Chaos Keywords.'),
   simpleStub('tog', 15, 'Deamon Prince', 'Become a Deamon Prince!'),
-  simpleStub('thaot', 25, 'Chosen by the Omnissiah', 'Damaged, broken, repaired, enlisted, welcome on Mars.'),
+];
+
+const sotah = [
   simpleStub('sotah', 2, 'To Hunt the Alien', 'Join the Deathwatch, gain neat Ammunition.'),
   simpleStub('sotah', 3, 'Unnumbered Sons', 'Aaah, the Grayshields. Wait, what?'),
+];
+
+const goen = [
+  simpleStub('goen', 9, 'The Titan walks', 'Gain a ship, but it can\'t fly, has feet and is a Titan and not a ship.'),
 ];
 
 module.exports = [
   ...core,
   ...aaoa,
   ...ltgb,
-  ...ascensionRepository,
+  ...aotgt,
+  ...thaot,
+  ...sotah,
+  ...goen,
 ];
