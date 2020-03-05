@@ -70,6 +70,34 @@
             <strong>{{ feature.name }}</strong>
             <div v-if="feature.description" v-html="feature.description"></div>
             <p v-else>{{ feature.snippet }}</p>
+
+            <div
+              v-if="keywordPlaceholders(feature).length > 0"
+              v-for="placeholder in keywordPlaceholders(feature)"
+              :key="placeholder.key"
+            >
+              <v-select
+                v-model="placeholder.selected"
+                :label="placeholder.name +' Keyword'"
+                :items="placeholder.options"
+                :hint="keywordHint(placeholder.selected, placeholder)"
+                item-text="name"
+                item-value="name"
+                persistent-hint
+                solo
+                dense
+                @change="updateKeyword(placeholder, placeholder.selected, characterAscension, feature)"
+              />
+
+              <p
+                v-if="selectedKeywords[placeholder.name]"
+                class="ma-4"
+              >
+                {{ keywordEffect(selectedKeywords[placeholder.name]) }}
+              </p>
+
+            </div>
+
           </div>
 
         </v-card-text>
@@ -133,6 +161,16 @@ export default {
     },
     finalKeywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
+    },
+    selectedKeywords() {
+      const selectedKeywords = {};
+      if (this.keywords) {
+        this.keywords.filter((k) => (k.replacement)).forEach((r) => {
+          selectedKeywords[r.name] = r.replacement;
+        });
+      }
+      console.log(selectedKeywords);
+      return selectedKeywords;
     },
     characterSelectedPackages() {
       return this.$store.getters['characters/characterAscensionPackagesById'](this.characterId);
@@ -256,25 +294,23 @@ export default {
       });
     },
 
-    /**
-     * @param placeholder {name:String, options:[]}
-     * @param selection String
-     */
-    updateKeyword(selected, placeholder, ascensionPackage) {
-      console.log(`selected ${selected} for ${placeholder}`);
+    updateKeyword(placeholder, selected, ascensionPackage, feature) {
+      console.log(`selected ${selected} for ${placeholder.name}`);
+      const id = this.characterId;
 
       this.$store.commit('characters/replaceCharacterKeywordPlaceholder', {
-        id: this.characterId,
+        id,
         // the name of the keyword to be replaced
-        placeholder,
+        placeholder: placeholder.name,
         // the new selected choice
         replacement: selected,
         // the source of the keyword
-        source: `ascension.${ascensionPackage.key}`,
+        source: `ascension.${ascensionPackage.key}.${feature.name}`,
       });
 
-      ascensionPackage.selected = selected;
+      placeholder.selected = selected;
     },
+
     /**
      * @param modificationList [ {} ]
      */
@@ -350,6 +386,58 @@ export default {
         cost: 0,
         source: `ascension.${characterAscension.key}.${option.name}`,
       });
+    },
+    keywordPlaceholders(feature) {
+      let placeholderKeywords = [];
+
+      if ( feature.modifications ) {
+
+        placeholderKeywords = feature.modifications
+          // only keyword modifications
+          .filter((modification) => modification.targetGroup === 'keywords')
+          // reduce to keyword string
+          .map((modification) => modification.targetValue)
+          // filter placeholder keywords
+          .filter((keyword) => keyword.includes('<'))
+          // map to placeholder object
+          .map((placeholder) => {
+            let wordy = {};
+            if (placeholder.toLowerCase() === '<any>') {
+              const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
+              wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
+            } else {
+              const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
+              wordy = { name: placeholder, options: subKeywords, selected: '' };
+            }
+
+            if (this.selectedKeywords[placeholder]) {
+              wordy.selected = this.selectedKeywords[placeholder];
+            }
+
+            return wordy;
+          });
+      }
+      return placeholderKeywords;
+    },
+    keywordHint(keyword, parentKeyword) {
+      let foundKeyword = this.keywordCombinedRepository.find((k) => k.name === keyword);
+      if (foundKeyword !== undefined) {
+        return foundKeyword.description;
+      }
+
+      foundKeyword = this.keywordCombinedRepository.find((k) => k.name === parentKeyword);
+      if (foundKeyword !== undefined) {
+        return foundKeyword.description;
+      }
+
+      return '';
+    },
+    keywordEffect(keyword) {
+      const keywordCombinedRepository = [...this.keywordSubwordRepository];
+      const foundKeyword = keywordCombinedRepository.find((k) => k.name === keyword);
+      if (foundKeyword !== undefined) {
+        return foundKeyword.effect;
+      }
     },
   },
 }

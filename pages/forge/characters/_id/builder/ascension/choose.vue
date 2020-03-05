@@ -199,7 +199,6 @@ export default {
       }
 
       let modifications = [];
-      console.info(ascensionPackage.ascensionFeatures);
       ascensionPackage.ascensionFeatures
       .filter( (feature) => feature.modifications !== undefined )
       .forEach( (feature) => {
@@ -214,7 +213,7 @@ export default {
       .forEach( (k) => {
         const payload = {
           name: k.targetValue,
-          source: `ascension.${ascensionPackage.key}.${k.name}`,
+          source: `ascension.${ascensionPackage.key}.Keywords`,
           type: 'keyword',
           replacement: undefined,
         };

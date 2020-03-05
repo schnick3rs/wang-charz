@@ -61,7 +61,7 @@ const core = [
       'equal or lesser than 3 + the new Tier. This may include cybernetics.',
     ascensionFeatures: [
       {
-        name: 'Keyword',
+        name: 'Keywords',
         snippet: 'You gain the <Any> keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: '<Any>' },
@@ -186,7 +186,8 @@ const core = [
 const aaoa = [
   {
     ...simpleStub('aaoa', 78, 'Agent of the Inquisition', 'Join the Inquisition (that was unexpected).', false),
-    cost: 10, // per new tier difference
+    cost: 0,
+    costPerTier: 10,
     minimumCampaignTier: 2,
     prerequisites: [
       'Willpower 3',
@@ -289,7 +290,8 @@ const aaoa = [
   },
   {
     ...simpleStub('aaoa', 78, 'Apocryphon Oath', 'The Deathwatch have requested your service.',false),
-    cost: 10, // per new tier difference
+    cost: 0,
+    costPerTier: 10,
     minimumCampaignTier: 5,
     prerequisites: [
       'Willpower 5',
@@ -321,13 +323,17 @@ const aaoa = [
       },
       {
         name: 'Deathwatch Arsenal',
-        snippet: 'As an Action, you can transfer one Wrath to any other character with the Deathwatch Keyword. ',
         description:
           '<p>You join the ranks of the Deathwatch, and you are initiated into secrets that allow you to hunt Xenos more effectively. ' +
           'You receive the normal benefit for having the Ordo Xenos keyword ' +
           '(page 119 of the Wrath & Glory core rulebook) and have access to special Deathwatch ' +
-          'arsenals containing rare and specialised equipment. ' +
-          'In addition, so efficiently do you coordinate with your Kill-Team that at any time you may ' +
+          'arsenals containing rare and specialised equipment.</p>',
+      },
+      {
+        name: 'Brothers in Arms',
+        snippet: 'As an Action, you can transfer one Wrath to any other character with the Deathwatch Keyword. ',
+        description:
+          '<p>In addition, so efficiently do you coordinate with your Kill-Team that at any time you may ' +
           'spend one Wrath in order to give one Wrath to any other character with the Deathwatch keyword.</p>',
       },
       {
@@ -360,7 +366,8 @@ const aaoa = [
     ...simpleStub('aaoa', 79, 'Betrayal', 'Missing the Chaos keyword? Wait no more! Also; Corruption...',false),
     description:
       '<p>You have seen that the Emperor is a False God, and you have forsaken the Imperium for the Dark Gods.</p>',
-    cost: 10, // per new tier difference
+    cost: 0,
+    costPerTier: 10,
     minimumCampaignTier: 2,
     prerequisites: [
       '<Imperium> Keyword',
@@ -471,7 +478,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        name: 'Keyword',
+        name: 'Keywords',
         snippet: 'You gain the Primaris Astartes keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Primaris Astartes' },
@@ -507,7 +514,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        name: 'Keyword',
+        name: 'Keywords',
         snippet: 'You gain the Exarch Keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Exarch' },
@@ -566,7 +573,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        name: 'Keyword',
+        name: 'Keywords',
         snippet: 'You gain the Farseer Keyword.',
         description: '<p>You gain the <em>Farseer</em> Keyword.</p>',
         keywords: ['Farseer'],
@@ -633,7 +640,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        name: 'Keyword',
+        name: 'Keywords',
         snippet: 'You gain the Daemon keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Daemon' },
@@ -703,7 +710,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        name: 'Keyword',
+        name: 'Keywords',
         snippet: 'You gain the Ynnari keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Ynnari' },
