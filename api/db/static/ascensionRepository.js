@@ -283,7 +283,7 @@ const aaoa = [
             name: 'One  item of Very Rare Wargear',
             wargear: [
               {
-                key: 'item-2',
+                key: 'item-0',
                 name: 'Item of value (3+ new Tier) or less of up to Very Rare rarity.',
                 selected: '',
                 options: [

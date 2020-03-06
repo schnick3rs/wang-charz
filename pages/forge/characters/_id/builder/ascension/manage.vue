@@ -128,49 +128,14 @@
                       v-for="wargearOption in featureOptionChoice(feature).wargear"
                       :key="wargearOption.key"
                     >
-                      wargearOption.selected::{{wargearOption.selected}}
                       <wargear-select
                         :item="wargearOption.selected"
                         :repository="computeWargearOptionsByFilter(wargearOption.options[0], characterAscension)"
                         class="mb-4"
                         @input="setFeatureOptionWargearChoice($event, characterAscension, feature, wargearOption.key)"
                       />
-                      <!--@input="updateAscensionPackageWargearOptionChoice($event.payload[0], wargearOption.key, characterAscension)"-->
-                    </div>
-
-                  </div>
-
-                  <!--
-                  <v-select
-                    v-model="featureOptionChoice(feature).selected"
-                    :items="characterAscension.wargearOptions"
-                    item-text="text"
-                    item-value="key"
-                    label="Wargear Options"
-                    solo
-                    dense
-                  />
-                  -->
-                  <!--@input="updateAscensionPackageWargearOption($event, characterAscension)"-->
-
-                  <!--
-                  <div
-                    v-if="characterAscension.wargearChoice"
-                    class="ml-2 mr-2"
-                  >
-                    <div
-                      v-for="selectItem in characterAscension.wargearOptions.find( o => o.key === characterAscension.wargearChoice ).selectList"
-                      :key="selectItem.key"
-                    >
-                      <wargear-select
-                        :item="selectItem.itemChoice"
-                        :repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
-                        class="mb-4"
-                        @input="updateAscensionPackageWargearOptionChoice($event.name, selectItem.key, characterAscension)"
-                      />
                     </div>
                   </div>
-                  -->
                 </div>
 
               </div>
@@ -320,34 +285,57 @@ export default {
           });
         }
 
+        // set selected fields
         characterPackage.ascensionFeatures
         .filter((feature) => feature.options)
-        .forEach((feature) => {
+        .forEach((featureWithOptions) => {
 
-          const featureKey = characterPackage.featureChoices ? characterPackage.featureChoices[feature.name] : false;
+          // generic setting
+          const featureKey = characterPackage.featureChoices ? characterPackage.featureChoices[featureWithOptions.name] : false;
           if ( featureKey ) {
-            feature.selected = characterPackage.featureChoices[feature.name];
+            featureWithOptions.selected = characterPackage.featureChoices[featureWithOptions.name];
           }
 
-          const enhancement = this.enhancements.find((m) => m.source.startsWith(`ascension.${characterPackage.key}.${feature.name}`) );
+          // ToDo remove
+          const enhancement = this.enhancements.find((m) => m.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.name}`) );
           if ( enhancement ) {
-            feature.selected = enhancement.source.split('.').pop();
+            featureWithOptions.selected = enhancement.source.split('.').pop();
           }
 
-          const gear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${feature.name}`));
-          console.info(gear)
-          /*
-          if (gear) {
-            gear.forEach((g) => {
-              characterPackage
-              .wargearOptions.find((o) => o.key === characterPackage.wargearChoice)
-              .selectList.find((s) => g.source.endsWith(s.key))
-                .itemChoice = g.name;
+          const associatedGear = this.characterWargear
+            .filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.name}`));
+          if (associatedGear) {
+
+            const optionsWithWargear = featureWithOptions.options.filter((f)=>f.wargear);
+            optionsWithWargear.forEach((o) => {
+              o.wargear.forEach((w) => {
+                const gearFound = associatedGear.find((a) => a.source.endsWith(w.key));
+                w.selected = gearFound ? gearFound.name : '';
+              })
             });
           }
-          */
 
         });
+
+        /*
+        characterPackage.ascensionFeatures
+        .filter((feature) => feature.wargear)
+        .forEach((featureWithWargear) => {
+
+          const associatedGear = this.characterWargear
+          .filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${featureWithWargear.name}`));
+
+          if (associatedGear) {
+            featureWithWargear.forEach((o) => {
+              o.wargear.forEach((w) => {
+                const gearFound = associatedGear.find((a) => a.source.endsWith(w.key));
+                console.info(gearFound);
+                w.selected = gearFound ? gearFound.name : '';
+              })
+            });
+          }
+        });
+        */
 
         return characterPackage;
       });
@@ -456,15 +444,13 @@ export default {
       };
       this.$store.commit('characters/setCharacterAscensionPackageStoryElement', storyPayload);
     },
-    // $event.payload[0], characterAscension, feature, wargearOption.key
     setFeatureOptionWargearChoice(item, ascension, feature, wargearOptionKey) {
-      //const wargearOption = ascension.wargearOptions.find((o) => o.key === ascension.wargearChoice);
-      const payload = {
-        id: this.characterId,
-        name: item.name,
-        source: `ascension.${ascension.key}.${feature.name}.${wargearOptionKey}.${item.name}`,
-      };
-      this.$store.commit('characters/addCharacterWargear', payload);
+      const id = this.characterId;
+      const name = item.name;
+      const source = `ascension.${ascension.key}.${feature.name}.${feature.selected}.${wargearOptionKey}`;
+
+      this.$store.commit('characters/removeCharacterWargearBySource', { id, source });
+      this.$store.commit('characters/addCharacterWargear', { id, name, source });
     },
     removePackage(ascensionPackage) {
       const id = this.characterId;
@@ -579,7 +565,6 @@ export default {
         ascensionPackageFeatureOptionChoiceKey: selectedOption.key,
       };
       this.$store.commit('characters/setCharacterAscensionPackageWargearOption', ascensionFeatureOptionChoicePayload);
-
 
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `${sourcePrefix}` });
 
