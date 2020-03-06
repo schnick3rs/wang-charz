@@ -186,16 +186,16 @@ const core = [
 const aaoa = [
   {
     ...simpleStub('aaoa', 78, 'Agent of the Inquisition', 'Join the Inquisition (that was unexpected).', false),
+    description: '<p>You have been recruited by an Inquisitor to continue the ongoing fight against the Enemies of the Imperium. You’re not merely an informant or minion bearing the Inquisition’s mark, but a trusted associate and confidante of an Inquisitor, with valued skills, experience, and insights, and the ability to wield some measure of their authority.</p>',
     cost: 0,
     costPerTier: 10,
+    // Prerequisites
     minimumCampaignTier: 2,
     prerequisites: [
       'Willpower 3',
       'Insight 2 OR Awareness 2',
       '<Imperium> Keyword',
     ],
-    attributePrerequisites: ['Willpower 3'],
-    skillPrerequisites: ['Insight 2', 'Awareness 2'],
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
@@ -217,23 +217,24 @@ const aaoa = [
         ],
       },
       {
-        name: 'Story Element',
+        name: 'Authority of the Inquisition',
         snippet: 'You add +Rank dice to Influence and Interaction Skill Tests involving a character with the <Imperium> Keyword',
         description:
           '<p>The character’s status means that they may invoke the name and authority of their Inquisitor ' +
-          'to gain +Rank to an Influence or Interaction skill test involving a being with the Imperium keyword. ' +
-          'However, because of the character’s experiences, they gain 3 Corruption points or a Memorable Injury of their choice.</p>',
+          'to gain +Rank to an Influence or Interaction skill test involving a being with the Imperium keyword.</p>',
       },
       {
         name: 'Scourged from experience',
         description: '<p>Because of the character’s experiences, they gain 3 Corruption points or a Memorable Injury of their choice.</p>',
         selected: '',
         options: [
-          { key: 'corruption', name: '3 Corruption Points',
-            modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }]
+          {
+            key: 'corruption', name: '3 Corruption Points',
+            modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }],
           },
-          { key: 'memorableInjury', name: 'Memorable Injury',
-            modifications: [ { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' }]
+          {
+            key: 'memorableInjury', name: 'Memorable Injury (+1 die to Intimidation)',
+            modifications: [ { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' } ],
           },
         ],
       },
@@ -245,22 +246,32 @@ const aaoa = [
         wargear: [
           { name: 'Symbol of Authority', variant: 'Inquisitorial Rosette' },
         ],
+        selected: '',
         options: [
           {
+            key: 'twoRareItems',
             name: 'Two items of Rare Wargear',
             wargear: [
               {
+                key: 'item-0',
                 name: 'Item of value (3+ new Tier) or less of up to Rare rarity.',
                 selected: '',
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 5 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
                   },
+                ],
+              },
+              {
+                key: 'item-1',
+                name: 'Item of value (3+ new Tier) or less of up to Rare rarity.',
+                selected: '',
+                options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 5 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
                   },
                 ],
@@ -268,15 +279,17 @@ const aaoa = [
             ],
           },
           {
+            key: 'oneVeryRareItem',
             name: 'One  item of Very Rare Wargear',
             wargear: [
               {
+                key: 'item-2',
                 name: 'Item of value (3+ new Tier) or less of up to Very Rare rarity.',
                 selected: '',
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 5 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
                   },
                 ],
@@ -286,7 +299,6 @@ const aaoa = [
         ],
       },
     ],
-    description: '<p>You have been recruited by an Inquisitor to continue the ongoing fight against the Enemies of the Imperium. You’re not merely an informant or minion bearing the Inquisition’s mark, but a trusted associate and confidante of an Inquisitor, with valued skills, experience, and insights, and the ability to wield some measure of their authority.</p>',
   },
   {
     ...simpleStub('aaoa', 78, 'Apocryphon Oath', 'The Deathwatch have requested your service.',false),

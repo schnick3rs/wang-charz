@@ -427,13 +427,11 @@ export const mutations = {
     const character = state.characters[payload.id];
     const { modifications } = payload.content;
     const source = payload.content.source || undefined;
-    console.info(payload);
-
-    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
 
     modifications.forEach((item) => {
       item.source = source;
       character.enhancements.push(item);
+      console.info(`Enhance/Modify: Adding ${item.targetValue} by '${source}'`);
     });
   },
   clearCharacterEnhancementsBySource(state, payload) {
@@ -572,14 +570,19 @@ export const mutations = {
   },
   setCharacterAscensionPackageWargearOption(state, payload) {
     const character = state.characters[payload.id];
-    console.info(`Set Ascension WargearOption to ${payload.ascensionPackageWargearOptionKey}`);
+    console.info(`Set Ascension WargearOption to ${payload.ascensionPackageFeatureOptionChoiceKey}`);
     // find package by payload.ascensionPackageKey and payload.ascensionPackage
     const index = character.ascensionPackages.findIndex((a) => (
       a.key === payload.ascensionPackageKey
       && a.targetTier === payload.ascensionPackageTargetTier
     ));
     if (index >= 0) {
-      character.ascensionPackages[index].wargearChoice = payload.ascensionPackageWargearOptionKey;
+      if ( character.ascensionPackages[index].featureChoices === undefined )
+      character.ascensionPackages[index] = {
+        ...character.ascensionPackages[index],
+        featureChoices: {},
+      };
+      character.ascensionPackages[index].featureChoices[payload.ascensionPackageFeatureName] = payload.ascensionPackageFeatureOptionChoiceKey;
     }
   },
   clearCharacterAscensionPackage(state, payload) {

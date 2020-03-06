@@ -16,24 +16,6 @@ export default {
     return {
     };
   },
-  computed: {
-    sources() {
-      return [
-        'core',
-        'coreab',
-        ...this.settingHomebrews
-      ];
-    },
-    settingHomebrews() {
-      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
-    },
-    effectiveCharacterTier() {
-      return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
-    },
-    settingTier() {
-      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
-    },
-  },
 };
 </script>
 

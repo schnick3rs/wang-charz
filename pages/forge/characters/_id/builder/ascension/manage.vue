@@ -89,12 +89,91 @@
                 @change="updateKeyword(placeholder, placeholder.selected, characterAscension, feature)"
               />
 
-              <p
-                v-if="selectedKeywords[placeholder.name]"
-                class="ma-4"
-              >
+              <p v-if="selectedKeywords[placeholder.name]" class="ma-4" >
                 {{ keywordEffect(selectedKeywords[placeholder.name]) }}
               </p>
+
+            </div>
+
+            <div v-if="feature.options && feature.options.length > 0">
+
+              <v-select
+                :items="feature.options"
+                v-model="feature.selected"
+                item-value="key"
+                item-text="name"
+                @change="setFeatureOptionChoice(characterAscension, feature)"
+                dense
+                solo
+              ></v-select>
+
+              <div
+                v-if="feature.selected && feature.selected.length > 0"
+                class="ml-4 mr-4"
+              >
+                <!-- feature text and/or description -->
+                <div
+                  v-if="featureOptionChoice(feature).description"
+                  v-html="featureOptionChoice(feature).description"
+                ></div>
+                <p v-else>{{featureOptionChoice(feature).snippet}}</p>
+
+                <!-- feature options selection -->
+                <div class="ml-2 mr-2">
+
+                  <div
+                    v-if="featureOptionChoice(feature) && featureOptionChoice(feature).wargear && featureOptionChoice(feature).wargear.length > 0"
+                  >
+                    <div
+                      v-for="wargearOption in featureOptionChoice(feature).wargear"
+                      :key="wargearOption.key"
+                    >
+                      wargearOption.selected::{{wargearOption.selected}}
+                      <wargear-select
+                        :item="wargearOption.selected"
+                        :repository="computeWargearOptionsByFilter(wargearOption.options[0], characterAscension)"
+                        class="mb-4"
+                        @input="setFeatureOptionWargearChoice($event, characterAscension, feature, wargearOption.key)"
+                      />
+                      <!--@input="updateAscensionPackageWargearOptionChoice($event.payload[0], wargearOption.key, characterAscension)"-->
+                    </div>
+
+                  </div>
+
+                  <!--
+                  <v-select
+                    v-model="featureOptionChoice(feature).selected"
+                    :items="characterAscension.wargearOptions"
+                    item-text="text"
+                    item-value="key"
+                    label="Wargear Options"
+                    solo
+                    dense
+                  />
+                  -->
+                  <!--@input="updateAscensionPackageWargearOption($event, characterAscension)"-->
+
+                  <!--
+                  <div
+                    v-if="characterAscension.wargearChoice"
+                    class="ml-2 mr-2"
+                  >
+                    <div
+                      v-for="selectItem in characterAscension.wargearOptions.find( o => o.key === characterAscension.wargearChoice ).selectList"
+                      :key="selectItem.key"
+                    >
+                      <wargear-select
+                        :item="selectItem.itemChoice"
+                        :repository="wargearRepository.filter(selectItem.query(characterAscension.targetTier))"
+                        class="mb-4"
+                        @input="updateAscensionPackageWargearOptionChoice($event.name, selectItem.key, characterAscension)"
+                      />
+                    </div>
+                  </div>
+                  -->
+                </div>
+
+              </div>
 
             </div>
 
@@ -146,10 +225,21 @@ export default {
   data() {
     return {
       ascensionPackagesRepository: undefined,
+      wargearList: undefined,
       //ascensionPackagesList: undefined,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
@@ -158,6 +248,9 @@ export default {
     },
     keywords() {
       return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
+    },
+    enhancements() {
+      return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
     },
     finalKeywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
@@ -185,8 +278,7 @@ export default {
 
         characterPackage.sourceTier = ascensionPackage.sourceTier;
         characterPackage.targetTier = ascensionPackage.targetTier;
-        characterPackage.storyElementChoice = ascensionPackage.storyElementChoice;
-        characterPackage.wargearChoice = ascensionPackage.wargearChoice;
+        characterPackage.featureChoices = ascensionPackage.featureChoices;
 
         // Prerequisites
         if (false && this.characterArchetypeLabel && this.archetypeRepository) {
@@ -202,17 +294,6 @@ export default {
             });
             characterPackage.effectivePrerequisites = effPreq;
           }
-        }
-
-        const sourceKey = `ascension.${characterPackage.key}.${characterPackage.wargearChoice}`;
-        const gear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourceKey));
-        if (gear) {
-          gear.forEach((g) => {
-            characterPackage
-            .wargearOptions.find((o) => o.key === characterPackage.wargearChoice)
-            .selectList.find((s) => g.source.endsWith(s.key))
-            .itemChoice = g.name;
-          });
         }
 
         const packageKeyword = this.keywords.find((k) => k.source === `ascension.${characterPackage.key}`);
@@ -238,6 +319,35 @@ export default {
             }
           });
         }
+
+        characterPackage.ascensionFeatures
+        .filter((feature) => feature.options)
+        .forEach((feature) => {
+
+          const featureKey = characterPackage.featureChoices ? characterPackage.featureChoices[feature.name] : false;
+          if ( featureKey ) {
+            feature.selected = characterPackage.featureChoices[feature.name];
+          }
+
+          const enhancement = this.enhancements.find((m) => m.source.startsWith(`ascension.${characterPackage.key}.${feature.name}`) );
+          if ( enhancement ) {
+            feature.selected = enhancement.source.split('.').pop();
+          }
+
+          const gear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${feature.name}`));
+          console.info(gear)
+          /*
+          if (gear) {
+            gear.forEach((g) => {
+              characterPackage
+              .wargearOptions.find((o) => o.key === characterPackage.wargearChoice)
+              .selectList.find((s) => g.source.endsWith(s.key))
+                .itemChoice = g.name;
+            });
+          }
+          */
+
+        });
 
         return characterPackage;
       });
@@ -270,6 +380,14 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getWargearList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
     async getAscensionPackageList(ascensionList) {
@@ -285,6 +403,15 @@ export default {
       }
 
       this.ascensionPackagesRepository = packages;
+    },
+    async getWargearList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/wargear/', config);
+      this.wargearList = data.filter((i) => i.stub === undefined || i.stub === false);
     },
 
     choosePackage(){
@@ -329,22 +456,13 @@ export default {
       };
       this.$store.commit('characters/setCharacterAscensionPackageStoryElement', storyPayload);
     },
-    updateAscensionPackageWargearOption(choiceValue, ascensionObject) {
-      const wargearOption = ascensionObject.wargearOptions.find((o) => o.key === choiceValue);
-      const wargearOptionPayload = {
-        id: this.characterId,
-        ascensionPackageKey: ascensionObject.key,
-        ascensionPackageTargetTier: ascensionObject.targetTier,
-        ascensionPackageWargearOptionKey: wargearOption.key,
-      };
-      this.$store.commit('characters/setCharacterAscensionPackageWargearOption', wargearOptionPayload);
-    },
-    updateAscensionPackageWargearOptionChoice(choiceValue, itemKey, ascensionObject) {
-      const wargearOption = ascensionObject.wargearOptions.find((o) => o.key === ascensionObject.wargearChoice);
+    // $event.payload[0], characterAscension, feature, wargearOption.key
+    setFeatureOptionWargearChoice(item, ascension, feature, wargearOptionKey) {
+      //const wargearOption = ascension.wargearOptions.find((o) => o.key === ascension.wargearChoice);
       const payload = {
         id: this.characterId,
-        name: choiceValue,
-        source: `ascension.${ascensionObject.key}.${wargearOption.key}.${itemKey}`,
+        name: item.name,
+        source: `ascension.${ascension.key}.${feature.name}.${wargearOptionKey}.${item.name}`,
       };
       this.$store.commit('characters/addCharacterWargear', payload);
     },
@@ -438,6 +556,80 @@ export default {
       if (foundKeyword !== undefined) {
         return foundKeyword.effect;
       }
+    },
+
+    /**
+     *
+     * @param ascension
+     * @param feature
+     * @param type
+     */
+    setFeatureOptionChoice(ascension, feature, type = 'ascension') {
+      const id = this.characterId;
+      const sourcePrefix = `${type}.${ascension.key}.${feature.name}`;
+      const selectedOption =  feature.options.find( (o) => o.key === feature.selected );
+
+      console.log(`Set choice for ${feature.name} -> ${selectedOption.name}`);
+
+      const ascensionFeatureOptionChoicePayload = {
+        id: this.characterId,
+        ascensionPackageKey: ascension.key,
+        ascensionPackageTargetTier: ascension.targetTier,
+        ascensionPackageFeatureName: feature.name,
+        ascensionPackageFeatureOptionChoiceKey: selectedOption.key,
+      };
+      this.$store.commit('characters/setCharacterAscensionPackageWargearOption', ascensionFeatureOptionChoicePayload);
+
+
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `${sourcePrefix}` });
+
+      // the option has a snippet, that is thus added as a custom ability
+      if ( selectedOption.snippet ) {
+        const content = {
+          modifications: [{
+            name: selectedOption.name,
+            targetGroup: 'abilities',
+            targetValue: '',
+            effect: selectedOption.snippet,
+          }],
+          source: `${sourcePrefix}.${selectedOption.key}`,
+        };
+        this.$store.commit('characters/addCharacterModifications', { id, content });
+      }
+
+      // the selected option has modifications that are saved as such
+      if ( selectedOption.modifications ) {
+        const content = {
+          modifications: selectedOption.modifications,
+          source: `${sourcePrefix}.${selectedOption.key}`,
+        };
+        this.$store.commit('characters/addCharacterModifications', { id, content });
+      }
+    },
+    featureOptionChoice(feature){
+      return feature.options.find((o)=>o.key === feature.selected);
+    },
+    computeWargearOptionsByFilter(filter, ascension = {targetTier:0}) {
+      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;
+      if ( this.wargearList ) {
+        return this.wargearList.filter( (gear) => {
+          let valueReq = true;
+          if ( valueFilter ) {
+            let maxValue = 0;
+            maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
+            maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
+            maxValue += valueFilter.useAscensionTargetTier ? ascension.targetTier : 0;
+            // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
+            valueReq = gear.value <= maxValue;
+          }
+          const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
+          const typeReq = typeFilter ? typeFilter.includes(gear.type) : true;
+          const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
+          const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
+          return valueReq && rarityReq && typeReq && subtypeReq && keywordReq;
+        });
+      }
+      return [];
     },
   },
 }
