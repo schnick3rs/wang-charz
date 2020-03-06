@@ -95,6 +95,15 @@
 
             </div>
 
+            <!-- feature with spells -->
+            <div class="ml-2 mr-2" v-if="feature.psychicPowers">
+              {{feature.psychicPowers}}
+              <div>
+                ...
+              </div>
+
+            </div>
+
             <div v-if="feature.options && feature.options.length > 0">
 
               <v-select
@@ -119,11 +128,12 @@
                 <p v-else>{{featureOptionChoice(feature).snippet}}</p>
 
                 <!-- feature options selection -->
-                <div class="ml-2 mr-2">
+                <div class="ml-2 mr-2" v-if="featureOptionChoice(feature)">
 
                   <div
-                    v-if="featureOptionChoice(feature) && featureOptionChoice(feature).wargear && featureOptionChoice(feature).wargear.length > 0"
+                    v-if="featureOptionChoice(feature).wargear && featureOptionChoice(feature).wargear.length > 0"
                   >
+                    <!-- features options with wargear options -->
                     <div
                       v-for="wargearOption in featureOptionChoice(feature).wargear"
                       :key="wargearOption.key"

@@ -52,15 +52,15 @@ const core = [
     influencePerTier: 1,
     keywordString: '<Any>',
     storyElementString:
-      'The character gains the smite psychic power. ' +
-      'They also may choose one Minor Psychic power per Tier ' +
-      'ascended and may purchase powers from one Discipline of their choice. ' +
-      'The character must purchase the Psychic Mastery Skill.',
+      'The character gains their choice of either 3 Corruption points or ' +
+      'a Memorable Injury (see page 233) of their choice and the +1D Bonus to ' +
+      'Intimidation that comes with it from the Table 4-4: Memorable Injury.',
     wargearString:
       'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value ' +
       'equal or lesser than 3 + the new Tier. This may include cybernetics.',
     ascensionFeatures: [
       {
+        key: 'keyword',
         name: 'Keywords',
         snippet: 'You gain the <Any> keyword.',
         modifications: [
@@ -68,6 +68,7 @@ const core = [
         ],
       },
       {
+        key: 'story-element',
         name: 'Story Element',
         description:
           '<p>The character gains their choice of either 3 Corruption points or ' +
@@ -84,13 +85,16 @@ const core = [
         ],
       },
       {
+        key: 'wargear',
         name: 'Wargear',
         snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3 + the new Tier. This may include cybernetics.',
         options: [
           {
+            key: 'two-rare-items',
             name: 'Two Rare Items ',
             wargear: [
               {
+                key: 'first-rare-item',
                 name: 'First Rare Item of Value new Tier+3',
                 selected: '',
                 options: [
@@ -102,6 +106,7 @@ const core = [
                 ],
               },
               {
+                key: 'second-rare-item',
                 name: 'Second Rare Item of Value new Tier+3',
                 selected: '',
                 options: [
@@ -115,6 +120,7 @@ const core = [
             ],
           },
           {
+            key: 'single-very-rare-item',
             name: 'One Very Rare Item ',
             wargear: [
               {
@@ -146,6 +152,7 @@ const core = [
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
+    keywordString: 'Psyker',
     storyElementString:
       'The character gains the smite psychic power. ' +
       'They also may choose one Minor Psychic power per Tier ' +
@@ -154,6 +161,7 @@ const core = [
     wargearString: 'none',
     ascensionFeatures: [
       {
+        keyword: 'keyword',
         name: 'Psyker',
         snippet: 'You gain the Psyker Keyword',
         modifications: [
@@ -161,6 +169,7 @@ const core = [
         ],
       },
       {
+        key: 'story-element',
         name: 'Story Element',
         snippet: '',
         description:
@@ -169,11 +178,11 @@ const core = [
           'ascended and may purchase powers from one Discipline of their choice. ' +
           'The character must purchase the Psychic Mastery Skill.</p>',
         psychicPowers: [
-          { name: 'ascensionSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'ascensionMinor1', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { name: 'ascensionMinor2', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { name: 'ascensionMinor3', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { name: 'ascensionMinor4', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { key: 'ascensionSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { key: 'ascensionMinor1', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { key: 'ascensionMinor2', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { key: 'ascensionMinor3', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { key: 'ascensionMinor4', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
         ],
         modifications: [
           // access to one minor power
@@ -197,6 +206,7 @@ const aaoa = [
       '<Imperium> Keyword',
     ],
     // Benefits
+    keywordString: 'Inqisition, <Ordo>',
     influenceBonus: 0,
     influencePerTier: 1,
     storyElementString:
@@ -209,6 +219,7 @@ const aaoa = [
       'or one item of Very Rare Wargear, with a Value up to 3 + the new Tier.',
     ascensionFeatures: [
       {
+        key: 'keywords',
         name: 'Keywords',
         snippet: 'You gain the Inquisition and <Ordo> keyword.',
         modifications: [
@@ -217,6 +228,7 @@ const aaoa = [
         ],
       },
       {
+        key: 'authority-of-the-inquisition',
         name: 'Authority of the Inquisition',
         snippet: 'You add +Rank dice to Influence and Interaction Skill Tests involving a character with the <Imperium> Keyword',
         description:
@@ -224,6 +236,7 @@ const aaoa = [
           'to gain +Rank to an Influence or Interaction skill test involving a being with the Imperium keyword.</p>',
       },
       {
+        key: 'scourged-from-experience',
         name: 'Scourged from experience',
         description: '<p>Because of the character’s experiences, they gain 3 Corruption points or a Memorable Injury of their choice.</p>',
         selected: '',
@@ -239,6 +252,7 @@ const aaoa = [
         ],
       },
       {
+        key: 'wargear',
         name: 'Wargear',
         description:
           '<p>Inquisitorial Rosette (symbol of authority), plus up to two items of Rare Wargear, ' +
@@ -313,6 +327,7 @@ const aaoa = [
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
+    keywordString: 'Deathwatch, Inquisition and Ordo Xenos',
     storyElementString:
       'initiated into secrets that allow you to hunt Xenos more effectively. ' +
       'You receive the normal benefit for having the Ordo Xenos keyword (page 119 of the ' +
@@ -325,6 +340,7 @@ const aaoa = [
       'and one Weapon Upgrade with a value of up to 7 (Very Rare).',
     ascensionFeatures: [
       {
+        key: 'keywords',
         name: 'Keywords',
         snippet: 'You gain the Deathwatch, Inquisition and Ordo Xenos keyword.',
         modifications: [
@@ -334,6 +350,7 @@ const aaoa = [
         ],
       },
       {
+        key: 'deathwatch-arsenal',
         name: 'Deathwatch Arsenal',
         description:
           '<p>You join the ranks of the Deathwatch, and you are initiated into secrets that allow you to hunt Xenos more effectively. ' +
@@ -342,6 +359,7 @@ const aaoa = [
           'arsenals containing rare and specialised equipment.</p>',
       },
       {
+        key: 'brothers-in-arms',
         name: 'Brothers in Arms',
         snippet: 'As an Action, you can transfer one Wrath to any other character with the Deathwatch Keyword. ',
         description:
@@ -349,6 +367,7 @@ const aaoa = [
           'spend one Wrath in order to give one Wrath to any other character with the Deathwatch keyword.</p>',
       },
       {
+        key: 'wargear',
         name: 'Wargear',
         description:
           '<p>One reload each of Dragonfire, Hellfire, Kraken, and Vengeance bolt rounds, and one Weapon Upgrade with a value of up to 7 (Very Rare).</p>',
@@ -363,7 +382,7 @@ const aaoa = [
             options: [
               {
                 filter: true,
-                valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+                valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: false, fixedValue: 7 },
                 rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
                 typeFilter: ['Weapon Upgrade'],
               },
@@ -387,10 +406,12 @@ const aaoa = [
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
+    keywordString: 'Heretic, Chaos and <Mark of Chaos>',
     storyElementString: 'You lose the Imperium keyword. If you had the Adeptus Astartes keyword, you replace it with the Heretic Astartes keyword. If you had the Adeptus Mechanicus keyword, you replace it with the Dark Mechanicus keyword. If you had any talents that required you not to have the Chaos keyword, the build points from those talents are refunded. The recent nature of your betrayal means that you gain +2d on all Deception tests to pretend that you are still loyal.',
     wargearString: 'None.',
     ascensionFeatures: [
       {
+        key: 'keywords',
         name: 'Keywords',
         snippet: 'You gain the Heretic, Chaos and <Mark of Chaos> keywords.',
         modifications: [
@@ -400,14 +421,20 @@ const aaoa = [
         ],
       },
       {
-        name: 'Story Element',
+        key: 'switch-sides',
+        name: 'Switch Sides',
         description:
           '<p>You lose the Imperium keyword. ' +
           'If you had the Adeptus Astartes keyword, you replace it with the Heretic Astartes keyword. ' +
           'If you had the Adeptus Mechanicus keyword, you replace it with the Dark Mechanicus keyword. ' +
-          'If you had any talents that required you not to have the Chaos keyword, the build points from those talents are refunded. ' +
-          'The recent nature of your betrayal means that you gain +2d on all Deception tests to pretend that you are still loyal.</p>',
-      }
+          'If you had any talents that required you not to have the Chaos keyword, the build points from those talents are refunded.</p>',
+      },
+      {
+        key: 'hide-in-plain-sight',
+        name: 'Hide in plain sight',
+        description:
+          '<p>The recent nature of your betrayal means that you gain +2d on all Deception tests to pretend that you are still loyal.</p>',
+      },
     ],
   },
   {
@@ -426,6 +453,7 @@ const aaoa = [
     // Benefits
     influenceBonus: 2,
     influencePerTier: 0,
+    keywordString: 'none',
     storyElementString:
       'The character is regarded as an honoured veteran amongst the Adeptus Astartes, ' +
       'and even when not wearing Terminator Armour, they are seen as some of the mightiest and most dedicated warriors in the Imperium. ' +
@@ -440,6 +468,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
+        key: 'honoured-veteran',
         name: 'Honoured Veteran',
         snippet: 'Increase your resolve by 2.',
         description: '<p>The character’s Resolve is increased by +2.</p>',
@@ -448,6 +477,7 @@ const aaoa = [
         ],
       },
       {
+        key: 'lead-by-example',
         name: 'Lead by Example',
         snippet: 'Shift a single exalted icon per Test (Weapon Skill, Ballistic Skill, Leadership) and all <Imperium> allies within 15m heal 1+Rank Shock.',
         description:
@@ -455,6 +485,7 @@ const aaoa = [
           'they may shift a single exalted icon to allow themselves and all allies with the Imperium keyword within 15m to heal 1+Rank Shock.</p>',
       },
       {
+        key: 'terminator-armour-requisition',
         name: 'Terminator Armour Requisition',
         snippet: 'The character may request a Terminator Armour and accompanying Weapons.',
         description:
@@ -481,6 +512,7 @@ const aaoa = [
     // Benefits
     influenceBonus: 1,
     influencePerTier: 0,
+    keywordString: 'Primaris Astartes',
     storyElementString:
       'Change your Species from Adeptus Astartes to Primaris Astartes, with all the accompanying benefits. ' +
       'The cost of this has already been accounted for in the cost of this ascension package.',
@@ -490,11 +522,24 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
+        ky: 'keyword',
         name: 'Keywords',
         snippet: 'You gain the Primaris Astartes keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Primaris Astartes' },
         ],
+      },
+      {
+        ky: 'story-element',
+        name: 'Story Element',
+        description:
+          '<p>Change your Species from Adeptus Astartes to Primaris Astartes, with all the accompanying benefits. The cost of this has already been accounted for in the cost of this ascension package.</p>',
+      },
+      {
+        ky: 'wargear',
+        name: 'Wargear',
+        description:
+          '<p>You replace your weapons and armour with the nearest equivalents which have the Primaris keyword. At the GM’s discretion, unique wargear may be altered or upgraded as well.</p>',
       },
     ],
   },
@@ -514,6 +559,7 @@ const aaoa = [
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
+    keyworString: 'Exarch',
     storyElementString:
       'You can no longer empathise with those who have not devoted their existence to war. ' +
       'You increase the DN of all Interaction tests against non-warriors by +2, and they suffer the same penalty in return. ' +
@@ -526,6 +572,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
+        key: 'keyword',
         name: 'Keywords',
         snippet: 'You gain the Exarch Keyword.',
         modifications: [
@@ -533,22 +580,26 @@ const aaoa = [
         ],
       },
       {
+        key: 'you-walk-alone',
         name: 'You walk alone',
         description:
           '<p>You increase the DN of all Interaction tests against non-warriors by +2, and they suffer the same penalty in return.</p>',
       },
       {
+        key: 'exalted',
         name: 'Exalted',
         snippet: 'You may purchase and use Exarch Powers (special talents).',
       },
       {
+        key: 'exarch-armour',
         name: 'Exarch Armour',
-        description: 
+        description:
           '<p>You replace your Aspect Armour with Exarch Armour, which provides the same functions ' +
           'but has an AP of 6 and loses the Bulky (X) or Cumbersome traits (if it had them).</p>',
         // filter for exarch armour
       },
       {
+        key: 'exarch-weapon',
         name: 'Exarch Weapon',
         description:
           '<p>replace one of your weapons with a weapon of up to Unique rarity and a Value of up to 5 plus your new Tier.</p>' +
@@ -575,6 +626,7 @@ const aaoa = [
     // Benefits
     influenceBonus: 3,
     influencePerTier: 0,
+    keywordString: 'Farseer',
     storyElementString:
       'You gain the Prophetic Visions and Scry psychic powers. ' +
       'In addition, you may purchase additional Runes of Fate psychic powers, subject to Tier restrictions. ' +
@@ -585,18 +637,21 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
+        key: 'Keyword',
         name: 'Keywords',
         snippet: 'You gain the Farseer Keyword.',
         description: '<p>You gain the <em>Farseer</em> Keyword.</p>',
         keywords: ['Farseer'],
       },
       {
+        key: 'recognisable-fortitude',
         name: 'Recognisable Fortitude',
         description:
           '<p>You may use your Willpower instead of your Fellowship to determine your Influence.</p>',
       },
       {
-        name: 'Unlock Powers',
+        key: 'unlock-faith-powers',
+        name: 'Unlock Faith Powers',
         snippet: 'You gain the Prophetic Visions and Scry psychic powers and access to Runes of Faith Discipline.',
         description:
           '<p>You gain the <em>Prophetic Visions</em> and <em>Scry</em> psychic powers and access to <em>Runes of Faith</em> Discipline.</p>',
@@ -606,6 +661,7 @@ const aaoa = [
         // may trade powers
       },
       {
+        key: 'seer-wargear',
         name: 'Seer Wargear',
         snippet: 'Ghosthelm, Runes of Witnessing, Runes of Warding.',
         wargear: [
@@ -633,6 +689,7 @@ const aaoa = [
     influenceBonus: 3,
     influencePerTier: 0,
     // corruption: +3, see below
+    keywordString: 'Daemon',
     storyElementString:
       'The character is now possessed by a daemon of Chaos. ' +
       'The character gains the Daemonic special rule, described below. ' +
@@ -652,27 +709,24 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
+        key: 'keyword',
         name: 'Keywords',
-        snippet: 'You gain the Daemon keyword.',
+        snippet: 'You gain the Daemon keyword and 3 points Corruption.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Daemon' },
-        ],
-      },
-      {
-        name: 'Corruption',
-        snippet: 'You gain 3 points of Corruption.',
-        modifications: [
           { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
         ],
       },
       {
+        key: 'invoke-daemonic-power',
         name: 'Invoke Daemonic Power',
         description:
           '<p>Select three attributes when the character first becomes possessed; as a free action you may gain a number of bonus dice to those attributes equal to the campaign’s Tier.</p>' +
           '<p>You may sustain this for as many rounds as you wish (or minutes, if outside of combat), but when you stop using this power, you suffer 1d3 Shock, +1 for each Round (or minute) you used the daemon’s power, and gain +1 Corruption.</p>',
       },
       {
-        name: 'Bestial features',
+        key: 'bestial-features',
+        name: 'Bestial Features',
         description:
           '<p>While using the daemon’s power, the character also gains the Horns, Spines, Fangs, ' +
           'or Claws minor mutation (page 373 of the Wrath & Glory rulebook), and a single major mutation, ' +
@@ -682,7 +736,8 @@ const aaoa = [
         // options: [],  select a mutation
       },
       {
-        name: 'Daemonic',
+        key: 'daemonic-fortitude',
+        name: 'Daemonic Fortitude',
         snippet: 'You may Soak Mortal Wounds and soaking does not cost you any Shock.',
         description:
           '<p>The character may attempt to Soak Mortal Wounds, and Soaking does not cost this character any Shock.</p>',
@@ -707,6 +762,7 @@ const aaoa = [
     // Benefits
     influenceBonus: 2,
     influencePerTier: 0,
+    keywordString: 'Ynnari',
     storyElementString:
       'The character has been reborn as one of the Ynnari, and now has a powerful connection to the spirits of the dead. ' +
       'The character may attempt a Psychic Mastery test in order to communicate with the spirits of Aeldari dead ' +
@@ -722,6 +778,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
+        key: 'keyword',
         name: 'Keywords',
         snippet: 'You gain the Ynnari keyword.',
         modifications: [
@@ -729,12 +786,14 @@ const aaoa = [
         ],
       },
       {
+        key: 'connection-to-the-dead-spirits',
         name: 'Connection to the dead spirits',
         description:
           '<p>The character may attempt a Psychic Mastery test in order to communicate with the spirits of Aeldari dead ' +
           '(contained within spirit stones, infinity circuits, Exodite world-spirits, and similar).</p>',
       },
       {
+        key: 'strength-from-death',
         name: 'Strength From Death',
         description:
           '<p>Once per round, when a player character, or an Adversary or Elite, or three Troops, dies within 15m of you, you immediately gain +1 Soul token. ' +
@@ -742,12 +801,14 @@ const aaoa = [
           'Soul tokens may be used as if they were Glory points, but only by the owning character, or by other allied Ynnari within 10m.</p>',
       },
       {
-        name: 'Soul Stone',
+        key: 'spiritual-harvester',
+        name: 'Spiritual Harvester',
         description:
           '<p>A <em>Spirit Stone</em> may be used to generate 1d3+1 Soul tokens as a free action once every 24 hours – ' +
           'the character taps into the powerful spirits within, which then take some time to recover their strength.</p>',
       },
       {
+        key: 'wargear',
         name: 'Wargear',
         snippet: 'You gain a Spirit Stone.',
         wargear: [
