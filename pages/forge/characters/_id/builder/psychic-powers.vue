@@ -116,9 +116,14 @@
 </template>
 
 <script lang="js">
+import PsychicDisciplineMixin from '~/mixins/PsychicDisciplineMixin';
+
 export default {
   name: 'PsychicPowers',
   layout: 'forge',
+  mixins: [
+    PsychicDisciplineMixin,
+  ],
   props: [],
   head() {
     return {
@@ -165,23 +170,6 @@ export default {
       ],
       grantAllAccess: false,
       selectedDisciplines: [],
-      disciplinesRepository: [
-        { name: 'Minor', source: 'core' },
-        { name: 'Universal', source: 'core' },
-        { name: 'Biomancy', source: 'core' },
-        { name: 'Divination', source: 'core' },
-        { name: 'Pyromancy', source: 'core' },
-        { name: 'Telekinesis', source: 'core' },
-        { name: 'Telepathy', source: 'core' },
-        { name: 'Maleficarum', source: 'core' },
-        { name: 'Runes of Battle', source: 'core' },
-        { name: 'Navigator Powers', source: 'pax' },
-        { name: 'WAAAGH!', source: 'aaoa' },
-        { name: 'Ancestral Rites', source: 'aaoa' },
-        { name: 'Sanctic', source: 'aaoa' },
-        { name: 'Librarius', source: 'aaoa' },
-        { name: 'Librarius', source: 'tea' },
-      ],
       species: undefined,
       archetype: undefined,
       psychicPowersList: undefined,

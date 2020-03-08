@@ -185,7 +185,7 @@ const core = [
           { key: 'ascensionMinor4', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
         ],
         modifications: [
-          // access to one minor power
+          // { targetGroup: 'psychicDisciplines', targetValue: 'Minor' },
         ],
       },
     ],
@@ -372,12 +372,12 @@ const aaoa = [
         description:
           '<p>One reload each of Dragonfire, Hellfire, Kraken, and Vengeance bolt rounds, and one Weapon Upgrade with a value of up to 7 (Very Rare).</p>',
         wargear: [
-          { name: 'Dragonfire' },
-          { name: 'Hellfire' },
-          { name: 'Kraken' },
-          { name: 'Vengeance' },
+          { name: 'Dragonfire Bolt Rounds', amount: 1 },
+          { name: 'Hellfire Bolt Rounds', amount: 1 },
+          { name: 'Kraken Bolt Rounds', amount: 1 },
+          { name: 'Vengeance Bolt Rounds', amount: 1 },
           {
-            name: 'one Weapon Upgrade with a value of up to 7 (Very Rare)',
+            name: 'One Weapon Upgrade with a value of up to 7 (Very Rare)',
             selected: '',
             options: [
               {
@@ -641,7 +641,9 @@ const aaoa = [
         name: 'Keywords',
         snippet: 'You gain the Farseer Keyword.',
         description: '<p>You gain the <em>Farseer</em> Keyword.</p>',
-        keywords: ['Farseer'],
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Farseer' },
+        ],
       },
       {
         key: 'recognisable-fortitude',
@@ -652,11 +654,17 @@ const aaoa = [
       {
         key: 'unlock-faith-powers',
         name: 'Unlock Faith Powers',
-        snippet: 'You gain the Prophetic Visions and Scry psychic powers and access to Runes of Faith Discipline.',
+        snippet: 'You gain the Prophetic Visions and Scry psychic powers and access to the Runes of Faith Discipline.',
         description:
-          '<p>You gain the <em>Prophetic Visions</em> and <em>Scry</em> psychic powers and access to <em>Runes of Faith</em> Discipline.</p>',
-        // powers: Prophetic Visions, Scry
-        // discipline access: Runes of Fate
+          '<p>You gain the <em>Prophetic Visions</em> and <em>Scry</em> psychic powers and access to the <em>Runes of Faith</em> Discipline.</p>' +
+          '<p>If you wish, you may trade in psychic powers you already possess, regaining the points spent on them, in order to buy new powers.</p>',
+        psychicPowers: [
+          { key: 'ascension-prophetic-visions', selected: 'Prophetic Visions', query: { name: 'Prophetic Visions' }, options: [], free: true },
+          { key: 'ascension-scry', selected: 'Scry', query: { name: 'Scry' }, options: [], free: true },
+        ],
+        modifications: [
+          { targetGroup: 'psychicDisciplines', targetValue: 'Runes of Faith' },
+        ],
         // increase power tier +2
         // may trade powers
       },

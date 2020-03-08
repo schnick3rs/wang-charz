@@ -122,14 +122,12 @@
 </template>
 
 <script lang="js">
-import AscensionRepositoryMixin from '~/mixins/AscensionRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Stats',
   layout: 'forge',
   mixins: [
-    AscensionRepositoryMixin,
     StatRepositoryMixin,
   ],
   props: [],

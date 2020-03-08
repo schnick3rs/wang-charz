@@ -160,17 +160,22 @@ export default {
       this.selectedPreview = item;
       this.dialog = true;
     },
+
+    /**
+     * SET ASCENSION CHOICE
+     */
     selectPackageForChar(ascensionPackage, targetTier) {
       const id = this.characterId;
 
       ascensionPackage.sourceTier = this.effectiveCharacterTier;
       ascensionPackage.targetTier = targetTier;
 
+      const cost = ( ascensionPackage.costPerTier * targetTier ) + ascensionPackage.cost;
       const payload = {
-        id: this.characterId,
+        id,
         key: ascensionPackage.key,
         value: ascensionPackage.name,
-        cost: ascensionPackage.costPerTier * targetTier + ascensionPackage.cost,
+        cost,
         sourceTier: ascensionPackage.sourceTier,
         targetTier,
       };
@@ -228,9 +233,27 @@ export default {
             const payload = {
               id,
               name: wargear.name,
-              source: `ascension.${ascensionPackage.key}.${feature.name}`,
+              source: `ascension.${ascensionPackage.key}.${feature.key}`,
             };
             this.$store.commit('characters/addCharacterWargear', payload);
+          });
+        });
+      }
+
+      {
+        ascensionPackage.ascensionFeatures
+        .filter( (feature) => feature.psychicPowers !== undefined )
+        .forEach( (feature) => {
+          feature.psychicPowers.forEach((psychicPower)=>{
+            if ( psychicPower.query && psychicPower.query.name ) {
+              const payload = {
+                id,
+                name: psychicPower.query.name,
+                cost: 0, // TODO for non free powers
+                source: `ascension.${ascensionPackage.key}.${feature.key}`,
+              };
+              this.$store.commit('characters/addCharacterPsychicPower', payload);
+            }
           });
         });
       }

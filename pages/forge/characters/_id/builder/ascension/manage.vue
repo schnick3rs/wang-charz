@@ -97,11 +97,39 @@
 
             <!-- feature with spells -->
             <div class="ml-2 mr-2" v-if="feature.psychicPowers">
-              {{feature.psychicPowers}}
-              <div>
-                ...
-              </div>
 
+              <div
+                v-for="powerOption in feature.psychicPowers"
+                class="ml-2 mr-2"
+              >
+                <v-select
+                  v-if="powerOption.query && !powerOption.query.name"
+                  v-model="powerOption.selected"
+                  :items="computeSpellOptions(powerOption)"
+                  item-value="name"
+                  item-text="name"
+                  :hint="psychicPowerHint(powerOption.selected)"
+                  persistent-hint
+                  dense
+                  solo
+                />
+                <v-checkbox
+                  v-else
+                  class="mb-4"
+                  v-model="powerOption.query.name"
+                  :label="powerOption.query.name"
+                  :hint="psychicPowerHint(powerOption.query.name)"
+                  persistent-hint
+                  dense
+                  disabled
+                ></v-checkbox>
+                <!--
+                  @change="updatePsychicPowers(selections)"
+                  @input="setFeatureOptionWargearChoice($event, characterAscension, feature, wargearOption.key)"
+                  :readonly="selections.options.length <= 1"
+                  :items="selections.options"
+                -->
+              </div>
             </div>
 
             <div v-if="feature.options && feature.options.length > 0">
@@ -188,7 +216,7 @@ export default {
   ],
   async asyncData({ params, $axios, error }) {
     const wargearResponse = await $axios.get('/api/wargear/');
-    const powersResponse = await $axios.get('/api/psychic-powers/?fields=id,name,effect,discipline&discipline=Minor,Universal');
+    const powersResponse = await $axios.get('/api/psychic-powers/?fields=id,name,effect,discipline,cost');
     const archetypeResponse = await $axios.get('/api/archetypes/?source=core,coreab');
     return {
       characterId: params.id,
@@ -201,6 +229,7 @@ export default {
     return {
       ascensionPackagesRepository: undefined,
       wargearList: undefined,
+      psychicPowerList: undefined,
       //ascensionPackagesList: undefined,
     };
   },
@@ -382,6 +411,7 @@ export default {
       handler(newVal) {
         if (newVal) {
           this.getWargearList(newVal);
+          this.getPsychicPowers(newVal);
         }
       },
       immediate: true, // make this watch function is called when component created
@@ -389,17 +419,13 @@ export default {
   },
   methods: {
     async getAscensionPackageList(ascensionList) {
-
       let packages = [];
-
       if ( ascensionList.length > 0 ){
         for (const ascension of ascensionList) {
           const { data } = await this.$axios.get(`/api/ascension-packages/${ascension.key}`);
-          console.info(data);
           packages.push(data);
         }
       }
-
       this.ascensionPackagesRepository = packages;
     },
     async getWargearList(sources) {
@@ -410,6 +436,16 @@ export default {
       };
       const { data } = await this.$axios.get('/api/wargear/', config);
       this.wargearList = data.filter((i) => i.stub === undefined || i.stub === false);
+    },
+    async getPsychicPowers(sources) {
+      const config = {
+        params: {
+          source: this.sources.join(','),
+          fields: 'id,name,effect,discipline,cost',
+        },
+      };
+      const { data } = await this.$axios.get('/api/psychic-powers/', config);
+      this.psychicPowerList = data;
     },
 
     choosePackage(){
@@ -430,7 +466,7 @@ export default {
         // the new selected choice
         replacement: selected,
         // the source of the keyword
-        source: `ascension.${ascensionPackage.key}.${feature.name}`,
+        source: `ascension.${ascensionPackage.key}.${feature.key}`,
       });
 
       placeholder.selected = selected;
@@ -457,7 +493,7 @@ export default {
     setFeatureOptionWargearChoice(item, ascension, feature, wargearOptionKey) {
       const id = this.characterId;
       const name = item.name;
-      const source = `ascension.${ascension.key}.${feature.name}.${feature.selected}.${wargearOptionKey}`;
+      const source = `ascension.${ascension.key}.${feature.key}.${feature.selected}.${wargearOptionKey}`;
 
       this.$store.commit('characters/removeCharacterWargearBySource', { id, source });
       this.$store.commit('characters/addCharacterWargear', { id, name, source });
@@ -492,14 +528,13 @@ export default {
 
       return '';
     },
-    updatePsychicPowers(characterAscension, option) {
-      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id: this.characterId, source: `ascension.${characterAscension.key}.${option.name}` });
-      this.$store.commit('characters/addCharacterPsychicPower', {
-        id: this.characterId,
-        name: option.selected,
-        cost: 0,
-        source: `ascension.${characterAscension.key}.${option.name}`,
-      });
+    updatePsychicPowers(characterAscension, feature, option) {
+      const id = this.characterId;
+      const source = `ascension.${characterAscension.key}.${feature.key}.${option.key}`;
+      const cost = 0;
+      const name = option.selected
+      this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id, source });
+      this.$store.commit('characters/addCharacterPsychicPower', { id, name, cost, soure });
     },
     keywordPlaceholders(feature) {
       let placeholderKeywords = [];
@@ -554,6 +589,23 @@ export default {
       }
     },
 
+    computeSpellOptions(powerOption) {
+      const { name, discipline } = powerOption.query;
+      let items = [];
+      if (this.psychicPowerList) {
+        this.psychicPowerList
+        .filter((power) => {
+            let validName = name ? power.name === name : true;
+            let validDiscipline = discipline ? power.discipline === discipline : true;
+            return validName && validDiscipline;
+        })
+        .forEach((validPower) => {
+          items.push(validPower);
+        });
+      }
+      return items;
+    },
+
     /**
      *
      * @param ascension
@@ -562,7 +614,7 @@ export default {
      */
     setFeatureOptionChoice(ascension, feature, type = 'ascension') {
       const id = this.characterId;
-      const sourcePrefix = `${type}.${ascension.key}.${feature.name}`;
+      const sourcePrefix = `${type}.${ascension.key}.${feature.key}`;
       const selectedOption =  feature.options.find( (o) => o.key === feature.selected );
 
       console.log(`Set choice for ${feature.name} -> ${selectedOption.name}`);
