@@ -33,13 +33,20 @@
 
       <span class="mt-2 grey--text">Prerequisites</span>
       <v-divider class="mb-2" />
+
       <p class="text-lg-justify">
         <strong>Minimum Campaign Tier:</strong> {{ item.minimumCampaignTier }}+
       </p>
-      <p class="text-lg-justify">
+
+      <p class="text-lg-justify" v-for="prerequisite in item.prerequisites">
+        <span>{{prerequisite}}</span>
+      </p>
+
+      <p class="text-lg-justify" v-if="false">
         <strong>Attribute:</strong> {{ item.attributePrerequisites && item.attributePrerequisites.length > 0 ? item.attributePrerequisites.join(', ') : 'none' }}
       </p>
-      <p class="text-lg-justify">
+
+      <p class="text-lg-justify" v-if="false">
         <strong>Skill:</strong> {{ item.skillPrerequisites && item.skillPrerequisites.length > 0 ? item.skillPrerequisites.join(', ') : 'none' }}
       </p>
 

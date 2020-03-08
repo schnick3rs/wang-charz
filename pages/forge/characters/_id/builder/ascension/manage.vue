@@ -53,6 +53,10 @@
           <span class="mt-2 grey--text">Prerequisites</span>
           <v-divider class="mb-2" />
 
+          <ul class="text-lg-justify mb-4">
+            <li v-for="prerequisite in characterAscension.prerequisites">{{prerequisite}}</li>
+          </ul>
+
           <span class="mt-2 grey--text">Benefits</span>
           <v-divider class="mb-2" />
 
