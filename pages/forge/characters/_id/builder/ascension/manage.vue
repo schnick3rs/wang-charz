@@ -80,7 +80,7 @@
             >
               <v-select
                 v-model="placeholder.selected"
-                :label="placeholder.name +' Keyword'"
+                :label="` Choose ${placeholder.name} Keyword`"
                 :items="placeholder.options"
                 :hint="keywordHint(placeholder.selected, placeholder)"
                 item-text="name"
@@ -304,7 +304,7 @@ export default {
           }
         }
 
-        const packageKeyword = this.keywords.find((k) => k.source === `ascension.${characterPackage.key}`);
+        const packageKeyword = this.keywords.find((k) => k.source.startsWith(`ascension.${characterPackage.key}`));
         if (packageKeyword && packageKeyword.replacement) {
           characterPackage.selected = packageKeyword.replacement;
         } else {
@@ -336,7 +336,6 @@ export default {
           const associatedPsychicPowers = this.characterPsychicPowers.filter((psychicPower) => psychicPower.source.startsWith(sourcePrefix));
 
           if (associatedPsychicPowers) {
-            // { key: 'ascension-minor-1', selected: '', query: { discipline: 'Minor' }, options: [], free: true, requiredAscendedTiers: 1 },
             featureWithPowers.psychicPowers.forEach((power) => {
                 const powerFound = associatedPsychicPowers.find((a) => a.source.endsWith(power.key));
               power.selected = powerFound ? powerFound.name : '';
@@ -455,7 +454,7 @@ export default {
       });
     },
 
-    updateKeyword(placeholder, selected, ascensionPackage, feature) {
+    updateKeyword(placeholder, selected, ascension, feature) {
       console.log(`selected ${selected} for ${placeholder.name}`);
       const id = this.characterId;
 
@@ -466,7 +465,7 @@ export default {
         // the new selected choice
         replacement: selected,
         // the source of the keyword
-        source: `ascension.${ascensionPackage.key}.${feature.key}`,
+        source: `ascension.${ascension.key}.${feature.key}`,
       });
 
       placeholder.selected = selected;

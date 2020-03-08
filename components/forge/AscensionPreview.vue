@@ -47,7 +47,7 @@
       <v-divider class="mb-2" />
 
       <p class="text-lg-justify">
-        <strong>Keywords:</strong> {{ item.keywords ? item.keywords.join(', ') : '' }}
+        <strong>Keywords:</strong> {{ item.keywordString }}
       </p>
 
       <p class="text-lg-justify">
@@ -66,6 +66,7 @@
     <v-divider />
 
     <v-card-actions v-if="chooseMode">
+
       <v-row justify="center" no-gutters>
         <v-col :cols="2">
           <v-select
@@ -102,7 +103,7 @@
         Cancel
       </v-btn>
       <v-spacer />
-      <v-btn right color="green" @click="$emit('select', item, targetTier)">
+      <v-btn right color="green" @click="$emit('select', item, targetTier)" :disabled="!hasValidTierPrerequisites">
         Select Package
       </v-btn>
     </v-card-actions>
@@ -140,8 +141,13 @@ export default {
     };
   },
   computed: {
+    hasValidTierPrerequisites() {
+      return this.item.minimumCampaignTier <= this.maxTargetTier;
+    },
     targetTierOptions() {
-      return this.range(this.currentCharacterTier + 1, this.maxTargetTier);
+      const from = Math.max(this.currentCharacterTier + 1, this.item.minimumCampaignTier);
+      const to = this.maxTargetTier;
+      return from <= to ? this.range(from, to) : [];
     },
   },
   methods: {

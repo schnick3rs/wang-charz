@@ -227,6 +227,7 @@ const aaoa = [
     keywordString: 'Inqisition, <Ordo>',
     influenceBonus: 0,
     influencePerTier: 1,
+    keywordString: 'Inquisition and <Ordo>',
     storyElementString:
       'The character’s status means that they may invoke the name and authority of their ' +
       'Inquisitor to gain +Rank to an Influence or Interaction skill test involving a ' +

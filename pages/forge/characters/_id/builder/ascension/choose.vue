@@ -218,7 +218,7 @@ export default {
       .forEach( (k) => {
         const payload = {
           name: k.targetValue,
-          source: `ascension.${ascensionPackage.key}.Keywords`,
+          source: `ascension.${ascensionPackage.key}.keywords`,
           type: 'keyword',
           replacement: undefined,
         };
