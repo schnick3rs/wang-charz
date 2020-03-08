@@ -197,6 +197,16 @@ export default {
     characterArchetypeKey() {
       return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
+    characterEnhancements() {
+      return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
+    },
+    characterAccessibleDisciplines() {
+      let disciplines = [];
+      if (this.characterEnhancements) {
+        return this.characterEnhancements.filter((e)=> e.targetGroup === 'psychicDisciplines');
+      }
+      return disciplines;
+    },
     alerts() {
       const alerts = [];
 
@@ -250,8 +260,12 @@ export default {
         .forEach((disciplines) => access = [ ...access, ...disciplines]);
       }
 
-      // if there is no discipline access and the psyker keyword -> allow Minor
+      // TODO if there is no discipline access and the psyker keyword -> allow Minor
       access.push('Minor');
+
+      this.characterAccessibleDisciplines.map((d) => d.targetValue).forEach((discipline) => {
+        access = [ ...access, discipline ];
+      });
 
       access = [...new Set(access)].sort();
       return access;

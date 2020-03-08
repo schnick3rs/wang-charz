@@ -169,23 +169,39 @@ const core = [
         ],
       },
       {
+        key: 'unlook-discipline',
+        name: 'Unlook Discipline',
+        snippet: '',
+        description:
+          '<p>The character may purchase powers from one Discipline of their choice. The character must purchase the Psychic Mastery Skill.</p>',
+        selected: '',
+        options: [
+          { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+        ],
+        modifications: [
+          // { targetGroup: 'psychicDisciplines', targetValue: 'Minor' },
+        ],
+      },
+      {
         key: 'story-element',
         name: 'Story Element',
         snippet: '',
         description:
-          '<p>The character gains the smite psychic power. ' +
-          'They also may choose one Minor Psychic power per Tier ' +
-          'ascended and may purchase powers from one Discipline of their choice. ' +
-          'The character must purchase the Psychic Mastery Skill.</p>',
+          '<p>The character gains the smite psychic power. They also may choose one Minor Psychic power per Tier ascended.</p>',
         psychicPowers: [
-          { key: 'ascensionSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { key: 'ascensionMinor1', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { key: 'ascensionMinor2', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { key: 'ascensionMinor3', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { key: 'ascensionMinor4', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-        ],
-        modifications: [
-          // { targetGroup: 'psychicDisciplines', targetValue: 'Minor' },
+          { key: 'ascension-smite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { key: 'ascension-minor-1', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { key: 'ascension-minor-2', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { key: 'ascension-minor-3', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { key: 'ascension-minor-4', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
         ],
       },
     ],

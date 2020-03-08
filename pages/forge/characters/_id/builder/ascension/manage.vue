@@ -71,7 +71,9 @@
             <div v-if="feature.description" v-html="feature.description"></div>
             <p v-else>{{ feature.snippet }}</p>
 
+            <!-- keyword with <> Keyword choice -->
             <div
+              class="ml-2 mr-2"
               v-if="keywordPlaceholders(feature).length > 0"
               v-for="placeholder in keywordPlaceholders(feature)"
               :key="placeholder.key"
@@ -109,6 +111,7 @@
                   item-value="name"
                   item-text="name"
                   :hint="psychicPowerHint(powerOption.selected)"
+                  @change="setFeaturePowersChoice($event, characterAscension, feature, powerOption)"
                   persistent-hint
                   dense
                   solo
@@ -123,16 +126,14 @@
                   dense
                   disabled
                 ></v-checkbox>
-                <!--
-                  @change="updatePsychicPowers(selections)"
-                  @input="setFeatureOptionWargearChoice($event, characterAscension, feature, wargearOption.key)"
-                  :readonly="selections.options.length <= 1"
-                  :items="selections.options"
-                -->
+
               </div>
             </div>
 
-            <div v-if="feature.options && feature.options.length > 0">
+            <div></div>
+
+            <!-- Feature with Options -->
+            <div class="ml-2 mr-2" v-if="feature.options && feature.options.length > 0">
 
               <v-select
                 :items="feature.options"
@@ -528,13 +529,15 @@ export default {
 
       return '';
     },
-    updatePsychicPowers(characterAscension, feature, option) {
+
+    // @change="setFeaturePowersChoice($event, characterAscension, feature, powerOption.key)"
+    setFeaturePowersChoice(powerName, ascension, feature, option) {
       const id = this.characterId;
-      const source = `ascension.${characterAscension.key}.${feature.key}.${option.key}`;
+      const source = `ascension.${ascension.key}.${feature.key}.${option.key}`;
       const cost = 0;
-      const name = option.selected
+      const name = powerName;
       this.$store.commit('characters/clearCharacterPsychicPowersBySource', { id, source });
-      this.$store.commit('characters/addCharacterPsychicPower', { id, name, cost, soure });
+      this.$store.commit('characters/addCharacterPsychicPower', { id, name, cost, source });
     },
     keywordPlaceholders(feature) {
       let placeholderKeywords = [];
