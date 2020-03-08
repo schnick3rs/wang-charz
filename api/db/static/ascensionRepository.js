@@ -396,6 +396,7 @@ const aaoa = [
           { name: 'Kraken Bolt Rounds', amount: 1 },
           { name: 'Vengeance Bolt Rounds', amount: 1 },
           {
+            key: 'very-rare-weapon-upgrade',
             name: 'One Weapon Upgrade with a value of up to 7 (Very Rare)',
             selected: '',
             options: [

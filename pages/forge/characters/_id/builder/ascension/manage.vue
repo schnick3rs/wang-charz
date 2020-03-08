@@ -131,6 +131,24 @@
               </div>
             </div>
 
+            <!-- feature with wargear -->
+            <div
+              v-if="feature.wargear && feature.wargear.length > 0"
+            >
+              <!-- features wargear options -->
+              <div
+                v-for="wargearOption in feature.wargear.filter((w) => w.options)"
+                :key="wargearOption.key"
+              >
+                <wargear-select
+                  :item="wargearOption.selected"
+                  :repository="computeWargearOptionsByFilter(wargearOption.options[0], characterAscension)"
+                  class="mb-4"
+                  @input="setFeatureWargearChoice($event, characterAscension, feature, wargearOption.key)"
+                />
+              </div>
+            </div>
+
             <!-- Feature with Options -->
             <div class="ml-2 mr-2" v-if="feature.options && feature.options.length > 0">
 
@@ -311,23 +329,6 @@ export default {
           characterPackage.selected = '';
         }
 
-        /**
-         * Enrich the spell options with the selected ones. We fetch the psychic powers and check for matching sources.
-         */
-        if (characterPackage.storyElementOptions && characterPackage.storyElementOptions.length > 0) {
-          const { storyElementOptions } = characterPackage;
-
-          storyElementOptions.forEach((storyElementOption) => {
-            if (storyElementOption.type === 'spells' && storyElementOption.discount.length > 0) {
-              storyElementOption.discount.forEach((d) => {
-                if (!d.selected) {
-                  // ToDo
-                }
-              });
-            }
-          });
-        }
-
         // selected psychic powers
         characterPackage.ascensionFeatures
         .filter((feature) => feature.psychicPowers)
@@ -343,7 +344,23 @@ export default {
           }
         });
 
-        // set selected fields
+        // selected wargear
+        characterPackage.ascensionFeatures
+        .filter((feature) => feature.wargear)
+        .forEach((featureWithWargear) => {
+          const sourcePrefix = `ascension.${characterPackage.key}.${featureWithWargear.key}`;
+          const associatedGear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourcePrefix));
+
+          if (associatedGear) {
+            const wargearWithOptions = featureWithWargear.wargear.filter((w) => w.options);
+            wargearWithOptions.forEach((w) => {
+              const gearFound = associatedGear.find((a) => a.source.endsWith(w.key));
+              w.selected = gearFound ? gearFound.name : '';
+            });
+          }
+        });
+
+        // set selected fields for feature with options
         characterPackage.ascensionFeatures
         .filter((feature) => feature.options)
         .forEach((featureWithOptions) => {
@@ -488,6 +505,14 @@ export default {
         ascensionPackageStoryElementKey: storyElementOption.key,
       };
       this.$store.commit('characters/setCharacterAscensionPackageStoryElement', storyPayload);
+    },
+    setFeatureWargearChoice(item, ascension, feature, wargearOptionKey) {
+      const id = this.characterId;
+      const name = item.name;
+      const source = `ascension.${ascension.key}.${feature.key}.${wargearOptionKey}`;
+
+      this.$store.commit('characters/removeCharacterWargearBySource', { id, source });
+      this.$store.commit('characters/addCharacterWargear', { id, name, source });
     },
     setFeatureOptionWargearChoice(item, ascension, feature, wargearOptionKey) {
       const id = this.characterId;
