@@ -251,6 +251,9 @@ export default {
     characterWargear() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
     },
+    characterPsychicPowers() {
+      return this.$store.getters['characters/characterPsychicPowersById'](this.characterId);
+    },
     keywords() {
       return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
     },
@@ -325,6 +328,22 @@ export default {
           });
         }
 
+        // selected psychic powers
+        characterPackage.ascensionFeatures
+        .filter((feature) => feature.psychicPowers)
+        .forEach((featureWithPowers) => {
+          const sourcePrefix = `ascension.${characterPackage.key}.${featureWithPowers.key}`;
+          const associatedPsychicPowers = this.characterPsychicPowers.filter((psychicPower) => psychicPower.source.startsWith(sourcePrefix));
+
+          if (associatedPsychicPowers) {
+            // { key: 'ascension-minor-1', selected: '', query: { discipline: 'Minor' }, options: [], free: true, requiredAscendedTiers: 1 },
+            featureWithPowers.psychicPowers.forEach((power) => {
+                const powerFound = associatedPsychicPowers.find((a) => a.source.endsWith(power.key));
+              power.selected = powerFound ? powerFound.name : '';
+            });
+          }
+        });
+
         // set selected fields
         characterPackage.ascensionFeatures
         .filter((feature) => feature.options)
@@ -337,15 +356,15 @@ export default {
           }
 
           // ToDo remove
-          const enhancement = this.enhancements.find((m) => m.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.name}`) );
+          const enhancement = this.enhancements.find((m) => m.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.key}`) );
           if ( enhancement ) {
             featureWithOptions.selected = enhancement.source.split('.').pop();
           }
 
+          // selected wargear
           const associatedGear = this.characterWargear
-            .filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.name}`));
+            .filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.key}`));
           if (associatedGear) {
-
             const optionsWithWargear = featureWithOptions.options.filter((f)=>f.wargear);
             optionsWithWargear.forEach((o) => {
               o.wargear.forEach((w) => {
@@ -356,26 +375,6 @@ export default {
           }
 
         });
-
-        /*
-        characterPackage.ascensionFeatures
-        .filter((feature) => feature.wargear)
-        .forEach((featureWithWargear) => {
-
-          const associatedGear = this.characterWargear
-          .filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${featureWithWargear.name}`));
-
-          if (associatedGear) {
-            featureWithWargear.forEach((o) => {
-              o.wargear.forEach((w) => {
-                const gearFound = associatedGear.find((a) => a.source.endsWith(w.key));
-                console.info(gearFound);
-                w.selected = gearFound ? gearFound.name : '';
-              })
-            });
-          }
-        });
-        */
 
         return characterPackage;
       });
