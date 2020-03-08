@@ -112,7 +112,7 @@ const core = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
                   },
                 ],
@@ -171,10 +171,11 @@ const core = [
       {
         key: 'unlook-discipline',
         name: 'Unlook Discipline',
-        snippet: '',
+        snippet: 'You unlook a single Psychic Discipline. You must purchase the Psychic Mastery Skill.',
         description:
           '<p>The character may purchase powers from one Discipline of their choice. The character must purchase the Psychic Mastery Skill.</p>',
         selected: '',
+        optionsPlaceholder: 'Choose a Psychic Discipline',
         options: [
           { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
           { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
@@ -185,6 +186,7 @@ const core = [
           { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
           { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
           { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+          // todo, handle homebrew disciplines
         ],
         modifications: [
           // { targetGroup: 'psychicDisciplines', targetValue: 'Minor' },
@@ -193,15 +195,15 @@ const core = [
       {
         key: 'story-element',
         name: 'Story Element',
-        snippet: '',
+        snippet: 'You gain the Smite psychic power and one Minor psychic Power per tier ascended.',
         description:
           '<p>The character gains the smite psychic power. They also may choose one Minor Psychic power per Tier ascended.</p>',
         psychicPowers: [
           { key: 'ascension-smite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { key: 'ascension-minor-1', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { key: 'ascension-minor-2', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { key: 'ascension-minor-3', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-          { key: 'ascension-minor-4', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { key: 'ascension-minor-1', selected: '', query: { discipline: 'Minor' }, options: [], free: true, requiredAscendedTiers: 1 },
+          { key: 'ascension-minor-2', selected: '', query: { discipline: 'Minor' }, options: [], free: true, requiredAscendedTiers: 2 },
+          { key: 'ascension-minor-3', selected: '', query: { discipline: 'Minor' }, options: [], free: true, requiredAscendedTiers: 3 },
+          { key: 'ascension-minor-4', selected: '', query: { discipline: 'Minor' }, options: [], free: true, requiredAscendedTiers: 4 },
         ],
       },
     ],
@@ -898,7 +900,7 @@ const ltgb = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
                     keywordFilter: 'Imperium',
                   },
@@ -993,7 +995,7 @@ const aotgt = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
                     keywordFilter: 'Imperium',
                   },
@@ -1084,7 +1086,7 @@ const thaot = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
                     keywordFilter: 'Imperium',
                   },
@@ -1174,7 +1176,7 @@ const tog = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: true, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
                     keywordFilter: 'Imperium',
                   },

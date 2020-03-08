@@ -512,9 +512,13 @@
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Other</span>
                     </div>
-                    <div v-for="ability in otherAbilities" :key="ability.name" class="caption">
+                    <div v-for="ability in otherAbilities" :key="ability.name" class="caption mb-2">
                       <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                      <p v-html="computeFormatedText(ability.effect)" />
+                      <div v-html="computeFormatedText(ability.effect)" />
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
+                        <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
+                        <p v-if="ability.selectedOption.effect">{{ability.selectedOption.effect}}</p>
+                      </div>
                     </div>
                   </div>
 
@@ -1114,13 +1118,28 @@
       if (ascensionRepository && ascensionRepository.length > 0) {
 
         ascensionRepository.forEach((ascension) => {
-          ascension.ascensionFeatures.forEach( (item) => {
+          ascension.ascensionFeatures.forEach( (feature) => {
             const ability = {
-              name: item.name,
-              effect: item.snippet ? item.snippet : item.description,
+              name: feature.name,
+              effect: feature.snippet ? feature.snippet : feature.description,
               source: ascension.name,
               hint: ascension.name,
             };
+            if ( feature.options ) {
+              const featureOption = this.enhancements.find( (e) => e.source.startsWith(`ascension.${ascension.key}.${feature.key}.`));
+              if ( featureOption ) {
+                if ( featureOption.targetValue ) {
+                  ability['selectedOption'] = {
+                    effect: featureOption.targetValue,
+                  };
+                } else {
+                  ability['selectedOption'] = {
+                    name: featureOption.name,
+                    effect: featureOption.effect,
+                  };
+                }
+              }
+            }
             abilities.push(ability);
           });
         });

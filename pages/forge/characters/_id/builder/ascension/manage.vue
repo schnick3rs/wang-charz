@@ -111,8 +111,9 @@
                   item-value="name"
                   item-text="name"
                   :hint="psychicPowerHint(powerOption.selected)"
-                  @change="setFeaturePowersChoice($event, characterAscension, feature, powerOption)"
                   persistent-hint
+                  @change="setFeaturePowersChoice($event, characterAscension, feature, powerOption)"
+                  v-show="!(powerOption.requiredAscendedTiers && (characterAscension.targetTier - characterAscension.sourceTier) < powerOption.requiredAscendedTiers)"
                   dense
                   solo
                 />
@@ -130,8 +131,6 @@
               </div>
             </div>
 
-            <div></div>
-
             <!-- Feature with Options -->
             <div class="ml-2 mr-2" v-if="feature.options && feature.options.length > 0">
 
@@ -141,6 +140,7 @@
                 item-value="key"
                 item-text="name"
                 @change="setFeatureOptionChoice(characterAscension, feature)"
+                :placeholder="feature.optionsPlaceholder"
                 dense
                 solo
               ></v-select>
