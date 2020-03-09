@@ -202,7 +202,9 @@ const coreRep = [
       },
       {
         name: 'Psychosensitive',
-        snippet: 'All Eldar may purchase 1 Minor Psychic Power if they also purchase the Psychic Mastery skill. This purchase also gives them the Psyker keyword. In addition, the Tier Restriction for Maximum Psychic Powers for Eldar Characters is increased by 1 to accommodate this purchase.',
+        snippet: 'You may purchase 1 Minor Psychic Power if you purchase the Psychic Mastery Skill. This gives you the Psyker Keyword and your Psychic Power Maximum is increase by 1.',
+        description:
+          '<p>All Eldar may purchase 1 Minor Psychic Power if they also purchase the Psychic Mastery skill. This purchase also gives them the Psyker keyword. In addition, the Tier Restriction for Maximum Psychic Powers for Eldar Characters is increased by 1 to accommodate this purchase.</p>',
         psychicDisciplines: [ 'Minor' ],
         psychicPowers: [
           { name: 'psychosensitive', selected: '', query: { discipline: 'Minor' }, options: [], free: false },

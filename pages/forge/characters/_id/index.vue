@@ -433,7 +433,8 @@
                       <div v-html="computeFormatedText(ability.effect)" />
                       <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
                         <strong>{{ ability.selectedOption.name }}</strong>
-                        <p>{{ability.selectedOption.effect}}</p>
+                        <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(ability.description)"></div>
                       </div>
                     </div>
                     <div v-if="speciesAbilities.length === 0" align="center" class="mt-2 mb-2">
@@ -447,8 +448,10 @@
                       <span class="body-2 red--text">Archetype</span>
                     </div>
                     <div v-for="ability in archetypeAbilities" :key="ability.name" class="caption">
-                      <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                      <p v-html="computeFormatedText(ability.effect)" />
+                      <strong>{{ ability.name }}</strong>
+                      <em v-if="ability.source"> • {{ ability.source }}</em>
+                      <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
+                      <div v-else v-html="computeFormatedText(ability.description)"></div>
                     </div>
                   </div>
 
@@ -466,9 +469,14 @@
                         <span class="caption ml-2">/ Faith Points</span>
                       </div>
                     </div>
+
                     <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption mb-3">
-                      <strong>{{ talent.name }}</strong><em> • Talent</em>
-                      <p class="mt-1 mb-1" v-html="computeFormatedText(talent.description)" />
+
+                      <strong>{{ talent.name }}</strong>
+                      <em> • Talent</em>
+                      <div v-if="talent.snippet"><p v-html="computeFormatedText(talent.snippet)"></p></div>
+                      <div v-else v-html="computeFormatedText(talent.description)"></div>
+
                       <div v-if="false" class="mt-1 mb-1 ml-1 pl-2" style="flex-wrap: wrap; display: flex; border-left: solid 3px lightgrey;" >
                         <div
                           v-for="pointIndex in characterFaith.points"
@@ -478,7 +486,9 @@
                         ></div>
                         <span class="caption ml-2">/ Faith Points</span>
                       </div>
+
                     </div>
+
                     <div v-if="talents.length === 0" align="center" class="mt-2 mb-2">
                       <em>Knowledge is treason.</em>
                     </div>
@@ -1072,6 +1082,7 @@
                   const tradition = {
                     name: t.name,
                     effect: t.effect,
+                    snippet: t.effect,
                     source: chapter.name,
                   };
                   abilities.push(tradition);
@@ -1082,6 +1093,8 @@
               const ability = {
                 name: speciesTrait.name,
                 effect: speciesTrait.snippet ? speciesTrait.snippet : speciesTrait.description,
+                snippet: speciesTrait.snippet,
+                description: speciesTrait.description,
                 source: this.speciesLabel,
                 hint: this.speciesLabel,
               };
@@ -1110,6 +1123,8 @@
           const ability = {
             name: item.name,
             effect: item.snippet ? item.snippet : item.description,
+            snippet: item.snippet,
+            description: item.description,
             source: archetype.label,
             hint: archetype.label,
           };
@@ -1436,10 +1451,11 @@
       computed = computed.replace(/(\d+ Faith)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ meters)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ metres)/g, '<strong>$1</strong>');
-      computed = computed.replace(/15 \+ Rank meters/g, `<strong data-hint="15 + Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15 \+ Rank meters/g, `<strong title="15 + Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15 \+ Rank metres/g, `<strong>${15 + rank} metres</strong>`);
-      computed = computed.replace(/\+½ Rank/g, `<strong data-hint="+½ Rank">+${Math.round(rank / 2)}</strong>`);
-      computed = computed.replace(/\+ ?Rank/g, `<strong data-hint="+ Rank">+${rank}</strong>`);
+      computed = computed.replace(/\+½ Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
+      computed = computed.replace(/\+1\/2 Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong title="+ Rank">+${rank}</strong>`);
 
       return computed;
     },

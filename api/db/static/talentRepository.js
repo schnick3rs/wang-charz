@@ -224,6 +224,7 @@ const aaoa = [
   {
     ...simpleTalent('aaoa',148,'Dragon’s Bite',20,'','', 9),
     prerequisitesString: 'Fire Dragon, Weapon Skill 5+',
+    snippet: 'You and your squad may treat any weapon with the Melta keyword as if it had the Pistol trait.',
     description:
       '<p>The Exarch and their squad are adept at bringing their weapons to bear even in the closest confines.</p>' +
       '<p>The Exarch and their squad may treat their Fusion Guns or any other weapon with the Melta keyword, as if they had the Pistol trait.</p>',
