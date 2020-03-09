@@ -293,11 +293,12 @@ const aaoa = [
       '<p>The Exarch’s Resilience and Soak are both increased by +2.</p>',
   },
   {
-    ...simpleTalent('aaoa',150,'Intercept',30,'','', 8),
-    prerequisitesString: 'Toughness 4+',
+    ...simpleTalent('aaoa',150,'Intercept',20,'','', 1),
+    prerequisitesString: 'Agility 6+, Swooping Hawk',
+    snippet: 'When the Exarch, or a member of their squad, makes an attack against a flying enemy, they may re-roll any failures on their skill test.',
     description:
-      '<p>The Exarch is supernaturally resilient and wears their armour like a second skin.</p>' +
-      '<p>The Exarch’s Resilience and Soak are both increased by +2.</p>',
+      '<p>The Exarch is a peerless aerial combatant, effortlessly proficient at fighting opponents in the sky.</p>' +
+      '<p>When the Exarch, or a member of their squad, makes an attack against a flying enemy, they may re-roll any failures on their skill test.</p>',
   },
 ];
 

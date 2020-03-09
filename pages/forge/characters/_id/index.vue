@@ -413,7 +413,7 @@
                   <v-chip
                     label
                     small
-                    v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Other`]"
+                    v-for="item in [`All`,`Species`, `Archetype`, `Ascension`, `Talents`, `Other`]"
                     :key="item.toLowerCase()"
                     :value="item.toLowerCase()"
                   >
@@ -453,6 +453,30 @@
                       <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
                     </div>
+                  </div>
+
+                  <!-- Ascensions < abilities (Background, Other) -->
+                  <div v-show="['all', 'ascension'].some((i) => i === abilitySection.selection)">
+
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Ascension</span>
+                    </div>
+
+                    <div v-for="ability in ascensionAbilities" :key="ability.name" class="caption mb-3">
+
+                      <strong>{{ ability.name }}</strong>
+                      <em v-if="ability.source"> • {{ ability.source }}</em>
+
+                      <div v-if="ability.snippet"><span>{{computeFormatedText(ability.snippet)}}</span></div>
+                      <div v-else v-html="computeFormatedText(ability.description)"></div>
+
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
+                        <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
+                        <p v-if="ability.selectedOption.snippet">{{ability.selectedOption.snippet}}</p>
+                      </div>
+
+                    </div>
+
                   </div>
 
                   <!-- talents < abilities -->
@@ -739,13 +763,13 @@
 </template>
 
 <script lang="js">
-  import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
-  import SluggerMixin from '~/mixins/SluggerMixin';
-  import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
-  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import SluggerMixin from '~/mixins/SluggerMixin';
+import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
-  export default {
+export default {
   name: 'in-app-view',
   //layout: '',
   mixins: [
@@ -1233,10 +1257,7 @@
         });
       }
 
-      return [
-        ...abilities,
-        ...this.ascensionAbilities,
-        ];
+      return abilities;
     },
     abilities() {
       const abilities = [

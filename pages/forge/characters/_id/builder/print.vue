@@ -384,10 +384,13 @@
                     <v-toolbar-title>Abilities</v-toolbar-title>
                   </v-toolbar>
 
-                  <v-card-text v-for="ability in abilities" :key="ability.name" class="pa-1 caption">
-                    <strong>{{ ability.name }}</strong><em v-if="ability.source">  • {{ ability.source }}</em>
-                    <br>
-                    <span v-html="computeFormatedText(ability.effect)" />
+                  <v-card-text class="pa-0 pl-1 pr-1">
+                    <div v-for="ability in abilities" :key="ability.name" class="mb-3 caption">
+                      <strong>{{ ability.name }}</strong>
+                      <em v-if="ability.source">  • {{ ability.source }}</em>
+                      <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
+                      <div v-else v-html="computeFormatedText(ability.description)"></div>
+                    </div>
                   </v-card-text>
 
                 </v-card>
@@ -400,8 +403,12 @@
                       <v-toolbar-title>Talents</v-toolbar-title>
                     </v-toolbar>
 
-                    <v-card-text v-for="talent in talents" :key="talent.name" class="pa-1 caption">
-                      <strong>{{ talent.name }}:</strong> <span v-html="computeFormatedText(talent.description)" />
+                    <v-card-text class="pa-0 pl-1 pr-1">
+                      <div v-for="talent in talents" :key="talent.name" class="mb-3 caption">
+                        <strong>{{ talent.name }}</strong>
+                        <div v-if="talent.snippet"><p v-html="computeFormatedText(talent.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(talent.description)"></div>
+                      </div>
                     </v-card-text>
                   </v-card>
                 </v-col>
@@ -458,6 +465,7 @@
 import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
 export default {
   name: 'Print',
@@ -466,6 +474,7 @@ export default {
   mixins: [
     BackgroundRepositoryMixin,
     StatRepositoryMixin,
+    KeywordRepository,
     WargearTraitRepositoryMixin,
   ],
   props: [],
@@ -612,23 +621,23 @@ export default {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
     },
 
-    abilities() {
+    speciesAbilities(){
       const abilities = [];
 
-      // species
-      const species = this.characterSpecies;
-      if (species && species.speciesFeatures) {
-        species.speciesFeatures.forEach( (feature) => {
+      if (this.characterSpecies !== undefined && this.characterSpecies.speciesFeatures) {
+
+        this.characterSpecies.speciesFeatures.forEach( (speciesTrait) => {
           // Honour the Chapter
-          if (feature.name === 'Honour the Chapter') {
-            const chapter = this.astartesChapterRepository.find((a) => a.name === this.speciesAstartesChapter) || [];
+          if (speciesTrait.name === 'Honour the Chapter') {
+            const chapter = this.astartesChapterRepository.find((a) => a.key === this.speciesAstartesChapter) || [];
             const traditions = chapter.beliefsAndTraditions;
             if (traditions !== undefined) {
               traditions.forEach((t) => {
                 const tradition = {
                   name: t.name,
                   effect: t.effect,
-                  source: this.speciesAstartesChapter,
+                  snippet: t.effect,
+                  source: chapter.name,
                 };
                 abilities.push(tradition);
               });
@@ -636,13 +645,15 @@ export default {
           } else {
             // other abilities
             const ability = {
-              name: feature.name,
-              effect: feature.snippet ? feature.snippet : feature.description,
+              name: speciesTrait.name,
+              effect: speciesTrait.snippet ? speciesTrait.snippet : speciesTrait.description,
+              snippet: speciesTrait.snippet,
+              description: speciesTrait.description,
               source: this.speciesLabel,
               hint: this.speciesLabel,
             };
-            if ( feature.options ) {
-              const traitSelection = this.enhancements.find( (e) => e.source.startsWith(`species.${feature.name}.`));
+            if ( speciesTrait.options ) {
+              const traitSelection = this.enhancements.find( (e) => e.source.startsWith(`species.${speciesTrait.name}.`));
               if ( traitSelection && traitSelection.effect ) {
                 ability['selectedOption'] = {
                   name: traitSelection.name,
@@ -655,49 +666,122 @@ export default {
         });
       }
 
-      // archetype
+      return abilities;
+    },
+    archetypeAbilities() {
+      const abilities = [];
       const archetype = this.characterArchetype;
+
       if (archetype && archetype.archetypeFeatures) {
         archetype.archetypeFeatures.forEach( (item) => {
           const ability = {
             name: item.name,
             effect: item.snippet ? item.snippet : item.description,
+            snippet: item.snippet,
+            description: item.description,
             source: archetype.label,
             hint: archetype.label,
           };
           abilities.push(ability);
         });
       }
+      return abilities;
+    },
+    ascensionAbilities() {
+      const abilities = [];
 
-      if (this.keywords.find( k => k ==='Adeptus Mechanicus')) {
-        abilities.push({
-          name: 'Data is Currency',
-          effect:
-            'Characters with the Adeptus Mechanicus keyword may use Intellect ' +
-            'in place of Fellowship when calculating Influence.',
-          source: 'Adeptus Mechanicus'
+      const ascensionPackages = this.characterAscensionPackages;
+      const ascensionRepository = this.ascensionPackagesRepository;
+
+      if (ascensionRepository && ascensionRepository.length > 0) {
+
+        ascensionRepository.forEach((ascension) => {
+
+          ascension.ascensionFeatures
+          .filter((feature) => feature.hideInSheet === undefined || feature.hideInSheet === false)
+          .forEach((feature) => {
+            const ability = {
+              name: feature.name,
+              effect: feature.snippet ? feature.snippet : feature.description, // todo deprecated
+              snippet: feature.snippet,
+              description: feature.description,
+              source: ascension.name,
+              hint: ascension.name,
+            };
+
+            if ( feature.options ) {
+              const featureOption = this.enhancements.find( (e) => e.source.startsWith(`ascension.${ascension.key}.${feature.key}.`));
+              if ( featureOption ) {
+                if ( featureOption.targetValue ) {
+                  ability['selectedOption'] = {
+                    effect: featureOption.targetValue, // todo e.g. corruption
+                    snippet: featureOption.targetValue,
+                  };
+                } else { // e.g. memorabie injury
+                  ability['selectedOption'] = {
+                    name: featureOption.name,
+                    effect: featureOption.effect,
+                    snippet: featureOption.effect,
+                  };
+                }
+              }
+            }
+            abilities.push(ability);
+          });
         });
       }
 
+      return abilities;
+    },
+    otherAbilities() {
+      const abilities = [];
+
+      // keyword abilities
+      this.keywords.forEach( k => {
+        const keyword = this.keywordCombinedRepository.find( i => i.name === k );
+        if ( keyword === undefined ) {
+          console.warn(`No keyword found for ${k}!`);
+        } else if ( keyword.effect ) {
+          const keywordAbility = {
+            name: keyword.effectLabel ? keyword.effectLabel : keyword.name,
+            effect: keyword.effect, // Deprecated
+            snippet: keyword.effect,
+            source: keyword.effectLabel ? `${keyword.name} Keyword` : `${keyword.type} Keyword`,
+          };
+          abilities.push(keywordAbility);
+        }
+      });
+
       // background abilities
       if (this.characterBackgroundKey) {
-        const background = this.backgroundRepository
-          .filter((b) => b.key === this.characterBackgroundKey)
-          .map((b) => ({
+        this.backgroundRepository
+        .filter((b) => b.key === this.characterBackgroundKey)
+        .forEach((b) => {
+          const backgroundAbility = {
             name: b.name,
-            effect: b.bonus,
+            effect: b.bonus, // Deprecated
+            snippet: b.bonus,
             source: 'Background',
-          }));
-        abilities.push(background[0]);
+          };
+          const backgroundEnhancements = this.enhancements.find( (e) => e.source.startsWith(`background.`));
+          if (backgroundEnhancements) {
+            backgroundAbility.selectedOption = {
+              name: backgroundEnhancements.targetValue,
+            }
+          }
+          abilities.push(backgroundAbility);
+        });
       }
 
       // other
       if (this.customAbilities) {
-        this.customAbilities.forEach((item) => {
+        this.customAbilities
+        .filter( (a) => a.source && !a.source.startsWith('species.') && !a.source.startsWith('ascension.') )
+        .forEach((item) => {
           const ability = {
             name: item.name,
             effect: item.effect,
-            source: 'Ascension?',
+            snippet: item.effect,
           };
           abilities.push(ability);
         });
@@ -705,6 +789,16 @@ export default {
 
       return abilities;
     },
+    abilities() {
+      const abilities = [
+        ...this.speciesAbilities,
+        ...this.archetypeAbilities,
+        ...this.otherAbilities
+      ];
+
+      return abilities;
+    },
+
     customAbilities() {
       const characterEnhancements = this.$store.getters['characters/characterEnhancementsById'](this.characterId);
       return characterEnhancements ? characterEnhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
@@ -869,10 +963,11 @@ export default {
       computed = computed.replace(/(\d+ Faith)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ meters)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ metres)/g, '<strong>$1</strong>');
-      computed = computed.replace(/15 \+ Rank meters/g, `<strong data-hint="15 + Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15 \+ Rank meters/g, `<strong title="15 + Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15 \+ Rank metres/g, `<strong>${15 + rank} metres</strong>`);
-      computed = computed.replace(/\+½ Rank/g, `<strong data-hint="+½ Rank">+${Math.round(rank / 2)}</strong>`);
-      computed = computed.replace(/\+ ?Rank/g, `<strong data-hint="+ Rank">+${rank}</strong>`);
+      computed = computed.replace(/\+½ Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
+      computed = computed.replace(/\+1\/2 Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong title="+ Rank">+${rank}</strong>`);
 
       return computed;
     },
