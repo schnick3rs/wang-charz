@@ -21,7 +21,7 @@
                   </v-col>
 
                   <v-col v-if="!open" :cols="8" :sm="10" class="caption grey--text">
-                    {{ talent.effect }}
+                    {{ talent.snippet ? talent.snippet : talent.effect }}
                   </v-col>
                 </v-row>
               </template>
@@ -38,9 +38,7 @@
                 </v-chip>
               </div>
 
-              <p class="body-2">
-                {{ talent.description }}
-              </p>
+              <div class="body-2" v-html="talent.description"></div>
 
               <div v-if="talent.id === 15">
                 <v-select
@@ -187,7 +185,8 @@
             </template>
 
             <template v-slot:item.prerequisites="{ item }">
-              <span v-html="prerequisitesToText(item).join(', ')" />
+              <span v-if="item.prerequisitesString">{{item.prerequisitesString}}</span>
+              <span v-else v-html="prerequisitesToText(item).join(', ')" />
             </template>
 
             <template v-slot:item.effect="{ item }">
@@ -207,9 +206,8 @@
 
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
-                <p class="pt-4">
-                  {{ item.description }}
-                </p>
+                <div class="pt-4 pb-2" v-html="item.description">
+                </div>
               </td>
             </template>
 

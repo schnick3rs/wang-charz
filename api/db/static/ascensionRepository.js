@@ -613,7 +613,10 @@ const aaoa = [
       {
         key: 'exalted',
         name: 'Exalted',
-        snippet: 'You may purchase and use Exarch Powers (special talents).',
+        snippet: 'You may purchase and use up to two Exarch Powers (special talents).',
+        description:
+          '<p>An Exarch may purchase <strong>up to two Exarch powers</strong>, at the costs listed, so long as the Exarch meets the listed prerequisites. Some of the powers in this section are distinct to Exarchs of particular Aspect Temples, and they may only be selected by an Exarch of that temple.</p>' +
+          '<p>Many of the powers in this section affect the Exarch’s students as well, granting a benefit to the Aspect Warriors under their command. An Exarch may consider all Aspect Warriors of the same type as the Exarch within 10m as being part of the Exarch’s squad.</p>'
       },
       {
         key: 'exarch-armour',
