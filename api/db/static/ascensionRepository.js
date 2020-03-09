@@ -60,7 +60,7 @@ const core = [
       'equal or lesser than 3 + the new Tier. This may include cybernetics.',
     ascensionFeatures: [
       {
-        key: 'keyword',
+        key: 'keywords',
         name: 'Keywords',
         snippet: 'You gain the <Any> keyword.',
         modifications: [
@@ -161,7 +161,7 @@ const core = [
     wargearString: 'none',
     ascensionFeatures: [
       {
-        keyword: 'keyword',
+        key: 'keywords',
         name: 'Psyker',
         snippet: 'You gain the Psyker Keyword',
         modifications: [
@@ -597,7 +597,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        key: 'keyword',
+        key: 'keywords',
         name: 'Keywords',
         snippet: 'You gain the Exarch Keyword.',
         modifications: [
@@ -682,7 +682,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        key: 'Keyword',
+        key: 'keywords',
         name: 'Keywords',
         snippet: 'You gain the Farseer Keyword.',
         description: '<p>You gain the <em>Farseer</em> Keyword.</p>',
@@ -762,7 +762,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        key: 'keyword',
+        key: 'keywords',
         name: 'Keywords',
         snippet: 'You gain the Daemon keyword and 3 points Corruption.',
         modifications: [
@@ -831,7 +831,7 @@ const aaoa = [
     // Crunch
     ascensionFeatures: [
       {
-        key: 'keyword',
+        key: 'keywords',
         name: 'Keywords',
         snippet: 'You gain the Ynnari keyword.',
         modifications: [
