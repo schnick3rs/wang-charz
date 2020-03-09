@@ -507,19 +507,28 @@
                     </div>
                   </div>
 
-                  <!-- other < abilities -->
-                  <div v-show="['all', 'other'].some(i=>i===abilitySection.selection)">
+                  <!-- other < abilities (Ascensions, Background, Other) -->
+                  <div v-show="['all', 'other'].some((i) => i === abilitySection.selection)">
+
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Other</span>
                     </div>
-                    <div v-for="ability in otherAbilities" :key="ability.name" class="caption mb-2">
-                      <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                      <div v-html="computeFormatedText(ability.effect)" />
-                      <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
+
+                    <div v-for="ability in otherAbilities" :key="ability.name" class="caption mb-3">
+
+                      <strong>{{ ability.name }}</strong>
+                      <em v-if="ability.source"> • {{ ability.source }}</em>
+
+                      <div v-if="ability.snippet"><span>{{computeFormatedText(ability.snippet)}}</span></div>
+                      <div v-else v-html="computeFormatedText(ability.description)"></div>
+
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
                         <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
-                        <p v-if="ability.selectedOption.effect">{{ability.selectedOption.effect}}</p>
+                        <p v-if="ability.selectedOption.snippet">{{ability.selectedOption.snippet}}</p>
                       </div>
+
                     </div>
+
                   </div>
 
                 </div>
@@ -1118,24 +1127,32 @@
       if (ascensionRepository && ascensionRepository.length > 0) {
 
         ascensionRepository.forEach((ascension) => {
-          ascension.ascensionFeatures.forEach( (feature) => {
+
+          ascension.ascensionFeatures
+          .filter((feature) => feature.hideInSheet === undefined || feature.hideInSheet === false)
+          .forEach((feature) => {
             const ability = {
               name: feature.name,
-              effect: feature.snippet ? feature.snippet : feature.description,
+              effect: feature.snippet ? feature.snippet : feature.description, // todo deprecated
+              snippet: feature.snippet,
+              description: feature.description,
               source: ascension.name,
               hint: ascension.name,
             };
+
             if ( feature.options ) {
               const featureOption = this.enhancements.find( (e) => e.source.startsWith(`ascension.${ascension.key}.${feature.key}.`));
               if ( featureOption ) {
                 if ( featureOption.targetValue ) {
                   ability['selectedOption'] = {
-                    effect: featureOption.targetValue,
+                    effect: featureOption.targetValue, // todo e.g. corruption
+                    snippet: featureOption.targetValue,
                   };
-                } else {
+                } else { // e.g. memorabie injury
                   ability['selectedOption'] = {
                     name: featureOption.name,
                     effect: featureOption.effect,
+                    snippet: featureOption.effect,
                   };
                 }
               }
@@ -1154,11 +1171,12 @@
       this.keywords.forEach( k => {
         const keyword = this.keywordCombinedRepository.find( i => i.name === k );
         if ( keyword === undefined ) {
-          console.warn(`Now keyword found for ${k}`);
+          console.warn(`No keyword found for ${k}!`);
         } else if ( keyword.effect ) {
           const keywordAbility = {
             name: keyword.effectLabel ? keyword.effectLabel : keyword.name,
-            effect: keyword.effect,
+            effect: keyword.effect, // Deprecated
+            snippet: keyword.effect,
             source: keyword.effectLabel ? `${keyword.name} Keyword` : `${keyword.type} Keyword`,
           };
           abilities.push(keywordAbility);
@@ -1167,22 +1185,34 @@
 
       // background abilities
       if (this.characterBackgroundKey) {
-        const background = this.backgroundRepository
+        this.backgroundRepository
         .filter((b) => b.key === this.characterBackgroundKey)
-        .map((b) => ({
-          name: b.name,
-          effect: b.bonus,
-          source: 'Background',
-        }));
-        abilities.push(background[0]);
+        .forEach((b) => {
+          const backgroundAbility = {
+            name: b.name,
+            effect: b.bonus, // Deprecated
+            snippet: b.bonus,
+            source: 'Background',
+          };
+          const backgroundEnhancements = this.enhancements.find( (e) => e.source.startsWith(`background.`));
+          if (backgroundEnhancements) {
+            backgroundAbility.selectedOption = {
+              name: backgroundEnhancements.targetValue,
+            }
+          }
+          abilities.push(backgroundAbility);
+        });
       }
 
       // other
       if (this.customAbilities) {
-        this.customAbilities.filter( (a) => a.source && !a.source.startsWith('species.') ).forEach((item) => {
+        this.customAbilities
+        .filter( (a) => a.source && !a.source.startsWith('species.') && !a.source.startsWith('ascension.') )
+        .forEach((item) => {
           const ability = {
             name: item.name,
             effect: item.effect,
+            snippet: item.effect,
           };
           abilities.push(ability);
         });

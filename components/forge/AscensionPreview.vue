@@ -19,7 +19,7 @@
       </div>
       <v-spacer />
       <div class="hidden-xs-only">
-        <v-avatar tile size="140">
+        <v-avatar tile size="72">
           <img :src="`/img/avatars/ascension/${item.key}.png`">
         </v-avatar>
       </div>
@@ -28,7 +28,9 @@
     <v-card-text class="pt-4">
 
       <p class="text-lg-justify">
-        <strong>Build Point Cost:</strong> (New Tier x {{ item.cost }})
+        <strong>Build Point Cost:</strong>
+        <span v-if="item.costPerTier > 0">(New Tier x {{ item.costPerTier }})</span>
+        <span v-if="item.cost > 0">+ {{item.cost}}</span>
       </p>
 
       <span class="mt-2 grey--text">Prerequisites</span>

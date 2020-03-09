@@ -216,7 +216,7 @@ const aaoa = [
   {
     ...simpleChapter('aaoa',12,'Black Templars','','Mankind',''),
     beliefsAndTraditions: [
-      simpleEffect('Righteous Zeal: When charging, a Black Templars Space Marine may re-roll up to 1/2 Rank dice on their Weapon Skill test.'),
+      simpleEffect('Righteous Zeal: When charging, a Black Templars Space Marine may re-roll up to ½ Rank dice on their Weapon Skill test.'),
       simpleEffect('No Retreat (Tradition): Like their Imperial Fists progenitors, Black Templars are tenacious and stubborn. If a Black Templars Space Marine fails a Willpower test, the GM gains 1 Ruin.'),
       simpleEffect('Deny the Witch: Characters with the Black Templars keyword may not, under any circumstances, take the Psyker keyword: the Black Templars accept no psykers within their ranks.'),
     ],
@@ -224,21 +224,21 @@ const aaoa = [
   {
     ...simpleChapter('aaoa',12,'Crimson Fists','','Mankind',''),
     beliefsAndTraditions: [
-      simpleEffect('No Matter The Odds: When making an attack while outnumbered at least two-to-one, a Crimson Fists Space Marine may add +1/2 Rank dice to their Ballistic Skill or Weapon Skill test.'),
+      simpleEffect('No Matter The Odds: When making an attack while outnumbered at least two-to-one, a Crimson Fists Space Marine may add +½ Rank dice to their Ballistic Skill or Weapon Skill test.'),
       simpleEffect('No Retreat (Tradition): Like their Imperial Fists progenitors, Crimson Fists are tenacious and stubborn. If a Crimson Fists Space Marine fails a Willpower test, the GM gains 1 Ruin.'),
     ],
   },
   {
     ...simpleChapter('aaoa',12,'Grey Knights','','Mankind',''),
     beliefsAndTraditions: [
-      simpleEffect('Daemonbane: When attacking a creature with the Daemon keyword in melee combat, a Grey Knights Space Marine adds +1/2 Rank ED to the attack’s damage. The character also gains the Psyker, Inquisition, and Ordo Malleus keywords, if their archetype does not already provide them.'),
+      simpleEffect('Daemonbane: When attacking a creature with the Daemon keyword in melee combat, a Grey Knights Space Marine adds +½ Rank ED to the attack’s damage. The character also gains the Psyker, Inquisition, and Ordo Malleus keywords, if their archetype does not already provide them.'),
       simpleEffect('Secretive (Tradition): Grey Knights do not trust outsiders, and their nature cannot be permitted to be known to any outside the chapter. They suffer a +2DN penalty for Interaction tests involving anyone who lacks the Grey Knights or Inquisition keywords.'),
     ],
   },
   {
     ...simpleChapter('aaoa',13,'Emperor`s Children','Fulgrim','Chaos','First Founding (III Legion)'),
     beliefsAndTraditions: [
-      simpleEffect('In Pursuit of Perfection: Each Emperor’s Children Space Marine seeks to perfect a single aspect of the arts of warfare. Select one of the following skills: Awareness, Ballistic Skill, Leadership, Pilot, Weapon Skill. The character gains +1/2 Rank as a bonus to all uses of that skill.'),
+      simpleEffect('In Pursuit of Perfection: Each Emperor’s Children Space Marine seeks to perfect a single aspect of the arts of warfare. Select one of the following skills: Awareness, Ballistic Skill, Leadership, Pilot, Weapon Skill. The character gains +½ Rank as a bonus to all uses of that skill.'),
       simpleEffect('Fear of Imperfection (Tradition): The Emperor’s Children cannot abide the imperfect and fear the notion that a flaw may mean perfection is unattainable. Whenever an Emperor’s Children Space Marine suffers a complication on the skill chosen for Pursuit of Perfection, above, the GM gains 1 Ruin, in addition to any other results.', 'Tradition'),
     ],
   },
@@ -252,7 +252,7 @@ const aaoa = [
   {
     ...simpleChapter('aaoa',13,'Night Lords','Konrad Curze','Chaos','First Founding (VIII Legion)'),
     beliefsAndTraditions: [
-      simpleEffect('Ave Dominus Nox: Night Lords revel in the fear of others and are swift to spread it. While under cover of darkness, a Night Lord Space Marine may add +1/2 Rank to Defence and Speed. A Night Lord Space Marine may spend one Glory to cause Fear for the duration of a scene; enemies who encounter the Night Lord must pass a Fear test (DN 2+Rank).'),
+      simpleEffect('Ave Dominus Nox: Night Lords revel in the fear of others and are swift to spread it. While under cover of darkness, a Night Lord Space Marine may add +½ Rank to Defence and Speed. A Night Lord Space Marine may spend one Glory to cause Fear for the duration of a scene; enemies who encounter the Night Lord must pass a Fear test (DN 2+Rank).'),
       simpleEffect('Blood of Nostramo (Tradition): Night Lords often recruit from amongst the criminal element and have little love for a fair fight. A Night Lords Space Marine who sees an ally fail a Resolve or Fear test must attempt a Resolve test themselves (DN 3) or become pinned.', 'Tradition'),
     ],
   },
@@ -280,7 +280,7 @@ const aaoa = [
   {
     ...simpleChapter('aaoa',15,'Black Legion','Horus Lupercal','Chaos','First Founding (XVI Legion)'),
     beliefsAndTraditions: [
-      simpleEffect('The Tip of the Spear: A Black Legion Space Marine gains an additional +1/2 Rank on all Ballistic Skill tests made with a ranged weapon at close range.'),
+      simpleEffect('The Tip of the Spear: A Black Legion Space Marine gains an additional +½ Rank on all Ballistic Skill tests made with a ranged weapon at close range.'),
       simpleEffect('Bitter Pride (Tradition): The Black Legion have little love for those outside their ranks. They suffer a +2DN penalty for Interaction tests involving anyone outside the Black Legion, unless those people are subordinate to the Black Legion character.'),
     ],
   },
@@ -347,7 +347,7 @@ const ltgb = [
         name: 'Terror Troups',
         effect:
           'Night Lords have reputations as sadistic murderers and tourturers, who intentionally spread pain and suffering to their enemies. ' +
-          'A Night Lord inflicts a 1/2 Rank penalty to Willpower to any enemy within 2m of a Night Lord.',
+          'A Night Lord inflicts a ½ Rank penalty to Willpower to any enemy within 2m of a Night Lord.',
       },
       {
         name: 'Stand Alone',
@@ -381,7 +381,7 @@ const ltgb = [
         name: 'Hidden in Plain Sight',
         effect:
           'Alpha Legionnaires are masters of stealth and decoy tactics, both on the battlefield and off it. ' +
-          'An Alpha Legionnaire adds +1/2 Rank to all Stealth and Deceive Tests.',
+          'An Alpha Legionnaire adds +½ Rank to all Stealth and Deceive Tests.',
       },
       {
         name: 'For the Emperor!',

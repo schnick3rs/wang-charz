@@ -70,17 +70,20 @@ const core = [
       {
         key: 'story-element',
         name: 'Story Element',
+        snippet: 'You gain 3 points Corruption or a Memorable Injury.',
         description:
           '<p>The character gains their choice of either 3 Corruption points or ' +
           'a Memorable Injury (see page 233) of their choice and the +1D Bonus to ' +
           'Intimidation that comes with it from the Table 4-4: Memorable Injury.</p>',
         selected: '',
         options: [
-          { key: 'corruption', name: '3 Corruption Points',
-            modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }]
+          {
+            key: 'corruption', name: '3 Corruption Points',
+            modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }],
           },
-          { key: 'memorableInjury', name: 'Memorable Injury',
-            modifications: [ { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' }]
+          {
+            key: 'memorableInjury', name: 'Memorable Injury (+1 die to Intimidation)',
+            modifications: [ { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' }],
           },
         ],
       },
@@ -88,6 +91,7 @@ const core = [
         key: 'wargear',
         name: 'Wargear',
         snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3 + the new Tier. This may include cybernetics.',
+        hideInSheet: true,
         options: [
           {
             key: 'two-rare-items',
@@ -163,7 +167,7 @@ const core = [
       {
         key: 'keywords',
         name: 'Psyker',
-        snippet: 'You gain the Psyker Keyword',
+        snippet: 'You gain the Psyker Keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Psyker' },
         ],
@@ -257,6 +261,7 @@ const aaoa = [
       {
         key: 'scourged-from-experience',
         name: 'Scourged from experience',
+        snippet: 'You gain 3 points Corruption or a Memorable Injury.',
         description: '<p>Because of the character’s experiences, they gain 3 Corruption points or a Memorable Injury of their choice.</p>',
         selected: '',
         options: [
@@ -865,7 +870,7 @@ const aaoa = [
         name: 'Wargear',
         snippet: 'You gain a Spirit Stone.',
         wargear: [
-          'Spirit Stone',
+          { name: 'Spirit Stone' },
         ],
       },
     ],

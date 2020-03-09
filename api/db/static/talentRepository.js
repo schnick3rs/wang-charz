@@ -116,7 +116,7 @@ const core = [
       { name: 'Mark of Khorne', snippet: 'You may not also possess the Psyker keyword. You add +2 bonus dice to All-out Attacks.' },
       { name: 'Mark of Slaanesh', snippet: 'You add +2 bonus dice to Awareness and Persuasion tests.' },
       { name: 'Mark of Tzeentch', snippet: 'You gain the Psyker keyword. If you already possess the Psyker keyword, you gain one minor psychic power of your choice. Work with the Game Master to determine which powers are appropriate for your character to select.' },
-      { name: 'Undecided', snippet: 'Choose one of the following skills: Awareness, Cunning, Deception, Insight, Persuasion, Psychic Mastery, Stealth, Weapon Skill. You gain +1/2 Rank bonus dice when using that Skill.' },
+      { name: 'Undecided', snippet: 'Choose one of the following skills: Awareness, Cunning, Deception, Insight, Persuasion, Psychic Mastery, Stealth, Weapon Skill. You gain +½ Rank bonus dice when using that Skill.' },
     ],
   }
 ];
