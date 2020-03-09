@@ -60,7 +60,7 @@
       <p><v-divider /></p>
 
       <p class="text-lg-justify">
-        <strong>Keywords:</strong> {{ item.keywords.split(',').join(', ') }}
+        <strong>Keywords:</strong> {{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}
       </p>
 
       <div

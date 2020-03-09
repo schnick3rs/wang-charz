@@ -3000,7 +3000,7 @@ const aaoaRep = [
       { name: 'Aspect Armour' },
       { name: 'Avenger Shuriken Catapult' },
       { name: 'targeting vane' },
-      { name: 'Moni-Knife' },
+      { name: 'Mono-Knife' },
       { name: 'Plasma Grenade', amount: 3 },
       { name: 'Spirit Stone' },
     ],
@@ -3026,7 +3026,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Heavy Aspect Armour' },
       { name: 'Reaper launcher' },
-      { name: 'Reaper launcher Rangefinder' },
+      { name: 'Dark Reaper Rangefinder' },
       { name: 'Knife' },
       { name: 'Spirit Stone' },
     ],
@@ -3102,7 +3102,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Heavy Aspect Armour' },
       { name: 'Laser Lance' },
-      { name: 'Aeldari Jetbicke' },
+      { name: 'Aeldari Jetbike' },
       { name: 'Spirit Stone' },
     ],
   },
@@ -3125,7 +3125,7 @@ const aaoaRep = [
     wargearString: 'Heavy Aspect Armour, scorpion chainsword, shuriken pistol, mandiblasters, 3 plasma grenades, spirit stone.',
     wargear: [
       { name: 'Heavy Aspect Armour' },
-      { name: 'Scorpion Chainsword' },
+      { name: 'Chain Sword', variant: 'Scorpion Chainsword' },
       { name: 'Shuriken Pistol' },
       { name: 'Mandiblaster' },
       { name: 'Plasma Grenade', amount: 3 },
@@ -3179,8 +3179,8 @@ const aaoaRep = [
     wargearString: 'Heavy Aspect Armour, Warp Jump Generator, Death Spinner, knife, spirit stone.',
     wargear: [
       { name: 'Heavy Aspect Armour' },
-      { name: 'Warp Jump Generator' },
-      { name: 'Death Spinner' },
+      { name: 'Warp Spider Jump Generator' },
+      { name: 'Deathspinner' },
       { name: 'Knife' },
       { name: 'Spirit Stone' },
     ],

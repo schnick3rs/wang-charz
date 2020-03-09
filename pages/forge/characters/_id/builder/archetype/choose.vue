@@ -270,7 +270,7 @@ export default {
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype', cascade: true });
       // keywords = String[]
       if (item.keywords) {
-        const itemKeywords = item.keywords.split(',');
+        const itemKeywords = item.keywords.split(',').map((i) => i.trim());
         itemKeywords.forEach((keyword) => {
           const payload = {
             name: keyword,

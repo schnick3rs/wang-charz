@@ -402,12 +402,17 @@ const aaoa = [
             options: [
               {
                 filter: true,
-                valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: false, fixedValue: 7 },
+                valueFilter: {
+                  useCharacterTier: false,
+                  useSettingTier: false,
+                  useAscensionTargetTier: false,
+                  fixedValue: 7
+                },
                 rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
                 typeFilter: ['Weapon Upgrade'],
               },
             ],
-          }
+          },
         ],
       },
     ],
@@ -616,7 +621,9 @@ const aaoa = [
         description:
           '<p>You replace your Aspect Armour with Exarch Armour, which provides the same functions ' +
           'but has an AP of 6 and loses the Bulky (X) or Cumbersome traits (if it had them).</p>',
-        // filter for exarch armour
+        wargear: [
+          { name: 'Exarch Armour' },
+        ],
       },
       {
         key: 'exarch-weapon',
@@ -624,6 +631,21 @@ const aaoa = [
         description:
           '<p>replace one of your weapons with a weapon of up to Unique rarity and a Value of up to 5 plus your new Tier.</p>' +
           '<p>The GM may create a unique weapon, an ancient relic of the Aeldari, for this purpose.</p>',
+        wargear: [
+          {
+            key: 'very-rare-weapon-upgrade',
+            name: 'One Weapon Upgrade with a value of up to 7 (Very Rare)',
+            selected: '',
+            options: [
+              {
+                filter: true,
+                valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 5 },
+                rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Unique'],
+                typeFilter: ['Ranged Weapon', 'Melee Weapon'],
+              },
+            ],
+          },
+        ],
       }
     ],
   },

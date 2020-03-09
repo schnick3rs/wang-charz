@@ -229,13 +229,15 @@ export default {
         ascensionPackage.ascensionFeatures
         .filter( (feature) => feature.wargear !== undefined )
         .forEach( (feature) => {
-          feature.wargear.forEach((wargear)=>{
-            const payload = {
-              id,
-              name: wargear.name,
-              source: `ascension.${ascensionPackage.key}.${feature.key}`,
-            };
-            this.$store.commit('characters/addCharacterWargear', payload);
+          feature.wargear.forEach((wargear)=> {
+            if ( wargear.options === undefined) {
+              const payload = {
+                id,
+                name: wargear.name,
+                source: `ascension.${ascensionPackage.key}.${feature.key}`,
+              };
+              this.$store.commit('characters/addCharacterWargear', payload);
+            }
           });
         });
       }
