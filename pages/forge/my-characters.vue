@@ -117,9 +117,8 @@
             <v-card>
               <v-card-title>Updates Available</v-card-title>
               <v-card-text>
-                This characters were build with an older version and need to be updated to ensure all
-                fields are up to date. Just hit the <strong>update button</strong> to bring all
-                  characters back in line.
+                <p>This characters were build with an older version and need to be updated to ensure all fields are up to date. Just hit the <strong>update button</strong> to bring all  characters back in line.</p>
+                <p><strong>This significantly change how ascensions work.</strong> Thus, they are <strong>purged from all characters</strong> including their respective choices. Please <strong>re-select them</strong> after the update.</p>
               </v-card-text>
               <v-card-actions>
                 <v-btn
