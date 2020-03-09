@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 5;
+const BUILDER_VERSION = 6;
 
 export const state = () => ({
   list: [],
@@ -700,6 +700,22 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 5:
+        console.debug(`v5 -> v6 : Improved Ascension, purging all ascension asociated...`);
+        console.debug('Purge > Enhancements ...');
+        character.enhancements = character.enhancements.filter((e) => !e.source.startsWith('ascension.'));
+        console.debug('Purge > Keywords ...');
+        character.keywords = character.keywords.filter((e) => !e.source.startsWith('ascension.'));
+        console.debug('Purge > Wargear ...');
+        character.wargear = character.wargear.filter((e) => !e.source.startsWith('ascension.'));
+        console.debug('Purge > Psychic Powers ...');
+        character.psychicPowers = character.psychicPowers.filter((e) => e.source === undefined || !e.source.startsWith('ascension.'));
+        console.debug('Purge > Ascensions ...');
+        character.ascensionPackages = [];
+        character.version = 6;
+        console.info(`Character migrated to v6.`);
+        break;
+
       case 4:
         console.debug(`v4 -> v5 : Adding custom skill handling.`);
         const customSkills = {
@@ -712,6 +728,7 @@ export const mutations = {
         };
         console.info(`Character migrated to v5.`);
         break;
+
       case 3:
         console.debug(`v3 -> v4 : Adding resources, defiance and objective basics, set defaults.`);
         const newPart = {
@@ -823,7 +840,6 @@ export const actions = {
     console.info(`Ascension [${value}] : Purge > Package`);
     commit('clearCharacterAscensionPackage', { id, value });
 
-    // ToDo: remove all wargear that is related to the package
     console.info(`Ascension [${value}] : Purge > DONE`);
   },
 
@@ -863,7 +879,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 5,
+  version: 6,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
