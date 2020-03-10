@@ -574,7 +574,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 81, 'Lost upon the Path of the Warrior', 'Gain some fancy Exarch gear but not everyone is pleased. ',false),
+    ...simpleStub('aaoa', 81, 'Lost upon the Path of the Warrior', 'Gain some fancy Exarch gear but not everyone is pleased. '),
     description:
       '<p>An Exarch is a former Eldar Aspect Warrior who has lost himself upon the Eldar Path of the Warrior and is unable to ever leave it again. At this point he is considered to have abandoned the Eldar Paths with their promise of new experiences and development of new skills in favour of a constant life of bloodshed. The Eldar becomes the elite warrior called an Exarch; simultaneously, an Exarch is a priest of Kaela Mensha Khaine, the Eldar God of War as well as a caretaker of the individual warrior shrine, and trainer, teacher, and instructor for other Aspect Warriors. The sacrifice of an Eldar Exarch can summon an Avatar of Kaela Mensha Khaine. He is equipped with ancient and powerful Eldar weaponry and armour. Each Eldar Warrior Aspect has its own particular kind of Exarch. On the battlefield, an Exarch commands an individual squad of Eldar Aspect Warriors. Exarchs are formidable opponents, and most of them can use their often-potent psychic and combat abilities to help the whole squad of Aspect Warriors under their command.</p>',
     cost: 0,
@@ -658,7 +658,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 80, 'Lost upon the Seer Path', 'A prophet for the Aeldari, but lost on this course.',false),
+    ...simpleStub('aaoa', 80, 'Lost upon the Seer Path', 'A prophet for the Aeldari, but lost on this course.'),
     description:
       '<p>A Farseer is the most potent and respected form of Eldar psyker or Seer. A Farseer has become lost upon the Path of the Seer forever in the same way as the Exarchs are wed eternally to the Path of the Warrior. A council of the most powerful Farseers generally governs a Craftworld. Farseers possess a wide diversity of psychic specialities with divination being the most common skill. They are most often known for using their vast psychic powers to see the possibilities of the future so that they can manipulate events to better ensure the survival of the Eldar species in the wake of the Fall.</p>',
     cost: 0,

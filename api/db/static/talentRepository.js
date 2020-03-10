@@ -354,5 +354,5 @@ const aaoa = [
 
 module.exports = [
   //...core,
-  ...aaoa,
+  //...aaoa,
 ];
