@@ -371,6 +371,7 @@ export default {
             'select any talents for their characters. The maximum number of talents that may be ' +
             'purchased is limited by Tier.</p>',
         },
+        /*
         {
           source: {
             book: 'An Abundance of Apocrypha',
@@ -391,6 +392,7 @@ export default {
             'benefit to the Aspect Warriors under their command. An Exarch may <strong>consider all Aspect ' +
             'Warriors of the same type as the Exarch within 10m as being part of the Exarch’s squad.</strong></p>',
         },
+        */
       ],
     };
   },
