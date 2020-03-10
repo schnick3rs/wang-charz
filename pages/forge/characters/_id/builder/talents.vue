@@ -567,12 +567,14 @@ export default {
     talentTrademarkWeaponOptions() {
       const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
       const wargear = [];
-      wargearLabels.sort().forEach((wargearName) => {
-        const foundGear = this.wargearList.find((w) => w.name === wargearName);
-        if (foundGear && ['Melee Weapon', 'Ranged Weapon'].includes(foundGear.type)) {
-          wargear.push(foundGear);
-        }
-      });
+      if (this.wargearList) {
+        wargearLabels.sort().forEach((wargearName) => {
+          const foundGear = this.wargearList.find((w) => w.name === wargearName);
+          if (foundGear && ['Melee Weapon', 'Ranged Weapon'].includes(foundGear.type)) {
+            wargear.push(foundGear);
+          }
+        });
+      }
       return wargear;
     },
     visibleTalentGroups() {
