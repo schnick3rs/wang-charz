@@ -130,7 +130,7 @@ export default {
       title: 'Select Psychic Powers',
     };
   },
-  asyncData({ params, $axios, error }) {
+  asyncData({ params }) {
     return {
       characterId: params.id,
     };

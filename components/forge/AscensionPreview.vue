@@ -40,9 +40,9 @@
         <strong>Minimum Campaign Tier:</strong> {{ item.minimumCampaignTier }}+
       </p>
 
-      <p class="text-lg-justify" v-for="prerequisite in item.prerequisites">
-        <span>{{prerequisite}}</span>
-      </p>
+      <ul class="text-lg-justify pb-2" v-for="prerequisite in item.prerequisites">
+        <li>{{prerequisite}}</li>
+      </ul>
 
       <p class="text-lg-justify" v-if="false">
         <strong>Attribute:</strong> {{ item.attributePrerequisites && item.attributePrerequisites.length > 0 ? item.attributePrerequisites.join(', ') : 'none' }}
