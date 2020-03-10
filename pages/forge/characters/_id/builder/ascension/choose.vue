@@ -30,6 +30,7 @@
         :key="alert.key"
         :value="true"
         :type="alert.type"
+        text dense
       >
         {{ alert.text }}
       </v-alert>

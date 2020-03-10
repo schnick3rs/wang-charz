@@ -168,7 +168,7 @@
             dense text
           >
             <strong>{{group.name}}</strong>
-            <em class="caption"> • {{ group.source.key }} • pg. {{ group.source.page }}</em>
+            <em class="caption"> • <abbr :title="group.source.book">{{ group.source.key }}</abbr> • pg. {{ group.source.page }}</em>
             <div v-html="group.description" class="caption"></div>
           </v-alert>
         </div>
@@ -357,15 +357,23 @@ export default {
       talentGroupList: [
         {
           source: {
+            book: 'Core Rules',
             key: 'core',
             page: 169,
           },
           key: 'core-talents',
           name: 'Talents',
-          description: '<p>Talents represent a knack that a character possesses. Many grant characters a special ability, which others cannot undertake. Other talents provide situational benefi ts to a character. Each talent has an associated build point cost, and may have prerequisite attributes, keywords, skills, or species. Players are not required to select any talents for their characters. The maximum number of talents that may be purchased is limited by Tier</p>',
+          description:
+            '<p>Talents represent a knack that a character possesses. Many grant characters a ' +
+            'special ability, which others cannot undertake. Other talents provide situational ' +
+            'benefits to a character. Each talent has an associated build point cost, and may have ' +
+            'prerequisite attributes, keywords, skills, or species. Players are not required to ' +
+            'select any talents for their characters. The maximum number of talents that may be ' +
+            'purchased is limited by Tier.</p>',
         },
         {
           source: {
+            book: 'An Abundance of Apocrypha',
             key: 'aaoa',
             page: 147,
           },
@@ -375,13 +383,13 @@ export default {
             '<p>The following abilities are unique powers and combat techniques exhibited by Exarchs, ' +
             'mighty Aeldari warriors who lead the Aspect Warrior shrines into battle and maintain ' +
             'those shrines during the all-too-rare times of peace.</p>' +
-            '<p>An Exarch may purchase up to two of these powers, at the costs listed, so long as the ' +
-            'Exarch meets the listed prerequisites. Some of the powers in this section are distinct ' +
-            'to Exarchs of particular Aspect Temples, and they may only be selected by an Exarch of ' +
-            'that temple.</p>' +
+            '<p>An Exarch may <strong>purchase up to two of these powers</strong>, at the costs ' +
+            'listed, so long as the Exarch meets the listed prerequisites. Some of the powers in ' +
+            'this section are distinct to Exarchs of particular Aspect Temples, and they may only ' +
+            'be selected by an Exarch of that temple.</p>' +
             '<p>Many of the powers in this section affect the Exarch’s students as well, granting a ' +
-            'benefit to the Aspect Warriors under their command. An Exarch may consider all Aspect ' +
-            'Warriors of the same type as the Exarch within 10m as being part of the Exarch’s squad.</p>',
+            'benefit to the Aspect Warriors under their command. An Exarch may <strong>consider all Aspect ' +
+            'Warriors of the same type as the Exarch within 10m as being part of the Exarch’s squad.</strong></p>',
         },
       ],
     };

@@ -210,6 +210,15 @@
     </v-col>
 
     <v-col>
+      <v-alert
+        v-for="alert in alerts"
+        :key="alert.key"
+        :value="true"
+        :type="alert.type"
+        text dense
+      >
+        {{ alert.text }}
+      </v-alert>
       <v-btn
         @click="choosePackage"
         color="success"
@@ -263,6 +272,22 @@ export default {
         'coreab',
         ...this.settingHomebrews
       ];
+    },
+    settingTier() {
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
+    effectiveCharacterTier() {
+      return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
+    },
+    alerts() {
+      const alerts = [];
+      if (!this.characterArchetypeLabel) {
+        alerts.push({ type: 'warning', text: 'You need to select an Archetype first.' });
+      }
+      if (this.effectiveCharacterTier >= this.settingTier) {
+        alerts.push({ type: 'warning', text: 'Your character already has reached a tier sufficient for the Campaign Tier.' });
+      }
+      return alerts;
     },
     settingHomebrews() {
       return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
