@@ -3,6 +3,12 @@
 
     <v-row justify="center">
 
+      <v-col>
+        <h1 class="headline">
+          Manage Talents
+        </h1>
+      </v-col>
+
       <v-progress-circular v-if="!talentList && !wargearList" indeterminate color="success" size="128" width="12" />
 
       <v-col :cols="12">
@@ -143,6 +149,29 @@
       </v-col>
 
       <v-col :cols="12" v-if="visibleTalentGroups.length > 1">
+        <h3>
+          Filter by Talent Group
+          <span>
+          <v-btn
+            icon
+            @click="talentGroupFilterHelp = !talentGroupFilterHelp"
+            :color="talentGroupFilterHelp ? 'info' : ''"
+          >
+            <v-icon>{{talentGroupFilterHelp ? 'help' : 'help_outline'}}</v-icon>
+          </v-btn>
+        </span>
+        </h3>
+        <div v-show="talentGroupFilterHelp">
+          <v-alert
+            v-for="group in talentGroupList" :key="group.key"
+            color="info"
+            dense text
+          >
+            <strong>{{group.name}}</strong>
+            <em class="caption"> • {{ group.source.key }} • pg. {{ group.source.page }}</em>
+            <div v-html="group.description" class="caption"></div>
+          </v-alert>
+        </div>
         <v-chip
           v-for="item in visibleTalentGroups"
           :key="item.key"
@@ -163,7 +192,6 @@
               v-model="searchQuery"
               filled
               dense
-              clearable
               prepend-inner-icon="search"
               clearable
               label="Search"
@@ -323,6 +351,7 @@ export default {
       talentList: undefined,
       wargearList: undefined,
       loading: false,
+      talentGroupFilterHelp: false,
       selectedTalentGroups: ['Talents'],
       // Exarch Powers, Priest Prayers & Litanies, Chaos Rituals, ...
       talentGroupList: [
