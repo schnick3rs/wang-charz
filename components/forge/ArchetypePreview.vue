@@ -12,7 +12,7 @@
       <div class="hidden-xs-only" style="float: right;">
         <img :src="getAvatar(item.key)" style="width:96px">
       </div>
-
+      
       <div style="width: 75%">
         <h3 class="headline md0">
           {{ item.name }}

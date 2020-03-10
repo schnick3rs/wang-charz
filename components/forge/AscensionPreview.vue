@@ -25,6 +25,8 @@
       </div>
     </v-card-title>
 
+    <v-divider v-if="chooseMode" />
+
     <v-card-text class="pt-4">
 
       <p class="text-lg-justify">

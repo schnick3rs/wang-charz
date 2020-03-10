@@ -4,6 +4,7 @@
       v-model="previewDialog"
       width="600px"
       scrollable
+      :fullscreen="$vuetify.breakpoint.xsOnly"
     >
       <archetype-preview
         v-if="previewItem"

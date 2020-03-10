@@ -1,6 +1,12 @@
 <template>
   <v-row justify="center">
 
+    <v-col>
+      <h1 class="headline">
+        Manage Ascension Package(s)
+      </h1>
+    </v-col>
+
     <v-col
       v-if="characterAscensionPackages.length > 0"
       :cols="12"
@@ -209,7 +215,7 @@
       </v-card>
     </v-col>
 
-    <v-col>
+    <v-col :cols="12">
       <v-alert
         v-for="alert in alerts"
         :key="alert.key"

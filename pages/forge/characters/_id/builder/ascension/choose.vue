@@ -7,6 +7,7 @@
       v-model="dialog"
       width="600px"
       scrollable
+      :fullscreen="$vuetify.breakpoint.xsOnly"
     >
       <ascension-preview
         v-if="selectedPreview"
