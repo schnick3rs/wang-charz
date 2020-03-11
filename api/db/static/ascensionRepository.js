@@ -979,8 +979,8 @@ const aotgt = [
       'Imperium Keyword',
     ],
     // Benefits
-    influenceBonus: 2,
-    influencePerTier: 0,
+    influenceBonus: 0, // workaround
+    influencePerTier: 1,
     keywordString: 'Inquisition and <Ordo>',
     storyElementString: 'Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword. ' +
       'The character may gain either a memorable injury or a strange artifact (GM’s choice) related to their Ordo.',
