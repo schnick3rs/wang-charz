@@ -879,7 +879,7 @@ const aaoa = [
 
 const ltgb = [
   {
-    ...simpleStub('ltgb', 3, 'Forsake Your Chains (Ascension)', 'Leave the Imperium (Keyword) behind and join the Chaos or it\'s various factions.',false),
+    ...simpleStub('ltgb', 3, 'Forsake Your Chains (Ascension)', 'Leave the Imperium (Keyword) behind and join the Chaos or it\'s various factions.',true),
     description: '<p>Many worshippers of the Gods were once loyal servants of the Imperium, and Chaos can corrupt anyone and anything. This ascension package does not require one to ascend a er, though you may if you wish, it merely represents an existing character joining the powers of Chaos, which may be done either mid-campaign or be part of the backstory of an existing character. This would be the foundation for an Inquisitor whose radical nature became too much for his superiors to bear, or a loyal commissar forcibly broken through torture and brainwashing. There are as many reasons for one to choose to join Chaos as there are worshippers of the Dark Gods.</p>',
     cost: 0,
     costPerTier: 10,
@@ -965,7 +965,7 @@ const ltgb = [
 
 const aotgt = [
   {
-    ...simpleStub('aotgt', 4, 'Rosette in Hand', 'Join the Inquisition and brag with new gear.',false),
+    ...simpleStub('aotgt', 4, 'Rosette in Hand', 'Join the Inquisition and brag with new gear.',true),
     description: '<p>Many worshippers of the Gods were once loyal servants of the Imperium, and Chaos can corrupt anyone and anything. This ascension package does not require one to ascend a er, though you may if you wish, it merely represents an existing character joining the powers of Chaos, which may be done either mid-campaign or be part of the backstory of an existing character. This would be the foundation for an Inquisitor whose radical nature became too much for his superiors to bear, or a loyal commissar forcibly broken through torture and brainwashing. There are as many reasons for one to choose to join Chaos as there are worshippers of the Dark Gods.</p>',
     cost: 0,
     costPerTier: 15,
@@ -1060,7 +1060,7 @@ const aotgt = [
 
 const thaot = [
   {
-    ...simpleStub('thaot', 25, 'Chosen by the Omnissiah', 'Damaged, broken, repaired, enlisted, welcome on Mars.',false),
+    ...simpleStub('thaot', 25, 'Chosen by the Omnissiah', 'Damaged, broken, repaired, enlisted, welcome on Mars.',true),
     description: '<p>Many worshippers of the Gods were once loyal servants of the Imperium, and Chaos can corrupt anyone and anything. This ascension package does not require one to ascend a er, though you may if you wish, it merely represents an existing character joining the powers of Chaos, which may be done either mid-campaign or be part of the backstory of an existing character. This would be the foundation for an Inquisitor whose radical nature became too much for his superiors to bear, or a loyal commissar forcibly broken through torture and brainwashing. There are as many reasons for one to choose to join Chaos as there are worshippers of the Dark Gods.</p>',
     cost: 0,
     costPerTier: 10,
