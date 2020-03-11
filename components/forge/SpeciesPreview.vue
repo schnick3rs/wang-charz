@@ -1,5 +1,6 @@
 <template lang="html">
   <v-card>
+
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Species</span>
       <v-spacer />
@@ -28,10 +29,12 @@
         <span class="subtitle-1 grey--text">{{ species.hint }}</span>
       </div>
       <v-spacer />
-      <div class="hidden-xs-only">
+      <div >
         <img :src="getAvatar(species.key)" style="width:96px">
       </div>
     </v-card-title>
+
+    <v-divider v-if="chooseMode" />
 
     <v-card-text class="pa-6">
       <p class="text-lg-justify">

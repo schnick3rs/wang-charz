@@ -286,7 +286,7 @@ export default {
       return {
         species: this.routeBuilder('species', this.characterSpeciesLabel ? 'manage' : 'choose'),
         archetype: this.routeBuilder('archetype', this.characterArchetype ? 'manage' : 'choose'),
-        ascension: this.routeBuilder('ascension'),
+        ascension: this.routeBuilder('ascension', 'manage'),
         stats: this.routeBuilder('stats'),
         talents: this.routeBuilder('talents'),
         psychic: this.routeBuilder('psychic-powers'),

@@ -12,7 +12,7 @@
       <div class="hidden-xs-only" style="float: right;">
         <img :src="getAvatar(item.key)" style="width:96px">
       </div>
-
+      
       <div style="width: 75%">
         <h3 class="headline md0">
           {{ item.name }}
@@ -60,7 +60,7 @@
       <p><v-divider /></p>
 
       <p class="text-lg-justify">
-        <strong>Keywords:</strong> {{ item.keywords.split(',').join(', ') }}
+        <strong>Keywords:</strong> {{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}
       </p>
 
       <div
@@ -250,9 +250,6 @@ export default {
       console.log(selectedKeywords);
       return selectedKeywords;
     },
-    mergedKeywords() {
-      return [...this.keywordRepository, ...this.keywordSubwordRepository];
-    },
     itemKeywordPlaceholders() {
       const placeholderKeywords = this.item.keywords.split(',').map((i)=>i.trim()).filter((k) => k.includes('<'));
 
@@ -327,19 +324,19 @@ export default {
       return this.keywordSubwordRepository.filter((k) => k.placeholder === wildcard);
     },
     keywordEffect(keyword) {
-      const mergedKeywords = [...this.keywordSubwordRepository];
-      const foundKeyword = mergedKeywords.find((k) => k.name === keyword);
+      const keywordCombinedRepository = [...this.keywordSubwordRepository];
+      const foundKeyword = keywordCombinedRepository.find((k) => k.name === keyword);
       if (foundKeyword !== undefined) {
         return foundKeyword.effect;
       }
     },
     keywordHint(keyword, parentKeyword) {
-      let foundKeyword = this.mergedKeywords.find((k) => k.name === keyword);
+      let foundKeyword = this.keywordCombinedRepository.find((k) => k.name === keyword);
       if (foundKeyword !== undefined) {
         return foundKeyword.description;
       }
 
-      foundKeyword = this.mergedKeywords.find((k) => k.name === parentKeyword);
+      foundKeyword = this.keywordCombinedRepository.find((k) => k.name === parentKeyword);
       if (foundKeyword !== undefined) {
         return foundKeyword.description;
       }

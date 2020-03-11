@@ -1803,7 +1803,7 @@ const aaoaRep = [
       {
         name: 'Unrelenting Devastation',
         description:
-          'When a Devastator Marine sacrifices their move action to brace, and then makes a ranged attack, they add 1/2 Rank to their Ballistic Skill test and 1/2 Rank bonus ED to the weapon’s damage.',
+          'When a Devastator Marine sacrifices their move action to brace, and then makes a ranged attack, they add ½ Rank to their Ballistic Skill test and ½ Rank bonus ED to the weapon’s damage.',
       },
     ],
     wargearString:
@@ -1887,7 +1887,7 @@ const aaoaRep = [
     keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
     influence: 1,
     archetypeFeatures: [
-      simpleAbility('Hellblaster Focus', 'When firing a plasma incinerator (including assault plasma incinerators and heavy plasma incinerators), Hellblasters gain +1/2 Rank bonus ED to weapon damage.'),
+      simpleAbility('Hellblaster Focus', 'When firing a plasma incinerator (including assault plasma incinerators and heavy plasma incinerators), Hellblasters gain +½ Rank bonus ED to weapon damage.'),
     ],
     wargearString:
       'Mark X Tacticus power armour, plasma incinerator, heavy bolt pistol, Astartes combat knife, 3 frag and 3 krak grenades.',
@@ -2024,7 +2024,7 @@ const aaoaRep = [
     keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
     influence: 1,
     archetypeFeatures: [
-      simpleAbility('Precision Fire: When an Eliminator aims, they may add +1/2 Rank additional dice to their next ranged attack, in addition to other benefits.'),
+      simpleAbility('Precision Fire: When an Eliminator aims, they may add +½ Rank additional dice to their next ranged attack, in addition to other benefits.'),
     ],
     wargearString:
       'Mark X Phobos power armour, bolt pistol, bolt sniper rifle, Astartes combat knife, camo cloak, 3 frag grenades, 3 krak grenades.',
@@ -2584,7 +2584,7 @@ const aaoaRep = [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
-      simpleAbility('Cruel Hunters: Enemies within 15m of a Chaos Space Marine Raptor add +1/2 Rank to the DN of any Resolve tests they are required to make.'),
+      simpleAbility('Cruel Hunters: Enemies within 15m of a Chaos Space Marine Raptor add +½ Rank to the DN of any Resolve tests they are required to make.'),
     ],
     wargearString:
       'Aquila power armour, bolt pistol, chainsword, 3 frag and krak grenades, jump pack.',
@@ -2652,7 +2652,7 @@ const aaoaRep = [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
-      simpleAbility('Blood for the Blood God!: When a Khorne Berzerker makes an All-Out Attack, they may choose up to 1/2 Rank dice in their dice pool to be Wrath dice, in addition to the normal Wrath die. If any of these Wrath dice are 6s, then the character scores a critical hit. They gain one level of extra severity on that critical hit, as if a Glory had been spent, for every Wrath die after the first which rolls a 6.'),
+      simpleAbility('Blood for the Blood God!: When a Khorne Berzerker makes an All-Out Attack, they may choose up to ½ Rank dice in their dice pool to be Wrath dice, in addition to the normal Wrath die. If any of these Wrath dice are 6s, then the character scores a critical hit. They gain one level of extra severity on that critical hit, as if a Glory had been spent, for every Wrath die after the first which rolls a 6.'),
     ],
     wargearString:
       'Aquila power armour, chainsword or chain axe, bolt pistol, 3 frag and 3 krak grenades.',
@@ -2719,7 +2719,7 @@ const aaoaRep = [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
-      simpleAbility('Cacophony and Ecstasy: Noise Marines gain +Rank on all skill tests that relate specifically to hearing, and can pick out sounds, and variations in sounds that a normal human cannot. Further, a Noise Marine heals 1/2 Rank shock at the end of every turn, as they revel in the sensations of battle. However, a Noise Marine who is reduced to 0 Shock is staggered as well as exhausted, as they are overcome by sensation.'),
+      simpleAbility('Cacophony and Ecstasy: Noise Marines gain +Rank on all skill tests that relate specifically to hearing, and can pick out sounds, and variations in sounds that a normal human cannot. Further, a Noise Marine heals ½ Rank shock at the end of every turn, as they revel in the sensations of battle. However, a Noise Marine who is reduced to 0 Shock is staggered as well as exhausted, as they are overcome by sensation.'),
     ],
     wargearString:
       'Aquila power armour, bolt gun or sonic blaster, Astartes combat knife, 3 frag and 3 krak grenades.',
@@ -2886,7 +2886,7 @@ const aaoaRep = [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
-      simpleAbility('The Scent of Blood: After an enemy has been killed in a scene, a Khorngor becomes frenzied, and must make WP tests to restrain themselves. While frenzied, however, they add +1/2 Rank ED to all melee damage rolls they make.'),
+      simpleAbility('The Scent of Blood: After an enemy has been killed in a scene, a Khorngor becomes frenzied, and must make WP tests to restrain themselves. While frenzied, however, they add +½ Rank ED to all melee damage rolls they make.'),
     ],
     wargearString:
       'Two axes, or chainaxe and Autopistol, flak armour',
@@ -2915,7 +2915,7 @@ const aaoaRep = [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
-      simpleAbility('Inured to Suffering: Pestigor know no pain or fear, and little can dissuade them from their task. They increase both their Resolve and their Soak by +1/2 Rank.'),
+      simpleAbility('Inured to Suffering: Pestigor know no pain or fear, and little can dissuade them from their task. They increase both their Resolve and their Soak by +½ Rank.'),
     ],
     wargearString:
       'Autogun, plague knife, flak armour',
@@ -2939,7 +2939,7 @@ const aaoaRep = [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
-      simpleAbility('Distracting Musk: Slaangor exude a faintly soporific musk that disrupts the concentration of any who stray too close. Characters within 5m of a Slaangor increase the DN of all Willpower and Resolve tests by 1/2 Rank. This does not affect characters with the Slaanesh keyword, who’ve already built up a resistance to it.'),
+      simpleAbility('Distracting Musk: Slaangor exude a faintly soporific musk that disrupts the concentration of any who stray too close. Characters within 5m of a Slaangor increase the DN of all Willpower and Resolve tests by ½ Rank. This does not affect characters with the Slaanesh keyword, who’ve already built up a resistance to it.'),
     ],
     wargearString:
       'Two swords, mesh armour.',
@@ -2963,7 +2963,7 @@ const aaoaRep = [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
     archetypeFeatures: [
-      simpleAbility('Aura of Change: Tzaangor are wreathed in an aura of warp energy and twisted probabilities, which shields them from harm. A Tzaangor may Soak Mortal Wounds and increases their Resilience by +1/2 Rank. This increase to their Resilience is considered to be a force field, and thus cannot be reduced by an attack’s AP.'),
+      simpleAbility('Aura of Change: Tzaangor are wreathed in an aura of warp energy and twisted probabilities, which shields them from harm. A Tzaangor may Soak Mortal Wounds and increases their Resilience by +½ Rank. This increase to their Resilience is considered to be a force field, and thus cannot be reduced by an attack’s AP.'),
     ],
     wargearString:
       'Two swords, or chainsword and autopistol.',
@@ -2977,23 +2977,222 @@ const aaoaRep = [
       },
     ],
   },
-  simpleStub('aaoa', 49, 'Eldar', 'Aeldari', 'Guardian', 0, 1),
-  simpleStub('aaoa', 49, 'Eldar', 'Aeldari', 'Dire Avenger', 50, 3),
-  simpleStub('aaoa', 50, 'Eldar', 'Aeldari', 'Dark Reaper', 70, 3),
-  simpleStub('aaoa', 50, 'Eldar', 'Aeldari', 'Fire Dragon', 60, 3),
-  simpleStub('aaoa', 51, 'Eldar', 'Aeldari', 'Howling Banshee', 60, 3),
-  simpleStub('aaoa', 51, 'Eldar', 'Aeldari', 'Shining Spear', 90, 3),
-  simpleStub('aaoa', 52, 'Eldar', 'Aeldari', 'Striking Scorpion', 60, 3),
-  simpleStub('aaoa', 52, 'Eldar', 'Aeldari', 'Swooping Hawk', 60, 3),
-  simpleStub('aaoa', 53, 'Eldar', 'Aeldari', 'Warp Spider', 80, 3),
-  simpleStub('aaoa', 53, 'Eldar', 'Aeldari', 'Bonesinger', 50, 2),
-  simpleStub('aaoa', 54, 'Eldar', 'Aeldari', 'Kabalite Warrior', 0, 1),
-  simpleStub('aaoa', 54, 'Eldar', 'Aeldari', 'Wych', 15, 1),
-  simpleStub('aaoa', 55, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
-  simpleStub('aaoa', 55, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),
-  simpleStub('aaoa', 56, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
-  simpleStub('aaoa', 56, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
-  simpleStub('aaoa', 57, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
+  simpleStub('aaoa', 51, 'Eldar', 'Aeldari', 'Guardian', 0, 1),
+  {
+    ...simpleStub('aaoa', 51, 'Eldar', 'Aeldari', 'Dire Avenger', 50, 3, false),
+    hint: 'Aspect warriors, skilled in the arts of aggressive defence.',
+    prerequisites: [
+      reqAttribute('agility', 4),
+      reqAttribute('willpower', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('weaponSkill', 4),
+      reqSkill('leadership', 2),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    influence: 2,
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Defensive Tactics: When a Dire Avenger makes a ranged attack using a held action, they ignore up to Rank penalties on the attack.'),
+    ],
+    wargearString:
+      'Aspect Armour, Avenger Shuriken Catapult, targeting vane, mono-knife, 3 plasma grenades, spirit stone.',
+    wargear: [
+      { name: 'Aspect Armour' },
+      { name: 'Avenger Shuriken Catapult' },
+      { name: 'targeting vane' },
+      { name: 'Mono-Knife' },
+      { name: 'Plasma Grenade', amount: 3 },
+      { name: 'Spirit Stone' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 52, 'Eldar', 'Aeldari', 'Dark Reaper', 60, 3, false),
+    hint: 'Aspect warriors, merciless and deadly at range.',
+    prerequisites: [
+      reqAttribute('agility', 3),
+      reqAttribute('strength', 3),
+      reqAttribute('willpower', 2),
+      reqSkill('ballisticSkill', 5),
+      reqSkill('awareness', 3),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    influence: 1,
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Inescapable Accuracy: When a Dark Reaper makes a ranged attack, they ignore up to Rank DN penalties from Ballistic Skill tests'),
+    ],
+    wargearString:
+      'Heavy Aspect Armour, Reaper launcher, Dark Reaper Rangefinder, knife, spirit stone.',
+    wargear: [
+      { name: 'Heavy Aspect Armour' },
+      { name: 'Reaper launcher' },
+      { name: 'Dark Reaper Rangefinder' },
+      { name: 'Knife' },
+      { name: 'Spirit Stone' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 52, 'Eldar', 'Aeldari', 'Fire Dragon', 55, 3,false),
+    hint: 'Aspect warriors, turning all in their path to molten ruin.',
+    prerequisites: [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 4),
+      reqAttribute('willpower', 2),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('tech', 3),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    influence: 1,
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Assured Destruction: When attacking a vehicle, monstrous creature, or structure, a Fire Dragon gains +½ Rank bonus ED.'),
+    ],
+    wargearString: 'Heavy Aspect Armour, Fusion Gun, 1 melta bomb, knife, spirit stone.',
+    wargear: [
+      { name: 'Heavy Aspect Armour' },
+      { name: 'Fusion Gun' },
+      { name: 'Melta Bomb', amount: 1 },
+      { name: 'Knife' },
+      { name: 'Spirit Stone' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 53, 'Eldar', 'Aeldari', 'Howling Banshee', 55, 3,false),
+    hint: 'Aspect warriors, swift shock troops whose shriek freezes the hearts of their foes.',
+    prerequisites: [
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 2),
+      reqSkill('athletics', 2),
+      reqSkill('weaponSkill', 5),
+      reqSkill('intimidation', 3),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    influence: 1,
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Swift Death: A Howling Banshee increases her Speed by +Rank when running, sprinting, or charging.'),
+    ],
+    wargearString: 'Aspect Armour, shuriken pistol, power sword, banshee mask, spirit stone.',
+    wargear: [
+      { name: 'Aspect Armour' },
+      { name: 'Shuriken Pistol' },
+      { name: 'Power Sword' },
+      { name: 'Banshee Maks' },
+      { name: 'Spirit Stone' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 53, 'Eldar', 'Aeldari', 'Shining Spear', 70, 3,false),
+    hint: 'Aspect warriors, jetbike-mounted lancers who slay the mightiest foes',
+    prerequisites: [
+      reqAttribute('agility', 5),
+      reqAttribute('willpower', 2),
+      reqSkill('weaponSkill', 4),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('pilot', 4),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    influence: 1,
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Ride the Wind: A Shining Spear gains +Rank bonus to Piloting tests for Aeldari Jetbikes'),
+    ],
+    wargearString: 'Heavy Aspect Armour, laser lance, Aeldari jetbike, spirit stone.',
+    wargear: [
+      { name: 'Heavy Aspect Armour' },
+      { name: 'Laser Lance' },
+      { name: 'Aeldari Jetbike' },
+      { name: 'Spirit Stone' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 54, 'Eldar', 'Aeldari', 'Striking Scorpion', 55, 3,false),
+    hint: 'Aspect warriors, stealthy killers who strike with unseen power.',
+    prerequisites: [
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 2),
+      reqSkill('weaponSkill', 4),
+      reqSkill('stealth', 4),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    influence: 1,
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Hunt in the Shadows: A Striking Scorpion may reroll up to Rank dice when making a Stealth test. In addition, they may add +½ Rank to Weapon Skill tests to attack unaware enemies.'),
+    ],
+    wargearString: 'Heavy Aspect Armour, scorpion chainsword, shuriken pistol, mandiblasters, 3 plasma grenades, spirit stone.',
+    wargear: [
+      { name: 'Heavy Aspect Armour' },
+      { name: 'Chain Sword', variant: 'Scorpion Chainsword' },
+      { name: 'Shuriken Pistol' },
+      { name: 'Mandiblaster' },
+      { name: 'Plasma Grenade', amount: 3 },
+      { name: 'Spirit Stone' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 54, 'Eldar', 'Aeldari', 'Swooping Hawk', 55, 3,false),
+    hint: 'Aspect warriors, flitting across the skies to deal vengeance.',
+    prerequisites: [
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 2),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('pilot', 4),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    influence: 2,
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Herald of Victory: A Swooping Hawk’s presence in battle is a rousing, triumphant sight. Characters with the Asuryani keyword within 10m of a Swooping Hawk gain a bonus to their Resolve equal to 1/2 the Swooping Hawk’s Rank.'),
+    ],
+    wargearString: 'Aspect Armour, Swooping Hawk Wings, Lasblaster, knife, grenade pack with 6 plasma grenades, spirit stone.',
+    wargear: [
+      { name: 'Aspect Armour' },
+      { name: 'Swooping Hawk Wings' },
+      { name: 'Lasblaster' },
+      { name: 'Knife' },
+      { name: 'Grenade Pack', variant: 'grenade pack with 6 plasma grenades' },
+      { name: 'Plasma Grenade', amount: 6 },
+      { name: 'Spirit Stone' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa', 55, 'Eldar', 'Aeldari', 'Warp Spider', 65, 3,false),
+    hint: 'Aspect warriors, appearing from nowhere to cut down their prey.',
+    prerequisites: [
+      reqAttribute('agility', 5),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 2),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('awareness', 3),
+      reqSkill('tech', 3),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    influence: 1,
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Flickerjump: When equipped with a Warp Jump Generator, a Warp Spider may employ it for defence as well as mobility, flickering into and out of reality as enemies fire upon them. When targeted by a ranged attack, a Warp Spider may increase their Defence by +Rank. However, when they do this, roll a d6; on a 1, they also suffer d6 Mortal Wounds from the horrors of the Warp.'),
+    ],
+    wargearString: 'Heavy Aspect Armour, Warp Jump Generator, Death Spinner, knife, spirit stone.',
+    wargear: [
+      { name: 'Heavy Aspect Armour' },
+      { name: 'Warp Spider Jump Generator' },
+      { name: 'Deathspinner' },
+      { name: 'Knife' },
+      { name: 'Spirit Stone' },
+    ],
+  },
+  simpleStub('aaoa', 55, 'Eldar', 'Aeldari', 'Bonesinger', 50, 2),
+  simpleStub('aaoa', 56, 'Eldar', 'Aeldari', 'Kabalite Warrior', 0, 1),
+  simpleStub('aaoa', 56, 'Eldar', 'Aeldari', 'Wych', 15, 1),
+  simpleStub('aaoa', 57, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
+  simpleStub('aaoa', 57, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),
+  simpleStub('aaoa', 58, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
+  simpleStub('aaoa', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
+  simpleStub('aaoa', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
   {
     ...simpleStub('aaoa', 58, 'Ork', 'Orks', 'Mekboy', 30, 2, false),
     hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
@@ -3011,7 +3210,7 @@ const aaoaRep = [
           '<p>A Mek gains +Rank on Tech tests to fix any weapon, vehicle, or other machine with the Ork keyword. ' +
           'In addition, during a regroup or respite, a Mek may tinker with a weapon, vehicle, or other machine with the Ork keyword. ' +
           'Weapons gain ED equal to ½ the Mek’s Rank. ' +
-          'Vehicles gain +1/2 Rank to their Cruising Speed, Wounds, or Resilience. ' +
+          'Vehicles gain +½ Rank to their Cruising Speed, Wounds, or Resilience. ' +
           'Other machines gain a bonus of the GM’s discretion. ' +
           'These bonuses last until the Mek’s next respite, or until the machine suffers a complication, whichever comes first.</p>',
       },
@@ -3039,9 +3238,9 @@ const aaoaRep = [
     archetypeFeatures: [
       {
         name: 'Make It All Betta',
-        snippet: 'You add +1/2 Rank to Medicae Tests on characters with the Ork Keyword. Additionally, a stabilasing an Ork restores Rank Wounds (rather then 1).',
+        snippet: 'You add +½ Rank to Medicae Tests on characters with the Ork Keyword. Additionally, a stabilasing an Ork restores Rank Wounds (rather then 1).',
         description:
-          '<p>A Painboy may add +1/2 Rank to all Medicae tests made on characters with the Ork keyword. ' +
+          '<p>A Painboy may add +½ Rank to all Medicae tests made on characters with the Ork keyword. ' +
           'In addition, a successful Medicae test to stabilise a dying character with the Ork keyword restores Rank wounds rather than 1.</p>',
       },
     ],
@@ -3223,7 +3422,7 @@ const aaoaRep = [
           '<p>A War-Pledged Warrior is bound by oaths of loyalty and duty and stands united with their comrades-in-arms.</p>' +
           'Whenever a War-Pledged Warrior attacks an enemy who has been attacked by an ' +
           'ally already during this round (including Interaction attacks), ' +
-          'they gain a bonus of +1/2 Rank to their attack.</p>',
+          'they gain a bonus of +½ Rank to their attack.</p>',
       },
     ],
     wargearString:
@@ -3925,7 +4124,7 @@ const paxRep = [
     archetypeFeatures: [
       {
         name: 'Imperial Authority',
-        snippet: 'The character is an embodiment of the Lex Imperialis itself, bringing fear and terror to those bound by its laws. They gain +1/2 Rank to Resolve and Corruption Tests, and add +Rank to Intimidation tests against any with the <Imperium> keyword.',
+        snippet: 'The character is an embodiment of the Lex Imperialis itself, bringing fear and terror to those bound by its laws. They gain +½ Rank to Resolve and Corruption Tests, and add +Rank to Intimidation tests against any with the <Imperium> keyword.',
       },
     ],
     wargearString:
@@ -4024,7 +4223,7 @@ const paxRep = [
     archetypeFeatures: [
       {
         name: 'The Thin Black Line',
-        snippet: 'The character is an embodiment of the Lex Imperialis itself, bringing fear and terror to those bound by its laws. They gain +1/2 Rank to Corruption Tests and add +Rank to Intimidation and Resolve tests against any with the <Imperium> keywords.',
+        snippet: 'The character is an embodiment of the Lex Imperialis itself, bringing fear and terror to those bound by its laws. They gain +½ Rank to Corruption Tests and add +Rank to Intimidation and Resolve tests against any with the <Imperium> keywords.',
       },
       {
         name: 'Psi-Marshal',
@@ -4286,7 +4485,7 @@ const paxRep = [
     archetypeFeatures: [
       {
         name: 'Pure muscle',
-        snippet: 'Heavies are capable of shouldering many weapons other gangers find difficult to wield properly. They gain +Rank when determining their Strength for the Heavy weapon trait. Additionally, they gain +1/2 Rank damage to their melee attacks.',
+        snippet: 'Heavies are capable of shouldering many weapons other gangers find difficult to wield properly. They gain +Rank when determining their Strength for the Heavy weapon trait. Additionally, they gain +½ Rank damage to their melee attacks.',
       },
     ],
     wargearString:
@@ -4331,7 +4530,7 @@ const paxRep = [
     archetypeFeatures: [
       {
         name: 'Bigger and badder',
-        snippet: 'The gang leaders are often the biggest (next to the heavies) and the baddest member of his crew. The gang leader gains +Rank bonus to his Gang Skill. During a combat, he also gains +1/2 Rank bonus to his Resolve tests',
+        snippet: 'The gang leaders are often the biggest (next to the heavies) and the baddest member of his crew. The gang leader gains +Rank bonus to his Gang Skill. During a combat, he also gains +½ Rank bonus to his Resolve tests',
       },
     ],
     wargearString:

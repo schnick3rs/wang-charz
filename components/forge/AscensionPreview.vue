@@ -1,5 +1,7 @@
 <template lang="html">
+
   <v-card v-if="item">
+
     <v-card-title v-if="chooseMode" style="background-color: #262e37; color: #fff;">
       <span>Confirm Ascension</span>
       <v-spacer />
@@ -8,35 +10,55 @@
       </v-icon>
     </v-card-title>
 
-    <v-card-text class="pt-4">
-      <div class="pb-2">
-        <div class="headline">
+    <v-card-title primary-title>
+      <div>
+        <h3 class="headline md0">
           {{ item.name }}
-        </div>
+        </h3>
         <span class="subtitle-1 grey--text">{{ item.teaser }}</span>
       </div>
+      <v-spacer />
+      <div class="hidden-xs-only">
+        <v-avatar tile size="72">
+          <img :src="`/img/avatars/ascension/${item.key}.png`">
+        </v-avatar>
+      </div>
+    </v-card-title>
+
+    <v-divider v-if="chooseMode" />
+
+    <v-card-text class="pt-4">
 
       <p class="text-lg-justify">
-        <strong>Build Point Cost:</strong> (New Tier x {{ item.cost }})
+        <strong>Build Point Cost:</strong>
+        <span v-if="item.costPerTier > 0">(New Tier x {{ item.costPerTier }})</span>
+        <span v-if="item.cost > 0">+ {{item.cost}}</span>
       </p>
 
       <span class="mt-2 grey--text">Prerequisites</span>
       <v-divider class="mb-2" />
+
       <p class="text-lg-justify">
         <strong>Minimum Campaign Tier:</strong> {{ item.minimumCampaignTier }}+
       </p>
-      <p class="text-lg-justify">
-        <strong>Attribute:</strong> {{ item.attributePrerequisites.length > 0 ? item.attributePrerequisites.join(', ') : 'none' }}
+
+      <ul class="text-lg-justify pb-2" v-for="prerequisite in item.prerequisites">
+        <li>{{prerequisite}}</li>
+      </ul>
+
+      <p class="text-lg-justify" v-if="false">
+        <strong>Attribute:</strong> {{ item.attributePrerequisites && item.attributePrerequisites.length > 0 ? item.attributePrerequisites.join(', ') : 'none' }}
       </p>
-      <p class="text-lg-justify">
-        <strong>Skill:</strong> {{ item.skillPrerequisites.length > 0 ? item.skillPrerequisites.join(', ') : 'none' }}
+
+      <p class="text-lg-justify" v-if="false">
+        <strong>Skill:</strong> {{ item.skillPrerequisites && item.skillPrerequisites.length > 0 ? item.skillPrerequisites.join(', ') : 'none' }}
       </p>
 
       <span class="mt-2 grey--text">Benefits</span>
       <v-divider class="mb-2" />
 
       <p class="text-lg-justify">
-        <strong>Keywords:</strong> {{ item.keywords.join(', ') }}
+        <strong>Keywords:</strong> {{ item.keywordString }}
       </p>
 
       <p class="text-lg-justify">
@@ -44,17 +66,18 @@
       </p>
 
       <p class="text-lg-justify">
-        <strong>Story Element:</strong> {{ item.storyElementText }}
+        <strong>Story Element:</strong> {{ item.storyElementString }}
       </p>
 
       <p class="text-lg-justify">
-        <strong>Wargear:</strong> {{ item.wargearText }}
+        <strong>Wargear:</strong> {{ item.wargearString }}
       </p>
     </v-card-text>
 
     <v-divider />
 
     <v-card-actions v-if="chooseMode">
+
       <v-row justify="center" no-gutters>
         <v-col :cols="2">
           <v-select
@@ -91,7 +114,7 @@
         Cancel
       </v-btn>
       <v-spacer />
-      <v-btn right color="green" @click="$emit('select', item, targetTier)">
+      <v-btn right color="green" @click="$emit('select', item, targetTier)" :disabled="!hasValidTierPrerequisites">
         Select Package
       </v-btn>
     </v-card-actions>
@@ -129,8 +152,13 @@ export default {
     };
   },
   computed: {
+    hasValidTierPrerequisites() {
+      return this.item.minimumCampaignTier <= this.maxTargetTier;
+    },
     targetTierOptions() {
-      return this.range(this.currentCharacterTier + 1, this.maxTargetTier);
+      const from = Math.max(this.currentCharacterTier + 1, this.item.minimumCampaignTier);
+      const to = this.maxTargetTier;
+      return from <= to ? this.range(from, to) : [];
     },
   },
   methods: {

@@ -116,16 +116,21 @@
 </template>
 
 <script lang="js">
+import PsychicDisciplineMixin from '~/mixins/PsychicDisciplineMixin';
+
 export default {
   name: 'PsychicPowers',
   layout: 'forge',
+  mixins: [
+    PsychicDisciplineMixin,
+  ],
   props: [],
   head() {
     return {
       title: 'Select Psychic Powers',
     };
   },
-  asyncData({ params, $axios, error }) {
+  asyncData({ params }) {
     return {
       characterId: params.id,
     };
@@ -165,23 +170,6 @@ export default {
       ],
       grantAllAccess: false,
       selectedDisciplines: [],
-      disciplinesRepository: [
-        { name: 'Minor', source: 'core' },
-        { name: 'Universal', source: 'core' },
-        { name: 'Biomancy', source: 'core' },
-        { name: 'Divination', source: 'core' },
-        { name: 'Pyromancy', source: 'core' },
-        { name: 'Telekinesis', source: 'core' },
-        { name: 'Telepathy', source: 'core' },
-        { name: 'Maleficarum', source: 'core' },
-        { name: 'Runes of Battle', source: 'core' },
-        { name: 'Navigator Powers', source: 'pax' },
-        { name: 'WAAAGH!', source: 'aaoa' },
-        { name: 'Ancestral Rites', source: 'aaoa' },
-        { name: 'Sanctic', source: 'aaoa' },
-        { name: 'Librarius', source: 'aaoa' },
-        { name: 'Librarius', source: 'tea' },
-      ],
       species: undefined,
       archetype: undefined,
       psychicPowersList: undefined,
@@ -208,6 +196,16 @@ export default {
     },
     characterArchetypeKey() {
       return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
+    },
+    characterEnhancements() {
+      return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
+    },
+    characterAccessibleDisciplines() {
+      let disciplines = [];
+      if (this.characterEnhancements) {
+        return this.characterEnhancements.filter((e)=> e.targetGroup === 'psychicDisciplines');
+      }
+      return disciplines;
     },
     alerts() {
       const alerts = [];
@@ -262,8 +260,12 @@ export default {
         .forEach((disciplines) => access = [ ...access, ...disciplines]);
       }
 
-      // if there is no discipline access and the psyker keyword -> allow Minor
+      // TODO if there is no discipline access and the psyker keyword -> allow Minor
       access.push('Minor');
+
+      this.characterAccessibleDisciplines.map((d) => d.targetValue).forEach((discipline) => {
+        access = [ ...access, discipline ];
+      });
 
       access = [...new Set(access)].sort();
       return access;

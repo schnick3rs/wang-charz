@@ -279,6 +279,37 @@ const aaoa = [
     ...rangeAaoa('10+1ED; AP 0; Range 48m; Salvo 3; Assault, Cacophony'),
   },
   {
+    ...simpleStub(30996, 'aaoa',99,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani', ''),
+    ...rangeAaoa('10+1ED; AP 0; Range 36m; Salvo 3; Assault, Penetrating (3)', 'Aeldari Ranged Weapon'),
+  },
+  {
+    ...simpleStub(31005, 'aaoa',100,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani', ''),
+    ...rangeAaoa('14+2ED; AP 0; Range 24m; Salvo 3; Assault, Brutal, Penetrating (4), Tangle (3)', 'Aeldari Ranged Weapon'),
+  },
+  {
+    ...simpleStub(31016, 'aaoa',101,'Laser Lance', '7V','Las, Aeldari, Asuryani, Exodite', ''),
+    ...rangeAaoa('14+2ED; AP -4; Range 12m; Salvo 1; Assault', 'Aeldari Ranged Weapon'),
+    // 3+1ED; AP -4; Range 2m
+    description:
+      '<p>The Laser Lance has a range and a melee weapon profile</p>' +
+      '<p>When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>'
+  },
+  {
+    ...simpleStub(31022, 'aaoa',102,'Reaper Launcher', '7V','Explosive, Aeldari, Asuryani', ''),
+    // Starshot Missile
+    ...rangeAaoa('16+3ED; AP -2; Range 100m; Salvo –; Blast (Small), Heavy (5)', 'Aeldari Ranged Weapon'),
+    // Starswarm Missile
+    ...rangeAaoa('12+2ED; AP -2; Range 100m; Salvo 3; Heavy (5)', 'Aeldari Ranged Weapon'),
+    description:
+      '<p>The Laser Lance has a range and a melee weapon profile</p>' +
+      '<p>When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>'
+  },
+  {
+    ...simpleStub(31043, 'aaoa',104,'Grenade Pack', '6V','Explosive, Aeldari, Asuryani', ''),
+    ...simpleRange('Grenades and Grenade Launchers', 'special', '-', '-', '-', '-', 'Assault'),
+    description: '<p>A Swooping Hawk Grenade Pack can only launch grenades downwards, and the user may launch grenades at any point while flying. This is done as part of the character’s move, rather than as a distinct attack action.</p>',
+  },
+  {
     ...simpleStub(31050, 'aaoa',105,'Kustom Mega-Blasta', '7R', 'Kustom, Plasma, Ork', ''),
     ...rangeAaoa('16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!', 'Ork Ranged Weapon', 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.'),
     snippet: 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.',
@@ -315,6 +346,16 @@ const aaoa = [
       'This massive metal syringe superficially resembles a tool of the chirurgeon’s craft and tend to be filled with whatever toxic sludge the Painboy is able to find or create.',
   },
   {
+    ...simpleStub(31175, 'aaoa', 117, 'Dragonfire Bolt Rounds', '7R', 'Imperium, Adeptus Astartes', ''),
+    type: 'Reloads and Ammunition',
+    snippet: 'Weapon gains the Blast (Small) and Spread traits, and the Fire keyword.',
+  },
+  {
+    ...simpleStub(31193, 'aaoa', 119, 'Inferno Bolt Rounds', '7R', 'Chaos, Heretic Astartes, Tzeentch', ''),
+    type: 'Reloads and Ammunition',
+    snippet: 'Weapon gains AP -2, and the Fire keyword..',
+  },
+  {
     ...simpleStub(31262, 'aaoa',126,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
     ...armour('Astartes Armour', 5, 'Bulk (1), Powered (4)'),
     snippet: 'Reinforced: The wearer adds +2 to their Toughness while wearing this armour.',
@@ -336,9 +377,23 @@ const aaoa = [
       '<p>Aegis Armour is a specialized form of Astartes Power Armour worn by members of the Grey Knights chapter. Worked into their Armour, each Aegis Suit contains a lattice of psycho-conductive filaments and protective amulets, wrought into hexagrammic wards and inscribed with anti-daemonic prayers. Aegis Armour allows Grey Knights to better combat Warp Entities and Rogue Psykers by protecting them from psychic attack. The technology incorporated into The Aegis represents the most potent anti-psychic defences in the Imperium of Man.</p>',
   },
   {
-    ...simpleStub(313302, 'aaoa',130,'Sigil of Corruption', '8L', 'Daemonic, Chaos', ''),
-    ...armour('Chaos Armour', 4, 'Force Shield'),
-    snippet: 'Blasphemy: The first time a character dons a Sigil of Corruption, they gain +2 Corruption Points.',
+    ...simpleStub(31301, 'aaoa',130,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...armour('Aeldari Armour', 4),
+  },
+  {
+    ...simpleStub(31302, 'aaoa',130,'Heavy Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...armour('Aeldari Armour', 5, 'Bulk (1)'),
+  },
+  {
+    ...simpleStub(31303, 'aaoa',130,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...armour('Aeldari Armour', 6),
+  },
+  {
+    ...simpleStub(31222, 'aaoa',131,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
+    ...armour('Astartes Armour', 5, 'Bulk (1), Powered (4)'),
+    snippet: 'Reinforced: The wearer adds +2 to their Toughness while wearing this armour.',
+    description:
+      '<p>Mark X power armour comes in a number of varieties, as the underlying armour system is designed to be modular and customisable according to battlefield role. The heavier variant is known as Gravis armour, which incorporates additional cowling, and ablative armour layers to increase the wearer’s durability in battle, at the cost of reduced mobility.</p>',
   },
   {
     ...simpleStub(31333, 'aaoa',133,'Ionclad Carapace Armour', '6R', 'Heavy, Squat', ''),
@@ -376,6 +431,7 @@ const aaoa = [
   },
   {
     ...simpleStub(31354, 'aaoa', 135, 'Force Matrix', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
+    type: 'Tools & Equipment',
     snippet:
       'This device gains charges when a Psyker within 25m attempts to use a psychic power (other than Deny the Witch) or when a psyker suffers psychic phenomena. ' +
       'Charges may be used as Reloads for the Animus Speculum, and dissipate after a few minutes.',
@@ -390,6 +446,7 @@ const aaoa = [
   },
   {
     ...simpleStub(31355, 'aaoa', 135, 'Grapple Gun', '2U', '<Any>', ''),
+    type: 'Tools & Equipment',
     description:
       '<p>These devices, appearing similar to a normal firearm, use gas pressure or magnetic impulse to propel a sturdy metal hook attached to a cable. ' +
       'They’re favoured by shock troops fighting in dense terrain, ' +
@@ -397,6 +454,7 @@ const aaoa = [
   },
   {
     ...simpleStub(31361, 'aaoa', 136, 'Liber Daemonica', '8V', 'Imperium, Inquisition, Ordo Malleus', ''),
+    type: 'Tools & Equipment',
     snippet:
       'Reading from this book may add +2 bonus dice to Scholar Tests regarding combating Daemons and their allies. ' +
       'Reading the book routinely grants +2 Conviction.',
@@ -410,6 +468,7 @@ const aaoa = [
   },
   {
     ...simpleStub(31363, 'aaoa', 136, 'Narthecium', '5R', 'Imperium, Adeptus Astartes', ''),
+    type: 'Tools & Equipment',
     snippet:
       'Count`s as Medikit. You add +2 bonus dice to Medicae tests when treating <Adeptus Astartes>. ' +
       'A Complication will inflict 1 Mortal Wound on a non Astartes Patient.',
@@ -425,6 +484,7 @@ const aaoa = [
   },
   {
     ...simpleStub(31371, 'aaoa', 137, 'Psychic Hood', '7V', 'Imperium, Adeptus Astartes, Inquisition', ''),
+    type: 'Tools & Equipment',
     snippet:
       'You add +2 bonus dice to Deny the Witch Tests. You may attempt to Deny the Witch once per round as a Free Action.',
     description:
@@ -438,6 +498,7 @@ const aaoa = [
   },
   {
     ...simpleStub(31372, 'aaoa', 137, 'Reductor', '5R', 'Imperium, Adeptus Astartes', ''),
+    type: 'Tools & Equipment',
     snippet:
       'As an Action, extract the gene-seed of a deceased Marine with a Medicae Test (DN 3). You gain 1 Wrath immediatly. ' +
       'If the geen-seed belongs to a player character, he gains +25 BP during character creation.',
@@ -450,6 +511,69 @@ const aaoa = [
       'as their duty drives them to press on.</p>' +
       '<p>In addition, if the gene-seed recovered belonged to a player character, ' +
       'then that player’s next character receives an additional 25 BPs during character creation, in honour of their sacrifice.</p>',
+  },
+  {
+    ...simpleStub(31412, 'aaoa', 141, 'Banshee Mask', '7V', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'When a Howling Banshee charges, all enemies within 3m of the Banshee’s target are paralysed by the war-cry, gaining the Hindered (2) and Vulnerable (2) combat effects until the end of their next turn.',
+  },
+  {
+    ...simpleStub(31413, 'aaoa', 141, 'Dark Reaper Rangefinder', '7V', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'The Reaper Rangefinder allows the wearer to see even in complete darkness or through fog with no penalty. In addition, when a Dark Reaper aims before making a ranged attack, they add +3d to their attack.',
+  },
+  {
+    ...simpleStub(31423, 'aaoa', 142, 'Ghosthelm', '9L', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'Any Daemon or other warp entity attempting to perceive, attack, or otherwise interact with a Farseer wearing a Ghosthelm suffers a +2DN penalty to any tests they attempt. In addition, the Farseer gains a +2d bonus on any test made to resist any effects of Perils of the Warp, and reduces all Shock suffered from Perils of the Warp by 2, to a minimum of 0.',
+  },
+  {
+    ...simpleStub(31433, 'aaoa', 142, 'Mandiblaster Helm', '7V', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'When the wearer of a Mandiblaster Helm charges into combat, and at the start of each turn they are engaged in combat, roll 1d6. On a 4+, one enemy within 2m suffers 1d3 Mortal Wounds.',
+  },
+  {
+    ...simpleStub(31443, 'aaoa', 142, 'Runes of Warding', '9L', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'Once per round, when an enemy psyker attempts to use a psychic power within 36m, you may force them to re-roll a number of dice on their Psychic Mastery test equal to your Psychic Mastery skill rank.',
+  },
+  {
+    ...simpleStub(31431, 'aaoa', 143, 'Runes of Witnessing', '9L', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'Once per round, when you attempt to use a psychic power, you may re-roll a number of dice on your Psychic Mastery test equal to your Psychic Mastery skill rank.',
+  },
+  {
+    ...simpleStub(31432, 'aaoa', 143, 'Seer’s Spirit Stone', '9L', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'When you attempt to use a psychic power, you may draw upon the power of the soul within the stone. This grants one of two effects: either you gain a +3d bonus on the Psychic Mastery test, or you may use the psychic power as a free action. Once used, the stone’s inhabiting soul goes dormant, and requires a day to recover.',
+  },
+  {
+    ...simpleStub(31432, 'aaoa', 143, 'Swooping Hawk Wings', '7V', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'A warrior wearing Swooping Hawk Wings gains the ability to fly, and a flying speed equal to twice their normal movement speed.',
+  },
+  {
+    ...simpleStub(31432, 'aaoa', 143, 'Targeting Vane', '7R', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    snippet: 'A warrior wearing a Targeting Vane reduces range DN penalties by 2. In addition, if the warrior aims, they add an additional +1d bonus to the following ranged attack.',
+  },
+  {
+    ...simpleStub(31434, 'aaoa', 143, 'Warp Spider Jump Generator', '7R', 'Aeldari, Asuryani', ''),
+    type: 'Tools & Equipment',
+    subtype: 'Aeldari Equipment',
+    description:
+      '<p>A warrior wearing a Warp Spider Jump Generator may activate it when they move. If they do so, then they vanish from the battlefield, and instantly reappear anywhere within 25m. When they reappear, make a Resolve test (DN 3) for the warrior: if they fail, they suffer 1d3 Shock from the harrowing experience, and 1 Mortal Wound if a Complication was rolled.</p>' +
+      '<p>The distance jumped may be increased; for every 10m of increased range, add +2 to the DN of the Resolve test that follows and +1 to the number of Mortal Wounds inflicted on a Complication.</p>' +
+      '<p>Teleporting in this way is done instead of normal movement, and you may not Run or Sprint on a turn when you teleport.</p>'
   },
 ];
 
@@ -735,3 +859,10 @@ module.exports = [
   ...aaoa,
   ...tea,
 ];
+
+/*
+Fusion Gun
+Melta Bomb
+Aeldari Jetbike
+Lasblaster
+ */

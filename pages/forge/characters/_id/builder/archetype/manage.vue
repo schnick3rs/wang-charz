@@ -25,6 +25,11 @@ export default {
   mixins: [
     SluggerMixin,
   ],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       loading: false,
@@ -54,13 +59,6 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
-  },
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
-  },
-  mounted() {
   },
   methods: {
     async getArchetype(key) {

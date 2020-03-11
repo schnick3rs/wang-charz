@@ -413,7 +413,7 @@
                   <v-chip
                     label
                     small
-                    v-for="item in [`All`,`Species`, `Archetype`, `Talents`, `Other`]"
+                    v-for="item in [`All`,`Species`, `Archetype`, `Ascension`, `Talents`, `Other`]"
                     :key="item.toLowerCase()"
                     :value="item.toLowerCase()"
                   >
@@ -433,7 +433,8 @@
                       <div v-html="computeFormatedText(ability.effect)" />
                       <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
                         <strong>{{ ability.selectedOption.name }}</strong>
-                        <p>{{ability.selectedOption.effect}}</p>
+                        <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(ability.description)"></div>
                       </div>
                     </div>
                     <div v-if="speciesAbilities.length === 0" align="center" class="mt-2 mb-2">
@@ -443,13 +444,43 @@
 
                   <!-- archetype < abilities -->
                   <div v-show="['all', 'archetype'].some(i=>i===abilitySection.selection)">
+
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Archetype</span>
                     </div>
+
                     <div v-for="ability in archetypeAbilities" :key="ability.name" class="caption">
-                      <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                      <p v-html="computeFormatedText(ability.effect)" />
+                      <strong>{{ ability.name }}</strong>
+                      <em v-if="ability.source"> • {{ ability.source }}</em>
+
+                      <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
+                      <div v-else v-html="computeFormatedText(ability.description)"></div>
                     </div>
+
+                  </div>
+
+                  <!-- Ascensions < abilities (Background, Other) -->
+                  <div v-show="['all', 'ascension'].some((i) => i === abilitySection.selection)">
+
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Ascension</span>
+                    </div>
+
+                    <div v-for="ability in ascensionAbilities" :key="ability.name" class="caption mb-3">
+
+                      <strong>{{ ability.name }}</strong>
+                      <em v-if="ability.source"> • {{ ability.source }}</em>
+
+                      <div v-if="ability.snippet"><span>{{computeFormatedText(ability.snippet)}}</span></div>
+                      <div v-else v-html="computeFormatedText(ability.description)"></div>
+
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
+                        <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
+                        <p v-if="ability.selectedOption.snippet">{{ability.selectedOption.snippet}}</p>
+                      </div>
+
+                    </div>
+
                   </div>
 
                   <!-- talents < abilities -->
@@ -466,9 +497,14 @@
                         <span class="caption ml-2">/ Faith Points</span>
                       </div>
                     </div>
+
                     <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption mb-3">
-                      <strong>{{ talent.name }}</strong><em> • Talent</em>
-                      <p class="mt-1 mb-1" v-html="computeFormatedText(talent.description)" />
+
+                      <strong>{{ talent.name }}</strong>
+                      <em> • Talent</em>
+                      <div v-if="talent.snippet"><p v-html="computeFormatedText(talent.snippet)"></p></div>
+                      <div v-else v-html="computeFormatedText(talent.description)"></div>
+
                       <div v-if="false" class="mt-1 mb-1 ml-1 pl-2" style="flex-wrap: wrap; display: flex; border-left: solid 3px lightgrey;" >
                         <div
                           v-for="pointIndex in characterFaith.points"
@@ -478,7 +514,9 @@
                         ></div>
                         <span class="caption ml-2">/ Faith Points</span>
                       </div>
+
                     </div>
+
                     <div v-if="talents.length === 0" align="center" class="mt-2 mb-2">
                       <em>Knowledge is treason.</em>
                     </div>
@@ -507,15 +545,28 @@
                     </div>
                   </div>
 
-                  <!-- other < abilities -->
-                  <div v-show="['all', 'other'].some(i=>i===abilitySection.selection)">
+                  <!-- other < abilities (Ascensions, Background, Other) -->
+                  <div v-show="['all', 'other'].some((i) => i === abilitySection.selection)">
+
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Other</span>
                     </div>
-                    <div v-for="ability in otherAbilities" :key="ability.name" class="caption">
-                      <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
-                      <p v-html="computeFormatedText(ability.effect)" />
+
+                    <div v-for="ability in otherAbilities" :key="ability.name" class="caption mb-3">
+
+                      <strong>{{ ability.name }}</strong>
+                      <em v-if="ability.source"> • {{ ability.source }}</em>
+
+                      <div v-if="ability.snippet"><span>{{computeFormatedText(ability.snippet)}}</span></div>
+                      <div v-else v-html="computeFormatedText(ability.description)"></div>
+
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
+                        <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
+                        <p v-if="ability.selectedOption.snippet">{{ability.selectedOption.snippet}}</p>
+                      </div>
+
                     </div>
+
                   </div>
 
                 </div>
@@ -716,13 +767,13 @@
 </template>
 
 <script lang="js">
-  import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
-  import SluggerMixin from '~/mixins/SluggerMixin';
-  import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
-  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import SluggerMixin from '~/mixins/SluggerMixin';
+import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
-  export default {
+export default {
   name: 'in-app-view',
   //layout: '',
   mixins: [
@@ -733,6 +784,11 @@
     KeywordRepository,
   ],
   props: [],
+  head() {
+    return {
+      title: this.characterName,
+    };
+  },
   async asyncData({ params, $axios }) {
 
     const talentResponse = await $axios.get('/api/talents/');
@@ -807,6 +863,7 @@
       //
       characterSpecies: undefined,
       characterArchetype: undefined,
+      ascensionPackagesRepository: undefined,
       wargearRepository: undefined,
     };
   },
@@ -857,6 +914,9 @@
 
     characterBackgroundKey() {
       return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
+    },
+    characterAscensionPackages() {
+      return this.$store.getters['characters/characterAscensionPackagesById'](this.characterId);
     },
 
     keywords() {
@@ -1055,6 +1115,7 @@
                   const tradition = {
                     name: t.name,
                     effect: t.effect,
+                    snippet: t.effect,
                     source: chapter.name,
                   };
                   abilities.push(tradition);
@@ -1065,6 +1126,8 @@
               const ability = {
                 name: speciesTrait.name,
                 effect: speciesTrait.snippet ? speciesTrait.snippet : speciesTrait.description,
+                snippet: speciesTrait.snippet,
+                description: speciesTrait.description,
                 source: this.speciesLabel,
                 hint: this.speciesLabel,
               };
@@ -1093,15 +1156,62 @@
           const ability = {
             name: item.name,
             effect: item.snippet ? item.snippet : item.description,
-            source: archetype.label,
-            hint: archetype.label,
+            snippet: item.snippet,
+            description: item.description,
+            source: archetype.name,
+            hint: archetype.name,
           };
           abilities.push(ability);
         });
       }
       return abilities;
     },
+    ascensionAbilities() {
+      const abilities = [];
 
+      const ascensionPackages = this.characterAscensionPackages;
+      const ascensionRepository = this.ascensionPackagesRepository;
+
+      if (ascensionRepository && ascensionRepository.length > 0) {
+
+        ascensionRepository.forEach((ascension) => {
+
+          ascension.ascensionFeatures
+          .filter((feature) => feature.hideInSheet === undefined || feature.hideInSheet === false)
+          .forEach((feature) => {
+            const ability = {
+              name: feature.name,
+              effect: feature.snippet ? feature.snippet : feature.description, // todo deprecated
+              snippet: feature.snippet,
+              description: feature.description,
+              source: ascension.name,
+              hint: ascension.name,
+            };
+
+            if ( feature.options ) {
+              const featureOption = this.enhancements.find( (e) => e.source.startsWith(`ascension.${ascension.key}.${feature.key}.`));
+              if ( featureOption ) {
+                if ( featureOption.targetValue ) {
+                  ability['selectedOption'] = {
+                    effect: featureOption.targetValue, // todo e.g. corruption
+                    snippet: featureOption.targetValue,
+                  };
+                } else { // e.g. memorabie injury
+                  ability['selectedOption'] = {
+                    name: featureOption.name,
+                    effect: featureOption.effect,
+                    snippet: featureOption.effect,
+                  };
+                }
+              }
+            }
+            abilities.push(ability);
+          });
+        });
+      }
+
+      return abilities;
+    },
     otherAbilities() {
       const abilities = [];
 
@@ -1109,11 +1219,12 @@
       this.keywords.forEach( k => {
         const keyword = this.keywordCombinedRepository.find( i => i.name === k );
         if ( keyword === undefined ) {
-          console.warn(`Now keyword found for ${k}`);
+          console.warn(`No keyword found for ${k}!`);
         } else if ( keyword.effect ) {
           const keywordAbility = {
             name: keyword.effectLabel ? keyword.effectLabel : keyword.name,
-            effect: keyword.effect,
+            effect: keyword.effect, // Deprecated
+            snippet: keyword.effect,
             source: keyword.effectLabel ? `${keyword.name} Keyword` : `${keyword.type} Keyword`,
           };
           abilities.push(keywordAbility);
@@ -1122,22 +1233,34 @@
 
       // background abilities
       if (this.characterBackgroundKey) {
-        const background = this.backgroundRepository
+        this.backgroundRepository
         .filter((b) => b.key === this.characterBackgroundKey)
-        .map((b) => ({
-          name: b.name,
-          effect: b.bonus,
-          source: 'Background',
-        }));
-        abilities.push(background[0]);
+        .forEach((b) => {
+          const backgroundAbility = {
+            name: b.name,
+            effect: b.bonus, // Deprecated
+            snippet: b.bonus,
+            source: 'Background',
+          };
+          const backgroundEnhancements = this.enhancements.find( (e) => e.source.startsWith(`background.`));
+          if (backgroundEnhancements) {
+            backgroundAbility.selectedOption = {
+              name: backgroundEnhancements.targetValue,
+            }
+          }
+          abilities.push(backgroundAbility);
+        });
       }
 
       // other
       if (this.customAbilities) {
-        this.customAbilities.filter( (a) => a.source && !a.source.startsWith('species.') ).forEach((item) => {
+        this.customAbilities
+        .filter( (a) => a.source && !a.source.startsWith('species.') && !a.source.startsWith('ascension.') )
+        .forEach((item) => {
           const ability = {
             name: item.name,
             effect: item.effect,
+            snippet: item.effect,
           };
           abilities.push(ability);
         });
@@ -1233,13 +1356,6 @@
       return [...new Set(weaponsTraitSet)].sort();
     },
   },
-  head() {
-    return {
-      // title: [this.name, this.species, this.archetype].join(' • '),
-      title: this.characterName,
-      // titleTemplate: '%s | W&G Character Sheet',
-    };
-  },
   watch: {
     speciesKey: {
       handler(newVal) {
@@ -1253,6 +1369,14 @@
       handler(newVal) {
         if (newVal) {
           this.loadArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    characterAscensionPackages: {
+      handler(newVal) {
+        if (newVal && newVal !== 'unknown') {
+          this.getAscensionPackageList(newVal);
         }
       },
       immediate: true, // make this watch function is called when component created
@@ -1284,6 +1408,18 @@
         const { data } = await this.$axios.get(`/api/archetypes/${key}`);
         this.characterArchetype = data;
       }
+    },
+    async getAscensionPackageList(ascensionList) {
+
+      let packages = [];
+
+      if ( ascensionList.length > 0 ){
+        for (const ascension of ascensionList) {
+          const { data } = await this.$axios.get(`/api/ascension-packages/${ascension.key}`);
+          packages.push(data);
+        }
+      }
+      this.ascensionPackagesRepository = packages;
     },
     async getWargearList(sources) {
       const config = {
@@ -1338,10 +1474,11 @@
       computed = computed.replace(/(\d+ Faith)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ meters)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ metres)/g, '<strong>$1</strong>');
-      computed = computed.replace(/15 \+ Rank meters/g, `<strong data-hint="15 + Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15 \+ Rank meters/g, `<strong title="15 + Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15 \+ Rank metres/g, `<strong>${15 + rank} metres</strong>`);
-      computed = computed.replace(/\+½ Rank/g, `<strong data-hint="+½ Rank">+${Math.round(rank / 2)}</strong>`);
-      computed = computed.replace(/\+ ?Rank/g, `<strong data-hint="+ Rank">+${rank}</strong>`);
+      computed = computed.replace(/\+½ Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
+      computed = computed.replace(/\+1\/2 Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong title="+ Rank">+${rank}</strong>`);
 
       return computed;
     },

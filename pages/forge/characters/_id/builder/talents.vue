@@ -1,6 +1,16 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
+
     <v-row justify="center">
+
+      <v-col :cols="12">
+        <h1 class="headline">
+          Manage Talents
+        </h1>
+      </v-col>
+
+      <v-progress-circular v-if="!talentList && !wargearList" indeterminate color="success" size="128" width="12" />
+
       <v-col :cols="12">
         <v-expansion-panels multiple>
           <v-expansion-panel
@@ -21,7 +31,7 @@
                   </v-col>
 
                   <v-col v-if="!open" :cols="8" :sm="10" class="caption grey--text">
-                    {{ talent.effect }}
+                    {{ talent.snippet ? talent.snippet : talent.effect }}
                   </v-col>
                 </v-row>
               </template>
@@ -38,9 +48,7 @@
                 </v-chip>
               </div>
 
-              <p class="body-2">
-                {{ talent.description }}
-              </p>
+              <div class="body-2" v-html="talent.description"></div>
 
               <div v-if="talent.id === 15">
                 <v-select
@@ -140,6 +148,43 @@
         </v-expansion-panels>
       </v-col>
 
+      <v-col :cols="12" v-if="visibleTalentGroups.length > 1">
+        <h3>
+          Filter by Talent Group
+          <span>
+          <v-btn
+            icon
+            @click="talentGroupFilterHelp = !talentGroupFilterHelp"
+            :color="talentGroupFilterHelp ? 'info' : ''"
+          >
+            <v-icon>{{talentGroupFilterHelp ? 'help' : 'help_outline'}}</v-icon>
+          </v-btn>
+        </span>
+        </h3>
+        <div v-show="talentGroupFilterHelp">
+          <v-alert
+            v-for="group in talentGroupList" :key="group.key"
+            color="info"
+            dense text
+          >
+            <strong>{{group.name}}</strong>
+            <em class="caption"> • <abbr :title="group.source.book">{{ group.source.key }}</abbr> • pg. {{ group.source.page }}</em>
+            <div v-html="group.description" class="caption"></div>
+          </v-alert>
+        </div>
+        <v-chip
+          v-for="item in visibleTalentGroups"
+          :key="item.key"
+          :color="selectedTalentGroups.includes(item.name) ? 'green' : ''"
+          small
+          label
+          class="mr-2"
+          @click="toggleTalentGroupsFilter(item.name)"
+        >
+          {{ item.name }}
+        </v-chip>
+      </v-col>
+
       <v-col :cols="12">
         <v-card>
           <v-card-title>
@@ -147,7 +192,6 @@
               v-model="searchQuery"
               filled
               dense
-              clearable
               prepend-inner-icon="search"
               clearable
               label="Search"
@@ -169,6 +213,8 @@
             show-expand
             item-key="name"
             hide-default-footer
+            :loading="!talentList"
+            loading-text="Loading Talents... Please Wait"
             @page-count="pagination.pageCount = $event"
           >
             <template v-slot:no-data />
@@ -187,7 +233,8 @@
             </template>
 
             <template v-slot:item.prerequisites="{ item }">
-              <span v-html="prerequisitesToText(item).join(', ')" />
+              <span v-if="item.prerequisitesString">{{item.prerequisitesString}}</span>
+              <span v-else v-html="prerequisitesToText(item).join(', ')" />
             </template>
 
             <template v-slot:item.effect="{ item }">
@@ -207,9 +254,8 @@
 
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
-                <p class="pt-4">
-                  {{ item.description }}
-                </p>
+                <div class="pt-4 pb-2" v-html="item.description">
+                </div>
               </td>
             </template>
 
@@ -237,12 +283,23 @@ import WargearSelect from '~/components/forge/WargearSelect.vue';
 export default {
   name: 'Talents',
   layout: 'forge',
-  components: { WargearSelect, IssueList },
-  mixins: [KeywordRepositoryMixin, StatRepositoryMixin],
+  components: {
+    WargearSelect,
+    IssueList,
+  },
+  mixins: [
+    KeywordRepositoryMixin,
+    StatRepositoryMixin,
+  ],
   props: [],
   head() {
     return {
       title: 'Select Talents',
+    };
+  },
+  async asyncData({ params, error }) {
+    return {
+      characterId: params.id,
     };
   },
   data() {
@@ -291,9 +348,65 @@ export default {
         },
       ],
       talentDialog: false,
+      talentList: undefined,
+      wargearList: undefined,
+      loading: false,
+      talentGroupFilterHelp: false,
+      selectedTalentGroups: ['Talents'],
+      // Exarch Powers, Priest Prayers & Litanies, Chaos Rituals, ...
+      talentGroupList: [
+        {
+          source: {
+            book: 'Core Rules',
+            key: 'core',
+            page: 169,
+          },
+          key: 'core-talents',
+          name: 'Talents',
+          description:
+            '<p>Talents represent a knack that a character possesses. Many grant characters a ' +
+            'special ability, which others cannot undertake. Other talents provide situational ' +
+            'benefits to a character. Each talent has an associated build point cost, and may have ' +
+            'prerequisite attributes, keywords, skills, or species. Players are not required to ' +
+            'select any talents for their characters. The maximum number of talents that may be ' +
+            'purchased is limited by Tier.</p>',
+        },
+        /*
+        {
+          source: {
+            book: 'An Abundance of Apocrypha',
+            key: 'aaoa',
+            page: 147,
+          },
+          key: 'aaoa-exarch-powers',
+          name: 'Exarch Powers',
+          description:
+            '<p>The following abilities are unique powers and combat techniques exhibited by Exarchs, ' +
+            'mighty Aeldari warriors who lead the Aspect Warrior shrines into battle and maintain ' +
+            'those shrines during the all-too-rare times of peace.</p>' +
+            '<p>An Exarch may <strong>purchase up to two of these powers</strong>, at the costs ' +
+            'listed, so long as the Exarch meets the listed prerequisites. Some of the powers in ' +
+            'this section are distinct to Exarchs of particular Aspect Temples, and they may only ' +
+            'be selected by an Exarch of that temple.</p>' +
+            '<p>Many of the powers in this section affect the Exarch’s students as well, granting a ' +
+            'benefit to the Aspect Warriors under their command. An Exarch may <strong>consider all Aspect ' +
+            'Warriors of the same type as the Exarch within 10m as being part of the Exarch’s squad.</strong></p>',
+        },
+        */
+      ],
     };
   },
   computed: {
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
     effectiveCharacterTier() {
       return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
     },
@@ -314,10 +427,20 @@ export default {
     },
     characterTalentsEnriched() {
       // { id, name, cost, selection}
+      if (this.talentList === undefined) {
+        return [];
+      }
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
 
       return characterTalents.map((talent) => {
-        const enrichedTalent = this.talentRepository.find((r) => r.name === talent.name);
+        const enrichedTalent = this.talentList.find((r) => r.name === talent.name);
+
+        if (enrichedTalent === undefined) {
+          return {
+            name: talent.name,
+            cost: 0,
+          }
+        }
 
         // for each special talent, check respectively
         if (talent.selected) {
@@ -347,11 +470,17 @@ export default {
       }).sort((a, b) => a.name.localeCompare(b.name));
     },
     filteredTalents() {
-      if (this.talentRepository === undefined) {
+      if (this.talentList === undefined) {
         return [];
       }
 
-      let filteredTalents = this.talentRepository;
+      let filteredTalents = this.talentList;
+
+      if (this.selectedTalentGroups.length > 0) {
+        filteredTalents = filteredTalents.filter((t) => {
+          return this.selectedTalentGroups.includes(t.talentGroup) || (t.talentGroup === undefined && this.selectedTalentGroups.includes('Talents'))
+        });
+      }
 
       // exclude those already picked
       filteredTalents = filteredTalents.filter((t) => !this.characterTalentLabels.includes(t.name));
@@ -440,25 +569,46 @@ export default {
     talentTrademarkWeaponOptions() {
       const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
       const wargear = [];
-      wargearLabels.sort().forEach((wargearName) => {
-        const foundGear = this.wargearRepository.find((w) => w.name === wargearName);
-        if (foundGear && ['Melee Weapon', 'Ranged Weapon'].includes(foundGear.type)) {
-          wargear.push(foundGear);
-        }
-      });
+      if (this.wargearList) {
+        wargearLabels.sort().forEach((wargearName) => {
+          const foundGear = this.wargearList.find((w) => w.name === wargearName);
+          if (foundGear && ['Melee Weapon', 'Ranged Weapon'].includes(foundGear.type)) {
+            wargear.push(foundGear);
+          }
+        });
+      }
       return wargear;
     },
+    visibleTalentGroups() {
+      return this.talentGroupList.filter((t) => this.sources.includes(t.source.key));
+    }
   },
-  async asyncData({ params, $axios, error }) {
-    const talentResponse = await $axios.get('/api/talents/');
-    const wargeaResponse = await $axios.get('/api/wargear/?source=core');
-    return {
-      talentRepository: talentResponse.data,
-      wargearRepository: wargeaResponse.data,
-      characterId: params.id,
-    };
+  watch: {
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getTalents(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   methods: {
+    async getTalents(sources) {
+      this.loading = true;
+      const config = {
+        params: { source: this.sources.join(','), },
+      };
+      {
+        const { data } = await this.$axios.get('/api/talents/', config);
+        this.talentList = data;
+      }
+      {
+        const { data } = await this.$axios.get('/api/wargear/', config);
+        this.wargearList = data;
+      }
+      this.loading = false;
+    },
     dynamicSort(property) {
       let sortOrder = 1;
       if (property[0] === '-') {
@@ -560,7 +710,7 @@ export default {
       this.$store.commit('characters/setCharacterTalentExtraCost', talentPayload);
     },
     talentSpecialWeaponTrooperUpdateWeaponChoiceLabel(wargearName, itemKey, talent) {
-      const wargear = this.wargearRepository.find((gear) => gear.name === wargearName);
+      const wargear = this.wargearList.find((gear) => gear.name === wargearName);
       this.talentSpecialWeaponTrooperUpdateWeaponChoice(wargear, itemKey, talent);
     },
     talentSpecialWeaponTrooperUpdateWeaponChoice(wargear, itemKey, talent) {
@@ -581,6 +731,13 @@ export default {
         extraCost: wargear.value,
       };
       this.$store.commit('characters/setCharacterTalentExtraCost', talentPayload);
+    },
+    toggleTalentGroupsFilter(name) {
+      if (this.selectedTalentGroups.includes(name)) {
+        this.selectedTalentGroups = this.selectedTalentGroups.filter((d) => d !== name);
+      } else {
+        this.selectedTalentGroups.push(name);
+      }
     },
   },
 };

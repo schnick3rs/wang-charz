@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 5;
+const BUILDER_VERSION = 6;
 
 export const state = () => ({
   list: [],
@@ -427,13 +427,11 @@ export const mutations = {
     const character = state.characters[payload.id];
     const { modifications } = payload.content;
     const source = payload.content.source || undefined;
-    console.info(payload);
-
-    console.info(`Enhance/Modify: Adding ${modifications.targetValue} by '${source}'`);
 
     modifications.forEach((item) => {
       item.source = source;
       character.enhancements.push(item);
+      console.info(`Enhance/Modify: Adding ${item.targetValue} by '${source}'`);
     });
   },
   clearCharacterEnhancementsBySource(state, payload) {
@@ -572,27 +570,25 @@ export const mutations = {
   },
   setCharacterAscensionPackageWargearOption(state, payload) {
     const character = state.characters[payload.id];
-    console.info(`Set Ascension WargearOption to ${payload.ascensionPackageWargearOptionKey}`);
+    console.info(`Set Ascension WargearOption to ${payload.ascensionPackageFeatureOptionChoiceKey}`);
     // find package by payload.ascensionPackageKey and payload.ascensionPackage
     const index = character.ascensionPackages.findIndex((a) => (
       a.key === payload.ascensionPackageKey
       && a.targetTier === payload.ascensionPackageTargetTier
     ));
     if (index >= 0) {
-      character.ascensionPackages[index].wargearChoice = payload.ascensionPackageWargearOptionKey;
+      if ( character.ascensionPackages[index].featureChoices === undefined )
+      character.ascensionPackages[index] = {
+        ...character.ascensionPackages[index],
+        featureChoices: {},
+      };
+      character.ascensionPackages[index].featureChoices[payload.ascensionPackageFeatureName] = payload.ascensionPackageFeatureOptionChoiceKey;
     }
   },
-  removeCharacterAscensionPackage(state, payload) {
-    const character = state.characters[payload.id];
-    // remove the package from the ascension stacks
-    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== payload.value));
-
-    // remove all enhancements that are related to the package
-    character.enhancements = character.enhancements.filter((e) => e.source === undefined || !e.source.startsWith(`ascension.${payload.key}`));
-
-    character.keywords = character.keywords.filter((k) => k.source !== `ascension.${payload.key}`);
-
-    // ToDo: remove all wargear that is related to the package
+  clearCharacterAscensionPackage(state, payload) {
+    const { id, value } = payload;
+    const character = state.characters[id];
+    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== value));
   },
 
   // Background
@@ -704,6 +700,22 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 5:
+        console.debug(`v5 -> v6 : Improved Ascension, purging all ascension asociated...`);
+        console.debug('Purge > Enhancements ...');
+        character.enhancements = character.enhancements.filter((e) => !e.source.startsWith('ascension.'));
+        console.debug('Purge > Keywords ...');
+        character.keywords = character.keywords.filter((e) => !e.source.startsWith('ascension.'));
+        console.debug('Purge > Wargear ...');
+        character.wargear = character.wargear.filter((e) => !e.source.startsWith('ascension.'));
+        console.debug('Purge > Psychic Powers ...');
+        character.psychicPowers = character.psychicPowers.filter((e) => e.source === undefined || !e.source.startsWith('ascension.'));
+        console.debug('Purge > Ascensions ...');
+        character.ascensionPackages = [];
+        character.version = 6;
+        console.info(`Character migrated to v6.`);
+        break;
+
       case 4:
         console.debug(`v4 -> v5 : Adding custom skill handling.`);
         const customSkills = {
@@ -716,6 +728,7 @@ export const mutations = {
         };
         console.info(`Character migrated to v5.`);
         break;
+
       case 3:
         console.debug(`v3 -> v4 : Adding resources, defiance and objective basics, set defaults.`);
         const newPart = {
@@ -806,6 +819,30 @@ export const mutations = {
 };
 
 export const actions = {
+
+  clearCharacterAscensionPackage({ commit, state }, payload) {
+    const { id, value, key } = payload;
+
+    console.info(`Ascension [${value}] : Purge > START`);
+
+    console.info(`Ascension [${value}] : Purge > Enhancements`);
+    commit('clearCharacterEnhancementsBySource', { id, source: `ascension.${key}` });
+
+    console.info(`Ascension [${value}] : Purge > Keywords`);
+    commit('clearCharacterKeywordsBySource', { id, source: `ascension.${key}`, cascade: true });
+
+    console.info(`Ascension [${value}] : Purge > Psychic Powers`);
+    commit('clearCharacterPsychicPowersBySource', { id, source: `ascension.${key}` });
+
+    console.info(`Ascension [${value}] : Purge > Wargear`);
+    commit('removeCharacterWargearBySource', { id, source: `ascension.${key}` });
+
+    console.info(`Ascension [${value}] : Purge > Package`);
+    commit('clearCharacterAscensionPackage', { id, value });
+
+    console.info(`Ascension [${value}] : Purge > DONE`);
+  },
+
   /**
    * migrate the character object to a newer version
    * @param context
@@ -842,7 +879,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 5,
+  version: 6,
   setting: undefined,
   settingSelected: true,
   settingTier: 3,

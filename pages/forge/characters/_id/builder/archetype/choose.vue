@@ -4,6 +4,7 @@
       v-model="previewDialog"
       width="600px"
       scrollable
+      :fullscreen="$vuetify.breakpoint.xsOnly"
     >
       <archetype-preview
         v-if="previewItem"
@@ -270,7 +271,7 @@ export default {
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype', cascade: true });
       // keywords = String[]
       if (item.keywords) {
-        const itemKeywords = item.keywords.split(',');
+        const itemKeywords = item.keywords.split(',').map((i) => i.trim());
         itemKeywords.forEach((keyword) => {
           const payload = {
             name: keyword,
