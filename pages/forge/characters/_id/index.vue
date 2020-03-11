@@ -444,15 +444,19 @@
 
                   <!-- archetype < abilities -->
                   <div v-show="['all', 'archetype'].some(i=>i===abilitySection.selection)">
+
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Archetype</span>
                     </div>
+
                     <div v-for="ability in archetypeAbilities" :key="ability.name" class="caption">
                       <strong>{{ ability.name }}</strong>
                       <em v-if="ability.source"> • {{ ability.source }}</em>
+
                       <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
                     </div>
+
                   </div>
 
                   <!-- Ascensions < abilities (Background, Other) -->
@@ -780,6 +784,11 @@ export default {
     KeywordRepository,
   ],
   props: [],
+  head() {
+    return {
+      title: this.characterName,
+    };
+  },
   async asyncData({ params, $axios }) {
 
     const talentResponse = await $axios.get('/api/talents/');
@@ -1149,8 +1158,8 @@ export default {
             effect: item.snippet ? item.snippet : item.description,
             snippet: item.snippet,
             description: item.description,
-            source: archetype.label,
-            hint: archetype.label,
+            source: archetype.name,
+            hint: archetype.name,
           };
           abilities.push(ability);
         });
@@ -1346,13 +1355,6 @@ export default {
       weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
       return [...new Set(weaponsTraitSet)].sort();
     },
-  },
-  head() {
-    return {
-      // title: [this.name, this.species, this.archetype].join(' • '),
-      title: this.characterName,
-      // titleTemplate: '%s | W&G Character Sheet',
-    };
   },
   watch: {
     speciesKey: {

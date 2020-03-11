@@ -385,12 +385,22 @@
                   </v-toolbar>
 
                   <v-card-text class="pa-0 pl-1 pr-1">
-                    <div v-for="ability in abilities" :key="ability.name" class="mb-3 caption">
+
+                    <div v-for="ability in abilities" :key="ability.name" class="caption pb-3">
+
                       <strong>{{ ability.name }}</strong>
                       <em v-if="ability.source">  • {{ ability.source }}</em>
-                      <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
+
+                      <div v-if="ability.snippet"><span v-html="computeFormatedText(ability.snippet)"></span></div>
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
+
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
+                        <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
+                        <span v-if="ability.selectedOption.snippet">{{ability.selectedOption.snippet}}</span>
+                      </div>
+
                     </div>
+
                   </v-card-text>
 
                 </v-card>
@@ -462,12 +472,12 @@
 </template>
 
 <script lang="js">
-import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
-import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
-import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+  import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+  import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
-export default {
+  export default {
   name: 'Print',
   layout: 'print',
   components: {},
@@ -478,6 +488,26 @@ export default {
     WargearTraitRepositoryMixin,
   ],
   props: [],
+  head() {
+    return {
+      title: this.characterName,
+    };
+  },
+  async asyncData({ params, $axios }) {
+
+    const talentResponse = await $axios.get('/api/talents/');
+    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
+    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
+    const chaptersResponse = await $axios.get('/api/species/chapters/');
+
+    return {
+      characterId: params.id,
+      astartesChapterRepository: chaptersResponse.data,
+      psychicPowersRepository: psychicPowersResponse.data,
+      objectiveRepository: objectiveResponse.data,
+      talentRepository: talentResponse.data,
+    };
+  },
   data() {
     return {
       attributeHeaders: [
@@ -516,9 +546,21 @@ export default {
       //
       characterSpecies: undefined,
       characterArchetype: undefined,
+      ascensionPackagesRepository: undefined,
+      wargearRepository: undefined,
     };
   },
   computed: {
+    sources() {
+      return [
+        'core',
+        'coreab',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
     characterName() {
       return this.$store.getters['characters/characterNameById'](this.characterId);
     },
@@ -548,6 +590,9 @@ export default {
     },
     characterBackgroundKey() {
       return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
+    },
+    characterAscensionPackages() {
+      return this.$store.getters['characters/characterAscensionPackagesById'](this.characterId);
     },
 
     keywords() {
@@ -658,6 +703,7 @@ export default {
                 ability['selectedOption'] = {
                   name: traitSelection.name,
                   effect: traitSelection.effect,
+                  snippet: traitSelection.effect,
                 };
               }
             }
@@ -679,8 +725,8 @@ export default {
             effect: item.snippet ? item.snippet : item.description,
             snippet: item.snippet,
             description: item.description,
-            source: archetype.label,
-            hint: archetype.label,
+            source: archetype.name,
+            hint: archetype.name,
           };
           abilities.push(ability);
         });
@@ -790,13 +836,12 @@ export default {
       return abilities;
     },
     abilities() {
-      const abilities = [
+      return [
         ...this.speciesAbilities,
         ...this.archetypeAbilities,
+        ...this.ascensionAbilities,
         ...this.otherAbilities
       ];
-
-      return abilities;
     },
 
     customAbilities() {
@@ -819,14 +864,18 @@ export default {
     wargear() {
       const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
       const wargear = [];
-      chargear.forEach((gear) => {
-        const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
-        if (foundGear) {
-          wargear.push({ ...foundGear, variant: gear.variant });
-        } else {
-          wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
-        }
-      });
+      if(this.wargearRepository) {
+        chargear.forEach((gear) => {
+          const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name,
+            'en',
+            { sensitivity: 'accent' }) === 0);
+          if (foundGear) {
+            wargear.push({ ...foundGear, variant: gear.variant });
+          } else {
+            wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
+          }
+        });
+      }
       return wargear;
     },
     weapons() {
@@ -870,30 +919,6 @@ export default {
       return [...new Set(weaponsTraitSet)].sort();
     },
   },
-  async asyncData({ params, $axios }) {
-    const sourceFilter = '?source=core,coreab';
-    const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/');
-    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
-    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
-    const chaptersResponse = await $axios.get('/api/species/chapters/');
-
-    return {
-      characterId: params.id,
-      astartesChapterRepository: chaptersResponse.data,
-      objectiveRepository: objectiveResponse.data,
-      psychicPowersRepository: psychicPowersResponse.data,
-      talentRepository: talentResponse.data,
-      wargearRepository: wargearResponse.data,
-    };
-  },
-  head() {
-    return {
-      // title: [this.name, this.species, this.archetype].join(' • '),
-      title: this.characterName,
-      // titleTemplate: '%s | W&G Character Sheet',
-    };
-  },
   watch: {
     speciesKey: {
       handler(newVal) {
@@ -907,6 +932,22 @@ export default {
       handler(newVal) {
         if (newVal) {
           this.loadArchetype(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    characterAscensionPackages: {
+      handler(newVal) {
+        if (newVal && newVal !== 'unknown') {
+          this.getAscensionPackageList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getWargearList(newVal);
         }
       },
       immediate: true, // make this watch function is called when component created
@@ -929,6 +970,28 @@ export default {
         const { data } = await this.$axios.get(`/api/archetypes/${key}`);
         this.characterArchetype = data;
       }
+    },
+    async getAscensionPackageList(ascensionList) {
+
+      let packages = [];
+
+      if ( ascensionList.length > 0 ){
+        for (const ascension of ascensionList) {
+          const { data } = await this.$axios.get(`/api/ascension-packages/${ascension.key}`);
+          packages.push(data);
+        }
+      }
+      this.ascensionPackagesRepository = packages;
+    },
+    async getWargearList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/wargear/', config);
+      //this.wargearRepository = data.filter((i) => i.stub === undefined || i.stub === false);
+      this.wargearRepository = data;
     },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
