@@ -198,7 +198,7 @@ export default {
         const modificationPayload = {
           targetGroup: 'traits',
           targetValue: 'influence',
-          modifier: ascensionPackage.influenceBonus,
+          modifier: ascensionPackage.influenceBonus + influenceModifier,
         };
         const content = { modifications: [modificationPayload], source: `ascension.${ascensionPackage.key}.influence`, };
         this.$store.commit('characters/setCharacterModifications', { id, content });
