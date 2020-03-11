@@ -3,7 +3,7 @@
 
     <v-row justify="center">
 
-      <v-col>
+      <v-col :cols="12">
         <h1 class="headline">
           Manage Talents
         </h1>

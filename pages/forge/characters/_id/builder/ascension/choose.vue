@@ -155,8 +155,7 @@ export default {
         },
       };
       const { data } = await this.$axios.get('/api/ascension-packages/', config);
-
-      this.ascensionPackagesList = data;
+      this.ascensionPackagesList = data.filter((item) => item.stub === undefined || item.stub === false);
     },
     openDialog(item) {
       this.selectedPreview = item;
