@@ -321,14 +321,6 @@ export default {
       ],
       settingHomebrewOptions: [
         {
-          active: false,
-          key: 'aotgt',
-          name: '\'Agents of the Golden Throne\' content (Fan supplement)',
-          enabled: false,
-          nuxt: '/vault/agents-of-the-golden-throne',
-          source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
-        },
-        {
           active: true,
           key: 'custom',
           name: '\'Your own Custom\' content',
@@ -336,6 +328,15 @@ export default {
           enabled: true,
           nuxt: '',
           source: '',
+        },
+        {
+          active: true,
+          key: 'aotgt',
+          name: '\'Agents of the Golden Throne\' content',
+          hint: 'Add a Tier 4 Ascension',
+          enabled: true,
+          nuxt: '/vault/agents-of-the-golden-throne',
+          source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
         },
         {
           active: true,
