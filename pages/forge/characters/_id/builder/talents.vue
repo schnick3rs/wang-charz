@@ -104,8 +104,9 @@
 
               <div v-if="talent.id === 83">
                 <wargear-select
+                  v-if="wargearList"
                   :item="talent.selected"
-                  :repository="wargearRepository.filter( gear => {
+                  :repository="wargearList.filter( gear => {
                     const typeReq = ['Cybernetic'].includes(gear.type);
                     return (typeReq);
                   })"
@@ -120,8 +121,9 @@
 
               <div v-if="false">
                 <wargear-select
+                  v-if="wargearList"
                   :item="talent.selected"
-                  :repository="wargearRepository.filter( gear => {
+                  :repository="wargearList.filter( gear => {
                     const typeReq = ['Cybernetic'].includes(gear.type);
                     const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(gear.rarity);
                     return (typeReq && rarityReq);
@@ -133,8 +135,9 @@
 
               <div v-if="talent.id === 36">
                 <v-select
+                  v-if="wargearList"
                   :value="talent.selected"
-                  :items="wargearRepository.filter( gear => ['Combat Shotgun','Flamer','Hot-Shot Lasgun','Meltagun','Plasma Gun','Voss Pattern Grenade Launcher', 'Astartes Sniper Rifle'].includes(gear.name) )"
+                  :items="wargearList.filter( gear => ['Combat Shotgun','Flamer','Hot-Shot Lasgun','Meltagun','Plasma Gun','Voss Pattern Grenade Launcher', 'Astartes Sniper Rifle'].includes(gear.name) )"
                   item-text="name"
                   item-value="name"
                   label="Select a Special Weapon to make YOU special"
