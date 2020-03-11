@@ -78,7 +78,7 @@
 
     <v-card-actions v-if="chooseMode">
 
-      <v-row justify="center" no-gutters>
+      <v-row v-if="!alertText" justify="center" no-gutters>
         <v-col :cols="2">
           <v-select
             :items="[currentCharacterTier]"
@@ -107,6 +107,11 @@
           />
         </v-col>
       </v-row>
+
+      <v-alert dense text type="warning" class="caption" style="width: 100%" v-if="alertText">
+        {{alertText}}
+      </v-alert>
+
     </v-card-actions>
 
     <v-card-actions v-if="chooseMode">
@@ -114,7 +119,7 @@
         Cancel
       </v-btn>
       <v-spacer />
-      <v-btn right color="green" @click="$emit('select', item, targetTier)" :disabled="!hasValidTierPrerequisites">
+      <v-btn right color="green" @click="$emit('select', item, targetTier)" :disabled="alertText">
         Select Package
       </v-btn>
     </v-card-actions>
@@ -152,6 +157,15 @@ export default {
     };
   },
   computed: {
+    alertText() {
+      if (this.item.minimumCampaignTier > this.maxTargetTier) {
+        return `The Campaign tier [${this.maxTargetTier}] does not meet the Ascensions prerequisites minimum tier [${this.item.minimumCampaignTier}]+`;
+      }
+      if (this.currentCharacterTier >= this.maxTargetTier) {
+        return `Your character tier [${this.currentCharacterTier}] already matches the campaign tier [${this.maxTargetTier}]`;
+      }
+      return false;
+    },
     hasValidTierPrerequisites() {
       return this.item.minimumCampaignTier <= this.maxTargetTier;
     },
