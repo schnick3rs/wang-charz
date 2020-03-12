@@ -32,7 +32,8 @@
       <p class="text-lg-justify">
         <strong>Build Point Cost:</strong>
         <span v-if="item.costPerTier > 0">(New Tier x {{ item.costPerTier }})</span>
-        <span v-if="item.cost > 0">+ {{item.cost}}</span>
+        <span v-if="item.costPerTier > 0 && item.cost > 0">+</span>
+        <span v-if="item.cost > 0">{{item.cost}}</span>
       </p>
 
       <span class="mt-2 grey--text">Prerequisites</span>
@@ -62,7 +63,10 @@
       </p>
 
       <p class="text-lg-justify">
-        <strong>Influence Bonus:</strong> {{ item.influencePerTier }} per Tier ascended
+        <strong>Influence Bonus:</strong>
+        <span v-if="item.influenceBonus > 0">{{item.influenceBonus}}</span>
+        <span v-if="item.influenceBonus > 0 && item.influencePerTier > 0">+</span>
+        <span v-if="item.influencePerTier > 0">{{ item.influencePerTier }} per Tier ascended</span>
       </p>
 
       <p class="text-lg-justify">
