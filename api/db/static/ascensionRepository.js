@@ -426,6 +426,7 @@ const aaoa = [
     ...simpleStub('aaoa', 79, 'Betrayal', 'Missing the Chaos keyword? Wait no more! Also; Corruption...',false),
     description:
       '<p>You have seen that the Emperor is a False God, and you have forsaken the Imperium for the Dark Gods.</p>',
+    alert: 'The Keyword replacement (e.g. from <code>Adeptus Astartes</code> to <code>Heretic Astartes</code>) is not implemented.',
     cost: 0,
     costPerTier: 10,
     minimumCampaignTier: 2,
@@ -562,7 +563,12 @@ const aaoa = [
         ky: 'story-element',
         name: 'Story Element',
         description:
-          '<p>Change your Species from Adeptus Astartes to Primaris Astartes, with all the accompanying benefits. The cost of this has already been accounted for in the cost of this ascension package.</p>',
+          '<p>Change your Species from Adeptus Astartes to Primaris Astartes, with all the accompanying benefits. The cost of this has already been accounted for in the cost of this ascension package.</p>' +
+          '<p>Your Strength is increased by 1 and Wounds your Wounds are increased by 4.</p>',
+        modifications: [
+          { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
+          { targetGroup: 'traits', targetValue: 'wounds', modifier: 4 },
+        ],
       },
       {
         ky: 'wargear',
