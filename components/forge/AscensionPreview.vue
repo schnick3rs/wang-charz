@@ -29,6 +29,8 @@
 
     <v-card-text class="pt-4">
 
+      <v-alert v-if="chooseMode && item.alert" type="info" text dense class="caption" v-html="item.alert"></v-alert>
+
       <p class="text-lg-justify">
         <strong>Build Point Cost:</strong>
         <span v-if="item.costPerTier > 0">(New Tier x {{ item.costPerTier }})</span>
@@ -64,9 +66,9 @@
 
       <p class="text-lg-justify">
         <strong>Influence Bonus:</strong>
-        <span v-if="item.influenceBonus > 0">{{item.influenceBonus}}</span>
-        <span v-if="item.influenceBonus > 0 && item.influencePerTier > 0">+</span>
-        <span v-if="item.influencePerTier > 0">{{ item.influencePerTier }} per Tier ascended</span>
+        <span v-if="item.influenceBonus != 0">{{item.influenceBonus}}</span>
+        <span v-if="item.influenceBonus != 0 && item.influencePerTier != 0">+</span>
+        <span v-if="item.influencePerTier != 0">{{ item.influencePerTier }} per Tier ascended</span>
       </p>
 
       <p class="text-lg-justify">

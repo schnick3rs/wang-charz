@@ -968,6 +968,7 @@ const aotgt = [
     description: '<p>Many worshippers of the Gods were once loyal servants of the Imperium, and Chaos can corrupt anyone and anything. This ascension package does not require one to ascend a er, though you may if you wish, it merely represents an existing character joining the powers of Chaos, which may be done either mid-campaign or be part of the backstory of an existing character. This would be the foundation for an Inquisitor whose radical nature became too much for his superiors to bear, or a loyal commissar forcibly broken through torture and brainwashing. There are as many reasons for one to choose to join Chaos as there are worshippers of the Dark Gods.</p>',
     cost: 0,
     costPerTier: 15,
+    alert: 'The Influence Bonus from the Homebrew is <code>Replace archetype bonus with Tier</code>. This is not easy to implement. Therefore,  I changed it to <code>+1 per Tier ascended -1</code>. I think this is near enough as the default for archetypes seems to be <em>their tier -1</em>.',
     // Prerequisites
     minimumCampaignTier: 4,
     prerequisites: [
@@ -979,7 +980,7 @@ const aotgt = [
       'Imperium Keyword',
     ],
     // Benefits
-    influenceBonus: 0, // workaround
+    influenceBonus: -1, // workaround
     influencePerTier: 1,
     keywordString: 'Inquisition and <Ordo>',
     storyElementString: 'Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword. ' +
