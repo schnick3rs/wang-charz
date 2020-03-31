@@ -235,9 +235,8 @@
               </v-chip>
             </template>
 
-            <template v-slot:item.prerequisites="{ item }">
-              <span v-if="item.prerequisitesString">{{item.prerequisitesString}}</span>
-              <span v-else v-html="prerequisitesToText(item).join(', ')" />
+            <template v-slot:item.prerequisitesHtml="{ item }">
+              <span v-html="item.prerequisitesHtml" />
             </template>
 
             <template v-slot:item.effect="{ item }">
@@ -335,7 +334,7 @@ export default {
         },
         {
           text: 'Prerequisites',
-          value: 'prerequisites',
+          value: 'prerequisitesHtml',
           sortable: false,
         },
         {
@@ -604,7 +603,13 @@ export default {
       };
       {
         const { data } = await this.$axios.get('/api/talents/', config);
-        this.talentList = data;
+        this.talentList = data.map(talent => {
+          const prerequisitesHtml = this.prerequisitesToText(talent).join(', ');
+          return {
+            ...talent,
+            prerequisitesHtml,
+          }
+        });
       }
       {
         const { data } = await this.$axios.get('/api/wargear/', config);
@@ -652,7 +657,7 @@ export default {
     prerequisitesToText(item) {
       const texts = [];
 
-      if (item.prerequisites.length <= 0) {
+      if (item.prerequisites === undefined || item.prerequisites.length <= 0) {
         return ['None'];
       }
 
