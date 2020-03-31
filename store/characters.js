@@ -360,6 +360,11 @@ export const mutations = {
   setCharacterArchetype(state, payload) {
     state.characters[payload.id].archetype = payload.archetype;
   },
+  resetCharacterStats(state, payload) {
+    const character = state.characters[payload.id];
+    Object.keys(character.attributes).forEach((key, index) => { character.attributes[key] = 1; });
+    Object.keys(character.skills).forEach((key, index) => { character.skills[key] = 0; });
+  },
   setCharacterSkill(state, payload) {
     state.characters[payload.id].skills[payload.payload.key] = payload.payload.value;
   },

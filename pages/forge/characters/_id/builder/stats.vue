@@ -9,6 +9,7 @@
           <v-btn color="warning" v-else @click="showAlerts = !showAlerts" outlined small>
             <v-icon small left>error_outline</v-icon>show {{alerts.length}} warning{{ alerts.length > 1 ? 's' : '' }}
           </v-btn>
+          <v-btn color="primary" @click="resetStats" outlined small>reset Stats</v-btn>
         </span>
       </h1>
     </v-col>
@@ -286,6 +287,9 @@ export default {
       const { data } = await this.$axios.get(`/api/archetypes/${key}`);
       this.loading = false;
       this.archetype = data;
+    },
+    resetStats() {
+      this.$store.commit('characters/resetCharacterStats', { id: this.characterId });
     },
     incrementSkill(skill) {
       const newValue = this.characterSkills[skill] + 1;
