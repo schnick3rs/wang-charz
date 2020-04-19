@@ -28,7 +28,7 @@
       >
         {{ alert.text }}
         <v-btn v-if="alert.key === 'prerequisites'" color="primary" @click="ensurePrerequisites" small>
-          Increase stats to meet prerequisites.
+          Increase stats to fit the archetype.
           <v-icon right small>
             library_add
           </v-icon>
@@ -159,7 +159,7 @@ export default {
         alerts.push({
           key: 'prerequisites',
           type: 'warning',
-          text: 'Archetype prerequisites unfulfilled. Increase your attributes and skills accordingly.',
+          text: 'Your attributes are lower than the picked archetype `demands`.',
         });
       }
 
@@ -169,16 +169,6 @@ export default {
           key: 'tree',
           type: 'warning',
           text: 'Tree of Learning violated. You must have at least as many skills learned as your highest skill value.',
-        });
-      }
-
-      // bp for attributes valid?
-      const attributeBpSpendLimitValid = this.characterAttributeCosts <= this.maximumBuildPointsForAttributes;
-      if (!attributeBpSpendLimitValid) {
-        alerts.push({
-          key: 'attributeSpending',
-          type: 'warning',
-          text: `Maximum allowed BP spending violated. You spend ${this.characterAttributeCosts} BP but you may only spend ${this.maximumBuildPointsForAttributes} BP for Tier ${this.settingTier}.`,
         });
       }
 

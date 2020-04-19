@@ -140,7 +140,7 @@
                 <tr v-for="item in groupedTraits">
                   <td class="text-left pa-1 small">
                     <span>{{ item.name }}</span>
-                    <div v-if="['Wealth','Shock','Wounds'].includes(item.name)" style="float: right;">
+                    <div v-if="['Wealth','Max Shock','Max Wounds'].includes(item.name)" style="float: right;">
                       <div style="flex-wrap: wrap; display: flex;" v-if="item.enhancedValue > 0">
                           <div
                             v-for="pointIndex in item.enhancedValue"
@@ -1040,7 +1040,7 @@ export default {
       });
 
       finalTraits
-      .filter((t)=>['wounds', 'shock', 'wealth'].includes(t.key))
+      .filter((t)=>['maWounds', 'maxShock', 'wealth'].includes(t.key))
       .forEach((t)=>{
         t.spend = this.$store.getters['characters/characterResourceSpendById'](this.characterId, t.key);
       });
@@ -1474,11 +1474,10 @@ export default {
       computed = computed.replace(/(\d+ Faith)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ meters)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ metres)/g, '<strong>$1</strong>');
-      computed = computed.replace(/15 \+ Rank meters/g, `<strong title="15 + Rank meters">${15 + rank} meters</strong>`);
-      computed = computed.replace(/15 \+ Rank metres/g, `<strong>${15 + rank} metres</strong>`);
-      computed = computed.replace(/\+½ Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
-      computed = computed.replace(/\+1\/2 Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
-      computed = computed.replace(/\+ ?Rank/g, `<strong title="+ Rank">+${rank}</strong>`);
+      computed = computed.replace(/15 \+ ?Rank metres/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15 \+ ?Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong title="+Rank">+${rank}</strong>`);
+      computed = computed.replace(/\+ ?Double Rank/g, `<strong title="+Double Rank">+${2*rank}</strong>`);
 
       return computed;
     },

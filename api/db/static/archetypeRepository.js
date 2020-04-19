@@ -2,8 +2,7 @@
 // Astra Militarum
 
 const source = {
-  core: { book: 'Core Rules', key: 'core', version: 'v1' },
-  coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
+  core: { book: 'Core Rules', key: 'core', version: 'v2' },
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
@@ -32,6 +31,53 @@ const stringToKebabToCamel = function (text) {
   const slug = stringToKebab(text);
   return kebabToCamel(slug);
 };
+
+const cost = function (totalCost, rawCost, attributes = 0, species = 0) {
+  return {
+    cost: totalCost,
+    displayedCost: totalCost,
+    rawCost,
+  };
+}
+
+// ...archetype('core',99,'Adepta Sororitas','Sister of Battle',2,'Human',94),
+const archetype = function (sourceKey, sourcePage, faction, name, tier, species, stub = false) {
+
+  let speciesSourceKey = 'core';
+  let speciesName = 'Human';
+  let split = [];
+  split = species.split('/');
+  if ( split.length === 2) {
+    speciesSourceKey = split[0];
+    speciesName = split[1];
+  } else {
+    split = species.split('-');
+    if ( split.length >= 2 ){
+      speciesSourceKey = split[0];
+      speciesName = split.splice(1).map((i)=>i.charAt(0).toUpperCase() + i.slice(1)).join(' ');
+    } else {
+      speciesName = species;
+    }
+  }
+  const speciesLabel = `${speciesName} (${speciesSourceKey.toLowerCase()})`;
+  const speciesKey = `${speciesSourceKey.toLowerCase()}-${stringToKebab(speciesName)}`;
+
+  return {
+    source: {
+      ...source[sourceKey],
+      page: sourcePage,
+    },
+    key: `${stringToKebab(`${sourceKey} ${name}`)}`,
+    name,
+    cost,
+    tier,
+    faction,
+    factionKey: `${stringToKebab(`core ${faction}`)}`,
+    species: [ speciesLabel ],
+    speciesKey: [ speciesKey ],
+    stub,
+  };
+}
 
 const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, tier, stub = true) {
   let speciesSourceKey = 'core';
@@ -105,40 +151,61 @@ const simpleAbility = function(name, snippet = undefined, description = undefine
   };
 };
 
+const suggestedAttributes = function(block) {
+  const splits = block.split('');
+  return [
+    { group: 'attributes', value: 'strength', threshold: splits[0] },
+    { group: 'attributes', value: 'toughness', threshold: splits[1] },
+    { group: 'attributes', value: 'agility', threshold: splits[2] },
+    { group: 'attributes', value: 'initiative', threshold: splits[3] },
+    { group: 'attributes', value: 'willpower', threshold: splits[4] },
+    { group: 'attributes', value: 'intellect', threshold: splits[5] },
+    { group: 'attributes', value: 'fellowship', threshold: splits[6] },
+  ]
+}
+
 const core = [
   // Adeptus Ministorum
   {
     source: { ...source.core },
     name: 'Ministorum Priest',
-    cost: 0,
+    cost: 0, // 12
     tier: 1,
     species: ['Human (core)'],
     speciesKey: ['core-human'],
-    influence: 1,
+    faction: 'Imperium',
+    subFaction: 'Adeptus Ministorum',
+    key: 'core-ministorum-priest',
     keywords: 'Imperium,Adeptus Ministorum',
+    influence: 0,
     archetypeFeatures: [
       {
         name: 'Fiery Invective',
-        snippet: 'Once per combat, the Ministorum priest may take '
-        + 'a free action to preach the Imperial Creed. The character and all his allies '
-        + 'with the Imperium Keyword within hearing range heal 1d3 + Rank Shock.',
+        snippet: 'You can preach the word of the Imperial Creed as a Free Action once per combat. You and all allies with the IMPERIUM heal 1d3+Rank Shock.',
       },
     ],
-    keywordOption: null,
     prerequisites: [
-      { group: 'attributes', value: 'willpower', threshold: 3 },
-      { group: 'skills', value: 'scholar', threshold: 1 },
+      reqAttribute('willpower', 3),
+      reqSkill('scholar', 1),
     ],
-    group: 'Adeptus Ministorum',
-    key: 'core-ministorum-priest',
     description: null,
     hint: 'A zealous preacher of the Imperial Creed.',
     wargear: [
+      { name: 'Chain Sword', variant: 'Chainsword' },
       { name: 'Laspistol' },
       { name: 'Rosarius' },
       { name: 'Knife' },
       { name: 'Clothing', variant: 'Ministorum robes' },
       { name: 'Missionary Kit' },
+    ],
+    suggestedStats: [
+      ...suggestedAttributes('1222323'),
+      reqSkill('awareness', 2),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('insight', 2),
+      reqSkill('intimidation', 2),
+      reqSkill('leadership', 2),
+      reqSkill('scholar', 2),
     ],
   },
   {
@@ -216,19 +283,19 @@ const core = [
     name: 'Sister Hospitaller',
     key: 'core-sister-hospitaller',
     hint: 'A pious healer dedicated to care of both body and soul.',
-    group: 'Adepta Sororitas',
-    cost: 0,
+    faction: 'Imperium',
+    subFaction: 'Adepta Sororitas',
+    cost: 0, // 24
     tier: 1,
     species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
-    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
-    keywordOption: '<Order>',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     archetypeFeatures: [
       {
         name: 'Loyal Compassion',
-        snippet: 'A Sister Hospitaller adds +Rank on Medicae tests when treating characters '
-        + 'with the Imperium Keyword',
+        snippet: 'Add +Double Rank bonus dice for Medicae (Int) Test on an IMPERIUM character.',
+        description: '<p>+Double Rank bonus dice whenever you make a Medicae (Int) Test on a character with the <strong>IMPERIUM</strong> Keyword</p>',
       },
     ],
     prerequisites: [
@@ -237,33 +304,28 @@ const core = [
       { group: 'skills', value: 'medicae', threshold: 1 },
       { group: 'skills', value: 'scholar', threshold: 1 },
     ],
-    description: null,
     wargear: [
       { name: 'Sororitas Powered Armour' },
       { name: 'Chirurgeon\'s Tools' },
+      { name: 'Chain Bayonet', variant: 'Chain Bayonet (wrist mounted)' },
       { name: 'Laspistol' },
       { name: 'Clothing', variant: 'Sororitas vestments' },
       { name: 'Copy of the Rule of the Sororitas' },
     ],
+    suggestedStats: [
+      ...suggestedAttributes('2222332'),
+      reqSkill('medicae', 2),
+      reqSkill('medicae', 3),
+      reqSkill('scholar', 2),
+      reqSkill('investigation', 2),
+    ],
   },
   {
-    source: { ...source.core },
-    name: 'Sister of Battle',
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    cost: 40,
-    tier: 2,
+    ...archetype('core',99,'Adepta Sororitas','Sister of Battle',2,'Human'),
+    ...cost(94,40,54,0),
+    hint: 'A determined warrior, filled with purity and faith.',
     influence: 1,
-    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
-    archetypeFeatures: [
-      {
-        name: 'Purity of Faith',
-        snippet: 'Sisters of Battle and any allies within 15 '
-        + 'meters and line of sight add +Rank to Corruption Tests. Sisters of Battle gain '
-        + '+Rank to any dice pool to resist psychic powers and effects.',
-      },
-    ],
-    keywordOption: '<Order>',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'agility', threshold: 3 },
@@ -273,10 +335,12 @@ const core = [
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'weaponSkill', threshold: 2 },
     ],
-    group: 'Adepta Sororitas',
-    key: 'core-sister-of-battle',
-    description: 'As the militant arm of the of the Adeptus Ministorum, the Sisters of Battle are equipped to engage any who would dare to oppose the Imperial Creed. It is their sacred duty to cleanse the galaxy of heresy and corruption, wherever they should fi nd it, including within the various organisations of the Imperium of Man. Due to their shared goals, the Orders Militant often work in conjunction with the Imperial Inquisition, though they remain distinct organisations. Many of the orders maintain convents on Shrine Worlds, so that they can more easily defend those places most blessed to the Imperial Creed.',
-    hint: 'A determined warrior, filled with purity and faith.',
+    archetypeFeatures: [
+      {
+        name: 'Purity of Faith',
+        snippet: 'You and any allies within 15 metres gain +Double Rank bonus dice to Corruption Tests. You gain +Double Rank bonus dice to any Test to resist the effects of a Psychic Power.',
+      },
+    ],
     wargear: [
       { name: 'Sororitas Powered Armour' },
       { name: 'Chaplet Ecclesiasticus' },
@@ -297,24 +361,20 @@ const core = [
   {
     source: { ...source.core },
     name: 'Imperial Guardsman',
-    cost: 0,
+    cost: 6,
     tier: 1,
     species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
-    keywords: 'Imperium,Astra Militarum,<Regiment>',
+    keywords: 'Imperium,Astra Militarum,[Regiment]',
     archetypeFeatures: [
       {
-        name: 'Look Out Sir',
-        snippet: 'Once per battle, an Imperial Guardsman may suffer '
-        + 'the effects of an attack that hits an ally instead of the allied character. '
-        + 'When doing so, increase the Guardsman’s resilience by +Rank for determining the '
-        + 'damage of the attack.',
+        name: 'Look Out, Sir!',
+        snippet: 'You have been drilled in sacrificing yourself to save your allies. Once per combat, you may take a Reflexive Action to move up to half your Speed to get in the way of any attack that hit an ally. The attacker then rolls against your Resilience instead of your ally’s, and may deal Wounds to you. Your Resilience increases by +Rank for the purpose of calculating damage.',
       },
     ],
-    keywordOption: '<Regiment>',
     prerequisites: [
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      reqSkill('ballisticSkill', 2),
     ],
     group: 'Astra Militarum',
     key: 'core-imperial-guardsman',
@@ -325,10 +385,9 @@ const core = [
       { name: 'Lasgun' },
       { name: 'Knife' },
       { name: 'Guard issue mess kit' },
-      { name: 'Blanket' },
       { name: 'Grooming kit' },
-      { name: 'Uplifting Primer' },
-      { name: 'Ration Packs', amount: 3 },
+      { name: 'Uplifting Primer', variant: 'A copy of the Imperial Infantryman’s Uplifting Primer' },
+      { name: 'Ration Pack', amount: 3 },
     ],
   },
   {

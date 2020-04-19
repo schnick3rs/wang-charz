@@ -88,7 +88,7 @@
         :value="characterCustomRank"
         class="pb-2"
         label="Rank"
-        hint="Set your Characters Rank, usually between 1-5."
+        hint="Set your Characters Rank, usually between 1-3."
         dense
         outlined
         persistent-hint
@@ -215,6 +215,11 @@
       <div>
         <h2 class="title">Homebrews</h2>
         <p>Allow specific homebrew content to be used for this character.</p>
+        <div>
+          <v-alert text border-left dense color="info" class="caption">
+            The <a href="https://www.cubicle7games.com/wrath-glory-pdf-pre-order-live/>">revised edition by Cubicle 7 just came out</a> and thus, most of the homebrews are currently outdated. I have disabled them for now until they are updated to match the recent changes.
+          </v-alert>
+        </div>
         <div v-if="settingHomebrews.includes('aaoa') && settingHomebrews.includes('tea')">
           <v-alert
             text border-left dense color="warning" class="caption"
@@ -233,6 +238,7 @@
             :label="homebrew.name"
             :value="homebrew.key"
             :hint="homebrew.hint"
+            disabled
             persistent-hint
             color="primary"
             dense
@@ -307,7 +313,7 @@ export default {
           { text: '2 - Stalwart Defenders', value: 2 },
           { text: '3 - Elite Guardians', value: 3 },
           { text: '4 - Heroic Operatives', value: 4 },
-          { text: '5 - Agents of Fate', value: 5 },
+          // { text: '5 - Agents of Fate', value: 5 },
         ],
       },
       settingPlayMode: false,

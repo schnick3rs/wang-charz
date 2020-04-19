@@ -1,7 +1,8 @@
 const source = {
-  core: { book: 'Core Rules', key: 'core', version: 'v1' },
-  coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  core: { book: 'Core Rules', key: 'core', version: 'v1.5' },
+  corelagacy: { book: 'Core Rules (Ulissis)', key: 'core-legacy', version: 'v1' },
+  coreab: { book: 'Abhumans (Beta)', key: 'core-legacy-abhumans', version: 'v0.5' },
+  aaoa: { book: 'An Abundance of Apocrypha', sumplements: 'core', key: 'aaoa', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -30,7 +31,7 @@ const stringToKebabToCamel = function (text) {
   return kebabToCamel(slug);
 };
 
-const statMax = function (str, agi, tou, int, wil, fel, ini, spe) {
+const statMax = function (str, tou, agi, ini, wil, int, fel, spe) {
   return {
     attributeMaximums: [
       { name: 'Strength', value: str },
@@ -47,7 +48,7 @@ const statMax = function (str, agi, tou, int, wil, fel, ini, spe) {
   }
 };
 
-const simpleStub = function (sourceKey, sourcePage, group, name, hint, bp, tier) {
+const species = function (sourceKey, sourcePage, group, name, hint, cost, speed, stub = false) {
   return {
     source: {
       ...source[sourceKey],
@@ -57,278 +58,141 @@ const simpleStub = function (sourceKey, sourcePage, group, name, hint, bp, tier)
     name,
     hint,
     group,
-    cost: bp,
-    baseTier: tier,
-    stub: true,
-    keywords: [],
+    cost,
+    speed,
+    stub,
     ...statMax(8,8,8,8,8,8,8,8),
+    speciesFeatures: [],
   };
 };
 
+const commonNames = function (namesString) {
+  return { commonNames: namesString.split(',').map(part => part.trim()) };
+}
+
 const coreRep = [
   {
-    key: 'core-human',
-    name: 'Human',
-    group: 'Mankind',
-    hint: 'The humble human',
-    description: 'Each human is just one of untold billions spread across the galaxy over millions of planets. Those in the Imperium live under the authority of the Emperor, but He has not stirred from His Golden Throne on Holy Terra for over ten thousand years. The remorseless government agencies of the Imperium use His authority to mercilessly rule Humanity according to their interpretations of the Emperor’s will. Every planet has its own culture and unique interpretations of the Imperium’s laws and sacred beliefs, but a few things are especially common.',
-    source: { ...source.core, page: 86 },
-    cost: 0,
-    baseTier: 1,
-    speed: 6,
-    speciesFeatures: [],
-    avatar: null,
+    ...species('core',29,'Mankind','Human','The humble human',0,6),
+    ...commonNames('Adrielle, Alaric, Barus, Castus, Celeste, Diana, Dar, Davian, Ephrael, Erith, Estebus, Felicia, Gaius, Gezrael, Halo, Harken, Haveloch, Hestia, Iris, Jestilla, Kamir, Katrina, Lukas, Lyta, Mikel, Mira, Nura, Ophelia, Poul, Quitus, Ravenna, Rossel, Ruby, Silvana, Skyv, Steele, Taur, Titus, Tyanna, Ursa, Undine, Verbal, Victor, Waynoka, Wilhemina, Xavier, Yvette, Zane, Zellith, Zek'),
   },
   {
-    key: 'coreab-ratling',
-    name: 'Ratling',
-    group: 'Mankind',
-    hint: 'Half-man by name, but not by nature',
-    description:
-      'These small Abhumans are loud, lecherous, hungry, and always on the lookout for something to steal. ' +
-      'They like to go into battle barefoot so they can feel the ground beneath their feet. ' +
-      'They are often referred to as akin to a plague of rats, for a squad of these Ratlings can ' +
-      'strip an Imperial Guard canteen bare in the time it takes the cook to call a squad to mess. ' +
-      'Despite this, Ratlings are considered a valuable resource for the Astra Militarum.',
-    source: { ...source.coreab },
-    cost: 15,
-    baseTier: 1,
-    speed: 5,
-    size: 'Small',
-    speciesFeatures: [
-      {
-        name: 'Attribute Modifications',
-        snippet: 'Decrease Strength by 1. Increase Agility by 1.',
-        modifications: [
-          { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
-          { targetGroup: 'attributes', targetValue: 'strength', modifier: -1 },
-        ],
-      },
-      {
-        name: 'Conniving',
-        snippet: 'You gain the Scum Keyword',
-        modifications: [
-          { targetGroup: 'keywords', targetValue: 'Scum' },
-        ],
-      },
-      {
-        name: 'Abhuman',
-        snippet: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
-      },
-      {
-        name: 'Born Sharpshooter',
-        snippet: '+2d to all Ballistic Skill tests.',
-      }
+    ...species('core', 29, 'Mankind', 'Adeptus Astartes', 'The Sword of Mankind', 160, 7),
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'initiative', threshold: 4 },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'athletics', threshold: 3 },
+      { group: 'skills', value: 'awareness', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'stealth', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
     ],
-    avatar: null,
-    variant: 'core-human',
-  },
-  {
-    key: 'coreab-ogryn',
-    name: 'Ogryn',
-    group: 'Mankind',
-    hint: 'The brutal, eeh... human?',
-    source: { ...source.coreab },
-    description:
-      'Ogryns are the heavy assault backbone of the Astra Militarum, ' +
-      'usually attached to the various regiments of the Imperial Guard. ' +
-      'These Abhumans are loyal, stalwart, brutal, and extremely strong. ' +
-      'They are capable of shrugging off damage that would slaughter a human outright; in short, ' +
-      'they make perfect assault and shock troopers when the Imperial Guard requires a heavy fist. ' +
-      'Some Ogryns take this to heart, bearing shields and clubs to act as melee powerhouses, ' +
-      'whilst many others use their prized (and heavily constructed) Ripper guns.',
-    cost: 15,
-    baseTier: 2,
-    speed: 4,
-    size: 'Large',
     speciesFeatures: [
-      {
-        name: 'Attribute Modifications',
-        snippet: 'Decrease Fellowship and Intellect by 1. Increase Strength and Toughness by 2.',
-        modifications: [
-          { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -1 },
-          { targetGroup: 'attributes', targetValue: 'intellect', modifier: -1 },
-          { targetGroup: 'attributes', targetValue: 'strength', modifier: 2 },
-          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2 },
-        ],
-      },
-      {
-        name: 'Abhuman',
-        snippet: '+1DN to all interaction tests with characters possessing the Imperium keyword.',
-      },
-      {
-        name: 'Burly',
-        snippet: '+2d to all Intimidation tests.',
-      },
-    ],
-    avatar: null,
-    variant: 'core-human',
-  },
-  {
-    key: 'core-eldar',
-    name: 'Eldar',
-    group: 'Aeldari',
-    hint: 'The Mysterious Aeldari',
-    description:
-      'The Aeldari ruled the galaxy for millions of years. During their rise to power, ' +
-      'this species uncovered secrets of the galaxy’s very essence, ' +
-      'learning to create and shatter entire worlds. They discovered and developed the webway, ' +
-      'enabling them to quickly travel across the galaxy without the risk of warp travel. ' +
-      'Their collective knowledge eventually reached the point that any drive to learn dampened, ' +
-      'as they could accomplish virtually any task they could imagine. ' +
-      'The longlived Aeldari existed in luxury, pursuing whatever interests drew their attention. ' +
-      'Eventually, such leisure led to increasingly hedonistic pursuits that spread in cults ' +
-      'across their entire population. Those moral failings, over time, coalesced within the warp, ' +
-      'giving birth to Slaanesh.',
-    source: { ...source.core, page: 90 },
-    cost: 10,
-    baseTier: 1,
-    speed: 8,
-    speciesFeatures: [
-      {
-        name: 'Attribute Modifications',
-        snippet: 'Increase Agility by 1.',
-        modifications: [
-          { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
-        ],
-      },
-      {
-        name: 'Intense Emotion',
-        snippet: '+1DN to all Resolve tests. Failing a Willpower-based test in a scene involving intense emotion grants the GM +1 Ruin.',
-      },
-      {
-        name: 'Outsider',
-        snippet: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
-      },
-      {
-        name: 'Psychosensitive',
-        snippet: 'You may purchase 1 Minor Psychic Power if you purchase the Psychic Mastery Skill. This gives you the Psyker Keyword and your Psychic Power Maximum is increase by 1.',
-        description:
-          '<p>All Eldar may purchase 1 Minor Psychic Power if they also purchase the Psychic Mastery skill. This purchase also gives them the Psyker keyword. In addition, the Tier Restriction for Maximum Psychic Powers for Eldar Characters is increased by 1 to accommodate this purchase.</p>',
-        psychicDisciplines: [ 'Minor' ],
-        psychicPowers: [
-          { name: 'psychosensitive', selected: '', query: { discipline: 'Minor' }, options: [], free: false },
-        ],
-      },
-    ],
-    avatar: null,
-  },
-  {
-    key: 'core-ork',
-    name: 'Ork',
-    group: 'Orks',
-    hint: 'The savage brute',
-    description:
-      'Orks are ubiquitous throughout the galaxy. Their incomprehensible physiology and ecosystem ' +
-      'is capable of actively proliferating in even the most hostile of environments—from ash ' +
-      'wastes, to overgrown Death Worlds, to barren asteroids. Even a small tribe of a few dozen ' +
-      'Orks can inexplicably grow into a force of tens of thousands in relatively short order. ' +
-      'The biological mechanisms behind this growth and adaptability confound even the most ' +
-      'accomplished scholars of the Adeptus Mechanicus. There are no consistent requirements for ' +
-      'Orks to thrive within any climate. However, their functionality is clearly evident on the ' +
-      'countless worlds they have subsumed.',
-    source: { ...source.core, page: 88 },
-    cost: 10,
-    baseTier: 1,
-    speed: 6,
-    speciesFeatures: [
-      {
-        name: 'Attribute Modifications',
-        snippet: 'Increase Toughness by 1.',
-        modifications: [
-          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
-        ],
-      },
-      {
-        name: 'Outsider',
-        snippet: '+2DN to all Interaction tests with those with the Keyword <Imperium>.',
-      },
-      {
-        name: 'Orky',
-        snippet: '+1 to all Intimidation tests.',
-      },
-      {
-        name: 'Bigger is Better',
-        snippet: 'Orks calculate Influence using their Strength in place of Fellowship.',
-      },
-    ],
-    avatar: null,
-  },
-  {
-    key: 'core-adeptus-astartes',
-    name: 'Adeptus Astartes',
-    group: 'Mankind',
-    source: { ...source.core, page: 92 },
-    cost: 50,
-    baseTier: 2,
-    speed: 7,
-    speciesFeatures: [
-      {
-        name: 'Attribute Modifications',
-        snippet: 'Increase Strength, Ability, Toughness and Resolve by 1.',
-        modifications: [
-          { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
-          { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
-          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
-          { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
-        ],
-      },
       {
         name: 'Angel of Death',
-        snippet: 'Space Marines add +½ Rank icons to any successful attack against a Mob.',
+        snippet: 'Add +Rank icons to any successful attack against a Mob.',
       },
       {
         name: 'Honour the Chapter',
-        snippet: 'You are subject to the orders of your chapter master, and must honour both the beliefs and traditions of your chapter.',
-      },
-      {
-        name: 'Space Marine Implants',
-        snippet: 'Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifier to any test if the Game Master deems it appropriate for one of the 19 implants.',
-      },
-    ],
-    hint: 'the sword of mankind',
-    description: 'Prior to launching the Great Crusade, the Emperor of Man created the Adeptus Astartes and assembled them into his legions. Each began as a mortal man, but a combination of genetic manipulations and physical implantations transformed each into a superhuman warrior—an Imperial Space Marine. The Emperor initially created twenty legions of Space Marines, each one containing vast numbers. All members of each of the twenty legions used a gene-seed developed from one of the twenty godlike Primarchs, whom the emperor also created. During the Great Crusade, Primarchs served as the generals of the Space Marine Legions, as the Emperor strove to reunify all lost human worlds, bringing the galaxy into Imperial Compliance.',
-    avatar: null,
-  },
-  {
-    key: 'core-primaris-astartes',
-    name: 'Primaris Astartes',
-    group: 'Mankind',
-    hint: 'the newborn breed',
-    description: 'In the wake of the Horus Heresy, after completing the Codex Astartes, Primarch Roboute Guilliman decided that the Adeptus Astartes needed further enhancements to better defend the Imperium from outside threats—including those Space Marines who had turned traitor. He assigned the job of improving them to Archmagos Dominus Belisarius Cawl of the Adeptus Mechanicus. To aid the Tech-Priest, Guilliman provided him with an archive of genetic material taken from his fellow Primarchs, called the Sangprimus Portum.',
-    source: { ...source.core, page: 98 },
-    cost: 100,
-    baseTier: 4,
-    speed: 7,
-    speciesFeatures: [
-      {
-        name: 'Attribute Modifications',
-        snippet: 'Increase Strength by 2, increase Ability, Toughness and Resolve by 1 and increase Wounds by 4.',
+        snippet: 'You are subject to the orders of your chapter master, and must honour both the beliefs and traditions of your chapter. You increase your Resolve by 1.',
         modifications: [
-          { targetGroup: 'attributes', targetValue: 'strength', modifier: 2 },
-          { targetGroup: 'attributes', targetValue: 'agility', modifier: 1 },
-          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
           { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
-          { targetGroup: 'traits', targetValue: 'wounds', modifier: 4 },
         ],
       },
       {
+        name: 'Space Marine Implants',
+        snippet: 'You are immune to the Bleeding Condition. You gain +1 bonus dice to any test related to one of the 19 implants (p.76) if the GM agrees it is appropriate.',
+      },
+    ],
+    ...commonNames(
+      'Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus'),
+  },
+  {
+    ...species('core',29,'Mankind','Primaris Astartes','The newborn breed',198,7),
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'initiative', threshold: 4 },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'attributes', value: 'strength', threshold: 5 },
+      { group: 'attributes', value: 'toughness', threshold: 5 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'athletics', threshold: 3 },
+      { group: 'skills', value: 'awareness', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'stealth', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
+    ],
+    speciesFeatures: [
+      {
         name: 'Angel of Death',
-        snippet: 'Space Marines add +½ Rank icons to any successful attack against a Mob.',
+        snippet: 'Add +Rank icons to any successful attack against a Mob.',
       },
       {
         name: 'Honour the Chapter (Primaris)',
-        snippet: 'You are subject to the orders of your chapter master and the beliefs and traditions of your chapter. Primaris Space Marines gain the fi rst special rule from their Chapter and ignore any penalties or drawbacks from the second if it is marked as being related to the Chapter’s gene-seed.',
+        snippet: 'You are subject to the orders of your chapter master, and must honour both the beliefs and traditions of your chapter. You ignore impurities in the Gene-Seed. You increase Resolve by 1 and Max Wounds by 3.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
+          { targetGroup: 'traits', targetValue: 'maxWounds', modifier: 3 },
+        ],
       },
       {
         name: 'Space Marine Implants',
-        snippet: 'Space Marines do not bleed. Space Marines gain +1 bonus dice as a situational modifier to any test if the Game Master deems it appropriate for one of the 19 implants.',
+        snippet: 'You are immune to the Bleeding Condition. You gain +1 bonus dice to any test related to one of the 21 implants (p.76) if the GM agrees it is appropriate.',
       },
     ],
-    avatar: null,
+    ...commonNames('Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus'),
+  },
+  {
+    ...species('core',29,'Aeldari','Aeldari','The Mysterious Aeldari',10,8),
+    ...commonNames(''),
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Outsider',
+        snippet: '+2DN to all Interaction tests with members of the Imperium.',
+      },
+      {
+        name: 'Intense Emotion',
+        snippet: '+1DN to all Resolve Tests. If you fail a Willpower based test in a scene involving emotion, the GM gains +1 Ruin.',
+      },
+      {
+        name: 'Psychosensitive',
+        snippet: 'You may choose to take the PSYKER Keyword.',
+        description: '<p>You may choose to take the <strong>PSYKER</strong> Keyword.</p>',
+        // todo options to select beeing a psyker
+      },
+    ],
+  },
+  {
+    ...species('core',29,'Orks','Ork','The savage brute',20,6),
+    ...commonNames(''),
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Outsider',
+        snippet: '+2DN to all Interaction tests with members of the Imperium.',
+      },
+      {
+        name: 'Orky',
+        snippet: '+1 bonus dice to Intimidation Tests.',
+        // TODO add mechanics
+      },
+      {
+        name: 'Bigger is Better',
+        snippet: 'You calculate Influence using Strength instead of Fellowship.',
+      },
+    ],
   },
 ];
-
+/*
 const homebrewReps = [
   simpleStub('heva', 6, 'Aeldari', 'Dark Eldar', 'From the shadows, from the Dark City', 20, 1),
   {
@@ -380,7 +244,7 @@ const homebrewReps = [
   },
   {
     ...simpleStub('aaoa', 10, 'Mankind', 'Death World Origin', 'Born to harsh, savage worlds, which are hostile to human life.', 10, 1),
-    description: 
+    description:
       'Born to harsh, savage worlds, which are hostile to human life. ' +
       'To survive in such places creates people as fierce and unforgiving as the worlds that raised them, ' +
       'and many of the mightiest defenders of the Imperium hail from worlds where existence is a daily struggle for survival.',
@@ -999,8 +863,8 @@ const homebrewReps = [
     archetypeRestrictionsMaxTier: 1,
   },
 ];
-
+*/
 module.exports = [
   ...coreRep,
-  ...homebrewReps,
+  //...homebrewReps, xxx disavled for now, until updated to 1.5
 ];

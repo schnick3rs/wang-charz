@@ -50,7 +50,7 @@ export const getters = {
     if (character === undefined) {
       return 0;
     }
-    const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
+    const attributeTotalCost = [0, 0, 4, 10, 20, 35, 55, 80, 110, 145, 185, 230, 280];
     let attributesSpending = 0;
     Object.keys(character.attributes).forEach((key) => {
       attributesSpending += attributeTotalCost[character.attributes[key]];
@@ -62,7 +62,7 @@ export const getters = {
     if (character === undefined) {
       return 0;
     }
-    const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
+    const skillTotalCost = [0, 2, 6, 12, 20, 30, 42, 56, 72];
     let skillSpending = 0;
     Object.keys(character.skills).forEach((key) => {
       skillSpending += skillTotalCost[character.skills[key]];
@@ -171,9 +171,9 @@ export const getters = {
     const traits = {};
     traits.defence = enhancedAttributes.initiative - 1;
     traits.resilience = enhancedAttributes.toughness + 1;
-    traits.soak = enhancedAttributes.toughness;
-    traits.wounds = enhancedAttributes.toughness + character.settingTier;
-    traits.shock = enhancedAttributes.willpower + character.settingTier;
+    traits.determination = enhancedAttributes.toughness;
+    traits.maxWounds = enhancedAttributes.toughness + character.settingTier;
+    traits.maxShock = enhancedAttributes.willpower + character.settingTier;
     traits.resolve = enhancedAttributes.willpower - 1;
     traits.conviction = enhancedAttributes.willpower;
     traits.passiveAwareness = Math.round((enhancedAttributes.intellect + skills.awareness) / 2);
@@ -283,7 +283,7 @@ export const getters = {
     if ( character === undefined ) {
       return 0;
     }
-    return getters.characterTraitsById(id)['wounds'];
+    return getters.characterTraitsById(id)['maxWounds'];
   },
 
   characterShockPointsById: (state, getters) => (id) => {
@@ -291,7 +291,7 @@ export const getters = {
     if ( character === undefined ) {
       return 0;
     }
-    return getters.characterTraitsById(id)['shock'];
+    return getters.characterTraitsById(id)['maxShock'];
   },
 
   characterWealthPointsById: (state, getters) => (id) => {
@@ -605,7 +605,7 @@ export const mutations = {
     character.background.label = background.label;
     character.background.optionSelectedKey = background.optionSelectedKey;
   },
-  
+
   // languages
   addCharacterLanguage(state, payload) {
     const character = state.characters[payload.id];
@@ -965,10 +965,10 @@ const getDefaultState = () => ({
     points: 0, // computed from obtained talents
     spend: 0,
   },
-  wounds: {
+  maxWounds: {
     spend: 0,
   },
-  shock: {
+  maxShock: {
     spend: 0,
   },
   wealth: {

@@ -491,15 +491,15 @@ export default {
         let fulfilled = true;
 
         // has prerequisites
-        if (talent.prerequisites.length > 0) {
-          talent.prerequisites.forEach((prerequisite) => {
-            switch (prerequisite.type) {
+        if (talent.requirements && talent.requirements.length > 0) {
+          talent.requirements.forEach((requirement) => {
+            switch (requirement.type) {
               // condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'],
               case 'keyword':
-                const found = prerequisite.key.some((prereqKeyword) => this.finalKeywords.includes(prereqKeyword));
+                const found = requirement.key.some((prereqKeyword) => this.finalKeywords.includes(prereqKeyword));
                 if (
-                  (prerequisite.condition === 'must' && !found)
-                  || (prerequisite.condition === 'mustNot' && found)
+                  (requirement.condition === 'must' && !found)
+                  || (requirement.condition === 'mustNot' && found)
                 ) {
                   fulfilled = false;
                 }
@@ -507,36 +507,36 @@ export default {
 
               // condition: 'must', type: 'attribute', key: 'Willpower', value: '3+',
               case 'attribute':
-                const attribute = this.attributeRepository.find((a) => a.name == prerequisite.key);
+                const attribute = this.attributeRepository.find((a) => a.name == requirement.key);
                 if (attribute) {
                   const charAttributeValue = this.characterAttributesEnhanced[attribute.key];
-                  const prereqAttributeValue = prerequisite.value.split('+')[0];
+                  const prereqAttributeValue = requirement.value.split('+')[0];
                   if (charAttributeValue < prereqAttributeValue) {
                     fulfilled = false;
                   }
                 } else {
-                  console.warn(`No attribute found for ${prerequisite.key}.`);
+                  console.warn(`No attribute found for ${requirement.key}.`);
                 }
                 break;
 
               // condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+',
               case 'skill':
-                const skill = this.skillRepository.find((a) => a.name == prerequisite.key);
+                const skill = this.skillRepository.find((a) => a.name == requirement.key);
                 if (skill) {
                   const charSkillValue = this.characterSkills[skill.key];
-                  const prereqSkillValue = prerequisite.value.split('+')[0];
+                  const prereqSkillValue = requirement.value.split('+')[0];
                   if (charSkillValue < prereqSkillValue) {
                     fulfilled = false;
                   }
                 } else {
-                  console.warn(`No skill found for ${prerequisite.key}.`);
+                  console.warn(`No skill found for ${requirement.key}.`);
                 }
                 break;
 
               // condition: 'must', type: 'character', key: 'Tier', value: '2+',
               case 'character':
-                if (prerequisite.key === 'Tier') {
-                  const prereqTierValue = prerequisite.value.split('+')[0];
+                if (requirement.key === 'Tier') {
+                  const prereqTierValue = requirement.value.split('+')[0];
                   if (this.effectiveCharacterTier <= prereqTierValue) {
                     fulfilled = false;
                   }
@@ -604,7 +604,7 @@ export default {
       {
         const { data } = await this.$axios.get('/api/talents/', config);
         this.talentList = data.map(talent => {
-          const prerequisitesHtml = this.prerequisitesToText(talent).join(', ');
+          const prerequisitesHtml = this.requirementsToText(talent).join(', ');
           return {
             ...talent,
             prerequisitesHtml,
@@ -654,14 +654,14 @@ export default {
       this.$store.commit('characters/removeCharacterWargearBySource', payload);
       this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent.name });
     },
-    prerequisitesToText(item) {
+    requirementsToText(item) {
       const texts = [];
 
-      if (item.prerequisites === undefined || item.prerequisites.length <= 0) {
-        return ['None'];
+      if (item.requirements === undefined || item.requirements.length <= 0) {
+        return ['-'];
       }
 
-      item.prerequisites.forEach((p) => {
+      item.requirements.forEach((p) => {
         let text = '';
 
         switch (p.type) {
@@ -676,8 +676,14 @@ export default {
 
           case 'attribute':
           case 'skill':
+            text = `${p.key} Rating ${p.value}`;
+            break;
           case 'character':
             text = `${p.key} ${p.value}`;
+            break;
+
+          case 'species':
+            text = `${p.value} Species`
             break;
 
           default:

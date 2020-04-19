@@ -12,7 +12,7 @@
       <div class="hidden-xs-only" style="float: right;">
         <img :src="getAvatar(item.key)" style="width:96px">
       </div>
-      
+
       <div style="width: 75%">
         <h3 class="headline md0">
           {{ item.name }}
@@ -33,34 +33,29 @@
         <span class="subtitle-1 grey--text">{{ item.hint }}</span>
       </div>
 
-      <p class="text-lg-justify">
-        <strong>Build Point Cost:</strong> {{ item.cost }}
-      </p>
+      <p class="text-lg-justify"><strong>Tier:</strong> {{ item.tier }}</p>
 
-      <span class="mt-2 grey--text">Prerequisites</span>
+      <p class="text-lg-justify"><strong>Species:</strong> {{ item.species.join(', ') }}</p>
+
+      <p class="text-lg-justify"><strong>XP Cost:</strong> {{ item.cost }}</p>
+
       <p><v-divider /></p>
 
       <p class="text-lg-justify">
-        <strong>Tier:</strong> {{ item.tier }}
-      </p>
-      <p class="text-lg-justify">
-        <strong>Species:</strong> {{ item.species.join(', ') }}
-      </p>
-      <p class="text-lg-justify">
         <strong>Attributes:</strong> {{ attributePrerequisites }}
       </p>
+
       <p class="text-lg-justify">
         <strong>Skills:</strong> {{ skillPrerequisites }}
       </p>
+
       <p class="text-lg-justify" v-if="item.prerequisiteText">
         <strong>Others:</strong> {{ item.prerequisiteText }}
       </p>
 
-      <span class="mt-2 grey--text">Benefits</span>
-      <p><v-divider /></p>
-
       <p class="text-lg-justify">
-        <strong>Keywords:</strong> {{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}
+        <strong>Keywords: </strong>
+        <span style="text-transform: uppercase; color: darkred;">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
       </p>
 
       <div
@@ -88,10 +83,6 @@
           {{ keywordEffect(selectedKeywords[placeholder.name]) }}
         </p>
       </div>
-
-      <p class="text-lg-justify">
-        <strong>Influence Bonus:</strong> {{ item.influence }}
-      </p>
 
       <div
         v-for="trait in item.archetypeFeatures"
@@ -153,6 +144,12 @@
           <span class="float-right">- from the Wrath & Glory Corerules -</span>
         </blockquote>
       </div>
+
+      <p class="text-lg-justify" v-if="item.influence != 0">
+        <strong>Influence Bonus: </strong>
+        {{ `${item.influence > 0 ? '+' : ''}${item.influence}` }}
+      </p>
+
     </v-card-text>
 
     <v-divider v-if="chooseMode" />
@@ -251,7 +248,7 @@ export default {
       return selectedKeywords;
     },
     itemKeywordPlaceholders() {
-      const placeholderKeywords = this.item.keywords.split(',').map((i)=>i.trim()).filter((k) => k.includes('<'));
+      const placeholderKeywords = this.item.keywords.split(',').map((i)=>i.trim()).filter((k) => k.includes('['));
 
       const placeholderSet = [];
 
@@ -285,7 +282,7 @@ export default {
       if (this.item.prerequisites) {
         return this.item.prerequisites
           .filter((p) => p.group === 'skills')
-          .map((a) => `${this.getSkillByKey(a.value).name} (${a.threshold})`)
+          .map((a) => `${this.getSkillByKey(a.value).name} ${a.threshold}`)
           .join(', ');
       }
       return this.item.skills;

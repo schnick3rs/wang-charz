@@ -9,22 +9,22 @@ export default {
           order: 1,
         },
         {
-          key: 'agility',
-          name: 'Agility',
-          description: 'Dexterity and coordination.',
-          order: 2,
-        },
-        {
           key: 'toughness',
           name: 'Toughness',
           description: 'Endurance and ability to shrug off damage.',
           order: 3,
         },
         {
-          key: 'intellect',
-          name: 'Intellect',
-          description: 'Ability to process and interpret information.',
-          order: 4,
+          key: 'agility',
+          name: 'Agility',
+          description: 'Dexterity and coordination.',
+          order: 2,
+        },
+        {
+          key: 'initiative',
+          name: 'Initiative',
+          description: 'Refl exes and reaction speed.',
+          order: 7,
         },
         {
           key: 'willpower',
@@ -33,16 +33,16 @@ export default {
           order: 5,
         },
         {
+          key: 'intellect',
+          name: 'Intellect',
+          description: 'Ability to process and interpret information.',
+          order: 4,
+        },
+        {
           key: 'fellowship',
           name: 'Fellowship',
           description: 'Force of personality.',
           order: 6,
-        },
-        {
-          key: 'initiative',
-          name: 'Initiative',
-          description: 'Refl exes and reaction speed.',
-          order: 7,
         },
       ],
       maximumBySpeciesRepository: [
@@ -175,7 +175,7 @@ export default {
         {
           key: 'leadership',
           name: 'Leadership',
-          attribute: 'Fellowship',
+          attribute: 'Willpower',
           description: null,
         },
         {
@@ -250,22 +250,22 @@ export default {
           type: 'Combat',
         },
         {
-          key: 'soak',
-          name: 'Soak',
+          key: 'determination',
+          name: 'Determination',
           attribute: 'Toughness',
           description: null,
           type: 'Combat',
         },
         {
-          key: 'wounds',
-          name: 'Wounds',
+          key: 'maxWounds',
+          name: 'Max Wounds',
           attribute: 'Toughness',
           description: null,
           type: 'Combat',
         },
         {
-          key: 'shock',
-          name: 'Shock',
+          key: 'maxShock',
+          name: 'Max Shock',
           attribute: 'Willpower',
           description: null,
           type: 'Combat',

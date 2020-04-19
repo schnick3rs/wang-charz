@@ -178,7 +178,12 @@ export default {
 
       return [];
     },
-
+    characterAttributes() {
+      return this.$store.getters['characters/characterAttributesById'](this.characterId);
+    },
+    characterSkills() {
+      return this.$store.getters['characters/characterSkillsById'](this.characterId);
+    },
   },
   watch: {
     characterSpeciesKey: {
@@ -257,7 +262,13 @@ export default {
       this.previewDialog = true;
     },
     selectArchetypeForChar(item) {
-      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.cost, tier: item.tier } });
+
+      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.rawCost, tier: item.tier } });
+
+      // TODO ensure species
+
+      // TODO ensure attributes and skills
+      this.ensurePrerequisites(item);
 
       const mods = [];
       mods.push({
@@ -303,6 +314,29 @@ export default {
 
       this.previewDialog = false;
       this.$router.push({ name: 'forge-characters-id-builder-archetype-manage', params: { id: this.characterId } });
+    },
+    ensurePrerequisites(item) {
+      const archetype = item;
+
+      if (archetype && archetype.prerequisites.length > 0) {
+        archetype.prerequisites.forEach((prerequisite) => {
+          // { group: 'attributes', value: 'willpower', threshold: 3, }
+          switch (prerequisite.group) {
+            case 'attributes':
+              const attributeValue = this.characterAttributes[prerequisite.value];
+              if (attributeValue < prerequisite.threshold) {
+                this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
+              }
+              break;
+            case 'skills':
+              const skillValue = this.characterSkills[prerequisite.value];
+              if (skillValue < prerequisite.threshold) {
+                this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
+              }
+              break;
+          }
+        });
+      }
     },
   },
 };
