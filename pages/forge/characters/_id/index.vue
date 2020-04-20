@@ -39,14 +39,14 @@
       <v-col :cols="8" :sm="6" :md="6">
         <v-row no-gutters>
           <v-col :cols="12">{{ characterName }}</v-col>
-          <v-col :cols="12" class="caption">{{ [ speciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
+          <v-col :cols="12" class="caption">{{ [ archetypeLabel, speciesLabel ].join(' • ')  }}</v-col>
           <v-col :cols="12" class="caption">
             <span>{{ [ `Tier ${characterSettingTier}`, `Rank ${characterRank}`, `${campaignCustomXp} XP`].join(' • ') }}</span>
           </v-col>
           <v-col :cols="12" class="caption">
             <v-progress-linear :value="campaignCustomXp" height="2" color="red"></v-progress-linear>
           </v-col>
-          <v-col :cols="12" class="caption" align="center">{{ keywords.join(' • ') }}</v-col>
+          <v-col :cols="12" class="caption text--keyword" align="center">{{ keywords.join(' • ') }}</v-col>
         </v-row>
       </v-col>
 
@@ -1040,7 +1040,7 @@ export default {
       });
 
       finalTraits
-      .filter((t)=>['maWounds', 'maxShock', 'wealth'].includes(t.key))
+      .filter((t)=>['maxWounds', 'maxShock', 'wealth'].includes(t.key))
       .forEach((t)=>{
         t.spend = this.$store.getters['characters/characterResourceSpendById'](this.characterId, t.key);
       });

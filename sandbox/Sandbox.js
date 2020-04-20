@@ -267,7 +267,7 @@ let wargear = [
     "value": 4,
     "rarity": "Rare",
     "keywords": [
-      "<Any>"
+      "[Any]"
     ],
     "hint": "Add +1 to strength for melee damage. Stacks when wielding a weapon with two augmented arms.",
     "description": "An augmented arm replaces joints and muscles with fl exible cables and servomotors, making the new limb both faster and stronger than the limb it replaces. An augmetic arm increases the Strength attribute bonus to melee weapon damage by 1. A character with a pair of augmetic arms can stack the bonus to Strength when wielding a melee weapon with both hands.",

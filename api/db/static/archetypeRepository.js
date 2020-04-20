@@ -32,11 +32,16 @@ const stringToKebabToCamel = function (text) {
   return kebabToCamel(slug);
 };
 
-const cost = function (totalCost, rawCost, attributes = 0, species = 0) {
+const cost = function (cost, archetype = 0, stats = 0, species = 0, other = 0) {
   return {
-    cost: totalCost,
-    displayedCost: totalCost,
-    rawCost,
+    cost,
+    costs: {
+      total: cost,
+      archetype,
+      stats,
+      species,
+      other,
+    }
   };
 }
 
@@ -76,6 +81,8 @@ const archetype = function (sourceKey, sourcePage, faction, name, tier, species,
     species: [ speciesLabel ],
     speciesKey: [ speciesKey ],
     stub,
+    wargear: [],
+    prerequisites: [],
   };
 }
 
@@ -151,59 +158,69 @@ const simpleAbility = function(name, snippet = undefined, description = undefine
   };
 };
 
-const suggestedAttributes = function(block) {
-  const splits = block.split('');
+const suggestedAttributes = function(str,tou,agi,ini,wil,int,fel) {
   return [
-    { group: 'attributes', value: 'strength', threshold: splits[0] },
-    { group: 'attributes', value: 'toughness', threshold: splits[1] },
-    { group: 'attributes', value: 'agility', threshold: splits[2] },
-    { group: 'attributes', value: 'initiative', threshold: splits[3] },
-    { group: 'attributes', value: 'willpower', threshold: splits[4] },
-    { group: 'attributes', value: 'intellect', threshold: splits[5] },
-    { group: 'attributes', value: 'fellowship', threshold: splits[6] },
+    { group: 'attributes', value: 'strength', threshold: str },
+    { group: 'attributes', value: 'toughness', threshold: tou },
+    { group: 'attributes', value: 'agility', threshold: agi },
+    { group: 'attributes', value: 'initiative', threshold: ini },
+    { group: 'attributes', value: 'willpower', threshold: wil },
+    { group: 'attributes', value: 'intellect', threshold: int },
+    { group: 'attributes', value: 'fellowship', threshold: fel },
   ]
+}
+
+const wargearz = function(wargearString) {
+  const gears = wargearString.split(',').map(partString => {
+    let part = partString.trim();
+    const gear = {};
+    if (!isNaN(part.split(' ')[0])) {
+      gear.amount = part.split(/ /)[0];
+      part = part.split(/ (.+)/)[1];
+    }
+    if (part.indexOf('/') > 0) {
+      parts = part.split('/');
+      gear.name = parts[0];
+      gear.variant = parts[1];
+    } else {
+      gear.name = part;
+    }
+    return gear;
+  })
+  return { wargear: gears };
 }
 
 const core = [
   // Adeptus Ministorum
   {
-    source: { ...source.core },
-    name: 'Ministorum Priest',
-    cost: 0, // 12
-    tier: 1,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    faction: 'Imperium',
-    subFaction: 'Adeptus Ministorum',
-    key: 'core-ministorum-priest',
+    ...archetype('core',92,'Adeptus Ministorum','Ministorum Priest',1,'Human'),
+    ...cost(12,0,12, 0, 0),
+    hint: 'A zealous preacher of the Imperial Creed.',
     keywords: 'Imperium,Adeptus Ministorum',
-    influence: 0,
-    archetypeFeatures: [
-      {
-        name: 'Fiery Invective',
-        snippet: 'You can preach the word of the Imperial Creed as a Free Action once per combat. You and all allies with the IMPERIUM heal 1d3+Rank Shock.',
-      },
-    ],
     prerequisites: [
       reqAttribute('willpower', 3),
       reqSkill('scholar', 1),
     ],
-    description: null,
-    hint: 'A zealous preacher of the Imperial Creed.',
+    archetypeFeatures: [
+      {
+        name: 'Fiery Invective',
+        snippet: 'You can preach the word of the Imperial Creed as a Free Action once per combat. You and all allies with the IMPERIUM keyword heal 1d3+Rank Shock.',
+      },
+    ],
     wargear: [
-      { name: 'Chain Sword', variant: 'Chainsword' },
+      { name: 'Chainsword' },
       { name: 'Laspistol' },
       { name: 'Rosarius' },
       { name: 'Knife' },
-      { name: 'Clothing', variant: 'Ministorum robes' },
+      { name: 'Clothing', variant: 'Ministorum Robes' },
       { name: 'Missionary Kit' },
     ],
     suggestedStats: [
-      ...suggestedAttributes('1222323'),
+      ...suggestedAttributes(1,2,2,2,3,2,3),
       reqSkill('awareness', 2),
       reqSkill('ballisticSkill', 2),
-      reqSkill('insight', 2),
-      reqSkill('intimidation', 2),
+      reqSkill('insight', 1),
+      reqSkill('intimidation', 1),
       reqSkill('leadership', 2),
       reqSkill('scholar', 2),
     ],
@@ -322,9 +339,8 @@ const core = [
   },
   {
     ...archetype('core',99,'Adepta Sororitas','Sister of Battle',2,'Human'),
-    ...cost(94,40,54,0),
+    ...cost(94,40,54, 0, 0),
     hint: 'A determined warrior, filled with purity and faith.',
-    influence: 1,
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 3 },
@@ -356,38 +372,31 @@ const core = [
       { name: 'Writing Kit' },
       { name: 'Copy of the Rule of the Sororitas' },
     ],
+    influence: 1,
   },
   // Adeptus Militarum
   {
-    source: { ...source.core },
-    name: 'Imperial Guardsman',
-    cost: 6,
-    tier: 1,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 0,
+    ...archetype('core',93,'Astra Militarum','Imperial Guardsman',1,'Human'),
+    ...cost(6,0,6, 0, 0),
+    hint: 'A disciplined soldier, used to fighting amid multitudes',
     keywords: 'Imperium,Astra Militarum,[Regiment]',
+    prerequisites: [
+      reqSkill('ballisticSkill', 2),
+    ],
     archetypeFeatures: [
       {
         name: 'Look Out, Sir!',
         snippet: 'You have been drilled in sacrificing yourself to save your allies. Once per combat, you may take a Reflexive Action to move up to half your Speed to get in the way of any attack that hit an ally. The attacker then rolls against your Resilience instead of your ally’s, and may deal Wounds to you. Your Resilience increases by +Rank for the purpose of calculating damage.',
       },
     ],
-    prerequisites: [
+    ...wargearz('Flak Armour, Lasgun, Knife, Guard issue mess kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration pack'),
+    suggestedStats: [
+      ...suggestedAttributes(3,3,3,3,2,1,2),
+      reqSkill('athletics', 2),
+      reqSkill('awareness', 1),
       reqSkill('ballisticSkill', 2),
-    ],
-    group: 'Astra Militarum',
-    key: 'core-imperial-guardsman',
-    description: null,
-    hint: 'A disciplined soldier, used to fighting amid multitudes',
-    wargear: [
-      { name: 'Flak Armour' },
-      { name: 'Lasgun' },
-      { name: 'Knife' },
-      { name: 'Guard issue mess kit' },
-      { name: 'Grooming kit' },
-      { name: 'Uplifting Primer', variant: 'A copy of the Imperial Infantryman’s Uplifting Primer' },
-      { name: 'Ration Pack', amount: 3 },
+      reqSkill('survival', 1),
+      reqSkill('weaponSkill', 1),
     ],
   },
   {
@@ -469,50 +478,49 @@ const core = [
       { name: 'Ration Packs', amount: 3 },
     ],
   },
-  // Agents of the Imperium
+  // Inquisition
   {
-    source: { ...source.core },
-    name: 'Inquisitorial Acolyte',
-    cost: 0,
-    tier: 1,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 2,
-    keywords: 'Imperium,Inquisition,<ANY>,<Ordo>',
+    ...archetype('core',94,'Inquisition','Inquisitorial Acolyte',1,'Human'),
+    ...cost(6,0,6, 0, 0),
+    hint: 'A representative of the Inquisition, adaptable and possessing great potential.',
+    keywords: 'Imperium,Inquisition,[ANY],[ORDO]',
+    prerequisitesString: 'Increase a skill of your choice to 2.',
     archetypeFeatures: [
       {
         name: 'Inquisitorial Decree',
-        snippet: 'Once per scene, an Inquisitorial Acolyte '
-        + 'may invoke the name of their Inquisitor to gain +Rank to an Influence or '
-        + 'Interaction Skill test involving a being with the Imperium keyword.',
+        snippet: 'You can invoke the name of your Inquisitor to gain +Rank bonus dice to any social Skill test when interacting with an individual with the IMPERIUM. You can only use this ability once per scene.',
       },
     ],
-    keywordOption: '<Ordo>',
-    skills: 'Any (2)',
-    prerequisites: [],
-    /* prerequisites: [
-      { group: 'skills', value: '<Any>', threshold: 2, },
-    ], */
-    group: 'Agents of the Imperium',
-    key: 'core-inquisitorial-acolyte',
-    description: null,
-    hint: 'A representative of the Inquisition, adaptable and possessing great potential.',
+    wargearString: 'Flak Armour, Any two IMPERIUM weapons with a Value of 5 or less and a Rarity of Uncommon or lower, Symbol of Authority',
     wargear: [
       { name: 'Flak Armour' },
       {
-        name: 'Range weapon of value 5 or less of up to Uncommon rarity (must have the Imperium keyword)',
+        name: 'Any IMPERIUM weapon with a value 5 or less and up to Uncommon rarity',
         selected: '',
         options: [
           {
             filter: true,
             valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
             rarityFilter: ['Common', 'Uncommon'],
-            typeFilter: ['Ranged Weapon'],
+            typeFilter: ['Ranged Weapon','Melee Weapon'],
             keywordFilter: 'Imperium',
           },
         ],
       },
-      { name: 'Knife' },
+      {
+        name: 'Any IMPERIUM weapon with a value 5 or less and up to Uncommon rarity',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
+            rarityFilter: ['Common', 'Uncommon'],
+            typeFilter: ['Ranged Weapon','Melee Weapon'],
+            keywordFilter: 'Imperium',
+          },
+        ],
+      },
+      { name: 'Symbol of Authority' },
     ],
   },
   {
@@ -675,7 +683,7 @@ const core = [
     species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 4,
-    keywords: 'Imperium,Inquisition,<Any>,<Ordo>',
+    keywords: 'Imperium,Inquisition,[Any],<Ordo>',
     archetypeFeatures: [
       {
         name: 'Unchecked Authority',
@@ -859,7 +867,7 @@ const core = [
     species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 0,
-    keywords: 'Imperium,Adeptus Mechanicus,Skitarii,<Forge World>',
+    keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
     archetypeFeatures: [
       {
         name: 'Heavily Augmented',
@@ -867,7 +875,7 @@ const core = [
         + 'the rigours of war. Skitarii do not bleed and gain +½ Rank to Soak tests.',
       },
     ],
-    keywordOption: '<Forge World>',
+    keywordOption: '[Forge World]',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
@@ -890,8 +898,8 @@ const core = [
     species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 2,
-    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,<Forge World>',
-    keywordOption: '<Forge World>',
+    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World]',
+    keywordOption: '[Forge World]',
     archetypeFeatures: [
       {
         name: 'Rite of Repair',
@@ -945,8 +953,8 @@ const core = [
     species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 1,
-    keywords: 'Scum,<ANY>',
-    keywordOption: '<Any>',
+    keywords: 'Scum,[Any]',
+    keywordOption: '[Any]',
     archetypeFeatures: [
       {
         name: 'Scrounger',
@@ -1003,8 +1011,8 @@ const core = [
         + 'mutation from that list.',
       },
     ],
-    keywords: 'Scum,<Any>',
-    keywordOption: '<Any>',
+    keywords: 'Scum,[Any]',
+    keywordOption: '[Any]',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 2 },
       { group: 'skills', value: 'survival', threshold: 1 },
@@ -1043,8 +1051,8 @@ const core = [
         + 'also receive +Rank to Awareness tests when tracking a target.',
       },
     ],
-    keywords: 'Scum,<Any>',
-    keywordOptions: '<Any>',
+    keywords: 'Scum,[Any]',
+    keywordOptions: '[Any]',
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 2 },
@@ -1080,7 +1088,7 @@ const core = [
     species: ['Human (core)'],
     speciesKey: ['core-human'],
     influence: 2,
-    keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Any>',
+    keywords: 'Chaos,Heretic,Heretic Astartes,[Mark of Chaos],[Any]',
     archetypeFeatures: [
       {
         name: 'From Within',
@@ -1121,7 +1129,7 @@ const core = [
     species: ['Adeptus Astartes (core)'],
     speciesKey: ['core-adeptus-astartes'],
     influence: 2,
-    keywords: 'Chaos,Heretic,Heretic Astartes,<Mark of Chaos>,<Legion>',
+    keywords: 'Chaos,Heretic,Heretic Astartes,[Mark of Chaos],<Legion>',
     archetypeFeatures: [
       { name: 'Tactical Versatility', snippet: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
     ],
@@ -2601,7 +2609,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 3),
       reqSkill('weaponSkill', 3),
     ],
-    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>',
     influence: 2,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -2637,7 +2645,7 @@ const aaoaRep = [
       reqSkill('pilot', 3),
       reqSkill('intimidation', 3),
     ],
-    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>',
     influence: 2,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -2667,7 +2675,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 4),
       reqSkill('tech', 3),
     ],
-    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>',
     influence: 2,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -2809,7 +2817,7 @@ const aaoaRep = [
       reqSkill('scholar', 2),
       reqSkill('psychicMastery', 3),
     ],
-    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Psyker',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>, Psyker',
     influence: 3,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -2862,7 +2870,7 @@ const aaoaRep = [
       reqSkill('scholar', 1),
       reqSkill('tech', 3),
     ],
-    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Dark Mechanicus',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>, Dark Mechanicus',
     influence: 1,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -2913,7 +2921,7 @@ const aaoaRep = [
       reqSkill('scholar', 4),
       reqSkill('intimidation', 4),
     ],
-    keywords: 'Heretic, Chaos, <Mark of Chaos>, Heretic Astartes, <Legion>, Priest',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>, Priest',
     influence: 3,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -4683,7 +4691,7 @@ const paxRep = [
       { group: 'skills', value: 'persuasion', threshold: 2 },
       { group: 'skills', value: 'deception', threshold: 2 },
     ],
-    keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
+    keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
     influence: 1,
     archetypeFeatures: [
       {
@@ -4713,7 +4721,7 @@ const paxRep = [
       { group: 'skills', value: 'persuasion', threshold: 1 },
       { group: 'skills', value: 'deception', threshold: 1 },
     ],
-    keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
+    keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
     influence: 1,
     archetypeFeatures: [
       {
@@ -4751,7 +4759,7 @@ const paxRep = [
      { group: 'skills', value: 'pilot', threshold: 2 },
      { group: 'skills', value: 'persuasion', threshold: 2 },
     ],
-    keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
+    keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
     influence: 2,
     archetypeFeatures: [
       {
@@ -4792,7 +4800,7 @@ const paxRep = [
       { group: 'skills', value: 'intimidation', threshold: 3 },
       { group: 'skills', value: 'insight', threshold: 3 },
     ],
-    keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
+    keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
     influence: 3,
     archetypeFeatures: [
       {
@@ -4838,7 +4846,7 @@ const paxRep = [
       { group: 'skills', value: 'intimidation', threshold: 4 },
       { group: 'skills', value: 'leadership', threshold: 4 },
     ],
-    keywords: 'Imperium,Navis Nobilite,<Navis House>,Nobility',
+    keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
     influence: 3,
     archetypeFeatures: [
       {
@@ -4927,7 +4935,7 @@ const paxRep = [
       },
       {
         name: 'Soulless Aura',
-        snippet: 'All Characters within the Untouchables Willpower x ½ Rank meters suffer a +Rank DN increase to all Social skill test. Characters with the <Eldar> or <Psyker> keyword suffer a single point of Shock for every Round they remain within this area of effect.',
+        snippet: 'All Characters within the Untouchables Willpower x ½ Rank meters suffer a +Rank DN increase to all Social skill test. Characters with the [Eldar] or [Psyker] keyword suffer a single point of Shock for every Round they remain within this area of effect.',
         description:
           '<p>The Many feel the Untouchable’s unnatural essence as a subconscious irritation. ' +
           'Those unused to this often find their emotional stability irritated to distraction ' +
@@ -4986,7 +4994,7 @@ const paxRep = [
         name: 'Null-Field',
         snippet: '',
         description:
-          '<p>Untouchables of greater power present a stronger aversion to the Immaterium, encompassing a wider area surrounding them. In this region, psykers see their powers fail and despair, knowing an Untouchable is nearby. The characters Psychic Null traits extend outwards, protecting a number of allies equal to his Rank who are nearby, no further than a distance in meters equal to his Passive Awareness +½ Rank. Characters with the <Eldar> or <Psyker> keyword suffer ½ Rank points of Shock for every Round they remain within this area of effect.</p>'
+          '<p>Untouchables of greater power present a stronger aversion to the Immaterium, encompassing a wider area surrounding them. In this region, psykers see their powers fail and despair, knowing an Untouchable is nearby. The characters Psychic Null traits extend outwards, protecting a number of allies equal to his Rank who are nearby, no further than a distance in meters equal to his Passive Awareness +½ Rank. Characters with the [Eldar] or [Psyker] keyword suffer ½ Rank points of Shock for every Round they remain within this area of effect.</p>'
       },
     ],
     // Rag-robes, uniform or street clothes, trade tools, laspistol or autopistol, null-limiter or Flak Armour.
@@ -5039,10 +5047,10 @@ const paxRep = [
       {
         name: 'Bane of the Immaterium',
         snippet:
-          '<Psyker>s within Willpower x ½ Rank suffer + Rank DN to manifest Powers. ' +
-          '<Eldar> and <Psyker>s in range also suffer Rank points of shock each round. ' +
+          '[Psyker]s within Willpower x ½ Rank suffer + Rank DN to manifest Powers. ' +
+          '[Eldar] and [Psyker]s in range also suffer Rank points of shock each round. ' +
           'The Character is healed by an equal amount shock that is suffered. ' +
-          'Also, <Deamonic>s within range suffer +½ Rank DN to Skill Tests.',
+          'Also, [Deamonic]s within range suffer +½ Rank DN to Skill Tests.',
         description:
           '<p>The abyss where the Untouchable’s soul should be is unrelenting in its psychic hemorrhage, ' +
           'and increases the anathema he projects into larger areas. ' +

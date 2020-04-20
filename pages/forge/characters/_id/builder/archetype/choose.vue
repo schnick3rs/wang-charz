@@ -271,9 +271,11 @@ export default {
       this.ensurePrerequisites(item);
 
       const mods = [];
-      mods.push({
-        targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype',
-      });
+      if (item.influence) {
+        mods.push({
+          targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype',
+        });
+      }
       if (item.modifications){
         mods.push(...item.modifications);
       }
@@ -287,7 +289,7 @@ export default {
           const payload = {
             name: keyword,
             source: 'archetype',
-            type: (keyword.includes('<')) ? 'placeholder' : 'keyword',
+            type: (keyword.includes('[')) ? 'placeholder' : 'keyword',
             replacement: undefined,
           };
           this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });

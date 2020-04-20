@@ -145,7 +145,7 @@
         </blockquote>
       </div>
 
-      <p class="text-lg-justify" v-if="item.influence != 0">
+      <p class="text-lg-justify" v-if="item.influence && item.influence != 0">
         <strong>Influence Bonus: </strong>
         {{ `${item.influence > 0 ? '+' : ''}${item.influence}` }}
       </p>
@@ -254,11 +254,11 @@ export default {
 
       placeholderKeywords.forEach((placeholder) => {
         let wordy = {};
-        if (placeholder.toLowerCase() === '<any>') {
+        if (placeholder.toLowerCase() === '[any]') {
           const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
           wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
         } else {
-          const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
+          const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder.toLowerCase() === placeholder.toLowerCase());
           wordy = { name: placeholder, options: subKeywords, selected: '' };
         }
         if (this.selectedKeywords[placeholder]) {
@@ -313,22 +313,21 @@ export default {
       return `/img/avatars/archetype/${key}.png`;
     },
     keywordOptions(wildcard) {
-      if (wildcard === '<Any>') {
+      if (wildcard === '[Any]') {
         // return all but the any keyword
-        return this.keywordRepository.filter((k) => k.name !== '<Any>');
+        return this.keywordRepository.filter((k) => k.name.toLowerCase() !== '[any]');
       }
-
-      return this.keywordSubwordRepository.filter((k) => k.placeholder === wildcard);
+      return this.keywordSubwordRepository.filter((k) => k.placeholder.toLowerCase() === wildcard.toLowerCase());
     },
     keywordEffect(keyword) {
       const keywordCombinedRepository = [...this.keywordSubwordRepository];
-      const foundKeyword = keywordCombinedRepository.find((k) => k.name === keyword);
+      const foundKeyword = keywordCombinedRepository.find((k) => k.name.toLowerCase() === keyword.toLowerCase());
       if (foundKeyword !== undefined) {
         return foundKeyword.effect;
       }
     },
     keywordHint(keyword, parentKeyword) {
-      let foundKeyword = this.keywordCombinedRepository.find((k) => k.name === keyword);
+      let foundKeyword = this.keywordCombinedRepository.find((k) => k.name.toLowerCase() === keyword.toLowerCase());
       if (foundKeyword !== undefined) {
         return foundKeyword.description;
       }

@@ -30,7 +30,7 @@ export default {
   mixins: [KeywordRepository],
   props: {
     value: String,
-    // the placeholderString or wildcard like <Any> or <Chapter> that defines the options
+    // the placeholderString or wildcard like [Any] or <Chapter> that defines the options
     placeholder: {
       type: String,
       required: true,
@@ -63,9 +63,9 @@ export default {
       const { placeholder } = this;
 
       let wordy = {};
-      if (placeholder.toLowerCase() === '<any>') {
+      if (placeholder.toLowerCase() === '[Any]') {
         const levelOneKeywords = this.keywordRepository
-          .filter((k) => !k.name.includes('<'))
+          .filter((k) => !k.name.includes('['))
           .filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
         wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
       } else {

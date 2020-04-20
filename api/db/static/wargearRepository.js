@@ -445,7 +445,7 @@ const aaoa = [
       '<p>Charges gained dissipate after a few minutes, and thus cannot be carried over from fight to fight.</p>',
   },
   {
-    ...simpleStub(31355, 'aaoa', 135, 'Grapple Gun', '2U', '<Any>', ''),
+    ...simpleStub(31355, 'aaoa', 135, 'Grapple Gun', '2U', '[Any]', ''),
     type: 'Tools & Equipment',
     description:
       '<p>These devices, appearing similar to a normal firearm, use gas pressure or magnetic impulse to propel a sturdy metal hook attached to a cable. ' +
@@ -747,7 +747,7 @@ const pax = [
     snippet: 'At the GM’s discretion, Outlandish Attire may grant a situational +1d bonus to a skill test (such as Deception, Persuasion, Intimidation). This bonus should only apply in the appropriate circumstances for the clothing’s intended purpose.',
   },
   {
-    ...simpleStub(13640, 'pax',364,'Trappings', '6C', 'Apparel, Imperium, <Any>', ''),
+    ...simpleStub(13640, 'pax',364,'Trappings', '6C', 'Apparel, Imperium, [Any]', ''),
     type: 'Apparel',
     subtype: 'Imperial',
     description:
@@ -770,7 +770,7 @@ const pax = [
     snippet: 'Consume to enter a relaxed state for 1d6 minutes.',
   },
   {
-    ...simpleStub(15810,'pax',581,'Improvised Weapon', '1C', 'Low-Tech, Impact or Blade, Imperium, <Any>', ''),
+    ...simpleStub(15810,'pax',581,'Improvised Weapon', '1C', 'Low-Tech, Impact or Blade, Imperium, [Any]', ''),
     ...meleePax('Damage 2+1ED; AP 0; Range M; Steadfast'),
   },
   {
@@ -787,7 +787,7 @@ const pax = [
     ...meleePax('Damage: 2+1ED; AP -1; Range M; Crippling (2), Penetrating (1)', 'Alien Weapon'),
   },
   {
-    ...simpleStub(15840,'pax',584,'Staff', '2C', 'Low-Tech, Impact, Imperium, <Any>', ''),
+    ...simpleStub(15840,'pax',584,'Staff', '2C', 'Low-Tech, Impact, Imperium, [Any]', ''),
     ...meleePax('Damage 3+1ED; AP 0; Range 2m; Steadfast, Two-Handed', 'Low-Tech Weapon'),
   },
 ];

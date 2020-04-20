@@ -50,7 +50,7 @@ const core = [
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
-    keywordString: '<Any>',
+    keywordString: '[Any]',
     storyElementString:
       'The character gains their choice of either 3 Corruption points or ' +
       'a Memorable Injury (see page 233) of their choice and the +1D Bonus to ' +
@@ -62,9 +62,9 @@ const core = [
       {
         key: 'keywords',
         name: 'Keywords',
-        snippet: 'You gain the <Any> keyword.',
+        snippet: 'You gain the [Any] keyword.',
         modifications: [
-          { targetGroup: 'keywords', targetValue: '<Any>' },
+          { targetGroup: 'keywords', targetValue: '[Any]' },
         ],
       },
       {
@@ -1007,7 +1007,7 @@ const aotgt = [
         key: 'unchecked-authority',
         name: 'Unchecked Authority',
         snippet: 'You add +Rank bonus dice to all Influence and Interaction skill testes with <Imperium> characters.',
-        description: 
+        description:
           '<p>Inquisitors have supreme authority for maintaining the security of the Imperium. ' +
           'They gain +Rank to all Influence and Interaction skill tests involving characters with ' +
           'the Imperium Keyword.</p>',

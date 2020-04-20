@@ -61,9 +61,9 @@ const core = [
       '<li>Power Fists</li>' +
       '<li>Unarmed strikes</li>' +
       '<li>Bolt weapons</li>' +
-      '<li>Any weapon with the ADEPTUS ASTARTES Keyword.</li>' +
+      '<li>Any weapon with the <span class="text--keyword">ADEPTUS ASTARTES</span> Keyword.</li>' +
       '</ul>' +
-      '<p>At the GM’s discretion, this Talent may also apply to weapons with the CHAOS Keyword for Chaos Space Marines.</p>',
+      '<p class="mt-2">At the GM’s discretion, this Talent may also apply to weapons with the <span class="text--keyword">CHAOS</span> Keyword for Chaos Space Marines.</p>',
     requirements: [
       {
         condition: 'must',
@@ -86,10 +86,10 @@ const core = [
       '<p>When you make a successful melee attack you can Shift Exalted Icons to reduce the target’s Resilience instead of adding ED. Each Exalted Icon you Shift decreases the target’s Resilience by 1. This Resilience is removed before you calculate damage from the attack.</p>' +
       '<p>Your weapon must have one of the following Keywords to activate this Talent:</p>' +
       '<ul>' +
-      '<li>BLADE</li>' +
-      '<li>CHAIN</li>' +
-      '<li>FORCE</li>' +
-      '<li>POWER FIELD</li>' +
+      '<li><span class="text--keyword">BLADE</span></li>' +
+      '<li><span class="text--keyword">CHAIN</span></li>' +
+      '<li><span class="text--keyword">FORCE</span></li>' +
+      '<li><span class="text--keyword">POWER FIELD</span></li>' +
       '</ul>',
     requirements: [
       {

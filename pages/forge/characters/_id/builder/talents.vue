@@ -533,13 +533,14 @@ export default {
                 }
                 break;
 
-              // condition: 'must', type: 'character', key: 'Tier', value: '2+',
               case 'character':
-                if (requirement.key === 'Tier') {
-                  const prereqTierValue = requirement.value.split('+')[0];
-                  if (this.effectiveCharacterTier <= prereqTierValue) {
-                    fulfilled = false;
-                  }
+                switch (requirement.key) {
+                  case 'Tier':
+                    fulfilled = (this.effectiveCharacterTier <= requirement.value.split('+')[0])
+                    break;
+                  case 'Rank':
+                    fulfilled = (this.characterRank <= requirement.value.split('+')[0])
+                    break;
                 }
                 break;
             }

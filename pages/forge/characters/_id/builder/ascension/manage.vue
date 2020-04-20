@@ -433,10 +433,10 @@ export default {
     characterAscensionKeywordPlaceholders() {
       const placeholderSet = [];
 
-      const placeholderKeywords = this.item.keywords.split(',').filter((k) => k.includes('<'));
+      const placeholderKeywords = this.item.keywords.split(',').filter((k) => k.includes('['));
       placeholderKeywords.forEach((placeholder) => {
         let wordy = {};
-        if (placeholder.toLowerCase() === '<any>') {
+        if (placeholder.toLowerCase() === '[any]') {
           const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
           wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
         } else {
@@ -569,9 +569,9 @@ export default {
       this.$store.dispatch('characters/clearCharacterAscensionPackage', payload);
     },
     keywordOptions(wildcard) {
-      if (wildcard === '<Any>') {
+      if (wildcard === '[Any]') {
         // return all but the any keyword
-        return this.keywordRepository.filter((k) => k.name !== '<Any>');
+        return this.keywordRepository.filter((k) => k.name !== '[Any]');
       }
       return this.keywordRepository.filter((k) => k.name === wildcard);
     },
@@ -608,11 +608,11 @@ export default {
           // reduce to keyword string
           .map((modification) => modification.targetValue)
           // filter placeholder keywords
-          .filter((keyword) => keyword.includes('<'))
+          .filter((keyword) => keyword.includes('['))
           // map to placeholder object
           .map((placeholder) => {
             let wordy = {};
-            if (placeholder.toLowerCase() === '<any>') {
+            if (placeholder.toLowerCase() === '[Any]') {
               const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
               wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
             } else {
