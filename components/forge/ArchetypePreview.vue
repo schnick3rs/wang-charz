@@ -189,6 +189,7 @@ export default {
     keywords: {
       type: Array,
       required: false,
+      default: () => [],
     },
     psychicPowers: {
       type: Array,
@@ -226,13 +227,15 @@ export default {
     }
 
     const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
-    if ( featuresWithOptions ) {
+    if ( featuresWithOptions && this.manageMode ) {
       featuresWithOptions.forEach((feature) => {
         const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
-        feature.options.forEach((options) => {
-          console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
-          feature.selected = found.name;
-        });
+        if (found) {
+          feature.options.forEach((options) => {
+            console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
+            feature.selected = found.name;
+          });
+        }
       });
     }
   },

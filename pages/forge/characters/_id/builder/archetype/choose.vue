@@ -43,16 +43,16 @@
     <v-col :cols="12">
       <v-card>
         <div
-          v-for="(group, key) in archetypeGroups"
+          v-for="(group, key) in archetypeFaction"
           :key="key"
         >
           <v-divider />
 
-          <v-list v-if="archetypesByGroup(group).length > 0" subheader>
+          <v-list v-if="archetypesByFaction(group).length > 0" subheader>
             <v-subheader>{{ group }}</v-subheader>
 
             <v-list-item
-              v-for="item in archetypesByGroup(group)"
+              v-for="item in archetypesByFaction(group)"
               :key="item.key"
               two-line
               :disabled="item.tier > characterSettingTier"
@@ -153,7 +153,7 @@ export default {
     characterSpeciesKey(){
       return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
     },
-    archetypeGroups() {
+    archetypeFaction() {
       if (this.itemList !== undefined) {
         let archetypes = this.itemList;
 
@@ -173,7 +173,7 @@ export default {
           archetypes = archetypes.filter((a) => a.tier <= this.characterSettingTier);
         }
 
-        return [...new Set(archetypes.map((item) => item.group))];
+        return [...new Set(archetypes.map((item) => item.faction))];
       }
 
       return [];
@@ -223,11 +223,11 @@ export default {
     getAvatar(key) {
       return `/img/avatars/archetype/${key}.png`;
     },
-    archetypesByGroup(groupName) {
+    archetypesByFaction(groupName) {
       let archetypes = this.itemList;
 
       /* filter by archetype group */
-      archetypes = archetypes.filter((a) => a.group === groupName);
+      archetypes = archetypes.filter((a) => a.faction === groupName);
 
       if (this.characterSpecies) {
         archetypes = archetypes.filter((a) => {

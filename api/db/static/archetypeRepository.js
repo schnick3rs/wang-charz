@@ -2,7 +2,7 @@
 // Astra Militarum
 
 const source = {
-  core: { book: 'Core Rules', key: 'core', version: 'v2' },
+  core: { book: 'Core Rules', key: 'core', version: 'v1.5' },
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
@@ -83,6 +83,7 @@ const archetype = function (sourceKey, sourcePage, faction, name, tier, species,
     stub,
     wargear: [],
     prerequisites: [],
+    influence: 0,
   };
 }
 
@@ -187,7 +188,7 @@ const wargearz = function(wargearString) {
     }
     return gear;
   })
-  return { wargear: gears };
+  return gears;
 }
 
 const core = [
@@ -226,14 +227,14 @@ const core = [
     ],
   },
   {
-    source: { ...source.core },
-    name: 'Death Cult Assassin',
-    cost: 20,
-    tier: 2,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 0,
+    ...archetype('core',102,'Adeptus Ministorum','Death Cult Assassin',2,'Human'),
+    ...cost(46,20,26, 0, 0),
+    hint: 'An agile killer, expressing worship through the art of death.',
     keywords: 'Imperium,Adeptus Ministorum',
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
     archetypeFeatures: [
       {
         name: 'Glancing Blow',
@@ -242,84 +243,47 @@ const core = [
         + 'Mortal Wounds, and may substitute their Agility for their Soak when doing so.',
       },
     ],
-    keywordOption: null,
-    prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 4 },
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
-    group: 'Adeptus Ministorum',
-    key: 'core-death-cult-assassin',
-    description: null,
-    hint: 'An agile killer, expressing worship through the art of death.',
-    wargear: [
-      { name: 'Bodyglove' },
-      { name: 'Death Cult Powerblade' },
-      { name: 'Death Cult Powerblade' },
-      { name: 'Knife' },
-      { name: 'Laspistol' },
-      { name: 'Doses of stimm', amount: 3 },
-    ],
+    wargear: wargearz('2 Death Cult Powerblade/Two Death Cult Powerblades, Bodyglove, Knife, Laspistol, 3 dose of Stimm'),
+    influence: 1,
   },
   {
-    source: { ...source.core },
-    name: 'Crusader',
-    cost: 40,
-    tier: 3,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 1,
+    ...archetype('core',110,'Adeptus Ministorum','Crusader',3,'Human'),
+    ...cost(74,40,34, 0, 0),
+    hint: 'A holy warrior with unfl agging devotion to the God-Emperor.',
     keywords: 'Imperium,Adeptus Ministorum',
-    archetypeFeatures: [
-      {
-        name: 'Armour of Faith',
-        snippet: 'Crusaders rely upon their faith to carry them '
-        + 'through; they increase their Resolve by ½ Rank. Crusaders gain +Rank bonus '
-        + 'dice to melee attacks against any opponent with the Heretic or Chaos keywords.',
-      },
-    ],
     prerequisites: [
       { group: 'attributes', value: 'initiative', threshold: 3 },
       { group: 'attributes', value: 'willpower', threshold: 3 },
-      { group: 'skills', value: 'weaponSkill', threshold: 3 },
       { group: 'skills', value: 'scholar', threshold: 1 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
     ],
-    group: 'Adeptus Ministorum',
-    key: 'core-Crusader',
-    description: null,
-    hint: 'A holy warrior with unfl agging devotion to the God-Emperor.',
-    wargear: [
-      { name: 'Power Sword' },
-      { name: 'Storm Shield' },
-      { name: 'Carapace Armour' },
-      { name: 'Clothing', variant: 'Ministorum robes' },
+    archetypeFeatures: [
+      {
+        name: 'Armour of Faith',
+        snippet: 'You gain +Double Rank bonus dice to melee attack tests against targets with the CHAOS or HERETIC keyword. Your Resolve also increases by +Rank.',
+      },
     ],
+    wargear: wargearz('Power Sword, Storm Shield, Carapace Armour, Clothing/Ministorum Robes'),
+    influence: 1,
   },
   // Adepta Sororitas
   {
-    source: { ...source.core },
-    name: 'Sister Hospitaller',
-    key: 'core-sister-hospitaller',
+    ...archetype('core',91,'Adepta Sororitas','Sister Hospitaller',1,'Human'),
+    ...cost(24,0,24,0,0),
     hint: 'A pious healer dedicated to care of both body and soul.',
-    faction: 'Imperium',
-    subFaction: 'Adepta Sororitas',
-    cost: 0, // 24
-    tier: 1,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 0,
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    prerequisites: [
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'medicae', threshold: 1 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
+    ],
     archetypeFeatures: [
       {
         name: 'Loyal Compassion',
         snippet: 'Add +Double Rank bonus dice for Medicae (Int) Test on an IMPERIUM character.',
         description: '<p>+Double Rank bonus dice whenever you make a Medicae (Int) Test on a character with the <strong>IMPERIUM</strong> Keyword</p>',
       },
-    ],
-    prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 3 },
-      { group: 'attributes', value: 'willpower', threshold: 3 },
-      { group: 'skills', value: 'medicae', threshold: 1 },
-      { group: 'skills', value: 'scholar', threshold: 1 },
     ],
     wargear: [
       { name: 'Sororitas Powered Armour' },
@@ -328,13 +292,6 @@ const core = [
       { name: 'Laspistol' },
       { name: 'Clothing', variant: 'Sororitas vestments' },
       { name: 'Copy of the Rule of the Sororitas' },
-    ],
-    suggestedStats: [
-      ...suggestedAttributes('2222332'),
-      reqSkill('medicae', 2),
-      reqSkill('medicae', 3),
-      reqSkill('scholar', 2),
-      reqSkill('investigation', 2),
     ],
   },
   {
@@ -389,7 +346,7 @@ const core = [
         snippet: 'You have been drilled in sacrificing yourself to save your allies. Once per combat, you may take a Reflexive Action to move up to half your Speed to get in the way of any attack that hit an ally. The attacker then rolls against your Resilience instead of your ally’s, and may deal Wounds to you. Your Resilience increases by +Rank for the purpose of calculating damage.',
       },
     ],
-    ...wargearz('Flak Armour, Lasgun, Knife, Guard issue mess kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration pack'),
+    wargear: wargearz('Flak Armour, Lasgun, Knife, Guard issue mess kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration pack'),
     suggestedStats: [
       ...suggestedAttributes(3,3,3,3,2,1,2),
       reqSkill('athletics', 2),
@@ -400,83 +357,48 @@ const core = [
     ],
   },
   {
-    source: { ...source.core },
-    name: 'Tempestus Scion',
-    cost: 30,
-    tier: 2,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 1,
+    ...archetype('core',103,'Astra Militarum','Tempestus Scion',2,'Human'),
+    ...cost(72,30,42, 0, 0),
+    hint: 'An elite, highly-trained soldier, used to undertaking special missions.',
     keywords: 'Imperium,Astra Militarum,Militarum Tempest',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'stealth', threshold: 2 },
+    ],
     archetypeFeatures: [
       {
         name: 'Elite Soldier',
-        snippet: 'After spending one or more Glory to increase '
-        + 'damage from a successful attack using a weapon with the Imperium and Astra '
-        + 'Militarum keywords, a Tempestus Scion may add +Rank to the fi nal damage value.',
+        snippet: 'You’re an expert in inflicting pain through the weapons of the Imperium. Whenever you spend Glory to increase damage when using a weapon with the ASTRA MILITARUM you can add +Rank to the final damage value.',
       },
     ],
-    prerequisites: [
-      { group: 'attributes', value: 'initiative', threshold: 3 },
-      { group: 'attributes', value: 'strength', threshold: 3 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
-      { group: 'skills', value: 'stealth', threshold: 2 },
-    ],
-    group: 'Astra Militarum',
-    key: 'core-tempestus-scion',
-    description: null,
-    hint: 'An elite, highly-trained soldier, used to undertaking special missions.',
-    wargear: [
-      { name: 'Carapace Armour' },
-      { name: 'Hot-Shot Lasgun' },
-      { name: 'Grav-chute' },
-      { name: 'Knife' },
-      { name: 'Guard issue mess kit' },
-      { name: 'Blanket' },
-      { name: 'Grooming kit' },
-      { name: 'Uplifting Primer' },
-      { name: 'Ration Packs', amount: 3 },
-    ],
+    wargear: wargearz('Carapace Armour, Hot-Shot Lasgun, Grav-Chute, Knife, Guard issue mess kit, Uplifting Primer/a copy of the Imperial Infantryman’s Uplifting Primer, 3 ration pack'),
+    influence: 1,
   },
   {
-    source: { ...source.core },
-    name: 'Commissar',
-    cost: 50,
-    tier: 3,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 3,
+    ...archetype('core',111,'Astra Militarum','Imperial Commissar',3,'Human'),
+    ...cost(106,50,56, 0, 0),
+    hint: 'A fearsome leader, inspiring both dread and respect in great measure.',
     keywords: 'Imperium,Astra Militarum,Officio Prefectus',
-    archetypeFeatures: [
-      {
-        name: 'Fearsome Respect',
-        snippet: 'Commissars and any allies within 15 metres and '
-        + 'line of sight add +Rank to Resolve tests. A commissar adds +Rank to '
-        + 'Intimidation tests, including Interaction attacks.',
-      },
-    ],
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 1 },
       { group: 'skills', value: 'intimidation', threshold: 2 },
+      { group: 'skills', value: 'leadership', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 1 },
     ],
-    group: 'Astra Militarum',
-    key: 'core-commissar',
-    description: null,
-    hint: 'A fearsome leader, inspiring both dread and respect in great measure.',
-    wargear: [
-      { name: 'Flak Coat' },
-      { name: 'Bolt Pistol' },
-      { name: 'Chain Sword' },
-      { name: 'Guard issue mess kit' },
-      { name: 'Blanket' },
-      { name: 'Grooming kit' },
-      { name: 'Uplifting Primer' },
-      { name: 'Ration Packs', amount: 3 },
+    archetypeFeatures: [
+      {
+        name: 'Fearsome Respect',
+        snippet: 'You and any allies within 15 metres of you that can see you may add +Double Rank bonus dice to Resolve Tests. You add +Double Rank bonus dice to any Intimidation (Wil) Tests, including Interaction Attacks.',
+      },
     ],
+    wargear: wargearz('Bolt Pistol, Chain Sword, Flak Coat, Guard Issue Mess Kit, Blanket, Grooming Kit, Uplifting Primer, 3 Ration Pack'),
+    influence: 3,
   },
   // Inquisition
   {
@@ -524,78 +446,44 @@ const core = [
     ],
   },
   {
-    source: { ...source.core },
-    name: 'Inquisitorial Adept',
-    cost: 0,
-    tier: 1,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 1,
-    keywords: 'Imperium,Inquisition,<Ordo>',
-    archetypeFeatures: [
-      {
-        name: 'Administratum Records',
-        snippet: 'he character is particularly adept at '
-        + 'navigating Imperial Bureaucracy. Add +Rank to Influence and Investigation tests '
-        + 'to acquire information.',
-      },
-    ],
-    keywordOption: '<Ordo>',
+    ...archetype('core',95,'Inquisition','Inqusitorial Sage',1,'Human'),
+    ...cost(16,0,16, 0, 0),
+    hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
+    keywords: 'Adeptus Administratum,Imperium,Inquisition,[Ordo]',
     prerequisites: [
       { group: 'attributes', value: 'intellect', threshold: 3 },
       { group: 'skills', value: 'scholar', threshold: 2 },
     ],
-    group: 'Agents of the Imperium',
-    key: 'core-inquisitorial-adept',
-    description: null,
-    hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
-    wargear: [
-      { name: 'Flak Armour' },
-      { name: 'Laspistol' },
-      { name: 'Knife' },
-      { name: 'Auto quill' },
-      { name: 'Data-slate' },
-      { name: 'Ancient Records', amount: 3 },
-    ],
-  },
-  {
-    source: { ...source.core },
-    name: 'Rogue Trader',
-    cost: 40,
-    tier: 2,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 2,
-    keywords: 'Imperium,Rogue Trader,<Dynasty>',
-    keywordOption: '<Dynasty>',
     archetypeFeatures: [
       {
-        name: 'Warrant of Trade',
-        snippet: 'Rogue Traders are masters at manipulating '
-        + 'situations to their advantage. They receive +Rank to all Persuasion tests and '
-        + 'Influence tests to acquire goods or services.',
+        name: 'Administratum Records',
+        snippet: 'You are particularly adept at navigating the Imperium’s colossal bureaucracy. You gain +Rank bonus dice whenever you make a Test to gather information from Imperial sources, typically on Influence or Investigation (Int) tests.',
       },
     ],
+    wargear: wargearz('Clothing/Administratum Robes, Laspitsol, Knife, Auto Quill, Data-Slate, 3 Scroll of Ancient Records'),
+    influence: 1,
+  },
+  {
+    ...archetype('core',104,'Rogue Traders','Rogue Trader',2,'Human'),
+    ...cost(66,40,26, 0, 0),
+    hint: 'An adventuresome and influential explorer with their own space vessel.',
+    keywords: 'Imperium,Rogue Trader,[Dynasty]',
     prerequisites: [
       { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'awareness', threshold: 1 },
       { group: 'skills', value: 'cunning', threshold: 1 },
       { group: 'skills', value: 'insight', threshold: 2 },
       { group: 'skills', value: 'persuasion', threshold: 2 },
-      { group: 'skills', value: 'awareness', threshold: 1 },
     ],
-    group: 'Agents of the Imperium',
-    key: 'core-rogue-trader',
-    description: null,
-    hint: 'An adventuresome and influential explorer with their own space vessel.',
-    wargear: [
+    archetypeFeatures: [
       {
-        name: 'Choice of Flak Coat, carapace armour or Light Power Armour',
-        options: [
-          { name: 'Flak Coat' },
-          { name: 'Carapace Armour' },
-          { name: 'Light Power Armour' },
-        ],
+        name: 'Warrant of Trade',
+        snippet: 'You are a master of manipulating a situation to your advantage. You gain +Rank bonus dice to all Persuasion tests and Influence tests to acquire goods and services.',
       },
+    ],
+    wargearString: 'Imperial Frigate. Choose any two pieces of Wargear with a Value of your Tier +4 or less, and a Rarity of Rare or lower. Choose from any of the following options; Flak Coat or Carapace Armour or Light Power Armour.',
+    wargear: [
+      { name: 'Imperial Frigate' },
       {
         name: 'Ranged weapon up to value Tier+4 and rarity Rare',
         selected: '',
@@ -620,79 +508,61 @@ const core = [
           },
         ],
       },
-      { name: 'Imperial Frigate' },
+      {
+        name: 'Choice of Flak Coat, carapace armour or Light Power Armour',
+        options: [
+          { name: 'Flak Coat' },
+          { name: 'Carapace Armour' },
+          { name: 'Light Power Armour' },
+        ],
+      },
     ],
+    influence: 2,
   },
   {
-    source: { ...source.core },
-    name: 'Sanctioned Psyker',
-    cost: 50,
-    tier: 2,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 0,
+    ...archetype('core',100,'Adeptus Astra Telephatica','Sanctioned Psyker',2,'Human'),
+    ...cost(72,50,22, 0, 0),
+    hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
     keywords: 'Imperium,Adeptus Astra Telepathica,Psyker,Scholastica Psykana',
-    archetypeFeatures: [
-      {
-        name: 'Psyker',
-        snippet: 'You learn the Smite power and one additional minor power. You gain access to Minor and Universal powers.',
-        description:
-          '<p>A Sanctioned Psyker begins play with <strong>one minor psychic power</strong> ' +
-          'and the <string>smite psychic power</string>.</p>' +
-          '<p>They may purchase additional Minor Psychic Powers and Universal Psychic powers, ' +
-          'subject to Tier restrictions.</p>',
-        psychicPowers: [
-          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Universal',
-        ],
-      }
-    ],
-    keywordOption: null,
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'psychicMastery', threshold: 1 },
     ],
-    group: 'Agents of the Imperium',
-    key: 'core-sanctioned-psyker',
-    description: null,
-    hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
-    wargear: [
-      { name: 'Laspistol' },
-      { name: 'Force rod' },
-      { name: 'Psykana Mercy Blade' },
-      { name: 'Guard issue mess kit' },
-      { name: 'Blanket' },
-      { name: 'Grooming kit' },
-      { name: 'Ration Packs', amount: 2 },
-    ],
-  },
-  {
-    source: { ...source.core },
-    name: 'Inquisitor',
-    cost: 70,
-    tier: 4,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 4,
-    keywords: 'Imperium,Inquisition,[Any],<Ordo>',
     archetypeFeatures: [
       {
-        name: 'Unchecked Authority',
-        snippet: 'Inquisitors have supreme authority for '
-        + 'maintaining the security of the Imperium. They gain +Rank to all Influence and '
-        + 'Interaction skill tests involving characters with the Imperium Keyword.',
-      },
+        name: 'Psyker',
+        snippet: 'You know 1 Minor Psychic Power and the Smite psychic power. You may purchase additional psychic powers, following the rules in Chapter 11.',
+        description:
+          '<p>You know 1 Minor Psychic Power and the Smite psychic power. You may purchase additional psychic powers, following the rules in Chapter 11.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+        selected: '',
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+        ],
+      }
     ],
-    keywordOption: null,
+    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 Ration pack'),
+  },
+  {
+    ...archetype('core',116,'Inquisition','Inquisitor',4,'Human'),
+    ...cost(150,70,80, 0, 0),
+    hint: 'A bearer of profound Imperial authority, adept at discovering the truth in the shadows.',
+    keywords: 'Imperium,Inquisition,[Any],[Ordo]',
     prerequisites: [
       { group: 'attributes', value: 'intellect', threshold: 4 },
       { group: 'attributes', value: 'willpower', threshold: 4 },
@@ -701,16 +571,20 @@ const core = [
       { group: 'skills', value: 'intimidation', threshold: 2 },
       { group: 'skills', value: 'awareness', threshold: 2 },
     ],
-    group: 'Agents of the Imperium',
-    key: 'core-inquisitor',
-    description: null,
-    hint: 'A bearer of profound Imperial authority, adept at discovering the truth in the shadows.',
+    archetypeFeatures: [
+      {
+        name: 'Unchecked Authority',
+        snippet: 'You have supreme authority to maintain the security of the Imperium. You gain +Double Rank bonus dice whenever you make a social Skill Test against a character with the IMPERIUM keyword.',
+      },
+    ],
+    // Flak Armour, Any two IMPERIUM weapons with a Value of 5 or less and a Rarity of Uncommon or lower, Symbol of Authority
     wargear: [
+      { name: 'Flak Armour' },
       {
         name: 'Choice of Flak Coat, Ignatus Power Armour or Light Power Armour',
         selected: '',
         options: [
-          { name: 'Flak Coat' },
+
           { name: 'Ignatus Power Armour' },
           { name: 'Light Power Armour' },
         ],
@@ -741,187 +615,145 @@ const core = [
       },
       { name: 'Symbol of authority' },
     ],
+    influence: 4,
   },
   // Adeptus Astartes
   {
-    source: { ...source.core },
-    name: 'Space Marine Scout',
-    key: 'core-space-marine-scout',
-    species: ['Adeptus Astartes (core)'],
-    speciesKey: ['core-adeptus-astartes'],
+    ...archetype('core',106,'Adeptus Astartes','Space Marine Scout',2,'Adeptus Astartes'),
+    ...cost(180,20,160, 0, 0),
     hint: 'A stealthy warrior adept at reconnaissance.',
-    group: 'Adeptus Astartes',
-    cost: 20,
-    tier: 2,
-    influence: 1,
-    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
-    keywordOption: '<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,[Ahapter]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'initiative', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'athletics', threshold: 3 },
+      { group: 'skills', value: 'awareness', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'stealth', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
+    ],
     archetypeFeatures: [
       {
         name: 'Use the Terrain',
-        snippet: 'Space Marine Scouts receive +Rank to all Stealth '
-        + 'tests if they are in cover.',
+        snippet: 'You gain +Rank to any Stealth (A) Test when there is some form of terrain to hide behind.',
       },
     ],
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3 },
-      { group: 'attributes', value: 'agility', threshold: 3 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
-    description: null,
     wargear: [
       { name: 'Scout Armour' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenade', amount: 3 },
       {
-        name: 'Either a boltgun OR a bolt pistol.',
+        name: 'Choose any one of the following options; A Boltgun or A Bolt pistol and a Chainsword or An Astartes Shotgun or An Astartes Sniper Rifle and a Cameleoline Cloak',
         selected: 'Boltgun',
         options: [
           { name: 'Boltgun' },
-          { name: 'Bolt Pistol' },
+          { name: 'Chain Sword and Bolt Pistol' },
+          { name: 'Astartes Shotgun' },
+          { name: 'Astartes Sniper Rifle and Cameleolin Cloak' },
         ],
       },
-      { name: 'Astartes Combat Knife' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    source: { ...source.core },
-    name: 'Tactical Space Marine',
-    species: ['Adeptus Astartes (core)'],
-    speciesKey: ['core-adeptus-astartes'],
-    cost: 50,
-    tier: 3,
-    influence: 2,
-    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
-    keywordOption: '<Chapter>',
-    archetypeFeatures: [
-      { name: 'Tactical Versatility', snippet: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
-    ],
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 },
-      { group: 'attributes', value: 'agility', threshold: 4 },
-      { group: 'attributes', value: 'toughness', threshold: 4 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
-      { group: 'skills', value: 'weaponSkill', threshold: 3 },
-    ],
-    group: 'Adeptus Astartes',
-    key: 'core-tactical-space-marine',
-    description: null,
-    hint: 'A versatile warrior, veteran of a hundred battles.',
-    wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Boltgun' },
-      { name: 'Bolt Pistol' },
-      { name: 'Astartes Combat Knife' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    source: { ...source.core },
-    name: 'Primaris Intercessor',
-    key: 'core-primaris-intercessor',
-    hint: 'A skilled and focused warrior, adept at bringing death at range.',
-    group: 'Adeptus Astartes',
-    cost: 60,
-    tier: 4,
-    species: ['Primaris Astartes (core)'],
-    speciesKey: ['core-primaris-astartes'],
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 },
-      { group: 'attributes', value: 'agility', threshold: 4 },
-      { group: 'attributes', value: 'toughness', threshold: 4 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
-      { group: 'skills', value: 'weaponSkill', threshold: 4 },
     ],
     influence: 1,
-    keywords: 'Imperium, Adeptus Astartes, Primaris,<Chapter>',
-    keywordOption: '<Chapter>',
+  },
+  {
+    ...archetype('core',113,'Adeptus Astartes','Tactical Space Marine',3,'Adeptus Astartes'),
+    ...cost(210,50,160, 0, 0),
+    hint: 'A versatile warrior, veteran of a hundred battles.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 }, // 20
+      { group: 'attributes', value: 'toughness', threshold: 4 }, // 20
+      { group: 'attributes', value: 'agility', threshold: 4 }, // 20
+      { group: 'attributes', value: 'initiative', threshold: 4 }, // 20
+      { group: 'attributes', value: 'willpower', threshold: 3 }, // 10
+      { group: 'attributes', value: 'intellect', threshold: 3 }, // 10
+      { group: 'skills', value: 'athletics', threshold: 3 }, // 12
+      { group: 'skills', value: 'awareness', threshold: 3 }, // 12
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 }, // 12
+      { group: 'skills', value: 'stealth', threshold: 3 }, // 12
+      { group: 'skills', value: 'weaponSkill', threshold: 3 }, // 12
+    ],
     archetypeFeatures: [
-      { name: 'Intercessor Focus', snippet: 'When firing a bolt rifle or heavy bolt pistol they gain +Rank bonus to attack rolls.' },
-    ],
-    description: '',
-    wargear: [
-      { name: 'Tacticus Mk X' },
       {
-        name: 'Either a bolt rifle OR a heavy bolt pistol.',
-        selected: 'Bolt Rifle',
-        options: [
-          { name: 'Bolt Rifle' },
-          { name: 'Heavy Bolt Pistol' },
-        ],
+        name: 'Tactical Versatility',
+        snippet: 'Your training has prepared you for any circumstance. When you make a Critical Hit you may roll twice on the Critical Hit Table and choose either result.',
       },
-      { name: 'Astartes Combat Knife' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
     ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Boltgun, Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade'),
+    influence: 2,
+  },
+  {
+    ...archetype('core',117,'Adeptus Astartes','Primaris Intercessor',3,'Primaris Astartes'),
+    ...cost(258,60,198, 0, 0),
+    hint: 'A skilled and focused warrior, adept at bringing death at range.',
+    keywords: 'Imperium, Adeptus Astartes, Primaris,[Chapter]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 5 },
+      { group: 'attributes', value: 'toughness', threshold: 5 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'initiative', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'athletics', threshold: 3 },
+      { group: 'skills', value: 'awareness', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'stealth', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Intercessor Focus',
+        snippet: 'You gain +Double Rank bonus dice to any Ballistic Skill Tests to fire a ranged weapon with the PRIMARIS Keyword.',
+      },
+    ],
+    wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Bolt Rifle, Heavy Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Frak Grenade'),
+
+    influence: 1,
   },
   // Adeptus Mechanicus
   {
-    source: { ...source.core },
-    name: 'Skitarius',
-    cost: 40,
-    tier: 2,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 0,
+    ...archetype('core',101,'Adeptus Mechanicus','Skitarius',2,'Human'),
+    ...cost(58,40,18, 0, 0),
+    hint: 'A warrior of the Machine Cult, sturdy and reliable.',
     keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
-    archetypeFeatures: [
-      {
-        name: 'Heavily Augmented',
-        snippet: 'The Skitarius’ body is designed to withstand '
-        + 'the rigours of war. Skitarii do not bleed and gain +½ Rank to Soak tests.',
-      },
-    ],
-    keywordOption: '[Forge World]',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'tech', threshold: 1 },
     ],
-    group: 'Adeptus Mechanicus',
-    key: 'core-skitarius',
-    description: null,
-    hint: 'A warrior of the Machine Cult, sturdy and reliable.',
-    wargear: [
-      { name: 'Skatarii Auto-Cuirass' },
-      { name: 'Galvanic Rifle' },
+    archetypeFeatures: [
+      {
+        name: 'Heavily Augmented',
+        snippet: 'Your body has been redesigned to withstand the rigours of war. You do not bleed (making you immune to the Bleeding) and gain +Rank bonus dice to Determination rolls.',
+      },
     ],
+    wargear: wargearz('Combi-Tool, Galvanic Rifle, Skitarii Auto-Cuirass'),
   },
   {
-    source: { ...source.core },
-    name: 'Tech-Priest',
-    cost: 60,
-    tier: 3,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 2,
+    ...archetype('core',109,'Adeptus Mechanicus','Tech-Priest',3,'Human'),
+    ...cost(84,60,24, 0, 0),
+    hint: 'A priest of the Omnissiah, able to commune with the machine-spirits.',
     keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World]',
-    keywordOption: '[Forge World]',
+    prerequisites: [
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
+      { group: 'skills', value: 'tech', threshold: 3 },
+    ],
     archetypeFeatures: [
       {
         name: 'Rite of Repair',
-        snippet: 'Tech-Priests automatically reduce the time by '
-        + 'half for any Tech test. They receive +Rank on Tech tests to fix or repair a '
-        + 'damaged machine.',
+        snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
       },
     ],
-    prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 3 },
-      { group: 'skills', value: 'tech', threshold: 3 },
-      { group: 'skills', value: 'scholar', threshold: 1 },
-    ],
-    group: 'Adeptus Mechanicus',
-    key: 'core-tech-priest',
-    description: null,
-    hint: 'A priest of the Omnissiah, able to commune with the machine-spirits.',
+    wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
     wargear: [
-      { name: 'Light Power Armour' },
       { name: 'Ommnissian Axe' },
       { name: 'Laspistol' },
-      { name: 'Mechandrites (Servo-Arm)' },
+      { name: 'Mechandrites (Servo-Arm)' }, // TODO select ONE mechandrite
       {
         name: 'One augmentic of your choice.',
         selected: '',
@@ -942,48 +774,41 @@ const core = [
           },
         ],
       },
+      { name: 'Combi tool' },
+      { name: 'Light Power Armour' },
+      { name: 'Symbol of Authority', variant: 'Omnissian Sigil' },
     ],
+    influence: 2,
   },
   // Scum
   {
-    source: { ...source.core },
-    name: 'Ganger',
-    cost: 0,
-    tier: 1,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 1,
+    ...archetype('core',96,'Scum','Ganger',1,'Human'),
+    ...cost(2,0,2, 0, 0),
+    hint: 'A resourceful and tenacious survivor from the depths of enormous industrial cities.',
     keywords: 'Scum,[Any]',
-    keywordOption: '[Any]',
-    archetypeFeatures: [
-      {
-        name: 'Scrounger',
-        snippet: 'Gangers make use of every available resource, and '
-        + 'have a knack for „fi nding“ spares. They receive +Rank to Cunning tests, and '
-        + 'may make a single retroactive Infl uence test with a bonus of +Rank once per '
-        + 'session, representing an item that they had prepared in advance.',
-      },
-    ],
     prerequisites: [
       { group: 'skills', value: 'cunning', threshold: 1 },
     ],
-    group: 'Scum',
-    key: 'core-ganger',
-    description: null,
-    hint: 'A resourceful and tenacious survivor from the depths of enormous industrial cities.',
+    archetypeFeatures: [
+      {
+        name: 'Scrounger',
+        snippet: 'Your life with less has made you adept at finding spares and supplies in the most unlikely of places. You gain +Rank bonus dice to Cunning (Fel) Tests. Once per session you may make an Influence or Cunning Test to acquire an item, representing something you have prepared in advance.',
+      },
+    ],
+    wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stub Gun',
     wargear: [
       {
         name: 'Choice of Laspistol, Autopistol, Hand Cannon or Stub Gun.',
-        selected: 'Laspistol',
+        selected: 'Autopistol',
         options: [
+          { name: 'Autopistol' },
           { name: 'Laspistol' },
-          { name: 'Autpistol' },
           { name: 'Hand Cannon' },
           { name: 'Stub Gun' },
         ],
       },
       {
-        name: 'Choice of Knife or Sword.',
+        name: 'Choice of a Knife or a Sword.',
         selected: 'Knife',
         options: [
           { name: 'Knife' },
@@ -996,31 +821,21 @@ const core = [
     ],
   },
   {
-    source: { ...source.core },
-    name: 'Scavvy',
-    cost: 10,
-    tier: 2,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: -1,
-    archetypeFeatures: [
-      {
-        name: 'Mutant',
-        snippet: 'The Scavvy may select one mutation (see Scavvy Mutations, '
-        + 'page 368). Every time the Scavvy gains a Rank, they may select an additional '
-        + 'mutation from that list.',
-      },
-    ],
+    ...archetype('core',105,'Scum','Scavvy',2,'Human'),
+    ...cost(16,10,6, 0, 0),
+    hint: 'A mutant—cast out and reviled—yet their mutations give them power.',
     keywords: 'Scum,[Any]',
-    keywordOption: '[Any]',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 2 },
       { group: 'skills', value: 'survival', threshold: 1 },
     ],
-    group: 'Scum',
-    key: 'core-scavvy',
-    description: null,
-    hint: 'A mutant—cast out and reviled—yet their mutations give them power.',
+    archetypeFeatures: [
+      {
+        name: 'Mutant',
+        snippet: 'Your life in the unsanitary underbelly of the Imperium has mutated you. Select two Mutations from the list of Scavvy Mutations on p.287. Whenever your Rank increases, you may select another Mutation from the list.',
+      },
+    ],
+    // A Laspistol or an Autopistol, Knife, Bedroll, Canteen, Tattered Clothes
     wargear: [
       {
         name: 'Choice of Laspistol or Autopistol.',
@@ -1033,26 +848,15 @@ const core = [
       { name: 'Knife' },
       { name: 'Bedroll' },
       { name: 'Canteen' },
-      { name: 'Clothing', variant: 'Tattered' },
+      { name: 'Clothing', variant: 'Tattered Clothing' },
     ],
+    influence: -1,
   },
   {
-    source: { ...source.core },
-    name: 'Desperado',
-    cost: 30,
-    tier: 3,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Valuable Prey',
-        snippet: 'Desperados receive +Rank for Cunning tests. They '
-        + 'also receive +Rank to Awareness tests when tracking a target.',
-      },
-    ],
+    ...archetype('core',112,'Scum','Desperado',3,'Human'),
+    ...cost(62,30,32, 0, 0),
+    hint: 'A savvy and dangerous bounty hunter, mercenary, and gun for hire.',
     keywords: 'Scum,[Any]',
-    keywordOptions: '[Any]',
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 2 },
@@ -1060,24 +864,42 @@ const core = [
       { group: 'skills', value: 'cunning', threshold: 2 },
       { group: 'skills', value: 'investigation', threshold: 2 },
     ],
-    group: 'Scum',
-    key: 'core-desperado',
-    description: null,
-    hint: 'A savvy and dangerous bounty hunter, mercenary, and gun for hire.',
-    wargear: [
+    archetypeFeatures: [
       {
-        name: 'Choce of boltgun OR a Chain Sword and bolt pistol.',
-        selected: 'Boltgun',
-        options: [
-          { name: 'Boltgun' },
-          { name: 'Chain Sword and Bolt Pistol' },
-        ],
+        name: 'Valuable Prey',
+        snippet: 'You gain +Rank bonus dice on Cunning Tests, and any Test made to track an individual.',
       },
+    ],
+    wargearString: 'Flak Coat, Preysense Goggles, Maps of the Heartworlds, Combi-Tool, any PROJECTILE weapon, any melee weapon of Uncommon or lower Rarity.',
+    wargear: [
       { name: 'Flak Coat' },
       { name: 'Prysense Googles' },
-      { name: 'Various Maps' },
+      { name: 'Maps of the Heartworlds' },
       { name: 'Combi Tool' },
+      {
+        name: 'any PROJECTILE weapon',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Ranged Weapon'],
+            subtypeFilter: ['Projectile Weapon'],
+          },
+        ],
+      },
+      {
+        name: 'One melee weapon of Uncommon or lower Rarity',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            rarityFilter: ['Common','Uncommon'],
+            typeFilter: ['Melee Weapon'],
+          },
+        ],
+      },
     ],
+    influence: 1,
   },
   // Renegades
   {
@@ -1260,120 +1082,80 @@ const core = [
   },
   // Aeldari
   {
-    source: { ...source.core },
-    name: 'Corsair',
-    cost: 0,
-    tier: 1,
-    species: ['Eldar (core)'],
-    speciesKey: ['core-eldar'],
-    influence: 0,
-    keywords: 'Aeldari,Anhrathe,<Coterie>',
-    archetypeFeatures: [
-      {
-        name: 'Dancing the Blade\'s Edge',
-        snippet: 'Choose one of the following Interaction '
-        + 'Attacks: Athletics or Persuasion. Corsairs get +Rank to the chosen Interaction '
-        + 'Attack and get the same bonus for resisting those same attacks. Corsairs suffer '
-        + 'a +1DN penalty to any Fear test.',
-      },
-    ],
-    keywordOption: null,
+    ...archetype('core',97,'Aeldari','Corsair',1,'Aeldari'),
+    ...cost(16,0,16, 0, 0),
+    hint: 'A space-faring pirate of an ancient race.',
+    keywords: 'Aeldari,Anhrathe,[Corerie]',
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'skills', value: 'athletics', threshold: 2 },
     ],
-    group: 'Aeldari',
-    key: 'core-corsair',
-    description: null,
-    hint: 'A space-faring pirate of an ancient race.',
-    wargear: [
-      { name: 'Corsair Armour' },
-      { name: 'Shuriken Pistol' },
-      { name: 'Lasblaster' },
-      { name: 'Spirit Stone' },
-      { name: 'Plasma Grenade', amount: 3 },
-      { name: 'Void Suite' },
-    ],
-  },
-  {
-    source: { ...source.core },
-    name: 'Ranger',
-    cost: 30,
-    tier: 2,
-    species: ['Eldar (core)'],
-    speciesKey: ['core-eldar'],
-    influence: 0,
-    keywords: 'Aeldari,Asuryani,<Craftworld>',
     archetypeFeatures: [
       {
-        name: 'From the Shadows',
-        snippet: 'Rangers are adept at exploiting any concealment. '
-        + 'Any penalties to detect (using Awareness) or attack a ranger due to lighting or '
-        + 'cover are increased by +½ Rank.',
+        name: 'Dancing the Blade\'s Edge',
+        snippet: 'You throw yourself into danger with reckless abandon to hide your ancestral fears. You gain +Rank bonus dice whenever you make or resist an Athletics (S) or Persuasion (Fel) Attack. You suffer a +1 DN penalty to Fear Tests.',
       },
     ],
-    keywordOption: null,
+    wargear: wargearz('Corsair Armour, Shuriken Pistol, Lasblaster, Spirit Stone, 3 Plasma Grenade, Void Suit'),
+  },
+  {
+    ...archetype('core',107,'Aeldari','Ranger',2,'Aeldari'),
+    ...cost(54,30,24, 0, 0),
+    hint: 'A wanderer, a scout, and tracker for the good of their people.',
+    keywords: 'Aeldari,Asuryani',
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'stealth', threshold: 1 },
       { group: 'skills', value: 'survival', threshold: 2 },
     ],
-    group: 'Aeldari',
-    key: 'core-ranger',
-    description: null,
-    hint: 'A wanderer, a scout, and tracker for the good of their people.',
-    wargear: [
-      { name: 'Chameleoline Cloak' },
-      { name: 'Eldar Mesh Armour' },
-      { name: 'Ranger Long Rifle' },
-      { name: 'Shuriken Pistol' },
-      { name: 'Spirit Stone' },
-      { name: 'Knife' },
-      { name: 'Bedroll' },
-      { name: 'Blanket' },
-    ],
-  },
-  {
-    source: { ...source.core },
-    name: 'Warlock',
-    cost: 80,
-    tier: 3,
-    species: ['Eldar (core)'],
-    speciesKey: ['core-eldar'],
-    influence: 2,
-    keywords: 'Aeldari,Asuryani,Psyker,<Craftworld>',
     archetypeFeatures: [
       {
-        name: 'Runes of Battle',
-        snippet: 'A Warlock begins play with the Psyniscience and '
-        + 'smite psychic powers (these do not count towards the maximum), and may purchase '
-        + 'additional Minor Psychic Powers, Universal Psychic Powers, and Runes of Battle '
-        + 'Psychic Powers, subject to Tier restrictions.',
-        psychicPowers: [
-          { name: 'psykerSmmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Universal',
-          'Runes of Battle',
-        ],
+        name: 'From the Shadows',
+        snippet: 'You are adept at exploiting any form of concealment. Whenever a Vision Penalty (p.191) or Cover (p.181) impose a penalty on someone trying to attack or detect you, the penalty is increased by +Rank DN.',
       },
     ],
-    keywordOption: null,
+    wargear: wargearz('Cameleoline Cloak, Aeldari Mesh Armour, Ranger Long Rifle, Shuriken Pistol, Knife, Spirit Stone, Bedroll, Blanket, Magnoculars'),
+  },
+  {
+    ...archetype('core',114,'Aeldari','Warlock',3,'Aeldari'),
+    ...cost(116,80,36, 0, 0),
+    hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
+    keywords: 'Aeldari,Asuryani,Psyker,[Craftworld]',
     prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'psychicMastery', threshold: 2 },
     ],
-    group: 'Aeldari',
-    key: 'core-warlock',
-    description: null,
-    hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
+    archetypeFeatures: [
+      {
+        name: 'Runes of Battle',
+        // TODO probably error
+        snippet: 'You are a Psyker; you know the Smite and Psyniscience psychic powers and may learn other powers as described in Chapter 11.',
+        psychicPowers: [
+          { name: 'psykerSmmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          //{ name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+          'Divination',
+          'Runes of Battle',
+        ],
+        selected: '',
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          // { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          // { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+        ],
+      },
+    ],
     wargear: [
       { name: 'Rune Armour' },
       { name: 'Shuriken Pistol' },
@@ -1381,104 +1163,67 @@ const core = [
       { name: 'A set of Wraithbone Runes' },
       { name: 'Spirit Stone' },
     ],
+    influence: 2,
   },
   // Orks
   {
-    source: { ...source.core },
-    name: 'Boy',
-    cost: 0,
-    tier: 1,
-    species: ['Ork (core)'],
-    speciesKey: ['core-ork'],
-    influence: 0,
-    keywords: 'Ork,<Clan>',
+    ...archetype('core',98,'Ork','Boy',1,'Ork'),
+    ...cost(26,0,26, 0, 0),
+    hint: 'A brutish warrior and thug who believes that might makes right.',
+    keywords: 'Ork,[Clan]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
     archetypeFeatures: [
       {
         name: 'Get Stuck In',
-        snippet: 'A Boy gains +Rank to melee attacks for every ally '
-        + 'engaged in melee combat with the same target.',
+        snippet: 'You gain +Rank bonus dice to melee attacks for every ally engaged with the same target as you.',
       },
     ],
-    keywordOption: null,
-    prerequisites: [
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
-    group: 'Orks',
-    key: 'core-boy',
-    description: null,
-    hint: 'A brutish warrior and thug who believes that might makes right.',
-    wargear: [
-      { name: 'Shoota' },
-      { name: 'Slugga' },
-      { name: 'Choppa' },
-    ],
+    wargear: wargearz('Shoota, Slugga, Choppa, Clothing/Ripped clothes'),
   },
   {
-    source: { ...source.core },
-    name: 'Kommando',
-    cost: 30,
-    tier: 2,
-    species: ['Ork (core)'],
-    speciesKey: ['core-ork'],
-    influence: 0,
-    keywords: 'Ork,<Clan>',
+    ...archetype('core',108,'Ork','Kommando',2,'Ork'),
+    ...cost(74,30,44, 0, 0),
+    hint: 'A stealthy and cunning warrior who knows how to turn almost any battle to his advantage.',
+    keywords: 'Ork,[Clan]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'stealth', threshold: 2 },
+      { group: 'skills', value: 'survival', threshold: 1 },
+      { group: 'skills', value: 'weaponsSkill', threshold: 2 },
+    ],
     archetypeFeatures: [
       {
         name: 'Kunnin\' Plan',
-        snippet: 'A Kommando and any allies with the Ork Keyword '
-        + 'within 15 metres gain +½ Rank to Stealth tests.',
+        snippet: 'You and any of your allies with the ORK within 15 metres gain +Rank bonus dice to Stealth (A) Tests.',
       },
     ],
-    keywordOption: null,
-    prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 2 },
-      { group: 'attributes', value: 'toughness', threshold: 2 },
-      { group: 'skills', value: 'stealth', threshold: 2 },
-      { group: 'skills', value: 'survival', threshold: 1 },
-    ],
-    group: 'Orks',
-    key: 'core-kommando',
-    description: null,
-    hint: 'A stealthy and cunning warrior who knows how to turn almost any battle to his advantage.',
-    wargear: [
-      { name: 'Shoota' },
-      { name: 'Slugga' },
-      { name: 'Choppa' },
-      { name: 'Stikkbombs' },
-    ],
+    wargear: wargearz('Shoota, Slugga, Choppa, 3 Stikkbomb, Survival Kit'),
   },
   {
-    source: { ...source.core },
+    ...archetype('core',115,'Ork','Nob',3,'Ork'),
+    ...cost(96,60,36, 0, 0),
+    hint: 'A savage warrior and capable leader, using brute force to succeed where others fail.',
     name: 'Nob',
-    cost: 60,
-    tier: 3,
-    species: ['Ork (core)'],
-    speciesKey: ['core-ork'],
-    influence: 2,
-    keywords: 'Ork,<Clan>',
-    archetypeFeatures: [
-      {
-        name: 'Boys',
-        snippet: 'A Nob commands a mob of Troops numbering up to Rank x 3 Boyz '
-        + 'who loyally follow his direction. These Ork Boyz use the profi le found on page '
-        + '150.',
-      },
-    ],
-    keywordOption: null,
+    keywords: 'Ork,[Clan]',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'skills', value: 'intimidation', threshold: 2 },
     ],
-    group: 'Orks',
-    key: 'core-nob',
-    description: null,
-    hint: 'A savage warrior and capable leader, using brute force to succeed where others fail.',
-    wargear: [
-      { name: '\'Eavy Armour' },
-      { name: 'Kustom Slugga' },
-      { name: 'Kustom Choppa' },
+    archetypeFeatures: [
+      {
+        name: 'The Green Tide',
+        snippet: 'You command a mob of Boyz (p.354) equal to your Rank x3. If any of your Boyz die, they can be replaced between sessions at the GMs discretion.',
+      },
     ],
+    wargear: wargearz('\'Eavy Armour, Kustom Slugga, Kustom Choppa'),
+    influence: 2,
   },
 ];
 
