@@ -446,7 +446,7 @@ const core = [
     ],
   },
   {
-    ...archetype('core',95,'Inquisition','Inqusitorial Sage',1,'Human'),
+    ...archetype('core',95,'Inquisition','Inquisitorial Sage',1,'Human'),
     ...cost(16,0,16, 0, 0),
     hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
     keywords: 'Adeptus Administratum,Imperium,Inquisition,[Ordo]',
@@ -750,7 +750,7 @@ const core = [
     ],
     wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
     wargear: [
-      { name: 'Ommnissian Axe' },
+      { name: 'Omnissian Axe' },
       { name: 'Laspistol' },
       { name: 'Mechandrites (Servo-Arm)' }, // TODO select ONE mechandrite
       {
@@ -902,182 +902,161 @@ const core = [
   },
   // Renegades
   {
-    source: { ...source.core },
-    name: 'Cultist',
-    cost: 0,
-    tier: 1,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 2,
-    keywords: 'Chaos,Heretic,Heretic Astartes,[Mark of Chaos],[Any]',
-    archetypeFeatures: [
-      {
-        name: 'From Within',
-        snippet: 'Cultists gain +Rank to Deception tests, including '
-        + 'Interaction attacks, against targets with the Imperium keyword.',
-      },
-    ],
-    modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
-    ],
-    prerequisites: [
-      { group: 'skills', value: 'deception', threshold: 1 },
-    ],
-    group: 'Renegades',
-    key: 'core-cultist',
-    description: null,
+    ...archetype('core',96,'Chaos','Cultist',1,'Human'),
+    ...cost(2,0,2, 0, 0),
     hint: 'A disciple of the Ruinous Powers, eager to gain their capricious favour.',
-    wargear: [
-      {
-        name: 'Choce of lasgun OR autogun.',
-        selected: 'Lasgun',
-        options: [
-          { name: 'Lasgun' },
-          { name: 'Autogun' },
-        ],
-      },
-      { name: 'Knife' },
-      { name: 'Symbol of Authority', variant: 'Unholy icon' },
-      { name: 'Guard issue mess kit' },
-      { name: 'blanket', variant: 'tattered' },
-    ],
-  },
-  {
-    source: { ...source.core },
-    name: 'Chaos Space Marine',
-    cost: 50,
-    tier: 3,
-    species: ['Adeptus Astartes (core)'],
-    speciesKey: ['core-adeptus-astartes'],
-    influence: 2,
-    keywords: 'Chaos,Heretic,Heretic Astartes,[Mark of Chaos],<Legion>',
-    archetypeFeatures: [
-      { name: 'Tactical Versatility', snippet: 'Space Marine training prepares a soldier for any combat circumstance. When making a critical hit, they may draw two Wrath Cards and choose one (if using the Critical Chart, make two rolls and pick one).' },
-    ],
-    modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
-    ],
+    keywords: 'Scum,[Any],Chaos,[Mark of Chaos]',
+    // TODO 1d3 corruption
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 },
-      { group: 'attributes', value: 'agility', threshold: 4 },
-      { group: 'attributes', value: 'toughness', threshold: 4 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
-      { group: 'skills', value: 'weaponSkill', threshold: 3 },
+      { group: 'skills', value: 'cunning', threshold: 1 },
     ],
-    group: 'Renegades',
-    key: 'core-chaos-space-marine',
-    description: null,
-    hint: 'A renegade warrior and death-dealer, a dark reflection of their noble brethren.',
+    archetypeFeatures: [
+      {
+        name: 'Enemy Within',
+        snippet: 'You gain +Double Rank bonus dice to Deception (Fel) Tests, including Interaction Attacks, against targets with the IMPERIUM Keyword.',
+      },
+    ],
+    wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stub Gun',
     wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Boltgun' },
-      { name: 'Bolt Pistol' },
-      { name: 'Astartes Combat Knife' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
+      {
+        name: 'Choice of Laspistol, Autopistol, Hand Cannon or Stub Gun.',
+        selected: 'Autopistol',
+        options: [
+          { name: 'Autopistol' },
+          { name: 'Laspistol' },
+          { name: 'Hand Cannon' },
+          { name: 'Stub Gun' },
+        ],
+      },
+      {
+        name: 'Choice of a Knife or a Sword.',
+        selected: 'Knife',
+        options: [
+          { name: 'Knife' },
+          { name: 'Sword' },
+        ],
+      },
+      { name: 'Bedroll' },
+      { name: 'Canteen' },
+      { name: 'Clothing', variant: 'Gang Colours' },
     ],
   },
   {
-    source: { ...source.core },
-    name: 'Heretek',
-    cost: 60,
-    tier: 2,
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    influence: 1,
-    keywords: 'Chaos,Heretic,Adeptus Mechanicus,Dark Mechanicus',
-    archetypeFeatures: [
-      {
-        name: 'Transformative Technology',
-        snippet: 'Hereteks automatically reduce the time '
-        + 'by half for any Tech test. They also gain +Rank for Tech interaction attacks.',
-      },
-    ],
-    modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
-    ],
-    prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 3 },
-      { group: 'skills', value: 'tech', threshold: 3 },
-      { group: 'skills', value: 'scholar', threshold: 1 },
-    ],
-    group: 'Renegades',
-    key: 'core-heretek',
-    description: null,
-    hint: 'A tinkerer, corruptor of machine-spirits, a bearer of the sin of innovation.',
-    wargear: [
-      { name: 'Laspistol' },
-      { name: 'Mechandrites (Servo-Arm)' },
-      {
-        name: 'One augmentic of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            typeFilter: ['Cybernetic'],
-          },
-        ],
-      },
-      {
-        name: 'One augmentic of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            typeFilter: ['Cybernetic'],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    source: { ...source.core },
-    name: 'Rogue Psyker',
-    key: 'core-rogue-psyker',
-    group: 'Renegades',
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
-    cost: 50,
-    tier: 2,
-    archetypeFeatures: [
-      {
-        name: 'Psyker',
-        snippet: 'A rogue psyker begins play with one Minor Psychic Power, the '
-        + 'Smite Power and may purchase additional Minor Psychic Powers, Universal Psychic '
-        + 'Powers and Maleficarum Psychic Powers subject to Tier restrictions.',
-        psychicPowers: [
-          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Maleficarum',
-          'Universal',
-        ],
-      },
-    ],
+    ...archetype('core',100,'Chaos','Sanctioned Psyker',2,'Human'),
+    ...cost(72,50,22, 0, 0),
+    hint: 'How could you...',
+    keywords: 'Chaos,Psyker,Scholastica Psykana',
+    // TODO 1d3x2 corruption
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'psychicMastery', threshold: 1 },
     ],
-    influence: 0,
-    keywords: 'Chaos,Heretic,Psyker',
-    modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+    archetypeFeatures: [
+      {
+        name: 'Psyker',
+        snippet: 'You know 1 Minor Psychic Power and the Smite psychic power. You may purchase additional psychic powers, following the rules in Chapter 11.',
+        description:
+          '<p>You know 1 Minor Psychic Power and the Smite psychic power. You may purchase additional psychic powers, following the rules in Chapter 11.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+        selected: '',
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          //{ key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+          'Maleficarum',
+        ],
+      }
     ],
-    description: null,
-    hint: 'An unsanctioned bearer of psychic powers, wielding the warp’s power without discipline.',
+    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 Ration pack'),
+  },
+  {
+    ...archetype('core',109,'Chaos','Heretekk',3,'Human'),
+    ...cost(84,60,24, 0, 0),
+    hint: 'A fallen priest, able to commune with the heretic machine-spirits.',
+    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World],Chaos,Dark Mechanicus',
+    // TODO d3x3 corruption
+    prerequisites: [
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
+      { group: 'skills', value: 'tech', threshold: 3 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Rite of Repair',
+        snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
+      },
+    ],
+    wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
     wargear: [
+      { name: 'Omnissian Axe' },
       { name: 'Laspistol' },
-      { name: 'Psychic Focus' },
-      { name: 'Tattered blanket' },
-      { name: 'Guard issue mess kit' },
+      { name: 'Mechandrites (Servo-Arm)' }, // TODO select ONE mechandrite
+      {
+        name: 'One augmentic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: ['Augmentic'],
+          },
+        ],
+      },
+      {
+        name: 'One augmentic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: ['Augmentic'],
+          },
+        ],
+      },
+      { name: 'Combi tool' },
+      { name: 'Light Power Armour' },
+      { name: 'Symbol of Authority', variant: 'Omnissian Sigil' },
     ],
+    influence: 2,
+  },
+  {
+    ...archetype('core',113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
+    ...cost(210,50,160, 0, 0),
+    hint: 'A dark warrior, veteran of a thousand years.',
+    keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Nark of Chaos],Heretic Astartes',
+    // TODO d3 x 3 corruption
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 }, // 20
+      { group: 'attributes', value: 'toughness', threshold: 4 }, // 20
+      { group: 'attributes', value: 'agility', threshold: 4 }, // 20
+      { group: 'attributes', value: 'initiative', threshold: 4 }, // 20
+      { group: 'attributes', value: 'willpower', threshold: 3 }, // 10
+      { group: 'attributes', value: 'intellect', threshold: 3 }, // 10
+      { group: 'skills', value: 'athletics', threshold: 3 }, // 12
+      { group: 'skills', value: 'awareness', threshold: 3 }, // 12
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 }, // 12
+      { group: 'skills', value: 'stealth', threshold: 3 }, // 12
+      { group: 'skills', value: 'weaponSkill', threshold: 3 }, // 12
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Tactical Versatility',
+        snippet: 'Your training has prepared you for any circumstance. When you make a Critical Hit you may roll twice on the Critical Hit Table and choose either result.',
+      },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Boltgun, Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade'),
+    influence: 2,
   },
   // Aeldari
   {

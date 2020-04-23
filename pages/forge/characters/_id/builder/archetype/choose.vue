@@ -263,7 +263,7 @@ export default {
     },
     selectArchetypeForChar(item) {
 
-      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.rawCost, tier: item.tier } });
+      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.costs.archetype, tier: item.tier } });
 
       // TODO ensure species
 

@@ -21,11 +21,15 @@
               {{ name }}
             </td>
             <td class="text-center">
-              <span v-if="stats.range === 1">melee</span>
-              <span v-else>{{ stats.range }} m</span>
+              <span v-if="['*','-'].includes(stats.range)">*</span>
+              <span v-else-if="stats.range === 0">melee</span>
+              <span v-else>{{ stats.range/2 }} | {{ stats.range }} | {{ stats.range*1.5 }}</span>
             </td>
             <td class="text-center">
-              <div v-if="stats.damage">
+              <div v-if="stats.damage.static === '*'">
+                <span>*</span>
+              </div>
+              <div v-else-if="stats.damage">
                 <span v-if="isMelee">STR+{{ stats.damage.static }}</span>
                 <span v-else>{{ stats.damage.static }}</span>
                 <span> + </span>

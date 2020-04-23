@@ -48,6 +48,18 @@ const statMax = function (str, tou, agi, ini, wil, int, fel, spe) {
   }
 };
 
+const cost = function (cost, stats = 0, species = 0, other = 0) {
+  return {
+    cost,
+    costs: {
+      total: cost,
+      stats,
+      species,
+      other,
+    }
+  };
+}
+
 const species = function (sourceKey, sourcePage, group, name, hint, cost, speed, stub = false) {
   return {
     source: {
@@ -73,10 +85,12 @@ const commonNames = function (namesString) {
 const coreRep = [
   {
     ...species('core',29,'Mankind','Human','The humble human',0,6),
+    ...cost(0,0,0,0),
     ...commonNames('Adrielle, Alaric, Barus, Castus, Celeste, Diana, Dar, Davian, Ephrael, Erith, Estebus, Felicia, Gaius, Gezrael, Halo, Harken, Haveloch, Hestia, Iris, Jestilla, Kamir, Katrina, Lukas, Lyta, Mikel, Mira, Nura, Ophelia, Poul, Quitus, Ravenna, Rossel, Ruby, Silvana, Skyv, Steele, Taur, Titus, Tyanna, Ursa, Undine, Verbal, Victor, Waynoka, Wilhemina, Xavier, Yvette, Zane, Zellith, Zek'),
   },
   {
     ...species('core', 29, 'Mankind', 'Adeptus Astartes', 'The Sword of Mankind', 160, 7),
+    ...cost(160,160,0,0),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'initiative', threshold: 4 },
@@ -112,6 +126,7 @@ const coreRep = [
   },
   {
     ...species('core',29,'Mankind','Primaris Astartes','The newborn breed',198,7),
+    ...cost(198,198, 0),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'initiative', threshold: 4 },
@@ -147,6 +162,7 @@ const coreRep = [
   },
   {
     ...species('core',29,'Aeldari','Aeldari','The Mysterious Aeldari',10,8),
+    ...cost(10,10,0, 0),
     ...commonNames(''),
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
@@ -170,6 +186,7 @@ const coreRep = [
   },
   {
     ...species('core',29,'Orks','Ork','The savage brute',20,6),
+    ...cost(20,20,0, 0),
     ...commonNames(''),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 3 },

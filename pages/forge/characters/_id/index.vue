@@ -323,7 +323,10 @@
                         {{ item.name }}
                       </td>
                       <td class="text-center pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
+                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 4">
+                          {{ item.meta[0].range/2 }} | {{ item.meta[0].range }} | {{ item.meta[0].range*1.5 }}
+                        </span>
+                        <span v-else-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
                         <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
                       </td>
                       <td class="text-center pa-1 small">

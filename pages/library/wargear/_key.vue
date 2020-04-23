@@ -25,21 +25,25 @@
             {{ item.description }}
           </p>
 
-          <dod-simple-weapon-stats
-            v-if="item.meta !== undefined && item.meta.length > 0 && ['ranged-weapon','melee-weapon'].includes(item.meta[0].type)"
-            :name="item.name"
-            :stats="item.meta[0]"
-            show-traits
-            class="mb-2"
-          />
-
-          <dod-simple-armour-stats
-            v-if="item.meta !== undefined && item.meta.length > 0 && ['armour'].includes(item.meta[0].type)"
-            :name="item.name"
-            :stats="item.meta[0]"
-            show-traits
-            class="mb-2"
-          />
+          <div
+            v-if="item.meta !== undefined && item.meta.length > 0"
+            v-for="meta in item.meta"
+          >
+            <dod-simple-weapon-stats
+              v-if="['ranged-weapon','melee-weapon'].includes(meta.type)"
+              :name="item.name"
+              :stats="meta"
+              show-traits
+              class="mb-2"
+            />
+            <dod-simple-armour-stats
+              v-else-if="['armour'].includes(meta.type)"
+              :name="item.name"
+              :stats="meta"
+              show-traits
+              class="mb-2"
+            />
+          </div>
 
           <div>
             <span>Keywords:</span>
@@ -99,13 +103,9 @@ export default {
     };
   },
   async asyncData({ params, $axios, error }) {
-    const regex = /(?<id>\d+)-(?<slug>[\w-]*)/;
+    const { key } = params;
 
-    const { idslug } = params;
-
-    const { id, slug } = regex.exec(idslug).groups;
-
-    const response = await $axios.get(`/api/wargear/${id}`);
+    const response = await $axios.get(`/api/wargear/${key}`);
     const item = response.data;
 
     if (item === undefined || item.length <= 0) {
@@ -114,7 +114,7 @@ export default {
 
     return {
       item,
-      slug,
+      key,
       breadcrumbItems: [
         {
           text: '', nuxt: true, exact: true, to: '/',
@@ -126,7 +126,7 @@ export default {
           text: 'Wargear', nuxt: true, exact: true, to: '/library/wargear',
         },
         {
-          text: item.name, disabled: true, nuxt: true, to: `/library/wargear/${id}-${slug}`,
+          text: item.name, disabled: true, nuxt: true, to: `/library/wargear/${key}`,
         },
       ],
     };

@@ -38,7 +38,7 @@
 
     <v-card-text class="pa-6">
       <p class="text-lg-justify">
-        <strong>XP Cost:</strong> {{ species.cost }}
+        <strong>XP Cost:</strong> {{ species.cost }}, incl. Stats ({{ species.costs.stats }} XP)
       </p>
 
       <p><v-divider /></p>

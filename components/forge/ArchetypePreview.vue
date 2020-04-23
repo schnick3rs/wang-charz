@@ -37,7 +37,7 @@
 
       <p class="text-lg-justify"><strong>Species:</strong> {{ item.species.join(', ') }}</p>
 
-      <p class="text-lg-justify"><strong>XP Cost:</strong> {{ item.cost }}</p>
+      <p class="text-lg-justify"><strong>XP Cost:</strong> {{ item.cost }}, incl. Archetype ({{ item.costs.archetype }} XP) and Stats ({{ item.costs.stats }} XP)</p>
 
       <p><v-divider /></p>
 

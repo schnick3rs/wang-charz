@@ -168,7 +168,7 @@
                   <div class="pt-4">
                     <v-btn
                       nuxt
-                      :to="`/library/wargear/${item.id}-${textToKebab(item.name)}`"
+                      :to="`/library/wargear/${item.key}`"
                       color="success"
                       small
                     >
