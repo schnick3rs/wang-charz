@@ -906,7 +906,6 @@ const core = [
     ...cost(2,0,2, 0, 0),
     hint: 'A disciple of the Ruinous Powers, eager to gain their capricious favour.',
     keywords: 'Scum,[Any],Chaos,[Mark of Chaos]',
-    // TODO 1d3 corruption
     prerequisites: [
       { group: 'skills', value: 'cunning', threshold: 1 },
     ],
@@ -914,6 +913,10 @@ const core = [
       {
         name: 'Enemy Within',
         snippet: 'You gain +Double Rank bonus dice to Deception (Fel) Tests, including Interaction Attacks, against targets with the IMPERIUM Keyword.',
+      },
+      {
+        name: 'Corruption',
+        snippet: 'You gain 1d3 corruption.',
       },
     ],
     wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stub Gun',
@@ -942,11 +945,10 @@ const core = [
     ],
   },
   {
-    ...archetype('core',100,'Chaos','Sanctioned Psyker',2,'Human'),
+    ...archetype('core',100,'Chaos','Rogue Psyker',2,'Human'),
     ...cost(72,50,22, 0, 0),
     hint: 'How could you...',
     keywords: 'Chaos,Psyker,Scholastica Psykana',
-    // TODO 1d3x2 corruption
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'psychicMastery', threshold: 1 },
@@ -978,16 +980,19 @@ const core = [
           'Universal',
           'Maleficarum',
         ],
-      }
+      },
+      {
+        name: 'Corruption',
+        snippet: 'You gain 1d3 x2 corruption.',
+      },
     ],
     wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 Ration pack'),
   },
   {
-    ...archetype('core',109,'Chaos','Heretekk',3,'Human'),
+    ...archetype('core',109,'Chaos','Heretek',3,'Human'),
     ...cost(84,60,24, 0, 0),
     hint: 'A fallen priest, able to commune with the heretic machine-spirits.',
     keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World],Chaos,Dark Mechanicus',
-    // TODO d3x3 corruption
     prerequisites: [
       { group: 'attributes', value: 'intellect', threshold: 3 },
       { group: 'skills', value: 'scholar', threshold: 1 },
@@ -997,6 +1002,10 @@ const core = [
       {
         name: 'Rite of Repair',
         snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
+      },
+      {
+        name: 'Corruption',
+        snippet: 'You gain 1d3 x3 corruption.',
       },
     ],
     wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
@@ -1053,6 +1062,10 @@ const core = [
       {
         name: 'Tactical Versatility',
         snippet: 'Your training has prepared you for any circumstance. When you make a Critical Hit you may roll twice on the Critical Hit Table and choose either result.',
+      },
+      {
+        name: 'Corruption',
+        snippet: 'You gain 1d3 x3 corruption.',
       },
     ],
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Boltgun, Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade'),
@@ -3337,7 +3350,6 @@ const ltgbRep = [
   simpleStub('ltgb', '10', 'core-human', 'Renegades', 'Cultist', 0, 1),
   simpleStub('ltgb', '11', 'core-human', 'Renegades', 'Renegade', 0, 1),
   simpleStub('ltgb', '11', 'core-human', 'Renegades', 'Heretek', 60, 2),
-  simpleStub('ltgb', '12', 'core-human', 'Renegades', 'Rogue Psyker', 50, 2),
   simpleStub('ltgb', '12', 'core-human', 'Renegades', 'Rogue Psyker', 50, 2),
   simpleStub('ltgb', '13', 'core-human', 'Renegades', 'Pirate', 40, 2),
   simpleStub('ltgb', '13', 'core-adeptus-astartes', 'Renegades', 'Legionnaire', 50, 3),

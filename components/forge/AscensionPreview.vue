@@ -71,9 +71,10 @@
         <span v-if="item.influencePerTier != 0">{{ item.influencePerTier }} per Tier ascended</span>
       </p>
 
-      <p class="text-lg-justify">
-        <strong>Story Element:</strong> {{ item.storyElementString }}
-      </p>
+      <div class="text-lg-justify">
+        <strong>Story Element:</strong>
+        <div v-html="item.storyElementDescription"></div>
+      </div>
 
       <p class="text-lg-justify">
         <strong>Wargear:</strong> {{ item.wargearString }}
