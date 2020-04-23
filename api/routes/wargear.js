@@ -1,7 +1,6 @@
 const Router = require('express-promise-router');
 
 const wargearRepository = require('../db/static/wargearRepository');
-const db = require('../db');
 
 const router = new Router();
 
@@ -64,6 +63,7 @@ router.get('/', async (request, response) => {
     }
   }
 
+  /*
   const { rows } = await db.queryAsyncAwait(
     `SELECT * FROM wrath_glory.wargear ${where}`,
     params,
@@ -81,9 +81,10 @@ router.get('/', async (request, response) => {
       },
     };
   });
+  */
 
   let merged = [
-    ...sourcedRows,
+    //...sourcedRows,
     ...homebrewWargear,
   ];
 

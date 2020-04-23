@@ -711,7 +711,6 @@ const core = [
       },
     ],
     wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Bolt Rifle, Heavy Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Frak Grenade'),
-
     influence: 1,
   },
   // Adeptus Mechanicus
