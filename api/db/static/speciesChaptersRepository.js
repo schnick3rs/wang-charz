@@ -59,27 +59,24 @@ const core = [
     hint: 'Masters of Melee, compelled to drink the enemies blood.',
     beliefsAndTraditions: [
       {
-        name: 'Blood Frenzy',
+        name: 'Savage Echoes',
         effect:
-          'When attacking in melee combat, a Blood Angels Space Marine may reroll up to Rank damage dice on every attack.',
+          'You may reroll Double Rank dice on any melee attack Test.',
       },
       {
         name: 'The Red Thirst',
         origin: 'Gene-seed',
         effect:
-          'After engaging in melee combat, Blood Angels must pass a Willpower test (DN 3). ' +
-          'On a failure, the Blood Angels Space Marine feels a strong urge to drink the blood of the fallen—the player may choose how to respond to this urge. ' +
-          'If the failure involves a complication, the Blood Angels Space Marine may not resist this urge. ' +
-          'The Game Master may alter the DN based on how long it has been since the character has tasted blood.',
+          'Whenever you are in melee combat and see blood, you must make a DN 3 Willpower Test. If you fail, you are Frenzied.',
       }
-      ],
+    ],
   },
   {
     ...simpleChapter('core',95,'Dark Angles','Lion El`Jonson','Imperium','First Founding (I Legion)'),
     beliefsAndTraditions: [
       {
-        name: 'Fire Discipline',
-        effect: 'When Dark Angels make a ranged attack using a held action, they ignore up to Rank penalties on the attack.',
+        name: 'Grim Resolve',
+        effect: 'You may reroll Double Rank dice when you Aim and make a ranged attack.',
       },
       {
         name: 'The Secret',

@@ -285,14 +285,6 @@ const core = [
       'equal or lesser than 3 + the new Tier. This may include augmetics.',
     ascensionFeatures: [
       {
-        key: 'keywords',
-        name: 'Keywords',
-        snippet: 'You gain the [Any] keyword.',
-        modifications: [
-          { targetGroup: 'keywords', targetValue: '[Any]' },
-        ],
-      },
-      {
         key: 'story-element',
         name: 'Story Element',
         snippet: 'You gain 3 points Corruption or a Memorable Injury.',

@@ -479,7 +479,7 @@ const core = [
   },
   {
     ...gear('core',222,'Needle Pistol','6V','Projectile,Imperium'),
-    ...rangez('Projectile Weapon',8,2,0,12,1,'Agonizing,Inflict(Poisoned 4),Pistol,Silent'),
+    ...rangez('Projectile Weapon',8,2,0,12,1,'Agonising,Inflict(Poisoned 4),Pistol,Silent'),
   },
   {
     ...gear('core',222,'Stubcannon','3C','Projectile,Imperium,Scum'),
@@ -499,7 +499,7 @@ const core = [
   },
   {
     ...gear('core',223,'Needle Rifle','6V','Projectile,Imperium'),
-    ...rangez('Projectile Weapon',8,2,0,28,2,'Agonizing,Inflict(Poisoned 4),Silent'),
+    ...rangez('Projectile Weapon',8,2,0,28,2,'Agonising,Inflict(Poisoned 4),Silent'),
   },
   {
     ...gear('core',223,'Heavy Stubber','5U','Projectile,Imperium,Scum'),

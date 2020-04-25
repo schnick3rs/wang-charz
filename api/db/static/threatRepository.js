@@ -142,7 +142,7 @@ const aaoa = {
     damage: { static: 10, ed: 1 },
     ap: 0,
     salvo: 3,
-    traits: ['Agonizing', 'Asault', 'Spread'],
+    traits: ['Agonising', 'Asault', 'Spread'],
   },
   fleshHooks: simpleRanged('Flesh Hooks', 12, '15+1', 0, 2, 'Assault', 'Pistol'),
   adrenalGlands: {
@@ -177,11 +177,11 @@ const aaoa = {
     earth: simpleAbility('For the Greater Good! (Earth): When a T’au ally attempts a Medicae, Scholar, or Tech test, and you assist them, you add icons to their test for your assistance, rather than dice.'),
     bonding: simpleAbility('Ta\'lissera Bonding Ritual: Any T’au with this rule are part of a bonded team (the GM should determine which T’au are part of which team for roleplaying purposes). Whenever a T’au with this ability attempts a Resolve or Conviction test, and rolls a 6 on their Wrath die, then the test is automatically successful, regardless of how many icons were rolled.'),
     markerlights: simpleRanged('Markerlights', 72, '0+0', 0, 0, 'Heavy (5)', 'Sniper'),
-    pulsePistol: simpleRanged('Pulse Pistol', 60, '12+1', 0, 1, 'Pistol', 'Steadfast'),
-    pulseRifle: simpleRanged('Pulse Rifle', 60, '12+1', 0, 1, 'Rapid Fire (2)', 'Steadfast'),
+    pulsePistol: simpleRanged('Pulse Pistol', 60, '12+1', 0, 1, 'Pistol', 'Reliable'),
+    pulseRifle: simpleRanged('Pulse Rifle', 60, '12+1', 0, 1, 'Rapid Fire (2)', 'Reliable'),
     photonGrenade: simpleRanged('Photon Grenades', 12, '0+0', 0, '-', 'Blast (Medium)', 'Suppression'),
     haywireGrenade: simpleRanged('Haywire Grenade', 12, '0+0', 0, '-', 'Blast (Small)', 'Haywire (3)'),
-    pulseCarbine: simpleRanged('Pulse Carbine', 36, '12+1', 0, 2, 'Assault', 'Steadfast', 'includes  Range 36m'),
+    pulseCarbine: simpleRanged('Pulse Carbine', 36, '12+1', 0, 2, 'Assault', 'Reliable', 'includes  Range 36m'),
     buildInPhotonGrenadeLauncher: simpleRanged('+ build-in Photon Grenade Launcher', 36, '0+0', 0, '-', 'Blast (Medium)', 'Suppression'),
     septs: {
       borkan: {
@@ -323,7 +323,7 @@ const threatRepository = [
         range: 48,
         salvo: 2,
         ap: 0,
-        traits: ['Steadfast', 'Rapid Fire (2)'],
+        traits: ['Reliable', 'Rapid Fire (2)'],
       },
       {
         name: '2 Frag Grenades',
@@ -412,7 +412,7 @@ const threatRepository = [
         range: 48,
         salvo: 2,
         ap: 0,
-        traits: ['Steadfast', 'Rapid Fire (2)'],
+        traits: ['Reliable', 'Rapid Fire (2)'],
       },
       {
         name: '2 Frag Grenades',
@@ -1529,7 +1529,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 10, ed: 1 },
         ap: -1,
-        traits: ['Penetrating (4)'],
+        traits: ['Rending (4)'],
       },
     ],
     specialAbilities: [
@@ -1804,7 +1804,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 7, ed: 1 },
         ap: 0,
-        traits: ['Penetrating (1)'],
+        traits: ['Rending (1)'],
       },
     ],
     specialAbilities: [
@@ -2079,7 +2079,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 10, ed: 1 },
         ap: 0,
-        traits: ['Penetrating (1)'],
+        traits: ['Rending (1)'],
       },
       {
         name: 'Venom Cannon',
@@ -2524,7 +2524,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 9, ed: 2 },
         ap: 0,
-        traits: ['Steadfast', 'Waaagh!'],
+        traits: ['Reliable', 'Waaagh!'],
       },
       {
         name: '2 Stikkbombs',
@@ -2864,7 +2864,7 @@ const threatRepository = [
         range: 1,
         damage: { static: 9, ed: 2 },
         ap: 0,
-        traits: ['Steadfast', 'Waaagh!'],
+        traits: ['Reliable', 'Waaagh!'],
       },
       {
         name: '2 Stikkbombs',
@@ -3075,7 +3075,7 @@ const threatRepository = [
     ],
     attacks: [
       simpleRanged('Gauss Flayer', 48, '10+1', -1, 2, 'Rapid Fire (1)'),
-      simpleMelee('Combat Blade', 1, '10+2', 0, 'Penetrating (1)'),
+      simpleMelee('Combat Blade', 1, '10+2', 0, 'Rending (1)'),
     ],
     specialAbilities: [
       aaoa.necrons.ancientMachines,
@@ -3128,7 +3128,7 @@ const threatRepository = [
       'Flayed One',
     ],
     attacks: [
-      simpleMelee('Talons', 1, '12+2', 0, 'Tearing (2)', 'Penetrating (1)'),
+      simpleMelee('Talons', 1, '12+2', 0, 'Tearing (2)', 'Rending (1)'),
     ],
     specialAbilities: [
       aaoa.necrons.ancientMachines,
@@ -3572,7 +3572,7 @@ const threatRepository = [
         range: 2,
         damage: { static: 7, ed: 1 },
         ap: 0,
-        traits: ['Agonizing', 'Toxic (3)'],
+        traits: ['Agonising', 'Toxic (3)'],
       },
       {
         name: 'Claws',
@@ -3711,7 +3711,7 @@ const threatRepository = [
       'Tyranid',
     ],
     attacks: [
-      simpleMelee('Rending Claws', 1, '16+1', -1, 'Penetrating (4)'),
+      simpleMelee('Rending Claws', 1, '16+1', -1, 'Rending (4)'),
       simpleMelee('Grasping Talons', 2, '15+1', -1),
       aaoa.fleshHooks,
     ],
@@ -3853,7 +3853,7 @@ const threatRepository = [
       simpleMelee('Thresher Scythe (Tail)', 2, '12+1', -1, 'Spread'),
       simpleMelee('Bone Mace (Tail)', 2, '16+2', -1),
       simpleRanged('Twin Deathspitters with Slimer Maggots (Bio-Cannon)', 48, '15+1', -1, 6, 'Assault'),
-      simpleRanged('Twin Devourers with Brainleech Worms (Bio-Cannon)', 36, '14+1', 0, 12, 'Agonizing', 'Assault', 'Spread'),
+      simpleRanged('Twin Devourers with Brainleech Worms (Bio-Cannon)', 36, '14+1', 0, 12, 'Agonising', 'Assault', 'Spread'),
       simpleRanged('Stranglethorn Cannon (Bio-Cannon)', 72, '16+2', -1, 1, 'Assault', 'Blast (Large)', 'Tangle (5)', 'Strangle', 'Unique'),
       simpleRanged('Heavy Venom Cannon (Bio-Cannon)', 72, '18+3', -2, 2, 'Arc (2)', 'Assault', 'Blast (Small)', 'Toxic (5)', 'Unique'),
     ],
@@ -4015,9 +4015,9 @@ const threatRepository = [
       '<Sept>',
     ],
     attacks: [
-      simpleRanged('Pulse Blaster (Close Range)', 20, '14+1', -2, 2, 'Assault', 'Steadfast'),
-      simpleRanged('Pulse Blaster', 20, '12+1', -1, 2, 'Assault', 'Steadfast'),
-      simpleRanged('Pulse Blaster (Long Range)', 20, '10+1', 0, 2, 'Assault', 'Steadfast'),
+      simpleRanged('Pulse Blaster (Close Range)', 20, '14+1', -2, 2, 'Assault', 'Reliable'),
+      simpleRanged('Pulse Blaster', 20, '12+1', -1, 2, 'Assault', 'Reliable'),
+      simpleRanged('Pulse Blaster (Long Range)', 20, '10+1', 0, 2, 'Assault', 'Reliable'),
       aaoa.tau.pulsePistol,
       aaoa.tau.photonGrenade,
       aaoa.tau.haywireGrenade,

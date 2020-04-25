@@ -51,14 +51,15 @@
     </v-simple-table>
 
     <div v-if="showTraits" class="mt-4">
-      <p
+      <div
         v-for="trait in stats.traits"
         v-if="traitByName(trait)"
         :key="trait"
+        class="mb-3"
       >
-        <strong>{{ traitByName(trait).name }}: </strong>
-        {{ traitByName(trait).description }}
-      </p>
+        <strong>{{ traitByName(trait).name }}</strong>
+        <div v-html="traitByName(trait).description"></div>
+      </div>
     </div>
   </div>
 </template>

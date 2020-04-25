@@ -169,18 +169,7 @@ const core = [
       },
     ],
   },
-  {
-    ...talent('core',130,'Betrayer',20,'Corruption,Wrath'),
-    snippet: 'You gain +1 Corruption. Sacrifice a willing or unconscious individual to gain one Wrath.',
-    description:
-      '<p>You can make mortal sacrifices to the Chaos Gods to gain their favour.</p>' +
-      '<p>You gain +1 Corruption.</p>' +
-      '<p>You can sacrifice a willing or unconscious individual — such as a devotee or follower — to gain a point of Wrath.</p>' +
-      '<p>At the GM’s discretion, this sacrifice triggers a Corruption Test.</p>',
-    requirements: [
-      requireKeyword('CHAOS'),
-    ],
-  },
+
   {
     ...talent('core',130,'Berzerker',20,'Wrath'),
     snippet: '',

@@ -202,7 +202,7 @@ const corePowers = [
     keywords: ['Psychic'],
     effect: 'Seize initiative for free and gain +1 Defence.',
   },
-  //
+  // Runes of Battle
   {
     ...powerz('core',283,'Conceal / Reveal','Runes of Battle',20),
     ...simpleCrunch(5,'Action','Sustained','25 m',true),
