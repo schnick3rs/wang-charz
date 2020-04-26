@@ -347,7 +347,7 @@ const core = [
         snippet: 'You have been drilled in sacrificing yourself to save your allies. Once per combat, you may take a Reflexive Action to move up to half your Speed to get in the way of any attack that hit an ally. The attacker then rolls against your Resilience instead of your ally’s, and may deal Wounds to you. Your Resilience increases by +Rank for the purpose of calculating damage.',
       },
     ],
-    wargear: wargearz('Flak Armour, Lasgun, Knife, Guard issue mess kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration pack'),
+    wargear: wargearz('Flak Armour, Lasgun, Knife, Guard issue mess kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
     suggestedStats: [
       ...suggestedAttributes(3,3,3,3,2,1,2),
       reqSkill('athletics', 2),
@@ -375,7 +375,7 @@ const core = [
         snippet: 'You’re an expert in inflicting pain through the weapons of the Imperium. Whenever you spend Glory to increase damage when using a weapon with the ASTRA MILITARUM you can add +Rank to the final damage value.',
       },
     ],
-    wargear: wargearz('Carapace Armour, Hot-Shot Lasgun, Grav-Chute, Knife, Guard issue mess kit, Uplifting Primer/a copy of the Imperial Infantryman’s Uplifting Primer, 3 ration pack'),
+    wargear: wargearz('Carapace Armour, Hot-Shot Lasgun, Grav-Chute, Knife, Guard issue mess kit, Uplifting Primer/a copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
     influence: 1,
   },
   {
@@ -398,7 +398,7 @@ const core = [
         snippet: 'You and any allies within 15 metres of you that can see you may add +Double Rank bonus dice to Resolve Tests. You add +Double Rank bonus dice to any Intimidation (Wil) Tests, including Interaction Attacks.',
       },
     ],
-    wargear: wargearz('Bolt Pistol, Chain Sword, Flak Coat, Guard Issue Mess Kit, Blanket, Grooming Kit, Uplifting Primer, 3 Ration Pack'),
+    wargear: wargearz('Bolt Pistol, Chain Sword, Flak Coat, Guard Issue Mess Kit, Blanket, Grooming Kit, Uplifting Primer, 3 ration packs'),
     influence: 3,
   },
   // Inquisition
@@ -557,7 +557,7 @@ const core = [
         ],
       }
     ],
-    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 Ration pack'),
+    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 ration packs'),
   },
   {
     ...archetype('core',116,'The Inquisition','Inquisitor',4,'Human'),
@@ -623,7 +623,7 @@ const core = [
     ...archetype('core',106,'Adeptus Astartes','Space Marine Scout',2,'Adeptus Astartes'),
     ...cost(180,20,160, 0, 0),
     hint: 'A stealthy warrior adept at reconnaissance.',
-    keywords: 'Imperium,Adeptus Astartes,[Ahapter]',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'toughness', threshold: 4 },
@@ -654,7 +654,7 @@ const core = [
           { name: 'Boltgun' },
           { name: 'Chain Sword and Bolt Pistol' },
           { name: 'Astartes Shotgun' },
-          { name: 'Astartes Sniper Rifle and Cameleolin Cloak' },
+          { name: 'Astartes Sniper Rifle and Cameleoline Cloak' },
         ],
       },
     ],
@@ -987,7 +987,7 @@ const core = [
         snippet: 'You gain 1d3 x2 corruption.',
       },
     ],
-    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 Ration pack'),
+    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 ration packs'),
   },
   {
     ...archetype('core',109,'Chaos','Heretek',3,'Human'),

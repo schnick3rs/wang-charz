@@ -906,7 +906,7 @@ const core = [
     ...toolz('Imperial Equipment','You ignore DN penalties to build, repair, maintain, and sabotage Imperial technology.'),
   },
   {
-    ...gear('core',236,'Cameleoline-Cloak','5R','[Any]'),
+    ...gear('core',236,'Cameleoline Cloak','5R','[Any]'),
     ...toolz('Imperial Equipment','+1 bonus die to Stealth (A) Tests and +1 to Defence when in shadow or cover.'),
   },
   {
