@@ -183,48 +183,77 @@ export default {
       { placeholder: '[Order]', name: 'Order of the Agent Shroud', type: 'Order Militant of the Adepta Sororitas', description: 'This order is famed for their righteous fury and selfl ess acts of heroism. Their founder seldom spoke, believing that deeds proved more devotion than words.', effect: 'When attempting an action associated with your order, the GM may grant you bonus dice.'},
 
       // Regiments of the Astra Militarum
-      // (i) Characters with the [Regiment] keyword must have the Astra Militarum keyword as well.
       {
-        placeholder: '[Regiment]',
-        name: 'Death Korps of Krieg',
-        type: 'Regiment of the Astra Militarum',
-        description: 'Founded on the toxic, radioactive world of Krieg, these soldiers are grim and disciplined, accepting even the most dangerous missions.',
+        name: 'Armageddon Steel Legion',
         effectLabel: 'Regimental Affiliation',
-        effect: '+½ Rank dice to Intimidation tests.',
+        effect: '+Rank bonus dice on any Test to repair a vehicle or weapon',
+        placeholder: '[Regiment]',
+        type: 'Regiment of the Astra Militarum',
+        description: 'A mechanised force known for their industrial efficiency, these soldiers excel at motorised warfare to quickly outflank their Ork foes and protect them from the toxic environs of their homeworld.',
+        modification: {},
+      },
+      {
+        name: 'Cadian Shock Troopers',
+        effectLabel: 'Regimental Affiliation',
+        effect: '+Rank bonus dice to Resolve Tests',
+        placeholder: '[Regiment]',
+        type: 'Regiment of the Astra Militarum',
+        description: 'Though their homeworld was destroyed, the resolute will of the most renowned Regiment of the Astra Militarum refuses to break as long as a single soldier stands.',
         modification: { },
       },
       {
+        name: 'Catachan Jungle Fighters',
         effectLabel: 'Regimental Affiliation',
-        effect: '+½ Rank dice to Resolve tests.',
+        effect: '+Rank bonus dice to Survival (Wil) Tests',
         placeholder: '[Regiment]',
-        name: 'Cadian Shock Troopers',
         type: 'Regiment of the Astra Militarum',
-        description: 'Founded on the Fortress World of Cadia, these disciplined soldiers suffered greatly when their home world was overwhelmed and razed by the forces of Chaos.', modification: { },
+        description: 'Raised in savage jungles filled with monstrous fauna, the troopers of the Death World Catachan fight for survival from the day of their birth.',
+        modification: { },
       },
       {
+        name: 'Death Korps of Krieg',
+        placeholder: '[Regiment]',
+        type: 'Regiment of the Astra Militarum',
         effectLabel: 'Regimental Affiliation',
-        effect: '+½ Rank dice to Survival tests.',
-        placeholder: '[Regiment]', name: 'Catachan Jungle Fighters', type: 'Regiment of the Astra Militarum', description: 'Founded on the incredibly lethal Death World of Catachan, these warriors are famed for their resourcefulness and ability to survive in nearly any battlefi eld.', modification: { },
+        effect: '+Rank bonus dice to Intimidation (Wil) Tests',
+        description: 'A planet in penitence for past rebellion, the radioactive Death World Krieg produces scores of warriors indoctrinated by sermons of sincere sacrifice. Their solemn nature, eagerness for martyrdom, and rebreather-covered faces are unnerving.',
+        modification: { },
       },
       {
+        name: 'Gilead Gravediggers',
+        placeholder: '[Regiment]',
+        type: 'Regiment of the Astra Militarum',
         effectLabel: 'Regimental Affiliation',
-        effect: '+½ Rank dice to Pilot tests.',
-        placeholder: '[Regiment]', name: 'Armageddon Steel Legion', type: 'Regiment of the Astra Militarum', description: 'Founded upon the war-torn world of Armageddon, the Steel Legion commonly ride to war through the polluted wastes of their planet inside armoured vehicles.', modification: { },
+        effect: '+Rank bonus to Defence when in Cover',
+        description: 'Trained to embrace the discomforts of trench warfare even before the emergence of the Great Rift, the surviving Gilead Gravediggers have dug themselves deep into immovable positions to survive three years of daemonic incursions.',
+        modification: { },
       },
       {
+        name: 'Tallarn Desert Raiders',
+        placeholder: '[Regiment]',
+        type: 'Regiment of the Astra Militarum',
         effectLabel: 'Regimental Affiliation',
-        effect: '+½ Rank dice to Leadership tests.',
-        placeholder: '[Regiment]', name: 'Vostroyan Firstborn', type: 'Regiment of the Astra Militarum', description: 'Founded on the Hive World of Vostroya, this regiment is made up of the fi rstborn sons of every family. This tradition was born from an ancient refusal to tithe soldiers to the Imperium, a mistake they have atoned for ever since. Offi cers are of noble birth, while common soldiery are made up of worker families.', modification: { },
+        effect: '+Rank bonus dice to Pilot (A) Tests.',
+        description: 'Masters of mobile warfare, the Tallarns have a vaunted reputation for hit-and-run tactics and indirect engagement. Capable of meticulous military order in tank and vehicle formations, they strike fast and fade into dust storms.',
+        modification: { },
       },
       {
+        name: 'Valhallan Ice Warriors',
         effectLabel: 'Regimental Affiliation',
-        effect: '+½ Rank dice to Resolve tests.',
-        placeholder: '[Regiment]', name: 'Valhallan Ice Warriors', type: 'Regiment of the Astra Militarum', description: 'Founded on the desolate Ice World of Valhalla, this regiment is made up of stern, stubborn soldiers who are all but impervious to harsh conditions.', modification: { },
+        placeholder: '[Regiment]',
+        type: 'Regiment of the Astra Militarum',
+        effect: '+Rank bonus to Determination Tests',
+        description: 'Tenacious and stubborn beyond a fault, Valhallans are indomitable in the face of defeat. They continue their grim advances and succeed despite suicidal odds — ignoring their oft heavy losses.',
+        modification: { },
       },
       {
+        name: 'Vostroyan Firstborn',
+        placeholder: '[Regiment]',
+        type: 'Regiment of the Astra Militarum',
         effectLabel: 'Regimental Affiliation',
-        effect: '+½ Rank dice to Awareness tests.',
-        placeholder: '[Regiment]', name: 'Tallarn Desert Raiders', type: 'Regiment of the Astra Militarum', description: 'Founded on the Desert World of Tallarn, this regiment is highly skilled at mobile warfare. Patient and determined, Tallarn soldiers are ferocious in pursuit of their enemies.', modification: { },
+        effect: '+Rank bonus to Leadership (Fel) Tests',
+        description: 'Every firstborn child of Vostroya is offered to the Astra Militarum in atonement for the planet’s past sins. All see this as an honour, continuing to send reinforcements blind through the void despite the perils of Noctis Aeternia.',
+        modification: { },
       },
 
       // Ordos of the Inquisitor
@@ -238,7 +267,7 @@ export default {
           'responsibility to police the Adeptus Ministorum. Their most common ally is the Order ' +
           'Militant of the Ecclesiarchy, the Sisters of Battle.',
         effect: 'Choose one: You gain +2 bonus dice to resist psychic powers, or you gain +2 '
-        + 'bonus dice to resist Corruption tests.',
+        + 'bonus dice to Corruption tests.',
         modification: {},
         options: [
           {
@@ -248,7 +277,7 @@ export default {
           },
           {
             name: 'Ordo Hereticus Specialisaton',
-            snippet: 'You gain +2 bonus dice to resist Corruption tests.',
+            snippet: 'You gain +2 bonus dice to Corruption tests.',
             description: ''
           },
         ],
@@ -280,18 +309,18 @@ export default {
         + 'menace the corrupting influence of Chaos. The Chamber Militant of the Ordo Malleus '
         + 'are the Grey Knights, and they sometimes campaign together under a dual command '
         + 'structure.',
-        effect: 'Either the character gains 2 Corruption points, or gain +2 bonus dice for any '
-        + 'Scholar or Investigation tests related to daemons and the warp.',
+        effect: 'Either the character gains +3 Corruption and +1 Conviction, or gain +2 bonus dice for any '
+        + 'Scholar (Int) and Investigation (Int) tests related to daemons and the warp.',
         modification: {},
         options: [
           {
             name: 'Ordo Malleus Specialisaton',
-            snippet: 'You gain +2 Corruption points.',
+            snippet: 'You gain +3 Corruption and +1 Conviction.',
             description: ''
           },
           {
             name: 'Ordo Malleus Specialisaton',
-            snippet: 'You gain +2 bonus dice to Scholar or Investigation tests related to daemons and the warp.',
+            snippet: 'You gain +2 bonus dice to Scholar (Int) and Investigation (Int) tests related to daemons and the warp.',
             description: ''
           },
         ],
@@ -304,19 +333,19 @@ export default {
         + 'of the Imperium they strive to protect.',
         effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, '
         + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
-        + 'Gain +½ Rank bonus dice with that skill.',
+        + 'Gain +Rank bonus dice with that skill.',
         modification: {},
         options: [
-          { name: 'Cunning', snippet: 'Gain +½ Rank bonus dice to Cunning Tests.' },
-          { name: 'Deception', snippet: 'Gain +½ Rank bonus dice to Deception Tests.' },
-          { name: 'Insight', snippet: 'Gain +½ Rank bonus dice to Insight Tests.' },
-          { name: 'Intimidation', snippet: 'Gain +½ Rank bonus dice to Intimidation Tests.' },
-          { name: 'Persuasion', snippet: 'Gain +½ Rank bonus dice to Persuasion Tests.' },
-          { name: 'Psychic Mastery', snippet: 'Gain +½ Rank bonus dice to Psychic Mastery Tests.' },
-          { name: 'Scholar', snippet: 'Gain +½ Rank bonus dice to Scholar Tests.' },
-          { name: 'Stealth', snippet: 'Gain +½ Rank bonus dice to Stealth Tests.' },
-          { name: 'Survival', snippet: 'Gain +½ Rank bonus dice to Survival Tests.' },
-          { name: 'Tech', snippet: 'Gain +½ Rank bonus dice to Tech Tests.' },
+          { name: 'Cunning', snippet: 'Gain +Rank bonus dice to Cunning Tests.' },
+          { name: 'Deception', snippet: 'Gain +Rank bonus dice to Deception Tests.' },
+          { name: 'Insight', snippet: 'Gain +Rank bonus dice to Insight Tests.' },
+          { name: 'Intimidation', snippet: 'Gain +Rank bonus dice to Intimidation Tests.' },
+          { name: 'Persuasion', snippet: 'Gain +Rank bonus dice to Persuasion Tests.' },
+          { name: 'Psychic Mastery', snippet: 'Gain +Rank bonus dice to Psychic Mastery Tests.' },
+          { name: 'Scholar', snippet: 'Gain +Rank bonus dice to Scholar Tests.' },
+          { name: 'Stealth', snippet: 'Gain +Rank bonus dice to Stealth Tests.' },
+          { name: 'Survival', snippet: 'Gain +Rank bonus dice to Survival Tests.' },
+          { name: 'Tech', snippet: 'Gain +Rank bonus dice to Tech Tests.' },
         ],
       },
       {

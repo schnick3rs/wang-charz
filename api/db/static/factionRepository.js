@@ -47,6 +47,7 @@ const background = function (text, plusOne, type) {
 
 const core = [
   {
+    name: 'Adepta Sororitas',
     ...faction('core',52,'Imperium','Adepta Sororitas'),
     backgroundSection: [
       // ORIGIN
@@ -72,6 +73,7 @@ const core = [
     ],
   },
   {
+    name: 'Adeptus Astra Telephatica',
     ...faction('core',54,'Imperium','Adeptus Astra Telephatica'),
     backgroundSection: [
       // ORIGIN
@@ -97,6 +99,7 @@ const core = [
     ],
   },
   {
+    name: 'Adeptus Mechanicus',
     ...faction('core',57,'Imperium','Adeptus Mechanicus'),
     backgroundSection: [
       // ORIGIN
@@ -122,6 +125,7 @@ const core = [
     ],
   },
   {
+    name: 'Adeptus Ministorum',
     ...faction('core',59,'Imperium','Adeptus Ministorum'),
     backgroundSection: [
       background('Tithed: As a child you were given unto the Ecclesiarchy’s charge as part of a family tradition.You have spent your cloistered life in devout study of the Imperial Cult.','Conviction','Origin'),
@@ -144,9 +148,21 @@ const core = [
     ],
   },
   {
+    name: 'Astra Militarum',
     ...faction('core',62,'Imperium','Astra Militarum'),
     backgroundSection: [
-
+      //d3 Origin +1
+      background('Recent Recruit: You’re still getting used to the Astra Militarum; until recently, your life was very different. You’re surrounded by strangers and unused to the horrors of war.',' Conviction','Origin'),
+      background('Regiment Born: Your parents were lifelong Astra Militarum. The regimental beliefs and traditions are in your very bones, and the other troopers in your squad are like family.','Influence','Origin'),
+      background('No Choice: Whether you were tithed without consent, press ganged, or signed up to escape a criminal past, you’re in the Astra Militarum now. Time to make the best of it!','Resolve','Origin'),
+      // d3 Accomplishment +1
+      background('15+ Hours: You’ve exceeded the usual life expectancy of a frontline trooper, despite the horrors of war. You’re practically a veteran.','Max Shock','Accomplishment'),
+      background('Last One Standing: Your squad was destroyed in a heroic last stand; as the only survivor you held a crucial position. Do you feel guilty, or believe the Emperor has plans for you.','Determination','Accomplishment'),
+  background('Underdog: You’re known for taking on foes far beyond your fragile human physique; the fires of faith and fury stoke your reputation.','Influence','Accomplishment'),
+      // d3 Goal +1
+      background('Advancement: You’ve set your sights on promotion; bearing the regimental banner or perhaps becoming an officer leading a platoon — where will your ambition lead?','Determination','Goal'),
+      background('Best of the Best: Holding the line is not enough — you want to excel at dealing death. Hone your skills to a lethal edge and become an elite warrior of the Astra Militarum.','Max Wounds','Goal'),
+      background('Overwhelming Firepower: You like guns — the bigger the better. Through position, funds, or foul play, you intend to be the most well-armed member of the Astra Militarum that ever lived.','Wealth','Goal'),
     ],
     objectives: [
       'Express confidence (or the opposite) in the virtue of overwhelming numbers and firepower.',
@@ -158,7 +174,8 @@ const core = [
     ],
   },
   {
-    ...faction('core',65,'Imperium','Inquisition'),
+    name: 'The Inquisition',
+    ...faction('core',65,'Imperium','The Inquisition'),
     objectives: [
       'Complete a social interaction without revealing your identity.',
       'Demonstrate the superiority of the philosophy of your Ordo.',
@@ -169,7 +186,8 @@ const core = [
     ],
   },
   {
-    ...faction('core',67,'Imperium','Rogue Trader'),
+    name: 'Rogue Trader Dynasties',
+    ...faction('core',67,'Imperium','Rogue Trader Dynasties'),
     objectives: [
       'Make a profit in coin, connections, or information.',
       'Use your proud dynastic lineage — real or fabricated — to seal a deal.',
@@ -180,6 +198,7 @@ const core = [
     ],
   },
   {
+    name: 'Scum',
     ...faction('core',69,'Imperium','Scum'),
     objectives: [
       'Apply your experience in a crime to the current situation.',
@@ -191,6 +210,7 @@ const core = [
     ],
   },
   {
+    name: 'Adeptus Astartes',
     ...faction('core',72,'Imperium','Adeptus Astartes'),
     objectives: [
       'Dedicate a victory in combat to the Primarch (or if unknown, honour) of your Chapter.',
@@ -202,6 +222,7 @@ const core = [
     ],
   },
   {
+    name: 'Aeldari',
     ...faction('core',72,'Aeldari','Aeldari'),
     objectives: [
       'Unfavourably compare another Species’ culture, art, or technology to your own.',
@@ -213,6 +234,7 @@ const core = [
     ],
   },
   {
+    name: 'Orks',
     ...faction('core',80,'Orks','Orks'),
     objectives: [
       'Start a fight.',
@@ -224,6 +246,7 @@ const core = [
     ],
   },
   {
+    name: 'Chaos',
     ...faction('core',84,'Chaos','Chaos'),
     objectives: [
       'Corrupt an innocent individual.',

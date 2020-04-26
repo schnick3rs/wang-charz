@@ -402,7 +402,7 @@ const core = [
   },
   // Inquisition
   {
-    ...archetype('core',94,'Inquisition','Inquisitorial Acolyte',1,'Human'),
+    ...archetype('core',94,'The Inquisition','Inquisitorial Acolyte',1,'Human'),
     ...cost(6,0,6, 0, 0),
     hint: 'A representative of the Inquisition, adaptable and possessing great potential.',
     keywords: 'Imperium,Inquisition,[ANY],[ORDO]',
@@ -446,7 +446,7 @@ const core = [
     ],
   },
   {
-    ...archetype('core',95,'Inquisition','Inquisitorial Sage',1,'Human'),
+    ...archetype('core',95,'The Inquisition','Inquisitorial Sage',1,'Human'),
     ...cost(16,0,16, 0, 0),
     hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
     keywords: 'Adeptus Administratum,Imperium,Inquisition,[Ordo]',
@@ -464,7 +464,7 @@ const core = [
     influence: 1,
   },
   {
-    ...archetype('core',104,'Rogue Traders','Rogue Trader',2,'Human'),
+    ...archetype('core',104,'Rogue Trader Dynasties','Rogue Trader',2,'Human'),
     ...cost(66,40,26, 0, 0),
     hint: 'An adventuresome and influential explorer with their own space vessel.',
     keywords: 'Imperium,Rogue Trader,[Dynasty]',
@@ -559,7 +559,7 @@ const core = [
     wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 Ration pack'),
   },
   {
-    ...archetype('core',116,'Inquisition','Inquisitor',4,'Human'),
+    ...archetype('core',116,'The Inquisition','Inquisitor',4,'Human'),
     ...cost(150,70,80, 0, 0),
     hint: 'A bearer of profound Imperial authority, adept at discovering the truth in the shadows.',
     keywords: 'Imperium,Inquisition,[Any],[Ordo]',

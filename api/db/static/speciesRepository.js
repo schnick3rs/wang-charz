@@ -91,6 +91,7 @@ const coreRep = [
   {
     ...species('core', 29, 'Mankind', 'Adeptus Astartes', 'The Sword of Mankind', 160, 7),
     ...cost(160,160,0,0),
+    ...commonNames('Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus.'),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'initiative', threshold: 4 },
@@ -121,12 +122,11 @@ const coreRep = [
         snippet: 'You are immune to the Bleeding Condition. You gain +1 bonus dice to any test related to one of the 19 implants (p.76) if the GM agrees it is appropriate.',
       },
     ],
-    ...commonNames(
-      'Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus'),
   },
   {
     ...species('core',29,'Mankind','Primaris Astartes','The newborn breed',198,7),
     ...cost(198,198, 0),
+    ...commonNames('Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus.'),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'initiative', threshold: 4 },
@@ -163,7 +163,7 @@ const coreRep = [
   {
     ...species('core',29,'Aeldari','Aeldari','The Mysterious Aeldari',10,8),
     ...cost(10,10,0, 0),
-    ...commonNames(''),
+    ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
     ],
@@ -187,7 +187,7 @@ const coreRep = [
   {
     ...species('core',29,'Orks','Ork','The savage brute',20,6),
     ...cost(20,20,0, 0),
-    ...commonNames(''),
+    ...commonNames('Arrlug, Balgrog, Blacktoof, Bluddflak, Bonesmasha, Dedak, Dragnatz, Eddbasha, Garahak, Gargash, Garmek, Genghiz, Gorbad, Grimskull, Hackitt, Hruk, Klawjaw, Kozdek, Lug, Morglum, Murgor, Nazhakka, Rakka, Rekkfist, Rotchop, Skarjaw, Skubmak, Urkthrall, Vorhgad, Zogax'),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -200,7 +200,6 @@ const coreRep = [
       {
         name: 'Orky',
         snippet: '+1 bonus dice to Intimidation Tests.',
-        // TODO add mechanics
       },
       {
         name: 'Bigger is Better',
@@ -209,6 +208,7 @@ const coreRep = [
     ],
   },
 ];
+
 /*
 const homebrewReps = [
   simpleStub('heva', 6, 'Aeldari', 'Dark Eldar', 'From the shadows, from the Dark City', 20, 1),
