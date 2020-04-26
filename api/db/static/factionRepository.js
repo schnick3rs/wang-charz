@@ -98,35 +98,75 @@ const core = [
   },
   {
     ...faction('core',57,'Imperium','Adeptus Mechanicus'),
+    backgroundSection: [
+      // ORIGIN
+      background('Forge Born: You were born in the Cult Mechanicus, raised by steel and choir. The rhythms of the forge, the manufactorum, and the data-loom beat in your heart, whether natural or artificial.','Resolve','Origin'),
+      background('Void Born: You spent your early life aboard an orbital station, built either for defence or industry. You were unaware planets existed until adolescence.','Max Wounds','Origin'),
+      background('Promethean Proselytism: You converted to the Cult Mechanicus, leaving your former life behind after a holy vision, revelatory moment, or some other change of heart.','Conviction','Goal'),
+      // ACCOMPLISHNMENT
+      background('Quest for Knowledge: You accompanied a Rogue Trader or an Explorator mission to search for forgotten technology. The journey was rife with danger, but you prevailed, earning scars and wisdom.','Determination','Accomplishment'),
+      background('Forbidden Tech: You encountered technology considered anathema. Xenos machines, heretical experimentation, or something stranger — did you destroy the abhorrent machine, or take a risk?','Influence','Accomplishment'),
+  background('Necron Assault: You survived a clash with the nightmarish Necrons; many allies fell to their bizarre weapons, but, you managed to escape or prevail, haunted by visions of death-masked mechanical horrors.','Max Shock','Accomplishment'),
+      // GOAL
+      background('Mechanical Missionary: The truth of the Omnissiah must be spread. By converting individuals and raising holy temples or forges, you serve the expansion of the Cult Mechanicus.','Conviction','Goal'),
+      background('Acquire Archeotech: The acquisition of technology is a core tenet of your faith. You zealously pursue the possibility of recovering lost Dark Age technology, or even an STC.','Determination','Goal'),
+      background('Ascend to Iron: The flesh is weak. You are driven to replace biological matter with augmetics.','Wealth','Goal'),
+    ],
+    objectives: [
+      'Commune with a Machine Spirit.',
+      'Calculate the odds of any given task and provide an estimate of survival or success.',
+      'Reminisce about a Forge World you have visited and compare it to your current location.',
+      'Examine an interesting piece of technology, determining a flaw or potential improvement.',
+      'Give praise to the Omnissiah for some small miracle.',
+      'Extoll the virtues of augmetics over the weakness of the flesh.',
+    ],
   },
   {
     ...faction('core',59,'Imperium','Adeptus Ministorum'),
+    backgroundSection: [
+      background('Tithed: As a child you were given unto the Ecclesiarchy’s charge as part of a family tradition.You have spent your cloistered life in devout study of the Imperial Cult.','Conviction','Origin'),
+      background('Penitent: Confession and prayer are not enough; you believe you sinned, and this stains your very soul. You seek penance with your every act — but for what sin?','Resolve','Origin'),
+    background('Guided by Visions: You are guided by waking dreams of glorious figures of the Creed; preachers, Saints, and the God-Emperor Himself. You rely on these questionably accurate visions.','Determination','Origin'),
+    background('Breaker of Heretics: You personally destroyed a heretical movement. The sight of such blasphemy was enough to twist your stomach, but your righteous anger served you well.','Influence','Accomplishment'),
+    background('Trust No One: Ambition and greed permeate even the zealous clerics of the Creed. You have suffered firsthand at this corruption, and now judge the faith of others.','Conviction','Accomplishment'),
+    background('Crisis of Faith: After your community faced doubt you rekindled the light of fervour, overcoming a profoundly dark and lonesome trial.','Resolve','Accomplishment'),
+    background('Avenge the Lost: Part of your church turned traitor, committing grievous sins and slaying your allies. Find the renegades, judge their crimes, and carry out your grim sentence.','Determination','Goal'),
+    background('Aspiration: The lofty spire of Ecclesiarchy advancement is yours to climb; honour and influence are your desire, through whatever means necessary.','Influence','Goal'),
+    background('Pilgrimage: You feel driven to undertake a pilgrimage, one that will surely test your faith to  become one of the blessed.','Max Shock','Goal'),
+    ],
+    objectives: [],
   },
   {
     ...faction('core',62,'Imperium','Astra Militarum'),
+    objectives: [],
   },
   {
     ...faction('core',65,'Imperium','Inquisition'),
+    objectives: [],
   },
   {
     ...faction('core',67,'Imperium','Rogue Trader'),
+    objectives: [],
   },
   {
     ...faction('core',69,'Imperium','Scum'),
+    objectives: [],
   },
   {
     ...faction('core',72,'Imperium','Adeptus Astartes'),
+    objectives: [],
   },
   {
     ...faction('core',72,'Aeldari','Aeldari'),
-    // TODO handle Pathes 0, 10, 20*
+    objectives: [],
   },
   {
     ...faction('core',80,'Orks','Orks'),
+    objectives: [],
   },
   {
     ...faction('core',84,'Chaos','Chaos'),
-    // traitor variants
+    objectives: [],
   },
 ];
 

@@ -1,4 +1,3 @@
-// TODO
 // Astra Militarum
 
 const source = {

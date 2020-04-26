@@ -1,5 +1,6 @@
 const source = {
   core: { book: 'Core Rules (Revised)', key: 'core', version: 'v1.5' },
+  core10: { book: 'Core Rules (v1)', key: 'core10', version: 'v1.0' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
@@ -657,6 +658,7 @@ const core = [
   },
   {
     ...gear('core',227,'Chain Bayonet','4R','Imperium,Chaos'),
+    key: 'core-weapon-upgrade-chain-bayonet',
     type: 'Weapon Upgrade',
     upgradeType: 'Bayonet',
     snippet: 'You can use this weapon as a Chain Bayonet (p. 213).',
