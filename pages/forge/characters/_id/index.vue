@@ -796,13 +796,13 @@ export default {
 
     const talentResponse = await $axios.get('/api/talents/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
-    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
+    const factionResponse = await $axios.get('/api/factions/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
 
     return {
       characterId: params.id,
       astartesChapterRepository: chaptersResponse.data,
-      objectiveRepository: objectiveResponse.data,
+      factionRepository: factionResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
       talentRepository: talentResponse.data,
       breadcrumbItems: [
@@ -1337,10 +1337,10 @@ export default {
       return items;
     },
     objectives() {
-      if (this.characterArchetype && this.objectiveRepository) {
-        const objectiveList = this.objectiveRepository.find((o) => o.group === this.characterArchetype.group);
+      if (this.characterArchetype && this.factionRepository) {
+        const objectiveList = this.factionRepository.find((faction) => faction.name === this.characterArchetype.faction).objectives;
         if (objectiveList) {
-          return objectiveList.objectives.map((o) => ({ text: o }));
+          return objectiveList.map((o) => ({ text: o }));
         }
       }
       return [];

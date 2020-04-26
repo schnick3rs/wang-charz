@@ -1159,7 +1159,7 @@ const core = [
   },
   // Orks
   {
-    ...archetype('core',98,'Ork','Boy',1,'Ork'),
+    ...archetype('core',98,'Orks','Boy',1,'Ork'),
     ...cost(26,0,26, 0, 0),
     hint: 'A brutish warrior and thug who believes that might makes right.',
     keywords: 'Ork,[Clan]',
@@ -1177,7 +1177,7 @@ const core = [
     wargear: wargearz('Shoota, Slugga, Choppa, Clothing/Ripped clothes'),
   },
   {
-    ...archetype('core',108,'Ork','Kommando',2,'Ork'),
+    ...archetype('core',108,'Orks','Kommando',2,'Ork'),
     ...cost(74,30,44, 0, 0),
     hint: 'A stealthy and cunning warrior who knows how to turn almost any battle to his advantage.',
     keywords: 'Ork,[Clan]',
@@ -1198,7 +1198,7 @@ const core = [
     wargear: wargearz('Shoota, Slugga, Choppa, 3 Stikkbomb, Survival Kit'),
   },
   {
-    ...archetype('core',115,'Ork','Nob',3,'Ork'),
+    ...archetype('core',115,'Orks','Nob',3,'Ork'),
     ...cost(96,60,36, 0, 0),
     hint: 'A savage warrior and capable leader, using brute force to succeed where others fail.',
     name: 'Nob',
@@ -2998,7 +2998,7 @@ const aaoaRep = [
   simpleStub('aaoa', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
   simpleStub('aaoa', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
   {
-    ...simpleStub('aaoa', 58, 'Ork', 'Orks', 'Mekboy', 30, 2, false),
+    ...simpleStub('aaoa', 58, 'Orks', 'Orks', 'Mekboy', 30, 2, false),
     hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3030,7 +3030,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 58, 'Ork', 'Orks', 'Painboy', 30, 2, false),
+    ...simpleStub('aaoa', 58, 'Orks', 'Orks', 'Painboy', 30, 2, false),
     hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3058,7 +3058,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 59, 'Ork', 'Orks', 'Burna Boy', 30, 2, false),
+    ...simpleStub('aaoa', 59, 'Orks', 'Orks', 'Burna Boy', 30, 2, false),
     hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3085,7 +3085,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 59, 'Ork', 'Orks', 'Flash Git', 60, 3, false),
+    ...simpleStub('aaoa', 59, 'Orks', 'Orks', 'Flash Git', 60, 3, false),
     hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -3112,7 +3112,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 60, 'Ork', 'Orks', 'Tankbusta', 30, 2, false),
+    ...simpleStub('aaoa', 60, 'Orks', 'Orks', 'Tankbusta', 30, 2, false),
     hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3138,7 +3138,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 60, 'Ork', 'Orks', 'Runtherd', 30, 2, false),
+    ...simpleStub('aaoa', 60, 'Orks', 'Orks', 'Runtherd', 30, 2, false),
     hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3168,7 +3168,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 61, 'Ork', 'Orks', 'Weirdboy', 60, 3, false),
+    ...simpleStub('aaoa', 61, 'Orks', 'Orks', 'Weirdboy', 60, 3, false),
     hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 4 },

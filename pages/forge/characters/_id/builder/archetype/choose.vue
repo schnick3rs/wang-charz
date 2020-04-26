@@ -204,7 +204,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('characters', ['setCharacterArchetype']),
+    ...mapMutations('characters', ['setCharacterArchetype','setCharacterFaction']),
     async getArchetypeList(sources) {
       const config = {
         params: {
@@ -264,6 +264,7 @@ export default {
     selectArchetypeForChar(item) {
 
       this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.costs.archetype, tier: item.tier } });
+      this.setCharacterFaction({ id: this.characterId, faction: { key: item.factionKey, label: item.faction } });
 
       // TODO ensure species
 

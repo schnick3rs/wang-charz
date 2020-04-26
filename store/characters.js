@@ -143,7 +143,9 @@ export const getters = {
   characterSpeciesKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].species.key : getDefaultState().species.key),
   characterSpeciesLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].species.label : getDefaultState().species.label),
   characterSpeciesAstartesChapterById: (state) => (id) => (state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter),
-  characterArchetypeKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.key : getDefaultState().archetype.key),
+  characterFactionKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].faction.key : getDefaultState().faction.key),
+  characterFactionLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].faction.label : 'unknown'),
+  characterArchetypeKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.key : getDefaultState().faction.key),
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
   characterAttributesById: (state) => (id) => (state.characters[id] ? state.characters[id].attributes : {}),
   characterAttributesEnhancedById: (state) => (id) => {
@@ -359,6 +361,9 @@ export const mutations = {
   },
   setCharacterArchetype(state, payload) {
     state.characters[payload.id].archetype = payload.archetype;
+  },
+  setCharacterFaction(state, payload) {
+    state.characters[payload.id].faction = payload.faction;
   },
   resetCharacterStats(state, payload) {
     const character = state.characters[payload.id];
@@ -900,6 +905,10 @@ const getDefaultState = () => ({
     cost: 0,
   },
   speciesAstartesChapter: undefined,
+  faction: {
+    key: undefined,
+    label: '',
+  },
   archetype: {
     key: undefined,
     label: '',
