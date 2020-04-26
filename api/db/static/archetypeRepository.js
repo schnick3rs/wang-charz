@@ -1186,7 +1186,7 @@ const core = [
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'skills', value: 'stealth', threshold: 2 },
       { group: 'skills', value: 'survival', threshold: 1 },
-      { group: 'skills', value: 'weaponsSkill', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
     ],
     archetypeFeatures: [
       {

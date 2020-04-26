@@ -403,67 +403,51 @@ export default {
 
       // Ork Clans
       {
-        placeholder: '[Clan]',
-        type: 'Ork Clan',
-        name: 'Goffs',
-        description: 'Goffs have a prominent place in the battle line and can usually be found '
-        + 'where the fighting is thickest. Goffs consider massed infantry charges the only '
-        + 'true way for Orks to fight, declaring anything else to be “muckin’ about.”',
-        effect: '+1 bonus dice to melee attacks when charging (see page 221).',
-        modification: {},
-      },
-      {
-        placeholder: '[Clan]',
-        type: 'Ork Clan',
-        name: 'Evil Sunz',
-        description: 'The Evil Sunz Clan embodies the Orks’ obsessive love for speed. Evil '
-        + 'Sunz typically pile aboard the fastest vehicles they can fi nd to hurtle into battle '
-        + 'at the vanguard of the Waaagh!',
-        effect: '+1d3 bonus dice to Piloting tests when the vehicle is moving as fast as '
-        + 'possible. Roll to see how many bonus dice you receive at the beginning of each round.',
-        modification: {},
-      },
-      {
-        placeholder: '[Clan]',
-        type: 'Ork Clan',
         name: 'Bad Moons',
-        description: 'The Bad Moons Clan is the richest of their kind, for their teeth the '
-        + 'basis of Ork economy grow at twice the normal rate. Because of their wealth, Bad '
-        + 'Moons possess the best and shiniest gear, and are not shy about bragging about it.',
-        effect: '+2 Wealth',
+        placeholder: '[Clan]',
+        type: 'Ork Clan',
+        description: 'Growing the Teef that are Orkish currency faster than any other Clan, the Bad Moons are the wealthiest, and thus have the best food and flashiest weaponry — traits they are incredibly proud of.',
+        effect: 'Gain +1 Wealth at the end of every session.',
+        modification: {},
+      },
+      {
+        name: 'Blood Axe',
+        type: 'Ork Clan',
+        placeholder: '[Clan]',
+        description: 'Considered ‘un-Orky’ by other Clans, the Blood Axes use unorthodox ‘taktiks’, like planning, strategy, and even trading with the Imperium to get better Wargear.',
+        effect: '+Rank bonus dice to Leadership (Fel) and Stealth (A) Tests.',
         modification: {},
       },
       {
         name: 'Deathskulls',
-        type: 'Ork Clan',
         placeholder: '[Clan]',
-        description: 'Deathskulls are light-fingered thieves who share an almost Mekboylike '
-        + 'knack for tinkering with Ork technology. Though Deathskulls enjoy a good fight as '
-        + 'much as the next Ork, their innate kleptomania makes them see every battle as an '
-        + 'excuse to scavenge or loot anything they can get their hands on.',
-        effect: '+1 bonus dice to Tech tests and Influence tests to acquire items.',
+        type: 'Ork Clan',
+        description: 'Sabrous and scheming, the Deathskulls steal, loot, or scrounge whatever they can. Known to hoard, they ‘trade’ and customise gear more frequently than other Clans.',
+        effect: '+Rank bonus dice to Tech (Int) and Influence Tests.',
         modification: {},
       },
       {
+        name: 'Evil Sunz',
         placeholder: '[Clan]',
         type: 'Ork Clan',
-        name: 'Blood Axe',
-        description: 'The Blood Axe Clan is unique amongst orks for their belief that battles '
-        + 'should be fought according to an actual plan. Blood Axes are not less courageous or '
-        + 'violent, they simply possess a rudimentary comprehension of strategy, tactics, and '
-        + 'stealth.',
-        effect: '+1 bonus dice to Leadership or Stealth tests.',
+        description: 'Obsessed with speed, Evil Sunz revel in the roar of engines, the smell of burning promethium, and the feeling of going as fast as possible.',
+        effect: 'You gain +1 Speed, and +Rank bonus dice to all Tests whenever you are in a vehicle moving at top speed.',
         modification: {},
       },
       {
+        name: 'Goffs',
         placeholder: '[Clan]',
         type: 'Ork Clan',
+        description: 'Massive and multitudinous, Goffs example typical Ork warfare; all tough, large, loutish brutes looking for any excuse to charge headlong into battle in as big a mob as possible.',
+        effect: '+Rank bonus dice to melee attack Tests when you Charge (p.189).',
+        modification: {},
+      },
+      {
         name: 'Snakebites',
-        description: 'Snakebites see themselves as staunch traditionalists, caring little that '
-        + 'the other clans mock them for their backward ways. Snakebites specialise in the '
-        + 'breeding of squigs (or squiggly beasts), the strange fungoid monsters that make up '
-        + 'much of the Orks’ bizarre ecosystem.',
-        effect: '+2 bonus dice to Survival tests.',
+        placeholder: '[Clan]',
+        type: 'Ork Clan',
+        description: 'Deliberately primitive, the tribal Snakebites prefer their thick skin to crafted armour, proud of their ability to live off the land.',
+        effect: '+Double Rank bonus dice to Survival (Wil) Tests.',
         modification: {},
       },
 
