@@ -135,6 +135,7 @@
               type="info"
               outlined
               text
+              dense
               elevation="4"
             >
               <p>Attention citizen... the revised (v1.5?) Wrath & Glory Rulebook is out (as a PDF at least). Im working on bringing the FORGE up to date. Also, keep in mind, that some/most of the homebrews in the BAULT are not yet updated.</p>
