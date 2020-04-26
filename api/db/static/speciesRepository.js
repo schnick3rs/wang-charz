@@ -1,6 +1,6 @@
 const source = {
-  core: { book: 'Core Rules', key: 'core', version: 'v1.5' },
-  corelagacy: { book: 'Core Rules (Ulissis)', key: 'core-legacy', version: 'v1' },
+  core: { book: 'Core Rules (revised)', key: 'core', version: 'v1.5' },
+  core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'core-legacy-abhumans', version: 'v0.5' },
   aaoa: { book: 'An Abundance of Apocrypha', sumplements: 'core', key: 'aaoa', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
