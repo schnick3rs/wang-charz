@@ -287,7 +287,7 @@ const core = [
       },
     ],
     wargear: [
-      { name: 'Sororitas Powered Armour' },
+      { name: 'Sororitas Power Armour' },
       { name: 'Chirurgeon\'s Tools' },
       { name: 'Chain Bayonet', variant: 'Chain Bayonet (wrist mounted)' },
       { name: 'Laspistol' },
@@ -316,7 +316,7 @@ const core = [
       },
     ],
     wargear: [
-      { name: 'Sororitas Powered Armour' },
+      { name: 'Sororitas Power Armour' },
       { name: 'Chaplet Ecclesiasticus' },
       {
         name: 'Either a boltgun OR a Chain Sword and bolt pistol.',
@@ -1441,7 +1441,7 @@ const aaoaRep = [
       'Sororitas power armour, Chaplet Ecclesiasticus, two bolt pistols (with Matched Pair upgrade), ' +
       'jump pack, clothing (Sororitas vestments), writing kit, copy of the Rule of the Sororitas.',
     wargear: [
-      { name: 'Sororitas Powered Armour' },
+      { name: 'Sororitas Power Armour' },
       { name: 'Chaplet Ecclesiasticus' },
       { name: 'Bolt Pistol', variant: 'Bolt Pistol with Matched Pair upgrade' },
       { name: 'Bolt Pistol', variant: 'Bolt Pistol with Matched Pair upgrade' },
