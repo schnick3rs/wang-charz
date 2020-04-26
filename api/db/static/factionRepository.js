@@ -176,6 +176,17 @@ const core = [
   {
     name: 'The Inquisition',
     ...faction('core',65,'Imperium','The Inquisition'),
+    backgroundSection: [
+      background('Chosen: You were hand-picked to join the Inquisition; an Inquisitor saw your potential or specific skill set and hired you, or employed you for your contacts or resources.','Wealth','Origin'),
+      background('Fickle Fortune: Caught in horrors hidden from the populace, you were forced to join the Inquisition. Your life was redacted from Administratum records, now a half-forgotten shadow.','Determination','Origin'),
+      background('Schola Progenia: An Imperial orphan raised to be the greatest servant of the Emperor possible, you excelled through a gruelling upbringing to enter the ranks of the Holy Ordos.','Max Wounds','Origin'),
+      background('The Scheme Revealed: You were instrumental in uncovering and foiling a plot against the Imperium. The Emperor’s enemies are often sly and sinister, but unable to deceive you.','Influence','Accomplishment'),
+      background('The Unseen: You accomplished a crucial mission without alerting the public pleasing your superiors by succeeding covertly. Your cunning saved many lives.','Determination','Accomplishment'),
+      background('Exterminatus: You watched a world die. You stood on the bridge of a voidship, looking down as the terrible mechanism of Exterminatus destroyed a planet, killing billions.','Max Shock','Accomplishment'),
+      background('For the Ordo: You work to advance the cause of your particular philosophy or Ordo in the Inquisition, ever looking for opportunities to forward the work of your fellows.','Conviction','Goal'),
+      background('Find the Truth: You are consumed by the search for answers. There is one particular mystery that haunts your dreams, and you will not rest until you have undone the conundrum.','Determination','Goal'),
+      background('The Hunt: A particular heretic, alien, or being of Chaos has done you grievous harm. You yearn to confront this enemy and bring their plans crashing down around them.','Resolve','Goal'),
+    ],
     objectives: [
       'Complete a social interaction without revealing your identity.',
       'Demonstrate the superiority of the philosophy of your Ordo.',
@@ -188,6 +199,17 @@ const core = [
   {
     name: 'Rogue Trader Dynasties',
     ...faction('core',67,'Imperium','Rogue Trader Dynasties'),
+    backgroundSection: [
+      background('Dynastic Scion: You were born into a Rogue Trader dynasty, heir to the family’s prestigious Warrant of Trade. Your lineage may be renowned, or darkly infamous.','Conviction','Origin'),
+      background('Merchant Prince: You bargained your wealth — legitimate or ill-gotten — into the acquisition of a far more thrilling and adventurous Warrant of Trade.','Wealth','Origin'),
+      background('Exile: You were given the choice to either take a Warrant of Trade and leave the Imperium or suffer the wrath of your rivals. Will you claim revenge, or fame?','Determination','Origin'),
+      background('Dabbled in the Proscribed: You believe that rules were meant to be broken. You do not shrink from dealing with xenos species, nor do you fear travelling into forbidden stars. You see something that most Imperials consider blasphemous and think ‘that would look good in my trophy room!’','Conviction','Accomplishment'),
+      background('Dark Frontier: You have travelled far from Imperial worlds, exploring the fringes of the galaxy. You’ve found worlds, xenos, and sights that few have ever dreamed of.','Influence','Accomplishment'),
+      background('Strange Alliance: You have made deals with an unusual, unique, or otherwise iconoclastic group or individual, giving you prestige (or infamy) beyond many of your contemporaries.','[ANY] Keyword','Accomplishment'),
+      background('Boundless Ambition: Enough is never enough. You want to be a legend, not just an interesting story. You pursue an epic destiny, and damn any who stand in your way.','Resolve','Goal'),
+      background('Beyond the Map: You dream of going further then others have dared. Your destination may be nigh-legendary, well-hidden, or simply considered impossible.','Determination','Goal'),
+      background('Fortune and Glory: The lure of the unknown calls. You want to boldly venture into regions better left alone, gifting your name to your discoveries and making a massive profit.','Conviction','Goal'),
+    ],
     objectives: [
       'Make a profit in coin, connections, or information.',
       'Use your proud dynastic lineage — real or fabricated — to seal a deal.',
@@ -200,6 +222,17 @@ const core = [
   {
     name: 'Scum',
     ...faction('core',69,'Imperium','Scum'),
+    backgroundSection: [
+      background('Downtrodden: Every memory you have is painful; for you, life in the Imperium means violence, toxic conditions, and slavery. You’ve developed strong willpower to combat this.','Determination','Origin'),
+    background('Born Scummy: You’ve got a natural knack for the dangerous life of Scum, barely affected by its daily trials. That, or you just love life off the Imperial grid.','Max Shock','Origin'),
+      background('Fallen: Once a member of an Adepta, or even a noble house, you have fallen from grace through tragedy, betrayal, or some disgraceful failing.','Resolve','Origin'),
+      background('Gang Wrangler: You united squabbling gangs to fight for a common cause. You’ve probably made quite a few friends in the underground, and maybe a few enemies too.','Influence','Accomplishment'),
+      background('Pit Champion: Through wit or brawn, you proved yourself the most proficient fighter in an underground fighting ring, with the scars to prove it.','Max Wounds','Accomplishment'),
+      background('The Big One: You were instrumental in the biggest score anyone from your home has made. Hopefully you won’t run into anyone that can place you at the crime scene.','Wealth','Accomplishment'),
+      background('Hive Topper: You started at the bottom, and you’ll make it to the top. Whatever it takes, you’re going to find the good life — and maybe even be a hero while you’re at it.','Determination','Goal'),
+      background('Rescuer: You left someone close to you behind when you left the sump or the underhive. One day, you’ll return and show them the sunlight.','Conviction','Goal'),
+      background('Fortunate and Forgotten: You’re sick of this city, this planet, even your own name — by amassing riches you plan to abandon your life and everyone you know in search of something better.','Max Shock','Goal'),
+    ],
     objectives: [
       'Apply your experience in a crime to the current situation.',
       'Verbally estimate the black market value of an item or person.',
@@ -212,6 +245,17 @@ const core = [
   {
     name: 'Adeptus Astartes',
     ...faction('core',72,'Imperium','Adeptus Astartes'),
+    backgroundSection: [
+      background('Killer Instinct: Aggression and fury fueled your Aspirant trials. You overcame every challenger with bloody-minded savagery, impressing your betters.','Max Wounds','Origin'),
+      background('Courage: You faced every Aspirant trial with grit and determination, pushing through exhaustion, fear, and uncertainty with conviction and bravery.','Resolve','Origin'),
+      background('Cunning: You made your way through the Aspirant trials by using your experience with the underhanded, relying on wit over brawn.','Determination','Origin'),
+      background('Crusader: You zealously shouldered a personal responsibility to destroy a particular foe; your chapter has given you leave to continue your grim work.','Determination','Accomplishment'),
+      background('Badge of Honor: You risked your immortal life to rescue mortals in peril, and have been justly recognized for your unasked for selflessness.','Influence','Accomplishment'),
+      background('Cleanse and Purge: You fought enemy forces in their blasphemous lair. Some of your battlebrothers died in the conflict, but you ensured the mission was a success.','Max Shock','Accomplishment'),
+      background('Advancement: You desire the honour of a special role in your chapter. You look for opportunities to show your worth to your battle-brothers.','Influence','Goal'),
+      background('Vengeance: Many of your battle-brothers were slain by a particular foe; you burn to avenge this stain on your honour.','Determination','Goal'),
+      background('Honour the Chapter: You uphold the Chapter’s valour, quick to extoll its virtues, never allowing a slight against your battle-brothers to go unanswered','Conviction','Goal'),
+    ],
     objectives: [
       'Dedicate a victory in combat to the Primarch (or if unknown, honour) of your Chapter.',
       'Apply the wisdom of the Codex Astartes to a situation.',
@@ -224,6 +268,20 @@ const core = [
   {
     name: 'Aeldari',
     ...faction('core',72,'Aeldari','Aeldari'),
+    backgroundSection: [
+      background('Denied Destiny: Where the Farseers foresaw death, you prevailed, defeating an incredible foe or accomplishing an impossible task.','Determination','Accomplishment'),
+      background('Communed with Infinity: You have devoted considerable time to meditation with the spirits of the departed; they have taught you much of life and death.','Resolve','Accomplishment'),
+      background('Mon-Keigh Animosity: The depraved stupidity of Humanity has endangered your life on more than one occasion. You have survived battles alongside and against them.','Max Shock','Accomplishment'),
+      background('Webway Explorer: Traversing many Webway paths you have uncovered the hidden and forgotten, recovering valuable artefacts and even more crucial routes.','Wealth','Accomplishment'),
+      background('Unusual Ally: Your actions saved the life of someone beyond your Faction; a Drukhari, a Harlequin, maybe even an Imperial.','Influence','Accomplishment'),
+      background('Black Library Scholar: You have studied the ancient arcane writings of the cryptic Black Library; obscure knowledge of the profane is your constant companion.','Conviction','Accomplishment'),
+      background('Fatalist: After a series of unfortunate battles, you have accepted your Species is doomed. You seek only protection; a defensible refuge for you and your allies.','Conviction','Goal'),
+      background('Renewal: Your long life was fraught with the tragic milieu of your Species. You seek new experiences and perspectives to lift your burdens and wash away your sorrows.','Max Shock','Goal'),
+      background('Serenity: Like many of your Species, your emotions are overwhelming to the point of selfdestruction. Seek serenity to protect your soul from Slaanesh.','Conviction','Goal'),
+      background('Path Mastery: You see nothing beyond your current Path, and have thrown yourself into it utterly; whatever your present discipline is, you will be an exemplar and pioneer.','Determination','Goal'),
+      background('Recovery: You will restore the lost majesty of your Species, finding artefacts and lost knowledge; are you seeking something specific?','Resolve','Goal'),
+      background('Unity: The arch-foe cannot be defeated by the dwindling forces of your Species — at least, not fractured as they are. You will forge great allegiances and bring unity.','Influence','Goal'),
+    ],
     objectives: [
       'Unfavourably compare another Species’ culture, art, or technology to your own.',
       'Devote an accomplishment or victory to an Aeldari God.',
@@ -236,6 +294,26 @@ const core = [
   {
     name: 'Orks',
     ...faction('core',80,'Orks','Orks'),
+    backgroundSection: [
+      background('Squig Brain Transfer: Your earliest memory is awakening from surgery, covered in scars, and the Mad Dok telling you you’re ready to fight again. Who were you before? Does it matter?','Max Shock','Origin'),
+      background('Endless WAAAGH!: The best time of your life — so far — was on the frontlines of a WAAAGH! You kept fighting until there was no one left… including your allies.','Resolve','Origin'),
+      background('Time To Fight: After travelling through the Warp, you somehow ended up back in time. You feel an indescribable urge to find and fight your past self.','Determination','Origin'),
+      background('Lost Boy: Every Boy you know was defeated in a futile charge against daemonic forces, but you survived.','Conviction','Origin'),
+      background('Rok or Hulk: Fighting in low-grav situations amongst Genestealers, Aeldari, and whatever else got on your transport, your life was exciting and simple — until you fell out or crashed, and you landed wherever you are now.','Resolve','Origin'),
+      background('Lonely Spawn: You knew something was wrong from your first cognisant thought — you were alone. Your drive to search for other Boyz has fueled your brash spirit.','Determination','Origin'),
+      background('Marafon: Your Megaboss told you to go somewhere to deliver a message or retrieve some Wargear. An impossible mission, but your colossal self-belief saw you through.','Determination','Accomplishment'),
+      background('Made it Flashy: You fixed up a piece of gear for your Warboss, adding spikey bits and more dakka! You were handsomely rewarded.','Wealth','Accomplishment'),
+      background('Proppa Fast!: You achieved incredible speed and performed death-defying stunts that the Boyz will talk about for years. You wrecked your vehicle, but it was still impressive.','Influence','Accomplishment'),
+      background('Surgical Success: You recovered from grievous injuries after a brave engagement. The brush with death has only made you more eager for a fight.','Max Shock','Accomplishment'),
+      background('Kroosader: On your Warbosses behest, you’ve travelled the galaxy spreading violence and mayhem. You’ve come far, and have forgotten the purpose of the Kroosade','Max Wounds','Accomplishment'),
+      background('Blessed by Gork (or Mork): You yelled an impromptu speech amidst a battle against impossible odds; the fight somehow swung in your favour, a blessing from the Gods themselves.','Conviction','Accomplishment'),
+      background('‘Ardest: You’re going to be the toughest Ork in the galaxy, gathering Boyz behind you and raising a mighty WAAAGH!','Max Wounds','Goal'),
+      background('Biggest Choppa: You will wield the biggest, sharpest, heaviest Choppa anyone has ever known.   You might have to win a few fights and grow to raise such an ideal weapon.','Influence','Goal'),
+      background('Red Wuns Go Fastest: You will pilot the loudest, fastest, most dangerous vehicle ever known. Sure, a few bits might get blown off and the red paint scratched, but it will be worth it.','Determination','Goal'),
+      background('Flashy-est: You hoard Teef, and intend to be the richest Ork that ever lived. Of course, you still need to spend them on stuff to show off how flashy you are!','Wealth','Goal'),
+      background('Most Dakka: Enough is never enough — you must have the loudest, shiniest, biggest shoota, with more spikey bitz than anyone else’s. You dream of the carnage it will cause.','Influence','Goal'),
+      background('Proppa Fight: You’re going to win the biggest, best fight ever. You never stop searching for the best of ultraviolence, and embrace the idea you might have to start it.','Determination','Goal'),
+    ],
     objectives: [
       'Start a fight.',
       'Solve a problem with the brutality of Gork.',
@@ -248,6 +326,17 @@ const core = [
   {
     name: 'Chaos',
     ...faction('core',84,'Chaos','Chaos'),
+    backgroundSection: [
+      background('Born Evil: For as long as you remember you have served the Chaos Gods; somehow, your very soul was created tainted.','Corruption','Origin'),
+      background('Converted: An agent of the Chaos Gods seduced or coerced you with heresy, luring you to an immoral descent. Are they still an ally? Or a mortal enemy?','Resolve','Origin'),
+      background('Contaminated: Whilst on an operation, an artefact, individual, or environment befouled by the Ruinous Powers polluted your soul.','Max Shock','Origin'),
+      background('Revolting: You led an insurrection, overthrowing the Imperium’s influence in a location.','Influence','Accomplishment'),
+      background('Reclaimer: An artefact suffused with Warp energies called out to you from the void; you found it after a dark pilgrimage.','Wealth','Accomplishment'),
+      background('Vanquisher: You almost died in a battle against a force against Chaos, but managed to defeat them with Warp-fuelled resilience.','Max Wounds','Accomplishment'),
+      background('Champion: You crave the attention of the Ruinous Powers, slaying in their name until you become their recognised champion.','Determination','Goal'),
+      background('Conquer: There is a civilisation, a city, or a planet you are destined to destroy.','Influence','Goal'),
+      background('Ascension: Power is not enough; you lust to become a daemon, your every mutation bringing you closer to your apotheosis.','Corruption','Goal'),
+    ],
     objectives: [
       'Corrupt an innocent individual.',
       'Extoll the benefits (or negatives) of gaining the attention of the Chaos Gods.',
