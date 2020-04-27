@@ -81,25 +81,25 @@
         <v-card-text>
           <div v-for="type in backgroundSectionTypes">
             <h3>{{type}}</h3>
-            <v-radio-group v-model="selectedBackgrounds[type.toLowerCase()]">
+            <v-radio-group v-model="selectedBackgrounds[type.toLowerCase()]" @change="changeBackground">
               <v-radio
                 v-for="item in backgroundsByType(type)"
                 :key="item.key"
                 :label="item.title"
-                :value="item.key"
+                :value="item"
               >
                 <span slot="label">
                   <strong>{{ item.title }}: </strong>
                   <v-chip
                     small
                     label
-                    :disabled="selectedBackgrounds[type.toLowerCase()] !== item.key"
+                    :disabled="selectedBackgrounds[type.toLowerCase()] !== item"
                     :color="plusOne && plusOne.key === item.key ? 'success' : ''"
                   >{{ item.plusOne }}</v-chip>
                   <v-btn
                     icon
                     x-small
-                    v-show="selectedBackgrounds[type.toLowerCase()] === item.key && ( plusOne === undefined || plusOne.key !== item.key)"
+                    v-show="selectedBackgrounds[type.toLowerCase()] === item && ( plusOne === undefined || plusOne.key !== item)"
                     :color="plusOne && plusOne.key === item.key ? 'success' : ''"
                     @click="selectPlusOne(item)"
                   ><v-icon>add_circle</v-icon></v-btn>
@@ -107,6 +107,9 @@
               </v-radio>
             </v-radio-group>
           </div>
+        </v-card-text>
+        <v-card-text v-if="false">
+          <!-- keyword with <> Keyword choice -->
         </v-card-text>
       </v-card>
     </v-col>
@@ -191,6 +194,9 @@ export default {
     characterFactionKey() {
       return this.$store.getters['characters/characterFactionKeyById'](this.characterId);
     },
+    characterBackgroundObject() {
+      return this.$store.getters['characters/characterBackgroundById'](this.characterId);
+    },
     characterBackgroundKey() {
       return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
     },
@@ -248,8 +254,40 @@ export default {
       }
       return [];
     },
+    changeBackground(item) {
+      const id = this.characterId;
+      const type = item.type.toLowerCase();
+      const key = item.key;
+      this.$store.commit('characters/setCharacterBackground', { id, type, key })
+    },
     selectPlusOne(background) {
+      this.clearPlusOne();
+
       this.plusOne = background;
+      const id = this.characterId;
+      const type = background.type.toLowerCase();
+      const { key, plusOne } = background;
+      this.$store.commit('characters/setCharacterBackground', { id, type, key, plusOne })
+
+      const content = { modifications: [background.modification], source: `background.plus-one` };
+      this.$store.commit('characters/setCharacterModifications', { id, content });
+
+      if (background.modification.targetGroup === 'keywords') {
+        const keyword = {
+          name: background.modification.targetValue,
+          source: `background.plus-one`,
+          type: 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id, keyword });
+      };
+
+    },
+    clearPlusOne() {
+      const id = this.characterId;
+      const source = `background.plus-one`;
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source });
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source, cascade: true });
     },
     addLanguage(language) {
       const name = language;

@@ -192,7 +192,6 @@ export const getters = {
       traits.influence = enhancedAttributes.intellect - 1;
     }
 
-
     traits.wealth = character.settingTier;
     traits.speed = 6;
     if (character.species.key && character.species.key === 'core-eldar') {
@@ -242,7 +241,7 @@ export const getters = {
     return keywords.map((k) => (k.replacement ? k.replacement : k.name));
   },
 
-  characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
+  characterBackground: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
   characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
   characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
 
@@ -601,14 +600,18 @@ export const mutations = {
     character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== value));
   },
 
-  // Background
+  // Background { id, type, key }
   setCharacterBackground(state, payload) {
-    const character = state.characters[payload.id];
-    const background = payload.content;
-    console.info(`Background: ${background.label} selected.`);
-    character.background.key = background.key;
-    character.background.label = background.label;
-    character.background.optionSelectedKey = background.optionSelectedKey;
+    const { id, type, key } = payload;
+    const character = state.characters[id];
+    console.info(`Background: ${type} > ${key} selected.`);
+    character.background.type = key;
+  },
+  setCharacterBackgroundPlusOne(state, payload) {
+    const { id, type, key, plusOne } = payload;
+    const character = state.characters[id];
+    console.info(`Background Focus: ${type} > ${key} for ${plusOne} selected.`);
+    character.background.plusOne = key;
   },
 
   // languages
@@ -953,9 +956,10 @@ const getDefaultState = () => ({
   ascensionPackages: [],
   wargear: [],
   background: {
-    key: undefined, // e.g. goal
-    label: '', // e.g. Goal
-    optionSelectedKey: undefined, // e.g.
+    origin: undefined,
+    accomplishment: undefined,
+    goal: undefined,
+    plusOne: undefined,
   },
   enhancements: [],
 
@@ -980,6 +984,9 @@ const getDefaultState = () => ({
   maxShock: {
     spend: 0,
   },
+  assets: {
+    points: 0, // aka trait
+  },
   wealth: {
     points: 0, // aka trait
     spend: 0,
@@ -989,7 +996,7 @@ const getDefaultState = () => ({
     spend: 0,
   },
   reloads: {
-    points: 3, // or more, by gear
+    points: 3, // or more, buy gear
     spend: 0,
   },
   defiance: {
