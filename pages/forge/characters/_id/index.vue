@@ -436,8 +436,8 @@
                       <div v-html="computeFormatedText(ability.effect)" />
                       <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
                         <strong>{{ ability.selectedOption.name }}</strong>
-                        <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
-                        <div v-else v-html="computeFormatedText(ability.description)"></div>
+                        <div v-if="ability.selectedOption.effect"><p v-html="computeFormatedText(ability.selectedOption.effect)"></p></div>
+                        <div v-else v-html="computeFormatedText(ability.selectedOption.description)"></div>
                       </div>
                     </div>
                     <div v-if="speciesAbilities.length === 0" align="center" class="mt-2 mb-2">
@@ -1143,6 +1143,7 @@ export default {
                   };
                 }
               }
+              console.warn(ability);
               abilities.push(ability);
             }
           });
