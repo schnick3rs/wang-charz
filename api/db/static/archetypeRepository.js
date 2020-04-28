@@ -753,24 +753,35 @@ const core = [
     wargear: [
       { name: 'Omnissian Axe' },
       { name: 'Laspistol' },
-      { name: 'Mechandrites (Servo-Arm)' }, // TODO select ONE mechandrite
       {
-        name: 'One augmentic of your choice.',
+        name: 'One Mechandrite.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Implants'],
+            triptypeFilter: ['Mechadendrites'],
           },
         ],
       },
       {
-        name: 'One augmentic of your choice.',
+        name: 'One augmetics of your choice.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
           },
         ],
       },
@@ -1013,24 +1024,35 @@ const core = [
     wargear: [
       { name: 'Omnissian Axe' },
       { name: 'Laspistol' },
-      { name: 'Mechandrites (Servo-Arm)' }, // TODO select ONE mechandrite
       {
-        name: 'One augmentic of your choice.',
+        name: 'One Mechandrite.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Implants'],
+            triptypeFilter: ['Mechadendrites'],
           },
         ],
       },
       {
-        name: 'One augmentic of your choice.',
+        name: 'One augmetics of your choice.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
           },
         ],
       },
@@ -2156,24 +2178,24 @@ const aaoaRep = [
       { name: 'Omnissian Axe' },
       { name: 'Frag Grenade', amount: 3 },
       { name: 'Krak Grenade', amount: 3 },
-      { name: 'Mechandrites (Servo-Arm)' },
+      { name: 'Mechadendrites (Servo-Arm)' },
       {
-        name: 'One augmentic of your choice.',
+        name: 'One augmetics of your choice.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            subtypeFilter: ['Augmetics'],
           },
         ],
       },
       {
-        name: 'One augmentic of your choice.',
+        name: 'One augmetics of your choice.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            subtypeFilter: ['Augmetics'],
           },
         ],
       },
@@ -2204,24 +2226,24 @@ const aaoaRep = [
       { name: 'Omnissian Axe' },
       { name: 'Frag Grenade', amount: 3 },
       { name: 'Krak Grenade', amount: 3 },
-      { name: 'Mechandrites (Servo-Arm)' },
+      { name: 'Mechadendrites (Servo-Arm)' },
       {
-        name: 'One augmentic of your choice.',
+        name: 'One augmetics of your choice.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            subtypeFilter: ['Augmetics'],
           },
         ],
       },
       {
-        name: 'One augmentic of your choice.',
+        name: 'One augmetics of your choice.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            subtypeFilter: ['Augmetics'],
           },
         ],
       },
@@ -2623,24 +2645,24 @@ const aaoaRep = [
       { name: 'Power Axe' },
       { name: 'Frag Grenade', amount: 3 },
       { name: 'Krak Grenade', amount: 3 },
-      { name: 'Mechandrites (Servo-Arm)' },
+      { name: 'Mechadendrites (Servo-Arm)' },
       {
-        name: 'One augmentic of your choice.',
+        name: 'One augmetics of your choice.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            subtypeFilter: ['Augmetics'],
           },
         ],
       },
       {
-        name: 'One augmentic of your choice.',
+        name: 'One augmetics of your choice.',
         selected: '',
         options: [
           {
             filter: true,
-            subtypeFilter: ['Augmentic'],
+            subtypeFilter: ['Augmetics'],
           },
         ],
       },
@@ -3262,7 +3284,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Boltgun' },
       { name: 'Power Axe' },
-      { name: 'Mechandrites (servo arm)', variant: 'Augmetic Servo Arm' },
+      { name: 'Mechadendrites (Servo-Arm)' },
       { name: 'Ionclad Carapace Armour' },
       { name: 'Refractor field' },
       { name: 'Guild Engineer’s tools' },
@@ -3458,7 +3480,7 @@ const teaRep = [
         ],
       },
       { name: 'Omnissian Axe' },
-      { name: 'Mechandrites (servo arm)', variant: 'Augmetic Servo Arm' },
+      { name: 'Mechadendrites (Servo-Arm)' },
       { name: 'Frag Grenade', amount: 3 },
       { name: 'Krak Grenade', amount: 3 },
     ],

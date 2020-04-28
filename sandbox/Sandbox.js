@@ -261,9 +261,9 @@ var spells = [
 let wargear = [
   {
     "id": 20,
-    "name": "Augmentic Arm",
+    "name": "Augmetics Arm",
     "type": "Cybernetic",
-    "subtype": "Augmentic",
+    "subtype": "Augmetics",
     "value": 4,
     "rarity": "Rare",
     "keywords": [

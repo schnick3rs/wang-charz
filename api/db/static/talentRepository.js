@@ -135,7 +135,7 @@ const core = [
               {
                 filter: true,
                 rarityFilter: ['Common', 'Uncommon', 'Rare'],
-                subtypeFilter: ['Augmetic']
+                typeFilter: ['Augmetic']
               },
             ],
           },
@@ -146,7 +146,7 @@ const core = [
               {
                 filter: true,
                 rarityFilter: ['Common', 'Uncommon', 'Rare'],
-                subtypeFilter: ['Augmetic']
+                typeFilter: ['Augmetic']
               },
             ],
           },
@@ -162,7 +162,7 @@ const core = [
               {
                 filter: true,
                 rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
-                subtypeFilter: ['Augmetic']
+                typeFilter: ['Augmetic']
               },
             ],
           },

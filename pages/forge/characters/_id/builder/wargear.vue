@@ -334,7 +334,7 @@ export default {
     const keywordReq = (item.keywords) ? item.keywords.split(',').includes('Imperium') : false;
      */
     computeWargearOptionsByFilter(filter) {
-      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;
+      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, triptypeFilter, keywordFilter } = filter;
       if ( this.wargearList ) {
         return this.wargearList.filter( (gear) => {
           let valueReq = true;
@@ -348,8 +348,9 @@ export default {
           const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
           const typeReq = typeFilter ? typeFilter.includes(gear.type) : true;
           const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
+          const triptypeReq = triptypeFilter ? (gear.triptype && gear.triptype !== null ? gear.triptype.includes(triptypeFilter) : false ) : true;
           const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
-          return valueReq && rarityReq && typeReq && subtypeReq && keywordReq;
+          return valueReq && rarityReq && typeReq && subtypeReq && triptypeReq && keywordReq;
         });
       }
       return [];
