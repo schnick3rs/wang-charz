@@ -18,10 +18,6 @@ const source = {
   amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
 };
 
-const idBase = {
-  aaoa: 30000,
-};
-
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
 };
@@ -170,7 +166,6 @@ const core = [
       },
     ],
   },
-
   {
     ...talent('core',130,'Berzerker',20,'Wrath'),
     snippet: '',
