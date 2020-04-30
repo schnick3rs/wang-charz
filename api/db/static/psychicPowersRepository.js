@@ -268,7 +268,82 @@ const corePowers = [
     effect: 'Summon a 3x20x10 Wall, dealing up to 12 +1 ED any might set On Fire.',
   },
   // Telekinesis
+  {
+    ...powerz('core',277,'Assail','Telekinesis',10),
+    ...simpleCrunch('Defence','Action','Sustained','20 m',true),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Throw large objects (your mom?), dealing 10 +1 ED.',
+  },
+  {
+    ...powerz('core',277,'Crush','Telekinesis',10),
+    ...simpleCrunch('Defence','Action','Instant','20 m',true),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Force grapple, dealing 10 +1 ED and might restrain.',
+  },
+  {
+    ...powerz('core',277,'Levitation','Telekinesis',8),
+    ...simpleCrunch(5,'Action','Sustained','Self',false),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Fly, but pay 1 shock per hour.',
+  },
+  {
+    ...powerz('core',278,'Telekinetic Dome','Telekinesis',15),
+    ...simpleCrunch(5,'Full Action','Sustained','Self',false),
+    keywords: ['Kinetic','Psychic'],
+    prerequisite: ['At least one other Telekinesis Power.'],
+    effect: 'Sustain a Force Field that grants +2 Resilience, cost shock to maintain.',
+  },
+  {
+    ...powerz('core',278,'Grav-Warp','Telekinesis',20),
+    ...simpleCrunch('Willpower +2','Action','Sustained','50 m',true),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Prone, Restrain or pull with manipulated gravity.',
+  },
+  {
+    ...powerz('core',278,'Shock Wave','Telekinesis',15),
+    ...simpleCrunch(7,'Action','Instant','5 m',false),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Deal 12 +1 ED and probably Prone those around you.',
+  },
   // Telepathy
+  {
+    ...powerz('core',278,'Erasure','Telepathy',15),
+    ...simpleCrunch('Willpower +2','Full Action','Instant','30 m',true),
+    keywords: ['Telepathy','Psychic'],
+    prerequisite: ['At least one other Telepathy Power.'],
+    effect: 'Purge some memories from the target.',
+  },
+  {
+    ...powerz('core',279,'Fog The Mind','Telepathy',15),
+    ...simpleCrunch(4,'Full Action','Sustained','10 m',false),
+    keywords: ['Telepathy','Psychic'],
+    effect: 'Hinder and Stagger multiple foes.',
+  },
+  {
+    ...powerz('core',279,'Mind Probe','Telepathy',15),
+    ...simpleCrunch('Willpower','Full Action','Sustained','30 m',false),
+    keywords: ['Telepathy','Psychic'],
+    prerequisite: ['At least one other Telepathy Power.'],
+    effect: 'Probe the mind, ask questions, learn answers.',
+  },
+  {
+    ...powerz('core',279,'Psychic Shriek','Telepathy',10),
+    ...simpleCrunch('Willpower','Action','Instant','50 m',true),
+    keywords: ['Psychic'],
+    effect: 'Deal d3+3 Shock and (Wil vs. DN 5) stagger.',
+  },
+  {
+    ...powerz('core',279,'Telepathy','Telepathy',5),
+    ...simpleCrunch(3,'Action','Sustained','100 m',true),
+    keywords: ['Telepathy','Psychic'],
+    effect: 'Do the chit-chat, or eavesdrop. Use shifts to boost the range.',
+  },
+  {
+    ...powerz('core',280,'Terrify','Telepathy',15),
+    ...simpleCrunch(5,'Full Action','Instant','10 m',true),
+    keywords: ['Telepathy','Psychic'],
+    effect: 'Enemies must succeed a DN 5 Fear test of suffer the consequences.',
+  },
   // Maleficarum
   {
     ...powerz('core', 281, 'Dark Flame', 'Maleficarum', 15),
