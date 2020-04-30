@@ -203,6 +203,114 @@ const corePowers = [
     keywords: ['Psychic'],
     effect: 'Seize initiative for free and gain +1 Defence.',
   },
+  {
+    ...powerz('core',274,'Presience','Divination',15),
+    ...simpleCrunch(7,'30 minutes','1 Scene','Self',false),
+    keywords: ['Psychic'],
+    prerequisite: ['At least one other Divination Power.'],
+    effect: '',
+  },
+  {
+    ...powerz('core',274,'Misfortune','Divination',15),
+    ...simpleCrunch('Defence','Full Action','Sustained','30 m',true),
+    keywords: ['Psychic'],
+    effect: '',
+  },
+  {
+    ...powerz('core',275,'Psychometry','Divination',15),
+    ...simpleCrunch(4,'Full Action','Sustained','10 m',false),
+    keywords: ['Psychic'],
+    prerequisite: ['At least one other Divination Power.'],
+    effect: 'When you use this power you are able to glimpse visions of past events in an area where an individual expressed an emotional outburst.',
+  },
+  {
+    ...powerz('core',275,'Scrier’s Gaze','Divination',5),
+    ...simpleCrunch(6,'Full Action (or 10 min)','Sustained','5,000 m',false),
+    keywords: ['Psychic'],
+    effect: 'You project your mind remotely to view events occurring in another place within range.',
+  },
+  // Pyromancy
+  {
+    ...powerz('core',275,'Fiery Form','Pyromancy',15),
+    ...simpleCrunch(7,'Action','Sustained','Self',false),
+    keywords: ['Fire','Psychic'],
+    effect: 'You burst into flame, your body engulfed in a roaring inferno. These flames cause no harm to you or your possessions.',
+  },
+  {
+    ...powerz('core',276,'Flame Breath','Pyromancy',5),
+    ...simpleCrunch(5,'Action','Instant','30 m',false),
+    keywords: ['Fire','Psychic'],
+    effect: 'Anything within Blast(Medium) suffers 14 +2 ED and is On Fire.',
+  },
+  {
+    ...powerz('core',276,'Mindfire','Pyromancy',15),
+    ...simpleCrunch('Willpower','Action','Sustained','100 m',false),
+    keywords: ['Fire','Psychic'],
+    prerequisite: ['At least one other Pyromancy Power.'],
+    effect: 'Hinder the enemy by raising his temperatur.',
+  },
+  {
+    ...powerz('core',276,'Molten Beam','Pyromancy',20),
+    ...simpleCrunch('Defence','Action','Instant','10 m',false),
+    keywords: ['Fire','Psychic'],
+    effect: 'Deal 18 +2 ED and might set targets On Fire.',
+  },
+  {
+    ...powerz('core',276,'Spontaneous Combustion','Pyromancy',10),
+    ...simpleCrunch('Defence','Action','Instant','20 m',true),
+    keywords: ['Fire','Psychic'],
+    effect: 'Deal 12 +1 ED and might set targets On Fire.',
+  },
+  {
+    ...powerz('core',276,'Wall Of Flame','Pyromancy',15),
+    ...simpleCrunch(7,'Action','Sustained','20 m',true),
+    keywords: ['Fire','Psychic'],
+    effect: 'Summon a 3x20x10 Wall, dealing up to 12 +1 ED any might set On Fire.',
+  },
+  // Telekinesis
+  // Telepathy
+  // Maleficarum
+  {
+    ...powerz('core', 281, 'Dark Flame', 'Maleficarum', 15),
+    ...simpleCrunch(7, 'Action', 'Instant', '20 m', false),
+    keywords: ['Chaos', 'Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Targets within Blast(Medium) suffer shock any maybe mortal wounds.',
+    description:
+      '<p>You unleash the roiling inferno of your rage. The power affects all creatures in a Medium Blast from a point in range, unholy flames burning their very souls. Affected targets suffer 1d3 + your Corruption level in Shock damage and must pass a DN 5 Toughness Test or suffer 1d3 Mortal Wounds as well.</p>',
+  },
+  {
+    ...powerz('core',281,'Possession','Maleficarum',20),
+    ...simpleCrunch('Willpower','Full Action','Sustained','30 m',false),
+    keywords: ['Chaos','Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Dominate and control a target.',
+    description:
+      '<p>You breach your enemy’s mind, quashing its will completely, and turning their body into your puppet.</p>' +
+      '<p>You and your target make an Opposed Willpower Test. If you succeed, the target is completely dominated — they have no free will whatsoever. With a simple thought you can compel the target to perform any task you choose as long as the power is Sustained. This control has no limits, and victims do anything you command them to do without question. You immediately gain 1 Corruption on activation of this power, and the target must make a DN 6 Corruption Test when the power ends.</p>' +
+      '<p>Possession is mentally draining, as you must constantly overpower the target’s persona. You suffer 1d3+1 Shock for each target you control every round you sustain the power. You may not recover Shock while sustaining this power.</p>',
+  },
+  {
+    ...powerz('core',281,'Soul Shrivel','Maleficarum',20),
+    ...simpleCrunch('Defence','Action','Instant','20 m',true),
+    keywords: ['Chaos','Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Deal d3 Mortal Wounds and force a Corruption test.',
+  },
+  {
+    ...powerz('core',281,'Touch Of Corruption','Maleficarum',15),
+    ...simpleCrunch('Defence','Action','Sustained','Touch',true),
+    keywords: ['Chaos','Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Deal Corruption and trigger a temporary mutation.',
+  },
+  {
+    ...powerz('core',281,'Infernal Gaze','Maleficarum',10),
+    ...simpleCrunch('Defence','Action','Sustained','25 m',true),
+    keywords: ['Chaos','Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Reduce Int and see hallucinations.',
+  },
   // Runes of Battle
   {
     ...powerz('core',283,'Conceal / Reveal','Runes of Battle',20),
