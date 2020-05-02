@@ -628,7 +628,7 @@ const core = [
   },
   {
     ...talent('core',139,'Scum Savvy',20),
-    snippet: '',
+    snippet: 'You add +Double Rank when resisting chemicals. You add +Rank to Cunning tests.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Human') ],
@@ -642,146 +642,146 @@ const core = [
   },
   {
     ...talent('core',139,'Sidestep',30),
-    snippet: '',
+    snippet: 'As a Reflexive Action, you may sidestep a melee attack (before the roll). You add +Double Rank to Defence and Resilience. This also costs you your next Move Action.',
     description:
       '<p></p>',
     requirements: [], // Ini 3+
   },
   {
     ...talent('core',139,'Silent',20),
-    snippet: '',
+    snippet: 'You may Move at full Speed while Moving Stealthily. Moving out of Hiding does not reduce your Stealth Score.',
     description:
       '<p></p>',
     requirements: [],
   },
   { // TODO make 2 talents
     ...talent('core',139,'Simultaneous Strike',30),
-    snippet: '',
+    snippet: 'You add half your second weapons damage as ED to the damage roll.',
     description:
       '<p></p>',
     requirements: [], // BS OR WS 4+
   },
   {
     ...talent('core',139,'Smash Attack',20),
-    snippet: '',
+    snippet: 'You add +Rank ED to All-Out Attacks.',
     description:
       '<p></p>',
     requirements: [], // WS 2+
   },
   {
     ...talent('core',140,'Special Weapons Trooper',20), // + weapon
-    snippet: '',
+    snippet: 'You may select a Combat Shotgun, Plasma Gun, Meltagun, Long Las, Flamer, Grenade Launcher or Hot Shot Volley Gun.',
     description:
       '<p></p>',
     requirements: [
       // BS 3+,
-      requireKeyword('IMPERIUM'),
+      requireKeyword('ASTRA MILITARUM'),
     ],
   },
   {
     ...talent('core',140,'Stoic',20),
-    snippet: '',
+    snippet: 'Insight tests targeting you suffer +Double Rank to DN.',
     description:
       '<p></p>',
     requirements: [],
   },
   {
     ...talent('core',140,'Storm of Death',30),
-    snippet: '',
+    snippet: 'You reduce the DN for plain Multi-Attacks by Double Rank.',
     description:
       '<p></p>',
     requirements: [], // WS 4+
   },
   {
     ...talent('core',140,'Supplicant',20),
-    snippet: '',
+    snippet: 'Your fancy @$$-kissing will grant you +Rank dice to respective tests.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Human') ],
   },
   { // TODO one for each
     ...talent('core',140,'Supreme Presence [Skill]',30),
-    snippet: '',
+    snippet: 'Your Interaction attacks may target 1+Double Rank Troops within a Mob.',
     description:
       '<p></p>',
     requirements: [], // 4+
   },
   {
     ...talent('core',140,'Tenacious',30),
-    snippet: '',
+    snippet: 'You recover 1 Shock for each Exalted Icon rolled during Determination tests.',
     description:
       '<p></p>',
     requirements: [],
   },
   {
     ...talent('core',140,'The Flesh Is Weak',30),
-    snippet: '',
+    snippet: 'You do not breath or bleed. You add +Rank to Tech and Determination tests. You suffer +2 DN to Persuasion Tests.',
     description:
       '<p></p>',
     requirements: [],
   },
   {
     ...talent('core',141,'Touched By Fate',20),
-    snippet: '',
+    snippet: 'You start your sessions with +Rank Wrath.',
     description:
       '<p></p>',
     requirements: [],
   },
   {
     ...talent('core',141,'Trademark Weapon',30),
-    snippet: '',
+    snippet: 'You add +Double Rank ED when attacking with your Trademark Weapon.',
     description:
       '<p></p>',
     requirements: [],
   },
   {
     ...talent('core',141,'Transhuman [Attribute]',60),
-    snippet: '',
+    snippet: 'You add +Double Rank when rolling tests using [Attribute]',
     description:
       '<p></p>',
     requirements: [], // Attribute 5+
   },
   {
     ...talent('core',141,'Twin Focus',20),
-    snippet: '',
+    snippet: 'You decrese the DN for sustaining multiple powers by 2.',
     description:
       '<p></p>',
     requirements: [], // psy master 4+
   },
   {
     ...talent('core',141,'Uncanny [Trait]',40),
-    snippet: '',
+    snippet: 'Increase a Trait by +Rank.',
     description:
       '<p></p>',
     requirements: [],
   },
   {
     ...talent('core',141,'Unnatural [Skill]',60),
-    snippet: '',
+    snippet: 'Reduce Penalties to [Skill] tests by Double Rank.',
     description:
       '<p></p>',
     requirements: [], // skill 4+
   },
   {
     ...talent('core',141,'Unremarkable',20),
-    snippet: '',
+    snippet: '`It´s me! Joe Average!`, Tracking and spotting you in crowds suffer +2 DN.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('IMPERIUM') ],
   },
   {
     ...talent('core',141,'Warped Mind',30),
-    snippet: '',
+    snippet: 'You unlock an additional Psychic Discipline. You may reduce the costs by gaining Corruption 1:1.',
     description:
       '<p></p>',
     requirements: [], // psy master 4+
   },
   // FAITH
   {
-    ...talent('core',142,'Bolstering Purity',40),
+    ...talent('core',142,'Bolstering Purity',40, 'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Reflexive Action, spend 1 faith to grant one IMPERIUM individual auto-pass for Resolve and Conviction for one Round.',
     description:
       '<p></p>',
     requirements: [
@@ -790,37 +790,37 @@ const core = [
     ],
   },
   {
-    ...talent('core',143,'By His Will',20),
+    ...talent('core',143,'By His Will',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. Spend 1 Faith to tripple the Bonus Dice when helping an IMPERIUM individual.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('IMPERIUM'), requireKeyword('CHAOS',true), ],
   },
   {
-    ...talent('core',143,'Consecrated Light',20),
+    ...talent('core',143,'Consecrated Light',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Reflexive Action, spend 1 Faith to grant youself and IMPERIUM allies within 15+Double Rank metres +Double Rank to Fear and Conviction tests until the end of the Round.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MINISTORUM'), requireKeyword('CHAOS',true), ],
   },
   {
-    ...talent('core',143,'Divine Guidance',20),
+    ...talent('core',143,'Divine Guidance',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Combat Action, spend 1 Faith to grant yourself or an IMPERIUM individual in hearing range +Double Rank dice to Ballistic Skill tests for 1 Round.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),requireKeyword('CHAOS',true), ],
   },
   {
-    ...talent('core',143,'In His Name',20),
+    ...talent('core',143,'In His Name',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. When targeting a IMPERIUM individual with Persuasion or Leadership, you can spend 1 Faith to add +Double Rank dice.',
     description:
       '<p></p>',
     requirements: [
@@ -830,28 +830,28 @@ const core = [
     ],
   },
   {
-    ...talent('core',143,'Inspired Blessing',25),
+    ...talent('core',143,'Inspired Blessing',25,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Combat Action, spend 1 Faith to restore 1d3 +Double Rank Shock to you and IMPERIUM allies within 15+Double Rank metres.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MINISTORUM'), requireKeyword('CHAOS',true), ],
   },
   {
-    ...talent('core',143,'Litany Of Hatred',20),
+    ...talent('core',143,'Litany Of Hatred',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Simple Action, spend 1 Faith to grant IMPERIUM allies within 10xRank metres your Hatred talent.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'), requireKeyword('CHAOS',true), ], // +++ Hatret talent
   },
   {
-    ...talent('core',143,'Martyr’s Tears',20),
+    ...talent('core',143,'Martyr’s Tears',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Simple Action, spend 1 Faith and take Wounds up to your Tier. You heal double the amount from a selcted target.',
     description:
       '<p></p>',
     requirements: [
@@ -861,10 +861,10 @@ const core = [
     ],
   },
   {
-    ...talent('core',144,'Repent!',20),
+    ...talent('core',144,'Repent!',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. Spend 1 Faith and pass a Intimidation Test (with +Rank dice) to force an IMPRIUM inividual to repent an kneel for 10xDouble Rank seconds.',
     description:
       '<p></p>',
     requirements: [
@@ -874,10 +874,10 @@ const core = [
     ],
   },
   {
-    ...talent('core',144,'Righteous Wrath',20),
+    ...talent('core',144,'Righteous Wrath',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Combat Action, spend 1 Faith to gain +2 Wrath. You may grant one of those to an IMPERIUM ally you can hear you.',
     description:
       '<p></p>',
     requirements: [
@@ -887,10 +887,10 @@ const core = [
     ],
   },
   {
-    ...talent('core',144,'Shield Of Faith',20),
+    ...talent('core',144,'Shield Of Faith',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Reflecive Action, spend 1 Faith to ignore a psychic power or effect for one round. Spend to to grant this bonus to IMPERIUM allies within 15+Double Rank metres.',
     description:
       '<p></p>',
     requirements: [
@@ -900,10 +900,10 @@ const core = [
     ],
   },
   {
-    ...talent('core',144,'The Passion',20),
+    ...talent('core',144,'The Passion',20,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: '+1 Faith. As a Combat Action, spend 1 Faith to grant yourself or an IMPERIUM individual in hearing range +Double Rank dice to Weapon Skill tests for 1 Round.',
     description:
       '<p></p>',
     requirements: [
@@ -912,10 +912,10 @@ const core = [
     ],
   },
   {
-    ...talent('core',144,'The Emperor Protects',30),
+    ...talent('core',144,'The Emperor Protects',30,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '',
+    snippet: 'As A Reflexive Action, spend 2 Faith to force an attack directed at you to miss.',
     description:
       '<p></p>',
     requirements: [
