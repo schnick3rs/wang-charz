@@ -334,7 +334,6 @@ const core = [
         name: 'Devotees',
         snippet: 'You gain the Devotees talent.',
         description: '<p>You gain the Devotees talent. You do not need ti meet the Leadership Skill prerequisites.</p>',
-        // todo, grant the Devotees talent
         modifications: [
           { targetGroup: 'talents', targetValue: 'core-devotees', meta: { name: 'Devotees' } },
         ],
@@ -354,7 +353,7 @@ const core = [
     costPerTier: 10,
     minimumCampaignTier: 2,
     prerequisites: [
-      // TODO persuasion 3
+      'Persuasion 3',
     ],
     // Benefits
     influenceBonus: 0,
@@ -380,7 +379,8 @@ const core = [
       {
         key: 'patrons-gift',
         name: 'It´s a gift!',
-        snippet: 'Choose: Gear, assets or influence',
+        snippet: 'Your Patron grants you either rare Wargear, two assets or significant influence',
+        optionsPlaceholder: 'Choose: Wargear, Assets or Influence',
         options: [
           {
             key: 'wargear',
@@ -409,6 +409,16 @@ const core = [
               { targetGroup: 'traits', targetValue: 'assets', modifier: 2 },
             ],
           },
+          {
+            key: 'influence',
+            name: 'Influence',
+            snippet: 'You gain 2 influence per tier ascended. (currently the bonus is capped at +2 in the FORGE.)',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 1 },
+              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 2 },
+              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 3 },
+            ],
+          },
         ],
       },
     ],
@@ -420,7 +430,7 @@ const core = [
     costPerTier: 5,
     minimumCampaignTier: 2,
     prerequisites: [
-      // TODO cunning 3
+      'Cunning 3',
     ],
     // Benefits
     influenceBonus: -2,
@@ -436,7 +446,7 @@ const core = [
       {
         key: 'keywords',
         name: 'Keywords',
-        snippet: 'You gain the [Any] keyword, remove the Keyword you betrayed.',
+        snippet: 'You gain the [Any] keyword, remove the Keyword you betrayed (not yet implemented).',
         modifications: [
           { targetGroup: 'keywords', targetValue: '[Any]' },
         ],

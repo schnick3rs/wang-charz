@@ -132,14 +132,14 @@
         <v-row justify="center" no-gutters>
           <v-col :cols="12" :xl="8">
             <v-alert
-              type="info"
+              color="info"
               outlined
               text
               dense
               elevation="4"
             >
-              <p>Attention citizen... the revised (v1.5?) Wrath & Glory Rulebook is out (as a PDF at least). Im working on bringing the <nuxt-link to="/forge/my-characters">FORGE</nuxt-link> up to date. Also, keep in mind, that some/most of the homebrews in the <nuxt-link to="/vault">VAULT</nuxt-link> are not yet adjusted.</p>
-              <p>You can get the <a href="https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules">revised PDF at drivethrurpg.com</a>. In addition, Cubicle7 has <a href="https://docs.google.com/forms/d/e/1FAIpQLSez6BY4rtRNISDiwMdaDSNfEIs9zOWMDUUPAXGHSlcFZOQLQA/viewform">set up a Form where you can send input</a> for an errata.</p>
+              <p>Attention citizen... the revised (v1.5?) Wrath & Glory Rulebook is out (as a PDF at least) in the wild. The <nuxt-link to="/forge/my-characters">FORGE</nuxt-link> has incoperated almost all changes. Many of the homebrews in the <nuxt-link to="/vault">VAULT</nuxt-link> are not yet adjusted.</p>
+              <p>You can get the <a href="https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules">revised PDF at drivethrurpg.com</a>.</p>
             </v-alert>
           </v-col>
           <v-col

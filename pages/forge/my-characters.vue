@@ -105,6 +105,26 @@
 
       <v-col :cols="12">
 
+        <v-alert
+          v-if="hasLegacyCharacters"
+          color="warning"
+          border="left"
+          outlined
+        >
+          <p>
+            It seems that {{hasLegacyCharacters.length}} of your characters are build with the old (Ulisses) Rules set.
+            The FORGE does not support those characters anymore. I have set up an additional server, where you can manage those characters.
+            That server needs to be awaken from stasis when used, thus it might take up to a minute until it is reachable.
+            To transfer your characters, execute the following steps:
+          </p>
+          <ol>
+            <li>export the characters using the respective button and save (copy to clipboard) the shown text,</li>
+            <li>go to the <a href="https://doctors-of-doom-legacy.herokuapp.com/forge/my-characters" target="_blank">legacy forge</a>,</li>
+            <li>import the character there and check if everything is as expected,</li>
+            <li>if all works like before, consider <strong>deleting</strong> the transfered characters here.</li>
+          </ol>
+        </v-alert>
+
         <v-row justify="center" v-if="hasUnmigratedCharacters">
 
           <v-col
@@ -150,7 +170,9 @@
             :md="6"
             :lg="4"
           >
-            <v-card v-if="character" :disabled="characterVersion(character.id) < builderVersion">
+            <v-card
+              v-if="character"
+            >
               <div class="card">
                 <div class="card__image-container">
                   <div
@@ -163,8 +185,23 @@
                 <v-card-text class="pa-0">
                   <div class="card__content-container pa-4">
                     <h3>{{ characterName(character.id) }}</h3>
+
                     <div
-                      v-if="characterVersion(character.id) < builderVersion"
+                      v-if="isLegacyVersion(character.id)"
+                    >
+                      <v-btn
+                        @click="openExportDialog(character.id)"
+                        color="warning"
+                        small
+                      >
+                        <v-icon left small>
+                          cloud_download
+                        </v-icon>
+                        Export Legacy
+                      </v-btn>
+                    </div>
+                    <div
+                      v-else-if="characterVersion(character.id) < builderVersion"
                     >
                       <v-btn
                         @click="migrateCharacter(character.id)"
@@ -174,7 +211,7 @@
                         <v-icon left small>
                           cloud_upload
                         </v-icon>
-                        Update (v{{characterVersion(character.id)}})
+                        Export (v{{characterVersion(character.id)}})
                       </v-btn>
                     </div>
 
@@ -204,6 +241,7 @@
                   color="primary"
                   x-small
                   text
+                  :disabled="isLegacyVersion(character.id)"
                 >
                   <v-icon left small>
                     edit
@@ -216,6 +254,7 @@
                   color="primary"
                   text
                   x-small
+                  :disabled="isLegacyVersion(character.id)"
                 >
                   <v-icon small left>
                     description
@@ -231,6 +270,7 @@
                   text
                   x-small
                   v-if="false"
+                  :disabled="isLegacyVersion(character.id)"
                 >
                   <v-icon small left>print</v-icon>Print
                 </v-btn>
@@ -245,7 +285,12 @@
                   Export
                 </v-btn>
 
-                <v-btn color="error" text small @click="openDeleteDialog(character.id)">
+                <v-btn
+                  color="error"
+                  text
+                  small
+                  @click="openDeleteDialog(character.id)"
+                >
                   <v-icon small>delete</v-icon>Delete
                 </v-btn>
 
@@ -428,31 +473,23 @@ export default {
     };
   },
   computed: {
-    characters() {
-      return [
-        ...this.localCharacter,
-      ];
-    },
     ...mapGetters({
       version: 'version',
       builderVersion: 'builderVersion',
       characterIds: 'characters/characterIds',
       characterSets: 'characters/characterSets',
     }),
-    localCharacter() {
-      return [{
-        id: this.$store.getters.id,
-        name: this.$store.getters.name,
-        species: this.$store.getters.species,
-        archetype: this.$store.getters.archetype,
-        storage: 'local',
-      }];
+    hasLegacyCharacters() {
+      if ( this.characterIds === undefined ) {
+        return false;
+      }
+      return this.characterIds.map( (id) => this.characterVersion(id) ).some( (version) => version <= 6 );
     },
     hasUnmigratedCharacters() {
       if ( this.characterIds === undefined ) {
         return false;
       }
-      return this.characterIds.map( (id) => this.characterVersion(id) ).some( (version) => version < this.builderVersion );
+      return this.characterIds.map( (id) => this.characterVersion(id) ).some( (version) => version < this.builderVersion && version > 6 );
     },
   },
   methods: {
@@ -497,6 +534,9 @@ export default {
     },
     characterSettingTier(id) {
       return this.$store.getters['characters/characterSettingTierById'](id);
+    },
+    isLegacyVersion(id) {
+      return this.characterVersion(id) <= 6;
     },
     characterAvatar(id) {
       const customAvatarUrl = this.$store.getters['characters/characterAvatarUrlById'](id);

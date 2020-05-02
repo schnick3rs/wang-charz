@@ -208,8 +208,7 @@ export default {
       ascensionPackage.ascensionFeatures
       .filter( (feature) => feature.modifications !== undefined )
       .forEach( (feature) => {
-        console.info(feature);
-        modifications = [ ...modifications, ...feature.modifications ];
+          modifications = [ ...modifications, ...feature.modifications ];
       });
       console.info(modifications);
       this.$store.commit('characters/setCharacterModifications', { id, content: { modifications: modifications, source: `ascension.${ascensionPackage.key}` } });

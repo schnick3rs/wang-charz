@@ -1021,7 +1021,7 @@ export default {
       let finalTraits = this.traitRepository.map((t) => ({
         ...t,
         value: characterTraits[t.key],
-        enhancedValue: parseInt(traitsEnhanced[t.key]),
+        enhancedValue: Math.max(1,parseInt(traitsEnhanced[t.key])),
         rating: characterTraits[t.key],
         adjustedRating: parseInt(characterTraits[t.key]),
         adjustment: 0,

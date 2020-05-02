@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 6;
+const BUILDER_VERSION = 7;
 
 export const state = () => ({
   list: [],
@@ -721,6 +721,9 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 6:
+        // TODO do not migrate
+        break;
       case 5:
         console.debug(`v5 -> v6 : Improved Ascension, purging all ascension asociated...`);
         console.debug('Purge > Enhancements ...');
@@ -905,7 +908,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 6,
+  version: 7, // 7+ is revised
   setting: undefined,
   settingSelected: true,
   settingTier: 3,

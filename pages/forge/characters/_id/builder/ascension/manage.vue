@@ -709,8 +709,13 @@ export default {
 
       // the selected option has modifications that are saved as such
       if ( selectedOption.modifications ) {
+        const tiersAscended = ascension.targetTier - ascension.sourceTier;
+        const modz = selectedOption.modifications.filter((mod) => {
+          if (mod.requiredAscendedTiers === undefined) return true;
+          if (mod.requiredAscendedTiers <= tiersAscended) return true;
+        });
         const content = {
-          modifications: selectedOption.modifications,
+          modifications: modz,
           source: `${sourcePrefix}.${selectedOption.key}`,
         };
         this.$store.commit('characters/addCharacterModifications', { id, content });
