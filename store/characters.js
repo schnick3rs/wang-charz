@@ -721,6 +721,8 @@ export const mutations = {
         character.keywords = character.keywords.filter((e) => !e.source.startsWith('ascension.'));
         console.debug('Purge > Wargear ...');
         character.wargear = character.wargear.filter((e) => !e.source.startsWith('ascension.'));
+        console.debug('Purge > Talents ...');
+        character.talents = character.talents.filter((e) => !e.source.startsWith('ascension.'));
         console.debug('Purge > Psychic Powers ...');
         character.psychicPowers = character.psychicPowers.filter((e) => e.source === undefined || !e.source.startsWith('ascension.'));
         console.debug('Purge > Ascensions ...');

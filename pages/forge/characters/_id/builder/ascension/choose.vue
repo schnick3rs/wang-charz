@@ -226,6 +226,20 @@ export default {
         this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
       });
 
+      modifications
+      .filter( (m) => m.targetGroup === 'talents' )
+      .forEach( (t) => {
+        const payload = {
+          name: t.meta.name,
+          key: t.targetValue,
+          cost: 0,
+          placeholder: undefined,
+          selected: undefined,
+          source: `ascension.${ascensionPackage.key}`,
+        };
+        this.$store.commit('characters/addCharacterTalent', { id: this.characterId, talent: payload });
+      });
+
       {
         ascensionPackage.ascensionFeatures
         .filter( (feature) => feature.wargear !== undefined )

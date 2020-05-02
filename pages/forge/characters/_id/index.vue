@@ -371,7 +371,7 @@
               :value="`tab-wargear`"
             >
               <div class="pa-2 pt-1 pb-1">
-                <div v-for="gearItem in wargear" :key="gearItem.name" class="caption">
+                <div v-for="gearItem in wargear" :key="gearItem.id" class="caption">
                   <div v-if="gearItem.variant" style="display: inline;">
                     <strong >{{ gearItem.variant }}</strong>
                     <span> ({{ gearItem.name }})</span>
@@ -1308,12 +1308,13 @@ export default {
       const wargear = [];
       if(this.wargearRepository) {
         chargear.forEach((gear) => {
+          const { name, id, variant } = gear;
           console.log(`Searching for [${gear.name}] in repository (${this.wargearRepository.length} items) ...`);
           const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
           if (foundGear) {
-            wargear.push({ ...foundGear, variant: gear.variant });
+            wargear.push({ ...foundGear, variant, id });
           } else {
-            wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
+            wargear.push({ name, variant, id, type: 'Misc' });
           }
         });
       }

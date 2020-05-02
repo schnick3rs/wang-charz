@@ -280,7 +280,7 @@ const core = [
   },
   {
     ...talent('core',132,'Devotees',30,'Utility,Survival'),
-    snippet: '',
+    snippet: 'Some Followers',
     description:
       '<p>Through reputation or assignment, you have gathered a number of followers that will do whatever you ask.</p>' +
       '<p>If you are attacked, they intervene.</p>' +

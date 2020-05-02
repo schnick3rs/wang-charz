@@ -74,7 +74,7 @@ const core = [
         optionsPlaceholder: 'Roll d6 and select a Injury',
         options: [
           {
-            key: 'core-hand',
+            key: 'core-injury-one-hand',
             name: 'Hand',
             snippet: 'You suffer a severe hand injury; you can no longer use that hand. Losing both hands means you are unable to hold any weapons or similar gear.',
             wargear: [
@@ -92,7 +92,7 @@ const core = [
             ],
           },
           {
-            key: 'core-arm',
+            key: 'core-injury-one-arm',
             name: 'Arm',
             snippet: 'You suffer a severe injury to your arm. Losing both arms means you are unable to hold any weapons or similar gear.',
             wargear: [
@@ -110,7 +110,7 @@ const core = [
             ],
           },
           {
-            key: 'core-foot',
+            key: 'core-injury-one-foot',
             name: 'Foot',
             snippet: 'You suffer a severe foot injury. Losing both feet means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
             wargear: [
@@ -128,7 +128,7 @@ const core = [
             ],
           },
           {
-            key: 'core-leg',
+            key: 'core-injury-one-leg',
             name: 'Leg',
             snippet: 'You suffer a severe leg injury. Losing both legs means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
             wargear: [
@@ -146,7 +146,7 @@ const core = [
             ],
           },
           {
-            key: 'core-torso',
+            key: 'core-injury-one-torso',
             name: 'Torso',
             snippet: 'You suffer a severe injury that impairs your organs, like the heart, lungs, or liver. Any Toughness based Tests may become more difficult.',
             wargear: [
@@ -164,7 +164,7 @@ const core = [
             ],
           },
           {
-            key: 'core-eye',
+            key: 'core-injury-one-eye',
             name: 'Eye',
             snippet: 'One of your eyes is damaged beyond repair. A single injured eye may add a penalty, such as +2 DN, to any Tests that require sight. Losing both eyes leaves you Blinded (p.199).',
             wargear: [
@@ -191,7 +191,7 @@ const core = [
         optionsPlaceholder: 'Roll d6 and select a Injury',
         options: [
           {
-            key: 'core-hand',
+            key: 'core-injury-two-hand',
             name: 'Hand',
             snippet: 'You suffer a severe hand injury; you can no longer use that hand. Losing both hands means you are unable to hold any weapons or similar gear.',
             wargear: [
@@ -209,7 +209,7 @@ const core = [
             ],
           },
           {
-            key: 'core-arm',
+            key: 'core-injury-two-arm',
             name: 'Arm',
             snippet: 'You suffer a severe injury to your arm. Losing both arms means you are unable to hold any weapons or similar gear.',
             wargear: [
@@ -227,7 +227,7 @@ const core = [
             ],
           },
           {
-            key: 'core-foot',
+            key: 'core-injury-two-foot',
             name: 'Foot',
             snippet: 'You suffer a severe foot injury. Losing both feet means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
             wargear: [
@@ -245,7 +245,7 @@ const core = [
             ],
           },
           {
-            key: 'core-leg',
+            key: 'core-injury-two-leg',
             name: 'Leg',
             snippet: 'You suffer a severe leg injury. Losing both legs means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
             wargear: [
@@ -263,7 +263,7 @@ const core = [
             ],
           },
           {
-            key: 'core-torso',
+            key: 'core-injury-two-torso',
             name: 'Torso',
             snippet: 'You suffer a severe injury that impairs your organs, like the heart, lungs, or liver. Any Toughness based Tests may become more difficult.',
             wargear: [
@@ -281,7 +281,7 @@ const core = [
             ],
           },
           {
-            key: 'core-eye',
+            key: 'core-injury-two-eye',
             name: 'Eye',
             snippet: 'One of your eyes is damaged beyond repair. A single injured eye may add a penalty, such as +2 DN, to any Tests that require sight. Losing both eyes leaves you Blinded (p.199).',
             wargear: [
@@ -324,10 +324,26 @@ const core = [
       {
         key: 'keywords',
         name: 'Keywords',
-        snippet: 'You gain the [Any] keyword.',
+        snippet: 'You gain the [Any] keyword. And a tremendous reputation with that faction.',
         modifications: [
           { targetGroup: 'keywords', targetValue: '[Any]' },
         ],
+      },
+      {
+        key: 'devotee',
+        name: 'Devotees',
+        snippet: 'You gain the Devotees talent.',
+        description: '<p>You gain the Devotees talent. You do not need ti meet the Leadership Skill prerequisites.</p>',
+        // todo, grant the Devotees talent
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-devotees', meta: { name: 'Devotees' } },
+        ],
+      },
+      {
+        key: 'nemesis',
+        name: 'Nemesis',
+        snippet: 'You gain a nemesis.',
+        description: '<p>You gain a nemesis. Work with your GM to figure out who this might be, or leave it a mystery.</p>',
       },
     ],
   },

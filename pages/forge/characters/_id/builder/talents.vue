@@ -435,7 +435,7 @@ export default {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
 
       return characterTalents.map((talent) => {
-        const enrichedTalent = this.talentList.find((r) => r.name === talent.name);
+        const enrichedTalent = this.talentList.find((r) => r.key === talent.key);
 
         if (enrichedTalent === undefined) {
           return {
@@ -643,6 +643,7 @@ export default {
         cost: talent.cost,
         placeholder: (match !== null && match !== undefined) ? match[1] : undefined,
         selected: undefined,
+        source: `talent.${talent.id}`,
       };
       this.$store.commit('characters/addCharacterTalent', { id: this.characterId, talent: payload });
     },

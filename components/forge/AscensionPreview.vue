@@ -75,11 +75,6 @@
         <strong>Story Element:</strong>
         <div v-html="item.storyElementDescription"></div>
       </div>
-
-      <div class="text-lg-justify mb-2">
-        <strong>Wargear:</strong>
-        <div v-html="item.storyElementDescription"></div>
-      </div>
     </v-card-text>
 
     <v-divider />

@@ -56,12 +56,14 @@
             <span v-if="characterAscension.costPerTier > 0">(New Tier x {{ characterAscension.costPerTier }})</span>
           </p>
 
-          <span class="mt-2 grey--text">Prerequisites</span>
-          <v-divider class="mb-2" />
+          <div v-if="characterAscension.prerequisites && characterAscension.prerequisites.length > 0">
+            <span class="mt-2 grey--text">Prerequisites</span>
+            <v-divider class="mb-2" />
 
-          <ul class="text-lg-justify mb-4">
-            <li v-for="prerequisite in characterAscension.prerequisites">{{prerequisite}}</li>
-          </ul>
+            <ul class="text-lg-justify mb-4">
+              <li v-for="prerequisite in characterAscension.prerequisites">{{prerequisite}}</li>
+            </ul>
+          </div>
 
           <span class="mt-2 grey--text">Benefits</span>
           <v-divider class="mb-2" />
@@ -174,7 +176,7 @@
               ></v-select>
 
               <div
-                v-if="feature.selected && feature.selected.length > 0"
+                v-if="feature.selected && feature.selected.length > 0 && featureOptionChoice(feature)"
                 class="ml-4 mr-4"
               >
                 <!-- feature text and/or description -->
@@ -612,7 +614,7 @@ export default {
           // map to placeholder object
           .map((placeholder) => {
             let wordy = {};
-            if (placeholder.toLowerCase() === '[Any]') {
+            if (placeholder.toLowerCase() === '[any]') {
               const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
               wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
             } else {
