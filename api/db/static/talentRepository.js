@@ -115,7 +115,7 @@ const core = [
   },
   {
     ...talent('core',129,'Augmetic',20,'Wargear'),
-    snippet: 'Gain augmetics',
+    snippet: 'Replace part of your biology with augmetics.',
     description:
       '<p>You replace part of your biology with an augmetic, the common name for cybernetic implants in the Imperium.</p>' +
       '<p>You may take this Talent more than once. Each time you take this Talent you may select two augmetics of Rare or lower rarity, or a single Very Rare augmetic. The value of the selected augmetics are added to the talents cost. See p242 for more information on Augmetics.</p>' +
@@ -167,8 +167,14 @@ const core = [
     ],
   },
   {
-    ...talent('core',130,'Berzerker',20,'Wrath'),
-    snippet: '',
+    ...talent('core',130,'Betrayer',20,'Corruption'),
+    snippet: '+1 Corruption. Sacrifice a willing or unconscious individual for some heretic wrath.',
+    requirements: [ requireKeyword('CHAOS') ],
+    description: '',
+  },
+  {
+    ...talent('core',130,'Berzerker',20,'Corruption,Wrath'),
+    snippet: 'When a creature within 30 metres suffer a crit or bleeding, you gain 1 Wrath.',
     description:
       '<p>The very sight of blood energises you in battle.</p>' +
       '<p>Whenever you see an individual within 30 metres of you suffer a Critical Hit or the Bleeding Condition, you gain 1 point of Wrath.</p>' +
@@ -177,7 +183,7 @@ const core = [
   },
   {
     ...talent('core',130,'Binary Chatter',20,'Utility'),
-    snippet: '',
+    snippet: 'Add +Double Rank when you instruct/program/question a servitor (or similar).',
     description:
       '<p>You are adept at controlling mechanical constructs.</p>' +
       '<p>You gain +Double Rank bonus dice whenever you attempt to instruct, program, or question a servitor or a similar construct, such as a cherub, or a servo-skull.</p>',
@@ -193,7 +199,7 @@ const core = [
   },
   {
     ...talent('core',130,'Blood Must Flow!',20,'Melee,Combat,Debuff'),
-    snippet: '',
+    snippet: 'You may shift melee attack dice to inflict bleeding.',
     description:
       '<p>You know how to place your strikes to inflict hemorrhaging injuries.</p>' +
       '<p>You may spend an Exalted Icon whenever you make a successful Weapon Skill (I) attack to inflict the Bleeding Condition to your target.</p>',
@@ -201,7 +207,7 @@ const core = [
   },
   {
     ...talent('core',130,'Bombardment',40,'Ranged,Combat,Damage,Area'),
-    snippet: '',
+    snippet: 'Once per session, deal 20 +Double Rank ED to all targets within 10 x Rank metres of the target.',
     description:
       '<p>You have the connections and military backup to call in an airstrike. A bombardment may come from ground-based artillery, aircraft, or even a voidship in low orbit. In all cases, the attacks are devastating to their targets.</p>' +
       '<p>Once per game session, a character with this Talent and access to communications with their vessel or other forces may call in a bombardment. The bombardment attack deals 20 + Double Rank ED damage to all targets within Rank x 10 metres of the designated target.</p>',
@@ -212,7 +218,7 @@ const core = [
   },
   {
     ...talent('core',130,'Brutalist',20,'Combat,Damage'),
-    snippet: '',
+    snippet: 'All your melee attacks gain Brutal or (of they are already Brutal) deal +1 damage.',
     description:
       '<p>Your strike brutal blows regardless of the weapon you wield.</p>' +
       '<p>Every melee weapon you wield has the Brutal Weapon Trait (p.209), including your unarmed strikes.</p>' +
@@ -220,8 +226,8 @@ const core = [
     requirements: [], // Strength 3+
   },
   {
-    ...talent('core',130,'Betrayer',20,'Utility,Survival'),
-    snippet: '',
+    ...talent('core',130,'Chaos Familiar',20,'Corruption,Utility,Survival'),
+    snippet: '+2 Corruption. The minion is usable proficient in Stealth and Scholar. It`s also a douche...',
     description:
       '<p>The Dark Gods have rewarded you with a minion drawn from the Warp. This malign creature revels in violence and deception, and serves as a constant reminder of your choices. Chaos familiars are unreliable, fickle, and treacherous, but they can be a powerful tool in any cultist’s arsenal.</p>' +
       '<p>You gain +2 Corruption.</p>' +
@@ -233,7 +239,7 @@ const core = [
   },
   {
     ...talent('core',131,'Conversational Cogitator',10,'Interaction'),
-    snippet: '',
+    snippet: 'Roll Tech instead of Cunning, Deception, Insight or Persuasion once per short or long rest.',
     description:
       '<p>The cogitation devices that form your brain are finely tuned. Through the cold purity of logic you can calculate the likely outcomes of a conversation, and predict the responses of weaker biological minds.</p>' +
       '<p>Before making a Cunning (Fel), Deception (Fel), Insight (Fel), or Persuasion (Fel) Skill Test you can choose to use this Talent to use your Tech (Int) Skill instead.</p>' +
@@ -242,7 +248,7 @@ const core = [
   },
   {
     ...talent('core',131,'Counter Attack',30,'Combat,Melee'),
-    snippet: '',
+    snippet: 'As a Reflexive Action, execute a single, plain, non-options using melee attack after an enemy targets you with a melee attack.',
     description:
       '<p>You are a master of melee combat, able to find an opening in your opponent’s guard when they attack.</p>' +
       '<p>You can use this Talent whenever an enemy targets you with a melee attack. After the enemy has completed their attack, you may make a single melee attack against that enemy as a Reflexive Action.</p>' +
@@ -253,7 +259,7 @@ const core = [
   },
   {
     ...talent('core',131,'Deadshot',20,'Combat,Ranged,Damage'),
-    snippet: 'When you take the Aim action (p.189) and make a Called Shot (p.187) you double the bonus ED you recieve.',
+    snippet: 'When you take the Aim action (p.189) and make a Called Shot (p.187) you double the bonus ED you receive.',
     description:
       '<p>You are a skilled shot, trained to carefully target your enemies’ weak points.</p>' +
       '<p>When you take the Aim action (p.189) and make a Called Shot (p.187) you double the bonus ED you recieve.</p>',
@@ -261,7 +267,7 @@ const core = [
   },
   {
     ...talent('core',132,'Death or Glory!',20,'Melee,Morale'),
-    snippet: '',
+    snippet: 'Instead of making a Fear Test, you may just Charge it`s source. Make the Feat Test afterwards.',
     description:
       '<p>Even when terrified, you can summon the courage to mount a ferocious attack.</p>' +
       '<p>Whenever you are required to make a Fear Test, you may choose to instantly Charge the source of <em>Fear</em>, if you are able to, and make a single melee attack. Make the Fear Test after this attack resolves if the target is still alive.</p>' +
@@ -271,7 +277,7 @@ const core = [
   {
     ...talent('core',132,'Deductive',20,'Utility'),
     hint: 'Your studious mind can pick apart a problem (or person) with ease.',
-    //snippet: '',
+    snippet: 'As a Simple Action, make an Int based Skill test and the GM may give you some information. Gain +Rank dice to tests when using this information.',
     description:
       '<p>Your studious mind can pick apart a problem (or person) with ease.</p>' +
       '<p>As a Simple Action, you may use this Talent to make an Intellect-based Skill Test to recall or notice something about a target. The target can be anything, from a mag-locked door with a cantankerous machine spirit to an inscrutable Planetary Governor.</p>' +
@@ -280,7 +286,7 @@ const core = [
   },
   {
     ...talent('core',132,'Devotees',30,'Utility,Survival'),
-    snippet: 'Some Followers',
+    snippet: 'You gain 2+Double Rank devotees. They can`t be better than you and you may sacrifice one to avoid damage.',
     description:
       '<p>Through reputation or assignment, you have gathered a number of followers that will do whatever you ask.</p>' +
       '<p>If you are attacked, they intervene.</p>' +
@@ -298,7 +304,7 @@ const core = [
   {
     ...talent('core',132,'Die Hard',20,'Survival'),
     hint: 'You’re hard to kill.',
-    snippet: '',
+    snippet: 'When reaching max Wounds, roll for a Memorable Injurie, heal 1 Wound. Use once per Long Rest.',
     description:
       '<p>You’re hard to kill.</p>' +
       '<p>When you suffer your maximum Wounds, you are not Dying. Roll once on the Memorable Injuries table and heal 1 Wound.</p>' +
@@ -308,7 +314,7 @@ const core = [
   {
     ...talent('core',132,'Dirty Fighter',20,'Combat,Interaction,Debuff'),
     hint: 'You’re proficient in the art of foul play.',
-    snippet: '',
+    snippet: 'Shift 2 with an Interaction Attack to also inflict Blinded, Prone, Restrained or Staggered.',
     description:
       '<p>You’re proficient in the art of foul play.</p>' +
       '<p>Whenever you make an Interaction Attack (p.190) and you shift 2 Exalted Icons, you can inflict your target with an additional Condition. Choose the most narratively appropriate Condition from the following options:</p>' +
@@ -322,7 +328,7 @@ const core = [
   },
   {
     ...talent('core',132,'Discipline Savant',30,'Warp'),
-    snippet: '',
+    snippet: 'Activating Powers in the selected Discipline reduce their DN by 1.',
     description:
       '<p>Your devotion to a psychic discipline has given you mastery over your style of Warpcraft.</p>' +
       '<p>When you take this Talent, you may select a psychic discipline in which you have at least 2 psychic powers.</p>' +
@@ -331,7 +337,7 @@ const core = [
   },
   {
     ...talent('core',133,'Disturbing Voice',20,'Social'),
-    snippet: '',
+    snippet: 'Add +Rank dice to voice based Intimidation and Leadership tests. Might impose +2 DN on Fellowship tests with the weak hearthed.',
     description:
       '<p>You have a sinister and upsetting voice.</p>' +
       '<p>This may be due to infrasonic cadences produced by a vox synthesiser, interrogation training, or just an inborn air of malice.</p>' +
@@ -342,7 +348,7 @@ const core = [
   {
     ...talent('core',133,'Dual Wield',20,'Combat,Ranged,Melee'),
     hint: 'You can wield two weapons with uncanny accuracy.',
-    snippet: '',
+    snippet: 'When dual-wielding, reduce the Multi-Attack penalty by 2.',
     description:
       '<p>You can wield two weapons with uncanny accuracy.</p>' +
       '<p>If you are wielding two weapons that have the Pistol Weapon Trait or are one-handed melee weapons, the DN penalty for using the Multi- Attack option is reduced by 2.</p>' +
@@ -352,7 +358,7 @@ const core = [
   {
     ...talent('core',133,'Duty Until Death',20,'Combat'),
     hint: 'Your ardent faith in the Emperor allows you to push beyond the limits of injury to act in His will, at a cost to your physical form.',
-    snippet: '',
+    snippet: 'When reaching Max Wounds, you can act normal for one final round. You are still dying and rolling Complications is not a good idea.',
     description:
       '<p>Your ardent faith in the Emperor allows you to push beyond the limits of injury to act in His will, at a cost to your physical form.</p>' +
       '<p>Whenever you reach Max Wounds, you can use this Talent. You may take your next turn normally; you begin Dying at the end of that turn. You may choose to take your next turn immediately after activating this Talent, potentially interrupting an enemy’s turn. If you roll a Complication on any Test, you take a Traumatic Wound.</p>',
@@ -363,7 +369,7 @@ const core = [
   },
   {
     ...talent('core',133,'Eleminator',20,'Combat,Stealth'),
-    snippet: '',
+    snippet: 'Add you Stealth Score as ED to unaware targets.',
     description:
       '<p>You strike from the shadows, using stealth and the element of surprise to take down your foes in one fell swoop.</p>' +
       '<p>When you have a Stealth Score (p.181) and you attack an enemy that is unaware of you, you may add your Stealth Score as ED. This is in addition to the bonuses received from a Surprise Attack (p.182). Any decrease to your Stealth Score is resolved after the attack.</p>',
@@ -371,7 +377,7 @@ const core = [
   },
   {
     ...talent('core',133,'Escape Artist',20,'Utility'),
-    snippet: '',
+    snippet: 'Add +Double Rank dice to escape bondage or grapplings... Kinky.',
     description:
       '<p>Through bodily contortions, practice, or subdermally concealed equipment, you are adept at escaping any form of bondage.</p>' +
       '<p>You gain +Double Rank bonus dice to all attempts to escape any form of bondage, be it mechanical bonds or an individual Grappling you (p.189).</p>',
@@ -379,14 +385,14 @@ const core = [
   },
   {
     ...talent('core',133,'Ever Vigilant',20,'Utility'),
-    snippet: '',
+    snippet: 'Add +Double Rank to Passive Awareness.',
     description:
       '<p>You never let down your guard. You gain +Double Rank to your Passive Awareness.</p>',
     requirements: [],
   },
   {
     ...talent('core',133,'Favoured By The Warp',40,'Warp,Survival'),
-    snippet: '',
+    snippet: 'You may reroll the Perils of the Warp, the second result is final.',
     description:
       '<p>The Warp is both dangerous and fickle, it’s horrors afflicting some more than others. Even those with great mental conditioning and a seeming control over psychic powers can find it turns against them.</p>' +
       '<p>You may use this Talent to reroll any Perils of the Warp (p.263) result. You must accept the new result.</p>',
@@ -394,7 +400,7 @@ const core = [
   },
   {
     ...talent('core',133,'Fear',30,'Intimidation'),
-    snippet: '',
+    snippet: 'Your successfull Intimidations may force a Fear Test with DN 1+Double Rank',
     description:
       '<p>Either by the ravages of war on your body, an aura of malice, or the weight of your words, you frighten those you meet.</p>' +
       '<p>When you succeed on an Intimidation (Wil) Test, you can force the target to make a Fear Test with a DN equal to 1 + Double Rank.</p>',
@@ -402,7 +408,7 @@ const core = [
   },
   {
     ...talent('core',133,'Fearless',30,'Surviuval'),
-    snippet: '',
+    snippet: 'Immune to Fear and Intimidation Interaction Attacks.',
     description:
       '<p>Extensive mental conditioning or intensive training allow you to completely control your fear.</p>' +
       '<p>You automatically pass any Fear Test. You are immune to Interaction Attacks made using Intimidation (Wil).</p>',
@@ -421,7 +427,7 @@ const core = [
   {
     ...talent('core',134,'Flagellant',20,'Combat,Melee'),
     hint: 'You have dedicated your pain to the service of the Emperor.',
-    snippet: '',
+    snippet: 'You pray, you hurt yourself, you gain +Rank dice to Determination and Conviction, you may become Frenzied.',
     description:
       '<p>You have dedicated your pain to the service of the Emperor.</p>' +
       '<p>At the start of each day, you must spend 20 minutes (Terran standard) in prayer, and inflict Wounds to yourself equal to your Tier through self-flagellation.</p>' +
@@ -432,7 +438,7 @@ const core = [
   },
   {
     ...talent('core',134,'Frenzy',20,'Combat,Melee'),
-    snippet: '',
+    snippet: 'As a Combat Action you can become Frenzied (pg. 199).',
     description:
       '<p>You can use a Combat Action to become Frenzied (p.199).</p>',
     requirements: [],
@@ -447,7 +453,7 @@ const core = [
   },
   {
     ...talent('core',134,'Gallows Humour',20,'Support,Survival'),
-    snippet: '',
+    snippet: 'As a Simple Action you can roll Fellowship when wounded or suffer a condition. You and you allies heal Shock equals to Icons Rolled +Rank.',
     description:
       '<p>You find humour in the darkest of places, and can use it to bolster the resolve of your allies.</p>' +
       '<p>You can take a Simple Action to make a grim joke whenever you are Wounded or are suffering from a Condition. Make a Fellowship Attribute Test when you do so; you and any allies that can hear you recover Shock equal to your rank plus the number of Icons rolled.</p>',
@@ -455,7 +461,7 @@ const core = [
   },
   {
     ...talent('core',134,'Hardy',30,'Survival'),
-    snippet: '',
+    snippet: 'As a Combat Action, roll Toughness (DN 3): Recover 1+Double Rank shock or only 1 on a failure. Shift for 1 additional shock. Use once per Long Rest.',
     description:
       '<p>You are innately durable, or have undergone harrowing endurance training.</p>' +
       '<p>As a Combat Action, you can make a DN 3 Toughness Test. On a failure you recover 1 Shock. On a success you recover 1 + Double Rank Shock. Each Shifted Exalted Icon recovers an additional point of Shock.</p>' +
@@ -464,70 +470,70 @@ const core = [
   },
   {
     ...talent('core',135,'Hatred [Any]',30,'Combat,Melee,Social'),
-    snippet: '',
+    snippet: 'You gain +Double Rank dice for Melee Attacks against the Keyword. You suffer +2 DN to interactions with the Keyword.',
     description:
       '<p></p>',
     requirements: [],
   },
   {
     ...talent('core',135,'Hive Explorer',20),
-    snippet: '',
+    snippet: 'You add +Rank dice to Stealth and Survival in Urban environment.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('IMPERIUM') ],
   },
   {
     ...talent('core',135,'Jargon [Skill]',20),
-    snippet: '',
+    snippet: 'Talk on and on over a Topic to lock someone in the conversation.',
     description:
       '<p></p>',
     requirements: [], // A Rating of 1+ in any of the following; Ballistic Skill (A), Medicae (Int), Pilot (A), Scholar (Int), Survival (Wil), Tech (Int) or Weapon Skill (I).
   },
   {
     ...talent('core',135,'Legacy Of Sorrow',20),
-    snippet: '',
+    snippet: 'You do not suffer from Intense Emotion and th Group gains 1 Glory when you pass a Defience Test.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Aeldari') ],
   },
   {
     ...talent('core',136,'Let The Galaxy Burn',20),
-    snippet: '',
+    snippet: '+1 Corruption. Incapacitating an Elite or Adversary grants 1 Glory (up to Double Rank per encounter).',
     description:
       '<p></p>',
     requirements: [ requireKeyword('CHAOS') ],
   },
   {
     ...talent('core',136,'Lip Reader',20),
-    snippet: '',
+    snippet: 'Read Lips, the GM may ask for an Awareness Test.',
     description:
       '<p></p>',
     requirements: [],
   },
   {
     ...talent('core',136,'Lobotomised Efficiency',20),
-    snippet: '',
+    snippet: 'You add +Double Rank to Conviction and Resolve. You do not add your Tier to your Shock.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Human') ],
   },
   {
     ...talent('core',136,'Loremaster [Keyword]',30),
-    snippet: '',
+    snippet: 'Add +Double Rank to any (fitting) Skill Tests related to [Keyword]. This includes Interaction Attacks.',
     description:
       '<p></p>',
     requirements: [], // Skill 3+
   },
   {
     ...talent('core',136,'Mark Of Chaos',30),
-    snippet: '',
+    snippet: 'Serve the Dark Gods, well only one of them.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('[MARK OF CHAOS]') ],
   },
   { // CUSTOM APPROACH
     ...talent('core',136,'Mark Of Nurgle',30),
-    snippet: '',
+    snippet: 'Add +1 to Toughness.',
     description:
       '<p>Your Toughness increases by +1.</p>',
     requirements: [ requireKeyword('NURGLE') ],
@@ -535,7 +541,7 @@ const core = [
   // KHORNE, TZEENCH, SLANESCH, UNDECIDED
   {
     ...talent('core',136,'Mastered Paths',20),
-    snippet: '',
+    snippet: 'Select an additional Background and gain its bonus.',
     description:
       '<p></p>',
     requirements: [
