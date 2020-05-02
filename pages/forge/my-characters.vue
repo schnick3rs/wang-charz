@@ -112,7 +112,7 @@
           outlined
         >
           <p>
-            It seems that {{hasLegacyCharacters.length}} of your characters are build with the old (Ulisses) Rules set.
+            It seems that some of your characters are build with the old (Ulisses) Rules set.
             The FORGE does not support those characters anymore. I have set up an additional server, where you can manage those characters.
             That server needs to be awaken from stasis when used, thus it might take up to a minute until it is reachable.
             To transfer your characters, execute the following steps:
@@ -123,6 +123,7 @@
             <li>import the character there and check if everything is as expected,</li>
             <li>if all works like before, consider <strong>deleting</strong> the transfered characters here.</li>
           </ol>
+          <p>Alternatively, just rebuild the character using the new revision. Or, hit delete and never look back.</p>
         </v-alert>
 
         <v-row justify="center" v-if="hasUnmigratedCharacters">
