@@ -41,7 +41,7 @@ const simpleStub = function (sourceKey, sourcePage, name, hint, stub = true) {
 const core = [
   {
     name: 'Back From The Brink',
-    ...simpleStub('core', 150,'Back From The Brink','Dead, forgotten, fond, rebuild.', false),
+    ...simpleStub('core',150,'Back From The Brink','Dead, forgotten, found, rebuild.',false),
     cost: 0,
     costPerTier: 10,
     minimumCampaignTier: 2,
@@ -49,7 +49,7 @@ const core = [
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
-    keywordString: '[Any]',
+    keywordString: '[Any] (representing the Faction who saved you)',
     storyElementDescription:
       '<p>After a horrific encounter, you were somehow reconstructed by the marvels of holy (or unholy) technology.</p>' +
       '<ol>' +
@@ -63,27 +63,243 @@ const core = [
         name: 'Keywords',
         snippet: 'You gain the [Any] keyword, representing the Faction who saved you.',
         modifications: [
-          { targetGroup: 'keywords', targetValue: '[Any]' },
+          { targetGroup: 'keywords', targetValue: '[ANY]' },
         ],
       },
       {
-        key: 'wargear',
-        name: 'Wargear',
-        snippet: 'Replace any lost body parts with the appropriate augmetics; you may choose an option of any Rarity the GM deems appropriate.',
-        wargear: [
+        key: 'traumatic-injury-one',
+        name: 'Traumatic Injury',
+        snippet: 'Your roll on the Traumatic Injury Table',
+        selected: '',
+        optionsPlaceholder: 'Roll d6 and select a Injury',
+        options: [
           {
-            key: 'appropriate-augmetics',
-            name: 'Any option that the Gm deems appropriate',
-            selected: '',
-            options: [
+            key: 'core-hand',
+            name: 'Hand',
+            snippet: 'You suffer a severe hand injury; you can no longer use that hand. Losing both hands means you are unable to hold any weapons or similar gear.',
+            wargear: [
               {
-                filter: true,
-                typeFilter: ['Augmetics'],
+                key: 'appropriate-augmetics-hand',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-arm',
+            name: 'Arm',
+            snippet: 'You suffer a severe injury to your arm. Losing both arms means you are unable to hold any weapons or similar gear.',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-arm',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-foot',
+            name: 'Foot',
+            snippet: 'You suffer a severe foot injury. Losing both feet means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-foot',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-leg',
+            name: 'Leg',
+            snippet: 'You suffer a severe leg injury. Losing both legs means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-leg',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-torso',
+            name: 'Torso',
+            snippet: 'You suffer a severe injury that impairs your organs, like the heart, lungs, or liver. Any Toughness based Tests may become more difficult.',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-torso',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-eye',
+            name: 'Eye',
+            snippet: 'One of your eyes is damaged beyond repair. A single injured eye may add a penalty, such as +2 DN, to any Tests that require sight. Losing both eyes leaves you Blinded (p.199).',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-eye',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
               },
             ],
           },
         ],
-      }
+      },
+      {
+        key: 'traumatic-injury-two',
+        name: 'Traumatic Injury',
+        snippet: 'Your roll on the Traumatic Injury Table',
+        selected: '',
+        optionsPlaceholder: 'Roll d6 and select a Injury',
+        options: [
+          {
+            key: 'core-hand',
+            name: 'Hand',
+            snippet: 'You suffer a severe hand injury; you can no longer use that hand. Losing both hands means you are unable to hold any weapons or similar gear.',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-hand',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-arm',
+            name: 'Arm',
+            snippet: 'You suffer a severe injury to your arm. Losing both arms means you are unable to hold any weapons or similar gear.',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-arm',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-foot',
+            name: 'Foot',
+            snippet: 'You suffer a severe foot injury. Losing both feet means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-foot',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-leg',
+            name: 'Leg',
+            snippet: 'You suffer a severe leg injury. Losing both legs means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-leg',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-torso',
+            name: 'Torso',
+            snippet: 'You suffer a severe injury that impairs your organs, like the heart, lungs, or liver. Any Toughness based Tests may become more difficult.',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-torso',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'core-eye',
+            name: 'Eye',
+            snippet: 'One of your eyes is damaged beyond repair. A single injured eye may add a penalty, such as +2 DN, to any Tests that require sight. Losing both eyes leaves you Blinded (p.199).',
+            wargear: [
+              {
+                key: 'appropriate-augmetics-eye',
+                name: 'Any option that the Gm deems appropriate',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    typeFilter: ['Augmetics'],
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
     ],
   },
   {
@@ -126,8 +342,8 @@ const core = [
     ],
     // Benefits
     influenceBonus: 0,
-    influencePerTier: 2,
-    keywordString: '[Any]',
+    influencePerTier: 0,
+    keywordString: '[Any] (the Faction of your patron)',
     storyElementDescription:
       '<p>You now report to a demanding patron between every adventure.</p>' +
       '<p>When you take this Ascension Package, choose to gain one of the following:</p>' +
@@ -146,14 +362,38 @@ const core = [
         ],
       },
       {
-        key: 'wargear',
-        name: 'Wargear',
-        snippet: 'You gain one Rare item of value 3+Tier.',
-      },
-      {
-        key: 'assets',
-        name: 'Assets',
-        snippet: 'You gain 2 Assets.',
+        key: 'patrons-gift',
+        name: 'It´s a gift!',
+        snippet: 'Choose: Gear, assets or influence',
+        options: [
+          {
+            key: 'wargear',
+            name: 'Wargear',
+            snippet: 'You gain one Rare item of value 3+Tier.',
+            wargear: [
+              {
+                key: 'some-rare-item',
+                name: 'A rare item',
+                selected: '',
+                options: [
+                  {
+                    filter: true,
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    rarityFilter: ['Common', 'Uncommon', 'Rare'],
+                  },
+                ],
+              },
+            ],
+          },
+          {
+            key: 'assets',
+            name: 'Assets',
+            snippet: 'You gain 2 Assets.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'assets', modifier: 2 },
+            ],
+          },
+        ],
       },
     ],
   },
@@ -189,11 +429,27 @@ const core = [
         key: 'wargear',
         name: 'Wargear',
         snippet: 'You gain one Rare item of value 3+Tier.',
+        wargear: [
+          {
+            name: 'A item, 3+Tier, Rare',
+            selected: '',
+            options: [
+              {
+                filter: true,
+                valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                rarityFilter: ['Common', 'Uncommon', 'Rare'],
+              },
+            ],
+          },
+        ],
       },
       {
         key: 'assets',
         name: 'Assets',
         snippet: 'You gain 3 Assets.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'assets', modifier: 3 },
+        ],
       },
     ],
   },
