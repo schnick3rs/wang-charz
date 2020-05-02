@@ -551,77 +551,77 @@ const core = [
   },
   {
     ...talent('core',137,'Mimic Voice',20),
-    snippet: '',
+    snippet: 'Study the voice for 1 hour and pass Awareness (DN by GM) to gain +Double Rank to Deception Tests to mimic the voice.',
     description:
       '<p></p>',
     requirements: [], // Deception 3+
   },
   {
     ...talent('core',137,'Mob Rule',20),
-    snippet: '',
+    snippet: 'When commanding 2+ Orks, all allied Orks within 15+Double Rank metres add +Double Rank to Resolve.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Ork') ],
   },
   {
     ...talent('core',137,'More Dakka!',35),
-    snippet: '',
+    snippet: 'Add +Rank to your Weapons Salvo Rating.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Ork') ],
   },
   {
     ...talent('core',137,'Noble Peer',30),
-    snippet: '',
+    snippet: 'When Status plays a factor, add +Double Rank to Influence and fittin tests.',
     description:
       '<p></p>',
     requirements: [], // Persuasion 3+
   },
   {
     ...talent('core',137,'Orthopraxy',20),
-    snippet: '',
+    snippet: 'As a Simple Action, you gain +1 to Willpower for Rank turns. Use once per Short Rest.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('IMPERIUM') ],
   },
   {
     ...talent('core',137,'Paranoid',20),
-    snippet: '',
+    snippet: 'Once per session, contact you network and ask one question. A secret Cunning roll determines the Details.',
     description:
       '<p></p>',
     requirements: [], // Cunning 3+
   },
   {
     ...talent('core',137,'Primaris Perspective',40),
-    snippet: '',
+    snippet: 'You add +Rank to Resolve and Corruption Tests. You add +Double Rank to Scholar tests for long (<31k) gone events.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Primaris Astartes') ],
   },
   {
     ...talent('core',138,'Promethium Proficiency',20),
-    snippet: '',
+    snippet: 'Your Inflict(On Fire) weapons add +Rank ED. You gain 1 Wrath when killing an enemy of the Imperium with such a weapon.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('IMPERIUM') ],
   },
   {
     ...talent('core',138,'Rite Of Fear',30),
-    snippet: '',
+    snippet: 'As a Combat Action, all creatues within a cone (10m x 3m) must face Fear with DN 2+Double Rank. Disturbing Voice costs you only 10 xp.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MECHANICUS') ],
   },
   {
     ...talent('core',138,'Rite Of Magnometrics',20),
-    snippet: '',
+    snippet: 'Pick up and Carry metal objects within 3+Double Rank witout touching. Draw yourself to large metal objects and hover.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MECHANICUS') ],
   },
   {
     ...talent('core',139,'Rite Of Pure Thought',20),
-    snippet: '',
+    snippet: 'You add +Rank to Resolve and Fear Test and to resist Persuasion and Intimidation Interaction Attacks. You add +Rank to Investigation Tests.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MECHANICUS') ],
