@@ -476,6 +476,14 @@ export const mutations = {
       character.talents = character.talents.filter((t) => t.name !== payload.name);
     }
   },
+  clearCharacterTalentsBySource(state, payload) {
+    const character = state.characters[payload.id];
+    if (character.talents.length > 0) {
+      console.log(`found ${character.talents.length} talents, clearing with source ${payload.source}...`);
+      character.talents = character.talents.filter((k) => k.source === undefined || !k.source.includes(payload.source));
+      console.log(`${character.talents.length} talents remaining`);
+    }
+  },
   setCharacterTalentSelected(state, payload) {
     const character = state.characters[payload.id];
     console.info(`Update ${payload.name} set selected = ${payload.selected}`);
@@ -845,6 +853,9 @@ export const actions = {
 
     console.info(`Ascension [${value}] : Purge > Keywords`);
     commit('clearCharacterKeywordsBySource', { id, source: `ascension.${key}`, cascade: true });
+
+    console.info(`Ascension [${value}] : Purge > talents`);
+    commit('clearCharacterTalentsBySource', { id, source: `ascension.${key}`, cascade: true });
 
     console.info(`Ascension [${value}] : Purge > Psychic Powers`);
     commit('clearCharacterPsychicPowersBySource', { id, source: `ascension.${key}` });
