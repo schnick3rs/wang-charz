@@ -241,7 +241,7 @@
             persistent-hint
             color="primary"
             dense
-            :disabled="homebrew.key !== 'custom'"
+            disabled
             @change="updateHomebrew(homebrew)"
           />
         </div>
