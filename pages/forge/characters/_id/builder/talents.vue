@@ -497,8 +497,7 @@ export default {
                 const attribute = this.attributeRepository.find((a) => a.name == requirement.key);
                 if (attribute) {
                   const charAttributeValue = this.characterAttributesEnhanced[attribute.key];
-                  const prereqAttributeValue = requirement.value.split('+')[0];
-                  if (charAttributeValue < prereqAttributeValue) {
+                  if (charAttributeValue < requirement.value) {
                     fulfilled = false;
                   }
                 } else {
@@ -511,8 +510,7 @@ export default {
                 const skill = this.skillRepository.find((a) => a.name == requirement.key);
                 if (skill) {
                   const charSkillValue = this.characterSkills[skill.key];
-                  const prereqSkillValue = requirement.value.split('+')[0];
-                  if (charSkillValue < prereqSkillValue) {
+                  if (charSkillValue < requirement.value) {
                     fulfilled = false;
                   }
                 } else {

@@ -271,7 +271,7 @@ const core = [
     description:
       '<p>You are a skilled shot, trained to carefully target your enemies’ weak points.</p>' +
       '<p>When you take the Aim action (p.189) and make a Called Shot (p.187) you double the bonus ED you recieve.</p>',
-    requirements: [ requireAttribute('Ballistic Skill', 2) ],
+    requirements: [ requireSkill('Ballistic Skill', 2) ],
   },
   {
     ...talent('core',132,'Death or Glory!',20,'Melee,Morale'),
@@ -459,7 +459,7 @@ const core = [
       '<p>You gain +Rank to any melee attack you make as part of a Charge (p.189).</p>',
     requirements: [
       requireSkill('Athletics',2),
-      requireSkill('Weapons Skill',2),
+      requireSkill('Weapon Skill',2),
     ], // Athletics 2+ WS 2+
   },
   {
