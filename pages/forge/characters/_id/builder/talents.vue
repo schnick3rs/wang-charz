@@ -48,7 +48,7 @@
                 </v-chip>
               </div>
 
-              <div class="body-2" v-html="talent.description"></div>
+              <div class="body-2" v-html="talent.snippet"></div>
 
               <div v-if="talent.id === 15">
                 <v-select
