@@ -333,7 +333,7 @@ const core = [
         key: 'devotee',
         name: 'Devotees',
         snippet: 'You gain the Devotees talent.',
-        description: '<p>You gain the Devotees talent. You do not need ti meet the Leadership Skill prerequisites.</p>',
+        description: '<p>You gain the Devotees talent. You do not need to meet the Leadership Skill prerequisites.</p>',
         modifications: [
           { targetGroup: 'talents', targetValue: 'core-devotees', meta: { name: 'Devotees' } },
         ],
