@@ -56,12 +56,14 @@
             <span v-if="characterAscension.costPerTier > 0">(New Tier x {{ characterAscension.costPerTier }})</span>
           </p>
 
-          <span class="mt-2 grey--text">Prerequisites</span>
-          <v-divider class="mb-2" />
+          <div v-if="characterAscension.prerequisites && characterAscension.prerequisites.length > 0">
+            <span class="mt-2 grey--text">Prerequisites</span>
+            <v-divider class="mb-2" />
 
-          <ul class="text-lg-justify mb-4">
-            <li v-for="prerequisite in characterAscension.prerequisites">{{prerequisite}}</li>
-          </ul>
+            <ul class="text-lg-justify mb-4">
+              <li v-for="prerequisite in characterAscension.prerequisites">{{prerequisite}}</li>
+            </ul>
+          </div>
 
           <span class="mt-2 grey--text">Benefits</span>
           <v-divider class="mb-2" />
@@ -174,7 +176,7 @@
               ></v-select>
 
               <div
-                v-if="feature.selected && feature.selected.length > 0"
+                v-if="feature.selected && feature.selected.length > 0 && featureOptionChoice(feature)"
                 class="ml-4 mr-4"
               >
                 <!-- feature text and/or description -->
@@ -433,10 +435,10 @@ export default {
     characterAscensionKeywordPlaceholders() {
       const placeholderSet = [];
 
-      const placeholderKeywords = this.item.keywords.split(',').filter((k) => k.includes('<'));
+      const placeholderKeywords = this.item.keywords.split(',').filter((k) => k.includes('['));
       placeholderKeywords.forEach((placeholder) => {
         let wordy = {};
-        if (placeholder.toLowerCase() === '<any>') {
+        if (placeholder.toLowerCase() === '[any]') {
           const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
           wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
         } else {
@@ -569,9 +571,9 @@ export default {
       this.$store.dispatch('characters/clearCharacterAscensionPackage', payload);
     },
     keywordOptions(wildcard) {
-      if (wildcard === '<Any>') {
+      if (wildcard === '[Any]') {
         // return all but the any keyword
-        return this.keywordRepository.filter((k) => k.name !== '<Any>');
+        return this.keywordRepository.filter((k) => k.name !== '[Any]');
       }
       return this.keywordRepository.filter((k) => k.name === wildcard);
     },
@@ -608,11 +610,11 @@ export default {
           // reduce to keyword string
           .map((modification) => modification.targetValue)
           // filter placeholder keywords
-          .filter((keyword) => keyword.includes('<'))
+          .filter((keyword) => keyword.includes('['))
           // map to placeholder object
           .map((placeholder) => {
             let wordy = {};
-            if (placeholder.toLowerCase() === '<any>') {
+            if (placeholder.toLowerCase() === '[any]') {
               const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
               wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
             } else {
@@ -707,8 +709,13 @@ export default {
 
       // the selected option has modifications that are saved as such
       if ( selectedOption.modifications ) {
+        const tiersAscended = ascension.targetTier - ascension.sourceTier;
+        const modz = selectedOption.modifications.filter((mod) => {
+          if (mod.requiredAscendedTiers === undefined) return true;
+          if (mod.requiredAscendedTiers <= tiersAscended) return true;
+        });
         const content = {
-          modifications: selectedOption.modifications,
+          modifications: modz,
           source: `${sourcePrefix}.${selectedOption.key}`,
         };
         this.$store.commit('characters/addCharacterModifications', { id, content });

@@ -1,5 +1,6 @@
 const source = {
-  core: { book: 'Core Rules', key: 'core', version: 'v1' },
+  core: { book: 'Core Rules (revised)', key: 'core', version: 'v1.5' },
+  core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
@@ -19,6 +20,21 @@ const source = {
 
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
+};
+
+const powerz = function(sourceKey, sourcePage, name, discipline, cost, effect, stub = false) {
+  return {
+    source: {
+      ...source[sourceKey],
+      page: sourcePage,
+    },
+    key: `${stringToKebab(`${sourceKey} ${name}`)}`,
+    name,
+    cost,
+    discipline,
+    effect,
+    stub,
+  };
 };
 
 const simpleStub = function (id, sourceKey, sourcePage, cost, name, discipline, effect) {
@@ -48,6 +64,378 @@ const simpleCrunch = function (dn, activation, duration, range, multi, effect, p
     crunch_potency: potency.split(';'),
   };
 };
+
+const corePowers = [
+  {
+    ...powerz('core',268,'Chameleon','Minor',8),
+    ...simpleCrunch(5,'Action','Sustained','Self',false),
+    keywords: ['Psychic'],
+    effect: '+3 to Stealth and +1 Defence vs Ranged Attacks.',
+    description: '<p>You bend reality just enough to cause your image to blend with your surroundings. While this power remains in effect, you gain +3 bonus dice to Stealth (A) Tests and + 1 to your Defence against ranged attacks.</p>',
+  },
+  {
+    ...powerz('core',268,'Compel','Minor',10),
+    ...simpleCrunch(5,'Simple Action','1 Round','5 m',false),
+    keywords: ['Psychic'],
+    effect: 'Target must pass DN 4 Wil test or must follow a single command.',
+  },
+  {
+    ...powerz('core',268,'Conceal Phenomena','Minor',5),
+    ...simpleCrunch(3,'Full-Round Action','Sustained','Self',false),
+    keywords: ['Psychic'],
+    effect: 'Psychic atempts to detect you are at +2 DN.',
+  },
+  {
+    ...powerz('core',269,'Conjure Flame','Minor',10),
+    ...simpleCrunch(4,'Movement','Sustained','Self',false),
+    keywords: ['Fire','Psychic'],
+    effect: 'Flaming Melee Attacks that deal 8+1ED and may (GM) inflict On Fire',
+  },
+  {
+    ...powerz('core',269,'Dull Pain','Minor',8),
+    ...simpleCrunch(4,'Simple Action','1 Round','5 m',true),
+    keywords: ['Psychic'],
+    effect: 'Affected targets reduce all shock they suffer by 1.',
+  },
+  {
+    ...powerz('core',269,'Flash Bang','Minor',8),
+    ...simpleCrunch(4,'Action','Instant','5 m',true),
+    keywords: ['Auditory','Light','Psychic'],
+    effect: 'Targets in range must pass DN 3 Tou of suffer 1 shock and be blinded.',
+  },
+  {
+    ...powerz('core',269,'Invoke Luck','Minor',10),
+    ...simpleCrunch(4,'Simple Action','1 Round','Self',false),
+    keywords: ['Psychic'],
+    effect: 'You may gain +1 die to one Test you make.',
+  },
+  {
+    ...powerz('core',269,'Inflict Pain','Minor',8),
+    ...simpleCrunch(4,'Action','Sustained','5 m',true),
+    keywords: ['Psychic'],
+    effect: 'Deal 1d3 shock, target must pass DN3 Wil or be staggered.',
+  },
+  {
+    ...powerz('core',270,'Subvert Machine','Minor',10),
+    ...simpleCrunch(4,'Action','Instant','25 m',true),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Jam machine for 1 minute. Might be fixed with DN 3 Tech (Int) Test.',
+  },
+  {
+    ...powerz('core',270,'Hover','Minor',7),
+    ...simpleCrunch(4,'Simple Action','Sustained','Self',false),
+    keywords: ['Psychic'],
+    effect: 'Float freely at half speed.',
+  },
+  {
+    ...powerz('core',270,'Psychic Torch','Minor',5),
+    ...simpleCrunch(4,'Simple Action','Sustained','Self',false),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Create an illuminating, flying orb.',
+  },
+  {
+    ...powerz('core',270,'Phantom Grip','Minor',8),
+    ...simpleCrunch(4,'Full Action','Sustained','10 m',false),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Manifest phantom hands under your control.',
+  },
+  {
+    ...powerz('core',270,'Mental Force','Minor',8),
+    ...simpleCrunch(3,'Action','Instant','15 m',false),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Do a mental flex to push the target prone.',
+  },
+  {
+    ...powerz('core',271,'Otherworlldy Voices','Minor',5),
+    ...simpleCrunch(3,'Action','Sustained','25 m',false),
+    keywords: ['Auditory','Psychic'],
+    effect: 'Disturb others with you AWESOME WARP VOICE.',
+  },
+  // Universal
+  {
+    ...powerz('core',272,'Smite','Universal',10),
+    ...simpleCrunch('Defence','Action','Instant','35 m',true),
+    keywords: ['Psychic'],
+    effect: 'Roll Psychic Mastery VS Defence to deal 1d3 Mortal Wounds.',
+  },
+  // Biomancy
+  {
+    ...powerz('core',272,'Enfeeble','Biomancy',15),
+    ...simpleCrunch('Defence','Action','Sustained','10 m',true),
+    keywords: ['Psychic'],
+    effect: 'The target’s Strength is reduced by 1 and they suffer 1 Shock at the beginning of each of their turns while the power is sustained.',
+  },
+  {
+    ...powerz('core',272,'Life Leech','Biomancy',15),
+    ...simpleCrunch('Defence','Action','Instant','5 m',false),
+    keywords: ['Psychic'],
+    effect: 'Deal 1d6 shock and 1d3 Wounds, heal half of the inflicted amount.',
+  },
+  {
+    ...powerz('core',272,'Warp Speed','Biomancy',15),
+    ...simpleCrunch(7,'Action','Sustained','Self',false),
+    keywords: ['Psychic'],
+    effect: 'Double your speed, make an additional Action per turn, +1 Defence, always act first in combat round. Suffer 1d3+1 Shock each round.',
+  },
+  {
+    ...powerz('core',272,'Phantom Form','Biomancy',15),
+    ...simpleCrunch(7,'Action','Sustained','Self',false),
+    keywords: ['Psychic'],
+    effect: 'Move through solid matter at half speed. Suffer 1 Shock each round.',
+  },
+  {
+    ...powerz('core',273,'Regeneration','Biomancy',15),
+    ...simpleCrunch(8,'Action','Sustained','Self',false),
+    keywords: ['Psychic'],
+    effect: 'Heal one Wound per round or - if completely healed - regain 1 Shock per round.',
+  },
+  {
+    ...powerz('core',273,'Sharp Flesh','Biomancy',20),
+    ...simpleCrunch(8,'Action','Sustained','Self',false),
+    keywords: ['Psychic'],
+    prerequisite: ['At least one other Biomancy Power.'],
+    effect: 'Change your form, you filthy shapechanger.',
+  },
+  // Divination
+  {
+    ...powerz('core',274,'Forewarding','Divination',15),
+    ...simpleCrunch(6,'Full Action','1 Combat','Self',false),
+    keywords: ['Psychic'],
+    effect: 'Seize initiative for free and gain +1 Defence.',
+  },
+  {
+    ...powerz('core',274,'Presience','Divination',15),
+    ...simpleCrunch(7,'30 minutes','1 Scene','Self',false),
+    keywords: ['Psychic'],
+    prerequisite: ['At least one other Divination Power.'],
+    effect: '',
+  },
+  {
+    ...powerz('core',274,'Misfortune','Divination',15),
+    ...simpleCrunch('Defence','Full Action','Sustained','30 m',true),
+    keywords: ['Psychic'],
+    effect: '',
+  },
+  {
+    ...powerz('core',275,'Psychometry','Divination',15),
+    ...simpleCrunch(4,'Full Action','Sustained','10 m',false),
+    keywords: ['Psychic'],
+    prerequisite: ['At least one other Divination Power.'],
+    effect: 'When you use this power you are able to glimpse visions of past events in an area where an individual expressed an emotional outburst.',
+  },
+  {
+    ...powerz('core',275,'Scrier’s Gaze','Divination',5),
+    ...simpleCrunch(6,'Full Action (or 10 min)','Sustained','5,000 m',false),
+    keywords: ['Psychic'],
+    effect: 'You project your mind remotely to view events occurring in another place within range.',
+  },
+  // Pyromancy
+  {
+    ...powerz('core',275,'Fiery Form','Pyromancy',15),
+    ...simpleCrunch(7,'Action','Sustained','Self',false),
+    keywords: ['Fire','Psychic'],
+    effect: 'You burst into flame, your body engulfed in a roaring inferno. These flames cause no harm to you or your possessions.',
+  },
+  {
+    ...powerz('core',276,'Flame Breath','Pyromancy',5),
+    ...simpleCrunch(5,'Action','Instant','30 m',false),
+    keywords: ['Fire','Psychic'],
+    effect: 'Anything within Blast(Medium) suffers 14 +2 ED and is On Fire.',
+  },
+  {
+    ...powerz('core',276,'Mindfire','Pyromancy',15),
+    ...simpleCrunch('Willpower','Action','Sustained','100 m',false),
+    keywords: ['Fire','Psychic'],
+    prerequisite: ['At least one other Pyromancy Power.'],
+    effect: 'Hinder the enemy by raising his temperatur.',
+  },
+  {
+    ...powerz('core',276,'Molten Beam','Pyromancy',20),
+    ...simpleCrunch('Defence','Action','Instant','10 m',false),
+    keywords: ['Fire','Psychic'],
+    effect: 'Deal 18 +2 ED and might set targets On Fire.',
+  },
+  {
+    ...powerz('core',276,'Spontaneous Combustion','Pyromancy',10),
+    ...simpleCrunch('Defence','Action','Instant','20 m',true),
+    keywords: ['Fire','Psychic'],
+    effect: 'Deal 12 +1 ED and might set targets On Fire.',
+  },
+  {
+    ...powerz('core',276,'Wall Of Flame','Pyromancy',15),
+    ...simpleCrunch(7,'Action','Sustained','20 m',true),
+    keywords: ['Fire','Psychic'],
+    effect: 'Summon a 3x20x10 Wall, dealing up to 12 +1 ED any might set On Fire.',
+  },
+  // Telekinesis
+  {
+    ...powerz('core',277,'Assail','Telekinesis',10),
+    ...simpleCrunch('Defence','Action','Sustained','20 m',true),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Throw large objects (your mom?), dealing 10 +1 ED.',
+  },
+  {
+    ...powerz('core',277,'Crush','Telekinesis',10),
+    ...simpleCrunch('Defence','Action','Instant','20 m',true),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Force grapple, dealing 10 +1 ED and might restrain.',
+  },
+  {
+    ...powerz('core',277,'Levitation','Telekinesis',8),
+    ...simpleCrunch(5,'Action','Sustained','Self',false),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Fly, but pay 1 shock per hour.',
+  },
+  {
+    ...powerz('core',278,'Telekinetic Dome','Telekinesis',15),
+    ...simpleCrunch(5,'Full Action','Sustained','Self',false),
+    keywords: ['Kinetic','Psychic'],
+    prerequisite: ['At least one other Telekinesis Power.'],
+    effect: 'Sustain a Force Field that grants +2 Resilience, cost shock to maintain.',
+  },
+  {
+    ...powerz('core',278,'Grav-Warp','Telekinesis',20),
+    ...simpleCrunch('Willpower +2','Action','Sustained','50 m',true),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Prone, Restrain or pull with manipulated gravity.',
+  },
+  {
+    ...powerz('core',278,'Shock Wave','Telekinesis',15),
+    ...simpleCrunch(7,'Action','Instant','5 m',false),
+    keywords: ['Kinetic','Psychic'],
+    effect: 'Deal 12 +1 ED and probably Prone those around you.',
+  },
+  // Telepathy
+  {
+    ...powerz('core',278,'Erasure','Telepathy',15),
+    ...simpleCrunch('Willpower +2','Full Action','Instant','30 m',true),
+    keywords: ['Telepathy','Psychic'],
+    prerequisite: ['At least one other Telepathy Power.'],
+    effect: 'Purge some memories from the target.',
+  },
+  {
+    ...powerz('core',279,'Fog The Mind','Telepathy',15),
+    ...simpleCrunch(4,'Full Action','Sustained','10 m',false),
+    keywords: ['Telepathy','Psychic'],
+    effect: 'Hinder and Stagger multiple foes.',
+  },
+  {
+    ...powerz('core',279,'Mind Probe','Telepathy',15),
+    ...simpleCrunch('Willpower','Full Action','Sustained','30 m',false),
+    keywords: ['Telepathy','Psychic'],
+    prerequisite: ['At least one other Telepathy Power.'],
+    effect: 'Probe the mind, ask questions, learn answers.',
+  },
+  {
+    ...powerz('core',279,'Psychic Shriek','Telepathy',10),
+    ...simpleCrunch('Willpower','Action','Instant','50 m',true),
+    keywords: ['Psychic'],
+    effect: 'Deal d3+3 Shock and (Wil vs. DN 5) stagger.',
+  },
+  {
+    ...powerz('core',279,'Telepathy','Telepathy',5),
+    ...simpleCrunch(3,'Action','Sustained','100 m',true),
+    keywords: ['Telepathy','Psychic'],
+    effect: 'Do the chit-chat, or eavesdrop. Use shifts to boost the range.',
+  },
+  {
+    ...powerz('core',280,'Terrify','Telepathy',15),
+    ...simpleCrunch(5,'Full Action','Instant','10 m',true),
+    keywords: ['Telepathy','Psychic'],
+    effect: 'Enemies must succeed a DN 5 Fear test of suffer the consequences.',
+  },
+  // Maleficarum
+  {
+    ...powerz('core', 281, 'Dark Flame', 'Maleficarum', 15),
+    ...simpleCrunch(7, 'Action', 'Instant', '20 m', false),
+    keywords: ['Chaos', 'Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Targets within Blast(Medium) suffer shock any maybe mortal wounds.',
+    description:
+      '<p>You unleash the roiling inferno of your rage. The power affects all creatures in a Medium Blast from a point in range, unholy flames burning their very souls. Affected targets suffer 1d3 + your Corruption level in Shock damage and must pass a DN 5 Toughness Test or suffer 1d3 Mortal Wounds as well.</p>',
+  },
+  {
+    ...powerz('core',281,'Possession','Maleficarum',20),
+    ...simpleCrunch('Willpower','Full Action','Sustained','30 m',false),
+    keywords: ['Chaos','Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Dominate and control a target.',
+    description:
+      '<p>You breach your enemy’s mind, quashing its will completely, and turning their body into your puppet.</p>' +
+      '<p>You and your target make an Opposed Willpower Test. If you succeed, the target is completely dominated — they have no free will whatsoever. With a simple thought you can compel the target to perform any task you choose as long as the power is Sustained. This control has no limits, and victims do anything you command them to do without question. You immediately gain 1 Corruption on activation of this power, and the target must make a DN 6 Corruption Test when the power ends.</p>' +
+      '<p>Possession is mentally draining, as you must constantly overpower the target’s persona. You suffer 1d3+1 Shock for each target you control every round you sustain the power. You may not recover Shock while sustaining this power.</p>',
+  },
+  {
+    ...powerz('core',281,'Soul Shrivel','Maleficarum',20),
+    ...simpleCrunch('Defence','Action','Instant','20 m',true),
+    keywords: ['Chaos','Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Deal d3 Mortal Wounds and force a Corruption test.',
+  },
+  {
+    ...powerz('core',281,'Touch Of Corruption','Maleficarum',15),
+    ...simpleCrunch('Defence','Action','Sustained','Touch',true),
+    keywords: ['Chaos','Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Deal Corruption and trigger a temporary mutation.',
+  },
+  {
+    ...powerz('core',281,'Infernal Gaze','Maleficarum',10),
+    ...simpleCrunch('Defence','Action','Sustained','25 m',true),
+    keywords: ['Chaos','Psychic'],
+    prerequisite: ['You must have the CHAOS Keyword.'],
+    effect: 'Reduce Int and see hallucinations.',
+  },
+  // Runes of Battle
+  {
+    ...powerz('core',283,'Conceal / Reveal','Runes of Battle',20),
+    ...simpleCrunch(5,'Action','Sustained','25 m',true),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'You reach out with your mind and take command of the shadows, bending and shaping them to your will.',
+    effect: 'Concealed allies within 5m gain +1 to Defence and Stealth. Revealed targets can not benefit from Cover.',
+  },
+  {
+    ...powerz('core',283,'Embolden / Horrofy','Runes of Battle',20),
+    ...simpleCrunch(5,'Action','Sustained','25 m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'You reach into the minds of those around you, either fortifying or eroding their resolve.',
+    effect: 'Gain +1 to resolve or cause +1 DN to resolve tests.',
+  },
+  {
+    ...powerz('core',283,'Empower / Enervate','Runes of Battle',30),
+    ...simpleCrunch(7,'Action','Sustained','25 m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'You commune with the spirits of those around you, expanding their potential or draining their will to fight.',
+    effect: 'Gain +1 ED in melee or cause -1 ED in melee.',
+  },
+  {
+    ...powerz('core',284,'Enhance / Drain','Runes of Battle',30),
+    ...simpleCrunch(7,'Action','Sustained','25 m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'Drawing upon the favour of Khaine, you enhance the combat prowess of your allies or diminish that of your enemies.',
+    effect: 'Gain +1 to Weapon Skill or suffer +1 DN to Weapon Skill.',
+  },
+  {
+    ...powerz('core',284,'Protect / Jinx','Runes of Battle',20),
+    ...simpleCrunch(5,'Action','Sustained','25 m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'Tugging on the threads of fate that surround any field of battle, you isolate and bind those of a specific individual, reshaping their destiny.',
+    effect: 'Gain +1 to Resilience or suffer -1 to Resilience',
+  },
+  {
+    ...powerz('core',284,'Quicken / Restrain','Runes of Battle',20),
+    ...simpleCrunch(7,'Action','Sustained','25 m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'You twist time itself, briefly altering its flow for a select few on the battlefield.',
+    effect: 'Gain additional movement or apply difficult terrain.',
+  },
+];
 
 const paxNavigatorPowers = [
   {
@@ -394,6 +782,7 @@ const teaLibrariusPowers = [
 ];
 
 const psychicPowersRepository = [
+  ...corePowers,
   ...paxNavigatorPowers,
   ...aaoaWaaaghPowers,
   ...aaoaSancticPowers,

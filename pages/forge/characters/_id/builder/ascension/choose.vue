@@ -208,8 +208,7 @@ export default {
       ascensionPackage.ascensionFeatures
       .filter( (feature) => feature.modifications !== undefined )
       .forEach( (feature) => {
-        console.info(feature);
-        modifications = [ ...modifications, ...feature.modifications ];
+          modifications = [ ...modifications, ...feature.modifications ];
       });
       console.info(modifications);
       this.$store.commit('characters/setCharacterModifications', { id, content: { modifications: modifications, source: `ascension.${ascensionPackage.key}` } });
@@ -224,6 +223,20 @@ export default {
           replacement: undefined,
         };
         this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+      });
+
+      modifications
+      .filter( (m) => m.targetGroup === 'talents' )
+      .forEach( (t) => {
+        const payload = {
+          name: t.meta.name,
+          key: t.targetValue,
+          cost: 0,
+          placeholder: undefined,
+          selected: undefined,
+          source: `ascension.${ascensionPackage.key}`,
+        };
+        this.$store.commit('characters/addCharacterTalent', { id: this.characterId, talent: payload });
       });
 
       {

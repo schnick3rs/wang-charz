@@ -38,13 +38,17 @@
 
     <v-card-text class="pa-6">
       <p class="text-lg-justify">
-        <strong>Build Point Cost:</strong> {{ species.cost }}
+        <strong>XP Cost:</strong> {{ species.cost }}, incl. Stats ({{ species.costs.stats }} XP)
       </p>
 
       <p><v-divider /></p>
 
-      <p class="text-lg-justify">
-        <strong>Base Tier:</strong> {{ species.baseTier }}
+      <p class="text-lg-justify" v-if="attributes">
+        <strong>Attributes:</strong> {{attributes}}
+      </p>
+
+      <p class="text-lg-justify" v-if="skills">
+        <strong>Skills:</strong> {{skills}}
       </p>
 
       <p class="text-lg-justify">
@@ -55,13 +59,18 @@
         <span class="mt-2 grey--text">Abilities</span>
         <p><v-divider /></p>
 
-        <span v-if="species.speciesFeatures.length <= 0">No Abilities? At least your base tier is low...</span>
+        <span v-if="species.speciesFeatures.length <= 0">No Abilities? At least your xp cost are low...</span>
 
         <div
           v-for="feature in species.speciesFeatures"
           class="text-lg-justify"
         >
-          <p><strong>{{ feature.name }}:</strong> {{ feature.description ? feature.description : feature.snippet }}</p>
+          <div
+            v-if="feature.description"
+          >
+            <strong>{{feature.name}}</strong><div v-html="feature.description"></div>
+          </div>
+          <p v-else><strong>{{feature.name}}: </strong>{{feature.snippet}}</p>
 
           <div v-if="manageMode && feature.options && feature.options.length > 0">
             <v-select
@@ -169,11 +178,13 @@
 
 <script lang="js">
 import SluggerMixin from '~/mixins/SluggerMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'SpeciesPreview',
   mixins: [
     SluggerMixin,
+    StatRepositoryMixin,
   ],
   props: {
     characterId: {
@@ -213,6 +224,14 @@ export default {
     },
     settingHomebrews() {
       return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
+    attributes() {
+      if (this.species === undefined || this.species.prerequisites === undefined) return undefined;
+      return this.species.prerequisites.filter(pre => pre.group === 'attributes').map(pre => `${this.getAttributeByKey(pre.value).name} ${pre.threshold}`).join(', ');
+    },
+    skills() {
+      if (this.species === undefined || this.species.prerequisites === undefined) return undefined;
+      return this.species.prerequisites.filter(pre => pre.group === 'skills').map(pre => `${this.getSkillByKey(pre.value).name} ${pre.threshold}`).join(', ');
     },
   },
   watch: {

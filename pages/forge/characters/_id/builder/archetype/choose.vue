@@ -43,16 +43,16 @@
     <v-col :cols="12">
       <v-card>
         <div
-          v-for="(group, key) in archetypeGroups"
+          v-for="(group, key) in archetypeFaction"
           :key="key"
         >
           <v-divider />
 
-          <v-list v-if="archetypesByGroup(group).length > 0" subheader>
+          <v-list v-if="archetypesByFaction(group).length > 0" subheader>
             <v-subheader>{{ group }}</v-subheader>
 
             <v-list-item
-              v-for="item in archetypesByGroup(group)"
+              v-for="item in archetypesByFaction(group)"
               :key="item.key"
               two-line
               :disabled="item.tier > characterSettingTier"
@@ -153,7 +153,7 @@ export default {
     characterSpeciesKey(){
       return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
     },
-    archetypeGroups() {
+    archetypeFaction() {
       if (this.itemList !== undefined) {
         let archetypes = this.itemList;
 
@@ -173,12 +173,17 @@ export default {
           archetypes = archetypes.filter((a) => a.tier <= this.characterSettingTier);
         }
 
-        return [...new Set(archetypes.map((item) => item.group))];
+        return [...new Set(archetypes.map((item) => item.faction))];
       }
 
       return [];
     },
-
+    characterAttributes() {
+      return this.$store.getters['characters/characterAttributesById'](this.characterId);
+    },
+    characterSkills() {
+      return this.$store.getters['characters/characterSkillsById'](this.characterId);
+    },
   },
   watch: {
     characterSpeciesKey: {
@@ -199,7 +204,7 @@ export default {
     },
   },
   methods: {
-    ...mapMutations('characters', ['setCharacterArchetype']),
+    ...mapMutations('characters', ['setCharacterArchetype','setCharacterFaction']),
     async getArchetypeList(sources) {
       const config = {
         params: {
@@ -218,11 +223,11 @@ export default {
     getAvatar(key) {
       return `/img/avatars/archetype/${key}.png`;
     },
-    archetypesByGroup(groupName) {
+    archetypesByFaction(groupName) {
       let archetypes = this.itemList;
 
       /* filter by archetype group */
-      archetypes = archetypes.filter((a) => a.group === groupName);
+      archetypes = archetypes.filter((a) => a.faction === groupName);
 
       if (this.characterSpecies) {
         archetypes = archetypes.filter((a) => {
@@ -257,12 +262,21 @@ export default {
       this.previewDialog = true;
     },
     selectArchetypeForChar(item) {
-      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.cost, tier: item.tier } });
+
+      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.costs.archetype, tier: item.tier } });
+      this.setCharacterFaction({ id: this.characterId, faction: { key: item.factionKey, label: item.faction } });
+
+      // TODO ensure species
+
+      // TODO ensure attributes and skills
+      this.ensurePrerequisites(item);
 
       const mods = [];
-      mods.push({
-        targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype',
-      });
+      if (item.influence) {
+        mods.push({
+          targetGroup: 'traits', targetValue: 'influence', modifier: item.influence, hint: item.name, source: 'archetype',
+        });
+      }
       if (item.modifications){
         mods.push(...item.modifications);
       }
@@ -276,7 +290,7 @@ export default {
           const payload = {
             name: keyword,
             source: 'archetype',
-            type: (keyword.includes('<')) ? 'placeholder' : 'keyword',
+            type: (keyword.includes('[')) ? 'placeholder' : 'keyword',
             replacement: undefined,
           };
           this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
@@ -303,6 +317,29 @@ export default {
 
       this.previewDialog = false;
       this.$router.push({ name: 'forge-characters-id-builder-archetype-manage', params: { id: this.characterId } });
+    },
+    ensurePrerequisites(item) {
+      const archetype = item;
+
+      if (archetype && archetype.prerequisites.length > 0) {
+        archetype.prerequisites.forEach((prerequisite) => {
+          // { group: 'attributes', value: 'willpower', threshold: 3, }
+          switch (prerequisite.group) {
+            case 'attributes':
+              const attributeValue = this.characterAttributes[prerequisite.value];
+              if (attributeValue < prerequisite.threshold) {
+                this.$store.commit('characters/setCharacterAttribute', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
+              }
+              break;
+            case 'skills':
+              const skillValue = this.characterSkills[prerequisite.value];
+              if (skillValue < prerequisite.threshold) {
+                this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: prerequisite.value, value: prerequisite.threshold } });
+              }
+              break;
+          }
+        });
+      }
     },
   },
 };

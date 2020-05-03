@@ -38,7 +38,7 @@
       </div>
       <div class="attribute-box__container">
         <div class="attribute-box__value">
-          {{ item.traits.wounds }}
+          {{ item.traits.maxWounds }}
         </div>
         <div class="attribute-box__label">
           Wounds

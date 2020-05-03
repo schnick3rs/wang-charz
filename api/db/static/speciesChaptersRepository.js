@@ -1,5 +1,6 @@
 const source = {
-  core: { book: 'Core Rules', key: 'core', version: 'v1' },
+  core: { book: 'Core Rules (revised)', key: 'core', version: 'v1.5' },
+  core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
@@ -42,7 +43,7 @@ const simpleSource = function(key, page) {
   };
 };
 
-const simpleChapter = function (sourceKey, sourcePage, name, primarch, affiliation, founding) {
+const chapterz = function (sourceKey, sourcePage, name, primarch, affiliation, founding) {
   return {
     ...simpleSource(sourceKey, sourcePage),
     key: `${stringToKebab(`${sourceKey} ${name}`)}`,
@@ -55,158 +56,131 @@ const simpleChapter = function (sourceKey, sourcePage, name, primarch, affiliati
 
 const core = [
   {
-    ...simpleChapter('core',95,'Blood Angles','Sanguinius','Imperium','First Founding (IX Legion)'),
+    ...chapterz('core',95,'Blood Angles','Sanguinius','Imperium','First Founding (IX Legion)'),
     hint: 'Masters of Melee, compelled to drink the enemies blood.',
     beliefsAndTraditions: [
       {
-        name: 'Blood Frenzy',
+        name: 'Savage Echoes',
         effect:
-          'When attacking in melee combat, a Blood Angels Space Marine may reroll up to Rank damage dice on every attack.',
+          'You may reroll Double Rank dice on any melee attack Test.',
       },
       {
         name: 'The Red Thirst',
         origin: 'Gene-seed',
         effect:
-          'After engaging in melee combat, Blood Angels must pass a Willpower test (DN 3). ' +
-          'On a failure, the Blood Angels Space Marine feels a strong urge to drink the blood of the fallen—the player may choose how to respond to this urge. ' +
-          'If the failure involves a complication, the Blood Angels Space Marine may not resist this urge. ' +
-          'The Game Master may alter the DN based on how long it has been since the character has tasted blood.',
+          'Whenever you are in melee combat and see blood, you must make a DN 3 Willpower Test. If you fail, you are Frenzied.',
       }
-      ],
+    ],
   },
   {
-    ...simpleChapter('core',95,'Dark Angles','Lion El`Jonson','Imperium','First Founding (I Legion)'),
+    ...chapterz('core',95,'Dark Angles','Lion El`Jonson','Imperium','First Founding (I Legion)'),
     beliefsAndTraditions: [
       {
-        name: 'Fire Discipline',
-        effect: 'When Dark Angels make a ranged attack using a held action, they ignore up to Rank penalties on the attack.',
+        name: 'Grim Resolve',
+        effect: 'You may reroll Double Rank dice when you Aim and make a ranged attack.',
       },
       {
-        name: 'The Secret',
+        name: 'The Unforgiven',
         origin: 'Tradition',
-        effect: 'Dark Angels distrust anyone outside of their chapter. They suffer a +2DN penalty for Interaction tests involving anyone outside the Dark Angels chapter',
+        effect: 'You suffer a +2 DN penalty to any social Tests made against anyone outside of your Chapter',
       },
     ],
   },
   {
-    ...simpleChapter('core',95,'Imperial Fists','Regal Dorn','Imperium','First Founding (VII Legion)'),
+    ...chapterz('core',95,'Imperial Fists','Regal Dorn','Imperium','First Founding (VII Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Siege Masters',
-        effect: 'Imperial Fists immediately recognise the weaknesses in any fortification. '
-        + 'An Imperial Fists Space Marine may add his Rank bonus to damage when attacking '
-        + 'any building or fortifi cation. An Imperial Fists Space Marine may spend a '
-        + 'Glory point to ignore any bonuses to an enemy’s Defence from cover on any attack.',
+        effect: 'You may reroll Double Rank dice whenever you attack a building, fortification, or enemy in cover. You may also add +Rank dice whenever you make a Test related to architectural engineering',
       },
       {
-        name: 'No Retreat',
-        origin: 'Tradition',
-        effect: 'Imperial Fists are stubborn, tenacious and stoic. If an Imperial Fists '
-        + 'Space Marine fails a Willpower test, the GM gains 1 Ruin.',
+        name: 'Geen-seed Flawed',
+        origin: 'Geen-Seed',
+        effect: 'You are missing implant 12: Sus-an Membrane, and implant 17: Bletcher’s Gland. See below for more information on Space Marine implants.',
       },
     ],
   },
   {
-    ...simpleChapter('core',96,'Iron Hands','Ferrus Manus','Imperium','First Founding (X Legion)'),
+    ...chapterz('core',96,'Iron Hands','Ferrus Manus','Imperium','First Founding (X Legion)'),
     beliefsAndTraditions: [
       {
         name: 'The Flesh is Weak',
-        effect: 'Iron Hands draw surety from their cybernetic replacements. An Iron Hands Space Marine gains a bonus to Willpower tests equal to the number of cybernetic replacement parts he has, up to Rank.',
+        effect: 'Choose one Augmetic Enhancement (p.242). You do not suffer the penalties of being Wounded (p.193). You gain +1 bonus die to Willpower Tests for every augmetic you have.',
       },
       {
-        name: 'Unforgiving',
+        name: 'Ruthless Logic',
         origin: 'Tradition',
-        effect: 'The Iron Hands despise weakness and corruption. When an Iron Hands Space '
-        + 'Marine fails a Corruption test, the GM gains 2 Ruin rather than 1.',
+        effect: 'You suffer a +2 DN penalty to Fellowship-based Tests made against a target that does not have the IRON HANDS or ADEPTUS MECHANICUS Keywords.',
       },
     ],
   },
   {
-    ...simpleChapter('core',96,'Raven Guard','Corvus Corax','Imperium','First Founding (XIX Legion)'),
+    ...chapterz('core',96,'Raven Guard','Corvus Corax','Imperium','First Founding (XIX Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Master of Shadows',
-        effect: 'A Raven Guard may reroll up to Rank dice when making a Stealth test. '
-        + 'Raven Guards may make Stealth tests even under unusual circumstances, such as '
-        + 'while Running (but not Sprinting) or while using a Jump Pack.',
+        effect: 'You may reroll Rank dice when you make a Stealth (A) Test. Running, using a Jump Pack, or similar circumstances do not affect your Stealth (A) Tests.',
       },
       {
-        name: 'Fiercely Independent',
-        origin: 'Tradition',
-        effect: 'Raven Guards traditionally disdain using direct tactics and have a '
-        + 'reputation for independent action. A Raven Guard Space Marine suffers a +2DN '
-        + 'penalty to any combined action (see page 52) with non- Raven Guards',
+        name: 'Dark Heritage',
+        origin: 'Geen-seed',
+        effect: 'ou are missing implant 16: Mucranoid, and implant 17: Bletcher’s Gland. You suffer a + 1 DN penalty to any Fellowship based Test made against any target that could be frightened of your appearance. See below for more information on Space Marine implants',
       },
     ],
   },
   {
-    ...simpleChapter('core',96,'Salamander','Vulkan','Imperium','First Founding (XVIII Legion)'),
+    ...chapterz('core',96,'Salamander','Vulkan','Imperium','First Founding (XVIII Legion)'),
     beliefsAndTraditions: [
       {
-        name: 'Fire Born',
-        effect: 'Salamanders receive +Rank bonus dice for Soak rolls when resisting '
-        + 'damage from any weapon or effect with the Fire or Melta keywords',
+        name: 'Promethian Cult',
+        effect: 'You may reroll Rank dice when you make an attack roll with a weapon with the FIRE or MELTA Keywords. You may reroll Double Rank dice when you roll Determination against a damage from a source with the FIRE or MELTA Keyword.',
       },
       {
-        name: 'Unyielding',
-        origin: 'Tradition',
-        effect: 'Salamanders are determined warriors who consider retreat or surrender an '
-        + 'act of last resort. If a Salamanders Space Marine fails a Resolve test, '
-        + 'the GM gains 1 Ruin.',
+        name: 'Infernal Inheretance',
+        origin: 'Geen-seed',
+        effect: 'Whenever an ally within 30 metres of you is killed, the GM gains +1 Ruin. You suffer a + 2 DN penalty to any Fellowship-based Test made against any target that could be frightened of your appearance',
       },
     ],
   },
   {
-    ...simpleChapter('core',96,'Space Wolves','Lemon Russ','Imperium','First Founding (VI Legion)'),
+    ...chapterz('core',96,'Space Wolves','Lemon Russ','Imperium','First Founding (VI Legion)'),
     beliefsAndTraditions: [
       {
-        name: 'Heightened Senses',
-        effect: 'Space Wolves receive +Rank bonus dice to any Awareness test due to their '
-        + 'lupine senses.',
+        name: 'Hunters Unleashed',
+        effect: 'You have the Acute Sense Talent (p.129) and the Dual Wield Talent (p.133).',
       },
       {
         name: 'Savage Within',
-        origin: 'Tradition',
-        effect: 'Space Wolves suffer a +2DN penalty for any Infl uence tests for authority '
-        + 'outside of dealing with their own Chapter.',
+        origin: 'Geen-seed',
+        effect: 'You cannot Fall Back (p.189).',
       },
     ],
   },
   {
-    ...simpleChapter('core',96,'Ultramarines','Roboute Guilliman','Imperium','First Founding (XIII Legion)'),
+    ...chapterz('core',96,'Ultramarines','Roboute Guilliman','Imperium','First Founding (XIII Legion)'),
     beliefsAndTraditions: [
       {
-        name: 'Courage and Honour',
-        effect: 'The Ultramarines are adept at multiple aspects of war—they are exemplars '
-        + 'of brotherhood and adapt quickly to changing circumstances. An Ultramarines Space '
-        + 'Marine may choose to bank up to 2 Exalted Icons for Glory per test instead of just 1.',
+        name: 'Tactical Versatility',
+        effect: 'You may Shift for Glory twice as part of a Test.',
       },
       {
-        name: 'Pride of Ultramar',
+        name: 'Pride Of Ultramar',
         origin: 'Tradition',
-        effect: 'The Ultramarines are held to a high standard, and work doubly hard to '
-        + 'excel under the eyes of their reborn Primarch, Roboute Guilliman. An Ultramarines '
-        + 'Space Marine begins each session with 1 fewer Wrath. The character regains this '
-        + 'lost Wrath point if he accomplishes his Objective during the session (in addition '
-        + 'to the normal benefits of accomplishing an Objective).',
+        effect: 'You start each session with 1 Wrath Point instead of 2.',
       },
     ],
   },
   {
-    ...simpleChapter('core',97,'White Scars','Jaghatai Khan','Imperium','First Founding (V Legion)'),
+    ...chapterz('core',97,'White Scars','Jaghatai Khan','Imperium','First Founding (V Legion)'),
     beliefsAndTraditions: [
       {
-        name: 'Swift as the Wind',
-        effect: 'White Scars are famously agile in the saddles of their bikes. A White '
-        + 'Scars Space Marine gains +Rank bonus to Piloting tests for vehicles with '
-        + 'the Adeptus Astartes keyword.',
+        name: 'Lightning Assault',
+        effect: 'You may reroll Double Rank dice whenever you make a Pilot (A) Test. You triple your Speed when you Charge (p.189).',
       },
       {
-        name: 'Strike like Lightning',
+        name: 'Ritual Scarring',
         origin: 'Tradition',
-        effect: 'White Scars value swift action and are reluctant to give up the chase '
-        + 'when hunting their foes. A White Scars Space Marine must spend a point of Glory '
-        + 'to Hold Action (see page 222).',
+        effect: 'You suffer a +1 DN penalty to any Fellowshipbased Test made against any target that could be frightened of your appearance.',
       },
     ],
   },
@@ -214,7 +188,7 @@ const core = [
 
 const aaoa = [
   {
-    ...simpleChapter('aaoa',12,'Black Templars','','Mankind',''),
+    ...chapterz('aaoa',12,'Black Templars','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('Righteous Zeal: When charging, a Black Templars Space Marine may re-roll up to ½ Rank dice on their Weapon Skill test.'),
       simpleEffect('No Retreat (Tradition): Like their Imperial Fists progenitors, Black Templars are tenacious and stubborn. If a Black Templars Space Marine fails a Willpower test, the GM gains 1 Ruin.'),
@@ -222,77 +196,77 @@ const aaoa = [
     ],
   },
   {
-    ...simpleChapter('aaoa',12,'Crimson Fists','','Mankind',''),
+    ...chapterz('aaoa',12,'Crimson Fists','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('No Matter The Odds: When making an attack while outnumbered at least two-to-one, a Crimson Fists Space Marine may add +½ Rank dice to their Ballistic Skill or Weapon Skill test.'),
       simpleEffect('No Retreat (Tradition): Like their Imperial Fists progenitors, Crimson Fists are tenacious and stubborn. If a Crimson Fists Space Marine fails a Willpower test, the GM gains 1 Ruin.'),
     ],
   },
   {
-    ...simpleChapter('aaoa',12,'Grey Knights','','Mankind',''),
+    ...chapterz('aaoa',12,'Grey Knights','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('Daemonbane: When attacking a creature with the Daemon keyword in melee combat, a Grey Knights Space Marine adds +½ Rank ED to the attack’s damage. The character also gains the Psyker, Inquisition, and Ordo Malleus keywords, if their archetype does not already provide them.'),
       simpleEffect('Secretive (Tradition): Grey Knights do not trust outsiders, and their nature cannot be permitted to be known to any outside the chapter. They suffer a +2DN penalty for Interaction tests involving anyone who lacks the Grey Knights or Inquisition keywords.'),
     ],
   },
   {
-    ...simpleChapter('aaoa',13,'Emperor`s Children','Fulgrim','Chaos','First Founding (III Legion)'),
+    ...chapterz('aaoa',13,'Emperor`s Children','Fulgrim','Chaos','First Founding (III Legion)'),
     beliefsAndTraditions: [
       simpleEffect('In Pursuit of Perfection: Each Emperor’s Children Space Marine seeks to perfect a single aspect of the arts of warfare. Select one of the following skills: Awareness, Ballistic Skill, Leadership, Pilot, Weapon Skill. The character gains +½ Rank as a bonus to all uses of that skill.'),
       simpleEffect('Fear of Imperfection (Tradition): The Emperor’s Children cannot abide the imperfect and fear the notion that a flaw may mean perfection is unattainable. Whenever an Emperor’s Children Space Marine suffers a complication on the skill chosen for Pursuit of Perfection, above, the GM gains 1 Ruin, in addition to any other results.', 'Tradition'),
     ],
   },
   {
-    ...simpleChapter('aaoa',13,'Iron Warriors','Perturabo','Chaos','First Founding (IV Legion)'),
+    ...chapterz('aaoa',13,'Iron Warriors','Perturabo','Chaos','First Founding (IV Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Siege Masters: Iron Warriors know fortifications. An Iron Warriors Space Marine may add his Rank bonus to damage when attacking any building or fortification. An Iron Warriors Space Marine may spend a Glory point to ignore any bonuses to an enemy’s Defence from cover on any attack.'),
       simpleEffect('Scorn for the Weak (Tradition): Iron Warriors despise weakness in their comrades. If an ally of an Iron Warriors Space Marine fails a Resolve test, the Iron Warrior must pass a Willpower test (DN 3). On a failure, the Iron Warrior feels a strong urge to punish that ally. If the failure involves a complication, the Iron Warrior may not resist this urge. The GM may alter the DN based on the severity or significance of the failure.', 'Tradition'),
     ],
   },
   {
-    ...simpleChapter('aaoa',13,'Night Lords','Konrad Curze','Chaos','First Founding (VIII Legion)'),
+    ...chapterz('aaoa',13,'Night Lords','Konrad Curze','Chaos','First Founding (VIII Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Ave Dominus Nox: Night Lords revel in the fear of others and are swift to spread it. While under cover of darkness, a Night Lord Space Marine may add +½ Rank to Defence and Speed. A Night Lord Space Marine may spend one Glory to cause Fear for the duration of a scene; enemies who encounter the Night Lord must pass a Fear test (DN 2+Rank).'),
       simpleEffect('Blood of Nostramo (Tradition): Night Lords often recruit from amongst the criminal element and have little love for a fair fight. A Night Lords Space Marine who sees an ally fail a Resolve or Fear test must attempt a Resolve test themselves (DN 3) or become pinned.', 'Tradition'),
     ],
   },
   {
-    ...simpleChapter('aaoa',14,'World Eaters','Angron','Chaos, Khorne','First Founding (XII Legion)'),
+    ...chapterz('aaoa',14,'World Eaters','Angron','Chaos, Khorne','First Founding (XII Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Incarnate Violence: When attacking in melee combat, a World Eaters Space Marine may reroll up to Rank damage dice on every attack.'),
       simpleEffect('Butcher’s Nails (Gene-Seed): After engaging in melee combat, World Eaters become frenzied (see pages 230-231 of the Wrath & Glory rulebook) for the rest of the scene. The Willpower test to restrain their frenzy increases by +1 for every enemy they have killed during the scene.', 'Gene-Seed'),
     ],
   },
   {
-    ...simpleChapter('aaoa',14,'Death Guard','Moartarion','Chaos, Nurgle','First Founding (XIV Legion)'),
+    ...chapterz('aaoa',14,'Death Guard','Moartarion','Chaos, Nurgle','First Founding (XIV Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Inexorable Advance: A Death Guard Space Marine may count as being within close range of an enemy if within 3/4 of the weapon’s listed range (so, 30m for a boltgun, instead of 20m, for example).'),
       simpleEffect('Intractable (Tradition): Death Guard are slow and purposeful, never given to needless haste when they could instead grind their foes down with inexorable force. A Death Guard Space Marine must spend a point of Glory to take the Sprint action.', 'Tradition'),
     ],
   },
   {
-    ...simpleChapter('aaoa',14,'Thousand Sons','Magnus the Red','Chaos, Tzeentch','First Founding (XV Legion)'),
+    ...chapterz('aaoa',14,'Thousand Sons','Magnus the Red','Chaos, Tzeentch','First Founding (XV Legion)'),
     beliefsAndTraditions: [
       simpleEffect('The Rubric: A Thousand Sons Space Marine gains the Psyker keyword and may reroll up to Rank dice on any Psychic Mastery tests.'),
       simpleEffect('Gift of Mutation (Gene-Seed): Thousand Sons Space Marines gain an additional +1 Corruption whenever they would gain one or more Corruption points. They also increase the DN of all tests to resist Corruption or Malignancy by +1.', 'Tradition'),
     ],
   },
   {
-    ...simpleChapter('aaoa',15,'Black Legion','Horus Lupercal','Chaos','First Founding (XVI Legion)'),
+    ...chapterz('aaoa',15,'Black Legion','Horus Lupercal','Chaos','First Founding (XVI Legion)'),
     beliefsAndTraditions: [
       simpleEffect('The Tip of the Spear: A Black Legion Space Marine gains an additional +½ Rank on all Ballistic Skill tests made with a ranged weapon at close range.'),
       simpleEffect('Bitter Pride (Tradition): The Black Legion have little love for those outside their ranks. They suffer a +2DN penalty for Interaction tests involving anyone outside the Black Legion, unless those people are subordinate to the Black Legion character.'),
     ],
   },
   {
-    ...simpleChapter('aaoa',15,'Word Bearers','Logar Aurelian','Chaos','First Founding (XVII Legion)'),
+    ...chapterz('aaoa',15,'Word Bearers','Logar Aurelian','Chaos','First Founding (XVII Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Profane Zeal: A Word Bearers Space Marine may reroll any failed Resolve test. In addition, a Word Bearer is immune to fear caused by creatures with the Daemon keyword.'),
       simpleEffect('The Will of the Gods (Tradition): Word Bearers follow the will of the Chaos Gods, as interpreted through their prayers and visions, and through the guidance of their Apostles, and must strive to walk the path the Dark Gods set before them. A Word Bearers Space Marine begins each session with one fewer Wrath. The character regains this lost Wrath point if he accomplishes his Objective during the session (in addition to the normal benefits of accomplishing an Objective).', 'Tradition'),
     ],
   },
   {
-    ...simpleChapter('aaoa',15,'Alpha Legion','Alpharius Omegon','Chaos','First Founding (XX Legion)'),
+    ...chapterz('aaoa',15,'Alpha Legion','Alpharius Omegon','Chaos','First Founding (XX Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Mutable Tactics: After each Respite, select one of the following skills: Athletics, Cunning, Deception, Intimidation, Persuasion, Stealth, or Tech. The Alpha Legionnaire may re-roll up to Rank dice on any test involving the chosen skill.'),
       simpleEffect('I Am Alpharius (Tradition): The Alpha Legion rely on deception and misdirection, and disdain direct tactics. An Alpha Legionnaire suffers a +2DN penalty to any combined action with anyone who lacks the Alpha Legion keyword.', 'Tradition'),
@@ -302,7 +276,7 @@ const aaoa = [
 
 const ltgb = [
   {
-    ...simpleChapter('ltgb',4,'Black Legion','Horus Lupercal','Chaos','First Founding (Legion)'),
+    ...chapterz('ltgb',4,'Black Legion','Horus Lupercal','Chaos','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Black Crusader',
@@ -321,7 +295,7 @@ const ltgb = [
     ],
   },
   {
-    ...simpleChapter('ltgb',5,'Iron Warriors','Perturabo','Chaos','First Founding (Legion)'),
+    ...chapterz('ltgb',5,'Iron Warriors','Perturabo','Chaos','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Siege Lords',
@@ -341,7 +315,7 @@ const ltgb = [
     ],
   },
   {
-    ...simpleChapter('ltgb',5,'Night Lords','Konrad Kurze','Chaos','First Founding (Legion)'),
+    ...chapterz('ltgb',5,'Night Lords','Konrad Kurze','Chaos','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Terror Troups',
@@ -358,7 +332,7 @@ const ltgb = [
     ],
   },
   {
-    ...simpleChapter('ltgb',6,'Word Bearers','Lorgar','Chaos','First Founding (Legion)'),
+    ...chapterz('ltgb',6,'Word Bearers','Lorgar','Chaos','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Profane Zeal',
@@ -375,7 +349,7 @@ const ltgb = [
     ],
   },
   {
-    ...simpleChapter('ltgb',6,'Alpha Legion','Alpharius Omegon','Chaos','First Founding (Legion)'),
+    ...chapterz('ltgb',6,'Alpha Legion','Alpharius Omegon','Chaos','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Hidden in Plain Sight',
@@ -392,7 +366,7 @@ const ltgb = [
     ],
   },
   {
-    ...simpleChapter('ltgb',6,'Death Guard','Mortarion','Chaos, Nurgle','First Founding (Legion)'),
+    ...chapterz('ltgb',6,'Death Guard','Mortarion','Chaos, Nurgle','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Inexorable Advance',
@@ -409,7 +383,7 @@ const ltgb = [
     ],
   },
   {
-    ...simpleChapter('ltgb',7,'Emperor´s Children','Fulgrim','Chaos, Slaanesh','First Founding (Legion)'),
+    ...chapterz('ltgb',7,'Emperor´s Children','Fulgrim','Chaos, Slaanesh','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Flawless Perfection',
@@ -425,7 +399,7 @@ const ltgb = [
     ],
   },
   {
-    ...simpleChapter('ltgb',7,'Thousand Sons','Magnus the Red','Chaos, Tzeentch','First Founding (Legion)'),
+    ...chapterz('ltgb',7,'Thousand Sons','Magnus the Red','Chaos, Tzeentch','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Brotherhood of Psykers',
@@ -444,7 +418,7 @@ const ltgb = [
     ],
   },
   {
-    ...simpleChapter('ltgb',7,'World Eaters','Angron','Chaos, Khorne','First Founding (Legion)'),
+    ...chapterz('ltgb',7,'World Eaters','Angron','Chaos, Khorne','First Founding (Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Butcher’s Nails',
@@ -466,7 +440,7 @@ const ltgb = [
 
 const dod = [
   {
-    ...simpleChapter('dod','-','Doctors of Doom (House Isenwell)','-','Imperium','Unknown'),
+    ...chapterz('dod','-','Doctors of Doom (House Isenwell)','-','Imperium','Unknown'),
     beliefsAndTraditions: [
       {
         name: 'Thunder’s Call',
@@ -480,20 +454,16 @@ const dod = [
     ],
   },
   {
-    ...simpleChapter('dod','-','Doctors of Doom (House Hironiat)','-','Imperium','Unknown'),
+    ...chapterz('dod','-','Doctors of Doom (House Hironiat)','-','Imperium','Unknown'),
     beliefsAndTraditions: [
       {
         name: 'Siege Masters',
-        effect: 'Hironians immediately recognise the weaknesses in any fortification. '
-          + 'An Hironian Space Marine may add his Rank bonus to damage when attacking '
-          + 'any building or fortification. An Hironian Space Marine may spend a '
-          + 'Glory point to ignore any bonuses to an enemy’s Defence from cover on any attack.',
+        effect: 'You may reroll Double Rank dice whenever you attack a building, fortification, or enemy in cover. You may also add +Rank dice whenever you make a Test related to architectural engineering',
       },
       {
-        name: 'No Retreat',
-        origin: 'Tradition',
-        effect: 'Hironians are stubborn, tenacious and stoic. If an Hironian '
-          + 'Space Marine fails a Willpower test, the GM gains 1 Ruin.',
+        name: 'Geen-seed Flawed',
+        origin: 'Geen-Seed',
+        effect: 'You are missing implant 12: Sus-an Membrane, and implant 17: Bletcher’s Gland. See below for more information on Space Marine implants.',
       },
     ],
   },
@@ -501,7 +471,7 @@ const dod = [
 
 module.exports = [
   ...core,
-  ...aaoa,
-  ...ltgb,
-  ...dod,
+  //...dod,
+  //...aaoa,
+  //...ltgb,
 ];

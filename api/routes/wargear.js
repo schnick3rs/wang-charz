@@ -1,7 +1,6 @@
 const Router = require('express-promise-router');
 
 const wargearRepository = require('../db/static/wargearRepository');
-const db = require('../db');
 
 const router = new Router();
 
@@ -64,6 +63,7 @@ router.get('/', async (request, response) => {
     }
   }
 
+  /*
   const { rows } = await db.queryAsyncAwait(
     `SELECT * FROM wrath_glory.wargear ${where}`,
     params,
@@ -81,9 +81,10 @@ router.get('/', async (request, response) => {
       },
     };
   });
+  */
 
   let merged = [
-    ...sourcedRows,
+    //...sourcedRows,
     ...homebrewWargear,
   ];
 
@@ -99,22 +100,11 @@ router.get('/', async (request, response) => {
   response.status(200).json(merged);
 });
 
-router.get('/:id', async (request, response) => {
-  const { id } = request.params;
+router.get('/:slug', async (request, response) => {
+  const { slug } = request.params;
 
-  const { rows } = await db.queryAsyncAwait(
-    'SELECT * FROM wrath_glory.wargear WHERE id = $1 LIMIT 1',
-    [id],
-  );
-
-  let responseItem = {};
-
-  if (rows && rows.length >= 1) {
-    responseItem = rows[0];
-  } else {
-    responseItem = wargearRepository.find((i) => i.id == id);
-  }
+  const item = wargearRepository.find((gear) => gear.key === slug);
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
-  response.status(200).json(responseItem );
+  response.status(200).json(item);
 });

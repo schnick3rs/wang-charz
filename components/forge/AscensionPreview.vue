@@ -61,7 +61,7 @@
       <v-divider class="mb-2" />
 
       <p class="text-lg-justify">
-        <strong>Keywords:</strong> {{ item.keywordString }}
+        <strong>Keywords:</strong> <span class="text--keyword">{{ item.keywordString }}</span>
       </p>
 
       <p class="text-lg-justify">
@@ -71,13 +71,10 @@
         <span v-if="item.influencePerTier != 0">{{ item.influencePerTier }} per Tier ascended</span>
       </p>
 
-      <p class="text-lg-justify">
-        <strong>Story Element:</strong> {{ item.storyElementString }}
-      </p>
-
-      <p class="text-lg-justify">
-        <strong>Wargear:</strong> {{ item.wargearString }}
-      </p>
+      <div class="text-lg-justify mb-2">
+        <strong>Story Element:</strong>
+        <div v-html="item.storyElementDescription"></div>
+      </div>
     </v-card-text>
 
     <v-divider />

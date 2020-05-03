@@ -12,7 +12,7 @@
       <div class="hidden-xs-only" style="float: right;">
         <img :src="getAvatar(item.key)" style="width:96px">
       </div>
-      
+
       <div style="width: 75%">
         <h3 class="headline md0">
           {{ item.name }}
@@ -33,34 +33,29 @@
         <span class="subtitle-1 grey--text">{{ item.hint }}</span>
       </div>
 
-      <p class="text-lg-justify">
-        <strong>Build Point Cost:</strong> {{ item.cost }}
-      </p>
+      <p class="text-lg-justify"><strong>Tier:</strong> {{ item.tier }}</p>
 
-      <span class="mt-2 grey--text">Prerequisites</span>
+      <p class="text-lg-justify"><strong>Species:</strong> {{ item.species.join(', ') }}</p>
+
+      <p class="text-lg-justify"><strong>XP Cost:</strong> {{ item.cost }}, incl. Archetype ({{ item.costs.archetype }} XP) and Stats ({{ item.costs.stats }} XP)</p>
+
       <p><v-divider /></p>
 
       <p class="text-lg-justify">
-        <strong>Tier:</strong> {{ item.tier }}
-      </p>
-      <p class="text-lg-justify">
-        <strong>Species:</strong> {{ item.species.join(', ') }}
-      </p>
-      <p class="text-lg-justify">
         <strong>Attributes:</strong> {{ attributePrerequisites }}
       </p>
+
       <p class="text-lg-justify">
         <strong>Skills:</strong> {{ skillPrerequisites }}
       </p>
+
       <p class="text-lg-justify" v-if="item.prerequisiteText">
         <strong>Others:</strong> {{ item.prerequisiteText }}
       </p>
 
-      <span class="mt-2 grey--text">Benefits</span>
-      <p><v-divider /></p>
-
       <p class="text-lg-justify">
-        <strong>Keywords:</strong> {{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}
+        <strong>Keywords: </strong>
+        <span style="text-transform: uppercase; color: darkred;">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
       </p>
 
       <div
@@ -88,10 +83,6 @@
           {{ keywordEffect(selectedKeywords[placeholder.name]) }}
         </p>
       </div>
-
-      <p class="text-lg-justify">
-        <strong>Influence Bonus:</strong> {{ item.influence }}
-      </p>
 
       <div
         v-for="trait in item.archetypeFeatures"
@@ -153,6 +144,12 @@
           <span class="float-right">- from the Wrath & Glory Corerules -</span>
         </blockquote>
       </div>
+
+      <p class="text-lg-justify" v-if="item.influence && item.influence != 0">
+        <strong>Influence Bonus: </strong>
+        {{ `${item.influence > 0 ? '+' : ''}${item.influence}` }}
+      </p>
+
     </v-card-text>
 
     <v-divider v-if="chooseMode" />
@@ -192,6 +189,7 @@ export default {
     keywords: {
       type: Array,
       required: false,
+      default: () => [],
     },
     psychicPowers: {
       type: Array,
@@ -229,13 +227,15 @@ export default {
     }
 
     const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
-    if ( featuresWithOptions ) {
+    if ( featuresWithOptions && this.manageMode ) {
       featuresWithOptions.forEach((feature) => {
         const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
-        feature.options.forEach((options) => {
-          console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
-          feature.selected = found.name;
-        });
+        if (found) {
+          feature.options.forEach((options) => {
+            console.info(`Keyword [${found.name}] found for the archetype feature [${feature.name}].`);
+            feature.selected = found.name;
+          });
+        }
       });
     }
   },
@@ -251,17 +251,17 @@ export default {
       return selectedKeywords;
     },
     itemKeywordPlaceholders() {
-      const placeholderKeywords = this.item.keywords.split(',').map((i)=>i.trim()).filter((k) => k.includes('<'));
+      const placeholderKeywords = this.item.keywords.split(',').map((i)=>i.trim()).filter((k) => k.includes('['));
 
       const placeholderSet = [];
 
       placeholderKeywords.forEach((placeholder) => {
         let wordy = {};
-        if (placeholder.toLowerCase() === '<any>') {
+        if (placeholder.toLowerCase() === '[any]') {
           const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
           wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
         } else {
-          const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder === placeholder);
+          const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder.toLowerCase() === placeholder.toLowerCase());
           wordy = { name: placeholder, options: subKeywords, selected: '' };
         }
         if (this.selectedKeywords[placeholder]) {
@@ -285,7 +285,7 @@ export default {
       if (this.item.prerequisites) {
         return this.item.prerequisites
           .filter((p) => p.group === 'skills')
-          .map((a) => `${this.getSkillByKey(a.value).name} (${a.threshold})`)
+          .map((a) => `${this.getSkillByKey(a.value).name} ${a.threshold}`)
           .join(', ');
       }
       return this.item.skills;
@@ -316,22 +316,21 @@ export default {
       return `/img/avatars/archetype/${key}.png`;
     },
     keywordOptions(wildcard) {
-      if (wildcard === '<Any>') {
+      if (wildcard === '[Any]') {
         // return all but the any keyword
-        return this.keywordRepository.filter((k) => k.name !== '<Any>');
+        return this.keywordRepository.filter((k) => k.name.toLowerCase() !== '[any]');
       }
-
-      return this.keywordSubwordRepository.filter((k) => k.placeholder === wildcard);
+      return this.keywordSubwordRepository.filter((k) => k.placeholder.toLowerCase() === wildcard.toLowerCase());
     },
     keywordEffect(keyword) {
       const keywordCombinedRepository = [...this.keywordSubwordRepository];
-      const foundKeyword = keywordCombinedRepository.find((k) => k.name === keyword);
+      const foundKeyword = keywordCombinedRepository.find((k) => k.name.toLowerCase() === keyword.toLowerCase());
       if (foundKeyword !== undefined) {
         return foundKeyword.effect;
       }
     },
     keywordHint(keyword, parentKeyword) {
-      let foundKeyword = this.keywordCombinedRepository.find((k) => k.name === keyword);
+      let foundKeyword = this.keywordCombinedRepository.find((k) => k.name.toLowerCase() === keyword.toLowerCase());
       if (foundKeyword !== undefined) {
         return foundKeyword.description;
       }

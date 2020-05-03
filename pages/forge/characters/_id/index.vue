@@ -39,14 +39,14 @@
       <v-col :cols="8" :sm="6" :md="6">
         <v-row no-gutters>
           <v-col :cols="12">{{ characterName }}</v-col>
-          <v-col :cols="12" class="caption">{{ [ speciesLabel, archetypeLabel ].join(' • ')  }}</v-col>
+          <v-col :cols="12" class="caption">{{ [ archetypeLabel, speciesLabel ].join(' • ')  }}</v-col>
           <v-col :cols="12" class="caption">
             <span>{{ [ `Tier ${characterSettingTier}`, `Rank ${characterRank}`, `${campaignCustomXp} XP`].join(' • ') }}</span>
           </v-col>
           <v-col :cols="12" class="caption">
             <v-progress-linear :value="campaignCustomXp" height="2" color="red"></v-progress-linear>
           </v-col>
-          <v-col :cols="12" class="caption" align="center">{{ keywords.join(' • ') }}</v-col>
+          <v-col :cols="12" class="caption text--keyword" align="center">{{ keywords.join(' • ') }}</v-col>
         </v-row>
       </v-col>
 
@@ -140,7 +140,7 @@
                 <tr v-for="item in groupedTraits">
                   <td class="text-left pa-1 small">
                     <span>{{ item.name }}</span>
-                    <div v-if="['Wealth','Shock','Wounds'].includes(item.name)" style="float: right;">
+                    <div v-if="['Wealth','Max Shock','Max Wounds'].includes(item.name)" style="float: right;">
                       <div style="flex-wrap: wrap; display: flex;" v-if="item.enhancedValue > 0">
                           <div
                             v-for="pointIndex in item.enhancedValue"
@@ -323,7 +323,10 @@
                         {{ item.name }}
                       </td>
                       <td class="text-center pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
+                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 4">
+                          {{ item.meta[0].range/2 }} | {{ item.meta[0].range }} | {{ item.meta[0].range*1.5 }}
+                        </span>
+                        <span v-else-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
                         <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
                       </td>
                       <td class="text-center pa-1 small">
@@ -368,7 +371,7 @@
               :value="`tab-wargear`"
             >
               <div class="pa-2 pt-1 pb-1">
-                <div v-for="gearItem in wargear" :key="gearItem.name" class="caption">
+                <div v-for="gearItem in wargear" :key="gearItem.id" class="caption">
                   <div v-if="gearItem.variant" style="display: inline;">
                     <strong >{{ gearItem.variant }}</strong>
                     <span> ({{ gearItem.name }})</span>
@@ -433,8 +436,8 @@
                       <div v-html="computeFormatedText(ability.effect)" />
                       <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
                         <strong>{{ ability.selectedOption.name }}</strong>
-                        <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
-                        <div v-else v-html="computeFormatedText(ability.description)"></div>
+                        <div v-if="ability.selectedOption.effect"><p v-html="computeFormatedText(ability.selectedOption.effect)"></p></div>
+                        <div v-else v-html="computeFormatedText(ability.selectedOption.description)"></div>
                       </div>
                     </div>
                     <div v-if="speciesAbilities.length === 0" align="center" class="mt-2 mb-2">
@@ -460,7 +463,7 @@
                   </div>
 
                   <!-- Ascensions < abilities (Background, Other) -->
-                  <div v-show="['all', 'ascension'].some((i) => i === abilitySection.selection)">
+                  <div v-show="abilitySection.selection === 'ascension' || (abilitySection.selection === 'all' && ascensionAbilities.length > 0 )">
 
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Ascension</span>
@@ -546,7 +549,7 @@
                   </div>
 
                   <!-- other < abilities (Ascensions, Background, Other) -->
-                  <div v-show="['all', 'other'].some((i) => i === abilitySection.selection)">
+                  <div v-show="abilitySection.selection === 'other' || (abilitySection.selection === 'all' && otherAbilities.length > 0 )">
 
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Other</span>
@@ -793,13 +796,13 @@ export default {
 
     const talentResponse = await $axios.get('/api/talents/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
-    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
+    const factionResponse = await $axios.get('/api/factions/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
 
     return {
       characterId: params.id,
       astartesChapterRepository: chaptersResponse.data,
-      objectiveRepository: objectiveResponse.data,
+      factionRepository: factionResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
       talentRepository: talentResponse.data,
       breadcrumbItems: [
@@ -1018,7 +1021,7 @@ export default {
       let finalTraits = this.traitRepository.map((t) => ({
         ...t,
         value: characterTraits[t.key],
-        enhancedValue: parseInt(traitsEnhanced[t.key]),
+        enhancedValue: Math.max(1,parseInt(traitsEnhanced[t.key])),
         rating: characterTraits[t.key],
         adjustedRating: parseInt(characterTraits[t.key]),
         adjustment: 0,
@@ -1040,7 +1043,7 @@ export default {
       });
 
       finalTraits
-      .filter((t)=>['wounds', 'shock', 'wealth'].includes(t.key))
+      .filter((t)=>['maxWounds', 'maxShock', 'wealth'].includes(t.key))
       .forEach((t)=>{
         t.spend = this.$store.getters['characters/characterResourceSpendById'](this.characterId, t.key);
       });
@@ -1059,12 +1062,7 @@ export default {
       const spend = this.$store.getters['characters/characterFaithSpendById'](this.characterId);
       let points = 0;
       this.talentsForFaith.forEach((t)=>{
-        if(['core-inspired-blessing','core-the-emperor-s-light','core-unquestioning-faith'].includes(t.key)) {
-          points += 1;
-        }
-        if(['core-acts-of-faith'].includes(t.key)) {
-          points += 2;
-        }
+          points += ['core-the-emperor-protects'].includes(t.key) ? 0 : 1;
       });
 
       return { points, spend };
@@ -1140,6 +1138,7 @@ export default {
                   };
                 }
               }
+              console.warn(ability);
               abilities.push(ability);
             }
           });
@@ -1287,7 +1286,7 @@ export default {
         const rawTalent = this.talentRepository.find((t) => t.name === charTalent.name);
         rawTalent.source = undefined;
         if (charTalent.selected) {
-          rawTalent.name = rawTalent.name.replace(/(<.*>)/, `[${charTalent.selected}]`);
+          rawTalent.name = rawTalent.name.replace(/\[.*\]/, `(${charTalent.selected})`);
         }
         finalTalents.push(rawTalent);
       });
@@ -1295,7 +1294,7 @@ export default {
     },
     talentsForFaith() {
       if ( this.talents.length > 0 ) {
-        return this.talents.filter( talent => talent.tags.some( t => t === 'Faith' ) );
+        return this.talents.filter( talent => talent.groupKey === 'core-faith' );
       }
       return [];
     },
@@ -1304,12 +1303,13 @@ export default {
       const wargear = [];
       if(this.wargearRepository) {
         chargear.forEach((gear) => {
+          const { name, id, variant } = gear;
           console.log(`Searching for [${gear.name}] in repository (${this.wargearRepository.length} items) ...`);
           const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
           if (foundGear) {
-            wargear.push({ ...foundGear, variant: gear.variant });
+            wargear.push({ ...foundGear, variant, id });
           } else {
-            wargear.push({ name: gear.name, variant: gear.variant, type: 'Misc' });
+            wargear.push({ name, variant, id, type: 'Misc' });
           }
         });
       }
@@ -1334,10 +1334,10 @@ export default {
       return items;
     },
     objectives() {
-      if (this.characterArchetype && this.objectiveRepository) {
-        const objectiveList = this.objectiveRepository.find((o) => o.group === this.characterArchetype.group);
+      if (this.characterArchetype && this.factionRepository) {
+        const objectiveList = this.factionRepository.find((faction) => faction.name === this.characterArchetype.faction).objectives;
         if (objectiveList) {
-          return objectiveList.objectives.map((o) => ({ text: o }));
+          return objectiveList.map((o) => ({ text: o }));
         }
       }
       return [];
@@ -1471,14 +1471,16 @@ export default {
       let computed = text;
 
       // computed = computed.replace(/(1d3\+Rank Shock)/g, `<strong>1d3+${rank} Shock</strong>`);
-      computed = computed.replace(/(\d+ Faith)/g, '<strong>$1</strong>');
+      computed = computed.replace(/(\d+) Faith/g, '<em>$1 Faith</em>');
       computed = computed.replace(/(\d+ meters)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ metres)/g, '<strong>$1</strong>');
-      computed = computed.replace(/15 \+ Rank meters/g, `<strong title="15 + Rank meters">${15 + rank} meters</strong>`);
-      computed = computed.replace(/15 \+ Rank metres/g, `<strong>${15 + rank} metres</strong>`);
-      computed = computed.replace(/\+½ Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
-      computed = computed.replace(/\+1\/2 Rank/g, `<strong title="+½ Rank">+${Math.round(rank / 2)}</strong>`);
-      computed = computed.replace(/\+ ?Rank/g, `<strong title="+ Rank">+${rank}</strong>`);
+      computed = computed.replace(/15 \+ ?Rank metres/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15 \+ ?Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15\+Double Rank metres/g, `<strong>${15 + (2*rank)} metres</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong title="+Rank">+${rank}</strong>`);
+      computed = computed.replace(/\+ ?Double Rank/g, `<strong title="+Double Rank">+${2*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Rank/g, `<strong title="+Double Rank">${10*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Double Rank/g, `<strong title="+Double Rank">${10*2*rank}</strong>`);
 
       return computed;
     },

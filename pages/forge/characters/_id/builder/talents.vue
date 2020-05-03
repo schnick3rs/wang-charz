@@ -21,7 +21,7 @@
               <template v-slot:default="{ open }">
                 <v-row no-gutters>
                   <v-col :cols="8" :sm="10" class="subtitle-1">
-                    <span v-if="talent.selected" v-html="talent.name.replace(/(<.*>)/, `<em>${talent.selected}</em>`)" />
+                    <span v-if="talent.selected" v-html="talent.name.replace(/(\[.*\])/, `<em>${talent.selected}</em>`)" />
                     <span v-else>{{ talent.name }}</span>
                   </v-col>
                   <v-col :cols="4" :sm="2">
@@ -48,9 +48,9 @@
                 </v-chip>
               </div>
 
-              <div class="body-2" v-html="talent.description"></div>
+              <div class="body-2" v-html="talent.snippet"></div>
 
-              <div v-if="talent.id === 15">
+              <div v-if="talent.key === 'core-hatred--any-'">
                 <v-select
                   :value="talent.selected"
                   :items="talentHatredKeywordOptions"
@@ -63,7 +63,7 @@
                 />
               </div>
 
-              <div v-if="talent.id === 20">
+              <div v-if="talent.key === 'core-loremaster--keyword-'">
                 <v-select
                   :value="talent.selected"
                   :items="talentLoremasterKeywordOptions"
@@ -76,10 +76,10 @@
                 />
               </div>
 
-              <div v-if="talent.id === 54">
+              <div v-if="talent.key === 'core-trademark-weapon'">
                 <v-select
                   :value="talent.selected"
-                  :items="talentTrademarkWeaponOptions.filter( w => w.type === 'Melee Weapon')"
+                  :items="talentTrademarkWeaponOptions.filter( w => ['Melee Weapon','Ranged Weapon'].includes(w.type))"
                   item-text="name"
                   item-value="name"
                   label="This weapon and you are good pals"
@@ -89,20 +89,7 @@
                 />
               </div>
 
-              <div v-if="talent.id === 53">
-                <v-select
-                  :value="talent.selected"
-                  :items="talentTrademarkWeaponOptions.filter( w => w.type === 'Ranged Weapon')"
-                  item-text="name"
-                  item-value="name"
-                  label="You are often seen with that range weapon"
-                  filled
-                  dense
-                  @input="talentUpdateSelected($event, talent)"
-                />
-              </div>
-
-              <div v-if="talent.id === 83">
+              <div v-if="talent.id === 'core-augmetic'">
                 <wargear-select
                   v-if="wargearList"
                   :item="talent.selected"
@@ -256,7 +243,7 @@
 
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
-                <div class="pt-4 pb-2" v-html="item.description">
+                <div class="pt-4 pb-2" v-html="item.snippet">
                 </div>
               </td>
             </template>
@@ -435,7 +422,7 @@ export default {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
 
       return characterTalents.map((talent) => {
-        const enrichedTalent = this.talentList.find((r) => r.name === talent.name);
+        const enrichedTalent = this.talentList.find((r) => r.key === talent.key);
 
         if (enrichedTalent === undefined) {
           return {
@@ -491,15 +478,15 @@ export default {
         let fulfilled = true;
 
         // has prerequisites
-        if (talent.prerequisites.length > 0) {
-          talent.prerequisites.forEach((prerequisite) => {
-            switch (prerequisite.type) {
+        if (talent.requirements && talent.requirements.length > 0) {
+          talent.requirements.forEach((requirement) => {
+            switch (requirement.type) {
               // condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'],
               case 'keyword':
-                const found = prerequisite.key.some((prereqKeyword) => this.finalKeywords.includes(prereqKeyword));
+                const found = requirement.key.some((prereqKeyword) => this.finalKeywords.includes(prereqKeyword));
                 if (
-                  (prerequisite.condition === 'must' && !found)
-                  || (prerequisite.condition === 'mustNot' && found)
+                  (requirement.condition === 'must' && !found)
+                  || (requirement.condition === 'mustNot' && found)
                 ) {
                   fulfilled = false;
                 }
@@ -507,39 +494,38 @@ export default {
 
               // condition: 'must', type: 'attribute', key: 'Willpower', value: '3+',
               case 'attribute':
-                const attribute = this.attributeRepository.find((a) => a.name == prerequisite.key);
+                const attribute = this.attributeRepository.find((a) => a.name == requirement.key);
                 if (attribute) {
                   const charAttributeValue = this.characterAttributesEnhanced[attribute.key];
-                  const prereqAttributeValue = prerequisite.value.split('+')[0];
-                  if (charAttributeValue < prereqAttributeValue) {
+                  if (charAttributeValue < requirement.value) {
                     fulfilled = false;
                   }
                 } else {
-                  console.warn(`No attribute found for ${prerequisite.key}.`);
+                  console.warn(`No attribute found for ${requirement.key}.`);
                 }
                 break;
 
               // condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+',
               case 'skill':
-                const skill = this.skillRepository.find((a) => a.name == prerequisite.key);
+                const skill = this.skillRepository.find((a) => a.name == requirement.key);
                 if (skill) {
                   const charSkillValue = this.characterSkills[skill.key];
-                  const prereqSkillValue = prerequisite.value.split('+')[0];
-                  if (charSkillValue < prereqSkillValue) {
+                  if (charSkillValue < requirement.value) {
                     fulfilled = false;
                   }
                 } else {
-                  console.warn(`No skill found for ${prerequisite.key}.`);
+                  console.warn(`No skill found for ${requirement.key}.`);
                 }
                 break;
 
-              // condition: 'must', type: 'character', key: 'Tier', value: '2+',
               case 'character':
-                if (prerequisite.key === 'Tier') {
-                  const prereqTierValue = prerequisite.value.split('+')[0];
-                  if (this.effectiveCharacterTier <= prereqTierValue) {
-                    fulfilled = false;
-                  }
+                switch (requirement.key) {
+                  case 'Tier':
+                    fulfilled = (this.effectiveCharacterTier <= requirement.value.split('+')[0])
+                    break;
+                  case 'Rank':
+                    fulfilled = (this.characterRank <= requirement.value.split('+')[0])
+                    break;
                 }
                 break;
             }
@@ -604,7 +590,7 @@ export default {
       {
         const { data } = await this.$axios.get('/api/talents/', config);
         this.talentList = data.map(talent => {
-          const prerequisitesHtml = this.prerequisitesToText(talent).join(', ');
+          const prerequisitesHtml = this.requirementsToText(talent).join(', ');
           return {
             ...talent,
             prerequisitesHtml,
@@ -642,6 +628,7 @@ export default {
         cost: talent.cost,
         placeholder: (match !== null && match !== undefined) ? match[1] : undefined,
         selected: undefined,
+        source: `talent.${talent.id}`,
       };
       this.$store.commit('characters/addCharacterTalent', { id: this.characterId, talent: payload });
     },
@@ -654,14 +641,14 @@ export default {
       this.$store.commit('characters/removeCharacterWargearBySource', payload);
       this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent.name });
     },
-    prerequisitesToText(item) {
+    requirementsToText(item) {
       const texts = [];
 
-      if (item.prerequisites === undefined || item.prerequisites.length <= 0) {
-        return ['None'];
+      if (item.requirements === undefined || item.requirements.length <= 0) {
+        return ['-'];
       }
 
-      item.prerequisites.forEach((p) => {
+      item.requirements.forEach((p) => {
         let text = '';
 
         switch (p.type) {
@@ -676,8 +663,14 @@ export default {
 
           case 'attribute':
           case 'skill':
+            text = `${p.key} Rating ${p.value}`;
+            break;
           case 'character':
             text = `${p.key} ${p.value}`;
+            break;
+
+          case 'species':
+            text = `${p.value} Species`
             break;
 
           default:

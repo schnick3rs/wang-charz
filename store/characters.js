@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 6;
+const BUILDER_VERSION = 7;
 
 export const state = () => ({
   list: [],
@@ -50,7 +50,7 @@ export const getters = {
     if (character === undefined) {
       return 0;
     }
-    const attributeTotalCost = [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307];
+    const attributeTotalCost = [0, 0, 4, 10, 20, 35, 55, 80, 110, 145, 185, 230, 280];
     let attributesSpending = 0;
     Object.keys(character.attributes).forEach((key) => {
       attributesSpending += attributeTotalCost[character.attributes[key]];
@@ -62,7 +62,7 @@ export const getters = {
     if (character === undefined) {
       return 0;
     }
-    const skillTotalCost = [0, 1, 3, 6, 10, 20, 32, 46, 60];
+    const skillTotalCost = [0, 2, 6, 12, 20, 30, 42, 56, 72];
     let skillSpending = 0;
     Object.keys(character.skills).forEach((key) => {
       skillSpending += skillTotalCost[character.skills[key]];
@@ -143,7 +143,9 @@ export const getters = {
   characterSpeciesKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].species.key : getDefaultState().species.key),
   characterSpeciesLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].species.label : getDefaultState().species.label),
   characterSpeciesAstartesChapterById: (state) => (id) => (state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter),
-  characterArchetypeKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.key : getDefaultState().archetype.key),
+  characterFactionKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].faction.key : getDefaultState().faction.key),
+  characterFactionLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].faction.label : 'unknown'),
+  characterArchetypeKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.key : getDefaultState().faction.key),
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
   characterAttributesById: (state) => (id) => (state.characters[id] ? state.characters[id].attributes : {}),
   characterAttributesEnhancedById: (state) => (id) => {
@@ -171,9 +173,9 @@ export const getters = {
     const traits = {};
     traits.defence = enhancedAttributes.initiative - 1;
     traits.resilience = enhancedAttributes.toughness + 1;
-    traits.soak = enhancedAttributes.toughness;
-    traits.wounds = enhancedAttributes.toughness + character.settingTier;
-    traits.shock = enhancedAttributes.willpower + character.settingTier;
+    traits.determination = enhancedAttributes.toughness;
+    traits.maxWounds = enhancedAttributes.toughness + character.settingTier;
+    traits.maxShock = enhancedAttributes.willpower + character.settingTier;
     traits.resolve = enhancedAttributes.willpower - 1;
     traits.conviction = enhancedAttributes.willpower;
     traits.passiveAwareness = Math.round((enhancedAttributes.intellect + skills.awareness) / 2);
@@ -189,7 +191,6 @@ export const getters = {
     if ( hasMechanicusKeyword && intellectGtFellowsip ) {
       traits.influence = enhancedAttributes.intellect - 1;
     }
-
 
     traits.wealth = character.settingTier;
     traits.speed = 6;
@@ -240,7 +241,7 @@ export const getters = {
     return keywords.map((k) => (k.replacement ? k.replacement : k.name));
   },
 
-  characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
+  characterBackground: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
   characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
   characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
 
@@ -283,7 +284,7 @@ export const getters = {
     if ( character === undefined ) {
       return 0;
     }
-    return getters.characterTraitsById(id)['wounds'];
+    return getters.characterTraitsById(id)['maxWounds'];
   },
 
   characterShockPointsById: (state, getters) => (id) => {
@@ -291,7 +292,7 @@ export const getters = {
     if ( character === undefined ) {
       return 0;
     }
-    return getters.characterTraitsById(id)['shock'];
+    return getters.characterTraitsById(id)['maxShock'];
   },
 
   characterWealthPointsById: (state, getters) => (id) => {
@@ -359,6 +360,9 @@ export const mutations = {
   },
   setCharacterArchetype(state, payload) {
     state.characters[payload.id].archetype = payload.archetype;
+  },
+  setCharacterFaction(state, payload) {
+    state.characters[payload.id].faction = payload.faction;
   },
   resetCharacterStats(state, payload) {
     const character = state.characters[payload.id];
@@ -470,6 +474,14 @@ export const mutations = {
     const hasTalent = character.talents.find((t) => t.name === payload.name) !== undefined;
     if (hasTalent) {
       character.talents = character.talents.filter((t) => t.name !== payload.name);
+    }
+  },
+  clearCharacterTalentsBySource(state, payload) {
+    const character = state.characters[payload.id];
+    if (character.talents.length > 0) {
+      console.log(`found ${character.talents.length} talents, clearing with source ${payload.source}...`);
+      character.talents = character.talents.filter((k) => k.source === undefined || !k.source.includes(payload.source));
+      console.log(`${character.talents.length} talents remaining`);
     }
   },
   setCharacterTalentSelected(state, payload) {
@@ -596,16 +608,20 @@ export const mutations = {
     character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== value));
   },
 
-  // Background
+  // Background { id, type, key }
   setCharacterBackground(state, payload) {
-    const character = state.characters[payload.id];
-    const background = payload.content;
-    console.info(`Background: ${background.label} selected.`);
-    character.background.key = background.key;
-    character.background.label = background.label;
-    character.background.optionSelectedKey = background.optionSelectedKey;
+    const { id, type, key } = payload;
+    const character = state.characters[id];
+    console.info(`Background: ${type} > ${key} selected.`);
+    character.background.type = key;
   },
-  
+  setCharacterBackgroundPlusOne(state, payload) {
+    const { id, type, key, plusOne } = payload;
+    const character = state.characters[id];
+    console.info(`Background Focus: ${type} > ${key} for ${plusOne} selected.`);
+    character.background.plusOne = key;
+  },
+
   // languages
   addCharacterLanguage(state, payload) {
     const character = state.characters[payload.id];
@@ -705,118 +721,8 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
-      case 5:
-        console.debug(`v5 -> v6 : Improved Ascension, purging all ascension asociated...`);
-        console.debug('Purge > Enhancements ...');
-        character.enhancements = character.enhancements.filter((e) => !e.source.startsWith('ascension.'));
-        console.debug('Purge > Keywords ...');
-        character.keywords = character.keywords.filter((e) => !e.source.startsWith('ascension.'));
-        console.debug('Purge > Wargear ...');
-        character.wargear = character.wargear.filter((e) => !e.source.startsWith('ascension.'));
-        console.debug('Purge > Psychic Powers ...');
-        character.psychicPowers = character.psychicPowers.filter((e) => e.source === undefined || !e.source.startsWith('ascension.'));
-        console.debug('Purge > Ascensions ...');
-        character.ascensionPackages = [];
-        character.version = 6;
-        console.info(`Character migrated to v6.`);
-        break;
-
-      case 4:
-        console.debug(`v4 -> v5 : Adding custom skill handling.`);
-        const customSkills = {
-          customSkills: getDefaultState().customSkills,
-        };
-        character.version = 5;
-        state.characters[config.characterId] = {
-          ...character,
-          ...customSkills,
-        };
-        console.info(`Character migrated to v5.`);
-        break;
-
-      case 3:
-        console.debug(`v3 -> v4 : Adding resources, defiance and objective basics, set defaults.`);
-        const newPart = {
-          faith: getDefaultState().faith,
-          wounds: getDefaultState().wounds,
-          shock: getDefaultState().shock,
-          wrath: getDefaultState().wrath,
-          reloads: getDefaultState().reloads,
-          wealth: getDefaultState().wealth,
-          defiance: getDefaultState().defiance,
-          objectiveArchived: getDefaultState().objectiveArchived,
-          objectives: getDefaultState().objectives,
-        };
-        character.version = 4;
-        state.characters[config.characterId] = {
-          ...character,
-          ...newPart,
-        };
-        console.info(`Character migrated to v4.`);
-        break;
-      case 2:
-        console.debug(`v2 -> v3 : Species chapters with source-keys instead of names`);
-        const v2chapter = character.speciesAstartesChapter;
-        let v3chapter = v2chapter;
-        if ( v2chapter && v2chapter.includes(' ') ) { // its an old chapter name, using CORE
-          v3chapter = `core ${v2chapter}`.toLowerCase().replace(/\W/gm, '-');
-          console.info(`Migrating [${character.name}]: ${v2chapter} -> ${v3chapter}`);
-        }
-        character.speciesAstartesChapter = v3chapter;
-        character.version = 3;
-        console.info(`Character migrated to v3.`);
-        break;
-      case 1:
-        console.debug(`v1 -> v2 : Species with keys instead of labels`);
-
-        const v1Species = character.species;
-        const keyPrefix =
-          ['Ratling', 'Ogryn'].some(i => i === v1Species.value)
-          ? 'coreab'
-          : 'core';
-        let v2Species = {
-          key:
-            v1Species.value
-            ? `${keyPrefix}-${v1Species.value.toLowerCase().split(' ').join('-')}`
-            : undefined,
-          label: v1Species.value ? v1Species.value : '',
-          cost: v1Species.cost,
-          value: v1Species.value,
-        };
-        character.species = v2Species;
-
-        console.debug(`v1 -> v2 : Archetypes with keys instead of labels`);
-        const v1archetype = character.archetype;
-        const archetypeKeyPrefix = 'core';
-        let v2archetype = {
-          key:
-            v1archetype.value
-              ? `${archetypeKeyPrefix}-${v1archetype.value.toLowerCase().split(' ').join('-')}`
-              : undefined,
-          label: v1archetype.value ? v1archetype.value : '',
-          cost: v1archetype.cost,
-          value: v1archetype.value,
-          tier: v1archetype.tier
-        };
-        character.archetype = v2archetype;
-
-        console.debug(`v1 -> v2 : Backgrounds with keys instead of labels`);
-        let v2background = getDefaultState().background;
-        v2background.key = character.background ? character.background.toLowerCase() : undefined;
-        v2background.label = character.background;
-        character.background = v2background;
-
-        const objIndex = character.keywords.findIndex((obj => obj.name === 'Adptus Astartes Telepathica'));
-        if ( objIndex > 0 ) {
-          character.keywords[objIndex].name = 'Adeptus Astra Telepathica';
-        }
-
-        console.debug(`v1 -> v2 : Cleanup enhancements that do NOT have a sources`);
-        character.enhancements = character.enhancements.filter( (e) => e.source !== undefined);
-        character.enhancements = character.enhancements.filter( (e) => e.source !== '');
-
-        character.version = 2;
-        console.info(`Character migrated to v2.`);
+      case 6:
+        // We do not migrate versions <= 6 as those are legacy versions
         break;
     }
 
@@ -835,6 +741,9 @@ export const actions = {
 
     console.info(`Ascension [${value}] : Purge > Keywords`);
     commit('clearCharacterKeywordsBySource', { id, source: `ascension.${key}`, cascade: true });
+
+    console.info(`Ascension [${value}] : Purge > talents`);
+    commit('clearCharacterTalentsBySource', { id, source: `ascension.${key}`, cascade: true });
 
     console.info(`Ascension [${value}] : Purge > Psychic Powers`);
     commit('clearCharacterPsychicPowersBySource', { id, source: `ascension.${key}` });
@@ -884,7 +793,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 6,
+  version: 7, // 7+ is revised
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
@@ -900,6 +809,10 @@ const getDefaultState = () => ({
     cost: 0,
   },
   speciesAstartesChapter: undefined,
+  faction: {
+    key: undefined,
+    label: '',
+  },
   archetype: {
     key: undefined,
     label: '',
@@ -944,9 +857,10 @@ const getDefaultState = () => ({
   ascensionPackages: [],
   wargear: [],
   background: {
-    key: undefined, // e.g. goal
-    label: '', // e.g. Goal
-    optionSelectedKey: undefined, // e.g.
+    origin: undefined,
+    accomplishment: undefined,
+    goal: undefined,
+    plusOne: undefined,
   },
   enhancements: [],
 
@@ -965,11 +879,14 @@ const getDefaultState = () => ({
     points: 0, // computed from obtained talents
     spend: 0,
   },
-  wounds: {
+  maxWounds: {
     spend: 0,
   },
-  shock: {
+  maxShock: {
     spend: 0,
+  },
+  assets: {
+    points: 0, // aka trait
   },
   wealth: {
     points: 0, // aka trait
@@ -980,7 +897,7 @@ const getDefaultState = () => ({
     spend: 0,
   },
   reloads: {
-    points: 3, // or more, by gear
+    points: 3, // or more, buy gear
     spend: 0,
   },
   defiance: {

@@ -110,7 +110,7 @@ export default {
           const payload = {
             name: keyword,
             source: 'archetype',
-            type: (keyword.includes('<')) ? 'placeholder' : 'keyword',
+            type: (keyword.includes('[')) ? 'placeholder' : 'keyword',
             replacement: undefined,
           };
           this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });

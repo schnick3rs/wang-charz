@@ -1,17 +1,13 @@
 const Router = require('express-promise-router');
 
-const db = require('../db');
-const { sourceSql } = require('./_sqlSnippets');
-
-const repository = require('../db/static/talentRepository');
+const factionRepository = require('../db/static/factionRepository');
 
 const router = new Router();
 
 module.exports = router;
 
-router.get('/', async (request, response) => {
-
-  let items = repository;
+router.get('/', (request, response) => {
+  let items = factionRepository;
 
   const filter = {};
 
@@ -27,11 +23,10 @@ router.get('/', async (request, response) => {
   response.status(200).json(items);
 });
 
-router.get('/:slug', async (request, response) => {
-
+router.get('/:slug', (request, response) => {
   const { slug } = request.params;
 
-  const item = repository.find(talent => talent.key === slug);
+  const item = factionRepository.find((faction) => faction.key === slug);
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);
