@@ -201,7 +201,7 @@
                 </v-card>
               </v-col>
 
-              <v-col :cols="12" class="pa-1">
+              <v-col :cols="12" class="pa-1" v-show="false">
                 <v-card >
                   <v-card-text class="pa-1 pl-2 pr-2">
                     <p class="caption mb-1">
@@ -491,16 +491,16 @@
   },
   async asyncData({ params, $axios }) {
 
-    const talentResponse = await $axios.get('/api/talents/');
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
-    const objectiveResponse = await $axios.get('/api/archetypes/objectives/');
+    const factionResponse = await $axios.get('/api/factions/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
+    const talentResponse = await $axios.get('/api/talents/');
 
     return {
       characterId: params.id,
       astartesChapterRepository: chaptersResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
-      objectiveRepository: objectiveResponse.data,
+      factionRepository: factionResponse.data,
       talentRepository: talentResponse.data,
     };
   },
@@ -893,10 +893,10 @@
       return items;
     },
     objectives() {
-      if (this.characterArchetype && this.objectiveRepository) {
-        const objectiveList = this.objectiveRepository.find((o) => o.group === this.characterArchetype.group);
+      if (this.characterArchetype && this.factionRepository) {
+        const objectiveList = this.factionRepository.find((faction) => faction.name === this.characterArchetype.faction).objectives;
         if (objectiveList) {
-          return objectiveList.objectives.map((o) => ({ text: o }));
+          return objectiveList.map((o) => ({ text: o }));
         }
       }
       return [];
