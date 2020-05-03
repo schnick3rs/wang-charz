@@ -256,7 +256,7 @@
 
             <template v-slot:expanded-item="{ headers, item }">
               <td :colspan="headers.length">
-                <div class="pt-4 pb-2" v-html="item.description">
+                <div class="pt-4 pb-2" v-html="item.snippet">
                 </div>
               </td>
             </template>

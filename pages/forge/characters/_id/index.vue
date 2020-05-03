@@ -463,7 +463,7 @@
                   </div>
 
                   <!-- Ascensions < abilities (Background, Other) -->
-                  <div v-show="['all', 'ascension'].some((i) => i === abilitySection.selection)">
+                  <div v-show="abilitySection.selection === 'ascension' || (abilitySection.selection === 'all' && ascensionAbilities.length > 0 )">
 
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Ascension</span>
@@ -549,7 +549,7 @@
                   </div>
 
                   <!-- other < abilities (Ascensions, Background, Other) -->
-                  <div v-show="['all', 'other'].some((i) => i === abilitySection.selection)">
+                  <div v-show="abilitySection.selection === 'other' || (abilitySection.selection === 'all' && otherAbilities.length > 0 )">
 
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Other</span>
@@ -1062,12 +1062,7 @@ export default {
       const spend = this.$store.getters['characters/characterFaithSpendById'](this.characterId);
       let points = 0;
       this.talentsForFaith.forEach((t)=>{
-        if(['core-inspired-blessing','core-the-emperor-s-light','core-unquestioning-faith'].includes(t.key)) {
-          points += 1;
-        }
-        if(['core-acts-of-faith'].includes(t.key)) {
-          points += 2;
-        }
+          points += ['core-the-emperor-protects'].includes(t.key) ? 0 : 1;
       });
 
       return { points, spend };
@@ -1299,7 +1294,7 @@ export default {
     },
     talentsForFaith() {
       if ( this.talents.length > 0 ) {
-        return this.talents.filter( talent => talent.tags.some( t => t === 'Faith' ) );
+        return this.talents.filter( talent => talent.groupKey === 'core-faith' );
       }
       return [];
     },
@@ -1476,13 +1471,16 @@ export default {
       let computed = text;
 
       // computed = computed.replace(/(1d3\+Rank Shock)/g, `<strong>1d3+${rank} Shock</strong>`);
-      computed = computed.replace(/(\d+ Faith)/g, '<strong>$1</strong>');
+      computed = computed.replace(/(\d+) Faith/g, '<em>$1 Faith</em>');
       computed = computed.replace(/(\d+ meters)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ metres)/g, '<strong>$1</strong>');
       computed = computed.replace(/15 \+ ?Rank metres/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15 \+ ?Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15\+Double Rank metres/g, `<strong>${15 + (2*rank)} metres</strong>`);
       computed = computed.replace(/\+ ?Rank/g, `<strong title="+Rank">+${rank}</strong>`);
       computed = computed.replace(/\+ ?Double Rank/g, `<strong title="+Double Rank">+${2*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Rank/g, `<strong title="+Double Rank">${10*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Double Rank/g, `<strong title="+Double Rank">${10*2*rank}</strong>`);
 
       return computed;
     },
