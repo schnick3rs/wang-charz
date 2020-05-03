@@ -238,10 +238,10 @@
             :label="homebrew.name"
             :value="homebrew.key"
             :hint="homebrew.hint"
-            disabled
             persistent-hint
             color="primary"
             dense
+            :disabled="homebrew.key !== 'custom'"
             @change="updateHomebrew(homebrew)"
           />
         </div>
