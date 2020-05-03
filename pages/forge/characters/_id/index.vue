@@ -1286,7 +1286,7 @@ export default {
         const rawTalent = this.talentRepository.find((t) => t.name === charTalent.name);
         rawTalent.source = undefined;
         if (charTalent.selected) {
-          rawTalent.name = rawTalent.name.replace(/(<.*>)/, `[${charTalent.selected}]`);
+          rawTalent.name = rawTalent.name.replace(/\[.*\]/, `(${charTalent.selected})`);
         }
         finalTalents.push(rawTalent);
       });

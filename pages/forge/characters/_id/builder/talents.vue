@@ -21,7 +21,7 @@
               <template v-slot:default="{ open }">
                 <v-row no-gutters>
                   <v-col :cols="8" :sm="10" class="subtitle-1">
-                    <span v-if="talent.selected" v-html="talent.name.replace(/(<.*>)/, `<em>${talent.selected}</em>`)" />
+                    <span v-if="talent.selected" v-html="talent.name.replace(/(\[.*\])/, `<em>${talent.selected}</em>`)" />
                     <span v-else>{{ talent.name }}</span>
                   </v-col>
                   <v-col :cols="4" :sm="2">
@@ -50,7 +50,7 @@
 
               <div class="body-2" v-html="talent.snippet"></div>
 
-              <div v-if="talent.id === 15">
+              <div v-if="talent.key === 'core-hatred--any-'">
                 <v-select
                   :value="talent.selected"
                   :items="talentHatredKeywordOptions"
@@ -63,7 +63,7 @@
                 />
               </div>
 
-              <div v-if="talent.id === 20">
+              <div v-if="talent.key === 'core-loremaster--keyword-'">
                 <v-select
                   :value="talent.selected"
                   :items="talentLoremasterKeywordOptions"
@@ -76,10 +76,10 @@
                 />
               </div>
 
-              <div v-if="talent.id === 54">
+              <div v-if="talent.key === 'core-trademark-weapon'">
                 <v-select
                   :value="talent.selected"
-                  :items="talentTrademarkWeaponOptions.filter( w => w.type === 'Melee Weapon')"
+                  :items="talentTrademarkWeaponOptions.filter( w => ['Melee Weapon','Ranged Weapon'].includes(w.type))"
                   item-text="name"
                   item-value="name"
                   label="This weapon and you are good pals"
@@ -89,20 +89,7 @@
                 />
               </div>
 
-              <div v-if="talent.id === 53">
-                <v-select
-                  :value="talent.selected"
-                  :items="talentTrademarkWeaponOptions.filter( w => w.type === 'Ranged Weapon')"
-                  item-text="name"
-                  item-value="name"
-                  label="You are often seen with that range weapon"
-                  filled
-                  dense
-                  @input="talentUpdateSelected($event, talent)"
-                />
-              </div>
-
-              <div v-if="talent.id === 83">
+              <div v-if="talent.id === 'core-augmetic'">
                 <wargear-select
                   v-if="wargearList"
                   :item="talent.selected"
