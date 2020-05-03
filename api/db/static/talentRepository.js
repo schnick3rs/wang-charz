@@ -37,6 +37,14 @@ const talent = function (sourceKey, sourcePage, name, cost, tags = '') {
   };
 };
 
+const requireAttribute = function(key, value) {
+  return { condition: 'must', type: 'attribute', key, value };
+};
+
+const requireSkill = function(key, value) {
+  return { condition: 'must', type: 'skill', key, value };
+};
+
 const requireSpecies = function(species, not = false) {
   return {
     condition: 'must',
@@ -223,7 +231,7 @@ const core = [
       '<p>Your strike brutal blows regardless of the weapon you wield.</p>' +
       '<p>Every melee weapon you wield has the Brutal Weapon Trait (p.209), including your unarmed strikes.</p>' +
       '<p>If you make a successful melee attack with a weapon that already has the Brutal Weapon Trait, you deal an additional +1 damage. This bonus damage is applied after calculating your total damage, not to the weapon’s Damage value.</p>',
-    requirements: [], // Strength 3+
+    requirements: [ requireAttribute('Strength', 3) ],
   },
   {
     ...talent('core',130,'Chaos Familiar',20,'Corruption,Utility,Survival'),
@@ -255,7 +263,7 @@ const core = [
       '<p>You may not apply any other Talents, Abilities, or combat options to a Counter Attack.</p>' +
       '<p>You may Counter Attack. up to Double Rank times per Round.</p>' +
       '<p>If you Counter Attack, you cannot take any Move Actions on your next turn.</p>',
-    requirements: [], // WS 5+
+    requirements: [ requireSkill('Weapon Skill', 5) ],
   },
   {
     ...talent('core',131,'Deadshot',20,'Combat,Ranged,Damage'),
@@ -263,7 +271,7 @@ const core = [
     description:
       '<p>You are a skilled shot, trained to carefully target your enemies’ weak points.</p>' +
       '<p>When you take the Aim action (p.189) and make a Called Shot (p.187) you double the bonus ED you recieve.</p>',
-    requirements: [], // BS 2+
+    requirements: [ requireAttribute('Ballistic Skill', 2) ],
   },
   {
     ...talent('core',132,'Death or Glory!',20,'Melee,Morale'),
@@ -282,7 +290,7 @@ const core = [
       '<p>Your studious mind can pick apart a problem (or person) with ease.</p>' +
       '<p>As a Simple Action, you may use this Talent to make an Intellect-based Skill Test to recall or notice something about a target. The target can be anything, from a mag-locked door with a cantankerous machine spirit to an inscrutable Planetary Governor.</p>' +
       '<p>If you pass the Test, the GM may give you information based on the Skill you used to make the Test. You also gain +Rank bonus dice to any Test made against that target that utilises this information, and may give this bonus to an ally, if you communicate what you have learned.</p>',
-    requirements: [], // Intellect 3+
+    requirements: [ requireAttribute('Intellect',3) ],
   },
   {
     ...talent('core',132,'Devotees',30,'Utility,Survival'),
@@ -299,7 +307,7 @@ const core = [
       '<p>Whenever you are hit by any form of attack, any of your devotees may make a DN5 Initiative Test as a Reflexive Action. If they succeed, the attack kills the devotee instead of hitting you.</p>' +
       '<p>Slain devotees may be replaced for free with new devotees the next time you visit a major encampment or city.</p>' +
       '<p>If you take this Talent more than once, you gain more devotees of the same type you already possess. If you already have followers from an archetype ability, this Talent provides additional followers of that type instead.</p>',
-    requirements: [], // Leadershp 4+
+    requirements: [ requireSkill('Leadership',4) ],
   },
   {
     ...talent('core',132,'Die Hard',20,'Survival'),
@@ -333,7 +341,7 @@ const core = [
       '<p>Your devotion to a psychic discipline has given you mastery over your style of Warpcraft.</p>' +
       '<p>When you take this Talent, you may select a psychic discipline in which you have at least 2 psychic powers.</p>' +
       '<p>Whenever you make a Psychic Mastery (Wil) Test to activate a psychic power from that discipline, reduce the DN by 1.</p>',
-    requirements: [], // Psychic Mastery Rating 4+, and at least 2 psychic powers from a single Discipline.
+    requirements: [ requireSkill('Psychic Mastery',4) ], // Psychic Mastery Rating 4+, and at least 2 psychic powers from a single Discipline.
   },
   {
     ...talent('core',133,'Disturbing Voice',20,'Social'),
@@ -363,8 +371,8 @@ const core = [
       '<p>Your ardent faith in the Emperor allows you to push beyond the limits of injury to act in His will, at a cost to your physical form.</p>' +
       '<p>Whenever you reach Max Wounds, you can use this Talent. You may take your next turn normally; you begin Dying at the end of that turn. You may choose to take your next turn immediately after activating this Talent, potentially interrupting an enemy’s turn. If you roll a Complication on any Test, you take a Traumatic Wound.</p>',
     requirements: [
-      // Willpower Rating 3+
-      requireKeyword('IMPERIUM')
+      requireAttribute('Willpower',3),
+      requireKeyword('IMPERIUM'),
     ],
   },
   {
@@ -373,7 +381,7 @@ const core = [
     description:
       '<p>You strike from the shadows, using stealth and the element of surprise to take down your foes in one fell swoop.</p>' +
       '<p>When you have a Stealth Score (p.181) and you attack an enemy that is unaware of you, you may add your Stealth Score as ED. This is in addition to the bonuses received from a Surprise Attack (p.182). Any decrease to your Stealth Score is resolved after the attack.</p>',
-    requirements: [], // Stealth 2+
+    requirements: [ requireSkill('Stealth',2) ],
   },
   {
     ...talent('core',133,'Escape Artist',20,'Utility'),
@@ -412,7 +420,7 @@ const core = [
     description:
       '<p>Extensive mental conditioning or intensive training allow you to completely control your fear.</p>' +
       '<p>You automatically pass any Fear Test. You are immune to Interaction Attacks made using Intimidation (Wil).</p>',
-    requirements: [], // Willpower Rating 4+
+    requirements: [ requireAttribute('Willpower',4) ],
   },
   {
     ...talent('core',134,'Feel no Pain',40,'Survival,Combat'),
@@ -422,7 +430,7 @@ const core = [
       '<p>Your pain tolerance is above and beyond that of most of your Species.</p>' +
       '<p>You do not suffer a penalty to DN for being Wounded.</p>' +
       '<p>Your Wounds Trait is increases by +Rank.</p>',
-    requirements: [], // TOUGHNESS 4+
+    requirements: [ requireAttribute('Toughness',4) ],
   },
   {
     ...talent('core',134,'Flagellant',20,'Combat,Melee'),
@@ -449,7 +457,10 @@ const core = [
     description:
       '<p>You have practised closing distance to a foe with speed; swinging your weapon whilst running has become second nature.</p>' +
       '<p>You gain +Rank to any melee attack you make as part of a Charge (p.189).</p>',
-    requirements: [], // Athletics 2+ WS 2+
+    requirements: [
+      requireSkill('Athletics',2),
+      requireSkill('Weapons Skill',2),
+    ], // Athletics 2+ WS 2+
   },
   {
     ...talent('core',134,'Gallows Humour',20,'Support,Survival'),
@@ -466,7 +477,7 @@ const core = [
       '<p>You are innately durable, or have undergone harrowing endurance training.</p>' +
       '<p>As a Combat Action, you can make a DN 3 Toughness Test. On a failure you recover 1 Shock. On a success you recover 1 + Double Rank Shock. Each Shifted Exalted Icon recovers an additional point of Shock.</p>' +
       '<p>Once you use this Talent, you cannot use it again until you have completed a Regroup (p.196).</p>',
-    requirements: [], // Tou 3+
+    requirements: [ requireAttribute('Toughness',3) ],
   },
   {
     ...talent('core',135,'Hatred [Any]',30,'Combat,Melee,Social'),
@@ -522,7 +533,7 @@ const core = [
     snippet: 'Add +Double Rank to any (fitting) Skill Tests related to [Keyword]. This includes Interaction Attacks.',
     description:
       '<p></p>',
-    requirements: [], // Skill 3+
+    requirements: [ requireSkill('Scholar',3) ],
   },
   {
     ...talent('core',136,'Mark Of Chaos',30),
@@ -554,7 +565,7 @@ const core = [
     snippet: 'Study the voice for 1 hour and pass Awareness (DN by GM) to gain +Double Rank to Deception Tests to mimic the voice.',
     description:
       '<p></p>',
-    requirements: [], // Deception 3+
+    requirements: [ requireSkill('Deception',3) ],
   },
   {
     ...talent('core',137,'Mob Rule',20),
@@ -575,7 +586,7 @@ const core = [
     snippet: 'When Status plays a factor, add +Double Rank to Influence and fittin tests.',
     description:
       '<p></p>',
-    requirements: [], // Persuasion 3+
+    requirements: [ requireSkill('Persuasion',3)],
   },
   {
     ...talent('core',137,'Orthopraxy',20),
@@ -589,7 +600,7 @@ const core = [
     snippet: 'Once per session, contact you network and ask one question. A secret Cunning roll determines the Details.',
     description:
       '<p></p>',
-    requirements: [], // Cunning 3+
+    requirements: [ requireSkill('Cunning',3) ],
   },
   {
     ...talent('core',137,'Primaris Perspective',40),
@@ -645,7 +656,7 @@ const core = [
     snippet: 'As a Reflexive Action, you may sidestep a melee attack (before the roll). You add +Double Rank to Defence and Resilience. This also costs you your next Move Action.',
     description:
       '<p></p>',
-    requirements: [], // Ini 3+
+    requirements: [ requireAttribute('Initiative',3) ],
   },
   {
     ...talent('core',139,'Silent',20),
@@ -654,19 +665,24 @@ const core = [
       '<p></p>',
     requirements: [],
   },
-  { // TODO make 2 talents
-    ...talent('core',139,'Simultaneous Strike',30),
+  {
+    ...talent('core',139,'Simultaneous Strike (Ballistic Skill',30),
     snippet: 'You add half your second weapons damage as ED to the damage roll.',
-    description:
-      '<p></p>',
-    requirements: [], // BS OR WS 4+
+    description: '<p></p>',
+    requirements: [ requireSkill('Ballistic Skill',4) ],
+  },
+  {
+    ...talent('core',139,'Simultaneous Strike (Weapon Skill',30),
+    snippet: 'You add half your second weapons damage as ED to the damage roll.',
+    description: '<p></p>',
+    requirements: [ requireSkill('Weapon Skill',4) ],
   },
   {
     ...talent('core',139,'Smash Attack',20),
     snippet: 'You add +Rank ED to All-Out Attacks.',
     description:
       '<p></p>',
-    requirements: [], // WS 2+
+    requirements: [ requireSkill('Weapon Skill',2)],
   },
   {
     ...talent('core',140,'Special Weapons Trooper',20), // + weapon
@@ -674,7 +690,7 @@ const core = [
     description:
       '<p></p>',
     requirements: [
-      // BS 3+,
+      requireSkill('Ballistic Skill',3),
       requireKeyword('ASTRA MILITARUM'),
     ],
   },
@@ -690,7 +706,7 @@ const core = [
     snippet: 'You reduce the DN for plain Multi-Attacks by Double Rank.',
     description:
       '<p></p>',
-    requirements: [], // WS 4+
+    requirements: [ requireSkill('Weapon Skill',4)],
   },
   {
     ...talent('core',140,'Supplicant',20),
@@ -746,7 +762,7 @@ const core = [
     snippet: 'You decrese the DN for sustaining multiple powers by 2.',
     description:
       '<p></p>',
-    requirements: [], // psy master 4+
+    requirements: [ requireSkill('Psychic Mastery',4) ],
   },
   {
     ...talent('core',141,'Uncanny [Trait]',40),
@@ -774,7 +790,7 @@ const core = [
     snippet: 'You unlock an additional Psychic Discipline. You may reduce the costs by gaining Corruption 1:1.',
     description:
       '<p></p>',
-    requirements: [], // psy master 4+
+    requirements: [ requireSkill('Psychic Mastery',4) ],
   },
   // FAITH
   {
