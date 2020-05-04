@@ -45,6 +45,7 @@ const getDefaultState = () => ({
   hint: 'A custom species',
   group: 'Mankind',
   cost: 0,
+  costs: { total: 0, stats: 0, species: 0, other: 0 },
   baseTier: 1,
   speed: 6,
   source: {
