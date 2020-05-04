@@ -251,6 +251,8 @@ export default {
       const key = this.speciesKey;
       const species = this.species;
       species.key = key;
+      species.costs.total = species.cost;
+      species.costs.species = species.cost;
 
       this.$store.commit('species/update', { key, species });
 
