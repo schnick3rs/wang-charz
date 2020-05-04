@@ -255,6 +255,10 @@ const core = [
     ...meleez(undefined,2,2,0,0),
   },
   {
+    ...gear('core',211,'Psykana Mercy Blade','2C','Adeptus Astra Telephatica'),
+    ...meleez(undefined,2,2,-1,0),
+  },
+  {
     ...gear('core',211,'Astartes Combat Knife','3U','Blade,Adeptus Astartes'),
     ...meleez(undefined,3,2,0,0,'Reliable'),
   },
