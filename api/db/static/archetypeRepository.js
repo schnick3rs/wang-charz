@@ -843,7 +843,23 @@ const core = [
     archetypeFeatures: [
       {
         name: 'Mutant',
-        snippet: 'Your life in the unsanitary underbelly of the Imperium has mutated you. Select two Mutations from the list of Scavvy Mutations on p.287. Whenever your Rank increases, you may select another Mutation from the list.',
+        snippet: 'You start with two mutations (pg. 287). Whenever your Rank increases, you may select another Mutation.',
+        description: '<p>Your life in the unsanitary underbelly of the Imperium has mutated you. Select two Mutations from the list of Scavvy Mutations on p.287. Whenever your Rank increases, you may select another Mutation from the list.</p>',
+        optionz: [ // TODO, enable
+          { name: 'Hint of Red Eye', snippet: '' },
+          { name: 'Voice of the Aurelian', snippet: 'Add +Rank dice to social tests. Psykers within 25m must reroll Wrath Dice without compolications.' },
+          { name: 'Living Shadow', snippet: '' },
+          { name: 'Gossamer Flesh', snippet: '' },
+          { name: 'Blightend Soul', snippet: '' },
+          { name: 'Wyrding', snippet: '' },
+          { name: 'Misshapen', snippet: '' },
+          { name: 'Grotesque', snippet: '' },
+          { name: 'Bestial Hide', snippet: '' },
+          { name: 'Brute', snippet: '' },
+          { name: 'Toxic Blood', snippet: '' },
+          { name: 'Withered', snippet: '' },
+          { name: 'Vile Alacrity', snippet: '' },
+        ],
       },
     ],
     // A Laspistol or an Autopistol, Knife, Bedroll, Canteen, Tattered Clothes
@@ -1066,7 +1082,7 @@ const core = [
     ...archetype('core',113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
     ...cost(210,50,160, 0, 0),
     hint: 'A dark warrior, veteran of a thousand years.',
-    keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Nark of Chaos],Heretic Astartes',
+    keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Mark of Chaos],Heretic Astartes',
     // TODO d3 x 3 corruption
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 }, // 20

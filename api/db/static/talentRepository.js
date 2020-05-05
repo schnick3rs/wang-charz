@@ -542,14 +542,46 @@ const core = [
       '<p></p>',
     requirements: [ requireKeyword('[MARK OF CHAOS]') ],
   },
-  { // CUSTOM APPROACH
+  {
     ...talent('core',136,'Mark Of Nurgle',30),
-    snippet: 'Add +1 to Toughness.',
+    snippet: '+1 Corruption. Add +1 to Toughness.',
     description:
+      '<p>You gain +1 Corruption.</p>' +
       '<p>Your Toughness increases by +1.</p>',
     requirements: [ requireKeyword('NURGLE') ],
   },
-  // KHORNE, TZEENCH, SLANESCH, UNDECIDED
+  {
+    ...talent('core',136,'Mark Of Khorne',30),
+    snippet: '+1 Corruption. Add +2 dice to All-Out melee attacks.',
+    description:
+      '<p>You gain +1 Corruption.</p>' +
+      '<p>Add +2 dice to All-Out melee attacks.</p>',
+    requirements: [ requireKeyword('KHORNE'), requireKeyword('PSYKER',true) ],
+  },
+  {
+    ...talent('core',136,'Mark Of Slaanesh',30),
+    snippet: '+1 Corruption. Add +2 dice to Awareness and Persuasion Tests.',
+    description:
+      '<p>You gain +1 Corruption.</p>' +
+      '<p>Add +2 dice to Awareness and Persuasion Tests.</p>',
+    requirements: [ requireKeyword('SLAANESH') ],
+  },
+  {
+    ...talent('core',136,'Mark Of Tzeentch',30),
+    snippet: '+1 Corruption. Add gain the PSYKER Keyword. If you already have it, gain one Minor Psychic Power.',
+    description:
+      '<p>You gain +1 Corruption.</p>' +
+      '<p>Add gain the PSYKER Keyword. If you already have it, gain one Minor Psychic Power.</p>',
+    requirements: [ requireKeyword('TZEENTCH') ],
+  },
+  {
+    ...talent('core',136,'Mark Of Undedicated',30),
+    snippet: '+1 Corruption. Choose one of the following Skills: Awareness, Cunning, Deception, Insight, Persuasion, Psychic Mastery, Stealth, or Weapon Skill. You gain +Rank bonus dice when using that Skill.',
+    description:
+      '<p>You gain +1 Corruption.</p>' +
+      '<p>Choose one of the following Skills: Awareness, Cunning, Deception, Insight, Persuasion, Psychic Mastery, Stealth, or Weapon Skill. You gain +Rank bonus dice when using that Skill.</p>',
+    requirements: [ requireKeyword('MARK OF CHAOS') ],
+  },
   {
     ...talent('core',136,'Mastered Paths',20),
     snippet: 'Select an additional Background and gain its bonus.',
