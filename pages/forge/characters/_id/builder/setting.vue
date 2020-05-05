@@ -76,7 +76,7 @@
         :value="customXp"
         class="pb-2"
         label="Additional eXperience Points"
-        hint="Add the XP earend by playing the game. Usually granted by the GM."
+        hint="Add the XP earned by playing the game. Usually granted by the GM."
         dense
         outlined
         persistent-hint
