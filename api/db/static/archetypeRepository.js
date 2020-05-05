@@ -466,7 +466,7 @@ const core = [
   },
   {
     ...archetype('core',104,'Rogue Trader Dynasties','Rogue Trader',2,'Human'),
-    ...cost(66,40,26, 0, 0),
+    ...cost(66,40,26,0,0),
     hint: 'An adventuresome and influential explorer with their own space vessel.',
     keywords: 'Imperium,Rogue Trader,[Dynasty]',
     prerequisites: [

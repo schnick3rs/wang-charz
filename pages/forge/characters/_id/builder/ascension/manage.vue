@@ -371,7 +371,7 @@ export default {
         .filter((feature) => feature.psychicPowers)
         .forEach((featureWithPowers) => {
           const sourcePrefix = `ascension.${characterPackage.key}.${featureWithPowers.key}`;
-          const associatedPsychicPowers = this.characterPsychicPowers.filter((psychicPower) => psychicPower.source.startsWith(sourcePrefix));
+          const associatedPsychicPowers = this.characterPsychicPowers.filter((psychicPower) => psychicPower.source && psychicPower.source.startsWith(sourcePrefix));
 
           if (associatedPsychicPowers) {
             featureWithPowers.psychicPowers.forEach((power) => {
