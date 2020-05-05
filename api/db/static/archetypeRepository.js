@@ -461,7 +461,7 @@ const core = [
         snippet: 'You are particularly adept at navigating the Imperium’s colossal bureaucracy. You gain +Rank bonus dice whenever you make a Test to gather information from Imperial sources, typically on Influence or Investigation (Int) tests.',
       },
     ],
-    wargear: wargearz('Clothing/Administratum Robes, Laspitsol, Knife, Auto Quill, Data-Slate, 3 Scroll of Ancient Records'),
+    wargear: wargearz('Clothing/Administratum Robes, Laspistol, Knife, Auto Quill, Data-Slate, 3 Scroll of Ancient Records'),
     influence: 1,
   },
   {
