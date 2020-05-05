@@ -830,6 +830,7 @@ const core = [
       { name: 'Canteen' },
       { name: 'Clothing', variant: 'Gang Colours' },
     ],
+    influence: 1,
   },
   {
     ...archetype('core',105,'Scum','Scavvy',2,'Human'),
