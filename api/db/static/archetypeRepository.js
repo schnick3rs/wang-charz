@@ -688,7 +688,7 @@ const core = [
     influence: 2,
   },
   {
-    ...archetype('core',117,'Adeptus Astartes','Primaris Intercessor',3,'Primaris Astartes'),
+    ...archetype('core',117,'Adeptus Astartes','Primaris Intercessor',4,'Primaris Astartes'),
     ...cost(258,60,198, 0, 0),
     hint: 'A skilled and focused warrior, adept at bringing death at range.',
     keywords: 'Imperium, Adeptus Astartes, Primaris,[Chapter]',
