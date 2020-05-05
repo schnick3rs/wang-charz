@@ -392,9 +392,14 @@ export default {
     sources() {
       return [
         'core',
-        'coreab',
-        ...this.settingHomebrews
+        ...this.settingHomebrews,
       ];
+    },
+    remainingBuildPoints() {
+      return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
+    },
+    finalKeywords() {
+      return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
     effectiveCharacterTier() {
       return this.$store.getters['characters/characterEffectiveTierById'](this.characterId);
@@ -541,12 +546,6 @@ export default {
       }
 
       return filteredTalents;
-    },
-    remainingBuildPoints() {
-      return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
-    },
-    finalKeywords() {
-      return this.$store.getters['characters/characterKeywordsFinalById'](this.$route.params.id);
     },
     talentHatredKeywordOptions() {
       return this.keywordRepository.filter((k) => k.placeholder === undefined && k.name.indexOf('<') !== 0);

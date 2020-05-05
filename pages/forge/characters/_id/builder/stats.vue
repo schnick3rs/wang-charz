@@ -62,7 +62,7 @@
                     @click="incrementAttribute(attribute.key)"
                   >
                     <!--:disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"-->
-                    <v-icon color="green">
+                    <v-icon :color="affordableAttributeColor(characterAttributes[attribute.key])">
                       add_circle
                     </v-icon>
                   </v-btn>
@@ -106,7 +106,9 @@
                     :disabled="characterSkills[skill.key] >= skillMaximum"
                     @click="incrementSkill(skill.key)"
                   >
-                    <v-icon :color="affordableSkillColor(characterSkills[skill.key])">
+                    <v-icon
+                      :color="affordableSkillColor(characterSkills[skill.key])"
+                    >
                       add_circle
                     </v-icon>
                   </v-btn>
@@ -123,9 +125,9 @@
 </template>
 
 <script lang="js">
-import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
-export default {
+  export default {
   name: 'Stats',
   layout: 'forge',
   mixins: [
@@ -218,15 +220,13 @@ export default {
       }
       return numberOfLearnedSkills >= valueOfHighestSkill;
     },
-    // see core page 156
-    maximumBuildPointsForAttributes() {
-      const bpLimits = [0, 100, 100, 150, 200, 300];
-      return bpLimits[this.settingTier];
-    },
     skillMaximum() {
-      return this.skillMaximumBy(this.settingTier);
+      return 8;
     },
     // Character Data
+    remainingBuildPoints() {
+      return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
+    },
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
@@ -309,20 +309,22 @@ export default {
       }
       return [];
     },
+    affordableAttributeColor(currentValue) {
+      const newValueCost = [0, 0, 4, 6, 10, 15, 20, 25, 30, 35, 40, 45, 50];
+      const cost = newValueCost[currentValue + 1];
+      return this.isAffordable(cost) ? 'green' : 'orange';
+    },
     affordableSkillColor(currentSkillValue) {
-      const skillNewValueCost = [0, 1, 2, 3, 4, 10, 12, 14, 24];
+      const skillNewValueCost = [0, 2, 4, 6, 8, 10, 12, 14, 16];
       const cost = skillNewValueCost[currentSkillValue + 1];
-      return (cost <= this.remainingBuildPoints) ? 'green' : 'orange';
+      return this.isAffordable(cost) ? 'green' : 'orange';
+    },
+    isAffordable(cost) {
+      return cost <= this.remainingBuildPoints;
     },
     attributeMaximumFor(attributeName) {
       const usedSpecies = this.characterSpeciesLabel || 'Human';
-      const attributeBaseMaximumByTier = [4, 5, 6, 8, 10]; // index 0 is tier 1
-      const maxBySpecies = this.getAttributeMaximumForSpecies(usedSpecies, attributeName);
-      const maxByTier = attributeBaseMaximumByTier[this.settingTier - 1];
-      return Math.min(maxBySpecies, maxByTier);
-    },
-    skillMaximumBy(tier) {
-      return 3 + tier;
+      return this.getAttributeMaximumForSpecies(usedSpecies, attributeName);
     },
     computeSkillPool(skill) {
       const attribute = this.characterAttributesEnhanced[skill.attribute.toLowerCase()];

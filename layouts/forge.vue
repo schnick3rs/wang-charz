@@ -310,10 +310,10 @@ export default {
           id: 4, path: this.routes.stats, hint: 'Stats', text: 'Attributes & Skills', cost: this.characterAttributeCost + this.characterSkillCost,
         },
         {
-          id: 5, path: this.routes.talents, hint: `Talents (max ${this.maximumStartingTalents})`, text: `${this.characterTalents.length} Talents learned`, cost: this.characterTalentCost,
+          id: 5, path: this.routes.talents, hint: `Talents`, text: `${this.characterTalents.length} Talents learned`, cost: this.characterTalentCost,
         },
         {
-          id: 7, path: this.routes.psychic, hint: `Powers (max ${this.maximumPsychicPowers})`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.characterPsychicPowerCost,
+          id: 7, path: this.routes.psychic, hint: `Powers`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.characterPsychicPowerCost,
         },
         { divider: true },
         {

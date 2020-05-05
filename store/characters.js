@@ -135,7 +135,9 @@ export const getters = {
     total += getters.characterCampaignCustomXpById(id);
     return total;
   },
-  characterRemainingBuildPointsById: (state, getters) => (id) => getters.characterTotalBuildPointsById(id) - getters.characterSpendBuildPointsById(id),
+  characterRemainingBuildPointsById: (state, getters) => (id) => {
+    return getters.characterTotalBuildPointsById(id) - getters.characterSpendBuildPointsById(id);
+  },
 
   // Character data
   characterNameById: (state) => (id) => (state.characters[id] ? state.characters[id].name : getDefaultState().name),
