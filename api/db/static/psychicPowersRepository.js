@@ -65,6 +65,21 @@ const simpleCrunch = function (dn, activation, duration, range, multi, effect, p
   };
 };
 
+const coreUniversalAbilities = [
+  {
+    ...powerz('core',267,'Psyniscience','Universal Ability',0),
+    ...simpleCrunch(3,'Free Action','Instant','50 m',false),
+    keywords: ['Psychic'],
+    effect: 'Search the area for signs of psychic presence. I not considered a psychic power, no perils of warp.',
+  },
+  {
+    ...powerz('core',267,'Deny The Witch','Universal Ability',0),
+    ...simpleCrunch(3,'Action*','Instant','50 m',false),
+    keywords: ['Psychic'],
+    effect: 'Hinder others to affect the Warp.',
+  },
+];
+
 const corePowers = [
   {
     ...powerz('core',268,'Chameleon','Minor',8),
@@ -791,4 +806,7 @@ const psychicPowersRepository = [
   ...teaLibrariusPowers,
 ];
 
-module.exports = psychicPowersRepository;
+module.exports = {
+  powers: psychicPowersRepository,
+  abilities: coreUniversalAbilities,
+};

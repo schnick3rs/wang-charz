@@ -3,7 +3,7 @@ const Router = require('express-promise-router');
 const db = require('../db');
 const { sourceSql } = require('./_sqlSnippets');
 
-const repository = require('../db/static/psychicPowersRepository');
+const { powers, abilities } = require('../db/static/psychicPowersRepository');
 
 const router = new Router();
 
@@ -21,12 +21,10 @@ router.get('/', async (request, response) => {
         selectFields.push(potentialField);
       }
     });
-    select = selectFields.join(',');
   }
 
-  let homebrewPowers = repository;
+  let homebrewPowers = powers;
 
-  let where = ' WHERE 1=1';
   const filter = {};
 
   const filterDisciplineString = request.query.discipline;
@@ -63,10 +61,19 @@ router.get('/', async (request, response) => {
   response.status(200).json(merged);
 });
 
+router.get('/universal-abilities', async (request, response) => {
+
+  const items = abilities;
+
+  response.set('Cache-Control', 'public, max-age=3600'); // one hour
+  response.status(200).json(items);
+});
+
+
 router.get('/:slug', async (request, response) => {
   const { slug } = request.params;
 
-  const item = repository.find(power => power.key === slug);
+  const item = powers.find(power => power.key === slug);
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);

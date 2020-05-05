@@ -794,16 +794,18 @@ export default {
   },
   async asyncData({ params, $axios }) {
 
-    const talentResponse = await $axios.get('/api/talents/');
-    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
     const factionResponse = await $axios.get('/api/factions/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
+    const talentResponse = await $axios.get('/api/talents/');
+    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
+    const psychicAbilitiesResponse = await $axios.get('/api/psychic-powers/universal-abilities');
 
     return {
       characterId: params.id,
       astartesChapterRepository: chaptersResponse.data,
       factionRepository: factionResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
+      psychicAbilitiesRepository: psychicAbilitiesResponse.data,
       talentRepository: talentResponse.data,
       breadcrumbItems: [
         { text: '', nuxt: true, exact: true, to: '/',
@@ -1331,6 +1333,9 @@ export default {
         const power = this.psychicPowersRepository.find((power) => power.name === name);
         items.push(power);
       });
+      if (items.length > 0) {
+        items.push(...this.psychicAbilitiesRepository);
+      }
       return items;
     },
     objectives() {
