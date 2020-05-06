@@ -319,11 +319,11 @@ const core = [
       { name: 'Sororitas Power Armour' },
       { name: 'Chaplet Ecclesiasticus' },
       {
-        name: 'Either a boltgun OR a Chain Sword and bolt pistol.',
+        name: 'Either a boltgun OR a Chainsword and bolt pistol.',
         selected: 'Boltgun',
         options: [
           { name: 'Boltgun' },
-          { name: 'Chain Sword and Bolt Pistol' },
+          { name: 'Chainsword and Bolt Pistol' },
         ],
       },
       { name: 'Clothing', variant: 'Sororitas vestments' },
@@ -398,7 +398,7 @@ const core = [
         snippet: 'You and any allies within 15 metres of you that can see you may add +Double Rank bonus dice to Resolve Tests. You add +Double Rank bonus dice to any Intimidation (Wil) Tests, including Interaction Attacks.',
       },
     ],
-    wargear: wargearz('Bolt Pistol, Chain Sword, Flak Coat, Guard Issue Mess Kit, Blanket, Grooming Kit, Uplifting Primer, 3 ration packs'),
+    wargear: wargearz('Bolt Pistol, Chainsword, Flak Coat, Guard Issue Mess Kit, Blanket, Grooming Kit, Uplifting Primer, 3 ration packs'),
     influence: 3,
   },
   // Inquisition
@@ -652,7 +652,7 @@ const core = [
         selected: 'Boltgun',
         options: [
           { name: 'Boltgun' },
-          { name: 'Chain Sword and Bolt Pistol' },
+          { name: 'Chainsword and Bolt Pistol' },
           { name: 'Astartes Shotgun' },
           { name: 'Astartes Sniper Rifle and Cameleoline Cloak' },
         ],
@@ -1591,7 +1591,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Flak Armour' },
       { name: 'Lasgun' },
-      { name: 'Chain Sword' },
+      { name: 'Chainsword' },
       { name: 'Knife' },
       { name: 'Guard Issue Mess Kit' },
       { name: 'Blanket' },
@@ -1624,7 +1624,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Aquila Mk VII' },
       { name: 'Bolt Pistol' },
-      { name: 'Chain Sword' },
+      { name: 'Chainsword' },
       { name: 'Jump Pack' },
       { name: 'Frag Grenade', amount: 3 },
       { name: 'Krak Grenade', amount: 3 },
@@ -2134,7 +2134,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Aquila Mk VII' },
       { name: 'Bolt Pistol' },
-      { name: 'Chain Sword' },
+      { name: 'Chainsword' },
       { name: 'Frag Grenade', amount: 3 },
       { name: 'Krak Grenade', amount: 3 },
       { name: 'Narthecium' },
@@ -2163,7 +2163,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Tacticus Mk X' },
       { name: 'Absolvor Bolt Pistol' },
-      { name: 'Chain Sword' },
+      { name: 'Chainsword' },
       { name: 'Frag Grenade', amount: 3 },
       { name: 'Krak Grenade', amount: 3 },
       { name: 'Narthecium' },
@@ -2398,10 +2398,10 @@ const aaoaRep = [
     wargear: [
       { name: 'Aquila Mk VII' },
       {
-        name: 'Boltgun or Chain Sword',
+        name: 'Boltgun or Chainsword',
         options: [
           { name: 'Boltgun' },
-          { name: 'Chain Sword' },
+          { name: 'Chainsword' },
         ]
       },
       { name: 'Bolt Pistol' },
@@ -2434,7 +2434,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Aquila Mk VII' },
       { name: 'Jump Pack' },
-      { name: 'Chain Sword' },
+      { name: 'Chainsword' },
       { name: 'Bolt Pistol' },
       { name: 'Astartes Combat Knife' },
       { name: 'Frag Grenade', amount: 3 },
@@ -2502,9 +2502,9 @@ const aaoaRep = [
     wargear: [
       { name: 'Aquila Mk VII' },
       {
-        name: 'Chain Sword or chain axe',
+        name: 'Chainsword or chain axe',
         options: [
-          { name: 'chain sword' },
+          { name: 'Chainsword' },
           { name: 'chain axe' },
         ],
       },
@@ -2815,7 +2815,7 @@ const aaoaRep = [
         name: 'Two swords, or chainsword and autopistol.',
         options: [
           { name: 'Sword', amount: 2 },
-          { name: 'Chain Sword and Autopistl' },
+          { name: 'Chainsword and Autopistl' },
         ],
       },
     ],
@@ -2968,7 +2968,7 @@ const aaoaRep = [
     wargearString: 'Heavy Aspect Armour, scorpion chainsword, shuriken pistol, mandiblasters, 3 plasma grenades, spirit stone.',
     wargear: [
       { name: 'Heavy Aspect Armour' },
-      { name: 'Chain Sword', variant: 'Scorpion Chainsword' },
+      { name: 'Chainsword', variant: 'Scorpion Chainsword' },
       { name: 'Shuriken Pistol' },
       { name: 'Mandiblaster' },
       { name: 'Plasma Grenade', amount: 3 },
@@ -3453,10 +3453,10 @@ const teaRep = [
       },
     ],
     wargearString:
-      'Aquila power armor, chain sword, bolt pistol, jump pack, 3 frag and krak grenades.',
+      'Aquila power armor, Chainsword, bolt pistol, jump pack, 3 frag and krak grenades.',
     wargear: [
       { name: 'Aquila Mk VII' },
-      { name: 'Chain Sword' },
+      { name: 'Chainsword' },
       { name: 'Bolt Pistol' },
       { name: 'Jump Pack' },
       { name: 'Frag Grenade', amount: 3 },
@@ -3524,16 +3524,16 @@ const teaRep = [
       },
     ],
     wargearString:
-      'Aquila power armor with Diagnostor helmet, bolt pistol, boltgun or chain sword, 3 frag and krak grenades, narthecium, reductor',
+      'Aquila power armor with Diagnostor helmet, bolt pistol, boltgun or Chainsword, 3 frag and krak grenades, narthecium, reductor',
     wargear: [
       { name: 'Aquila Mk VII' },
       { name: 'Diagnostor Helmet' },
       { name: 'Bolt Pistol' },
       {
-        name: 'Boltgun or Chain Sword',
+        name: 'Boltgun or Chainsword',
         options: [
           { name: 'Boltgun' },
-          { name: 'Chain Sword' },
+          { name: 'Chainsword' },
         ],
       },
       { name: 'Narthecium' },
@@ -4401,7 +4401,7 @@ const paxRep = [
       {
         name: 'chainsword, bolt pistol or plasma pistol',
         options: [
-          { name: 'Chain Sword' },
+          { name: 'Chainsword' },
           { name: 'Bolt Pistol' },
           { name: 'Plasma Pistol' },
         ],
@@ -4840,7 +4840,7 @@ const paxRep = [
           'equal to the Untouchables ½ Rank within the same area of effect.</p>',
       },
     ],
-    // Flak or Mesh Armour or symbol of inquisitorial authority, boltgun or bolt pistol and Chain Sword, null-limiter
+    // Flak or Mesh Armour or symbol of inquisitorial authority, boltgun or bolt pistol and Chainsword, null-limiter
     wargear: [
       {
         name: 'Flak or Mesh Armour or symbol of inquisitorial authority',
@@ -4851,10 +4851,10 @@ const paxRep = [
         ],
       },
       {
-        name: 'Boltgun or bolt pistol and Chain Sword',
+        name: 'Boltgun or bolt pistol and Chainsword',
         options: [
           { name: 'Boltgun' },
-          { name: 'Bolt Pistol and Chain Sword' },
+          { name: 'Bolt Pistol and Chainsword' },
         ],
       },
       { name: 'Null-Limiter' },
