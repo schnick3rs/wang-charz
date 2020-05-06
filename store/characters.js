@@ -243,7 +243,7 @@ export const getters = {
     return keywords.map((k) => (k.replacement ? k.replacement : k.name));
   },
 
-  characterBackground: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
+  characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
   characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
   characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
 
@@ -615,7 +615,7 @@ export const mutations = {
     const { id, type, key } = payload;
     const character = state.characters[id];
     console.info(`Background: ${type} > ${key} selected.`);
-    character.background.type = key;
+    character.background[type] = key;
   },
   setCharacterBackgroundPlusOne(state, payload) {
     const { id, type, key, plusOne } = payload;

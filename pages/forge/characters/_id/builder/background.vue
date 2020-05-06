@@ -1,119 +1,41 @@
 <template lang="html">
+
   <v-row justify="center">
-    <v-col
-      v-if="characterBackground"
-      :cols="12"
-    >
-      <v-card>
-        <v-card-title primary-title>
-          <div>
-            <div class="headline">
-              {{ characterBackground.name }}
-            </div>
-            <span class="subtitle-2">{{ characterBackground.hint }}</span>
-          </div>
-        </v-card-title>
 
-        <v-card-text>
-          <p>{{ characterBackground.bonus }}</p>
+    <!-- Backgrounds -->
+    <v-col :cols="12">
 
-          <div v-if="characterBackground.choice">
-            <v-select
-              v-model="characterBackground.selected"
-              label="Some text"
-              :items="characterBackground.choice"
-              item-text="name"
-              item-value="key"
-              solo
-              dense
-              @change="selectBackgroundChoice(characterBackground, characterBackground.selected)"
-            />
-          </div>
-        </v-card-text>
+      <h2>Manage Backgrounds</h2>
+      <span>Select a background for each Section and choose a single Trait bonus.</span>
 
-        <v-divider />
+      <v-alert v-if="selectedPlusOne" type="info" text dense>
+        <strong>{{selectedPlusOne.title}}: </strong>You add +1 to your {{selectedPlusOne.plusOne}}
+      </v-alert>
 
-        <v-card-actions>
-          <v-btn
-            text
-            outlined
-            color="red"
-            @click="removeBackground(characterBackground)"
-          >
-            <v-icon left>
-              remove_circle
-            </v-icon>
-            remove background
-          </v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-col>
-
-    <v-dialog
-      v-model="dialog"
-      width="600px"
-      scrollable
-    >
-      <background-preview
-        v-if="dialogItem"
-        :item="dialogItem"
-        @select="selectBackgroundForChar"
-        @cancel="dialog = false"
-      />
-    </v-dialog>
-
-    <v-col v-if="!characterBackground" :cols="12">
-      <h1 class="headline">
-        Select a background
-      </h1>
-    </v-col>
-
-    <v-col>
+      <div v-for="type in backgroundSectionTypes" class="mt-2 mb-4">
+        <h3>{{type}}</h3>
+        <v-select
+          v-model="selectedBackgrounds[type.toLowerCase()]"
+          :items="backgroundsByType(type)"
+          outlined
+          dense
+          @change="changeBackground"
+          item-value="key"
+          item-text="label"
+          persistent-hint
+          :hint="backgroundHint(selectedBackgrounds[type.toLowerCase()])"
+        ></v-select>
+        <v-btn
+          small
+          :disabled="!selectedBackgrounds[type.toLowerCase()] || (selectedPlusOne && selectedPlusOne.key === selectedBackgrounds[type.toLowerCase()])"
+          :color="selectedPlusOne && selectedPlusOne.key === selectedBackgrounds[type.toLowerCase()] ? 'success' : ''"
+          @click="selectPlusOne(selectedBackgrounds[type.toLowerCase()])"
+        >Use this bonus</v-btn>
+      </div>
 
     </v-col>
 
-    <v-col v-if="!characterBackground" :cols="12">
-      <v-card>
-        <v-card-text v-if="plusOne">
-          <p><strong>{{plusOne.title}}:</strong>{{ plusOne.snippet }}</p>
-          <p>You add +1 to your {{plusOne.plusOne}}</p>
-        </v-card-text>
-        <v-card-text>
-          <div v-for="type in backgroundSectionTypes">
-            <h3>{{type}}</h3>
-            <v-radio-group v-model="selectedBackgrounds[type.toLowerCase()]" @change="changeBackground">
-              <v-radio
-                v-for="item in backgroundsByType(type)"
-                :key="item.key"
-                :label="item.title"
-                :value="item"
-              >
-                <span slot="label">
-                  <strong>{{ item.title }}: </strong>
-                  <v-chip
-                    small
-                    label
-                    :disabled="selectedBackgrounds[type.toLowerCase()] !== item"
-                    :color="plusOne && plusOne.key === item.key ? 'success' : ''"
-                  >{{ item.plusOne }}</v-chip>
-                  <v-btn
-                    icon
-                    x-small
-                    v-show="selectedBackgrounds[type.toLowerCase()] === item && ( plusOne === undefined || plusOne.key !== item)"
-                    :color="plusOne && plusOne.key === item.key ? 'success' : ''"
-                    @click="selectPlusOne(item)"
-                  ><v-icon>add_circle</v-icon></v-btn>
-                </span>
-              </v-radio>
-            </v-radio-group>
-          </div>
-        </v-card-text>
-        <v-card-text v-if="false">
-          <!-- keyword with <> Keyword choice -->
-        </v-card-text>
-      </v-card>
-    </v-col>
-
+    <!-- Languages -->
     <v-col :cols="12">
       <v-card>
         <v-card-title>Manage Languages</v-card-title>
@@ -160,7 +82,6 @@
 </template>
 
 <script lang="js">
-import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
 import BackgroundPreview from '~/components/forge/BackgroundPreview.vue';
 import IssueList from '~/components/IssueList.vue';
 
@@ -168,40 +89,52 @@ export default {
   name: 'Background',
   layout: 'forge',
   components: { BackgroundPreview, IssueList },
-  mixins: [BackgroundRepositoryMixin],
+  mixins: [],
   props: [],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       dialog: false,
       dialogItem: undefined,
-      issues: [
-        'Add option to select specific keyword for "Keywords as a Background" Option',
-        'Allow to select a second background if the respective talent is chosen',
-      ],
+      issues: [],
       characterFaction: undefined,
       characterBackground: undefined,
       languageInput: '',
       languageCostMarker: false,
-      selectedBackgrounds: {
-        origin: undefined,
-        accomplishment: undefined,
-        goal: undefined,
-      },
-      plusOne: undefined,
+    };
+  },
+  head() {
+    return {
+      title: 'Select Background',
     };
   },
   computed: {
     characterFactionKey() {
       return this.$store.getters['characters/characterFactionKeyById'](this.characterId);
     },
-    characterBackgroundObject() {
+    characterBackgrounds() {
       return this.$store.getters['characters/characterBackgroundById'](this.characterId);
     },
-    characterBackgroundKey() {
-      return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
+    selectedBackgrounds() {
+      if (this.characterBackgrounds) {
+        const { origin, accomplishment, goal } = this.characterBackgrounds;
+        return { origin, accomplishment, goal };
+      }
+      return {
+        origin: undefined,
+        accomplishment: undefined,
+        goal: undefined,
+      };
     },
-    characterBackgroundSnippet() {
-      return this.$store.getters['characters/characterBackgroundById'](this.characterId);
+    characterBackgroundPlusOneKey() {
+      if (this.characterBackgrounds && this.characterBackgrounds.plusOne) {
+        return this.characterBackgrounds.plusOne;
+      }
+      return undefined;
     },
     characterLanguages() {
       return this.$store.getters['characters/characterLanguagesById'](this.characterId);
@@ -213,6 +146,12 @@ export default {
       }
       return [];
     },
+    selectedPlusOne() {
+      if (this.characterBackgroundPlusOneKey) {
+        return this.getBackgroundBySectionByKey(this.characterBackgroundPlusOneKey);
+      }
+      return undefined;
+    }
   },
   watch: {
     characterFactionKey: {
@@ -223,23 +162,6 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
-    characterBackgroundKey: {
-      handler(newVal) {
-        console.log(`key change ${newVal}`)
-        this.getBackground(newVal);
-      },
-      immediate: true, // make this watch function is called when component created
-    },
-  },
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
-  },
-  head() {
-    return {
-      title: 'Select Background',
-    };
   },
   methods: {
     async loadFaction(key) {
@@ -250,65 +172,36 @@ export default {
     },
     backgroundsByType(type) {
       if (this.characterFaction) {
-        return this.characterFaction.backgroundSection.filter(section => section.type === type);
+        return this.characterFaction.backgroundSection
+          .filter(section => section.type === type)
+          .map((section) => {
+            return {
+              ...section,
+              label: `${section.title} - ${section.plusOne}`,
+            }
+          });
       }
       return [];
     },
-    changeBackground(item) {
+    getBackgroundBySectionByKey(key) {
+      if (this.characterFaction && key) {
+        return this.characterFaction.backgroundSection.find(section => section.key === key);
+      }
+      return undefined;
+    },
+    backgroundHint(key) {
+      if (this.characterFaction && key) {
+        const background = this.getBackgroundBySectionByKey(key);
+        return background ? background.snippet : 'Could not load background hint.';
+      }
+      return '';
+    },
+    changeBackground(key) {
+      const item = this.getBackgroundBySectionByKey(key);
       const id = this.characterId;
       const type = item.type.toLowerCase();
-      const key = item.key;
+      //const key = item.key;
       this.$store.commit('characters/setCharacterBackground', { id, type, key })
-    },
-    selectPlusOne(background) {
-      this.clearPlusOne();
-
-      this.plusOne = background;
-      const id = this.characterId;
-      const type = background.type.toLowerCase();
-      const { key, plusOne } = background;
-      this.$store.commit('characters/setCharacterBackground', { id, type, key, plusOne })
-
-      const content = { modifications: [background.modification], source: `background.plus-one` };
-      this.$store.commit('characters/setCharacterModifications', { id, content });
-
-      if (background.modification.targetGroup === 'keywords') {
-        const keyword = {
-          name: background.modification.targetValue,
-          source: `background.plus-one`,
-          type: 'keyword',
-          replacement: undefined,
-        };
-        this.$store.commit('characters/addCharacterKeyword', { id, keyword });
-      };
-
-    },
-    clearPlusOne() {
-      const id = this.characterId;
-      const source = `background.plus-one`;
-      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source });
-      this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source, cascade: true });
-    },
-    addLanguage(language) {
-      const name = language;
-      const cost = this.languageCostMarker ? 1 : 0;
-      const source = 'creation';
-      this.$store.commit('characters/addCharacterLanguage', { id: this.characterId, name, cost, source })
-      this.languageInput = '';
-    },
-    removeLanguage(name) {
-      this.$store.commit('characters/removeCharacterLanguage', { id: this.characterId, name })
-    },
-    getBackground(key) {
-      const background = this.backgroundRepository.find((i) => i.key === key);
-      if ( background ){
-        background.selected = this.characterBackgroundSnippet.optionSelectedKey;
-      }
-      this.characterBackground = background;
-    },
-    openDialog(item) {
-      this.dialogItem = item;
-      this.dialog = true;
     },
     selectBackgroundForChar(item) {
       const backgroundContent = { key: item.key, label: item.name };
@@ -329,12 +222,50 @@ export default {
     selectBackgroundChoice(background, choiceKey) {
       const choice = background.choice.find((choice) => choice.key === choiceKey);
 
-      console.info(`Background ${background.name} with choice ${choice.name}.`);
       const backgroundContent = { key: background.key, label: background.name, optionSelectedKey: choice.key };
       this.$store.commit('characters/setCharacterBackground', { id: this.characterId, content: backgroundContent });
 
       const content = { modifications: [choice.modifier], source: choice.modifier.source };
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content });
+    },
+    selectPlusOne(backgroundKey) {
+      this.clearPlusOne();
+      const background = this.getBackgroundBySectionByKey(backgroundKey);
+
+      const id = this.characterId;
+      const type = background.type.toLowerCase();
+      const { key, plusOne } = background;
+      this.$store.commit('characters/setCharacterBackground', { id, type, key, plusOne })
+      this.$store.commit('characters/setCharacterBackgroundPlusOne', { id, type, key, plusOne })
+
+      const content = { modifications: [background.modification], source: `background.plus-one` };
+      this.$store.commit('characters/setCharacterModifications', { id, content });
+
+      if (background.modification.targetGroup === 'keywords') {
+        const keyword = {
+          name: background.modification.targetValue,
+          source: `background.plus-one`,
+          type: 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id, keyword });
+      }
+    },
+    clearPlusOne() {
+      const id = this.characterId;
+      const source = `background.plus-one`;
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source });
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source, cascade: true });
+    },
+    addLanguage(language) {
+      const name = language;
+      const cost = this.languageCostMarker ? 1 : 0;
+      const source = 'creation';
+      this.$store.commit('characters/addCharacterLanguage', { id: this.characterId, name, cost, source })
+      this.languageInput = '';
+    },
+    removeLanguage(name) {
+      this.$store.commit('characters/removeCharacterLanguage', { id: this.characterId, name })
     },
   },
 };
