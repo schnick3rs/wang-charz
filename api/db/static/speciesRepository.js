@@ -92,6 +92,7 @@ const coreRep = [
     ...species('core', 29, 'Mankind', 'Adeptus Astartes', 'The Sword of Mankind', 160, 7),
     ...cost(160,160,0,0),
     ...commonNames('Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus.'),
+    ...statMax(10,10,9,9,10,10,8,9),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'initiative', threshold: 4 },
@@ -127,6 +128,7 @@ const coreRep = [
     ...species('core',29,'Mankind','Primaris Astartes','The newborn breed',198,7),
     ...cost(198,198, 0),
     ...commonNames('Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus.'),
+    ...statMax(12,12,9,9,10,10,8,9),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'initiative', threshold: 4 },
@@ -163,6 +165,7 @@ const coreRep = [
     ...species('core',29,'Aeldari','Aeldari','The Mysterious Aeldari',10,8),
     ...cost(10,10,0, 0),
     ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
+    ...statMax(7,7,12,12,12,10,6,10),
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
     ],
@@ -202,6 +205,7 @@ const coreRep = [
     ...species('core',29,'Orks','Ork','The savage brute',20,6),
     ...cost(20,20,0, 0),
     ...commonNames('Arrlug, Balgrog, Blacktoof, Bluddflak, Bonesmasha, Dedak, Dragnatz, Eddbasha, Garahak, Gargash, Garmek, Genghiz, Gorbad, Grimskull, Hackitt, Hruk, Klawjaw, Kozdek, Lug, Morglum, Murgor, Nazhakka, Rakka, Rekkfist, Rotchop, Skarjaw, Skubmak, Urkthrall, Vorhgad, Zogax'),
+    ...statMax(12,12,7,7,8,7,7,7),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },

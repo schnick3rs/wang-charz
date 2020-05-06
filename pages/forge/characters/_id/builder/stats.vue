@@ -59,9 +59,10 @@
                   {{ characterAttributes[attribute.key] }}
                   <v-btn
                     icon
+                    :disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"
                     @click="incrementAttribute(attribute.key)"
                   >
-                    <!--:disabled="characterAttributes[attribute.key] >= attributeMaximumFor(attribute.name)"-->
+                    <!--"-->
                     <v-icon :color="affordableAttributeColor(characterAttributes[attribute.key])">
                       add_circle
                     </v-icon>
@@ -125,9 +126,9 @@
 </template>
 
 <script lang="js">
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
-  export default {
+export default {
   name: 'Stats',
   layout: 'forge',
   mixins: [
@@ -144,6 +145,7 @@
       selectedAttribute: undefined,
       showAlerts: false,
       archetype: undefined,
+      species: undefined,
       loading: false,
     };
   },
@@ -230,6 +232,9 @@
     settingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
+    characterSpeciesKey() {
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
     characterArchetypeKey() {
       return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
@@ -262,6 +267,14 @@
     }
   },
   watch: {
+    characterSpeciesKey: {
+      handler(newVal) {
+        if (newVal && newVal !== 'unknown') {
+          this.getSpecies(newVal);
+        }
+      },
+      immediate: true,
+    },
     characterArchetypeKey: {
       handler(newVal) {
         if (newVal && newVal !== 'unknown') {
@@ -277,6 +290,12 @@
       const { data } = await this.$axios.get(`/api/archetypes/${key}`);
       this.loading = false;
       this.archetype = data;
+    },
+    async getSpecies(key) {
+      this.loading = true;
+      const { data } = await this.$axios.get(`/api/species/${key}`);
+      this.loading = false;
+      this.species = data;
     },
     resetStats() {
       this.$store.commit('characters/resetCharacterStats', { id: this.characterId });
@@ -322,9 +341,11 @@
     isAffordable(cost) {
       return cost <= this.remainingBuildPoints;
     },
-    attributeMaximumFor(attributeName) {
-      const usedSpecies = this.characterSpeciesLabel || 'Human';
-      return this.getAttributeMaximumForSpecies(usedSpecies, attributeName);
+    attributeMaximumFor(name) {
+      if (this.species && this.species.attributeMaximums) {
+        return this.species.attributeMaximums.find((attribute) => attribute.name === name).value;
+      }
+      return 8;
     },
     computeSkillPool(skill) {
       const attribute = this.characterAttributesEnhanced[skill.attribute.toLowerCase()];
