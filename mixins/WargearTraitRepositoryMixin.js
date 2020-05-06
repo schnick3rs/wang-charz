@@ -314,7 +314,7 @@ export default {
           key: 'core-shield',
           name: 'Shield',
           hint: '',
-          crunch: 'Armour with this Trait adds its AR to your Defence and Resilience, provided the GM agrees you can manoeuvre the shield to block the attack.',
+          crunch: 'Add the Armour Rating to your Defence and Resilience, provided the GM agrees you can manoeuvre the shield to block the attack.',
           description:
             '<p>Wielded like a defensive weapon, shields are carried instead of worn, and used to deflect incoming attacks.</p>' +
             '<p>Armour with this Trait adds its AR to your Defence and Resilience, provided the GM agrees you can manoeuvre the shield to block the attack.</p>',

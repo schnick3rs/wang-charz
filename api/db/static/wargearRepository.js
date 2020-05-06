@@ -838,7 +838,7 @@ const core = [
     ...armour('Astartes Armour',4),
   },
   {
-    ...gear('core',234,'Aquilla Mk VII','8V','Powered,Imperium,Adeptus Astartes'),
+    ...gear('core',234,'Aquila Mk VII','8V','Powered,Imperium,Adeptus Astartes'),
     ...armour('Astartes Armour',5,'Powered(3)'),
   },
   {
@@ -906,8 +906,19 @@ const core = [
   },
   {
     ...gear('core',236,'Clothing','1C','Imperium'),
-    ...toolz('Imperial Equipment','Common Clothing...'),
-    description: '<p>Note: Clothing of a higher Rarity is a sign of status, and may grant small situational bonuses when making social Skill Tests (+1 bonus die to Persuasion or Influence, for example).</p>',
+    ...toolz('Imperial Equipment','Common Clothing, nothing Special.'),
+  },
+  {
+    ...gear('core',236,'Clothing, Uncommon','1U','Imperium'),
+    ...toolz('Imperial Equipment','Common Clothing may grant a small bonus to social skill tests.'),
+  },
+  {
+    ...gear('core',236,'Clothing, Rare','1R','Imperium'),
+    ...toolz('Imperial Equipment','Rare Clothing may grant a small bonus to social skill tests.'),
+  },
+  {
+    ...gear('core',236,'Clothing, Very Rare','1V','Imperium'),
+    ...toolz('Imperial Equipment','Very Rare Clothing may grant a small bonus to social skill tests.'),
   },
   {
     ...gear('core',236,'Clombi-Tool','3U','[Any]'),

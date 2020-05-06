@@ -150,15 +150,17 @@
                           ></div>
                         </div>
                     </div>
-                    <em v-if="item.name==='Resilience' && armour.length>0">
-                      @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
-                    </em>
                   </td>
-                  <td v-if="item.name==='Resilience'" class="text-center pa-1 small">
-                    {{ item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
+                  <td class="text-center pa-1 small">
+                    {{ item.adjustedRating }}
                   </td>
-                  <td v-else class="text-center pa-1 small">
-                    {{ item.enhancedValue }}
+                  <td>
+                    <v-tooltip bottom v-if="item.adjustment > 0">
+                      <template v-slot:activator="{ on }">
+                        <v-avatar color="success" size="12" v-on="on"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
+                      </template>
+                      <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                    </v-tooltip>
                   </td>
                 </tr>
               </tbody>
@@ -395,7 +397,7 @@
                       :key="trait"
                     >
                       <strong>{{ trait }}: </strong>
-                      {{ traitByName(trait, true).effect }}
+                      {{ traitByName(trait, true).crunch }}
                     </p>
                   </div>
 
@@ -1044,6 +1046,28 @@ export default {
         }
       });
 
+      if (this.armour && this.armour.length > 0) {
+        let resilience = finalTraits.find((a) => a.key === 'resilience' );
+        const wornArmour = this.armour
+          .filter((armour) => !armour.meta[0].traits.includes('Shield'))
+          .sort((a, b) => a.meta[0].armourRating < b.meta[0].armourRating ? 1 : -1)
+          .find((i) => true)
+        if (wornArmour) {
+          resilience.adjustment += wornArmour.meta[0].armourRating;
+          resilience.adjustedRating += wornArmour.meta[0].armourRating;
+          resilience.modifiers.push(`+${wornArmour.meta[0].armourRating} from ${wornArmour.name}`);
+        }
+        const wornShield = this.armour
+          .filter((armour) => armour.meta[0].traits.includes('Shield'))
+          .sort((a, b) => a.meta[0].armourRating < b.meta[0].armourRating ? 1 : -1)
+          .find((i) => true);
+        if (wornShield) {
+          resilience.adjustment += wornShield.meta[0].armourRating;
+          resilience.adjustedRating += wornShield.meta[0].armourRating;
+          resilience.modifiers.push(`+${wornShield.meta[0].armourRating} from ${wornShield.name}`);
+        }
+      }
+
       finalTraits
       .filter((t)=>['maxWounds', 'maxShock', 'wealth'].includes(t.key))
       .forEach((t)=>{
@@ -1454,12 +1478,13 @@ export default {
       };
     },
     traitByName(name, withParanteris) {
+      let traitName = name;
       if ( withParanteris ) {
         // weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
-        name = name.split(/ ?\(/)[0];
+        traitName = traitName.split(/ ?\(/)[0];
       }
       // return this.combinedTraitsRepository.find( item => item.name.indexOf(prefix) >= 0);
-      return this.wargearTraitRepository.find((item) => item.name === name);
+      return this.wargearTraitRepository.find((item) => item.name === traitName);
     },
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
