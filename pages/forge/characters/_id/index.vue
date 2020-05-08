@@ -141,11 +141,11 @@
                   <td class="text-left pa-1 small">
                     <span>{{ item.name }}</span>
                     <div v-if="['Wealth','Max Shock','Max Wounds'].includes(item.name)" style="float: right;">
-                      <div style="flex-wrap: wrap; display: flex;" v-if="item.enhancedValue > 0">
+                      <div style="flex-wrap: wrap; display: flex;" v-if="item.adjustedRating > 0">
                           <div
-                            v-for="pointIndex in item.enhancedValue"
+                            v-for="pointIndex in item.adjustedRating"
                             class="resource-box"
-                            :class="{ 'resource-box--filled': pointIndex <= item.spend, 'resource-box--filled-light': item.key === 'wounds' && item.spend <= Math.floor(item.enhancedValue/2) }"
+                            :class="{ 'resource-box--filled': pointIndex <= item.spend }"
                             @click="toggleResource(item, pointIndex)"
                           ></div>
                         </div>
@@ -999,6 +999,45 @@ export default {
         attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
       });
 
+      this.talents
+      .filter((talent) => talent.modifications)
+      .forEach((talent) => {
+        if (talent.modifications) {
+          talent.modifications.filter((mods) => mods.targetGroup==='attributes')
+          .forEach((mod) => {
+            let attr = attributes.find((a) => a.key === mod.targetValue);
+            if (attr) {
+              attr.adjustment += mod.modifier;
+              attr.adjustedRating += mod.modifier;
+              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${talent.name}`);
+            }
+          });
+        }
+      });
+
+      if (this.gear && this.gear.length >0) {
+        let modGear = this.gear
+        .filter((gear) => gear.modifications)
+        .forEach((gear) => {
+          gear.modifications.forEach((mod) => {
+            let attr = attributes.find((a)=>a.key===mod.targetValue);
+            if (attr) {
+              attr.adjustment += mod.modifier;
+              attr.adjustedRating += mod.modifier;
+              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${gear.name}`);
+            }
+          });
+        });
+      }
+
+      attributes = attributes.map((a) => {
+        if (a.adjustedRating < 1) {
+          a.adjustedRating = Math.max(1, a.adjustedRating);
+          a.modifiers.push('(i) Value is increase to at least 1.');
+        }
+        return a;
+      });
+
       let poweredStrength = 0;
       // enrich with (equipped) gear
       if ( this.armour && this.armour.length > 0 ) {
@@ -1022,21 +1061,53 @@ export default {
     traits() {
       const characterTraits = this.$store.getters['characters/characterTraitsById'](this.characterId);
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
-      let finalTraits = this.traitRepository.map((t) => ({
-        ...t,
-        value: characterTraits[t.key],
-        enhancedValue: Math.max(1,parseInt(traitsEnhanced[t.key])),
-        rating: characterTraits[t.key],
-        adjustedRating: parseInt(characterTraits[t.key]),
-        adjustment: 0,
-        modifiers: [],
-      }));
+      const attributes = this.attributes;
+
+      let finalTraits = this.traitRepository.map((t) => {
+
+        let baseTraitValue = 0;
+
+        let relatedAttribute = attributes.find((attribute) => attribute.name === t.attribute);
+        if (t.key === 'influence' && this.keywords.includes('Adeptus Mechanicus')) {
+          relatedAttribute = attributes.find((attribute) => attribute.name === 'Intellect');
+        }
+
+        if (relatedAttribute) {
+          baseTraitValue += Math.ceil(relatedAttribute.adjustedRating * t.compute.multi);
+        } else {
+          let relatedSkill = this.skills.find((skill) => skill.name === t.skill);
+          if (relatedSkill) {
+            // todo better find the correct value
+            baseTraitValue += Math.ceil(this.computeSkillPool(relatedSkill) * t.compute.multi);
+          }
+        }
+
+        if (t.key === 'speed') {
+          baseTraitValue = traitsEnhanced[t.key];
+        }
+
+        baseTraitValue += t.compute.static;
+        baseTraitValue += ( t.compute.addTier ) ? this.characterSettingTier : 0 ;
+
+        const enhancedValue = baseTraitValue;
+        const aggregatedTrait = {
+          ...t,
+          value: enhancedValue,
+          enhancedValue: enhancedValue,
+          rating: enhancedValue,
+          adjustedRating: enhancedValue,
+          adjustment: 0,
+          modifiers: [`Base = ${baseTraitValue}`],
+        };
+
+        return aggregatedTrait;
+      });
 
       this.enhancements
-      .filter((enhancement)=>enhancement.targetGroup==='traits')
-      .forEach((enhancement)=>{
+      .filter((enhancement) => enhancement.targetGroup==='traits')
+      .forEach((enhancement) => {
         // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
-        let traity = finalTraits.find((a)=>a.key===enhancement.targetValue);
+        let traity = finalTraits.find((a) => a.key === enhancement.targetValue);
         if ( traity ) {
           traity.adjustment += enhancement.modifier;
           traity.adjustedRating += enhancement.modifier;
@@ -1045,6 +1116,41 @@ export default {
           console.warn(`Unexpected undefined trait for ${enhancement.targetValue}.`);
         }
       });
+
+      this.talents
+        .filter((talent) => talent.modifications)
+        .forEach((talent) => {
+          if (talent.modifications) {
+            talent.modifications.filter((mods) => mods.targetGroup==='traits')
+              .forEach((mod) => {
+                let traity = finalTraits.find((a) => a.key === mod.targetValue);
+                let mody = mod.modifier;
+                if (mod.rank) {
+                  mody += (mod.rank * this.characterRank );
+                }
+                if (traity) {
+                  traity.adjustment += mody;
+                  traity.adjustedRating += mody;
+                  traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${talent.name}`);
+                }
+              });
+          }
+        });
+
+      if (this.gear && this.gear.length >0) {
+        this.gear
+        .filter((gear) => gear.modifications)
+        .forEach((gear) => {
+          gear.modifications.forEach((mod) => {
+            let traity = finalTraits.find((a) => a.key === mod.targetValue);
+            if (traity) {
+              traity.adjustment += mod.modifier;
+              traity.adjustedRating += mod.modifier;
+              traity.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${gear.name}`);
+            }
+          });
+        });
+      }
 
       if (this.armour && this.armour.length > 0) {
         let resilience = finalTraits.find((a) => a.key === 'resilience' );
@@ -1164,7 +1270,6 @@ export default {
                   };
                 }
               }
-              console.warn(ability);
               abilities.push(ability);
             }
           });
@@ -1330,7 +1435,6 @@ export default {
       if(this.wargearRepository) {
         chargear.forEach((gear) => {
           const { name, id, variant } = gear;
-          console.log(`Searching for [${gear.name}] in repository (${this.wargearRepository.length} items) ...`);
           const foundGear = this.wargearRepository.find((w) => gear.name.localeCompare(w.name, 'en', {sensitivity: 'accent'}) === 0 );
           if (foundGear) {
             wargear.push({ ...foundGear, variant, id });

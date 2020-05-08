@@ -165,7 +165,8 @@ const meleez = function (subtype, damage, ed, ap, range, traits) {
 };
 
 /**
- * 16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!
+ * 16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, WaaCardioproxy
+ agh!
  *
  * @param brewString
  * @param subtype
@@ -1070,6 +1071,7 @@ const core = [
     ...gear('core',243,'Augmetic Arm','4R','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Enhancements',
     snippet: 'You gain +1 Strength per Augmetic Arm.',
+    modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 } ],
   },
   {
     ...gear('core',243,'Augmetic Eye (Auger)','6U','[Any]'),
@@ -1100,6 +1102,7 @@ const core = [
     ...gear('core',243,'Augmetic Legs','4R','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Enhancements',
     snippet: 'You gain +2 Speed and add 2 metres to any jump.',
+    modifications: [ { targetGroup: 'traits', targetValue: 'speed', modifier: 2 } ],
   },
   {
     ...gear('core',244,'Augmetic Respirator','5R','[Any]'),
@@ -1110,6 +1113,7 @@ const core = [
     ...gear('core',244,'Augmetic Viscera','5V','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Enhancements',
     snippet: 'You gain +2 Toughness.',
+    modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2 } ],
   },
   {
     ...gear('core',244,'Auger Array (Auspex)','4R','Imperium,Adeptus Mechanicus'),
@@ -1125,16 +1129,13 @@ const core = [
     ...gear('core',244,'Cardioproxy','6L','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Toughness.',
-  },
-  {
-    ...gear('core',244,'Cardioproxy','6L','[Any]'),
-    type: 'Augmetics', subtype: 'Augmetic Implants',
-    snippet: 'You gain +1 Toughness.',
+    modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 } ],
   },
   {
     ...gear('core',244,'Cortex Implant','7V','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Intellect.',
+    modifications: [ { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1 } ],
   },
   {
     ...gear('core',244,'Mechadendrites (Ballistic)','5R','Adeptus Mechanicus'),
@@ -1175,21 +1176,29 @@ const core = [
     ...gear('core',245,'Neuroplastic Psychosectemy','7L','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Intellect and +1 Willpower but suffer −2 Fellowship.',
+    modifications: [
+      { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1 },
+      { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 },
+      { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -2 },
+    ],
   },
   {
     ...gear('core',246,'Reflex Catalyst','6V','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Initiative.',
+    modifications: [ { targetGroup: 'attributes', targetValue: 'initiative', modifier: 1 } ],
   },
   {
     ...gear('core',246,'Sinew Armature','6V','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Strength.',
+    modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 } ],
   },
   {
     ...gear('core',246,'Subdermal Armour','6R','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Base Resilience.',
+    modifications: [ { targetGroup: 'traits', targetValue: 'resilience', modifier: 1 } ],
   },
   {
     ...gear('core',246,'Weapon Implant','3R','[Any]'),

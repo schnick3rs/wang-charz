@@ -179,6 +179,9 @@ const core = [
     snippet: '+1 Corruption. Sacrifice a willing or unconscious individual for some heretic wrath.',
     requirements: [ requireKeyword('CHAOS') ],
     description: '',
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
+    ],
   },
   {
     ...talent('core',130,'Berzerker',20,'Corruption,Wrath'),
@@ -244,6 +247,9 @@ const core = [
       '<p>At the GM’s discretion, if the minion sees you act against the interests of the Warp, the familiar immediately turns on you until it’s destroyed or convinced of its mistake.</p>' +
       '<p>If the familiar is slain, you must spend a Wrath Point to summon it again — which is timeconsuming and requires the GM’s permission.</p>',
     requirements: [ requireKeyword('CHAOS') ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 2 },
+    ],
   },
   {
     ...talent('core',131,'Conversational Cogitator',10,'Interaction'),
@@ -397,6 +403,9 @@ const core = [
     description:
       '<p>You never let down your guard. You gain +Double Rank to your Passive Awareness.</p>',
     requirements: [],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'passiveAwareness', modifier: 0, rank: 2 },
+    ],
   },
   {
     ...talent('core',133,'Favoured By The Warp',40,'Warp,Survival'),
@@ -420,7 +429,7 @@ const core = [
     description:
       '<p>Extensive mental conditioning or intensive training allow you to completely control your fear.</p>' +
       '<p>You automatically pass any Fear Test. You are immune to Interaction Attacks made using Intimidation (Wil).</p>',
-    requirements: [ requireAttribute('Willpower',4) ],
+    requirements: [ requireAttribute('Willpower', 4) ],
   },
   {
     ...talent('core',134,'Feel no Pain',40,'Survival,Combat'),
@@ -431,6 +440,9 @@ const core = [
       '<p>You do not suffer a penalty to DN for being Wounded.</p>' +
       '<p>Your Wounds Trait is increases by +Rank.</p>',
     requirements: [ requireAttribute('Toughness',4) ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'maxWounds', modifier: 0, rank: 1 },
+    ],
   },
   {
     ...talent('core',134,'Flagellant',20,'Combat,Melee'),
@@ -513,6 +525,9 @@ const core = [
     description:
       '<p></p>',
     requirements: [ requireKeyword('CHAOS') ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
+    ],
   },
   {
     ...talent('core',136,'Lip Reader',20),
@@ -549,6 +564,10 @@ const core = [
       '<p>You gain +1 Corruption.</p>' +
       '<p>Your Toughness increases by +1.</p>',
     requirements: [ requireKeyword('NURGLE') ],
+    modifications: [
+      { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
+    ],
   },
   {
     ...talent('core',136,'Mark Of Khorne',30),
@@ -557,6 +576,9 @@ const core = [
       '<p>You gain +1 Corruption.</p>' +
       '<p>Add +2 dice to All-Out melee attacks.</p>',
     requirements: [ requireKeyword('KHORNE'), requireKeyword('PSYKER',true) ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
+    ],
   },
   {
     ...talent('core',136,'Mark Of Slaanesh',30),
@@ -565,6 +587,9 @@ const core = [
       '<p>You gain +1 Corruption.</p>' +
       '<p>Add +2 dice to Awareness and Persuasion Tests.</p>',
     requirements: [ requireKeyword('SLAANESH') ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
+    ],
   },
   {
     ...talent('core',136,'Mark Of Tzeentch',30),
@@ -573,6 +598,9 @@ const core = [
       '<p>You gain +1 Corruption.</p>' +
       '<p>Add gain the PSYKER Keyword. If you already have it, gain one Minor Psychic Power.</p>',
     requirements: [ requireKeyword('TZEENTCH') ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
+    ],
   },
   {
     ...talent('core',136,'Mark Of Undedicated',30),
@@ -581,6 +609,9 @@ const core = [
       '<p>You gain +1 Corruption.</p>' +
       '<p>Choose one of the following Skills: Awareness, Cunning, Deception, Insight, Persuasion, Psychic Mastery, Stealth, or Weapon Skill. You gain +Rank bonus dice when using that Skill.</p>',
     requirements: [ requireKeyword('MARK OF CHAOS') ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
+    ],
   },
   {
     ...talent('core',136,'Mastered Paths',20),
@@ -615,7 +646,7 @@ const core = [
   },
   {
     ...talent('core',137,'Noble Peer',30),
-    snippet: 'When Status plays a factor, add +Double Rank to Influence and fittin tests.',
+    snippet: 'When Status plays a factor, add +Double Rank to Influence and fitting tests.',
     description:
       '<p></p>',
     requirements: [ requireSkill('Persuasion',3)],
@@ -640,6 +671,10 @@ const core = [
     description:
       '<p></p>',
     requirements: [ requireSpecies('Primaris Astartes') ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 0, rank: 1 },
+    ],
   },
   {
     ...talent('core',138,'Promethium Proficiency',20),
@@ -668,6 +703,9 @@ const core = [
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MECHANICUS') ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
+    ],
   },
   {
     ...talent('core',139,'Scum Savvy',20),
@@ -698,13 +736,13 @@ const core = [
     requirements: [],
   },
   {
-    ...talent('core',139,'Simultaneous Strike (Ballistic Skill',30),
+    ...talent('core',139,'Simultaneous Strike (Ballistic Skill)',30),
     snippet: 'You add half your second weapons damage as ED to the damage roll.',
     description: '<p></p>',
     requirements: [ requireSkill('Ballistic Skill',4) ],
   },
   {
-    ...talent('core',139,'Simultaneous Strike (Weapon Skill',30),
+    ...talent('core',139,'Simultaneous Strike (Weapon Skill)',30),
     snippet: 'You add half your second weapons damage as ED to the damage roll.',
     description: '<p></p>',
     requirements: [ requireSkill('Weapon Skill',4) ],
@@ -791,7 +829,7 @@ const core = [
   },
   {
     ...talent('core',141,'Twin Focus',20),
-    snippet: 'You decrese the DN for sustaining multiple powers by 2.',
+    snippet: 'You decrease the DN for sustaining multiple powers by 2.',
     description:
       '<p></p>',
     requirements: [ requireSkill('Psychic Mastery',4) ],
