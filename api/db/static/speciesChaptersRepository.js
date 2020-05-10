@@ -148,6 +148,10 @@ const core = [
       {
         name: 'Hunters Unleashed',
         effect: 'You have the Acute Sense Talent (p.129) and the Dual Wield Talent (p.133).',
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-acute-sense', meta: { name: 'Acute Sense' } },
+          { targetGroup: 'talents', targetValue: 'core-dual-wield', meta: { name: 'Dual Wield' } },
+        ],
       },
       {
         name: 'Savage Within',

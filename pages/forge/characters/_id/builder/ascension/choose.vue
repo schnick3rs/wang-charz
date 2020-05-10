@@ -110,7 +110,6 @@ export default {
     sources() {
       return [
         'core',
-        'coreab',
         ...this.settingHomebrews
       ];
     },

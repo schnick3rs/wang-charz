@@ -554,7 +554,6 @@
     sources() {
       return [
         'core',
-        'coreab',
         ...this.settingHomebrews
       ];
     },

@@ -67,6 +67,7 @@ export default {
     getSpecies: async function (key) {
       this.loading = true;
       let finalData = {};
+
       if ( key.startsWith('custom-')) {
         const speciesDetails = this.$store.getters['species/getSpecies'](key);
         finalData = speciesDetails;
@@ -74,12 +75,16 @@ export default {
         const { data } = await this.$axios.get(`/api/species/${key}`);
         finalData = data;
       }
-      finalData.speciesFeatures.filter((t) => t.options).forEach((t) => {
-        const enhancement = this.enhancements.find((m) => m.source.startsWith(`species.${t.name}`) );
-        if ( enhancement ) {
-          t.selected = enhancement.source.split('.').pop();
-        }
-      });
+
+      finalData.speciesFeatures
+        .filter((t) => t.options)
+        .forEach((t) => {
+          const enhancement = this.enhancements.find((m) => m.source.startsWith(`species.${t.name}`) );
+          if ( enhancement ) {
+            t.selected = enhancement.source.split('.').pop();
+          }
+        });
+
       const chapter = this.characterSpeciesAstartesChapter;
       if (chapter) {
         finalData.chapter = chapter;
