@@ -279,7 +279,7 @@ const core = [
     ...gear('core',213,'Chain Bayonet','3R','Chain,Imperium,Chaos'),
     ...meleez('Chain Weapon',4,1,0,0,'Brutal'),
   },
-  { // not a real entry
+  { // not a real entry delete soon
     ...gear('core',213,'Chain Sword','4R','Chain,[Any]'),
     ...meleez('Chain Weapon',5,4,0,0,'Brutal,Parry'),
   },

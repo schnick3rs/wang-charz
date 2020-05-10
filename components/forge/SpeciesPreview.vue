@@ -117,6 +117,7 @@
             v-if="manageMode && feature.name.indexOf('Honour the Chapter') >= 0 && chapterList"
           >
             <v-alert
+              v-if="false"
               text border-left dense color="primary" class="caption"
             >
               <em>Some homebrews contain additional chapters. Click on the (+) after the homebrew to enable it's rules for this character:

@@ -373,7 +373,7 @@
               :value="`tab-wargear`"
             >
               <div class="pa-2 pt-1 pb-1">
-                <div v-for="gearItem in wargear" :key="gearItem.id" class="caption">
+                <div v-for="gearItem in wargear" :key="gearItem.id" class="caption mb-2">
                   <div v-if="gearItem.variant" style="display: inline;">
                     <strong >{{ gearItem.variant }}</strong>
                     <span> ({{ gearItem.name }})</span>
@@ -391,7 +391,7 @@
                     v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
                   >
                     <p
-                      class="ml-3 mt-1 mb-2"
+                      class="ml-1 pl-2 mb-1" style="border-left: solid 3px lightgrey;"
                       v-for="trait in gearItem.meta[0].traits"
                       v-if="traitByName(trait, true)"
                       :key="trait"
@@ -455,6 +455,7 @@
                     </div>
 
                     <div v-for="ability in archetypeAbilities" :key="ability.name" class="caption mb-2">
+
                       <strong>{{ ability.name }}</strong>
                       <em v-if="ability.source"> • {{ ability.source }}</em>
 
@@ -468,12 +469,11 @@
                         style="border-left: solid 3px lightgrey;"
                       >
                         <strong>{{ selectedOption.name }}</strong>
-                        <div v-if="selectedOption.snippet"><p class="mb-1"  v-html="computeFormatedText(selectedOption.snippet)"></p></div>
+                        <div v-if="selectedOption.snippet"><p class="mb-1" v-html="computeFormatedText(selectedOption.snippet)"></p></div>
                         <div v-else v-html="computeFormatedText(selectedOption.description)"></div>
                       </div>
 
                     </div>
-
                   </div>
 
                   <!-- Ascensions < abilities (Background, Other) -->
@@ -483,17 +483,17 @@
                       <span class="body-2 red--text">Ascension</span>
                     </div>
 
-                    <div v-for="ability in ascensionAbilities" :key="ability.name" class="caption mb-3">
+                    <div v-for="ability in ascensionAbilities" :key="ability.name" class="caption mb-2">
 
                       <strong>{{ ability.name }}</strong>
                       <em v-if="ability.source"> • {{ ability.source }}</em>
 
-                      <div v-if="ability.snippet"><span>{{computeFormatedText(ability.snippet)}}</span></div>
+                      <div v-if="ability.snippet"><p class="mb-1" v-html="computeFormatedText(ability.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
 
-                      <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
+                      <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
                         <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
-                        <p v-if="ability.selectedOption.snippet">{{ability.selectedOption.snippet}}</p>
+                        <div v-if="ability.selectedOption.snippet"><p class="mb-1" v-html="ability.selectedOption.snippet"></p></div>
                       </div>
 
                     </div>
@@ -502,6 +502,7 @@
 
                   <!-- talents < abilities -->
                   <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" >
+                    
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
                       <span class="body-2 red--text" style="flex: 1;">Talents</span>
                       <div style="flex-wrap: wrap; display: flex;" v-if="characterFaith.points > 0">
