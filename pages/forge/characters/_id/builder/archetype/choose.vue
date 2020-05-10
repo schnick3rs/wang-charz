@@ -271,6 +271,7 @@ export default {
       // TODO ensure attributes and skills
       this.ensurePrerequisites(item);
 
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: 'archetype' });
       const mods = [];
       if (item.influence) {
         mods.push({
@@ -280,7 +281,14 @@ export default {
       if (item.modifications){
         mods.push(...item.modifications);
       }
-      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: 'archetype' });
+      item.archetypeFeatures
+        .filter((feature) => feature.modifications)
+        .forEach((feature) => {
+          feature.modifications.forEach((mod) => {
+            mods.push(mod);
+          });
+        });
+
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype', cascade: true });

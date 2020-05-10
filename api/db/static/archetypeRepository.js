@@ -262,6 +262,9 @@ const core = [
       {
         name: 'Armour of Faith',
         snippet: 'You gain +Double Rank bonus dice to melee attack tests against targets with the CHAOS or HERETIC keyword. Your Resolve also increases by +Rank.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
+        ],
       },
     ],
     wargear: wargearz('Power Sword, Storm Shield, Carapace Armour, Clothing/Ministorum Robes'),
