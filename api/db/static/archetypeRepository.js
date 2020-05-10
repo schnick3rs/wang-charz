@@ -295,7 +295,7 @@ const core = [
       { name: 'Chain Bayonet', variant: 'Chain Bayonet (wrist mounted)' },
       { name: 'Laspistol' },
       { name: 'Clothing', variant: 'Sororitas vestments' },
-      { name: 'Copy of the Rule of the Sororitas' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
     ],
   },
   {
@@ -331,7 +331,7 @@ const core = [
       },
       { name: 'Clothing', variant: 'Sororitas vestments' },
       { name: 'Writing Kit' },
-      { name: 'Copy of the Rule of the Sororitas' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
     ],
     influence: 1,
   },
@@ -1498,7 +1498,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Laspistol' },
       { name: 'Clothing', variant: 'Sororitas vestments' },
-      { name: 'copy of the Rule of the Sororitas' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
       { name: 'collection of reference books' },
       { name: 'vox-caster' },
     ],
@@ -1527,7 +1527,7 @@ const aaoaRep = [
     wargear: [
       { name: 'Laspistol' },
       { name: 'Clothing', variant: 'Sororitas vestments' },
-      { name: 'copy of the Rule of the Sororitas' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
       { name: 'collection of reference books' },
       { name: 'vox-caster' },
     ],
@@ -1565,7 +1565,7 @@ const aaoaRep = [
       { name: 'Jump Pack' },
       { name: 'Clothing', variant: 'Sororitas vestments' },
       { name: 'Writing Kit' },
-      { name: 'copy of the Rule of the Sororitas' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
     ],
   },
   {

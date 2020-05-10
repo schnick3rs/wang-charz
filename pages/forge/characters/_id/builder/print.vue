@@ -41,10 +41,10 @@
                         {{ item.name }}
                       </td>
                       <td class="text-center pa-1 small">
-                        {{ item.value }}
+                        {{ item.rating }}
                       </td>
                       <td class="text-center pa-1 small">
-                        {{ item.enhancedValue }}
+                        {{ item.adjustedRating }}
                       </td>
                     </tr>
                   </tbody>
@@ -75,10 +75,10 @@
                         </em>
                       </td>
                       <td v-if="item.name==='Resilience'" class="text-center pa-1 small">
-                        {{ item.enhancedValue + ( armour.length>0 ? armour[0].meta[0].armourRating : 0 ) }}
+                        {{ item.adjustedRating}}
                       </td>
                       <td v-else class="text-center pa-1 small">
-                        {{ item.enhancedValue }}
+                        {{ item.adjustedRating }}
                       </td>
                     </tr>
                   </tbody>
@@ -441,13 +441,14 @@
                         v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
                       >
                           <p
-                            class="ml-3 mt-2 mb-0"
+                            class="ml-1 pl-2 mb-1"
+                            style="border-left: solid 3px lightgrey;"
                             v-for="trait in gearItem.meta[0].traits"
                             v-if="traitByName(trait, true)"
                             :key="trait"
                           >
                             <strong>{{ trait }}: </strong>
-                            {{ traitByName(trait, true).effect }}
+                            {{ traitByName(trait, true).crunch }}
                           </p>
                       </div>
 
@@ -617,21 +618,221 @@
       return enhancedAttributes;
     },
     attributes() {
-      const attributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
-      return this.attributeRepository.map((a) => ({
-        ...a,
-        value: attributes[a.name.toLowerCase()],
-        enhancedValue: this.characterAttributesEnhanced[a.name.toLowerCase()],
-      }));
+
+      const characterAttributes = this.$store.getters['characters/characterAttributesById'](this.characterId);
+      let attributes = this.attributeRepository.map((repositoryAttribute) => {
+        /* {
+           key: 'strength',
+           name: 'Strength',
+           description: 'Raw physical power.',
+         } */
+        return {
+          ...repositoryAttribute,
+          value: characterAttributes[repositoryAttribute.key],
+          enhancedValue: parseInt(this.characterAttributesEnhanced[repositoryAttribute.key]),
+          rating: characterAttributes[repositoryAttribute.key],
+          adjustedRating: parseInt(characterAttributes[repositoryAttribute.key]),
+          adjustment: 0,
+          modifiers: [],
+        };
+      });
+
+      this.enhancements
+      .filter((enhancement)=>enhancement.targetGroup==='attributes')
+      .forEach((enhancement)=>{
+        // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
+        let attr = attributes.find((a)=>a.key===enhancement.targetValue);
+        attr.adjustment += enhancement.modifier;
+        attr.adjustedRating += enhancement.modifier;
+        attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+      });
+
+      this.talents
+      .filter((talent) => talent.modifications)
+      .forEach((talent) => {
+        if (talent.modifications) {
+          talent.modifications.filter((mods) => mods.targetGroup==='attributes')
+          .forEach((mod) => {
+            let attr = attributes.find((a) => a.key === mod.targetValue);
+            if (attr) {
+              attr.adjustment += mod.modifier;
+              attr.adjustedRating += mod.modifier;
+              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${talent.name}`);
+            }
+          });
+        }
+      });
+
+      if (this.gear && this.gear.length >0) {
+        let modGear = this.gear
+        .filter((gear) => gear.modifications)
+        .forEach((gear) => {
+          gear.modifications.forEach((mod) => {
+            let attr = attributes.find((a)=>a.key===mod.targetValue);
+            if (attr) {
+              attr.adjustment += mod.modifier;
+              attr.adjustedRating += mod.modifier;
+              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${gear.name}`);
+            }
+          });
+        });
+      }
+
+      attributes = attributes.map((a) => {
+        if (a.adjustedRating < 1) {
+          a.adjustedRating = Math.max(1, a.adjustedRating);
+          a.modifiers.push('(i) Value is increase to at least 1.');
+        }
+        return a;
+      });
+
+      let poweredStrength = 0;
+      // enrich with (equipped) gear
+      if ( this.armour && this.armour.length > 0 ) {
+        const armour = this.armour[0];
+        const traits = armour.meta[0].traits;
+        let poweredString = traits.find((trait)=>trait.includes('Powered'));
+        if (poweredString) {
+          const trait = this.normalizeTrait(poweredString);
+          if ( trait.variant) {
+            poweredStrength = parseInt(trait.variant);
+            let strength = attributes.find((a)=>a.key==='strength');
+            strength.adjustedRating += poweredStrength;
+            strength.adjustment += poweredStrength;
+            strength.modifiers.push(`+${poweredStrength} from Armour • ${armour.name}`);
+          }
+        }
+      }
+
+      return attributes;
     },
     traits() {
-      const traits = this.$store.getters['characters/characterTraitsById'](this.characterId);
+      const characterTraits = this.$store.getters['characters/characterTraitsById'](this.characterId);
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
-      return this.traitRepository.map((t) => ({
-        ...t,
-        value: traits[t.key],
-        enhancedValue: traitsEnhanced[t.key],
-      }));
+      const attributes = this.attributes;
+
+      let finalTraits = this.traitRepository.map((t) => {
+
+        let baseTraitValue = 0;
+
+        let relatedAttribute = attributes.find((attribute) => attribute.name === t.attribute);
+        if (t.key === 'influence' && this.keywords.includes('Adeptus Mechanicus')) {
+          relatedAttribute = attributes.find((attribute) => attribute.name === 'Intellect');
+        }
+
+        if (relatedAttribute) {
+          baseTraitValue += Math.ceil(relatedAttribute.adjustedRating * t.compute.multi);
+        } else {
+          let relatedSkill = this.skills.find((skill) => skill.name === t.skill);
+          if (relatedSkill) {
+            // todo better find the correct value
+            baseTraitValue += Math.ceil(this.computeSkillPool(relatedSkill) * t.compute.multi);
+          }
+        }
+
+        if (t.key === 'speed') {
+          baseTraitValue = traitsEnhanced[t.key];
+        }
+
+        baseTraitValue += t.compute.static;
+        baseTraitValue += ( t.compute.addTier ) ? this.characterSettingTier : 0 ;
+
+        const enhancedValue = baseTraitValue;
+        const aggregatedTrait = {
+          ...t,
+          value: enhancedValue,
+          enhancedValue: enhancedValue,
+          rating: enhancedValue,
+          adjustedRating: enhancedValue,
+          adjustment: 0,
+          modifiers: [`Base = ${baseTraitValue}`],
+        };
+
+        return aggregatedTrait;
+      });
+
+      this.enhancements
+      .filter((enhancement) => enhancement.targetGroup==='traits')
+      .forEach((enhancement) => {
+        // {"targetGroup":"attributes","targetValue":"strength","modifier":1,"source":"species"}
+        let traity = finalTraits.find((a) => a.key === enhancement.targetValue);
+        let mody = enhancement.modifier;
+        if (enhancement.rank) {
+          mody += (enhancement.rank * this.characterRank );
+        }
+        if ( traity ) {
+          traity.adjustment += mody;
+          traity.adjustedRating += mody;
+          traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${enhancement.source.split('.').join(' • ')}`);
+        } else {
+          console.warn(`Unexpected undefined trait for ${enhancement.targetValue}.`);
+        }
+      });
+
+      this.talents
+      .filter((talent) => talent.modifications)
+      .forEach((talent) => {
+        if (talent.modifications) {
+          talent.modifications.filter((mods) => mods.targetGroup==='traits')
+          .forEach((mod) => {
+            let traity = finalTraits.find((a) => a.key === mod.targetValue);
+            let mody = mod.modifier;
+            if (mod.rank) {
+              mody += (mod.rank * this.characterRank );
+            }
+            if (traity) {
+              traity.adjustment += mody;
+              traity.adjustedRating += mody;
+              traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${talent.name}`);
+            }
+          });
+        }
+      });
+
+      if (this.gear && this.gear.length >0) {
+        this.gear
+        .filter((gear) => gear.modifications)
+        .forEach((gear) => {
+          gear.modifications.forEach((mod) => {
+            let traity = finalTraits.find((a) => a.key === mod.targetValue);
+            if (traity) {
+              traity.adjustment += mod.modifier;
+              traity.adjustedRating += mod.modifier;
+              traity.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${gear.name}`);
+            }
+          });
+        });
+      }
+
+      if (this.armour && this.armour.length > 0) {
+        let resilience = finalTraits.find((a) => a.key === 'resilience' );
+        const wornArmour = this.armour
+        .filter((armour) => !armour.meta[0].traits.includes('Shield'))
+        .sort((a, b) => a.meta[0].armourRating < b.meta[0].armourRating ? 1 : -1)
+        .find((i) => true)
+        if (wornArmour) {
+          resilience.adjustment += wornArmour.meta[0].armourRating;
+          resilience.adjustedRating += wornArmour.meta[0].armourRating;
+          resilience.modifiers.push(`+${wornArmour.meta[0].armourRating} from ${wornArmour.name}`);
+        }
+        const wornShield = this.armour
+        .filter((armour) => armour.meta[0].traits.includes('Shield'))
+        .sort((a, b) => a.meta[0].armourRating < b.meta[0].armourRating ? 1 : -1)
+        .find((i) => true);
+        if (wornShield) {
+          resilience.adjustment += wornShield.meta[0].armourRating;
+          resilience.adjustedRating += wornShield.meta[0].armourRating;
+          resilience.modifiers.push(`+${wornShield.meta[0].armourRating} from ${wornShield.name}`);
+        }
+      }
+
+      finalTraits
+      .filter((t)=>['maxWounds', 'maxShock', 'wealth'].includes(t.key))
+      .forEach((t)=>{
+        t.spend = this.$store.getters['characters/characterResourceSpendById'](this.characterId, t.key);
+      });
+
+      return finalTraits;
     },
     groupedTraits() {
       return [
@@ -1019,13 +1220,16 @@
       let computed = text;
 
       // computed = computed.replace(/(1d3\+Rank Shock)/g, `<strong>1d3+${rank} Shock</strong>`);
-      computed = computed.replace(/(\d+ Faith)/g, '<strong>$1</strong>');
+      computed = computed.replace(/(\d+) Faith/g, '<em>$1 Faith</em>');
       computed = computed.replace(/(\d+ meters)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ metres)/g, '<strong>$1</strong>');
       computed = computed.replace(/15 \+ ?Rank metres/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15 \+ ?Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15\+Double Rank metres/g, `<strong>${15 + (2*rank)} metres</strong>`);
       computed = computed.replace(/\+ ?Rank/g, `<strong title="+Rank">+${rank}</strong>`);
       computed = computed.replace(/\+ ?Double Rank/g, `<strong title="+Double Rank">+${2*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Rank/g, `<strong title="+Double Rank">${10*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Double Rank/g, `<strong title="+Double Rank">${10*2*rank}</strong>`);
 
       return computed;
     },

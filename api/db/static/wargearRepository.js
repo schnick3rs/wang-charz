@@ -923,11 +923,11 @@ const core = [
   },
   {
     ...gear('core',236,'Clombi-Tool','3U','[Any]'),
-    ...toolz('Imperial Equipment','You ignore DN penalties to build, repair, maintain, and sabotage Imperial technology.'),
+    ...toolz('Universal Equipment','You ignore DN penalties to build, repair, maintain, and sabotage Imperial technology.'),
   },
   {
     ...gear('core',236,'Cameleoline Cloak','5R','[Any]'),
-    ...toolz('Imperial Equipment','+1 bonus die to Stealth (A) Tests and +1 to Defence when in shadow or cover.'),
+    ...toolz('Universal Equipment','+1 bonus die to Stealth (A) Tests and +1 to Defence when in shadow or cover.'),
   },
   {
     ...gear('core',237,'Chaplet Ecclesiasticus','3U','Imperium,Adeptus Ministorum,Adepta Sororitas'),
@@ -935,11 +935,11 @@ const core = [
   },
   {
     ...gear('core',237,'Chrono','2C','[Any]'),
-    ...toolz('Imperial Equipment','Settings on the chrono’s display allow for the accurate tracking of Imperial standard, shipboard, and local planetary time.'),
+    ...toolz('Universal Equipment','Settings on the chrono’s display allow for the accurate tracking of Imperial standard, shipboard, and local planetary time.'),
   },
   {
     ...gear('core',237,'Data-Slate','2C','[Any]'),
-    ...toolz('Imperial Equipment','You can record any information transferable from a cogitator, such as local maps, familial records, or manufactorum outputs, onto your Data-Slate.'),
+    ...toolz('Universal Equipment','You can record any information transferable from a cogitator, such as local maps, familial records, or manufactorum outputs, onto your Data-Slate.'),
   },
   {
     ...gear('core',237,'Diagnostor','5R','Imperium'),
@@ -955,16 +955,16 @@ const core = [
   },
   {
     ...gear('core',237,'Jump Pack','7R','[Any]'),
-    ...toolz('Imperial Equipment','Pilot Test to fly at double speed. Fail and Scatter, suffering 1d3 shock on a complication.'),
+    ...toolz('Universal Equipment','Pilot Test to fly at double speed. Fail and Scatter, suffering 1d3 shock on a complication.'),
     description: '<p>You can fly at double your Speed by making a Pilot (A) Test, ignoring any terrain. If you fail the Pilot (A) Test, your movement deviates according to the Scattering (p.186) rules. A Complication triggers a crash, which deals a minimum of 1d3 Shock.</p>',
   },
   {
     ...gear('core',237,'Magnoculars','2U','[Any]'),
-    ...toolz('Imperial Equipment','Awareness (Int) Tests made with Magnoculars suffer no penalties for distance.'),
+    ...toolz('Universal Equipment','Awareness (Int) Tests made with Magnoculars suffer no penalties for distance.'),
   },
   {
     ...gear('core',238,'Medikit','3U','[Any]'),
-    ...toolz('Imperial Equipment','You can make Medicae (Int) Tests to perform surgeries and heal others without suffering a DN penalty, including taking the Restore Shock option (p.124).'),
+    ...toolz('Universal Equipment','You can make Medicae (Int) Tests to perform surgeries and heal others without suffering a DN penalty, including taking the Restore Shock option (p.124).'),
   },
   {
     ...gear('core',238,'Chirurgeon\'s Tools','5R','Imperium,Adepta Sororitas'),
@@ -984,22 +984,22 @@ const core = [
   },
   {
     ...gear('core',238,'Preysense Goggles','5R','[Any]'),
-    ...toolz('Imperial Equipment','You ignore any penalties to Tests due to visual conditions.'),
+    ...toolz('Universal Equipment','You ignore any penalties to Tests due to visual conditions.'),
   },
   {
     ...gear('core',238,'Psychic Focus','3R','[Any]'),
-    ...toolz('Imperial Equipment','+1 bonus die to Psychic Mastery (Wil) Tests.'),
+    ...toolz('Universal Equipment','+1 bonus die to Psychic Mastery (Wil) Tests.'),
   },
   {
     ...gear('core',238,'Ration Packs','1C','[Any]'),
-    ...toolz('Imperial Equipment','Nomnomnom...'),
+    ...toolz('Universal Equipment','Nomnomnom...'),
   },
   {
     ...gear('core',239,'Respirator','2U','[Any]'),
-    ...toolz('Imperial Equipment','A Respirator canister lasts for 2 hours of continuous breathing. Whilst breathing through the Respirator, you are immune to breathable poisons and toxic atmospheres.'),
+    ...toolz('Universal Equipment','A Respirator canister lasts for 2 hours of continuous breathing. Whilst breathing through the Respirator, you are immune to breathable poisons and toxic atmospheres.'),
   },
   {
-    ...gear('core',239,'Rules Of The Sororitas','2U','[Any]'),
+    ...gear('core',239,'Rule Of The Sororitas','2U','[Any]'),
     ...toolz('Imperial Equipment','If you have the ADEPTA SORORITAS Keyword, you can read the Rule of Sororitas as part of a Respite to recover 1d3 Shock.'),
   },
   {
@@ -1016,11 +1016,11 @@ const core = [
   },
   {
     ...gear('core',239,'Survival Kit','3U','[Any]'),
-    ...toolz('Imperial Equipment','+1 bonus die to all Survival (Wil) Tests.'),
+    ...toolz('Universal Equipment','+1 bonus die to all Survival (Wil) Tests.'),
   },
   {
     ...gear('core',240,'Symbol Of Authority','3U','[Any]'),
-    ...toolz('Imperial Equipment','+1 bonus die to Leadership (Wil) and Intimidation (Wil) Tests versus targets who would respect your position.'),
+    ...toolz('Universal Equipment','+1 bonus die to Leadership (Wil) and Intimidation (Wil) Tests versus targets who would respect your position.'),
   },
   {
     ...gear('core',240,'Uplifting Primer','2C','Imperium,Astra Militarum'),
@@ -1028,19 +1028,19 @@ const core = [
   },
   {
     ...gear('core',240,'Void Suit','5R','[Any]'),
-    ...toolz('Imperial Equipment','Protects the wearer from the vacuum of space, with enough oxygen for five hours of continuous use. Includes a Vox Caster.'),
+    ...toolz('Universal Equipment','Protects the wearer from the vacuum of space, with enough oxygen for five hours of continuous use. Includes a Vox Caster.'),
   },
   {
     ...gear('core',240,'Vox Bead','3U','[Any]'),
-    ...toolz('Imperial Equipment','You can communicate with anyone within 1,000 metres (one kilometer) that has a vox unit tuned to the same frequency.'),
+    ...toolz('Universal Equipment','You can communicate with anyone within 1,000 metres (one kilometer) that has a vox unit tuned to the same frequency.'),
   },
   {
     ...gear('core',240,'Vox Caster','3R','[Any]'),
-    ...toolz('Imperial Equipment','You can communicate with anyone within 100,000 metres (100 kilometers) that has a vox unit.'),
+    ...toolz('Universal Equipment','You can communicate with anyone within 100,000 metres (100 kilometers) that has a vox unit.'),
   },
   {
-    ...gear('core',240,'Vox Caster','2C','Imperium'),
-    ...toolz('Imperial Equipment','Writing stuff..'),
+    ...gear('core',240,'Writing Kit','2C','Imperium'),
+    ...toolz('Imperial Equipment','A kit to write stuff'),
   },
   {
     ...gear('core',241,'Bonesinger Shard','6R','Aeldari'),
