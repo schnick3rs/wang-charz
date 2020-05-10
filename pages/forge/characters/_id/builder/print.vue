@@ -1193,7 +1193,7 @@
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
       if (attribute) {
-        return attribute.enhancedValue + skill.enhancedValue;
+        return attribute.adjustedRating + skill.enhancedValue;
       }
       return skill.enhancedValue;
     },
