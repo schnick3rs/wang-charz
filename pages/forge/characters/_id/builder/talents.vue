@@ -294,7 +294,6 @@ export default {
   data() {
     return {
       issues: [
-        'Allow to select specific "Acts of Faith".',
         'Allow to pick "Augments", add them to the wargear and compute the cost accordingly.',
         'Allow to pick some talents multiple times.',
       ],

@@ -46,6 +46,9 @@ export default {
     keywords() {
       return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
     },
+    enhancements() {
+      return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
+    },
     psychicPowers() {
       return this.$store.getters['characters/characterPsychicPowersById'](this.characterId);
     }
@@ -63,9 +66,28 @@ export default {
   methods: {
     async getArchetype(key) {
       this.loading = true;
+      let finalData = {};
       const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+      finalData = data;
+
+      finalData.archetypeFeatures
+        .filter((feature) => feature.options)
+        .forEach((feature) => {
+          const enhancements = this.enhancements.filter((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
+          if (enhancements) {
+            enhancements.forEach((e, i) => {
+              feature.selected[i] = e.source.split('.').pop();
+            });
+          } else {
+            const enhancement = this.enhancements.find((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
+            if ( enhancement ) {
+              feature.selected = enhancement.source.split('.').pop();
+            }
+          }
+        });
+
       this.loading = false;
-      this.item = data;
+      this.item = finalData;
     },
     doChangeMode() {
       this.$router.push({

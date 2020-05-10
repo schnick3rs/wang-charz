@@ -454,12 +454,24 @@
                       <span class="body-2 red--text">Archetype</span>
                     </div>
 
-                    <div v-for="ability in archetypeAbilities" :key="ability.name" class="caption">
+                    <div v-for="ability in archetypeAbilities" :key="ability.name" class="caption mb-2">
                       <strong>{{ ability.name }}</strong>
                       <em v-if="ability.source"> • {{ ability.source }}</em>
 
-                      <div v-if="ability.snippet"><p v-html="computeFormatedText(ability.snippet)"></p></div>
+                      <div v-if="ability.snippet"><p class="mb-1" v-html="computeFormatedText(ability.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
+
+                      <div
+                        v-if="ability.selectedOptions"
+                        v-for="selectedOption in ability.selectedOptions"
+                        class="ml-1 pl-2"
+                        style="border-left: solid 3px lightgrey;"
+                      >
+                        <strong>{{ selectedOption.name }}</strong>
+                        <div v-if="selectedOption.snippet"><p class="mb-1"  v-html="computeFormatedText(selectedOption.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(selectedOption.description)"></div>
+                      </div>
+
                     </div>
 
                   </div>
@@ -1282,15 +1294,33 @@ export default {
       const archetype = this.characterArchetype;
 
       if (archetype && archetype.archetypeFeatures) {
-        archetype.archetypeFeatures.forEach( (item) => {
+        archetype.archetypeFeatures.forEach((feature) => {
           const ability = {
-            name: item.name,
-            effect: item.snippet ? item.snippet : item.description,
-            snippet: item.snippet,
-            description: item.description,
+            name: feature.name,
+            effect: feature.snippet ? feature.snippet : feature.description,
+            snippet: feature.snippet,
+            description: feature.description,
             source: archetype.name,
             hint: archetype.name,
+            selectedOptions: [],
           };
+          if ( feature.options ) {
+            const traitSelection = this.enhancements.filter( (e) => e.source.startsWith(`archetype.${feature.name}.`));
+            if ( traitSelection ) {
+              traitSelection.forEach((selection) => {
+                if (selection.effect) {
+                  ability.selectedOptions.push({
+                    name: selection.name,
+                    snippet: selection.effect,
+                  });
+                } else {
+                  ability.selectedOptions.push({
+                    name: selection.targetValue,
+                  });
+                }
+              })
+            }
+          }
           abilities.push(ability);
         });
       }
@@ -1385,7 +1415,7 @@ export default {
       // other
       if (this.customAbilities) {
         this.customAbilities
-        .filter( (a) => a.source && !a.source.startsWith('species.') && !a.source.startsWith('ascension.') )
+        .filter( (a) => a.source && !a.source.startsWith('species.') && !a.source.startsWith('archetype.') && !a.source.startsWith('ascension.') )
         .forEach((item) => {
           const ability = {
             name: item.name,

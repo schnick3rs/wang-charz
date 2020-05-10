@@ -539,7 +539,12 @@ const core = [
           { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
           { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
         ],
-        selected: '',
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor and Universal Disciplines. You unlock an addtional single Psychic Discipline.',
+        description: '<p>You gain access to the Minor and Universal Disciplines. You unlock an additional single Psychic Discipline, following the rules in Chapter 11.</p>',
+        selected: [''],
         options: [
           // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
           // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
@@ -585,7 +590,7 @@ const core = [
         name: 'Choice of Flak Coat, Ignatus Power Armour or Light Power Armour',
         selected: '',
         options: [
-
+          { name: 'Flak Coat' },
           { name: 'Ignatus Power Armour' },
           { name: 'Light Power Armour' },
         ],
@@ -846,20 +851,79 @@ const core = [
         name: 'Mutant',
         snippet: 'You start with two mutations (pg. 287). Whenever your Rank increases, you may select another Mutation.',
         description: '<p>Your life in the unsanitary underbelly of the Imperium has mutated you. Select two Mutations from the list of Scavvy Mutations on p.287. Whenever your Rank increases, you may select another Mutation from the list.</p>',
-        optionz: [ // TODO, enable
-          { name: 'Hint of Red Eye', snippet: 'Add 1 dice to Awareness (Int) Tests. You suffer +1 DN to actions that require vision, while exposed to light.' },
-          { name: 'Voice of the Aurelian', snippet: 'Add +Rank dice to social tests. Psykers within 25m must reroll Wrath Dice without compolications.' },
-          { name: 'Living Shadow', snippet: 'You are aware of any Ambush as if you had spend a Point of Glory. You suffer +1 DN to opposing psychic powers of its effect.' },
-          { name: 'Gossamer Flesh', snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.' },
-          { name: 'Blightend Soul', snippet: 'You add +1 dice to resist Poison. You and anyone within 10m suffer +1 DN to Corruption and Malignancy Tests.' },
-          { name: 'Wyrding', snippet: 'You gain the PSYKER Keyword. You gain one Minor Psychic Power (GM choice). If you already are a PSYKER, you gan one aditional Minow Psychic Power.' },
-          { name: 'Misshapen', snippet: 'Increase your Resolve by 2. Reduce your Max Shock by 1.' },
-          { name: 'Grotesque', snippet: 'You add +1 die to Intimidation (Wil) Tests. You suffer +1 DN to (other) social interaction tests with non-CHAOS.' },
-          { name: 'Bestial Hide', snippet: 'Increase your Resilience by 1. You add +1 dice to Intimidation (Wil) Tests. You suffer +2 DN to (other) social interaction tests with non-CHAOS.' },
-          { name: 'Brute', snippet: 'Increase your Strength and Toughness by 1. You suffer +1 DN to all tests involving Tools and Range Weapons, if they are not adjusted to your build.' },
-          { name: 'Toxic Blood', snippet: 'You are immune to Poisend and diseases. Any Medicae Test on you suffers +2 DN. On a Complication, the Medic must pass DN 4 Toughness or suffer one Mortal Wound.' },
-          { name: 'Withered', snippet: 'Increase your Willpower by 2. Reduce your Toughness by 1.' },
-          { name: 'Vile Alacrity', snippet: 'Increase your Speed by 2. Add +1 dice to Athletic (Str) tests. You suffer (at least) +2 DN to social interaction tests with non-CHAOS.' },
+        alert: { type: 'warning', text: 'Only select the amount of mutations that you are allowed to.', },
+        selected: ['', '', '', ''],
+        options: [
+          {
+            name: 'Hint of Red Eye',
+            snippet: 'Add 1 dice to Awareness (Int) Tests. You suffer +1 DN to actions that require vision, while exposed to light.'
+          },
+          {
+            name: 'Voice of the Aurelian',
+            snippet: 'Add +Rank dice to social tests. Psykers within 25m must reroll Wrath Dice without compolications.'
+          },
+          {
+            name: 'Living Shadow',
+            snippet: 'You are aware of any Ambush as if you had spend a Point of Glory. You suffer +1 DN to opposing psychic powers of its effect.'
+          },
+          {
+            name: 'Gossamer Flesh',
+            snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.'
+          },
+          {
+            name: 'Blightend Soul',
+            snippet: 'You add +1 dice to resist Poison. You and anyone within 10m suffer +1 DN to Corruption and Malignancy Tests.'
+          },
+          {
+            name: 'Wyrding',
+            snippet: 'You gain the PSYKER Keyword. You gain one Minor Psychic Power (GM choice). If you already are a PSYKER, you gan one aditional Minow Psychic Power.'
+          },
+          {
+            name: 'Misshapen',
+            snippet: 'Increase your Resolve by 2. Reduce your Max Shock by 1.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'resolve', modifier: 2 },
+              { targetGroup: 'traits', targetValue: 'maxShock', modifier: -1 },
+            ],
+          },
+          {
+            name: 'Grotesque',
+            snippet: 'You add +1 die to Intimidation (Wil) Tests. You suffer +1 DN to (other) social interaction tests with non-CHAOS.'
+          },
+          {
+            name: 'Bestial Hide',
+            snippet: 'Increase your Resilience by 1. You add +1 dice to Intimidation (Wil) Tests. You suffer +2 DN to (other) social interaction tests with non-CHAOS.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'resilience', modifier: 1 },
+            ],
+          },
+          {
+            name: 'Brute',
+            snippet: 'Increase your Strength and Toughness by 1. You suffer +1 DN to all tests involving Tools and Range Weapons, if they are not adjusted to your build.',
+            modifications: [
+              { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
+              { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+            ],
+          },
+          {
+            name: 'Toxic Blood',
+            snippet: 'You are immune to Poisend and diseases. Any Medicae Test on you suffers +2 DN. On a Complication, the Medic must pass DN 4 Toughness or suffer one Mortal Wound.',
+          },
+          {
+            name: 'Withered',
+            snippet: 'Increase your Willpower by 2. Reduce your Toughness by 1.',
+            modifications: [
+              { targetGroup: 'attributes', targetValue: 'willpower', modifier: 2 },
+              { targetGroup: 'attributes', targetValue: 'toughness', modifier: -1 },
+            ],
+          },
+          {
+            name: 'Vile Alacrity',
+            snippet: 'Increase your Speed by 2. Add +1 dice to Athletic (Str) tests. You suffer (at least) +2 DN to social interaction tests with non-CHAOS.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'speed', modifier: 2 },
+            ],
+          },
         ],
       },
     ],
@@ -992,7 +1056,12 @@ const core = [
           { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
           { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
         ],
-        selected: '',
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor, Universal and Maleficarum disciplines. You unlock an additional single Psychic Discipline.',
+        description: '<p>You gain access to the Minor, Universal and Maleficarum disciplines. You unlock an additional single Psychic Discipline, following the rules in Chapter 11.</p>',
+        selected: [''],
         options: [
           // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
           // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
@@ -1162,18 +1231,18 @@ const core = [
       {
         name: 'Runes of Battle',
         // TODO probably error
-        snippet: 'You are a Psyker; you know the Smite and Psyniscience psychic powers and may learn other powers as described in Chapter 11.',
+        snippet: 'You are a Psyker; you know the Smite psyhcic power and may learn other powers as described in Chapter 11.',
         psychicPowers: [
           { name: 'psykerSmmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
           //{ name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
         ],
-        psychicDisciplines: [
-          'Minor',
-          'Universal',
-          'Divination',
-          'Runes of Battle',
-        ],
-        selected: '',
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. You also gain access to on additional Discipline.',
+        description:
+          '<p>You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. You also gain access to on additional Discipline. See Chapter 11 for details.</p>',
+        selected: [''],
         options: [
           // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
           // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
@@ -1184,6 +1253,12 @@ const core = [
           { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
           { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
           // { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+          'Divination',
+          'Runes of Battle',
         ],
       },
     ],

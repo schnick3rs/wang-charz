@@ -85,38 +85,52 @@
       </div>
 
       <div
-        v-for="trait in item.archetypeFeatures"
+        v-for="feature in item.archetypeFeatures"
         class="text-lg-justify"
       >
         <div>
-          <strong>{{ trait.name }}</strong>
-          <div v-if="trait.description" v-html="trait.description"></div>
-          <p v-else>{{ trait.snippet }}</p>
+          <strong>{{ feature.name }}</strong>
+          <div v-if="feature.description" v-html="feature.description"></div>
+          <p v-else>{{ feature.snippet }}</p>
+          <v-alert
+            v-if="feature.alert"
+            :type="feature.alert.type"
+            dense
+            text
+          >{{feature.alert.text}}</v-alert>
         </div>
 
-        <div v-if="manageMode && trait.options && trait.options.length > 0">
-          <v-select
-            :items="trait.options"
-            v-model="trait.selected"
-            item-value="name"
-            item-text="name"
-            @change="changeTraitOption(trait)"
-            dense
-            solo
-          ></v-select>
-          <div
-            v-if="trait.selected && trait.selected.length > 0"
-            class="ml-4 mr-4"
-          >
-            <div v-html="trait.options.find((o)=>o.name === trait.selected).description"></div>
+        <div
+          v-if="manageMode && feature.options && feature.options.length > 0"
+        >
+          <div v-for="inx in feature.selected.length">
+            <v-select
+              :items="feature.options"
+              v-model="feature.selected[inx-1]"
+              item-value="name"
+              item-text="name"
+              @change="changeTraitOption(feature, inx-1)"
+              dense
+              solo
+            ></v-select>
+            <div
+              v-if="feature.selected[inx-1] && feature.selected[inx-1].length > 0"
+              class="ml-4 mr-4"
+            >
+              <div
+                v-if="feature.options.find((o)=>o.name === feature.selected[inx-1]).description"
+                v-html="feature.options.find((o)=>o.name === feature.selected[inx-1]).description"
+              ></div>
+              <p v-else>{{feature.options.find((o)=>o.name === feature.selected[inx-1]).snippet}}</p>
+            </div>
           </div>
         </div>
 
-        <div v-if="manageMode && trait.psychicPowers">
+        <div v-if="manageMode && feature.psychicPowers">
 
-          <div v-for="selections in trait.psychicPowers" :key="selections.name">
+          <div v-for="selections in feature.psychicPowers" :key="selections.name">
             <v-select
-              v-if="selections.options"
+              v-if="selections.query && !selections.query.name"
               v-model="selections.selected"
               :readonly="selections.options.length <= 1"
               :items="selections.options"
@@ -128,6 +142,16 @@
               class="ml-2 mr-2"
               @change="updatePsychicPowers(selections)"
             />
+            <v-checkbox
+              v-else
+              class="ml-2 mr-2"
+              v-model="selections.query.name"
+              :label="selections.query.name"
+              :hint="psychicPowerHint(selections.query.name)"
+              persistent-hint
+              dense
+              disabled
+            ></v-checkbox>
           </div>
         </div>
 
@@ -136,6 +160,9 @@
       <p class="text-lg-justify">
         <strong>Wargear:</strong> {{ wargearText }}
       </p>
+      <v-alert text border-left dense type="info" class="caption">
+        You can add your (starting) equipment in the <em>6. Wargear</em> section.
+      </v-alert>
 
       <div v-if="false">
         <p><v-divider /></p>
@@ -229,6 +256,8 @@ export default {
     const featuresWithOptions = this.item.archetypeFeatures.filter( (f) => f.options !== undefined);
     if ( featuresWithOptions && this.manageMode ) {
       featuresWithOptions.forEach((feature) => {
+
+        // keywords
         const found = this.keywords.find((k) => k.source === `archetype.${feature.name}`);
         if (found) {
           feature.options.forEach((options) => {
@@ -236,6 +265,8 @@ export default {
             feature.selected = found.name;
           });
         }
+
+
       });
     }
   },
@@ -384,10 +415,10 @@ export default {
         psychicPowerSelection.options = response.data;
       });
     },
-    changeTraitOption(trait) {
-      const selectedOption =  trait.options.find( (o) => o.name === trait.selected );
+    changeTraitOption(trait, inx) {
+      const selectedOption =  trait.options.find( (o) => o.name === trait.selected[inx] );
 
-      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `archetype.${trait.name}.` });
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `archetype.${trait.name}.${inx}.` });
       // the option has a snippet, that is thus added as a custom ability
       if ( selectedOption.snippet ) {
         const content = {
@@ -397,7 +428,7 @@ export default {
             targetValue: '',
             effect: selectedOption.snippet,
           }],
-          source: `archetype.${trait.name}.${selectedOption.name}`,
+          source: `archetype.${trait.name}.${inx}.${selectedOption.name}`,
         };
         this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
       }
@@ -406,7 +437,7 @@ export default {
       if ( selectedOption.modifications ) {
         const content = {
           modifications: selectedOption.modifications,
-          source: `archetype.${trait.name}.${selectedOption.name}`,
+          source: `archetype.${trait.name}.${inx}.${selectedOption.name}`,
         };
         this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
       }

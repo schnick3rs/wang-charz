@@ -280,6 +280,7 @@ export default {
       if (item.modifications){
         mods.push(...item.modifications);
       }
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: 'archetype' });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype', cascade: true });
