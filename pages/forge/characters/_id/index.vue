@@ -502,7 +502,7 @@
 
                   <!-- talents < abilities -->
                   <div v-show="['all', 'talents'].some(i=>i===abilitySection.selection)" >
-                    
+
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
                       <span class="body-2 red--text" style="flex: 1;">Talents</span>
                       <div style="flex-wrap: wrap; display: flex;" v-if="characterFaith.points > 0">
@@ -516,11 +516,11 @@
                       </div>
                     </div>
 
-                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption mb-3">
+                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption mb-2">
 
                       <strong>{{ talent.name }}</strong>
                       <em> • Talent</em>
-                      <div v-if="talent.snippet"><p v-html="computeFormatedText(talent.snippet)"></p></div>
+                      <div v-if="talent.snippet"><p class="mb-1" v-html="computeFormatedText(talent.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(talent.description)"></div>
 
                       <div v-if="false" class="mt-1 mb-1 ml-1 pl-2" style="flex-wrap: wrap; display: flex; border-left: solid 3px lightgrey;" >
@@ -575,7 +575,7 @@
                       <strong>{{ ability.name }}</strong>
                       <em v-if="ability.source"> • {{ ability.source }}</em>
 
-                      <div v-if="ability.snippet"><span>{{computeFormatedText(ability.snippet)}}</span></div>
+                      <div v-if="ability.snippet"><p class="mb-1" v-html="computeFormatedText(ability.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
 
                       <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
