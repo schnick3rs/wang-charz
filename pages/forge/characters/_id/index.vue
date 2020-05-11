@@ -1169,7 +1169,8 @@ export default {
       }
 
       if (this.armour && this.armour.length > 0) {
-        let resilience = finalTraits.find((a) => a.key === 'resilience' );
+        let resilience = finalTraits.find((a) => a.key === 'resilience');
+        let defence = finalTraits.find((a) => a.key === 'defence');
         const wornArmour = this.armour
           .filter((armour) => !armour.meta[0].traits.includes('Shield'))
           .sort((a, b) => a.meta[0].armourRating < b.meta[0].armourRating ? 1 : -1)
@@ -1187,6 +1188,9 @@ export default {
           resilience.adjustment += wornShield.meta[0].armourRating;
           resilience.adjustedRating += wornShield.meta[0].armourRating;
           resilience.modifiers.push(`+${wornShield.meta[0].armourRating} from ${wornShield.name}`);
+          defence.adjustment += wornShield.meta[0].armourRating;
+          defence.adjustedRating += wornShield.meta[0].armourRating;
+          defence.modifiers.push(`+${wornShield.meta[0].armourRating} from ${wornShield.name}`);
         }
       }
 
