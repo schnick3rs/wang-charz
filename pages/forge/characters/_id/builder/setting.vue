@@ -476,4 +476,11 @@ export default {
   .croppa-container canvas {
     border: 0.5px dashed grey;
   }
+
+  .text--keyword {
+    color: darkred;
+    font-weight: 600;
+    font-family: serif;
+    text-transform: uppercase;
+  }
 </style>

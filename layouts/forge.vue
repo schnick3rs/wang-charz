@@ -488,7 +488,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
   .dod-container {
 
     @media (min-width: 768px) {
@@ -516,11 +516,5 @@ export default {
       text-decoration: none;
     }
 
-  }
-  .text--keyword {
-    color: darkred;
-    font-weight: 600;
-    font-family: serif;
-    text-transform: uppercase;
   }
 </style>
