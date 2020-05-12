@@ -172,7 +172,7 @@ export default {
           name: 'Rapid Fire',
           hint: '',
           fluff: 'These weapons are capable of quickly unleashing a hail of death at close range.',
-          crunch: 'If you hit with a Rapid Fire weapon at Short Range, you gain Extra Damage Dice equal to the weapon’s Rapid Fire rating',
+          crunch: 'This Weapon deals +X ED at Short Range.',
           description:
             '<p>These weapons are capable of quickly unleashing a hail of death at close range.</p>' +
             '<p>If you hit with a Rapid Fire weapon at Short Range, you gain Extra Damage Dice equal to the weapon’s Rapid Fire rating</p>',

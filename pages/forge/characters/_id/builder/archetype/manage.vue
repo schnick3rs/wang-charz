@@ -76,7 +76,10 @@ export default {
           const enhancements = this.enhancements.filter((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
           if (enhancements) {
             enhancements.forEach((e, i) => {
-              feature.selected[i] = e.source.split('.').pop();
+              let foundInd = /\.(\d)\./.exec(e.source);
+              if (foundInd) {
+                feature.selected[foundInd[1]] = e.source.split('.').pop();
+              }
             });
           } else {
             const enhancement = this.enhancements.find((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );

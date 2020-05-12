@@ -1321,9 +1321,9 @@ export default {
                     name: selection.name,
                     snippet: selection.effect,
                   });
-                } else {
+                } else if (selection.name) {
                   ability.selectedOptions.push({
-                    name: selection.targetValue,
+                    name: selection.name,
                   });
                 }
               })
