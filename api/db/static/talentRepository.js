@@ -805,6 +805,10 @@ const core = [
     description:
       '<p></p>',
     requirements: [],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'determination', modifier: 0, rank: 1 },
+      { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 1 },
+    ],
   },
   {
     ...talent('core',141,'Touched By Fate',20),
