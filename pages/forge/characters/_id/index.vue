@@ -1095,7 +1095,7 @@ export default {
         }
 
         if (t.key === 'speed') {
-          baseTraitValue = traitsEnhanced[t.key];
+          baseTraitValue = characterTraits[t.key];
         }
 
         baseTraitValue += t.compute.static;
