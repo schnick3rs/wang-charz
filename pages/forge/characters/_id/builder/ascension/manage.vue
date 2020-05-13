@@ -164,49 +164,51 @@
             <!-- Feature with Options -->
             <div class="ml-2 mr-2" v-if="feature.options && feature.options.length > 0">
 
-              <v-select
-                :items="feature.options"
-                v-model="feature.selected"
-                item-value="key"
-                item-text="name"
-                @change="setFeatureOptionChoice(characterAscension, feature)"
-                :placeholder="feature.optionsPlaceholder"
-                dense
-                solo
-              ></v-select>
+              <div v-for="inx in feature.selected.length">
+                <v-select
+                  :items="feature.options"
+                  v-model="feature.selected[inx-1]"
+                  item-value="key"
+                  item-text="name"
+                  @change="setFeatureOptionChoice(characterAscension, feature, inx-1)"
+                  :placeholder="feature.optionsPlaceholder"
+                  dense
+                  solo
+                ></v-select>
 
-              <div
-                v-if="feature.selected && feature.selected.length > 0 && featureOptionChoice(feature)"
-                class="ml-4 mr-4"
-              >
-                <!-- feature text and/or description -->
                 <div
-                  v-if="featureOptionChoice(feature).description"
-                  v-html="featureOptionChoice(feature).description"
-                ></div>
-                <p v-else>{{featureOptionChoice(feature).snippet}}</p>
-
-                <!-- feature options selection -->
-                <div class="ml-2 mr-2" v-if="featureOptionChoice(feature)">
-
+                  v-if="feature.selected[inx-1] && feature.selected[inx-1].length > 0 && featureOptionChoice(feature, inx)"
+                  class="ml-4 mr-4"
+                >
+                  <!-- feature text and/or description -->
                   <div
-                    v-if="featureOptionChoice(feature).wargear && featureOptionChoice(feature).wargear.length > 0"
-                  >
-                    <!-- features options with wargear options -->
+                    v-if="featureOptionChoice(feature, inx).description"
+                    v-html="featureOptionChoice(feature, inx).description"
+                  ></div>
+                  <p v-else>{{featureOptionChoice(feature, inx).snippet}}</p>
+
+                  <!-- feature options selection -->
+                  <div class="ml-2 mr-2" v-if="featureOptionChoice(feature, inx)">
+
                     <div
-                      v-for="wargearOption in featureOptionChoice(feature).wargear"
-                      :key="wargearOption.key"
+                      v-if="featureOptionChoice(feature, inx).wargear && featureOptionChoice(feature, inx).wargear.length > 0"
                     >
-                      <wargear-select
-                        :item="wargearOption.selected"
-                        :repository="computeWargearOptionsByFilter(wargearOption.options[0], characterAscension)"
-                        class="mb-4"
-                        @input="setFeatureOptionWargearChoice($event, characterAscension, feature, wargearOption.key)"
-                      />
+                      <!-- features options with wargear options -->
+                      <div
+                        v-for="wargearOption in featureOptionChoice(feature, inx).wargear"
+                        :key="wargearOption.key"
+                      >
+                        <wargear-select
+                          :item="wargearOption.selected"
+                          :repository="computeWargearOptionsByFilter(wargearOption.options[0], characterAscension)"
+                          class="mb-4"
+                          @input="setFeatureOptionWargearChoice($event, characterAscension, feature, wargearOption.key)"
+                        />
+                      </div>
                     </div>
                   </div>
-                </div>
 
+                </div>
               </div>
 
             </div>
@@ -398,33 +400,38 @@ export default {
 
         // set selected fields for feature with options
         characterPackage.ascensionFeatures
-        .filter((feature) => feature.options)
-        .forEach((featureWithOptions) => {
+          .filter((feature) => feature.options)
+          .forEach((featureWithOptions) => {
 
-          // generic setting
-          const featureKey = characterPackage.featureChoices ? characterPackage.featureChoices[featureWithOptions.name] : false;
-          if ( featureKey ) {
-            featureWithOptions.selected = characterPackage.featureChoices[featureWithOptions.name];
-          }
+            // generic setting
+            const featureKey = characterPackage.featureChoices ? characterPackage.featureChoices[featureWithOptions.name] : false;
+            if ( featureKey ) {
+              //featureWithOptions.selected = characterPackage.featureChoices[featureWithOptions.name];
+            }
 
-          // ToDo remove
-          const enhancement = this.enhancements.find((m) => m.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.key}`) );
-          if ( enhancement ) {
-            featureWithOptions.selected = enhancement.source.split('.').pop();
-          }
+            // ToDo remove
+            const enhancements = this.enhancements.filter((m) => m.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.key}`) );
+            if ( enhancements ) {
+              enhancements.forEach((e) => {
+                let foundInd = /\.(\d)\./.exec(e.source);
+                if (foundInd) {
+                  featureWithOptions.selected[foundInd[1]] = e.source.split('.').pop();
+                }
+              });
+            }
 
-          // selected wargear
-          const associatedGear = this.characterWargear
-            .filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.key}`));
-          if (associatedGear) {
-            const optionsWithWargear = featureWithOptions.options.filter((f)=>f.wargear);
-            optionsWithWargear.forEach((o) => {
-              o.wargear.forEach((w) => {
-                const gearFound = associatedGear.find((a) => a.source.endsWith(w.key));
-                w.selected = gearFound ? gearFound.name : '';
-              })
-            });
-          }
+            // selected wargear
+            const associatedGear = this.characterWargear
+              .filter((gear) => gear.source && gear.source.startsWith(`ascension.${characterPackage.key}.${featureWithOptions.key}`));
+            if (associatedGear) {
+              const optionsWithWargear = featureWithOptions.options.filter((f)=>f.wargear);
+              optionsWithWargear.forEach((o) => {
+                o.wargear.forEach((w) => {
+                  const gearFound = associatedGear.find((a) => a.source.endsWith(w.key));
+                  w.selected = gearFound ? gearFound.name : '';
+                })
+              });
+            }
 
         });
 
@@ -674,12 +681,12 @@ export default {
      * @param feature
      * @param type
      */
-    setFeatureOptionChoice(ascension, feature, type = 'ascension') {
+    setFeatureOptionChoice(ascension, feature, index, type = 'ascension') {
       const id = this.characterId;
-      const sourcePrefix = `${type}.${ascension.key}.${feature.key}`;
-      const selectedOption =  feature.options.find( (o) => o.key === feature.selected );
+      const sourcePrefix = `${type}.${ascension.key}.${feature.key}.${index}`;
+      const selectedOption =  feature.options.find( (o) => o.key === feature.selected[index] );
 
-      console.log(`Set choice for ${feature.name} -> ${selectedOption.name}`);
+      console.log(`Set choice for ${feature.name}.${index} -> ${selectedOption.name}`);
 
       const ascensionFeatureOptionChoicePayload = {
         id: this.characterId,
@@ -720,8 +727,9 @@ export default {
         this.$store.commit('characters/addCharacterModifications', { id, content });
       }
     },
-    featureOptionChoice(feature){
-      return feature.options.find((o)=>o.key === feature.selected);
+    featureOptionChoice(feature, inx){
+      return feature.options.find((o)=>o.key === feature.selected[inx-1])
+      //return feature.options.find((o)=>o.key === feature.selected);
     },
     computeWargearOptionsByFilter(filter, ascension = {targetTier:0}) {
       const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;

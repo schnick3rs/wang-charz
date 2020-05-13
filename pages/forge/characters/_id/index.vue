@@ -491,9 +491,15 @@
                       <div v-if="ability.snippet"><p class="mb-1" v-html="computeFormatedText(ability.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
 
-                      <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
-                        <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
-                        <div v-if="ability.selectedOption.snippet"><p class="mb-1" v-html="ability.selectedOption.snippet"></p></div>
+                      <div
+                        v-if="ability.selectedOptions"
+                        v-for="selectedOption in ability.selectedOptions"
+                        class="ml-1 pl-2"
+                        style="border-left: solid 3px lightgrey;"
+                      >
+                        <strong>{{ selectedOption.name }}</strong>
+                        <div v-if="selectedOption.snippet"><p class="mb-1" v-html="computeFormatedText(selectedOption.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(selectedOption.description)"></div>
                       </div>
 
                     </div>
@@ -1354,23 +1360,37 @@ export default {
               description: feature.description,
               source: ascension.name,
               hint: ascension.name,
+              selectedOptions: [],
             };
 
             if ( feature.options ) {
-              const featureOption = this.enhancements.find( (e) => e.source.startsWith(`ascension.${ascension.key}.${feature.key}.`));
-              if ( featureOption ) {
-                if ( featureOption.targetValue ) {
-                  ability['selectedOption'] = {
-                    effect: featureOption.targetValue, // todo e.g. corruption
-                    snippet: featureOption.targetValue,
-                  };
-                } else { // e.g. memorabie injury
-                  ability['selectedOption'] = {
-                    name: featureOption.name,
-                    effect: featureOption.effect,
-                    snippet: featureOption.effect,
-                  };
-                }
+              const choices = this.enhancements.filter( (e) => e.source.startsWith(`ascension.${ascension.key}.${feature.key}.`));
+              if ( choices ) {
+                choices.forEach((choice) => {
+                  if (choice.effect) {
+                    ability.selectedOptions.push({
+                      name: choice.name,
+                      snippet: choice.effect,
+                    });
+                  } else if (choice.name) {
+                    ability.selectedOptions.push({
+                      name: choice.name,
+                    });
+                  }
+                  /*
+                  if ( choice.targetValue ) {
+                    ability.selectedOptions.push({
+                      name: choice.targetValue, // todo e.g. corruption
+                      snippet: choice.targetValue,
+                    });
+                  } else { // e.g. memorabie injury
+                    ability.selectedOptions.push({
+                      name: choice.name,
+                      snippet: choice.effect,
+                    });
+                  }
+                   */
+                });
               }
             }
             abilities.push(ability);

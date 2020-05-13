@@ -67,234 +67,81 @@ const core = [
         ],
       },
       {
-        key: 'traumatic-injury-one',
-        name: 'Traumatic Injury',
-        snippet: 'Your roll on the Traumatic Injury Table',
-        selected: '',
-        optionsPlaceholder: 'Roll d6 and select a Injury',
+        key: 'memorable-injuries',
+        name: 'Memorable Injuries',
+        snippet: 'You gain two Memorable Injuries. Whenever you reveal your Memorable Injury, you gain +1 bonus die on Intimidation (Wil) Tests.',
+        modifications: [
+          {
+            name: 'Memorable Injury',
+            targetGroup: 'abilities',
+            targetValue: '',
+            effect: 'Whenever you reveal your Memorable Injury, you gain +1 bonus die on Intimidation (Wil) Tests.',
+          },
+        ],
+      },
+      {
+        key: 'traumatic-injuries',
+        name: 'Traumatic Injuries',
+        snippet: 'Your roll twice on the Traumatic Injury Table.',
+        selected: ['',''],
+        optionsPlaceholder: 'Roll d6 and/or select a Injury',
         options: [
           {
             key: 'core-injury-one-hand',
             name: 'Hand',
             snippet: 'You suffer a severe hand injury; you can no longer use that hand. Losing both hands means you are unable to hold any weapons or similar gear.',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-hand',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
           },
           {
             key: 'core-injury-one-arm',
             name: 'Arm',
             snippet: 'You suffer a severe injury to your arm. Losing both arms means you are unable to hold any weapons or similar gear.',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-arm',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
           },
           {
             key: 'core-injury-one-foot',
             name: 'Foot',
             snippet: 'You suffer a severe foot injury. Losing both feet means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-foot',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
           },
           {
             key: 'core-injury-one-leg',
             name: 'Leg',
             snippet: 'You suffer a severe leg injury. Losing both legs means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-leg',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
           },
           {
             key: 'core-injury-one-torso',
             name: 'Torso',
             snippet: 'You suffer a severe injury that impairs your organs, like the heart, lungs, or liver. Any Toughness based Tests may become more difficult.',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-torso',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
           },
           {
             key: 'core-injury-one-eye',
             name: 'Eye',
             snippet: 'One of your eyes is damaged beyond repair. A single injured eye may add a penalty, such as +2 DN, to any Tests that require sight. Losing both eyes leaves you Blinded (p.199).',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-eye',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
           },
         ],
       },
       {
-        key: 'traumatic-injury-two',
-        name: 'Traumatic Injury',
-        snippet: 'Your roll on the Traumatic Injury Table',
-        selected: '',
-        optionsPlaceholder: 'Roll d6 and select a Injury',
-        options: [
+        key: 'bodypart-replacements',
+        name: 'Bodypart replacements',
+        snippet: 'Replace any lost body parts with the appropriate augmetics; you may choose an option of any Rarity the GM deems appropriate.',
+        wargear: [
           {
-            key: 'core-injury-two-hand',
-            name: 'Hand',
-            snippet: 'You suffer a severe hand injury; you can no longer use that hand. Losing both hands means you are unable to hold any weapons or similar gear.',
-            wargear: [
+            key: 'appropriate-augmetics-one',
+            name: 'Any option that the Gm deems appropriate',
+            selected: '',
+            options: [
               {
-                key: 'appropriate-augmetics-hand',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
+                filter: true,
+                typeFilter: ['Augmetics'],
               },
             ],
           },
           {
-            key: 'core-injury-two-arm',
-            name: 'Arm',
-            snippet: 'You suffer a severe injury to your arm. Losing both arms means you are unable to hold any weapons or similar gear.',
-            wargear: [
+            key: 'appropriate-augmetics-two',
+            name: 'Any option that the Gm deems appropriate',
+            selected: '',
+            options: [
               {
-                key: 'appropriate-augmetics-arm',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            key: 'core-injury-two-foot',
-            name: 'Foot',
-            snippet: 'You suffer a severe foot injury. Losing both feet means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-foot',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            key: 'core-injury-two-leg',
-            name: 'Leg',
-            snippet: 'You suffer a severe leg injury. Losing both legs means you are unable to walk, Run, or Sprint, and may only Crawl (p.180).',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-leg',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            key: 'core-injury-two-torso',
-            name: 'Torso',
-            snippet: 'You suffer a severe injury that impairs your organs, like the heart, lungs, or liver. Any Toughness based Tests may become more difficult.',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-torso',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
-              },
-            ],
-          },
-          {
-            key: 'core-injury-two-eye',
-            name: 'Eye',
-            snippet: 'One of your eyes is damaged beyond repair. A single injured eye may add a penalty, such as +2 DN, to any Tests that require sight. Losing both eyes leaves you Blinded (p.199).',
-            wargear: [
-              {
-                key: 'appropriate-augmetics-eye',
-                name: 'Any option that the Gm deems appropriate',
-                selected: '',
-                options: [
-                  {
-                    filter: true,
-                    typeFilter: ['Augmetics'],
-                  },
-                ],
+                filter: true,
+                typeFilter: ['Augmetics'],
               },
             ],
           },
@@ -381,6 +228,7 @@ const core = [
         name: 'It´s a gift!',
         snippet: 'Your Patron grants you either rare Wargear, two assets or significant influence',
         optionsPlaceholder: 'Choose: Wargear, Assets or Influence',
+        selected: [''],
         options: [
           {
             key: 'wargear',

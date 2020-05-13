@@ -109,7 +109,7 @@
               v-model="feature.selected[inx-1]"
               item-value="name"
               item-text="name"
-              @change="changeTraitOption(feature, inx-1)"
+              @change="changeFeatureSelectedOption(feature, inx-1)"
               dense
               solo
             ></v-select>
@@ -415,10 +415,10 @@ export default {
         psychicPowerSelection.options = response.data;
       });
     },
-    changeTraitOption(trait, inx) {
-      const selectedOption =  trait.options.find( (o) => o.name === trait.selected[inx] );
+    changeFeatureSelectedOption(feature, inx) {
+      const selectedOption =  feature.options.find((option) => option.name === feature.selected[inx]);
 
-      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `archetype.${trait.name}.${inx}.` });
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `archetype.${feature.name}.${inx}.` });
       // the option has a snippet, that is thus added as a custom ability
       if ( selectedOption.snippet ) {
         const content = {
@@ -428,7 +428,7 @@ export default {
             targetValue: '',
             effect: selectedOption.snippet,
           }],
-          source: `archetype.${trait.name}.${inx}.${selectedOption.name}`,
+          source: `archetype.${feature.name}.${inx}.${selectedOption.name}`,
         };
         this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
       }
@@ -437,18 +437,18 @@ export default {
       if ( selectedOption.modifications ) {
         const content = {
           modifications: selectedOption.modifications,
-          source: `archetype.${trait.name}.${inx}.${selectedOption.name}`,
+          source: `archetype.${feature.name}.${inx}.${selectedOption.name}`,
         };
         this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
       }
 
       if ( selectedOption.keywords ) {
-        const payload = { id: this.characterId, source: `archetype.${trait.name}`, cascade: true };
+        const payload = { id: this.characterId, source: `archetype.${feature.name}`, cascade: true };
         this.$store.commit('characters/clearCharacterKeywordsBySource', payload);
         selectedOption.keywords.forEach( (keyword) => {
           const payload = {
             name: keyword,
-            source: `archetype.${trait.name}`,
+            source: `archetype.${feature.name}`,
             type: 'keyword',
             replacement: undefined,
           };
