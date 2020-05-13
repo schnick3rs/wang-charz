@@ -204,6 +204,7 @@ export default {
       }
 
       let modifications = [];
+
       ascensionPackage.ascensionFeatures
       .filter( (feature) => feature.modifications !== undefined )
       .forEach( (feature) => {
