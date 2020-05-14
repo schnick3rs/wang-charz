@@ -2,7 +2,7 @@
 // ArdentPurple's Tyranid Bestiary
 
 const source = {
-  core: { book: 'Core Rules (revised)', key: 'core', version: 'v1.5' },
+  core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   aaoa: {
     book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha',
