@@ -15,23 +15,19 @@
         <v-expansion-panels multiple>
           <v-expansion-panel
             v-for="talent in characterTalentsEnriched"
-            :key="talent.key"
+            :key="talent.id"
           >
             <v-expansion-panel-header>
               <template v-slot:default="{ open }">
                 <v-row no-gutters>
                   <v-col :cols="8" :sm="10" class="subtitle-1">
-                    <span v-if="talent.selected" v-html="talent.name.replace(/(\[.*\])/, `<em>${talent.selected}</em>`)" />
-                    <span v-else>{{ talent.name }}</span>
+                    <span v-html="talent.label" />
                   </v-col>
                   <v-col :cols="4" :sm="2">
-                    <v-btn color="error" x-small @click.stop.prevent="removeTalent(talent)">
-                      remove
-                    </v-btn>
+                    <v-btn color="error" x-small @click.stop.prevent="removeTalent(talent)">remove</v-btn>
                   </v-col>
-
                   <v-col v-if="!open" :cols="8" :sm="10" class="caption grey--text">
-                    {{ talent.snippet ? talent.snippet : talent.effect }}
+                    {{ talent.snippet }}
                   </v-col>
                 </v-row>
               </template>
@@ -50,23 +46,23 @@
 
               <div class="body-2" v-html="talent.snippet"></div>
 
-              <div v-if="talent.key === 'core-hatred--any-'">
+              <div v-if="talent.options">
                 <v-select
                   :value="talent.selected"
-                  :items="talentHatredKeywordOptions"
+                  :items="talent.options"
                   item-text="name"
-                  item-value="name"
-                  label="Select a species or faction to hate with the blaze of a thousand suns"
+                  item-value="key"
+                  :placeholder="talent.optionsPlaceholder"
                   filled
                   dense
                   @input="talentUpdateSelected($event, talent)"
                 />
               </div>
 
-              <div v-if="talent.key === 'core-loremaster--keyword-'">
+              <div v-if="['core-loremaster--keyword-','core-hatred--any-'].includes(talent.key)">
                 <v-select
                   :value="talent.selected"
-                  :items="talentLoremasterKeywordOptions"
+                  :items="selectableKeywordOptions"
                   item-text="name"
                   item-value="name"
                   label="Select a keyword, you know much about those dudes, like really much"
@@ -134,7 +130,9 @@
                 />
               </div>
             </v-expansion-panel-content>
+
           </v-expansion-panel>
+
         </v-expansion-panels>
       </v-col>
 
@@ -233,7 +231,7 @@
             <template v-slot:item.buy="{ item }">
               <v-btn
                 :color="'success'"
-                :disabled="characterTalentLabels.includes(item.name)"
+                :disabled="characterTalentLabels.includes(item.name) && !item.allowedMultipleTimes"
                 x-small
                 @click="addTalent(item)"
               >
@@ -413,41 +411,60 @@ export default {
       return this.$store.getters['characters/characterTalentsById'](this.characterId);
     },
     characterTalentLabels() {
-      return this.characterTalents.map((t) => t.name);
+      return this.characterTalents.filter((talent) => talent).map((talent) => talent.name);
     },
     characterWargear() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
     },
     characterTalentsEnriched() {
+
       // { id, name, cost, selection}
       if (this.talentList === undefined) {
         return [];
       }
+
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
 
-      return characterTalents.map((talent) => {
+      const talents = characterTalents.filter((t) => t).map((talent) => {
+
+        // find the plain talent by key
         const enrichedTalent = this.talentList.find((r) => r.key === talent.key);
 
+        // not found? return a custom talent without special properties and no cost
         if (enrichedTalent === undefined) {
           return {
+            id: talent.id,
             name: talent.name,
             cost: 0,
           }
         }
 
+        const aggregatedTalent = Object.assign({}, enrichedTalent);
+        console.info(`[${talent.id}] Found ${aggregatedTalent.name} for ${talent.key}`);
+
+        aggregatedTalent.id = talent.id;
+        aggregatedTalent.label = aggregatedTalent.name;
+
         // for each special talent, check respectively
         if (talent.selected) {
-          enrichedTalent.selected = talent.selected;
-          enrichedTalent.extraCost = talent.extraCost;
+          aggregatedTalent.selected = talent.selected;
+          aggregatedTalent.extraCost = talent.extraCost;
+          if (aggregatedTalent.options) {
+            const replacementTargetString = aggregatedTalent.options.find((t) => t.key === talent.selected).name;
+            aggregatedTalent.label = aggregatedTalent.name.replace(/(\[.*\])/, `<em>(${replacementTargetString})</em>`);
+            console.info(`[${talent.id}] Compute label ${aggregatedTalent.label} from ${talent.selected}/${replacementTargetString}`);
+          } else {
+            aggregatedTalent.label = aggregatedTalent.name.replace(/(\[.*\])/, `<em>(${talent.selected})</em>`);
+          }
         }
 
         // Fetch gear for selected weapon trooper
-        if (['Special Weapons Trooper', 'Augmetic <Specific Implants>'].includes(enrichedTalent.name)) {
-          const sourceKey = `talent.${enrichedTalent.id}`;
+        if (['Special Weapons Trooper', 'Augmetic <Specific Implants>'].includes(aggregatedTalent.name)) {
+          const sourceKey = `talent.${aggregatedTalent.id}`;
           const gear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourceKey));
           if (gear && gear.length > 0) {
             console.log(gear);
-            // enrichedTalent.selected = gear[0].name;
+            // aggregatedTalent.selected = gear[0].name;
             /*
             gear.forEach( g => {
               characterPackage
@@ -458,9 +475,9 @@ export default {
             */
           }
         }
-
-        return enrichedTalent;
-      }).sort((a, b) => a.name.localeCompare(b.name));
+        return aggregatedTalent;
+      });//.sort((a, b) => a.name.localeCompare(b.name));
+      return talents;
     },
     filteredTalents() {
       if (this.talentList === undefined) {
@@ -476,7 +493,7 @@ export default {
       }
 
       // exclude those already picked
-      filteredTalents = filteredTalents.filter((t) => !this.characterTalentLabels.includes(t.name));
+      //filteredTalents = filteredTalents.filter((t) => t.allowedMultipleTimes || !this.characterTalentLabels.includes(t.name));
 
       filteredTalents = filteredTalents.map((talent) => {
         let fulfilled = true;
@@ -498,7 +515,7 @@ export default {
 
               // condition: 'must', type: 'attribute', key: 'Willpower', value: '3+',
               case 'attribute':
-                const attribute = this.attributeRepository.find((a) => a.name == requirement.key);
+                const attribute = this.attributeRepository.find((a) => a.key == requirement.key);
                 if (attribute) {
                   const charAttributeValue = this.characterAttributesEnhanced[attribute.key];
                   if (charAttributeValue < requirement.value) {
@@ -511,7 +528,7 @@ export default {
 
               // condition: 'must', type: 'skill', key: 'Ballistic Skill', value: '4+',
               case 'skill':
-                const skill = this.skillRepository.find((a) => a.name == requirement.key);
+                const skill = this.skillRepository.find((a) => a.key == requirement.key);
                 if (skill) {
                   const charSkillValue = this.characterSkills[skill.key];
                   if (charSkillValue < requirement.value) {
@@ -549,8 +566,8 @@ export default {
     talentHatredKeywordOptions() {
       return this.keywordRepository.filter((k) => k.placeholder === undefined && k.name.indexOf('<') !== 0);
     },
-    talentLoremasterKeywordOptions() {
-      return this.keywordRepository.filter((k) => k.name.indexOf('<') !== 0);
+    selectableKeywordOptions() {
+      return this.keywordRepository.filter((k) => k.name.indexOf('[') !== 0);
     },
     talentTrademarkWeaponOptions() {
       const wargearLabels = this.$store.getters['characters/characterWargearById'](this.characterId).map((w) => w.name);
@@ -631,13 +648,11 @@ export default {
       this.$store.commit('characters/addCharacterTalent', { id: this.characterId, talent: payload });
     },
     removeTalent(talent) {
-      const payload = {
-        id: this.characterId,
-        source: `talent.${talent.id}`,
-      };
+      const id = this.characterId;
+      const source = `talent.${talent.id}`;
       // ToDo? clear modifications by source
-      this.$store.commit('characters/removeCharacterWargearBySource', payload);
-      this.$store.commit('characters/removeCharacterTalent', { id: this.characterId, name: talent.name });
+      this.$store.commit('characters/removeCharacterWargearBySource', { id, source });
+      this.$store.commit('characters/removeCharacterTalent', { id, talentId: talent.id });
     },
     requirementsToText(item) {
       const texts = [];
@@ -682,12 +697,14 @@ export default {
 
     /** Special Talent Selections */
     talentUpdateSelected(selectedValue, talent) {
+      const id = this.characterId;
       const talentPayload = {
-        id: this.characterId,
+        id: talent.id,
+        key: talent.key,
         name: talent.name,
         selected: selectedValue,
       };
-      this.$store.commit('characters/setCharacterTalentSelected', talentPayload);
+      this.$store.commit('characters/setCharacterTalentSelected', { id, talent: talentPayload });
     },
     talentAugmeticImplantsUpdateImplantChoice(gear, itemKey, talent) {
       const payload = {
@@ -703,6 +720,7 @@ export default {
       // We add the additional point costs to the talent
       const talentPayload = {
         id: this.characterId,
+        key: talent.key,
         name: talent.name,
         extraCost: gear.value,
       };
@@ -726,6 +744,7 @@ export default {
       // We add the additional point costs to the talent
       const talentPayload = {
         id: this.characterId,
+        key: talent.key,
         name: talent.name,
         extraCost: wargear.value,
       };
