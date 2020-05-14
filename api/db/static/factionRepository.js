@@ -2,7 +2,7 @@
 // Astra Militarum
 
 const source = {
-  core: { book: 'Core Rules (revised)', key: 'core', version: 'v1.5' },
+  core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
 };
 
 const stringToKebab = function (text) {
