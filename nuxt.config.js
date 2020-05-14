@@ -130,6 +130,19 @@ module.exports = {
     ['@nuxtjs/pwa', {
       manifest: false,
     }],
+    [
+      'nuxt-i18n',
+      {
+        locales: [
+          { code: 'en', name: 'english', file: 'en.js' },
+          { code: 'fr', name: 'french', file: 'fr.js' },
+          { code: 'de', name: 'german', file: 'de.js' },
+        ],
+        defaultLocale: 'en',
+        lazy: true,
+        langDir: 'lang/'
+      },
+    ],
   ],
 
   /*

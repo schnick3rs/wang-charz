@@ -54,6 +54,27 @@
       <v-col :cols="12" :sm="4" :md="5" align="right">
         <v-btn small outlined color="success" v-if="false">share</v-btn>
         <v-btn small outlined color="success" v-if="false">campaign</v-btn>
+
+
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn
+              color="primary"
+              v-on="on"
+              dark small outlined
+            >{{$i18n.locale}}</v-btn>
+          </template>
+          <v-list>
+            <v-list-item
+              v-for="locale in $i18n.locales"
+              :key="locale.code"
+              @click="changeLanguage(locale.code)"
+            >
+              <v-list-item-title>{{ locale.name }}</v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+
         <v-btn
           nuxt
           :to="`/forge/characters/${characterId}/builder/print`"
@@ -86,8 +107,9 @@
         <v-row no-gutters>
          <v-col :cols="12" class="pa-1">
           <v-card>
+
             <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
-              Attributes
+              {{ $t('attributes') }}
             </v-card-title>
 
             <v-simple-table dense>
@@ -100,7 +122,7 @@
               </thead>
               <tbody>
               <tr v-for="item in attributes">
-                <td class="text-left pa-1 small">{{ item.name }}</td>
+                <td class="text-left pa-1 small">{{ $t(item.key) }}</td>
                 <td class="text-center pa-1 small">{{ item.rating }}</td>
                 <td class="text-center pa-1 small">{{ item.adjustedRating }}</td>
                 <td class="text-center pa-1 small">
@@ -1562,6 +1584,9 @@ export default {
     },
   },
   methods: {
+    changeLanguage(event) {
+      this.$router.replace(this.switchLocalePath(event));
+    },
     async loadSpecies(key) {
       if ( key ) {
         let finalData = {};
