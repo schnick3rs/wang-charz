@@ -575,7 +575,18 @@ const core = [
       '<p></p>',
     requirements: [
       { key: 'A rating of 1+ in the respective skill.' },
-    ], // A Rating of 1+ in any of the following; Ballistic Skill (A), Medicae (Int), Pilot (A), Scholar (Int), Survival (Wil), Tech (Int) or Weapon Skill (I).
+    ],
+    selected: '',
+    optionsPlaceholder: 'Select a skill',
+    options: [
+      { key: 'ballistic-skill', name: 'Ballistic Skill' },
+      { key: 'medicae', name: 'Medicae' },
+      { key: 'pilot', name: 'Pilot' },
+      { key: 'scholar', name: 'Scholar' },
+      { key: 'survival', name: 'Survival' },
+      { key: 'tech', name: 'Tech' },
+      { key: 'weapon-skill', name: 'Weapon Skill' },
+    ],
   },
   {
     ...talent('core',135,'Legacy Of Sorrow',20),
