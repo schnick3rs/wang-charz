@@ -520,6 +520,9 @@
 
                       <strong>{{ talent.name }}</strong>
                       <em> • Talent</em>
+                      <span v-if="talent.source">
+                        <em v-if="talent.source.key"> • {{ talent.source.key }}</em><em v-if="!isNaN(talent.source.page)">, pg. {{ talent.source.page }}</em>
+                      </span>
                       <div v-if="talent.snippet"><p class="mb-1" v-html="computeFormatedText(talent.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(talent.description)"></div>
 
@@ -1476,7 +1479,7 @@ export default {
             name: rawTalent.name,
             snippet: rawTalent.snippet,
             description: rawTalent.description,
-            source: rawTalent.name,
+            source: rawTalent.source,
             hint: rawTalent.name,
             selectedOptions: [],
             modifications: rawTalent.modifications || [],
