@@ -1472,6 +1472,7 @@ export default {
     talents() {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
       const finalTalents = [];
+
       characterTalents.forEach((charTalent) => {
         const rawTalent = this.talentRepository.find((t) => t.key === charTalent.key);
         if (rawTalent) {
@@ -1484,6 +1485,16 @@ export default {
             selectedOptions: [],
             modifications: rawTalent.modifications || [],
           };
+
+          if (rawTalent.wargear && this.charGear){
+            const gear = this.charGear.filter((g) => g.source && g.source.startsWith(`talent.${charTalent.id}.`));
+            if (gear) {
+              gear.forEach((g) => {
+                ability.selectedOptions.push({ name: g.name });
+              });
+            }
+          }
+
           if (charTalent.selected) {
             if (rawTalent.options) {
               const choice = this.getTalentOption(rawTalent, charTalent.selected);
@@ -1514,8 +1525,11 @@ export default {
       }
       return [];
     },
+    charGear() {
+      return this.$store.getters['characters/characterWargearById'](this.characterId);
+    },
     wargear() {
-      const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
+      const chargear = this.charGear;
       const wargear = [];
       if(this.wargearRepository) {
         chargear.forEach((gear) => {

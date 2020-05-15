@@ -183,6 +183,7 @@ const core = [
       '<p>The GM determines which augmetics are available (usually any of those designed for your Species) and who can perform the necessary installation procedure.</p>',
     wargear: [
       {
+        keyy: 'very-rare-augmetic',
         name: 'Very Rare Augmetic',
         selected: '',
         options: [
