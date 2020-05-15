@@ -72,7 +72,7 @@
                 />
               </div>
 
-              <div v-if="talent.key === 'core-trademark-weapon'">
+              <div v-if="talent.key === 'core-trademark-weapon--weapon-'">
                 <v-select
                   :value="talent.selected"
                   :items="talentTrademarkWeaponOptions.filter( w => ['Melee Weapon','Ranged Weapon'].includes(w.type))"
@@ -85,50 +85,31 @@
                 />
               </div>
 
-              <div v-if="talent.id === 'core-augmetic'">
+              <div v-if="talent.key.startsWith('core-augmetic')">
                 <wargear-select
+                  v-for="gearOptions in talent.wargear"
                   v-if="wargearList"
-                  :item="talent.selected"
-                  :repository="wargearList.filter( gear => {
-                    const typeReq = ['Cybernetic'].includes(gear.type);
-                    return (typeReq);
-                  })"
+                  :item="gearOptions.selected"
+                  :repository="computeWargearOptionsByFilter(gearOptions.options[0])"
                   class="mb-4"
-                  @input="talentAugmeticImplantsUpdateImplantChoice($event, 'implant', talent)"
-                />
-
-                <v-alert type="info" dense elevation="2">
-                  Currently, only the variant for a single item works correct.
-                </v-alert>
-              </div>
-
-              <div v-if="false">
-                <wargear-select
-                  v-if="wargearList"
-                  :item="talent.selected"
-                  :repository="wargearList.filter( gear => {
-                    const typeReq = ['Cybernetic'].includes(gear.type);
-                    const rarityReq = ['Common', 'Uncommon', 'Rare'].includes(gear.rarity);
-                    return (typeReq && rarityReq);
-                  })"
-                  class="mb-4"
-                  @input="talentAugmeticImplantsUpdateImplantChoice($event, 'implant', talent)"
+                  @input="talentAugmeticImplantsUpdateImplantChoice($event, gearOptions.key, talent)"
                 />
               </div>
 
-              <div v-if="talent.id === 36">
+              <div v-if="talent.key === 'core-special-weapons-trooper'">
                 <v-select
                   v-if="wargearList"
                   :value="talent.selected"
-                  :items="wargearList.filter( gear => ['Combat Shotgun','Flamer','Hot-Shot Lasgun','Meltagun','Plasma Gun','Voss Pattern Grenade Launcher', 'Astartes Sniper Rifle'].includes(gear.name) )"
+                  :items="wargearList.filter((gear) => ['Combat Shotgun','Flamer','Hot-Shot Lasgun','Meltagun','Plasma Gun','Voss Pattern Grenade Launcher', 'Astartes Sniper Rifle'].includes(gear.name))"
                   item-text="name"
-                  item-value="name"
+                  item-value="key"
                   label="Select a Special Weapon to make YOU special"
                   filled
                   dense
-                  @input="talentSpecialWeaponTrooperUpdateWeaponChoiceLabel($event, 'weapon', talent)"
+                  @input="talentSpecialWeaponTrooperUpdateWeaponChoiceLabel($event, talent)"
                 />
               </div>
+
             </v-expansion-panel-content>
 
           </v-expansion-panel>
@@ -459,14 +440,15 @@ export default {
         }
 
         // Fetch gear for selected weapon trooper
-        if (['Special Weapons Trooper', 'Augmetic <Specific Implants>'].includes(aggregatedTalent.name)) {
+        if (['core-special-weapons-trooper'].includes(aggregatedTalent.key)) {
           const sourceKey = `talent.${aggregatedTalent.id}`;
-          const gear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourceKey));
-          if (gear && gear.length > 0) {
-            console.log(gear);
-            // aggregatedTalent.selected = gear[0].name;
+          const charGear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourceKey));
+          if (charGear && charGear.length > 0 && this.wargearList) {
+            const wargear = this.wargearList.find((g) => g.name === charGear[0].name);
+            aggregatedTalent.selected = wargear.key;
+            aggregatedTalent.label = `${aggregatedTalent.name} <em>(${wargear.name})</em>`;
             /*
-            gear.forEach( g => {
+            charGear.forEach( g => {
               characterPackage
               .wargearOptions.find(o=>o.key === characterPackage.wargearChoice)
               .selectList.find(s=> g.source.endsWith(s.key))
@@ -475,6 +457,20 @@ export default {
             */
           }
         }
+
+        // Fetch gear for selected weapon trooper
+        if (aggregatedTalent.key.startsWith('core-augmetic')) {
+          aggregatedTalent.wargear.forEach((g) => {
+            const sourceKey = `talent.${aggregatedTalent.id}.${g.key}`;
+            console.warn(`Searching for ${sourceKey}`);
+            const charGear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourceKey));
+            if (charGear && charGear.length > 0 && this.wargearList) {
+              const wargear = this.wargearList.find((g) => g.name === charGear[0].name);
+              g.selected = wargear.name;
+            }
+          });
+        }
+
         return aggregatedTalent;
       });//.sort((a, b) => a.name.localeCompare(b.name));
       return talents;
@@ -722,19 +718,19 @@ export default {
         id: this.characterId,
         key: talent.key,
         name: talent.name,
-        extraCost: gear.value,
+        extraCost: parseInt(gear.value),
       };
       this.$store.commit('characters/setCharacterTalentExtraCost', talentPayload);
     },
-    talentSpecialWeaponTrooperUpdateWeaponChoiceLabel(wargearName, itemKey, talent) {
-      const wargear = this.wargearList.find((gear) => gear.name === wargearName);
-      this.talentSpecialWeaponTrooperUpdateWeaponChoice(wargear, itemKey, talent);
+    talentSpecialWeaponTrooperUpdateWeaponChoiceLabel(key, talent) {
+      const wargear = this.wargearList.find((gear) => gear.key === key);
+      this.talentSpecialWeaponTrooperUpdateWeaponChoice(wargear, talent);
     },
-    talentSpecialWeaponTrooperUpdateWeaponChoice(wargear, itemKey, talent) {
+    talentSpecialWeaponTrooperUpdateWeaponChoice(wargear, talent) {
       const payload = {
         id: this.characterId,
         name: wargear.name,
-        source: `talent.${talent.id}.${itemKey}`,
+        source: `talent.${talent.id}.weapon`,
       };
       this.$store.commit('characters/removeCharacterWargearBySource', payload);
       this.$store.commit('characters/addCharacterWargear', payload);
@@ -746,7 +742,7 @@ export default {
         id: this.characterId,
         key: talent.key,
         name: talent.name,
-        extraCost: wargear.value,
+        extraCost: parseInt(wargear.value),
       };
       this.$store.commit('characters/setCharacterTalentExtraCost', talentPayload);
     },
@@ -756,6 +752,28 @@ export default {
       } else {
         this.selectedTalentGroups.push(name);
       }
+    },
+    computeWargearOptionsByFilter(filter) {
+      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, triptypeFilter, keywordFilter } = filter;
+      if ( this.wargearList ) {
+        return this.wargearList.filter( (gear) => {
+          let valueReq = true;
+          if ( valueFilter ) {
+            let maxValue = 0;
+            maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
+            maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
+            // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
+            valueReq = gear.value <= maxValue;
+          }
+          const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
+          const typeReq = typeFilter ? typeFilter.includes(gear.type) : true;
+          const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
+          const triptypeReq = triptypeFilter ? (gear.triptype && gear.triptype !== null ? gear.triptype.includes(triptypeFilter) : false ) : true;
+          const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
+          return valueReq && rarityReq && typeReq && subtypeReq && triptypeReq && keywordReq;
+        });
+      }
+      return [];
     },
   },
 };

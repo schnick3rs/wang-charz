@@ -121,9 +121,8 @@ const core = [
       '</ul>',
     requirements: [ requireSkill('weaponSkill', 2) ],
   },
-  {
-    // todo, maybe two talents
-    ...talent('core',129,'Augmetic',20,'Wargear'),
+  /*{
+    ...talent('core',129,'Augmetic, Very Rare',20,'Wargear'),
     snippet: 'Replace part of your biology with augmetics.',
     description:
       '<p>You replace part of your biology with an augmetic, the common name for cybernetic implants in the Imperium.</p>' +
@@ -170,6 +169,63 @@ const core = [
                 typeFilter: ['Augmetic']
               },
             ],
+          },
+        ],
+      },
+    ],
+    allowedMultipleTimes: true,
+  },*/
+  {
+    ...talent('core',129,'Augmetic, One Very Rare',20,'Wargear'),
+    snippet: 'Replace part of your biology with augmetics.',
+    description:
+      '<p>You replace part of your biology with an augmetic, the common name for cybernetic implants in the Imperium.</p>' +
+      '<p>You may take this Talent more than once. Each time you take this Talent you may select two augmetics of Rare or lower rarity, or a single Very Rare augmetic. The value of the selected augmetics are added to the talents cost. See p242 for more information on Augmetics.</p>' +
+      '<p>The GM determines which augmetics are available (usually any of those designed for your Species) and who can perform the necessary installation procedure.</p>',
+    wargear: [
+      {
+        name: 'Very Rare Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+            typeFilter: ['Augmetics']
+          },
+        ],
+      },
+    ],
+    allowedMultipleTimes: true,
+  },
+  {
+    ...talent('core',129,'Augmetic, Two Rare',20,'Wargear'),
+    snippet: 'Replace part of your biology with augmetics.',
+    description:
+      '<p>You replace part of your biology with an augmetic, the common name for cybernetic implants in the Imperium.</p>' +
+      '<p>You may take this Talent more than once. Each time you take this Talent you may select two augmetics of Rare or lower rarity, or a single Very Rare augmetic. The value of the selected augmetics are added to the talents cost. See p242 for more information on Augmetics.</p>' +
+      '<p>The GM determines which augmetics are available (usually any of those designed for your Species) and who can perform the necessary installation procedure.</p>',
+    wargear: [
+      {
+        key: 'first-rare-augmetic',
+        name: 'First Rare Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            rarityFilter: ['Common', 'Uncommon', 'Rare'],
+            typeFilter: ['Augmetics']
+          },
+        ],
+      },
+      {
+        key: 'second-rare-augmetic',
+        name: 'Second Rare Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            rarityFilter: ['Common', 'Uncommon', 'Rare'],
+            typeFilter: ['Augmetics']
           },
         ],
       },
@@ -855,7 +911,7 @@ const core = [
     requirements: [],
   },
   {
-    ...talent('core',141,'Trademark Weapon',30),
+    ...talent('core',141,'Trademark Weapon [Weapon]',30),
     snippet: 'You add +Double Rank ED when attacking with your Trademark Weapon.',
     description:
       '<p></p>',
