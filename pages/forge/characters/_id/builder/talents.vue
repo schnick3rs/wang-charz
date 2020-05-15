@@ -409,10 +409,10 @@ export default {
       const talents = characterTalents.filter((t) => t).map((talent) => {
 
         // find the plain talent by key
-        const enrichedTalent = this.talentList.find((r) => r.key === talent.key);
+        const rawTalent = this.talentList.find((r) => r.key === talent.key);
 
         // not found? return a custom talent without special properties and no cost
-        if (enrichedTalent === undefined) {
+        if (rawTalent === undefined) {
           return {
             id: talent.id,
             name: talent.name,
@@ -420,10 +420,11 @@ export default {
           }
         }
 
-        const aggregatedTalent = Object.assign({}, enrichedTalent);
+        const aggregatedTalent = Object.assign({}, rawTalent);
         console.info(`[${talent.id}] Found ${aggregatedTalent.name} for ${talent.key}`);
 
         aggregatedTalent.id = talent.id;
+        aggregatedTalent.cost = talent.cost;
         aggregatedTalent.label = aggregatedTalent.name;
 
         // for each special talent, check respectively
