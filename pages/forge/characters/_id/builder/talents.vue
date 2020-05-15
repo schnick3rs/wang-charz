@@ -95,7 +95,6 @@
                   @input="talentAugmeticImplantsUpdateImplantChoice($event, gearOptions.key, talent)"
                 />
               </div>
-              <div v-else>{{talent}}</div>
 
               <div v-if="talent.key === 'core-special-weapons-trooper'">
                 <v-select

@@ -1506,7 +1506,7 @@ export default {
           console.info(`No talent found for ${charTalent.key}`);
         }
       });
-      return finalTalents.sort((a, b) => a.name.localeCompare(b.name));;
+      return finalTalents.sort((a, b) => a.name.localeCompare(b.name));
     },
     talentsForFaith() {
       if ( this.talents.length > 0 ) {

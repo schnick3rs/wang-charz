@@ -1055,14 +1055,40 @@
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
       const finalTalents = [];
       characterTalents.forEach((charTalent) => {
-        const rawTalent = this.talentRepository.find((t) => t.name === charTalent.name);
-        rawTalent.source = undefined;
-        if (charTalent.selected) {
-          rawTalent.name = rawTalent.name.replace(/(<.*>)/, `[${charTalent.selected}]`);
+        const rawTalent = this.talentRepository.find((t) => t.key === charTalent.key);
+        if (rawTalent) {
+          const ability = {
+            name: rawTalent.name,
+            snippet: rawTalent.snippet,
+            description: rawTalent.description,
+            source: rawTalent.source,
+            hint: rawTalent.name,
+            selectedOptions: [],
+            modifications: rawTalent.modifications || [],
+          };
+          if (charTalent.selected) {
+            if (rawTalent.options) {
+              const choice = this.getTalentOption(rawTalent, charTalent.selected);
+              ability.name = ability.name.replace(/\[.*\]/, `(${choice.name})`);
+
+              if (choice.modifications) {
+                console.info(`Additional modifications found for the selected choice.`)
+                ability.modifications.push(...choice.modifications);
+              }
+
+              if (choice.effect || choice.snippet ) {
+                ability.selectedOptions.push({ name: choice.name, snippet: choice.snippet });
+              }
+            } else {
+              ability.name = ability.name.replace(/\[.*\]/, `(${charTalent.selected})`);
+            }
+          }
+          finalTalents.push(ability);
+        } else {
+          console.info(`No talent found for ${charTalent.key}`);
         }
-        finalTalents.push(rawTalent);
       });
-      return finalTalents;
+      return finalTalents.sort((a, b) => a.name.localeCompare(b.name));
     },
     wargear() {
       const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
@@ -1218,6 +1244,9 @@
       }
       return this.wargearTraitRepository.find((item) => item.name === name);
     },
+    getTalentOption(talent, choiceKey) {
+      return talent.options.find((t) => t.key === choiceKey);
+    },
     computeFormatedText(text) {
       if ( text === undefined ) {
         return text;
@@ -1232,10 +1261,13 @@
       computed = computed.replace(/15 \+ ?Rank metres/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15 \+ ?Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15\+Double Rank metres/g, `<strong>${15 + (2*rank)} metres</strong>`);
-      computed = computed.replace(/\+ ?Rank/g, `<strong title="+Rank">+${rank}</strong>`);
-      computed = computed.replace(/\+ ?Double Rank/g, `<strong title="+Double Rank">+${2*rank}</strong>`);
-      computed = computed.replace(/10 ?x ?Rank/g, `<strong title="+Double Rank">${10*rank}</strong>`);
-      computed = computed.replace(/10 ?x ?Double Rank/g, `<strong title="+Double Rank">${10*2*rank}</strong>`);
+      computed = computed.replace(/1\+Double Rank/g, `<strong>+${(2*rank)+1}</strong>`);
+      computed = computed.replace(/2 ?\+Double Rank/g, `<strong>${(2*rank)+2}</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong>+${rank}</strong>`);
+      computed = computed.replace(/\+ ?Double Rank/g, `<strong>+${2*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Rank/g, `<strong>${10*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Double Rank/g, `<strong>${10*2*rank}</strong>`);
+      computed = computed.replace(/ Double Rank/g, ` <strong>${2*rank}</strong>`);
 
       return computed;
     },
