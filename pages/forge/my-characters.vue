@@ -419,7 +419,7 @@ export default {
     };
   },
   head() {
-    const title = 'My Characters | Forge';
+    const title = 'Character Builder for Wrath & Glory | Forge';
     const description =
       'The Forge allows you to create and organize multiple characters for the Wrath and Glory' +
       'Roleplaying game. Create, manage and view your characters online.';
@@ -588,7 +588,7 @@ export default {
     },
     openExportDialog(id) {
       const characterJsonString = this.$store.getters['characters/characterStateJsonById'](id);
-      this.exportSnippet = btoa(characterJsonString);
+      this.exportSnippet = btoa(unescape(encodeURIComponent(characterJsonString)));
       this.exportDialog = true;
     },
     copyToClipboard() {

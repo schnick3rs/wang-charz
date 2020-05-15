@@ -4,6 +4,18 @@
     no-gutters
     dense
   >
+    <v-col :cols="12" :xl="8">
+      <v-alert
+        color="info"
+        outlined
+        text
+        dense
+        elevation="4"
+      >
+        <p>Attention citizen... the revised (v1.5?) Wrath & Glory Rulebook is out (as a PDF at least) in the wild. The <nuxt-link to="/forge/my-characters">FORGE</nuxt-link> has incoperated almost all changes. Many of the homebrews in the <nuxt-link to="/vault">VAULT</nuxt-link> are not yet adjusted.</p>
+        <p>You can get the <a href="https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules">revised PDF at drivethrurpg.com</a>.</p>
+      </v-alert>
+    </v-col>
     <v-col
       v-for="section in sections"
       :key="section.key"

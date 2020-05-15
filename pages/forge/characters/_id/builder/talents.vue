@@ -85,7 +85,7 @@
                 />
               </div>
 
-              <div v-if="talent.key.startsWith('core-augmetic')">
+              <div v-if="talent.key && talent.key.startsWith('core-augmetic')">
                 <wargear-select
                   v-for="gearOptions in talent.wargear"
                   v-if="wargearList"
@@ -95,6 +95,7 @@
                   @input="talentAugmeticImplantsUpdateImplantChoice($event, gearOptions.key, talent)"
                 />
               </div>
+              <div v-else>{{talent}}</div>
 
               <div v-if="talent.key === 'core-special-weapons-trooper'">
                 <v-select
@@ -413,9 +414,13 @@ export default {
 
         // not found? return a custom talent without special properties and no cost
         if (rawTalent === undefined) {
+          console.warn(`No talent found for ${talent.key}::${talent.name}, using dummy talent.`);
           return {
             id: talent.id,
+            label: `${talent.name} (<strong>Broken</strong>, please remove!)`,
             name: talent.name,
+            key: talent.key,
+            snippet: 'ATTENTION, this is a legacy talent, remove and re-add again.',
             cost: 0,
           }
         }
@@ -459,7 +464,7 @@ export default {
           }
         }
 
-        // Fetch gear for selected weapon trooper
+        // Fetch gear for selected augmetis
         if (aggregatedTalent.key.startsWith('core-augmetic')) {
           aggregatedTalent.wargear.forEach((g) => {
             const sourceKey = `talent.${aggregatedTalent.id}.${g.key}`;

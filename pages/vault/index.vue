@@ -26,6 +26,20 @@
     </v-row>
 
     <v-row justify="center">
+
+      <v-col :cols="12" :xl="8">
+        <v-alert
+          color="warning"
+          outlined
+          text
+          dense
+          elevation="4"
+        >
+          <p>Attention citizen... the revised (v1.5?) Wrath & Glory Rulebook is out (as a PDF at least) in the wild. Most (all?) items in the VAULT might not be up to date.</p>
+          <p>You can get the <a href="https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules">revised PDF at drivethrurpg.com</a>.</p>
+        </v-alert>
+      </v-col>
+
       <v-col :cols="12">
         <v-card>
           <v-card-text>
