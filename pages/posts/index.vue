@@ -123,10 +123,7 @@ export default {
   async asyncData({ app }) {
 
     const { data } = await app.$axios.get('/api/posts');
-    // fetch all blog posts sorted by creation date
-    /*const entries = await app.$myContentful().getEntries({
-      'content_type': 'blogPost',
-    });*/
+
     const posts = data;
 
     return {
