@@ -1697,6 +1697,7 @@ export default {
       computed = computed.replace(/15 \+ ?Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15\+Double Rank metres/g, `<strong>${15 + (2*rank)} metres</strong>`);
       computed = computed.replace(/1\+Double Rank/g, `<strong>+${(2*rank)+1}</strong>`);
+      computed = computed.replace(/2 ?\+Double Rank/g, `<strong>${(2*rank)+2}</strong>`);
       computed = computed.replace(/\+ ?Rank/g, `<strong>+${rank}</strong>`);
       computed = computed.replace(/\+ ?Double Rank/g, `<strong>+${2*rank}</strong>`);
       computed = computed.replace(/10 ?x ?Rank/g, `<strong>${10*rank}</strong>`);
