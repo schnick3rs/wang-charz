@@ -415,7 +415,7 @@
                     <v-card-text class="pa-0 pl-1 pr-1">
                       <div v-for="talent in talents" :key="talent.name" class="mb-3 caption">
                         <strong>{{ talent.name }}</strong>
-                        <div v-if="talent.snippet"><p v-html="computeFormatedText(talent.snippet)"></p></div>
+                        <div v-if="talent.snippet"><p class="mb-1" v-html="computeFormatedText(talent.snippet)"></p></div>
                         <div v-else v-html="computeFormatedText(talent.description)"></div>
                         <div
                           v-if="talent.selectedOptions"
