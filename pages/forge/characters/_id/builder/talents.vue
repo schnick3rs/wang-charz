@@ -302,11 +302,11 @@ export default {
           value: 'prerequisitesHtml',
           sortable: false,
         },
-        {
+        /*{
           text: 'Effect',
           value: 'effect',
           sortable: false,
-        },
+        },*/
         {
           text: 'Buy',
           value: 'buy',
@@ -542,7 +542,7 @@ export default {
                     fulfilled = (this.effectiveCharacterTier <= requirement.value.split('+')[0])
                     break;
                   case 'Rank':
-                    fulfilled = (this.characterRank <= requirement.value.split('+')[0])
+                    fulfilled = (this.characterRank <= requirement.value)
                     break;
                 }
                 break;
@@ -672,11 +672,13 @@ export default {
             break;
 
           case 'attribute':
+            text = `${this.getAttributeByKey(p.key).name} Rating ${p.value}+`;
+            break;
           case 'skill':
-            text = `${p.key} Rating ${p.value}`;
+            text = `${this.getSkillByKey(p.key).name} Rating ${p.value}+`;
             break;
           case 'character':
-            text = `${p.key} ${p.value}`;
+            text = `${p.key} ${p.value}+`;
             break;
 
           case 'species':

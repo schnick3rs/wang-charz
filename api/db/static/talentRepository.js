@@ -46,6 +46,10 @@ const requireSkill = function(key, value) {
   return { condition: 'must', type: 'skill', key, value };
 };
 
+const requireRank = function(value) {
+  return { condition: 'must', type: 'character', key: 'Rank', value };
+};
+
 const requireSpecies = function(species, not = false) {
   return {
     condition: 'must',
@@ -98,12 +102,7 @@ const core = [
       '<p>At the GM’s discretion, this Talent may also apply to weapons with the <span class="text--keyword">CHAOS</span> Keyword for Chaos Space Marines.</p>',
     requirements: [
       requireSpecies('Adeptus Astartes'),
-      {
-        condition: 'must',
-        type: 'character',
-        key: 'Rank',
-        value: '2+',
-      },
+      requireRank(2),
     ],
   },
   {
@@ -281,8 +280,8 @@ const core = [
       '<p>You have the connections and military backup to call in an airstrike. A bombardment may come from ground-based artillery, aircraft, or even a voidship in low orbit. In all cases, the attacks are devastating to their targets.</p>' +
       '<p>Once per game session, a character with this Talent and access to communications with their vessel or other forces may call in a bombardment. The bombardment attack deals 20 + Double Rank ED damage to all targets within Rank x 10 metres of the designated target.</p>',
     requirements: [
-      // Rank 2+
-      requireKeyword('ADEPTUS ASTARTES,AELDARI,ASTRA MILLITARUM,CHAOS,ORK,ROGUE TRADER')
+      requireRank(2),
+      requireKeyword('ADEPTUS ASTARTES,AELDARI,ASTRA MILLITARUM,CHAOS,ORK,ROGUE TRADER'),
     ],
   },
   {
@@ -406,7 +405,10 @@ const core = [
       '<p>Your devotion to a psychic discipline has given you mastery over your style of Warpcraft.</p>' +
       '<p>When you take this Talent, you may select a psychic discipline in which you have at least 2 psychic powers.</p>' +
       '<p>Whenever you make a Psychic Mastery (Wil) Test to activate a psychic power from that discipline, reduce the DN by 1.</p>',
-    requirements: [ requireSkill('psychicMastery',4) ], // and at least 2 psychic powers from a single Discipline.
+    requirements: [
+      { key: 'at least 2 psychic powers from a single Discipline' },
+      requireSkill('psychicMastery',4),
+    ],
   },
   {
     ...talent('core',133,'Disturbing Voice',20,'Social'),
@@ -571,7 +573,9 @@ const core = [
     snippet: 'Talk on and on over a Topic to lock someone in the conversation.',
     description:
       '<p></p>',
-    requirements: [], // A Rating of 1+ in any of the following; Ballistic Skill (A), Medicae (Int), Pilot (A), Scholar (Int), Survival (Wil), Tech (Int) or Weapon Skill (I).
+    requirements: [
+      { key: 'A rating of 1+ in the respective skill.' },
+    ], // A Rating of 1+ in any of the following; Ballistic Skill (A), Medicae (Int), Pilot (A), Scholar (Int), Survival (Wil), Tech (Int) or Weapon Skill (I).
   },
   {
     ...talent('core',135,'Legacy Of Sorrow',20),
@@ -653,7 +657,7 @@ const core = [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
     ],
   },
-  {
+  { // Duplicate
     ...talent('core',136,'Mark Of Tzeentch',30),
     snippet: '+1 Corruption. Add gain the PSYKER Keyword. If you already have it, gain one Minor Psychic Power.',
     description:
@@ -923,7 +927,7 @@ const core = [
     snippet: 'You add +Double Rank when rolling tests using [Attribute]',
     description:
       '<p></p>',
-    requirements: [], // Attribute 5+
+    requirements: [ { key: 'Attribute 5+'} ],
     selected: '',
     optionsPlaceholder: 'Select an Attribute',
     options: [
@@ -973,7 +977,7 @@ const core = [
     snippet: 'Reduce Penalties to [Skill] tests by Double Rank.',
     description:
       '<p></p>',
-    requirements: [], // skill 4+
+    requirements: [ { key: 'Skill 4+ '} ],
     selected: '',
     optionsPlaceholder: 'Select a Trait',
     options: [
@@ -1062,7 +1066,7 @@ const core = [
     requirements: [
       requireKeyword('IMPERIUM'),
       requireKeyword('CHAOS',true),
-      // Scholar 1+
+      requireSkill('scholar', 1),
     ],
   },
   {
@@ -1093,7 +1097,7 @@ const core = [
     requirements: [
       requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
       requireKeyword('CHAOS',true),
-      // and willpower 3+
+      requireAttribute('willpower', 3),
     ],
   },
   {
@@ -1106,7 +1110,7 @@ const core = [
     requirements: [
       requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
       requireKeyword('CHAOS',true),
-      // and willpower 3+
+      requireAttribute('willpower', 3),
     ],
   },
   {
@@ -1119,7 +1123,7 @@ const core = [
     requirements: [
       requireKeyword('IMPERIUM'),
       requireKeyword('CHAOS',true),
-      // wilpower 3+
+      requireAttribute('willpower', 3),
     ],
   },
   {
@@ -1132,7 +1136,7 @@ const core = [
     requirements: [
       requireKeyword('IMPERIUM'),
       requireKeyword('CHAOS',true),
-      // wilpower 3+
+      requireAttribute('willpower', 3),
     ],
   },
   {
