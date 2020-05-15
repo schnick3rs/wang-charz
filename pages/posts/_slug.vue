@@ -34,7 +34,7 @@
           <v-col
             :cols="12"
           >
-            <header class="page-header page-header--doom-green">
+            <header class="page-header page-header--doom-blue">
               <h1>{{ post.fields.title }}</h1>
             </header>
 
@@ -182,7 +182,7 @@ export default {
     }
 
     & code {
-      color: hsl(122, 39%, 49%)
+      color: hsl(194, 90%, 65%);
     }
 
     & blockquote {
@@ -211,7 +211,7 @@ export default {
 
     font-weight: 600;
     text-decoration: none;
-    color: hsl(122, 39%, 49%);
+    color: hsl(194, 90%, 65%);
 
     &--talent {
     }
@@ -237,15 +237,16 @@ export default {
 
   .page-header {
     border-bottom: 2px solid black;
-    &--doom-green {
-      border-color: hsl(122, 39%, 49%);
+    &--doom-blue {
+      //border-color: hsl(122, 39%, 49%);
+      border-color: hsl(194, 90%, 65%);
     }
   }
 
   .post-html-container {
-    border-left: 0.5px solid hsl(122, 39%, 79%);
-    border-right: 0.5px solid hsl(122, 39%, 79%);
-    border-bottom: 2px solid hsl(122, 39%, 49%);
+    border-left: 0.5px solid hsl(194, 90%, 65%);
+    border-right: 0.5px solid hsl(194, 90%, 65%);
+    border-bottom: 2px solid hsl(194, 90%, 45%);
     background: white;
     padding: 20px 10px;
     margin-bottom: 20px;

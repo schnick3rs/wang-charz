@@ -33,7 +33,7 @@
           <v-col
             :cols="12"
           >
-            <header class="page-header page-header--doom-green">
+            <header class="page-header page-header--doom-posts">
               <h1>{{ page.title }}</h1>
             </header>
           </v-col>
@@ -65,7 +65,7 @@
                    >
                      {{ post.fields.publishedAt | timeSince }} by
                   </span>
-                  <span class="image-caption__by-author success--text ml-1">
+                  <span class="image-caption__by-author posts--text ml-1">
                     {{ post.fields.author }}
                   </span>
                 </div>
@@ -196,9 +196,13 @@ export default {
 
     border-bottom: 2px solid black;
 
-    &--doom-green {
-      border-color: hsl(122, 39%, 49%);
+    &--doom-posts {
+      border-color: hsl(194, 90%, 45%);
     }
+  }
+
+  .posts--text {
+    color: hsl(194, 90%, 45%);
   }
 
   .image-caption {
