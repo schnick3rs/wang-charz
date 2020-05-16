@@ -520,8 +520,22 @@
 
                       <strong>{{ talent.name }}</strong>
                       <em> • Talent</em>
+                      <span v-if="talent.source">
+                        <em v-if="talent.source.key"> • {{ talent.source.key }}</em><em v-if="!isNaN(talent.source.page)">, pg. {{ talent.source.page }}</em>
+                      </span>
                       <div v-if="talent.snippet"><p class="mb-1" v-html="computeFormatedText(talent.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(talent.description)"></div>
+
+                      <div
+                        v-if="talent.selectedOptions"
+                        v-for="selectedOption in talent.selectedOptions"
+                        class="ml-1 pl-2"
+                        style="border-left: solid 3px lightgrey;"
+                      >
+                        <strong>{{ selectedOption.name }}</strong>
+                        <div v-if="selectedOption.snippet"><p class="mb-1" v-html="computeFormatedText(selectedOption.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(selectedOption.description)"></div>
+                      </div>
 
                       <div v-if="false" class="mt-1 mb-1 ml-1 pl-2" style="flex-wrap: wrap; display: flex; border-left: solid 3px lightgrey;" >
                         <div
@@ -1070,6 +1084,11 @@ export default {
 
       return attributes;
     },
+
+    /**
+     *
+     * @returns [{Talents}]
+     */
     traits() {
       const characterTraits = this.$store.getters['characters/characterTraitsById'](this.characterId);
       const traitsEnhanced = this.$store.getters['characters/characterTraitsEnhancedById'](this.characterId);
@@ -1115,6 +1134,7 @@ export default {
         return aggregatedTrait;
       });
 
+      // We search all enhacements that have TRAIT modifications
       this.enhancements
       .filter((enhancement) => enhancement.targetGroup==='traits')
       .forEach((enhancement) => {
@@ -1133,6 +1153,7 @@ export default {
         }
       });
 
+      // we
       this.talents
         .filter((talent) => talent.modifications)
         .forEach((talent) => {
@@ -1451,15 +1472,52 @@ export default {
     talents() {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
       const finalTalents = [];
+
       characterTalents.forEach((charTalent) => {
-        const rawTalent = this.talentRepository.find((t) => t.name === charTalent.name);
-        rawTalent.source = undefined;
-        if (charTalent.selected) {
-          rawTalent.name = rawTalent.name.replace(/\[.*\]/, `(${charTalent.selected})`);
+        const rawTalent = this.talentRepository.find((t) => t.key === charTalent.key);
+        if (rawTalent) {
+          const ability = {
+            name: rawTalent.name,
+            snippet: rawTalent.snippet,
+            description: rawTalent.description,
+            source: rawTalent.source,
+            hint: rawTalent.name,
+            selectedOptions: [],
+            modifications: rawTalent.modifications || [],
+          };
+
+          if (rawTalent.wargear && this.charGear){
+            const gear = this.charGear.filter((g) => g.source && g.source.startsWith(`talent.${charTalent.id}.`));
+            if (gear) {
+              gear.forEach((g) => {
+                ability.selectedOptions.push({ name: g.name });
+              });
+            }
+          }
+
+          if (charTalent.selected) {
+            if (rawTalent.options) {
+              const choice = this.getTalentOption(rawTalent, charTalent.selected);
+              ability.name = ability.name.replace(/\[.*\]/, `(${choice.name})`);
+
+              if (choice.modifications) {
+                console.info(`Additional modifications found for the selected choice.`)
+                ability.modifications.push(...choice.modifications);
+              }
+
+              if (choice.effect || choice.snippet ) {
+                ability.selectedOptions.push({ name: choice.name, snippet: choice.snippet });
+              }
+            } else {
+              ability.name = ability.name.replace(/\[.*\]/, `(${charTalent.selected})`);
+            }
+          }
+          finalTalents.push(ability);
+        } else {
+          console.info(`No talent found for ${charTalent.key}`);
         }
-        finalTalents.push(rawTalent);
       });
-      return finalTalents;
+      return finalTalents.sort((a, b) => a.name.localeCompare(b.name));
     },
     talentsForFaith() {
       if ( this.talents.length > 0 ) {
@@ -1467,8 +1525,11 @@ export default {
       }
       return [];
     },
+    charGear() {
+      return this.$store.getters['characters/characterWargearById'](this.characterId);
+    },
     wargear() {
-      const chargear = this.$store.getters['characters/characterWargearById'](this.characterId);
+      const chargear = this.charGear;
       const wargear = [];
       if(this.wargearRepository) {
         chargear.forEach((gear) => {
@@ -1635,6 +1696,9 @@ export default {
       }
       return skill.enhancedValue;
     },
+    getTalentOption(talent, choiceKey) {
+      return talent.options.find((t) => t.key === choiceKey);
+    },
     computeFormatedText(text) {
       if ( text === undefined ) {
         return text;
@@ -1649,10 +1713,13 @@ export default {
       computed = computed.replace(/15 \+ ?Rank metres/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15 \+ ?Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15\+Double Rank metres/g, `<strong>${15 + (2*rank)} metres</strong>`);
-      computed = computed.replace(/\+ ?Rank/g, `<strong title="+Rank">+${rank}</strong>`);
-      computed = computed.replace(/\+ ?Double Rank/g, `<strong title="+Double Rank">+${2*rank}</strong>`);
-      computed = computed.replace(/10 ?x ?Rank/g, `<strong title="+Double Rank">${10*rank}</strong>`);
-      computed = computed.replace(/10 ?x ?Double Rank/g, `<strong title="+Double Rank">${10*2*rank}</strong>`);
+      computed = computed.replace(/1\+Double Rank/g, `<strong>+${(2*rank)+1}</strong>`);
+      computed = computed.replace(/2 ?\+Double Rank/g, `<strong>${(2*rank)+2}</strong>`);
+      computed = computed.replace(/\+ ?Rank/g, `<strong>+${rank}</strong>`);
+      computed = computed.replace(/\+ ?Double Rank/g, `<strong>+${2*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Rank/g, `<strong>${10*rank}</strong>`);
+      computed = computed.replace(/10 ?x ?Double Rank/g, `<strong>${10*2*rank}</strong>`);
+      computed = computed.replace(/ Double Rank/g, ` <strong>${2*rank}</strong>`);
 
       return computed;
     },

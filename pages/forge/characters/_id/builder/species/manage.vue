@@ -9,7 +9,6 @@
         :psychic-powers="psychicPowers"
         manage-mode
         @changeSpecies="doChangeSpeciesMode"
-        @changeChapter="updateAstartesChapter"
         @changeSpeciesTraitOption="setSpeciesTraitOption"
       />
     </v-col>
@@ -101,12 +100,6 @@ export default {
         name: 'forge-characters-id-builder-species-choose',
         params: { id: this.characterId },
       });
-    },
-    updateAstartesChapter(chapterName) {
-      const content = {
-        speciesAstartesChapter: chapterName,
-      };
-      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id: this.characterId, ...content });
     },
     /**
      * clear previous option

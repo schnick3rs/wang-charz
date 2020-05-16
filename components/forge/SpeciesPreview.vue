@@ -139,7 +139,7 @@
               class="ml-2 mr-2"
               dense
               solo
-              @change="$emit('changeChapter', species['chapter'])"
+              @change="updateAstartesChapter(species['chapter'])"
             />
 
             <p
@@ -317,6 +317,34 @@ export default {
         };
         this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
       }
+    },
+    updateAstartesChapter(key) {
+      const id = this.characterId;
+      const chapter = this.chapterList.find((chapter) => chapter.key === key);
+
+      const content = {
+        speciesAstartesChapter: chapter.key,
+      };
+      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id, ...content });
+
+      this.$store.commit('characters/clearCharacterTalentsBySource', { id, source: `species.chapter.`, cascade: true });
+      chapter.beliefsAndTraditions.forEach((bf) => {
+        if (bf.modifications) {
+          bf.modifications
+            .filter( (m) => m.targetGroup === 'talents' )
+            .forEach( (t) => {
+              const talent = {
+                name: t.meta.name,
+                key: t.targetValue,
+                cost: 0,
+                placeholder: undefined,
+                selected: undefined,
+                source: `species.chapter.${chapter.key}`,
+              };
+              this.$store.commit('characters/addCharacterTalent', { id, talent });
+            });
+        }
+      });
     },
   },
 };

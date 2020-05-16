@@ -231,6 +231,7 @@
         @click="choosePackage"
         color="success"
         text
+        :disabled="effectiveCharacterTier >= settingTier"
       >
         <v-icon>add</v-icon>
         Add an Ascension Package

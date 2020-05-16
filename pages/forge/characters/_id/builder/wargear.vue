@@ -354,16 +354,6 @@ export default {
       }
       return [];
     },
-    wargearSubtitle(item) {
-      if (item) {
-        const tags = [item.type];
-        if (item.subtype) {
-          tags.push(item.subtype);
-        }
-        return tags.filter((t) => t !== undefined).join(' • ');
-      }
-      return '';
-    },
   },
 };
 </script>

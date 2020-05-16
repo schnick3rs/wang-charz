@@ -75,7 +75,7 @@ export const getters = {
       return 0;
     }
     let spending = 0;
-    character.talents.forEach((talent) => {
+    character.talents.filter((talent) => talent).forEach((talent) => {
       spending += talent.cost;
       spending += talent.extraCost && parseInt(talent.extraCost) ? talent.extraCost : 0;
     });
@@ -466,33 +466,48 @@ export const mutations = {
     const character = state.characters[payload.id];
     const { talent } = payload;
     const talentUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-    const hasTalent = character.talents.find((t) => t.name === talent.name) !== undefined;
-    if (!hasTalent) {
-      character.talents.push({ id: talentUniqueId, ...talent });
-    }
+    console.info(`Adding Talent [${talentUniqueId}] ${talent.name}.`);
+    talent.id = talentUniqueId;
+    character.talents.push(talent);
+    //const hasTalent = character.talents.find((t) => t.id === talent.id) !== undefined;
+    //if (!hasTalent) {
+    //}
   },
   removeCharacterTalent(state, payload) {
     const character = state.characters[payload.id];
-    const hasTalent = character.talents.find((t) => t.name === payload.name) !== undefined;
+    character.talents = character.talents.filter((t) => t); // cleanup
+    const hasTalent = character.talents.find((t) => t.id === payload.talentId) !== undefined;
     if (hasTalent) {
-      character.talents = character.talents.filter((t) => t.name !== payload.name);
+      character.talents = character.talents.filter((t) => t.id !== payload.talentId);
     }
   },
+
+  /**
+   * @param state
+   * @param payload { id, source: `ascension.${key}`, cascade: true }
+   */
   clearCharacterTalentsBySource(state, payload) {
     const character = state.characters[payload.id];
+    const { source, cascade } = payload;
     if (character.talents.length > 0) {
-      console.log(`found ${character.talents.length} talents, clearing with source ${payload.source}...`);
-      character.talents = character.talents.filter((k) => k.source === undefined || !k.source.includes(payload.source));
+      console.log(`Found ${character.talents.length} talents, clearing with source ${source}...`);
+      character.talents = character.talents.filter((k) => k.source === undefined || !k.source.includes(source));
       console.log(`${character.talents.length} talents remaining`);
     }
   },
   setCharacterTalentSelected(state, payload) {
     const character = state.characters[payload.id];
-    console.info(`Update ${payload.name} set selected = ${payload.selected}`);
-    const theTalent = character.talents.find((t) => t.name === payload.name);
-    const theOtherTalents = character.talents.filter((t) => t.name !== payload.name);
+    const { id, key, name, selected } = payload.talent;
+    character.talents = character.talents.filter((t) => t); // cleanup
 
-    theTalent.selected = payload.selected;
+    console.info(`Update [${id}] ${name} with choice -> ${selected}`);
+    const theTalent = character.talents.find((t) => t.id === id);
+    const theOtherTalents = character.talents.filter((t) => t.id !== id);
+
+    if (theTalent) {
+      // the character has a talent with the given uniqueID, thus we set the talents selected value accordingly
+      theTalent.selected = selected;
+    }
 
     character.talents = [
       ...theOtherTalents,
@@ -501,11 +516,15 @@ export const mutations = {
   },
   setCharacterTalentExtraCost(state, payload) {
     const character = state.characters[payload.id];
-    console.info(`Update ${payload.name} set extraCost = ${payload.extraCost}`);
-    const theTalent = character.talents.find((t) => t.name === payload.name);
-    const theOtherTalents = character.talents.filter((t) => t.name !== payload.name);
+    const { key, name, extraCost } = payload;
 
-    theTalent.extraCost = payload.extraCost;
+    console.info(`Update ${key}/${name} set extraCost = ${extraCost}`);
+    const theTalent = character.talents.find((t) => t.key === key);
+    const theOtherTalents = character.talents.filter((t) => t.key !== key);
+
+    if (theTalent) {
+      theTalent.extraCost = extraCost;
+    }
 
     character.talents = [
       ...theOtherTalents,
