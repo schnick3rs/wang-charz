@@ -150,7 +150,7 @@
                     </p>
                   </v-col>
 
-                  <v-col v-if="item.fields.image.fields.file.url && false" :cols="12" :md="3">
+                  <v-col v-if="item.fields.image && item.fields.image.fields.file.url && false" :cols="12" :md="3">
                     <v-img :src="item.fields.image.fields.file.url" />
                   </v-col>
 

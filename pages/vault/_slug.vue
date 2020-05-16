@@ -69,7 +69,7 @@
               </ul>
             </v-col>
 
-            <v-col v-if="item.fields.image.fields.file.url" :cols="12" :sm="3">
+            <v-col v-if="item.fields.image && item.fields.image.fields.file.url" :cols="12" :sm="3">
               <v-img :src="item.fields.image.fields.file.url" />
             </v-col>
 

@@ -190,14 +190,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss">
 
   .page-header {
 
     border-bottom: 2px solid black;
 
     &--doom-posts {
-      border-color: hsl(194, 90%, 45%);
+      border-bottom: 2px solid hsl(194, 90%, 45%);
     }
   }
 
