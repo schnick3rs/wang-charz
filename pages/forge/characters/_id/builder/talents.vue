@@ -576,7 +576,7 @@ export default {
                 break;
 
               default:
-                console.info(requirement);
+                console.info(`Unexpected requirement -> ${JSON.stringify(requirement)}`);
             }
           });
         }
