@@ -376,6 +376,9 @@ export default {
     remainingBuildPoints() {
       return this.$store.getters['characters/characterRemainingBuildPointsById'](this.characterId);
     },
+    speciesLabel() {
+      return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
+    },
     finalKeywords() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
     },
@@ -505,7 +508,10 @@ export default {
             switch (requirement.type) {
               // condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'],
               case 'keyword':
-                const found = requirement.key.some((prereqKeyword) => this.finalKeywords.includes(prereqKeyword));
+                const lowercaseKeywords = this.finalKeywords.map((k) => k.toUpperCase());
+                const found = requirement.key.some((k) => {
+                  return lowercaseKeywords.includes(k.toString().toUpperCase());
+                });
                 if (
                   (requirement.condition === 'must' && !found)
                   || (requirement.condition === 'mustNot' && found)
@@ -550,6 +556,13 @@ export default {
                     break;
                 }
                 break;
+
+              case 'species':
+                fulfilled = requirement.value.some((s) => s.toString() === this.speciesLabel);
+                break;
+
+              default:
+                console.info(requirement);
             }
           });
         }
