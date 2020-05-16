@@ -44,7 +44,14 @@
                 </v-chip>
               </div>
 
-              <div class="body-2" v-html="talent.snippet"></div>
+              <div class="body-2 mb-2" v-html="talent.snippet"></div>
+
+              <v-alert
+                v-if="talent.alert"
+                :type="talent.alert.type"
+                dense
+                text
+              >{{talent.alert.text}}</v-alert>
 
               <div v-if="talent.options">
                 <v-select
@@ -437,7 +444,14 @@ export default {
         // for each special talent, check respectively
         if (talent.selected) {
           aggregatedTalent.selected = talent.selected;
-          aggregatedTalent.extraCost = talent.extraCost;
+          aggregatedTalent.extraCost = 0;
+          if (talent.extraCost && typeof talent.extraCost === 'object') {
+            Object.keys(talent.extraCost).forEach((extraCostKey) => {
+              aggregatedTalent.extraCost  += talent.extraCost[extraCostKey] ? talent.extraCost[extraCostKey] : 0;
+            });
+          } else {
+            aggregatedTalent.extraCost += talent.extraCost && parseInt(talent.extraCost) ? talent.extraCost : 0;
+          }
           if (aggregatedTalent.options) {
             const replacementTargetString = aggregatedTalent.options.find((t) => t.key === talent.selected).name;
             aggregatedTalent.label = aggregatedTalent.name.replace(/(\[.*\])/, `<em>(${replacementTargetString})</em>`);
@@ -480,7 +494,7 @@ export default {
         }
 
         return aggregatedTalent;
-      });//.sort((a, b) => a.name.localeCompare(b.name));
+      }).sort((a, b) => a.id.localeCompare(b.id));
       return talents;
     },
     filteredTalents() {
@@ -738,6 +752,7 @@ export default {
         id: this.characterId,
         key: talent.key,
         name: talent.name,
+        extraKey: itemKey,
         extraCost: parseInt(gear.value),
       };
       this.$store.commit('characters/setCharacterTalentExtraCost', talentPayload);
@@ -762,6 +777,7 @@ export default {
         id: this.characterId,
         key: talent.key,
         name: talent.name,
+        extraKey: 'special-weapon',
         extraCost: parseInt(wargear.value),
       };
       this.$store.commit('characters/setCharacterTalentExtraCost', talentPayload);

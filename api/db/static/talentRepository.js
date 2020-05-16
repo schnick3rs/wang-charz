@@ -202,6 +202,7 @@ const core = [
     ...talent('core',129,'Augmetic, Two Rare',20,'Wargear'),
     key: 'core-augmetic-rare',
     snippet: 'Replace part of your biology with two rare augmetics.',
+    alert: { type: 'warning', text: 'Due to an issue with the computed talent cost, it might be needed to re-add the selected augmetics.', },
     description:
       '<p>You replace part of your biology with an augmetic, the common name for cybernetic implants in the Imperium.</p>' +
       '<p>You may take this Talent more than once. Each time you take this Talent you may select two augmetics of Rare or lower rarity, or a single Very Rare augmetic. The value of the selected augmetics are added to the talents cost. See p242 for more information on Augmetics.</p>' +

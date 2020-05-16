@@ -77,7 +77,13 @@ export const getters = {
     let spending = 0;
     character.talents.filter((talent) => talent).forEach((talent) => {
       spending += talent.cost;
-      spending += talent.extraCost && parseInt(talent.extraCost) ? talent.extraCost : 0;
+      if (talent.extraCost && typeof talent.extraCost === 'object') {
+        Object.keys(talent.extraCost).forEach((extraCostKey) => {
+          spending += talent.extraCost[extraCostKey] ? talent.extraCost[extraCostKey] : 0;
+        });
+      } else {
+        spending += talent.extraCost && parseInt(talent.extraCost) ? talent.extraCost : 0;
+      }
     });
     return spending;
   },
@@ -516,14 +522,17 @@ export const mutations = {
   },
   setCharacterTalentExtraCost(state, payload) {
     const character = state.characters[payload.id];
-    const { key, name, extraCost } = payload;
+    const { key, name, extraKey, extraCost } = payload;
 
-    console.info(`Update ${key}/${name} set extraCost = ${extraCost}`);
+    console.info(`Update ${key}/${name}/${extraKey} set extraCost to ${extraCost}`);
     const theTalent = character.talents.find((t) => t.key === key);
     const theOtherTalents = character.talents.filter((t) => t.key !== key);
 
     if (theTalent) {
-      theTalent.extraCost = extraCost;
+      if (typeof theTalent.extraCost !== 'object') {
+        theTalent.extraCost = {};
+      }
+      theTalent.extraCost[extraKey] = extraCost;
     }
 
     character.talents = [
