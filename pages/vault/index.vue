@@ -69,7 +69,7 @@
             :search="searchQuery"
             :items-per-page="-1"
             sort-by="fields.title"
-            item-key="fields.slug"
+            item-key="fields.urlSlug"
             show-expand
             hide-default-footer
             @item-expanded="trackExpand"

@@ -24,7 +24,6 @@ router.get('/', (request, response) => {
   const query = {
     'content_type': 'homebrewItem',
     'sys.revision[gt]': 0,
-    //'order': '-fields.publishedAt',
   };
   client.getEntries(query)
   .then( (data) => {

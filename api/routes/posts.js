@@ -18,7 +18,7 @@ const client = contentful.createClient({
 router.get('/', (request, response) => {
   const query = {
     'content_type': 'blogPost',
-    'sys.revision[gt]': 1,
+    'sys.revision[gt]': 0,
     'order': '-fields.publishedAt',
   };
   client.getEntries(query)
@@ -37,7 +37,7 @@ router.get('/:slug', (request, response) => {
 
   const query = {
     'content_type': 'blogPost',
-    'sys.revision[gt]': 1,
+    'sys.revision[gt]': 0,
     'fields.slug[in]': slug,
   };
   client.getEntries(query)
