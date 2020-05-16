@@ -176,7 +176,8 @@ const core = [
   },*/
   {
     ...talent('core',129,'Augmetic, One Very Rare',20,'Wargear'),
-    snippet: 'Replace part of your biology with augmetics.',
+    key: 'core-augmetic-very-rare',
+    snippet: 'Replace part of your biology with one very rare augmetic.',
     description:
       '<p>You replace part of your biology with an augmetic, the common name for cybernetic implants in the Imperium.</p>' +
       '<p>You may take this Talent more than once. Each time you take this Talent you may select two augmetics of Rare or lower rarity, or a single Very Rare augmetic. The value of the selected augmetics are added to the talents cost. See p242 for more information on Augmetics.</p>' +
@@ -199,7 +200,8 @@ const core = [
   },
   {
     ...talent('core',129,'Augmetic, Two Rare',20,'Wargear'),
-    snippet: 'Replace part of your biology with augmetics.',
+    key: 'core-augmetic-rare',
+    snippet: 'Replace part of your biology with two rare augmetics.',
     description:
       '<p>You replace part of your biology with an augmetic, the common name for cybernetic implants in the Imperium.</p>' +
       '<p>You may take this Talent more than once. Each time you take this Talent you may select two augmetics of Rare or lower rarity, or a single Very Rare augmetic. The value of the selected augmetics are added to the talents cost. See p242 for more information on Augmetics.</p>' +
@@ -555,6 +557,7 @@ const core = [
   },
   {
     ...talent('core',135,'Hatred [Any]',30,'Combat,Melee,Social'),
+    key: 'core-hatred',
     snippet: 'You gain +Double Rank dice for Melee Attacks against the Keyword. You suffer +2 DN to interactions with the Keyword.',
     description:
       '<p></p>',
@@ -571,6 +574,7 @@ const core = [
   },
   {
     ...talent('core',135,'Jargon [Skill]',20),
+    key: 'core-jargon',
     snippet: 'Talk on and on over a Topic to lock someone in the conversation.',
     description:
       '<p></p>',
@@ -622,6 +626,7 @@ const core = [
   },
   {
     ...talent('core',136,'Loremaster [Keyword]',30),
+    key: 'core-loremaster',
     snippet: 'You add +Double Rank to any (fitting) Skill Tests related to [Keyword]. This includes Interaction Attacks.',
     description:
       '<p></p>',
@@ -882,6 +887,7 @@ const core = [
   },
   {
     ...talent('core',140,'Supreme Presence [Skill]',30),
+    key: 'core-supreme-presence',
     snippet: 'Your Interaction attacks may target 1+Double Rank Troops within a Mob.',
     description:
       '<p></p>',
@@ -928,6 +934,7 @@ const core = [
   },
   {
     ...talent('core',141,'Trademark Weapon [Weapon]',30),
+    key: 'core-trademark-weapon',
     snippet: 'You add +Double Rank ED when attacking with your Trademark Weapon.',
     description:
       '<p></p>',
@@ -936,6 +943,7 @@ const core = [
   },
   {
     ...talent('core',141,'Transhuman [Attribute]',60),
+    key: 'core-transhuman-attribute',
     snippet: 'You add +Double Rank when rolling tests using [Attribute]',
     description:
       '<p></p>',
@@ -962,6 +970,7 @@ const core = [
   },
   {
     ...talent('core',141,'Uncanny [Trait]',40),
+    key: 'core-uncanny-trait',
     snippet: 'Increase a Trait by +Rank.',
     description:
       '<p></p>',
@@ -986,6 +995,7 @@ const core = [
   },
   {
     ...talent('core',141,'Unnatural [Skill]',60),
+    key: 'core-unnatural-skill',
     snippet: 'Reduce Penalties to [Skill] tests by Double Rank.',
     description:
       '<p></p>',

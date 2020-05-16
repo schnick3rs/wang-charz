@@ -59,7 +59,7 @@
                 />
               </div>
 
-              <div v-if="['core-loremaster--keyword-','core-hatred--any-'].includes(talent.key)">
+              <div v-if="['core-loremaster','core-hatred'].includes(talent.key)">
                 <v-select
                   :value="talent.selected"
                   :items="selectableKeywordOptions"
@@ -72,7 +72,7 @@
                 />
               </div>
 
-              <div v-if="talent.key === 'core-trademark-weapon--weapon-'">
+              <div v-if="talent.key === 'core-trademark-weapon'">
                 <v-select
                   :value="talent.selected"
                   :items="talentTrademarkWeaponOptions.filter( w => ['Melee Weapon','Ranged Weapon'].includes(w.type))"
