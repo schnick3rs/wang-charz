@@ -98,7 +98,7 @@
               </div>
 
               <div>
-                <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">
+                <v-btn color="primary" :href="item.documentUrl" target="_blank" @click="trackEvent(item.documentUrl)">
                   View the document
                   <v-icon right dark>
                     launch
