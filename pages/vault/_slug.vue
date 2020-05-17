@@ -52,13 +52,13 @@
                     <li v-for="parts in item.contentTags" :key="parts">
                       <nuxt-link
                         v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
-                        :to="`/library/${textToKebab(parts)}?filter-source=${item.key}`"
+                        :to="`/library/${textToKebab(parts)}?filter-source=${item.sourceKey}`"
                       >
                         {{ parts }}
                       </nuxt-link>
                       <nuxt-link
                         v-else-if="['Threats'].includes(parts)"
-                        :to="`/bestiary?filter-source=${item.key}`"
+                        :to="`/bestiary?filter-source=${item.sourceKey}`"
                       >
                         {{ parts }}
                       </nuxt-link>
