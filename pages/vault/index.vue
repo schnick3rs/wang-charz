@@ -68,8 +68,8 @@
             :expanded.sync="expanded"
             :search="searchQuery"
             :items-per-page="-1"
-            sort-by="fields.title"
-            item-key="fields.urlSlug"
+            sort-by="title"
+            item-key="urlSlug"
             show-expand
             hide-default-footer
             @item-expanded="trackExpand"
@@ -77,47 +77,56 @@
             <template v-slot:item.title="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
-                  {{ item.fields.title }}
+                  {{ item.title }}
                 </v-col>
                 <v-col v-if="false" :cols="12" class="caption grey--text">
-                  {{ item.fields.hint }}
+                  {{ item.hint }}
                 </v-col>
               </v-row>
             </template>
 
             <template v-slot:item.version="{ item }">
               <v-chip
-                v-if="['Draft'].includes(item.fields.status)"
-                color="orange"
-                text-color="white"
-                tags
-                x-small
-                label
+                v-if="item.version === 'Draft' || item.version.startsWith('v0')"
+                tags x-small label
               >
-                <span v-if="item.version">{{ item.fields.version }}</span>
-                <span v-else>{{ item.fields.status }}</span>
+                <span>{{ item.version }}</span>
               </v-chip>
               <v-chip
-                v-if="['Released'].includes(item.fields.status)"
+                v-else
                 color="green"
                 text-color="white"
-                tags
-                x-small
-                label
+                tags x-small label
               >
-                <span v-if="item.version">{{ item.fields.version }}</span>
-                <span v-else>{{ item.fields.status }}</span>
+                <span>{{ item.version }}</span>
+              </v-chip>
+            </template>
+
+            <template v-slot:item.supplements="{ item }">
+              <v-chip
+                v-if="item.supplements === 'Core v1.5'"
+                color="green"
+                text-color="white"
+                tags x-small label
+              >
+                <span>{{ item.supplements }}</span>
+              </v-chip>
+              <v-chip
+                v-else
+                tags x-small label
+              >
+                <span>{{ item.supplements }}</span>
               </v-chip>
             </template>
 
             <template v-slot:item.keywordTags="{ item }">
-              <v-chip v-for="keyword in item.fields.keywordTags" :key="keyword" small class="mr-2 mb-1 mt-1">
+              <v-chip v-for="keyword in item.keywordTags" :key="keyword" small class="mr-2 mb-1 mt-1">
                 {{ keyword }}
               </v-chip>
             </template>
 
             <template v-slot:item.actions="{ item }">
-              <v-btn small icon nuxt :to="`/vault/${item.fields.urlSlug}`">
+              <v-btn small icon nuxt :to="`/vault/${item.urlSlug}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
@@ -128,18 +137,18 @@
                 <v-row>
                   <v-col :cols="12">
                     <h3 class="headline">
-                      {{ item.fields.title }}
+                      {{ item.title }}
                     </h3>
-                    <span class="grey--text">{{ item.fields.subtitle }}</span>
+                    <span class="grey--text">{{ item.subtitle }}</span>
                   </v-col>
 
                   <v-col :cols="12" :md="8">
-                    <p><strong>Author:</strong> {{ item.fields.author }}</p>
-                    <p>{{ item.fields.abstract }}</p>
-                    <p v-if="item.fields.keywordTags">
+                    <p><strong>Author:</strong> {{ item.author }}</p>
+                    <p>{{ item.abstract }}</p>
+                    <p v-if="item.keywordTags">
                       <span>Keywords: </span>
                       <v-chip
-                        v-for="keyword in item.fields.keywordTags"
+                        v-for="keyword in item.keywordTags"
                         :key="keyword"
                         class="mr-2 mb-1 mt-1"
                         small
@@ -150,23 +159,23 @@
                     </p>
                   </v-col>
 
-                  <v-col v-if="item.fields.image && item.fields.image.fields.file.url && false" :cols="12" :md="3">
-                    <v-img :src="item.fields.image.fields.file.url" />
+                  <v-col v-if="item.image && item.image.fields.file.url && false" :cols="12" :md="3">
+                    <v-img :src="item.image.fields.file.url" />
                   </v-col>
 
                   <v-col :cols="12" :md="4">
                     <strong>Topics:</strong>
                     <ul>
-                      <li v-for="parts in item.fields.contentTags" :key="parts">
+                      <li v-for="parts in item.contentTags" :key="parts">
                         <nuxt-link
                           v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
-                          :to="`/library/${textToKebab(parts)}?filter-source=${item.fields.sourceKey}`"
+                          :to="`/library/${textToKebab(parts)}?filter-source=${item.sourceKey}`"
                         >
                           {{ parts }}
                         </nuxt-link>
                         <nuxt-link
                           v-else-if="['Threats'].includes(parts)"
-                          :to="`/bestiary?filter-source=${item.fields.sourceKey}`"
+                          :to="`/bestiary?filter-source=${item.sourceKey}`"
                         >
                           {{ parts }}
                         </nuxt-link>
@@ -177,12 +186,12 @@
                 </v-row>
 
                 <v-card-actions>
-                  <v-btn color="primary" :href="item.fields.documentUrl" target="_blank" @click="trackEvent(item.fields.documentUrl)">
+                  <v-btn color="primary" :href="item.documentUrl" target="_blank" @click="trackEvent(item.documentUrl)">
                     View the document <v-icon right dark>
                       launch
                     </v-icon>
                   </v-btn>
-                  <v-btn color="green" nuxt :to="'/vault/'+item.fields.urlSlug">
+                  <v-btn color="green" nuxt :to="'/vault/'+item.urlSlug">
                     Show Details
                   </v-btn>
                 </v-card-actions>
@@ -243,18 +252,18 @@ export default {
   components: {},
   mixins: [SluggerMixin],
   head() {
-    const itemSchemaArray = this.vaultItems.map((item) => {
-      console.info(item);
+    const itemSchemaArray = this.vaultItems
+      .map((item) => {
       return {
         ...SchemaDigitalDocument,
-        name: item.fields.title,
-        alternativeHeadline: item.fields.subtitle,
-        author: item.fields.author,
-        version: item.fields.version,
-        url: item.fields.documentUrl,
-        thumbnailUrl: item.fields.image ? `https://www.doctors-of-doom.com${item.fields.image.fields.file.url}` : null,
-        description: item.fields.abstract,
-        keywords: [...item.fields.keywordTags, 'Wrath & Glory'].join(','),
+        name: item.title,
+        alternativeHeadline: item.subtitle,
+        author: item.author,
+        version: item.version,
+        url: item.documentUrl,
+        thumbnailUrl: item.image ? `https://www.doctors-of-doom.com${item.image.fields.file.url}` : null,
+        description: item.abstract,
+        keywords: item.keywordTags ? [...item.keywordTags, 'Wrath & Glory'].join(',') : 'Wrath & Glory',
       }
     });
 
@@ -323,16 +332,16 @@ export default {
           text: 'Title', align: 'start', value: 'title', class: '',
         },
         {
-          text: 'Version', align: 'start', value: 'fields.version', class: '',
+          text: 'Version', align: 'start', value: 'version', class: '',
         },
         {
-          text: 'Build for', align: 'start', value: 'fields.supplements', class: '',
+          text: 'Build for', align: 'start', value: 'supplements', class: '',
         },
         {
-          text: 'Hint', align: 'start', value: 'fields.hint', class: '',
+          text: 'Hint', align: 'start', value: 'hint', class: '',
         },
         {
-          text: 'Author', align: 'start', value: 'fields.author', class: '',
+          text: 'Author', align: 'start', value: 'author', class: '',
         },
         {
           text: '', sortable: false, align: 'end', value: 'actions', class: '',
@@ -370,7 +379,8 @@ export default {
     contentOptions() {
       let contentOptions = [];
       this.vaultItems.forEach((item) => {
-        contentOptions = [...contentOptions, ...item.fields.contentTags, ...item.fields.keywordTags];
+        if (item.contentTags) contentOptions.push(item.contentTags);
+        if (item.keywordTags) contentOptions.push(item.keywordTags);
       });
       return [...new Set(contentOptions)].sort();
     },
@@ -382,7 +392,7 @@ export default {
       }
 
       if (this.contentFilter.length > 0) {
-        filteredResults = filteredResults.filter((h) => [...h.fields.contentTags, ...h.fields.keywordTags]
+        filteredResults = filteredResults.filter((h) => [...h.contentTags, ...h.keywordTags]
           .some((c) => this.contentFilter.includes(c)));
       }
 
@@ -399,7 +409,7 @@ export default {
   async asyncData({ app }) {
     const { data } = await app.$axios.get('/api/homebrews/');
     return {
-      vaultItems: data,
+      vaultItems: data.map((item) => item.fields),
     };
   },
   methods: {
@@ -415,8 +425,8 @@ export default {
       if (navigator.share) {
         navigator.share({
           title: 'Vault',
-          text: `Check out ${item.fields.title}`,
-          url: `https://www.doctors-of-doom/vault/${item.fields.urlSlug}`,
+          text: `Check out ${item.title}`,
+          url: `https://www.doctors-of-doom/vault/${item.urlSlug}`,
         })
           .then(() => console.log('Successful share'))
           .catch((error) => console.log('Error sharing', error));
@@ -426,7 +436,7 @@ export default {
     },
     trackExpand(event) {
       if (event.value === true) {
-        this.$ga.event('Vault Row', 'expand', event.item.fields.title, 1);
+        this.$ga.event('Vault Row', 'expand', event.item.title, 1);
       }
     },
     trackEvent(url) {

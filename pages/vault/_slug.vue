@@ -14,9 +14,9 @@
         :md="10"
       >
         <header class="page-header page-header--doom-green">
-          <h1 class="headline">{{ item.fields.title }}</h1>
+          <h1 class="headline">{{ item.title }}</h1>
           <h2 class="subtitle-2 grey--text">
-            {{ item.fields.subtitle }}
+            {{ item.subtitle }}
           </h2>
         </header>
 
@@ -28,7 +28,7 @@
                 Author
               </h3>
               <p>
-                {{ item.fields.author }}
+                {{ item.author }}
               </p>
 
               <div>
@@ -36,7 +36,7 @@
                   Version Info
                 </h3>
                 <p>
-                  {{ item.fields.status }} {{ item.fields.version }}
+                  {{ item.version }}
                 </p>
               </div>
 
@@ -44,23 +44,23 @@
                 Abstract
               </h3>
               <p>
-                {{ item.fields.abstract }}
+                {{ item.abstract }}
               </p>
             </v-col>
 
             <v-col :cols="12" :sm="3">
               <span class="subtitle-2">Topics / Content:</span>
               <ul>
-                <li v-for="parts in item.fields.contentTags" :key="parts">
+                <li v-for="parts in item.contentTags" :key="parts">
                   <nuxt-link
                     v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
-                    :to="`/library/${textToKebab(parts)}?filter-source=${item.fields.key}`"
+                    :to="`/library/${textToKebab(parts)}?filter-source=${item.key}`"
                   >
                     {{ parts }}
                   </nuxt-link>
                   <nuxt-link
                     v-else-if="['Threats'].includes(parts)"
-                    :to="`/bestiary?filter-source=${item.fields.key}`"
+                    :to="`/bestiary?filter-source=${item.key}`"
                   >
                     {{ parts }}
                   </nuxt-link>
@@ -69,15 +69,15 @@
               </ul>
             </v-col>
 
-            <v-col v-if="item.fields.image && item.fields.image.fields.file.url" :cols="12" :sm="3">
-              <v-img :src="item.fields.image.fields.file.url" />
+            <v-col v-if="item.image && item.image.fields.file.url" :cols="12" :sm="3">
+              <v-img :src="item.image.fields.file.url" />
             </v-col>
 
-            <v-col v-if="item.fields.links && item.fields.links.length > 0" :cols="12" :sm="3">
+            <v-col v-if="item.links && item.links.length > 0" :cols="12" :sm="3">
               <span class="subtitle-2">Support or follow the author:</span>
 
-              <ul v-if="item.fields.links && item.fields.links.length > 0" class="mb-4">
-                <li v-for="link in item.fields.links" :key="link.title">
+              <ul v-if="item.links && item.links.length > 0" class="mb-4">
+                <li v-for="link in item.links" :key="link.title">
                   <a class="mr-2" :href="link.url" target="_blank">{{ link.name }}</a>
                 </li>
               </ul>
@@ -85,10 +85,10 @@
           </v-row>
 
           <div>
-            <p v-if="item.fields.keywordTags">
+            <p v-if="item.keywordTags">
               <span class="subtitle-2">Keywords / Tags:</span><br>
               <v-chip
-                v-for="keyword in item.fields.keywordTags"
+                v-for="keyword in item.keywordTags"
                 :key="keyword"
                 class="mr-2 mb-1 mt-1"
                 small
@@ -100,7 +100,7 @@
           </div>
 
           <div>
-            <v-btn color="primary" :href="item.fields.url" target="_blank" @click="trackEvent(item.fields.url)">
+            <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">
               View the document
               <v-icon right dark>
                 launch
@@ -128,16 +128,17 @@ export default {
     SluggerMixin,
   ],
   head() {
+    const item = this.item;
     const itemSchema = {
       ...SchemaDigitalDocument,
-      name: this.item.fields.title,
-      alternativeHeadline: this.item.fields.subtitle,
-      author: this.item.fields.author,
-      version: this.item.fields.version || this.item.fields.status,
-      url: this.item.fields.url,
-      thumbnailUrl: this.item.fields.image ? this.item.fields.image.fields.file.url : null,
-      description: this.item.fields.abstract,
-      keywords: [...this.item.fields.keywordTags, 'Wrath & Glory'].join(','),
+      name: item.title,
+      alternativeHeadline: item.subtitle,
+      author: item.author,
+      version: item.version,
+      url: item.url,
+      thumbnailUrl: item.image ? item.image.fields.file.url : null,
+      description: item.abstract,
+      keywords: item.keywordTags ? [...item.keywordTags, 'Wrath & Glory'].join(',') : 'Wrath & Glory',
     };
 
     const breadcrumbListSchema = {
@@ -151,9 +152,11 @@ export default {
       })),
     };
 
-    const title = `${this.item.fields.title}`;
-    const description = `${this.item.fields.subtitle}. ${this.item.fields.abstract}`;
-    const image = this.item.fields.image ? `https://www.doctors-of-doom.com${this.item.fields.image.fields.file.url}` : 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
+    const title = `${item.title}`;
+    const description = `${item.subtitle}. ${item.abstract}`;
+    const image = item.image ? `https://www.doctors-of-doom.com${item.image.fields.file.url}` : 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
+    const keywords = item.keywordTags ? [
+      ...item.keywordTags, 'Homebrew', 'Supplement', 'Wrath & Glory',] : ['Homebrew', 'Supplement', 'Wrath & Glory'] ;
 
     return {
       titleTemplate: '%s | A Wrath & Glory Homebrew',
@@ -166,12 +169,7 @@ export default {
         {
           hid: 'keywords',
           name: 'keywords',
-          content: [
-            ...this.item.fields.keywordTags,
-            'Homebrew',
-            'Supplement',
-            'Wrath & Glory',
-          ].join(','),
+          content: keywords.join(','),
         },
       ],
       __dangerouslyDisableSanitizers: ['script'],
@@ -190,7 +188,7 @@ export default {
     try {
       // fetch all blog posts sorted by creation date
       const { data } = await $axios.get(`/api/homebrews/${slug}`);
-      const item = data[0];
+      const item = data[0].fields;
 
       return {
         item,
@@ -208,7 +206,7 @@ export default {
       return [
         { text: '', nuxt: true, exact: true, to: '/' },
         { text: 'Vault', nuxt: true, exact: true, to: '/vault' },
-        { text: this.item.fields.title, disabled: true, nuxt: true, to: `/vault/${this.slug}` },
+        { text: this.item.title, disabled: true, nuxt: true, to: `/vault/${this.slug}` },
       ];
     },
   },
