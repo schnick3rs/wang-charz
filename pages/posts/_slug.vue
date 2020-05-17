@@ -28,23 +28,25 @@
     >
       <v-col
         :cols="12"
-        :md="10"
+        :md="12"
       >
+        <ColorfulEntry
+          :headline="post.fields.title"
+          flavour="blog"
+        >
+          <v-row>
+            <v-col :cols="12" :md="10">
+              <p>{{ post.fields.description }}</p>
+              <div v-html="toHtml(post.fields.content)" class="markdown-html"></div>
+            </v-col>
+          </v-row>
+        </ColorfulEntry>
+
         <v-row>
           <v-col
             :cols="12"
           >
-            <header class="page-header page-header--doom-green">
-              <h1>{{ post.fields.title }}</h1>
-            </header>
 
-            <article class="post-html-container">
-
-              <p>{{ post.fields.description }}</p>
-
-              <div v-html="toHtml(post.fields.content)" class="markdown-html"></div>
-
-            </article>
 
           </v-col>
         </v-row>
@@ -59,12 +61,14 @@ import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 import ArticleSchemaMixin from '~/mixins/ArticleSchemaMixin';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
+import ColorfulEntry from '~/components/shared/ColorfulEntry';
 
 const fixedTime = new Date();
 
 export default {
   name: 'BlogPostDetail',
   components: {
+    ColorfulEntry,
     DodDefaultBreadcrumbs,
   },
   mixins: [
@@ -173,7 +177,7 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
   .markdown-html {
 
@@ -182,7 +186,7 @@ export default {
     }
 
     & code {
-      color: hsl(122, 39%, 49%)
+      color: hsl(194, 90%, 45%);
     }
 
     & blockquote {
@@ -211,7 +215,7 @@ export default {
 
     font-weight: 600;
     text-decoration: none;
-    color: hsl(122, 39%, 49%);
+    color: hsl(194, 90%, 45%);
 
     &--talent {
     }
@@ -232,43 +236,4 @@ export default {
     }
   }
 
-  .post-wrapper {
-  }
-
-  .page-header {
-    border-bottom: 2px solid black;
-    &--doom-green {
-      border-color: hsl(122, 39%, 49%);
-    }
-  }
-
-  .post-html-container {
-    border-left: 0.5px solid hsl(122, 39%, 79%);
-    border-right: 0.5px solid hsl(122, 39%, 79%);
-    border-bottom: 2px solid hsl(122, 39%, 49%);
-    background: white;
-    padding: 20px 10px;
-    margin-bottom: 20px;
-    //column-count: 2;
-    & h2, h3 {
-      //column-span: all;
-    }
-    & p {
-    }
-    & li > p {
-      margin-bottom: 0;
-    }
-    & img {
-      width: 100%;
-    }
-  }
-
-  .sexy-line{
-    display:block;
-    border:none;
-    color:white;
-    height:1px;
-    background:black;
-    background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
-  }
 </style>

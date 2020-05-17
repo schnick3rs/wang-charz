@@ -29,15 +29,9 @@
         :cols="12"
         :md="12"
       >
+        <ColorfulPage :headline="page.title" flavour="blog">
+        </ColorfulPage>
         <v-row>
-          <v-col
-            :cols="12"
-          >
-            <header class="page-header page-header--doom-green">
-              <h1>{{ page.title }}</h1>
-            </header>
-          </v-col>
-
           <v-col
             v-for="post in posts"
             :key="post.fields.id"
@@ -65,7 +59,7 @@
                    >
                      {{ post.fields.publishedAt | timeSince }} by
                   </span>
-                  <span class="image-caption__by-author success--text ml-1">
+                  <span class="image-caption__by-author posts--text ml-1">
                     {{ post.fields.author }}
                   </span>
                 </div>
@@ -84,11 +78,13 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+import ColorfulPage from '../../components/shared/ColorfulPage';
 const fixedTime = new Date();
 
 export default {
   name: 'OurMigrationFromDeathwatchToWrathAndGlory',
   components: {
+    ColorfulPage,
     DodDefaultBreadcrumbs,
   },
   mixins: [
@@ -187,15 +183,14 @@ export default {
 };
 </script>
 
-<style scoped lang="scss">
+<style lang="scss" scoped>
 
   .page-header {
+    border-bottom: 2px solid hsl(194, 90%, 65%);
+  }
 
-    border-bottom: 2px solid black;
-
-    &--doom-green {
-      border-color: hsl(122, 39%, 49%);
-    }
+  .posts--text {
+    color: hsl(194, 90%, 65%);
   }
 
   .image-caption {

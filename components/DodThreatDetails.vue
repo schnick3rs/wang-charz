@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-row justify="center">
     <v-col :cols="12">
-      <h3 class="headline">
+      <h3 class="headline" v-show="false">
         {{ item.name }}
       </h3>
       <h5 class="subtitle-2">

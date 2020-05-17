@@ -340,7 +340,16 @@ export default {
       return this.attributeRepository.find((a) => a.key === key);
     },
     getTraitByKey(key) {
-      return this.traitRepository.find((a) => a.key === key);
+      key = key.replace('wounds', 'Max Wounds');
+      key = key.replace('shock', 'Max Shock');
+      key = key.replace('soak', 'Determination');
+      const trait = this.traitRepository.find((a) => a.key === key);
+      if (trait) return trait;
+      console.warn(`No trait forund for ${key}`);
+      return {
+        key: key,
+        name: key,
+      };
     },
     getSkillByKey(key) {
       return this.skillRepository.find((s) => s.key === key);
