@@ -5,8 +5,14 @@
 
     <!-- Threat Details -->
     <v-row justify="center" no-gutters>
-      <v-col :cols="10">
-        <dod-threat-details :item="item" />
+      <v-col :cols="12">
+        <ColorfulEntry :headline="item.name" flavour="forge">
+          <v-row>
+            <v-col :cols="12" :md="10">
+              <dod-threat-details :item="item" />
+            </v-col>
+          </v-row>
+        </ColorfulEntry>
       </v-col>
     </v-row>
   </div>
@@ -17,9 +23,11 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodThreatDetails from '~/components/DodThreatDetails';
 import SluggerMixin from '~/mixins/SluggerMixin';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+import ColorfulEntry from '../../components/shared/ColorfulEntry';
 
 export default {
   components: {
+    ColorfulEntry,
     DodDefaultBreadcrumbs,
     DodThreatDetails,
   },

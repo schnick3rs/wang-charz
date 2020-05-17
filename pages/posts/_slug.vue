@@ -40,8 +40,6 @@
               <div v-html="toHtml(post.fields.content)" class="markdown-html"></div>
             </v-col>
           </v-row>
-
-
         </ColorfulEntry>
 
         <v-row>
