@@ -78,7 +78,7 @@
                         {{ item.adjustedRating}}
                       </td>
                       <td v-else class="text-center pa-1 small">
-                        {{ item.adjustedRating }}
+                        {{ item.adjustedRating }}<span v-if="item.alternativeRating">/{{ item.alternativeRating }}</span>
                       </td>
                     </tr>
                   </tbody>
@@ -728,8 +728,8 @@
         let baseTraitValue = 0;
 
         let relatedAttribute = attributes.find((attribute) => attribute.name === t.attribute);
-        if (t.key === 'influence' && this.keywords.includes('Adeptus Mechanicus')) {
-          //relatedAttribute = attributes.find((attribute) => attribute.name === 'Intellect');
+        if (t.key === 'influence' && this.speciesKey === 'core-ork') {
+          relatedAttribute = attributes.find((attribute) => attribute.name === 'Strength');
         }
 
         if (relatedAttribute) {
@@ -840,6 +840,15 @@
           defence.adjustedRating += wornShield.meta[0].armourRating;
           defence.modifiers.push(`+${wornShield.meta[0].armourRating} from ${wornShield.name}`);
         }
+      }
+
+      let influence = finalTraits.find((t) => t.key == 'influence');
+      if (influence && this.keywords.includes('Adeptus Mechanicus')) {
+        const intellect = attributes.find((attribute) => attribute.name === 'Intellect');
+        let baseIntellect = 0;
+        baseIntellect = Math.ceil(intellect.adjustedRating * influence.compute.multi);
+        influence.modifiers[0] = `${influence.modifiers[0]} / ${baseIntellect} (with Adeptus Mechanicus)`;
+        influence.alternativeRating = baseIntellect + influence.adjustment;
       }
 
       finalTraits
