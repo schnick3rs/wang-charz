@@ -1100,7 +1100,7 @@ export default {
 
         let relatedAttribute = attributes.find((attribute) => attribute.name === t.attribute);
         if (t.key === 'influence' && this.keywords.includes('Adeptus Mechanicus')) {
-          relatedAttribute = attributes.find((attribute) => attribute.name === 'Intellect');
+          //relatedAttribute = attributes.find((attribute) => attribute.name === 'Intellect');
         }
 
         if (relatedAttribute) {
@@ -1130,6 +1130,10 @@ export default {
           adjustment: 0,
           modifiers: [`Base = ${baseTraitValue}`],
         };
+
+        if (t.key === 'influence' && this.keywords.includes('Adeptus Mechanicus')) {
+          aggregatedTrait.modifiers.push(`Use intellect with Adeptus Mechanicus.`);
+        }
 
         return aggregatedTrait;
       });

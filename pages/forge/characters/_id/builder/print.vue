@@ -729,7 +729,7 @@
 
         let relatedAttribute = attributes.find((attribute) => attribute.name === t.attribute);
         if (t.key === 'influence' && this.keywords.includes('Adeptus Mechanicus')) {
-          relatedAttribute = attributes.find((attribute) => attribute.name === 'Intellect');
+          //relatedAttribute = attributes.find((attribute) => attribute.name === 'Intellect');
         }
 
         if (relatedAttribute) {
