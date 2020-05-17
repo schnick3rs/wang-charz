@@ -11,104 +11,104 @@
     >
       <v-col
         :cols="12"
-        :md="10"
+        :md="12"
       >
-        <header class="page-header page-header--doom-green">
-          <h1 class="headline">{{ item.title }}</h1>
-          <h2 class="subtitle-2 grey--text">
-            {{ item.subtitle }}
-          </h2>
-        </header>
-
-        <article class="post-html-container">
-
+        <ColorfulEntry :headline="item.title" flavour="vault">
           <v-row>
-            <v-col :cols="12" :sm="6">
-              <h3 class="title">
-                Author
-              </h3>
-              <p>
-                {{ item.author }}
-              </p>
+            <v-col :cols="12" :md="10">
+              <h2 class="subtitle-2 grey--text">
+                {{ item.subtitle }}
+              </h2>
+
+              <v-row>
+                <v-col :cols="12" :sm="6">
+                  <h3 class="title">
+                    Author
+                  </h3>
+                  <p>
+                    {{ item.author }}
+                  </p>
+
+                  <div>
+                    <h3 class="title">
+                      Version Info
+                    </h3>
+                    <p>
+                      {{ item.version }}
+                    </p>
+                  </div>
+
+                  <h3 class="title">
+                    Abstract
+                  </h3>
+                  <p>
+                    {{ item.abstract }}
+                  </p>
+                </v-col>
+
+                <v-col :cols="12" :sm="3">
+                  <span class="subtitle-2">Topics / Content:</span>
+                  <ul>
+                    <li v-for="parts in item.contentTags" :key="parts">
+                      <nuxt-link
+                        v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
+                        :to="`/library/${textToKebab(parts)}?filter-source=${item.key}`"
+                      >
+                        {{ parts }}
+                      </nuxt-link>
+                      <nuxt-link
+                        v-else-if="['Threats'].includes(parts)"
+                        :to="`/bestiary?filter-source=${item.key}`"
+                      >
+                        {{ parts }}
+                      </nuxt-link>
+                      <span v-else>{{ parts }}</span>
+                    </li>
+                  </ul>
+                </v-col>
+
+                <v-col v-if="item.image && item.image.fields.file.url" :cols="12" :sm="3">
+                  <v-img :src="item.image.fields.file.url" />
+                </v-col>
+
+                <v-col v-if="item.links && item.links.length > 0" :cols="12" :sm="3">
+                  <span class="subtitle-2">Support or follow the author:</span>
+
+                  <ul v-if="item.links && item.links.length > 0" class="mb-4">
+                    <li v-for="link in item.links" :key="link.title">
+                      <a class="mr-2" :href="link.url" target="_blank">{{ link.name }}</a>
+                    </li>
+                  </ul>
+                </v-col>
+              </v-row>
 
               <div>
-                <h3 class="title">
-                  Version Info
-                </h3>
-                <p>
-                  {{ item.version }}
+                <p v-if="item.keywordTags">
+                  <span class="subtitle-2">Keywords / Tags:</span><br>
+                  <v-chip
+                    v-for="keyword in item.keywordTags"
+                    :key="keyword"
+                    class="mr-2 mb-1 mt-1"
+                    small
+                    label
+                  >
+                    {{ keyword }}
+                  </v-chip>
                 </p>
               </div>
 
-              <h3 class="title">
-                Abstract
-              </h3>
-              <p>
-                {{ item.abstract }}
-              </p>
-            </v-col>
-
-            <v-col :cols="12" :sm="3">
-              <span class="subtitle-2">Topics / Content:</span>
-              <ul>
-                <li v-for="parts in item.contentTags" :key="parts">
-                  <nuxt-link
-                    v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
-                    :to="`/library/${textToKebab(parts)}?filter-source=${item.key}`"
-                  >
-                    {{ parts }}
-                  </nuxt-link>
-                  <nuxt-link
-                    v-else-if="['Threats'].includes(parts)"
-                    :to="`/bestiary?filter-source=${item.key}`"
-                  >
-                    {{ parts }}
-                  </nuxt-link>
-                  <span v-else>{{ parts }}</span>
-                </li>
-              </ul>
-            </v-col>
-
-            <v-col v-if="item.image && item.image.fields.file.url" :cols="12" :sm="3">
-              <v-img :src="item.image.fields.file.url" />
-            </v-col>
-
-            <v-col v-if="item.links && item.links.length > 0" :cols="12" :sm="3">
-              <span class="subtitle-2">Support or follow the author:</span>
-
-              <ul v-if="item.links && item.links.length > 0" class="mb-4">
-                <li v-for="link in item.links" :key="link.title">
-                  <a class="mr-2" :href="link.url" target="_blank">{{ link.name }}</a>
-                </li>
-              </ul>
+              <div>
+                <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">
+                  View the document
+                  <v-icon right dark>
+                    launch
+                  </v-icon>
+                </v-btn>
+              </div>
             </v-col>
           </v-row>
 
-          <div>
-            <p v-if="item.keywordTags">
-              <span class="subtitle-2">Keywords / Tags:</span><br>
-              <v-chip
-                v-for="keyword in item.keywordTags"
-                :key="keyword"
-                class="mr-2 mb-1 mt-1"
-                small
-                label
-              >
-                {{ keyword }}
-              </v-chip>
-            </p>
-          </div>
-
-          <div>
-            <v-btn color="primary" :href="item.url" target="_blank" @click="trackEvent(item.url)">
-              View the document
-              <v-icon right dark>
-                launch
-              </v-icon>
-            </v-btn>
-          </div>
-
-        </article>
+        </ColorfulEntry>
 
       </v-col>
     </v-row>
@@ -119,9 +119,11 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 import SluggerMixin from '~/mixins/SluggerMixin';
+import ColorfulEntry from '../../components/shared/ColorfulEntry';
 
 export default {
   components: {
+    ColorfulEntry,
     DodDefaultBreadcrumbs,
   },
   mixins: [
@@ -218,42 +220,6 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
-  .page-header {
-    border-bottom: 2px solid black;
-    &--doom-green {
-      border-color: hsl(122, 39%, 49%);
-    }
-  }
-
-  .post-html-container {
-    border-left: 0.5px solid hsl(122, 39%, 79%);
-    border-right: 0.5px solid hsl(122, 39%, 79%);
-    border-bottom: 2px solid hsl(122, 39%, 49%);
-    background: white;
-    padding: 20px 10px;
-    margin-bottom: 20px;
-    //column-count: 2;
-    & h2, h3 {
-      //column-span: all;
-    }
-    & p {
-    }
-    & li > p {
-      margin-bottom: 0;
-    }
-    & img {
-      width: 100%;
-    }
-  }
-
-  .sexy-line{
-    display:block;
-    border:none;
-    color:white;
-    height:1px;
-    background:black;
-    background: -webkit-gradient(radial, 50% 50%, 0, 50% 50%, 350, from(#000), to(#fff));
-  }
 </style>

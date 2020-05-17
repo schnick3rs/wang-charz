@@ -29,15 +29,9 @@
         :cols="12"
         :md="12"
       >
+        <ColorfulPage :headline="page.title" flavour="blog">
+        </ColorfulPage>
         <v-row>
-          <v-col
-            :cols="12"
-          >
-            <header class="page-header page-header--doom-posts">
-              <h1>{{ page.title }}</h1>
-            </header>
-          </v-col>
-
           <v-col
             v-for="post in posts"
             :key="post.fields.id"
@@ -84,11 +78,13 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
+import ColorfulPage from '../../components/shared/ColorfulPage';
 const fixedTime = new Date();
 
 export default {
   name: 'OurMigrationFromDeathwatchToWrathAndGlory',
   components: {
+    ColorfulPage,
     DodDefaultBreadcrumbs,
   },
   mixins: [
@@ -190,19 +186,14 @@ export default {
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 
   .page-header {
-
-    border-bottom: 2px solid black;
-
-    &--doom-posts {
-      border-bottom: 2px solid hsl(194, 90%, 45%);
-    }
+    border-bottom: 2px solid hsl(194, 90%, 65%);
   }
 
   .posts--text {
-    color: hsl(194, 90%, 45%);
+    color: hsl(194, 90%, 65%);
   }
 
   .image-caption {
