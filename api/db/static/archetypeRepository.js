@@ -490,26 +490,24 @@ const core = [
     wargear: [
       { name: 'Imperial Frigate' },
       {
-        name: 'Ranged weapon up to value Tier+4 and rarity Rare',
+        name: 'Wargear up to value Tier+4 and rarity Rare',
         selected: '',
         options: [
           {
             filter: true,
             valueFilter: { useCharacterTier: false, useSettingTier: true, fixedValue: 4 },
             rarityFilter: ['Uncommon', 'Common', 'Rare'],
-            typeFilter: ['Ranged Weapon'],
           },
         ],
       },
       {
-        name: 'Melee weapon up to value Tier+4 and rarity Rare',
+        name: 'Wargear up to value Tier+4 and rarity Rare',
         selected: '',
         options: [
           {
             filter: true,
             valueFilter: { useCharacterTier: false, useSettingTier: true, fixedValue: 4 },
             rarityFilter: ['Uncommon', 'Common', 'Rare'],
-            typeFilter: ['Melee Weapon'],
           },
         ],
       },
