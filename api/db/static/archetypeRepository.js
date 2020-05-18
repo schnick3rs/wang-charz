@@ -585,43 +585,36 @@ const core = [
         snippet: 'You have supreme authority to maintain the security of the Imperium. You gain +Double Rank bonus dice whenever you make a social Skill Test against a character with the IMPERIUM keyword.',
       },
     ],
-    // Flak Armour, Any two IMPERIUM weapons with a Value of 5 or less and a Rarity of Uncommon or lower, Symbol of Authority
+    wargearString: 'Flak Armour, Any two IMPERIUM weapons with a Value of 5 or less and a Rarity of Uncommon or lower, Symbol of Authority',
     wargear: [
       { name: 'Flak Armour' },
       {
-        name: 'Choice of Flak Coat, Ignatus Power Armour or Light Power Armour',
-        selected: '',
-        options: [
-          { name: 'Flak Coat' },
-          { name: 'Ignatus Power Armour' },
-          { name: 'Light Power Armour' },
-        ],
-      },
-      {
-        name: 'Ranged weapon up to availability 7 and rarity Very Rare.',
+        name: 'Any IMPERIUM weapon with a value 5 or less and up to Uncommon rarity',
         selected: '',
         options: [
           {
             filter: true,
-            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
-            rarityFilter: ['Uncommon', 'Common', 'Rare', 'Very Rare'],
-            typeFilter: ['Ranged Weapon'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
+            rarityFilter: ['Common', 'Uncommon'],
+            typeFilter: ['Ranged Weapon','Melee Weapon'],
+            keywordFilter: 'Imperium',
           },
         ],
       },
       {
-        name: 'Melee weapon up to availability 7 and rarity Very Rare.',
+        name: 'Any IMPERIUM weapon with a value 5 or less and up to Uncommon rarity',
         selected: '',
         options: [
           {
             filter: true,
-            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
-            rarityFilter: ['Uncommon', 'Common', 'Rare', 'Very Rare'],
-            typeFilter: ['Melee Weapon'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 5 },
+            rarityFilter: ['Common', 'Uncommon'],
+            typeFilter: ['Ranged Weapon','Melee Weapon'],
+            keywordFilter: 'Imperium',
           },
         ],
       },
-      { name: 'Symbol of authority' },
+      { name: 'Symbol of Authority' },
     ],
     influence: 4,
   },
