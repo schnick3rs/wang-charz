@@ -42,6 +42,8 @@ export const getters = {
 
   characterSettingHomebrewsById: (state) => (id) => (state.characters[id] && state.characters[id].settingHomebrewContent ? state.characters[id].settingHomebrewContent : []),
 
+  characterSettingHouserulesById: (state) => (id) => (state.characters[id] && state.characters[id].settingHouserules ? state.characters[id].settingHouserules : getDefaultState().settingHouserules),
+
   // Cost & Spending
   characterSpeciesCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].species.cost : 0),
   characterArchetypeCostsById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.cost : 0),
@@ -50,10 +52,15 @@ export const getters = {
     if (character === undefined) {
       return 0;
     }
-    const attributeTotalCost = [0, 0, 4, 10, 20, 35, 55, 80, 110, 145, 185, 230, 280];
+    const attributeTotalCost = {
+      //   [0, 1, 2,  3,  4,  5,  6,  7,   8,   9,  10,  11,  12],
+      v10: [0, 0, 4, 10, 18, 33, 51, 72, 104, 140, 180, 235, 307],
+      v15: [0, 0, 4, 10, 20, 35, 55, 80, 110, 145, 185, 230, 280],
+    };
+    const costKey = character.settingHouserules && character.settingHouserules['skill-attribute-advancement-costs'] ? character.settingHouserules['skill-attribute-advancement-costs'] : 'v15';
     let attributesSpending = 0;
     Object.keys(character.attributes).forEach((key) => {
-      attributesSpending += attributeTotalCost[character.attributes[key]];
+      attributesSpending += attributeTotalCost[costKey][character.attributes[key]];
     });
     return attributesSpending;
   },
@@ -62,10 +69,15 @@ export const getters = {
     if (character === undefined) {
       return 0;
     }
-    const skillTotalCost = [0, 2, 6, 12, 20, 30, 42, 56, 72];
+    const skillTotalCost = {
+      //   [0, 1, 2,  3,  4,  5,  6,  7,  8],
+      v10: [0, 1, 3,  6, 10, 20, 32, 46, 70],
+      v15: [0, 2, 6, 12, 20, 30, 42, 56, 72],
+    };
+    const costKey = character.settingHouserules && character.settingHouserules['skill-attribute-advancement-costs'] ? character.settingHouserules['skill-attribute-advancement-costs'] : 'v15';
     let skillSpending = 0;
     Object.keys(character.skills).forEach((key) => {
-      skillSpending += skillTotalCost[character.skills[key]];
+      skillSpending += skillTotalCost[costKey][character.skills[key]];
     });
     return skillSpending;
   },
@@ -352,6 +364,14 @@ export const mutations = {
   setSettingHomebrews(state, payload) {
     state.characters[payload.id].settingHomebrewContent = payload.content;
   },
+  setSettingHouserules(state, payload) {
+    let character = state.characters[payload.id];
+    const { key, value } = payload.houserule;
+    if (character.settingHouserules === undefined) {
+      character['settingHouserules'] = getDefaultState().settingHouserules;
+    }
+    character.settingHouserules[key] = value;
+  },
   setCustomXp(state, payload) {
     state.characters[payload.id].customXp = payload.xp;
   },
@@ -541,7 +561,7 @@ export const mutations = {
     ];
   },
 
-  // Wargear
+  // Wargear { id, name, source, (variant) }
   addCharacterWargear(state, payload) {
     const character = state.characters[payload.id];
     const wargearUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
@@ -829,6 +849,10 @@ const getDefaultState = () => ({
   settingTier: 3,
   settingTitle: '',
   settingHomebrewContent: [], // e.g. pax
+  settingHouserules: {
+    'rank-advencement-type': 'milestone',
+    'skill-attribute-advancement-costs': 'v15',
+  },
   customXp: 0,
   customRank: 1,
   name: 'Simsel Simselman',

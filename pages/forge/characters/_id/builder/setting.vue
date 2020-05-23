@@ -211,6 +211,30 @@
 
     </v-col>
 
+    <v-col :cols="12" :sm="7">
+      <div>
+        <h2>House Rules</h2>
+        <p>Allow specific house rules for this character.</p>
+        <div>
+          <div
+            v-for="houserule in settingHouseruleSelectors"
+            :key="houserule.key"
+          >
+            <v-select
+              v-model="houserule.selected"
+              :items="houserule.items"
+              :label="houserule.name"
+              dense
+              outlined
+              persistent-hint
+              :hint="houserule.hint"
+              @change="updateHouserules($event, houserule.key)"
+            ></v-select>
+          </div>
+        </div>
+      </div>
+    </v-col>
+
     <v-col :cols="12">
       <div>
         <h2 class="title">Homebrews</h2>
@@ -400,6 +424,28 @@ export default {
         },
       ],
       enabledHomebrews: [],
+      settingHouseruleSelectors: [
+        /*{
+          key: 'rank-advencement-type',
+          name: 'Rank Advancement Type',
+          hint: 'Choose if Rank increases by gained XP or by Milestone.',
+          selected: 'xp',
+          items: [
+            { value: 'xp', text: 'XP' },
+            { value: 'milestone', text: 'Milestone' },
+          ],
+        },*/
+        {
+          key: 'skill-attribute-advancement-costs',
+          name: 'Skill & Attribute Advancement Costs Method',
+          hint: 'Use regular advancement costs or legacy (v1) advancement costs, that favour skills.',
+          selected: 'v15',
+          items: [
+            { value: 'v10', text: 'Legacy Flair (Cheaper skills)' },
+            { value: 'v15', text: 'By the book (Revised Rules)' },
+          ],
+        },
+      ],
     };
   },
   computed: {
@@ -424,12 +470,25 @@ export default {
     settingHomebrews() {
       return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
     },
+    settingHouserules() {
+      return this.$store.getters['characters/characterSettingHouserulesById'](this.characterId);
+    },
   },
   watch: {
     settingHomebrews: {
       handler(newVal) {
         if (newVal) {
           this.enabledHomebrews = newVal;
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+    settingHouserules: {
+      handler(newVal) {
+        if (newVal) {
+          this.settingHouseruleSelectors.forEach((rules) => {
+            rules.selected = newVal[rules.key];
+          });
         }
       },
       immediate: true, // make this watch function is called when component created
@@ -467,7 +526,10 @@ export default {
     },
     updateHomebrew(event) {
       this.$store.commit('characters/setSettingHomebrews', { id: this.characterId, content: this.enabledHomebrews });
-    }
+    },
+    updateHouserules(value, key) {
+      this.$store.commit('characters/setSettingHouserules', { id: this.characterId, houserule: { key, value} });
+    },
   },
 };
 </script>

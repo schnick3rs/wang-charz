@@ -264,7 +264,10 @@ export default {
         ...this.skillRepository,
         ...this.characterCustomSkills,
       ];
-    }
+    },
+    settingHouserules() {
+      return this.$store.getters['characters/characterSettingHouserulesById'](this.characterId);
+    },
   },
   watch: {
     characterSpeciesKey: {
@@ -329,13 +332,23 @@ export default {
       return [];
     },
     affordableAttributeColor(currentValue) {
-      const newValueCost = [0, 0, 4, 6, 10, 15, 20, 25, 30, 35, 40, 45, 50];
-      const cost = newValueCost[currentValue + 1];
+      const attributeNewValueCost = {
+        //   [0, 1, 2, 3,  4,  5,  6,  7,  8,  9, 10, 11, 12],
+        v10: [0, 0, 4, 6,  8, 15, 18, 21, 32, 36, 40, 55, 72],
+        v15: [0, 0, 4, 6, 10, 15, 20, 25, 30, 35, 40, 45, 50],
+      };
+      const costKey = this.settingHouserules['skill-attribute-advancement-costs'] ? this.settingHouserules['skill-attribute-advancement-costs'] : 'v15';
+      const cost = attributeNewValueCost[costKey][currentValue + 1];
       return this.isAffordable(cost) ? 'green' : 'orange';
     },
     affordableSkillColor(currentSkillValue) {
-      const skillNewValueCost = [0, 2, 4, 6, 8, 10, 12, 14, 16];
-      const cost = skillNewValueCost[currentSkillValue + 1];
+      const skillNewValueCost = {
+        //   [0, 1, 2, 3, 4,  5,  6,  7,  8],
+        v10: [0, 1, 2, 3, 4, 10, 12, 14, 24],
+        v15: [0, 2, 4, 6, 8, 10, 12, 14, 16],
+      };
+      const costKey = this.settingHouserules['skill-attribute-advancement-costs'] ? this.settingHouserules['skill-attribute-advancement-costs'] : 'v15';
+      const cost = skillNewValueCost[costKey][currentSkillValue + 1];
       return this.isAffordable(cost) ? 'green' : 'orange';
     },
     isAffordable(cost) {
