@@ -541,12 +541,12 @@ export const mutations = {
     ];
   },
   setCharacterTalentExtraCost(state, payload) {
-    const character = state.characters[payload.id];
-    const { key, name, extraKey, extraCost } = payload;
+    const character = state.characters[payload.charId];
+    const { id, key, name, extraKey, extraCost } = payload;
 
     console.info(`Update ${key}/${name}/${extraKey} set extraCost to ${extraCost}`);
-    const theTalent = character.talents.find((t) => t.key === key);
-    const theOtherTalents = character.talents.filter((t) => t.key !== key);
+    const theTalent = character.talents.find((t) => t.id === id);
+    const theOtherTalents = character.talents.filter((t) => t.id !== id);
 
     if (theTalent) {
       if (typeof theTalent.extraCost !== 'object') {
