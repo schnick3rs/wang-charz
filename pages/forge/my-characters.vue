@@ -174,6 +174,9 @@
             <v-card
               v-if="character"
             >
+              {{character.version}} ~ {{builderVersion}}
+              {{isLegacyVersion(character.id)}}
+              {{characterVersion(character.id) < builderVersion}}
               <div class="card">
                 <div class="card__image-container">
                   <div
@@ -212,7 +215,7 @@
                         <v-icon left small>
                           cloud_upload
                         </v-icon>
-                        Export (v{{characterVersion(character.id)}})
+                        Migrate (v{{characterVersion(character.id)}})
                       </v-btn>
                     </div>
 
@@ -242,7 +245,7 @@
                   color="primary"
                   x-small
                   text
-                  :disabled="isLegacyVersion(character.id)"
+                  :disabled="characterVersion(character.id) < builderVersion"
                 >
                   <v-icon left small>
                     edit
@@ -255,7 +258,7 @@
                   color="primary"
                   text
                   x-small
-                  :disabled="isLegacyVersion(character.id)"
+                  :disabled="characterVersion(character.id) < builderVersion"
                 >
                   <v-icon small left>
                     description
@@ -271,7 +274,7 @@
                   text
                   x-small
                   v-if="false"
-                  :disabled="isLegacyVersion(character.id)"
+                  :disabled="characterVersion(character.id) < builderVersion"
                 >
                   <v-icon small left>print</v-icon>Print
                 </v-btn>
