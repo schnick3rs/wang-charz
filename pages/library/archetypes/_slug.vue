@@ -5,18 +5,17 @@
 
     <!-- Species Details -->
     <v-row justify="center" no-gutters>
-      <v-col :cols="12" :sm="10">
-        <v-row justify="center">
-          <v-col :cols="12">
-            <archetype-preview :item="item" />
-          </v-col>
-        </v-row>
+      <v-col :cols="12">
+        <ColorfulEntry :headline="item.name" flavour="forge">
+          <archetype-preview :item="item" />
+        </ColorfulEntry>
       </v-col>
     </v-row>
   </div>
 </template>
 
 <script>
+import ColorfulEntry from '~/components/shared/ColorfulEntry';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import ArchetypePreview from '~/components/forge/ArchetypePreviewV2';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
@@ -25,6 +24,7 @@ export default {
   name: 'Archetype',
   components: {
     ArchetypePreview,
+    ColorfulEntry,
     DodDefaultBreadcrumbs,
   },
   mixins: [

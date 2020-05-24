@@ -23,7 +23,7 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodThreatDetails from '~/components/DodThreatDetails';
 import SluggerMixin from '~/mixins/SluggerMixin';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
-import ColorfulEntry from '../../components/shared/ColorfulEntry';
+import ColorfulEntry from '~/components/shared/ColorfulEntry';
 
 export default {
   components: {
