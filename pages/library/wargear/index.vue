@@ -296,6 +296,11 @@
 
       let filter;
 
+      filter = this.filters.keywords;
+      if (filter.model.length > 0) {
+        filteredResults = filteredResults.filter((i) => filter.model.some((m) => i.keywords.includes(m)));
+      }
+
       filter = this.filters.source;
       if (filter.model.length > 0) {
         filteredResults = filteredResults.filter((i) => filter.model.includes(i.source.key));

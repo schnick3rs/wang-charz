@@ -789,7 +789,7 @@ const core = [
   },
   {
     ...talent('core',138,'Rite Of Magnometrics',20),
-    snippet: 'Pick up and Carry metal objects within 3+Double Rank witout touching. Draw yourself to large metal objects and hover.',
+    snippet: 'Pick up and Carry metal objects within 3+Double Rank metres without touching. Draw yourself to large metal objects and hover.',
     description:
       '<p></p>',
     requirements: [ requireKeyword('ADEPTUS MECHANICUS') ],

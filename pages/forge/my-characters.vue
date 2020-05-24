@@ -195,9 +195,7 @@
                         color="warning"
                         small
                       >
-                        <v-icon left small>
-                          cloud_download
-                        </v-icon>
+                        <v-icon left small>cloud_download</v-icon>
                         Export Legacy
                       </v-btn>
                     </div>

@@ -75,6 +75,16 @@
             hide-default-footer
             @item-expanded="trackExpand"
           >
+            <template v-slot:header.supplements="{ header }">
+              {{ header.text }}
+              <v-tooltip bottom>
+                <template v-slot:activator="{ on }">
+                  <v-icon small v-on="on">help</v-icon>
+                </template>
+                <span>Indicate the version, the homebrew was originaly designed for.</span>
+              </v-tooltip>
+            </template>
+
             <template v-slot:item.title="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
