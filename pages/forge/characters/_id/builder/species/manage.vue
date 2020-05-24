@@ -1,16 +1,149 @@
 <template>
   <v-row justify="center">
+
     <v-progress-circular v-if="!species" indeterminate color="success" size="128" width="12" />
 
     <v-col v-if="species" :xs="12">
-      <species-preview
-        :character-id="characterId"
-        :species="species"
-        :psychic-powers="psychicPowers"
-        manage-mode
-        @changeSpecies="doChangeSpeciesMode"
-        @changeSpeciesTraitOption="setSpeciesTraitOption"
-      />
+
+      <div class="d-flex flex-no-wrap justify-space-between mb-2">
+        <div>
+            <h3 class="headline">{{ species.name }}</h3>
+            <h4 class="subtitle-1 grey--text">{{ species.hint }}</h4>
+            <v-btn
+              small outlined
+              color="primary"
+              @click="doChangeSpeciesMode"
+            >
+              <v-icon small>settings</v-icon>
+              change species
+            </v-btn>
+        </div>
+        <v-avatar size="96" tile><img :src="avatar"></v-avatar>
+      </div>
+
+      <v-divider/>
+
+      <div class="mt-2 body-2 text-lg-justify" style="color: rgba(0,0,0,0.6)">
+
+        <p>
+          <strong>XP Cost:</strong> {{ species.cost }}, incl. Stats ({{ species.costs.stats }} XP)
+        </p>
+
+        <p v-if="attributes">
+          <strong>Attributes:</strong> {{ attributes }}
+        </p>
+
+        <p v-if="skills">
+          <strong>Skills:</strong> {{ skills }}
+        </p>
+
+        <p>
+          <strong>Speed:</strong> {{ species.speed }}
+        </p>
+
+      </div>
+
+      <div v-if="species.speciesFeatures" class="body-2" style="color: rgba(0,0,0,0.6)">
+        <span class="subtitle-1 mt-2">Abilities</span>
+        <p><v-divider /></p>
+
+        <span v-if="species.speciesFeatures.length <= 0">No Abilities? At least your xp cost are low...</span>
+
+        <div
+          v-for="feature in species.speciesFeatures"
+          class="text-lg-justify"
+        >
+          <div
+            v-if="feature.description"
+          >
+            <strong>{{feature.name}}</strong><div v-html="feature.description"></div>
+          </div>
+          <p v-else><strong>{{feature.name}}: </strong>{{feature.snippet}}</p>
+
+          <div v-if="feature.options && feature.options.length > 0">
+            <v-select
+              :items="feature.options"
+              v-model="feature.selected"
+              item-value="name"
+              item-text="name"
+              @change="setSpeciesTraitOption(feature)"
+              dense
+              solo
+            ></v-select>
+            <div
+              v-if="feature.selected && feature.selected.length > 0"
+              class="ml-4 mr-4"
+            >
+              <div
+                v-if="feature.options.find((o)=>o.name === feature.selected).description"
+                v-html="feature.options.find((o)=>o.name === feature.selected).description"
+              ></div>
+              <p v-else>{{feature.options.find((o)=>o.name === feature.selected).snippet}}</p>
+            </div>
+          </div>
+
+          <div v-if="feature.psychicPowers">
+
+            <div v-for="selections in feature.psychicPowers" :key="selections.name">
+              <v-select
+                v-if="selections.options"
+                v-model="selections.selected"
+                :readonly="selections.options.length <= 1"
+                :items="selections.options"
+                item-value="name"
+                item-text="name"
+                persistent-hint
+                dense
+                solo
+                class="ml-2 mr-2"
+                @change="updatePsychicPowers(selections)"
+              />
+            </div>
+          </div>
+
+          <div
+            v-if="feature.name.indexOf('Honour the Chapter') >= 0 && chapterList"
+          >
+            <v-alert
+              v-if="false"
+              text border-left dense color="primary" class="caption"
+            >
+              <em>Some homebrews contain additional chapters. Click on the (+) after the homebrew to enable it's rules for this character:
+                An Abundane of Aphocrypha
+                <v-icon v-if="settingHomebrews.includes('aaoa')" small color="success">check_circle</v-icon>
+                <v-icon v-else @click="enableHomebrew('aaoa')" small color="primary">add_circle</v-icon>
+                or
+                Let the Galaxy Burn
+                <v-icon v-if="settingHomebrews.includes('ltgb')" small color="success">check_circle</v-icon>
+                <v-icon v-else @click="enableHomebrew('ltgb')" small color="primary">add_circle</v-icon>
+              </em>
+            </v-alert>
+            <v-select
+              v-model="species['chapter']"
+              :items="chapterList"
+              label="Select your Chapter"
+              item-value="key"
+              item-text="label"
+              class="ml-2 mr-2"
+              dense
+              solo
+              @change="updateAstartesChapter(species['chapter'])"
+            />
+
+            <p
+              v-for="tradition in getChapterTraditions(species['chapter'])"
+              v-if="feature.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
+              :key="tradition.key"
+              class="ml-4 mr-4"
+            >
+              <strong>{{ tradition.name }} <span v-if="tradition.origin">({{ tradition.origin }})</span>:</strong>
+              {{ tradition.effect }}
+            </p>
+          </div>
+        </div>
+
+      </div>
+
     </v-col>
   </v-row>
 </template>
@@ -18,6 +151,7 @@
 <script>
 import SpeciesPreview from '~/components/forge/SpeciesPreview.vue';
 import SluggerMixin from '~/mixins/SluggerMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Manage',
@@ -26,11 +160,13 @@ export default {
   },
   mixins: [
     SluggerMixin,
+    StatRepositoryMixin,
   ],
   data() {
     return {
       loading: false,
       species: undefined,
+      chapterList: undefined,
     };
   },
   computed: {
@@ -45,6 +181,27 @@ export default {
     },
     psychicPowers() {
       return this.$store.getters['characters/characterPsychicPowersById'](this.characterId);
+    },
+    sources() {
+      return [
+        'core',
+        ...this.settingHomebrews
+      ];
+    },
+    settingHomebrews() {
+      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    },
+    attributes() {
+      if (this.species === undefined || this.species.prerequisites === undefined) return undefined;
+      return this.species.prerequisites.filter(pre => pre.group === 'attributes').map(pre => `${this.getAttributeByKey(pre.value).name} ${pre.threshold}`).join(', ');
+    },
+    skills() {
+      if (this.species === undefined || this.species.prerequisites === undefined) return undefined;
+      return this.species.prerequisites.filter(pre => pre.group === 'skills').map(pre => `${this.getSkillByKey(pre.value).name} ${pre.threshold}`).join(', ');
+    },
+    avatar() {
+      if (this.species === undefined) return '';
+      return `/img/avatars/species/${this.species.key}.png`;
     }
   },
   watch: {
@@ -56,6 +213,14 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
+    sources: {
+      handler(newVal) {
+        if (newVal) {
+          this.getChapterList(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
   },
   asyncData({ params }) {
     return {
@@ -63,6 +228,15 @@ export default {
     };
   },
   methods: {
+    async getChapterList(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get('/api/species/chapters/', config);
+      this.chapterList = data;
+    },
     getSpecies: async function (key) {
       this.loading = true;
       let finalData = {};
@@ -88,6 +262,21 @@ export default {
       if (chapter) {
         finalData.chapter = chapter;
       }
+
+      const featuresWithPowers = finalData.speciesFeatures.filter( (f) => f.psychicPowers !== undefined);
+      if ( featuresWithPowers ) {
+        featuresWithPowers.forEach( (feature) => {
+          feature.psychicPowers.forEach( (powerSelections) => {
+            this.getPsychicPowerOptions(powerSelections);
+            const found = this.psychicPowers.find( (p) => p.source && p.source === `species.${powerSelections.name}`);
+            if ( found ) {
+              console.info(`Power ${found.name} found for the species feature ${feature.name} / power ${powerSelections.name}.`);
+              powerSelections.selected = found.name;
+            }
+          });
+        });
+      }
+
       this.loading = false;
       this.species = finalData;
     },
@@ -100,6 +289,15 @@ export default {
         name: 'forge-characters-id-builder-species-choose',
         params: { id: this.characterId },
       });
+    },
+    getChapterTraditions(chapterKey) {
+      if ( this.chapterList ) {
+        const chapter = this.chapterList.find((a) => a.key === chapterKey) || [];
+        if (chapter) {
+          return chapter.beliefsAndTraditions;
+        }
+      }
+      return [];
     },
     /**
      * clear previous option
@@ -132,6 +330,34 @@ export default {
         };
         this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
       }
+    },
+    updateAstartesChapter(key) {
+      const id = this.characterId;
+      const chapter = this.chapterList.find((chapter) => chapter.key === key);
+
+      const content = {
+        speciesAstartesChapter: chapter.key,
+      };
+      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id, ...content });
+
+      this.$store.commit('characters/clearCharacterTalentsBySource', { id, source: `species.chapter.`, cascade: true });
+      chapter.beliefsAndTraditions.forEach((bf) => {
+        if (bf.modifications) {
+          bf.modifications
+          .filter( (m) => m.targetGroup === 'talents' )
+          .forEach( (t) => {
+            const talent = {
+              name: t.meta.name,
+              key: t.targetValue,
+              cost: 0,
+              placeholder: undefined,
+              selected: undefined,
+              source: `species.chapter.${chapter.key}`,
+            };
+            this.$store.commit('characters/addCharacterTalent', { id, talent });
+          });
+        }
+      });
     },
   },
 };

@@ -15,22 +15,12 @@
       <div>
         <h3 class="headline md0">
           {{ species.name }}
-          <v-btn
-            v-if="manageMode"
-            small
-            outlined
-            color="primary"
-            @click="$emit('changeSpecies')"
-          >
-            <v-icon>settings</v-icon>
-            change species
-          </v-btn>
         </h3>
         <span class="subtitle-1 grey--text">{{ species.hint }}</span>
       </div>
       <v-spacer />
       <div >
-        <img :src="getAvatar(species.key)" style="width:96px">
+        <img :src="avatar" style="width:96px">
       </div>
     </v-card-title>
 
@@ -216,14 +206,9 @@ export default {
     };
   },
   computed: {
-    sources() {
-      return [
-        'core',
-        ...this.settingHomebrews
-      ];
-    },
-    settingHomebrews() {
-      return this.$store.getters['characters/characterSettingHomebrewsById'](this.characterId);
+    avatar() {
+      if (this.species === undefined) return '';
+      return `/img/avatars/species/${this.species.key}.png`;
     },
     attributes() {
       if (this.species === undefined || this.species.prerequisites === undefined) return undefined;
@@ -232,119 +217,6 @@ export default {
     skills() {
       if (this.species === undefined || this.species.prerequisites === undefined) return undefined;
       return this.species.prerequisites.filter(pre => pre.group === 'skills').map(pre => `${this.getSkillByKey(pre.value).name} ${pre.threshold}`).join(', ');
-    },
-  },
-  watch: {
-    sources: {
-      handler(newVal) {
-        if (newVal) {
-          this.getChapterList(newVal);
-        }
-      },
-      immediate: true, // make this watch function is called when component created
-    },
-  },
-  async mounted() {
-    const featuresWithPowers = this.species.speciesFeatures.filter( (f) => f.psychicPowers !== undefined);
-    if ( featuresWithPowers ) {
-      featuresWithPowers.forEach( (feature) => {
-        feature.psychicPowers.forEach( (powerSelections) => {
-          this.getPsychicPowerOptions(powerSelections);
-          const found = this.psychicPowers.find( (p) => p.source && p.source === `species.${powerSelections.name}`);
-          if ( found ) {
-            console.info(`Power ${found.name} found for the species feature ${feature.name} / power ${powerSelections.name}.`);
-            powerSelections.selected = found.name;
-          }
-        });
-      });
-    }
-  },
-  methods: {
-    async getChapterList(sources) {
-      const config = {
-        params: {
-          source: sources.join(','),
-        },
-      };
-      const { data } = await this.$axios.get('/api/species/chapters/', config);
-      this.chapterList = data;
-    },
-    enableHomebrew(sourceKey) {
-      this.$store.commit('characters/enableSettingHomebrews', { id: this.characterId, content: sourceKey });
-    },
-    getPsychicPowerOptions(psychicPowerSelection) {
-      const config = {
-        params: {
-          ...psychicPowerSelection.query,
-          fields: 'id,name,effect,discipline,cost',
-        },
-      };
-
-      this.$axios.get('/api/psychic-powers/', config)
-        .then( (response) => {
-          psychicPowerSelection.options = response.data;
-        });
-    },
-    getAvatar(key) {
-      return `/img/avatars/species/${key}.png`;
-    },
-    getChapterTraditions(chapterKey) {
-      if ( this.chapterList ) {
-        const chapter = this.chapterList.find((a) => a.key === chapterKey) || [];
-        if (chapter) {
-          return chapter.beliefsAndTraditions;
-        }
-      }
-      return [];
-    },
-    updatePsychicPowers(option) {
-      this.$store.commit('characters/clearCharacterPsychicPowersBySource',
-        { id: this.characterId, source: `species.${option.name}` });
-      this.$store.commit('characters/addCharacterPsychicPower', {
-        id: this.characterId,
-        name: option.selected,
-        cost: option.free ? 0 : option.options.find((o)=>o.name === option.selected).cost,
-        source: `species.${option.name}`,
-      });
-
-      // SPECIAL for Eldar
-      if ( option.name === 'psychosensitive') {
-        const payload = {
-          name: 'Psyker',
-          source: 'species',
-          type: 'keyword',
-          replacement: undefined,
-        };
-        this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
-      }
-    },
-    updateAstartesChapter(key) {
-      const id = this.characterId;
-      const chapter = this.chapterList.find((chapter) => chapter.key === key);
-
-      const content = {
-        speciesAstartesChapter: chapter.key,
-      };
-      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id, ...content });
-
-      this.$store.commit('characters/clearCharacterTalentsBySource', { id, source: `species.chapter.`, cascade: true });
-      chapter.beliefsAndTraditions.forEach((bf) => {
-        if (bf.modifications) {
-          bf.modifications
-            .filter( (m) => m.targetGroup === 'talents' )
-            .forEach( (t) => {
-              const talent = {
-                name: t.meta.name,
-                key: t.targetValue,
-                cost: 0,
-                placeholder: undefined,
-                selected: undefined,
-                source: `species.chapter.${chapter.key}`,
-              };
-              this.$store.commit('characters/addCharacterTalent', { id, talent });
-            });
-        }
-      });
     },
   },
 };
