@@ -62,95 +62,8 @@
           </div>
           <p v-else><strong>{{feature.name}}: </strong>{{feature.snippet}}</p>
 
-          <div v-if="manageMode && feature.options && feature.options.length > 0">
-            <v-select
-              :items="feature.options"
-              v-model="feature.selected"
-              item-value="name"
-              item-text="name"
-              @change="$emit('changeSpeciesTraitOption', feature)"
-              dense
-              solo
-            ></v-select>
-            <div
-              v-if="feature.selected && feature.selected.length > 0"
-              class="ml-4 mr-4"
-            >
-              <div
-                v-if="feature.options.find((o)=>o.name === feature.selected).description"
-                v-html="feature.options.find((o)=>o.name === feature.selected).description"
-              ></div>
-              <p v-else>{{feature.options.find((o)=>o.name === feature.selected).snippet}}</p>
-            </div>
-          </div>
-
-          <div v-if="manageMode && feature.psychicPowers">
-
-            <div v-for="selections in feature.psychicPowers" :key="selections.name">
-              <v-select
-                v-if="selections.options"
-                v-model="selections.selected"
-                :readonly="selections.options.length <= 1"
-                :items="selections.options"
-                item-value="name"
-                item-text="name"
-                persistent-hint
-                dense
-                solo
-                class="ml-2 mr-2"
-                @change="updatePsychicPowers(selections)"
-              />
-            </div>
-          </div>
-
-          <div
-            v-if="manageMode && feature.name.indexOf('Honour the Chapter') >= 0 && chapterList"
-          >
-            <v-alert
-              v-if="false"
-              text border-left dense color="primary" class="caption"
-            >
-              <em>Some homebrews contain additional chapters. Click on the (+) after the homebrew to enable it's rules for this character:
-                An Abundane of Aphocrypha
-                <v-icon v-if="settingHomebrews.includes('aaoa')" small color="success">check_circle</v-icon>
-                <v-icon v-else @click="enableHomebrew('aaoa')" small color="primary">add_circle</v-icon>
-                or
-                Let the Galaxy Burn
-                <v-icon v-if="settingHomebrews.includes('ltgb')" small color="success">check_circle</v-icon>
-                <v-icon v-else @click="enableHomebrew('ltgb')" small color="primary">add_circle</v-icon>
-              </em>
-            </v-alert>
-            <v-select
-              v-model="species['chapter']"
-              :items="chapterList"
-              label="Select your Chapter"
-              item-value="key"
-              item-text="label"
-              class="ml-2 mr-2"
-              dense
-              solo
-              @change="updateAstartesChapter(species['chapter'])"
-            />
-
-            <p
-              v-for="tradition in getChapterTraditions(species['chapter'])"
-              v-if="feature.name.indexOf('Honour the Chapter') >= 0 && species['chapter']"
-              :key="tradition.key"
-              class="ml-4 mr-4"
-            >
-              <strong>{{ tradition.name }} <span v-if="tradition.origin">({{ tradition.origin }})</span>:</strong>
-              {{ tradition.effect }}
-            </p>
-          </div>
         </div>
 
-        <div v-if="false">
-          <p><v-divider /></p>
-          <blockquote class="blockquote font-italic">
-            <p>"{{ species.description }}"</p>
-            <span class="float-right">- from the Wrath &quot; Glory Corerules -</span>
-          </blockquote>
-        </div>
       </div>
     </v-card-text>
 
@@ -190,10 +103,6 @@ export default {
       type: Array,
       required: false,
       default: () => [],
-    },
-    manageMode: {
-      type: Boolean,
-      default: false,
     },
     chooseMode: {
       type: Boolean,
