@@ -174,9 +174,6 @@
             <v-card
               v-if="character"
             >
-              {{character.version}} ~ {{builderVersion}}
-              {{isLegacyVersion(character.id)}}
-              {{characterVersion(character.id) < builderVersion}}
               <div class="card">
                 <div class="card__image-container">
                   <div
