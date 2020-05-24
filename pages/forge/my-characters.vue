@@ -490,7 +490,7 @@ export default {
       if ( this.characterIds === undefined ) {
         return false;
       }
-      return this.characterIds.map( (id) => this.characterVersion(id) ).some( (version) => version < this.builderVersion && version > 6 );
+      return this.characterIds.map( (id) => this.characterVersion(id) ).some( (version) => (version < this.builderVersion) && (version > 6) );
     },
   },
   methods: {

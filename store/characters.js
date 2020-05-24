@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 7;
+const BUILDER_VERSION = 8;
 
 export const state = () => ({
   list: [],
@@ -771,8 +771,17 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
-      case 6:
-        // We do not migrate versions <= 6 as those are legacy versions
+      case 7:
+        console.debug(`v7 -> v8 : Adding houserules handling.`);
+        const settingsHouserules = {
+          settingsHouserules: getDefaultState().settingsHouserules,
+        };
+        character.version = 8;
+        state.characters[config.characterId] = {
+          ...character,
+          ...settingsHouserules,
+        };
+        console.info(`Character migrated to v8.`);
         break;
     }
 
@@ -843,7 +852,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 7, // 7+ is revised
+  version: 8, // 7+ is revised
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
