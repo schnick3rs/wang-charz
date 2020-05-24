@@ -39,7 +39,15 @@
 
         <p v-if="attributePrerequisites"><strong>Attributes:</strong> {{ attributePrerequisites }}</p>
 
-        <p v-if="skillPrerequisites"><strong>Skills:</strong> {{ skillPrerequisites }}</p>
+        <p v-if="skillPrerequisites">
+          <strong>Skills:</strong>
+          <span v-for="(skill, index) in skillPrerequisites">
+            {{ skill.name }} {{ skill.threshold }}<!--
+            <v-icon x-small color="success" v-if="skill.fulfilled">check_circle</v-icon>
+            <v-icon x-small color="warning" v-else-if="!skill.fulfilled">check_circle</v-icon>
+            -->{{ index < skillPrerequisites.length-1 ? ', ' : '' }}
+          </span>
+        </p>
 
         <p v-if="item.influence && item.influence != 0">
           <strong>Influence Modifier: </strong>
@@ -160,6 +168,18 @@
           You can add your (starting) equipment in the <em>6. Wargear</em> section.
         </v-alert>
 
+        <v-divider class="mb-4" v-if="suggestedSkills"></v-divider>
+
+        <div v-if="suggestedSkills">
+          <p><strong>Suggested Skills:</strong>
+            <span v-for="(skill, index) in suggestedSkills">
+            {{ skill.name }} {{ skill.threshold }}<v-icon x-small color="success" v-if="skill.fulfilled">check_circle</v-icon>{{ index < suggestedSkills.length-1 ? ', ' : '' }}
+            </span>
+          </p>
+          <v-btn :disabled="!suggestedSkills.find((s) => s.fulfilled === false)" x-small @click="learnSuggestedSkills">Learn suggested Skills.</v-btn>
+        </div>
+
+
       </div>
 
     </v-col>
@@ -199,6 +219,12 @@ export default {
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
+    characterAttributes() {
+      return this.$store.getters['characters/characterAttributesById'](this.characterId);
+    },
+    characterSkills() {
+      return this.$store.getters['characters/characterSkillsById'](this.characterId);
+    },
     keywords() {
       return this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
     },
@@ -225,8 +251,31 @@ export default {
       if (this.item.prerequisites) {
         return this.item.prerequisites
         .filter((p) => p.group === 'skills')
-        .map((a) => `${this.getSkillByKey(a.value).name} ${a.threshold}`)
-        .join(', ');
+        .map((a) => {
+          const skill = this.getSkillByKey(a.value);
+          const currentSkillValue = this.characterSkills[a.value];
+          return {
+            ...skill,
+            threshold: a.threshold,
+            fulfilled: currentSkillValue >= a.threshold ? true : false,
+          };
+        });
+      }
+      return this.item.skills;
+    },
+    suggestedSkills() {
+      if (this.item.suggestedStats) {
+        return this.item.suggestedStats
+          .filter((p) => p.group === 'skills')
+          .map((a) => {
+            const skill = this.getSkillByKey(a.value);
+            const currentSkillValue = this.characterSkills[a.value];
+            return {
+              ...skill,
+              threshold: a.threshold,
+              fulfilled: currentSkillValue >= a.threshold ? true : false,
+            };
+          });
       }
       return this.item.skills;
     },
@@ -444,6 +493,21 @@ export default {
       .then( (response) => {
         psychicPowerSelection.options = response.data;
       });
+    },
+    learnSuggestedSkills() {
+      const archetype = this.item;
+
+      if (this.item.suggestedStats) {
+        this.item.suggestedStats
+          .filter((p) => p.group === 'skills')
+          .forEach((suggestedSkill) => {
+          // { group: 'attributes', value: 'willpower', threshold: 3, }
+          const skillValue = this.characterSkills[suggestedSkill.value];
+          if (skillValue < suggestedSkill.threshold) {
+            this.$store.commit('characters/setCharacterSkill', { id: this.characterId, payload: { key: suggestedSkill.value, value: suggestedSkill.threshold } });
+          }
+        });
+      }
     },
   },
 };

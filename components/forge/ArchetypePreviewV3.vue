@@ -66,25 +66,27 @@
             <v-col :cols="1">Fel</v-col>
 
             <v-col :cols="5" style="background-color: #424242; color: white;">Rating</v-col>
-            <v-col :cols="1" >1</v-col>
-            <v-col :cols="1" style="background-color: lightgray;">2</v-col>
-            <v-col :cols="1" >4</v-col>
-            <v-col :cols="1" style="background-color: lightgray;">2</v-col>
-            <v-col :cols="1" >3</v-col>
-            <v-col :cols="1" style="background-color: lightgray;">2</v-col>
-            <v-col :cols="1">1</v-col>
+            <v-col :cols="1" >{{ suggestedAttributes.strength }}</v-col>
+            <v-col :cols="1" style="background-color: lightgray;">{{ suggestedAttributes.toughness }}</v-col>
+            <v-col :cols="1" >{{ suggestedAttributes.agility }}</v-col>
+            <v-col :cols="1" style="background-color: lightgray;">{{ suggestedAttributes.initiative }}</v-col>
+            <v-col :cols="1" >{{ suggestedAttributes.willpower }}</v-col>
+            <v-col :cols="1" style="background-color: lightgray;">{{ suggestedAttributes.intellect }}</v-col>
+            <v-col :cols="1">{{ suggestedAttributes.fellowship }}</v-col>
           </v-row>
 
-          <v-row>
+          <v-row v-if="suggestedSkills">
             <v-col :cols="8" style="background-color: darkred; color: white;">Suggested Skills</v-col>
             <v-col :cols="3" style="background-color: #424242; color: white;">XP Cost</v-col>
             <v-col :cols="1" style="background-color: lightgray;">13</v-col>
-            <v-col :cols="12" >{{ skillPrerequisites }}</v-col>
+            <v-col :cols="12" >{{ suggestedSkills }}</v-col>
           </v-row>
 
-          <v-row>
+          <v-row v-if="suggestedTalents && suggestedTalents.length > 0">
             <v-col :cols="12" style="background-color: darkred; color: white;">Suggested Talents</v-col>
-            <v-col :cols="12" >Talentstesnifoes</v-col>
+            <v-col :cols="12">
+              {{ suggestedTalents.map((t) => `${t.name} (${t.source.key}, pg. ${t.source.page})`).join(', ') }}
+            </v-col>
           </v-row>
 
         </v-container>
@@ -119,7 +121,20 @@ export default {
     },
   },
   data() {
-    return {};
+    return {
+      suggestedTalents: [],
+    };
+  },
+  async mounted() {
+    if (this.item.suggested && this.item.suggested.talents) {
+      for(const talentKey of this.item.suggested.talents) {
+        const response = await this.$axios.get(`/api/talents/${talentKey}`);
+        const { data } = response;
+        if (data !== undefined) {
+          this.suggestedTalents.push(data);
+        }
+      }
+    }
   },
   computed: {
     attributePrerequisites() {
@@ -135,7 +150,32 @@ export default {
       if (this.item.prerequisites) {
         return this.item.prerequisites
         .filter((p) => p.group === 'skills')
-        .map((a) => `${this.getSkillByKey(a.value).name} (${a.threshold})`)
+        .map((a) => `${this.getSkillByKey(a.value).name} ${a.threshold}`)
+        .join(', ');
+      }
+      return this.item.skills;
+    },
+    suggestedAttributes() {
+      const suggestedAttributes = { };
+      this.attributeRepository.forEach((a) => {
+        let suggestedValue = '?';
+        if (this.item.suggestedStats) {
+          const suggestedAttribute = this.item.suggestedStats
+            .filter((p) => p.group === 'attributes')
+            .find((i) => i.value === a.key);
+          if (suggestedAttribute) {
+            suggestedValue = suggestedAttribute.threshold
+          }
+        }
+        suggestedAttributes[a.key] = suggestedValue;
+      });
+      return suggestedAttributes;
+    },
+    suggestedSkills() {
+      if (this.item.suggestedStats) {
+        return this.item.suggestedStats
+        .filter((p) => p.group === 'skills')
+        .map((a) => `${this.getSkillByKey(a.value).name} ${a.threshold}`)
         .join(', ');
       }
       return this.item.skills;

@@ -217,6 +217,11 @@ const core = [
       { name: 'Clothing', variant: 'Ministorum Robes' },
       { name: 'Missionary Kit' },
     ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-flagellant', 'core-in-his-name', 'core-repent-' ],
+    },
     suggestedStats: [
       ...suggestedAttributes(1,2,2,2,3,2,3),
       reqSkill('awareness', 2),
