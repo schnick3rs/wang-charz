@@ -119,7 +119,7 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import SchemaDigitalDocument from '~/assets/SchemaDigitalDocument.json';
 import SluggerMixin from '~/mixins/SluggerMixin';
-import ColorfulEntry from '../../components/shared/ColorfulEntry';
+import ColorfulEntry from '~/components/shared/ColorfulEntry';
 
 export default {
   components: {

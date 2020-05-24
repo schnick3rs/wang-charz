@@ -78,7 +78,7 @@
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
-import ColorfulPage from '../../components/shared/ColorfulPage';
+import ColorfulPage from '~/components/shared/ColorfulPage';
 const fixedTime = new Date();
 
 export default {
