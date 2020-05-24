@@ -416,7 +416,7 @@ const core = [
     ...cost(6,0,6, 0, 0),
     hint: 'A representative of the Inquisition, adaptable and possessing great potential.',
     keywords: 'Imperium,Inquisition,[ANY],[ORDO]',
-    prerequisitesString: 'Increase a skill of your choice to 2.',
+    prerequisitesSkillString: 'Increase a skill of your choice to 2.',
     archetypeFeatures: [
       {
         name: 'Inquisitorial Decree',

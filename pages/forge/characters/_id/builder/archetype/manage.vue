@@ -39,7 +39,7 @@
 
         <p v-if="attributePrerequisites"><strong>Attributes:</strong> {{ attributePrerequisites }}</p>
 
-        <p v-if="skillPrerequisites">
+        <p v-if="(skillPrerequisites && skillPrerequisites.length > 0) || item.prerequisitesSkillString">
           <strong>Skills:</strong>
           <span v-for="(skill, index) in skillPrerequisites">
             {{ skill.name }} {{ skill.threshold }}<!--
@@ -47,6 +47,7 @@
             <v-icon x-small color="warning" v-else-if="!skill.fulfilled">check_circle</v-icon>
             -->{{ index < skillPrerequisites.length-1 ? ', ' : '' }}
           </span>
+          <span v-if="item.prerequisitesSkillString">{{item.prerequisitesSkillString}}</span>
         </p>
 
         <p v-if="item.influence && item.influence != 0">
@@ -286,7 +287,6 @@ export default {
           selectedKeywords[r.name] = r.replacement;
         });
       }
-      console.log(selectedKeywords);
       return selectedKeywords;
     },
     itemKeywordPlaceholders() {

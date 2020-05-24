@@ -28,11 +28,11 @@
 
       <p><v-divider /></p>
 
-      <p class="text-lg-justify">
+      <p class="text-lg-justify" v-if="attributePrerequisites">
         <strong>Attributes:</strong> {{ attributePrerequisites }}
       </p>
 
-      <p class="text-lg-justify">
+      <p class="text-lg-justify" v-if="skillPrerequisites">
         <strong>Skills:</strong> {{ skillPrerequisites }}
       </p>
 
@@ -150,13 +150,13 @@ export default {
       return this.item.attributes;
     },
     skillPrerequisites() {
-      if (this.item.prerequisites) {
+      if (this.item.prerequisites && this.item.prerequisites.length > 0) {
         return this.item.prerequisites
           .filter((p) => p.group === 'skills')
           .map((a) => `${this.getSkillByKey(a.value).name} ${a.threshold}`)
           .join(', ');
       }
-      return this.item.skills;
+      return this.item.prerequisitesSkillString;
     },
     abilityObjects() {
       if (Array.isArray(this.item.abilities)) {
