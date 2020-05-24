@@ -367,9 +367,6 @@ export const mutations = {
   setSettingHouserules(state, payload) {
     let character = state.characters[payload.id];
     const { key, value } = payload.houserule;
-    if (character.settingHouserules === undefined) {
-      character['settingHouserules'] = getDefaultState().settingHouserules;
-    }
     character.settingHouserules[key] = value;
   },
   setCustomXp(state, payload) {
@@ -773,13 +770,13 @@ export const mutations = {
     switch (character.version) {
       case 7:
         console.debug(`v7 -> v8 : Adding houserules handling.`);
-        const settingsHouserules = {
-          settingsHouserules: getDefaultState().settingsHouserules,
+        const settingHouserules = {
+          settingHouserules: getDefaultState().settingHouserules,
         };
         character.version = 8;
         state.characters[config.characterId] = {
           ...character,
-          ...settingsHouserules,
+          ...settingHouserules,
         };
         console.info(`Character migrated to v8.`);
         break;
