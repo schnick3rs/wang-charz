@@ -129,6 +129,19 @@
             </div>
           </div>
 
+          <!-- features with CORRUPTION -->
+          <div v-if="feature.corruption">
+            <!-- corruption: { static: 0, diceCount: 1, diceSides: 3, multiply: 1 }, -->
+            {{ feature.corruption }}
+            <v-text-field
+              type="number"
+              dense solo
+              style="width: 50%;"
+              prepend-icon="filter_none"
+              @click:prepend="rollCorruption(feature.corruption, feature)"
+            ></v-text-field>
+          </div>
+
           <div v-if="feature.psychicPowers">
 
             <div v-for="selections in feature.psychicPowers" :key="selections.name">
@@ -509,6 +522,27 @@ export default {
         });
       }
     },
+    rollCorruption(config, feature) {
+      // config: { static: 0, diceCount: 1, diceSides: 3, multiply: 1 },
+      const randomDice = config.static + this.diceRoll(config.diceSides) * config.multiply;
+      console.log(`Rolled ${randomDice}...`);
+
+      const id = this.characterId;
+      const source = `archetype.${feature.name}`;
+      const content = {
+        modifications: [{
+          targetGroup: 'traits',
+          targetValue: 'corruption',
+          modifier: parseInt(randomDice),
+        }],
+        source,
+      };
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source });
+      this.$store.commit('characters/addCharacterModifications', { id, content });
+    },
+    diceRoll(sides) {
+      return Math.floor(Math.random() * sides) + 1;
+    }
   },
 };
 </script>

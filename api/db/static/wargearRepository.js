@@ -748,6 +748,12 @@ const core = [
     snippet: 'You can carry 10 additional Reloads.',
   },
   {
+    ...gear('core',229,'Bandolier','5C','[Any]'),
+    type: 'Ammo',
+    subtype: 'Ammo Container',
+    snippet: 'You can carry 2 additional Reloads.',
+  },
+  {
     ...gear('core',230,'Dragonfire Bolt Rounds','6V','Imperium,Adeptus Astartes'),
     type: 'Ammo',
     subtype: 'Special Bolt Ammo',

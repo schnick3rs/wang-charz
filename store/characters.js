@@ -287,14 +287,21 @@ export const getters = {
     return character[resourceKey].spend;
   },
 
+  characterReloadsById: (state) => (id) => (state.characters[id] && state.characters[id].faith ? state.characters[id].reloads.points : getDefaultState().reloads.points),
+
+  characterReloadsSpendById: (state) => (id) => {
+    const character = state.characters[id];
+    if ( character === undefined ) {
+      return 0;
+    }
+    return character.reloads.spend;
+  },
+
   characterFaithPointsById: (state) => (id) => (state.characters[id] && state.characters[id].faith ? state.characters[id].faith.points : getDefaultState().faith.points),
   characterFaithSpendById: (state) => (id) => {
     const character = state.characters[id];
     if ( character === undefined ) {
       return 0;
-    }
-    if ( character.faith === undefined ) {
-      character.faith = getDefaultState().faith; // resource migration
     }
     return character.faith.spend;
   },

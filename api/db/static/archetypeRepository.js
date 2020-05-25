@@ -1010,6 +1010,12 @@ const core = [
       {
         name: 'Corruption',
         snippet: 'You gain 1d3 corruption.',
+        selected: [''],
+        options: [
+          { key: 'corruption-1', name: 'Gain 1 point Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 1 }] },
+          { key: 'corruption-2', name: 'Gain 2 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 2 }] },
+          { key: 'corruption-3', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }] },
+        ],
       },
     ],
     wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stub Gun',
@@ -1082,6 +1088,12 @@ const core = [
       {
         name: 'Corruption',
         snippet: 'You gain 1d3 x2 corruption.',
+        selected: [''],
+        options: [
+          { key: 'corruption-1', name: 'Gain 2 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 2 }] },
+          { key: 'corruption-2', name: 'Gain 4 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 4 }] },
+          { key: 'corruption-3', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 6 }] },
+        ],
       },
     ],
     wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 ration packs'),
@@ -1104,6 +1116,12 @@ const core = [
       {
         name: 'Corruption',
         snippet: 'You gain 1d3 x3 corruption.',
+        selected: [''],
+        options: [
+          { key: 'corruption-1', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }] },
+          { key: 'corruption-2', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 6 }] },
+          { key: 'corruption-3', name: 'Gain 9 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 9 }] },
+        ],
       },
     ],
     wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',

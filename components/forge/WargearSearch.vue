@@ -31,7 +31,7 @@
       <v-data-table
         :headers="headers"
         :items="searchResult"
-        item-key="name"
+        item-key="key"
         :search="searchQuery"
         :page.sync="pagination.page"
         hide-default-footer

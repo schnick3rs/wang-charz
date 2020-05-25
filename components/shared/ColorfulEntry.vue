@@ -38,11 +38,21 @@ export default {
 
 <style lang="scss">
 
+  $forge-red: hsl(4, 67%, 55%);
+  $forge-red-lighter: hsl(4, 67%, 75%);
+
+  $wargear-blue: hsl(213, 85%, 40%);
+  $wargear-blue-lighter: hsl(213, 85%, 60%);
+
   .colorful-entry__header {
     border-bottom: 2px solid hsl(122, 39%, 49%);
 
     &--forge-flavour {
-      border-bottom: 2px solid hsl(4, 90%, 58%)
+      border-bottom: 2px solid $forge-red;
+    }
+
+    &--wargear-flavour {
+      border-bottom: 2px solid $wargear-blue;
     }
 
     &--blog-flavour {
@@ -63,9 +73,15 @@ export default {
     margin-bottom: 20px;
 
     &--forge-flavour {
-      border-left: 0.5px solid hsl(4, 90%, 78%);
-      border-right: 0.5px solid hsl(4, 90%, 78%);
-      border-bottom: 2px solid hsl(4, 90%, 58%);
+      border-left: 0.5px solid $forge-red-lighter;
+      border-right: 0.5px solid $forge-red-lighter;
+      border-bottom: 2px solid $forge-red;
+    }
+
+    &--wargear-flavour {
+      border-left: 0.5px solid $wargear-blue-lighter;
+      border-right: 0.5px solid $wargear-blue-lighter;
+      border-bottom: 2px solid $wargear-blue;
     }
 
     &--vault-flavour {

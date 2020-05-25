@@ -314,6 +314,7 @@
               :value="`tab-actions`"
             >
               <div class="pa-2">
+
                 <v-data-table
                   :headers="weaponHeaders"
                   :items="weapons"
@@ -351,6 +352,29 @@
                     </tr>
                   </template>
                 </v-data-table>
+
+                <div class="mb-1 mt-2">
+                  <span class="body-2 red--text">Reloads:</span>
+                  <span class="body-2">{{ characterReloads.points - characterReloads.spend }} remaining.</span>
+                  <div class="pl-2" style="flex-wrap: wrap; display: flex;" v-if="characterReloads.points > 0">
+                    <v-btn
+                      text icon
+                      v-for="pointIndex in characterReloads.points"
+                      @click="toggleResourceReloads(pointIndex)"
+                    >
+                      <v-icon color="error" v-if="pointIndex <= characterReloads.spend">signal_cellular_no_sim</v-icon>
+                      <v-icon color="primary" v-else>sd_storage</v-icon>
+                    </v-btn>
+                    <div
+                      v-show="false"
+                      v-for="pointIndex in characterReloads.points"
+                      class="faith-box"
+                      :class="{ 'faith-box--filled': pointIndex <= characterReloads.spend }"
+                      @click="toggleResourceReloads(pointIndex)"
+                    ></div>
+                  </div>
+                </div>
+
                 <div class="mt-4">
                   <p
                     v-for="trait in weaponsTraitSet"
@@ -1239,6 +1263,17 @@ export default {
         ...this.traits.filter((i) => i.type === 'Social'),
       ];
     },
+    characterReloads() {
+      const spend = this.$store.getters['characters/characterReloadsSpendById'](this.characterId);
+      let points = 3;
+      this.wargear.forEach((w)=>{
+        points += w.key === 'core-ammo-backpack' ? 10 : 0;
+        points += w.key === 'core-bandolier' ? 2 : 0;
+        points += w.key === 'core-ammo-drum' ? 1 : 0;
+      });
+
+      return { points, spend };
+    },
     characterFaith() {
       //const points = this.$store.getters['characters/characterFaithPointsById'](this.characterId);
       const spend = this.$store.getters['characters/characterFaithSpendById'](this.characterId);
@@ -1478,6 +1513,10 @@ export default {
     customAbilities() {
       return this.enhancements ? this.enhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
     },
+    enrichedTalents() {
+      const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
+      return characterTalents.map((charTalent) => this.talentRepository.find((t) => t.key === charTalent.key));
+    },
     talents() {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
       const finalTalents = [];
@@ -1529,8 +1568,8 @@ export default {
       return finalTalents.sort((a, b) => a.name.localeCompare(b.name));
     },
     talentsForFaith() {
-      if ( this.talents.length > 0 ) {
-        return this.talents.filter( talent => talent.groupKey === 'core-faith' );
+      if ( this.enrichedTalents.length > 0 ) {
+        return this.enrichedTalents.filter( talent => talent.groupKey === 'core-faith' );
       }
       return [];
     },
@@ -1742,6 +1781,13 @@ export default {
       const spend = (index > current) ? current+1 : current-1;
 
       this.$store.commit('characters/setCharacterResourceSpend', { id, resourceKey, spend });
+    },
+    toggleResourceReloads(index) {
+      const id = this.characterId;
+      const current = this.characterReloads.spend;
+      const spend = (index > current) ? current+1 : current-1;
+      const resourceKey = 'reloads';
+      this.$store.commit('characters/setCharacterResourceSpend', { id, spend, resourceKey });
     },
     toggleResourceFaith(index) {
       const id = this.characterId;

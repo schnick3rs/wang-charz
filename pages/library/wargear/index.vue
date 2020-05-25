@@ -132,9 +132,8 @@
                       <span><strong>Value:</strong> {{ item.value }}</span>
                     </div>
 
-                    <p class="mt-2">
-                      {{ item.description }}
-                    </p>
+                    <div v-if="item.description" class="mt-2" v-html="item.description"></div>
+                    <p v-else-if="item.snippet" class="mt-2">{{ item.snippet }}</p>
 
                     <dod-simple-weapon-stats
                       v-if="item.meta !== undefined && item.meta.length > 0 && ['ranged-weapon','melee-weapon'].includes(item.meta[0].type)"

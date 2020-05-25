@@ -3,61 +3,67 @@
     <!-- Breadcrumbs -->
     <dod-default-breadcrumbs :items="breadcrumbItems" />
 
-    <!-- Species Details -->
+    <!-- wargear Details -->
+    <v-row justify="center" no-gutters>
+      <v-col :cols="12">
+        <ColorfulEntry :headline="item.name" flavour="wargear">
+          <v-row>
+            <v-col :cols="12">
+              <h4 class="subtitle-2 grey--text">
+                {{ toTypeString(item) }}
+              </h4>
+
+              <hr class="mb-0">
+
+              <div class="grey--text">
+                <span class="subtitle-2"><strong>Rarity:</strong> {{ item.rarity }}</span>
+                <span><strong>Value:</strong> {{ item.value }}</span>
+              </div>
+
+              <div v-if="item.description" class="mt-2" v-html="item.description"></div>
+              <p v-else-if="item.snippet" class="mt-2">{{ item.snippet }}</p>
+
+              <div
+                v-if="item.meta !== undefined && item.meta.length > 0"
+                v-for="meta in item.meta"
+              >
+                <dod-simple-weapon-stats
+                  v-if="['ranged-weapon','melee-weapon'].includes(meta.type)"
+                  :name="item.name"
+                  :stats="meta"
+                  show-traits
+                  class="mb-2"
+                />
+                <dod-simple-armour-stats
+                  v-else-if="['armour'].includes(meta.type)"
+                  :name="item.name"
+                  :stats="meta"
+                  show-traits
+                  class="mb-2"
+                />
+              </div>
+
+              <div>
+                <span>Keywords:</span>
+                <v-chip
+                  v-for="keyword in item.keywords"
+                  :key="keyword"
+                  label
+                  small
+                  class="mr-1"
+                >
+                  {{ keyword }}
+                </v-chip>
+              </div>
+            </v-col>
+          </v-row>
+        </ColorfulEntry>
+      </v-col>
+    </v-row>
+
     <v-row justify="center" no-gutters>
       <v-col :cols="12" :sm="10">
-        <div class="pa-2 pt-4 pb-4">
-          <h3 class="title-1">
-            {{ item.name }}
-          </h3>
-          <h4 class="subtitle-2 grey--text">
-            {{ toTypeString(item) }}
-          </h4>
 
-          <hr class="mb-0">
-
-          <div class="grey--text">
-            <span class="subtitle-2"><strong>Rarity:</strong> {{ item.rarity }}</span>
-            <span><strong>Value:</strong> {{ item.value }}</span>
-          </div>
-
-          <p class="mt-2">
-            {{ item.description }}
-          </p>
-
-          <div
-            v-if="item.meta !== undefined && item.meta.length > 0"
-            v-for="meta in item.meta"
-          >
-            <dod-simple-weapon-stats
-              v-if="['ranged-weapon','melee-weapon'].includes(meta.type)"
-              :name="item.name"
-              :stats="meta"
-              show-traits
-              class="mb-2"
-            />
-            <dod-simple-armour-stats
-              v-else-if="['armour'].includes(meta.type)"
-              :name="item.name"
-              :stats="meta"
-              show-traits
-              class="mb-2"
-            />
-          </div>
-
-          <div>
-            <span>Keywords:</span>
-            <v-chip
-              v-for="keyword in item.keywords"
-              :key="keyword"
-              label
-              small
-              class="mr-1"
-            >
-              {{ keyword }}
-            </v-chip>
-          </div>
-        </div>
       </v-col>
     </v-row>
   </div>
@@ -67,6 +73,7 @@
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import DodSimpleWeaponStats from '~/components/DodSimpleWeaponStats';
 import DodSimpleArmourStats from '~/components/DodSimpleArmourStats';
+import ColorfulEntry from '~/components/shared/ColorfulEntry';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {
@@ -75,6 +82,7 @@ export default {
     DodDefaultBreadcrumbs,
     DodSimpleWeaponStats,
     DodSimpleArmourStats,
+    ColorfulEntry,
   },
   mixins: [
     BreadcrumbSchemaMixin,
