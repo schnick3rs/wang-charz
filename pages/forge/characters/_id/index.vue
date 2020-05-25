@@ -55,12 +55,26 @@
         <v-btn small outlined color="success" v-if="false">share</v-btn>
         <v-btn small outlined color="success" v-if="false">campaign</v-btn>
         <v-btn
+          color="primary"
+          outlined x-small
+        >
+          <v-icon left small>group</v-icon>
+          Regroup
+        </v-btn>
+        <v-btn
+          color="primary"
+          outlined x-small
+          @click="doRespite"
+        >
+          <v-icon left small>fireplace</v-icon>
+          Respite
+        </v-btn>
+        <v-btn
           nuxt
           :to="`/forge/characters/${characterId}/builder/print`"
           color="success"
           target="_blank"
-          outlined
-          small
+          outlined x-small
         >
           <v-icon left small>print</v-icon>
           Print
@@ -69,7 +83,7 @@
           nuxt
           :to="`/forge/characters/${characterId}/builder/setting`"
           color="success"
-          small
+          x-small
         >
           <v-icon left small>edit</v-icon>
           Edit
@@ -1832,6 +1846,20 @@ export default {
       const id = this.characterId;
       this.$store.commit('characters/removeCharacterCustomSkill', { id, key });
     },
+
+    /**
+     * Respite, aka Long Rest, see pg. 196
+     * > Heal all Shock and Wounds
+     * > Wreath is reset to 2
+     * > Refresh all Faith
+     */
+    doRespite() {
+      const id = this.characterId;
+      const spend = 0;
+      this.$store.commit('characters/setCharacterResourceSpend', { id, spend, resourceKey: 'maxShock' });
+      this.$store.commit('characters/setCharacterResourceSpend', { id, spend, resourceKey: 'maxWounds' });
+      this.$store.commit('characters/setCharacterResourceSpend', { id, spend, resourceKey: 'faith' });
+    }
   },
 };
 </script>
