@@ -955,6 +955,10 @@ export default {
       return chapter;
     },
 
+    characterTalents() {
+      return this.$store.getters['characters/characterTalentsById'](this.$route.params.id);
+    },
+
     archetypeKey() {
       return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
@@ -1507,14 +1511,17 @@ export default {
       return this.enhancements ? this.enhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
     },
     enrichedTalents() {
-      const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
-      return characterTalents.map((charTalent) => this.talentRepository.find((t) => t.key === charTalent.key));
+      if (this.characterTalents && this.characterTalents.length > 0) {
+        return this.characterTalents
+          .map((charTalent) => this.talentRepository.find((t) => t.key === charTalent.key))
+          .filter((t) => t !== undefined);
+      }
+      return [];
     },
     talents() {
-      const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
       const finalTalents = [];
 
-      characterTalents.forEach((charTalent) => {
+      this.characterTalents.forEach((charTalent) => {
         const rawTalent = this.talentRepository.find((t) => t.key === charTalent.key);
         if (rawTalent) {
           const ability = {
