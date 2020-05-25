@@ -365,13 +365,6 @@
                       <v-icon color="error" v-if="pointIndex <= characterReloads.spend">signal_cellular_no_sim</v-icon>
                       <v-icon color="primary" v-else>sd_storage</v-icon>
                     </v-btn>
-                    <div
-                      v-show="false"
-                      v-for="pointIndex in characterReloads.points"
-                      class="faith-box"
-                      :class="{ 'faith-box--filled': pointIndex <= characterReloads.spend }"
-                      @click="toggleResourceReloads(pointIndex)"
-                    ></div>
                   </div>
                 </div>
 
