@@ -1562,7 +1562,7 @@ export default {
     },
     talentsForFaith() {
       if ( this.enrichedTalents.length > 0 ) {
-        return this.enrichedTalents.filter( talent => talent.groupKey === 'core-faith' );
+        return this.enrichedTalents.filter( talent => talent.groupKey && talent.groupKey === 'core-faith' );
       }
       return [];
     },
