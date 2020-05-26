@@ -4,6 +4,7 @@
     <v-row no-gutters>
 
       <v-col :cols="12" :sm="6" :md="6" :lg="5">
+
         <v-container class="caption">
 
           <v-row style="background-color: darkred; color: white;">

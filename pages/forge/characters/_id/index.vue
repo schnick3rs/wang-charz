@@ -54,36 +54,30 @@
       <v-col :cols="12" :sm="4" :md="5" align="right">
         <v-btn small outlined color="success" v-if="false">share</v-btn>
         <v-btn small outlined color="success" v-if="false">campaign</v-btn>
-        <v-btn
-          color="primary"
-          outlined x-small
-        >
-          <v-icon left small>group</v-icon>
-          Regroup
+        <v-btn small outlined color="primary" v-if="false">
+          <v-icon left small>group</v-icon> Regroup
         </v-btn>
         <v-btn
           color="primary"
-          outlined x-small
+          outlined small
           @click="doRespite"
         >
           <v-icon left small>fireplace</v-icon>
           Respite
         </v-btn>
         <v-btn
-          nuxt
-          :to="`/forge/characters/${characterId}/builder/print`"
+          nuxt :to="`/forge/characters/${characterId}/builder/print`"
           color="success"
           target="_blank"
-          outlined x-small
+          outlined small
         >
           <v-icon left small>print</v-icon>
           Print
         </v-btn>
         <v-btn
-          nuxt
-          :to="`/forge/characters/${characterId}/builder/setting`"
+          nuxt :to="`/forge/characters/${characterId}/builder/setting`"
           color="success"
-          x-small
+          small
         >
           <v-icon left small>edit</v-icon>
           Edit

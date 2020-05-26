@@ -2,8 +2,9 @@
 // ArdentPurple's Tyranid Bestiary
 
 const source = {
-  core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
-  core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
+  core: { book: 'Core Rules (v1.0)', key: 'core', version: 'v1.0' },
+  core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1.0' },
+  core15: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   aaoa: {
     book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha',
   },
@@ -219,6 +220,62 @@ aaoa.tau.septs.fire = {
   ],
 };
 
+const threatz = function (sourceKey, sourcePage, faction, name, level) {
+  return {
+    source: {
+      ...source[sourceKey],
+      page: sourcePage,
+    },
+    key: `${textSlugKebab(`${source[sourceKey].key} ${name}`)}`,
+    name,
+    faction,
+    classification: classificationHelper(level),
+    stub: false,
+  };
+};
+
+const attributz = function(string) {
+  const splits = string.split(' ').map((i) => i.trim());
+  return {
+    attributes: {
+      strength: splits[0],
+      toughness: splits[1],
+      agility: splits[2],
+      initiative: splits[3],
+      willpower: splits[4],
+      intellect: splits[5],
+      fellowship: splits[6],
+    }
+  }
+};
+
+const traitz = function(string, determination) {
+  const splits = string.split(' ').map((i) => i.trim());
+  return {
+    traits: {
+      defence: splits[0],
+      resilience: splits[1],
+      wounds: splits[2],
+      shock: splits[3],
+      conviction: splits[4],
+      resolve: splits[5],
+      speed: splits[6],
+      soak: determination,
+      determination: determination,
+    },
+    size: splits[7],
+  }
+};
+
+// 'Lasgun,
+// 7 +1 ED / Range 12 – 24 – 36 / Salvo 2 / Rapid Fire (1), Reliable'
+// 7 +1 ED / AP -2 / Range 12 – 24 – 36 / Salvo 2 / Rapid Fire (1), Reliable'
+const attackz = function(name, string) {
+  const sections = string.split(' / ').map((i) => i.trim());
+
+  return simpleRanged(name,'','', '', '');
+};
+
 const simpleStub = function (sourceKey, sourcePage, faction, name, level) {
   return {
     source: {
@@ -265,7 +322,19 @@ const aaoaThreatsTyranidsHiveFleets = [
   },
 ];
 
+const core15 = [
+  {
+    ...threatz('core', 328, 'Imperial', 'Astra Militarum Trooper', 'tttt'),
+    ...attributz('2 2 3 2 3 1 2'),
+    ...traitz('1 3 2 2 3 3 6 Avg', 3),
+    actions: [
+      attackz('Lasgun', '7 +1 ED / Range 12 – 24 – 36 / Salvo 2 / Rapid Fire (1), Reliable'),
+    ]
+  }
+];
+
 const threatRepository = [
+  //...core15,
   /** TODO CORE */
   {
     source: {
