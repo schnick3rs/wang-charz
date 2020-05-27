@@ -19,6 +19,7 @@
     </div>
 
     <dod-default-breadcrumbs :items="breadcrumbItems" />
+
     <v-row
       justify="center"
       no-gutters
@@ -31,7 +32,12 @@
       >
         <ColorfulPage :headline="page.title" flavour="blog">
         </ColorfulPage>
-        <v-row>
+
+        <v-row v-if="$fetchState.pending" justify="center">
+          <v-progress-circular indeterminate color="success" size="128" width="12" />
+        </v-row>
+
+        <v-row v-else>
           <v-col
             v-for="post in posts"
             :key="post.fields.id"
@@ -82,7 +88,7 @@ import ColorfulPage from '~/components/shared/ColorfulPage';
 const fixedTime = new Date();
 
 export default {
-  name: 'OurMigrationFromDeathwatchToWrathAndGlory',
+  name: 'posts',
   components: {
     ColorfulPage,
     DodDefaultBreadcrumbs,
@@ -90,8 +96,24 @@ export default {
   mixins: [
     BreadcrumbSchemaMixin,
   ],
+  async fetch() {
+    const { data } = await this.$axios.get('/api/posts');
+    this.posts = data;
+  },
+  /*async asyncData({ app }) {
+
+    const { data } = await app.$axios.get('/api/posts');
+    const posts = data;
+
+    return {
+      fixedTime: new Date(),
+      //posts,
+    };
+  },*/
   data() {
     return {
+      fixedTime: new Date(),
+      posts: [],
       page: {
         title: 'Roleplaying Articles',
         description: 'Session Reports and other related articles from the Wrath & Glory Universe.',
@@ -102,29 +124,6 @@ export default {
         loading: false,
       },
       hintBoxItem: { title: '', description: '', type: '' },
-    };
-  },
-  computed: {
-    breadcrumbItems() {
-      return [
-        {
-          text: '', disabled: false, nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Posts', disabled: false, nuxt: true, exact: true, to: '/posts',
-        },
-      ];
-    },
-  },
-  async asyncData({ app }) {
-
-    const { data } = await app.$axios.get('/api/posts');
-
-    const posts = data;
-
-    return {
-      fixedTime: new Date(),
-      posts,
     };
   },
   head() {
@@ -151,6 +150,18 @@ export default {
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
       ],
     };
+  },
+  computed: {
+    breadcrumbItems() {
+      return [
+        {
+          text: '', disabled: false, nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Posts', disabled: false, nuxt: true, exact: true, to: '/posts',
+        },
+      ];
+    },
   },
   filters: {
     timeSince(value) {
@@ -179,7 +190,7 @@ export default {
       }
       return Math.floor(seconds) + " seconds ago";
     },
-  }
+  },
 };
 </script>
 

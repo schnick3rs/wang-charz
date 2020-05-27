@@ -19,11 +19,6 @@ export default {
       default: 'doom',
     }
   },
-  data() {
-    return {
-      flavour: 'doom'
-    };
-  },
   computed: {
     cssFlavourModifier() {
       return `colorful-page__header--${this.flavour}-flavour`;

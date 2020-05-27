@@ -52,6 +52,7 @@
         </v-row>
       </v-col>
     </v-row>
+
   </div>
 </template>
 
@@ -75,13 +76,11 @@ export default {
     ArticleSchemaMixin,
     BreadcrumbSchemaMixin,
   ],
-  /**
-   * @see https://regenrek.com/posts/create-a-frontmatter-markdown-powered-blog-with-nuxt-js-in-2019/
-   *
-   * @param params
-   * @returns {Promise<*>}
-   */
-  async asyncData({ params, env, app }) {
+  /*async fetch() {
+    const { data } = await this.$axios.get(`/api/posts/${this.$route.params.slug}`);
+    this.post = data[0];
+  },*/
+  async asyncData({ params, app }) {
     const slug = params.slug;
 
     try {
