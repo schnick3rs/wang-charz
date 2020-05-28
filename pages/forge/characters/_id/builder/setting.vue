@@ -236,11 +236,13 @@
       <div>
         <h3 class="subtitle-1"><strong>Homebrews</strong></h3>
         <p class="body-2">Allow specific homebrew content to be used for this character.</p>
+
         <div>
           <v-alert text border-left dense color="info" class="caption">
             The <a href="https://www.cubicle7games.com/wrath-glory-pdf-pre-order-live/>">revised edition by Cubicle 7 just came out</a> and thus, most of the homebrews are currently outdated. I have disabled them for now until they are updated to match the recent changes.
           </v-alert>
         </div>
+
         <div v-if="settingHomebrews.includes('aaoa') && settingHomebrews.includes('tea')">
           <v-alert
             text border-left dense color="warning" class="caption"
@@ -261,7 +263,7 @@
             persistent-hint
             color="primary"
             dense
-            disabled
+            :disabled="!homebrew.enabled"
             @change="updateHomebrew(homebrew)"
           >
             <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
@@ -362,7 +364,7 @@ export default {
           key: 'aotgt',
           name: '\'Agents of the Golden Throne\' content',
           hint: 'Add a Tier 4 Ascension',
-          enabled: true,
+          enabled: false,
           nuxt: '/vault/agents-of-the-golden-throne',
           source: 'https://docs.google.com/document/d/1VkOd-WGTXb_Lygm3BQYHX9eC2WzOczsD1kkG3fy4SIg/edit',
         },

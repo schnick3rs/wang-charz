@@ -55,5 +55,6 @@ const getDefaultState = () => ({
   speciesFeatures: [],
   attributeMaximums: [],
   traitMaximums: [],
+  prerequisites: [],
   variant: undefined,
 });

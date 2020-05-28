@@ -4,6 +4,7 @@
 
     <v-row justify="center">
 
+      <!-- Attribute Dialog -->
       <v-dialog
         v-model="attributeDialog"
         width="600px"
@@ -20,7 +21,7 @@
             <v-select
               dense outlined
               v-model="statKey"
-              :items="[...attributeRepository, ...traitRepository].filter((i)=>i.key !== 'speed')"
+              :items="attributeRepository"
               item-text="name"
               item-value="key"
             ></v-select>
@@ -35,11 +36,49 @@
           <v-card-actions>
             <v-btn color="error" @click="attributeDialog = false">Cancel</v-btn>
             <v-spacer />
-            <v-btn color="success" @click="addModification">Add modification</v-btn>
+            <v-btn color="success" @click="addPrereqisite('attributes', statKey, statValue)">Add modification</v-btn>
           </v-card-actions>
         </v-card>
       </v-dialog>
 
+      <!-- Skill Dialog -->
+      <v-dialog
+        v-model="skillDialog"
+        width="600px"
+        scrollable
+        :fullscreen="$vuetify.breakpoint.xsOnly"
+      >
+        <v-card>
+          <v-card-title style="background-color: #262e37; color: #fff;">
+            Select Skill modification
+            <v-spacer />
+            <v-icon dark @click="skillDialog = false">close</v-icon>
+          </v-card-title>
+          <v-card-text class="pt-4">
+            <v-select
+              dense outlined
+              v-model="statKey"
+              :items="skillRepository"
+              item-text="name"
+              item-value="key"
+            ></v-select>
+
+            <v-text-field
+              v-model="statValue"
+              label="Modification"
+              type="number"
+              dense outlined
+            ></v-text-field>
+          </v-card-text>
+          <v-card-actions>
+            <v-btn color="error" @click="skillDialog = false">Cancel</v-btn>
+            <v-spacer />
+            <v-btn color="success" @click="addPrereqisite('skills', statKey, statValue)">Add modification</v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+
+      <!-- Ability dialog -->
       <v-dialog
         v-model="abilityDialog"
         width="600px"
@@ -98,12 +137,23 @@
                   persistent-hint
                 ></v-select>
               </v-col>
-              <v-col><v-text-field v-model="species.cost" label="BP Cost" dense outlined></v-text-field></v-col>
+              <v-col><v-text-field v-model="species.cost" label="XP Cost" dense outlined></v-text-field></v-col>
               <v-col><v-text-field v-model="species.baseTier" label="Base Tier" dense outlined></v-text-field></v-col>
               <v-col><v-text-field v-model="species.speed" label="Speed" dense outlined></v-text-field></v-col>
             </v-row>
             <div>
-              <h5>Abilities</h5>
+              <p v-if="attributes"><strong>Attributes:</strong>
+                <span v-for="attribute in attributes">{{`${getAttributeByKey(attribute.value).name} ${attribute.threshold}`}}
+                    <v-icon color="error" small @click="removePrerequisite(attribute.value)">remove_circle</v-icon>, </span>
+              </p>
+            </div>
+            <div>
+              <p v-if="skills"><strong>Skills:</strong>
+                <span v-for="skill in skills">{{`${getSkillByKey(skill.value).name} ${skill.threshold}`}}
+                    <v-icon color="error" small @click="removePrerequisite(skill.value)">remove_circle</v-icon>, </span>
+              </p>
+            </div>
+            <div>
               <div v-for="feature in species.speciesFeatures">
                 <p v-if="feature.modifications"><strong>{{ feature.name }}:</strong>
                   <span v-for="m in feature.modifications">{{`${m.targetValue} ${m.modifier>0?'+':''}${m.modifier}`}}
@@ -115,8 +165,9 @@
           </v-card-text>
           <v-divider></v-divider>
           <v-card-text>
-            <v-btn outlined small color="primary" @click="openModificationDialog">Open Modification Editor</v-btn>
-            <v-btn outlined small color="primary" @click="abilityDialog = true">Open Ability Editor</v-btn>
+            <v-btn outlined small color="primary" @click="attributeDialog = true">Add Attribute</v-btn>
+            <v-btn outlined small color="primary" @click="skillDialog = true">Add Skill</v-btn>
+            <v-btn outlined small color="primary" @click="abilityDialog = true">Add Ability</v-btn>
           </v-card-text>
           <v-divider></v-divider>
           <v-card-actions>
@@ -167,13 +218,15 @@ export default {
   data() {
     return {
       loading: false,
-      showAbilityEditor: true,
       showAttributeEditor: true,
+      showSkillEditor: true,
+      showAbilityEditor: true,
       statKey: '',
       statValue: 0,
       featureName: '',
       featureSnippet: '',
       attributeDialog: false,
+      skillDialog: false,
       abilityDialog: false,
       species: undefined,
       groupOptions: [
@@ -199,7 +252,13 @@ export default {
   computed: {
     speciesListener() {
       return this.$store.getters['species/getSpecies'](this.speciesKey);
-    }
+    },
+    attributes() {
+      return this.species.prerequisites ? this.species.prerequisites.filter((p)=>p.group==='attributes') : undefined;
+    },
+    skills() {
+      return this.species.prerequisites ? this.species.prerequisites.filter((p)=>p.group==='skills') : undefined;
+    },
   },
   watch: {
     speciesListener: {
@@ -215,9 +274,6 @@ export default {
     loadSpecies() {
       const species = this.$store.getters['species/getSpecies'](this.speciesKey);
       this.species = JSON.parse(JSON.stringify(species));
-    },
-    openModificationDialog() {
-      this.attributeDialog = true;
     },
     addModification() {
       const reps = [...this.attributeRepository, ...this.traitRepository];
@@ -246,6 +302,20 @@ export default {
       } else {
         currentAttributeMod.snippet = currentAttributeMod.modifications.map((m) => `${m.targetValue} ${m.modifier>0?'+':''}${m.modifier}`).join(', ');
       }
+    },
+    addPrereqisite(group, value, thresholdString) {
+      const prerequisite = {
+        group,
+        value: value,
+        threshold: parseInt(thresholdString),
+      };
+      if (this.species.prerequisites === undefined) this.species.prerequisites = [];
+      this.species.prerequisites.push(prerequisite);
+      this.attributeDialog = false;
+      this.skillDialog = false;
+    },
+    removePrerequisite(prerequisiteValueKey) {
+      this.species.prerequisites = this.species.prerequisites.filter((p) => p.value !== prerequisiteValueKey);
     },
     addCustomSpecies() {
       const key = this.speciesKey;
@@ -287,6 +357,11 @@ export default {
 };
 </script>
 
-<style scoped>
-
+<style scoped lang="scss">
+  pre {
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+  }
 </style>
