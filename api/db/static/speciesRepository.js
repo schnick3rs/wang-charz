@@ -2,7 +2,7 @@ const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'core-legacy-abhumans', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha', sumplements: 'core', key: 'aaoa', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha', sumplements: 'core', key: 'aaoa', version: 'v3', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -222,6 +222,33 @@ const coreRep = [
       {
         name: 'Bigger is Better',
         snippet: 'You calculate Influence using Strength instead of Fellowship.',
+      },
+    ],
+  },
+];
+
+const aaoa = [
+  {
+    ...species('aaoa',29,'Aeldari','Drukhari','The Sinister Kin',20,8),
+    ...cost(20,20,0, 0),
+    ...statMax(7,7,12,12,12,10,6,10),
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'attributes', value: 'strength', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Outsider',
+        snippet: '+2DN to all Interaction tests with members of the Imperium.',
+      },
+      {
+        name: 'The Thirst',
+        snippet: 'You cannot recover Shock by spending Wrath or the use of Medicae. You recover 1d3+Rank Shock when you inflict Shock on or kill an opponent, when you succeed at an Intimidation Interaction Attack, or when an enemy fails a Resolve test. The GM gains +1 Ruin whenever you become Exhausted.',
+      },
+      {
+        name: 'She Who Thirsts',
+        snippet: 'Your Max Shock is reduced by your Corruption Level.',
       },
     ],
   },
@@ -901,5 +928,6 @@ const homebrewReps = [
 */
 module.exports = [
   ...coreRep,
+  //...aaoa,
   //...homebrewReps, xxx disavled for now, until updated to 1.5
 ];
