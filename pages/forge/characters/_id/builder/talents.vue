@@ -482,19 +482,26 @@ export default {
 
         // Fetch gear for selected augmetis
         if (aggregatedTalent.key.startsWith('core-augmetic')) {
-          aggregatedTalent.wargear.forEach((g) => {
+          console.info(`[${aggregatedTalent.id}] Check if gear exists for ...`)
+          aggregatedTalent.wargear.forEach((g, i, warArray) => {
             const sourceKey = `talent.${aggregatedTalent.id}.${g.key}`;
-            console.warn(`Searching for ${sourceKey}`);
+            console.info(`[${aggregatedTalent.id}] Searching for <${sourceKey}>...`);
             const charGear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourceKey));
             if (charGear && charGear.length > 0 && this.wargearList) {
+              console.info(`[${aggregatedTalent.id}] Found ${charGear.length} gears ${charGear[0].name} for the source...`);
               const wargear = this.wargearList.find((g) => g.name === charGear[0].name);
+              console.info(`[${aggregatedTalent.id}] found ${wargear.name}...`);
               g.selected = wargear.name;
+              console.info(g.selected)
+
             }
           });
+          console.info(`[${aggregatedTalent.id}] DONE.`);
         }
 
         return aggregatedTalent;
       }).sort((a, b) => a.id.localeCompare(b.id));
+      //console.warn(talents.map((t) => t.wargear[0].selected).join('-'));
       return talents;
     },
     filteredTalents() {
@@ -737,19 +744,21 @@ export default {
       this.$store.commit('characters/setCharacterTalentSelected', { id, talent: talentPayload });
     },
     talentAugmeticImplantsUpdateImplantChoice(gear, itemKey, talent) {
-      const payload = {
-        id: this.characterId,
-        name: gear.name,
-        source: `talent.${talent.id}.${itemKey}`,
-      };
-      this.$store.commit('characters/removeCharacterWargearBySource', payload);
-      this.$store.commit('characters/addCharacterWargear', payload);
 
-      this.talentUpdateSelected(gear.name, talent);
+      const id = this.characterId;
+      const name = gear.name;
+      const source = `talent.${talent.id}.${itemKey}`;
+
+      this.$store.commit('characters/removeCharacterWargearBySource', { id, source });
+      this.$store.commit('characters/addCharacterWargear', { id, name, source });
+
+      // TODO obsolete ?
+      this.talentUpdateSelected(name, talent);
 
       // We add the additional point costs to the talent
       const talentPayload = {
-        id: this.characterId,
+        charId: this.characterId,
+        id: talent.id,
         key: talent.key,
         name: talent.name,
         extraKey: itemKey,
@@ -774,7 +783,8 @@ export default {
 
       // We add the additional point costs to the talent
       const talentPayload = {
-        id: this.characterId,
+        charId: this.characterId,
+        id: talent.id,
         key: talent.key,
         name: talent.name,
         extraKey: 'special-weapon',
