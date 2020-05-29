@@ -2,7 +2,8 @@ const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3)', sumplements: 'core', key: 'aaoa', version: 'v3', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -530,7 +531,7 @@ const paxNavigatorPowers = [
 
 const aaoaWaaaghPowers = [
   {
-    ...simpleStub(200, 'aaoa', 181, 20, '‘Eadbanger', 'WAAAGH!', 'Bring the closest enemy to zero wounds.'),
+    ...simpleStub(200, 'aaoa2', 181, 20, '‘Eadbanger', 'WAAAGH!', 'Bring the closest enemy to zero wounds.'),
     ...simpleCrunch('8', 'Action', 'Instant', '35m', false, ''),
     keywords: ['Ork','Psychic'],
     description:
@@ -539,7 +540,7 @@ const aaoaWaaaghPowers = [
       '<p>This power targets the closest enemy, who must pass a Toughness test (DN 3) or reduced to 0 Wounds immediately.</p>',
   },
   {
-    ...simpleStub(201, 'aaoa', 181, 15, 'Da Jump', 'WAAAGH!', 'Short Teloport yourself and allied orks.'),
+    ...simpleStub(201, 'aaoa2', 181, 15, 'Da Jump', 'WAAAGH!', 'Short Teloport yourself and allied orks.'),
     ...simpleCrunch('7', 'Full Action', 'Instant', '25m', false, ''),
     keywords: ['Ork','Psychic'],
     description:
@@ -549,7 +550,7 @@ const aaoaWaaaghPowers = [
       'They must reappear more than 20m from an enemy, and they forfeit their move action in their following turns.</p>',
   },
   {
-    ...simpleStub(202, 'aaoa', 181, 15, 'Da Krunch', 'WAAAGH!', 'Stomp enemies with mortal force and knock them prone.'),
+    ...simpleStub(202, 'aaoa2', 181, 15, 'Da Krunch', 'WAAAGH!', 'Stomp enemies with mortal force and knock them prone.'),
     ...simpleCrunch('8', 'Action', 'Instant', '35m', false, ''),
     keywords: ['Ork','Psychic'],
     description:
@@ -561,7 +562,7 @@ const aaoaWaaaghPowers = [
       'Then, roll a d6: on a roll of a 6, repeat the power’s effects as the foot stamps down again.</p>',
   },
   {
-    ...simpleStub(203, 'aaoa', 181, 8, 'Fists of Gork', 'WAAAGH!', 'Boost yourself or an allie with great Strength.'),
+    ...simpleStub(203, 'aaoa2', 181, 8, 'Fists of Gork', 'WAAAGH!', 'Boost yourself or an allie with great Strength.'),
     ...simpleCrunch('6', 'Action', '1 Round', '25m', false, ''),
     keywords: ['Ork','Psychic'],
     description:
@@ -570,7 +571,7 @@ const aaoaWaaaghPowers = [
       'Until the end of the psyker’s next turn, the affected character’s Strength is increased by +4 and they receive +2d on all melee attacks.</p>',
   },
   {
-    ...simpleStub(204, 'aaoa', 182, 10, 'Roar of Mork', 'WAAAGH!', 'Enemies within range reduce their resolve by 2.'),
+    ...simpleStub(204, 'aaoa2', 182, 10, 'Roar of Mork', 'WAAAGH!', 'Enemies within range reduce their resolve by 2.'),
     ...simpleCrunch('8', 'Full Action', 'Sustained', '35m', false, ''),
     keywords: ['Ork','Telepathy','Psychic'],
     description:
@@ -579,7 +580,7 @@ const aaoaWaaaghPowers = [
       'While this power remains in effect, all enemies within range reduce their Resolve by 2.</p>',
   },
   {
-    ...simpleStub(205, 'aaoa', 182, 10, 'Warpath', 'WAAAGH!', 'Allies within range increase strength and make more multi-actions or attacks.'),
+    ...simpleStub(205, 'aaoa2', 182, 10, 'Warpath', 'WAAAGH!', 'Allies within range increase strength and make more multi-actions or attacks.'),
     ...simpleCrunch('7', 'Action', 'Instant', '35m', false, ''),
     keywords: ['Ork','Psychic'],
     description:
@@ -592,7 +593,7 @@ const aaoaWaaaghPowers = [
 
 const aaoaSancticPowers = [
   {
-    ...simpleStub(220, 'aaoa', 157, 20, 'Astral Aim', 'Sanctic', ''),
+    ...simpleStub(220, 'aaoa2', 157, 20, 'Astral Aim', 'Sanctic', ''),
     ...simpleCrunch('5', 'Action', '1 Round', '5m', false, '', '[2] +1d bonus to ranged attacks;[3] +5m range'),
     keywords: ['Psychic'],
     description:
@@ -601,7 +602,7 @@ const aaoaSancticPowers = [
       'and ignore any bonuses to Defence from cover on those ranged attacks, until the start of your next turn.</p>',
   },
   {
-    ...simpleStub(221, 'aaoa', 157, 20, 'Gate of Infinity', 'Sanctic', ''),
+    ...simpleStub(221, 'aaoa2', 157, 20, 'Gate of Infinity', 'Sanctic', ''),
     ...simpleCrunch('6', 'Full Action', 'Instant', '500m', false, '', '[3] +500m range'),
     keywords: ['Psychic'],
     description:
@@ -610,7 +611,7 @@ const aaoaSancticPowers = [
       'which must also be more than 20m from an enemy.</p>',
   },
   {
-    ...simpleStub(222, 'aaoa', 157, 20, 'Hammerhand', 'Sanctic', ''),
+    ...simpleStub(222, 'aaoa2', 157, 20, 'Hammerhand', 'Sanctic', ''),
     ...simpleCrunch('6', 'Action', '1 Round', '5m', false, '', '[2] +1ED to damage,[3] +5m range'),
     keywords: ['Psychic'],
     description:
@@ -619,7 +620,7 @@ const aaoaSancticPowers = [
       'The psyker, and all allies within 5m, add +1ED to the damage of all melee attacks they make until the start of the psyker’s next turn.</p>',
   },
   {
-    ...simpleStub(223, 'aaoa', 157, 15, 'Purge Soul', 'Sanctic', ''),
+    ...simpleStub(223, 'aaoa2', 157, 15, 'Purge Soul', 'Sanctic', ''),
     ...simpleCrunch('Resolve', 'Action', 'Instant', '25m', true, '', '[1] +1 Mortal Wound'),
     keywords: ['Psychic'],
     description:
@@ -630,7 +631,7 @@ const aaoaSancticPowers = [
       '<p>Creatures with the Daemon keyword may not Soak any Mortal Wounds inflicted by this power.</p>',
   },
   {
-    ...simpleStub(224, 'aaoa', 158, 10, 'Rites of Banishment', 'Sanctic', ''),
+    ...simpleStub(224, 'aaoa2', 158, 10, 'Rites of Banishment', 'Sanctic', ''),
     ...simpleCrunch('Defence', 'Action', 'Instant', '25m', true, '', '[2] +1 Mortal Wound'),
     keywords: ['Psychic'],
     description:

@@ -45,13 +45,15 @@
           v-for="feature in item.speciesFeatures"
           class="text-lg-justify"
         >
-          <p><strong>{{ feature.name }}:</strong> {{ feature.description ? feature.description : feature.snippet }}</p>
+          <strong>{{ feature.name }}</strong>
+          <div v-if="feature.description" v-html="feature.description"></div>
+          <p v-else>{{ feature.snippet }}</p>
         </div>
 
         <div v-if="item.description && item.description.length > 0">
           <p><v-divider /></p>
           <blockquote class="blockquote font-italic">
-            <p>"{{ item.description }}"</p>
+            <div v-html="item.description">"{{ item.description }}"</div>
             <span class="float-right">- Source: {{ item.source.book }} -</span>
           </blockquote>
         </div>

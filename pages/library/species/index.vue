@@ -201,9 +201,6 @@ export default {
           text: 'Hint', align: 'start', value: 'hint', class: '',
         },
         {
-          text: 'Base Tier', align: 'center', value: 'baseTier', class: '',
-        },
-        {
           text: 'Cost', align: 'center', value: 'cost', class: '',
         },
         {

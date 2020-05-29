@@ -2,7 +2,8 @@ const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3)', sumplements: 'core', key: 'aaoa', version: 'v3', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -192,7 +193,7 @@ const core = [
 
 const aaoa = [
   {
-    ...chapterz('aaoa',12,'Black Templars','','Mankind',''),
+    ...chapterz('aaoa2',12,'Black Templars','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('Righteous Zeal: When charging, a Black Templars Space Marine may re-roll up to ½ Rank dice on their Weapon Skill test.'),
       simpleEffect('No Retreat (Tradition): Like their Imperial Fists progenitors, Black Templars are tenacious and stubborn. If a Black Templars Space Marine fails a Willpower test, the GM gains 1 Ruin.'),
@@ -200,77 +201,77 @@ const aaoa = [
     ],
   },
   {
-    ...chapterz('aaoa',12,'Crimson Fists','','Mankind',''),
+    ...chapterz('aaoa2',12,'Crimson Fists','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('No Matter The Odds: When making an attack while outnumbered at least two-to-one, a Crimson Fists Space Marine may add +½ Rank dice to their Ballistic Skill or Weapon Skill test.'),
       simpleEffect('No Retreat (Tradition): Like their Imperial Fists progenitors, Crimson Fists are tenacious and stubborn. If a Crimson Fists Space Marine fails a Willpower test, the GM gains 1 Ruin.'),
     ],
   },
   {
-    ...chapterz('aaoa',12,'Grey Knights','','Mankind',''),
+    ...chapterz('aaoa2',12,'Grey Knights','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('Daemonbane: When attacking a creature with the Daemon keyword in melee combat, a Grey Knights Space Marine adds +½ Rank ED to the attack’s damage. The character also gains the Psyker, Inquisition, and Ordo Malleus keywords, if their archetype does not already provide them.'),
       simpleEffect('Secretive (Tradition): Grey Knights do not trust outsiders, and their nature cannot be permitted to be known to any outside the chapter. They suffer a +2DN penalty for Interaction tests involving anyone who lacks the Grey Knights or Inquisition keywords.'),
     ],
   },
   {
-    ...chapterz('aaoa',13,'Emperor`s Children','Fulgrim','Chaos','First Founding (III Legion)'),
+    ...chapterz('aaoa2',13,'Emperor`s Children','Fulgrim','Chaos','First Founding (III Legion)'),
     beliefsAndTraditions: [
       simpleEffect('In Pursuit of Perfection: Each Emperor’s Children Space Marine seeks to perfect a single aspect of the arts of warfare. Select one of the following skills: Awareness, Ballistic Skill, Leadership, Pilot, Weapon Skill. The character gains +½ Rank as a bonus to all uses of that skill.'),
       simpleEffect('Fear of Imperfection (Tradition): The Emperor’s Children cannot abide the imperfect and fear the notion that a flaw may mean perfection is unattainable. Whenever an Emperor’s Children Space Marine suffers a complication on the skill chosen for Pursuit of Perfection, above, the GM gains 1 Ruin, in addition to any other results.', 'Tradition'),
     ],
   },
   {
-    ...chapterz('aaoa',13,'Iron Warriors','Perturabo','Chaos','First Founding (IV Legion)'),
+    ...chapterz('aaoa2',13,'Iron Warriors','Perturabo','Chaos','First Founding (IV Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Siege Masters: Iron Warriors know fortifications. An Iron Warriors Space Marine may add his Rank bonus to damage when attacking any building or fortification. An Iron Warriors Space Marine may spend a Glory point to ignore any bonuses to an enemy’s Defence from cover on any attack.'),
       simpleEffect('Scorn for the Weak (Tradition): Iron Warriors despise weakness in their comrades. If an ally of an Iron Warriors Space Marine fails a Resolve test, the Iron Warrior must pass a Willpower test (DN 3). On a failure, the Iron Warrior feels a strong urge to punish that ally. If the failure involves a complication, the Iron Warrior may not resist this urge. The GM may alter the DN based on the severity or significance of the failure.', 'Tradition'),
     ],
   },
   {
-    ...chapterz('aaoa',13,'Night Lords','Konrad Curze','Chaos','First Founding (VIII Legion)'),
+    ...chapterz('aaoa2',13,'Night Lords','Konrad Curze','Chaos','First Founding (VIII Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Ave Dominus Nox: Night Lords revel in the fear of others and are swift to spread it. While under cover of darkness, a Night Lord Space Marine may add +½ Rank to Defence and Speed. A Night Lord Space Marine may spend one Glory to cause Fear for the duration of a scene; enemies who encounter the Night Lord must pass a Fear test (DN 2+Rank).'),
       simpleEffect('Blood of Nostramo (Tradition): Night Lords often recruit from amongst the criminal element and have little love for a fair fight. A Night Lords Space Marine who sees an ally fail a Resolve or Fear test must attempt a Resolve test themselves (DN 3) or become pinned.', 'Tradition'),
     ],
   },
   {
-    ...chapterz('aaoa',14,'World Eaters','Angron','Chaos, Khorne','First Founding (XII Legion)'),
+    ...chapterz('aaoa2',14,'World Eaters','Angron','Chaos, Khorne','First Founding (XII Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Incarnate Violence: When attacking in melee combat, a World Eaters Space Marine may reroll up to Rank damage dice on every attack.'),
       simpleEffect('Butcher’s Nails (Gene-Seed): After engaging in melee combat, World Eaters become frenzied (see pages 230-231 of the Wrath & Glory rulebook) for the rest of the scene. The Willpower test to restrain their frenzy increases by +1 for every enemy they have killed during the scene.', 'Gene-Seed'),
     ],
   },
   {
-    ...chapterz('aaoa',14,'Death Guard','Moartarion','Chaos, Nurgle','First Founding (XIV Legion)'),
+    ...chapterz('aaoa2',14,'Death Guard','Moartarion','Chaos, Nurgle','First Founding (XIV Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Inexorable Advance: A Death Guard Space Marine may count as being within close range of an enemy if within 3/4 of the weapon’s listed range (so, 30m for a boltgun, instead of 20m, for example).'),
       simpleEffect('Intractable (Tradition): Death Guard are slow and purposeful, never given to needless haste when they could instead grind their foes down with inexorable force. A Death Guard Space Marine must spend a point of Glory to take the Sprint action.', 'Tradition'),
     ],
   },
   {
-    ...chapterz('aaoa',14,'Thousand Sons','Magnus the Red','Chaos, Tzeentch','First Founding (XV Legion)'),
+    ...chapterz('aaoa2',14,'Thousand Sons','Magnus the Red','Chaos, Tzeentch','First Founding (XV Legion)'),
     beliefsAndTraditions: [
       simpleEffect('The Rubric: A Thousand Sons Space Marine gains the Psyker keyword and may reroll up to Rank dice on any Psychic Mastery tests.'),
       simpleEffect('Gift of Mutation (Gene-Seed): Thousand Sons Space Marines gain an additional +1 Corruption whenever they would gain one or more Corruption points. They also increase the DN of all tests to resist Corruption or Malignancy by +1.', 'Tradition'),
     ],
   },
   {
-    ...chapterz('aaoa',15,'Black Legion','Horus Lupercal','Chaos','First Founding (XVI Legion)'),
+    ...chapterz('aaoa2',15,'Black Legion','Horus Lupercal','Chaos','First Founding (XVI Legion)'),
     beliefsAndTraditions: [
       simpleEffect('The Tip of the Spear: A Black Legion Space Marine gains an additional +½ Rank on all Ballistic Skill tests made with a ranged weapon at close range.'),
       simpleEffect('Bitter Pride (Tradition): The Black Legion have little love for those outside their ranks. They suffer a +2DN penalty for Interaction tests involving anyone outside the Black Legion, unless those people are subordinate to the Black Legion character.'),
     ],
   },
   {
-    ...chapterz('aaoa',15,'Word Bearers','Logar Aurelian','Chaos','First Founding (XVII Legion)'),
+    ...chapterz('aaoa2',15,'Word Bearers','Logar Aurelian','Chaos','First Founding (XVII Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Profane Zeal: A Word Bearers Space Marine may reroll any failed Resolve test. In addition, a Word Bearer is immune to fear caused by creatures with the Daemon keyword.'),
       simpleEffect('The Will of the Gods (Tradition): Word Bearers follow the will of the Chaos Gods, as interpreted through their prayers and visions, and through the guidance of their Apostles, and must strive to walk the path the Dark Gods set before them. A Word Bearers Space Marine begins each session with one fewer Wrath. The character regains this lost Wrath point if he accomplishes his Objective during the session (in addition to the normal benefits of accomplishing an Objective).', 'Tradition'),
     ],
   },
   {
-    ...chapterz('aaoa',15,'Alpha Legion','Alpharius Omegon','Chaos','First Founding (XX Legion)'),
+    ...chapterz('aaoa2',15,'Alpha Legion','Alpharius Omegon','Chaos','First Founding (XX Legion)'),
     beliefsAndTraditions: [
       simpleEffect('Mutable Tactics: After each Respite, select one of the following skills: Athletics, Cunning, Deception, Intimidation, Persuasion, Stealth, or Tech. The Alpha Legionnaire may re-roll up to Rank dice on any test involving the chosen skill.'),
       simpleEffect('I Am Alpharius (Tradition): The Alpha Legion rely on deception and misdirection, and disdain direct tactics. An Alpha Legionnaire suffers a +2DN penalty to any combined action with anyone who lacks the Alpha Legion keyword.', 'Tradition'),

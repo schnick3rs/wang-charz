@@ -2,7 +2,8 @@ const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3)', sumplements: 'core', key: 'aaoa', version: 'v3', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -1240,94 +1241,94 @@ const core = [
 
 const aaoa = [
   {
-    ...simpleStub(30901, 'aaoa',90,'Absolvor Bolt Pistol', '8V','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30901, 'aaoa2',90,'Absolvor Bolt Pistol', '8V','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('12+2ED; AP -1; Range 35m; Salvo 1; Brutal, Pistol', 'Bolt Weapon',''),
   },
   {
-    ...simpleStub(30903, 'aaoa',90,'Auto-Boltstorm Gauntlet', '8V','Bolt, Power Field, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30903, 'aaoa2',90,'Auto-Boltstorm Gauntlet', '8V','Bolt, Power Field, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 24m; Salvo 3; Assault, Brutal, Paired', 'Bolt Weapon',''),
     description:
       '<p>Larger, and more stable than the conventional Boltstorm Gauntlet, the bolter component of these weapons allows them to sustain a higher rate of fire while on the move, compared to the close quarters burst fire of the smaller version. Auto Boltstorm Gauntlets are normally wielded in pairs by Primaris Aggressors; when operated as a pair, they may fire as a single weapon, but with a Salvo value of 6.</p>' +
       '<p>The profile below describes the gun component, though the Value and Keywords apply to the whole weapon. The power fist uses the profile found on page 293 of the Wrath & Glory rulebook but gains the Paired trait.</p>',
   },
   {
-    ...simpleStub(30904, 'aaoa',90,'Bolt Carbine', '6R', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30904, 'aaoa2',90,'Bolt Carbine', '6R', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 40m; Salvo 2; Assault, Brutal, Steadfast', 'Bolt Weapon', ''),
   },
   {
-    ...simpleStub(30905, 'aaoa',90,'Bolt Sniper Rifle', '8V', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30905, 'aaoa2',90,'Bolt Sniper Rifle', '8V', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('12+1ED; AP 0; Range 75m; Salvo 1; Heavy [6], Sniper [2]', 'Bolt Weapon','When firing a Bolt Sniper Rifle, choose a single ammo type: Executioner (AP -1, +2d to the attack roll and ignore cover), Hyperfrag (add the Blast [Small] trait), or Mortis (+1ED, AP -2, add Toxic [5] trait)'),
   },
   {
-    ...simpleStub(30921, 'aaoa',92,'Instigator Bolt Carbine', '7R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30921, 'aaoa2',92,'Instigator Bolt Carbine', '7R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('10+2ED; AP -1; Range 40m; Salvo 1; Assault, Brutal, Sniper [1]', 'Bolt Weapon', ''),
     snippet: 'Instigator Bolt Carbines are fitted with silencers as standard.',
   },
   {
-    ...simpleStub(30922, 'aaoa',92,'Marksman Bolt Carbine', '6R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30922, 'aaoa2',92,'Marksman Bolt Carbine', '6R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 40m; Salvo 1; Brutal, Rapid Fire, Sniper [1]', 'Bolt Weapon', ''),
     snippet: 'Marksman Bolt Carbines are fitted with a Monoscope as standard.',
   },
   {
-    ...simpleStub(30923, 'aaoa',92,'Occulus Bolt Carbine', '6R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30923, 'aaoa2',92,'Occulus Bolt Carbine', '6R','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 40m; Salvo 1; Brutal, Rapid Fire','Bolt Weapon','If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.'),
     snippet: 'Occulus Bolt Carbines are fitted with a Preysense Sight as standard. If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.',
     // If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.
   },
   {
-    ...simpleStub(30925, 'aaoa',92,'Plasma Incinerator', '7V', 'Plasma, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30925, 'aaoa2',92,'Plasma Incinerator', '7V', 'Plasma, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('15+1ED; AP -4; Range 60m; Salvo 2; Rapid Fire [1], Supercharge', 'Plasma Weapon', ''),
     description:
       '<p>A more advanced version of the standard plasma gun, the Mark III Belisarius-pattern plasma incinerator is the primary weapon of Primaris Hellblasters, used to deliver death and destruction to armoured targets from afar.</p>',
   },
   {
-    ...simpleStub(30934, 'aaoa', 93, 'Fragstorm Grenade Launcher', '6V', 'Explosive, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30934, 'aaoa2', 93, 'Fragstorm Grenade Launcher', '6V', 'Explosive, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 35m; Salvo 3; Assault, Blast (Medium)', 'Grenades and Grenade Launchers', ''),
     description:
       '<p>Utilised by Primaris Aggressors and aboard certain Astartes vehicles, Fragstorm grenade launchers fire salvoes of charges similar to frag grenades, though somewhat denser and more compact, raining down fire and shrapnel upon the enemy.</p>',
   },
   {
-    ...simpleStub(30936, 'aaoa', 93, 'Psyk-Out Grenades', '8L', 'Explosive, Imperium, Inquisition, Grey Knights, Silent Sisterhood, Templum Culexus', ''),
+    ...simpleStub(30936, 'aaoa2', 93, 'Psyk-Out Grenades', '8L', 'Explosive, Imperium, Inquisition, Grey Knights, Silent Sisterhood, Templum Culexus', ''),
     ...rangeAaoa('8+1ED; AP 0; Range Strength x 4 metres [T] or as launcher [R]; Salvo –; Blast [Medium]', 'Grenades and Grenade Launchers', 'Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.'),
     snippet: 'Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.',
     description:
       '<p>Psyk-out grenades are anti-psyker weapons. When they detonate, they release fine dust particles which are heavily impregnated with negative psychic energy. This form of energy is extremely rare; in all of human space it can be obtained only as a by-product of the Emperor\'s metabolism. Using the material to create anti-psyker weapons is considered by many to be a great waste, and their issue is strictly controlled. Psyk-out weapons are nigh-useless against non-psychic targets. Against psychic creatures such as daemons and psykers, however, their effects are devastating.</p>',
   },
   {
-    ...simpleStub(30941, 'aaoa',94,'Shock Grenade', '7V','Explosive, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(30941, 'aaoa2',94,'Shock Grenade', '7V','Explosive, Imperium, Adeptus Astartes, Primaris', ''),
     ...simpleRange('Grenades and Grenade Launchers', '', '-', '-', '-', '-', 'Blast (Medium)', 'Shock Grenades do not inflict damage. Rather, to use a Shock Grenade, make a Ballistic Skill test as an Interaction Attack against your targets’ Resolve (make one test and compare it individually to the Resolve of each enemy in the blast). This inflicts the normal results from an Interaction Attack on each affected target, and all targets must either be hindered or vulnerable – you can’t mix and match.'),
     snippet: 'Shock Grenades do not inflict damage. Rather, to use a Shock Grenade, make a Ballistic Skill test as an Interaction Attack against your targets’ Resolve (make one test and compare it individually to the Resolve of each enemy in the blast). This inflicts the normal results from an Interaction Attack on each affected target, and all targets must either be hindered or vulnerable – you can’t mix and match.',
   },
   {
-    ...simpleStub(30942, 'aaoa',94,'Smoke Grenade', '4C','Explosive, Imperium', ''),
+    ...simpleStub(30942, 'aaoa2',94,'Smoke Grenade', '4C','Explosive, Imperium', ''),
     ...simpleRange('Grenades and Grenade Launchers', '', '-', '-', '-', '-', 'Blast (Large)', 'Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round.'),
     snippet: 'Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round.',
   },
   {
-    ...simpleStub(30952, 'aaoa', 95, 'Animus Speculum', '10L', 'Exotic, Imperium, Officio Assassinorum, Templum Culexus', ''),
+    ...simpleStub(30952, 'aaoa2', 95, 'Animus Speculum', '10L', 'Exotic, Imperium, Officio Assassinorum, Templum Culexus', ''),
     ...rangeAaoa('12+1ED; AP -4; Range 36m; Salvo 3; Agonizing, Assault', 'Exotic Ranged Weapon', 'the animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.'),
     snippet: 'The animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.',
     description:
       '<p>A helmet-mounted psychic weapon, the animus speculum focusses the negative psychic presence of the wearer into bolts of energy that overwhelm the minds and souls of others. They draw additional power from nearby psykers, becoming deadlier with each psyker nearby.</p>',
   },
   {
-    ...simpleStub(30982, 'aaoa',98,'Blight Grenade', '4U', 'Explosive, Chaos, Nurgle', ''),
+    ...simpleStub(30982, 'aaoa2',98,'Blight Grenade', '4U', 'Explosive, Chaos, Nurgle', ''),
     ...simpleRange('Grenades and Grenade Launchers', '', '10', '1', '0', '-', 'Blast (Medium),Toxic (5)', ''),
   },
   {
-    ...simpleStub(30992, 'aaoa',99,'Sonic Blaster', '6R','Sonic, Chaos, Slaanesh', ''),
+    ...simpleStub(30992, 'aaoa2',99,'Sonic Blaster', '6R','Sonic, Chaos, Slaanesh', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 48m; Salvo 3; Assault, Cacophony'),
   },
   {
-    ...simpleStub(30996, 'aaoa',99,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani', ''),
+    ...simpleStub(30996, 'aaoa2',99,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 36m; Salvo 3; Assault, Penetrating (3)', 'Aeldari Ranged Weapon'),
   },
   {
-    ...simpleStub(31005, 'aaoa',100,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani', ''),
+    ...simpleStub(31005, 'aaoa2',100,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani', ''),
     ...rangeAaoa('14+2ED; AP 0; Range 24m; Salvo 3; Assault, Brutal, Penetrating (4), Tangle (3)', 'Aeldari Ranged Weapon'),
   },
   {
-    ...simpleStub(31016, 'aaoa',101,'Laser Lance', '7V','Las, Aeldari, Asuryani, Exodite', ''),
+    ...simpleStub(31016, 'aaoa2',101,'Laser Lance', '7V','Las, Aeldari, Asuryani, Exodite', ''),
     ...rangeAaoa('14+2ED; AP -4; Range 12m; Salvo 1; Assault', 'Aeldari Ranged Weapon'),
     // 3+1ED; AP -4; Range 2m
     description:
@@ -1335,7 +1336,7 @@ const aaoa = [
       '<p>When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>'
   },
   {
-    ...simpleStub(31022, 'aaoa',102,'Reaper Launcher', '7V','Explosive, Aeldari, Asuryani', ''),
+    ...simpleStub(31022, 'aaoa2',102,'Reaper Launcher', '7V','Explosive, Aeldari, Asuryani', ''),
     // Starshot Missile
     ...rangeAaoa('16+3ED; AP -2; Range 100m; Salvo –; Blast (Small), Heavy (5)', 'Aeldari Ranged Weapon'),
     // Starswarm Missile
@@ -1345,98 +1346,98 @@ const aaoa = [
       '<p>When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>'
   },
   {
-    ...simpleStub(31043, 'aaoa',104,'Grenade Pack', '6V','Explosive, Aeldari, Asuryani', ''),
+    ...simpleStub(31043, 'aaoa2',104,'Grenade Pack', '6V','Explosive, Aeldari, Asuryani', ''),
     ...simpleRange('Grenades and Grenade Launchers', 'special', '-', '-', '-', '-', 'Assault'),
     description: '<p>A Swooping Hawk Grenade Pack can only launch grenades downwards, and the user may launch grenades at any point while flying. This is done as part of the character’s move, rather than as a distinct attack action.</p>',
   },
   {
-    ...simpleStub(31050, 'aaoa',105,'Kustom Mega-Blasta', '7R', 'Kustom, Plasma, Ork', ''),
+    ...simpleStub(31050, 'aaoa2',105,'Kustom Mega-Blasta', '7R', 'Kustom, Plasma, Ork', ''),
     ...rangeAaoa('16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!', 'Ork Ranged Weapon', 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.'),
     snippet: 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.',
   },
   {
-    ...simpleStub(31053, 'aaoa',105,'Tankbusta Bomb', '7R', 'Explosive, Ork', ''),
+    ...simpleStub(31053, 'aaoa2',105,'Tankbusta Bomb', '7R', 'Explosive, Ork', ''),
     ...rangeAaoa('16+3ED; AP -2; Salvo –; Blast (Small), Waaagh!', 'Ork Ranged Weapon', 'Cannot be thrown or fired from a launcher. They are placed as a melee attack against a vehicle. An Ork placing a Tankbusta bomb may immediately Disengage as a free action.'),
   },
   {
-    ...simpleStub(31099, 'aaoa',109,'Nemesis Force Sword', '6V', 'Force, Imperium, Adeptus Astartes, Grey Knights', ''),
+    ...simpleStub(31099, 'aaoa2',109,'Nemesis Force Sword', '6V', 'Force, Imperium, Adeptus Astartes, Grey Knights', ''),
     ...meleeAaoa('5+1ED; AP -3; Force, Nemesis, Parry'),
     description:
       '<p>The most common type of weapon wielded by the Grey Knights is the Nemesis Force Sword. It exemplifies the mixture of magick and science utilized by the Grey Knights. The blade is tempered iron, flecked with shards of silver and inset with ancient runes of daemon slaying. Advanced power field generators are also contained within.</p>',
   },
   {
-    ...simpleStub(31102, 'aaoa',110,'Crozius Arcanum', '6V', 'Power, Imperium, Adeptus Astartes', ''),
+    ...simpleStub(31102, 'aaoa2',110,'Crozius Arcanum', '6V', 'Power, Imperium, Adeptus Astartes', ''),
     ...meleeAaoa('5+2ED; AP -1; Brutal'),
     description:
       '<p>Serving as both a sceptre of office and a weapon for Astartes Chaplains, each Crozius Arcanum is a staff or maul with a head shaped like an aquila or other symbol of significance to the Imperium or the chapter. Inside this sceptre is a power field generator, allowing it to function similarly to a power maul.</p>' +
       '<p>The Dark Apostles of Heretic Astartes forces use a debased counterpart to this weapon, the Accursed Crozius.</p>',
   },
   {
-    ...simpleStub(31131, 'aaoa',113,'Plague Knife', '5U', 'Pestilent, Chaos, Nurgle', ''),
+    ...simpleStub(31131, 'aaoa2',113,'Plague Knife', '5U', 'Pestilent, Chaos, Nurgle', ''),
     ...meleeAaoa('3+1ED; AP 0; Steadfast, Toxic (7)', 'Chaos Melee Weapon'),
   },
   {
-    ...simpleStub(31132, 'aaoa',113,'Plague Sword', '7R', 'Pestilent, Chaos, Daemon, Nurgle', ''),
+    ...simpleStub(31132, 'aaoa2',113,'Plague Sword', '7R', 'Pestilent, Chaos, Daemon, Nurgle', ''),
     ...meleeAaoa('5+1ED; AP 0; Parry, Toxic (7)', 'Chaos Melee Weapon'),
   },
   {
-    ...simpleStub(31154, 'aaoa',115,'‘Urty Syringe', '4U', 'Exotic, Ork', ''),
+    ...simpleStub(31154, 'aaoa2',115,'‘Urty Syringe', '4U', 'Exotic, Ork', ''),
     ...meleeAaoa('4+2ED; AP 0; Toxic (4), Waaagh!', 'Ork Melee Weapon'),
     description:
       'This massive metal syringe superficially resembles a tool of the chirurgeon’s craft and tend to be filled with whatever toxic sludge the Painboy is able to find or create.',
   },
   {
-    ...simpleStub(31175, 'aaoa', 117, 'Dragonfire Bolt Rounds', '7R', 'Imperium, Adeptus Astartes', ''),
+    ...simpleStub(31175, 'aaoa2', 117, 'Dragonfire Bolt Rounds', '7R', 'Imperium, Adeptus Astartes', ''),
     type: 'Reloads and Ammunition',
     snippet: 'Weapon gains the Blast (Small) and Spread traits, and the Fire keyword.',
   },
   {
-    ...simpleStub(31193, 'aaoa', 119, 'Inferno Bolt Rounds', '7R', 'Chaos, Heretic Astartes, Tzeentch', ''),
+    ...simpleStub(31193, 'aaoa2', 119, 'Inferno Bolt Rounds', '7R', 'Chaos, Heretic Astartes, Tzeentch', ''),
     type: 'Reloads and Ammunition',
     snippet: 'Weapon gains AP -2, and the Fire keyword..',
   },
   {
-    ...simpleStub(31262, 'aaoa',126,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(31262, 'aaoa2',126,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
     ...armour('Astartes Armour', 5, 'Bulk (1), Powered (4)'),
     snippet: 'Reinforced: The wearer adds +2 to their Toughness while wearing this armour.',
     description:
       '<p>Mark X power armour comes in a number of varieties, as the underlying armour system is designed to be modular and customisable according to battlefield role. The heavier variant is known as Gravis armour, which incorporates additional cowling, and ablative armour layers to increase the wearer’s durability in battle, at the cost of reduced mobility.</p>',
   },
   {
-    ...simpleStub(31263, 'aaoa',126,'Phobos Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(31263, 'aaoa2',126,'Phobos Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
     ...armour('Astartes Armour', 5, 'Powered (3)'),
     snippet: 'Silenced: The wearer may re-roll up to two dice when making a Stealth test.',
     description:
       '<p>Phobos armour is a lightweight variant of Mark X power armour, with lighter plating and tuned servos that operate silently and virtually no loss of protection, though the reduced bulk of the armour does mean it provides less of a boost to the wearer’s strength. It’s favoured by Reivers and other Vanguard Primaris, who operate deep behind enemy lines and rely on stealth and evasion to wage war.</p>',
   },
   {
-    ...simpleStub(31264, 'aaoa',126,'Aegis Power Armour', '9V', 'Powered, Imperium, Adeptus Astartes, Grey Knights', ''),
+    ...simpleStub(31264, 'aaoa2',126,'Aegis Power Armour', '9V', 'Powered, Imperium, Adeptus Astartes, Grey Knights', ''),
     ...armour('Astartes Armour', 5, 'Powered (3)'),
     snippet: 'The Aegis: Enemy psychic powers which target the wearer suffer +2DN. In addition, the wearer adds +1d when rolling to Soak any attack from a Daemon.',
     description:
       '<p>Aegis Armour is a specialized form of Astartes Power Armour worn by members of the Grey Knights chapter. Worked into their Armour, each Aegis Suit contains a lattice of psycho-conductive filaments and protective amulets, wrought into hexagrammic wards and inscribed with anti-daemonic prayers. Aegis Armour allows Grey Knights to better combat Warp Entities and Rogue Psykers by protecting them from psychic attack. The technology incorporated into The Aegis represents the most potent anti-psychic defences in the Imperium of Man.</p>',
   },
   {
-    ...simpleStub(31301, 'aaoa',130,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...simpleStub(31301, 'aaoa2',130,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
     ...armour('Aeldari Armour', 4),
   },
   {
-    ...simpleStub(31302, 'aaoa',130,'Heavy Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...simpleStub(31302, 'aaoa2',130,'Heavy Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
     ...armour('Aeldari Armour', 5, 'Bulk (1)'),
   },
   {
-    ...simpleStub(31303, 'aaoa',130,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...simpleStub(31303, 'aaoa2',130,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
     ...armour('Aeldari Armour', 6),
   },
   {
-    ...simpleStub(31222, 'aaoa',131,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(31222, 'aaoa2',131,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
     ...armour('Astartes Armour', 5, 'Bulk (1), Powered (4)'),
     snippet: 'Reinforced: The wearer adds +2 to their Toughness while wearing this armour.',
     description:
       '<p>Mark X power armour comes in a number of varieties, as the underlying armour system is designed to be modular and customisable according to battlefield role. The heavier variant is known as Gravis armour, which incorporates additional cowling, and ablative armour layers to increase the wearer’s durability in battle, at the cost of reduced mobility.</p>',
   },
   {
-    ...simpleStub(31333, 'aaoa',133,'Ionclad Carapace Armour', '6R', 'Heavy, Squat', ''),
+    ...simpleStub(31333, 'aaoa2',133,'Ionclad Carapace Armour', '6R', 'Heavy, Squat', ''),
     ...armour('Squat Armour',5),
     description:
       'While seeming like ordinary carapace armour—a suit of thick plates of ceramite and plasteel—Ionclad armour represents the cunning artifice of the Squats. ' +
@@ -1447,7 +1448,7 @@ const aaoa = [
       'those who couldn’t afford Exo-Armour—and by the rank-and-file War-Pledged from wealthier Strongholds.',
   },
   {
-    ...simpleStub(31352, 'aaoa', 135, 'Divinator-class Auspex', '7V', 'Imperium, Adeptus Astartes, Primaris', ''),
+    ...simpleStub(31352, 'aaoa2', 135, 'Divinator-class Auspex', '7V', 'Imperium, Adeptus Astartes, Primaris', ''),
     snippet: 'Counts as Auspex. Spend 1 Glory when an enemy within 25 moves to make an immediate ranged attac (with +2 DN) against that enemy.',
     description:
       '<p>These sophisticated forms of auspex provide a remarkable combination of visual and multi-spectral observation-and-analysis technologies, which gather every scrap of data from the wearer\'s surroundings. The auspex’s machine spirit to collate the findings far faster than human thought, feeding the resultant data into the wearer\'s visor.</p>' +
@@ -1457,7 +1458,7 @@ const aaoa = [
       'if they do so, they may make an immediate ranged attack, at +2 DN, against that enemy.</p>',
   },
   {
-    ...simpleStub(31353, 'aaoa', 135, 'Etherium', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
+    ...simpleStub(31353, 'aaoa2', 135, 'Etherium', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
     snippet: 'Attackers must pass Willpower Test (DN 7) or refuse to believe the Culexus exists and cannot continue their attacks. You lose this ability while wounded.',
     description:
       '<p>The Etherium is a highly advanced form of the same kinds of psychic-resistant technology found in Hexagrammic Wards, ' +
@@ -1470,7 +1471,7 @@ const aaoa = [
       'The Culexus loses this ability while wounded.</p>',
   },
   {
-    ...simpleStub(31354, 'aaoa', 135, 'Force Matrix', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
+    ...simpleStub(31354, 'aaoa2', 135, 'Force Matrix', '11L', 'Imperium, Officio Assassinorum, Templum Culexus', ''),
     type: 'Tools & Equipment',
     snippet:
       'This device gains charges when a Psyker within 25m attempts to use a psychic power (other than Deny the Witch) or when a psyker suffers psychic phenomena. ' +
@@ -1485,7 +1486,7 @@ const aaoa = [
       '<p>Charges gained dissipate after a few minutes, and thus cannot be carried over from fight to fight.</p>',
   },
   {
-    ...simpleStub(31355, 'aaoa', 135, 'Grapple Gun', '2U', '[Any]', ''),
+    ...simpleStub(31355, 'aaoa2', 135, 'Grapple Gun', '2U', '[Any]', ''),
     type: 'Tools & Equipment',
     description:
       '<p>These devices, appearing similar to a normal firearm, use gas pressure or magnetic impulse to propel a sturdy metal hook attached to a cable. ' +
@@ -1493,7 +1494,7 @@ const aaoa = [
       'as it allows them to attack from unexpected directions and position themselves in hard-to-reach vantages.</p>',
   },
   {
-    ...simpleStub(31361, 'aaoa', 136, 'Liber Daemonica', '8V', 'Imperium, Inquisition, Ordo Malleus', ''),
+    ...simpleStub(31361, 'aaoa2', 136, 'Liber Daemonica', '8V', 'Imperium, Inquisition, Ordo Malleus', ''),
     type: 'Tools & Equipment',
     snippet:
       'Reading from this book may add +2 bonus dice to Scholar Tests regarding combating Daemons and their allies. ' +
@@ -1507,7 +1508,7 @@ const aaoa = [
       'A character who keeps the book on their person and reads from it routinely gains +2 Conviction.</p>',
   },
   {
-    ...simpleStub(31363, 'aaoa', 136, 'Narthecium', '5R', 'Imperium, Adeptus Astartes', ''),
+    ...simpleStub(31363, 'aaoa2', 136, 'Narthecium', '5R', 'Imperium, Adeptus Astartes', ''),
     type: 'Tools & Equipment',
     snippet:
       'Count`s as Medikit. You add +2 bonus dice to Medicae tests when treating <Adeptus Astartes>. ' +
@@ -1523,7 +1524,7 @@ const aaoa = [
       'a complication will inflict 1 Mortal Wound on a non-Astartes patient.</p>',
   },
   {
-    ...simpleStub(31371, 'aaoa', 137, 'Psychic Hood', '7V', 'Imperium, Adeptus Astartes, Inquisition', ''),
+    ...simpleStub(31371, 'aaoa2', 137, 'Psychic Hood', '7V', 'Imperium, Adeptus Astartes, Inquisition', ''),
     type: 'Tools & Equipment',
     snippet:
       'You add +2 bonus dice to Deny the Witch Tests. You may attempt to Deny the Witch once per round as a Free Action.',
@@ -1537,7 +1538,7 @@ const aaoa = [
       'Further, they may add +2d on their Psychic Mastery test to use Deny the Witch.</p>',
   },
   {
-    ...simpleStub(31372, 'aaoa', 137, 'Reductor', '5R', 'Imperium, Adeptus Astartes', ''),
+    ...simpleStub(31372, 'aaoa2', 137, 'Reductor', '5R', 'Imperium, Adeptus Astartes', ''),
     type: 'Tools & Equipment',
     snippet:
       'As an Action, extract the gene-seed of a deceased Marine with a Medicae Test (DN 3). You gain 1 Wrath immediatly. ' +
@@ -1553,61 +1554,61 @@ const aaoa = [
       'then that player’s next character receives an additional 25 BPs during character creation, in honour of their sacrifice.</p>',
   },
   {
-    ...simpleStub(31412, 'aaoa', 141, 'Banshee Mask', '7V', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31412, 'aaoa2', 141, 'Banshee Mask', '7V', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'When a Howling Banshee charges, all enemies within 3m of the Banshee’s target are paralysed by the war-cry, gaining the Hindered (2) and Vulnerable (2) combat effects until the end of their next turn.',
   },
   {
-    ...simpleStub(31413, 'aaoa', 141, 'Dark Reaper Rangefinder', '7V', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31413, 'aaoa2', 141, 'Dark Reaper Rangefinder', '7V', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'The Reaper Rangefinder allows the wearer to see even in complete darkness or through fog with no penalty. In addition, when a Dark Reaper aims before making a ranged attack, they add +3d to their attack.',
   },
   {
-    ...simpleStub(31423, 'aaoa', 142, 'Ghosthelm', '9L', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31423, 'aaoa2', 142, 'Ghosthelm', '9L', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'Any Daemon or other warp entity attempting to perceive, attack, or otherwise interact with a Farseer wearing a Ghosthelm suffers a +2DN penalty to any tests they attempt. In addition, the Farseer gains a +2d bonus on any test made to resist any effects of Perils of the Warp, and reduces all Shock suffered from Perils of the Warp by 2, to a minimum of 0.',
   },
   {
-    ...simpleStub(31433, 'aaoa', 142, 'Mandiblaster Helm', '7V', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31433, 'aaoa2', 142, 'Mandiblaster Helm', '7V', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'When the wearer of a Mandiblaster Helm charges into combat, and at the start of each turn they are engaged in combat, roll 1d6. On a 4+, one enemy within 2m suffers 1d3 Mortal Wounds.',
   },
   {
-    ...simpleStub(31443, 'aaoa', 142, 'Runes of Warding', '9L', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31443, 'aaoa2', 142, 'Runes of Warding', '9L', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'Once per round, when an enemy psyker attempts to use a psychic power within 36m, you may force them to re-roll a number of dice on their Psychic Mastery test equal to your Psychic Mastery skill rank.',
   },
   {
-    ...simpleStub(31431, 'aaoa', 143, 'Runes of Witnessing', '9L', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31431, 'aaoa2', 143, 'Runes of Witnessing', '9L', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'Once per round, when you attempt to use a psychic power, you may re-roll a number of dice on your Psychic Mastery test equal to your Psychic Mastery skill rank.',
   },
   {
-    ...simpleStub(31432, 'aaoa', 143, 'Seer’s Spirit Stone', '9L', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31432, 'aaoa2', 143, 'Seer’s Spirit Stone', '9L', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'When you attempt to use a psychic power, you may draw upon the power of the soul within the stone. This grants one of two effects: either you gain a +3d bonus on the Psychic Mastery test, or you may use the psychic power as a free action. Once used, the stone’s inhabiting soul goes dormant, and requires a day to recover.',
   },
   {
-    ...simpleStub(31432, 'aaoa', 143, 'Swooping Hawk Wings', '7V', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31432, 'aaoa2', 143, 'Swooping Hawk Wings', '7V', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'A warrior wearing Swooping Hawk Wings gains the ability to fly, and a flying speed equal to twice their normal movement speed.',
   },
   {
-    ...simpleStub(31432, 'aaoa', 143, 'Targeting Vane', '7R', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31432, 'aaoa2', 143, 'Targeting Vane', '7R', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     snippet: 'A warrior wearing a Targeting Vane reduces range DN penalties by 2. In addition, if the warrior aims, they add an additional +1d bonus to the following ranged attack.',
   },
   {
-    ...simpleStub(31434, 'aaoa', 143, 'Warp Spider Jump Generator', '7R', 'Aeldari, Asuryani', ''),
+    ...simpleStub(31434, 'aaoa2', 143, 'Warp Spider Jump Generator', '7R', 'Aeldari, Asuryani', ''),
     type: 'Tools & Equipment',
     subtype: 'Aeldari Equipment',
     description:

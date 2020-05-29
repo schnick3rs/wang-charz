@@ -2,7 +2,8 @@ const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3)', sumplements: 'core', key: 'aaoa', version: 'v3', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -1190,7 +1191,7 @@ const core = [
 
 const aaoa = [
   {
-    ...talent('aaoa',147,'Ambush',30,'','', 1 ),
+    ...talent('aaoa2',147,'Ambush',30,'','', 1 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Striking Scorpion, Stealth 6+',
@@ -1199,7 +1200,7 @@ const aaoa = [
       '<p>The Exarch and their squad may re-roll any Stealth tests made to set up an ambush, and enemies may not spend Ruin to become aware of the ambushing Striking Scorpions. Finally, the Exarch and any member of their squad may add +1ED to all attacks made during the first round of combat, if they are ambushing.</p>',
   },
   {
-    ...talent('aaoa',147,'Avenging Strikes',20,'','', 2 ),
+    ...talent('aaoa2',147,'Avenging Strikes',20,'','', 2 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Dire Avenger, Willpower 4+',
@@ -1208,7 +1209,7 @@ const aaoa = [
       '<p>If the Exarch’s squad has taken any casualties during the current day, then the Exarch and any remaining member of the squad add +2d to all melee and ranged attacks they make for the remainder of the day.</p>',
   },
   {
-    ...talent('aaoa',147,'Battle Fortune',25,'','', 3 ),
+    ...talent('aaoa2',147,'Battle Fortune',25,'','', 3 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Dire Avenger',
@@ -1217,7 +1218,7 @@ const aaoa = [
       '<p>The Exarch may Soak Mortal Wounds, and they add +3d to their Soak rolls. Further, when Soaking damage, the Exarch suffers only one Shock for every two Wounds negated.</p>',
   },
   {
-    ...talent('aaoa',147,'Blademaster',50,'','', 4 ),
+    ...talent('aaoa2',147,'Blademaster',50,'','', 4 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Weapon Skill 6+',
@@ -1226,7 +1227,7 @@ const aaoa = [
       '<p>The Exarch doubles the bonus to Defence from weapons with the Parry quality and adds +2ED to damage with all bladed melee weapons.</p>',
   },
   {
-    ...talent('aaoa',147,'Bladestorm',40,'','', 5 ),
+    ...talent('aaoa2',147,'Bladestorm',40,'','', 5 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Dire Avenger, Ballistic Skill 5+',
@@ -1235,7 +1236,7 @@ const aaoa = [
       '<p>When the Exarch, or any member of their squad, rolls a 6 on their Wrath die when making a ranged attack with a weapon with the Shuriken keyword, they may choose to make a second attack with that weapon instead of inflicting a critical hit. These additional attacks may not generate extra attacks of their own.</p>',
   },
   {
-    ...talent('aaoa',147,'Bounding Leap',30,'','', 6 ),
+    ...talent('aaoa2',147,'Bounding Leap',30,'','', 6 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Athletics 5+',
@@ -1244,7 +1245,7 @@ const aaoa = [
       '<p>The Exarch may use their Agility instead of their Strength for all Athletics tests, and they count their Agility is twice its normal value for the purposes of determining how far they can jump. Finally, the Exarch may disengage as a free action at the start of their turn.</p>',
   },
   {
-    ...talent('aaoa',148,'Burning Heat',25,'','', 1 ),
+    ...talent('aaoa2',148,'Burning Heat',25,'','', 1 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Fire Dragon, Toughness 5+',
@@ -1253,7 +1254,7 @@ const aaoa = [
       '<p>Whenever an enemy makes a melee attack against the Exarch or a member of the Exarch’s squad, they add +2 to the DN required to hit.</p>',
   },
   {
-    ...talent('aaoa',148,'Crack Shot',30,'','', 2 ),
+    ...talent('aaoa2',148,'Crack Shot',30,'','', 2 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Ballistic Skill 6+',
@@ -1262,7 +1263,7 @@ const aaoa = [
       '<p>The Exarch may re-roll all rolls of 1 whenever they make a ranged attack.</p>',
   },
   {
-    ...talent('aaoa',148,'Crushing Blow',25,'','', 3 ),
+    ...talent('aaoa2',148,'Crushing Blow',25,'','', 3 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Strength 5+',
@@ -1271,7 +1272,7 @@ const aaoa = [
       '<p>The Exarch’s Strength is increased by +2 in melee.</p>',
   },
   {
-    ...talent('aaoa',148,'Deadly Touch',35,'','', 4 ),
+    ...talent('aaoa2',148,'Deadly Touch',35,'','', 4 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Weapon Skill 6+',
@@ -1280,7 +1281,7 @@ const aaoa = [
       '<p>When the Exarch hits with a melee attack, each ED which rolls a 6 inflicts 1 Mortal Wound, in addition to the attack’s normal damage.</p>',
   },
   {
-    ...talent('aaoa',148,'Decapitating Strikes',30,'','', 5 ),
+    ...talent('aaoa2',148,'Decapitating Strikes',30,'','', 5 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Weapon Skill 6+',
@@ -1289,7 +1290,7 @@ const aaoa = [
       '<p>When the Exarch scores a critical hit with a melee attack, the severity of that critical hit automatically increases by 2, as if two Glory had been spent. The Exarch may still spend Glory to increase the severity further, if necessary.</p>',
   },
   {
-    ...talent('aaoa',148,'Defend',50,'','', 6 ),
+    ...talent('aaoa2',148,'Defend',50,'','', 6 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Dire Avenger, Weapon Skill 5+',
@@ -1298,7 +1299,7 @@ const aaoa = [
       '<p>The Exarch, and their squad, increase both their Defence and Resilience by +2.</p>',
   },
   {
-    ...talent('aaoa',148,'Disarming Strike',30,'','', 7 ),
+    ...talent('aaoa2',148,'Disarming Strike',30,'','', 7 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Weapon Skill 6+',
@@ -1307,7 +1308,7 @@ const aaoa = [
       '<p>The Exarch ignores the normal DN penalty for a called shot when making a melee attack, so long as they are making the called shot to disarm the opponent.</p>',
   },
   {
-    ...talent('aaoa',148,'Distract',30,'','', 8 ),
+    ...talent('aaoa2',148,'Distract',30,'','', 8 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Athletics 5+',
@@ -1316,7 +1317,7 @@ const aaoa = [
       '<p>Once per round, as a free action on their turn, the Exarch may make an Athletics Interaction attack.</p>',
   },
   {
-    ...talent('aaoa',148,'Dragon’s Bite',20,'','', 9 ),
+    ...talent('aaoa2',148,'Dragon’s Bite',20,'','', 9 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Fire Dragon, Weapon Skill 5+',
@@ -1326,7 +1327,7 @@ const aaoa = [
       '<p>The Exarch and their squad may treat their Fusion Guns or any other weapon with the Melta keyword, as if they had the Pistol trait.</p>',
   },
   {
-    ...talent('aaoa',148,'Evade',30,'','', 0 ),
+    ...talent('aaoa2',148,'Evade',30,'','', 0 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Swooping Hawk or Shining Spear or Crimson Hunter, Agility 5+',
@@ -1335,7 +1336,7 @@ const aaoa = [
       '<p>When you move through the air – yourself, or while operating a flying vehicle – add +3 to your Defence until the start of your next turn.</p>',
   },
   {
-    ...talent('aaoa',149,'Expert Hunter',30,'','', 1 ),
+    ...talent('aaoa2',149,'Expert Hunter',30,'','', 1 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Weapon Skill or Ballistic Skill 5+',
@@ -1344,7 +1345,7 @@ const aaoa = [
       '<p>When the Exarch makes an melee attack, or a ranged attack at close range, against a vehicle or a Monstrous Creature, they add +2ED to the attack’s damage and may re-roll any ED which result in failures.</p>',
   },
   {
-    ...talent('aaoa',149,'Fast Shot',50,'','', 2 ),
+    ...talent('aaoa2',149,'Fast Shot',50,'','', 2 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Ballistic Skill 6+',
@@ -1353,7 +1354,7 @@ const aaoa = [
       '<p>When the Exarch makes a ranged attack, they may count their weapon’s Salvo value as 2 higher than normal. In addition, when making a ranged attack, the Exarch may spend 1 Reload to make a second attack with that weapon.</p>',
   },
   {
-    ...talent('aaoa',149,'Fighting Fury',40,'','', 3 ),
+    ...talent('aaoa2',149,'Fighting Fury',40,'','', 3 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Weapon Skill 6+',
@@ -1362,7 +1363,7 @@ const aaoa = [
       '<p>When the Exarch makes a melee attack, they may spend 1 Glory to make a second melee attack. In addition, when the Exarch makes a multi-attack with a melee attack, halve the normal DN penalty for each target (i.e., each target adds +1DN rather than +2DN).</p>',
   },
   {
-    ...talent('aaoa',149,'Flickering Assault',30,'','', 4 ),
+    ...talent('aaoa2',149,'Flickering Assault',30,'','', 4 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Warp Spider',
@@ -1371,7 +1372,7 @@ const aaoa = [
       '<p>When the Exarch, or any member of their squad, makes a multi-attack as part of a melee attack, they may count their speed as double its normal value when determining if they can reach their targets. Characters benefiting from this ability must be wearing Warp Spider Jump Generators.</p>',
   },
   {
-    ...talent('aaoa',149,'Focussed Fire',30,'','', 5 ),
+    ...talent('aaoa2',149,'Focussed Fire',30,'','', 5 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Dark Reaper',
@@ -1380,7 +1381,7 @@ const aaoa = [
       '<p>The Exarch may nominate a single enemy – not a mob, but any individual threat – within 35m as a priority target as a free action at the start of their turn. Until the start of the Exarch’s next turn, any ranged attacks from the Exarch or members of their squad at that priority target may re-roll any dice which roll 1 on their skill test and on their damage roll. Further, the enemy may not use any Ruin spends or special abilities which would redirect the attack to another target.</p>',
   },
   {
-    ...talent('aaoa',149,'Graceful Avoidance',30,'','', 6 ),
+    ...talent('aaoa2',149,'Graceful Avoidance',30,'','', 6 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Howling Banshee',
@@ -1389,7 +1390,7 @@ const aaoa = [
       '<p>When attempting to Soak damage inflicted by a melee attack, the Exarch or a member of their squad may use their Agility instead of their Toughness to Soak, and they may Soak mortal wounds.</p>',
   },
   {
-    ...talent('aaoa',149,'Grim Visage',25,'','', 7 ),
+    ...talent('aaoa2',149,'Grim Visage',25,'','', 7 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Willpower 5+',
@@ -1398,7 +1399,7 @@ const aaoa = [
       '<p>Characters within 12 yards of the Exarch reduce their Resolve by 1. Members of the Exarch’s squad are immune to this effect.</p>',
   },
   {
-    ...talent('aaoa',149,'Immortal Endurance',30,'','', 8 ),
+    ...talent('aaoa2',149,'Immortal Endurance',30,'','', 8 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Toughness 4+',
@@ -1407,7 +1408,7 @@ const aaoa = [
       '<p>The Exarch’s Resilience and Soak are both increased by +2.</p>',
   },
   {
-    ...talent('aaoa',150,'Intercept',20,'','', 1 ),
+    ...talent('aaoa2',150,'Intercept',20,'','', 1 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
     requirementsString: 'Agility 6+, Swooping Hawk',

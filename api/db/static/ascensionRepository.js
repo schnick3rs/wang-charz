@@ -1,7 +1,8 @@
 const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3)', sumplements: 'core', key: 'aaoa', version: 'v3', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -648,7 +649,7 @@ const core = [
 
 const aaoa = [
   {
-    ...simpleStub('aaoa', 78, 'Agent of the Inquisition', 'Join the Inquisition (that was unexpected).', false),
+    ...simpleStub('aaoa2', 78, 'Agent of the Inquisition', 'Join the Inquisition (that was unexpected).', false),
     description: '<p>You have been recruited by an Inquisitor to continue the ongoing fight against the Enemies of the Imperium. You’re not merely an informant or minion bearing the Inquisition’s mark, but a trusted associate and confidante of an Inquisitor, with valued skills, experience, and insights, and the ability to wield some measure of their authority.</p>',
     cost: 0,
     costPerTier: 10,
@@ -770,7 +771,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 78, 'Apocryphon Oath', 'The Deathwatch have requested your service.',false),
+    ...simpleStub('aaoa2', 78, 'Apocryphon Oath', 'The Deathwatch have requested your service.',false),
     cost: 0,
     costPerTier: 10,
     minimumCampaignTier: 5,
@@ -855,7 +856,7 @@ const aaoa = [
     description: '<p>You have sworn to serve the Deathwatch, perhaps for a decade-long Vigil, perhaps in perpetuity. Either way, you are amongst the mightiest of Astartes, and you shall not suffer the alien to live.</p>',
   },
   {
-    ...simpleStub('aaoa', 79, 'Betrayal', 'Missing the Chaos keyword? Wait no more! Also; Corruption...',false),
+    ...simpleStub('aaoa2', 79, 'Betrayal', 'Missing the Chaos keyword? Wait no more! Also; Corruption...',false),
     description:
       '<p>You have seen that the Emperor is a False God, and you have forsaken the Imperium for the Dark Gods.</p>',
     alert: 'The Keyword replacement (e.g. from <code>Adeptus Astartes</code> to <code>Heretic Astartes</code>) is not implemented.',
@@ -900,7 +901,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 78, 'Crux Terminatus', '"May I request a Terminator Armour, please?"', false),
+    ...simpleStub('aaoa2', 78, 'Crux Terminatus', '"May I request a Terminator Armour, please?"', false),
     description:
       '<p>The Crux Terminatus is a stone medallion awarded to highly skilled and experienced Space Marine Veterans. All members of a Chapter trained in the use of Terminator Armour will have been first awarded the Crux Terminatus. These badges, set into the left shoulder plate of Terminator armour, are highly distinctive and usually fashioned from stone. In Codex Chapters, members of the Chapter\'s veteran First Company are the exclusive users of Terminator armour.</p>' +
       '<p>This Honour appears most commonly as a skull set onto a cruciform shape of red iron or bone. Terminator sergeants often add crossed bones behind the skull, whilst lightning bolts behind the skull are often added for Terminators trained as Assault units wielding lightning claws and thunder hammers with storm shields. Variations include the size and dimensions of the skull and the removal of the crossed lightning bolts or bones or their scale in relation to the shape of the cruciform. The Crux Terminatus is almost always worn on the left shoulder pad, though it may also be worn on one knee pad (this is usually done only in combination with the shoulder pad, however). Legend has it that the first Crux Terminatus ever crafted contained a tiny fragment of the Emperor\'s own armour within it, an honour granted to commemorate a squad of Imperial Fists Terminators who aided the Emperor in the battle against Horus. Whether or not this is true it means that ancient suits of power armour bearing Terminator Honours are considered even more rare and precious to a Chapter as a result of their reputed connection to the Master of the Imperium.</p>',
@@ -959,7 +960,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 80, 'The Rubicon Primaris', 'Pick an Astartes and cross the rubicon to show those trueborn Primaris who\'s boss.',false),
+    ...simpleStub('aaoa2', 80, 'The Rubicon Primaris', 'Pick an Astartes and cross the rubicon to show those trueborn Primaris who\'s boss.',false),
     description:
       '<p></p>',
     cost: 50,
@@ -1011,7 +1012,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 81, 'Lost upon the Path of the Warrior', 'Gain some fancy Exarch gear but not everyone is pleased. '),
+    ...simpleStub('aaoa2', 81, 'Lost upon the Path of the Warrior', 'Gain some fancy Exarch gear but not everyone is pleased. '),
     description:
       '<p>An Exarch is a former Eldar Aspect Warrior who has lost himself upon the Eldar Path of the Warrior and is unable to ever leave it again. At this point he is considered to have abandoned the Eldar Paths with their promise of new experiences and development of new skills in favour of a constant life of bloodshed. The Eldar becomes the elite warrior called an Exarch; simultaneously, an Exarch is a priest of Kaela Mensha Khaine, the Eldar God of War as well as a caretaker of the individual warrior shrine, and trainer, teacher, and instructor for other Aspect Warriors. The sacrifice of an Eldar Exarch can summon an Avatar of Kaela Mensha Khaine. He is equipped with ancient and powerful Eldar weaponry and armour. Each Eldar Warrior Aspect has its own particular kind of Exarch. On the battlefield, an Exarch commands an individual squad of Eldar Aspect Warriors. Exarchs are formidable opponents, and most of them can use their often-potent psychic and combat abilities to help the whole squad of Aspect Warriors under their command.</p>',
     cost: 0,
@@ -1095,7 +1096,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 80, 'Lost upon the Seer Path', 'A prophet for the Aeldari, but lost on this course.'),
+    ...simpleStub('aaoa2', 80, 'Lost upon the Seer Path', 'A prophet for the Aeldari, but lost on this course.'),
     description:
       '<p>A Farseer is the most potent and respected form of Eldar psyker or Seer. A Farseer has become lost upon the Path of the Seer forever in the same way as the Exarchs are wed eternally to the Path of the Warrior. A council of the most powerful Farseers generally governs a Craftworld. Farseers possess a wide diversity of psychic specialities with divination being the most common skill. They are most often known for using their vast psychic powers to see the possibilities of the future so that they can manipulate events to better ensure the survival of the Eldar species in the wake of the Fall.</p>',
     cost: 0,
@@ -1168,7 +1169,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 82, 'Possession', 'Invited a deamon (knock, knock) into yourself, boosting stats and corruption.',false),
+    ...simpleStub('aaoa2', 82, 'Possession', 'Invited a deamon (knock, knock) into yourself, boosting stats and corruption.',false),
     description:
       '<p>Daemonic Possession is the act of the essence of a Daemon possessing and controlling the body of another being. As Daemons can only exist in the Materium for a limited period before being forced back into the Warp, Daemonic Possession is one of the most common methods for Daemons to enter the material realm. Daemonic Possession can occur involuntarily to those of psychic potential, but the host sometimes willingly gives themselves over to Daemonic Possession, as is the case with Possessed Chaos Space Marines and certain Cultists. Possessed individuals can often be used as gateways to the Warp, allowing Daemons to spill into the Materium.</p>' +
       '<p>A character selecting this Ascension Package has invited a daemon into their flesh, granting them tremendous power, at the cost of subjecting their body, mind, and soul to the ravening touch of the Warp. Few who become possessed can endure it for long, often finding their bodies degenerating into spawndom or becoming purely a vessel for the daemon’s will, but some can find a degree of symbiosis with the daemon they are host to, becoming a singular mighty entity.</p>',
@@ -1240,7 +1241,7 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa', 82, 'Reborn', 'Once an Aeldari, no Yinnari',false),
+    ...simpleStub('aaoa2', 82, 'Reborn', 'Once an Aeldari, no Yinnari',false),
     description:
       '<p>The Ynnari are the members of a newly formed eponymous Eldar group that worship the God Ynnead and believe their race can be saved from the depredation of Slaanesh by helping to bring about the birth of the slumbering god of the dead.</p>' +
       '<p>Under the leadership of the prophet Yvraine, the "Daughter of Shades," the Ynnari seek to fully awaken the Aeldari god of the dead Ynnead, who they believe can defeat Slaanesh and restore the Aeldari species\' unity and its lost glory.</p>' +

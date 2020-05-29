@@ -61,11 +61,11 @@
                 <v-avatar left class="green darken-4">
                   {{ item.cost }}
                 </v-avatar>
-                BP
+                XP
               </v-chip>
             </v-list-item-action>
 
-            <v-list-item-action class="d-none d-sm-inline">
+            <v-list-item-action class="d-none d-sm-inline" v-if="false">
               <v-chip pill color="red" text-color="white">
                 <v-avatar left class="red darken-4">
                   {{ item.baseTier }}

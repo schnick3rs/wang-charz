@@ -4,7 +4,8 @@
 const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3)', key: 'aaoa2', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa2: { book: 'An Abundance of Apocrypha (v2)', key: 'aaoa2', version: '', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -1409,7 +1410,7 @@ const aotgtRep = [
 
 const aaoaRep = [
   {
-    ...simpleStub('aaoa', 22, 'core-human', 'Adeptus Ministorum', 'Frateris Militia', 0, 1, false),
+    ...simpleStub('aaoa2', 22, 'core-human', 'Adeptus Ministorum', 'Frateris Militia', 0, 1, false),
     hint: 'A faithful citizen whipped into a fervour and eager to slay in the Emperor’s name.',
     prerequisites: [
       reqAttribute('willpower', 2),
@@ -1447,7 +1448,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 22, 'core-human', 'Adeptus Ministorum', 'Confessor', 40, 3, false),
+    ...simpleStub('aaoa2', 22, 'core-human', 'Adeptus Ministorum', 'Confessor', 40, 3, false),
     hint: 'A high-ranking priest whose rhetoric inspires zeal and piety wherever they go.',
     prerequisites: [
       reqAttribute('willpower', 4),
@@ -1491,7 +1492,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 23, 'core-human', 'Adepta Sororitas', 'Sister Dialogous', 0, 1, false),
+    ...simpleStub('aaoa2', 23, 'core-human', 'Adepta Sororitas', 'Sister Dialogous', 0, 1, false),
     hint: 'A devout scholar of language, ensuring that the Emperor’s Word is understood by all.',
     prerequisites: [
       reqAttribute('intellect', 2),
@@ -1519,7 +1520,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 23, 'core-human', 'Adepta Sororitas', 'Sister Famulous', 10, 1, false),
+    ...simpleStub('aaoa2', 23, 'core-human', 'Adepta Sororitas', 'Sister Famulous', 10, 1, false),
     hint: 'A pious advisor to those of noble birth and ancient bloodlines.',
     prerequisites: [
       reqAttribute('intellect', 2),
@@ -1548,7 +1549,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 24, 'core-human', 'Adepta Sororitas', 'Sister Seraphim', 55, 3, false),
+    ...simpleStub('aaoa2', 24, 'core-human', 'Adepta Sororitas', 'Sister Seraphim', 55, 3, false),
     hint: 'An elite and zealous warrior, faithful even compared to other Sisters of Battle.',
     prerequisites: [
       reqAttribute('strength', 3),
@@ -1584,7 +1585,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 24, 'core-human', 'Adepta Sororitas', 'Sister Repentia', 40, 2, false),
+    ...simpleStub('aaoa2', 24, 'core-human', 'Adepta Sororitas', 'Sister Repentia', 40, 2, false),
     hint: 'A penitent soul, seeking atonement for her sins through death and pain.',
     prerequisites: [
       reqAttribute('strength', 3),
@@ -1616,7 +1617,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Medic', 0, 1, false),
+    ...simpleStub('aaoa2', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Medic', 0, 1, false),
     hint: 'A disciplined soldier trained to treat the injuries of their comrades.',
     prerequisites: [
       reqAttribute('intellect', 3),
@@ -1652,7 +1653,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Officer', 15, 1, false),
+    ...simpleStub('aaoa2', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Officer', 15, 1, false),
     hint: 'A stern commander trained to inspire and lead others into the fray.',
     prerequisites: [
       reqAttribute('fellowship', 3),
@@ -1694,7 +1695,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3, false),
+    ...simpleStub('aaoa2', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3, false),
     hint: 'A deadly shock trooper, taking the fight to the enemy.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -1724,7 +1725,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 55, 3, false),
+    ...simpleStub('aaoa2', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 55, 3, false),
     hint: 'A ruthless heavy weapons specialist, delivering death at a distance.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -1765,7 +1766,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 27, 'core-adeptus-astartes', 'Adeptus Astartes', 'Grey Knight', 60, 3, false),
+    ...simpleStub('aaoa2', 27, 'core-adeptus-astartes', 'Adeptus Astartes', 'Grey Knight', 60, 3, false),
     hint: 'A member of a secretive order of elite psychic daemon-hunters',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -1811,7 +1812,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 27, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Hellblaster', 60, 4, false),
+    ...simpleStub('aaoa2', 27, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Hellblaster', 60, 4, false),
     hint: 'A specialised warrior, armed with sophisticated, powerful weapons to deal with the toughest foes.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -1837,7 +1838,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Inceptor', 70, 4,false),
+    ...simpleStub('aaoa2', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Inceptor', 70, 4,false),
     hint: 'An airborne warrior, dealing death from above.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -1862,7 +1863,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Reiver', 50, 4,false),
+    ...simpleStub('aaoa2', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Reiver', 50, 4,false),
     hint: 'A cunning warrior, spreading death and terror to the enemy.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -1892,7 +1893,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Incursor', 50, 4,false),
+    ...simpleStub('aaoa2', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Incursor', 50, 4,false),
     hint: 'Aggressive, close-assault shock troops, wearing advanced sensors that expose enemies.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -1921,7 +1922,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Infiltrator', 50, 4,false),
+    ...simpleStub('aaoa2', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Infiltrator', 50, 4,false),
     hint: 'Saboteurs and marksmen, used to operating far from support',
     prerequisites: [
       reqAttribute('intellect', 4),
@@ -1949,7 +1950,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 30, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Eliminator', 60, 4,false),
+    ...simpleStub('aaoa2', 30, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Eliminator', 60, 4,false),
     hint: 'Expert snipers, laying down supporting fire from concealed positions',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -1975,7 +1976,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 30, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Aggressor', 80, 4,false),
+    ...simpleStub('aaoa2', 30, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Aggressor', 80, 4,false),
     hint: 'A mighty warrior, overwhelming foes at close range.',
     prerequisites: [
       reqAttribute('strength', 5),
@@ -2000,7 +2001,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 31, 'core-adeptus-astartes', 'Adeptus Astartes', 'Codicier', 60, 3, false),
+    ...simpleStub('aaoa2', 31, 'core-adeptus-astartes', 'Adeptus Astartes', 'Codicier', 60, 3, false),
     hint: 'A potent warrior-mystic, whose minds are deadly weapons.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2051,7 +2052,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 31, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Codicier', 60, 4, false),
+    ...simpleStub('aaoa2', 31, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Codicier', 60, 4, false),
     hint: 'A potent warrior-mystic, whose minds are deadly weapons.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2102,7 +2103,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 31, 'core-adeptus-astartes', 'Adeptus Astartes', 'Epistolary', 80, 4, false),
+    ...simpleStub('aaoa2', 31, 'core-adeptus-astartes', 'Adeptus Astartes', 'Epistolary', 80, 4, false),
     hint: 'A veteran battle-psyker with greater command of his deadly mind.',
     prerequisites: [
       reqAttribute('strength', 5),
@@ -2154,7 +2155,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 31, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Epistolary', 80, 4, false),
+    ...simpleStub('aaoa2', 31, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Epistolary', 80, 4, false),
     hint: 'A veteran battle-psyker with greater command of his deadly mind.',
     prerequisites: [
       reqAttribute('strength', 5),
@@ -2206,7 +2207,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 32, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 50, 3, false),
+    ...simpleStub('aaoa2', 32, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 50, 3, false),
     hint: 'A warrior-healer, guardian of his brothers’ lives.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2235,7 +2236,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 32, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Apothecary', 50, 4, false),
+    ...simpleStub('aaoa2', 32, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Apothecary', 50, 4, false),
     hint: 'A warrior-healer, guardian of his brothers’ lives.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2264,7 +2265,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 32, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 55, 3, false),
+    ...simpleStub('aaoa2', 32, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 55, 3, false),
     hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
     keywords: 'Imperium, Adeptus Astartes,<Chapter>, Adeptus Mechanicus, Cult Mechanicus',
     influence: 1,
@@ -2312,7 +2313,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 32, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Techmarine', 55, 4, false),
+    ...simpleStub('aaoa2', 32, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Techmarine', 55, 4, false),
     hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
     keywords: 'Imperium, Adeptus Astartes,<Chapter>, Adeptus Mechanicus, Cult Mechanicus, Primaris',
     influence: 1,
@@ -2360,7 +2361,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 33, 'core-adeptus-astartes', 'Adeptus Astartes', 'Chaplain', 60, 4,false),
+    ...simpleStub('aaoa2', 33, 'core-adeptus-astartes', 'Adeptus Astartes', 'Chaplain', 60, 4,false),
     hint: 'A devout warrior, who tends to the spirits of his comrades.',
     keywords: 'Imperium, Adeptus Astartes,<Chapter>, Adeptus Ministorum, Priest',
     influence: 3,
@@ -2388,7 +2389,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 33, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Chaplain', 60, 4,false),
+    ...simpleStub('aaoa2', 33, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Chaplain', 60, 4,false),
     hint: 'A devout warrior, who tends to the spirits of his comrades.',
     keywords: 'Imperium, Adeptus Astartes,<Chapter>, Adeptus Ministorum, Priest, Primaris',
     influence: 3,
@@ -2415,13 +2416,13 @@ const aaoaRep = [
       { name: 'Rosarius' },
     ],
   },
-  simpleStub('aaoa',32,'core-human','Agents of the Imperium','Astropath', 60, 2),
-  simpleStub('aaoa',33,'core-human','Agents of the Imperium','Sister of Silence', 40, 3),
-  simpleStub('aaoa',33,'core-human','Agents of the Imperium','Arbitrator', 30, 3),
-  simpleStub('aaoa',34,'core-human','Agents of the Imperium','Eversor Assassin', 150, 5),
-  simpleStub('aaoa',34,'core-human','Agents of the Imperium','Callidus Assassin', 150, 5),
+  simpleStub('aaoa2',32,'core-human','Agents of the Imperium','Astropath', 60, 2),
+  simpleStub('aaoa2',33,'core-human','Agents of the Imperium','Sister of Silence', 40, 3),
+  simpleStub('aaoa2',33,'core-human','Agents of the Imperium','Arbitrator', 30, 3),
+  simpleStub('aaoa2',34,'core-human','Agents of the Imperium','Eversor Assassin', 150, 5),
+  simpleStub('aaoa2',34,'core-human','Agents of the Imperium','Callidus Assassin', 150, 5),
   {
-    ...simpleStub('aaoa', 35, 'aaoa-pariah', 'Agents of the Imperium', 'Culexus Assassin', 150, 5, false),
+    ...simpleStub('aaoa2', 35, 'aaoa-pariah', 'Agents of the Imperium', 'Culexus Assassin', 150, 5, false),
     hint: 'Witch-slayer, wyrd-bane, living nightmare to all psykers.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },
@@ -2457,19 +2458,19 @@ const aaoaRep = [
       { name: 'Bodyglove' },
     ],
   },
-  simpleStub('aaoa', 35, 'core-human', 'Agents of the Imperium', 'Vindicare Assassin', 150, 5),
-  simpleStub('aaoa', 37, 'core-human', 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 40, 2),
-  simpleStub('aaoa', 37, 'core-human', 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 40, 2),
-  simpleStub('aaoa', 38, 'core-human', 'Adeptus Mechanicus', 'Skitarius Vanguard', 50, 2),
-  simpleStub('aaoa', 38, 'core-human', 'Adeptus Mechanicus', 'Sicarian Infiltrator', 60, 3),
-  simpleStub('aaoa', 39, 'core-human', 'Adeptus Mechanicus', 'Sicarian Ruststalker', 50, 3),
-  simpleStub('aaoa', 39, 'core-human', 'Adeptus Mechanicus', 'Lexmechanic', 30, 2),
-  simpleStub('aaoa', 40, 'core-human', 'Adeptus Mechanicus', 'Transmechanic', 30, 2),
-  simpleStub('aaoa', 40, 'core-human', 'Adeptus Mechanicus', 'Magos', 80, 4),
-  simpleStub('aaoa', 41, 'core-human', 'Adeptus Mechanicus', 'Genetor', 80, 4),
-  simpleStub('aaoa', 41, 'core-human', 'Adeptus Mechanicus', 'Logis', 80, 4),
+  simpleStub('aaoa2', 35, 'core-human', 'Agents of the Imperium', 'Vindicare Assassin', 150, 5),
+  simpleStub('aaoa2', 37, 'core-human', 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 40, 2),
+  simpleStub('aaoa2', 37, 'core-human', 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 40, 2),
+  simpleStub('aaoa2', 38, 'core-human', 'Adeptus Mechanicus', 'Skitarius Vanguard', 50, 2),
+  simpleStub('aaoa2', 38, 'core-human', 'Adeptus Mechanicus', 'Sicarian Infiltrator', 60, 3),
+  simpleStub('aaoa2', 39, 'core-human', 'Adeptus Mechanicus', 'Sicarian Ruststalker', 50, 3),
+  simpleStub('aaoa2', 39, 'core-human', 'Adeptus Mechanicus', 'Lexmechanic', 30, 2),
+  simpleStub('aaoa2', 40, 'core-human', 'Adeptus Mechanicus', 'Transmechanic', 30, 2),
+  simpleStub('aaoa2', 40, 'core-human', 'Adeptus Mechanicus', 'Magos', 80, 4),
+  simpleStub('aaoa2', 41, 'core-human', 'Adeptus Mechanicus', 'Genetor', 80, 4),
+  simpleStub('aaoa2', 41, 'core-human', 'Adeptus Mechanicus', 'Logis', 80, 4),
   {
-    ...simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine', 50, 3, false),
+    ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine', 50, 3, false),
     hint: 'Monstrous traitors and savage posthuman killers',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2504,7 +2505,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Raptor', 60, 3, false),
+    ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Raptor', 60, 3, false),
     hint: 'Cruel hunters who descent upon shrieking wings of fire',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2535,7 +2536,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 45, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Havoc', 60, 3, false),
+    ...simpleStub('aaoa2', 45, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Havoc', 60, 3, false),
     hint: 'Heavy weapon specialists who revel in endless destruction',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2574,7 +2575,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 43, 'core-adeptus-astartes', 'Renegades', 'Khorne Berzerker', 80, 3, false),
+    ...simpleStub('aaoa2', 43, 'core-adeptus-astartes', 'Renegades', 'Khorne Berzerker', 80, 3, false),
     hint: 'Frenzied, bloodthirsty killers who have devoted themselves to the Blood God',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2607,7 +2608,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Nurgle Plague Marine', 70, 3),
+    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Renegades', 'Nurgle Plague Marine', 70, 3),
     hint: 'Nigh-unstoppable foot-soldiers of the God of Disease',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2640,7 +2641,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Slaanesh Noise Marine', 60, 3),
+    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Renegades', 'Slaanesh Noise Marine', 60, 3),
     hint: 'Sensation-addicted warriors of the Prince of Pleasure, armed with sonic weaponry',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2674,7 +2675,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 47, 'core-adeptus-astartes', 'Renegades', 'Chaos Sorcerer', 60, 3),
+    ...simpleStub('aaoa2', 47, 'core-adeptus-astartes', 'Renegades', 'Chaos Sorcerer', 60, 3),
     hint: 'Warrior-mystics who have dabbled in the blasphemous powers of the Warp',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2728,7 +2729,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Warpsmith', 55, 3, false),
+    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Renegades', 'Warpsmith', 55, 3, false),
     hint: 'An artisan who blends warpcraft and engineering to create daemonic machines of war.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2779,7 +2780,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 46, 'core-adeptus-astartes', 'Renegades', 'Dark Apostle', 60, 4, false),
+    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Renegades', 'Dark Apostle', 60, 4, false),
     hint: 'A furious zealot-priest, speaking blasphemous prayers from blood-flecked lips.',
     prerequisites: [
       reqAttribute('strength', 5),
@@ -2809,7 +2810,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 48, 'aaoa-beastman', 'Renegades', 'Khorngor', 20, 1, false),
+    ...simpleStub('aaoa2', 48, 'aaoa-beastman', 'Renegades', 'Khorngor', 20, 1, false),
     hint: 'Savage beastmen, driven to a berserk rage by the scent of blood.',
     prerequisites: [
       reqAttribute('strength', 3),
@@ -2838,7 +2839,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 49, 'aaoa-beastman', 'Renegades', 'Pestigor', 20, 1, false),
+    ...simpleStub('aaoa2', 49, 'aaoa-beastman', 'Renegades', 'Pestigor', 20, 1, false),
     hint: 'Monstrous beastmen, uncaring to pain or fear.',
     prerequisites: [
       reqAttribute('agility', 3),
@@ -2862,7 +2863,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 49, 'aaoa-beastman', 'Renegades', 'Slaangor', 20, 1,false),
+    ...simpleStub('aaoa2', 49, 'aaoa-beastman', 'Renegades', 'Slaangor', 20, 1,false),
     hint: 'Beastmen who glory in the name of the Prince of Pleasure',
     prerequisites: [
       reqAttribute('agility', 3),
@@ -2886,7 +2887,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 50, 'aaoa-beastman', 'Renegades', 'Tzaangor', 20, 1,false),
+    ...simpleStub('aaoa2', 50, 'aaoa-beastman', 'Renegades', 'Tzaangor', 20, 1,false),
     hint: 'Twisted, cunning Beastmen who serve sorcerous masters',
     prerequisites: [
       reqAttribute('intellect', 3),
@@ -2913,9 +2914,9 @@ const aaoaRep = [
       },
     ],
   },
-  simpleStub('aaoa', 51, 'Eldar', 'Aeldari', 'Guardian', 0, 1),
+  simpleStub('aaoa2', 51, 'Eldar', 'Aeldari', 'Guardian', 0, 1),
   {
-    ...simpleStub('aaoa', 51, 'Eldar', 'Aeldari', 'Dire Avenger', 50, 3, false),
+    ...simpleStub('aaoa2', 51, 'Eldar', 'Aeldari', 'Dire Avenger', 50, 3, false),
     hint: 'Aspect warriors, skilled in the arts of aggressive defence.',
     prerequisites: [
       reqAttribute('agility', 4),
@@ -2942,7 +2943,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 52, 'Eldar', 'Aeldari', 'Dark Reaper', 60, 3, false),
+    ...simpleStub('aaoa2', 52, 'Eldar', 'Aeldari', 'Dark Reaper', 60, 3, false),
     hint: 'Aspect warriors, merciless and deadly at range.',
     prerequisites: [
       reqAttribute('agility', 3),
@@ -2968,7 +2969,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 52, 'Eldar', 'Aeldari', 'Fire Dragon', 55, 3,false),
+    ...simpleStub('aaoa2', 52, 'Eldar', 'Aeldari', 'Fire Dragon', 55, 3,false),
     hint: 'Aspect warriors, turning all in their path to molten ruin.',
     prerequisites: [
       reqAttribute('strength', 3),
@@ -2993,7 +2994,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 53, 'Eldar', 'Aeldari', 'Howling Banshee', 55, 3,false),
+    ...simpleStub('aaoa2', 53, 'Eldar', 'Aeldari', 'Howling Banshee', 55, 3,false),
     hint: 'Aspect warriors, swift shock troops whose shriek freezes the hearts of their foes.',
     prerequisites: [
       reqAttribute('agility', 5),
@@ -3019,7 +3020,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 53, 'Eldar', 'Aeldari', 'Shining Spear', 70, 3,false),
+    ...simpleStub('aaoa2', 53, 'Eldar', 'Aeldari', 'Shining Spear', 70, 3,false),
     hint: 'Aspect warriors, jetbike-mounted lancers who slay the mightiest foes',
     prerequisites: [
       reqAttribute('agility', 5),
@@ -3043,7 +3044,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 54, 'Eldar', 'Aeldari', 'Striking Scorpion', 55, 3,false),
+    ...simpleStub('aaoa2', 54, 'Eldar', 'Aeldari', 'Striking Scorpion', 55, 3,false),
     hint: 'Aspect warriors, stealthy killers who strike with unseen power.',
     prerequisites: [
       reqAttribute('agility', 5),
@@ -3069,7 +3070,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 54, 'Eldar', 'Aeldari', 'Swooping Hawk', 55, 3,false),
+    ...simpleStub('aaoa2', 54, 'Eldar', 'Aeldari', 'Swooping Hawk', 55, 3,false),
     hint: 'Aspect warriors, flitting across the skies to deal vengeance.',
     prerequisites: [
       reqAttribute('agility', 5),
@@ -3096,7 +3097,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 55, 'Eldar', 'Aeldari', 'Warp Spider', 65, 3,false),
+    ...simpleStub('aaoa2', 55, 'Eldar', 'Aeldari', 'Warp Spider', 65, 3,false),
     hint: 'Aspect warriors, appearing from nowhere to cut down their prey.',
     prerequisites: [
       reqAttribute('agility', 5),
@@ -3121,16 +3122,16 @@ const aaoaRep = [
       { name: 'Spirit Stone' },
     ],
   },
-  simpleStub('aaoa', 55, 'Eldar', 'Aeldari', 'Bonesinger', 50, 2),
-  simpleStub('aaoa', 56, 'Eldar', 'Aeldari', 'Kabalite Warrior', 0, 1),
-  simpleStub('aaoa', 56, 'Eldar', 'Aeldari', 'Wych', 15, 1),
-  simpleStub('aaoa', 57, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
-  simpleStub('aaoa', 57, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),
-  simpleStub('aaoa', 58, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
-  simpleStub('aaoa', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
-  simpleStub('aaoa', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
+  simpleStub('aaoa2', 55, 'Eldar', 'Aeldari', 'Bonesinger', 50, 2),
+  simpleStub('aaoa2', 56, 'Eldar', 'Aeldari', 'Kabalite Warrior', 0, 1),
+  simpleStub('aaoa2', 56, 'Eldar', 'Aeldari', 'Wych', 15, 1),
+  simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
+  simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),
+  simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
+  simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
+  simpleStub('aaoa2', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
   {
-    ...simpleStub('aaoa', 58, 'Orks', 'Orks', 'Mekboy', 30, 2, false),
+    ...simpleStub('aaoa2', 58, 'Orks', 'Orks', 'Mekboy', 30, 2, false),
     hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3162,7 +3163,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 58, 'Orks', 'Orks', 'Painboy', 30, 2, false),
+    ...simpleStub('aaoa2', 58, 'Orks', 'Orks', 'Painboy', 30, 2, false),
     hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3190,7 +3191,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 59, 'Orks', 'Orks', 'Burna Boy', 30, 2, false),
+    ...simpleStub('aaoa2', 59, 'Orks', 'Orks', 'Burna Boy', 30, 2, false),
     hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3217,7 +3218,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 59, 'Orks', 'Orks', 'Flash Git', 60, 3, false),
+    ...simpleStub('aaoa2', 59, 'Orks', 'Orks', 'Flash Git', 60, 3, false),
     hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -3244,7 +3245,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 60, 'Orks', 'Orks', 'Tankbusta', 30, 2, false),
+    ...simpleStub('aaoa2', 60, 'Orks', 'Orks', 'Tankbusta', 30, 2, false),
     hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3270,7 +3271,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 60, 'Orks', 'Orks', 'Runtherd', 30, 2, false),
+    ...simpleStub('aaoa2', 60, 'Orks', 'Orks', 'Runtherd', 30, 2, false),
     hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 3 },
@@ -3300,7 +3301,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 61, 'Orks', 'Orks', 'Weirdboy', 60, 3, false),
+    ...simpleStub('aaoa2', 61, 'Orks', 'Orks', 'Weirdboy', 60, 3, false),
     hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 4 },
@@ -3340,7 +3341,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 63, 'aaoa-squat', 'Squats', 'War-Pledged Warrior', 0, 1, false),
+    ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'War-Pledged Warrior', 0, 1, false),
     hint: 'The rank and file of a Squat Stronghold.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 4 },
@@ -3373,7 +3374,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 63, 'aaoa-squat', 'Squats', 'Guild Engineer', 60, 3, false),
+    ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'Guild Engineer', 60, 3, false),
     hint: 'Masterful artisans, creating the devices necessary for survival.',
     prerequisites: [
       { group: 'attributes', value: 'intellect', threshold: 3 },
@@ -3401,7 +3402,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 64, 'aaoa-squat', 'Squats', 'Hearthguard', 60, 3, false),
+    ...simpleStub('aaoa2', 64, 'aaoa-squat', 'Squats', 'Hearthguard', 60, 3, false),
     hint: 'Doughty elite warriors pledged to defend hearth and home.',
     prerequisites: [
       { group: 'attributes', value: 'toughness', threshold: 4 },
@@ -3435,7 +3436,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa', 64, 'aaoa-squat', 'Squats', 'Ancestor Lord', 100, 4, false),
+    ...simpleStub('aaoa2', 64, 'aaoa-squat', 'Squats', 'Ancestor Lord', 100, 4, false),
     hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 5 },
