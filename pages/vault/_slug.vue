@@ -156,7 +156,7 @@ export default {
 
     const title = `${item.title}`;
     const description = `${item.subtitle}. ${item.abstract}`;
-    const image = item.image ? `https://www.doctors-of-doom.com${item.image.fields.file.url}` : 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
+    const image = item.image ? `${item.image.fields.file.url}` : 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
     const keywords = item.keywordTags ? [
       ...item.keywordTags, 'Homebrew', 'Supplement', 'Wrath & Glory',] : ['Homebrew', 'Supplement', 'Wrath & Glory'] ;
 
