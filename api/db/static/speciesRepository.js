@@ -273,7 +273,7 @@ const aaoa = [
     ],
   },
   {
-    ...species('aaoa', 9, 'Mankind', 'Voidborn Origin', 'One in a bazzilion', 0, 6),
+    ...species('aaoa', 9, 'Mankind', 'Voidborn Origin', 'Born into darkness', 0, 6),
     variant: 'core-human',
     description:
       '<p>Born and raised in the darkness between the stars, the voidborn are a strange breed. Accustomed to the peculiar life aboard city-sized voidships and vast orbital stations, they are often seen as warp-touched, and the weird, insular customs of life in space often set them apart from planetborn people.</p>' +
@@ -362,7 +362,7 @@ const aaoa = [
   },
   // Pariah
   {
-    ...species('aaoa',12,'Mankind','Pariah','Tha blank, the void',30,8),
+    ...species('aaoa',12,'Mankind','Pariah','The blank, the void',30,8),
     ...cost(30,0,30, 0),
     ...statMax(7,7,12,12,12,10,6,10),
     variant: 'core-human',
