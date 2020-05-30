@@ -234,14 +234,10 @@
 
     <v-col :cols="12">
       <div>
-        <h3 class="subtitle-1"><strong>Homebrews</strong></h3>
-        <p class="body-2">Allow specific homebrew content to be used for this character.</p>
 
-        <div>
-          <v-alert text border-left dense color="info" class="caption">
-            The <a href="https://www.cubicle7games.com/wrath-glory-pdf-pre-order-live/>">revised edition by Cubicle 7 just came out</a> and thus, most of the homebrews are currently outdated. I have disabled them for now until they are updated to match the recent changes.
-          </v-alert>
-        </div>
+        <h3 class="subtitle-1"><strong>Homebrews</strong></h3>
+
+        <p class="body-2">Allow specific homebrew content to be used for this character.</p>
 
         <div v-if="settingHomebrews.includes('aaoa') && settingHomebrews.includes('tea')">
           <v-alert
@@ -252,8 +248,33 @@
             This lead to duplicated entries and thus, <strong>it is NOT recommended to use both</strong> at the same time.
           </v-alert>
         </div>
+
         <div
-          v-for="homebrew in settingHomebrewOptions.filter((h)=>h.active)"
+          v-for="homebrew in settingHomebrewOptions.filter((h)=>h.enabled)"
+          :key="homebrew.key"
+        >
+          <v-switch
+            v-model="enabledHomebrews"
+            :value="homebrew.key"
+            :hint="homebrew.hint"
+            persistent-hint
+            color="primary"
+            dense
+            :disabled="!homebrew.enabled"
+            @change="updateHomebrew(homebrew)"
+          >
+            <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
+          </v-switch>
+        </div>
+
+        <div class="mt-4">
+          <v-alert text border-left dense color="info" class="caption">
+            The <a href="https://www.cubicle7games.com/wrath-glory-pdf-pre-order-live/>">revised edition by Cubicle 7 just came out</a> and thus, most of the homebrews are currently outdated. I have disabled them for now until they are updated to match the recent changes.
+          </v-alert>
+        </div>
+
+        <div
+          v-for="homebrew in settingHomebrewOptions.filter((h)=>!h.enabled)"
           :key="homebrew.key"
         >
           <v-switch

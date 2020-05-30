@@ -4,7 +4,7 @@
 const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
-  aaoa: { book: 'An Abundance of Apocrypha (v3)', key: 'aaoa2', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3)', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
   aaoa2: { book: 'An Abundance of Apocrypha (v2)', key: 'aaoa2', version: '', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
@@ -1704,7 +1704,7 @@ const aaoaRep = [
       reqSkill('weaponSkill', 3),
       reqSkill('pilot', 3),
     ],
-    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       {
@@ -1734,7 +1734,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 3),
       reqSkill('tech', 3),
     ],
-    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       {
@@ -1821,7 +1821,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 4),
       reqSkill('tech', 4),
     ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       simpleAbility('Hellblaster Focus', 'When firing a plasma incinerator (including assault plasma incinerators and heavy plasma incinerators), Hellblasters gain +½ Rank bonus ED to weapon damage.'),
@@ -1847,7 +1847,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 4),
       reqSkill('pilot', 4),
     ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       simpleAbility('Meteoric Impact:When an Inceptor charges into melee using his heavy jump pack, all enemies within 2m of the point where he lands must pass an Agility test (DN 2+Rank) or be knocked prone and suffer a Mortal Wound.'),
@@ -1873,7 +1873,7 @@ const aaoaRep = [
       reqSkill('weaponSkill', 4),
       reqSkill('stealth', 3),
     ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       simpleAbility('Terror Troops', 'Enemies who encounter a Reiver must make a Fear test (DN 2+ ½ Rank).'),
@@ -1903,7 +1903,7 @@ const aaoaRep = [
       reqSkill('weaponSkill', 4),
       reqSkill('stealth', 3),
     ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       simpleAbility('Close Quarters Assault: When making a melee attack, or a ranged attack at short range, against an enemy in cover, an Incursor may re-roll up to Rank dice.'),
@@ -1932,7 +1932,7 @@ const aaoaRep = [
       reqSkill('survival', 3),
       reqSkill('tech', 3),
     ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       simpleAbility('Voxbane: When an Infiltrator makes a Tech interaction attack against enemies, the range of the attack is multiplied by 1+Rank.'),
@@ -1958,7 +1958,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 4),
       reqSkill('stealth', 4),
     ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       simpleAbility('Precision Fire: When an Eliminator aims, they may add +½ Rank additional dice to their next ranged attack, in addition to other benefits.'),
@@ -1985,7 +1985,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 4),
       reqSkill('weaponSkill', 4),
     ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       simpleAbility('Fire Storm: Aggressors who sacrifice their move to Brace may double the Salvo rating of their weapons until the start of their next Turn.'),
@@ -2013,7 +2013,7 @@ const aaoaRep = [
       reqSkill('scholar', 2),
       reqSkill('psychicMastery', 3),
     ],
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>, Psyker',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Psyker',
     influence: 1,
     archetypeFeatures: [
       {
@@ -2064,7 +2064,7 @@ const aaoaRep = [
       reqSkill('scholar', 2),
       reqSkill('psychicMastery', 3),
     ],
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>, Psyker, Primaris',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Psyker, Primaris',
     influence: 1,
     archetypeFeatures: [
       {
@@ -2115,7 +2115,7 @@ const aaoaRep = [
       reqSkill('scholar', 3),
       reqSkill('psychicMastery', 4),
     ],
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>, Psyker',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Psyker',
     influence: 1,
     archetypeFeatures: [
       {
@@ -2167,7 +2167,7 @@ const aaoaRep = [
       reqSkill('scholar', 3),
       reqSkill('psychicMastery', 4),
     ],
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>, Psyker, Primaris',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Psyker, Primaris',
     influence: 1,
     archetypeFeatures: [
       {
@@ -2218,7 +2218,7 @@ const aaoaRep = [
       reqSkill('scholar', 2),
       reqSkill('medicae', 3),
     ],
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter]',
     influence: 1,
     archetypeFeatures: [
       simpleAbility('Battlefield Medic: When an Apothecary attempts a Medicae test, they may choose to gain two of the benefits listed on page 166 of the Wrath & Glory rulebook (remove a combat effect, stabilise a dying character, heal a wounded character, heal shock) rather than one. The DN for this is equal to the highest DN for either of the options chosen, +2.'),
@@ -2236,38 +2236,35 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 32, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Apothecary', 50, 4, false),
+    ...archetype('aaoa',60,'Adeptus Astartes','Primaris Apothecary',1,'Primaris Astartes'),
+    ...cost(294 ,50,243, 0, 0),
     hint: 'A warrior-healer, guardian of his brothers’ lives.',
     prerequisites: [
-      reqAttribute('strength', 4),
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
       reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqSkill('ballisticSkill', 3),
-      reqSkill('weaponSkill', 3),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 4),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
       reqSkill('scholar', 2),
-      reqSkill('medicae', 3),
+      reqSkill('medicae', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
     ],
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>,Primaris',
-    influence: 1,
+    keywords: 'Imperium, Adeptus Astartes,[Chapter],Primaris',
+    influence: 2,
     archetypeFeatures: [
-      simpleAbility('Battlefield Medic: When an Apothecary attempts a Medicae test, they may choose to gain two of the benefits listed on page 166 of the Wrath & Glory rulebook (remove a combat effect, stabilise a dying character, heal a wounded character, heal shock) rather than one. The DN for this is equal to the highest DN for either of the options chosen, +2.'),
+      simpleAbility('Guard Thy Brethren: Whenever you succeed at a Medicae test upon a Dying ally with the ADEPTUS ASTARTES keyword, gain 1 Wrath. In addition, you gain +Rank to Resolve and Determination while you can see or hear one or more Dying Adeptus Astartes allies.'),
     ],
-    wargearString:
-      'Mark X Tacticus power armour, Absolvor bolt pistol, chainsword, 3 frag and krak grenades, Narthecium, Reductor.',
-    wargear: [
-      { name: 'Tacticus Mk X' },
-      { name: 'Absolvor Bolt Pistol' },
-      { name: 'Chainsword' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-      { name: 'Narthecium' },
-      { name: 'Reductor' },
-    ],
+    wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Absolvor Bolt Pistol, Narthecium, Reductor, 3 Frag Grenade, 3 Krak Grenade'),
   },
   {
     ...simpleStub('aaoa2', 32, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 55, 3, false),
     hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>, Adeptus Mechanicus, Cult Mechanicus',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus',
     influence: 1,
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2315,7 +2312,7 @@ const aaoaRep = [
   {
     ...simpleStub('aaoa2', 32, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Techmarine', 55, 4, false),
     hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>, Adeptus Mechanicus, Cult Mechanicus, Primaris',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus, Primaris',
     influence: 1,
     prerequisites: [
       reqAttribute('strength', 4),
@@ -2361,37 +2358,36 @@ const aaoaRep = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 33, 'core-adeptus-astartes', 'Adeptus Astartes', 'Chaplain', 60, 4,false),
+    ...archetype('aaoa',106,'Adeptus Astartes','Space Marine Chaplain',4,'Adeptus Astartes'),
+    ...cost(282,40,242, 0, 0),
     hint: 'A devout warrior, who tends to the spirits of his comrades.',
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>, Adeptus Ministorum, Priest',
-    influence: 3,
+    keywords: 'Imperium,Adeptus Astartes,[Chapter],Priest',
     prerequisites: [
-      reqAttribute('strength', 5),
-      reqAttribute('toughness', 5),
-      reqAttribute('toughness', 5),
-      reqAttribute('fellowship', 3),
-      reqSkill('weaponSkill', 4),
-      reqSkill('scholar', 4),
-      reqSkill('intimidation', 3),
+      { group: 'attributes', value: 'strength', threshold: 4 }, // 20
+      { group: 'attributes', value: 'toughness', threshold: 4 }, // 20
+      { group: 'attributes', value: 'agility', threshold: 4 }, // 20
+      { group: 'attributes', value: 'initiative', threshold: 4 }, // 20
+      { group: 'attributes', value: 'willpower', threshold: 4 }, // 10
+      { group: 'attributes', value: 'intellect', threshold: 3 }, // 10
+      { group: 'attributes', value: 'fellowship', threshold: 3 }, // 10
+      { group: 'skills', value: 'athletics', threshold: 3 }, // 12
+      { group: 'skills', value: 'awareness', threshold: 3 }, // 12
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 }, // 12
+      { group: 'skills', value: 'persuasion', threshold: 2 }, // 6
+      { group: 'skills', value: 'scholar', threshold: 2 }, // 6
+      { group: 'skills', value: 'stealth', threshold: 3 }, // 12
+      { group: 'skills', value: 'weaponSkill', threshold: 3 }, // 12
     ],
+    influence: 3,
     archetypeFeatures: [
-      simpleAbility('Spiritual Leaders: A Chaplain, and all allies with the Imperium keyword within 15+Rank metres, may add +Rank to their Resolve.'),
+      simpleAbility('Spiritual Leaders', 'You, and all allies with the IMPERIUM keyword within 15+Rank metres add +Rank to Resolve. This increases to +Double Rank if they share your [CHAPTER] keyword.'),
     ],
-    wargearString:
-      'Aquila power armour, bolt pistol, Crozius Arcanum, 3 frag and krak grenades, Rosarius.',
-    wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Bolt Pistol' },
-      { name: 'Crozius Arcanum' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-      { name: 'Rosarius' },
-    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Crozius Arcanum, 3 Frag Grenade, 3 Krak Grenade, Rosarius'),
   },
   {
     ...simpleStub('aaoa2', 33, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Chaplain', 60, 4,false),
     hint: 'A devout warrior, who tends to the spirits of his comrades.',
-    keywords: 'Imperium, Adeptus Astartes,<Chapter>, Adeptus Ministorum, Priest, Primaris',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Ministorum, Priest, Primaris',
     influence: 3,
     prerequisites: [
       reqAttribute('strength', 5),
@@ -2466,9 +2462,90 @@ const aaoaRep = [
   simpleStub('aaoa2', 39, 'core-human', 'Adeptus Mechanicus', 'Sicarian Ruststalker', 50, 3),
   simpleStub('aaoa2', 39, 'core-human', 'Adeptus Mechanicus', 'Lexmechanic', 30, 2),
   simpleStub('aaoa2', 40, 'core-human', 'Adeptus Mechanicus', 'Transmechanic', 30, 2),
-  simpleStub('aaoa2', 40, 'core-human', 'Adeptus Mechanicus', 'Magos', 80, 4),
   simpleStub('aaoa2', 41, 'core-human', 'Adeptus Mechanicus', 'Genetor', 80, 4),
   simpleStub('aaoa2', 41, 'core-human', 'Adeptus Mechanicus', 'Logis', 80, 4),
+  {
+    ...archetype('aaoa',96,'Adeptus Mechanicus','Magos',4,'Human'),
+    ...cost(199 ,106,93, 0, 0),
+    hint: 'The High-Priest of the Omnissiah.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+    prerequisites: [
+      reqAttribute('willpower', 4),
+      reqAttribute('intellect', 5),
+      reqSkill('leadership', 2),
+      reqSkill('scholar', 3),
+      reqSkill('tech', 4),
+    ],
+    influence: 4,
+    archetypeFeatures: [
+      simpleAbility('Guard Thy Brethren', 'You halve the time it takes to attempt any Tech test, and you add +Double Rank bonus dice to interact with machinery. In addition, as a Simple Action you may invoke one of the Canticles of the Omnissiah (see AAOA, pg. 96).'),
+      {
+        name: 'Canticles of the Omnissiah',
+        description:
+          '<p>These binaric blessings are as much programming as exhortations to action, and they take effect automatically.</p>' +
+          '<p>Invoking a Canticle requires a DN 1 Tech test, adding +1 to the DN for each affected ADEPTUS MECHANICUS character after the first. Affected characters must be within 15m of the Magos or connected by Data-Tether.</p>' +
+          '<p>All references to Rank in the Canticles below refer to the Rank of the Magos invoking the Canticle. A character may only benefit from one Canticle at a time, and the effects last only until the start of the Magos’ next turn.</p>' +
+          '<ul>' +
+          '<li>INCANTATION OF THE IRON SOUL: Affected characters add +Rank to their Resolve</li>' +
+          '<li>LITANY OF THE ELECTROMANCER: Roll 1d6 for each enemy Engaged with an affected character; on a 6, that enemy suffers 1d3 Mortal Wounds.</li>' +
+          '<li>CHANT OF THE REMORSELESS FIST: Affected characters add +Rank bonus dice to melee attacks.</li>' +
+          '<li>SHROUDPSALM: Affected characters add +Rank to Defence.</li>' +
+          '<li>INVOCATION OF MACHINE MIGHT: Affected characters add +Rank to the damage value of their melee weapons.</li>' +
+          '<li>BENEDICTION OF THE OMNISSIAH: Affected characters add +Rank bonus dice to ranged attacks.</li>' +
+          '<li>ORISON OF SCRUTINY: Affected characters add +Rank bonus dice to Awareness Tests.</li>' +
+          '<li>TECHNOSUPPLICATION: Affected characters add +Rank bonus dice to Tech Tests.</li>' +
+          '</ul>',
+      }
+    ],
+    wargearString: 'Omnissian Axe, augmetic servo-arm, any two augmetics, any two cybernetics of up to Availability 7 (Unique), light power armour, and any two weapons of up to Availability 7 (Unique).',
+    wargear: [
+      { name: 'Omnissian Axe' },
+      { name: 'Mechadendrites (Servo-Arm)' },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One unique weapon up to value 7 of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Melee Weapon','Ranged Weapon'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+          },
+        ],
+      },
+      {
+        name: 'One unique weapon up to value 7 of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Melee Weapon','Ranged Weapon'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+          },
+        ],
+      },
+      { name: 'Light Power Armour' },
+    ],
+  },
   {
     ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine', 50, 3, false),
     hint: 'Monstrous traitors and savage posthuman killers',
@@ -3508,7 +3585,7 @@ const teaRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 4 },
       { group: 'skills', value: 'weaponSkill', threshold: 3 },
     ],
-    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     influence: 2,
     archetypeFeatures: [
       {
@@ -3538,7 +3615,7 @@ const teaRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 3 },
       { group: 'skills', value: 'weaponSkill', threshold: 4 },
     ],
-    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     influence: 2,
     archetypeFeatures: [
       {
@@ -3571,7 +3648,7 @@ const teaRep = [
       { group: 'skills', value: 'tech', threshold: 4 },
       { group: 'skills', value: 'pilot', threshold: 3 },
     ],
-    keywords: 'Imperium,Adeptus Astartes,Adeptus Mechanicus,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Adeptus Mechanicus,[Chapter]',
     influence: 2,
     archetypeFeatures: [
       {
@@ -3609,7 +3686,7 @@ const teaRep = [
       { group: 'skills', value: 'medicae', threshold: 4 },
       { group: 'skills', value: 'scholar', threshold: 3 },
     ],
-    keywords: 'Imperium,Adeptus Astartes,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     influence: 2,
     archetypeFeatures: [
       {
@@ -3649,7 +3726,7 @@ const teaRep = [
       { group: 'skills', value: 'psychicMastery', threshold: 4 },
       { group: 'skills', value: 'scholar', threshold: 4 },
     ],
-    keywords: 'Imperium,Adeptus Astartes,Psyker,<Chapter>',
+    keywords: 'Imperium,Adeptus Astartes,Psyker,[Chapter]',
     influence: 2,
     archetypeFeatures: [
       {

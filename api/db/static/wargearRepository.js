@@ -1240,10 +1240,12 @@ const core = [
 ];
 
 const aaoa = [
+  // AAOA v3
   {
-    ...simpleStub(30901, 'aaoa2',90,'Absolvor Bolt Pistol', '8V','Bolt, Imperium, Adeptus Astartes, Primaris', ''),
-    ...rangeAaoa('12+2ED; AP -1; Range 35m; Salvo 1; Brutal, Pistol', 'Bolt Weapon',''),
+    ...gear('aaoa',142,'Absolvor Bolt Pistol','8V','Bolt, Imperium, Adeptus Astartes, Primaris'),
+    ...rangez('Bolt Weapon',12,2,-1,16,1,'Brutal,Pistol'),
   },
+  // AAOA v2
   {
     ...simpleStub(30903, 'aaoa2',90,'Auto-Boltstorm Gauntlet', '8V','Bolt, Power Field, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 24m; Salvo 3; Assault, Brutal, Paired', 'Bolt Weapon',''),
@@ -1366,11 +1368,8 @@ const aaoa = [
       '<p>The most common type of weapon wielded by the Grey Knights is the Nemesis Force Sword. It exemplifies the mixture of magick and science utilized by the Grey Knights. The blade is tempered iron, flecked with shards of silver and inset with ancient runes of daemon slaying. Advanced power field generators are also contained within.</p>',
   },
   {
-    ...simpleStub(31102, 'aaoa2',110,'Crozius Arcanum', '6V', 'Power, Imperium, Adeptus Astartes', ''),
-    ...meleeAaoa('5+2ED; AP -1; Brutal'),
-    description:
-      '<p>Serving as both a sceptre of office and a weapon for Astartes Chaplains, each Crozius Arcanum is a staff or maul with a head shaped like an aquila or other symbol of significance to the Imperium or the chapter. Inside this sceptre is a power field generator, allowing it to function similarly to a power maul.</p>' +
-      '<p>The Dark Apostles of Heretic Astartes forces use a debased counterpart to this weapon, the Accursed Crozius.</p>',
+    ...gear('aaoa',134,'Crozius Arcanum', '6V', 'Power Field,Adeptus Astartes', ''),
+    ...meleez('Power Weapon',5,5,-1,1,'Brutal'),
   },
   {
     ...simpleStub(31131, 'aaoa2',113,'Plague Knife', '5U', 'Pestilent, Chaos, Nurgle', ''),
@@ -1508,20 +1507,13 @@ const aaoa = [
       'A character who keeps the book on their person and reads from it routinely gains +2 Conviction.</p>',
   },
   {
-    ...simpleStub(31363, 'aaoa2', 136, 'Narthecium', '5R', 'Imperium, Adeptus Astartes', ''),
-    type: 'Tools & Equipment',
-    snippet:
-      'Count`s as Medikit. You add +2 bonus dice to Medicae tests when treating <Adeptus Astartes>. ' +
-      'A Complication will inflict 1 Mortal Wound on a non Astartes Patient.',
+    ...gear('aaoa',180,'Narthecium','5R','Adeptus Astartes'),
+    ...toolz('Imperial Equipment','A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.'),
     description:
       '<p>A Narthecium is a tool of a Space Marine Apothecary\'s trade, containing implements specially designed for treating the Astartes\' genetically engineered physiology and for performing first aid without having to remove the patient\'s Power Armour.</p>' +
       '<p>It also comprises various counterseptics, synthderm patches, transfusions and other compounds engineered for the Space Marines’ physiology, and several stasis tubes for storing any recovered gene-seed taken from a dead Space Marine\'s Progenoid Glands.</p>' +
       '<p>In battle, an Apothecary carries a number of specialised items of equipment, integrating a variety of tools into a customised backpack, with delivery systems in a device mounted on the Apothecary’s vambrace. The Apothecary may have crafted many of these tools himself according to his own needs.</p>' +
-      '<p>A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. ' +
-      'It also adds +2 to Medicae tests to treat the injuries of characters with the Adeptus Astartes keyword. ' +
-      'On characters who lack the Adeptus Astartes keyword, use of a Narthecium can cause problems, ' +
-      'as the equipment within is not meant for frail mortal physiology: ' +
-      'a complication will inflict 1 Mortal Wound on a non-Astartes patient.</p>',
+      '<p>A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.</p>',
   },
   {
     ...simpleStub(31371, 'aaoa2', 137, 'Psychic Hood', '7V', 'Imperium, Adeptus Astartes, Inquisition', ''),
@@ -1538,20 +1530,8 @@ const aaoa = [
       'Further, they may add +2d on their Psychic Mastery test to use Deny the Witch.</p>',
   },
   {
-    ...simpleStub(31372, 'aaoa2', 137, 'Reductor', '5R', 'Imperium, Adeptus Astartes', ''),
-    type: 'Tools & Equipment',
-    snippet:
-      'As an Action, extract the gene-seed of a deceased Marine with a Medicae Test (DN 3). You gain 1 Wrath immediatly. ' +
-      'If the geen-seed belongs to a player character, he gains +25 BP during character creation.',
-    description:
-      '<p>A Reductor is a special tool used by Adeptus Astartes Apothecaries and Primaris Apothecaries to retrieve the crucial gene-seed of their fallen Battle-Brothers so that new Astartes might be raised from among their Chapter\'s Aspirants. Retrieval and storage of a fallen Battle-Brother\'s gene-seed is so critical that Apothecaries carry a special tool for this operation, often included as part of the Narthecium.</p>' +
-      '<p>While a Reductor is not required for Progenoid removal, it significantly reduces the time. This surgical implement fastens under the wrist and is often integrated into the Apothecary’s Narthecium. It includes a monomolecular saw for penetrating Power Armour and Ossmodula-enhanced rib cages, and a diamantine-tipped extractor drill.</p>' +
-      '<p>As an action, an Apothecary can use a Reductor to remove the gene-seed of a deceased Space Marine. ' +
-      'This requires a Medicae test (DN 3). ' +
-      'Though a grim task, it is a vital one, and an Apothecary who extracts a fallen brother’s gene-seed gains 1 Wrath immediately, ' +
-      'as their duty drives them to press on.</p>' +
-      '<p>In addition, if the gene-seed recovered belonged to a player character, ' +
-      'then that player’s next character receives an additional 25 BPs during character creation, in honour of their sacrifice.</p>',
+    ...gear('aaoa',181,'Reductor','5R','Adeptus Astartes'),
+    ...toolz('Imperial Equipment','As an action, an Apothecary can use a Reductor to remove the gene-seed of a deceased Space Marine. This requires a Medicae test (DN 3). Though a grim task, it is a vital one, and an Apothecary who extracts a fallen brother’s gene-seed gains 1 Wrath immediately, as their duty drives them to press on.'),
   },
   {
     ...simpleStub(31412, 'aaoa2', 141, 'Banshee Mask', '7V', 'Aeldari, Asuryani', ''),
@@ -1895,9 +1875,9 @@ const tea = [
 
 module.exports = [
   ...core,
+  ...aaoa,
   ...pax,
   ...lotn,
-  ...aaoa,
   ...tea,
 ];
 
