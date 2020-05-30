@@ -3047,7 +3047,7 @@ const threatRepository = [
   /** An Abundance of Apocrypha - NECRONS */
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '167',
     },
     key: 'aaoaCanoptekScarabs',
@@ -3101,7 +3101,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '168',
     },
     key: 'aaoaNecronWarriors',
@@ -3154,7 +3154,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '170',
     },
     key: 'aaoaFlayedOnes',
@@ -3209,7 +3209,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '169',
     },
     key: 'aaoaNecronImmortals',
@@ -3218,7 +3218,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '171',
     },
     key: 'aaoaDestroyers',
@@ -3227,7 +3227,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '172',
     },
     key: 'aaoaDeathmarks',
@@ -3236,7 +3236,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '173',
     },
     key: 'aaoaLychguard',
@@ -3245,7 +3245,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '174',
     },
     key: 'aaoaNecronLord',
@@ -3254,7 +3254,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '175',
     },
     key: 'aaoaNecronOverlord',
@@ -3263,7 +3263,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '176',
     },
     key: 'aaoaNecronDestroyerLord',
@@ -3272,7 +3272,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '179',
     },
     key: 'aaoaNecronCryptek',
@@ -3281,7 +3281,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '183',
     },
     key: 'aaoaTriarchPraetorians',
@@ -3290,7 +3290,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '184',
     },
     key: 'aaoaTriarchStalker',
@@ -3299,7 +3299,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '185',
     },
     key: 'aaoaCanoptekWraith',
@@ -3308,7 +3308,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '186',
     },
     key: 'aaoaCanoptekSpyder',
@@ -3317,7 +3317,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '187',
     },
     key: 'aaoaCtanShardOfTheDeceiver',
@@ -3328,7 +3328,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '188',
     },
     key: 'aaoaCtanShardOfTheNightbringer',
@@ -3339,7 +3339,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '190',
     },
     key: 'aaoaGhostArk',
@@ -3349,7 +3349,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '190',
     },
     key: 'aaoaDoomsdayArk',
@@ -3359,7 +3359,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '191',
     },
     key: 'aaoaAnnihilationBarge',
@@ -3369,7 +3369,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '191',
     },
     key: 'aaoaCatacombCommandBarge',
@@ -3379,7 +3379,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '192',
     },
     key: 'aaoaMonolith',
@@ -3390,7 +3390,7 @@ const threatRepository = [
   /** An Abundance of Apocrypha - TYRANIDS */
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '',
     },
     key: 'aaoaHormagant',
@@ -3470,7 +3470,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '',
     },
     key: 'aaoaTermagant',
@@ -3576,7 +3576,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '',
     },
     key: 'aaoaGargolye',
@@ -3666,7 +3666,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '',
     },
     key: 'aaoaRipper',
@@ -3729,7 +3729,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '204',
     },
     key: 'aaoaLictor',
@@ -3796,7 +3796,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '205',
     },
     key: 'aaoaTyranidWarrior',
@@ -3866,7 +3866,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '209',
     },
     key: 'aaoaCarnifex',
@@ -3958,7 +3958,7 @@ const threatRepository = [
   /** An Abundance of Apocrypha - TAU */
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '235',
     },
     key: 'aaoaFireCasteStrikeShasLa',
@@ -4032,7 +4032,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '236',
     },
     key: 'aaoaFireCasteBreacherShasLa',
@@ -4105,7 +4105,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '237',
     },
     key: 'aaoaFireCastePathfinderShasLa',
@@ -4175,7 +4175,7 @@ const threatRepository = [
   },
   {
     source: {
-      ...source.aaoa,
+      ...source.aaoa2,
       page: '239',
     },
     key: 'aaoaFireCasteCadreFirebladeShasEl',
