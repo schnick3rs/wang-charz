@@ -95,7 +95,7 @@ const coreRep = [
     ...commonNames('Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus.'),
     ...statMax(10,10,9,9,10,10,8,9),
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
       { group: 'attributes', value: 'initiative', threshold: 4 },
       { group: 'attributes', value: 'intellect', threshold: 3 },
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -131,7 +131,7 @@ const coreRep = [
     ...commonNames('Androcles, Balthazar, Chryses, Diallo, Egnatius, Fafnir, Gerhart, Helbrecht, Ibrahim, Jamshaid, Kalim, Luthando, Maximus, Nicator, Octavian, Proteus, Qaseem, Raziq, Seigfried, Tarik, Ursinus, Viggo, Woyzeck, Xanthus, Youssou, Zosimus.'),
     ...statMax(12,12,9,9,10,10,8,9),
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
       { group: 'attributes', value: 'initiative', threshold: 4 },
       { group: 'attributes', value: 'intellect', threshold: 3 },
       { group: 'attributes', value: 'strength', threshold: 5 },
@@ -444,6 +444,40 @@ const aaoa = [
           { targetGroup: 'traits', targetValue: 'conviction', modifier: 1 },
           { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
         ],
+      },
+    ],
+  },
+  // Beastman
+  {
+    ...species('aaoa', 15, 'Chaos', 'Beastman', 'Servants of Chaos', 20, 7),
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Reviled Abhuman',
+        snippet: 'You suffer +2 DN to Interaction tests with CHAOS.',
+        description:
+          '<p>+2DN to all Interaction tests with characters who do not possess the Chaos keyword.</p>',
+      },
+      {
+        name: 'Horns',
+        snippet: 'You may attack with your Horns (5 +2 ED).',
+        description:
+          '<p>You may make melee attacks with your horns (5+2ED; AP 0). Thus, you are always armed.</p>',
+      },
+      {
+        name: 'Bestial Savagery',
+        snippet: 'You gain +1 die to Intimidation tests.',
+        description:
+          '<p>+1d to all Intimidation tests.</p>',
+      },
+      {
+        name: 'Child of Chaos',
+        snippet: 'You gain +3 Corruption.',
+        description:
+          '<p>You begin play with +3 corruption.</p>',
       },
     ],
   },

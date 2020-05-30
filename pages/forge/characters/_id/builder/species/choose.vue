@@ -120,6 +120,12 @@ export default {
     characterSettingTier() {
       return this.$store.getters['characters/characterSettingTierById'](this.characterId);
     },
+    characterAttributes() {
+      return this.$store.getters['characters/characterAttributesById'](this.characterId);
+    },
+    characterSkills() {
+      return this.$store.getters['characters/characterSkillsById'](this.characterId);
+    },
   },
   watch: {
     sources: {
@@ -166,6 +172,10 @@ export default {
       this.speciesDialog = true;
     },
     selectSpeciesForChar(species) {
+
+      // TODO ensure attributes and skills
+      if (species.prerequisites) this.ensurePrerequisites(species.prerequisites);
+
       let modifications = [];
       species.speciesFeatures
         .filter( (t) => t.modifications !== undefined )
@@ -217,6 +227,29 @@ export default {
         name: 'forge-characters-id-builder-species-edit',
         params: { id: this.characterId, speciesKey: undefined },
       });
+    },
+    ensurePrerequisites(prerequisites) {
+      const id = this.characterId;
+
+      if (prerequisites && prerequisites.length > 0) {
+        prerequisites.forEach((prerequisite) => {
+          // { group: 'attributes', value: 'willpower', threshold: 3, }
+          switch (prerequisite.group) {
+            case 'attributes':
+              const attributeValue = this.characterAttributes[prerequisite.value];
+              if (attributeValue < prerequisite.threshold) {
+                this.$store.commit('characters/setCharacterAttribute', { id, payload: { key: prerequisite.value, value: prerequisite.threshold } });
+              }
+              break;
+            case 'skills':
+              const skillValue = this.characterSkills[prerequisite.value];
+              if (skillValue < prerequisite.threshold) {
+                this.$store.commit('characters/setCharacterSkill', { id, payload: { key: prerequisite.value, value: prerequisite.threshold } });
+              }
+              break;
+          }
+        });
+      }
     },
   },
 };
