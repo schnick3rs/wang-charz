@@ -105,17 +105,16 @@
             v-if="feature.name.indexOf('Honour the Chapter') >= 0 && chapterList"
           >
             <v-alert
-              v-if="false"
               text border-left dense color="primary" class="caption"
             >
               <em>Some homebrews contain additional chapters. Click on the (+) after the homebrew to enable it's rules for this character:
                 An Abundane of Aphocrypha
                 <v-icon v-if="settingHomebrews.includes('aaoa')" small color="success">check_circle</v-icon>
                 <v-icon v-else @click="enableHomebrew('aaoa')" small color="primary">add_circle</v-icon>
-                or
+                <!--or
                 Let the Galaxy Burn
                 <v-icon v-if="settingHomebrews.includes('ltgb')" small color="success">check_circle</v-icon>
-                <v-icon v-else @click="enableHomebrew('ltgb')" small color="primary">add_circle</v-icon>
+                <v-icon v-else @click="enableHomebrew('ltgb')" small color="primary">add_circle</v-icon>-->
               </em>
             </v-alert>
             <v-select
@@ -298,6 +297,9 @@ export default {
         }
       }
       return [];
+    },
+    enableHomebrew(sourceKey) {
+      this.$store.commit('characters/enableSettingHomebrews', { id: this.characterId, content: sourceKey });
     },
     /**
      * clear previous option
