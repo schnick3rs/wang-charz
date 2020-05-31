@@ -2522,6 +2522,26 @@ const aaoaRep = [
         ],
       },
       {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
         name: 'One unique weapon up to value 7 of your choice.',
         selected: '',
         options: [
