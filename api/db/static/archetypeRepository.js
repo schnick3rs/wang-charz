@@ -2478,7 +2478,7 @@ const aaoaRep = [
     ],
     influence: 4,
     archetypeFeatures: [
-      simpleAbility('Guard Thy Brethren', 'You halve the time it takes to attempt any Tech test, and you add +Double Rank bonus dice to interact with machinery. In addition, as a Simple Action you may invoke one of the Canticles of the Omnissiah (see AAOA, pg. 96).'),
+      simpleAbility('Forge-Lord', 'You halve the time it takes to attempt any Tech test, and you add +Double Rank bonus dice to interact with machinery. In addition, as a Simple Action you may invoke one of the Canticles of the Omnissiah (see AAOA, pg. 96).'),
       {
         name: 'Canticles of the Omnissiah',
         description:
