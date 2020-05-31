@@ -2497,47 +2497,55 @@ const aaoaRep = [
           '</ul>',
       }
     ],
-    wargearString: 'Omnissian Axe, augmetic servo-arm, any two augmetics, any two cybernetics of up to Availability 7 (Unique), light power armour, and any two weapons of up to Availability 7 (Unique).',
+    wargearString: 'Omnissian Axe, augmetic servo-arm, any two augmetic enhancements, any two augmetic implants of up to Availability 7 (Unique), light power armour, and any two weapons of up to Availability 7 (Unique).',
     wargear: [
       { name: 'Omnissian Axe' },
       { name: 'Mechadendrites (Servo-Arm)' },
       {
-        name: 'One augmetic of your choice.',
+        name: 'One augmetic enhancement of your choice.',
         selected: '',
         options: [
           {
             filter: true,
             typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Enhancements'],
           },
         ],
       },
       {
-        name: 'One augmetic of your choice.',
+        name: 'One augmetic enhancement of your choice.',
         selected: '',
         options: [
           {
             filter: true,
             typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Enhancements'],
           },
         ],
       },
       {
-        name: 'One augmetic of your choice.',
+        name: 'One augmetic implant up to value 7 of Unique or lower rarity of your choice.',
         selected: '',
         options: [
           {
             filter: true,
+            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Unique'],
             typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Implants'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
           },
         ],
       },
       {
-        name: 'One augmetic of your choice.',
+        name: 'One augmetic implant up to value 7 of Unique or lower rarity of your choice.',
         selected: '',
         options: [
           {
             filter: true,
+            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Unique'],
             typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Implants'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
           },
         ],
       },
