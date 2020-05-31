@@ -147,32 +147,32 @@ module.exports = {
       const base = process.env.NODE_ENV === 'production' ? 'https://www.doctors-of-doom.com' : 'http://localhost:3000';
 
       const homebrewResponse = await axios.get(`${base}/api/homebrews/`);
-      const homebrewRoutes = homebrewResponse.data.map( (vaultItem) => {
-        return {
-          url: `/vault/${vaultItem.slug}`,
-          changefreq: 'weekly',
-          priority: 1,
-          lastmod: vaultItem.last_modified_at,
-        };
-      });
+      const homebrewRoutes = homebrewResponse.data
+        .map((item) => {
+          return {
+            url: `/vault/${item.fields.urlSlug}`,
+            changefreq: 'weekly',
+            priority: 1,
+            lastmod: item.sys.updatedAt,
+          };
+        });
 
       const threatResponse = await axios.get(`${base}/api/threats/`);
       const threatRoutes = threatResponse.data
-        .filter((vaultItem) => vaultItem.source.key !== 'core')
-        .map((vaultItem) => {
-          const slug = vaultItem.key.replace(/([a-z][A-Z])/g, (g) => `${g[0]}-${g[1].toLowerCase()}`);
+        .filter((item) => item.source.key !== 'core')
+        .map((item) => {
+          const slug = item.key.replace(/([a-z][A-Z])/g, (g) => `${g[0]}-${g[1].toLowerCase()}`);
           return `/bestiary/${slug}`;
         });
 
       const postResponse = await axios.get(`${base}/api/posts/`);
-
       const postRoutes = postResponse.data
-        .map( (postItem) => {
+        .map( (item) => {
           return {
-            url: `/posts/${postItem.fields.slug}`,
+            url: `/posts/${item.fields.slug}`,
             changefreq: 'weekly',
             priority: 1,
-            lastmod: postItem.sys.updatedAt,
+            lastmod: item.sys.updatedAt,
           };
         });
 
