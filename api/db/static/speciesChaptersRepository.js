@@ -196,7 +196,7 @@ const aaoa = [
     ...chapterz('aaoa',19,'Black Templars','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('Righteous Zeal: When you charge, you may re-roll up to Rank dice on your Weapon Skill test. In addition, you may re-roll Rank dice when they roll Determination.'),
-      simpleEffect('Gene-Seed Flaw (Geen-Seed): You are missing implant 12: Sus-an Membrane, and implant 17: Betcher’s Gland.'),
+      simpleEffect('Gene-Seed Flaw (Gene-Seed): You are missing the Sus-an Membrane (implant 12), and the Betcher’s Gland (implant 17).'),
       simpleEffect('Deny the Witch: Characters with the Black Templars keyword may not, under any circumstances, take the Psyker keyword: the Black Templars accept no psykers within their ranks.'),
     ],
   },
@@ -204,7 +204,7 @@ const aaoa = [
     ...chapterz('aaoa',19,'Crimson Fists','','Mankind',''),
     beliefsAndTraditions: [
       simpleEffect('No Matter The Odds: When making an attack while you and your allies are outnumbered at least two-to-one, you may add Rank dice to your Ballistic Skill or Weapon Skill test.'),
-      simpleEffect('Gene-Seed Flaw (Gene-Seed): You are missing implant 12: Sus-an Membrane, and implant 17: Betcher’s Gland.'),
+      simpleEffect('Gene-Seed Flaw (Gene-Seed): You are missing the Sus-an Membrane (implant 12), and the Betcher’s Gland (implant 17).'),
     ],
   },
   {
