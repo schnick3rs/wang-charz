@@ -30,7 +30,7 @@
         v-for="item in assets"
         :key="item.name"
         :cols="12"
-        :sm="5"
+        :sm="4"
       >
         <v-card>
           <v-card-title>
@@ -112,6 +112,15 @@ export default {
         },
       ],
       assets: [
+        {
+          name: 'Combat Cheat Sheet',
+          type: 'Google Docs',
+          author: 'u/Z_Scribe',
+          text: 'Reddit user Z_Scribe created this three pages of reference sheet for combat, healing, dying, corruption and conditions.',
+          parts: [
+            { title: 'Combat Cheat Sheet' , url: 'https://docs.google.com/document/d/12VV1_0Zkcww3c7y_xYn2MBBO-xd7S4euskJWAnYcYh8/edit?usp=sharing' },
+          ],
+        },
         {
           name: 'Condensed Rules reference',
           type: 'MS Word on Google Drive',
