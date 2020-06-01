@@ -1242,8 +1242,31 @@ const core = [
 const aaoa = [
   // AAOA v3
   {
+    ...gear('aaoa',140,'Hekatarii Blade','5R','Blade,Drukhari'),
+    ...meleez('Drukhari Melee Weapon',3,3,-1,1,'Parry,Rending(1)'),
+  },
+  {
     ...gear('aaoa',142,'Absolvor Bolt Pistol','8V','Bolt, Imperium, Adeptus Astartes, Primaris'),
     ...rangez('Bolt Weapon',12,2,-1,16,1,'Brutal,Pistol'),
+  },
+  {
+    ...gear('aaoa',156,'Splinter Pistol','5U','Splinter,Drukhari'),
+    ...rangez('Drukhari Ranged Weapon',8,2,0,12,2,'Inflict(Poisoned 4),Pistol'),
+    snippet: 'A character who was Poisoned by a weapon with the SPLINTER keyword suffers 1 Mortal Wound at the start of each of their turns. A selection of alternative Drukhari poisons are presented in the Reloads and Ammunition section, which replace this effect.',
+  },
+  {
+    ...gear('aaoa',156,'Splinter Rifle','5U','Splinter,Drukhari'),
+    ...rangez('Drukhari Ranged Weapon',8,2,0,24,2,'Inflict(Poisoned 4),Rapid Fire(2)'),
+    snippet: 'A character who was Poisoned by a weapon with the SPLINTER keyword suffers 1 Mortal Wound at the start of each of their turns. A selection of alternative Drukhari poisons are presented in the Reloads and Ammunition section, which replace this effect.',
+  },
+  {
+    ...gear('aaoa',167,'Kabalite Warsuit','4R','Light,Drukhari'),
+    ...armour('Drukhari Armour', 3),
+    snippet: 'Contains a vox and a rebreather, or Dark Eldar equivalents of these items.',
+  },
+  {
+    ...gear('aaoa',167,'Wychsuit','3U','Light,Drukhari'),
+    ...armour('Drukhari Armour', 1),
   },
   // AAOA v2
   {

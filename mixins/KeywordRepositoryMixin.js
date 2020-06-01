@@ -26,6 +26,31 @@ export default {
         name: '[Craftworld]', type: 'Species', parentKeyword: 'Asuryani', description: 'A specific Eldar Craftworld (replaces this keyword when chosen).',
       },
       {
+        source: 'aaoa',
+        name: 'Drukhari',
+        type: 'Species',
+        parentKeyword: undefined,
+        description: 'The dark Aeldari siblings.',
+      },
+      {
+        source: 'aaoa',
+        name: '[Cult]',
+        type: 'Species',
+        description: 'A specific Drukhari Witch Cult (replaces this keyword when chosen).',
+      },
+      {
+        source: 'aaoa',
+        name: '[Coven]',
+        type: 'Species',
+        description: 'A specific Drukhari Haemunculus Coven (replaces this keyword when chosen).',
+      },
+      {
+        source: 'aaoa',
+        name: '[Cabal]',
+        type: 'Species',
+        description: 'A specific Drukhari Cabal (replaces this keyword when chosen).',
+      },
+      {
         name: 'Ork', type: 'Species', parentKeyword: undefined, description: 'The Ork race.',
       },
       {

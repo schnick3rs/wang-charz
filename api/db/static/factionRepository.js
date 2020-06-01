@@ -2,7 +2,8 @@
 // Astra Militarum
 
 const source = {
-  core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
+  core: { book: 'Core Rules', key: 'core', version: 'v1.5' },
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v3.1', path: '/vault/an-abundance-of-apocrypha' },
 };
 
 const stringToKebab = function (text) {
@@ -352,8 +353,39 @@ const core = [
   },
 ];
 
+const aaoa = [
+  {
+    name: 'Drukhari',
+    ...faction('aaoa',29,'Aeldari','Drukhari'),
+    backgroundSection: [
+      // Origin
+      background('TRUEBORN: You were born naturally, to one of the powerful families of the Dark City whose resources allowed them to raise a child in the traditional manner. You are a scion of the powerful, raised from childhood to dominate and terrorise.','Influence','Origin'),
+      background('HALFBORN: You were born from an artificial gestation tube, quickly and efficiently, like the majority of Drukhari. To thrive in the slums and lower tiers of the Dark City, you had to be ruthless and ambitious.','Determination','Origin'),
+      background('WROUGHT: You know not from whence you came, only that you awoke upon a Haemonculus’ table fully-formed and thirsting for the agony of others. Your mysterious, possibly unnatural origin may disquiet some, but you are what you have made of yourself.','Max Shock','Origin'),
+      // Accomplishment
+      background('RAIDER: You were part of a victorious real-space raid, and the souls you dragged back, and the recorded hologhosts of your kills have earned you prestige, glory, and status.','Wealth','Accomplishment'),
+      background('TRIUMPH: You set foot within the arena, and you emerged victorious. The hard-fought victory came with many scars, the ache of which still reminds you of the fury of the battle.','Max Wounds','Accomplishment'),
+      background('USURPER: You attained your current status through guile and skill, undermining and then eliminating a former superior and assuming their position. You know that others seek to recreate your ascension and take what you have won, but you will not make it easy for them…','Determination','Accomplishment'),
+      // Goal
+      background('DOMINION: You seek to rise to the highest levels of Drukhari society, by any means necessary. Nothing short of final death or ultimate dominion will see your ambition sated.','Resolve','Goal'),
+      background('TERROR: Out there, in realspace, there is a place which awaits your malicious attentions, which has not learned to dread your kind. You will find them, and you will feast upon their anguish.','Determination','Goal'),
+      background('SATIETY: The thirst that gnaws away at your soul, at once part of you and external to you, is a perpetual weight upon your existence. You will slake that thirst, or escape it.','Conviction','Goal'),
+    ],
+    objectives: [
+      'Revel in the pain or distress of another creature',
+      'Be scornful or dismissive of the taboos of other Aeldari, or another species',
+      'Coerce or threaten another creature into doing what you want',
+      'Apply your cruelty and cunning to trick or ambush a foe',
+      'Explain a number of the different ways you could hurt or kill someone',
+      'Gain in status or influence through murder or intimidation',
+    ],
+    advancedCreationKeywords: ['Aeldari','Drukhari'], // [Cabal], [Cult], [Coven]
+  },
+];
+
 const factionRepository = [
   ...core,
+  ...aaoa,
 ];
 
 module.exports = factionRepository;
