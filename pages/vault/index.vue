@@ -69,7 +69,8 @@
             :expanded.sync="expanded"
             :search="searchQuery"
             :items-per-page="-1"
-            sort-by="title"
+            sort-by="supplements"
+            sort-desc
             item-key="urlSlug"
             show-expand
             hide-default-footer
@@ -335,7 +336,7 @@ export default {
       settingFilter: [],
       contentFilter: [],
       pagination: {
-        sortBy: 'title',
+        sortBy: 'supplements',
         rowsPerPage: -1,
       },
       headers: [
