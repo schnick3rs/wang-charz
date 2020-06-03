@@ -249,8 +249,7 @@ const aaoa = [
   {
     ...chapterz('aaoa',21,'Death Guard','Moartarion','Chaos, Nurgle','First Founding (XIV Legion)'),
     beliefsAndTraditions: [
-      simpleEffect('Inexorable Advance: The short range of your ranged weapons is increased by Double Rank, up to a maximum of the weapon’s medium range.\n' +
-        'You suffer no penalty for operating a Heavy weapon without bracing it, nor do you suffer the +2 DN for firing an Assault weapon when Running.'),
+      simpleEffect('Inexorable Advance: The short range of your ranged weapons is increased by Double Rank, up to a maximum of the weapon’s medium range. You suffer no penalty for operating a Heavy weapon without bracing it, nor do you suffer the +2 DN for firing an Assault weapon when Running.'),
       simpleEffect('Intractable (Tradition): You must spend a point of Glory to take the Sprint action.', 'Tradition'),
       simpleEffect('Children of Nurgle: Characters with the DEATH GUARD keyword must take NURGLE as their [MARK OF CHAOS] keyword.')
     ],
@@ -258,7 +257,13 @@ const aaoa = [
   {
     ...chapterz('aaoa',21,'Thousand Sons','Magnus the Red','Chaos, Tzeentch','First Founding (XV Legion)'),
     beliefsAndTraditions: [
-      simpleEffect('The Rubric: You gain the Favoured By The Warp talent.'),
+      {
+        name: 'The Rubric',
+        snippet: 'You gain the Favoured By The Warp talent.',
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-favoured-by-the-warp-talent', meta: { name: 'Favoured By The Warp talent' } },
+        ],
+      },
       simpleEffect('Gift of Mutation (Gene-Seed): You gain an additional +1 Corruption whenever you would gain one or more Corruption points. You also increase the DN of all tests to resist Corruption or Malignancy by +1.', 'Geen-Seed'),
       simpleEffect('Children of Tzeench: Characters with the THOUSAND SONS keyword must take TZEENTCH as their [MARK OF CHAOS] keyword.')
     ],
