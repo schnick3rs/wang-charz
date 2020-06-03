@@ -1268,6 +1268,21 @@ const aaoa = [
     ...gear('aaoa',167,'Wychsuit','3U','Light,Drukhari'),
     ...armour('Drukhari Armour', 1),
   },
+  {
+    ...gear('aaoa',186,'Hekatarii Combat Drugs','6R','Drukhari'),
+    ...toolz('Aeldari Equipment'),
+    triptype: 'Hekatarii Combat Drugs',
+    description:
+      '<p>Though they dramatically reduce the lifespan of any Aeldari that uses them, performance-enhancing combat drugs are commonly used in the gladiatorial arenas of the Hekatarii, as well as by Wyches entering real battle. The user may administer a single dose as a free action, which will last for about an hour or until the character takes a Regroup (after which, withdrawal symptoms set in, and the character is reduced to 0 Shock until they take a Respite). A single dose of any of these combat drugs taken by anyone who is not Aeldari inflicts 1d6 Shock instead of their normal effect. Anyone using these combat drugs must also make a Corruption test. Taking a second dose of these combat drugs, whether a second dose of the same drug or a different drug, inflicts 1d6 Shock instead of having the desired effect. The drug dispenser contains 3 doses, of whichever of the drugs below the user wishes.</p>' +
+      '<ul>' +
+        '<li>Adrenalight accelerates the user’s attacks into a blistering tempo. While under the drug’s effect, whenever the character makes a successful attack, they may spend a point of Glory to make a second attack.</li>' +
+      '<li>Grave Lotus massively heightens the tensile strength of the user’s muscles, allowing them to exert greater force. While under the drug’s effect, the character’s Strength is increased by +3.</li>' +
+      '<li>Hypex augments the fast-twitch fibres in the user’s muscles, allowing them to move at far greater speeds. While under the drug’s effect, the character’s Speed is increased by +2.</li>' +
+      '<li>Painbringer alters the user’s pain receptors, increasing their capacity for pain without dulling their experience of it. While under the drug’s effect, the character’s Resilience is increased by 2, and they recover 1d3 Shock at the start of each turn.</li>' +
+      '<li>Serpentin amplifies the user’s killer instincts and sharpens their bloodlust. While under the drug’s effect, the character adds +3d to all melee attacks.</li>' +
+      '<li>Splintermind help the user’s mind compartmentalise and disassociate from the parts which feel fear. While under the drug’s effect, the character’s Resolve is increased by +2.</li>' +
+      '</ul>',
+  },
   // AAOA v2
   {
     ...simpleStub(30903, 'aaoa2',90,'Auto-Boltstorm Gauntlet', '8V','Bolt, Power Field, Imperium, Adeptus Astartes, Primaris', ''),
