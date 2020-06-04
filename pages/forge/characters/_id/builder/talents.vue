@@ -37,10 +37,10 @@
               <div class="mb-4">
                 <span>Cost:</span>
                 <v-chip v-if="talent.extraCost" label x-small>
-                  {{ talent.cost+talent.extraCost }} BP
+                  {{ talent.cost+talent.extraCost }} XP
                 </v-chip>
                 <v-chip v-else label x-small>
-                  {{ talent.cost }} BP
+                  {{ talent.cost }} XP
                 </v-chip>
               </div>
 

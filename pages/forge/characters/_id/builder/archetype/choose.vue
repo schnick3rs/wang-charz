@@ -173,7 +173,7 @@
                   <v-avatar left class="green darken-4">
                     {{ item.cost }}
                   </v-avatar>
-                  BP
+                  XP
                 </v-chip>
               </v-list-item-action>
               <v-list-item-action class="hidden-xs-only">
