@@ -208,7 +208,7 @@ import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
 
 export default {
-  name: 'Manage',
+  name: 'archetype-manage',
   components: { ArchetypePreview },
   mixins: [
     SluggerMixin,
@@ -227,11 +227,26 @@ export default {
     };
   },
   computed: {
+    characterFactionKey() {
+      return this.$store.getters['characters/characterFactionKeyById'](this.characterId);
+    },
+    characterSpeciesLabel() {
+      return this.$store.getters['characters/characterSpeciesLabelById'](this.characterId);
+    },
+    characterSpeciesKey(){
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
     characterArchetypeKey() {
       return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+    characterArchetypeTier() {
+      return this.$store.getters['characters/characterArchetypeTierById'](this.characterId);
+    },
+    characterArchetypeKeywords() {
+      return this.$store.getters['characters/characterArchetypeKeywordsById'](this.characterId);
     },
     characterAttributes() {
       return this.$store.getters['characters/characterAttributesById'](this.characterId);
@@ -249,11 +264,11 @@ export default {
       return this.$store.getters['characters/characterPsychicPowersById'](this.characterId);
     },
     avatar() {
-      if (this.item === undefined) return '';
+      if (this.item === undefined || this.item.key === 'advanced' ) return '/img/avatar_placeholder.png';
       return `/img/avatars/archetype/${this.item.key}.png`;
     },
     attributePrerequisites() {
-      if (this.item.prerequisites) {
+      if (this.item && this.item.prerequisites) {
         return this.item.prerequisites
         .filter((p) => p.group === 'attributes')
         .map((a) => `${this.getAttributeByKey(a.value).name} ${a.threshold}`)
@@ -262,7 +277,7 @@ export default {
       return this.item.attributes;
     },
     skillPrerequisites() {
-      if (this.item.prerequisites) {
+      if (this.item && this.item.prerequisites) {
         return this.item.prerequisites
         .filter((p) => p.group === 'skills')
         .map((a) => {
@@ -341,21 +356,62 @@ export default {
   },
   watch: {
     characterArchetypeKey: {
-      handler(newVal) {
-        if (newVal && newVal !== 'unknown') {
-          this.getArchetype(newVal);
+      handler(key) {
+        if (key) {
+          if (key === 'unknown') {
+            console.info(`Found unexpected key -> ${key}`);
+            return;
+          }
+          if (key === 'advanced'){
+            this.loadAdvancedArchetype();
+            return;
+          }
+          this.loadArchetype(key);
         }
       },
       immediate: true, // make this watch function is called when component created
     },
   },
   methods: {
-    async getArchetype(key) {
+    async loadAdvancedArchetype(){
       this.loading = true;
+      console.info(`loading advanced`);
+      const advancedArchetype = {
+        // source:
+        key: `advanced`,
+        name: this.characterArchetypeLabel,
+        hint: 'Created using Advanced Character creation.',
+        cost: 0,
+        costs: {
+          total: 0,
+          archetype: 0,
+          stats: 0,
+          species: 0,
+          other: 0,
+        },
+        tier: this.characterArchetypeTier,
+        faction: this.characterFactionKey.toLowerCase(),
+        factionKey: this.characterFactionKey,
+        species: [this.characterSpeciesLabel],
+        speciesKey: [this.characterSpeciesKey],
+        wargearString: '',
+        wargear: [],
+        prerequisites: [],
+        archetypeFeatures: [],
+        influence: 0,
+        keywords: this.characterArchetypeKeywords.join(','),
+      };
+      this.item = advancedArchetype;
+      this.loading = false;
+    },
+    async loadArchetype(key) {
+      this.loading = true;
+
       let finalData = {};
       const { data } = await this.$axios.get(`/api/archetypes/${key}`);
       finalData = data;
 
+      // we enrich the archetype features
       finalData.archetypeFeatures
         .filter((feature) => feature.options)
         .forEach((feature) => {
@@ -375,8 +431,8 @@ export default {
           }
         });
 
-      this.loading = false;
       this.item = finalData;
+      this.loading = false;
     },
     doChangeMode() {
       this.$router.push({

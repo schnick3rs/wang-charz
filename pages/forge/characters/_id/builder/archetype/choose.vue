@@ -16,6 +16,86 @@
       />
     </v-dialog>
 
+    <v-dialog
+      v-model="advancedKeywordsDialog"
+      width="600px"
+      scrollable
+      :fullscreen="$vuetify.breakpoint.xsOnly"
+    >
+      <v-card class="pa-0">
+        <v-card-title style="background-color: #262e37; color: #fff;">
+          <span>Confirm Archetype</span>
+          <v-spacer />
+          <v-icon dark @click="advancedKeywordsDialog = false">
+            close
+          </v-icon>
+        </v-card-title>
+        <v-card-text class="pt-8">
+
+          <p class="pb-4">Select</p>
+
+          <v-select
+            label="Select the tier, defining your acess to wargear"
+            :items="[1,2,3,4]"
+            dense
+            outlined
+          />
+
+          <v-select
+            dense outlined
+            v-model="advancedFaction"
+            :items="archetypeFaction"
+          ></v-select>
+
+          <v-autocomplete
+            outlined
+            v-model="advancedKeywords"
+            :items="keywordCombinedRepository.filter((k) => !k.name.startsWith('['))"
+            item-text="name"
+            item-value="key"
+            multiple
+            chips
+          >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                close
+                @click="data.select"
+                @click:close="remove(data.item)"
+              >
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <v-list-item-content>
+                <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                <v-list-item-subtitle>{{data.item.type}} - [{{data.item.source}}]</v-list-item-subtitle>
+              </v-list-item-content>
+            </template>
+          </v-autocomplete>
+
+          <v-text-field
+            dense outlined
+            placeholder="lowlife"
+            v-model="advancedName"
+            label="A short name, describing this 'Archetype'"
+          >
+          </v-text-field>
+
+        </v-card-text>
+        <v-card-actions>
+          <v-btn left outlined color="red" @click="advancedKeywordsDialog = false">
+            Cancel
+          </v-btn>
+          <v-spacer />
+          <v-btn right color="success" @click="createAdvancedArchetype(advancedName, advancedFaction, advancedKeywords, advancedTier)">
+            Select Archetype
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-col>
       <h1 class="headline">
         Select an Archetype
@@ -29,6 +109,8 @@
         You need to select a Species first.
       </v-alert>
     </v-col>
+
+    <v-btn @click="advancedKeywordsDialog = true">Use Advenced Character Creation</v-btn>
 
     <v-col :cols="12">
       <v-text-field
@@ -113,11 +195,12 @@
 <script>
 import { mapMutations } from 'vuex';
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
+import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 
 export default {
   name: 'ArchetypeChoose',
   components: { ArchetypePreview },
-  mixins: [],
+  mixins: [ KeywordRepositoryMixin ],
   asyncData({ params }) {
     return {
       characterId: params.id,
@@ -131,6 +214,12 @@ export default {
       previewItem: undefined,
       searchQuery: '',
       characterSpecies: undefined,
+      // advanced character creation
+      advancedName: 'Unaligned Scoundrel',
+      advancedKeywordsDialog: false,
+      advancedFaction: undefined,
+      advancedKeywords: [],
+      advancedTier: 1,
     };
   },
   computed: {
@@ -260,10 +349,57 @@ export default {
       this.previewItem = item;
       this.previewDialog = true;
     },
-    selectArchetypeForChar(item) {
+    createAdvancedArchetype(name, faction, keywords, tier) {
+      const id = this.characterId;
 
-      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.costs.archetype, tier: item.tier } });
-      this.setCharacterFaction({ id: this.characterId, faction: { key: item.factionKey, label: item.faction } });
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: 'archetype' });
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source: 'archetype', cascade: true });
+
+      const advancedArchetype = {
+        // source:
+        key: `advanced`,
+        name: 'names',
+        cost: 0,
+        costs: {
+          total: 0,
+          archetype: 0,
+          stats: 0,
+          species: 0,
+          other: 0,
+        },
+        keywords: keywords.join(','),
+        tier,
+        faction: faction,
+        factionKey: faction,
+        species: ['Human'],
+        speciesKey: ['core-human'],
+        wargear: [],
+        prerequisites: [],
+        archetypeFeatures: [],
+        influence: 0,
+      };
+
+      this.setCharacterArchetype({ id, archetype: { key: 'advanced', value: name, cost: 0, tier, keywords, } });
+      this.setCharacterFaction({ id, faction: { key: faction.toLowerCase(), label: faction } });
+
+      keywords.forEach((k) => {
+        const keyword = {
+          name: k,
+          source: 'archetype',
+          type: (k.includes('[')) ? 'placeholder' : 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id, keyword });
+      });
+
+      this.advancedKeywordsDialog = false;
+      this.$router.push({ name: 'forge-characters-id-builder-archetype-manage', params: { id } });
+    },
+    selectArchetypeForChar(item) {
+      const id = this.characterId;
+
+      this.setCharacterArchetype({ id, archetype: { key: item.key, value: item.name, cost: item.costs.archetype, tier: item.tier } });
+      this.setCharacterFaction({ id, faction: { key: item.factionKey, label: item.faction } });
 
       // TODO ensure species
 

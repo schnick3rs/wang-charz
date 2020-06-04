@@ -195,6 +195,12 @@ const wargearz = function(wargearString) {
 }
 
 const core = [
+  // Unaligned Human
+  {
+    ...archetype('core',92,'Unaligned','Unaligned Human',1,'Human'),
+    ...cost(0, 0, 0, 0, 0),
+    keywords: '[Any],[Any]',
+  },
   // Adeptus Ministorum
   {
     ...archetype('core',92,'Adeptus Ministorum','Ministorum Priest',1,'Human'),
@@ -626,6 +632,24 @@ const core = [
     influence: 4,
   },
   // Adeptus Astartes
+  {
+    ...archetype('core',0,'Unaligned','Loyal Astartes (Advanced)',1,'Adeptus Astartes'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'The unrecogniced Blade',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+  },
+  {
+    ...archetype('core',0,'Unaligned','Renegate Astartes (Advanced)',1,'Adeptus Astartes'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'The fallen apple',
+    keywords: 'Chaos,Adeptus Astartes,[Chapter]',
+  },
+  {
+    ...archetype('core',0,'Adeptus Astartes','Adeptus Astartes (Advanced)',1,'Adeptus Astartes'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'The fallen apple',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+  },
   {
     ...archetype('core',106,'Adeptus Astartes','Space Marine Scout',2,'Adeptus Astartes'),
     ...cost(180,20,160, 0, 0),
@@ -1169,6 +1193,12 @@ const core = [
     influence: 2,
   },
   {
+    ...archetype('core',0,'Chaos','Heretic Astartes (Advanced)',2,'Adeptus Astartes'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'The fallen apple',
+    keywords: 'Chaos,Adeptus Astartes,[Legion],Heretic Astartes',
+  },
+  {
     ...archetype('core',113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
     ...cost(210,50,160, 0, 0),
     hint: 'A dark warrior, veteran of a thousand years.',
@@ -1201,6 +1231,36 @@ const core = [
     influence: 2,
   },
   // Aeldari
+  {
+    ...archetype('core',0,'Unaligned Aeldari','Unaligned Aeldari Corsair',1,'Aeldari'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'A free pirate',
+    keywords: 'Aeldari,Anhrathe,[Corerie]',
+  },
+  {
+    ...archetype('core',0,'Unaligned Aeldari','Unaligned Craftsworld Aeldari',1,'Aeldari'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'Homeless Wanderer',
+    keywords: 'Aeldari,Asuryani,[Craftworld]',
+  },
+  {
+    ...archetype('aaoa',0,'Unaligned Drukhari','Unaligned Cabalit',1,'aaoa/Drukhari'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'An unbound scoundrel',
+    keywords: 'Aeldari,Drukhari,[Cabal]',
+  },
+  {
+    ...archetype('aaoa',0,'Unaligned Drukhari','Unaligned Wych Cultist',1,'aaoa/Drukhari'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'An thirsty scoundrel',
+    keywords: 'Aeldari,Drukhari,[Cult]',
+  },
+  {
+    ...archetype('aaoa', 0, 'Unaligned Drukhari', 'Unaligned Covener', 1, 'aaoa/Drukhari'),
+    ...cost(0, 0, 0, 0, 0),
+    hint: 'An unbound scoundrel',
+    keywords: 'Aeldari,Drukhari,[Covan],',
+  },
   {
     ...archetype('core',97,'Aeldari','Corsair',1,'Aeldari'),
     ...cost(16,0,16, 0, 0),
@@ -3270,7 +3330,7 @@ const aaoaRep = [
         snippet: 'As long as you are not immobilised or Restrained, you may use Agility instead of Toughness when you roll Determination, and you may roll Determination against Mortal Wounds. In addition, enemies attempting to Fall Back must pass an Agility test (DN 2+ Double Rank); failure means that they cannot Fall Back this turn.',
       },
     ],
-    wargear: wargearz('Wychsuit, Hekatarii blade, splinter pistol, 3 plasma grenade, three doses of Hekatarii combat drugs'),
+    wargear: wargearz('Wychsuit, Hekatarii blade, splinter pistol, 3 plasma grenade, 3 Hekatarii Combat Drugs'),
   },
   simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
   simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),

@@ -76,6 +76,7 @@ const core = [
       'Recall a wise stricture your Drill Abess laid down and its application to the current situation.',
       'Purge a heretical item (or individual) with holy flame.',
     ],
+    advancedCreationKeywords: ['Imperium','Adeptus Ministorum','Adepta Sororitas'],
   },
   {
     name: 'Adeptus Astra Telephatica',
@@ -102,6 +103,8 @@ const core = [
       'Dismiss the potential extent of psychic powers as being rumour or propaganda.',
       'Appraise another individual for psychic potential.',
     ],
+    advancedCreationKeywords: ['Imperium','Adeptus Astra Telepathica'],
+    // Scholastica Psycana
   },
   {
     name: 'Adeptus Mechanicus',
@@ -128,6 +131,8 @@ const core = [
       'Give praise to the Omnissiah for some small miracle.',
       'Extoll the virtues of augmetics over the weakness of the flesh.',
     ],
+    advancedCreationKeywords: ['Imperium','Adeptus Mechanicus'],
+    // Cult Mechanicus, [Forge World]
   },
   {
     name: 'Adeptus Ministorum',
@@ -151,6 +156,7 @@ const core = [
       'Chastise an individual for their lack of faith.',
       'Convert a non-believer to the truth of the Imperial Cult',
     ],
+    advancedCreationKeywords: ['Imperium','Adeptus Ministorum'],
   },
   {
     name: 'Astra Militarum',
@@ -177,6 +183,8 @@ const core = [
       'Cite the logistical use of hatred for the enemy.',
       'Obey an order without question or doubt.',
     ],
+    advancedCreationKeywords: ['Imperium','Astra Militarum'],
+    // [Regiment]
   },
   {
     name: 'The Inquisition',
@@ -200,6 +208,8 @@ const core = [
       'Cleanse the filth of the enemy with holy flame.',
       'Establish your authority using a symbol of office.',
     ],
+    advancedCreationKeywords: ['Imperium','Inquisition'],
+    // [Ordo]
   },
   {
     name: 'Rogue Trader Dynasties',
@@ -223,6 +233,8 @@ const core = [
       'Recant an experience you had with a xenos species that applies to the current situation.',
       'Use your Warrant of Trade to get your way or refuse a request.',
     ],
+    advancedCreationKeywords: ['Imperium','Rogue Trader'],
+    // [Dynasty]
   },
   {
     name: 'Scum',
@@ -246,6 +258,8 @@ const core = [
       'Explain how a common object has an alternative use — probably as a weapon.',
       'Decry the violence and villainy of authority.',
     ],
+    advancedCreationKeywords: ['Scum'],
+    // Imperium, [Any]
   },
   {
     name: 'Adeptus Astartes',
@@ -269,6 +283,8 @@ const core = [
       'Practice one of the traditions or rituals of your Chapter.',
       'Ruminate on the divide between Astartes and mortals.',
     ],
+    advancedCreationKeywords: ['Imperium','Adeptus Astartes'],
+    // [Chapter]
   },
   {
     name: 'Aeldari',
@@ -295,6 +311,8 @@ const core = [
       'Employ knowledge you learned from an earlier Path of your life to the current circumstances.',
       'Apply your superior intellect and sensitivity to prophecy to carry out a perfect plan.',
     ],
+    advancedCreationKeywords: ['Aeldari'],
+    // Anhrathe and [Coterie], Asuryani and [Craftworld]
   },
   {
     name: 'Orks',
@@ -327,6 +345,7 @@ const core = [
       'Solve a problem with the sage knowledge that bigger is better.',
       'Apply the kunnin’ of Mork to a situation.',
     ],
+    advancedCreationKeywords: ['Ork', '[Clan]'],
   },
   {
     name: 'Chaos',
@@ -350,6 +369,8 @@ const core = [
       'Create confusion, incite bloodshed, pursue decadence, or spread disease.',
       'Claim an act or event is evidence of the favour (or contempt) of the Ruinous Powers',
     ],
+    advancedCreationKeywords: ['Chaos'],
+    // [Mark of Chaos]
   },
 ];
 
