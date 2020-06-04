@@ -21,7 +21,7 @@
         <v-card-text class="pt-4">
 
           <div>
-            <no-ssr>
+            <client-only>
               <croppa
                 v-model="myCroppa"
                 :file-size-limit="31457280"
@@ -29,7 +29,7 @@
                 :height="300"
                 :prevent-white-space="myCroppaConfig.preventWhiteSpace"
               ></croppa>
-            </no-ssr>
+            </client-only>
           </div>
           <span class="caption">Drag and zoom (by scrolling) until it fits.</span>
 
