@@ -115,8 +115,6 @@
       </v-alert>
     </v-col>
 
-    <v-btn @click="advancedKeywordsDialog = true">Use Advenced Character Creation</v-btn>
-
     <v-col :cols="12">
       <v-text-field
         v-model="searchQuery"
@@ -129,6 +127,26 @@
 
     <v-col :cols="12">
       <v-card>
+        <div>
+          <v-divider />
+          <v-list subheader>
+            <v-subheader>Advanced Character Creation</v-subheader>
+            <v-list-item
+              two-line
+              @click.stop="advancedKeywordsDialog = true"
+            >
+              <v-list-item-avatar tile>
+                <img :src="getAvatar()">
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Unaligned Rascal
+                </v-list-item-title>
+                <v-list-item-subtitle>Select a faction, keywords and tier...</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </div>
         <div
           v-for="(group, key) in archetypeFaction"
           :key="key"
@@ -321,6 +339,7 @@ export default {
       }
     },
     getAvatar(key) {
+      if (key === undefined || key === 'advanced' ) return '/img/avatar_placeholder.png';
       return `/img/avatars/archetype/${key}.png`;
     },
     archetypesByFaction(groupName) {

@@ -57,6 +57,8 @@
           <td :colspan="headers.length">
             <div class="pa-2 pt-4 pb-4">
               <span>{{ item.hint }}</span>
+              <p v-if="item.snippet">{{ item.snippet }}</p>
+              <div v-else-if="item.description" v-html="item.description"></div>
 
               <dod-simple-weapon-stats
                 v-if="item.meta !== undefined && item.meta.length > 0 && ['ranged-weapon','melee-weapon'].includes(item.meta[0].type)"
