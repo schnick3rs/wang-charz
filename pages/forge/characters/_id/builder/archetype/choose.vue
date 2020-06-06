@@ -35,20 +35,25 @@
           <p class="pb-4">Select</p>
 
           <v-select
+            dense outlined
             label="Select the tier, defining your acess to wargear"
-            :items="[1,2,3,4]"
-            dense
-            outlined
+            v-model="advancedTier"
+            :items="advancedTierOptions"
           />
 
           <v-select
             dense outlined
+            label="Select a faction or stay unaligned"
             v-model="advancedFaction"
             :items="archetypeFaction"
           ></v-select>
 
           <v-autocomplete
             outlined
+            label="Select fitting keywords"
+            persistent-hint
+            class="mb-4"
+            hint="Work with your GM/Group to define keywords"
             v-model="advancedKeywords"
             :items="keywordCombinedRepository.filter((k) => !k.name.startsWith('['))"
             item-text="name"
@@ -77,7 +82,7 @@
 
           <v-text-field
             dense outlined
-            placeholder="lowlife"
+            placeholder="Unaligned Raskal"
             v-model="advancedName"
             label="A short name, describing this 'Archetype'"
           >
@@ -220,6 +225,13 @@ export default {
       advancedFaction: undefined,
       advancedKeywords: [],
       advancedTier: 1,
+      advancedTierOptions: [
+        { text: '1 - One among billions', value: 1, naming: 'Unknown' },
+        { text: '2 - Stalwart Defenders', value: 2, naming: 'Tested' },
+        { text: '3 - Elite Guardians', value: 3, naming: 'Veteran' },
+        { text: '4 - Heroic Operatives', value: 4, naming: 'Heroic' },
+        // { text: '5 - Agents of Fate', value: 5 },
+      ],
     };
   },
   computed: {

@@ -43,6 +43,10 @@
           <span class="grey--text caption">{{ wargearSubtitle(item) }}</span>
         </template>
 
+        <template v-slot:item.value="{ item }">
+          {{ item.value }} {{ item.rarity }}
+        </template>
+
         <template v-slot:item.action-add="{ item }">
           <v-btn color="success" x-small @click="$emit('select', item)">
             add
@@ -104,12 +108,9 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        {
-          text: 'Name', align: 'left', value: 'name', class: '',
-        },
-        {
-          text: '', align: 'right', value: 'action-add', class: '',
-        },
+        { text: 'Name', align: 'left', value: 'name', class: '' },
+        { text: 'Value', align: 'left', value: 'value', class: '' },
+        { text: '', align: 'right', value: 'action-add', class: '' },
       ],
     };
   },

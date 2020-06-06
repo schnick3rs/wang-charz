@@ -11,7 +11,7 @@
       >
         <v-card-text class="pa-1">
           <v-icon>{{ manageWargear ? 'expand_less' : 'expand_more' }}</v-icon>
-          Manage Wargear
+          Manage Wargear ({{characterWargear.length}})
         </v-card-text>
       </v-card>
 
@@ -59,6 +59,71 @@
           Add Starting Wargear
         </v-card-text>
       </v-card>
+
+      <div v-if="advancedShoppingChart && advancedWargearRestrictions">
+        <p><em>Spend {{advancedWargearSpend}} / {{advancedWargearRestrictions.total}} points.</em></p>
+        <v-alert
+          v-show="(advancedWargearViolations || {}).length > 0"
+          type="warning"
+          class="caption"
+          text dense outlined
+        >
+          <ul>
+            <li v-for="item in advancedWargearViolations">{{item}}</li>
+          </ul>
+        </v-alert>
+
+        <v-list
+          v-if="startingWargearExpand && advancedShoppingChart"
+          two-line
+          avatar
+          dense
+        >
+          <v-list-item
+            three-line
+            v-for="(gear, index) in advancedShoppingChart"
+          >
+            <v-list-item-avatar tile>
+              <img>
+            </v-list-item-avatar>
+
+            <v-list-item-content>
+              <v-list-item-title>{{ gear.name }}</v-list-item-title>
+              <v-list-item-subtitle>{{ wargearSubtitle(gear) }}</v-list-item-subtitle>
+              <v-list-item-subtitle>{{ gear.value }} {{ gear.rarity }}</v-list-item-subtitle>
+            </v-list-item-content>
+
+            <v-list-item-action>
+              <v-btn
+                outlined x-small
+                color="error"
+                @click="removeFromBasket(index)"
+              >
+                <v-icon left>
+                  delete
+                </v-icon>Remove
+              </v-btn>
+            </v-list-item-action>
+          </v-list-item>
+        </v-list>
+
+        <div align="center">
+          <v-btn
+            small dense dark
+            color="green"
+            @click="addWargearToCharacter(advancedShoppingChart)"
+          >
+            Add starting wargear
+          </v-btn>
+        </div>
+
+        <wargear-search
+          v-if="startingWargearExpand && wargearList"
+          :repository="wargearList"
+          @select="addToBasket"
+        />
+
+      </div>
 
       <div v-if="startingWargearExpand && !loading">
         <div v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0" align="center">
@@ -120,6 +185,7 @@
       </div>
     </v-col>
 
+    <!-- add additional Wargear -->
     <v-col :cols="12">
       <v-card
         class="mb-4"
@@ -146,6 +212,7 @@
 <script lang="js">
 import WargearSearch from '~/components/forge/WargearSearch.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
+import CharacterCreationMixin from '~/mixins/CharacterCreationMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
@@ -156,6 +223,7 @@ export default {
     WargearSearch,
   },
   mixins: [
+    CharacterCreationMixin,
     SluggerMixin,
   ],
   props: [],
@@ -177,9 +245,58 @@ export default {
       loading: false,
       archetype: undefined,
       wargearList: undefined,
+      advancedShoppingChart: [],
     };
   },
   computed: {
+    // total: 20, max: 9, maxRarity: 'Rare', maxRarityItems: 2,
+    advancedWargearRestrictions() {
+      return this.getAdvancedWargearOptionByTier(this.characterArchetypeTier);
+    },
+    advancedWargearSpend() {
+      let spend = 0;
+      this.advancedShoppingChart.forEach((gear) => {
+        spend += parseInt(gear.value);
+      });
+      return spend;
+    },
+    advancedWargearByRarity() {
+      const rarityCount = {
+        uncommon: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Uncommon').length,
+        common: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Common').length,
+        rare: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Rare').length,
+        veryRare: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Very Rare').length,
+        unique: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Unique').length,
+      };
+      return rarityCount;
+    },
+    advancedWargearViolations() {
+      const alerts = [];
+      const restrictions = this.advancedWargearRestrictions;
+      if (restrictions) {
+        // max total spend
+        if ( this.advancedWargearSpend > restrictions.total ) {
+          alerts.push(`You spend more than your allowed ${restrictions.total} points`);
+        }
+        // max per item spend
+        const violating = this.advancedShoppingChart.filter((gear) => gear.value > restrictions.max);
+        if ( violating.length > 0 ) {
+          alerts.push(`${violating.length} items cost more than ${restrictions.max}`);
+        }
+        // within rarity of items
+        if ( restrictions.rarity && restrictions.rarity.rare > restrictions.rarity.rare ) {
+          alerts.push(`You selected ${this.advancedWargearByRarity.rare} Rare items, but are only allowed ${restrictions.rarity.rare}`);
+        }
+        if ( restrictions.rarity && this.advancedWargearByRarity.veryRare > restrictions.rarity.veryRare ) {
+          alerts.push(`You selected ${this.advancedWargearByRarity.veryRare} Very Rare items, but are only allowed ${restrictions.rarity.veryRare}`);
+        }
+        if ( restrictions.rarity && this.advancedWargearByRarity.unique > restrictions.rarity.unique ) {
+          alerts.push(`You selected ${this.advancedWargearByRarity.unique} Unique items, but are only allowed ${restrictions.rarity.unique}`);
+        }
+        //this.advancedShoppingChart.
+      }
+      return alerts;
+    },
     sources() {
       return [
         'core',
@@ -197,6 +314,9 @@ export default {
     },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+    characterArchetypeTier() {
+      return this.$store.getters['characters/characterArchetypeTierById'](this.characterId);
     },
     characterWargearRaw() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
@@ -286,6 +406,13 @@ export default {
     },
     getAvatar(name) {
       return `/img/icon/wargear/wargear_${this.textToKebab(name)}_avatar.png`;
+    },
+    addToBasket(gear) {
+      this.advancedShoppingChart.push(gear);
+    },
+    removeFromBasket(index) {
+      console.info(index)
+      this.advancedShoppingChart.splice(index, 1);
     },
     addWargearToCharacter(wargearOptions) {
       const finalWargear = [];

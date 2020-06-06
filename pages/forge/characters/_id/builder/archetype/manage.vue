@@ -203,6 +203,7 @@
 
 <script>
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
+import CharacterCreationMixin from '~/mixins/CharacterCreationMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
@@ -211,6 +212,7 @@ export default {
   name: 'archetype-manage',
   components: { ArchetypePreview },
   mixins: [
+    CharacterCreationMixin,
     SluggerMixin,
     KeywordRepository,
     StatRepository,
@@ -394,8 +396,7 @@ export default {
         factionKey: this.characterFactionKey,
         species: [this.characterSpeciesLabel],
         speciesKey: [this.characterSpeciesKey],
-        wargearString: '',
-        wargear: [],
+        wargearString: this.advancedWargearOptions.find((a) => a.tier === this.characterArchetypeTier).wargearString,
         prerequisites: [],
         archetypeFeatures: [],
         influence: 0,
