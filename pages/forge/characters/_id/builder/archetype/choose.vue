@@ -24,7 +24,7 @@
     >
       <v-card class="pa-0">
         <v-card-title style="background-color: #262e37; color: #fff;">
-          <span>Confirm Archetype</span>
+          <span>Build Advanced Character</span>
           <v-spacer />
           <v-icon dark @click="advancedKeywordsDialog = false">
             close
@@ -32,7 +32,7 @@
         </v-card-title>
         <v-card-text class="pt-8">
 
-          <p class="pb-4">Select</p>
+          <v-alert color="info" dense text border="left" class="pb-4">Advanced Character Creation is described on CORE pg. 38 and allows for more influence on Keywords and Wargear at the cost of a dedicated archetype ability.</v-alert>
 
           <v-select
             dense outlined
@@ -82,7 +82,7 @@
 
           <v-text-field
             dense outlined
-            placeholder="Unaligned Raskal"
+            placeholder="Unaligned Rascal"
             v-model="advancedName"
             label="A short name, describing this 'Archetype'"
           >
@@ -95,7 +95,7 @@
           </v-btn>
           <v-spacer />
           <v-btn right color="success" @click="createAdvancedArchetype(advancedName, advancedFaction, advancedKeywords, advancedTier)">
-            Select Archetype
+            Confirm choices
           </v-btn>
         </v-card-actions>
       </v-card>
@@ -237,6 +237,7 @@ export default {
       previewItem: undefined,
       searchQuery: '',
       characterSpecies: undefined,
+      characterFactions: undefined,
       // advanced character creation
       advancedName: 'Unaligned Scoundrel',
       advancedKeywordsDialog: false,
@@ -291,7 +292,7 @@ export default {
           archetypes = archetypes.filter((a) => a.tier <= this.characterSettingTier);
         }
 
-        return [...new Set(archetypes.map((item) => item.faction))];
+        return [ 'Unaligned', ...new Set(archetypes.map((item) => item.faction))];
       }
 
       return [];
@@ -316,6 +317,7 @@ export default {
       handler(newVal) {
         if (newVal) {
           this.getArchetypeList(newVal);
+          this.loadFactions(newVal);
         }
       },
       immediate: true, // make this watch function is called when component created
@@ -337,6 +339,15 @@ export default {
         const { data } = await this.$axios.get(`/api/species/${key}`);
         this.characterSpecies = data;
       }
+    },
+    async loadFactions(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get(`/api/factions/`, config);
+      this.characterFactions = data;
     },
     getAvatar(key) {
       if (key === undefined || key === 'advanced' ) return '/img/avatar_placeholder.png';
@@ -380,38 +391,20 @@ export default {
       this.previewItem = item;
       this.previewDialog = true;
     },
-    createAdvancedArchetype(name, faction, keywords, tier) {
+    createAdvancedArchetype(name, factionName, keywords, tier) {
       const id = this.characterId;
 
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: 'archetype' });
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source: 'archetype', cascade: true });
 
-      const advancedArchetype = {
-        // source:
-        key: `advanced`,
-        name: 'names',
-        cost: 0,
-        costs: {
-          total: 0,
-          archetype: 0,
-          stats: 0,
-          species: 0,
-          other: 0,
-        },
-        keywords: keywords.join(','),
-        tier,
-        faction: faction,
-        factionKey: faction,
-        species: ['Human'],
-        speciesKey: ['core-human'],
-        wargear: [],
-        prerequisites: [],
-        archetypeFeatures: [],
-        influence: 0,
-      };
+      let faction = { key: 'core-unaligned', name: factionName };
+      const factionData = this.characterFactions.find((f) =>  f.name === factionName);
+      if (factionData) {
+        faction = factionData;
+      }
 
       this.setCharacterArchetype({ id, archetype: { key: 'advanced', value: name, cost: 0, tier, keywords, } });
-      this.setCharacterFaction({ id, faction: { key: faction.toLowerCase(), label: faction } });
+      this.setCharacterFaction({ id, faction: { key: faction.key, label: faction.name } });
 
       keywords.forEach((k) => {
         const keyword = {

@@ -195,12 +195,6 @@ const wargearz = function(wargearString) {
 }
 
 const core = [
-  // Unaligned Human
-  {
-    ...archetype('core',92,'Unaligned','Unaligned Human',1,'Human'),
-    ...cost(0, 0, 0, 0, 0),
-    keywords: '[Any],[Any]',
-  },
   // Adeptus Ministorum
   {
     ...archetype('core',92,'Adeptus Ministorum','Ministorum Priest',1,'Human'),
@@ -630,19 +624,6 @@ const core = [
       { name: 'Symbol of Authority' },
     ],
     influence: 4,
-  },
-  // Adeptus Astartes
-  {
-    ...archetype('core',0,'Unaligned','Loyal Astartes (Advanced)',1,'Adeptus Astartes'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'The unrecogniced Blade',
-    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
-  },
-  {
-    ...archetype('core',0,'Unaligned','Renegate Astartes (Advanced)',1,'Adeptus Astartes'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'The fallen apple',
-    keywords: 'Chaos,Adeptus Astartes,[Chapter]',
   },
   {
     ...archetype('core',0,'Adeptus Astartes','Adeptus Astartes (Advanced)',1,'Adeptus Astartes'),
@@ -1231,36 +1212,6 @@ const core = [
     influence: 2,
   },
   // Aeldari
-  {
-    ...archetype('core',0,'Unaligned Aeldari','Unaligned Aeldari Corsair',1,'Aeldari'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'A free pirate',
-    keywords: 'Aeldari,Anhrathe,[Corerie]',
-  },
-  {
-    ...archetype('core',0,'Unaligned Aeldari','Unaligned Craftsworld Aeldari',1,'Aeldari'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'Homeless Wanderer',
-    keywords: 'Aeldari,Asuryani,[Craftworld]',
-  },
-  {
-    ...archetype('aaoa',0,'Unaligned Drukhari','Unaligned Cabalit',1,'aaoa/Drukhari'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'An unbound scoundrel',
-    keywords: 'Aeldari,Drukhari,[Cabal]',
-  },
-  {
-    ...archetype('aaoa',0,'Unaligned Drukhari','Unaligned Wych Cultist',1,'aaoa/Drukhari'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'An thirsty scoundrel',
-    keywords: 'Aeldari,Drukhari,[Cult]',
-  },
-  {
-    ...archetype('aaoa', 0, 'Unaligned Drukhari', 'Unaligned Covener', 1, 'aaoa/Drukhari'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'An unbound scoundrel',
-    keywords: 'Aeldari,Drukhari,[Covan],',
-  },
   {
     ...archetype('core',97,'Aeldari','Corsair',1,'Aeldari'),
     ...cost(16,0,16, 0, 0),

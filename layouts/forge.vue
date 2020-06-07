@@ -238,7 +238,7 @@
         </v-btn>
       </div>
       <v-spacer />
-      <span>&copy; {{ new Date().getFullYear() }}</span><span class="d-none d-md-block"> Doctors of Doom</span>
+      <span>&copy; {{ new Date().getFullYear() }}</span><span class="d-none d-md-block">&nbsp;Doctors of Doom</span>
     </v-footer>
 
   </v-app>
