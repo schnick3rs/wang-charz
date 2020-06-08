@@ -994,8 +994,13 @@ export default {
         return customAvatarUrl;
       }
 
-      if (this.archetypeKey !== undefined && !['Ratling', 'Ogryn'].includes(this.speciesLabel)) {
-        return `/img/avatars/archetype/${this.archetypeKey}.png`;
+      if (this.archetypeKey !== undefined) {
+        if (this.archetypeKey === 'advanced') {
+          return '/img/avatar_placeholder.png';
+        }
+        if (!['core-ratling', 'core-ogryn'].includes(this.speciesKey)) {
+          return `/img/avatars/archetype/${this.archetypeKey}.png`;
+        }
       }
 
       if (this.speciesKey !== undefined) {
