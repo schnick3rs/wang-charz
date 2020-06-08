@@ -396,7 +396,7 @@ export default {
         factionKey: this.characterFactionKey,
         species: [this.characterSpeciesLabel],
         speciesKey: [this.characterSpeciesKey],
-        wargearString: this.advancedWargearOptions.find((a) => a.tier === this.characterArchetypeTier).wargearString,
+        wargearString: this.getAdvancedWargearOptionByTier(this.characterArchetypeTier).wargearString,
         prerequisites: [],
         archetypeFeatures: [],
         influence: 0,

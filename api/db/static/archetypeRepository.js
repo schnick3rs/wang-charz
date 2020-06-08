@@ -626,12 +626,6 @@ const core = [
     influence: 4,
   },
   {
-    ...archetype('core',0,'Adeptus Astartes','Adeptus Astartes (Advanced)',1,'Adeptus Astartes'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'The fallen apple',
-    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
-  },
-  {
     ...archetype('core',106,'Adeptus Astartes','Space Marine Scout',2,'Adeptus Astartes'),
     ...cost(180,20,160, 0, 0),
     hint: 'A stealthy warrior adept at reconnaissance.',
@@ -1172,12 +1166,6 @@ const core = [
       { name: 'Symbol of Authority', variant: 'Omnissian Sigil' },
     ],
     influence: 2,
-  },
-  {
-    ...archetype('core',0,'Chaos','Heretic Astartes (Advanced)',2,'Adeptus Astartes'),
-    ...cost(0, 0, 0, 0, 0),
-    hint: 'The fallen apple',
-    keywords: 'Chaos,Adeptus Astartes,[Legion],Heretic Astartes',
   },
   {
     ...archetype('core',113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
