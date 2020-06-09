@@ -802,6 +802,10 @@ const core = [
     ...armour('Imperial Armour',3),
   },
   {
+    ...gear('core',232,'Flak Coat','4U','Flak,Imperium,Astra Militarum'),
+    ...armour('Imperial Armour',3),
+  },
+  {
     ...gear('core',232,'Skitarri Auto-Cuirass','5R','Heavy,Imperium,Adeptus Mechanicus,Skitarii'),
     ...armour('Imperial Armour',4),
   },
