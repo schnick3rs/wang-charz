@@ -36,7 +36,7 @@
       <v-btn nuxt to="/about">
         About
       </v-btn>
-      <div>&copy; {{ new Date().getFullYear() }} Doctors of Doom</div>
+      <div>&copy; {{ new Date().getFullYear() }}&nbsp;Doctors of Doom</div>
     </v-footer>
   </v-app>
 </template>

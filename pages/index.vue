@@ -93,7 +93,7 @@ export default {
           subtitle: 'A Character Builder for Wrath & Glory',
           // imageSrc: '/img/artwork_mechanicus_aertist-alexboca_mozjpeg.jpg',
           // imageCredit: 'Artwork by AlexBoca (DevianArt)',
-          imageSrc: '/img/artwork_abstract.jpg',
+          imageSrc: '/img/artwork_forge_tile.jpg',
           imageCredit: 'Artwork by prettysleepy1 (Pixabay)',
           htmlText:
             'Define the setting and tier of your campaign and <strong>start building a Wrath & '

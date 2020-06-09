@@ -43,6 +43,10 @@
           <span class="grey--text caption">{{ wargearSubtitle(item) }}</span>
         </template>
 
+        <template v-slot:item.value="{ item }">
+          {{ item.value }} {{ item.rarity }}
+        </template>
+
         <template v-slot:item.action-add="{ item }">
           <v-btn color="success" x-small @click="$emit('select', item)">
             add
@@ -53,6 +57,8 @@
           <td :colspan="headers.length">
             <div class="pa-2 pt-4 pb-4">
               <span>{{ item.hint }}</span>
+              <p v-if="item.snippet">{{ item.snippet }}</p>
+              <div v-else-if="item.description" v-html="item.description"></div>
 
               <dod-simple-weapon-stats
                 v-if="item.meta !== undefined && item.meta.length > 0 && ['ranged-weapon','melee-weapon'].includes(item.meta[0].type)"
@@ -104,12 +110,9 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
-        {
-          text: 'Name', align: 'left', value: 'name', class: '',
-        },
-        {
-          text: '', align: 'right', value: 'action-add', class: '',
-        },
+        { text: 'Name', align: 'left', value: 'name', class: '' },
+        { text: 'Value', align: 'left', value: 'value', class: '' },
+        { text: '', align: 'right', value: 'action-add', class: '' },
       ],
     };
   },

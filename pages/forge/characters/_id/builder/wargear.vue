@@ -1,5 +1,7 @@
 <template lang="html" xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-row justify="center">
+
+    <!-- manage current inventory -->
     <v-col :cols="12">
       <v-card
         class="mb-4"
@@ -11,7 +13,7 @@
       >
         <v-card-text class="pa-1">
           <v-icon>{{ manageWargear ? 'expand_less' : 'expand_more' }}</v-icon>
-          Manage Wargear
+          Manage Wargear ({{characterWargear.length}})
         </v-card-text>
       </v-card>
 
@@ -45,6 +47,7 @@
       </v-list>
     </v-col>
 
+    <!-- starting gear -->
     <v-col :cols="12">
       <v-card
         class="mb-4"
@@ -61,65 +64,172 @@
       </v-card>
 
       <div v-if="startingWargearExpand && !loading">
-        <div v-if="startingWargear && characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0" align="center">
-          <v-card
-            v-for="gear in startingWargear"
-            :key="gear.key"
-            outlined
-            dense
-            class="mb-2"
-          >
-            <v-card-title class="pa-2">
-              <span class="subtitle-1 mb-0">{{ gear.name }}</span>
-            </v-card-title>
 
-            <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].filter" >
-              <wargear-select
-                :item="gear.selected"
-                :repository="computeWargearOptionsByFilter(gear.options[0])"
-                class="mb-4"
-                @input="gear.selected = $event.name"
-              />
-            </v-card-text>
+        <!-- show ADVANCED creation options -->
+        <div v-if="showAdvancedStartingWargearSection && advancedWargearRestrictions">
 
-            <v-card-text v-else-if="gear.options">
-              <v-radio-group
-                v-model="gear.selected"
-                class="mt-0"
+          <div v-if="characterWargear.filter(g => g.source.startsWith('archetype.advanced')).length <= 0">
+
+            <v-alert
+              color="warning"
+              border="left"
+              dense text
+              v-if="advancedShoppingChart.length <= 0"
+            >
+              {{getAdvancedWargearOptionByTier(this.characterArchetypeTier).wargearString}}
+            </v-alert>
+
+            <v-alert
+              color="success"
+              border="left"
+              dense text
+              v-if="advancedShoppingChart.length > 0 && advancedWargearViolations.length <= 0"
+            >
+              You spend {{advancedWargearSpend}} / {{advancedWargearRestrictions.total}} points.
+            </v-alert>
+
+            <v-alert
+              v-show="advancedWargearViolations.length > 0"
+              color="error"
+              class="caption"
+              border="left"
+              text dense
+            >
+              <ul>
+                <li v-for="item in advancedWargearViolations">{{item}}</li>
+              </ul>
+            </v-alert>
+
+            <div v-if="advancedShoppingChart.length > 0">
+
+              <v-list
+                v-if="advancedShoppingChart"
+                two-line
+                avatar
+                dense
               >
-                <v-radio
-                  v-for="option in gear.options"
-                  :key="option.key"
-                  :label="option.name"
-                  :value="option.name"
+                <v-list-item
+                  three-line
+                  v-for="(gear, index) in advancedShoppingChart"
+                >
+                  <v-list-item-avatar tile>
+                    <img>
+                  </v-list-item-avatar>
+
+                  <v-list-item-content>
+                    <v-list-item-title>{{ gear.name }}</v-list-item-title>
+                    <v-list-item-subtitle>{{ wargearSubtitle(gear) }}</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{ gear.value }} {{ gear.rarity }}</v-list-item-subtitle>
+                  </v-list-item-content>
+
+                  <v-list-item-action>
+                    <v-btn
+                      outlined x-small
+                      color="error"
+                      @click="removeFromBasket(index)"
+                    >
+                      <v-icon left>
+                        delete
+                      </v-icon>Remove
+                    </v-btn>
+                  </v-list-item-action>
+                </v-list-item>
+              </v-list>
+
+              <div align="center">
+                <v-btn
+                  small dense dark
+                  color="green"
+                  @click="addWargearToCharacter(advancedShoppingChart, 'archetype.advanced')"
+                >
+                  Add starting wargear
+                </v-btn>
+              </div>
+            </div>
+
+            <wargear-search
+              v-if="startingWargearExpand && wargearList"
+              :repository="wargearList"
+              @select="addToBasket"
+            />
+          </div>
+
+          <div v-else>
+            <v-card>
+              <v-card-text>
+                <v-icon>help</v-icon>
+                Starting Wargear has been added, remove all starting wargear from your inventory to re-select the starting wargear
+              </v-card-text>
+            </v-card>
+          </div>
+
+        </div>
+
+        <!-- show ARCHETYPE wargear options -->
+        <div v-if="showArchetypeStartingWargearSection">
+          <div v-if="characterWargear.filter(g => g.source.startsWith('archetype')).length <= 0" align="center">
+            <v-card
+              v-for="gear in startingWargear"
+              :key="gear.key"
+              outlined
+              dense
+              class="mb-2"
+            >
+              <v-card-title class="pa-2">
+                <span class="subtitle-1 mb-0">{{ gear.name }}</span>
+              </v-card-title>
+
+              <v-card-text v-if="gear.options && gear.options.length == 1 && gear.options[0].filter" >
+                <wargear-select
+                  :item="gear.selected"
+                  :repository="computeWargearOptionsByFilter(gear.options[0])"
+                  class="mb-4"
+                  @input="gear.selected = $event.name"
                 />
-              </v-radio-group>
-            </v-card-text>
-          </v-card>
+              </v-card-text>
 
-          <v-btn
-            v-if="startingWargearExpand"
-            small
-            dense
-            color="green"
-            @click="addWargearToCharacter(startingWargear)"
-            dark
-          >
-            Add starting wargear
-          </v-btn>
+              <v-card-text v-else-if="gear.options">
+                <v-radio-group
+                  v-model="gear.selected"
+                  class="mt-0"
+                >
+                  <v-radio
+                    v-for="option in gear.options"
+                    :key="option.key"
+                    :label="option.name"
+                    :value="option.name"
+                  />
+                </v-radio-group>
+              </v-card-text>
+            </v-card>
+
+            <v-btn
+              v-if="startingWargearExpand"
+              small
+              dense
+              color="green"
+              @click="addWargearToCharacter(startingWargear, 'archetype')"
+              dark
+            >
+              Add starting wargear
+            </v-btn>
+          </div>
+
+          <div v-else>
+            <v-card>
+              <v-card-text>
+                <v-icon>help</v-icon>
+                Starting Wargear has been added, remove all starting wargear from your inventory to reselct the starting wargear
+              </v-card-text>
+            </v-card>
+          </div>
         </div>
 
-        <div v-else>
-          <v-card>
-            <v-card-text>
-              <v-icon>help</v-icon>
-              Starting Wargear has been added, remove all starting wargear from your inventory to reselct the starting wargear
-            </v-card-text>
-          </v-card>
-        </div>
       </div>
+
     </v-col>
 
+    <!-- add additional Wargear -->
     <v-col :cols="12">
       <v-card
         class="mb-4"
@@ -146,6 +256,7 @@
 <script lang="js">
 import WargearSearch from '~/components/forge/WargearSearch.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
+import CharacterCreationMixin from '~/mixins/CharacterCreationMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
@@ -156,6 +267,7 @@ export default {
     WargearSearch,
   },
   mixins: [
+    CharacterCreationMixin,
     SluggerMixin,
   ],
   props: [],
@@ -177,9 +289,64 @@ export default {
       loading: false,
       archetype: undefined,
       wargearList: undefined,
+      advancedShoppingChart: [],
     };
   },
   computed: {
+    showAdvancedStartingWargearSection() {
+      return this.characterArchetypeKey === 'advanced';
+    },
+    showArchetypeStartingWargearSection() {
+      return this.characterArchetypeKey !== 'advanced' && this.startingWargear && this.startingWargear.length > 0;
+    },
+    // total: 20, max: 9, maxRarity: 'Rare', maxRarityItems: 2,
+    advancedWargearRestrictions() {
+      return this.getAdvancedWargearOptionByTier(this.characterArchetypeTier);
+    },
+    advancedWargearSpend() {
+      let spend = 0;
+      this.advancedShoppingChart.forEach((gear) => {
+        spend += parseInt(gear.value);
+      });
+      return spend;
+    },
+    advancedWargearByRarity() {
+      const rarityCount = {
+        uncommon: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Uncommon').length,
+        common: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Common').length,
+        rare: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Rare').length,
+        veryRare: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Very Rare').length,
+        unique: this.advancedShoppingChart.filter((gear) => gear.rarity === 'Unique').length,
+      };
+      return rarityCount;
+    },
+    advancedWargearViolations() {
+      const alerts = [];
+      const restrictions = this.advancedWargearRestrictions;
+      if (restrictions) {
+        // max total spend
+        if ( this.advancedWargearSpend > restrictions.total ) {
+          alerts.push(`You spend ${this.advancedWargearSpend} of your allowed ${restrictions.total} points.`);
+        }
+        // max per item spend
+        const violating = this.advancedShoppingChart.filter((gear) => gear.value > restrictions.max);
+        if ( violating.length > 0 ) {
+          alerts.push(`${violating.length} item|s cost more than ${restrictions.max}`);
+        }
+        // within rarity of items
+        if ( restrictions.rarity && restrictions.rarity.rare > restrictions.rarity.rare ) {
+          alerts.push(`You selected ${this.advancedWargearByRarity.rare} Rare items, but are only allowed ${restrictions.rarity.rare}`);
+        }
+        if ( restrictions.rarity && this.advancedWargearByRarity.veryRare > restrictions.rarity.veryRare ) {
+          alerts.push(`You selected ${this.advancedWargearByRarity.veryRare} Very Rare items, but are only allowed ${restrictions.rarity.veryRare}`);
+        }
+        if ( restrictions.rarity && this.advancedWargearByRarity.unique > restrictions.rarity.unique ) {
+          alerts.push(`You selected ${this.advancedWargearByRarity.unique} Unique items, but are only allowed ${restrictions.rarity.unique}`);
+        }
+        //this.advancedShoppingChart.
+      }
+      return alerts;
+    },
     sources() {
       return [
         'core',
@@ -197,6 +364,9 @@ export default {
     },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
+    },
+    characterArchetypeTier() {
+      return this.$store.getters['characters/characterArchetypeTierById'](this.characterId);
     },
     characterWargearRaw() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
@@ -287,7 +457,14 @@ export default {
     getAvatar(name) {
       return `/img/icon/wargear/wargear_${this.textToKebab(name)}_avatar.png`;
     },
-    addWargearToCharacter(wargearOptions) {
+    addToBasket(gear) {
+      this.advancedShoppingChart.push(gear);
+    },
+    removeFromBasket(index) {
+      console.info(index)
+      this.advancedShoppingChart.splice(index, 1);
+    },
+    addWargearToCharacter(wargearOptions, source) {
       const finalWargear = [];
 
       wargearOptions.forEach((i) => {
@@ -306,8 +483,10 @@ export default {
         }
       });
       finalWargear.forEach((w) => {
-        this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: w.name, variant: w.variant, source: 'archetype' });
+        this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: w.name, variant: w.variant, source });
       });
+
+      this.advancedShoppingChart.length = 0;
     },
     add(gear) {
       this.$store.commit('characters/addCharacterWargear', { id: this.characterId, name: gear.name, source: 'custom', gear });

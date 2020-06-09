@@ -51,7 +51,7 @@
               @click:close="removeLanguage(language.name)"
             >
               <strong>{{language.name}}</strong>&nbsp;
-              <span v-if="language.cost > 0">({{ language.cost }} BP)</span>
+              <span v-if="language.cost > 0">({{ language.cost }} XP)</span>
             </v-chip>
           </v-chip-group>
         </v-card-text>
@@ -61,12 +61,12 @@
             Every character starts with <strong>Low Gothic</strong> and an additional language, common to your homeworld or origin.
           </p>
           <p>
-            You can learn additional languages for 1 BP each. Exotic languages might cost more. Check with your GM.
+            You can learn additional languages for 1 XP each. Exotic languages might cost more. Check with your GM.
           </p>
           <v-text-field
             v-model="languageInput"
             persistent-hint
-            hint="Enter a custom language and hit enter or click the [+] icon. Toggle the [$] for 0/1 BP."
+            hint="Enter a custom language and hit enter or click the [+] icon. Toggle the [$] for 0/1 XP."
             :prepend-icon="languageCostMarker ? 'attach_money' : 'money_off'"
             @click:prepend="languageCostMarker = !languageCostMarker"
             append-outer-icon="add_box"

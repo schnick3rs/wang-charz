@@ -141,7 +141,7 @@ export default {
         source: 'pax',
         // Data is Currency
         effectLabel: 'Nobilite Encoding',
-        effect: 'A number of archaic, dead tongues or dialects, now only know to the ancient Nobilite families that keep the old languages alive. A Navis Nobilite House character may choose this language as one of his initial languages, or purchase it for 1 BP at a later time.',
+        effect: 'A number of archaic, dead tongues or dialects, now only know to the ancient Nobilite families that keep the old languages alive. A Navis Nobilite House character may choose this language as one of his initial languages, or purchase it for 1 XP at a later time.',
       },
       {
         name: '[Navis House]',

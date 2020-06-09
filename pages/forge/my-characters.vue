@@ -219,7 +219,7 @@
                     </div>
 
                     <div>
-                      <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} BP</span>
+                      <span>Rank {{ characterRank(character.id) }} • {{ characterSpendBp(character.id) }} / {{ characterTotalBp(character.id) }} XP</span>
                     </div>
                   </div>
                 </v-card-text>
@@ -545,8 +545,13 @@ export default {
 
       const archetypeKey = this.characterArchetypeKey(id);
       const speciesKey = this.characterSpeciesKey(id);
-      if (archetypeKey !== undefined && !['core-ratling', 'core-ogryn'].includes(speciesKey)) {
-        return `/img/avatars/archetype/${archetypeKey}.png`;
+      if (archetypeKey !== undefined) {
+        if (archetypeKey === 'advanced') {
+          return '/img/avatar_placeholder.png';
+        }
+        if (!['core-ratling', 'core-ogryn'].includes(speciesKey)) {
+          return `/img/avatars/archetype/${archetypeKey}.png`;
+        }
       }
 
       if (speciesKey !== undefined) {

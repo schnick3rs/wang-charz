@@ -21,7 +21,7 @@
           </v-list-item-content>
 
           <v-list-item-action>
-            <span>{{ spendBuildingPoints }} / {{ totalBuildPoints }} BP</span>
+            <span>{{ spendBuildingPoints }} / {{ totalBuildPoints }} XP</span>
           </v-list-item-action>
         </v-list-item>
 
@@ -42,7 +42,7 @@
             </v-list-item-content>
 
             <v-list-item-action>
-              <span v-if="entry.text">{{ entry.cost }} BP</span>
+              <span v-if="entry.text">{{ entry.cost }} XP</span>
               <v-icon v-else>
                 info
               </v-icon>
@@ -220,7 +220,7 @@
       :color="(spendBuildingPoints > totalBuildPoints) ? 'error' : ''"
       class="caption"
     >
-      <div>{{ spendBuildingPoints }} / {{ totalBuildPoints }} BP</div>
+      <div>{{ spendBuildingPoints }} / {{ totalBuildPoints }} XP</div>
       <v-spacer />
       <div class="caption d-none d-sm-block">
         {{ finalKeywords.join(' • ') }}
@@ -238,7 +238,7 @@
         </v-btn>
       </div>
       <v-spacer />
-      <span>&copy; {{ new Date().getFullYear() }}</span><span class="d-none d-md-block"> Doctors of Doom</span>
+      <span>&copy; {{ new Date().getFullYear() }}</span><span class="d-none d-md-block">&nbsp;Doctors of Doom</span>
     </v-footer>
 
   </v-app>

@@ -625,7 +625,6 @@ const core = [
     ],
     influence: 4,
   },
-  // Adeptus Astartes
   {
     ...archetype('core',106,'Adeptus Astartes','Space Marine Scout',2,'Adeptus Astartes'),
     ...cost(180,20,160, 0, 0),
@@ -3270,7 +3269,7 @@ const aaoaRep = [
         snippet: 'As long as you are not immobilised or Restrained, you may use Agility instead of Toughness when you roll Determination, and you may roll Determination against Mortal Wounds. In addition, enemies attempting to Fall Back must pass an Agility test (DN 2+ Double Rank); failure means that they cannot Fall Back this turn.',
       },
     ],
-    wargear: wargearz('Wychsuit, Hekatarii blade, splinter pistol, 3 plasma grenade, three doses of Hekatarii combat drugs'),
+    wargear: wargearz('Wychsuit, Hekatarii blade, splinter pistol, 3 plasma grenade, 3 Hekatarii Combat Drugs'),
   },
   simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
   simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),

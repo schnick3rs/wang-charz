@@ -273,7 +273,7 @@ export default {
     characterSpeciesKey: {
       handler(newVal) {
         if (newVal && newVal !== 'unknown') {
-          this.getSpecies(newVal);
+          this.loadSpecies(newVal);
         }
       },
       immediate: true,
@@ -281,20 +281,24 @@ export default {
     characterArchetypeKey: {
       handler(newVal) {
         if (newVal && newVal !== 'unknown') {
-          this.getArchetype(newVal);
+          this.loadArchetype(newVal);
         }
       },
       immediate: true, // make this watch function is called when component created
     },
   },
   methods: {
-    async getArchetype(key) {
+    async loadArchetype(key) {
       this.loading = true;
-      const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+      if (key === 'advanced') {
+        this.archetype = { prerequisites: [] };
+      } else {
+        const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+        this.archetype = data;
+      }
       this.loading = false;
-      this.archetype = data;
     },
-    async getSpecies(key) {
+    async loadSpecies(key) {
       this.loading = true;
       const { data } = await this.$axios.get(`/api/species/${key}`);
       this.loading = false;

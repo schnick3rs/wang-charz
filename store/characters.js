@@ -165,8 +165,12 @@ export const getters = {
   characterSpeciesAstartesChapterById: (state) => (id) => (state.characters[id] ? state.characters[id].speciesAstartesChapter : getDefaultState().speciesAstartesChapter),
   characterFactionKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].faction.key : getDefaultState().faction.key),
   characterFactionLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].faction.label : 'unknown'),
+
   characterArchetypeKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.key : getDefaultState().faction.key),
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
+  characterArchetypeTierById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.tier : undefined),
+  characterArchetypeKeywordsById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.keywords : []),
+
   characterAttributesById: (state) => (id) => (state.characters[id] ? state.characters[id].attributes : {}),
   characterAttributesEnhancedById: (state) => (id) => {
     if (state.characters[id] === undefined) {

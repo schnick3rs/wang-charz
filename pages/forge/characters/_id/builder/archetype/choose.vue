@@ -16,6 +16,91 @@
       />
     </v-dialog>
 
+    <v-dialog
+      v-model="advancedKeywordsDialog"
+      width="600px"
+      scrollable
+      :fullscreen="$vuetify.breakpoint.xsOnly"
+    >
+      <v-card class="pa-0">
+        <v-card-title style="background-color: #262e37; color: #fff;">
+          <span>Build Advanced Character</span>
+          <v-spacer />
+          <v-icon dark @click="advancedKeywordsDialog = false">
+            close
+          </v-icon>
+        </v-card-title>
+        <v-card-text class="pt-8">
+
+          <v-alert color="info" dense text border="left" class="pb-4">Advanced Character Creation is described on CORE pg. 38 and allows for more influence on Keywords and Wargear at the cost of a dedicated archetype ability.</v-alert>
+
+          <v-select
+            dense outlined
+            label="Select the tier, defining your acess to wargear"
+            v-model="advancedTier"
+            :items="advancedTierOptions"
+          />
+
+          <v-select
+            dense outlined
+            label="Select a faction or stay unaligned"
+            v-model="advancedFaction"
+            :items="archetypeFaction"
+          ></v-select>
+
+          <v-autocomplete
+            outlined
+            label="Select fitting keywords"
+            persistent-hint
+            class="mb-4"
+            hint="Work with your GM/Group to define keywords"
+            v-model="advancedKeywords"
+            :items="keywordCombinedRepository.filter((k) => !k.name.startsWith('['))"
+            item-text="name"
+            item-value="key"
+            multiple
+            chips
+          >
+            <template v-slot:selection="data">
+              <v-chip
+                v-bind="data.attrs"
+                :input-value="data.selected"
+                close
+                @click="data.select"
+                @click:close="remove(data.item)"
+              >
+                {{ data.item.name }}
+              </v-chip>
+            </template>
+            <template v-slot:item="data">
+              <v-list-item-content>
+                <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                <v-list-item-subtitle>{{data.item.type}} - [{{data.item.source}}]</v-list-item-subtitle>
+              </v-list-item-content>
+            </template>
+          </v-autocomplete>
+
+          <v-text-field
+            dense outlined
+            placeholder="Unaligned Rascal"
+            v-model="advancedName"
+            label="A short name, describing this 'Archetype'"
+          >
+          </v-text-field>
+
+        </v-card-text>
+        <v-card-actions>
+          <v-btn left outlined color="red" @click="advancedKeywordsDialog = false">
+            Cancel
+          </v-btn>
+          <v-spacer />
+          <v-btn right color="success" @click="createAdvancedArchetype(advancedName, advancedFaction, advancedKeywords, advancedTier)">
+            Confirm choices
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
     <v-col>
       <h1 class="headline">
         Select an Archetype
@@ -42,6 +127,26 @@
 
     <v-col :cols="12">
       <v-card>
+        <div>
+          <v-divider />
+          <v-list subheader>
+            <v-subheader>Advanced Character Creation</v-subheader>
+            <v-list-item
+              two-line
+              @click.stop="advancedKeywordsDialog = true"
+            >
+              <v-list-item-avatar tile>
+                <img :src="getAvatar()">
+              </v-list-item-avatar>
+              <v-list-item-content>
+                <v-list-item-title>
+                  Unaligned Rascal
+                </v-list-item-title>
+                <v-list-item-subtitle>Select a faction, keywords and tier...</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </div>
         <div
           v-for="(group, key) in archetypeFaction"
           :key="key"
@@ -91,7 +196,7 @@
                   <v-avatar left class="green darken-4">
                     {{ item.cost }}
                   </v-avatar>
-                  BP
+                  XP
                 </v-chip>
               </v-list-item-action>
               <v-list-item-action class="hidden-xs-only">
@@ -113,11 +218,12 @@
 <script>
 import { mapMutations } from 'vuex';
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
+import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 
 export default {
   name: 'ArchetypeChoose',
   components: { ArchetypePreview },
-  mixins: [],
+  mixins: [ KeywordRepositoryMixin ],
   asyncData({ params }) {
     return {
       characterId: params.id,
@@ -131,6 +237,20 @@ export default {
       previewItem: undefined,
       searchQuery: '',
       characterSpecies: undefined,
+      characterFactions: undefined,
+      // advanced character creation
+      advancedName: 'Unaligned Scoundrel',
+      advancedKeywordsDialog: false,
+      advancedFaction: undefined,
+      advancedKeywords: [],
+      advancedTier: 1,
+      advancedTierOptions: [
+        { text: '1 - One among billions', value: 1, naming: 'Unknown' },
+        { text: '2 - Stalwart Defenders', value: 2, naming: 'Tested' },
+        { text: '3 - Elite Guardians', value: 3, naming: 'Veteran' },
+        { text: '4 - Heroic Operatives', value: 4, naming: 'Heroic' },
+        // { text: '5 - Agents of Fate', value: 5 },
+      ],
     };
   },
   computed: {
@@ -172,7 +292,7 @@ export default {
           archetypes = archetypes.filter((a) => a.tier <= this.characterSettingTier);
         }
 
-        return [...new Set(archetypes.map((item) => item.faction))];
+        return [ 'Unaligned', ...new Set(archetypes.map((item) => item.faction))];
       }
 
       return [];
@@ -197,6 +317,7 @@ export default {
       handler(newVal) {
         if (newVal) {
           this.getArchetypeList(newVal);
+          this.loadFactions(newVal);
         }
       },
       immediate: true, // make this watch function is called when component created
@@ -219,7 +340,17 @@ export default {
         this.characterSpecies = data;
       }
     },
+    async loadFactions(sources) {
+      const config = {
+        params: {
+          source: sources.join(','),
+        },
+      };
+      const { data } = await this.$axios.get(`/api/factions/`, config);
+      this.characterFactions = data;
+    },
     getAvatar(key) {
+      if (key === undefined || key === 'advanced' ) return '/img/avatar_placeholder.png';
       return `/img/avatars/archetype/${key}.png`;
     },
     archetypesByFaction(groupName) {
@@ -260,10 +391,39 @@ export default {
       this.previewItem = item;
       this.previewDialog = true;
     },
-    selectArchetypeForChar(item) {
+    createAdvancedArchetype(name, factionName, keywords, tier) {
+      const id = this.characterId;
 
-      this.setCharacterArchetype({ id: this.characterId, archetype: { key: item.key, value: item.name, cost: item.costs.archetype, tier: item.tier } });
-      this.setCharacterFaction({ id: this.characterId, faction: { key: item.factionKey, label: item.faction } });
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: 'archetype' });
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source: 'archetype', cascade: true });
+
+      let faction = { key: 'core-unaligned', name: factionName };
+      const factionData = this.characterFactions.find((f) =>  f.name === factionName);
+      if (factionData) {
+        faction = factionData;
+      }
+
+      this.setCharacterArchetype({ id, archetype: { key: 'advanced', value: name, cost: 0, tier, keywords, } });
+      this.setCharacterFaction({ id, faction: { key: faction.key, label: faction.name } });
+
+      keywords.forEach((k) => {
+        const keyword = {
+          name: k,
+          source: 'archetype',
+          type: (k.includes('[')) ? 'placeholder' : 'keyword',
+          replacement: undefined,
+        };
+        this.$store.commit('characters/addCharacterKeyword', { id, keyword });
+      });
+
+      this.advancedKeywordsDialog = false;
+      this.$router.push({ name: 'forge-characters-id-builder-archetype-manage', params: { id } });
+    },
+    selectArchetypeForChar(item) {
+      const id = this.characterId;
+
+      this.setCharacterArchetype({ id, archetype: { key: item.key, value: item.name, cost: item.costs.archetype, tier: item.tier } });
+      this.setCharacterFaction({ id, faction: { key: item.factionKey, label: item.faction } });
 
       // TODO ensure species
 
