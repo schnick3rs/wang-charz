@@ -45,7 +45,7 @@
             dense outlined
             label="Select a faction or stay unaligned"
             v-model="advancedFaction"
-            :items="archetypeFaction"
+            :items="allArchetypeFactions"
           ></v-select>
 
           <v-autocomplete
@@ -271,6 +271,27 @@ export default {
     },
     characterSpeciesKey(){
       return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
+    allArchetypeFactions() {
+      if (this.itemList !== undefined) {
+        let archetypes = this.itemList;
+
+        if (this.characterSpecies) {
+          archetypes = archetypes.filter((a) => {
+            if ( a.speciesKey.includes(this.characterSpecies.key) ) return true;
+            if ( a.speciesKey.includes(this.characterSpecies.variant) ) return true;
+            return false;
+          });
+
+          if (this.characterSpecies.archetypeRestrictionsMaxTier) {
+            archetypes = archetypes.filter((a) => a.tier <= this.characterSpecies.archetypeRestrictionsMaxTier);
+          }
+        }
+
+        return [ 'Unaligned', ...new Set(archetypes.map((item) => item.faction))];
+      }
+
+      return [];
     },
     archetypeFaction() {
       if (this.itemList !== undefined) {
