@@ -67,7 +67,7 @@
     "eslint-plugin-vue": "^5.2.3",
     "eslint-plugin-vuetify": "^1.0.0-beta.6",
     "jshint": "^2.11.1",
-    "nodemon": "^1.19.4",
+    "nodemon": "^2.0.4",
     "stylus": "^0.54.7",
     "stylus-loader": "^3.0.2"
   }
