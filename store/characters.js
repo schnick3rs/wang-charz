@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 8;
+const BUILDER_VERSION = 9;
 
 export const state = () => ({
   list: [],
@@ -170,6 +170,8 @@ export const getters = {
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
   characterArchetypeTierById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.tier : undefined),
   characterArchetypeKeywordsById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.keywords : []),
+
+  characterFluffNotesById: (state) => (id) => (state.characters[id]?.fluff?.notes ? state.characters[id].fluff.notes : getDefaultState().fluff.notes),
 
   characterAttributesById: (state) => (id) => (state.characters[id] ? state.characters[id].attributes : {}),
   characterAttributesEnhancedById: (state) => (id) => {
@@ -693,6 +695,13 @@ export const mutations = {
     character.languages = character.languages.filter( (language) => language.name.localeCompare(name, 'en') !== 0);
   },
 
+  setCharacterFluffNotes(state, payload) {
+    const { id, notes } = payload;
+    const character = state.characters[id];
+    if (character.fluff === undefined) character['fluff'] = { notes: '' };
+    character.fluff.notes = notes;
+  },
+
   // Keywords
   addCharacterKeyword(state, payload) {
     const character = state.characters[payload.id];
@@ -779,6 +788,18 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 8:
+        console.debug(`v8 -> v9 : adding options for fluff notes.`);
+        const fluff = {
+          fluff: getDefaultState().fluff,
+        };
+        character.version = 9;
+        state.characters[config.characterId] = {
+          ...character,
+          ...fluff,
+        };
+        console.info(`Character migrated to v9`);
+        break;
       case 7:
         console.debug(`v7 -> v8 : Adding houserules handling.`);
         const settingHouserules = {
@@ -860,7 +881,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 8, // 7+ is revised
+  version: 9, // 7+ is revised
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
@@ -974,5 +995,8 @@ const getDefaultState = () => ({
   defiance: {
     passed: 0,
     failed: 0,
+  },
+  fluff: {
+    notes: '',
   },
 });

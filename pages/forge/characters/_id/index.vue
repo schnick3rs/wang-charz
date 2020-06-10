@@ -685,7 +685,7 @@
                   <v-chip
                     label
                     small
-                    v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`]"
+                    v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`,`Notes`]"
                     :key="item.toLowerCase()"
                     :value="item.toLowerCase()"
                   >
@@ -750,6 +750,25 @@
                         {{ keywordCombinedRepository.find(i=>i.name===keyword) && keywordCombinedRepository.find(i=>i.name===keyword).description }}
                       </p>
                     </div>
+                  </div>
+
+
+                  <!-- objectives < description -->
+                  <div v-show="['all', 'notes'].some(i=>i===descriptionSection.selection)">
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Notes</span>
+                    </div>
+                    <div v-if="characterNotesShowEditor">
+                      <v-textarea v-model="characterNotesEditorModel"></v-textarea>
+                      <v-btn @click="characterNotesSave" small color="success">Save</v-btn>
+                    </div>
+                    <div v-else-if="characterNotes" class="caption" >
+                      <p>
+                        {{characterNotes}}
+                        <v-icon small @click="characterNotesOpenEditor">edit</v-icon>
+                      </p>
+                    </div>
+                    <span v-else class="caption" @click="characterNotesOpenEditor">+ Add Notes</span>
                   </div>
 
                 </div>
@@ -911,6 +930,9 @@ export default {
       //
       objectiveEditorShow: false,
       objectiveEditorValue: '',
+      //
+      characterNotesShowEditor: false,
+      characterNotesEditorModel: '',
       //
       skillsEditorDialog: false,
       customSkill: {
@@ -1635,6 +1657,9 @@ export default {
       }
       return [];
     },
+    characterNotes() {
+      return this.$store.getters['characters/characterFluffNotesById'](this.characterId);
+    },
     weaponsTraitSet() {
       let weaponsTraitSet = [];
       const { weapons } = this;
@@ -1731,6 +1756,21 @@ export default {
     addObjective(value) {
       console.info(`Add new objective: ${value}`);
       this.objectiveEditorShow = false;
+    },
+    characterNotesOpenEditor() {
+      this.characterNotesEditorModel = this.$store.getters['characters/characterFluffNotesById'](this.characterId);
+      this.characterNotesShowEditor = true;
+    },
+    characterNotesCancel() {
+      this.characterNotesEditorModel = '';
+      this.characterNotesShowEditor = false;
+    },
+    characterNotesSave() {
+      const id = this.characterId;
+      const notes = this.characterNotesEditorModel;
+      this.$store.commit('characters/setCharacterFluffNotes', { id, notes });
+      this.characterNotesEditorModel = '';
+      this.characterNotesShowEditor = false;
     },
     normalizeTrait(traitString) {
       const regex = /(\w+) ?\(?(\w+)?\)?/m;

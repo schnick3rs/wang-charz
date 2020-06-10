@@ -2,12 +2,12 @@ import axios from 'axios';
 
 export const state = () => ({
   version: 1,
-  builderVersion: 8,
+  builderVersion: 9,
 });
 
 export const getters = {
   version: (state) => state.version || 0,
-  builderVersion: (state) => 8,
+  builderVersion: (state) => 9,
   /*
   isAuthenticated(state) {
     return state.auth.loggedIn
