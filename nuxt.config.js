@@ -237,7 +237,7 @@ module.exports = {
   serverMiddleware: [
     'redirect-ssl',
     '~/api/express', // handles /api/** calls
-    '~/serverMiddleware/forcedomain'
+    // '~/serverMiddleware/forcedomain'
   ],
 
   /*
