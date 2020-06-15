@@ -3277,215 +3277,162 @@ const aaoaRep = [
   simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
   simpleStub('aaoa2', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
   {
-    ...simpleStub('aaoa2', 58, 'Orks', 'Orks', 'Mekboy', 30, 2, false),
-    hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
+    ...archetype('aaoa',48,'Orks','Burna Boy',2,'Ork'),
+    ...cost(68,30,38, 0, 0),
+    hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
+    keywords: 'Ork,[Clan]',
     prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'tech', threshold: 1 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Da Burna Dance',
+        snippet: 'You add +1 to Resolve for every creature you can see which is currently On Fire.',
+      },
+    ],
+    wargear: wargearz('Burna, Ork Flak Armour, 3 Stikkbomb'),
+  },
+  {
+    ...archetype('aaoa',53,'Orks','Mekboy',2,'Ork'),
+    ...cost(62,20,42, 0, 0),
+    hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
+    keywords: 'Ork,[Clan]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 3 },
       { group: 'skills', value: 'tech', threshold: 3 },
     ],
-    keywords: 'Ork,<Clan>',
-    influence: 1,
     archetypeFeatures: [
       {
         name: 'Fix It Proppa',
         description:
-          '<p>A Mek gains +Rank on Tech tests to fix any weapon, vehicle, or other machine with the Ork keyword. ' +
-          'In addition, during a regroup or respite, a Mek may tinker with a weapon, vehicle, or other machine with the Ork keyword. ' +
-          'Weapons gain ED equal to ½ the Mek’s Rank. ' +
-          'Vehicles gain +½ Rank to their Cruising Speed, Wounds, or Resilience. ' +
-          'Other machines gain a bonus of the GM’s discretion. ' +
-          'These bonuses last until the Mek’s next respite, or until the machine suffers a complication, whichever comes first.</p>',
+          '<p>You gain +Double Rank bonus dice on Tech tests to fix any weapon, vehicle, or other machine with the ORK keyword. In addition, during a regroup or respite, you may tinker with a weapon, vehicle, or other machine with the ORK keyword. If tinkering with a weapon, you may add your Rank from the weapon’s Range (add the same to all range categories), ED, Salvo rating, or any rated Trait the weapon already possesses. Other machines gain a bonus of the GM’s discretion. These bonuses last until the next respite, or until the machine suffers a complication, whichever comes first.</p>',
       },
     ],
-    wargearString:
-      'Kustom Mega Blasta, Choppa, 3 Stikkbombs, Ork Flak armour, Mek Toolz',
-    wargear: [
-      { name: 'Kustom Mega-Blasta' },
-      { name: 'Choppa' },
-      { name: 'Stikkbombs', amount: 3 },
-      { name: 'Ork Flak armour' },
-      { name: 'Mek Toolz' },
-    ],
+    wargear: wargearz('Kustom Mega Blasta, Choppa, 3 Stikkbomb, Ork Flak armour, Mek Toolz'),
+    influence: 1,
   },
   {
-    ...simpleStub('aaoa2', 58, 'Orks', 'Orks', 'Painboy', 30, 2, false),
+    ...archetype('aaoa',55,'Orks','Painboy',2,'Ork'),
+    ...cost(62,20,42, 0, 0),
     hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
+    keywords: 'Ork,[Clan]',
     prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 3 },
       { group: 'skills', value: 'medicae', threshold: 3 },
     ],
-    keywords: 'Ork,<Clan>',
-    influence: 1,
     archetypeFeatures: [
       {
         name: 'Make It All Betta',
-        snippet: 'You add +½ Rank to Medicae Tests on characters with the Ork Keyword. Additionally, a stabilasing an Ork restores Rank Wounds (rather then 1).',
         description:
-          '<p>A Painboy may add +½ Rank to all Medicae tests made on characters with the Ork keyword. ' +
-          'In addition, a successful Medicae test to stabilise a dying character with the Ork keyword restores Rank wounds rather than 1.</p>',
+          '<p>You add Double Rank bonus dice to all Medicae tests made on characters with the ORK keyword. In addition, when making a Medicae test on an ORK character outside of combat, you may spend an Exalted Icon from to remove a single Traumatic Injury immediately, as you crudely reattached lost body parts.</p>',
       },
     ],
-    wargearString:
-      '‘Urty Syringe, Choppa, Ork Flak armour, Dok Bag',
-    wargear: [
-      { name: '‘Urty Syringe' },
-      { name: 'Choppa' },
-      { name: 'Ork Flak armour' },
-      { name: 'Dok Bag' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 59, 'Orks', 'Orks', 'Burna Boy', 30, 2, false),
-    hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
-    prerequisites: [
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'intellect', threshold: 2 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
-    keywords: 'Ork,<Clan>',
+    wargear: wargearz('‘Urty Syringe, Choppa, Ork Flak armour, Dok Bag'),
     influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Da Burny Dance',
-        snippet: 'You gain +1 icon on Resolve Tests for every burning creature you can see.',
-        description:
-          '<p>Burnas revel in the flames they spread. A Burna gains +1 icon on Resolve tests for every creature they can see who is currently burning.</p>',
-      },
-    ],
-    wargearString:
-      'Burna, Ork Flak armour, 3 stikkbombs',
-    wargear: [
-      { name: 'Burna' },
-      { name: 'Ork Flak armour' },
-      { name: 'Stikkbombs', amount: 3 },
-    ],
   },
   {
-    ...simpleStub('aaoa2', 59, 'Orks', 'Orks', 'Flash Git', 60, 3, false),
-    hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
-      { group: 'skills', value: 'cunning', threshold: 2 },
-    ],
-    keywords: 'Ork,<Clan>',
-    influence: 2,
-    archetypeFeatures: [
-      {
-        name: 'Gun Crazy Show-Offs',
-        description:
-          '<p>If a Flash Git rolls a 6 on their Wrath die during a shooting attack, they may spend a Reload to immediately make a second shooting attack with that weapon at the nearest target.</p>',
-      },
-    ],
-    wargearString:
-      'Snazzgun, ‘Eavy armour, 3 stikkbombs, ammo runt',
-    wargear: [
-      { name: 'Snazzgun' },
-      { name: '‘Eavy armour' },
-      { name: 'Stikkbombs', amount: 3 },
-      { name: 'Ammo runt' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 60, 'Orks', 'Orks', 'Tankbusta', 30, 2, false),
-    hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
-    prerequisites: [
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'agility', threshold: 2 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-    ],
-    keywords: 'Ork,<Clan>',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Tank Hunters',
-        description:
-          '<p>When making a ranged attack against a vehicle, a Tankbusta may re-roll failures on their attack.</p>',
-      },
-    ],
-    wargearString:
-      'Rokkit Launcha, Ork Flak armour, 3 stikkbombs, 1 tankbusta bomb',
-    wargear: [
-      { name: 'Rokkit Launcha' },
-      { name: 'Ork Flak armour' },
-      { name: 'Stikkbombs', amount: 3 },
-      { name: 'tankbusta bomb', amount: 1 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 60, 'Orks', 'Orks', 'Runtherd', 30, 2, false),
+    ...archetype('aaoa',55,'Orks','Runtherd',2,'Ork'),
+    ...cost(68,20,48, 0, 0),
     hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
+    keywords: 'Ork,[Clan]',
     prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'fellowship', threshold: 3 },
       { group: 'skills', value: 'intimidation', threshold: 3 },
       { group: 'skills', value: 'leadership', threshold: 2 },
     ],
-    keywords: 'Ork,<Clan>',
-    influence: 1,
     archetypeFeatures: [
       {
         name: 'Slaver',
         description:
-          '<p>A Runtherd is accompanied by a mob of Gretchin (Rank x 3 Gretchin in total). ' +
-          'Gretchin, Snotlings, and Squigs owned by the Runtherd within 10+Rank metres add the Runtherd’s Leadership to their Resolve, ' +
-          'and as a bonus on any skill test they are commanded to make by the Runtherd.</p>',
+          '<p>You are accompanied by a mob of Grots (p. 358) equal to your Rank x4. If any of your Grots die, they can be replaced between sessions at the GM’s discretion. All Grots, Snotlings, and Squigs within 10 + Rank metres of you add your Leadership to their Resolve.</p>',
       },
     ],
-    wargearString:
-      'Slugga, grabba-stikk, 3 stikkbombs, grot lash, Ork Flak armour.',
-    wargear: [
-      { name: 'Slugga' },
-      { name: 'grabba-stikk' },
-      { name: 'Stikkbombs', amount: 3 },
-      { name: 'Grot lash' },
-      { name: 'Ork Flak armour' },
-    ],
+    wargear: wargearz('Slugga, grabba-stikk, 3 stikkbomb, grot lash, Ork Flak armour'),
+    influence: 1,
   },
   {
-    ...simpleStub('aaoa2', 61, 'Orks', 'Orks', 'Weirdboy', 60, 3, false),
+    ...archetype('aaoa',58,'Orks','Tankbusta',2,'Ork'),
+    ...cost(58,20,38, 0, 0),
+    hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'tech', threshold: 1 },
+    ],
+    keywords: 'Ork,[Clan]',
+    archetypeFeatures: [
+      {
+        name: 'Tank Hunters',
+        description:
+          '<p>When you make an attack against a vehicle, you may reroll up to Double Rank dice.</p>',
+      },
+    ],
+    wargear: wargearz('Rokkit Launcha, Ork Flak armour, 3 stikkbomb, 1 tankbusta bomb'),
+    influence: 1,
+  },
+  {
+    ...archetype('aaoa',72,'Orks','Flash Git',3,'Ork'),
+    ...cost(94,30,64, 0, 0),
+    hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'cunning', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
+    ],
+    keywords: 'Ork,[Clan]',
+    archetypeFeatures: [
+      {
+        name: 'Gun Crazy Show-Offs',
+        description:
+          '<p>If you roll a 6 on your Wrath die when making a ranged attack, you may spend a reload to immediately make a second shooting attack with that weapon at the nearest target.</p>',
+      },
+    ],
+    wargear: wargearz('Snazzgun, ‘Eavy armour, 3 stikkbomb, ammo runt'),
+    influence: 2,
+  },
+  {
+    ...archetype('aaoa',86,'Orks','Weirdboy',3,'Ork'),
+    ...cost(126,80,46, 0, 0),
     hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
     prerequisites: [
-      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'psychicMastery', threshold: 2 },
     ],
-    keywords: 'Ork,Psyker,<Clan>',
-    influence: 1,
+    keywords: 'Ork,Psyker,[Clan]',
     archetypeFeatures: [
       {
         name: 'The Power of the WAAAGH!',
         description:
-          '<p>Weirdboyz begin play with the shove, inflict pain, and smite psychic powers, ' +
-          'and they may purchase additional Power of the WAAAGH psychic powers, subject to Tier restrictions. ' +
-          'A Weirdboy may not gain additional Wrath dice by drawing on the Warp as other psykers do. ' +
-          'Rather, they gain one additional Wrath die for every five Orks (but not other greenskins such as Gretchin, Snotlings, and squigs) within 20 metres. ' +
-          'They must use these Wrath dice—they cannot choose not to. ' +
-          'Each 1 rolled on a Wrath die for a Weirdboy using a psychic power ' +
-          'inflicts one Mortal Wound to the Weirdboy instead of a roll on the Perils of the Warp table, ' +
-          'and a Weirdboy who is reduced to 0 wounds by this damage explodes, ' +
-          'inflicting 1d3 Mortal Wounds to all Orks within 15m.</p>',
+          '<p>You are a Psyker; you know the Smite psychic power and may learn other powers from the WAAAGH discipline. When using psychic powers, you do not choose a Power Level; rather, you gain one additional Wrath die for every five Orks within 20 metres of you. You must roll these Wrath dice. Each 1 rolled on a Wrath die when using a Psychic Power inflicts one Mortal Wound on you instead of a roll on the Perils of the Warp table, and if you exceed your Max Wounds from this, you explode, dying instantly and inflicting 1d3+Tier Mortal Wounds on all Orks within 20 metres.</p>',
         psychicPowers: [
           { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerShove', selected: 'Shove', query: { name: 'Shove' }, options: [], free: true },
-          { name: 'psykerInflictPain', selected: 'Inflict Pain', query: { name: 'Inflict Pain' }, options: [], free: true },
         ],
         psychicDisciplines: [
           'WAAAGH!',
         ],
       },
     ],
-    wargearString:
-      'Weirdboy Staff, Ork Flak armour.',
-    wargear: [
-      { name: 'Weirdboy Staff' },
-      { name: 'Ork Flak armour' },
-    ],
+    wargear: wargearz('Weirdboy Staff, Ork Flak Armour, collection of jangly baubles'),
   },
+  // Squats
   {
     ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'War-Pledged Warrior', 0, 1, false),
     hint: 'The rank and file of a Squat Stronghold.',
