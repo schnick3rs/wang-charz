@@ -1070,7 +1070,7 @@ const core = [
     ...toolz('Ork Equipment',''),
   },
   {
-    ...gear('core',241,'Dok\s Toolz','5V','Ork'),
+    ...gear('core',241,'Dok´s Toolz','5V','Ork'),
     ...toolz('Ork Equipment','You can make Medicae (Int) Tests to perform surgeries and heal others without suffering a DN penalty, including taking the Restore Shock option (p.124). Only usable for Ork biology. Whenever you roll a Complication whilst using a Dok Bag, the target suffers either 1 Wound or 1 Shock, whichever is funnier.'),
   },
   {
@@ -1287,6 +1287,25 @@ const aaoa = [
       '<li>Splintermind help the user’s mind compartmentalise and disassociate from the parts which feel fear. While under the drug’s effect, the character’s Resolve is increased by +2.</li>' +
       '</ul>',
   },
+  // AAOA v3 ORK
+  {
+    ...gear('aaoa',158,'Kustom Mega Blasta','7R','Kustom, Plasma, Ork'),
+    ...rangez('Ork Weapon',16,5,-3,24,1,'Assault,Supercharge,Waaagh!'),
+    snippet: 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it. The additional ED it provides are already included in the weapon’s profile.',
+  },
+  {
+    ...gear('aaoa',141,'‘Urty Syringe', '4U', 'Exotic, Ork'),
+    ...meleez('Ork Melee Weapon', 4, 4, 0, 1, 'Careful,Inflict(Poisoned 4), Waaagh!'),
+  },
+  {
+    ...gear('aaoa',141,'Grabba Stikk', '4U', 'Exotic, Ork'),
+    ...meleez('Ork Melee Weapon', 5, 3, 0, 2, 'Inflict(Restrained), Waaagh!'),
+  },
+  {
+    ...gear('aaoa',158,'Tankbusta Bomb', '5R', 'Explosive, Ork'),
+    ...rangez('Ork Range Weapon', 16, 3, -3, 1, '-', 'Brutal, Blast(Small), Waaagh!'),
+    snippet: 'A Tankbusta Bomb cannot be thrown or fired from a launcher. It must be planted with a Tech test against a vehicle within 1m, with a DN equal to the vehicle’s Defence. The bomb will detonate at the end of the current turn. After placing a Tankbusta Bomb, the character may move 1d3+1 metres away from the bomb and fall Prone as they leap away before the bomb detonates.',
+  },
   // AAOA v2
   {
     ...simpleStub(30903, 'aaoa2',90,'Auto-Boltstorm Gauntlet', '8V','Bolt, Power Field, Imperium, Adeptus Astartes, Primaris', ''),
@@ -1400,10 +1419,6 @@ const aaoa = [
     snippet: 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.',
   },
   {
-    ...simpleStub(31053, 'aaoa2',105,'Tankbusta Bomb', '7R', 'Explosive, Ork', ''),
-    ...rangeAaoa('16+3ED; AP -2; Salvo –; Blast (Small), Waaagh!', 'Ork Ranged Weapon', 'Cannot be thrown or fired from a launcher. They are placed as a melee attack against a vehicle. An Ork placing a Tankbusta bomb may immediately Disengage as a free action.'),
-  },
-  {
     ...simpleStub(31099, 'aaoa2',109,'Nemesis Force Sword', '6V', 'Force, Imperium, Adeptus Astartes, Grey Knights', ''),
     ...meleeAaoa('5+1ED; AP -3; Force, Nemesis, Parry'),
     description:
@@ -1420,12 +1435,6 @@ const aaoa = [
   {
     ...simpleStub(31132, 'aaoa2',113,'Plague Sword', '7R', 'Pestilent, Chaos, Daemon, Nurgle', ''),
     ...meleeAaoa('5+1ED; AP 0; Parry, Toxic (7)', 'Chaos Melee Weapon'),
-  },
-  {
-    ...simpleStub(31154, 'aaoa2',115,'‘Urty Syringe', '4U', 'Exotic, Ork', ''),
-    ...meleeAaoa('4+2ED; AP 0; Toxic (4), Waaagh!', 'Ork Melee Weapon'),
-    description:
-      'This massive metal syringe superficially resembles a tool of the chirurgeon’s craft and tend to be filled with whatever toxic sludge the Painboy is able to find or create.',
   },
   {
     ...simpleStub(31175, 'aaoa2', 117, 'Dragonfire Bolt Rounds', '7R', 'Imperium, Adeptus Astartes', ''),

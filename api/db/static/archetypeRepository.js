@@ -3276,6 +3276,7 @@ const aaoaRep = [
   simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
   simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
   simpleStub('aaoa2', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
+  // Orks
   {
     ...archetype('aaoa',48,'Orks','Burna Boy',2,'Ork'),
     ...cost(68,30,38, 0, 0),
@@ -3295,7 +3296,7 @@ const aaoaRep = [
         snippet: 'You add +1 to Resolve for every creature you can see which is currently On Fire.',
       },
     ],
-    wargear: wargearz('Burna, Ork Flak Armour, 3 Stikkbomb'),
+    wargear: wargearz('Burna, Ork Flak, 3 Stikkbomb'),
   },
   {
     ...archetype('aaoa',53,'Orks','Mekboy',2,'Ork'),
@@ -3315,7 +3316,7 @@ const aaoaRep = [
           '<p>You gain +Double Rank bonus dice on Tech tests to fix any weapon, vehicle, or other machine with the ORK keyword. In addition, during a regroup or respite, you may tinker with a weapon, vehicle, or other machine with the ORK keyword. If tinkering with a weapon, you may add your Rank from the weapon’s Range (add the same to all range categories), ED, Salvo rating, or any rated Trait the weapon already possesses. Other machines gain a bonus of the GM’s discretion. These bonuses last until the next respite, or until the machine suffers a complication, whichever comes first.</p>',
       },
     ],
-    wargear: wargearz('Kustom Mega Blasta, Choppa, 3 Stikkbomb, Ork Flak armour, Mek Toolz'),
+    wargear: wargearz('Kustom Mega Blasta, Choppa, 3 Stikkbomb, Ork Flak, Mek Toolz'),
     influence: 1,
   },
   {
@@ -3336,7 +3337,7 @@ const aaoaRep = [
           '<p>You add Double Rank bonus dice to all Medicae tests made on characters with the ORK keyword. In addition, when making a Medicae test on an ORK character outside of combat, you may spend an Exalted Icon from to remove a single Traumatic Injury immediately, as you crudely reattached lost body parts.</p>',
       },
     ],
-    wargear: wargearz('‘Urty Syringe, Choppa, Ork Flak armour, Dok Bag'),
+    wargear: wargearz('‘Urty Syringe, Choppa, Ork Flak, Dok´s Toolz'),
     influence: 1,
   },
   {
@@ -3358,7 +3359,7 @@ const aaoaRep = [
           '<p>You are accompanied by a mob of Grots (p. 358) equal to your Rank x4. If any of your Grots die, they can be replaced between sessions at the GM’s discretion. All Grots, Snotlings, and Squigs within 10 + Rank metres of you add your Leadership to their Resolve.</p>',
       },
     ],
-    wargear: wargearz('Slugga, grabba-stikk, 3 stikkbomb, grot lash, Ork Flak armour'),
+    wargear: wargearz('Slugga, grabba stikk, 3 stikkbomb, grot lash, Ork Flak'),
     influence: 1,
   },
   {
@@ -3380,7 +3381,7 @@ const aaoaRep = [
           '<p>When you make an attack against a vehicle, you may reroll up to Double Rank dice.</p>',
       },
     ],
-    wargear: wargearz('Rokkit Launcha, Ork Flak armour, 3 stikkbomb, 1 tankbusta bomb'),
+    wargear: wargearz('Rokkit Launcher, Ork Flak, 3 stikkbomb, 1 tankbusta bomb'),
     influence: 1,
   },
   {
@@ -3430,7 +3431,7 @@ const aaoaRep = [
         ],
       },
     ],
-    wargear: wargearz('Weirdboy Staff, Ork Flak Armour, collection of jangly baubles'),
+    wargear: wargearz('Weirdboy Staff, Ork Flak, collection of jangly baubles'),
   },
   // Squats
   {
