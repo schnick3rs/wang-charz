@@ -29,7 +29,7 @@
 
     <v-card-text class="pt-4">
 
-      <v-alert v-if="chooseMode && item.alert" type="info" text dense class="caption" v-html="item.alert"></v-alert>
+      <v-alert v-if="item.alert" type="info" text dense class="caption" v-html="item.alert"></v-alert>
 
       <p class="text-lg-justify">
         <strong>Build Point Cost:</strong>
