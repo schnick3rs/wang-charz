@@ -1429,6 +1429,10 @@ const aaoa = [
     ...meleez('Power Weapon',5,5,-1,1,'Brutal'),
   },
   {
+    ...gear('aaoa',167,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...armour('Aeldari Armour', 6),
+  },
+  {
     ...simpleStub(31131, 'aaoa2',113,'Plague Knife', '5U', 'Pestilent, Chaos, Nurgle', ''),
     ...meleeAaoa('3+1ED; AP 0; Steadfast, Toxic (7)', 'Chaos Melee Weapon'),
   },
@@ -1474,10 +1478,6 @@ const aaoa = [
   {
     ...simpleStub(31302, 'aaoa2',130,'Heavy Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
     ...armour('Aeldari Armour', 5, 'Bulk (1)'),
-  },
-  {
-    ...simpleStub(31303, 'aaoa2',130,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
-    ...armour('Aeldari Armour', 6),
   },
   {
     ...simpleStub(31222, 'aaoa2',131,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
