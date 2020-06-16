@@ -2,7 +2,6 @@ const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   aaoa: { book: 'An Abundance of Apocrypha (v3.1)', sumplements: 'core', key: 'aaoa', version: 'v3.1', path: '/vault/an-abundance-of-apocrypha' },
-  aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -756,29 +755,24 @@ const aaoa = [
   },
   {
     name: 'Apocryphon Oath',
-    ...simpleStub('aaoa2', 78, 'Apocryphon Oath', 'The Deathwatch have requested your service.',false),
+    ...simpleStub('aaoa', 127, 'Apocryphon Oath', 'The Deathwatch have requested your service.',false),
+    description: '<p>You have sworn to serve the Deathwatch, perhaps for a decade-long Vigil, perhaps in perpetuity. Either way, you are amongst the mightiest of Astartes, and you shall not suffer the alien to live.</p>',
     cost: 0,
     costPerTier: 10,
-    minimumCampaignTier: 5,
+    minimumCampaignTier: 4,
     prerequisites: [
-      'Willpower 5',
+      'Willpower 4',
       'Ballistic Skill 5 OR Weapon Skill 5',
-      '<Adeptus Astartes> Keyword',
+      'Scholar 2',
+      'You must be Adeptus Astartes or Primaris Astartes.'
     ],
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
-    keywordString: 'Deathwatch, Inquisition and Ordo Xenos',
-    storyElementString:
-      'initiated into secrets that allow you to hunt Xenos more effectively. ' +
-      'You receive the normal benefit for having the Ordo Xenos keyword (page 119 of the ' +
-      'Wrath & Glory core rulebook) and have access to special Deathwatch arsenals containing ' +
-      'rare and specialised equipment. In addition, so efficiently do you coordinate with your ' +
-      'Kill-Team that at any time you may spend one Wrath in order to give one Wrath to any ' +
-      'other character with the Deathwatch keyword.',
-    wargearString:
-      'One reload each of Dragonfire, Hellfire, Kraken, and Vengeance bolt rounds, ' +
-      'and one Weapon Upgrade with a value of up to 7 (Very Rare).',
+    keywordString: 'Deathwatch, Inqisition, Ordo Xenos',
+    storyElementDescription:
+      '<p>You join the ranks of the Deathwatch, and you are initiated into secrets that allow you to hunt Xenos more effectively. You receive the normal benefit for having the Ordo Xenos keyword (page 64 of the Wrath & Glory core rulebook) and have access to special Deathwatch arsenals containing rare and specialised equipment.</p>' +
+      '<p>Further, due to your specialised training, at each Regroup, you may select a single keyword which relates to a Xenos faction. You add +Rank ED to all attacks against enemies with that keyword.</p>',
     ascensionFeatures: [
       {
         key: 'keywords',
@@ -794,18 +788,13 @@ const aaoa = [
         key: 'deathwatch-arsenal',
         name: 'Deathwatch Arsenal',
         description:
-          '<p>You join the ranks of the Deathwatch, and you are initiated into secrets that allow you to hunt Xenos more effectively. ' +
-          'You receive the normal benefit for having the Ordo Xenos keyword ' +
-          '(page 119 of the Wrath & Glory core rulebook) and have access to special Deathwatch ' +
-          'arsenals containing rare and specialised equipment.</p>',
+          '<p>You join the ranks of the Deathwatch, and you are initiated into secrets that allow you to hunt Xenos more effectively. You receive the normal benefit for having the Ordo Xenos keyword (page 64 of the Wrath & Glory core rulebook) and have access to special Deathwatch arsenals containing rare and specialised equipment.</p>',
       },
       {
-        key: 'brothers-in-arms',
-        name: 'Brothers in Arms',
-        snippet: 'As an Action, you can transfer one Wrath to any other character with the Deathwatch Keyword. ',
+        key: 'deathwatch-training',
+        name: 'Deathwatch Training',
         description:
-          '<p>In addition, so efficiently do you coordinate with your Kill-Team that at any time you may ' +
-          'spend one Wrath in order to give one Wrath to any other character with the Deathwatch keyword.</p>',
+          '<p>Further, due to your specialised training, at each Regroup, you may select a single keyword which relates to a Xenos faction. You add +Rank ED to all attacks against enemies with that keyword.</p>',
       },
       {
         key: 'wargear',
@@ -836,53 +825,6 @@ const aaoa = [
             ],
           },
         ],
-      },
-    ],
-    description: '<p>You have sworn to serve the Deathwatch, perhaps for a decade-long Vigil, perhaps in perpetuity. Either way, you are amongst the mightiest of Astartes, and you shall not suffer the alien to live.</p>',
-  },
-  {
-    name: 'Betrayal',
-    ...simpleStub('aaoa2', 79, 'Betrayal', 'Missing the Chaos keyword? Wait no more! Also; Corruption...',false),
-    description:
-      '<p>You have seen that the Emperor is a False God, and you have forsaken the Imperium for the Dark Gods.</p>',
-    alert: 'The Keyword replacement (e.g. from <code>Adeptus Astartes</code> to <code>Heretic Astartes</code>) is not implemented.',
-    cost: 0,
-    costPerTier: 10,
-    minimumCampaignTier: 2,
-    prerequisites: [
-      '<Imperium> Keyword',
-    ],
-    // Benefits
-    influenceBonus: 0,
-    influencePerTier: 1,
-    keywordString: 'Heretic, Chaos and <Mark of Chaos>',
-    storyElementString: 'You lose the Imperium keyword. If you had the Adeptus Astartes keyword, you replace it with the Heretic Astartes keyword. If you had the Adeptus Mechanicus keyword, you replace it with the Dark Mechanicus keyword. If you had any talents that required you not to have the Chaos keyword, the build points from those talents are refunded. The recent nature of your betrayal means that you gain +2d on all Deception tests to pretend that you are still loyal.',
-    wargearString: 'None.',
-    ascensionFeatures: [
-      {
-        key: 'keywords',
-        name: 'Keywords',
-        snippet: 'You gain the Heretic, Chaos and <Mark of Chaos> keywords.',
-        modifications: [
-          { targetGroup: 'keywords', targetValue: 'Heretic' },
-          { targetGroup: 'keywords', targetValue: 'Chaos' },
-          { targetGroup: 'keywords', targetValue: '<Mark of Chaos>' },
-        ],
-      },
-      {
-        key: 'switch-sides',
-        name: 'Switch Sides',
-        description:
-          '<p>You lose the Imperium keyword. ' +
-          'If you had the Adeptus Astartes keyword, you replace it with the Heretic Astartes keyword. ' +
-          'If you had the Adeptus Mechanicus keyword, you replace it with the Dark Mechanicus keyword. ' +
-          'If you had any talents that required you not to have the Chaos keyword, the build points from those talents are refunded.</p>',
-      },
-      {
-        key: 'hide-in-plain-sight',
-        name: 'Hide in plain sight',
-        description:
-          '<p>The recent nature of your betrayal means that you gain +2d on all Deception tests to pretend that you are still loyal.</p>',
       },
     ],
   },
@@ -941,28 +883,27 @@ const aaoa = [
   },
   {
     name: 'The Rubicon Primaris',
-    ...simpleStub('aaoa2', 80, 'The Rubicon Primaris', 'Pick an Astartes and cross the rubicon to show those trueborn Primaris who\'s boss.',false),
+    ...simpleStub('aaoa', 128, 'The Rubicon Primaris', 'Pick an Astartes and cross the rubicon to show those trueborn Primaris who´s boss.',false),
     description:
-      '<p></p>',
-    cost: 50,
+      '<p>The induction of the Primaris Marines into the Adeptus Astartes was not an easy process by any means. The Chapters of the Space Marines are arch traditionalists, and some are conservative in the extreme, having upheld the same warrior traditions for thousands of Terran years. Of course, the express command of Roboute Guilliman as the Lord Commander of the Imperium eased the transition into the new era.</p>',
+    cost: 40,
     costPerTier: 0,
     // Prerequisites
-    minimumCampaignTier: 4,
+    minimumCampaignTier: 2,
     prerequisites: [
+      'Strength 5',
       'Toughness 5',
-      '<Adeptus Astartes> Keyword',
-      'NOT <Primaris Astartes> Keyword',
+      'Ballistic Skill 4',
+      'Weapon Skill 4',
+      'ADEPTUS ASTARTES Keyword',
+      'NOT PIRMARIS ASTARTES Keyword',
     ],
     // Benefits
     influenceBonus: 1,
     influencePerTier: 0,
     keywordString: 'Primaris Astartes',
-    storyElementString:
-      'Change your Species from Adeptus Astartes to Primaris Astartes, with all the accompanying benefits. ' +
-      'The cost of this has already been accounted for in the cost of this ascension package.',
-    wargearString:
-      'You replace your weapons and armour with the nearest equivalents which have the Primaris keyword. ' +
-      'At the GM’s discretion, unique wargear may be altered or upgraded as well.',
+    storyElementDescription:
+      '<p>You become a Primaris Marine. Increase your Strength and Toughness by +1 each, and +3 Wounds. In addition, you no longer suffer impurities in your Chapter Gene-Seed, and you benefit from the Primaris implants alongside your original Space Marine Implants. The cost for all these benefits is included in the cost of taking this package.</p>',
     // Crunch
     ascensionFeatures: [
       {
@@ -977,48 +918,48 @@ const aaoa = [
         ky: 'story-element',
         name: 'Story Element',
         description:
-          '<p>Change your Species from Adeptus Astartes to Primaris Astartes, with all the accompanying benefits. The cost of this has already been accounted for in the cost of this ascension package.</p>' +
-          '<p>Your Strength is increased by 1 and Wounds your Wounds are increased by 4.</p>',
+          '<p>You become a Primaris Marine. Increase your Strength and Toughness by +1 each, and +3 Wounds.</p>' +
+          '<p>In addition, you no longer suffer impurities in your Chapter Gene-Seed, and you benefit from the Primaris implants alongside your original Space Marine Implants.</p>',
         modifications: [
           { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
-          { targetGroup: 'traits', targetValue: 'wounds', modifier: 4 },
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+          { targetGroup: 'traits', targetValue: 'wounds', modifier: 3 },
         ],
       },
       {
         ky: 'wargear',
         name: 'Wargear',
         description:
-          '<p>You replace your weapons and armour with the nearest equivalents which have the Primaris keyword. At the GM’s discretion, unique wargear may be altered or upgraded as well.</p>',
+          '<p>You may replace your weapons with the nearest equivalents which have the Primaris keyword, and you replace your Power Armour with a suit of Mark X Power Armour (your choice of Tacticus, Phobos, or Gravis). At the GM’s discretion, unique wargear may be altered or upgraded to fit your enhanced form.</p>',
       },
     ],
   },
   {
     name: 'Lost upon the Path of the Warrior',
-    ...simpleStub('aaoa2', 81, 'Lost upon the Path of the Warrior', 'Gain some fancy Exarch gear but not everyone is pleased. '),
+    ...simpleStub('aaoa', 129, 'Lost upon the Path of the Warrior', 'Gain some fancy Exarch gear but not everyone is pleased.', false),
     description:
       '<p>An Exarch is a former Eldar Aspect Warrior who has lost himself upon the Eldar Path of the Warrior and is unable to ever leave it again. At this point he is considered to have abandoned the Eldar Paths with their promise of new experiences and development of new skills in favour of a constant life of bloodshed. The Eldar becomes the elite warrior called an Exarch; simultaneously, an Exarch is a priest of Kaela Mensha Khaine, the Eldar God of War as well as a caretaker of the individual warrior shrine, and trainer, teacher, and instructor for other Aspect Warriors. The sacrifice of an Eldar Exarch can summon an Avatar of Kaela Mensha Khaine. He is equipped with ancient and powerful Eldar weaponry and armour. Each Eldar Warrior Aspect has its own particular kind of Exarch. On the battlefield, an Exarch commands an individual squad of Eldar Aspect Warriors. Exarchs are formidable opponents, and most of them can use their often-potent psychic and combat abilities to help the whole squad of Aspect Warriors under their command.</p>',
     cost: 0,
-    costPerTier: 10,
+    costPerTier: 15,
     // Prerequisites
-    minimumCampaignTier: 4,
+    minimumCampaignTier: 2,
     prerequisites: [
       'Required Attributes +1',
       'Required Skills +1',
-      '<Aspect Warrior> Keyword',
+      'Aeldari Species',
+      'ASPECT WARRIOR Keyword',
     ],
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
     keyworString: 'Exarch',
-    storyElementString:
-      'You can no longer empathise with those who have not devoted their existence to war. ' +
-      'You increase the DN of all Interaction tests against non-warriors by +2, and they suffer the same penalty in return. ' +
-      'In addition, you may now purchase and use Exarch Powers.',
-    wargearString:
-      'You replace your Aspect Armour with Exarch Armour, which provides the same functions but has ' +
-      'an AP of 6 and loses the Bulky (X) or Cumbersome traits (if it had them). ' +
-      'You may also replace one of your weapons with a weapon of up to Unique rarity and a Value of up to 5 plus your new Tier. ' +
-      'The GM may create a unique weapon, an ancient relic of the Aeldari, for this purpose.',
+    storyElementDescription:
+      '<p>You take up the armour, identity, and Aspect Shrine of an Exarch of your Aspect. This has a number of effects:</p>' +
+      '<ul>' +
+      '<li>Lost to War: You can no longer empathise with those who have not devoted their existence to war. You increase the DN of all Interaction tests against non-warriors by +2, and they suffer the same penalty in return.</li>' +
+      '<li>Students of War: You gain followers as per the Devotees talent, without needing to meet the Leadership requirement. These followers are Aspect Warriors from your shrine.</li>' +
+      '<li>Master of War: You may purchase Exarch powers. You may purchase one power if you are Tier 4, or two if you are Tier 5 or higher.</li>' +
+      '</ul>',
     // Crunch
     ascensionFeatures: [
       {
@@ -1030,25 +971,29 @@ const aaoa = [
         ],
       },
       {
-        key: 'you-walk-alone',
-        name: 'You walk alone',
+        key: 'lost-to-war',
+        name: 'Lost to War',
         description:
-          '<p>You increase the DN of all Interaction tests against non-warriors by +2, and they suffer the same penalty in return.</p>',
+          '<p>You can no longer empathise with those who have not devoted their existence to war. You increase the DN of all Interaction tests against non-warriors by +2, and they suffer the same penalty in return.</p>',
       },
       {
-        key: 'exalted',
-        name: 'Exalted',
-        snippet: 'You may purchase and use up to two Exarch Powers (special talents).',
+        key: 'students-of-war',
+        name: 'Students of War',
         description:
-          '<p>An Exarch may purchase <strong>up to two Exarch powers</strong>, at the costs listed, so long as the Exarch meets the listed prerequisites. Some of the powers in this section are distinct to Exarchs of particular Aspect Temples, and they may only be selected by an Exarch of that temple.</p>' +
-          '<p>Many of the powers in this section affect the Exarch’s students as well, granting a benefit to the Aspect Warriors under their command. An Exarch may consider all Aspect Warriors of the same type as the Exarch within 10m as being part of the Exarch’s squad.</p>'
+          '<p>You gain followers as per the Devotees talent, without needing to meet the Leadership requirement. These followers are Aspect Warriors from your shrine.</p>'
+        // todo add devotee
+      },
+      {
+        key: 'master-of-war',
+        name: 'Master of War',
+        description:
+          '<p>You may purchase Exarch powers. You may purchase one power if you are Tier 4, or two if you are Tier 5 or higher.</p>'
       },
       {
         key: 'exarch-armour',
         name: 'Exarch Armour',
         description:
-          '<p>You replace your Aspect Armour with Exarch Armour, which provides the same functions ' +
-          'but has an AP of 6 and loses the Bulky (X) or Cumbersome traits (if it had them).</p>',
+          '<p>You replace your Aspect Armour with Exarch Armour, which provides the same functions but has an Armour Rating of 6 and loses the Bulky (X) or Cumbersome traits (if it had them).</p>',
         wargear: [
           { name: 'Exarch Armour' },
         ],
@@ -1057,12 +1002,11 @@ const aaoa = [
         key: 'exarch-weapon',
         name: 'Exarch Weapon',
         description:
-          '<p>replace one of your weapons with a weapon of up to Unique rarity and a Value of up to 5 plus your new Tier.</p>' +
-          '<p>The GM may create a unique weapon, an ancient relic of the Aeldari, for this purpose.</p>',
+          '<p>All of your weapons gain the Master-Crafted upgrade, and you may replace one of your weapons with a weapon of any rarity and a Value of up to 5 + the new Tier. The GM may create a unique weapon, an ancient relic of the Aeldari, for this purpose.</p>',
         wargear: [
           {
-            key: 'very-rare-weapon-upgrade',
-            name: 'One Weapon Upgrade with a value of up to 7 (Very Rare)',
+            key: 'one-unique-weapon',
+            name: 'You may replace one of your weapons with a weapon of any rarity and a Value of up to 5 + the new Tier.',
             selected: '',
             options: [
               {
@@ -1079,32 +1023,28 @@ const aaoa = [
   },
   {
     name: 'Lost upon the Seer Path',
-    ...simpleStub('aaoa2', 80, 'Lost upon the Seer Path', 'A prophet for the Aeldari, but lost on this course.'),
+    ...simpleStub('aaoa', 130, 'Lost upon the Seer Path', 'A prophet for the Aeldari, but lost on this course.', false),
     description:
       '<p>A Farseer is the most potent and respected form of Eldar psyker or Seer. A Farseer has become lost upon the Path of the Seer forever in the same way as the Exarchs are wed eternally to the Path of the Warrior. A council of the most powerful Farseers generally governs a Craftworld. Farseers possess a wide diversity of psychic specialities with divination being the most common skill. They are most often known for using their vast psychic powers to see the possibilities of the future so that they can manipulate events to better ensure the survival of the Eldar species in the wake of the Fall.</p>',
     cost: 0,
-    costPerTier: 10,
+    costPerTier: 15,
     // Prerequisites
-    minimumCampaignTier: 4,
+    minimumCampaignTier: 2,
     prerequisites: [
       'Willpower 6',
       'Insight 6',
       'Psychic Mastery 6',
-      '<Aeldari> Keyword',
-      '<Asuryani> Keyword',
-      '<Psyker> Keyword',
+      'Aeldari Species',
+      'ASURYANI Keyword',
+      'PSYKER Keyword',
     ],
     // Benefits
     influenceBonus: 3,
     influencePerTier: 0,
     keywordString: 'Farseer',
-    storyElementString:
-      'You gain the Prophetic Visions and Scry psychic powers. ' +
-      'In addition, you may purchase additional Runes of Fate psychic powers, subject to Tier restrictions. ' +
-      'Your maximum number of Psychic Powers is increased by 2. ' +
-      'If you wish, you may trade in psychic powers you already possess, regaining the points spent on them, in order to buy new powers.',
-    wargearString:
-      'Ghosthelm, Runes of Witnessing, Runes of Warding.',
+    storyElementDescription:
+      '<p>You gain the Prescience and Scrier’s Gaze psychic powers, if you did not already possess them (if you already possess them, you gain additional XP equal to their costs to spend on other powers). In addition, you may now purchase psychic powers from the Runes of Fate discipline.</p>' +
+      '<p>You may use your Willpower instead of your Fellowship to determine your Influence.</p>',
     // Crunch
     ascensionFeatures: [
       {
@@ -1125,18 +1065,17 @@ const aaoa = [
       {
         key: 'unlock-faith-powers',
         name: 'Unlock Faith Powers',
-        snippet: 'You gain the Prophetic Visions and Scry psychic powers and access to the Runes of Faith Discipline.',
+        snippet: 'You gain the Prescience and Scrier’s Gaze psychic powers and access to the Runes of Faith Discipline.',
         description:
-          '<p>You gain the <em>Prophetic Visions</em> and <em>Scry</em> psychic powers and access to the <em>Runes of Faith</em> Discipline.</p>' +
-          '<p>If you wish, you may trade in psychic powers you already possess, regaining the points spent on them, in order to buy new powers.</p>',
+          '<p>You gain the <em>Prescience</em> and <em>Scrier’s Gaze</em> psychic powersif you did not already possess them (if you already possess them, you gain additional XP equal to their costs to spend on other powers).</p>' +
+          '<p>In addition, you may now purchase psychic powers from the <em>Runes of Fate</em> discipline.</p>',
         psychicPowers: [
-          { key: 'ascension-prophetic-visions', selected: 'Prophetic Visions', query: { name: 'Prophetic Visions' }, options: [], free: true },
-          { key: 'ascension-scry', selected: 'Scry', query: { name: 'Scry' }, options: [], free: true },
+          { key: 'ascension-Prescience', selected: 'Prescience', query: { name: 'Prescience' }, options: [], free: true },
+          { key: 'ascension-scriers-gaze', selected: 'Scrier’s Gaze', query: { name: 'Scrier’s Gaze' }, options: [], free: true },
         ],
         modifications: [
           { targetGroup: 'psychicDisciplines', targetValue: 'Runes of Faith' },
         ],
-        // increase power tier +2
         // may trade powers
       },
       {
@@ -1152,110 +1091,28 @@ const aaoa = [
     ],
   },
   {
-    name: 'Possession',
-    ...simpleStub('aaoa2', 82, 'Possession', 'Invited a deamon (knock, knock) into yourself, boosting stats and corruption.',false),
-    description:
-      '<p>Daemonic Possession is the act of the essence of a Daemon possessing and controlling the body of another being. As Daemons can only exist in the Materium for a limited period before being forced back into the Warp, Daemonic Possession is one of the most common methods for Daemons to enter the material realm. Daemonic Possession can occur involuntarily to those of psychic potential, but the host sometimes willingly gives themselves over to Daemonic Possession, as is the case with Possessed Chaos Space Marines and certain Cultists. Possessed individuals can often be used as gateways to the Warp, allowing Daemons to spill into the Materium.</p>' +
-      '<p>A character selecting this Ascension Package has invited a daemon into their flesh, granting them tremendous power, at the cost of subjecting their body, mind, and soul to the ravening touch of the Warp. Few who become possessed can endure it for long, often finding their bodies degenerating into spawndom or becoming purely a vessel for the daemon’s will, but some can find a degree of symbiosis with the daemon they are host to, becoming a singular mighty entity.</p>',
-    cost: 0,
-    costPerTier: 15,
-    // Prerequisites
-    minimumCampaignTier: 3,
-    prerequisites: [
-      'Willpower 4',
-      '<Chaos> Keyword',
-    ],
-    // Benefits
-    influenceBonus: 3,
-    influencePerTier: 0,
-    // corruption: +3, see below
-    keywordString: 'Daemon',
-    storyElementString:
-      'The character is now possessed by a daemon of Chaos. ' +
-      'The character gains the Daemonic special rule, described below. ' +
-      'In addition, the character may draw upon the daemon’s power. ' +
-      'Select three attributes when the character first becomes possessed; ' +
-      'as a free action you may gain a number of bonus dice to those attributes equal to the campaign’s Tier. ' +
-      'You may sustain this for as many rounds as you wish (or minutes, if outside of combat), ' +
-      'but when you stop using this power, you suffer 1d3 Shock, ' +
-      '+1 for each Round (or minute) you used the daemon’s power, and gain +1 Corruption. ' +
-      'While using the daemon’s power, the character also gains the Horns, Spines, Fangs, ' +
-      'or Claws minor mutation (page 373 of the Wrath & Glory rulebook), ' +
-      'and a single major mutation, chosen when the character first became possessed. ' +
-      'The character may attempt to Soak Mortal Wounds, and Soaking does not cost this character any Shock.',
-    wargearString:
-      'None. While manifesting the daemon’s power, it tends to meld your wargear and your flesh together, ' +
-      'but this effect is normally reversed when you revert to your mortal state.',
-    // Crunch
-    ascensionFeatures: [
-      {
-        key: 'keywords',
-        name: 'Keywords',
-        snippet: 'You gain the Daemon keyword and 3 points Corruption.',
-        modifications: [
-          { targetGroup: 'keywords', targetValue: 'Daemon' },
-          { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
-        ],
-      },
-      {
-        key: 'invoke-daemonic-power',
-        name: 'Invoke Daemonic Power',
-        description:
-          '<p>Select three attributes when the character first becomes possessed; as a free action you may gain a number of bonus dice to those attributes equal to the campaign’s Tier.</p>' +
-          '<p>You may sustain this for as many rounds as you wish (or minutes, if outside of combat), but when you stop using this power, you suffer 1d3 Shock, +1 for each Round (or minute) you used the daemon’s power, and gain +1 Corruption.</p>',
-      },
-      {
-        key: 'bestial-features',
-        name: 'Bestial Features',
-        description:
-          '<p>While using the daemon’s power, the character also gains the Horns, Spines, Fangs, ' +
-          'or Claws minor mutation (page 373 of the Wrath & Glory rulebook), and a single major mutation, ' +
-          'chosen when the character first became possessed.</p>' +
-          '<p>While manifesting the daemon’s power, it tends to meld your wargear and your flesh together, ' +
-          'but this effect is normally reversed when you revert to your mortal state.</p>',
-        // options: [],  select a mutation
-      },
-      {
-        key: 'daemonic-fortitude',
-        name: 'Daemonic Fortitude',
-        snippet: 'You may Soak Mortal Wounds and soaking does not cost you any Shock.',
-        description:
-          '<p>The character may attempt to Soak Mortal Wounds, and Soaking does not cost this character any Shock.</p>',
-      },
-    ],
-  },
-  {
     name: 'Reborn',
-    ...simpleStub('aaoa2', 82, 'Reborn', 'Once an Aeldari, no Yinnari',false),
+    ...simpleStub('aaoa', 130, 'Reborn', 'Once an Aeldari, now Yinnari',false),
     description:
       '<p>The Ynnari are the members of a newly formed eponymous Eldar group that worship the God Ynnead and believe their race can be saved from the depredation of Slaanesh by helping to bring about the birth of the slumbering god of the dead.</p>' +
       '<p>Under the leadership of the prophet Yvraine, the "Daughter of Shades," the Ynnari seek to fully awaken the Aeldari god of the dead Ynnead, who they believe can defeat Slaanesh and restore the Aeldari species\' unity and its lost glory.</p>' +
       '<p>They aim to achieve this in a ritual that would not require the sacrifice of the entire Aeldari species, using a method known as the "Seventh Path" or the "Seventh Way."</p>' +
       '<p>A great many Aeldari, hailing from every sub-faction and allegiance save the most conservative and entrenched, have joined their cause. No abstract philosophy is this, for the effects of their new deity can be seen manifesting around them -- the Reborn can draw upon the souls within the Spirit Stones they wear to bolster their own abilities, can siphon the power of those slain nearby to invigorate their attacks, and turn their foes to ashes with the strange weapons and psychic powers they wield.</p>',
     cost: 0,
-    costPerTier: 10,
+    costPerTier: 15,
     // Prerequisites
     minimumCampaignTier: 2,
     prerequisites: [
       'Willpower 3',
-      '<Aeldari> Keyword',
+      'Aeldari or Drukhari Species',
     ],
     // Benefits
     influenceBonus: 2,
     influencePerTier: 0,
     keywordString: 'Ynnari',
-    storyElementString:
-      'The character has been reborn as one of the Ynnari, and now has a powerful connection to the spirits of the dead. ' +
-      'The character may attempt a Psychic Mastery test in order to communicate with the spirits of Aeldari dead ' +
-      '(contained within spirit stones, infinity circuits, Exodite world-spirits, and similar). ' +
-      'Further, they gain the Strength From Death ability, below: ' +
-      'Once per round, when a player character, or an Adversary or Elite, or three Troops, dies within 15m of you, you immediately gain +1 Soul token. ' +
-      'You may carry a number of Soul tokens up to your Willpower, and unused Soul tokens are lost when you regroup or take a respite. ' +
-      'Soul tokens may be used as if they were Glory points, but only by the owning character, or by other allied Ynnari within 10m.',
-    wargearString:
-      'Spirit Stone. ' +
-      'When carried by an Ynnari character, a Spirit Stone may be used to generate 1d3+1 Soul tokens as a free action once every 24 hours – ' +
-      'the character taps into the powerful spirits within, which then take some time to recover their strength.',
+    storyElementDescription:
+      '<p>You have been reborn as one of the Ynnari, and you now have a powerful connection to the spirits of the dead. You may attempt a Psychic Mastery test (even if untrained) in order to communicate with the spirits of Aeldari dead (contained within spirit stones, infinity circuits, Exodite world-spirits, and similar). Further, you gain the Strength From Death ability, below:</p>' +
+      '<p><strong>STRENGTH FROM DEATH</strong>: Once per round, when a player character, or an Adversary or Elite, or three Troops, dies within 15m of you, you immediately gain +1 Soul token. You may carry a number of Soul tokens up to your Willpower, and unused Soul tokens are lost when you Regroup or take a Respite. Soul tokens may be used as if they were Glory points, but only by the owning character, or by other allied YNNARI characters within 10m.</p>',
     // Crunch
     ascensionFeatures: [
       {
@@ -1270,23 +1127,19 @@ const aaoa = [
         key: 'connection-to-the-dead-spirits',
         name: 'Connection to the dead spirits',
         description:
-          '<p>The character may attempt a Psychic Mastery test in order to communicate with the spirits of Aeldari dead ' +
-          '(contained within spirit stones, infinity circuits, Exodite world-spirits, and similar).</p>',
+          '<p>You may attempt a Psychic Mastery test (even if untrained) in order to communicate with the spirits of Aeldari dead (contained within spirit stones, infinity circuits, Exodite world-spirits, and similar).</p>',
       },
       {
         key: 'strength-from-death',
         name: 'Strength From Death',
         description:
-          '<p>Once per round, when a player character, or an Adversary or Elite, or three Troops, dies within 15m of you, you immediately gain +1 Soul token. ' +
-          'You may carry a number of Soul tokens up to your Willpower, and unused Soul tokens are lost when you regroup or take a respite. ' +
-          'Soul tokens may be used as if they were Glory points, but only by the owning character, or by other allied Ynnari within 10m.</p>',
+          '<p>Once per round, when a player character, or an Adversary or Elite, or three Troops, dies within 15m of you, you immediately gain +1 Soul token. You may carry a number of Soul tokens up to your Willpower, and unused Soul tokens are lost when you Regroup or take a Respite. Soul tokens may be used as if they were Glory points, but only by the owning character, or by other allied YNNARI characters within 10m.</p>',
       },
       {
         key: 'spiritual-harvester',
         name: 'Spiritual Harvester',
         description:
-          '<p>A <em>Spirit Stone</em> may be used to generate 1d3+1 Soul tokens as a free action once every 24 hours – ' +
-          'the character taps into the powerful spirits within, which then take some time to recover their strength.</p>',
+          '<p>When carried by an YNNARI character, a Spirit Stone may be used to generate 1d3+1 Soul tokens as a Simple Action as the character taps into the powerful spirits within. This takes time to recover, and cannot be done again until after the next Respite..</p>',
       },
       {
         key: 'wargear',
@@ -1295,6 +1148,70 @@ const aaoa = [
         wargear: [
           { name: 'Spirit Stone' },
         ],
+      },
+    ],
+  },
+  {
+    name: 'Willing Possession',
+    ...simpleStub('aaoa', 131, 'Willing Possession', 'Invited a deamon (knock, knock) into yourself, boosting stats and corruption.',false),
+    description:
+      '<p>Daemonic Possession is the act of the essence of a Daemon possessing and controlling the body of another being. As Daemons can only exist in the Materium for a limited period before being forced back into the Warp, Daemonic Possession is one of the most common methods for Daemons to enter the material realm. Daemonic Possession can occur involuntarily to those of psychic potential, but the host sometimes willingly gives themselves over to Daemonic Possession, as is the case with Possessed Chaos Space Marines and certain Cultists. Possessed individuals can often be used as gateways to the Warp, allowing Daemons to spill into the Materium.</p>' +
+      '<p>A character selecting this Ascension Package has invited a daemon into their flesh, granting them tremendous power, at the cost of subjecting their body, mind, and soul to the ravening touch of the Warp. Few who become possessed can endure it for long, often finding their bodies degenerating into spawndom or becoming purely a vessel for the daemon’s will, but some can find a degree of symbiosis with the daemon they are host to, becoming a singular mighty entity.</p>',
+    cost: 0,
+    costPerTier: 20,
+    // Prerequisites
+    minimumCampaignTier: 3,
+    prerequisites: [
+      'Willpower 4',
+      'CHAOS Keyword',
+    ],
+    // Benefits
+    influenceBonus: 3,
+    influencePerTier: 0,
+    // corruption: +3, see below
+    keywordString: 'Daemon',
+    storyElementDescription:
+      '<p>The character is now possessed by a daemon of Chaos. You immediately gain 1d3 Corruption per Tier ascended. Then, you gain a number of benefits:</p>' +
+      '<ul class="mb-2">' +
+      '<li>DAEMONIC: You may roll Determination against Mortal Wounds, and you do not suffer Shock when you roll Determination.</li>' +
+      '<li>ACCURSED VIGOUR: Select three attributes when you take this Ascension Package; as a Free Action on your turn, you may gain a number of bonus dice to those attributes equal to the campaign’s Tier. You may sustain this for as many rounds as you wish (or minutes, if outside of combat), but when you stop using this ability, you suffer 1d3 Shock, +1 for each Round (or minute) you used the daemon’s power, and gain +1d3 Corruption.</li>' +
+      '<li>MUTATED FORM: While using the daemon’s power, you gain the Horns, Spines, Fangs, or Claws minor mutation (page 290 of the Wrath & Glory rulebook), and a single severe mutation, determined when the character first became possessed.</li>' +
+      '</ul>',
+    // Crunch
+    ascensionFeatures: [
+      {
+        key: 'keywords',
+        name: 'Keywords',
+        snippet: 'You gain the Daemon keyword and 1d3 points Corruption per tier ascended.',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Daemon' },
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }, // todo
+        ],
+      },
+      {
+        key: 'deamonic',
+        name: 'Deamonic',
+        description:
+          '<p>You may roll Determination against Mortal Wounds, and you do not suffer Shock when you roll Determination.</p>',
+      },
+      {
+        key: 'accursed-vigor',
+        name: 'Accursed Vigor',
+        description:
+          '<p>Select three attributes when you take this Ascension Package; as a Free Action on your turn, you may gain a number of bonus dice to those attributes equal to the campaign’s Tier. You may sustain this for as many rounds as you wish (or minutes, if outside of combat), but when you stop using this ability, you suffer 1d3 Shock, +1 for each Round (or minute) you used the daemon’s power, and gain +1d3 Corruption.</p>',
+      },
+      {
+        key: 'mutated-form',
+        name: 'Mutated Form',
+        description:
+          '<p>While using the daemon’s power, you gain the Horns, Spines, Fangs, or Claws minor mutation (page 290 of the Wrath & Glory rulebook), and a single severe mutation, determined when the character first became possessed.</p>',
+        // TODO mutation options
+      },
+      {
+        key: 'melded-wargear',
+        name: 'Melded Wargear',
+        description:
+          '<p>While manifesting the daemon’s power, it tends to meld your wargear and your flesh together, but this effect is normally reversed when you revert to your mortal state.</p>',
       },
     ],
   },
