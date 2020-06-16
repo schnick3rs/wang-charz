@@ -980,8 +980,10 @@ const aaoa = [
         key: 'students-of-war',
         name: 'Students of War',
         description:
-          '<p>You gain followers as per the Devotees talent, without needing to meet the Leadership requirement. These followers are Aspect Warriors from your shrine.</p>'
-        // todo add devotee
+          '<p>You gain followers as per the Devotees talent, without needing to meet the Leadership requirement. These followers are Aspect Warriors from your shrine.</p>',
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-devotees', meta: { name: 'Devotees' } },
+        ],
       },
       {
         key: 'master-of-war',
