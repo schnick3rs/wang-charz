@@ -1,7 +1,7 @@
 const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
-  aaoa: { book: 'An Abundance of Apocrypha (v3)', sumplements: 'core', key: 'aaoa', version: 'v3', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3.1)', sumplements: 'core', key: 'aaoa', version: 'v3.1', path: '/vault/an-abundance-of-apocrypha' },
   aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
@@ -649,30 +649,23 @@ const core = [
 
 const aaoa = [
   {
-    ...simpleStub('aaoa2', 78, 'Agent of the Inquisition', 'Join the Inquisition (that was unexpected).', false),
+    name: 'Agent of the Inquisition',
+    ...simpleStub('aaoa', 127, 'Agent of the Inquisition', 'Join the Inquisition (that was unexpected).', false),
     description: '<p>You have been recruited by an Inquisitor to continue the ongoing fight against the Enemies of the Imperium. You’re not merely an informant or minion bearing the Inquisition’s mark, but a trusted associate and confidante of an Inquisitor, with valued skills, experience, and insights, and the ability to wield some measure of their authority.</p>',
     cost: 0,
     costPerTier: 10,
-    // Prerequisites
     minimumCampaignTier: 2,
     prerequisites: [
       'Willpower 3',
-      'Insight 2 OR Awareness 2',
-      '<Imperium> Keyword',
+      'Persuasion 2 or Awareness 2',
     ],
     // Benefits
-    keywordString: 'Inqisition, <Ordo>',
     influenceBonus: 0,
     influencePerTier: 1,
-    keywordString: 'Inquisition and <Ordo>',
-    storyElementString:
-      'The character’s status means that they may invoke the name and authority of their ' +
-      'Inquisitor to gain +Rank to an Influence or Interaction skill test involving a ' +
-      'being with the Imperium keyword. However, because of the character’s experiences, ' +
-      'they gain 3 Corruption points or a Memorable Injury of their choice.',
-    wargearString:
-      'Inquisitorial Rosette (symbol of authority), plus up to two items of Rare Wargear, ' +
-      'or one item of Very Rare Wargear, with a Value up to 3 + the new Tier.',
+    keywordString: 'Inqisition, [Ordo]',
+    storyElementDescription:
+      '<p>Your new status as an Agent of the Inquisition means that they may invoke the name of your Inquisitor to gain +Rank to an Influence or social Skill test involving a character with the IMPERIUM keyword, once per scene.</p>' +
+      '<p>Because of the circumstances of your recruitment to the Inquisition, you gain 3 Corruption points and a Memorable Injury.</p>',
     ascensionFeatures: [
       {
         key: 'keywords',
@@ -680,40 +673,31 @@ const aaoa = [
         snippet: 'You gain the Inquisition and <Ordo> keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Inquisition' },
-          { targetGroup: 'keywords', targetValue: '<Ordo>' },
+          { targetGroup: 'keywords', targetValue: '[Ordo]' },
         ],
       },
       {
         key: 'authority-of-the-inquisition',
         name: 'Authority of the Inquisition',
-        snippet: 'You add +Rank dice to Influence and Interaction Skill Tests involving a character with the <Imperium> Keyword',
+        snippet: 'You add +Rank dice to Influence and Interaction Skill Tests involving a IMPERIUM character.',
         description:
-          '<p>The character’s status means that they may invoke the name and authority of their Inquisitor ' +
-          'to gain +Rank to an Influence or Interaction skill test involving a being with the Imperium keyword.</p>',
+          '<p>Your new status as an Agent of the Inquisition means that they may invoke the name of your Inquisitor to gain +Rank to an Influence or social Skill test involving a character with the IMPERIUM keyword, once per scene.</p>',
       },
       {
         key: 'scourged-from-experience',
         name: 'Scourged from experience',
         snippet: 'You gain 3 points Corruption or a Memorable Injury.',
-        description: '<p>Because of the character’s experiences, they gain 3 Corruption points or a Memorable Injury of their choice.</p>',
-        selected: '',
-        options: [
-          {
-            key: 'corruption', name: '3 Corruption Points',
-            modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }],
-          },
-          {
-            key: 'memorableInjury', name: 'Memorable Injury (+1 die to Intimidation)',
-            modifications: [ { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' } ],
-          },
+        description: '<p>Because of the circumstances of your recruitment to the Inquisition, you gain 3 Corruption points and a Memorable Injury.</p>',
+        modifications: [
+          { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+          { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
         ],
       },
       {
         key: 'wargear',
         name: 'Wargear',
         description:
-          '<p>Inquisitorial Rosette (symbol of authority), plus up to two items of Rare Wargear, ' +
-          'or one item of Very Rare Wargear, with a Value up to 3 + the new Tier.</p>',
+          '<p>Inquisitorial Rosette (symbol of authority), plus up to two items of Rare Wargear, or one item of Very Rare Wargear, with a Value up to 3 + the new Tier.</p>',
         wargear: [
           { name: 'Symbol of Authority', variant: 'Inquisitorial Rosette' },
         ],
@@ -771,6 +755,7 @@ const aaoa = [
     ],
   },
   {
+    name: 'Apocryphon Oath',
     ...simpleStub('aaoa2', 78, 'Apocryphon Oath', 'The Deathwatch have requested your service.',false),
     cost: 0,
     costPerTier: 10,
@@ -856,6 +841,7 @@ const aaoa = [
     description: '<p>You have sworn to serve the Deathwatch, perhaps for a decade-long Vigil, perhaps in perpetuity. Either way, you are amongst the mightiest of Astartes, and you shall not suffer the alien to live.</p>',
   },
   {
+    name: 'Betrayal',
     ...simpleStub('aaoa2', 79, 'Betrayal', 'Missing the Chaos keyword? Wait no more! Also; Corruption...',false),
     description:
       '<p>You have seen that the Emperor is a False God, and you have forsaken the Imperium for the Dark Gods.</p>',
@@ -901,33 +887,23 @@ const aaoa = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 78, 'Crux Terminatus', '"May I request a Terminator Armour, please?"', false),
+    name: 'Crux Terminatus',
+    ...simpleStub('aaoa', 128, 'Crux Terminatus', '"May I request a Terminator Armour, please?"', false),
     description:
       '<p>The Crux Terminatus is a stone medallion awarded to highly skilled and experienced Space Marine Veterans. All members of a Chapter trained in the use of Terminator Armour will have been first awarded the Crux Terminatus. These badges, set into the left shoulder plate of Terminator armour, are highly distinctive and usually fashioned from stone. In Codex Chapters, members of the Chapter\'s veteran First Company are the exclusive users of Terminator armour.</p>' +
       '<p>This Honour appears most commonly as a skull set onto a cruciform shape of red iron or bone. Terminator sergeants often add crossed bones behind the skull, whilst lightning bolts behind the skull are often added for Terminators trained as Assault units wielding lightning claws and thunder hammers with storm shields. Variations include the size and dimensions of the skull and the removal of the crossed lightning bolts or bones or their scale in relation to the shape of the cruciform. The Crux Terminatus is almost always worn on the left shoulder pad, though it may also be worn on one knee pad (this is usually done only in combination with the shoulder pad, however). Legend has it that the first Crux Terminatus ever crafted contained a tiny fragment of the Emperor\'s own armour within it, an honour granted to commemorate a squad of Imperial Fists Terminators who aided the Emperor in the battle against Horus. Whether or not this is true it means that ancient suits of power armour bearing Terminator Honours are considered even more rare and precious to a Chapter as a result of their reputed connection to the Master of the Imperium.</p>',
     cost: 50,
     costPerTier: 0,
-    // Prerequisites
-    minimumCampaignTier: 4,
+    minimumCampaignTier: 2,
     prerequisites: [
-      'Required Skills +1',
-      '<Adeptus Astartes> Keyword',
+      'Ballistic Skill 5 or Weapon Skill 5',
     ],
     // Benefits
-    influenceBonus: 2,
-    influencePerTier: 0,
+    influenceBonus: 0,
+    influencePerTier: 2,
     keywordString: 'none',
-    storyElementString:
-      'The character is regarded as an honoured veteran amongst the Adeptus Astartes, ' +
-      'and even when not wearing Terminator Armour, they are seen as some of the mightiest and most dedicated warriors in the Imperium. ' +
-      'The character’s Resolve is increased by +2, ' +
-      'and whenever the character makes a successful Weapon Skill, Ballistic Skill, or Leadership test, ' +
-      'they may shift a single exalted icon to allow themselves and all allies with the Imperium keyword within 15m to heal 1+Rank Shock.',
-    wargearString:
-      'The character may request the use of Terminator Armour and accompanying weapons ' +
-      '(normally a Storm Bolter and Power fist, but other combinations are common, including a Thunder Hammer and Storm Shield, or a pair of lightning claws)' +
-      'from their Chapter’s armoury before embarking upon a mission. ' +
-      'Primaris Astartes cannot use Terminator Armour, as no suits of it exist which fit their enhanced stature.',
+    storyElementDescription:
+      '<p>You are an honoured veteran amongst the Adeptus Astartes, and even when not wearing Terminator Armour, you are amongst the mightiest and most dedicated warriors in the Imperium. Your Resolve is increased by +2, and whenever you succeed at a Weapon Skill, Ballistic Skill, or Leadership test, you may shift a single exalted icon to allow yourself and all allies with the ADEPTUS ASTARTES keyword within 15m to recover 1+Rank Shock.</p>',
     // Crunch
     ascensionFeatures: [
       {
@@ -942,24 +918,29 @@ const aaoa = [
       {
         key: 'lead-by-example',
         name: 'Lead by Example',
-        snippet: 'Shift a single exalted icon per Test (Weapon Skill, Ballistic Skill, Leadership) and all <Imperium> allies within 15m heal 1+Rank Shock.',
+        snippet: 'Shift a single exalted icon per Test (Weapon Skill, Ballistic Skill, Leadership) and all ADEPTUS ASTARTES allies within 15m recover 1+Rank Shock.',
         description:
           '<p>Whenever the character makes a successful Weapon Skill, Ballistic Skill, or Leadership test, ' +
-          'they may shift a single exalted icon to allow themselves and all allies with the Imperium keyword within 15m to heal 1+Rank Shock.</p>',
+          'they may shift a single exalted icon to allow themselves and all allies with the ADEPTUS ASTARTES keyword within 15m to heal 1+Rank Shock.</p>',
       },
       {
         key: 'terminator-armour-requisition',
         name: 'Terminator Armour Requisition',
-        snippet: 'The character may request a Terminator Armour and accompanying Weapons.',
+        snippet: 'The character may request a Terminator Armour and accompanying Weapons or may begin the mission with +1 Wrath.',
         description:
-          '<p>The character may request the use of Terminator Armour and accompanying weapons ' +
-          '(normally a Storm Bolter and Power fist, but other combinations are common, including a Thunder Hammer and Storm Shield, or a pair of lightning claws)' +
-          'from their Chapter’s armoury before embarking upon a mission. ' +
-          'Primaris Astartes cannot use Terminator Armour, as no suits of it exist which fit their enhanced stature.</p>',
+          '<p>You gain a suit of Terminator Armour, and one of the following weapon selections:</p>' +
+          '<ul class="mb-2">' +
+          '<li>Storm Bolter and Power Sword</li>' +
+          '<li>Storm Bolter and Power Fist</li>' +
+          '<li>Thunder Hammer and Storm Shield</li>' +
+          '<li>Paired Lightning Claws</li>' +
+          '</ul>' +
+          '<p>You may not always be able to use your Terminator Armour and its accompanying weapons; if you choose not to deploy in your Terminator armour, or are unable to use it, you begin the mission with +1 Wrath instead.</p>',
       },
     ],
   },
   {
+    name: 'The Rubicon Primaris',
     ...simpleStub('aaoa2', 80, 'The Rubicon Primaris', 'Pick an Astartes and cross the rubicon to show those trueborn Primaris who\'s boss.',false),
     description:
       '<p></p>',
@@ -1012,6 +993,7 @@ const aaoa = [
     ],
   },
   {
+    name: 'Lost upon the Path of the Warrior',
     ...simpleStub('aaoa2', 81, 'Lost upon the Path of the Warrior', 'Gain some fancy Exarch gear but not everyone is pleased. '),
     description:
       '<p>An Exarch is a former Eldar Aspect Warrior who has lost himself upon the Eldar Path of the Warrior and is unable to ever leave it again. At this point he is considered to have abandoned the Eldar Paths with their promise of new experiences and development of new skills in favour of a constant life of bloodshed. The Eldar becomes the elite warrior called an Exarch; simultaneously, an Exarch is a priest of Kaela Mensha Khaine, the Eldar God of War as well as a caretaker of the individual warrior shrine, and trainer, teacher, and instructor for other Aspect Warriors. The sacrifice of an Eldar Exarch can summon an Avatar of Kaela Mensha Khaine. He is equipped with ancient and powerful Eldar weaponry and armour. Each Eldar Warrior Aspect has its own particular kind of Exarch. On the battlefield, an Exarch commands an individual squad of Eldar Aspect Warriors. Exarchs are formidable opponents, and most of them can use their often-potent psychic and combat abilities to help the whole squad of Aspect Warriors under their command.</p>',
@@ -1096,6 +1078,7 @@ const aaoa = [
     ],
   },
   {
+    name: 'Lost upon the Seer Path',
     ...simpleStub('aaoa2', 80, 'Lost upon the Seer Path', 'A prophet for the Aeldari, but lost on this course.'),
     description:
       '<p>A Farseer is the most potent and respected form of Eldar psyker or Seer. A Farseer has become lost upon the Path of the Seer forever in the same way as the Exarchs are wed eternally to the Path of the Warrior. A council of the most powerful Farseers generally governs a Craftworld. Farseers possess a wide diversity of psychic specialities with divination being the most common skill. They are most often known for using their vast psychic powers to see the possibilities of the future so that they can manipulate events to better ensure the survival of the Eldar species in the wake of the Fall.</p>',
@@ -1169,6 +1152,7 @@ const aaoa = [
     ],
   },
   {
+    name: 'Possession',
     ...simpleStub('aaoa2', 82, 'Possession', 'Invited a deamon (knock, knock) into yourself, boosting stats and corruption.',false),
     description:
       '<p>Daemonic Possession is the act of the essence of a Daemon possessing and controlling the body of another being. As Daemons can only exist in the Materium for a limited period before being forced back into the Warp, Daemonic Possession is one of the most common methods for Daemons to enter the material realm. Daemonic Possession can occur involuntarily to those of psychic potential, but the host sometimes willingly gives themselves over to Daemonic Possession, as is the case with Possessed Chaos Space Marines and certain Cultists. Possessed individuals can often be used as gateways to the Warp, allowing Daemons to spill into the Materium.</p>' +
@@ -1241,6 +1225,7 @@ const aaoa = [
     ],
   },
   {
+    name: 'Reborn',
     ...simpleStub('aaoa2', 82, 'Reborn', 'Once an Aeldari, no Yinnari',false),
     description:
       '<p>The Ynnari are the members of a newly formed eponymous Eldar group that worship the God Ynnead and believe their race can be saved from the depredation of Slaanesh by helping to bring about the birth of the slumbering god of the dead.</p>' +
