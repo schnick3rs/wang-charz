@@ -1641,7 +1641,9 @@ export default {
       const items = [];
       powers.forEach((name) => {
         const power = this.psychicPowersRepository.find((power) => power.name === name);
-        items.push(power);
+        if (power) {
+          items.push(power);
+        }
       });
       if (items.length > 0) {
         items.push(...this.psychicAbilitiesRepository);
