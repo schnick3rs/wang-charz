@@ -944,12 +944,11 @@ const aaoa = [
     // Prerequisites
     minimumCampaignTier: 2,
     prerequisites: [
-      'Required Attributes +1',
-      'Required Skills +1',
       'Aeldari Species',
       'ASPECT WARRIOR Keyword',
     ],
     // Benefits
+    alert: 'Excarch powers are not yet implemented',
     influenceBonus: 0,
     influencePerTier: 1,
     keyworString: 'Exarch',
@@ -1041,6 +1040,7 @@ const aaoa = [
       'PSYKER Keyword',
     ],
     // Benefits
+    alert: 'The Special path Psychic powers not yet implemented.',
     influenceBonus: 3,
     influencePerTier: 0,
     keywordString: 'Farseer',
@@ -1163,6 +1163,7 @@ const aaoa = [
     costPerTier: 20,
     // Prerequisites
     minimumCampaignTier: 3,
+    alert: 'Corruption is not added correctly currently. Also, no mutaiton selection.',
     prerequisites: [
       'Willpower 4',
       'CHAOS Keyword',
