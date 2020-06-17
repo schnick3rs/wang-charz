@@ -140,18 +140,17 @@
                 <v-row>
                   <v-col :cols="12">
                     <h3 class="headline">
-                      {{ item.title }}
+                      {{ item.campaignName }}
                     </h3>
-                    <span class="grey--text">{{ item.subtitle }}</span>
+                    <span class="grey--text">by {{ item.publishedBy }}</span>
                   </v-col>
 
-                  <v-col :cols="12" :md="8">
-                    <p><strong>Author:</strong> {{ item.author }}</p>
+                  <v-col :cols="12" :md="12">
                     <p>{{ item.abstract }}</p>
-                    <p v-if="item.keywordTags">
+                    <p v-if="item.tags">
                       <span>Keywords: </span>
                       <v-chip
-                        v-for="keyword in item.keywordTags"
+                        v-for="keyword in item.tags"
                         :key="keyword"
                         class="mr-2 mb-1 mt-1"
                         small
@@ -162,39 +161,21 @@
                     </p>
                   </v-col>
 
-                  <v-col v-if="item.image && item.image.fields.file.url && false" :cols="12" :md="3">
-                    <v-img :src="item.image.fields.file.url" />
-                  </v-col>
+                </v-row>
 
-                  <v-col :cols="12" :md="4">
-                    <strong>Topics:</strong>
-                    <ul>
-                      <li v-for="parts in item.contentTags" :key="parts">
-                        <nuxt-link
-                          v-if="['Archetypes','Ascension Packages','Species'].includes(parts)"
-                          :to="`/library/${textToKebab(parts)}?filter-source=${item.sourceKey}`"
-                        >
-                          {{ parts }}
-                        </nuxt-link>
-                        <nuxt-link
-                          v-else-if="['Threats'].includes(parts)"
-                          :to="`/bestiary?filter-source=${item.sourceKey}`"
-                        >
-                          {{ parts }}
-                        </nuxt-link>
-                        <span v-else>{{ parts }}</span>
-                      </li>
-                    </ul>
+                <v-row>
+                  <v-col v-if="item.entryLink" :cols="12" :md="3">
+                    <v-img :src="itemImage(item.entryLink)" />
                   </v-col>
                 </v-row>
 
                 <v-card-actions>
-                  <v-btn color="primary" :href="item.documentUrl" target="_blank" @click="trackEvent(item.documentUrl)">
-                    View the document <v-icon right dark>
+                  <v-btn color="primary" :href="item.entryLink" target="_blank" @click="trackEvent(item.entryLink)">
+                    Watch the first Episode on Youtube <v-icon right dark>
                       launch
                     </v-icon>
                   </v-btn>
-                  <v-btn color="green" nuxt :to="'/vault/'+item.urlSlug">
+                  <v-btn color="success" nuxt :to="'/ether/'+item.slug" v-if="false">
                     Show Details
                   </v-btn>
                 </v-card-actions>
@@ -313,9 +294,7 @@ export default {
         {
           text: 'Started at', align: 'start', value: 'entryLinkCreatedAt', class: '',
         },
-        {
-          text: '', sortable: false, align: 'end', value: 'actions', class: '',
-        },
+        // { text: '', sortable: false, align: 'end', value: 'actions', class: '' },
       ],
       expanded: [],
     };
