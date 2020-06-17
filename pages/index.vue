@@ -139,6 +139,17 @@ export default {
           classes: [],
         },
         {
+          key: 'eather',
+          title: 'Watch the <strong>Ether</strong>',
+          subtitle: 'A browsable list of Lets Plays',
+          imageSrc: '/img/artwork_ether.jpg',
+          imageCredit: 'Artwork from Pixabay',
+          htmlText: '<strong>Beta</strong>, naming might change',
+          link: { text: 'To the Sessions', route: '/ether' },
+          isActive: true,
+          classes: [],
+        },
+        {
           key: 'library',
           title: 'Reference <strong>Library</strong>',
           subtitle: 'Browse Options for Characters',
