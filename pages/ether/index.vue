@@ -237,11 +237,10 @@ export default {
       })),
     };
 
-    const title = 'Collection of Wrath & Glory Actual Plays | Ether';
-    const description = 'The Doctors of Doom Vault contains a curated collection of supplements,'
-      + ' homebrews and houserules for Wrath & Glory, the latest Warhammer 40k Roleplaying game. '
-      + 'Those are written by dedicated fans.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_vault_bright.jpg';
+    const title = 'Watch People Play Wrath & Glory | Ether';
+    const description = 'The Doctors of Doom Ether contains a growing collection of (Youtube) ' +
+      'Lets Plays for Wrath & Glory, the latest Warhammer 40k Roleplaying game.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_ether.jpg';
 
     return {
       title,
@@ -258,7 +257,7 @@ export default {
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
-        { innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' },
+        //{ innerHTML: JSON.stringify(itemSchemaArray), type: 'application/ld+json' },
         { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
       ],
     };

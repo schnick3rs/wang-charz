@@ -145,7 +145,7 @@ export default {
           imageSrc: '/img/artwork_ether.jpg',
           imageCredit: 'Artwork from Pixabay',
           htmlText: '<strong>Beta</strong>, naming might change',
-          link: { text: 'To the Sessions', route: '/ether' },
+          link: { text: 'To the Ether', route: '/ether' },
           isActive: true,
           classes: [],
         },
