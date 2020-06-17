@@ -238,7 +238,7 @@ export default {
     };
 
     const title = 'Watch People Play Wrath & Glory | Ether';
-    const description = 'The Doctors of Doom Ether contains a growing collection of (Youtube) ' +
+    const description = 'The Doctors of Doom Ether lists and links to a collection of (Youtube) ' +
       'Lets Plays for Wrath & Glory, the latest Warhammer 40k Roleplaying game.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_ether.jpg';
 
