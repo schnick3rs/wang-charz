@@ -60,7 +60,7 @@
             :expanded.sync="expanded"
             :search="searchQuery"
             :items-per-page="-1"
-            sort-by="supplements"
+            sort-by="entryLinkCreatedAt"
             sort-desc
             item-key="slug"
             show-expand
