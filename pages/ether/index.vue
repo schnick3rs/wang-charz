@@ -272,27 +272,15 @@ export default {
         rowsPerPage: -1,
       },
       headers: [
-        {
-          text: 'Title', align: 'start', value: 'campaignName', class: '',
-        },
-        {
-          text: 'Language', align: 'center', value: 'language', class: '',
-        },
-        {
-          text: 'Type', align: 'start', value: 'type', class: '',
-        },
-        {
-          text: '# Players', align: 'start', value: 'numberOfPlayers', class: '',
-        },
-        {
-          text: 'Tags', align: 'start', value: 'tags', class: '',
-        },
-        {
-          text: 'Published By', align: 'start', value: 'publishedBy', class: '',
-        },
-        {
-          text: 'Started at', align: 'start', value: 'entryLinkCreatedAt', class: '',
-        },
+        { text: 'Title', align: 'start', value: 'campaignName', class: '' },
+        { text: 'Language', align: 'center', value: 'language', class: '' },
+        { text: 'Tier', align: 'center', value: 'campaignTier', class: '' },
+        { text: 'Core Version', align: 'center', value: 'coreRulesVersion', class: '' },
+        { text: 'Type', align: 'start', value: 'type', class: '' },
+        // { text: '# Players', align: 'start', value: 'numberOfPlayers', class: '' },
+        { text: 'Tags', align: 'start', value: 'tags', class: '' },
+        { text: 'Published By', align: 'start', value: 'publishedBy', class: '' },
+        { text: 'Started at', align: 'start', value: 'entryLinkCreatedAt', class: '' },
         // { text: '', sortable: false, align: 'end', value: 'actions', class: '' },
       ],
       expanded: [],
