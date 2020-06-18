@@ -88,6 +88,10 @@
               </v-row>
             </template>
 
+            <template v-slot:item.language="{ item }">
+              <img height="19" width="35" :src="`/img/icon/language_${item.language.toLowerCase()}.svg`"></img>
+            </template>
+
             <template v-slot:item.version="{ item }">
               <v-chip
                 v-if="item.version === 'Draft' || item.version.startsWith('v0')"
