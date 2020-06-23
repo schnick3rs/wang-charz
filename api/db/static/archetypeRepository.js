@@ -4,7 +4,7 @@
 const source = {
   core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
-  aaoa: { book: 'An Abundance of Apocrypha (v3)', key: 'aaoa', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha (v3.1)', key: 'aaoa', version: 'v3.1', path: '/vault/an-abundance-of-apocrypha' },
   aaoa2: { book: 'An Abundance of Apocrypha (v2)', key: 'aaoa2', version: '', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
@@ -1252,7 +1252,7 @@ const core = [
         // TODO probably error
         snippet: 'You are a Psyker; you know the Smite psyhcic power and may learn other powers as described in Chapter 11.',
         psychicPowers: [
-          { name: 'psykerSmmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
           //{ name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
         ],
       },
@@ -1272,6 +1272,7 @@ const core = [
           { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
           { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
           // { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+          { key: 'aaoa-runes-of-shaping', name: 'Runes of Shaping', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Shaping' }] },
         ],
         psychicDisciplines: [
           'Minor',
@@ -1408,7 +1409,619 @@ const aotgtRep = [
   simpleStub('aotgt', '', 'core-adeptus-astartes', 'Agents of the Imperium', 'Grey Knight', 90, 4),
 ];
 
+const aaoaOrks = [
+  {
+    ...archetype('aaoa',48,'Orks','Burna Boy',2,'Ork'),
+    ...cost(68,30,38, 0, 0),
+    hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
+    keywords: 'Ork,[Clan]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'tech', threshold: 1 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Da Burna Dance',
+        snippet: 'You add +1 to Resolve for every creature you can see which is currently On Fire.',
+      },
+    ],
+    wargear: wargearz('Burna, Ork Flak, 3 Stikkbomb'),
+  },
+  {
+    ...archetype('aaoa',53,'Orks','Mekboy',2,'Ork'),
+    ...cost(62,20,42, 0, 0),
+    hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
+    keywords: 'Ork,[Clan]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'tech', threshold: 3 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Fix It Proppa',
+        description:
+          '<p>You gain +Double Rank bonus dice on Tech tests to fix any weapon, vehicle, or other machine with the ORK keyword. In addition, during a regroup or respite, you may tinker with a weapon, vehicle, or other machine with the ORK keyword. If tinkering with a weapon, you may add your Rank from the weapon’s Range (add the same to all range categories), ED, Salvo rating, or any rated Trait the weapon already possesses. Other machines gain a bonus of the GM’s discretion. These bonuses last until the next respite, or until the machine suffers a complication, whichever comes first.</p>',
+      },
+    ],
+    wargear: wargearz('Kustom Mega Blasta, Choppa, 3 Stikkbomb, Ork Flak, Mek Toolz'),
+    influence: 1,
+  },
+  {
+    ...archetype('aaoa',55,'Orks','Painboy',2,'Ork'),
+    ...cost(62,20,42, 0, 0),
+    hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
+    keywords: 'Ork,[Clan]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'medicae', threshold: 3 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Make It All Betta',
+        description:
+          '<p>You add Double Rank bonus dice to all Medicae tests made on characters with the ORK keyword. In addition, when making a Medicae test on an ORK character outside of combat, you may spend an Exalted Icon from to remove a single Traumatic Injury immediately, as you crudely reattached lost body parts.</p>',
+      },
+    ],
+    wargear: wargearz('‘Urty Syringe, Choppa, Ork Flak, Dok´s Toolz'),
+    influence: 1,
+  },
+  {
+    ...archetype('aaoa',55,'Orks','Runtherd',2,'Ork'),
+    ...cost(68,20,48, 0, 0),
+    hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
+    keywords: 'Ork,[Clan]',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'intimidation', threshold: 3 },
+      { group: 'skills', value: 'leadership', threshold: 2 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Slaver',
+        description:
+          '<p>You are accompanied by a mob of Grots (p. 358) equal to your Rank x4. If any of your Grots die, they can be replaced between sessions at the GM’s discretion. All Grots, Snotlings, and Squigs within 10 + Rank metres of you add your Leadership to their Resolve.</p>',
+      },
+    ],
+    wargear: wargearz('Slugga, grabba stikk, 3 stikkbomb, grot lash, Ork Flak'),
+    influence: 1,
+  },
+  {
+    ...archetype('aaoa',58,'Orks','Tankbusta',2,'Ork'),
+    ...cost(58,20,38, 0, 0),
+    hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'tech', threshold: 1 },
+    ],
+    keywords: 'Ork,[Clan]',
+    archetypeFeatures: [
+      {
+        name: 'Tank Hunters',
+        description:
+          '<p>When you make an attack against a vehicle, you may reroll up to Double Rank dice.</p>',
+      },
+    ],
+    wargear: wargearz('Rokkit Launcher, Ork Flak, 3 stikkbomb, 1 tankbusta bomb'),
+    influence: 1,
+  },
+  {
+    ...archetype('aaoa',72,'Orks','Flash Git',3,'Ork'),
+    ...cost(94,30,64, 0, 0),
+    hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 4 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
+      { group: 'skills', value: 'cunning', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
+    ],
+    keywords: 'Ork,[Clan]',
+    archetypeFeatures: [
+      {
+        name: 'Gun Crazy Show-Offs',
+        description:
+          '<p>If you roll a 6 on your Wrath die when making a ranged attack, you may spend a reload to immediately make a second shooting attack with that weapon at the nearest target.</p>',
+      },
+    ],
+    wargear: wargearz('Snazzgun, ‘Eavy armour, 3 stikkbomb, ammo runt'),
+    influence: 2,
+  },
+  {
+    ...archetype('aaoa',86,'Orks','Weirdboy',3,'Ork'),
+    ...cost(126,80,46, 0, 0),
+    hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'psychicMastery', threshold: 2 },
+    ],
+    keywords: 'Ork,Psyker,[Clan]',
+    archetypeFeatures: [
+      {
+        name: 'The Power of the WAAAGH!',
+        description:
+          '<p>You are a Psyker; you know the Smite psychic power and may learn other powers from the WAAAGH discipline. When using psychic powers, you do not choose a Power Level; rather, you gain one additional Wrath die for every five Orks within 20 metres of you. You must roll these Wrath dice. Each 1 rolled on a Wrath die when using a Psychic Power inflicts one Mortal Wound on you instead of a roll on the Perils of the Warp table, and if you exceed your Max Wounds from this, you explode, dying instantly and inflicting 1d3+Tier Mortal Wounds on all Orks within 20 metres.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'WAAAGH!',
+        ],
+      },
+    ],
+    wargear: wargearz('Weirdboy Staff, Ork Flak, collection of jangly baubles'),
+  },
+];
+
+const aaoaAeldari = [
+  {
+    name: 'Guardian',
+    ...archetype('aaoa', 35, 'Aeldari', 'Guardian', 1, 'Aeldari'),
+    ...cost(38,0,38, 0, 0),
+    hint: 'A Cratsworld Last Line of Defence.',
+    keywords: 'Aeldari, Asuryani, [Craftworld]',
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      // OR { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'The Last Line',
+        description:
+          '<p>Guardians march to war only when necessary, for the Asuryani are few and their lives are precious. This grim necessity means you increase your Resolve and Conviction by Rank.</p>',
+      },
+    ],
+    wargear: wargearz('Eldar Mesh Armour, Shuriken Catapult, mono-knife, 3 plasma grenade, spirit stone'),
+  },
+  {
+    name: 'Bonesinger',
+    ...archetype('aaoa', 47, 'Aeldari', 'Bonesinger', 2, 'Aeldari'),
+    ...cost(102,40,62, 0, 0),
+    hint: 'Shapers of Bone.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Psyker',
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'attributes', value: 'intellect', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'psychicMastery', threshold: 2 },
+      { group: 'skills', value: 'tech', threshold: 2 },
+      // OR { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Path of the Shaper',
+        // TODO probably error
+        snippet: 'You are a psyker; you know the Smite and Vaul’s Song psychic powers and may learn other powers as described in Chapter 11.',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerVaulsSong', selected: 'Vaul´s Song', query: { name: 'Vaul´s Song' }, options: [], free: true },
+        ],
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor, Universal, Divination and Runes of Shaping Disciplines. You also gain access to one additional Discipline.',
+        description:
+          '<p>You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. You also gain access to on additional Discipline. See Chapter 11 for details.</p>',
+        selected: [''],
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          // { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+          'Divination',
+          'Runes of Shaping',
+        ],
+      },
+    ],
+    wargear: wargearz('Rune armour, psytronome shaper, a set of wraithbone runes, Bonesinger shard, Spirit Stone'),
+    influence: 1,
+  },
+  // Aspect warriors
+  {
+    name: 'Dark Reaper',
+    ...archetype('aaoa', 67, 'Aeldari', 'Dark Reaper', 3, 'Aeldari'),
+    ...cost(112,30,82, 0, 0),
+    hint: 'Aspect warriors, merciless and deadly at range.',
+    prerequisites: [
+      reqAttribute('agility', 3),
+      reqAttribute('strength', 4),
+      reqAttribute('willpower', 3),
+      reqSkill('ballisticSkill', 5),
+      reqSkill('awareness', 3),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    archetypeFeatures: [
+      simpleAbility('Inescapable Aim: You may reroll up to Double Rank dice on any Ranged Attack you make.'),
+    ],
+    wargear: wargearz('Heavy Aspect Armour, Reaper Launcher, Dark Reaper Rangefinder, mono-knife, spirit stone'),
+    influence: 1,
+  },
+  {
+    name: 'Dire Avenger',
+    ...archetype('aaoa', 70, 'Aeldari', 'Dire Avenger', 3, 'Aeldari'),
+    ...cost(126,30,96, 0, 0),
+    hint: 'Aspect warriors, skilled in the arts of aggressive defence.',
+    prerequisites: [
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('leadership', 2),
+      reqSkill('weaponSkill', 4),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    archetypeFeatures: [
+      simpleAbility('Defensive Tactics: You add +Rank to your Defence. In addition, when an enemy Charges you, you may make a ranged attack against them as a Reflexive Action, adding +2 to the DN of the attack. This attack is resolved before the enemy moves.'),
+    ],
+    wargear: wargearz('Aspect Armour, Avenger Shuriken Catapult, targeting vane, mono-knife, 3 plasma grenade, spirit stone'),
+    influence: 2,
+  },
+  {
+    name: 'Fire Dragon',
+    ...archetype('aaoa', 71, 'Aeldari', 'Fire Dragon', 3, 'Aeldari'),
+    ...cost(118,30,88, 0, 0),
+    hint: 'Aspect warriors, turning all in their path to molten ruin.',
+    prerequisites: [
+      reqAttribute('toughness', 3),
+      reqAttribute('agility', 4),
+      reqAttribute('willpower', 3),
+      reqSkill('athletics', 2),
+      reqSkill('ballisticSkill', 5),
+      reqSkill('tech', 3),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    modifications: [],
+    archetypeFeatures: [
+      simpleAbility('Assured Destruction: When you attack a vehicle, structure, or monstrous creature, add +Rank ED to the attack. In addition, add +Rank to your resilience against attacks with the FIRE or MELTA keywords.'),
+    ],
+    wargear: wargearz('Heavy Aspect Armour, Fusion Gun, 1 melta bomb, mono-knife, spirit stone'),
+    influence: 1,
+  },
+  {
+    name: 'Howling Banshee',
+    ...archetype('aaoa', 75, 'Aeldari', 'Howling Banshee', 3, 'Aeldari'),
+    ...cost(137,30,107, 0, 0),
+    hint: 'Aspect warriors, swift shock troops whose shriek freezes the hearts of their foes.',
+    prerequisites: [
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqSkill('athletics', 2),
+      reqSkill('intimidation', 2),
+      reqSkill('weaponSkill', 5),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    archetypeFeatures: [
+      simpleAbility('Swift Death: When you Run, Charge, or Sprint, increase your Speed by +Rank. In addition, you may use Agility instead of Strength for your Athletics skill tests.'),
+    ],
+    wargear: wargearz('Aspect Armour, shuriken pistol, power sword, Banshee Mask, spirit stone'),
+    influence: 1,
+  },
+  {
+    name: 'Shining Spear',
+    ...archetype('aaoa', 75, 'Aeldari', 'Shining Spear', 3, 'Aeldari'),
+    ...cost(151,30,131, 0, 0),
+    hint: 'Aspect warriors, jetbike-mounted lancers who slay the mightiest foes',
+    prerequisites: [
+      reqAttribute('strength', 2),
+      reqAttribute('agility', 5),
+      reqAttribute('willpower', 3),
+      reqSkill('pilot', 5),
+      reqSkill('tech', 2),
+      reqSkill('weaponSkill', 5),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    archetypeFeatures: [
+      simpleAbility('Ride the Wind: You may reroll Double Rank dice on any Pilot test you make when operating an Aeldari Jetbike'),
+    ],
+    wargear: wargearz('Heavy Aspect Armour, Laser Lance, Aeldari Jetbike, spirit stone'),
+    influence: 1,
+  },
+  {
+    name: 'Striking Scorpion',
+    ...archetype('aaoa', 82, 'Aeldari', 'Striking Scorpion', 3, 'Aeldari'),
+    ...cost(118,30,88, 0, 0),
+    hint: 'Aspect warriors, stealthy killers who strike with unseen power.',
+    prerequisites: [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 4),
+      reqAttribute('willpower', 3),
+      reqSkill('athletics', 2),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 5),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    archetypeFeatures: [
+      simpleAbility('Hunt in the Shadows: You may reroll up to Double Rank dice when making a Stealth test. In addition, you add +Rank bonus dice when you make a Surprise Attack.'),
+    ],
+    wargear: wargearz('Heavy Aspect Armour, Scorpion Chainsword, Shuriken Pistol, Mandiblaster Helm, 3 plasma grenade, Spirit Stone'),
+    influence: 1,
+  },
+  {
+    name: 'Swooping Hawk',
+    ...archetype('aaoa', 83, 'Aeldari', 'Swooping Hawk', 3, 'Aeldari'),
+    ...cost(111,30,81, 0, 0),
+    hint: 'Aspect warriors, flitting across the skies to deal vengeance.',
+    prerequisites: [
+      reqAttribute('agility', 5),
+      reqAttribute('willpower', 3),
+      reqSkill('athletics', 2),
+      reqSkill('ballisticSkill', 5),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    archetypeFeatures: [
+      simpleAbility('Skyleap: So long as you are able to Fly, you may Fall Back as a Simple action, rather than a Combat Action. In addition, when you take the Full Defence action, you immediately move twice your Flying Speed (instead of halving your Speed) away from the enemy and add +Rank bonus dice to the Initiative test to increase your Defence. Naturally, these abilities require that you be able to fly, and have room to do so.'),
+    ],
+    wargear: wargearz('Aspect Armour, Lasblaster, mono-knife, Swooping Hawk Wings, Swooping Hawk Grenade Pack, 6 plasma grenade, Spirit Stone'),
+    influence: 2,
+  },
+  {
+    name: 'Warp Spider',
+    ...archetype('aaoa', 85, 'Aeldari', 'Warp Spider', 3, 'Aeldari'),
+    ...cost(118,30,88, 0, 0),
+    hint: 'Aspect warriors, appearing from nowhere to cut down their prey.',
+    prerequisites: [
+      reqAttribute('agility', 4),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 4),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('tech', 2),
+    ],
+    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    archetypeFeatures: [
+      simpleAbility('Flickerjump: As a Reflexive Action when a ranged attack is made against you, you may add +Double Rank to your Defence, as you use your Warp Jump Generator to flicker in and out of reality.'),
+    ],
+    wargear: wargearz('Heavy Aspect Armour, Death Spinner, Warp Jump Generator, mono-knife, spirit stone'),
+    influence: 1,
+  },
+  // Harlequin
+  simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
+  simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),
+  simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
+  simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
+  simpleStub('aaoa2', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
+  // druchari
+  {
+    name: 'Kabalite Warrior',
+    ...archetype('aaoa', 38, 'Drukhari', 'Kabalite Warrior', 1, 'aaoa/Drukhari'),
+    ...cost(38,0,38, 0, 0),
+    hint: 'A dark hunter from the noble houses.',
+    keywords: 'Aeldari,Drukhari,[Cabal]',
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'attributes', value: 'strength', threshold: 2 },
+      { group: 'attributes', value: 'initiative', threshold: 3 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'cunning', threshold: 1 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Tormentor',
+        snippet: 'You add +Double Rank bonus dice to all Intimidation Interaction attacks you make.',
+      },
+    ],
+    wargear: wargearz('Kabalite Warsuit, Splinter Rifle, Mono Knife'),
+    influence: 1,
+  },
+  {
+    name: 'Wych',
+    ...archetype('aaoa', 38, 'Drukhari', 'Wych', 1, 'aaoa/Drukhari'),
+    ...cost(52,0,52, 0, 0),
+    hint: 'A deadly cult gladiator.',
+    keywords: 'Aeldari,Drukhari,[Cult]',
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'strength', threshold: 2 },
+      { group: 'attributes', value: 'initiative', threshold: 3 },
+      { group: 'skills', value: 'athletics', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Hekatarii Prowess',
+        snippet: 'As long as you are not immobilised or Restrained, you may use Agility instead of Toughness when you roll Determination, and you may roll Determination against Mortal Wounds. In addition, enemies attempting to Fall Back must pass an Agility test (DN 2+ Double Rank); failure means that they cannot Fall Back this turn.',
+      },
+    ],
+    wargear: wargearz('Wychsuit, Hekatarii blade, splinter pistol, 3 plasma grenade, 3 Hekatarii Combat Drugs'),
+  },
+  {
+    name: 'Incubus',
+    ...archetype('aaoa', 76, 'Drukhari', 'Incubus', 3, 'aaoa/Drukhari'),
+    ...cost(108,0,58, 0, 0),
+    hint: 'A deadly cult gladiator.',
+    keywords: 'Drukhari',
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 3 },
+      { group: 'attributes', value: 'agility', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'athletics', threshold: 2 },
+      { group: 'skills', value: 'intimidation', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 5 },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Lethal Precision',
+        snippet: 'For each Exalted Icon you roll on the damage roll for a melee attack, you may roll one additional ED. These additional ED cannot themselves allow you to roll extra ED.',
+      },
+    ],
+    wargear: wargearz('Incubi Warsuit, Klaive, Tormentor'),
+    influence: 1,
+  },
+];
+
+const aaoaSquat = [
+  {
+    ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'War-Pledged Warrior', 0, 1, false),
+    hint: 'The rank and file of a Squat Stronghold.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
+      { group: 'skills', value: 'cunning', threshold: 2 },
+    ],
+    keywords: 'Squat,<League>',
+    influence: 0,
+    archetypeFeatures: [
+      {
+        name: 'War-Pledged',
+        description:
+          '<p>A War-Pledged Warrior is bound by oaths of loyalty and duty and stands united with their comrades-in-arms.</p>' +
+          'Whenever a War-Pledged Warrior attacks an enemy who has been attacked by an ' +
+          'ally already during this round (including Interaction attacks), ' +
+          'they gain a bonus of +½ Rank to their attack.</p>',
+      },
+    ],
+    wargearString:
+      'Boltgun, hand-cannon, mono knife, Flak armour, 3 frag and 3 krak grenades.',
+    wargear: [
+      { name: 'Boltgun' },
+      { name: 'Hand-cannon' },
+      { name: 'mono knife' },
+      { name: 'Flak armour' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'Guild Engineer', 60, 3, false),
+    hint: 'Masterful artisans, creating the devices necessary for survival.',
+    prerequisites: [
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'tech', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
+    ],
+    keywords: 'Squat,<League>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Guild Techniques',
+        description:
+          '<p>Guild Engineers receive +Rank on Tech tests to repair a damaged machine. They may re-roll up to ½ Rank dice on any skill test to use a device that they have personally built or repaired. They are considered to have built all of their starting wargear.</p>',
+      },
+    ],
+    wargearString:
+      'Boltgun, Power Axe, augmetic servo-arm, Ionclad Carapace armour, Refractor field, Guild Engineer’s tools.',
+    wargear: [
+      { name: 'Boltgun' },
+      { name: 'Power Axe' },
+      { name: 'Mechadendrites (Servo-Arm)' },
+      { name: 'Ionclad Carapace Armour' },
+      { name: 'Refractor field' },
+      { name: 'Guild Engineer’s tools' },
+    ],
+  },
+  {
+    ...simpleStub('aaoa2', 64, 'aaoa-squat', 'Squats', 'Hearthguard', 60, 3, false),
+    hint: 'Doughty elite warriors pledged to defend hearth and home.',
+    prerequisites: [
+      { group: 'attributes', value: 'toughness', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
+      { group: 'skills', value: 'leadership', threshold: 2 },
+    ],
+    keywords: 'Squat,<League>',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Bodyguard',
+        description:
+          '<p>A Hearthguard is unstinting in their devotion to their comrades, ' +
+          'and they will not permit their allies to come to harm if it can be helped. ' +
+          'When an enemy makes an attack against a character within 5m of the Hearthguard (and who is one of the Hearthguard’s allies), the DN of the attack is increased by ½ the Hearthguard’s Rank.</p>',
+      },
+    ],
+    wargearString:
+      'Boltgun, Power Axe, Bolt Pistol, mono knife, Ionclad Carapace Armour, 3 frag and 3 krak grenades.',
+    wargear: [
+      { name: 'Boltgun' },
+      { name: 'Power Axe' },
+      { name: 'Bolt Pistol' },
+      { name: 'Mono Knife' },
+      { name: 'Ionclad Carapace Armour' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...simpleStub('aaoa2', 64, 'aaoa-squat', 'Squats', 'Ancestor Lord', 100, 4, false),
+    hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
+    prerequisites: [
+      { group: 'attributes', value: 'willpower', threshold: 5 },
+      { group: 'attributes', value: 'fellowship', threshold: 4 },
+      { group: 'skills', value: 'leadership', threshold: 3 },
+      { group: 'skills', value: 'psychicMastery', threshold: 3 },
+    ],
+    keywords: 'Squat,<League>,Psyker',
+    influence: 4,
+    archetypeFeatures: [
+      {
+        name: 'Psychic Protector',
+        description:
+          '<p>An Ancestor Lord begins play with the Psyniscience and smite psychic powers (which do not count towards the maximum), ' +
+          'and may purchase additional Minor Psychic Powers, Universal Psychic Powers, and Ancestral Rites Psychic Powers, ' +
+          'subject to Tier restrictions.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Universal',
+          'Ancestral Rites',
+        ],
+      },
+    ],
+    wargearString:
+      'Master-Crafted Force Rod, Ionclad Carapace armour, clothing (Ancestor’s robes).',
+    wargear: [
+      { name: 'Force Rod', variant: 'Master-Crafted Force Rod' },
+      { name: 'Ionclad Carapace Armour' },
+      { name: 'Clothing', variant: 'Ancestor’s robes' },
+    ],
+  },
+];
+
 const aaoaRep = [
+  ...aaoaAeldari,
+  ...aaoaOrks,
+  ...aaoaSquat,
   {
     ...simpleStub('aaoa2', 22, 'core-human', 'Adeptus Ministorum', 'Frateris Militia', 0, 1, false),
     hint: 'A faithful citizen whipped into a fervour and eager to slay in the Emperor’s name.',
@@ -3017,558 +3630,6 @@ const aaoaRep = [
           { name: 'Chainsword and Autopistl' },
         ],
       },
-    ],
-  },
-  simpleStub('aaoa2', 51, 'Eldar', 'Aeldari', 'Guardian', 0, 1),
-  {
-    ...simpleStub('aaoa2', 51, 'Eldar', 'Aeldari', 'Dire Avenger', 50, 3, false),
-    hint: 'Aspect warriors, skilled in the arts of aggressive defence.',
-    prerequisites: [
-      reqAttribute('agility', 4),
-      reqAttribute('willpower', 3),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('weaponSkill', 4),
-      reqSkill('leadership', 2),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
-    influence: 2,
-    modifications: [],
-    archetypeFeatures: [
-      simpleAbility('Defensive Tactics: When a Dire Avenger makes a ranged attack using a held action, they ignore up to Rank penalties on the attack.'),
-    ],
-    wargearString:
-      'Aspect Armour, Avenger Shuriken Catapult, targeting vane, Mono Knife, 3 plasma grenades, spirit stone.',
-    wargear: [
-      { name: 'Aspect Armour' },
-      { name: 'Avenger Shuriken Catapult' },
-      { name: 'targeting vane' },
-      { name: 'Mono Knife' },
-      { name: 'Plasma Grenade', amount: 3 },
-      { name: 'Spirit Stone' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 52, 'Eldar', 'Aeldari', 'Dark Reaper', 60, 3, false),
-    hint: 'Aspect warriors, merciless and deadly at range.',
-    prerequisites: [
-      reqAttribute('agility', 3),
-      reqAttribute('strength', 3),
-      reqAttribute('willpower', 2),
-      reqSkill('ballisticSkill', 5),
-      reqSkill('awareness', 3),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
-    influence: 1,
-    modifications: [],
-    archetypeFeatures: [
-      simpleAbility('Inescapable Accuracy: When a Dark Reaper makes a ranged attack, they ignore up to Rank DN penalties from Ballistic Skill tests'),
-    ],
-    wargearString:
-      'Heavy Aspect Armour, Reaper launcher, Dark Reaper Rangefinder, knife, spirit stone.',
-    wargear: [
-      { name: 'Heavy Aspect Armour' },
-      { name: 'Reaper launcher' },
-      { name: 'Dark Reaper Rangefinder' },
-      { name: 'Knife' },
-      { name: 'Spirit Stone' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 52, 'Eldar', 'Aeldari', 'Fire Dragon', 55, 3,false),
-    hint: 'Aspect warriors, turning all in their path to molten ruin.',
-    prerequisites: [
-      reqAttribute('strength', 3),
-      reqAttribute('agility', 4),
-      reqAttribute('willpower', 2),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('tech', 3),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
-    influence: 1,
-    modifications: [],
-    archetypeFeatures: [
-      simpleAbility('Assured Destruction: When attacking a vehicle, monstrous creature, or structure, a Fire Dragon gains +½ Rank bonus ED.'),
-    ],
-    wargearString: 'Heavy Aspect Armour, Fusion Gun, 1 melta bomb, knife, spirit stone.',
-    wargear: [
-      { name: 'Heavy Aspect Armour' },
-      { name: 'Fusion Gun' },
-      { name: 'Melta Bomb', amount: 1 },
-      { name: 'Knife' },
-      { name: 'Spirit Stone' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 53, 'Eldar', 'Aeldari', 'Howling Banshee', 55, 3,false),
-    hint: 'Aspect warriors, swift shock troops whose shriek freezes the hearts of their foes.',
-    prerequisites: [
-      reqAttribute('agility', 5),
-      reqAttribute('initiative', 4),
-      reqAttribute('willpower', 2),
-      reqSkill('athletics', 2),
-      reqSkill('weaponSkill', 5),
-      reqSkill('intimidation', 3),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
-    influence: 1,
-    modifications: [],
-    archetypeFeatures: [
-      simpleAbility('Swift Death: A Howling Banshee increases her Speed by +Rank when running, sprinting, or charging.'),
-    ],
-    wargearString: 'Aspect Armour, shuriken pistol, power sword, banshee mask, spirit stone.',
-    wargear: [
-      { name: 'Aspect Armour' },
-      { name: 'Shuriken Pistol' },
-      { name: 'Power Sword' },
-      { name: 'Banshee Maks' },
-      { name: 'Spirit Stone' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 53, 'Eldar', 'Aeldari', 'Shining Spear', 70, 3,false),
-    hint: 'Aspect warriors, jetbike-mounted lancers who slay the mightiest foes',
-    prerequisites: [
-      reqAttribute('agility', 5),
-      reqAttribute('willpower', 2),
-      reqSkill('weaponSkill', 4),
-      reqSkill('ballisticSkill', 3),
-      reqSkill('pilot', 4),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
-    influence: 1,
-    modifications: [],
-    archetypeFeatures: [
-      simpleAbility('Ride the Wind: A Shining Spear gains +Rank bonus to Piloting tests for Aeldari Jetbikes'),
-    ],
-    wargearString: 'Heavy Aspect Armour, laser lance, Aeldari jetbike, spirit stone.',
-    wargear: [
-      { name: 'Heavy Aspect Armour' },
-      { name: 'Laser Lance' },
-      { name: 'Aeldari Jetbike' },
-      { name: 'Spirit Stone' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 54, 'Eldar', 'Aeldari', 'Striking Scorpion', 55, 3,false),
-    hint: 'Aspect warriors, stealthy killers who strike with unseen power.',
-    prerequisites: [
-      reqAttribute('agility', 5),
-      reqAttribute('initiative', 4),
-      reqAttribute('willpower', 2),
-      reqSkill('weaponSkill', 4),
-      reqSkill('stealth', 4),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
-    influence: 1,
-    modifications: [],
-    archetypeFeatures: [
-      simpleAbility('Hunt in the Shadows: A Striking Scorpion may reroll up to Rank dice when making a Stealth test. In addition, they may add +½ Rank to Weapon Skill tests to attack unaware enemies.'),
-    ],
-    wargearString: 'Heavy Aspect Armour, scorpion chainsword, shuriken pistol, mandiblasters, 3 plasma grenades, spirit stone.',
-    wargear: [
-      { name: 'Heavy Aspect Armour' },
-      { name: 'Chainsword', variant: 'Scorpion Chainsword' },
-      { name: 'Shuriken Pistol' },
-      { name: 'Mandiblaster' },
-      { name: 'Plasma Grenade', amount: 3 },
-      { name: 'Spirit Stone' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 54, 'Eldar', 'Aeldari', 'Swooping Hawk', 55, 3,false),
-    hint: 'Aspect warriors, flitting across the skies to deal vengeance.',
-    prerequisites: [
-      reqAttribute('agility', 5),
-      reqAttribute('initiative', 4),
-      reqAttribute('willpower', 2),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('pilot', 4),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
-    influence: 2,
-    modifications: [],
-    archetypeFeatures: [
-      simpleAbility('Herald of Victory: A Swooping Hawk’s presence in battle is a rousing, triumphant sight. Characters with the Asuryani keyword within 10m of a Swooping Hawk gain a bonus to their Resolve equal to 1/2 the Swooping Hawk’s Rank.'),
-    ],
-    wargearString: 'Aspect Armour, Swooping Hawk Wings, Lasblaster, knife, grenade pack with 6 plasma grenades, spirit stone.',
-    wargear: [
-      { name: 'Aspect Armour' },
-      { name: 'Swooping Hawk Wings' },
-      { name: 'Lasblaster' },
-      { name: 'Knife' },
-      { name: 'Grenade Pack', variant: 'grenade pack with 6 plasma grenades' },
-      { name: 'Plasma Grenade', amount: 6 },
-      { name: 'Spirit Stone' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 55, 'Eldar', 'Aeldari', 'Warp Spider', 65, 3,false),
-    hint: 'Aspect warriors, appearing from nowhere to cut down their prey.',
-    prerequisites: [
-      reqAttribute('agility', 5),
-      reqAttribute('intellect', 3),
-      reqAttribute('willpower', 2),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('awareness', 3),
-      reqSkill('tech', 3),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
-    influence: 1,
-    modifications: [],
-    archetypeFeatures: [
-      simpleAbility('Flickerjump: When equipped with a Warp Jump Generator, a Warp Spider may employ it for defence as well as mobility, flickering into and out of reality as enemies fire upon them. When targeted by a ranged attack, a Warp Spider may increase their Defence by +Rank. However, when they do this, roll a d6; on a 1, they also suffer d6 Mortal Wounds from the horrors of the Warp.'),
-    ],
-    wargearString: 'Heavy Aspect Armour, Warp Jump Generator, Death Spinner, knife, spirit stone.',
-    wargear: [
-      { name: 'Heavy Aspect Armour' },
-      { name: 'Warp Spider Jump Generator' },
-      { name: 'Deathspinner' },
-      { name: 'Knife' },
-      { name: 'Spirit Stone' },
-    ],
-  },
-  simpleStub('aaoa2', 55, 'Eldar', 'Aeldari', 'Bonesinger', 50, 2),
-  {
-    ...archetype('aaoa', 38, 'Drukhari', 'Kabalite Warrior', 1, 'aaoa/Drukhari'),
-    ...cost(38,0,38, 0, 0),
-    hint: 'A dark hunter from the noble houses.',
-    keywords: 'Aeldari,Drukhari,[Cabal]',
-    prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 3 },
-      { group: 'attributes', value: 'strength', threshold: 2 },
-      { group: 'attributes', value: 'initiative', threshold: 3 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-      { group: 'skills', value: 'cunning', threshold: 1 },
-      { group: 'skills', value: 'intimidation', threshold: 2 },
-    ],
-    archetypeFeatures: [
-      {
-        name: 'Tormentor',
-        snippet: 'You add +Double Rank bonus dice to all Intimidation Interaction attacks you make.',
-      },
-    ],
-    wargear: wargearz('Kabalite Warsuit, Splinter Rifle, Mono Knife'),
-    influence: 1,
-  },
-  {
-    ...archetype('aaoa', 38, 'Drukhari', 'Wych', 1, 'aaoa/Drukhari'),
-    ...cost(52,0,52, 0, 0),
-    hint: 'A deadly cult gladiator.',
-    keywords: 'Aeldari,Drukhari,[Cult]',
-    prerequisites: [
-      { group: 'attributes', value: 'agility', threshold: 4 },
-      { group: 'attributes', value: 'strength', threshold: 2 },
-      { group: 'attributes', value: 'initiative', threshold: 3 },
-      { group: 'skills', value: 'athletics', threshold: 2 },
-      { group: 'skills', value: 'intimidation', threshold: 2 },
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
-    archetypeFeatures: [
-      {
-        name: 'Hekatarii Prowess',
-        snippet: 'As long as you are not immobilised or Restrained, you may use Agility instead of Toughness when you roll Determination, and you may roll Determination against Mortal Wounds. In addition, enemies attempting to Fall Back must pass an Agility test (DN 2+ Double Rank); failure means that they cannot Fall Back this turn.',
-      },
-    ],
-    wargear: wargearz('Wychsuit, Hekatarii blade, splinter pistol, 3 plasma grenade, 3 Hekatarii Combat Drugs'),
-  },
-  simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
-  simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),
-  simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
-  simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
-  simpleStub('aaoa2', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
-  // Orks
-  {
-    ...archetype('aaoa',48,'Orks','Burna Boy',2,'Ork'),
-    ...cost(68,30,38, 0, 0),
-    hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
-    keywords: 'Ork,[Clan]',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'intellect', threshold: 2 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-      { group: 'skills', value: 'tech', threshold: 1 },
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
-    archetypeFeatures: [
-      {
-        name: 'Da Burna Dance',
-        snippet: 'You add +1 to Resolve for every creature you can see which is currently On Fire.',
-      },
-    ],
-    wargear: wargearz('Burna, Ork Flak, 3 Stikkbomb'),
-  },
-  {
-    ...archetype('aaoa',53,'Orks','Mekboy',2,'Ork'),
-    ...cost(62,20,42, 0, 0),
-    hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
-    keywords: 'Ork,[Clan]',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'intellect', threshold: 3 },
-      { group: 'skills', value: 'tech', threshold: 3 },
-    ],
-    archetypeFeatures: [
-      {
-        name: 'Fix It Proppa',
-        description:
-          '<p>You gain +Double Rank bonus dice on Tech tests to fix any weapon, vehicle, or other machine with the ORK keyword. In addition, during a regroup or respite, you may tinker with a weapon, vehicle, or other machine with the ORK keyword. If tinkering with a weapon, you may add your Rank from the weapon’s Range (add the same to all range categories), ED, Salvo rating, or any rated Trait the weapon already possesses. Other machines gain a bonus of the GM’s discretion. These bonuses last until the next respite, or until the machine suffers a complication, whichever comes first.</p>',
-      },
-    ],
-    wargear: wargearz('Kustom Mega Blasta, Choppa, 3 Stikkbomb, Ork Flak, Mek Toolz'),
-    influence: 1,
-  },
-  {
-    ...archetype('aaoa',55,'Orks','Painboy',2,'Ork'),
-    ...cost(62,20,42, 0, 0),
-    hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
-    keywords: 'Ork,[Clan]',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'intellect', threshold: 3 },
-      { group: 'skills', value: 'medicae', threshold: 3 },
-    ],
-    archetypeFeatures: [
-      {
-        name: 'Make It All Betta',
-        description:
-          '<p>You add Double Rank bonus dice to all Medicae tests made on characters with the ORK keyword. In addition, when making a Medicae test on an ORK character outside of combat, you may spend an Exalted Icon from to remove a single Traumatic Injury immediately, as you crudely reattached lost body parts.</p>',
-      },
-    ],
-    wargear: wargearz('‘Urty Syringe, Choppa, Ork Flak, Dok´s Toolz'),
-    influence: 1,
-  },
-  {
-    ...archetype('aaoa',55,'Orks','Runtherd',2,'Ork'),
-    ...cost(68,20,48, 0, 0),
-    hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
-    keywords: 'Ork,[Clan]',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'fellowship', threshold: 3 },
-      { group: 'skills', value: 'intimidation', threshold: 3 },
-      { group: 'skills', value: 'leadership', threshold: 2 },
-    ],
-    archetypeFeatures: [
-      {
-        name: 'Slaver',
-        description:
-          '<p>You are accompanied by a mob of Grots (p. 358) equal to your Rank x4. If any of your Grots die, they can be replaced between sessions at the GM’s discretion. All Grots, Snotlings, and Squigs within 10 + Rank metres of you add your Leadership to their Resolve.</p>',
-      },
-    ],
-    wargear: wargearz('Slugga, grabba stikk, 3 stikkbomb, grot lash, Ork Flak'),
-    influence: 1,
-  },
-  {
-    ...archetype('aaoa',58,'Orks','Tankbusta',2,'Ork'),
-    ...cost(58,20,38, 0, 0),
-    hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'agility', threshold: 3 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-      { group: 'skills', value: 'tech', threshold: 1 },
-    ],
-    keywords: 'Ork,[Clan]',
-    archetypeFeatures: [
-      {
-        name: 'Tank Hunters',
-        description:
-          '<p>When you make an attack against a vehicle, you may reroll up to Double Rank dice.</p>',
-      },
-    ],
-    wargear: wargearz('Rokkit Launcher, Ork Flak, 3 stikkbomb, 1 tankbusta bomb'),
-    influence: 1,
-  },
-  {
-    ...archetype('aaoa',72,'Orks','Flash Git',3,'Ork'),
-    ...cost(94,30,64, 0, 0),
-    hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'agility', threshold: 3 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 3 },
-      { group: 'skills', value: 'cunning', threshold: 2 },
-      { group: 'skills', value: 'intimidation', threshold: 2 },
-    ],
-    keywords: 'Ork,[Clan]',
-    archetypeFeatures: [
-      {
-        name: 'Gun Crazy Show-Offs',
-        description:
-          '<p>If you roll a 6 on your Wrath die when making a ranged attack, you may spend a reload to immediately make a second shooting attack with that weapon at the nearest target.</p>',
-      },
-    ],
-    wargear: wargearz('Snazzgun, ‘Eavy armour, 3 stikkbomb, ammo runt'),
-    influence: 2,
-  },
-  {
-    ...archetype('aaoa',86,'Orks','Weirdboy',3,'Ork'),
-    ...cost(126,80,46, 0, 0),
-    hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 3 },
-      { group: 'attributes', value: 'toughness', threshold: 3 },
-      { group: 'attributes', value: 'willpower', threshold: 4 },
-      { group: 'skills', value: 'psychicMastery', threshold: 2 },
-    ],
-    keywords: 'Ork,Psyker,[Clan]',
-    archetypeFeatures: [
-      {
-        name: 'The Power of the WAAAGH!',
-        description:
-          '<p>You are a Psyker; you know the Smite psychic power and may learn other powers from the WAAAGH discipline. When using psychic powers, you do not choose a Power Level; rather, you gain one additional Wrath die for every five Orks within 20 metres of you. You must roll these Wrath dice. Each 1 rolled on a Wrath die when using a Psychic Power inflicts one Mortal Wound on you instead of a roll on the Perils of the Warp table, and if you exceed your Max Wounds from this, you explode, dying instantly and inflicting 1d3+Tier Mortal Wounds on all Orks within 20 metres.</p>',
-        psychicPowers: [
-          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'WAAAGH!',
-        ],
-      },
-    ],
-    wargear: wargearz('Weirdboy Staff, Ork Flak, collection of jangly baubles'),
-  },
-  // Squats
-  {
-    ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'War-Pledged Warrior', 0, 1, false),
-    hint: 'The rank and file of a Squat Stronghold.',
-    prerequisites: [
-      { group: 'attributes', value: 'toughness', threshold: 4 },
-      { group: 'attributes', value: 'willpower', threshold: 3 },
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-      { group: 'skills', value: 'cunning', threshold: 2 },
-    ],
-    keywords: 'Squat,<League>',
-    influence: 0,
-    archetypeFeatures: [
-      {
-        name: 'War-Pledged',
-        description:
-          '<p>A War-Pledged Warrior is bound by oaths of loyalty and duty and stands united with their comrades-in-arms.</p>' +
-          'Whenever a War-Pledged Warrior attacks an enemy who has been attacked by an ' +
-          'ally already during this round (including Interaction attacks), ' +
-          'they gain a bonus of +½ Rank to their attack.</p>',
-      },
-    ],
-    wargearString:
-      'Boltgun, hand-cannon, mono knife, Flak armour, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Boltgun' },
-      { name: 'Hand-cannon' },
-      { name: 'mono knife' },
-      { name: 'Flak armour' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'Guild Engineer', 60, 3, false),
-    hint: 'Masterful artisans, creating the devices necessary for survival.',
-    prerequisites: [
-      { group: 'attributes', value: 'intellect', threshold: 3 },
-      { group: 'skills', value: 'tech', threshold: 3 },
-      { group: 'skills', value: 'scholar', threshold: 1 },
-    ],
-    keywords: 'Squat,<League>',
-    influence: 2,
-    archetypeFeatures: [
-      {
-        name: 'Guild Techniques',
-        description:
-          '<p>Guild Engineers receive +Rank on Tech tests to repair a damaged machine. They may re-roll up to ½ Rank dice on any skill test to use a device that they have personally built or repaired. They are considered to have built all of their starting wargear.</p>',
-      },
-    ],
-    wargearString:
-      'Boltgun, Power Axe, augmetic servo-arm, Ionclad Carapace armour, Refractor field, Guild Engineer’s tools.',
-    wargear: [
-      { name: 'Boltgun' },
-      { name: 'Power Axe' },
-      { name: 'Mechadendrites (Servo-Arm)' },
-      { name: 'Ionclad Carapace Armour' },
-      { name: 'Refractor field' },
-      { name: 'Guild Engineer’s tools' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 64, 'aaoa-squat', 'Squats', 'Hearthguard', 60, 3, false),
-    hint: 'Doughty elite warriors pledged to defend hearth and home.',
-    prerequisites: [
-      { group: 'attributes', value: 'toughness', threshold: 4 },
-      { group: 'attributes', value: 'willpower', threshold: 3 },
-      { group: 'attributes', value: 'fellowship', threshold: 3 },
-      { group: 'skills', value: 'weaponSkill', threshold: 4 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 4 },
-      { group: 'skills', value: 'leadership', threshold: 2 },
-    ],
-    keywords: 'Squat,<League>',
-    influence: 2,
-    archetypeFeatures: [
-      {
-        name: 'Bodyguard',
-        description:
-          '<p>A Hearthguard is unstinting in their devotion to their comrades, ' +
-          'and they will not permit their allies to come to harm if it can be helped. ' +
-          'When an enemy makes an attack against a character within 5m of the Hearthguard (and who is one of the Hearthguard’s allies), the DN of the attack is increased by ½ the Hearthguard’s Rank.</p>',
-      },
-    ],
-    wargearString:
-      'Boltgun, Power Axe, Bolt Pistol, mono knife, Ionclad Carapace Armour, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Boltgun' },
-      { name: 'Power Axe' },
-      { name: 'Bolt Pistol' },
-      { name: 'Mono Knife' },
-      { name: 'Ionclad Carapace Armour' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 64, 'aaoa-squat', 'Squats', 'Ancestor Lord', 100, 4, false),
-    hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
-    prerequisites: [
-      { group: 'attributes', value: 'willpower', threshold: 5 },
-      { group: 'attributes', value: 'fellowship', threshold: 4 },
-      { group: 'skills', value: 'leadership', threshold: 3 },
-      { group: 'skills', value: 'psychicMastery', threshold: 3 },
-    ],
-    keywords: 'Squat,<League>,Psyker',
-    influence: 4,
-    archetypeFeatures: [
-      {
-        name: 'Psychic Protector',
-        description:
-          '<p>An Ancestor Lord begins play with the Psyniscience and smite psychic powers (which do not count towards the maximum), ' +
-          'and may purchase additional Minor Psychic Powers, Universal Psychic Powers, and Ancestral Rites Psychic Powers, ' +
-          'subject to Tier restrictions.</p>',
-        psychicPowers: [
-          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Universal',
-          'Ancestral Rites',
-        ],
-      },
-    ],
-    wargearString:
-      'Master-Crafted Force Rod, Ionclad Carapace armour, clothing (Ancestor’s robes).',
-    wargear: [
-      { name: 'Force Rod', variant: 'Master-Crafted Force Rod' },
-      { name: 'Ionclad Carapace Armour' },
-      { name: 'Clothing', variant: 'Ancestor’s robes' },
     ],
   },
 ];

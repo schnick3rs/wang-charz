@@ -735,6 +735,40 @@ const aaoaLibrariusPowers = [
   },
 ];
 
+const aaoaAeldariRunesOfShaping = [
+  {
+    ...powerz('aaoa',227,'Vaul´s Song','Runes of Shaping',10),
+    ...simpleCrunch(5,'Action','Instant','5 m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'You invoke the psychosonic ringing of Vaul´s anvil, knitting together wraithbone and psychoreactive crystal in moments.',
+    effect: 'Heal AELDARI vehicles or wraith-structures.',
+    description:
+      '<p>You invoke the psychosonic ringing of Vaul´s anvil, knitting together wraithbone and psychoreactive crystal in moments. Select a single AELDARI vehicle or wraith-construct within range. The target regains 1d3+1 Wounds. Alternatively, target one other pieces of Aeldari technology within range: the device is repaired, and any malfunctions or jams are fixed instantly.</p>' +
+      '<p><em>You can multi-target for small items of technology</em></p>',
+  },
+  {
+    ...powerz('aaoa',227,'Webway Step','Runes of Shaping',20),
+    ...simpleCrunch(6,'Action','Instant','25 m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword and must be holding a Webway key to use this power.'],
+    hint: 'You are highly attuned to the Webway, and can slip within its reaches with ease, without the use of a gate.',
+    effect: 'You vanish and reappear a few moments later at any point within range.',
+    description:
+      '<p>You are highly attuned to the Webway, and can slip within its reaches with ease, without the use of a gate. You vanish and reappear a few moments later at any point within range. You must reappear standing on solid ground or another object sturdy enough to support your weight.</p>',
+  },
+  {
+    ...powerz('aaoa',227,'Wraithtomb','Runes of Shaping',15),
+    ...simpleCrunch(7,'Action','Sustained','10 m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'Grapple enemies with thorny tendrils or create shapes.',
+    effect: 'Grapple enemies with thorny tendrils or create shapes.',
+    description:
+      '<p>You conjure and weave a tangle of wraithvines, psychic constructs that take the form of thorny tendrils which enwrap themselves around the target. Though they will not remain coherent without wraithbone or psychocrystal to make the structure tangible, the vines are solid enough for the moment. This power targets a single creature, vehicle, or structure within range. If a creature or vehicle, the target is restrained and hindered (3) while the power remains in effect. If a structure is the target, then the wraithvines wrap themselves around and into the structure in a manner determined by the Bonesinger and the GM: it may seal over or force open doors, ensnare and shut down automated defences, create a climbable surface, or something similar.</p>',
+  },
+];
+
 const teaLibrariusPowers = [
   {
     ...simpleStub(300, 'tea', 72, 15, 'Veil of Time', 'Librarius', 'Grants the target the ability to interfere with the standard flow of time'),
@@ -787,6 +821,7 @@ const psychicPowersRepository = [
   ...aaoaSancticPowers,
   ...aaoaAncestrialRites,
   ...aaoaLibrariusPowers,
+  ...aaoaAeldariRunesOfShaping,
   ...teaLibrariusPowers,
 ];
 

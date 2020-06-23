@@ -1243,15 +1243,118 @@ const core = [
   },
 ];
 
-const aaoa = [
-  // AAOA v3
-  {
-    ...gear('aaoa',140,'Hekatarii Blade','5R','Blade,Drukhari'),
-    ...meleez('Drukhari Melee Weapon',3,3,-1,1,'Parry,Rending(1)'),
-  },
+const aaoaAstartes = [
   {
     ...gear('aaoa',142,'Absolvor Bolt Pistol','8V','Bolt, Imperium, Adeptus Astartes, Primaris'),
     ...rangez('Bolt Weapon',12,2,-1,16,1,'Brutal,Pistol'),
+  },
+  {
+    ...gear('aaoa',134,'Crozius Arcanum', '6V', 'Power Field,Adeptus Astartes', ''),
+    ...meleez('Power Weapon',5,5,-1,1,'Brutal'),
+  },
+  // AAOA Astartes Gear
+  {
+    ...gear('aaoa',180,'Narthecium','5R','Adeptus Astartes'),
+    ...toolz('Imperial Equipment','A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.'),
+    description:
+      '<p>A Narthecium is a tool of a Space Marine Apothecary\'s trade, containing implements specially designed for treating the Astartes\' genetically engineered physiology and for performing first aid without having to remove the patient\'s Power Armour.</p>' +
+      '<p>It also comprises various counterseptics, synthderm patches, transfusions and other compounds engineered for the Space Marines’ physiology, and several stasis tubes for storing any recovered gene-seed taken from a dead Space Marine\'s Progenoid Glands.</p>' +
+      '<p>In battle, an Apothecary carries a number of specialised items of equipment, integrating a variety of tools into a customised backpack, with delivery systems in a device mounted on the Apothecary’s vambrace. The Apothecary may have crafted many of these tools himself according to his own needs.</p>' +
+      '<p>A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.</p>',
+  },
+  {
+    ...gear('aaoa',181,'Reductor','5R','Adeptus Astartes'),
+    ...toolz('Imperial Equipment','As an action, an Apothecary can use a Reductor to remove the gene-seed of a deceased Space Marine. This requires a Medicae test (DN 3). Though a grim task, it is a vital one, and an Apothecary who extracts a fallen brother’s gene-seed gains 1 Wrath immediately, as their duty drives them to press on.'),
+  },
+];
+
+const aaoaAeldari = [
+  // AAOA Aeldari Melee Weapons
+  {
+    ...gear('aaoa',138,'Harlequin´s Blade', '4U','Blade, Harlequin', ''),
+    ...meleez('Aeldari Melee Weapon', 4, 3, 0, 1, 'Parry, Rending (2)'),
+  },
+  {
+    ...gear('aaoa',138,'Power Blade', '6R','Power Field, Aeldari, Asuryani', ''),
+    ...meleez('Aeldari Melee Weapon', 5, 3, -2, 1),
+  },
+  {
+    ...gear('aaoa',138,'Scorpion Chainsword', '5R','Chain, Aeldari', ''),
+    ...meleez('Aeldari Melee Weapon', 5, 4, 0, 1, 'Brutal, Parry, Silent'),
+  },
+  // AAOA Aeldari Ranged Weapons
+  {
+    ...gear('aaoa',152,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani', ''),
+    ...rangez('Aeldari Ranged Weapon', 10, 1, 0, 18, 3, 'Assault, Rending (3)'),
+  },
+  {
+    ...gear('aaoa',152,'Bright Lance', '7R','Las, Aeldari, Asuryani', ''),
+    ...rangez('Aeldari Ranged Weapon', 16, 3, -4, 36, 0, 'Heavy (4), Sniper (1)'),
+  },
+  {
+    ...gear('aaoa',152,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani', ''),
+    ...rangez('Aeldari Ranged Weapon', 14, 2, 0, 12, 3, 'Assault, Brutal, Inflict (Restrained), Rending (4)'),
+  },
+  {
+    ...gear('aaoa',152,'Dragon´s Breath Flamer', '7L','Fire, Ancient, Aeldari, Asuryani', ''),
+    ...rangez('Aeldari Ranged Weapon', 12, 3, -1, 20, 3, 'Assault, Blast (Large), Inflict (On Fire), Spread'),
+  },
+  {
+    ...gear('aaoa',152,'Firepike', '7L','Melta, Ancient, Aeldari, Asuryani', ''),
+    ...rangez('Aeldari Ranged Weapon', 16, 4, -4, 18, 1, 'Assault, Blast (Small), Inflict (On Fire), Melta'),
+  },
+  {
+    ...gear('aaoa',152,'Fusion Pistol', '7R','Melta, Aeldari', ''),
+    ...rangez('Aeldari Ranged Weapon', 16, 1, -4, 6, 1, 'Melta, Pistol'),
+  },
+  {
+    ...gear('aaoa',152,'Laser Lance', '7R','Las, Aeldari, Asuryani, Exodite', ''),
+    ...rangez('Aeldari Ranged Weapon', 14, 2, -4, 6, 0, 'Assault, Melee'),
+    description:
+      '<p><strong>Melee:</strong> A Laser Lance can be used as a melee weapon, using the following profile:</p>' +
+      '<p>Range: 2m, Damage: 3 +3ED, AP: -4, Special</p>' +
+      '<p><strong>Special:</strong> When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>',
+  },
+  {
+    ...simpleStub(31022, 'aaoa2',102,'Reaper Launcher', '7V','Explosive, Aeldari, Asuryani', ''),
+    // Starshot Missile
+    ...rangeAaoa('16+3ED; AP -2; Range 100m; Salvo –; Blast (Small), Heavy (5)', 'Aeldari Ranged Weapon'),
+    // Starswarm Missile
+    ...rangeAaoa('12+2ED; AP -2; Range 100m; Salvo 3; Heavy (5)', 'Aeldari Ranged Weapon'),
+  },
+  {
+    ...simpleStub(31043, 'aaoa2',104,'Grenade Pack', '6V','Explosive, Aeldari, Asuryani', ''),
+    ...simpleRange('Grenades and Grenade Launchers', 'special', '-', '-', '-', '-', 'Assault'),
+    description: '<p>A Swooping Hawk Grenade Pack can only launch grenades downwards, and the user may launch grenades at any point while flying. This is done as part of the character’s move, rather than as a distinct attack action.</p>',
+  },
+  // AAOA Aeldari Armour
+  {
+    ...gear('aaoa',176,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...armour('Aeldari Armour', 4),
+  },
+  {
+    ...gear('aaoa',176,'Heavy Aspect Armour', '5V', 'Heavy, Aeldari, Asuryani, Aspect Warrior', ''),
+    ...armour('Aeldari Armour', 5, 'Bulk (1)'),
+  },
+  {
+    ...gear('aaoa',167,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...armour('Aeldari Armour', 6),
+  },
+  {
+    ...gear('aaoa',176,'Forceshield', '8L', 'Force Field, Aeldari', ''),
+    ...armour('Aeldari Armour', 3, 'Force Shield, Shield'),
+  },
+  {
+    ...gear('aaoa',176,'Holo Shield', '7V', 'Hologram, Light, Harlequin', ''),
+    ...armour('Aeldari Armour', 1, 'Force Shield, Domino Field'),
+    snippet: 'Domino Field: A Holo-Suit increases the wearer’s Defence based on how much they have moved. It grants +1 Defence if the wearer was stationary last turn. This increases to +2 if the wearer moved, +3 if the wearer Ran, or +4 if the wearer Sprinted.',
+  },
+];
+
+const aaoaDrukhari = [
+  {
+    ...gear('aaoa',140,'Hekatarii Blade','5R','Blade,Drukhari'),
+    ...meleez('Drukhari Melee Weapon',3,3,-1,1,'Parry,Rending(1)'),
   },
   {
     ...gear('aaoa',156,'Splinter Pistol','5U','Splinter,Drukhari'),
@@ -1263,15 +1366,43 @@ const aaoa = [
     ...rangez('Drukhari Ranged Weapon',8,2,0,24,2,'Inflict(Poisoned 4),Rapid Fire(2)'),
     snippet: 'A character who was Poisoned by a weapon with the SPLINTER keyword suffers 1 Mortal Wound at the start of each of their turns. A selection of alternative Drukhari poisons are presented in the Reloads and Ammunition section, which replace this effect.',
   },
+  // AAOA Drukhari Armour
   {
-    ...gear('aaoa',167,'Kabalite Warsuit','4R','Light,Drukhari'),
+    ...gear('aaoa',177,'Clone Field', '8L', 'Hologram, Drukhari', ''),
+    ...armour('Drukhari Armour', 0, 'Deceptive Defence'),
+    description:
+      '<p>A Clone Field cannot be worn with Force Field armour, as energy fields disrupt the holographic decoys.</p>' +
+      '<p><strong>Deceptive Defence:</strong> Whenever you are attacked while wearing a Clone Field, roll a d6. On an Icon, the attack is considered to have missed. This has no effect against Blasts or area effect attacks.</p>'
+  },
+  {
+    ...gear('aaoa',177,'Ghostplate', '6V', 'Light, Drukhari', ''),
+    ...armour('Drukhari Armour', 4, 'Force Shield, Field Projectors'),
+    description:
+      '<p><strong>Field Projectors:</strong> Ghostplate has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
+  },
+  {
+    ...gear('aaoa',177,'Incubus Warsuit', '6V', 'Heavy, Drukhari', ''),
+    ...armour('Drukhari Armour', 5, 'Tormentor'),
+    description:
+      '<p><strong>Tormentor:</strong> Enemies within 6 metres of this armour’s wearer suffer 1 Shock at the start of their turn.</p>'
+  },
+  {
+    ...gear('aaoa',177,'Kabalite Warsuit','4R','Light,Drukhari'),
     ...armour('Drukhari Armour', 3),
     snippet: 'Contains a vox and a rebreather, or Dark Eldar equivalents of these items.',
+  },
+  {
+    ...gear('aaoa',177,'Shadowfield', '8L', 'Force Field, Drukhari', ''),
+    ...armour('Drukhari Armour', 8, 'Force Shield, Near-Perfect Defence, Overload'),
+    description:
+      '<p><strong>Near-Perfect Defence:</strong> The wearer of a functioning Shadowfield may roll Determination without spending Shock, and rolls 9d6 when they roll Determination.</p>' +
+      '<p><strong>Overload:</strong>If the wearer of a Shadowfield takes any damage, the field overloads and will provide no benefit until after the next Regroup.</p>'
   },
   {
     ...gear('aaoa',167,'Wychsuit','3U','Light,Drukhari'),
     ...armour('Drukhari Armour', 1),
   },
+  // AAOA Drukhari Gear
   {
     ...gear('aaoa',186,'Hekatarii Combat Drugs','6R','Drukhari'),
     ...toolz('Aeldari Equipment'),
@@ -1279,7 +1410,7 @@ const aaoa = [
     description:
       '<p>Though they dramatically reduce the lifespan of any Aeldari that uses them, performance-enhancing combat drugs are commonly used in the gladiatorial arenas of the Hekatarii, as well as by Wyches entering real battle. The user may administer a single dose as a free action, which will last for about an hour or until the character takes a Regroup (after which, withdrawal symptoms set in, and the character is reduced to 0 Shock until they take a Respite). A single dose of any of these combat drugs taken by anyone who is not Aeldari inflicts 1d6 Shock instead of their normal effect. Anyone using these combat drugs must also make a Corruption test. Taking a second dose of these combat drugs, whether a second dose of the same drug or a different drug, inflicts 1d6 Shock instead of having the desired effect. The drug dispenser contains 3 doses, of whichever of the drugs below the user wishes.</p>' +
       '<ul>' +
-        '<li>Adrenalight accelerates the user’s attacks into a blistering tempo. While under the drug’s effect, whenever the character makes a successful attack, they may spend a point of Glory to make a second attack.</li>' +
+      '<li>Adrenalight accelerates the user’s attacks into a blistering tempo. While under the drug’s effect, whenever the character makes a successful attack, they may spend a point of Glory to make a second attack.</li>' +
       '<li>Grave Lotus massively heightens the tensile strength of the user’s muscles, allowing them to exert greater force. While under the drug’s effect, the character’s Strength is increased by +3.</li>' +
       '<li>Hypex augments the fast-twitch fibres in the user’s muscles, allowing them to move at far greater speeds. While under the drug’s effect, the character’s Speed is increased by +2.</li>' +
       '<li>Painbringer alters the user’s pain receptors, increasing their capacity for pain without dulling their experience of it. While under the drug’s effect, the character’s Resilience is increased by 2, and they recover 1d3 Shock at the start of each turn.</li>' +
@@ -1287,7 +1418,9 @@ const aaoa = [
       '<li>Splintermind help the user’s mind compartmentalise and disassociate from the parts which feel fear. While under the drug’s effect, the character’s Resolve is increased by +2.</li>' +
       '</ul>',
   },
-  // AAOA v3 ORK
+];
+
+const aaoaOrk = [
   {
     ...gear('aaoa',158,'Kustom Mega Blasta','7R','Kustom, Plasma, Ork'),
     ...rangez('Ork Weapon',16,5,-3,24,1,'Assault,Supercharge,Waaagh!'),
@@ -1306,6 +1439,16 @@ const aaoa = [
     ...rangez('Ork Range Weapon', 16, 3, -3, 1, '-', 'Brutal, Blast(Small), Waaagh!'),
     snippet: 'A Tankbusta Bomb cannot be thrown or fired from a launcher. It must be planted with a Tech test against a vehicle within 1m, with a DN equal to the vehicle’s Defence. The bomb will detonate at the end of the current turn. After placing a Tankbusta Bomb, the character may move 1d3+1 metres away from the bomb and fall Prone as they leap away before the bomb detonates.',
   },
+];
+
+const aaoa = [
+  ...aaoaAstartes,
+  ...aaoaAeldari,
+  ...aaoaDrukhari,
+  ...aaoaOrk,
+];
+
+const aaoav2 = [
   // AAOA v2
   {
     ...simpleStub(30903, 'aaoa2',90,'Auto-Boltstorm Gauntlet', '8V','Bolt, Power Field, Imperium, Adeptus Astartes, Primaris', ''),
@@ -1382,37 +1525,7 @@ const aaoa = [
     ...simpleStub(30992, 'aaoa2',99,'Sonic Blaster', '6R','Sonic, Chaos, Slaanesh', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 48m; Salvo 3; Assault, Cacophony'),
   },
-  {
-    ...simpleStub(30996, 'aaoa2',99,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani', ''),
-    ...rangeAaoa('10+1ED; AP 0; Range 36m; Salvo 3; Assault, Penetrating (3)', 'Aeldari Ranged Weapon'),
-  },
-  {
-    ...simpleStub(31005, 'aaoa2',100,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani', ''),
-    ...rangeAaoa('14+2ED; AP 0; Range 24m; Salvo 3; Assault, Brutal, Penetrating (4), Tangle (3)', 'Aeldari Ranged Weapon'),
-  },
-  {
-    ...simpleStub(31016, 'aaoa2',101,'Laser Lance', '7V','Las, Aeldari, Asuryani, Exodite', ''),
-    ...rangeAaoa('14+2ED; AP -4; Range 12m; Salvo 1; Assault', 'Aeldari Ranged Weapon'),
-    // 3+1ED; AP -4; Range 2m
-    description:
-      '<p>The Laser Lance has a range and a melee weapon profile</p>' +
-      '<p>When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>'
-  },
-  {
-    ...simpleStub(31022, 'aaoa2',102,'Reaper Launcher', '7V','Explosive, Aeldari, Asuryani', ''),
-    // Starshot Missile
-    ...rangeAaoa('16+3ED; AP -2; Range 100m; Salvo –; Blast (Small), Heavy (5)', 'Aeldari Ranged Weapon'),
-    // Starswarm Missile
-    ...rangeAaoa('12+2ED; AP -2; Range 100m; Salvo 3; Heavy (5)', 'Aeldari Ranged Weapon'),
-    description:
-      '<p>The Laser Lance has a range and a melee weapon profile</p>' +
-      '<p>When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>'
-  },
-  {
-    ...simpleStub(31043, 'aaoa2',104,'Grenade Pack', '6V','Explosive, Aeldari, Asuryani', ''),
-    ...simpleRange('Grenades and Grenade Launchers', 'special', '-', '-', '-', '-', 'Assault'),
-    description: '<p>A Swooping Hawk Grenade Pack can only launch grenades downwards, and the user may launch grenades at any point while flying. This is done as part of the character’s move, rather than as a distinct attack action.</p>',
-  },
+
   {
     ...simpleStub(31050, 'aaoa2',105,'Kustom Mega-Blasta', '7R', 'Kustom, Plasma, Ork', ''),
     ...rangeAaoa('16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!', 'Ork Ranged Weapon', 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it.'),
@@ -1423,14 +1536,6 @@ const aaoa = [
     ...meleeAaoa('5+1ED; AP -3; Force, Nemesis, Parry'),
     description:
       '<p>The most common type of weapon wielded by the Grey Knights is the Nemesis Force Sword. It exemplifies the mixture of magick and science utilized by the Grey Knights. The blade is tempered iron, flecked with shards of silver and inset with ancient runes of daemon slaying. Advanced power field generators are also contained within.</p>',
-  },
-  {
-    ...gear('aaoa',134,'Crozius Arcanum', '6V', 'Power Field,Adeptus Astartes', ''),
-    ...meleez('Power Weapon',5,5,-1,1,'Brutal'),
-  },
-  {
-    ...gear('aaoa',167,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
-    ...armour('Aeldari Armour', 6),
   },
   {
     ...simpleStub(31131, 'aaoa2',113,'Plague Knife', '5U', 'Pestilent, Chaos, Nurgle', ''),
@@ -1474,10 +1579,6 @@ const aaoa = [
   {
     ...simpleStub(31301, 'aaoa2',130,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
     ...armour('Aeldari Armour', 4),
-  },
-  {
-    ...simpleStub(31302, 'aaoa2',130,'Heavy Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
-    ...armour('Aeldari Armour', 5, 'Bulk (1)'),
   },
   {
     ...simpleStub(31222, 'aaoa2',131,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
@@ -1558,15 +1659,6 @@ const aaoa = [
       'A character who keeps the book on their person and reads from it routinely gains +2 Conviction.</p>',
   },
   {
-    ...gear('aaoa',180,'Narthecium','5R','Adeptus Astartes'),
-    ...toolz('Imperial Equipment','A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.'),
-    description:
-      '<p>A Narthecium is a tool of a Space Marine Apothecary\'s trade, containing implements specially designed for treating the Astartes\' genetically engineered physiology and for performing first aid without having to remove the patient\'s Power Armour.</p>' +
-      '<p>It also comprises various counterseptics, synthderm patches, transfusions and other compounds engineered for the Space Marines’ physiology, and several stasis tubes for storing any recovered gene-seed taken from a dead Space Marine\'s Progenoid Glands.</p>' +
-      '<p>In battle, an Apothecary carries a number of specialised items of equipment, integrating a variety of tools into a customised backpack, with delivery systems in a device mounted on the Apothecary’s vambrace. The Apothecary may have crafted many of these tools himself according to his own needs.</p>' +
-      '<p>A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.</p>',
-  },
-  {
     ...simpleStub(31371, 'aaoa2', 137, 'Psychic Hood', '7V', 'Imperium, Adeptus Astartes, Inquisition', ''),
     type: 'Tools & Equipment',
     snippet:
@@ -1579,10 +1671,6 @@ const aaoa = [
       'a Psychic Hood uses a set of interwoven, intricately aligned crystals to nullify an opponent\'s psychic attacks.</p>' +
       '<p>A character wearing a psychic hood may attempt to Deny the Witch once per round as a Free Action in response to an enemy psyker using a power. ' +
       'Further, they may add +2d on their Psychic Mastery test to use Deny the Witch.</p>',
-  },
-  {
-    ...gear('aaoa',181,'Reductor','5R','Adeptus Astartes'),
-    ...toolz('Imperial Equipment','As an action, an Apothecary can use a Reductor to remove the gene-seed of a deceased Space Marine. This requires a Medicae test (DN 3). Though a grim task, it is a vital one, and an Apothecary who extracts a fallen brother’s gene-seed gains 1 Wrath immediately, as their duty drives them to press on.'),
   },
   {
     ...simpleStub(31412, 'aaoa2', 141, 'Banshee Mask', '7V', 'Aeldari, Asuryani', ''),
@@ -1927,6 +2015,7 @@ const tea = [
 module.exports = [
   ...core,
   ...aaoa,
+  ...aaoav2,
   ...pax,
   ...lotn,
   ...tea,

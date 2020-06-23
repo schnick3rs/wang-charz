@@ -13,6 +13,7 @@ export default {
         { key: 'core-runes-of-battle', name: 'Runes of Battle', source: 'core' },
         { key: 'aaoa-ancestral-rites', name: 'Ancestral Rites', source: 'aaoa' },
         { key: 'pax-navigator-powers', name: 'Navigator Powers', source: 'pax' },
+        { key: 'aaoa-runes-of-shaping', name: 'Runes of Shaping', source: 'aaoa' },
         { key: 'aaoa-runes-of-faith', name: 'Runes of Faith', source: 'aaoa' },
         { key: 'aaoa-librarius', name: 'Librarius', source: 'aaoa' },
         { key: 'tea-librarius', name: 'Librarius', source: 'tea' },

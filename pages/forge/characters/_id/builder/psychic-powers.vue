@@ -44,18 +44,25 @@
     </v-col>
 
     <v-col :cols="12">
-      <v-chip
-        v-for="discipline in disciplines"
-        :key="discipline.key"
-        :color="selectedDisciplines.includes(discipline.name) ? 'green' : ''"
-        :disabled="!allowedDisciplines.includes(discipline.name)"
-        small
-        label
-        class="mr-2"
-        @click="toggleDisciplineFilter(discipline.name)"
+      <v-chip-group
+        v-model="selectedDisciplines"
+        active-class="primary--text"
+        column
+        multiple
       >
-        {{ discipline.name }}
-      </v-chip>
+        <v-chip
+          v-for="filter in disciplines"
+          :key="filter.key"
+          :value="filter.name"
+          :disabled="!allowedDisciplines.includes(filter.name)"
+          filter
+          small
+          label
+        >
+          {{ filter.name }}
+          <em v-if="filter.source !== 'core'" class="ml-1">({{filter.source}})</em>
+        </v-chip>
+      </v-chip-group>
     </v-col>
 
     <v-col :cols="12">
