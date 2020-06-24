@@ -140,11 +140,11 @@ export default {
         },
         {
           key: 'eather',
-          title: 'Watch the <strong>Ether</strong>',
+          title: 'Breadcasting <strong>Ether</strong>',
           subtitle: 'A browsable list of Lets Plays',
           imageSrc: '/img/artwork_ether.jpg',
           imageCredit: 'Artwork from Pixabay',
-          htmlText: '<strong>Beta</strong>, naming might change',
+          htmlText: 'Find <strong>One-Shots</strong>, <strong>Lern to plays</strong> and <strong>Let´s Plays</strong>.<br><br><strong>Beta</strong>, naming might change.',
           link: { text: 'To the Ether', route: '/ether' },
           isActive: true,
           classes: [],

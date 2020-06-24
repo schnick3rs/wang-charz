@@ -166,7 +166,10 @@ export default {
         { to: '/vault', title: 'Vault', subtitle: 'Browse Homebrews', icon: '' },
         { to: '/forge/my-characters', title: 'Forge', subtitle: 'Create Characters', icon: '' },
         { to: '/bestiary', title: 'Bestiary', subtitle: 'Find Threats', icon: '' },
-        { to: '/library', title: 'Library', subtitle: 'Browse ', icon: '',
+        { to: '/network', title: 'Network', subtitle: 'Find Assets', icon: '' },
+        { to: '/posts', title: 'Articles', subtitle: 'Hobby Articles', icon: '' },
+        { to: '/ether', title: 'Ether', subtitle: 'Browse Let´s Plays', icon: '' },
+        { to: '/library', title: 'Library', subtitle: 'Browse Rules', icon: '',
           children: [
             { to: '/library/species', title: 'Species', subtitle: 'Browse ', icon: '', },
             { to: '/library/archetypes', title: 'Archetypes', subtitle: 'Browse ', icon: '', },
@@ -176,9 +179,7 @@ export default {
             { to: '/library/psychic-powers', title: 'Psychic Powers', subtitle: 'Browse ', icon: '', },
           ],
         },
-        { to: '/posts', title: 'Articles', subtitle: 'Hobby Articles', icon: '' },
         { to: '/codex', title: 'Codex', subtitle: 'Lookup Rules-snippet', icon: '' },
-        { to: '/network', title: 'Network', subtitle: 'Find Assets', icon: '' },
       ],
       drawer: {
         // sets the open status of the drawer
