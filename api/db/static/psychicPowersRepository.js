@@ -735,7 +735,69 @@ const aaoaLibrariusPowers = [
   },
 ];
 
-const aaoaAeldariRunesOfShaping = [
+const aaoaAeldariPowers = [
+  // Runes of Fortune (Minor powers)
+  {
+    ...powerz('aaoa',226,'Crushing Orb','Runes of Fortune',10),
+    ...simpleCrunch('Strength','Action','Instant','18m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'You crush your foe in a sphere of kinetic energy.',
+    effect: 'Deal 1 mortal wound and restrain.',
+    description:
+      '<p>You crush your foe in a sphere of kinetic energy. You target a single enemy within range with a psychic ranged attack, inflicting 1 Mortal Wound and the Restrained condition.</p>',
+  },
+  {
+    ...powerz('aaoa',226,'Fateful Divergence','Runes of Fortune',10),
+    ...simpleCrunch(3,'Action','1 Round','6m',true),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'Exerting your will upon destiny, you shift the paths of fate.',
+    effect: 'Target ally may reroll a single dice.',
+    description:
+      '<p>Exerting your will upon destiny, you shift the paths of fate. You select a single ally within range. Until the start of your next turn, the target may re-roll a single die in any dice pool.</p>',
+  },
+  {
+    ...powerz('aaoa',226,'Focus Will','Runes of Fortune',10),
+    ...simpleCrunch(5,'Action','1 Round','6m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'You channel your mind to aid a fellow seer.',
+    effect: 'An ally adds +1/+2 dice to Psychic Mastery tests.',
+    description:
+      '<p>You channel your mind to aid a fellow seer. You select a single Psyker within range. Whenever the target attempts a Psychic Mastery test before the end of their next turn, they may add +1 bonus dice to their test, or +2 bonus dice if they have the ASURYANI keyword.</p>',
+  },
+  {
+    ...powerz('aaoa',226,'Ghostwalk','Runes of Fortune',10),
+    ...simpleCrunch(5,'Action','1 Round','6m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'Imbue your allies with ethereal speed.',
+    effect: 'Up to WIL targets gain +2 Speed.',
+    description:
+      '<p>Channelling energies from your runes, you imbue your allies with ethereal speed. You select a number of allies within range equal to your Willpower. Until the start of your next turn, the targets increase their Speed by +2.</p>',
+  },
+  {
+    ...powerz('aaoa',226,'Impair Senses','Runes of Fortune',10),
+    ...simpleCrunch(5,'Action','1 Round','18m',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'The psyker dims the foe’s senses.',
+    effect: 'Reduce enemies awareness and line-of-sight.',
+    description:
+      '<p>The psyker dims the foe’s senses. The power affects all enemies in a Medium Blast within range. Until the start of the psyker’s next turn, the affected enemies add +2DN to all Awareness tests, reduce their Passive Awareness to 0, and may only make ranged attacks at the closest target.</p>',
+  },
+  {
+    ...powerz('aaoa',227,'Witch Strike','Runes of Fortune',10),
+    ...simpleCrunch(3,'Simple Action','1 Round','Self',false),
+    keywords: ['Aeldari','Psychic'],
+    prerequisite: ['Psyker must have the AELDARI Keyword.'],
+    hint: 'Strike foes with potent aetheric energies.',
+    effect: 'Add +2ED to your FORCE melee Weapon.',
+    description:
+      '<p>Focusing a still greater portion of your power into your weapon, each strike blasts foes with potent aetheric energies. Until the start of your next turn, you add +2ED to the damage of one melee weapon you are wielding which has the Force trait.</p>',
+  },
+  // Runes of Shaping (Bonesinger)
   {
     ...powerz('aaoa',227,'Vaul´s Song','Runes of Shaping',10),
     ...simpleCrunch(5,'Action','Instant','5 m',false),
@@ -767,6 +829,9 @@ const aaoaAeldariRunesOfShaping = [
     description:
       '<p>You conjure and weave a tangle of wraithvines, psychic constructs that take the form of thorny tendrils which enwrap themselves around the target. Though they will not remain coherent without wraithbone or psychocrystal to make the structure tangible, the vines are solid enough for the moment. This power targets a single creature, vehicle, or structure within range. If a creature or vehicle, the target is restrained and hindered (3) while the power remains in effect. If a structure is the target, then the wraithvines wrap themselves around and into the structure in a manner determined by the Bonesinger and the GM: it may seal over or force open doors, ensnare and shut down automated defences, create a climbable surface, or something similar.</p>',
   },
+  // Runes of Fate Farseer)
+  // Phantasmancy (Harlequin)
+  // Revenant (Ynnari)
 ];
 
 const teaLibrariusPowers = [
@@ -821,7 +886,7 @@ const psychicPowersRepository = [
   ...aaoaSancticPowers,
   ...aaoaAncestrialRites,
   ...aaoaLibrariusPowers,
-  ...aaoaAeldariRunesOfShaping,
+  ...aaoaAeldariPowers,
   ...teaLibrariusPowers,
 ];
 
