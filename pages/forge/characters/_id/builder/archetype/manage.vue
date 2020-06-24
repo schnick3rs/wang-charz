@@ -313,7 +313,10 @@ export default {
     selectedKeywords() {
       const selectedKeywords = {};
       if (this.keywords) {
-        this.keywords.filter((k) => (k.replacement)).forEach((r) => {
+        this.keywords
+          .filter((keyword) => keyword.source.indexOf('archetype') >= 0)
+          .filter((k) => (k.replacement))
+          .forEach((r) => {
           selectedKeywords[r.name] = r.replacement;
         });
       }
