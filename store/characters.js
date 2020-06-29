@@ -223,6 +223,9 @@ export const getters = {
     if (character.species.key && ['core-aeldari','aaoa-drukhari'].includes(character.species.key)) {
       traits.speed = 8;
     }
+    if (character.species.key && ['aaoa-beastman'].includes(character.species.key)) {
+      traits.speed = 7;
+    }
     if (character.species.key && character.species.key.endsWith('-astartes')) {
       traits.speed = 7;
     }
