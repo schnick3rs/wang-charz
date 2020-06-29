@@ -220,7 +220,7 @@ export const getters = {
 
     traits.wealth = character.settingTier;
     traits.speed = 6;
-    if (character.species.key && character.species.key === 'core-eldar') {
+    if (character.species.key && ['core-aeldari','aaoa-drukhari'].includes(character.species.key)) {
       traits.speed = 8;
     }
     if (character.species.key && character.species.key.endsWith('-astartes')) {
