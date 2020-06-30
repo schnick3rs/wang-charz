@@ -50,7 +50,6 @@
             @click=""
           >
             <v-list-item-avatar tile>
-
             </v-list-item-avatar>
 
             <v-list-item-content>

@@ -46,7 +46,7 @@
           <v-col :cols="12" class="caption">
             <v-progress-linear :value="campaignCustomXp" height="2" color="red"></v-progress-linear>
           </v-col>
-          <v-col :cols="12" class="caption text--keyword" align="center">{{ keywords.join(' • ') }}</v-col>
+          <v-col :cols="12" class="caption text--keyword" align="center">{{ keywordStrings.join(' • ') }}</v-col>
         </v-row>
       </v-col>
 
@@ -238,6 +238,48 @@
           </v-col>
         </v-row>
       </v-col>
+
+      <v-dialog
+        v-model="keywordsEditorDialog"
+        width="600px"
+        scrollable
+        :fullscreen="$vuetify.breakpoint.xsOnly"
+      >
+        <v-form ref="keywordForm" v-model="keywordFormValid">
+          <v-card>
+            <v-card-title style="background-color: #262e37; color: #fff;">
+              Edit Custom Keyword
+              <v-spacer />
+              <v-icon dark @click="closeKeywordsSettings">close</v-icon>
+            </v-card-title>
+            <v-card-text class="pt-4">
+
+              <v-text-field
+                label="Keyword Name"
+                v-model="customKeyword.name"
+                dense required
+                class="mb-4"
+                :rules="[v => !!v || 'A name is required']"
+              ></v-text-field>
+
+              <v-textarea
+                label="Description"
+                v-model="customKeyword.description"
+                dense
+                class="mb-2"
+                :required="!keywordCombinedRepository.find(k=>k.name===customKeyword.name)"
+                :disabled="keywordCombinedRepository.find(k=>k.name===customKeyword.name)"
+              ></v-textarea>
+
+            </v-card-text>
+            <v-divider></v-divider>
+            <v-card-actions>
+              <v-spacer />
+              <v-btn small right color="success" @click="saveCustomKeyword" :disabled="!keywordFormValid">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-form>
+      </v-dialog>
 
       <v-dialog
         v-model="skillsEditorDialog"
@@ -741,14 +783,27 @@
                     </div>
                     <div
                       v-for="keyword in keywords"
-                      :key="keyword"
+                      :key="keyword.name"
                       class="caption"
                     >
-                      <strong>{{ keyword }}</strong>
-                      <em> • {{ keywordCombinedRepository.find(i=>i.name===keyword) && keywordCombinedRepository.find(i=>i.name===keyword).type }}</em>
+                      <strong>{{ keyword.name }}</strong>
+                      <em> • {{ keyword.type }}</em>
+                      <span v-if="keyword.custom">
+                        <v-hover>
+                          <v-icon
+                            small
+                            @click="removeCustomKeyword(keyword.name)"
+                            slot-scope="{ hover }"
+                            :color="`${ hover ? 'error' : '' }`"
+                          >delete</v-icon>
+                        </v-hover>
+                      </span>
                       <p>
-                        {{ keywordCombinedRepository.find(i=>i.name===keyword) && keywordCombinedRepository.find(i=>i.name===keyword).description }}
+                        {{ keyword.description }}
                       </p>
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                      <v-btn x-small text @click="keywordsEditorDialog = true">Additional Keywords <v-icon small>settings</v-icon></v-btn>
                     </div>
                   </div>
 
@@ -935,12 +990,19 @@ export default {
       characterNotesEditorModel: '',
       //
       skillsEditorDialog: false,
+      keywordsEditorDialog: false,
       customSkill: {
         key: undefined,
         name: 'Custom Skill',
         attribute: '',
         description: '',
       },
+      customKeyword: {
+        key: undefined,
+        name: 'Custom Keywords',
+        description: '',
+      },
+      keywordFormValid: true,
       //
       characterSpecies: undefined,
       characterArchetype: undefined,
@@ -1002,9 +1064,27 @@ export default {
     characterAscensionPackages() {
       return this.$store.getters['characters/characterAscensionPackagesById'](this.characterId);
     },
-
-    keywords() {
+    keywordStrings() {
       return this.$store.getters['characters/characterKeywordsFinalById'](this.characterId);
+    },
+    keywords() {
+      const enrichedKeywords = [];
+      const characterKeywords = this.$store.getters['characters/characterKeywordsRawById'](this.characterId);
+      if (characterKeywords) {
+        characterKeywords.forEach(charKeyword => {
+          const keyword = {
+            name: charKeyword?.replacement || charKeyword.name,
+            type: null,
+            description: 'Alright then, keep your secrets.',
+            custom: charKeyword?.custom || false,
+          };
+          const k = this.keywordCombinedRepository.find(i => i.name===keyword.name);
+          keyword.description = k?.description || charKeyword.description;
+          keyword.type = k?.type || 'Custom';
+          enrichedKeywords.push(keyword);
+        });
+      }
+      return enrichedKeywords;
     },
     languages() {
       return this.$store.getters['characters/characterLanguagesById'](this.characterId);
@@ -1272,7 +1352,7 @@ export default {
       }
 
       let influence = finalTraits.find((t) => t.key == 'influence');
-      if (influence && this.keywords.includes('Adeptus Mechanicus')) {
+      if (influence && this.keywordStrings.includes('Adeptus Mechanicus')) {
         const intellect = attributes.find((attribute) => attribute.name === 'Intellect');
         let baseIntellect = 0;
         baseIntellect = Math.ceil(intellect.adjustedRating * influence.compute.multi);
@@ -1481,7 +1561,7 @@ export default {
       const abilities = [];
 
       // keyword abilities
-      this.keywords.forEach( k => {
+      this.keywordStrings.forEach( k => {
         const keyword = this.keywordCombinedRepository.find( i => i.name === k );
         if ( keyword === undefined ) {
           console.warn(`No keyword found for ${k}!`);
@@ -1861,6 +1941,33 @@ export default {
         description: '',
       };
       this.skillsEditorDialog = false;
+    },
+    closeKeywordsSettings() {
+      this.customKeyword = {
+        key: undefined,
+        name: 'Custom Keyword',
+        description: '',
+      };
+      this.keywordsEditorDialog = false;
+    },
+    saveCustomKeyword(){
+
+      const keyword = {
+        name: this.customKeyword.name,
+        description: this.customKeyword.description,
+        source: `custom.${this.customKeyword.name}`,
+        type: 'keyword',
+        replacement: undefined,
+        custom: true,
+      };
+      this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword });
+
+      this.closeKeywordsSettings();
+    },
+    removeCustomKeyword(keywordName) {
+      const id = this.characterId;
+      const source = `custom.${keywordName}`;
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source });
     },
     saveCustomSkill() {
       // validate
