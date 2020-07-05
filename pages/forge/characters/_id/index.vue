@@ -1203,17 +1203,22 @@ export default {
       let poweredStrength = 0;
       // enrich with (equipped) gear
       if ( this.armour && this.armour.length > 0 ) {
-        const armour = this.armour[0];
-        const traits = armour.meta[0].traits;
-        let poweredString = traits.find((trait)=>trait.includes('Powered'));
-        if (poweredString) {
-          const trait = this.normalizeTrait(poweredString);
-          if ( trait.variant) {
-            poweredStrength = parseInt(trait.variant);
-            let strength = attributes.find((a)=>a.key==='strength');
-            strength.adjustedRating += poweredStrength;
-            strength.adjustment += poweredStrength;
-            strength.modifiers.push(`+${poweredStrength} from Armour • ${armour.name}`);
+        const wornArmour = this.armour
+          .filter((armour) => !armour.meta[0].traits.includes('Shield'))
+          .filter((armour) => armour.meta[0].traits.find((trait) => trait.indexOf('Powered') >= 0 ))
+          .sort((a, b) => a.meta[0].armourRating < b.meta[0].armourRating ? 1 : -1)
+          .find((i) => true);
+        if (wornArmour) {
+          let poweredString = wornArmour.meta[0].traits.find((trait)=>trait.includes('Powered'));
+          if (poweredString) {
+            const trait = this.normalizeTrait(poweredString);
+            if ( trait.variant) {
+              poweredStrength = parseInt(trait.variant);
+              let strength = attributes.find((a)=>a.key==='strength');
+              strength.adjustedRating += poweredStrength;
+              strength.adjustment += poweredStrength;
+              strength.modifiers.push(`+${poweredStrength} from Armour • ${wornArmour.name}`);
+            }
           }
         }
       }
