@@ -187,6 +187,7 @@
                   </td>
                 </tr>
               </tbody>
+
             </v-simple-table>
 
           </v-card>
