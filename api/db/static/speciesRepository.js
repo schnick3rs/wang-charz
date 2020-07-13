@@ -478,6 +478,9 @@ const aaoa = [
         snippet: 'You gain +3 Corruption.',
         description:
           '<p>You begin play with +3 corruption.</p>',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+        ],
       },
     ],
   },

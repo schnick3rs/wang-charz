@@ -447,7 +447,7 @@ export default {
       enabledHomebrews: [],
       settingHouseruleSelectors: [
         /*{
-          key: 'rank-advencement-type',
+          key: 'rank-advancement-type',
           name: 'Rank Advancement Type',
           hint: 'Choose if Rank increases by gained XP or by Milestone.',
           selected: 'xp',

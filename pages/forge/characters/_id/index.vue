@@ -147,7 +147,19 @@
               <tbody>
                 <tr v-for="item in groupedTraits">
                   <td class="text-left pa-1 small">
-                    <span>{{ item.name }}</span>
+                    <span>
+                      {{ item.name }}
+                    </span>
+                    <span v-if="['Corruption'].includes(item.name)">
+                      <v-btn x-small icon @click="showCorruptionManagerDialog = true">
+                        <v-hover>
+                          <v-icon
+                            slot-scope="{ hover }"
+                            :color="`${ hover ? 'primary' : '' }`"
+                          >settings</v-icon>
+                        </v-hover>
+                      </v-btn>
+                    </span>
                     <div v-if="['Wealth','Max Shock','Max Wounds'].includes(item.name)" style="float: right;">
                       <div style="flex-wrap: wrap; display: flex;" v-if="item.adjustedRating > 0">
                           <div
@@ -163,7 +175,8 @@
                     {{ item.adjustedRating }}<span v-if="item.alternativeRating">/{{ item.alternativeRating }}</span>
                   </td>
                   <td>
-                    <v-tooltip bottom v-if="item.adjustment > 0">
+                    <!-- each modifier contains the BASE of the compution -->
+                    <v-tooltip bottom v-if="item.modifiers.length > 1">
                       <template v-slot:activator="{ on }">
                         <v-avatar color="success" size="12" v-on="on"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
                       </template>
@@ -309,6 +322,20 @@
             <v-btn small right color="success" @click="saveCustomSkill">Save</v-btn>
           </v-card-actions>
         </v-card>
+      </v-dialog>
+
+      <v-dialog
+        v-model="showCorruptionManagerDialog"
+        width="800px"
+        scrollable
+        :fullscreen="$vuetify.breakpoint.xsOnly"
+      >
+        <dod-corruption-manager
+          :id="characterId"
+          :corruption="traits.find((t)=>t.key==='corruption').adjustedRating"
+          :modifiers="enhancements.filter((e) => e.targetValue === 'corruption')"
+          @cancel="showCorruptionManagerDialog = false"
+        ></dod-corruption-manager>
       </v-dialog>
 
       <!-- actions, gear, feats, spells, ... -->
@@ -651,10 +678,20 @@
                       <span class="body-2 red--text">Other</span>
                     </div>
 
-                    <div v-for="ability in otherAbilities" :key="ability.name" class="caption mb-3">
+                    <div v-for="ability in otherAbilities" :key="`${ability.id ? ability.id : ability.name}`" class="caption mb-3">
 
                       <strong>{{ ability.name }}</strong>
                       <em v-if="ability.source"> • {{ ability.source }}</em>
+                      <span v-if="ability.source === 'Mutation'">
+                        <v-hover>
+                          <v-icon
+                            small
+                            @click="removeMutation(ability.id)"
+                            slot-scope="{ hover }"
+                            :color="`${ hover ? 'error' : '' }`"
+                          >delete</v-icon>
+                        </v-hover>
+                      </span>
 
                       <div v-if="ability.snippet"><p class="mb-1" v-html="computeFormatedText(ability.snippet)"></p></div>
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
@@ -662,6 +699,17 @@
                       <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
                         <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
                         <p v-if="ability.selectedOption.snippet">{{ability.selectedOption.snippet}}</p>
+                      </div>
+
+                      <div
+                        v-if="ability.selectedOptions"
+                        v-for="selectedOption in ability.selectedOptions"
+                        class="ml-1 pl-2"
+                        style="border-left: solid 3px lightgrey;"
+                      >
+                        <strong>{{ selectedOption.name }}</strong>
+                        <div v-if="selectedOption.snippet"><p class="mb-1" v-html="computeFormatedText(selectedOption.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(selectedOption.description)"></div>
                       </div>
 
                     </div>
@@ -902,7 +950,9 @@ import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
 import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+import MutationsMixin from '~/mixins/MutationsMixin';
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+import DodCorruptionManager from '~/components/forge/DodCorruptionManager';
 
 export default {
   name: 'in-app-view',
@@ -913,7 +963,11 @@ export default {
     SluggerMixin,
     WargearTraitRepositoryMixin,
     KeywordRepository,
+    MutationsMixin,
   ],
+  components: {
+    DodCorruptionManager,
+  },
   props: [],
   head() {
     return {
@@ -991,6 +1045,7 @@ export default {
       //
       skillsEditorDialog: false,
       keywordsEditorDialog: false,
+      showCorruptionManagerDialog: false,
       customSkill: {
         key: undefined,
         name: 'Custom Skill',
@@ -1049,6 +1104,10 @@ export default {
 
     characterTalents() {
       return this.$store.getters['characters/characterTalentsById'](this.$route.params.id);
+    },
+
+    characterMutations() {
+      return this.$store.getters['characters/characterMutationsById'](this.$route.params.id);
     },
 
     archetypeKey() {
@@ -1172,6 +1231,22 @@ export default {
               attr.adjustment += mod.modifier;
               attr.adjustedRating += mod.modifier;
               attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${talent.name}`);
+            }
+          });
+        }
+      });
+
+      this.mutations
+      .filter((mutation) => mutation.modifications)
+      .forEach((mutation) => {
+        if (mutation.modifications) {
+          mutation.modifications.filter((mods) => mods.targetGroup==='attributes')
+          .forEach((mod) => {
+            let attr = attributes.find((a) => a.key === mod.targetValue);
+            if (attr) {
+              attr.adjustment += mod.modifier;
+              attr.adjustedRating += mod.modifier;
+              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${mutation.name} Mutation`);
             }
           });
         }
@@ -1312,6 +1387,26 @@ export default {
                   traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${talent.name}`);
                 }
               });
+          }
+        });
+
+      this.mutations
+        .filter((mutation) => mutation.modifications)
+        .forEach((mutation) => {
+          if (mutation.modifications) {
+            mutation.modifications.filter((mods) => mods.targetGroup==='traits')
+            .forEach((mod) => {
+              let traity = finalTraits.find((a) => a.key === mod.targetValue);
+              let mody = mod.modifier;
+              if (mod.rank) {
+                mody += (mod.rank * this.characterRank );
+              }
+              if (traity) {
+                traity.adjustment += mody;
+                traity.adjustedRating += mody;
+                traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${mutation.name} Mutation`);
+              }
+            });
           }
         });
 
@@ -1592,7 +1687,7 @@ export default {
             snippet: b.bonus,
             source: 'Background',
           };
-          const backgroundEnhancements = this.enhancements.find( (e) => e.source.startsWith(`background.`));
+          const backgroundEnhancements = this.enhancements.find((e) => e.source.startsWith(`background.`));
           if (backgroundEnhancements) {
             backgroundAbility.selectedOption = {
               name: backgroundEnhancements.targetValue,
@@ -1602,10 +1697,23 @@ export default {
         });
       }
 
+      // mutations
+      if (this.mutations) {
+        this.mutations.forEach((item) => {
+          item.source = 'Mutation',
+          abilities.push(item);
+        });
+      }
+
       // other
       if (this.customAbilities) {
         this.customAbilities
-        .filter( (a) => a.source && !a.source.startsWith('species.') && !a.source.startsWith('archetype.') && !a.source.startsWith('ascension.') )
+        .filter( (a) =>
+          a.source
+          && !a.source.startsWith('species.')
+          && !a.source.startsWith('archetype.')
+          && !a.source.startsWith('ascension.')
+        )
         .forEach((item) => {
           const ability = {
             name: item.name,
@@ -1619,13 +1727,11 @@ export default {
       return abilities;
     },
     abilities() {
-      const abilities = [
+      return [
         ...this.speciesAbilities,
         ...this.archetypeAbilities,
         ...this.otherAbilities
       ];
-
-      return abilities;
     },
     customAbilities() {
       return this.enhancements ? this.enhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
@@ -1692,6 +1798,46 @@ export default {
         return this.enrichedTalents.filter( talent => talent.groupKey && talent.groupKey === 'core-faith' );
       }
       return [];
+    },
+    mutations() {
+      const finalMutations = [];
+
+      this.characterMutations.forEach((charMutation) => {
+        const rawMutation = this.mutationsRepository.find((m) => m.key === charMutation.key);
+        if (rawMutation) {
+          const ability = {
+            id: charMutation.id,
+            name: rawMutation.name, // we use the custom name
+            snippet: rawMutation.snippet,
+            description: rawMutation.description,
+            source: rawMutation.source,
+            hint: rawMutation.name,
+            selectedOptions: [],
+            modifications: rawMutation.modifications || [],
+          };
+
+          if (charMutation.selected) {
+            if (rawMutation.options) {
+              const choice = rawMutation.options.find((m) => m.key === charMutation.selected);
+
+              if (choice.modifications) {
+                console.info(`Additional modifications found for the selected choice.`)
+                ability.modifications.push(...choice.modifications);
+              }
+
+              if (choice.snippet ) {
+                ability.selectedOptions.push(choice);
+              }
+            } else {
+              ability.name = ability.name.replace(/\[.*\]/, `(${charMutation.selected})`);
+            }
+          }
+          finalMutations.push(ability);
+        } else {
+          console.info(`No mutation found for ${charMutation.key}`);
+        }
+      });
+      return finalMutations.sort((a, b) => a.name.localeCompare(b.name));
     },
     charGear() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
@@ -1968,6 +2114,10 @@ export default {
       this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword });
 
       this.closeKeywordsSettings();
+    },
+    removeMutation(mutationId) {
+      const id = this.characterId;
+      this.$store.commit('characters/removeCharacterMutation', { id, uuid: mutationId });
     },
     removeCustomKeyword(keywordName) {
       const id = this.characterId;
