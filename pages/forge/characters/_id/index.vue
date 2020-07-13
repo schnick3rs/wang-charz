@@ -178,7 +178,9 @@
                     <!-- each modifier contains the BASE of the compution -->
                     <v-tooltip bottom v-if="item.modifiers.length > 1">
                       <template v-slot:activator="{ on }">
-                        <v-avatar color="success" size="12" v-on="on"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
+                        <v-avatar color="success" size="12" v-on="on" v-if="item.adjustment > 0"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
+                        <v-avatar color="info" size="12" v-on="on" v-if="item.adjustment === 0"><v-icon dark x-small>swap_vert</v-icon></v-avatar>
+                        <v-avatar color="error" size="12" v-on="on" v-if="item.adjustment < 0"><v-icon dark small>arrow_drop_down</v-icon></v-avatar>
                       </template>
                       <div v-for="modifier in item.modifiers">{{modifier}}</div>
                     </v-tooltip>
