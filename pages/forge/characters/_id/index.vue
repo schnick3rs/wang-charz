@@ -175,7 +175,7 @@
                     {{ item.adjustedRating }}<span v-if="item.alternativeRating">/{{ item.alternativeRating }}</span>
                   </td>
                   <td>
-                    <!-- each modifier contains the BASE of the compution -->
+                    <!-- each modifier contains the BASE of the compution, thus we begin at > 1 -->
                     <v-tooltip bottom v-if="item.modifiers.length > 1">
                       <template v-slot:activator="{ on }">
                         <v-avatar color="success" size="12" v-on="on" v-if="item.adjustment > 0"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
