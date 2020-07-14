@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 9;
+const BUILDER_VERSION = 10;
 
 export const state = () => ({
   list: [],
@@ -820,6 +820,18 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 9:
+        console.debug(`v9 -> v10 : adding mutations.`);
+        const mutations = {
+          mutations: getDefaultState().mutations,
+        };
+        character.version = 10;
+        state.characters[config.characterId] = {
+          ...character,
+          ...mutations,
+        };
+        console.info(`Character migrated to v10`);
+        break;
       case 8:
         console.debug(`v8 -> v9 : adding options for fluff notes.`);
         const fluff = {
@@ -913,7 +925,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 9, // 7+ is revised
+  version: 10, // 7+ is revised
   setting: undefined,
   settingSelected: true,
   settingTier: 3,

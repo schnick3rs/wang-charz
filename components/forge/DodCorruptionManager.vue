@@ -83,7 +83,7 @@
       </v-row>
 
       <h3>Add Mutations</h3>
-      <p><strong>Roll</strong> (somewhat random) or <strong>select</strong> a new mutations if it´s appropriate, aka the Corruption is <em>to damn high</em>.</p>
+      <p><strong>Roll</strong> (somewhat random) or <strong>select</strong> a new mutations if it´s appropriate, aka the Corruption is <em>to damn high</em> (see core, pg. 287).</p>
 
       <v-autocomplete
         outlined
