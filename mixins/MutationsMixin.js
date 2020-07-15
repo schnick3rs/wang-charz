@@ -89,6 +89,10 @@ export default {
         snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.',
         description:
           '<p>Gossamer Flesh reduces your Resistance and Shock values by 1 and imposes a +1 DN penalty to resist experiences of painful physical contact. However, it also gives a sense of touch so refined that you can read a page of writing with your fingertips alone. You gain +Double Rank bonus dice to Awareness (I) Tests involving touch, and can attempt otherwise impossible feats.</p>',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'resilience', modifier: -1 },
+          { targetGroup: 'traits', targetValue: 'maxShock', modifier: -1 },
+        ],
       },
       {
         key: 'core-visions',

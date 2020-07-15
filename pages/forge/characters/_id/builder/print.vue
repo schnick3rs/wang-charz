@@ -482,18 +482,20 @@
 </template>
 
 <script lang="js">
-  import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
-  import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
-  import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
-  import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
+import BackgroundRepositoryMixin from '~/mixins/BackgroundRepositoryMixin';
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import MutationsMixin from '~/mixins/MutationsMixin';
+import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
+import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
-  export default {
+export default {
   name: 'Print',
   layout: 'print',
   components: {},
   mixins: [
     BackgroundRepositoryMixin,
     StatRepositoryMixin,
+    MutationsMixin,
     KeywordRepository,
     WargearTraitRepositoryMixin,
   ],
@@ -590,7 +592,9 @@
     speciesAstartesChapter() {
       return this.$store.getters['characters/characterSpeciesAstartesChapterById'](this.characterId);
     },
-
+    characterMutations() {
+      return this.$store.getters['characters/characterMutationsById'](this.$route.params.id);
+    },
     archetypeKey() {
       return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
@@ -670,6 +674,22 @@
               attr.adjustment += mod.modifier;
               attr.adjustedRating += mod.modifier;
               attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${talent.name}`);
+            }
+          });
+        }
+      });
+
+      this.mutations
+      .filter((mutation) => mutation.modifications)
+      .forEach((mutation) => {
+        if (mutation.modifications) {
+          mutation.modifications.filter((mods) => mods.targetGroup==='attributes')
+          .forEach((mod) => {
+            let attr = attributes.find((a) => a.key === mod.targetValue);
+            if (attr) {
+              attr.adjustment += mod.modifier;
+              attr.adjustedRating += mod.modifier;
+              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${mutation.name} Mutation`);
             }
           });
         }
@@ -796,6 +816,27 @@
               traity.adjustment += mody;
               traity.adjustedRating += mody;
               traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${talent.name}`);
+            }
+          });
+        }
+      });
+
+
+      this.mutations
+      .filter((mutation) => mutation.modifications)
+      .forEach((mutation) => {
+        if (mutation.modifications) {
+          mutation.modifications.filter((mods) => mods.targetGroup==='traits')
+          .forEach((mod) => {
+            let traity = finalTraits.find((a) => a.key === mod.targetValue);
+            let mody = mod.modifier;
+            if (mod.rank) {
+              mody += (mod.rank * this.characterRank );
+            }
+            if (traity) {
+              traity.adjustment += mody;
+              traity.adjustedRating += mody;
+              traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${mutation.name} Mutation`);
             }
           });
         }
@@ -1041,6 +1082,14 @@
         });
       }
 
+      // mutations
+      if (this.mutations) {
+        this.mutations.forEach((item) => {
+          item.source = 'Mutation',
+            abilities.push(item);
+        });
+      }
+
       // other
       if (this.customAbilities) {
         this.customAbilities
@@ -1119,6 +1168,42 @@
         }
       });
       return finalTalents.sort((a, b) => a.name.localeCompare(b.name));
+    },
+    mutations() {
+      const finalMutations = [];
+      this.characterMutations.forEach((charMutation) => {
+        const rawMutation = this.mutationsRepository.find((m) => m.key === charMutation.key);
+        if (rawMutation) {
+          const ability = {
+            id: charMutation.id,
+            name: rawMutation.name, // we use the custom name
+            snippet: rawMutation.snippet,
+            description: rawMutation.description,
+            source: rawMutation.source,
+            hint: rawMutation.name,
+            selectedOptions: [],
+            modifications: rawMutation.modifications || [],
+          };
+          if (charMutation.selected) {
+            if (rawMutation.options) {
+              const choice = rawMutation.options.find((m) => m.key === charMutation.selected);
+              if (choice.modifications) {
+                console.info(`Additional modifications found for the selected choice.`)
+                ability.modifications.push(...choice.modifications);
+              }
+              if (choice.snippet ) {
+                ability.selectedOptions.push(choice);
+              }
+            } else {
+              ability.name = ability.name.replace(/\[.*\]/, `(${charMutation.selected})`);
+            }
+          }
+          finalMutations.push(ability);
+        } else {
+          console.info(`No mutation found for ${charMutation.key}`);
+        }
+      });
+      return finalMutations.sort((a, b) => a.name.localeCompare(b.name));
     },
     charGear() {
       return this.$store.getters['characters/characterWargearById'](this.characterId);
