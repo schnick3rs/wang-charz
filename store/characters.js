@@ -489,7 +489,7 @@ export const mutations = {
       console.info(`Enhance/Modify: Adding ${item.targetValue} by '${source}'`);
     });
   },
-  removeCharacterMedificationById(state, payload) {
+  removeCharacterModificationById(state, payload) {
     const character = state.characters[payload.id];
     character.enhancements = character.enhancements.filter((e) => e.id !== payload.modificationId);
   },

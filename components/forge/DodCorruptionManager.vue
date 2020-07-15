@@ -207,7 +207,7 @@ export default {
       this.newCorruptionHint = '';
     },
     removeCorruption(id) {
-      this.$store.commit('characters/removeCharacterMedificationById', { id: this.id, modificationId: id });
+      this.$store.commit('characters/removeCharacterModificationById', { id: this.id, modificationId: id });
     },
     addMutation(mutation, selectedOption) {
       const id = this.id;
