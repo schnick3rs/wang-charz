@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 9;
+const BUILDER_VERSION = 10;
 
 export const state = () => ({
   list: [],
@@ -270,6 +270,9 @@ export const getters = {
     return keywords.map((k) => (k.replacement ? k.replacement : k.name));
   },
 
+  // Mutations
+  characterMutationsById: (state) => (id) => (state.characters[id] ? state.characters[id].mutations : []),
+
   characterBackgroundById: (state) => (id) => (state.characters[id] ? state.characters[id].background : getDefaultState().background),
   characterBackgroundKeyById: (state) => (id) => (state.characters[id] ? state.characters[id].background.key : getDefaultState().background.key),
   characterBackgroundLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].background.label : getDefaultState().background.label),
@@ -479,10 +482,16 @@ export const mutations = {
     const source = payload.content.source || undefined;
 
     modifications.forEach((item) => {
+      const uuid = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+      item.id = uuid;
       item.source = source;
       character.enhancements.push(item);
       console.info(`Enhance/Modify: Adding ${item.targetValue} by '${source}'`);
     });
+  },
+  removeCharacterMedificationById(state, payload) {
+    const character = state.characters[payload.id];
+    character.enhancements = character.enhancements.filter((e) => e.id !== payload.modificationId);
   },
   clearCharacterEnhancementsBySource(state, payload) {
     const character = state.characters[payload.id];
@@ -572,6 +581,26 @@ export const mutations = {
       ...theOtherTalents,
       theTalent,
     ];
+  },
+
+
+  // Mutations
+  addCharacterMutation(state, payload) {
+    const { id, mutation } = payload;
+    const character = state.characters[id];
+
+    const uuid = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    console.info(`Adding Mutation [${uuid}] ${mutation.name}.`);
+
+    mutation.id = uuid;
+    character.mutations.push(mutation);
+  },
+  removeCharacterMutation(state, payload) {
+    const character = state.characters[payload.id];
+    const hasMutation = character.mutations.find((t) => t.id === payload.uuid) !== undefined;
+    if (hasMutation) {
+      character.mutations = character.mutations.filter((t) => t.id !== payload.uuid);
+    }
   },
 
   // Wargear { id, name, source, (variant) }
@@ -791,6 +820,18 @@ export const mutations = {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 9:
+        console.debug(`v9 -> v10 : adding mutations.`);
+        const mutations = {
+          mutations: getDefaultState().mutations,
+        };
+        character.version = 10;
+        state.characters[config.characterId] = {
+          ...character,
+          ...mutations,
+        };
+        console.info(`Character migrated to v10`);
+        break;
       case 8:
         console.debug(`v8 -> v9 : adding options for fluff notes.`);
         const fluff = {
@@ -884,14 +925,14 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 9, // 7+ is revised
+  version: 10, // 7+ is revised
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
   settingTitle: '',
   settingHomebrewContent: [], // e.g. pax
   settingHouserules: {
-    'rank-advencement-type': 'milestone',
+    'rank-advancement-type': 'milestone',
     'skill-attribute-advancement-costs': 'v15',
   },
   customXp: 0,
@@ -948,6 +989,7 @@ const getDefaultState = () => ({
   ],
   keywords: [],
   talents: [],
+  mutations: [],
   psychicPowers: [],
   ascensionPackages: [],
   wargear: [],
@@ -958,7 +1000,6 @@ const getDefaultState = () => ({
     plusOne: undefined,
   },
   enhancements: [],
-
   /**
    * spendable resources are:
    * > Faith, granted by talents, long rest
