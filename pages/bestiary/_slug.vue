@@ -21,7 +21,7 @@
 
 <script>
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
-import DodThreatDetails from '~/components/DodThreatDetails';
+import DodThreatDetails from '~/components/DodThreatDetailsV2';
 import SluggerMixin from '~/mixins/SluggerMixin';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 import ColorfulEntry from '~/components/shared/ColorfulEntry';
@@ -43,7 +43,7 @@ export default {
       : `The ${this.item.name} from the ${this.item.faction} faction is a threat provided by ${this.item.source.book}.`;
     const image = this.item.thumbnail
       ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
-      : `https://www.doctors-of-doom.com/img/bestiary/faction_${this.textToKebab(this.item.faction)}_avatar.png`;
+      : ''; //`https://www.doctors-of-doom.com/img/bestiary/faction_${this.textToKebab(this.item.faction)}_avatar.png`;
 
     return {
       titleTemplate: '%s | Wrath & Glory Bestiary',

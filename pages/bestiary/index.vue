@@ -13,20 +13,20 @@
                 <v-slide-group
                   multiple
                   show-arrows
-                  :value="factionFilterSelections"
+                  :value="threatGroupFilterSelections"
                 >
                   <v-slide-item
-                    v-for="faction in filterFactionOptions"
-                    :key="faction.key"
+                    v-for="threatGroup in filterThreatGroupOptions"
+                    :key="threatGroup.key"
                     v-slot:default="{ active, toggle }"
                   >
                     <v-avatar
                       size="86"
-                      class="faction-filter"
+                      class="threat-group-filter"
                       :input-value="active"
                       @click="toggle"
                     >
-                      <img :src="getAvatar(faction)">
+                      <img :src="getAvatar(threatGroup)">
                     </v-avatar>
                   </v-slide-item>
                 </v-slide-group>
@@ -68,9 +68,9 @@
 
               <v-col :cols="12" :sm="6">
                 <v-select
-                  v-model="factionFilterSelections"
-                  :items="filterFactionOptions"
-                  label="Filter by Faction"
+                  v-model="threatGroupFilterSelections"
+                  :items="filterThreatGroupOptions"
+                  label="Filter by Threat Group"
                   filled
                   dense
                   clearable
@@ -243,7 +243,7 @@ export default {
 
     const title = 'Threats for Wrath & Glory | Bestiary';
     const description = 'This Bestiary contains fan-made homebews threats to be used by the Game Master to challenge your Wrath & Glory Players. '
-      + 'Filter by Campaign Tier and Faction to find various Troops of Mobs, Elite Champions and Adversaries.';
+      + 'Filter by Campaign Tier and Group to find various Troops of Mobs, Elite Champions and Adversaries.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_bestiary_death.png';
     const imageTwitter = 'https://www.doctors-of-doom.com/img/artwork_bestiary_twitter.png';
 
@@ -274,7 +274,7 @@ export default {
       searchQuery: '',
       settingFilter: [],
       contentFilter: [],
-      factionFilterSelections: [],
+      threatGroupFilterSelections: [],
       pagination: {
         page: 1,
         pageCount: 0,
@@ -290,7 +290,7 @@ export default {
           text: 'Name', align: 'start', value: 'name', class: '',
         },
         {
-          text: 'Faction', align: 'start', value: 'faction', class: '',
+          text: 'Group', align: 'start', value: 'threatGroup', class: '',
         },
         {
           text: 'Source', align: 'start', value: 'source.book', class: '',
@@ -317,8 +317,8 @@ export default {
       return null;
       // return this.homebrewRepository.map(h => h.setting).filter(i => i !== '');
     },
-    filterFactionOptions() {
-      const options = this.items.map((i) => ({ value: i.faction, text: i.faction }));
+    filterThreatGroupOptions() {
+      const options = this.items.map((i) => ({ value: i.threatGroup, text: i.threatGroup }));
       return [...new Set(options)].sort((a, b) => a.text.localeCompare(b.text));
     },
     filterSourceOptions() {
@@ -336,8 +336,8 @@ export default {
         filteredResults = filteredResults.filter((i) => this.filtersSourceModel.includes(i.source.key));
       }
 
-      if (this.factionFilterSelections.length > 0) {
-        filteredResults = filteredResults.filter((i) => this.factionFilterSelections.includes(i.faction));
+      if (this.threatGroupFilterSelections.length > 0) {
+        filteredResults = filteredResults.filter((i) => this.threatGroupFilterSelections.includes(i.threatGroup));
       }
 
       return filteredResults;
@@ -360,9 +360,9 @@ export default {
       error({ statusCode: 404, message: 'Threat not found' });
     }
 
-    const factionFilterSelections = [];
-    if (query['filter-faction']) {
-      factionFilterSelections.push(query['filter-faction']);
+    const threatGroupFilterSelections = [];
+    if (query['filter-threatGroup']) {
+      threatGroupFilterSelections.push(query['filter-threatGroup']);
     }
 
     let filterTier = 0;
@@ -377,15 +377,15 @@ export default {
 
     return {
       items,
-      factionFilterSelections,
+      threatGroupFilterSelections,
       filterTier,
       filtersSourceModel,
     };
   },
   methods: {
-    getAvatar(factionLabel) {
-      if (factionLabel !== undefined) {
-        return `/img/bestiary/faction_${this.textToKebab(factionLabel)}_avatar.png`;
+    getAvatar(threatGroupLabel) {
+      if (threatGroupLabel !== undefined) {
+        return `/img/bestiary/threatGroup_${this.textToKebab(threatGroupLabel)}_avatar.png`;
       }
       return '/img/avatars/species/core-human.png';
     },
@@ -397,11 +397,11 @@ export default {
         this.pagination.descending = false;
       }
     },
-    toggleFilterFactionSelection(name) {
-      if (this.factionFilterSelections.includes(name)) {
-        this.factionFilterSelections = this.factionFilterSelections.filter((d) => d != name);
+    toggleFilterThreatGroupSelection(name) {
+      if (this.threatGroupFilterSelections.includes(name)) {
+        this.threatGroupFilterSelections = this.threatGroupFilterSelections.filter((d) => d != name);
       } else {
-        this.factionFilterSelections.push(name);
+        this.threatGroupFilterSelections.push(name);
       }
     },
     trackExpand(event) {
@@ -425,11 +425,11 @@ export default {
     cursor: pointer;
   }
 
-  .faction-filter {
+  .threat-group-filter {
     opacity: 0.5;
   }
 
-  .faction-filter.v-slide-item--active {
+  .threat-group-filter.v-slide-item--active {
     opacity: unset;
   }
 

@@ -16,9 +16,7 @@ router.get('/', (request, response) => {
 router.get('/:slug', (request, response) => {
   const { slug } = request.params;
 
-  const key = slug.replace(/-([a-z])/g, (g) => g[1].toUpperCase());
-
-  const item = threatRepository.find((threat) => threat.key === key);
+  const item = threatRepository.find((threat) => threat.key === slug);
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);
