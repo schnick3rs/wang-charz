@@ -110,7 +110,6 @@
                     </th>
                   </tr>
                   </thead>
-
                   <tbody>
                   <tr
                     v-for="attack in attackActions"
