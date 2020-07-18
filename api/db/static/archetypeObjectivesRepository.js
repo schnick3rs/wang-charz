@@ -26,7 +26,7 @@ const source = {
     book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne',
   },
   tea: {
-    book: 'The Emperor\'s Angles', key: 'tea', version: '', path: '/vault/the-emperors-angels',
+    book: 'The Emperor\'s angels', key: 'tea', version: '', path: '/vault/the-emperors-angels',
   },
   heva: {
     book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault',
