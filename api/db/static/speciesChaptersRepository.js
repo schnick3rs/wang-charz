@@ -10,7 +10,7 @@ const source = {
   aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
   jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
   aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
-  tea: { book: 'The Emperor\'s angels', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
+  tea: { book: 'The Emperor\'s Angels', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
   heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
   goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
   tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
@@ -57,7 +57,7 @@ const chapterz = function (sourceKey, sourcePage, name, primarch, affiliation, f
 
 const core = [
   {
-    ...chapterz('core',95,'Blood Angles','Sanguinius','Imperium','First Founding (IX Legion)'),
+    ...chapterz('core',95,'Blood Angels','Sanguinius','Imperium','First Founding (IX Legion)'),
     hint: 'Masters of Melee, compelled to drink the enemies blood.',
     beliefsAndTraditions: [
       {
@@ -74,7 +74,7 @@ const core = [
     ],
   },
   {
-    ...chapterz('core',95,'Dark Angles','Lion El`Jonson','Imperium','First Founding (I Legion)'),
+    ...chapterz('core',95,'Dark Angels','Lion El`Jonson','Imperium','First Founding (I Legion)'),
     beliefsAndTraditions: [
       {
         name: 'Grim Resolve',
