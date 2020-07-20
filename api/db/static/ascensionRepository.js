@@ -412,7 +412,7 @@ const core = [
           {
             key: 'influence',
             name: 'Influence',
-            snippet: 'You gain 2 influence per tier ascended. (currently the bonus is capped at +2 in the FORGE.)',
+            snippet: 'You gain 2 influence per tier ascended.',
             modifications: [
               { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 1 },
               { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 2 },
