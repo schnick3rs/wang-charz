@@ -474,7 +474,7 @@ const core = [
         name: 'Administratum Records',
         snippet: 'You are particularly adept at navigating the Imperium’s colossal bureaucracy. You gain +Rank bonus dice whenever you make a Test to gather information from Imperial sources, typically on Influence or Investigation (Int) tests.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'investigation', modifier: 0, rank: 1, condition: 'When gathering information from Imperial sources.' },
+          { targetGroup: 'skills', targetValue: 'investigation', modifier: 0, rank: 1, condition: 'when gathering information from Imperial sources' },
         ],
       },
     ],
@@ -760,7 +760,7 @@ const core = [
         name: 'Rite of Repair',
         snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'when repairing damaged machinery.' },
+          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
         ],
       },
     ],
@@ -888,7 +888,7 @@ const core = [
             name: 'Gossamer Flesh',
             snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.',
             modifications: [
-              { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 2, condition: 'When involving touch.' },
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 2, condition: 'when involving touch' },
             ],
           },
           {
@@ -1033,7 +1033,7 @@ const core = [
         name: 'Enemy Within',
         snippet: 'You gain +Double Rank bonus dice to Deception (Fel) Tests, including Interaction Attacks, against targets with the IMPERIUM Keyword.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'deception', modifier: 0, rank: 2, condition: 'Against IMPERIAL targets.' },
+          { targetGroup: 'skills', targetValue: 'deception', modifier: 0, rank: 2, condition: 'against IMPERIAL targets' },
         ],
       },
       {
@@ -1142,7 +1142,7 @@ const core = [
         name: 'Rite of Repair',
         snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'When repairing damaged machinery.' },
+          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
         ],
       },
       {
@@ -1359,7 +1359,7 @@ const core = [
         name: 'Kunnin\' Plan',
         snippet: 'You and any of your allies with the ORK within 15 metres gain +Rank bonus dice to Stealth (A) Tests.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1, condition: 'You and ORK allies within 15 metres.' },
+          { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1, condition: 'for You and ORK allies within 15 metres' },
         ],
       },
     ],
