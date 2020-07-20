@@ -59,6 +59,9 @@ export default {
         snippet: 'Add 1 dice to Awareness (Int) Tests. You suffer +1 DN to actions that require vision, while exposed to light.',
         description:
           '<p>You gain +1 bonus dice to Awareness (Attribute) Tests. You also suffer +1 DN to any actions requiring vision or visual coordination while in areas of light (daylight or stronger), or during a round of exposure to light (flamer burst, stablight, etc.). Visors and lenses that shade the eyes remove both the bonus and penalty.</p>',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'awareness', modifier: 1 },
+        ],
       },
       {
         key: 'core-voice-of-the-aurelian',
@@ -90,6 +93,7 @@ export default {
         description:
           '<p>Gossamer Flesh reduces your Resistance and Shock values by 1 and imposes a +1 DN penalty to resist experiences of painful physical contact. However, it also gives a sense of touch so refined that you can read a page of writing with your fingertips alone. You gain +Double Rank bonus dice to Awareness (I) Tests involving touch, and can attempt otherwise impossible feats.</p>',
         modifications: [
+          { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 2, condition: 'when involving touch' },
           { targetGroup: 'traits', targetValue: 'resilience', modifier: -1 },
           { targetGroup: 'traits', targetValue: 'maxShock', modifier: -1 },
         ],
@@ -159,6 +163,9 @@ export default {
         snippet: 'Add +1 to Intimidation tests. You suffer +1 DN to social interactions with non-CHAOS characteres.',
         description:
           '<p>Your new appearance is unnerving to all. You receive +1 bonus dice to all Intimidation (Wil) Tests, but your grotesquery imposes +1 DN to all other social interactions with characters who do not have the CHAOS Keyword.</p>',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
+        ],
       },
       {
         key: 'core-bestial-hide',
@@ -171,6 +178,7 @@ export default {
           '<p>Your thickened skin grants a +1 to Resilience. You receive +1 bonus dice to all Intimidation (Wil) Tests, but you also suffer a +2 DN penalty to all other social interactions with characters who do not have the CHAOS Keyword.</p>',
         modifications: [
           { targetGroup: 'traits', targetValue: 'resilience', modifier: 1 },
+          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
         ],
       },
       {
@@ -269,7 +277,7 @@ export default {
           {
             key: 'core-extra-appendages-prehensive-tail',
             name: 'Prehensive Tail',
-            snippet: 'Can be used as Strong Arm or Strong Leg.',
+            snippet: 'Can be used as Strong Arm (Ignore the first +2 DN Multi-Attack/Action penalty involving this arm) or Strong Leg (Brace Heavy Weapons as a Free Action).',
           },
         ],
         allowedMultipleTimes: true,
@@ -315,6 +323,9 @@ export default {
             key: 'core-aberration-caprinae',
             name: 'Caprinae (Goat)',
             snippet: 'Increase Athletic by 1. Your Horns substitute as a Knive.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'athletics', modifier: 1 },
+            ],
           },
           {
             key: 'core-aberration-carcharodon',
@@ -327,12 +338,17 @@ export default {
             snippet: 'Increase Speed by 1. Add +2 dice to Awareness based on Smell or Sound.',
             modifications: [
               { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 2, condition: 'when based on Smell or Sound' },
             ],
           },
           {
             key: 'core-aberration-aquila',
             name: 'Aquila (Eagle)',
             snippet: 'Add +2 dice to Awareness based on sight. Your beaks substitute for a knife.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 2, condition: 'when based on Sight' },
+            ],
+            // Todo Wargear Knife
           },
         ],
         allowedMultipleTimes: true,
@@ -347,7 +363,7 @@ export default {
         description:
           '<p>You gain +2 Toughness. All Medicae (Int) Tests made on you suffer a +2 DN penalty.</p>',
         modifications: [
-          { targetGroup: 'attributes', targetValue: 'toughnes', modifier: 1 },
+          { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
         ],
       },
       {
@@ -413,6 +429,7 @@ export default {
           '<p>You gain +2 Speed and +1 bonus dice to Athletics (S) Test. Your expressions and tone cause a minimum +2 DN penalty to social interaction Tests against targets that do not have the CHAOS Keyword.</p>',
         modifications: [
           { targetGroup: 'traits', targetValue: 'speed', modifier: 2 },
+          { targetGroup: 'skills', targetValue: 'athletics', modifier: 1 },
         ],
       },
       {
@@ -450,6 +467,7 @@ export default {
           '<p>You gain +2 Toughness. Your added mass provides +1 bonus dice to Intimidation (Wil) Tests.</p>',
         modifications: [
           { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2 },
+          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
         ],
       },
       {
@@ -464,6 +482,7 @@ export default {
         modifications: [
           { targetGroup: 'traits', targetValue: 'defence', modifier: 2 },
           { targetGroup: 'traits', targetValue: 'passiveAwareness', modifier: 3 },
+          { targetGroup: 'skills', targetValue: 'awareness', modifier: 2 },
         ],
       },
       {
@@ -497,6 +516,7 @@ export default {
           '<p>You are no longer capable of wearing clothing or armour. You gain +2 Toughness due to the rearrangement of your organs. All of your movement is Crawling (p.180). You can Run and Sprint. You are always considered Prone, but don’t suffer the penalties for this status. You gain a +1 bonus dice to Intimidation (Wil) Tests, but you suffer a minimum +6 DN penalty to all other social interaction Tests when dealing with characters who do not have the CHAOS Keyword.</p>',
         modifications: [
           { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2 },
+          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
         ],
       },
       {
@@ -510,6 +530,7 @@ export default {
           '<p>You gain +3 Wounds. You gain +2 bonus dice to Intimidation (Wil) Tests, but suffer a minimum +2 DN penalty to social interaction Tests when dealing with characters who do not have the CHAOS Keyword.</p>',
         modifications: [
           { targetGroup: 'traits', targetValue: 'maxWounds', modifier: 3 },
+          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 2 },
         ],
       },
       {

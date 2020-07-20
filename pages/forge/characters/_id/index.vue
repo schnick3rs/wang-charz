@@ -329,17 +329,25 @@
                 <td class="text-center pa-1 small">
                   <v-tooltip bottom v-if="item.modifiers.length > 0">
                     <template v-slot:activator="{ on }">
-                      <v-avatar color="success" size="12" v-on="on"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
+                      <v-avatar
+                        :color="item.adjustment + item.conditionalAdjustment > 0 ? 'success' : 'error'"
+                        size="12"
+                        v-on="on"
+                      >
+                        <v-icon dark small v-if="item.adjustment + item.conditionalAdjustment > 0">arrow_drop_up</v-icon>
+                        <v-icon dark small v-if="item.adjustment + item.conditionalAdjustment < 0">arrow_drop_down</v-icon>
+                      </v-avatar>
                     </template>
                     <div>Base = {{computeSkillPool(item)}}</div>
-                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
-                  </v-tooltip>
-                  <v-tooltip bottom v-if="item.modifiers.length< 0">
-                    <template v-slot:activator="{ on }">
-                      <v-avatar color="error" size="12" v-on="on"><v-icon dark small>arrow_drop_down</v-icon></v-avatar>
-                    </template>
-                    <div>Base = {{computeSkillPool(item)}}</div>
-                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                    <div v-for="modifier in item.modifiers.filter((m) => m.condition === null)">
+                      {{modifier.valueString}} {{modifier.provider}} ({{modifier.category}})
+                    </div>
+                    <div v-if="item.modifiers.find((m) => m.condition !== null)">
+                      <div>Conditional modifiers:</div>
+                      <div v-for="modifier in item.modifiers.filter((m) => m.condition !== null)">
+                        {{modifier.valueString}} {{modifier.condition}} • {{modifier.provider}} ({{modifier.category}})
+                      </div>
+                    </div>
                   </v-tooltip>
                 </td>
               </tr>
@@ -1435,6 +1443,7 @@ export default {
         conditionalAdjustment: 0,
         dnPenalty: 0,
         modifiers: [],
+        conditionals: [],
       }));
 
       /**
@@ -1453,13 +1462,20 @@ export default {
           mody += (enhancement.rank * this.characterRank);
         }
         if ( skill ) {
+          const modifier = {
+            value: mody,
+            valueString: `${mody < 0 ? '-' : '+'}${mody}`,
+            type: 'MODIFIER',
+            condition: enhancement.condition || null,
+            provider: enhancement.provider,
+            category: enhancement.category,
+          };
+          skill.modifiers.push(modifier);
           if (enhancement.condition) {
             skill.conditionalAdjustment += mody;
-            skill.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} ${enhancement.condition} • ${enhancement.provider} (${enhancement.category})`);
           } else {
             skill.adjustment += mody;
             skill.adjustedRating += mody;
-            skill.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} • ${enhancement.provider} (${enhancement.category})`);
           }
         } else {
           console.warn(`Unexpected undefined skill for ${enhancement.targetValue}.`);
