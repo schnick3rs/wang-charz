@@ -896,7 +896,7 @@ const core = [
             snippet: 'You add +1 dice to resist Poison. You and anyone within 10m suffer +1 DN to Corruption and Malignancy Tests.'
           },
           {
-            name: 'Wyrding',
+            name: 'Wyrdling',
             snippet: 'You gain the PSYKER Keyword. You gain one Minor Psychic Power (GM choice). If you already are a PSYKER, you gan one aditional Minow Psychic Power.'
           },
           {

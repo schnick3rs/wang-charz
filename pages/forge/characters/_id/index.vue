@@ -338,12 +338,12 @@
                         <v-icon dark small v-if="item.adjustment + item.conditionalAdjustment < 0">arrow_drop_down</v-icon>
                       </v-avatar>
                     </template>
-                    <div>Base = {{computeSkillPool(item)}}</div>
+                    <div>Pool {{ item.rating + item.adjustedAttributeValue }} = Skill ({{item.rating}}) + Attribute ({{item.adjustedAttributeValue}})</div>
                     <div v-for="modifier in item.modifiers.filter((m) => m.condition === null)">
                       {{modifier.valueString}} {{modifier.provider}} ({{modifier.category}})
                     </div>
                     <div v-if="item.modifiers.find((m) => m.condition !== null)">
-                      <div>Conditional modifiers:</div>
+                      <div><strong>Conditional modifiers:</strong></div>
                       <div v-for="modifier in item.modifiers.filter((m) => m.condition !== null)">
                         {{modifier.valueString}} {{modifier.condition}} • {{modifier.provider}} ({{modifier.category}})
                       </div>
@@ -1433,18 +1433,26 @@ export default {
 
       const characterSkills = this.$store.getters['characters/characterSkillsById'](this.characterId);
 
-      let skills = adHocSkillRepository.map((repositorySkill) => ({
-        ...repositorySkill,
-        value: characterSkills[repositorySkill.key],
-        enhancedValue: parseInt(characterSkills[repositorySkill.key]),
-        rating: characterSkills[repositorySkill.key],
-        adjustedRating: parseInt(characterSkills[repositorySkill.key]),
-        adjustment: 0,
-        conditionalAdjustment: 0,
-        dnPenalty: 0,
-        modifiers: [],
-        conditionals: [],
-      }));
+      let skills = adHocSkillRepository.map((repositorySkill) => {
+        const skill = {
+          ...repositorySkill,
+          value: characterSkills[repositorySkill.key],
+          enhancedValue: parseInt(characterSkills[repositorySkill.key]),
+          rating: characterSkills[repositorySkill.key],
+          adjustedRating: parseInt(characterSkills[repositorySkill.key]),
+          adjustment: 0,
+          conditionalAdjustment: 0,
+          dnPenalty: 0,
+          modifiers: [],
+          conditionals: [],
+          adjustedAttributeValue: 0,
+        };
+        const attribute = this.attributes.find((a) => a.name === skill.attribute);
+        if (attribute) {
+          skill.adjustedAttributeValue = attribute.adjustedRating;
+        }
+        return skill;
+      });
 
       /**
        * modifiers [
