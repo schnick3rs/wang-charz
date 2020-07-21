@@ -84,6 +84,9 @@ const core = [
       { key: stringToKebab('core acute sense touch'), name: 'Touch' },
     ],
     allowedMultipleTimes: true,
+    modifications: [
+      { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 1, condition: 'when using the selected sense.' },
+    ],
   },
   {
     ...talent('core',129,'Angel Of Death',30,'Combat,Damage'),
@@ -424,6 +427,10 @@ const core = [
       '<p>You gain +Rank bonus dice to Intimidation (Wil) and Leadership (Wil) Tests when you use your voice.</p>' +
       '<p>Any Fellowship Test made with someone likely to be put off by your voice (nervous individuals, Psykers, pious members of the Ecclesiarchy) suffers +2 DN penalty.</p>',
     requirements: [],
+    modifications: [
+      { targetGroup: 'skills', targetValue: 'intimidation', modifier: 0, rank: 1, condition: 'when voiced based' },
+      { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1, condition: 'when voiced based' },
+    ],
   },
   {
     ...talent('core',133,'Dual Wield',20,'Combat,Ranged,Melee'),
@@ -674,6 +681,8 @@ const core = [
     requirements: [ requireKeyword('SLAANESH') ],
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
+      { targetGroup: 'skills', targetValue: 'awareness', modifier: 2 },
+      { targetGroup: 'skills', targetValue: 'persuasion', modifier: 2 },
     ],
   },
   { // Duplicate
@@ -772,6 +781,7 @@ const core = [
     modifications: [
       { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 0, rank: 1 },
+      { targetGroup: 'skills', targetValue: 'scholar', modifier: 0, rank: 2, condition: 'when recalling long (<31k) gone events' },
     ],
   },
   {
