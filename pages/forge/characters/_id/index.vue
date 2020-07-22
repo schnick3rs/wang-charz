@@ -467,6 +467,7 @@
                     <v-btn
                       text icon
                       v-for="pointIndex in characterReloads.points"
+                      :key="pointIndex"
                       @click="toggleResourceReloads(pointIndex)"
                     >
                       <v-icon color="error" v-if="pointIndex <= characterReloads.spend">signal_cellular_no_sim</v-icon>

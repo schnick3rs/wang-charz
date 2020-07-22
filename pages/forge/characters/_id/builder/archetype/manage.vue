@@ -96,7 +96,8 @@
             <p v-else>{{ feature.snippet }}</p>
             <v-alert
               v-if="feature.alerts"
-              v-for="alert in feature.alerts"
+              v-for="(alert, index) in feature.alerts"
+              :key="index"
               :type="alert.type"
               dense
               text

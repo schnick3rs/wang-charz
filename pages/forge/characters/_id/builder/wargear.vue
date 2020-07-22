@@ -111,6 +111,7 @@
                 <v-list-item
                   three-line
                   v-for="(gear, index) in advancedShoppingChart"
+                  :key="index"
                 >
                   <v-list-item-avatar tile>
                     <img>
