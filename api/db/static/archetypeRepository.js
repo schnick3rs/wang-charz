@@ -889,6 +889,8 @@ const core = [
             snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.',
             modifications: [
               { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 2, condition: 'when involving touch' },
+              { targetGroup: 'traits', targetValue: 'resilience', modifier: -1 },
+              { targetGroup: 'traits', targetValue: 'maxShock', modifier: -1 },
             ],
           },
           {

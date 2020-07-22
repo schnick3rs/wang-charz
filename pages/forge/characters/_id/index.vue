@@ -1328,7 +1328,7 @@ export default {
         return aggregatedTrait;
       });
 
-      // We search all enhacements that have TRAIT modifications
+      // We search all enhancements that have TRAIT modifications
       this.enhancements
       .filter((enhancement) => enhancement.targetGroup==='traits')
       .forEach((enhancement) => {
@@ -1339,6 +1339,7 @@ export default {
           mody += (enhancement.rank * this.characterRank );
         }
         if ( traity ) {
+          console.info(traity)
           traity.adjustment += mody;
           traity.adjustedRating += mody;
           traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} • ${enhancement.provider} (${enhancement.category})`);
