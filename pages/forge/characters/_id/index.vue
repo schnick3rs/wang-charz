@@ -321,8 +321,10 @@
                   {{ item.value }}
                 </td>
                 <td class="text-center pa-1 small">
-                  {{ item.attribute.substring(0,3) }}
-                  ({{item.attributeObject.adjustedRating}})
+                  <span v-if="item.attribute">
+                    {{ item.attribute.substring(0,3) }}
+                    ({{item.attributeObject.adjustedRating}})
+                  </span>
                 </td>
                 <td class="text-center pa-1 small">
                   {{ computeSkillPool(item) }}<span v-if="item.conditionalAdjustment !== 0">/{{ computeSkillPool(item)+item.conditionalAdjustment }}</span>
