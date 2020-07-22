@@ -322,6 +322,7 @@
                 </td>
                 <td class="text-center pa-1 small">
                   {{ item.attribute.substring(0,3) }}
+                  ({{item.attributeObject.adjustedRating}})
                 </td>
                 <td class="text-center pa-1 small">
                   {{ computeSkillPool(item) }}<span v-if="item.conditionalAdjustment !== 0">/{{ computeSkillPool(item)+item.conditionalAdjustment }}</span>
@@ -338,9 +339,9 @@
                         <v-icon dark small v-if="item.adjustment + item.conditionalAdjustment < 0">arrow_drop_down</v-icon>
                       </v-avatar>
                     </template>
-                    <div>Pool {{ item.rating + item.adjustedAttributeValue }} = Skill ({{item.rating}}) + Attribute ({{item.adjustedAttributeValue}})</div>
+                    <div>Pool {{ item.rating + item.adjustedAttributeValue }} = Skill ({{item.rating}}) + {{item.attributeObject.name}} ({{item.attributeObject.adjustedRating}})</div>
                     <div v-for="modifier in item.modifiers.filter((m) => m.condition === null)">
-                      {{modifier.valueString}} {{modifier.provider}} ({{modifier.category}})
+                      {{modifier.valueString}} • {{modifier.provider}} ({{modifier.category}})
                     </div>
                     <div v-if="item.modifiers.find((m) => m.condition !== null)">
                       <div><strong>Conditional modifiers:</strong></div>
@@ -1039,10 +1040,10 @@ export default {
         { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
       ],
       skillHeaders: [
-        { text: 'Skill', sortable: false, align: 'left', class: 'small pa-1' },
-        { text: 'Rating', sortable: false, align: 'center', class: 'small pa-1' },
-        { text: 'Att', sortable: false, align: 'center', class: 'small pa-1' },
-        { text: 'Total', sortable: false, align: 'center', class: 'small pa-1' },
+        { text: 'Skill', sortable: false, align: 'left', class: 'text-left small pa-1' },
+        { text: 'Rating', sortable: false, align: 'center', class: 'text-center small pa-1' },
+        { text: 'Att', sortable: false, align: 'center', class: 'text-center small pa-1' },
+        { text: 'Total', sortable: false, align: 'center', class: 'text-center small pa-1' },
         { text: 'Notes', sortable: false, style: 'center', class: 'text-center small pa-1' },
       ],
       weaponHeaders: [
@@ -1446,9 +1447,11 @@ export default {
           modifiers: [],
           conditionals: [],
           adjustedAttributeValue: 0,
+          attributeObject: {},
         };
         const attribute = this.attributes.find((a) => a.name === skill.attribute);
         if (attribute) {
+          skill.attributeObject = attribute;
           skill.adjustedAttributeValue = attribute.adjustedRating;
         }
         return skill;
