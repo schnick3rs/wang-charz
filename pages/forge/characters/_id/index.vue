@@ -1240,7 +1240,7 @@ export default {
         let attr = attributes.find((a)=>a.key===enhancement.targetValue);
         attr.adjustment += enhancement.modifier;
         attr.adjustedRating += enhancement.modifier;
-        attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} • ${enhancement.provider} • ${enhancement.category}`);
+        attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} • ${enhancement.provider} • (${enhancement.category})`);
       });
 
       attributes = attributes.map((a) => {
@@ -1268,7 +1268,7 @@ export default {
               let strength = attributes.find((a)=>a.key==='strength');
               strength.adjustedRating += poweredStrength;
               strength.adjustment += poweredStrength;
-              strength.modifiers.push(`+${poweredStrength} from Armour • ${wornArmour.name}`);
+              strength.modifiers.push(`+${poweredStrength} • ${wornArmour.name} (Powered Armour)`);
             }
           }
         }
@@ -1623,7 +1623,7 @@ export default {
             const newMod = {
               ...mod,
               provider: gear.name,
-              category: 'Wargear',
+              category: gear.type,
             };
             return finalEnhancements.push(newMod);
           });

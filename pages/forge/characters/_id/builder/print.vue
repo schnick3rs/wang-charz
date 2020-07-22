@@ -172,9 +172,10 @@
                       </td>
                       <td class="text-center pa-1 small">
                         {{ item.attribute.substring(0,3) }}
+                        ({{item.attributeObject.adjustedRating}})
                       </td>
                       <td class="text-center pa-1 small">
-                        {{ computeSkillPool(item) }}
+                        {{ computeSkillPool(item) }}<span v-if="item.conditionalAdjustment !== 0">/{{ computeSkillPool(item)+item.conditionalAdjustment }}</span>
                       </td>
                     </tr>
                   </tbody>
@@ -660,55 +661,8 @@ export default {
         let attr = attributes.find((a)=>a.key===enhancement.targetValue);
         attr.adjustment += enhancement.modifier;
         attr.adjustedRating += enhancement.modifier;
-        attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} from ${enhancement.source.split('.').join(' • ')}`);
+        attr.modifiers.push(`${enhancement.modifier < 0 ? '-' : '+'}${enhancement.modifier} • ${enhancement.provider} • ${enhancement.category}`);
       });
-
-      this.talents
-      .filter((talent) => talent.modifications)
-      .forEach((talent) => {
-        if (talent.modifications) {
-          talent.modifications.filter((mods) => mods.targetGroup==='attributes')
-          .forEach((mod) => {
-            let attr = attributes.find((a) => a.key === mod.targetValue);
-            if (attr) {
-              attr.adjustment += mod.modifier;
-              attr.adjustedRating += mod.modifier;
-              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${talent.name}`);
-            }
-          });
-        }
-      });
-
-      this.mutations
-      .filter((mutation) => mutation.modifications)
-      .forEach((mutation) => {
-        if (mutation.modifications) {
-          mutation.modifications.filter((mods) => mods.targetGroup==='attributes')
-          .forEach((mod) => {
-            let attr = attributes.find((a) => a.key === mod.targetValue);
-            if (attr) {
-              attr.adjustment += mod.modifier;
-              attr.adjustedRating += mod.modifier;
-              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${mutation.name} Mutation`);
-            }
-          });
-        }
-      });
-
-      if (this.gear && this.gear.length >0) {
-        let modGear = this.gear
-        .filter((gear) => gear.modifications)
-        .forEach((gear) => {
-          gear.modifications.forEach((mod) => {
-            let attr = attributes.find((a)=>a.key===mod.targetValue);
-            if (attr) {
-              attr.adjustment += mod.modifier;
-              attr.adjustedRating += mod.modifier;
-              attr.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${gear.name}`);
-            }
-          });
-        });
-      }
 
       attributes = attributes.map((a) => {
         if (a.adjustedRating < 1) {
@@ -795,67 +749,11 @@ export default {
         if ( traity ) {
           traity.adjustment += mody;
           traity.adjustedRating += mody;
-          traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${enhancement.source.split('.').join(' • ')}`);
+          traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} • ${enhancement.provider} (${enhancement.category})`);
         } else {
           console.warn(`Unexpected undefined trait for ${enhancement.targetValue}.`);
         }
       });
-
-      this.talents
-      .filter((talent) => talent.modifications)
-      .forEach((talent) => {
-        if (talent.modifications) {
-          talent.modifications.filter((mods) => mods.targetGroup==='traits')
-          .forEach((mod) => {
-            let traity = finalTraits.find((a) => a.key === mod.targetValue);
-            let mody = mod.modifier;
-            if (mod.rank) {
-              mody += (mod.rank * this.characterRank );
-            }
-            if (traity) {
-              traity.adjustment += mody;
-              traity.adjustedRating += mody;
-              traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${talent.name}`);
-            }
-          });
-        }
-      });
-
-
-      this.mutations
-      .filter((mutation) => mutation.modifications)
-      .forEach((mutation) => {
-        if (mutation.modifications) {
-          mutation.modifications.filter((mods) => mods.targetGroup==='traits')
-          .forEach((mod) => {
-            let traity = finalTraits.find((a) => a.key === mod.targetValue);
-            let mody = mod.modifier;
-            if (mod.rank) {
-              mody += (mod.rank * this.characterRank );
-            }
-            if (traity) {
-              traity.adjustment += mody;
-              traity.adjustedRating += mody;
-              traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} from ${mutation.name} Mutation`);
-            }
-          });
-        }
-      });
-
-      if (this.gear && this.gear.length >0) {
-        this.gear
-        .filter((gear) => gear.modifications)
-        .forEach((gear) => {
-          gear.modifications.forEach((mod) => {
-            let traity = finalTraits.find((a) => a.key === mod.targetValue);
-            if (traity) {
-              traity.adjustment += mod.modifier;
-              traity.adjustedRating += mod.modifier;
-              traity.modifiers.push(`${mod.modifier < 0 ? '-' : '+'}${mod.modifier} from ${gear.name}`);
-            }
-          });
-        });
-      }
 
       if (this.armour && this.armour.length > 0) {
         let resilience = finalTraits.find((a) => a.key === 'resilience');
@@ -908,25 +806,246 @@ export default {
       ];
     },
     skills() {
-      let finalSkills = [];
-      const skills = this.$store.getters['characters/characterSkillsById'](this.characterId);
       const customSkills = this.$store.getters['characters/characterCustomSkillsById'](this.characterId);
-
-      const skillInfos = [
+      const adHocSkillRepository = [
         ...this.skillRepository,
         ...customSkills,
       ];
 
-      finalSkills = skillInfos.map((s) => ({
-        ...s,
-        value: skills[s.key],
-        enhancedValue: skills[s.key],
-      }));
+      const characterSkills = this.$store.getters['characters/characterSkillsById'](this.characterId);
 
-      return finalSkills;
+      let skills = adHocSkillRepository.map((repositorySkill) => {
+        const skill = {
+          ...repositorySkill,
+          value: characterSkills[repositorySkill.key],
+          enhancedValue: parseInt(characterSkills[repositorySkill.key]),
+          rating: characterSkills[repositorySkill.key],
+          adjustedRating: parseInt(characterSkills[repositorySkill.key]),
+          adjustment: 0,
+          conditionalAdjustment: 0,
+          dnPenalty: 0,
+          modifiers: [],
+          conditionals: [],
+          adjustedAttributeValue: 0,
+          attributeObject: {},
+        };
+        const attribute = this.attributes.find((a) => a.name === skill.attribute);
+        if (attribute) {
+          skill.attributeObject = attribute;
+          skill.adjustedAttributeValue = attribute.adjustedRating;
+        }
+        return skill;
+      });
+
+      /**
+       * modifiers [
+       *  { value: 3, type: 'BONUS_DICE', condition: null || 'when attacking AELDARI', provider: 'Hatret (AELDARI)', category: 'Talent' },
+       * ]
+       */
+
+      // We search all enhancements that have SKILL modifications
+      this.enhancements
+      .filter((enhancement) => enhancement.targetGroup==='skills')
+      .forEach((enhancement) => {
+        let skill = skills.find((a) => a.key === enhancement.targetValue);
+        let mody = enhancement.modifier;
+        if (enhancement.rank) {
+          mody += (enhancement.rank * this.characterRank);
+        }
+        if ( skill ) {
+          const modifier = {
+            value: mody,
+            valueString: `${mody < 0 ? '-' : '+'}${mody}`,
+            type: 'MODIFIER',
+            condition: enhancement.condition || null,
+            provider: enhancement.provider,
+            category: enhancement.category,
+          };
+          skill.modifiers.push(modifier);
+          if (enhancement.condition) {
+            skill.conditionalAdjustment += mody;
+          } else {
+            skill.adjustment += mody;
+            skill.adjustedRating += mody;
+          }
+        } else {
+          console.warn(`Unexpected undefined skill for ${enhancement.targetValue}.`);
+        }
+      });
+
+      return skills;
     },
-    enhancements() {
+
+    characterEnhancements() {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
+    },
+
+    /**
+     * Enriched enhancements, gather all directly given and also drived from other sources
+     * modifier (current) { targetGroup, targetValue, modifier, rank, condition, source }
+     * modifier (proposal) { value: 3, type: 'BONUS_DICE', condition: null || 'when attacking AELDARI', provider: 'Hatret (AELDARI)', category: 'Talent' },
+     */
+    enhancements() {
+      let finalEnhancements = [];
+
+      if (!this.wargearRepository) {
+        return finalEnhancements;
+      }
+
+      // from species
+      if (this.characterSpecies) {
+        this.characterSpecies.speciesFeatures
+        .filter((feature) => feature.modifications)
+        .forEach((feature) => {
+          feature.modifications.forEach((mod) => {
+            const newMod = {
+              ...mod,
+              provider: feature.name,
+              category: this.characterSpecies.name,
+              source: this.characterSpecies.source,
+            };
+            finalEnhancements.push(newMod);
+          });
+          if ( feature.options ) {
+            const traitSelection = this.characterEnhancements.find( (e) => e.source.startsWith(`species.${feature.name}.`));
+            console.info(traitSelection)
+          }
+        })
+      }
+
+      // from archetype
+      if (this.characterArchetype) {
+        this.characterArchetype.archetypeFeatures
+        .filter((feature) => feature.modifications)
+        .forEach((feature) => {
+          feature.modifications.forEach((mod) => {
+            const newMod = {
+              ...mod,
+              provider: feature.name,
+              category: this.characterArchetype.name,
+              source: this.characterArchetype.source,
+            };
+            finalEnhancements.push(newMod);
+          });
+        })
+      }
+
+      // from ascensions
+      const ascensionRepository = this.ascensionPackagesRepository;
+      if (ascensionRepository && ascensionRepository.length > 0) {
+        ascensionRepository.forEach((ascension) => {
+          ascension.ascensionFeatures.forEach((feature) => {
+
+            if (feature.modifications) {
+              feature.modifications.forEach((mod) => {
+                const newMod = {
+                  ...mod,
+                  provider: feature.name,
+                  category: ascension.name,
+                  source: ascension.source,
+                };
+                finalEnhancements.push(newMod);
+              });
+            }
+          });
+        });
+      }
+
+      // existing enhancements (Excluding those from the RAW package)
+      if (this.characterEnhancements) {
+        this.characterEnhancements
+        .filter((mod) => mod.source
+          && mod.source !== 'species'
+          && mod.source !== 'archetype'
+          && mod.source !== 'ascension'
+        )
+        .forEach((mod) => {
+          let provider = 'Unknown';
+          let category = 'Unknown';
+          const sourceParts = mod.source.split('.');
+          if (sourceParts.length === 1) {
+            provider = '';
+            category = sourceParts[0].charAt(0).toUpperCase() + sourceParts[0].slice(1);
+          }
+          if (sourceParts.length > 1) {
+            provider = sourceParts.slice(1).join(' • ');
+            category = sourceParts[0].charAt(0).toUpperCase() + sourceParts[0].slice(1);
+          }
+          const newMod = {
+            ...mod,
+            provider,
+            category,
+          };
+          finalEnhancements.push(newMod);
+        });
+      }
+
+      // from talents
+      this.talents
+      .filter((talent) => talent.modifications)
+      .forEach((talent) => {
+        talent.modifications.forEach((mod) => {
+          const newMod = {
+            ...mod,
+            provider: talent.name,
+            category: 'Talent',
+          };
+          finalEnhancements.push(newMod);
+        });
+      });
+
+      // from (equipped) wargear, mostly cybernetics
+      if (this.gear && this.gear.length >0) {
+        let modGear = this.gear
+        .filter((gear) => gear.modifications)
+        .forEach((gear) => {
+          gear.modifications.forEach(mod => {
+            const newMod = {
+              ...mod,
+              provider: gear.name,
+              category: 'Wargear',
+            };
+            return finalEnhancements.push(newMod);
+          });
+        });
+      }
+
+      // from keywords
+      this.keywords.forEach( k => {
+        const keyword = this.keywordCombinedRepository.find( i => i.name === k );
+        if ( keyword === undefined ) {
+          console.warn(`No keyword found for ${k}!`);
+        } else if ( keyword.modifications ) {
+          keyword.modifications.forEach(mod => {
+            const newMod = {
+              ...mod,
+              provider: keyword.name,
+              category: 'Keyword',
+            };
+            return finalEnhancements.push(newMod);
+          });
+        }
+      });
+
+      // from mutations
+      this.mutations
+      .filter((mutation) => mutation.modifications)
+      .forEach((mutation) => {
+        if (mutation.modifications) {
+          mutation.modifications.forEach(mod => {
+            const newMod = {
+              ...mod,
+              provider: mutation.name,
+              category: 'Mutation',
+            };
+            return finalEnhancements.push(newMod);
+          });
+        }
+      });
+
+      // from others TODO
+
+      return finalEnhancements;
     },
 
     speciesAbilities(){
@@ -961,7 +1080,7 @@ export default {
               hint: this.speciesLabel,
             };
             if ( speciesTrait.options ) {
-              const traitSelection = this.enhancements.find( (e) => e.source.startsWith(`species.${speciesTrait.name}.`));
+              const traitSelection = this.characterEnhancements.find( (e) => e.source.startsWith(`species.${speciesTrait.name}.`));
               if ( traitSelection && traitSelection.effect ) {
                 ability['selectedOption'] = {
                   name: traitSelection.name,
@@ -1019,7 +1138,7 @@ export default {
             };
 
             if ( feature.options ) {
-              const featureOption = this.enhancements.find( (e) => e.source.startsWith(`ascension.${ascension.key}.${feature.key}.`));
+              const featureOption = this.characterEnhancements.find( (e) => e.source.startsWith(`ascension.${ascension.key}.${feature.key}.`));
               if ( featureOption ) {
                 if ( featureOption.targetValue ) {
                   ability['selectedOption'] = {
@@ -1072,7 +1191,7 @@ export default {
             snippet: b.bonus,
             source: 'Background',
           };
-          const backgroundEnhancements = this.enhancements.find( (e) => e.source.startsWith(`background.`));
+          const backgroundEnhancements = this.characterEnhancements.find( (e) => e.source.startsWith(`background.`));
           if (backgroundEnhancements) {
             backgroundAbility.selectedOption = {
               name: backgroundEnhancements.targetValue,
@@ -1116,8 +1235,7 @@ export default {
     },
 
     customAbilities() {
-      const characterEnhancements = this.$store.getters['characters/characterEnhancementsById'](this.characterId);
-      return characterEnhancements ? characterEnhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
+      return this.characterEnhancements ? this.characterEnhancements.filter( (i) => i.targetGroup === 'abilities' ) : [];
     },
     talents() {
       const characterTalents = this.$store.getters['characters/characterTalentsById'](this.characterId);
@@ -1343,9 +1461,9 @@ export default {
     computeSkillPool(skill) {
       const attribute = this.attributes.find((a) => a.name === skill.attribute);
       if (attribute) {
-        return attribute.adjustedRating + skill.enhancedValue;
+        return attribute.adjustedRating + skill.adjustedRating;
       }
-      return skill.enhancedValue;
+      return skill.adjustedRating;
     },
     normalizeTrait(traitString) {
       const regex = /(\w+) ?\(?(\w+)?\)?/m;
