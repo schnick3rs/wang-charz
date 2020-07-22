@@ -198,17 +198,17 @@
                 <td class="text-center pa-1 small">{{ item.rating }}</td>
                 <td class="text-center pa-1 small">{{ item.adjustedRating }}</td>
                 <td class="text-center pa-1 small">
-                  <v-tooltip bottom v-if="item.adjustment > 0">
+                  <v-tooltip bottom v-if="item.modifiers.length > 0">
                     <template v-slot:activator="{ on }">
-                      <v-avatar color="success" size="12" v-on="on"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
+                      <v-avatar
+                        :color="valueHintColor(item)"
+                        size="12"
+                        v-on="on"
+                      >
+                        <v-icon dark small>{{valueHintIcon(item)}}</v-icon>
+                      </v-avatar>
                     </template>
-                    <div v-for="modifier in item.modifiers">{{modifier}}</div>
-                  </v-tooltip>
-                  <v-tooltip bottom v-if="item.adjustment < 0">
-                    <template v-slot:activator="{ on }">
-                      <v-avatar color="error" size="12" v-on="on"><v-icon dark small>arrow_drop_down</v-icon></v-avatar>
-                    </template>
-                    <div v-for="(index, modifier) in item.modifiers" :key="index">{{modifier}}</div>
+                    <div v-for="(modifier, index) in item.modifiers" :key="index">{{modifier}}</div>
                   </v-tooltip>
                 </td>
               </tr>
@@ -262,13 +262,26 @@
                   </td>
                   <td>
                     <!-- each modifier contains the BASE of the compution, thus we begin at > 1 -->
-                    <v-tooltip bottom v-if="item.modifiers.length > 1">
+                    <v-tooltip bottom v-if="item.modifiers.length > 0 || item.alternativeRating">
                       <template v-slot:activator="{ on }">
-                        <v-avatar color="success" size="12" v-on="on" v-if="item.adjustment > 0"><v-icon dark small>arrow_drop_up</v-icon></v-avatar>
-                        <v-avatar color="info" size="12" v-on="on" v-if="item.adjustment === 0"><v-icon dark x-small>swap_vert</v-icon></v-avatar>
-                        <v-avatar color="error" size="12" v-on="on" v-if="item.adjustment < 0"><v-icon dark small>arrow_drop_down</v-icon></v-avatar>
+                        <v-avatar
+                          :color="valueHintColor(item)"
+                          size="12"
+                          v-on="on"
+                        >
+                          <v-icon dark small>{{valueHintIcon(item)}}</v-icon>
+                        </v-avatar>
                       </template>
-                      <div v-for="modifier in item.modifiers">{{modifier}}</div>
+                      <div>{{item.baseHelp}}</div>
+                      <div v-for="modifier in item.modifiers.filter((m) => m.condition === null)">
+                        {{modifier.valueString}} • {{modifier.provider}} ({{modifier.category}})
+                      </div>
+                      <div v-if="item.modifiers.find((m) => m.condition !== null)">
+                        <div><strong>Conditional modifiers:</strong></div>
+                        <div v-for="modifier in item.modifiers.filter((m) => m.condition !== null)">
+                          {{modifier.valueString}} {{modifier.condition}} • {{modifier.provider}} ({{modifier.category}})
+                        </div>
+                      </div>
                     </v-tooltip>
                   </td>
                 </tr>
@@ -333,12 +346,11 @@
                   <v-tooltip bottom v-if="item.modifiers.length > 0">
                     <template v-slot:activator="{ on }">
                       <v-avatar
-                        :color="item.adjustment + item.conditionalAdjustment > 0 ? 'success' : 'error'"
+                        :color="valueHintColor(item)"
                         size="12"
                         v-on="on"
                       >
-                        <v-icon dark small v-if="item.adjustment + item.conditionalAdjustment > 0">arrow_drop_up</v-icon>
-                        <v-icon dark small v-if="item.adjustment + item.conditionalAdjustment < 0">arrow_drop_down</v-icon>
+                        <v-icon dark small>{{valueHintIcon(item)}}</v-icon>
                       </v-avatar>
                     </template>
                     <div>Pool {{ item.rating + item.adjustedAttributeValue }} = Skill ({{item.rating}}) + {{item.attributeObject.name}} ({{item.attributeObject.adjustedRating}})</div>
@@ -1234,6 +1246,7 @@ export default {
           adjustedRating: parseInt(characterAttributes[repositoryAttribute.key]),
           adjustment: 0,
           modifiers: [],
+          conditionalAdjustment: 0,
         };
       });
 
@@ -1323,7 +1336,10 @@ export default {
           rating: enhancedValue,
           adjustedRating: enhancedValue,
           adjustment: 0,
-          modifiers: [`Base = ${baseTraitValue}`],
+          conditionalAdjustment: 0,
+          baseHelp: `Base = ${baseTraitValue}`,
+          baseTraitValue: baseTraitValue,
+          modifiers: [],
         };
 
         return aggregatedTrait;
@@ -1340,10 +1356,21 @@ export default {
           mody += (enhancement.rank * this.characterRank );
         }
         if ( traity ) {
-          console.info(traity)
-          traity.adjustment += mody;
-          traity.adjustedRating += mody;
-          traity.modifiers.push(`${mody < 0 ? '-' : '+'}${mody} • ${enhancement.provider} (${enhancement.category})`);
+          const modifier = {
+            value: mody,
+            valueString: `${mody < 0 ? '-' : '+'}${mody}`,
+            type: 'MODIFIER',
+            condition: enhancement.condition || null,
+            provider: enhancement.provider,
+            category: enhancement.category,
+          };
+          traity.modifiers.push(modifier);
+          if (enhancement.condition) {
+            traity.conditionalAdjustment += mody;
+          } else {
+            traity.adjustment += mody;
+            traity.adjustedRating += mody;
+          }
         } else {
           console.warn(`Unexpected undefined trait for ${enhancement.targetValue}.`);
         }
@@ -1359,19 +1386,35 @@ export default {
         if (wornArmour) {
           resilience.adjustment += wornArmour.meta[0].armourRating;
           resilience.adjustedRating += wornArmour.meta[0].armourRating;
-          resilience.modifiers.push(`+${wornArmour.meta[0].armourRating} • ${wornArmour.name} (${wornArmour.type})`);
+          const modifier = {
+            value: wornArmour.meta[0].armourRating,
+            valueString: `${wornArmour.meta[0].armourRating < 0 ? '-' : '+'}${wornArmour.meta[0].armourRating}`,
+            type: 'MODIFIER',
+            condition: null,
+            provider: wornArmour.name,
+            category: wornArmour.type,
+          };
+          resilience.modifiers.push(modifier);
         }
         const wornShield = this.armour
           .filter((armour) => armour.meta[0].traits.includes('Shield'))
           .sort((a, b) => a.meta[0].armourRating < b.meta[0].armourRating ? 1 : -1)
           .find((i) => true);
         if (wornShield) {
+          const modifier = {
+            value: wornShield.meta[0].armourRating,
+            valueString: `${wornShield.meta[0].armourRating < 0 ? '-' : '+'}${wornShield.meta[0].armourRating}`,
+            type: 'MODIFIER',
+            condition: null,
+            provider: wornShield.name,
+            category: wornShield.type,
+          };
           resilience.adjustment += wornShield.meta[0].armourRating;
           resilience.adjustedRating += wornShield.meta[0].armourRating;
-          resilience.modifiers.push(`+${wornShield.meta[0].armourRating} • ${wornShield.name} (${wornShield.type})`);
+          resilience.modifiers.push(modifier);
           defence.adjustment += wornShield.meta[0].armourRating;
           defence.adjustedRating += wornShield.meta[0].armourRating;
-          defence.modifiers.push(`+${wornShield.meta[0].armourRating} • ${wornShield.name} (${wornShield.type})`);
+          defence.modifiers.push(modifier);
         }
       }
 
@@ -1380,7 +1423,7 @@ export default {
         const intellect = attributes.find((attribute) => attribute.name === 'Intellect');
         let baseIntellect = 0;
         baseIntellect = Math.ceil(intellect.adjustedRating * influence.compute.multi);
-        influence.modifiers[0] = `${influence.modifiers[0]} / ${baseIntellect} (with Adeptus Mechanicus)`;
+        influence.baseHelp = `${influence.baseHelp} / ${baseIntellect} (with Adeptus Mechanicus)`;
         influence.alternativeRating = baseIntellect + influence.adjustment;
       }
 
@@ -1449,7 +1492,6 @@ export default {
           conditionalAdjustment: 0,
           dnPenalty: 0,
           modifiers: [],
-          conditionals: [],
           adjustedAttributeValue: 0,
           attributeObject: {},
         };
@@ -2132,6 +2174,19 @@ export default {
       const { data } = await this.$axios.get('/api/wargear/', config);
       //this.wargearRepository = data.filter((i) => i.stub === undefined || i.stub === false);
       this.wargearRepository = data;
+    },
+    valueHintColor(item) {
+      const value = item.adjustment + item.conditionalAdjustment;
+      if (value > 0 ) return 'success';
+      if (value < 0 ) return 'error';
+      return 'primary';
+    },
+    valueHintIcon(item) {
+      const value = item.adjustment + item.conditionalAdjustment;
+      if (value > 0 ) return 'arrow_drop_up';
+      if (value < 0 ) return 'arrow_drop_down';
+      if (value === 0 ) return 'swap_vert';
+      return 'swap_vert';
     },
     objectiveEditorOpen() {
       this.objectiveEditorValue = this.objectives.map((o) => o.text).join('\r\n');
