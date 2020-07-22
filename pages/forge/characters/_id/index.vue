@@ -1357,7 +1357,7 @@ export default {
         if (wornArmour) {
           resilience.adjustment += wornArmour.meta[0].armourRating;
           resilience.adjustedRating += wornArmour.meta[0].armourRating;
-          resilience.modifiers.push(`+${wornArmour.meta[0].armourRating} from ${wornArmour.name}`);
+          resilience.modifiers.push(`+${wornArmour.meta[0].armourRating} • ${wornArmour.name} (${wornArmour.type})`);
         }
         const wornShield = this.armour
           .filter((armour) => armour.meta[0].traits.includes('Shield'))
@@ -1366,10 +1366,10 @@ export default {
         if (wornShield) {
           resilience.adjustment += wornShield.meta[0].armourRating;
           resilience.adjustedRating += wornShield.meta[0].armourRating;
-          resilience.modifiers.push(`+${wornShield.meta[0].armourRating} from ${wornShield.name}`);
+          resilience.modifiers.push(`+${wornShield.meta[0].armourRating} • ${wornShield.name} (${wornShield.type})`);
           defence.adjustment += wornShield.meta[0].armourRating;
           defence.adjustedRating += wornShield.meta[0].armourRating;
-          defence.modifiers.push(`+${wornShield.meta[0].armourRating} from ${wornShield.name}`);
+          defence.modifiers.push(`+${wornShield.meta[0].armourRating} • ${wornShield.name} (${wornShield.type})`);
         }
       }
 
