@@ -216,6 +216,9 @@ export default {
         type: 'Regiment of the Astra Militarum',
         description: 'A mechanised force known for their industrial efficiency, these soldiers excel at motorised warfare to quickly outflank their Ork foes and protect them from the toxic environs of their homeworld.',
         modification: {},
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 1, condition: 'when repairing a vehicle or weapon' },
+        ],
       },
       {
         name: 'Cadian Shock Troopers',
@@ -224,7 +227,10 @@ export default {
         placeholder: '[Regiment]',
         type: 'Regiment of the Astra Militarum',
         description: 'Though their homeworld was destroyed, the resolute will of the most renowned Regiment of the Astra Militarum refuses to break as long as a single soldier stands.',
-        modification: { },
+        modification: {},
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
+        ],
       },
       {
         name: 'Catachan Jungle Fighters',
@@ -233,7 +239,10 @@ export default {
         placeholder: '[Regiment]',
         type: 'Regiment of the Astra Militarum',
         description: 'Raised in savage jungles filled with monstrous fauna, the troopers of the Death World Catachan fight for survival from the day of their birth.',
-        modification: { },
+        modification: {},
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'survival', modifier: 0, rank: 1 },
+        ],
       },
       {
         name: 'Death Korps of Krieg',
@@ -242,7 +251,10 @@ export default {
         effectLabel: 'Regimental Affiliation',
         effect: '+Rank bonus dice to Intimidation (Wil) Tests',
         description: 'A planet in penitence for past rebellion, the radioactive Death World Krieg produces scores of warriors indoctrinated by sermons of sincere sacrifice. Their solemn nature, eagerness for martyrdom, and rebreather-covered faces are unnerving.',
-        modification: { },
+        modification: {},
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 0, rank: 1 },
+        ],
       },
       {
         name: 'Gilead Gravediggers',
@@ -251,7 +263,10 @@ export default {
         effectLabel: 'Regimental Affiliation',
         effect: '+Rank bonus to Defence when in Cover',
         description: 'Trained to embrace the discomforts of trench warfare even before the emergence of the Great Rift, the surviving Gilead Gravediggers have dug themselves deep into immovable positions to survive three years of daemonic incursions.',
-        modification: { },
+        modification: {},
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1, condition: 'when in Cover' },
+        ],
       },
       {
         name: 'Tallarn Desert Raiders',
@@ -260,7 +275,10 @@ export default {
         effectLabel: 'Regimental Affiliation',
         effect: '+Rank bonus dice to Pilot (A) Tests.',
         description: 'Masters of mobile warfare, the Tallarns have a vaunted reputation for hit-and-run tactics and indirect engagement. Capable of meticulous military order in tank and vehicle formations, they strike fast and fade into dust storms.',
-        modification: { },
+        modification: {},
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'pilot', modifier: 0, rank: 1 },
+        ],
       },
       {
         name: 'Valhallan Ice Warriors',
@@ -278,7 +296,10 @@ export default {
         effectLabel: 'Regimental Affiliation',
         effect: '+Rank bonus to Leadership (Fel) Tests',
         description: 'Every firstborn child of Vostroya is offered to the Astra Militarum in atonement for the planet’s past sins. All see this as an honour, continuing to send reinforcements blind through the void despite the perils of Noctis Aeternia.',
-        modification: { },
+        modification: {},
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'determination', modifier: 0, rank: 1 },
+        ],
       },
 
       // Ordos of the Inquisitor
@@ -346,7 +367,11 @@ export default {
           {
             name: 'Ordo Malleus Specialisaton',
             snippet: 'You gain +2 bonus dice to Scholar (Int) and Investigation (Int) tests related to daemons and the warp.',
-            description: ''
+            description: '',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'scholar', modifier: 2, condition: 'when related to daemons and the warp' },
+              { targetGroup: 'skills', targetValue: 'investigation', modifier: 2, condition: 'when related to daemons and the warp' },
+            ],
           },
         ],
       },
@@ -381,19 +406,19 @@ export default {
         + 'of the Imperium they strive to protect.',
         effect: 'Choose one Skill from the following list: Cunning, Deception, Insight, '
         + 'Intimidation, Persuasion, Psychic Mastery, Scholar, Stealth, Survival, Tech. '
-        + 'Gain +½ Rank bonus dice with that skill.',
+        + 'Gain +Rank bonus dice with that skill.',
         modification: {},
         options: [
-          { name: 'Cunning', snippet: 'Gain +½ Rank bonus dice to Cunning Tests.' },
-          { name: 'Deception', snippet: 'Gain +½ Rank bonus dice to Deception Tests.' },
-          { name: 'Insight', snippet: 'Gain +½ Rank bonus dice to Insight Tests.' },
-          { name: 'Intimidation', snippet: 'Gain +½ Rank bonus dice to Intimidation Tests.' },
-          { name: 'Persuasion', snippet: 'Gain +½ Rank bonus dice to Persuasion Tests.' },
-          { name: 'Psychic Mastery', snippet: 'Gain +½ Rank bonus dice to Psychic Mastery Tests.' },
-          { name: 'Scholar', snippet: 'Gain +½ Rank bonus dice to Scholar Tests.' },
-          { name: 'Stealth', snippet: 'Gain +½ Rank bonus dice to Stealth Tests.' },
-          { name: 'Survival', snippet: 'Gain +½ Rank bonus dice to Survival Tests.' },
-          { name: 'Tech', snippet: 'Gain +½ Rank bonus dice to Tech Tests.' },
+          { name: 'Cunning', snippet: 'Gain +Rank bonus dice to Cunning Tests.' },
+          { name: 'Deception', snippet: 'Gain +Rank bonus dice to Deception Tests.' },
+          { name: 'Insight', snippet: 'Gain +Rank bonus dice to Insight Tests.' },
+          { name: 'Intimidation', snippet: 'Gain +Rank bonus dice to Intimidation Tests.' },
+          { name: 'Persuasion', snippet: 'Gain +Rank bonus dice to Persuasion Tests.' },
+          { name: 'Psychic Mastery', snippet: 'Gain +Rank bonus dice to Psychic Mastery Tests.' },
+          { name: 'Scholar', snippet: 'Gain +Rank bonus dice to Scholar Tests.' },
+          { name: 'Stealth', snippet: 'Gain +Rank bonus dice to Stealth Tests.' },
+          { name: 'Survival', snippet: 'Gain +Rank bonus dice to Survival Tests.' },
+          { name: 'Tech', snippet: 'Gain +Rank bonus dice to Tech Tests.' },
         ],
       },
 
@@ -471,6 +496,10 @@ export default {
         description: 'Considered ‘un-Orky’ by other Clans, the Blood Axes use unorthodox ‘taktiks’, like planning, strategy, and even trading with the Imperium to get better Wargear.',
         effect: '+Rank bonus dice to Leadership (Fel) and Stealth (A) Tests.',
         modification: {},
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1 },
+          { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1 },
+        ],
       },
       {
         name: 'Deathskulls',
@@ -479,6 +508,10 @@ export default {
         description: 'Sabrous and scheming, the Deathskulls steal, loot, or scrounge whatever they can. Known to hoard, they ‘trade’ and customise gear more frequently than other Clans.',
         effect: '+Rank bonus dice to Tech (Int) and Influence Tests.',
         modification: {},
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: 'influence', modifier: 0, rank: 1 },
+        ],
       },
       {
         name: 'Evil Sunz',
@@ -487,6 +520,9 @@ export default {
         description: 'Obsessed with speed, Evil Sunz revel in the roar of engines, the smell of burning promethium, and the feeling of going as fast as possible.',
         effect: 'You gain +1 Speed, and +Rank bonus dice to all Tests whenever you are in a vehicle moving at top speed.',
         modification: {},
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
+        ],
       },
       {
         name: 'Goffs',
@@ -503,6 +539,9 @@ export default {
         description: 'Deliberately primitive, the tribal Snakebites prefer their thick skin to crafted armour, proud of their ability to live off the land.',
         effect: '+Double Rank bonus dice to Survival (Wil) Tests.',
         modification: {},
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'survival', modifier: 0, rank: 2 },
+        ],
       },
 
       // PAX Navigator Houses

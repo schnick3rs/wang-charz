@@ -190,14 +190,58 @@ const coreRep = [
         snippet: 'You walked a path of the Asuryani.',
         description: 'Select a fancy path',
         options: [
-          { name: 'Path of Awakening', snippet: 'You gain +Rank bonus dice to Awareness (Int) Tests.' },
-          { name: 'Path of The Artisan', snippet: 'You gain +Double Rank bonus dice to Scholar (Int) Tests related to the AELDARI Keyword.' },
-          { name: 'Path of The Bonesinger', snippet: 'You gain +Double Rank bonus dice to Tech (Int) Tests on targets with the AELDARI Keyword.' },
-          { name: 'Path of The Dreamer', snippet: 'You gain +Rank bonus dice to Corruption Tests' },
-          { name: 'Path of The Mourner', snippet: 'You gain +Rank Maximum Shock.' },
-          { name: 'Path of The Healer', snippet: 'You gain +Double Rank bonus dice to Medicae (Int) Tests on targets with the AELDARI Keyword.' },
-          { name: 'Path of Service', snippet: 'You gain +Double Rank bonus dice to Insight (Fel) Tests on targets with the AELDARI Keyword.' },
-          { name: 'Path of The Mariner', snippet: 'You gain +Double Rank bonus dice to Pilot (A) Tests using vehicles with the AELDARI Keyword.' },
+          {
+            name: 'Path of Awakening', snippet: 'You gain +Rank bonus dice to Awareness (Int) Tests.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 1 },
+            ]
+          },
+          {
+            name: 'Path of The Artisan',
+            snippet: 'You gain +Double Rank bonus dice to Scholar (Int) Tests related to the AELDARI Keyword.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'scholar', modifier: 0, rank: 2, condition: 'related to AELDARI' },
+            ]
+          },
+          {
+            name: 'Path of The Bonesinger',
+            snippet: 'You gain +Double Rank bonus dice to Tech (Int) Tests on targets with the AELDARI Keyword.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'targets with the AELDARI Keyword' },
+            ],
+          },
+          {
+            name: 'Path of The Dreamer',
+            snippet: 'You gain +Rank bonus dice to Corruption Tests',
+          },
+          {
+            name: 'Path of The Mourner',
+            snippet: 'You gain +Rank Maximum Shock.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'maxShock', modifier: 0, rank: 1 },
+            ],
+          },
+          {
+            name: 'Path of The Healer',
+            snippet: 'You gain +Double Rank bonus dice to Medicae (Int) Tests on targets with the AELDARI Keyword.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'medicae', modifier: 0, rank: 2, condition: 'on AELDARI targets' },
+            ],
+          },
+          {
+            name: 'Path of Service',
+            snippet: 'You gain +Double Rank bonus dice to Insight (Fel) Tests on targets with the AELDARI Keyword.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'insight', modifier: 0, rank: 2, condition: 'on AELDARI targets' },
+            ],
+          },
+          {
+            name: 'Path of The Mariner',
+            snippet: 'You gain +Double Rank bonus dice to Pilot (A) Tests using vehicles with the AELDARI Keyword.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'pilot', modifier: 0, rank: 2, condition: 'when using AELDARI vehicles' },
+            ],
+          },
         ],
       },
     ],

@@ -1137,6 +1137,12 @@ const core = [
     snippet: 'You have a Diagnostor (p.237) permanently implanted in your brain. You can take this implant twice, choosing the Auspex or Diagnostor each time.',
   },
   {
+    ...gear('core',244,'Autodogmatic Cortex','6V','Imperium,Adeptus Mechanicus,Adeptus Administorum'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'You gain +1 Willpower.',
+    modifications: [ { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 } ],
+  },
+  {
     ...gear('core',244,'Cardioproxy','6L','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Toughness.',

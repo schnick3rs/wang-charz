@@ -407,6 +407,9 @@ const core = [
       {
         name: 'Fearsome Respect',
         snippet: 'You and any allies within 15 metres of you that can see you may add +Double Rank bonus dice to Resolve Tests. You add +Double Rank bonus dice to any Intimidation (Wil) Tests, including Interaction Attacks.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 0, rank: 2, condition: null },
+        ],
       },
     ],
     wargear: wargearz('Bolt Pistol, Chainsword, Flak Coat, Guard Issue Mess Kit, Blanket, Grooming Kit, Uplifting Primer, 3 ration packs'),
@@ -470,6 +473,9 @@ const core = [
       {
         name: 'Administratum Records',
         snippet: 'You are particularly adept at navigating the Imperium’s colossal bureaucracy. You gain +Rank bonus dice whenever you make a Test to gather information from Imperial sources, typically on Influence or Investigation (Int) tests.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'investigation', modifier: 0, rank: 1, condition: 'when gathering information from Imperial sources' },
+        ],
       },
     ],
     wargear: wargearz('Clothing/Administratum Robes, Laspistol, Knife, Auto Quill, Data-Slate, 3 Scroll of Ancient Records'),
@@ -753,6 +759,9 @@ const core = [
       {
         name: 'Rite of Repair',
         snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
+        ],
       },
     ],
     wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
@@ -809,7 +818,12 @@ const core = [
     archetypeFeatures: [
       {
         name: 'Scrounger',
-        snippet: 'Your life with less has made you adept at finding spares and supplies in the most unlikely of places. You gain +Rank bonus dice to Cunning (Fel) Tests. Once per session you may make an Influence or Cunning Test to acquire an item, representing something you have prepared in advance.',
+        snippet: 'You add +Rank dice to Cunning Tests. Once per session you may make an Influence or Cunning Test to acquire an item, representing something you have prepared in advance.',
+        description:
+          '<p>Your life with less has made you adept at finding spares and supplies in the most unlikely of places. You gain +Rank bonus dice to Cunning (Fel) Tests. Once per session you may make an Influence or Cunning Test to acquire an item, representing something you have prepared in advance.</p>',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'cunning', modifier: 0, rank: 1, condition: null },
+        ],
       },
     ],
     wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stub Gun',
@@ -857,7 +871,10 @@ const core = [
         options: [
           {
             name: 'Hint of Red Eye',
-            snippet: 'Add 1 dice to Awareness (Int) Tests. You suffer +1 DN to actions that require vision, while exposed to light.'
+            snippet: 'Add 1 dice to Awareness (Int) Tests. You suffer +1 DN to actions that require vision, while exposed to light.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 1, condition: null },
+            ],
           },
           {
             name: 'Voice of the Aurelian',
@@ -869,14 +886,17 @@ const core = [
           },
           {
             name: 'Gossamer Flesh',
-            snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.'
+            snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 2, condition: 'when involving touch' },
+            ],
           },
           {
             name: 'Blightend Soul',
             snippet: 'You add +1 dice to resist Poison. You and anyone within 10m suffer +1 DN to Corruption and Malignancy Tests.'
           },
           {
-            name: 'Wyrding',
+            name: 'Wyrdling',
             snippet: 'You gain the PSYKER Keyword. You gain one Minor Psychic Power (GM choice). If you already are a PSYKER, you gan one aditional Minow Psychic Power.'
           },
           {
@@ -889,13 +909,17 @@ const core = [
           },
           {
             name: 'Grotesque',
-            snippet: 'You add +1 die to Intimidation (Wil) Tests. You suffer +1 DN to (other) social interaction tests with non-CHAOS.'
+            snippet: 'You add +1 die to Intimidation (Wil) Tests. You suffer +1 DN to (other) social interaction tests with non-CHAOS.',
+            modifications: [
+              { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
+            ],
           },
           {
             name: 'Bestial Hide',
             snippet: 'Increase your Resilience by 1. You add +1 dice to Intimidation (Wil) Tests. You suffer +2 DN to (other) social interaction tests with non-CHAOS.',
             modifications: [
               { targetGroup: 'traits', targetValue: 'resilience', modifier: 1 },
+              { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
             ],
           },
           {
@@ -923,6 +947,7 @@ const core = [
             snippet: 'Increase your Speed by 2. Add +1 dice to Athletic (Str) tests. You suffer (at least) +2 DN to social interaction tests with non-CHAOS.',
             modifications: [
               { targetGroup: 'traits', targetValue: 'speed', modifier: 2 },
+              { targetGroup: 'skills', targetValue: 'athletic', modifier: 1 },
             ],
           },
         ],
@@ -1007,6 +1032,9 @@ const core = [
       {
         name: 'Enemy Within',
         snippet: 'You gain +Double Rank bonus dice to Deception (Fel) Tests, including Interaction Attacks, against targets with the IMPERIUM Keyword.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'deception', modifier: 0, rank: 2, condition: 'against IMPERIAL targets' },
+        ],
       },
       {
         name: 'Corruption',
@@ -1113,6 +1141,9 @@ const core = [
       {
         name: 'Rite of Repair',
         snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
+        ],
       },
       {
         name: 'Corruption',
@@ -1327,6 +1358,9 @@ const core = [
       {
         name: 'Kunnin\' Plan',
         snippet: 'You and any of your allies with the ORK within 15 metres gain +Rank bonus dice to Stealth (A) Tests.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1, condition: 'for You and ORK allies within 15 metres' },
+        ],
       },
     ],
     wargear: wargearz('Shoota, Slugga, Choppa, 3 Stikkbomb, Survival Kit'),
