@@ -866,7 +866,10 @@ const core = [
         name: 'Mutant',
         snippet: 'You start with two mutations (pg. 287). Whenever your Rank increases, you may select another Mutation.',
         description: '<p>Your life in the unsanitary underbelly of the Imperium has mutated you. Select two Mutations from the list of Scavvy Mutations on p.287. Whenever your Rank increases, you may select another Mutation from the list.</p>',
-        alert: { type: 'warning', text: 'Only select the amount of mutations that you are allowed to.', },
+        alerts: [
+          { type: 'warning', text: 'In case the mutation modifiers are not displayed correctly in the WEB or PRINT view, please clear and re-select your mutations.', },
+          { type: 'info', text: 'Only select the amount of mutations that you are allowed to.', },
+        ],
         selected: ['', '', '', ''],
         options: [
           {

@@ -95,11 +95,12 @@
             <div v-if="feature.description" v-html="feature.description"></div>
             <p v-else>{{ feature.snippet }}</p>
             <v-alert
-              v-if="feature.alert"
-              :type="feature.alert.type"
+              v-if="feature.alerts"
+              v-for="alert in feature.alerts"
+              :type="alert.type"
               dense
               text
-            >{{feature.alert.text}}</v-alert>
+            >{{alert.text}}</v-alert>
           </div>
 
           <div
