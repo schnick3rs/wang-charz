@@ -193,7 +193,7 @@ const coreRep = [
           {
             name: 'Path of Awakening', snippet: 'You gain +Rank bonus dice to Awareness (Int) Tests.',
             modifications: [
-              { targetGroup: 'skills', targetValue: 'awareness', modifier: 1 },
+              { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 1 },
             ]
           },
           {
