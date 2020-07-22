@@ -1586,8 +1586,14 @@ export default {
           let category = 'Unknown';
           const sourceParts = mod.source.split('.');
           if (sourceParts.length === 1) {
-            provider = '';
-            category = sourceParts[0].charAt(0).toUpperCase() + sourceParts[0].slice(1);
+            if (sourceParts[0] === 'custom') {
+              // aka custom mutations
+              provider = mod.hint;
+              category = 'Custom'
+            } else {
+              provider = '';
+              category = sourceParts[0].charAt(0).toUpperCase() + sourceParts[0].slice(1);
+            }
           }
           if (sourceParts.length > 1) {
             provider = sourceParts.slice(1).join(' • ');
