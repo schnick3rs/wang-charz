@@ -94,8 +94,9 @@
 
               <div v-if="talent.key && talent.key.startsWith('core-augmetic')">
                 <wargear-select
-                  v-for="gearOptions in talent.wargear"
                   v-if="wargearList"
+                  v-for="(gearOptions, index) in talent.wargear"
+                  :key="index"
                   :item="gearOptions.selected"
                   :repository="computeWargearOptionsByFilter(gearOptions.options[0])"
                   class="mb-4"
