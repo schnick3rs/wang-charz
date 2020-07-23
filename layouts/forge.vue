@@ -27,7 +27,7 @@
 
         <div
           v-for="entry in helperBox"
-          :key="entry.key"
+          :key="entry.id"
         >
           <v-divider v-if="entry.divider" />
 
@@ -42,10 +42,10 @@
             </v-list-item-content>
 
             <v-list-item-action>
-              <span v-if="entry.text">{{ entry.cost }} XP</span>
-              <v-icon v-else>
-                info
-              </v-icon>
+              <span v-if="entry.cost !== null">{{ entry.cost }} XP</span>
+              <span v-else-if="entry.cost === null"></span>
+              <v-icon v-else>info</v-icon>
+
             </v-list-item-action>
           </v-list-item>
         </div>
@@ -279,6 +279,7 @@ export default {
         // sets if the footer is full width (true) or gives space to the drawer (false)
         clippedLeft: true,
       },
+      characterFaction: undefined,
     };
   },
   computed: {
@@ -298,29 +299,61 @@ export default {
       return [
         { divider: true },
         {
-          id: 1, path: this.routes.species, hint: 'Species', text: this.characterSpeciesLabel, cost: this.characterSpeciesCost,
+          id: 1,
+          path: this.routes.species,
+          hint: 'Species',
+          text: this.characterSpeciesLabel,
+          cost: this.characterSpeciesCost,
         },
         {
-          id: 2, path: this.routes.archetype, hint: 'Archetype', text: this.characterArchetype, cost: this.characterArchetypeCost,
+          id: 2,
+          path: this.routes.archetype,
+          hint: 'Archetype',
+          text: this.characterArchetype,
+          cost: this.characterArchetypeCost,
         },
         {
-          id: 3, path: this.routes.ascension, hint: 'Ascension Packages', text: this.characterAscension, cost: this.characterAscensionCost,
+          id: 3,
+          path: this.routes.ascension,
+          hint: 'Ascension Packages',
+          text: this.characterAscension,
+          cost: this.characterAscensionCost,
         },
         {
-          id: 4, path: this.routes.stats, hint: 'Stats', text: 'Attributes & Skills', cost: this.characterAttributeCost + this.characterSkillCost,
+          id: 4,
+          path: this.routes.stats,
+          hint: 'Stats',
+          text: 'Attributes & Skills',
+          cost: this.characterAttributeCost + this.characterSkillCost,
         },
         {
-          id: 5, path: this.routes.talents, hint: `Talents`, text: `${this.characterTalents.length} Talents learned`, cost: this.characterTalentCost,
+          id: 5,
+          path: this.routes.talents,
+          hint: `Talents`,
+          text: `${this.characterTalents.length} Talents learned`,
+          cost: this.characterTalentCost,
         },
         {
-          id: 7, path: this.routes.psychic, hint: `Powers`, text: `${this.characterPsychicPowers.length} Powers learned`, cost: this.characterPsychicPowerCost,
+          id: 7,
+          path: this.routes.psychic,
+          hint: `Powers`,
+          text: `${this.characterPsychicPowers.length} Powers learned`,
+          cost: this.characterPsychicPowerCost,
         },
         { divider: true },
         {
-          id: 6, path: this.routes.wargear, hint: '', text: 'Wargear', cost: undefined,
+          id: 6,
+          path: this.routes.wargear,
+          hint: '',
+          text: 'Wargear',
+          cost: null,
         },
         {
-          id: 8, path: this.routes.background, hint: 'Background', text: this.characterBackground, cost: undefined,
+          id: 8,
+          path: this.routes.background,
+          hint: 'Background / Faction',
+          text: this.characterFaction ? this.characterFaction.name : undefined,
+          cost: null,
         },
       ];
     },
@@ -387,6 +420,10 @@ export default {
     characterSpeciesLabel() {
       return this.$store.getters['characters/characterSpeciesLabelById'](this.$route.params.id);
     },
+
+    characterFactionKey() {
+      return this.$store.getters['characters/characterFactionKeyById'](this.$route.params.id);
+    },
     characterArchetype() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.$route.params.id);
     },
@@ -398,8 +435,13 @@ export default {
     },
     characterAscension() {
       const packages = this.$store.getters['characters/characterAscensionPackagesById'](this.$route.params.id);
-      if (packages !== undefined && packages.length > 0) {
-        return packages[0].value;
+      if (packages !== undefined) {
+        if (packages.length > 1) {
+          return `${packages.length} Ascensions selected`;
+        }
+        if (packages.length === 1) {
+          return packages[0].value;
+        }
       }
       return '';
     },
@@ -451,7 +493,23 @@ export default {
       ],
     };
   },
+  watch: {
+    characterFactionKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.loadFaction(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
+  },
   methods: {
+    async loadFaction(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/factions/${key}`);
+        this.characterFaction = data;
+      }
+    },
     // changes the drawer to permanent
     makeDrawerPermanent() {
       this.drawer.permanent = true;
