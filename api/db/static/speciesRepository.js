@@ -109,7 +109,7 @@ const coreRep = [
     ],
     speciesFeatures: [
       {
-        name: 'Angel of Death',
+        name: 'Defender of Humanity',
         snippet: 'Add +Rank icons to any successful attack against a Mob.',
       },
       {
@@ -145,7 +145,7 @@ const coreRep = [
     ],
     speciesFeatures: [
       {
-        name: 'Angel of Death',
+        name: 'Defender of Humanity',
         snippet: 'Add +Rank icons to any successful attack against a Mob.',
       },
       {
