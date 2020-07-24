@@ -722,7 +722,7 @@ export default {
         }
 
         baseTraitValue += t.compute.static;
-        baseTraitValue += ( t.compute.addTier ) ? this.characterSettingTier : 0 ;
+        baseTraitValue += t.compute.tier * this.characterSettingTier ;
 
         const enhancedValue = baseTraitValue;
         const aggregatedTrait = {

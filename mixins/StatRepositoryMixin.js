@@ -248,7 +248,7 @@ export default {
           attribute: 'Initiative',
           description: undefined,
           type: 'Combat',
-          compute: { static: -1, multi: 1, addTier: false },
+          compute: { static: -1, multi: 1, tier: 0 },
         },
         {
           key: 'resilience',
@@ -256,7 +256,7 @@ export default {
           attribute: 'Toughness',
           description: undefined,
           type: 'Combat',
-          compute: { static: 1, multi: 1, addTier: false },
+          compute: { static: 1, multi: 1, tier: 0 },
         },
         {
           key: 'determination',
@@ -264,7 +264,7 @@ export default {
           attribute: 'Toughness',
           description: undefined,
           type: 'Combat',
-          compute: { static: 0, multi: 1, addTier: false },
+          compute: { static: 0, multi: 1, tier: 0 },
         },
         {
           key: 'maxWounds',
@@ -272,7 +272,7 @@ export default {
           attribute: 'Toughness',
           description: undefined,
           type: 'Combat',
-          compute: { static: 0, multi: 1, addTier: true },
+          compute: { static: 0, multi: 1, tier: 2 },
         },
         {
           key: 'maxShock',
@@ -280,7 +280,7 @@ export default {
           attribute: 'Willpower',
           description: undefined,
           type: 'Combat',
-          compute: { static: 0, multi: 1, addTier: true },
+          compute: { static: 0, multi: 1, tier: 1 },
         },
         {
           key: 'conviction',
@@ -288,7 +288,7 @@ export default {
           attribute: 'Willpower',
           description: undefined,
           type: 'Mental',
-          compute: { static: 0, multi: 1, addTier: false },
+          compute: { static: 0, multi: 1, tier: 0 },
         },
         {
           key: 'resolve',
@@ -296,7 +296,7 @@ export default {
           attribute: 'Willpower',
           description: undefined,
           type: 'Mental',
-          compute: { static: -1, multi: 1, addTier: false },
+          compute: { static: -1, multi: 1, tier: 0 },
         },
         {
           key: 'influence',
@@ -304,7 +304,7 @@ export default {
           attribute: 'Fellowship',
           description: undefined,
           type: 'Social',
-          compute: { static: -1, multi: 1, addTier: false },
+          compute: { static: -1, multi: 1, tier: 0 },
         },
         {
           key: 'wealth',
@@ -312,7 +312,7 @@ export default {
           attribute: undefined,
           description: undefined,
           type: 'Social',
-          compute: { static: 0, multi: 1, addTier: true },
+          compute: { static: 0, multi: 1, tier: 1 },
         },
         {
           key: 'speed',
@@ -320,7 +320,7 @@ export default {
           attribute: undefined,
           description: undefined,
           type: 'Combat',
-          compute: { static: 0, multi: 1, addTier: false },
+          compute: { static: 0, multi: 1, tier: 0 },
         },
         {
           key: 'corruption',
@@ -328,7 +328,7 @@ export default {
           attribute: undefined,
           description: undefined,
           type: 'Mental',
-          compute: { static: 0, multi: 1, addTier: false },
+          compute: { static: 0, multi: 1, tier: 0 },
         },
         {
           key: 'passiveAwareness',
@@ -337,7 +337,7 @@ export default {
           skill: 'Awareness',
           description: undefined,
           type: 'Mental',
-          compute: { static: 0, multi: 0.5, addTier: false },
+          compute: { static: 0, multi: 0.5, tier: 0 },
         },
       ],
     };
