@@ -10,6 +10,7 @@
             The game is currently published by <a href="https://www.cubicle7games.com/?p=3870">Cubical 7</a>.
           </p>
 
+
           <h2>The Character Generator</h2>
 
           <p>
@@ -22,6 +23,11 @@
             Also, I quite often use the Official D&D Character Generator over at <a href="https://www.dndbeyond.com/">D&D Beyond</a>
             and draw inspiration how to organise the layout.
           </p>
+
+          <p>
+            The Forge uses icons from <a href="https://game-icons.net/">game-icons.net</a>, check them out!
+          </p>
+
 
           <h2>Contact</h2>
           <p>
