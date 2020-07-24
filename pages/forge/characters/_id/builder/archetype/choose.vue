@@ -415,6 +415,10 @@ export default {
     createAdvancedArchetype(name, factionName, keywords, tier) {
       const id = this.characterId;
 
+      const settingTier = this.$store.getters['characters/characterSettingTierById'](this.characterId);
+      const cost = -1 * settingTier * 10;
+      console.info(cost)
+
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: 'archetype' });
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source: 'archetype', cascade: true });
 
@@ -424,7 +428,7 @@ export default {
         faction = factionData;
       }
 
-      this.setCharacterArchetype({ id, archetype: { key: 'advanced', value: name, cost: 0, tier, keywords, } });
+      this.setCharacterArchetype({ id, archetype: { key: 'advanced', value: name, cost, tier, keywords, } });
       this.setCharacterFaction({ id, faction: { key: faction.key, label: faction.name } });
 
       keywords.forEach((k) => {
