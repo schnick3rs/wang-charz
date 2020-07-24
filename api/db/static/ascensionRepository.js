@@ -486,10 +486,7 @@ const core = [
     costPerTier: 10,
     // Prerequisites
     minimumCampaignTier: 2,
-    prerequisites: [
-      'Willpower 3',
-      'Psychic Mastery 1',
-    ],
+    prerequisites: [],
     // Benefits
     influenceBonus: 0,
     influencePerTier: 1,
