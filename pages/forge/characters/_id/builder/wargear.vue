@@ -28,12 +28,12 @@
           :key="gear.id"
         >
           <v-list-item-avatar tile>
-            <img>
+            <img :src="gear.avatar">
           </v-list-item-avatar>
 
           <v-list-item-content>
             <v-list-item-title>{{ gear.name }}</v-list-item-title>
-            <v-list-item-subtitle>{{ wargearSubtitle(gear) }}</v-list-item-subtitle>
+            <v-list-item-subtitle>{{ gear.subtitle }}</v-list-item-subtitle>
           </v-list-item-content>
 
           <v-list-item-action>
@@ -114,7 +114,7 @@
                   :key="index"
                 >
                   <v-list-item-avatar tile>
-                    <img>
+                    <img :src="getAvatar(gear.type)">
                   </v-list-item-avatar>
 
                   <v-list-item-content>
@@ -383,18 +383,16 @@ export default {
       if (this.wargearList){
         this.characterWargearRaw.forEach((chargear) => {
           let gear = {};
-          gear = this.wargearList.find((wargear) => {
-            const compare = chargear.name.localeCompare(wargear.name, 'en' , {sensitivity: 'accent'});
-            //console.info(`${chargear.name} <-> ${wargear.name} : ${compare}`);
-            return compare === 0
-          });
+          gear = this.wargearList.find((wargear) => chargear.name.localeCompare(wargear.name, 'en' , {sensitivity: 'accent'}) === 0);
           if (gear) {
             gear.id = chargear.id;
             gear.source = chargear.source;
             characterWargear.push({
               id: chargear.id,
               name: chargear.name,
-              type: this.wargearSubtitle(gear),
+              subtitle: this.wargearSubtitle(gear),
+              type: gear.type,
+              avatar: this.getAvatar(gear.type),
               source: chargear.source,
             });
           } else {
@@ -402,6 +400,8 @@ export default {
               id: chargear.id,
               name: chargear.name,
               type: 'Misc',
+              subtitle: 'Misc',
+              avatar: this.getAvatar('Misc'),
               source: chargear.source,
             });
           }
@@ -455,8 +455,8 @@ export default {
       }
       return '';
     },
-    getAvatar(name) {
-      return `/img/icon/wargear/wargear_${this.textToKebab(name)}_avatar.png`;
+    getAvatar(type) {
+      return `/img/icon/wargear/${this.textToKebab(type)}.svg`;
     },
     addToBasket(gear) {
       this.advancedShoppingChart.push(gear);

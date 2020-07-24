@@ -566,35 +566,35 @@ const core = [
   },
   {
     ...gear('core',224,'Frag Grenade','2C','Explosive,Imperium'),
-    ...rangez('Grenade & or Missile Weapon',10,4,0,'*','-','Blast(Medium),Thrown(STRx4),Launcher'),
+    ...rangez('Grenade & Missile Weapon',10,4,0,'*','-','Blast(Medium),Thrown(STRx4),Launcher'),
   },
   {
     ...gear('core',225,'Plasma Grenade','7V','Explosive,Aeldari'),
-    ...rangez('Grenade & or Missile Weapon',10,5,-1,'*','-','Blast(Medium),Thrown(STRx4),Launcher'),
+    ...rangez('Grenade & Missile Weapon',10,5,-1,'*','-','Blast(Medium),Thrown(STRx4),Launcher'),
   },
   {
     ...gear('core',225,'Krak Grenade','4U','Explosive,Imperium'),
-    ...rangez('Grenade & or Missile Weapon',14,5,-2,'*','-','Blast(Small),Thrown(STRx4),Launcher'),
+    ...rangez('Grenade & Missile Weapon',14,5,-2,'*','-','Blast(Small),Thrown(STRx4),Launcher'),
   },
   {
     ...gear('core',225,'Militarum Tempestus Grenade Launcher','6U','Explosive,Imperium,Astra Militarum'),
-    ...rangez('Grenade & or Missile Weapon','*','*','*',28,'-','Assault'),
+    ...rangez('Grenade & Missile Weapon','*','*','*',28,'-','Assault'),
   },
   {
     ...gear('core',225,'Frag Missile','4C','Explosive,Imperium,[Any]'),
-    ...rangez('Grenade & or Missile Weapon',10,5,0,'*','-','Blast(Large),Launcher'),
+    ...rangez('Grenade & Missile Weapon',10,5,0,'*','-','Blast(Large),Launcher'),
   },
   {
     ...gear('core',225,'Krak Missile','6C','Explosive,Imperium'),
-    ...rangez('Grenade & or Missile Weapon',16,6,-2,'*','-','Blast(Medium),Launcher'),
+    ...rangez('Grenade & Missile Weapon',16,6,-2,'*','-','Blast(Medium),Launcher'),
   },
   {
     ...gear('core',225,'Missile Launcher','6U','Explosive,Imperium'),
-    ...rangez('Grenade & or Missile Weapon','*','*','*',48,'-','Heavy(6)'),
+    ...rangez('Grenade & Missile Weapon','*','*','*',48,'-','Heavy(6)'),
   },
   {
     ...gear('core',225,'Cyclone Missile Launcher','11V','Explosive,Imperium,Adeptus Astartes'),
-    ...rangez('Grenade & or Missile Weapon','*','*','*',36,'-','Heavy(8)'),
+    ...rangez('Grenade & Missile Weapon','*','*','*',36,'-','Heavy(8)'),
   },
   {
     ...gear('core',225,'Lasblaster','5V','Las,Aeldari'),
