@@ -246,9 +246,8 @@ const core = [
     archetypeFeatures: [
       {
         name: 'Glancing Blow',
-        snippet: 'Death Cult Assassins depend upon their movement to '
-        + 'avoid harm. Unless they are immobilised or restrained, they may attempt to soak '
-        + 'Mortal Wounds, and may substitute their Agility for their Soak when doing so.',
+        snippet: 'Unless you are immobilised or restrained, you may roll Determination against Damage from attacks and against Mortal Wounds. You may use Agility instead Toughness for Determination when doing so.',
+        description: '<p>You depend upon your swift movement and honed reflexes to avoid harm. You may use your Agility instead of your Toughness when you roll Determination against Damage from attacks, and may roll Determination against Mortal Wounds. You cannot use this ability if you are immobilised in some way, such as through the Restrained Condition.</p>',
       },
     ],
     wargear: wargearz('2 Death Cult Powerblade/Two Death Cult Powerblades, Bodyglove, Knife, Laspistol, 3 dose of Stimm'),
@@ -678,21 +677,23 @@ const core = [
   },
   {
     ...archetype('core',113,'Adeptus Astartes','Tactical Space Marine',3,'Adeptus Astartes'),
-    ...cost(180,20,160, 0, 0),
+    ...cost(277,20,257, 0, 0),
     hint: 'A versatile warrior, veteran of a hundred battles.',
     keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 }, // 20
-      { group: 'attributes', value: 'toughness', threshold: 4 }, // 20
-      { group: 'attributes', value: 'agility', threshold: 4 }, // 20
-      { group: 'attributes', value: 'initiative', threshold: 4 }, // 20
+      { group: 'attributes', value: 'strength', threshold: 5 }, // 20
+      { group: 'attributes', value: 'toughness', threshold: 5 }, // 20
+      { group: 'attributes', value: 'agility', threshold: 5 }, // 20
+      { group: 'attributes', value: 'initiative', threshold: 5 }, // 20
       { group: 'attributes', value: 'willpower', threshold: 3 }, // 10
       { group: 'attributes', value: 'intellect', threshold: 3 }, // 10
       { group: 'skills', value: 'athletics', threshold: 3 }, // 12
       { group: 'skills', value: 'awareness', threshold: 3 }, // 12
-      { group: 'skills', value: 'ballisticSkill', threshold: 3 }, // 12
+      { group: 'skills', value: 'ballisticSkill', threshold: 5 }, // 12
+      { group: 'skills', value: 'leadership', threshold: 1 }, // 12
       { group: 'skills', value: 'stealth', threshold: 3 }, // 12
-      { group: 'skills', value: 'weaponSkill', threshold: 3 }, // 12
+      { group: 'skills', value: 'survival', threshold: 1 }, // 12
+      { group: 'skills', value: 'weaponSkill', threshold: 4 }, // 12
     ],
     archetypeFeatures: [
       {
