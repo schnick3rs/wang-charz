@@ -99,15 +99,6 @@
           </p>
         </div>
 
-        <v-alert
-          v-if="item.key === 'advanced'"
-          type="info"
-          class="caption ml-4 mr-4"
-          dense text
-        >
-          Selecting abilities from Archetypes (see Core pg. 38) is not yet implemented.
-        </v-alert>
-
         <div
           v-for="feature in item.archetypeFeatures"
           class="text-lg-justify"
@@ -280,6 +271,9 @@ export default {
     characterArchetypeKeywords() {
       return this.$store.getters['characters/characterArchetypeKeywordsById'](this.characterId);
     },
+    characterArchetypeMimic() {
+      return this.$store.getters['characters/characterArchetypeMimicById'](this.characterId);
+    },
     characterAttributes() {
       return this.$store.getters['characters/characterAttributesById'](this.characterId);
     },
@@ -410,9 +404,18 @@ export default {
   methods: {
     async loadAdvancedArchetype(){
       this.loading = true;
-      console.info(`loading advanced`);
-      const cost = -1 * this.characterSettingTier * 10;
-      const advancedArchetype = {
+      console.info(`loading advanced character pseudo archetype...`);
+      let cost = -1 * this.characterSettingTier * 10;
+      const mimic = this.characterArchetypeMimic;
+      let data = {
+        archetypeFeatures: [],
+      };
+      if (mimic) {
+        const response = await this.$axios.get(`/api/archetypes/${this.characterArchetypeMimic}`);
+        data = response.data;
+        cost += data.tier * 10;
+      }
+      let advancedArchetype = {
         // source:
         key: `advanced`,
         name: this.characterArchetypeLabel,
@@ -432,10 +435,11 @@ export default {
         speciesKey: [this.characterSpeciesKey],
         wargearString: this.getAdvancedWargearOptionByTier(this.characterArchetypeTier).wargearString,
         prerequisites: [],
-        archetypeFeatures: [],
+        archetypeFeatures: data.archetypeFeatures,
         influence: 0,
         keywords: this.characterArchetypeKeywords.join(','),
       };
+      advancedArchetype = this.enrichArchetypeFeatures(advancedArchetype);
       this.item = advancedArchetype;
       this.loading = false;
     },
@@ -446,28 +450,31 @@ export default {
       const { data } = await this.$axios.get(`/api/archetypes/${key}`);
       finalData = data;
 
-      // we enrich the archetype features
-      finalData.archetypeFeatures
-        .filter((feature) => feature.options)
-        .forEach((feature) => {
-          const enhancements = this.enhancements.filter((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
-          if (enhancements) {
-            enhancements.forEach((e) => {
-              let foundInd = /\.(\d)\./.exec(e.source);
-              if (foundInd) {
-                feature.selected[foundInd[1]] = e.source.split('.').pop();
-              }
-            });
-          } else {
-            const enhancement = this.enhancements.find((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
-            if ( enhancement ) {
-              feature.selected = enhancement.source.split('.').pop();
-            }
-          }
-        });
+      finalData = this.enrichArchetypeFeatures(finalData);
 
       this.item = finalData;
       this.loading = false;
+    },
+    enrichArchetypeFeatures(archetype){
+      archetype.archetypeFeatures
+      .filter((feature) => feature.options)
+      .forEach((feature) => {
+        const enhancements = this.enhancements.filter((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
+        if (enhancements) {
+          enhancements.forEach((e) => {
+            let foundInd = /\.(\d)\./.exec(e.source);
+            if (foundInd) {
+              feature.selected[foundInd[1]] = e.source.split('.').pop();
+            }
+          });
+        } else {
+          const enhancement = this.enhancements.find((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
+          if ( enhancement ) {
+            feature.selected = enhancement.source.split('.').pop();
+          }
+        }
+      });
+      return archetype;
     },
     doChangeMode() {
       this.$router.push({

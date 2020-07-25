@@ -170,6 +170,7 @@ export const getters = {
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
   characterArchetypeTierById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.tier : undefined),
   characterArchetypeKeywordsById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.keywords : []),
+  characterArchetypeMimicById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.mimic : undefined),
 
   characterFluffNotesById: (state) => (id) => (state.characters[id]?.fluff?.notes ? state.characters[id].fluff.notes : getDefaultState().fluff.notes),
 

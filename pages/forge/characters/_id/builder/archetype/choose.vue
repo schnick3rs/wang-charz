@@ -88,13 +88,34 @@
           >
           </v-text-field>
 
+          <v-autocomplete
+            outlined
+            label="Select Archetype Ability (optional)"
+            persistent-hint
+            class="mb-4"
+            hint="You may buy (ask your GM) one Archetype Ability for it`s tier x 10 XP"
+            v-model="advancedArchetype"
+            :items="itemList"
+            item-text="name"
+            item-value="key"
+            return-object
+            clearable
+          >
+            <template v-slot:item="data">
+              <v-list-item-content>
+                <v-list-item-title>{{data.item.name}} {{data.item.tier*10}} XP</v-list-item-title>
+                <v-list-item-subtitle>{{data.item.archetypeFeatures.map((f) => f.name).join(' - ')}}</v-list-item-subtitle>
+              </v-list-item-content>
+            </template>
+          </v-autocomplete>
+
         </v-card-text>
         <v-card-actions>
           <v-btn left outlined color="red" @click="advancedKeywordsDialog = false">
             Cancel
           </v-btn>
           <v-spacer />
-          <v-btn right color="success" @click="createAdvancedArchetype(advancedName, advancedFaction, advancedKeywords, advancedTier)">
+          <v-btn right color="success" @click="createAdvancedArchetype(advancedName, advancedFaction, advancedKeywords, advancedTier, advancedArchetype)">
             Confirm choices
           </v-btn>
         </v-card-actions>
@@ -243,6 +264,7 @@ export default {
       advancedKeywordsDialog: false,
       advancedFaction: undefined,
       advancedKeywords: [],
+      advancedArchetype: undefined,
       advancedTier: 1,
       advancedTierOptions: [
         { text: '1 - One among billions', value: 1, naming: 'Unknown' },
@@ -412,12 +434,14 @@ export default {
       this.previewItem = item;
       this.previewDialog = true;
     },
-    createAdvancedArchetype(name, factionName, keywords, tier) {
+    createAdvancedArchetype(name, factionName, keywords, tier, archetype) {
       const id = this.characterId;
 
       const settingTier = this.$store.getters['characters/characterSettingTierById'](this.characterId);
-      const cost = -1 * settingTier * 10;
-      console.info(cost)
+      let cost = -1 * settingTier * 10;
+      cost += archetype ? archetype.tier * 10 : 0;
+
+      const mimic = archetype ? archetype.key : undefined;
 
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: 'archetype' });
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id, source: 'archetype', cascade: true });
@@ -428,7 +452,7 @@ export default {
         faction = factionData;
       }
 
-      this.setCharacterArchetype({ id, archetype: { key: 'advanced', value: name, cost, tier, keywords, } });
+      this.setCharacterArchetype({ id, archetype: { key: 'advanced', value: name, cost, tier, keywords, mimic } });
       this.setCharacterFaction({ id, faction: { key: faction.key, label: faction.name } });
 
       keywords.forEach((k) => {

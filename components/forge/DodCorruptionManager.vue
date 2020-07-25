@@ -90,7 +90,6 @@
         label="Search Mutation"
         persistent-hint
         class="mb-4"
-        ahint="Work with your GM/Group to define keywords"
         :hint="`D3 = ${rolledD3} -> D66 + ${mutationCount*10} = ${rolledD66}`"
         v-model="rolledMutation"
         :items="mutationsRepository"
@@ -100,6 +99,8 @@
         clearable
         prepend-icon="casino"
         @click:prepend="rollRandomMutation"
+        append-outer-icon="add"
+        @click:append-outer="addMutation(rolledMutation, rolledMutation.selected)"
       >
         <template v-slot:item="data">
           <v-list-item-content>
@@ -127,9 +128,6 @@
             :hint="rolledMutation.selected ? rolledMutation.selected.snippet : 'Select one option'"
           >
           </v-select>
-        </div>
-        <div>
-          <v-btn small color="success" @click="addMutation(rolledMutation, rolledMutation.selected)">Add mutation</v-btn>
         </div>
       </div>
     </v-card-text>
