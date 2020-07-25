@@ -32,11 +32,15 @@
         </v-card-title>
         <v-card-text class="pt-8">
 
-          <v-alert color="info" dense text border="left" class="pb-4">Advanced Character Creation is described on CORE pg. 38 and allows for more influence on Keywords and Wargear at the cost of a dedicated archetype ability.</v-alert>
+          <v-alert
+            type="info"
+            dense outlined border="left"
+            class="caption pb-4"
+          >Advanced Character Creation is described on CORE pg. 38 and allows for more influence on Keywords and Wargear at the cost of a dedicated archetype ability.</v-alert>
 
           <v-select
             dense outlined
-            label="Select the tier, defining your acess to wargear"
+            label="Select the tier, defining your access to wargear"
             v-model="advancedTier"
             :items="advancedTierOptions"
           />
@@ -75,7 +79,7 @@
             <template v-slot:item="data">
               <v-list-item-content>
                 <v-list-item-title v-html="data.item.name"></v-list-item-title>
-                <v-list-item-subtitle>{{data.item.type}} - [{{data.item.source}}]</v-list-item-subtitle>
+                <v-list-item-subtitle>{{data.item.type}}</v-list-item-subtitle>
               </v-list-item-content>
             </template>
           </v-autocomplete>
