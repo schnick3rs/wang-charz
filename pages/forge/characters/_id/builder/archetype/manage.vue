@@ -36,22 +36,13 @@
         <p><strong>XP Cost:</strong> {{ item.cost }}, incl. Archetype ({{ item.costs.archetype }} XP) and Stats ({{ item.costs.stats }} XP)</p>
 
         <v-alert
-          v-if="item.key === 'advanced'"
-          type="warning"
-          class="caption ml-4 mr-4"
-          dense text
-        >
-          Selecting abilities from Archetypes (see Core pg. 38) is not yet implemented.
-        </v-alert>
-
-        <v-alert
           v-if="item.costs.archetype !== characterArchetypeCost"
           type="warning"
           class="caption ml-4 mr-4"
-          dense text
+          dense outlined border="left"
         >
           <p>
-            It seems that the cost that you payed for this archetype ({{item.costs.archetype}} XP) are not in line with the latest Errata ({{characterArchetypeCost}} XP). This will probably <strong>free up {{ characterArchetypeCost - item.costs.archetype }} XP</strong>.
+            It seems that the cost that you payed for this archetype ({{characterArchetypeCost}} XP) are not in line with the latest Errata ({{item.costs.archetype}} XP). This will probably <strong>free up {{ characterArchetypeCost - item.costs.archetype }} XP</strong>.
           </p>
           <v-btn color="success" @click="updateArchetypeCost()">Update XP Cost</v-btn>
         </v-alert>
@@ -78,7 +69,8 @@
 
         <p>
           <strong>Keywords: </strong>
-          <span style="text-transform: uppercase; color: darkred;">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
+          <span style="text-transform: uppercase; color: darkred;" v-if="item.keywords">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
+          <span v-else>none</span>
         </p>
 
         <div
@@ -106,6 +98,15 @@
             {{ keywordEffect(selectedKeywords[placeholder.name]) }}
           </p>
         </div>
+
+        <v-alert
+          v-if="item.key === 'advanced'"
+          type="info"
+          class="caption ml-4 mr-4"
+          dense text
+        >
+          Selecting abilities from Archetypes (see Core pg. 38) is not yet implemented.
+        </v-alert>
 
         <div
           v-for="feature in item.archetypeFeatures"
@@ -252,6 +253,9 @@ export default {
     };
   },
   computed: {
+    characterSettingTier() {
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
     characterFactionKey() {
       return this.$store.getters['characters/characterFactionKeyById'](this.characterId);
     },
@@ -407,15 +411,16 @@ export default {
     async loadAdvancedArchetype(){
       this.loading = true;
       console.info(`loading advanced`);
+      const cost = -1 * this.characterSettingTier * 10;
       const advancedArchetype = {
         // source:
         key: `advanced`,
         name: this.characterArchetypeLabel,
         hint: 'Created using Advanced Character creation.',
-        cost: this.characterArchetypeCost,
+        cost: cost,
         costs: {
-          total: this.characterArchetypeCost,
-          archetype: this.characterArchetypeCost,
+          total: cost,
+          archetype: cost,
           stats: 0,
           species: 0,
           other: 0,

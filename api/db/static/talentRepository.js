@@ -604,7 +604,7 @@ const core = [
   },
   {
     ...talent('core',135,'Legacy Of Sorrow',20),
-    snippet: 'You do not suffer from Intense Emotion and th Group gains 1 Glory when you pass a Defiance Test.',
+    snippet: 'You do not suffer from Intense Emotion and th Group gains 1 Glory every time you recover from dying.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Aeldari') ],
@@ -722,7 +722,7 @@ const core = [
   },
   {
     ...talent('core',136,'Mastered Paths',20),
-    snippet: 'Select an additional Background and gain its bonus.',
+    snippet: 'Select one of your Aeldari Paths. You gain additionaly +Rank bonus from that park.',
     description:
       '<p></p>',
     requirements: [
