@@ -104,7 +104,7 @@
             <template v-slot:item="data">
               <v-list-item-content>
                 <v-list-item-title>{{data.item.name}} {{data.item.tier*10}} XP</v-list-item-title>
-                <v-list-item-subtitle>{{data.item.archetypeFeatures.map((f) => f.name).join(' - ')}}</v-list-item-subtitle>
+                <v-list-item-subtitle>{{data.item.archetypeFeatures.map((f) => f.name).join(' • ')}}</v-list-item-subtitle>
               </v-list-item-content>
             </template>
           </v-autocomplete>
