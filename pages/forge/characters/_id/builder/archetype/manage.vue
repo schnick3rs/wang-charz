@@ -35,6 +35,27 @@
 
         <p><strong>XP Cost:</strong> {{ item.cost }}, incl. Archetype ({{ item.costs.archetype }} XP) and Stats ({{ item.costs.stats }} XP)</p>
 
+        <v-alert
+          v-if="item.key === 'advanced'"
+          type="warning"
+          class="caption ml-4 mr-4"
+          dense text
+        >
+          Selecting abilities from Archetypes (see Core pg. 38) is not yet implemented.
+        </v-alert>
+
+        <v-alert
+          v-if="item.costs.archetype !== characterArchetypeCost"
+          type="warning"
+          class="caption ml-4 mr-4"
+          dense text
+        >
+          <p>
+            It seems that the cost that you payed for this archetype ({{item.costs.archetype}} XP) are not in line with the latest Errata ({{characterArchetypeCost}} XP). This will probably <strong>free up {{ characterArchetypeCost - item.costs.archetype }} XP</strong>.
+          </p>
+          <v-btn color="success" @click="updateArchetypeCost()">Update XP Cost</v-btn>
+        </v-alert>
+
         <v-divider class="mb-2"></v-divider>
 
         <p v-if="attributePrerequisites"><strong>Attributes:</strong> {{ attributePrerequisites }}</p>
@@ -243,6 +264,9 @@ export default {
     characterArchetypeKey() {
       return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
+    characterArchetypeCost() {
+      return this.$store.getters['characters/characterArchetypeCostsById'](this.$route.params.id);
+    },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
@@ -388,10 +412,10 @@ export default {
         key: `advanced`,
         name: this.characterArchetypeLabel,
         hint: 'Created using Advanced Character creation.',
-        cost: 0,
+        cost: this.characterArchetypeCost,
         costs: {
-          total: 0,
-          archetype: 0,
+          total: this.characterArchetypeCost,
+          archetype: this.characterArchetypeCost,
           stats: 0,
           species: 0,
           other: 0,
@@ -446,6 +470,13 @@ export default {
         params: { id: this.characterId },
       });
     },
+
+    updateArchetypeCost() {
+      const id = this.characterId;
+      const cost = this.item.costs.archetype;
+      this.$store.commit('characters/setCharacterArchetypeCost', { id, cost });
+    },
+
     /** Keywords */
     keywordOptions(wildcard) {
       if (wildcard === '[Any]') {

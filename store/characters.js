@@ -405,6 +405,13 @@ export const mutations = {
   setCharacterArchetype(state, payload) {
     state.characters[payload.id].archetype = payload.archetype;
   },
+  setCharacterArchetypeCost(state, payload) {
+    const { id, cost } = payload;
+    state.characters[id].archetype = {
+      ...state.characters[id].archetype,
+      cost,
+    };
+  },
   setCharacterFaction(state, payload) {
     state.characters[payload.id].faction = payload.faction;
   },
