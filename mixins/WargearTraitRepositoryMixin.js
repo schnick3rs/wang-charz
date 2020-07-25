@@ -229,10 +229,10 @@ export default {
           name: 'Spread',
           hint: '',
           fluff: 'These wide-bore weapons wreak havoc on closely packed combatants.',
-          crunch: 'When fired at Close Range, a Spread weapon can hit any number of targets in a radius of 3 metres. Double the total damage of a Spread weapon fired at a Mob in Short Range.',
+          crunch: 'When fired at Short Range, a Spread weapon can hit any number of targets as long as they are all within 3 metres of one another. When you fire a Spread Weapon at a Mob you gain +Rank bonus dice.',
           description:
             '<p>These wide-bore weapons wreak havoc on closely packed combatants.</p>' +
-            '<p>When fired at Close Range, a Spread weapon can hit any number of targets in a radius of 3 metres. Double the total damage of a Spread weapon fired at a Mob in Short Range.</p>',
+            '<p>When fired at Short Range, a Spread weapon can hit any number of targets as long as they are all within 3 metres of one another. When you fire a Spread Weapon at a Mob you gain +Rank bonus dice.</p>',
         },
         {
           key: 'core-supercharge',

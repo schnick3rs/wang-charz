@@ -662,6 +662,7 @@ const core = [
       { name: 'Scout Armour' },
       { name: 'Astartes Combat Knife' },
       { name: 'Frag Grenade', amount: 3 },
+      { name: 'Vox Bead' },
       {
         name: 'Choose any one of the following options; A Boltgun or A Bolt pistol and a Chainsword or An Astartes Shotgun or An Astartes Sniper Rifle and a Cameleoline Cloak',
         selected: 'Boltgun',
@@ -1275,7 +1276,7 @@ const core = [
         snippet: 'You are adept at exploiting any form of concealment. Whenever a Vision Penalty (p.191) or Cover (p.181) impose a penalty on someone trying to attack or detect you, the penalty is increased by +Rank DN.',
       },
     ],
-    wargear: wargearz('Cameleoline Cloak, Aeldari Mesh Armour, Ranger Long Rifle, Shuriken Pistol, Knife, Spirit Stone, Bedroll, Blanket, Magnoculars'),
+    wargear: wargearz('Cameleoline Cloak, Aeldari Mesh Armour, Ranger Long Rifle, Shuriken Pistol, Knife, Spirit Stone, Bedroll, Blanket, Magnocular Scope'),
   },
   {
     ...archetype('core',114,'Aeldari','Warlock',3,'Aeldari'),
