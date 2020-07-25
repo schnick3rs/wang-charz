@@ -474,6 +474,23 @@ export default {
           }
         }
       });
+
+      const featuresWithPowers = archetype.archetypeFeatures.filter( (f) => f.psychicPowers !== undefined);
+      if ( featuresWithPowers ) {
+        featuresWithPowers.forEach( (feature) => {
+          feature.psychicPowers.forEach( (powerSelections) => {
+            this.getPsychicPowerOptions(powerSelections);
+            const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${powerSelections.name}`);
+            if ( found ) {
+              console.info(`Power ${found.name} found for the archetype feature ${feature.name} / power ${powerSelections.name}.`);
+              powerSelections.selected = found.name;
+            } else {
+              console.warn(`No Power found for ${powerSelections.name}.`)
+            }
+          });
+        });
+      }
+
       return archetype;
     },
     doChangeMode() {
