@@ -110,7 +110,7 @@ module.exports = {
     }],
     '@nuxtjs/sitemap',
     '@nuxtjs/axios',
-    // '@nuxtjs/auth',
+    '@nuxtjs/auth',
     ['@nuxtjs/redirect-module', [
       { from: '^/builder.*', to: '/forge/my-characters', statusCode: 301 },
       { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
@@ -200,7 +200,7 @@ module.exports = {
     // '/api/': 'https://www.doctors-of-doom.com', // only for development
   },
 
-  /* auth: {
+  auth: {
     strategies: {
       local: {
         endpoints: {
@@ -211,11 +211,14 @@ module.exports = {
         // tokenRequired: true,
         // tokenType: 'Bearer'
       },
+      google: {
+        client_id: '97814583895-q52s5lfpncf3l21o8s61q0dmm273snn1.apps.googleusercontent.com',
+      },
     },
     plugins: [
       '~/plugins/auth.js'
     ]
-  }, */
+  },
 
   /*
   ** vuetify module configuration
@@ -251,7 +254,7 @@ module.exports = {
 
       config.node = {
         fs: 'empty'
-      },
+      };
 
       // add frontmatter-markdown-loader
       config.module.rules.push(
