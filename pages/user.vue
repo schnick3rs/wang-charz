@@ -28,7 +28,7 @@ export default {
   },
   computed: {
     isLoggedIn() {
-      return this.$auth.isLoggedIn;
+      return this.$auth.loggedIn;
     },
     user() {
       return this.$auth.user;
