@@ -711,10 +711,10 @@ const core = [
     snippet: 'The weapon gains +2 Damage. The weapon loses the Reliable Trait.',
   },
   {
-    ...gear('core',228,'Monoscope','4R','Imperium,Astra Militarum'),
+    ...gear('core',228,'Magnocular Scope','4R','Imperium,Astra Militarum'),
     type: 'Weapon Upgrade',
     upgradeType: 'Scope',
-    snippet: 'Any Range penalties are reduced by 2.',
+    snippet: 'Awareness (Int) Tests no penalties due to distance. Any Range penalties are reduced by 2.',
   },
   {
     ...gear('core',228,'Percussive Muzzle Brake','3U','[Any]'),
@@ -960,17 +960,14 @@ const core = [
     ...toolz('Imperial Equipment','You can hover or control a fall for up to one hour. You can recharge the Grav-Chute’s solar battery by leaving it in sunlight for one hour.'),
   },
   {
-    ...gear('core',237,'Grav-Chute','2C','Imperium,Astra Militarum'),
-    ...toolz('Imperial Equipment','+1 bonus die to Survival (Wil) tests made to find food and water.'),
-  },
-  {
     ...gear('core',237,'Jump Pack','7R','[Any]'),
     ...toolz('Universal Equipment','Pilot Test to fly at double speed. Fail and Scatter, suffering 1d3 shock on a complication.'),
     description: '<p>You can fly at double your Speed by making a Pilot (A) Test, ignoring any terrain. If you fail the Pilot (A) Test, your movement deviates according to the Scattering (p.186) rules. A Complication triggers a crash, which deals a minimum of 1d3 Shock.</p>',
   },
   {
-    ...gear('core',237,'Magnoculars','2U','[Any]'),
-    ...toolz('Universal Equipment','Awareness (Int) Tests made with Magnoculars suffer no penalties for distance.'),
+    ...gear('core',237,'Mag-Boots','4U','[Any],Navis Imperialis'),
+    ...toolz('Universal Equipment','Pilot Test to fly at double speed. Fail and Scatter, suffering 1d3 shock on a complication.'),
+    description: '<p>When activated with a Simple Action, the wearer’s feet are fully secured to any metallic surface. The wearer’s feet cannot be removed from the metallic surface by any means, other than their own volition. The wearer can walk and move on the metallic surface whilst the boots are on, but their Speed is reduced by 3.</p>',
   },
   {
     ...gear('core',238,'Medikit','3U','[Any]'),
@@ -987,6 +984,14 @@ const core = [
   {
     ...gear('core',238,'Missionary Kit','2U','Imperium,Adeptus Ministorum'),
     ...toolz('Imperial Equipment','+1 bonus die to Persuasion (Fel) Tests made involving converts to the Imperial Creed and those seeking redemption through the grace of the God-Emperor.'),
+  },
+  {
+    ...gear('core',238,'Monoscope','4R','Imperium,Militarum Tempestus'),
+    ...toolz('Universal Equipment','Can act as a light source and show live footage if connected wirelessly to a data-slate.'),
+  },
+  {
+    ...gear('core',238,'Munitorum-Issue Mess Kit','5R','Imperium,Astra Militarum'),
+    ...toolz('Imperial Equipment','+1 bonus die to Survival (Wil) tests made to find food and water.'),
   },
   {
     ...gear('core',238,'Periculum Kit','5R','Imperium,[Any]'),

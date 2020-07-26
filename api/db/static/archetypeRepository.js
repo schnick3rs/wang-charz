@@ -356,7 +356,7 @@ const core = [
         description: '<p>You have been drilled in sacrificing yourself to save your allies. Once per combat, you may take a Reflexive Action to move up to half your Speed to get in the way of any attack that hit an ally. The attacker then rolls against your Resilience instead of your ally’s, and may deal Wounds to you. Your Resilience increases by +Rank for the purpose of calculating damage.</p>'
       },
     ],
-    wargear: wargearz('Flak Armour, Lasgun, Knife, Guard issue mess kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
+    wargear: wargearz('Flak Armour, Lasgun, Knife, Munitorum-Issue Mess Kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
     suggestedStats: [
       ...suggestedAttributes(3,3,3,3,2,1,2),
       reqSkill('athletics', 2),
@@ -384,7 +384,7 @@ const core = [
         snippet: 'You’re an expert in inflicting pain through the weapons of the Imperium. Whenever you spend Glory to increase damage when using a weapon with the ASTRA MILITARUM you can add +Rank to the final damage value.',
       },
     ],
-    wargear: wargearz('Carapace Armour, Hot-Shot Lasgun, Grav-Chute, Knife, Guard issue mess kit, Uplifting Primer/a copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
+    wargear: wargearz('Carapace Armour, Hot-Shot Lasgun, Grav-Chute, Knife, Munitorum-Issue Mess Kit, Uplifting Primer/a copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
     influence: 1,
   },
   {
@@ -410,7 +410,7 @@ const core = [
         ],
       },
     ],
-    wargear: wargearz('Bolt Pistol, Chainsword, Flak Coat, Guard Issue Mess Kit, Blanket, Grooming Kit, Uplifting Primer, 3 ration packs'),
+    wargear: wargearz('Bolt Pistol, Chainsword, Flak Coat, Munitorum-Issue Mess Kit, Blanket, Grooming Kit, Uplifting Primer, 3 ration packs'),
     influence: 3,
   },
   // Inquisition
@@ -575,7 +575,7 @@ const core = [
         ],
       }
     ],
-    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 ration packs'),
+    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Munitorum-Issue Mess Kit, Blanket, Grooming kit, 2 ration packs'),
   },
   {
     ...archetype('core',116,'The Inquisition','Inquisitor',4,'Human'),
@@ -1136,7 +1136,7 @@ const core = [
         ],
       },
     ],
-    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Guard issue mess kit, Blanket, Grooming kit, 2 ration packs'),
+    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Munitorum-Issue Mess Kit, Blanket, Grooming kit, 2 ration packs'),
   },
   {
     ...archetype('core',109,'Chaos','Heretek',3,'Human'),
@@ -2297,12 +2297,12 @@ const aaoaRep = [
       },
     ],
     wargearString:
-      'Flak armour, Lasgun, knife, guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration packs, medikit.',
+      'Flak armour, Lasgun, knife, Munitorum-Issue Mess Kit, blanket, grooming kit, Uplifting Primer, 3 ration packs, medikit.',
     wargear: [
       { name: 'Flak Armour' },
       { name: 'Lasgun' },
       { name: 'Knife' },
-      { name: 'Guard Issue Mess Kit' },
+      { name: 'Munitorum-Issue Mess Kit' },
       { name: 'Blanket' },
       { name: 'Grooming kit' },
       { name: 'Uplifting Primer' },
@@ -2339,13 +2339,13 @@ const aaoaRep = [
       },
     ],
     wargearString:
-      'Flak armour, Laspistol, chainsword, knife, guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration packs.',
+      'Flak armour, Laspistol, chainsword, knife, Munitorum-Issue Mess Kit, blanket, grooming kit, Uplifting Primer, 3 ration packs.',
     wargear: [
       { name: 'Flak Armour' },
       { name: 'Lasgun' },
       { name: 'Chainsword' },
       { name: 'Knife' },
-      { name: 'Guard Issue Mess Kit' },
+      { name: 'Munitorum-Issue Mess Kit' },
       { name: 'Blanket' },
       { name: 'Grooming kit' },
       { name: 'Uplifting Primer' },
