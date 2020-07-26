@@ -10,7 +10,7 @@
     </v-dialog>
 
     <v-tooltip
-      v-if="false"
+      v-if="isLoggedIn"
       bottom
     >
       <template v-slot:activator="{ on }">
@@ -54,6 +54,9 @@ export default {
     };
   },
   computed: {
+    isLoggedIn() {
+      return this.$auth.loggedIn;
+    }
     // ...mapGetters(['isAuthenticated', 'loggedInUser']),
   },
   methods: {
