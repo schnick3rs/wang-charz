@@ -110,7 +110,7 @@ module.exports = {
     }],
     '@nuxtjs/sitemap',
     '@nuxtjs/axios',
-    //'@nuxtjs/auth',
+    '@nuxtjs/auth',
     ['@nuxtjs/redirect-module', [
       { from: '^/builder.*', to: '/forge/my-characters', statusCode: 301 },
       { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
