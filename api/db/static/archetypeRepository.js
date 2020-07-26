@@ -655,6 +655,9 @@ const core = [
       {
         name: 'Use the Terrain',
         snippet: 'You gain +Rank to any Stealth (A) Test when there is some form of terrain to hide behind.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1, condition: 'when there is some form of terrain to hide behind' },
+        ],
       },
     ],
     wargear: [
