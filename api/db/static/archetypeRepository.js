@@ -49,7 +49,6 @@ const cost = function (cost, archetype = 0, stats = 0, species = 0, other = 0) {
 
 // ...archetype('core',99,'Adepta Sororitas','Sister of Battle',2,'Human',94),
 const archetype = function (sourceKey, sourcePage, faction, name, tier, species, stub = false) {
-
   let speciesSourceKey = 'core';
   let speciesName = 'Human';
   let split = [];
@@ -692,6 +691,7 @@ const core = [
       { group: 'skills', value: 'awareness', threshold: 3 }, // 12
       { group: 'skills', value: 'ballisticSkill', threshold: 5 }, // 12
       { group: 'skills', value: 'leadership', threshold: 1 }, // 12
+      { group: 'skills', value: 'scholar', threshold: 1 }, // 12
       { group: 'skills', value: 'stealth', threshold: 3 }, // 12
       { group: 'skills', value: 'survival', threshold: 1 }, // 12
       { group: 'skills', value: 'weaponSkill', threshold: 4 }, // 12
