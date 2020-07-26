@@ -35,6 +35,7 @@
             <li>Many Archetypes and Advanced Creation got cheaper (check out the Archetype Section in the Forge to re-calculate the costs).</li>
             <li>Advanced Character Creation now allows (ask your GM) to buy Archetype Abilities.</li>
             <li>Inquisitor got a different (read: better) starting gear.</li>
+            <li>Some Wargear got renamed. Please check and re-add if necessary.</li>
           </ul>
           <p>Some smaller Wargear and Talents changes probably slipped through this first round of Forge updates, to please <a href="mailto:docsofdoom+forge@gmail.com">reach out</a> if you find any inconsistencies. Thanks in advance and enjoy.</p>
         </v-alert>
