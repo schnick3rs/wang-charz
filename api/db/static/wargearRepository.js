@@ -529,15 +529,15 @@ const core = [
   },
   {
     ...gear('core',224,'Hand Flamer','5U','Fire,Imperium'),
-    ...rangez('Flame Weapon',10,1,0,6,1,'Blast(Small),Inflict(On Fire),Pistol,Spread'),
+    ...rangez('Flame Weapon',10,1,0,6,1,'Flamer,Pistol'),
   },
   {
     ...gear('core',224,'Flamer','5U','Fire,Imperium'),
-    ...rangez('Flame Weapon',10,1,0,8,1,'Blast(Medium),Inflict(On Fire),Spread'),
+    ...rangez('Flame Weapon',10,1,0,8,1,'Assault,Flamer'),
   },
   {
     ...gear('core',224,'Heavy Flamer','5U','Fire,Imperium'),
-    ...rangez('Flame Weapon',12,2,-1,8,2,'Blast(Large),Inflict(On Fire),Heavy(6),Spread'),
+    ...rangez('Flame Weapon',12,2,-1,8,2,'Flamer,Heavy(6)'),
   },
   {
     ...gear('core',224,'Arc Pistol','5R','Arc,Adeptus Mechanicus'),
