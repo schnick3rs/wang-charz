@@ -677,7 +677,7 @@ const core = [
   },
   {
     ...archetype('core',113,'Adeptus Astartes','Tactical Space Marine',3,'Adeptus Astartes'),
-    ...cost(277,20,257, 0, 0),
+    ...cost(272,20,252, 0, 0),
     hint: 'A versatile warrior, veteran of a hundred battles.',
     keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     prerequisites: [
@@ -695,6 +695,9 @@ const core = [
       { group: 'skills', value: 'stealth', threshold: 3 }, // 12
       { group: 'skills', value: 'survival', threshold: 1 }, // 12
       { group: 'skills', value: 'weaponSkill', threshold: 4 }, // 12
+    ],
+    alerts: [
+      { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
     ],
     archetypeFeatures: [
       {
@@ -1211,22 +1214,27 @@ const core = [
   },
   {
     ...archetype('core',113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
-    ...cost(210,50,160, 0, 0),
+    ...cost(272,20,252, 0, 0),
     hint: 'A dark warrior, veteran of a thousand years.',
     keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Mark of Chaos],Heretic Astartes',
-    // TODO d3 x 3 corruption
     prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 }, // 20
-      { group: 'attributes', value: 'toughness', threshold: 4 }, // 20
-      { group: 'attributes', value: 'agility', threshold: 4 }, // 20
-      { group: 'attributes', value: 'initiative', threshold: 4 }, // 20
+      { group: 'attributes', value: 'strength', threshold: 5 }, // 20
+      { group: 'attributes', value: 'toughness', threshold: 5 }, // 20
+      { group: 'attributes', value: 'agility', threshold: 5 }, // 20
+      { group: 'attributes', value: 'initiative', threshold: 5 }, // 20
       { group: 'attributes', value: 'willpower', threshold: 3 }, // 10
       { group: 'attributes', value: 'intellect', threshold: 3 }, // 10
       { group: 'skills', value: 'athletics', threshold: 3 }, // 12
       { group: 'skills', value: 'awareness', threshold: 3 }, // 12
-      { group: 'skills', value: 'ballisticSkill', threshold: 3 }, // 12
+      { group: 'skills', value: 'ballisticSkill', threshold: 5 }, // 12
+      { group: 'skills', value: 'leadership', threshold: 1 }, // 12
+      { group: 'skills', value: 'scholar', threshold: 1 }, // 12
       { group: 'skills', value: 'stealth', threshold: 3 }, // 12
-      { group: 'skills', value: 'weaponSkill', threshold: 3 }, // 12
+      { group: 'skills', value: 'survival', threshold: 1 }, // 12
+      { group: 'skills', value: 'weaponSkill', threshold: 4 }, // 12
+    ],
+    alerts: [
+      { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
     ],
     archetypeFeatures: [
       {
@@ -1236,6 +1244,12 @@ const core = [
       {
         name: 'Corruption',
         snippet: 'You gain 1d3 x3 corruption.',
+        selected: [''],
+        options: [
+          { key: 'corruption-1', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }] },
+          { key: 'corruption-2', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 6 }] },
+          { key: 'corruption-3', name: 'Gain 9 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 9 }] },
+        ],
       },
     ],
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Boltgun, Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade'),

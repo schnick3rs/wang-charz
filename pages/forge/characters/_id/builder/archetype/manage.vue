@@ -29,6 +29,15 @@
 
       <div class="mt-2 body-2 text-justify" style="color: rgba(0,0,0,0.6)">
 
+        <v-alert
+          v-if="item.alerts"
+          v-for="(alert, index) in item.alerts"
+          :key="index"
+          :type="alert.type"
+          class="caption"
+          dense text
+        >{{alert.text}}</v-alert>
+
         <p><strong>Tier:</strong> {{ item.tier }}</p>
 
         <p><strong>Species:</strong> {{ item.species.join(', ') }}</p>
