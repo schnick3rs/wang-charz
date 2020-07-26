@@ -166,8 +166,7 @@ const meleez = function (subtype, damage, ed, ap, range, traits) {
 };
 
 /**
- * 16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, WaaCardioproxy
- agh!
+ * 16+2ED; AP -3; Range 48m; Salvo 1; Assault, Supercharge, Waaagh!
  *
  * @param brewString
  * @param subtype
