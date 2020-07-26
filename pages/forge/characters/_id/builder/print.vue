@@ -603,6 +603,9 @@ export default {
     archetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
+    characterFactionKey() {
+      return this.$store.getters['characters/characterFactionKeyById'](this.characterId);
+    },
     characterBackgroundKey() {
       return this.$store.getters['characters/characterBackgroundKeyById'](this.characterId);
     },
@@ -722,7 +725,7 @@ export default {
         }
 
         baseTraitValue += t.compute.static;
-        baseTraitValue += ( t.compute.addTier ) ? this.characterSettingTier : 0 ;
+        baseTraitValue += t.compute.tier * this.characterSettingTier ;
 
         const enhancedValue = baseTraitValue;
         const aggregatedTrait = {
@@ -1364,9 +1367,12 @@ export default {
     },
     objectives() {
       if (this.characterArchetype && this.factionRepository) {
-        const objectiveList = this.factionRepository.find((faction) => faction.name === this.characterArchetype.faction).objectives;
-        if (objectiveList) {
-          return objectiveList.map((o) => ({ text: o }));
+        const faction = this.factionRepository.find((faction) => faction.name === this.characterArchetype.faction);
+        if (faction) {
+          const objectiveList = faction.objectives;
+          if (objectiveList) {
+            return objectiveList.map((o) => ({ text: o }));
+          }
         }
       }
       return [];
@@ -1433,8 +1439,20 @@ export default {
     },
     async loadArchetype(key) {
       if ( key ) {
-        const { data } = await this.$axios.get(`/api/archetypes/${key}`);
-        this.characterArchetype = data;
+        if (key === 'advanced'){
+          const mimic = this.$store.getters['characters/characterArchetypeMimicById'](this.characterId);
+          if (mimic) {
+            const { data } = await this.$axios.get(`/api/archetypes/${mimic}`);
+            this.characterArchetype = {
+              faction: this.characterFactionKey.toLowerCase(),
+              factionKey: this.characterFactionKey,
+              archetypeFeatures: data.archetypeFeatures,
+            };
+          }
+        } else {
+          const { data } = await this.$axios.get(`/api/archetypes/${key}`);
+          this.characterArchetype = data;
+        }
       }
     },
     async getAscensionPackageList(ascensionList) {

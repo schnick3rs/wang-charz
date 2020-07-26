@@ -36,8 +36,8 @@ export default {
           name: 'Assault',
           hint: 'Fire the weapon with increased DN while running.',
           fluff: 'Optimised for firing whilst rushing righteously towards the enemy.',
-          crunch: 'You can fire an Assault weapon as part of a Run (p.180), but take a +2 DN penalty when you do so.',
-          description: 'Optimised for firing whilst rushing righteously towards the enemy. You can fire an Assault weapon as part of a Run (p.180), but take a +2 DN penalty when you do so.',
+          crunch: 'You can fire an Assault weapon as part of a Sprint (p.180), but take a +2 DN penalty to the attack.',
+          description: 'Optimised for firing whilst rushing righteously towards the enemy. You can fire an Assault weapon as part of a Sprint (p.180), but take a +2 DN penalty to the attack.',
         },
         {
           key: 'core-blast',
@@ -47,7 +47,7 @@ export default {
           crunch: 'Target a point (DN 3) and deal damage to anyone in the blast radius.',
           description:
             '<p>Explosive weapons can devastate multiple enemies with a single attack.</p>' +
-            '<p>Every Blast weapon has a (Size) which determines how many enemies it can hit, assuming they are close together. Choose any point in range, and make a DN 3 Ballistic Skill (A) Test; if you succeed, you deal Damage to all individuals within the Blast Radius. If you’re measuring distance accurately or using miniatures, multiply the Radius by 3 for the approximate blast radius in metres.</p>' +
+            '<p>Every Blast weapon has a (Size) which determines how many enemies it can hit, assuming they are close together. Choose any point in range, and make a DN 3 Ballistic Skill (A) Test; if you succeed, you deal Damage to all individuals within the Blast Radius. If you’re measuring distance accurately or using miniatures, multiply the Radius by 3 for the approximate circumference of the explosion in metres.</p>' +
             '<ul>' +
             '<li>Small, Radius 1</li>' +
             '<li>Medium, Radius 3</li>' +
@@ -55,12 +55,7 @@ export default {
             '<li>Very Large, Radius 10</li>' +
             '<li>Hugh, Radius 15</li>' +
             '</ul>' +
-            '<p>If a weapon with the Blast Trait misses, it Scatters (p.186).</p>' +
-            '<p><strong>Blast And Fire: </strong>If a weapon has the Blast Trait and the FIRE Keyword:</p>' +
-            '<ul>' +
-            '<li>Ignore bonuses to Defence from cover.</li>' +
-            '<li>Missed shots don’t Scatter (p.186); the area is on fire, but the target dodged the flames.</li>' +
-            '</ul>',
+            '<p>If a weapon with the Blast Trait misses, it Scatters (p.186).</p>',
         },
         {
           key: 'core-brutal',
@@ -81,10 +76,22 @@ export default {
           name: 'Force',
           hint: 'PSYKERs may add half their Wil Rating to damage.',
           fluff: 'Psykers can channel the power of the Warp through the etheric circuit patterns and psycho-reactive materials of these weapons.',
-          crunch: 'If you have the PSYKER Keyword, you may add half of your Wil Rating to a Force weapon’s Damage Value.',
+          crunch: 'If you have the PSYKER Keyword, you may add half of your Wil Rating to a Force weapon’s Damage Value. If not, reduce damage by 2.',
           description:
             '<p>Psykers can channel the power of the Warp through the etheric circuit patterns and psycho-reactive materials of these weapons.</p>' +
-            '<p>If you have the PSYKER Keyword, you may add half of your Wil Rating to a Force weapon’s Damage Value.</p>',
+            '<p>If you have the PSYKER Keyword, you may add half of your Wil Rating to a Force weapon’s Damage Value.</p>' +
+            '<p>If you don’t have the PSYKER Keyword, a Force weapon’s damage is decreased by 2.</p>',
+        },
+        {
+          key: 'core-flamer',
+          name: 'Flamer',
+          hint: 'Burn multiple Targets.',
+          fluff: 'Flamers spew a stream of burning chemical liquid. The flowing torrent of flame can be guided by the wielder of a Flamer to set multiple foes ablaze.',
+          crunch: 'You can target up to  2x Ballistic Skill targets. Your Weapon gains the Inflict (On Fire) Trait.',
+          description:
+            '<p>Flamers spew a stream of burning chemical liquid. The flowing torrent of flame can be guided by the wielder of a Flamer to set multiple foes ablaze.</p>' +
+            '<p>When you fire a Flamer weapon, you can target a maximum number of individuals in the weapon’s range equal to double your Ballistic Skill Rating. You automatically hit every target, and any target may attempt to reduce the damage using the rules for Dodging Area Effect Attacks on p.186.</p>' +
+            '<p>A weapon with the Flamer Trait is considered to have the Inflict (<em>On Fire</em>) Trait.</p>',
         },
         {
           key: 'core-heavy',
@@ -152,7 +159,7 @@ export default {
           name: 'Pistol',
           hint: '',
           fluff: 'Built light to be drawn quickly and used in close quarters.',
-          crunch: 'Pistols can be fired while Engaged (p.184) with a +2 DN, using the Ballistic Skill.',
+          crunch: 'Pistols can be fired while Engaged (see core pg. 184) with a +2 DN, using the Ballistic Skill.',
           description:
             '<p>Built light to be drawn quickly and used in close quarters.</p>' +
             '<p>Pistols can be fired while Engaged (p.184) with a +2 DN, using the Ballistic Skill.</p>',
@@ -202,10 +209,10 @@ export default {
           name: 'Silent',
           hint: '',
           fluff: 'These stealthy weapons are designed to deal damage as quietly as possible.',
-          crunch: 'When a weapon with this Trait is used as part of an attack, your Stealth Score is only reduced by 1.',
+          crunch: 'When a weapon with this Trait is used as part of an attack, your Stealth Score is only reduced by 3.',
           description:
             '<p>These stealthy weapons are designed to deal damage as quietly as possible.</p>' +
-            '<p>When a weapon with this Trait is used as part of an attack, your Stealth Score is only reduced by 1.</p>',
+            '<p>When a weapon with this Trait is used as part of an attack, your Stealth Score is only reduced by 3.</p>',
         },
         {
           key: 'core-sniper',
@@ -222,10 +229,10 @@ export default {
           name: 'Spread',
           hint: '',
           fluff: 'These wide-bore weapons wreak havoc on closely packed combatants.',
-          crunch: 'When fired at Close Range, a Spread weapon can hit any number of targets in a radius of 3 metres. Double the total damage of a Spread weapon fired at a Mob in Short Range.',
+          crunch: 'When fired at Short Range, a Spread weapon can hit any number of targets as long as they are all within 3 metres of one another. When you fire a Spread Weapon at a Mob you gain +Rank bonus dice.',
           description:
             '<p>These wide-bore weapons wreak havoc on closely packed combatants.</p>' +
-            '<p>When fired at Close Range, a Spread weapon can hit any number of targets in a radius of 3 metres. Double the total damage of a Spread weapon fired at a Mob in Short Range.</p>',
+            '<p>When fired at Short Range, a Spread weapon can hit any number of targets as long as they are all within 3 metres of one another. When you fire a Spread Weapon at a Mob you gain +Rank bonus dice.</p>',
         },
         {
           key: 'core-supercharge',

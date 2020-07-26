@@ -87,7 +87,7 @@ const corePowers = [
     ...simpleCrunch(5,'Action','Sustained','Self',false),
     keywords: ['Psychic'],
     effect: '+3 to Stealth and +1 Defence vs Ranged Attacks.',
-    description: '<p>You bend reality just enough to cause your image to blend with your surroundings. While this power remains in effect, you gain +3 bonus dice to Stealth (A) Tests and + 1 to your Defence against ranged attacks.</p>',
+    description: '<p>You bend reality just enough to cause your image to blend with your surroundings. While this power remains in effect, you gain +5 bonus dice to Stealth (A) Tests and + 1 to your Defence against ranged attacks.</p>',
   },
   {
     ...powerz('core',268,'Compel','Minor',10),
@@ -191,7 +191,7 @@ const corePowers = [
     ...powerz('core',272,'Warp Speed','Biomancy',15),
     ...simpleCrunch(7,'Action','Sustained','Self',false),
     keywords: ['Psychic'],
-    effect: 'Double your speed, make an additional Action per turn, +1 Defence, always act first in combat round. Suffer 1d3+1 Shock each round.',
+    effect: 'Double your speed, may take an additional Action per round, +1 Defence, you act first in combat round. Suffer 1d3+1 Shock each round.',
   },
   {
     ...powerz('core',272,'Phantom Form','Biomancy',15),
@@ -206,7 +206,8 @@ const corePowers = [
     effect: 'Heal one Wound per round or - if completely healed - regain 1 Shock per round.',
   },
   {
-    ...powerz('core',273,'Sharp Flesh','Biomancy',20),
+    ...powerz('core',273,'Shape Flesh','Biomancy',20),
+    key: 'core-sharp-flesh',
     ...simpleCrunch(8,'Action','Sustained','Self',false),
     keywords: ['Psychic'],
     prerequisite: ['At least one other Biomancy Power.'],
@@ -279,20 +280,20 @@ const corePowers = [
   },
   {
     ...powerz('core',276,'Wall Of Flame','Pyromancy',15),
-    ...simpleCrunch(7,'Action','Sustained','20 m',true),
+    ...simpleCrunch(7,'Action','Sustained','20 m',false),
     keywords: ['Fire','Psychic'],
     effect: 'Summon a 3x20x10 Wall, dealing up to 12 +1 ED any might set On Fire.',
   },
   // Telekinesis
   {
     ...powerz('core',277,'Assail','Telekinesis',10),
-    ...simpleCrunch('Defence','Action','Sustained','20 m',true),
+    ...simpleCrunch('Defence','Action','Instant','20 m',true),
     keywords: ['Kinetic','Psychic'],
     effect: 'Throw large objects (your mom?), dealing 10 +1 ED.',
   },
   {
     ...powerz('core',277,'Crush','Telekinesis',10),
-    ...simpleCrunch('Defence','Action','Instant','20 m',true),
+    ...simpleCrunch('Defence','Action','Sustained','20 m',true),
     keywords: ['Kinetic','Psychic'],
     effect: 'Force grapple, dealing 10 +1 ED and might restrain.',
   },

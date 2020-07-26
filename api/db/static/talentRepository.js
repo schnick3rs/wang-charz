@@ -604,7 +604,7 @@ const core = [
   },
   {
     ...talent('core',135,'Legacy Of Sorrow',20),
-    snippet: 'You do not suffer from Intense Emotion and th Group gains 1 Glory when you pass a Defiance Test.',
+    snippet: 'You do not suffer from Intense Emotion and th Group gains 1 Glory every time you recover from dying.',
     description:
       '<p></p>',
     requirements: [ requireSpecies('Aeldari') ],
@@ -722,7 +722,7 @@ const core = [
   },
   {
     ...talent('core',136,'Mastered Paths',20),
-    snippet: 'Select an additional Background and gain its bonus.',
+    snippet: 'Select one of your Aeldari Paths. You gain additionaly +Rank bonus from that park.',
     description:
       '<p></p>',
     requirements: [
@@ -1045,10 +1045,11 @@ const core = [
   },
   {
     ...talent('core',141,'Warped Mind',30),
-    snippet: 'You unlock an additional Psychic Discipline. You may reduce the costs by gaining Corruption 1:1.',
+    snippet: 'You unlock an additional Psychic Discipline. You may reduce the costs by gaining Corruption, reducing cost by 5 for each point of corruption.',
     description:
       '<p></p>',
     requirements: [ requireSkill('psychicMastery',4) ],
+    // TODO unlock discipline
   },
   // FAITH
   {

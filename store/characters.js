@@ -170,6 +170,7 @@ export const getters = {
   characterArchetypeLabelById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.value : 'unknown'),
   characterArchetypeTierById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.tier : undefined),
   characterArchetypeKeywordsById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.keywords : []),
+  characterArchetypeMimicById: (state) => (id) => (state.characters[id] ? state.characters[id].archetype.mimic : undefined),
 
   characterFluffNotesById: (state) => (id) => (state.characters[id]?.fluff?.notes ? state.characters[id].fluff.notes : getDefaultState().fluff.notes),
 
@@ -200,7 +201,7 @@ export const getters = {
     traits.defence = enhancedAttributes.initiative - 1;
     traits.resilience = enhancedAttributes.toughness + 1;
     traits.determination = enhancedAttributes.toughness;
-    traits.maxWounds = enhancedAttributes.toughness + character.settingTier;
+    traits.maxWounds = enhancedAttributes.toughness + (2 * character.settingTier);
     traits.maxShock = enhancedAttributes.willpower + character.settingTier;
     traits.resolve = enhancedAttributes.willpower - 1;
     traits.conviction = enhancedAttributes.willpower;
@@ -404,6 +405,13 @@ export const mutations = {
   },
   setCharacterArchetype(state, payload) {
     state.characters[payload.id].archetype = payload.archetype;
+  },
+  setCharacterArchetypeCost(state, payload) {
+    const { id, cost } = payload;
+    state.characters[id].archetype = {
+      ...state.characters[id].archetype,
+      cost,
+    };
   },
   setCharacterFaction(state, payload) {
     state.characters[payload.id].faction = payload.faction;

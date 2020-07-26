@@ -29,11 +29,32 @@
 
       <div class="mt-2 body-2 text-justify" style="color: rgba(0,0,0,0.6)">
 
+        <v-alert
+          v-if="item.alerts"
+          v-for="(alert, index) in item.alerts"
+          :key="index"
+          :type="alert.type"
+          class="caption"
+          dense text
+        >{{alert.text}}</v-alert>
+
         <p><strong>Tier:</strong> {{ item.tier }}</p>
 
         <p><strong>Species:</strong> {{ item.species.join(', ') }}</p>
 
         <p><strong>XP Cost:</strong> {{ item.cost }}, incl. Archetype ({{ item.costs.archetype }} XP) and Stats ({{ item.costs.stats }} XP)</p>
+
+        <v-alert
+          v-if="item.costs.archetype !== characterArchetypeCost"
+          type="warning"
+          class="caption ml-4 mr-4"
+          dense outlined border="left"
+        >
+          <p>
+            It seems that the cost that you payed for this archetype ({{characterArchetypeCost}} XP) are not in line with the latest Errata ({{item.costs.archetype}} XP). This will probably <strong>free up {{ characterArchetypeCost - item.costs.archetype }} XP</strong>.
+          </p>
+          <v-btn color="success" @click="updateArchetypeCost()">Update XP Cost</v-btn>
+        </v-alert>
 
         <v-divider class="mb-2"></v-divider>
 
@@ -57,7 +78,8 @@
 
         <p>
           <strong>Keywords: </strong>
-          <span style="text-transform: uppercase; color: darkred;">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
+          <span style="text-transform: uppercase; color: darkred;" v-if="item.keywords">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
+          <span v-else>none</span>
         </p>
 
         <div
@@ -231,6 +253,9 @@ export default {
     };
   },
   computed: {
+    characterSettingTier() {
+      return this.$store.getters['characters/characterSettingTierById'](this.characterId);
+    },
     characterFactionKey() {
       return this.$store.getters['characters/characterFactionKeyById'](this.characterId);
     },
@@ -243,6 +268,9 @@ export default {
     characterArchetypeKey() {
       return this.$store.getters['characters/characterArchetypeKeyById'](this.characterId);
     },
+    characterArchetypeCost() {
+      return this.$store.getters['characters/characterArchetypeCostsById'](this.$route.params.id);
+    },
     characterArchetypeLabel() {
       return this.$store.getters['characters/characterArchetypeLabelById'](this.characterId);
     },
@@ -251,6 +279,9 @@ export default {
     },
     characterArchetypeKeywords() {
       return this.$store.getters['characters/characterArchetypeKeywordsById'](this.characterId);
+    },
+    characterArchetypeMimic() {
+      return this.$store.getters['characters/characterArchetypeMimicById'](this.characterId);
     },
     characterAttributes() {
       return this.$store.getters['characters/characterAttributesById'](this.characterId);
@@ -382,16 +413,26 @@ export default {
   methods: {
     async loadAdvancedArchetype(){
       this.loading = true;
-      console.info(`loading advanced`);
-      const advancedArchetype = {
+      console.info(`loading advanced character pseudo archetype...`);
+      let cost = -1 * this.characterSettingTier * 10;
+      const mimic = this.characterArchetypeMimic;
+      let data = {
+        archetypeFeatures: [],
+      };
+      if (mimic) {
+        const response = await this.$axios.get(`/api/archetypes/${this.characterArchetypeMimic}`);
+        data = response.data;
+        cost += data.tier * 10;
+      }
+      let advancedArchetype = {
         // source:
         key: `advanced`,
         name: this.characterArchetypeLabel,
         hint: 'Created using Advanced Character creation.',
-        cost: 0,
+        cost: cost,
         costs: {
-          total: 0,
-          archetype: 0,
+          total: cost,
+          archetype: cost,
           stats: 0,
           species: 0,
           other: 0,
@@ -403,10 +444,11 @@ export default {
         speciesKey: [this.characterSpeciesKey],
         wargearString: this.getAdvancedWargearOptionByTier(this.characterArchetypeTier).wargearString,
         prerequisites: [],
-        archetypeFeatures: [],
+        archetypeFeatures: data.archetypeFeatures,
         influence: 0,
         keywords: this.characterArchetypeKeywords.join(','),
       };
+      advancedArchetype = this.enrichArchetypeFeatures(advancedArchetype);
       this.item = advancedArchetype;
       this.loading = false;
     },
@@ -417,28 +459,48 @@ export default {
       const { data } = await this.$axios.get(`/api/archetypes/${key}`);
       finalData = data;
 
-      // we enrich the archetype features
-      finalData.archetypeFeatures
-        .filter((feature) => feature.options)
-        .forEach((feature) => {
-          const enhancements = this.enhancements.filter((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
-          if (enhancements) {
-            enhancements.forEach((e) => {
-              let foundInd = /\.(\d)\./.exec(e.source);
-              if (foundInd) {
-                feature.selected[foundInd[1]] = e.source.split('.').pop();
-              }
-            });
-          } else {
-            const enhancement = this.enhancements.find((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
-            if ( enhancement ) {
-              feature.selected = enhancement.source.split('.').pop();
-            }
-          }
-        });
+      finalData = this.enrichArchetypeFeatures(finalData);
 
       this.item = finalData;
       this.loading = false;
+    },
+    enrichArchetypeFeatures(archetype){
+      archetype.archetypeFeatures
+      .filter((feature) => feature.options)
+      .forEach((feature) => {
+        const enhancements = this.enhancements.filter((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
+        if (enhancements) {
+          enhancements.forEach((e) => {
+            let foundInd = /\.(\d)\./.exec(e.source);
+            if (foundInd) {
+              feature.selected[foundInd[1]] = e.source.split('.').pop();
+            }
+          });
+        } else {
+          const enhancement = this.enhancements.find((modifier) => modifier.source.startsWith(`archetype.${feature.name}`) );
+          if ( enhancement ) {
+            feature.selected = enhancement.source.split('.').pop();
+          }
+        }
+      });
+
+      const featuresWithPowers = archetype.archetypeFeatures.filter( (f) => f.psychicPowers !== undefined);
+      if ( featuresWithPowers ) {
+        featuresWithPowers.forEach( (feature) => {
+          feature.psychicPowers.forEach( (powerSelections) => {
+            this.getPsychicPowerOptions(powerSelections);
+            const found = this.psychicPowers.find( (p) => p.source && p.source === `archetype.${powerSelections.name}`);
+            if ( found ) {
+              console.info(`Power ${found.name} found for the archetype feature ${feature.name} / power ${powerSelections.name}.`);
+              powerSelections.selected = found.name;
+            } else {
+              console.warn(`No Power found for ${powerSelections.name}.`)
+            }
+          });
+        });
+      }
+
+      return archetype;
     },
     doChangeMode() {
       this.$router.push({
@@ -446,6 +508,13 @@ export default {
         params: { id: this.characterId },
       });
     },
+
+    updateArchetypeCost() {
+      const id = this.characterId;
+      const cost = this.item.costs.archetype;
+      this.$store.commit('characters/setCharacterArchetypeCost', { id, cost });
+    },
+
     /** Keywords */
     keywordOptions(wildcard) {
       if (wildcard === '[Any]') {
