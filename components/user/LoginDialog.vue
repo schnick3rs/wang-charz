@@ -36,6 +36,12 @@
         </div>
       </v-card-text>
 
+      <v-card-text>
+        <v-btn @click="loginViaGoogle()">
+          Google
+        </v-btn>
+      </v-card-text>
+
       <v-card-actions>
         <v-btn v-if="!isLoggedIn" block color="success" @click="login">
           Login
@@ -82,6 +88,10 @@ export default {
           this.$emit('close');
         });
     },
+    loginViaGoogle() {
+      console.info('Login via google...');
+      this.$auth.loginWith('google');
+    }
   },
 };
 </script>
