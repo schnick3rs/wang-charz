@@ -617,7 +617,7 @@ export default {
       const newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       const payload = {
         id: newCharId,
-        stateString: atob(stateString),
+        stateString: decodeURIComponent(escape(atob(stateString))),
       };
       this.$store.commit('characters/import', payload);
       this.importSnippet = '';
