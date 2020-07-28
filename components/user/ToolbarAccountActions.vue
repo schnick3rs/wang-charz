@@ -42,7 +42,6 @@
     </v-btn>
 
     <v-btn
-      :disabled="!isLoggedIn"
       icon
       color="error"
       @click="logout"
