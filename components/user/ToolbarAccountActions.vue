@@ -42,9 +42,10 @@
     </v-btn>
 
     <v-btn
+      :disabled="!isLoggedIn"
       icon
       color="error"
-      @click="logout"
+      @click.stop="logout"
     >
       <v-icon>exit_to_app</v-icon>
     </v-btn>
@@ -74,8 +75,8 @@ export default {
     },
   },
   methods: {
-    logout() {
-      this.$auth.logout();
+    async logout() {
+      await this.$auth.logout();
     },
   },
 };
