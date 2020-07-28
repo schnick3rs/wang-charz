@@ -1,5 +1,6 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
+
     <v-dialog
       v-model="loginDialog"
       width="500"
@@ -10,7 +11,6 @@
     </v-dialog>
 
     <v-tooltip
-      v-if="false"
       bottom
     >
       <template v-slot:activator="{ on }">
@@ -22,19 +22,31 @@
           <v-icon>person</v-icon>
         </v-btn>
       </template>
-      <span>Logged in as {{ loggedInUser.username }}</span>
+      <span>{{user}}</span>
     </v-tooltip>
 
     <v-btn
-      v-else
-      title="Logout"
-      icon
+      :disabled="isLoggedIn"
+      title="Login"
       @click.stop="loginDialog = true"
     >
-      <v-icon>person_add</v-icon>
+      Sign in
     </v-btn>
 
-    <v-btn v-if="false" icon color="error" :disabled="true" @click="logout">
+    <v-btn
+      :disabled="isLoggedIn"
+      title="Login"
+      @click.stop="loginDialog = true"
+    >
+      Register
+    </v-btn>
+
+    <v-btn
+      :disabled="!isLoggedIn"
+      icon
+      color="error"
+      @click="logout"
+    >
       <v-icon>exit_to_app</v-icon>
     </v-btn>
   </div>
@@ -55,6 +67,12 @@ export default {
   },
   computed: {
     // ...mapGetters(['isAuthenticated', 'loggedInUser']),
+    isLoggedIn() {
+      return this.$auth.loggedIn;
+    },
+    user() {
+      return this.$auth.user;
+    },
   },
   methods: {
     logout() {
