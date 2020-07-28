@@ -17,7 +17,7 @@
     >
       <template v-slot:activator="{ on }">
         <span v-if="isLoggedIn" v-on="on">
-          <v-avatar size="64" v-if="user.picture"><img :src="user.picture" :alt="user.name"></v-avatar>
+          <v-avatar size="16" v-if="user.picture"><img :src="user.picture" :alt="user.name"></v-avatar>
           <v-btn v-else icon color="success"><v-icon>person</v-icon></v-btn>
           {{user.name}}
         </span>
