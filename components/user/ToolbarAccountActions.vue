@@ -76,7 +76,9 @@ export default {
   },
   methods: {
     async logout() {
+      console.info(`Logging out user ${this.$auth.user.name}...`);
       await this.$auth.logout();
+      console.info('Logout done!')
     },
   },
 };
