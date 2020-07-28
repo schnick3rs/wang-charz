@@ -16,11 +16,11 @@
       bottom
     >
       <template v-slot:activator="{ on }">
-        <div v-if="isLoggedIn" v-on="on">
-          <v-avatar v-if="user.picture"><img :src="user.picture" :alt="user.name"></v-avatar>
+        <span v-if="isLoggedIn" v-on="on">
+          <v-avatar size="64" v-if="user.picture"><img :src="user.picture" :alt="user.name"></v-avatar>
           <v-btn v-else icon color="success"><v-icon>person</v-icon></v-btn>
           {{user.name}}
-        </div>
+        </span>
       </template>
       <span>{{user}}</span>
     </v-tooltip>
