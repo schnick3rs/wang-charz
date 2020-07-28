@@ -10,17 +10,17 @@
       />
     </v-dialog>
 
+
+
     <v-tooltip
       bottom
     >
       <template v-slot:activator="{ on }">
-        <v-btn
-          icon
-          color="success"
-          v-on="on"
-        >
-          <v-icon>person</v-icon>
-        </v-btn>
+        <div v-if="isLoggedIn" v-on="on">
+          <v-avatar v-if="user.picture"><img :src="user.picture" :alt="user.name"></v-avatar>
+          <v-btn v-else icon color="success"><v-icon>person</v-icon></v-btn>
+          {{user.name}}
+        </div>
       </template>
       <span>{{user}}</span>
     </v-tooltip>
