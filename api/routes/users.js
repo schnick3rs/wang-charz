@@ -42,7 +42,9 @@ router.post('/register', async (request, response) => {
 
 // login user
 router.post('/login', async (request, response) => {
+  console.info(`Login request...`);
   const username = request.body.username.toLowerCase().trim();
+  console.info(`  for user: ${username}`);
   const { rows } = await db.queryAsyncAwait('SELECT * FROM wrath_glory.user WHERE username = $1', [username]);
   const user = rows[0];
 
@@ -50,6 +52,7 @@ router.post('/login', async (request, response) => {
   const match = bcrypt.compareSync(password, user.password);
 
   if (match) {
+    console.info(`Passwords for ${username} match. Login Successful, create and return JWT.`);
     const jwtPayload = {
       username: user.username,
       userId: user.id,
@@ -59,6 +62,8 @@ router.post('/login', async (request, response) => {
     const token = authProvider.sign(user.indexOf, jwtPayload);
 
     response.status(201).json({ token });
+  } else {
+    console.warn(`Passwords for ${username} did not match. Login Failed.`);
   }
 });
 
@@ -66,6 +71,7 @@ router.post('/login', async (request, response) => {
 router.get('/me', async (request, response) => {
   const decoded = authProvider.verifyRequest(request);
   // assert valid
+  console.info(`decoded: ${decoded}`);
 
   const { rows } = await db.queryAsyncAwait(
     'SELECT id, username, uuid FROM wrath_glory.user WHERE id = $1',

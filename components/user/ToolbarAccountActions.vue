@@ -10,7 +10,14 @@
       />
     </v-dialog>
 
-
+    <v-dialog
+      v-model="registerDialog"
+      width="500"
+    >
+      <register-dialog
+        @close="registerDialog = false"
+      />
+    </v-dialog>
 
     <v-tooltip
       bottom
@@ -35,8 +42,8 @@
 
     <v-btn
       :disabled="isLoggedIn"
-      title="Login"
-      @click.stop="loginDialog = true"
+      title="Register"
+      @click.stop="registerDialog = true"
     >
       Register
     </v-btn>
@@ -63,6 +70,7 @@ export default {
   data() {
     return {
       loginDialog: false,
+      registerDialog: false,
     };
   },
   computed: {

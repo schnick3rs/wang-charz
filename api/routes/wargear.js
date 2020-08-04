@@ -63,26 +63,6 @@ router.get('/', async (request, response) => {
     }
   }
 
-  /*
-  const { rows } = await db.queryAsyncAwait(
-    `SELECT * FROM wrath_glory.wargear ${where}`,
-    params,
-  );
-
-  sourcedRows = rows.map((r)=>{
-    return {
-      ...r,
-      source: {
-        book: 'Core Rules',
-        key: 'core',
-        version: '1',
-        path: undefined,
-        page: '-'
-      },
-    };
-  });
-  */
-
   let merged = [
     //...sourcedRows,
     ...homebrewWargear,
