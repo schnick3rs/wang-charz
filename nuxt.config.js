@@ -209,7 +209,12 @@ module.exports = {
           user: { url: 'api/users/me', mthod: 'get', propertyName: 'data'},
         },
         // tokenRequired: true,
+        // tokenName: 'Authorization',
         // tokenType: 'Bearer'
+        // globalToken: true,
+        // autoFetchUser: true,
+        tokenRequired: false,
+        tokenType: false,
       },
       google: {
         client_id: '97814583895-q52s5lfpncf3l21o8s61q0dmm273snn1.apps.googleusercontent.com',
