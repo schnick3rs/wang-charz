@@ -226,9 +226,9 @@ module.exports = {
         //tokenRequired: false,
         //tokenType: false,
       },
-      google: {
+      /*google: {
         client_id: process.env.AUTH_GOOGLE_CLIENT_ID,
-      },
+      },*/
     },
   },
 
