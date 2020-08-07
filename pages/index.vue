@@ -4,9 +4,6 @@
     no-gutters
     dense
   >
-    <span>{{$auth.loggedIn}}</span>
-    <span>{{$store.state.auth.loggedIn}}</span>
-    <div><pre>{{$store.state.auth}}</pre></div>
 
     <v-col
       v-for="section in sections"

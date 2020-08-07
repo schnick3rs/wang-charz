@@ -21,9 +21,10 @@
 
     <v-tooltip
       bottom
+      v-if="$store.state.auth.loggedIn"
     >
       <template v-slot:activator="{ on }">
-        <span v-if="$store.state.auth.loggedIn" v-on="on">
+        <span v-on="on">
           <v-avatar size="16" v-if="$store.state.auth.user.picture">
             <img :src="$store.state.auth.user.picture" :alt="$store.state.auth.user.name">
           </v-avatar>
