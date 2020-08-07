@@ -23,17 +23,23 @@
       bottom
     >
       <template v-slot:activator="{ on }">
-        <span v-if="isLoggedIn" v-on="on">
-          <v-avatar size="16" v-if="user.picture"><img :src="user.picture" :alt="user.name"></v-avatar>
+        <span v-if="$store.state.auth.loggedIn" v-on="on">
+          <v-avatar size="16" v-if="$store.state.auth.user.picture">
+            <img :src="$store.state.auth.user.picture" :alt="$store.state.auth.user.name">
+          </v-avatar>
           <v-btn v-else icon color="success"><v-icon>person</v-icon></v-btn>
-          {{user.name}}
+          {{$store.state.auth.user.name}}
         </span>
       </template>
-      <span>{{user}}</span>
+      <div>
+        <div>{{$store.state.auth.loggedIn}}</div>
+        <div>{{$store.state.auth.loggedIn}}</div>
+        <div><pre>{{$store.state.auth}}</pre></div>
+      </div>
     </v-tooltip>
 
     <v-btn
-      :disabled="isLoggedIn"
+      :disabled="$store.state.auth.loggedIn"
       title="Login"
       @click.stop="loginDialog = true"
     >
@@ -41,7 +47,7 @@
     </v-btn>
 
     <v-btn
-      :disabled="isLoggedIn"
+      :disabled="$store.state.auth.loggedIn"
       title="Register"
       @click.stop="registerDialog = true"
     >
@@ -49,10 +55,10 @@
     </v-btn>
 
     <v-btn
-      :disabled="!isLoggedIn"
+      :disabled="!$store.state.auth.loggedIn"
       icon
       color="error"
-      @click.stop="logout"
+      @click="logout()"
     >
       <v-icon>exit_to_app</v-icon>
     </v-btn>
@@ -60,7 +66,6 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
 import LoginDialog from '~/components/user/LoginDialog.vue';
 import RegisterDialog from '~/components/user/RegisterDialog.vue';
 
@@ -74,18 +79,17 @@ export default {
     };
   },
   computed: {
-    // ...mapGetters(['isAuthenticated', 'loggedInUser']),
-    isLoggedIn() {
-      return this.$auth.loggedIn;
+    isLoggedIn () {
+      return this.$store.state.auth.loggedIn;
     },
-    user() {
-      return this.$auth.user;
+    user () {
+      return this.$store.state.auth.user;
     },
   },
   methods: {
-    async logout() {
-      console.info(`Logging out user ${this.$auth.user.name}...`);
-      await this.$auth.logout();
+    logout() {
+      console.info(`Logging out user ${this.$store.state.auth.user.username}...`);
+      this.$auth.logout();
       console.info('Logout done!')
     },
   },

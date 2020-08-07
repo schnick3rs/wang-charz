@@ -201,9 +201,18 @@ module.exports = {
   },
 
   auth: {
+    localStorage: false,
+    plugins: [
+      //'~/plugins/auth.js'
+    ],
+    redirect: {
+      login: false,
+      logout: false,
+    },
     strategies: {
       local: {
         endpoints: {
+          // we call POST **/login and use the data.token value
           login: { url: 'api/users/login', method: 'post', propertyName: 'token' },
           logout: false,
           user: { url: 'api/users/me', mthod: 'get', propertyName: 'data'},
@@ -213,16 +222,14 @@ module.exports = {
         // tokenType: 'Bearer'
         // globalToken: true,
         // autoFetchUser: true,
-        tokenRequired: false,
-        tokenType: false,
+        // use this for cookie workflow
+        //tokenRequired: false,
+        //tokenType: false,
       },
       google: {
-        client_id: '97814583895-q52s5lfpncf3l21o8s61q0dmm273snn1.apps.googleusercontent.com',
+        client_id: process.env.AUTH_GOOGLE_CLIENT_ID,
       },
     },
-    plugins: [
-      '~/plugins/auth.js'
-    ]
   },
 
   /*
