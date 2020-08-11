@@ -36,10 +36,6 @@ export const mutations = {
 const baseApiUrl = 'http://localhost:3000';
 
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {
-    // commit('user/setUuid', 'ecd016aa-afac-44e8-8448-ddd09197dbb8');
-    // commit('user/setUuid', undefined);
-  },
   populateState(context, payload) {
     const state = {
       ...context.state,
@@ -47,6 +43,35 @@ export const actions = {
     };
     context.commit('setState', payload.data);
     console.info(state);
+  },
+  saveCharacterToDb({ context, state }, payload){
+    const { id, charState } = payload;
+    const version = charState.version;
+    axios.post(`${baseApiUrl}/api/characters/`, { id, version, state: charState})
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .finally(() => {});
+  },
+
+  /**
+   * @param context
+   * @param state
+   * @param payload { id, patch, column: 'species' }
+   */
+  patchCharacterInDb({ context, state }, payload){
+    const { id, patch, column } = payload;
+    axios.patch(`${baseApiUrl}/api/characters/${id}/${column}/`, { patch, column })
+    .then((response) => {
+      console.log(response);
+    })
+    .catch((error) => {
+      console.error(error);
+    })
+    .finally(() => {});
   },
   saveCurrentCharacterToDatabase({ context, state, getters }) {
     const body = {

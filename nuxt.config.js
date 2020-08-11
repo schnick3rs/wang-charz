@@ -194,6 +194,7 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: 'https://www.doctors-of-doom.com/',
     browserBaseURL: '/',
   },
   proxy: {
@@ -208,6 +209,11 @@ module.exports = {
     redirect: {
       login: false,
       logout: false,
+    },
+    cookie: {
+      options: {
+        expires: 30,
+      },
     },
     strategies: {
       local: {

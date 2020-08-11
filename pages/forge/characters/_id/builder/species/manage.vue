@@ -340,9 +340,10 @@ export default {
       const content = {
         speciesAstartesChapter: chapter.key,
       };
-      this.$store.commit('characters/setCharacterSpeciesAstartesChapter', { id, ...content });
+      this.$store.dispatch('characters/setCharacterSpeciesAstartesChapter', { id, ...content });
 
       this.$store.commit('characters/clearCharacterTalentsBySource', { id, source: `species.chapter.`, cascade: true });
+
       chapter.beliefsAndTraditions.forEach((bf) => {
         if (bf.modifications) {
           bf.modifications

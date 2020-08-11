@@ -70,8 +70,6 @@ router.post('/login', async (request, response) => {
 // login user
 router.get('/me', async (request, response) => {
   const decoded = authProvider.verifyRequest(request);
-  // assert valid
-  console.info(`decoded: ${decoded}`);
 
   const { rows } = await db.queryAsyncAwait(
     'SELECT id, username, uuid FROM wrath_glory.user WHERE id = $1',

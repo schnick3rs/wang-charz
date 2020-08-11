@@ -13,8 +13,7 @@ const pool = new Pool({
 
 module.exports = {
   query: (text, params, callback) => pool.query(text, params, (error, result) => {
-    const duration = Date.now() - start;
-    console.log('executed query', { text, duration, rows: result.rowCount });
+    console.info('executed query', { text, duration, rows: result.rowCount });
     callback(error, result);
   }),
   queryAsyncAwait: (text, params) => pool.query(text, params),

@@ -531,7 +531,11 @@ export default {
       this.avatar = url;
     },
     setCharacterName(name) {
-      this.$store.commit('characters/setCharacterName', { id: this.characterId, name });
+      // cancel pending call
+      clearTimeout(this._timerId);
+      this._timerId = setTimeout(() => {
+        this.$store.dispatch('characters/setCharacterName', { id: this.characterId, name });
+      }, 500);
     },
     setCustomXp(xp) {
       this.$store.commit('characters/setCustomXp', { id: this.characterId, xp });
