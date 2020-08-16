@@ -409,11 +409,11 @@ const core = [
   },
   {
     ...gear('core',216,'Assault Bolter','8V','Bolt,Imperium,Adeptus Astartes,Adeptus Primaris'),
-    ...rangez('Bolt Weapon',12,2,-1,18,3,'Assault,Brutal'),
+    ...rangez('Bolt Weapon',12,2,-1,18,3,'Assault,Brutal,Rapid Fire(2)'),
   },
   {
     ...gear('core',216,'Heavy Bolter','6U','Bolt,Imperium'),
-    ...rangez('Bolt Weapon',12,2,-1,36,3,'Brutal,Heavy(4)'),
+    ...rangez('Bolt Weapon',12,2,-1,36,3,'Brutal,Heavy(4),Rapid Fire(1)'),
   },
   {
     ...gear('core',221,'Laspistol','3C','Las,Imperium'),
@@ -425,7 +425,7 @@ const core = [
   },
   {
     ...gear('core',221,'Master-Crafted Laspistol','6V','Las,Imperium'),
-    ...rangez('Las Weapon',10,1,0,12,1,'Pistol'),
+    ...rangez('Las Weapon',10,1,0,12,1,'Pistol,Reliable'),
   },
   {
     ...gear('core',221,'Lasgun','3C','Las,Imperium'),
@@ -445,7 +445,7 @@ const core = [
   },
   {
     ...gear('core',222,'Lascannon','9U','Las,Imperium'),
-    ...rangez('Las Weapon',18,3,-3,48,1,'Heavy(4),Reliable'),
+    ...rangez('Las Weapon',18,3,-3,48,1,'Heavy(8),Reliable'),
   },
   {
     ...gear('core',223,'Plasmapistol','6R','Plasma,Imperium'),
@@ -456,7 +456,7 @@ const core = [
     ...rangez('Plasma Weapon',15,1,-3,24,2,'Rapid Fire(1),Supercharge'),
   },
   {
-    ...gear('core',223,'Plasma Cannon','7R','Plasma,Imperium'),
+    ...gear('core',223,'Plasma Cannon','7V','Plasma,Imperium'),
     ...rangez('Plasma Weapon',15,2,-3,36,3,'Heavy(8),Supercharge'),
   },
   {
@@ -477,7 +477,7 @@ const core = [
   },
   {
     ...gear('core',222,'Hand Cannon','4C','Projectile,Imperium,Scum'),
-    ...rangez('Projectile Weapon',9,1,-1,12,1,'Pistol'),
+    ...rangez('Projectile Weapon',9,1,0,12,1,'Pistol'),
   },
   {
     ...gear('core',222,'Autogun','3C','Projectile,Imperium,Scum'),
@@ -508,7 +508,7 @@ const core = [
     ...rangez('Projectile Weapon',10,1,0,12,2,'Assault,Spread,Reliable'),
   },
   {
-    ...gear('core',223,'Needle Rifle','6V','Projectile,Imperium'),
+    ...gear('core',223,'Needle Rifle','6V','Needle,Imperium'),
     ...rangez('Projectile Weapon',8,2,0,28,2,'Agonising,Inflict(Poisoned 4),Silent'),
   },
   {
@@ -517,7 +517,7 @@ const core = [
   },
   {
     ...gear('core',223,'Astartes Sniper Rifle','6U','Projectile,Imperium,Adeptus Astartes'),
-    ...rangez('Projectile Weapon',10,1,0,36,0,'Sniper(2)'),
+    ...rangez('Projectile Weapon',10,1,0,36,0,'Sniper(2),Silent'),
   },
   {
     ...gear('core',223,'Assault Cannon','6U','Projectile,Imperium,Adeptus Astartes'),
@@ -568,7 +568,7 @@ const core = [
     ...rangez('Grenade & Missile Weapon',10,4,0,'*','-','Blast(Medium),Thrown(STRx4),Launcher'),
   },
   {
-    ...gear('core',225,'Plasma Grenade','7V','Explosive,Aeldari'),
+    ...gear('core',225,'Plasma Grenade','5V','Explosive,Aeldari'),
     ...rangez('Grenade & Missile Weapon',10,5,-1,'*','-','Blast(Medium),Thrown(STRx4),Launcher'),
   },
   {
@@ -588,7 +588,7 @@ const core = [
     ...rangez('Grenade & Missile Weapon',16,6,-2,'*','-','Blast(Medium),Launcher'),
   },
   {
-    ...gear('core',225,'Missile Launcher','6U','Explosive,Imperium'),
+    ...gear('core',225,'Missile Launcher','4C','Explosive,Imperium'),
     ...rangez('Grenade & Missile Weapon','*','*','*',48,'-','Heavy(6)'),
   },
   {
@@ -609,7 +609,7 @@ const core = [
   },
   {
     ...gear('core',226,'Ranger Long Rifle','7V','Las,Aeldari'),
-    ...rangez('Aeldari Weapon',10,1,0,36,'-','Sniper(2)'),
+    ...rangez('Aeldari Weapon',10,1,0,36,0,'Sniper(2)'),
   },
   {
     ...gear('core',226,'Fusion Gun','6V','Melta,Aeldari'),
@@ -628,7 +628,7 @@ const core = [
     type: 'Ranged Weapon',
     subtype: 'Ork Weapon',
     meta: [
-      metaRange(10,1,0,8,1,['Assault','Blast(Small)','Inflict(On Fire)','Spread']),
+      metaRange(10,1,0,8,1,['Assault','Flamer']),
       metaMelee(7,1,-2,0,['Inflict(On Fire)']),
     ],
   },
@@ -642,11 +642,11 @@ const core = [
   },
   {
     ...gear('core',227,'Rokkit Launcher','7R','Explosive,Ork'),
-    ...rangez('Ork Weapon',16,'1d3',-2,24,3,'Blast(Small)'),
+    ...rangez('Ork Weapon',16,'1d3',-2,24,'-','Assault,Blast(Small)'),
   },
   {
     ...gear('core',227,'Stikkbomb','2U','Explosive,Ork'),
-    ...rangez('Ork Weapon',7,1,0,'*','-','Blast(Medium),Trown(STRx4),Launcher'),
+    ...rangez('Ork Weapon',9,5,0,'*','-','Blast(Medium),Trown(STRx4),Launcher'),
   },
   // Weapon Upgrades
   {
