@@ -1216,7 +1216,7 @@ const core = [
     modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 } ],
   },
   {
-    ...gear('core',246,'Subdermal Armour','6R','[Any]'),
+    ...gear('core',246,'Subdermal Armour','4R','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Base Resilience.',
     modifications: [ { targetGroup: 'traits', targetValue: 'resilience', modifier: 1 } ],
