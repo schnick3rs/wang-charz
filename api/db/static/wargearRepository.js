@@ -261,7 +261,7 @@ const core = [
   },
   {
     ...gear('core',211,'Astartes Combat Knife','3U','Blade,Adeptus Astartes'),
-    ...meleez(undefined,3,2,0,0,'Reliable'),
+    ...meleez(undefined,3,2,-1,0,'Reliable'),
   },
   {
     ...gear('core',211,'Sword','3C','Blade,[Any]'),
@@ -280,19 +280,19 @@ const core = [
     ...meleez('Chain Weapon',4,1,0,0,'Brutal'),
   },
   { // not a real entry delete soon
-    ...gear('core',213,'Chain Sword','4R','Chain,[Any]'),
+    ...gear('core',213,'Chain Sword','4U','Chain,Aeldari,Imperium,Chaos'),
     ...meleez('Chain Weapon',5,4,0,0,'Brutal,Parry'),
   },
   {
-    ...gear('core',213,'Chainsword','4R','Chain,[Any]'),
+    ...gear('core',213,'Chainsword','4U','Chain,Aeldari,Imperium,Chaos'),
     ...meleez('Chain Weapon',5,4,0,0,'Brutal,Parry'),
   },
   {
-    ...gear('core',213,'Chain Axe','3R','Chain,Chaos'),
-    ...meleez('Chain Weapon',5,4,0,0,'Brutal,Rending(1)'),
+    ...gear('core',213,'Chain Axe','5R','Chain,Chaos'),
+    ...meleez('Chain Weapon',5,5,0,0,'Brutal,Rending(1)'),
   },
   {
-    ...gear('core',214,'Evisceractor','3R','Chain,2-Handed,Adeptus Astartes,Adeptus Ministorum,Adepta Sororitas'),
+    ...gear('core',214,'Evisceractor','6R','Chain,2-Handed,Adeptus Astartes,Adeptus Ministorum,Adepta Sororitas'),
     ...meleez('Chain Weapon',6,6,-4,2,'Brutal,Unwieldy(2)'),
   },
   {
@@ -304,7 +304,7 @@ const core = [
     ...meleez('Exotic Melee Weapon',1,1,0,4,'Agonising'),
   },
   {
-    ...gear('core',214,'Neural Whip','5R','Exotic,Chaos,Inquisition'),
+    ...gear('core',214,'Neural Whip','5R','Exotic,Adepta Sororitas'),
     ...meleez('Exotic Melee Weapon',3,2,-2,4,'Agonising'),
   },
   {
@@ -316,12 +316,12 @@ const core = [
     ...meleez('Exotic Melee Weapon',4,4,-1,0,'Agonising,Brutal'),
   },
   {
-    ...gear('core',214,'Force Stave','2U','Primitive,[Any]'),
+    ...gear('core',214,'Force Stave','2U','Forde,2-Handed,Inquisition,Adeptus Astartes,Adeptus Astra Telepathica'),
     ...meleez('Force Weapon',4,2,-1,2,'Brutal,Force'),
   },
   {
     ...gear('core',214,'Force Sword','6R','Force,Inquisition,Adeptus Astartes'),
-    ...meleez('Force Weapon',5,4,-3,0,'Parry'),
+    ...meleez('Force Weapon',5,4,-3,0,'Force,Parry'),
   },
   {
     ...gear('core',214,'Force Axe','6V','Force,Inquisition,Adeptus Astartes'),
@@ -336,12 +336,12 @@ const core = [
     ...meleez('Power Weapon',5,4,-2,0,'Parry'),
   },
   {
-    ...gear('core',215,'Power Sword','5R','Power Field,Imperium,Aeldari'),
+    ...gear('core',215,'Power Sword','6R','Power Field,Imperium,Aeldari'),
     ...meleez('Power Weapon',5,4,-3,0,'Parry'),
   },
   {
     ...gear('core',215,'Void Sabre','6V','Power Field,Aeldari,Anhrathe'),
-    ...meleez('Power Weapon',5,4,-2,0,'Brutal,Parry'),
+    ...meleez('Aeldari Weapon',5,4,-3,0,'Brutal,Parry'),
   },
   {
     ...gear('core',215,'Omnissian Axe','6V','Power Field,2-Handed,Imperium,Adeptus Mechanicus'),
@@ -356,7 +356,7 @@ const core = [
     ...meleez('Power Weapon',5,5,-3,0, 'Brutal,Unwieldy(2)'),
   },
   {
-    ...gear('core',215,'Thunder Hammer','8V','Power Field,2-Handed,Imperium,Adeptus Astartes,Inquisition'),
+    ...gear('core',215,'Thunder Hammer','9L','Power Field,2-Handed,Imperium,Adeptus Astartes,Inquisition'),
     ...meleez('Power Weapon',8,6,-3,2, 'Brutal,Unwieldy(2)'),
   },
   {
@@ -364,7 +364,7 @@ const core = [
     ...meleez('Aeldari Weapon',6,5,0,2, 'Assault,Force,Warp Weapon,Thrown(STRx5)'),
   },
   {
-    ...gear('core',215,'Witchblade','9R','Force,Aeldari,Asuryani'),
+    ...gear('core',215,'Witchblade','9V','Force,Aeldari,Asuryani'),
     ...meleez('Aeldari Weapon',6,5,0,0, 'Force,Parry,Warp Weapon'),
   },
   {
@@ -385,7 +385,7 @@ const core = [
   },
   {
     ...gear('core',216,'Power Klaw','8V','Power Field,Ork'),
-    ...meleez('Ork Weapon',6,5,-3,0, 'Brutal,Unwieldy(3)'),
+    ...meleez('Ork Weapon',6,5,-3,2, 'Brutal,Unwieldy(3),Waaagh!'),
   },
   {
     ...gear('core',216,'Bolt Pistol','4U','Bolt,Imperium'),
