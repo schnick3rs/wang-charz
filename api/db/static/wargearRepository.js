@@ -1128,7 +1128,7 @@ const core = [
     ...gear('core',244,'Augmetic Viscera','5V','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Enhancements',
     snippet: 'You gain +2 Toughness.',
-    modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2 } ],
+    modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 } ],
   },
   {
     ...gear('core',244,'Auger Array (Auspex)','4R','Imperium,Adeptus Mechanicus'),
