@@ -441,7 +441,7 @@ const core = [
   },
   {
     ...gear('core',222,'Long Las','6U','Las,Imperium,Astra Militarum'),
-    ...rangez('Las Weapon',10,1,-2,24,0,'Sniper(1),Reliable'),
+    ...rangez('Las Weapon',10,1,0,24,0,'Sniper(1),Reliable'),
   },
   {
     ...gear('core',222,'Lascannon','9U','Las,Imperium'),
