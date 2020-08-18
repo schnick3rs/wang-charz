@@ -1,6 +1,6 @@
-import colors from 'vuetify/es5/util/colors';
-import path from 'path';
-import axios from 'axios';
+const colors = require('vuetify/es5/util/colors').default;
+const path = require('path');
+const axios = require('axios');
 
 module.exports = {
   mode: 'universal',
