@@ -660,7 +660,8 @@ const core = [
     snippet: 'You can Reload your weapon as a Free Action.',
   },
   {
-    ...gear('core',227,'Bayonet Lung','1C','[Any]'),
+    ...gear('core',227,'Bayonet Lug','1C','[Any]'),
+    key: 'core-bayonet-lung',
     type: 'Weapon Upgrade',
     upgradeType: 'Bayonet',
     snippet: 'You can use this weapon as a Knife (p. 211).',
