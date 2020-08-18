@@ -3,7 +3,8 @@
  */
 const Router = require('express-promise-router');
 
-const uuidv4 = require('uuid/v4');
+import { v4 } from 'uuid';
+
 const bcrypt = require('bcrypt');
 
 const db = require('../db');
@@ -31,10 +32,9 @@ router.post('/register', async (request, response) => {
   // const hash = await bcrypt.hash(password, saltRounds);
   const hash = bcrypt.hashSync(password, saltRounds);
 
-  const uuid = uuidv4();
   await db.queryAsyncAwait(
     'INSERT INTO wrath_glory.user (username, password, uuid) VALUES ($1, $2, $3)',
-    [username, hash, uuid],
+    [username, hash, v4()],
   );
 
   response.status(201).json({});

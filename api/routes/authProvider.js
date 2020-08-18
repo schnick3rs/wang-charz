@@ -3,7 +3,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 const { JWT_SECRET } = process.env;
 
-const uuidv4 = require('uuid/v4');
+import { v4 } from 'uuid';
 
 const authProvider = require('jsonwebtoken');
 
@@ -22,7 +22,7 @@ module.exports = {
       issuer: JWT_ISSUER,
 
       // Case sensitive unique identifier of the token even among different issuers.
-      jwtid: uuidv4(),
+      jwtid: v4(),
 
       // Identifies the subject of the JWT.
       subject: `${userId}`,
