@@ -2,7 +2,7 @@
 // Astra Militarum
 
 const source = {
-  core: { book: 'Core Rules (v1.5.1)', key: 'core', version: 'v1.5.1' },
+  core: { book: 'Core Rules (v1.5.2)', key: 'core', version: 'v1.5.2' },
   core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
   aaoa: { book: 'An Abundance of Apocrypha (v3.1)', key: 'aaoa', version: 'v3.1', path: '/vault/an-abundance-of-apocrypha' },
   aaoa2: { book: 'An Abundance of Apocrypha (v2)', key: 'aaoa2', version: '', path: '/vault/an-abundance-of-apocrypha' },
@@ -2911,7 +2911,7 @@ const aaoaRep = [
     ],
   },
   {
-    ...archetype('aaoa',60,'Adeptus Astartes','Primaris Apothecary',1,'Primaris Astartes'),
+    ...archetype('aaoa',60,'Adeptus Astartes','Primaris Apothecary',4,'Primaris Astartes'),
     ...cost(294 ,50,243, 0, 0),
     hint: 'A warrior-healer, guardian of his brothers’ lives.',
     prerequisites: [

@@ -1,3 +1,5 @@
+import redirectSSL from 'redirect-ssl';
+
 const colors = require('vuetify/es5/util/colors').default;
 const path = require('path');
 const axios = require('axios');
@@ -232,9 +234,8 @@ module.exports = {
     },
   },
 
-
   serverMiddleware: [
-    'redirect-ssl',
+    redirectSSL.create({ enabled: false }),
     '~/api/express', // handles /api/** calls
     // '~/serverMiddleware/forcedomain'
   ],
