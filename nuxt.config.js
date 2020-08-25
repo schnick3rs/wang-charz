@@ -233,7 +233,7 @@ module.exports = {
   },
 
   serverMiddleware: [
-    ['redirect-ssl', { enabled: process.env.NODE_ENV === 'production' }],
+    'redirect-ssl',
     '~/api/express', // handles /api/** calls
     // '~/serverMiddleware/forcedomain'
   ],
