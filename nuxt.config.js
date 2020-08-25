@@ -240,9 +240,9 @@ module.exports = {
     // '~/serverMiddleware/forcedomain'
   ],
 
-  /*
-  ** Build configuration
-  */
+  /**
+    * Build configuration
+    */
   build: {
     /*
     ** You can extend webpack config here
