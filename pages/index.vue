@@ -4,6 +4,7 @@
     no-gutters
     dense
   >
+
     <v-col
       v-for="section in sections"
       :key="section.key"

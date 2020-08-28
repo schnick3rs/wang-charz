@@ -25,8 +25,16 @@ export const getters = {
     return Math.max(archetypeTier, ascensionTier);
   },
 
+  characterStateById: (state) => (id) => {
+    const character = state.characters[id];
+    console.info(character);
+    let cleanCharacter = JSON.parse(JSON.stringify(character));
+    return character;
+  },
+
   characterStateJsonById: (state) => (id) => {
     const character = state.characters[id];
+    console.info(character);
     let cleanCharacter = JSON.parse(JSON.stringify(character));
     cleanCharacter.avatarUrl = undefined;
     return JSON.stringify(cleanCharacter);
@@ -794,6 +802,7 @@ export const mutations = {
 
   // character handling
   create(state, id) {
+    console.info(`[${id}] Create new char within ${state.list.length} entries.`);
     state.list.push(id);
     const newChar = {};
     Object.assign(newChar, getDefaultState());
@@ -804,6 +813,7 @@ export const mutations = {
       ...state.characters,
       ...newObj,
     };
+    console.info(`[${id}] Char added to vuex state.`);
   },
   import(state, payload) {
     state.list.push(payload.id);
@@ -870,6 +880,36 @@ export const mutations = {
 };
 
 export const actions = {
+
+  createCharacter({commit, dispatch, getters}, payload) {
+    console.info(`Create new character in vuex...`);
+    commit('create', payload.id);
+    const obj = getters.characterStateById(payload.id);
+    console.info(`Dispatch save character to db -> ${obj}`);
+    dispatch('saveCharacterToDb', {id: payload.id, charState: obj}, {root: true});
+  },
+
+  setCharacterName({commit, state, dispatch}, payload) {
+    commit('setCharacterName', payload);
+    const { id } = payload;
+    const patch = state.characters[id].name;
+    const column = 'name';
+    dispatch('patchCharacterInDb', { id, patch, column }, {root: true});
+  },
+
+  setCharacterSpecies({commit, state, dispatch}, payload) {
+    commit('setCharacterSpecies', payload);
+    const { id } = payload;
+    const patch = state.characters[id].species;
+    dispatch('patchCharacterInDb', { id, patch, column: 'species' }, {root: true});
+  },
+
+  setCharacterSpeciesAstartesChapter({commit, state, dispatch}, payload) {
+    commit('setCharacterSpeciesAstartesChapter', payload);
+    const { id } = payload;
+    const patch = state.characters[id].speciesAstartesChapter;
+    dispatch('patchCharacterInDb', { id, patch, column: 'speciesAstartesChapter' }, {root: true});
+  },
 
   clearCharacterAscensionPackage({ commit, state }, payload) {
     const { id, value, key } = payload;

@@ -109,7 +109,7 @@ module.exports = {
     }],
     '@nuxtjs/sitemap',
     '@nuxtjs/axios',
-    // '@nuxtjs/auth',
+    '@nuxtjs/auth',
     ['@nuxtjs/redirect-module', [
       { from: '^/builder.*', to: '/forge/my-characters', statusCode: 301 },
       { from: '^/vault/the-emperors-angles', to: '/vault/the-emperors-angels', statusCode: 301 },
@@ -193,28 +193,49 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    baseURL: 'https://www.doctors-of-doom.com/',
     browserBaseURL: '/',
   },
   proxy: {
     // '/api/': 'https://www.doctors-of-doom.com', // only for development
   },
 
-  /* auth: {
+  auth: {
+    localStorage: false,
+    plugins: [
+      //'~/plugins/auth.js'
+    ],
+    redirect: {
+      login: false,
+      logout: false,
+    },
+    cookie: {
+      options: {
+        expires: 30,
+      },
+    },
     strategies: {
       local: {
         endpoints: {
+          // we call POST **/login and use the data.token value
           login: { url: 'api/users/login', method: 'post', propertyName: 'token' },
           logout: false,
           user: { url: 'api/users/me', mthod: 'get', propertyName: 'data'},
         },
         // tokenRequired: true,
+        // tokenName: 'Authorization',
         // tokenType: 'Bearer'
+        // globalToken: true,
+        // autoFetchUser: true,
+        // use this for cookie workflow
+        //tokenRequired: false,
+        //tokenType: false,
       },
+      /*google: {
+        client_id: process.env.AUTH_GOOGLE_CLIENT_ID,
+      },*/
     },
-    plugins: [
-      '~/plugins/auth.js'
-    ]
-  }, */
+  },
 
   /*
   ** vuetify module configuration

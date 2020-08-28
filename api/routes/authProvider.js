@@ -13,7 +13,7 @@ module.exports = {
   sign: (userId, jwtPayload) => {
     const jwtOptions = {
 
-      expiresIn: '1h',
+      //expiresIn: '1h',
 
       // Identifies the recipients that the JWT is intended for.
       // audience: '',
@@ -46,19 +46,25 @@ module.exports = {
     };
   },
   verifyRequest: (request) => {
-    const authHeader = request.header('Authorization');
+    const cookies = request.headers.cookie;
+    const cookieList = cookies.split(';').map((c) => c.trim());
+    const cookie = cookieList.find((c) => c.startsWith('auth._token.local') );
+    if (cookie) {
+      const cookieValue = cookie.split('=')[1]
+      const token = decodeURIComponent(cookieValue).split('Bearer ')[1];
+      console.info(token)
 
-    const token = authHeader.split('Bearer ')[1];
+      const jwtVerifyOptions = {
+        issuer: [JWT_ISSUER],
+      };
 
-    const jwtVerifyOptions = {
-      issuer: [JWT_ISSUER],
-    };
+      const decoded = authProvider.verify(token, JWT_SECRET, jwtVerifyOptions);
 
-    const decoded = authProvider.verify(token, JWT_SECRET, jwtVerifyOptions);
-
-    return {
-      ...decoded,
-      token,
-    };
+      return {
+        ...decoded,
+        token,
+      };
+    }
+    return {};
   },
 };

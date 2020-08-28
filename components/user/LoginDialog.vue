@@ -16,24 +16,31 @@
       </v-card-title>
 
       <v-card-text>
-        <div v-if="!isLoggedIn">
-          <v-text-field
-            v-model="username"
-            :rules="[rules.required]"
-            label="Username"
-            hint=""
-          />
+        <v-form>
+          <div v-if="!isLoggedIn">
+            <v-text-field
+              v-model="username"
+              :rules="[rules.required]"
+              label="Username"
+              hint=""
+            />
 
-          <v-text-field
-            v-model="password"
-            :append-icon="showPassword ? 'visibility' : 'visibility_off'"
-            :type="showPassword ? 'text' : 'password'"
-            :rules="[rules.required]"
-            label="Password"
-            persistent-hint
-            @click:append="showPassword = !showPassword"
-          />
-        </div>
+            <v-text-field
+              v-model="password"
+              :append-icon="showPassword ? 'visibility' : 'visibility_off'"
+              :type="showPassword ? 'text' : 'password'"
+              :rules="[rules.required]"
+              label="Password"
+              type="password"
+              persistent-hint
+              @click:append="showPassword = !showPassword"
+            />
+          </div>
+        </v-form>
+      </v-card-text>
+
+      <v-card-text>
+        <v-btn @click="loginGoogle">google</v-btn>
       </v-card-text>
 
       <v-card-actions>
@@ -75,12 +82,17 @@ export default {
         },
       };
       this.$auth.loginWith('local', user)
-        .then((response) => { })
-        .catch((error) => { console.warn('An unexpected error'); })
+        .then((response) => {
+          console.info(`login DONE -> ${response}`);
+        })
+        .catch((error) => { console.warn(`An unexpected error -> ${error}`); })
         .finally(() => {
           this.loading = false;
           this.$emit('close');
         });
+    },
+    loginGoogle(){
+      this.$auth.loginWith('google');
     },
   },
 };

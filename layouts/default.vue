@@ -106,6 +106,7 @@
             </g>
           </svg>
         </v-btn>
+        <toolbar-account-actions></toolbar-account-actions>
       </v-toolbar-items>
 
       <v-app-bar-nav-icon @click.stop="toggleDrawer" class="d-md-none" />

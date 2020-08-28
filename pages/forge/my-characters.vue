@@ -370,6 +370,11 @@
           </v-dialog>
 
         </v-row>
+
+        <v-row>
+          <v-btn @click="loadAllCharactersForLoggedInUser()">Load those fuckers</v-btn>
+        </v-row>
+
       </v-col>
 
       <v-col :cols="12">
@@ -575,6 +580,12 @@ export default {
 
       return '/img/avatars/species/core-human.png';
     },
+    loadAllCharactersForLoggedInUser() {
+      this.$axios.get(`/api/characters/`)
+        .then( (response) => {
+          console.info(response);
+        });
+    },
     load(characterId) {
       this.$axios.get(`/api/characters/${characterId}`)
         .then((response) => {
@@ -591,8 +602,8 @@ export default {
     },
     newCharacter() {
       const newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
-      this.$store.commit('characters/create', newCharId);
       this.$ga.event('New Character', 'click', newCharId, 10);
+      this.$store.dispatch('characters/createCharacter', { id: newCharId });
     },
     openDeleteDialog(id){
       this.deleteId = id;

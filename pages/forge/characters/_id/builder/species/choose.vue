@@ -171,7 +171,7 @@ export default {
       }
       this.speciesDialog = true;
     },
-    selectSpeciesForChar(species) {
+    selectSpeciesForChar(species){
 
       // TODO ensure attributes and skills
       if (species.prerequisites) this.ensurePrerequisites(species.prerequisites);
@@ -184,7 +184,7 @@ export default {
         });
 
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: 'species' });
-      this.$store.commit('characters/setCharacterSpecies', { id: this.characterId, species: { key: species.key, label: species.name, cost: species.costs.species } });
+      this.$store.dispatch('characters/setCharacterSpecies', { id: this.characterId, species: { key: species.key, label: species.name, cost: species.costs.species } });
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: modifications, source: 'species' } });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'species' });
