@@ -358,7 +358,7 @@ export default {
           { text: '2 - Stalwart Defenders', value: 2 },
           { text: '3 - Elite Guardians', value: 3 },
           { text: '4 - Heroic Operatives', value: 4 },
-          // { text: '5 - Agents of Fate', value: 5 },
+          { text: '5 - Agents of Fate', value: 5 },
         ],
       },
       settingPlayMode: false,

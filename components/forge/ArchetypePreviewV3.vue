@@ -3,6 +3,20 @@
 
     <v-row no-gutters>
 
+      <v-col :cols="12" v-if="item.source">
+        <p>
+          <strong>Source:</strong>
+          <nuxt-link v-if="item.source.path" :to="item.source.path">{{ item.source.book }}</nuxt-link>
+          <span v-else>
+            {{ item.source.book }}
+            <a v-if="item.source.link" :href="item.source.link" target="_blank">
+              <v-icon small>launch</v-icon>
+            </a>
+          </span>
+          <em>(pg. {{ item.source.page }})</em>
+        </p>
+      </v-col>
+
       <v-col :cols="12" :sm="6" :md="6" :lg="5">
 
         <v-container class="caption">
@@ -15,7 +29,7 @@
             <v-col style="background-color: #424242; color: white;">Tier</v-col>
             <v-col>{{ item.tier }}</v-col>
             <v-col style="background-color: #424242; color: white;">Species</v-col>
-            <v-col>{{ item.species.map((s)=>s.split(' \(')[0]).join(', ') }}</v-col>
+            <v-col>{{ item.species.map((s)=>s.name).join(', ') }}</v-col>
             <v-col style="background-color: #424242; color: white;">XP Cost</v-col>
             <v-col>{{ item.cost }}</v-col>
           </v-row>
@@ -50,13 +64,13 @@
             <v-col><strong>Influence:</strong> {{ `${item.influence > 0 ? '+' : ''}${item.influence}` }}</v-col>
           </v-row>
 
-          <v-row>
+          <v-row v-show="false">
             <v-col :cols="8" style="background-color: darkred; color: white;">Suggested Attributes</v-col>
             <v-col :cols="3" style="background-color: #424242; color: white;">XP Cost</v-col>
             <v-col :cols="1" style="background-color: lightgray;">13</v-col>
           </v-row>
 
-          <v-row>
+          <v-row v-show="false">
             <v-col :cols="5" style="background-color: #424242; color: white;">Attribute</v-col>
             <v-col :cols="1" >Str</v-col>
             <v-col :cols="1" style="background-color: lightgray;">Tou</v-col>
@@ -76,14 +90,14 @@
             <v-col :cols="1">{{ suggestedAttributes.fellowship }}</v-col>
           </v-row>
 
-          <v-row v-if="suggestedSkills">
+          <v-row v-show="false" v-if="suggestedSkills">
             <v-col :cols="8" style="background-color: darkred; color: white;">Suggested Skills</v-col>
             <v-col :cols="3" style="background-color: #424242; color: white;">XP Cost</v-col>
             <v-col :cols="1" style="background-color: lightgray;">13</v-col>
             <v-col :cols="12" >{{ suggestedSkills }}</v-col>
           </v-row>
 
-          <v-row v-if="suggestedTalents && suggestedTalents.length > 0">
+          <v-row v-show="false" v-if="suggestedTalents && suggestedTalents.length > 0">
             <v-col :cols="12" style="background-color: darkred; color: white;">Suggested Talents</v-col>
             <v-col :cols="12">
               {{ suggestedTalents.map((t) => `${t.name} (${t.source.key}, pg. ${t.source.page})`).join(', ') }}
@@ -95,7 +109,7 @@
       </v-col>
 
       <v-col class="ma-4">
-        <p>this could be us</p>
+        <div v-html="item.description"></div>
       </v-col>
 
     </v-row>

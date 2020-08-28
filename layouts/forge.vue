@@ -114,7 +114,7 @@
       </v-toolbar-items>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
 
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
@@ -212,7 +212,7 @@
         </v-btn>
       </v-container>
 
-    </v-content>
+    </v-main>
 
     <v-footer
       app

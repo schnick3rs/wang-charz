@@ -22,11 +22,11 @@
       <v-toolbar-items />
     </v-toolbar>
 
-    <v-content>
+    <v-main>
       <v-container grid-list-md>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
 
     <v-footer :app="true" class="pa-2" dark>
       <v-spacer />

@@ -2,10 +2,10 @@
 // Astra Militarum
 
 const source = {
-  core: { book: 'Core Rules (v1.5.2)', key: 'core', version: 'v1.5.2' },
-  core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
-  aaoa: { book: 'An Abundance of Apocrypha (v3.1)', key: 'aaoa', version: 'v3.1', path: '/vault/an-abundance-of-apocrypha' },
-  aaoa2: { book: 'An Abundance of Apocrypha (v2)', key: 'aaoa2', version: '', path: '/vault/an-abundance-of-apocrypha' },
+  core: { book: 'Core Rules', key: 'core', version: 'v1.5.2', link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959' },
+  core10: { book: 'Core Rules', key: 'core10', version: 'v1' },
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v3.2', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa2: { book: 'An Abundance of Apocrypha', key: 'aaoa2', version: 'v2.0', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -19,7 +19,13 @@ const source = {
   pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
   sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
   amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
+  dod: { book: 'Doctors of Doom Compendium', key: 'dod', version: '', path: '' },
 };
+
+const _statCosts = {
+  attributes: [0, 0, 4, 10, 20, 35, 55, 80, 110, 145, 185, 230, 280],
+  skills: [0, 2, 6, 12, 20, 30, 42, 56, 72],
+}
 
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
@@ -65,8 +71,12 @@ const archetype = function (sourceKey, sourcePage, faction, name, tier, species,
       speciesName = species;
     }
   }
-  const speciesLabel = `${speciesName} (${speciesSourceKey.toLowerCase()})`;
-  const speciesKey = `${speciesSourceKey.toLowerCase()}-${stringToKebab(speciesName)}`;
+
+  const speciesObject = {
+    name: speciesName,
+    key: `${speciesSourceKey.toLowerCase()}-${stringToKebab(speciesName)}`,
+    sourceKey: speciesSourceKey.toLowerCase(),
+  };
 
   return {
     source: {
@@ -79,8 +89,7 @@ const archetype = function (sourceKey, sourcePage, faction, name, tier, species,
     tier,
     faction,
     factionKey: `${stringToKebab(`core ${faction}`)}`,
-    species: [ speciesLabel ],
-    speciesKey: [ speciesKey ],
+    species: [ speciesObject ],
     stub,
     wargear: [],
     prerequisites: [],
@@ -89,7 +98,7 @@ const archetype = function (sourceKey, sourcePage, faction, name, tier, species,
   };
 }
 
-const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, tier, stub = true) {
+const simpleStub = function (sourceKey, sourcePage, species, faction, name, bp, tier, stub = true) {
   let speciesSourceKey = 'core';
   let speciesName = 'Human';
 
@@ -109,8 +118,11 @@ const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, ti
     }
   }
 
-  const speciesLabel = `${speciesName} (${speciesSourceKey.toLowerCase()})`;
-  const speciesKey = `${speciesSourceKey.toLowerCase()}-${stringToKebab(speciesName)}`;
+  const speciesObject = {
+    name: speciesName,
+    key: `${speciesSourceKey.toLowerCase()}-${stringToKebab(speciesName)}`,
+    sourceKey: speciesSourceKey.toLowerCase(),
+  };
 
   return {
     source: {
@@ -121,10 +133,10 @@ const simpleStub = function (sourceKey, sourcePage, species, group, name, bp, ti
     name,
     cost: bp,
     tier,
-    group,
-    species: [ speciesLabel ],
-    speciesKey: [ speciesKey ],
+    species: [ speciesObject ],
     stub: stub,
+    faction,
+    factionKey: `${stringToKebab(`core ${faction}`)}`,
   };
 };
 
@@ -143,6 +155,18 @@ const reqSkill = function(key, value) {
     threshold: value,
   };
 };
+
+const costz = function(total = 0, prerequisites = []) {
+  let skillAndAttributeCost = 0;
+  prerequisites.forEach((pre) => {
+    skillAndAttributeCost += _statCosts[pre.group][pre.threshold];
+  });
+  const archetypeCost = total - skillAndAttributeCost;
+  return {
+    ...cost(total, archetypeCost, skillAndAttributeCost),
+    prerequisites,
+  };
+}
 
 const simpleAbility = function(name, snippet = undefined, description = undefined) {
   let finalSnippet = snippet;
@@ -1418,16 +1442,12 @@ const core = [
 const dodScumPsyker = [
   {
     name: 'Scum Psyker',
-    cost: 50,
-    tier: 2,
-    source: {
-      book: 'Doctors of Doom Compendium',
-      key: 'dodc',
-      version: '',
-      path: '',
-    },
-    species: ['Human (core)'],
-    speciesKey: ['core-human'],
+    ...archetype('dod','','Scum','Scum Psyker',2,'Human'),
+    ...costz(20,[
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'skills', value: 'psychicMastery', threshold: 1 },
+      { group: 'skills', value: 'cunning', threshold: 1 },
+    ]),
     hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
     influence: 0,
     keywords: 'Imperium,Scum,Psyker',
@@ -1441,50 +1461,47 @@ const dodScumPsyker = [
           { name: 'psykerSmmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
           { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
         ],
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor and Universal Disciplines. You unlock an addtional single Psychic Discipline.',
+        description: '<p>You gain access to the Minor and Universal Disciplines. You unlock an additional single Psychic Discipline, following the rules in Chapter 11.</p>',
+        selected: [''],
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+        ],
         psychicDisciplines: [
           'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
           'Universal',
         ],
-      },
+      }
     ],
-    keywordOption: null,
-    prerequisites: [
-      { group: 'attributes', value: 'willpower', threshold: 4 },
-      { group: 'skills', value: 'psychicMastery', threshold: 1 },
-      { group: 'skills', value: 'cunning', threshold: 1 },
-    ],
-    group: 'Scum',
-    key: 'core-scum-psyker',
     description: null,
   },
 ];
 
-const aotgtRep = [
-  simpleStub('aotgt', '', 'core-human', 'Agents of the Imperium', 'Callidus Assassin', 70, 4),
-  simpleStub('aotgt', '', 'core-human', 'Agents of the Imperium', 'Culexus Assassin', 75, 4),
-  simpleStub('aotgt', '', 'core-human', 'Agents of the Imperium', 'Vindicare Assassin', 80, 4),
-  simpleStub('aotgt', '', 'core-adeptus-astartes', 'Agents of the Imperium', 'Grey Knight', 90, 4),
-];
-
 const aaoaOrks = [
   {
+    name: 'Burna Boy',
     ...archetype('aaoa',48,'Orks','Burna Boy',2,'Ork'),
-    ...cost(68,30,38, 0, 0),
-    hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
-    keywords: 'Ork,[Clan]',
-    prerequisites: [
+    ...costz(48,[
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 2 },
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'tech', threshold: 1 },
       { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
+    ]),
+    hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
+    keywords: 'Ork,[Clan]',
     archetypeFeatures: [
       {
         name: 'Da Burna Dance',
@@ -1494,16 +1511,16 @@ const aaoaOrks = [
     wargear: wargearz('Burna, Ork Flak, 3 Stikkbomb'),
   },
   {
+    name: 'Mekboy',
     ...archetype('aaoa',53,'Orks','Mekboy',2,'Ork'),
-    ...cost(62,20,42, 0, 0),
-    hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
-    keywords: 'Ork,[Clan]',
-    prerequisites: [
+    ...costz(52,[
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 3 },
       { group: 'skills', value: 'tech', threshold: 3 },
-    ],
+    ]),
+    hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
+    keywords: 'Ork,[Clan]',
     archetypeFeatures: [
       {
         name: 'Fix It Proppa',
@@ -1515,16 +1532,16 @@ const aaoaOrks = [
     influence: 1,
   },
   {
+    name: 'Painboy',
     ...archetype('aaoa',55,'Orks','Painboy',2,'Ork'),
-    ...cost(62,20,42, 0, 0),
-    hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
-    keywords: 'Ork,[Clan]',
-    prerequisites: [
+    ...cost(52,[
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 3 },
       { group: 'skills', value: 'medicae', threshold: 3 },
-    ],
+    ]),
+    hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
+    keywords: 'Ork,[Clan]',
     archetypeFeatures: [
       {
         name: 'Make It All Betta',
@@ -1536,17 +1553,17 @@ const aaoaOrks = [
     influence: 1,
   },
   {
+    name: 'Runtherd',
     ...archetype('aaoa',55,'Orks','Runtherd',2,'Ork'),
-    ...cost(68,20,48, 0, 0),
-    hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
-    keywords: 'Ork,[Clan]',
-    prerequisites: [
+    ...costz(58,[
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'fellowship', threshold: 3 },
       { group: 'skills', value: 'intimidation', threshold: 3 },
       { group: 'skills', value: 'leadership', threshold: 2 },
-    ],
+    ]),
+    hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
+    keywords: 'Ork,[Clan]',
     archetypeFeatures: [
       {
         name: 'Slaver',
@@ -1558,16 +1575,16 @@ const aaoaOrks = [
     influence: 1,
   },
   {
+    name: 'Tankbusta',
     ...archetype('aaoa',58,'Orks','Tankbusta',2,'Ork'),
-    ...cost(58,20,38, 0, 0),
-    hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
-    prerequisites: [
+    ...costz(48,[
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'tech', threshold: 1 },
-    ],
+    ]),
+    hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
     keywords: 'Ork,[Clan]',
     archetypeFeatures: [
       {
@@ -1580,17 +1597,17 @@ const aaoaOrks = [
     influence: 1,
   },
   {
+    name: 'Flash Git',
     ...archetype('aaoa',72,'Orks','Flash Git',3,'Ork'),
-    ...cost(94,30,64, 0, 0),
-    hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
-    prerequisites: [
+    ...costz(84,[
       { group: 'attributes', value: 'strength', threshold: 4 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'skills', value: 'ballisticSkill', threshold: 3 },
       { group: 'skills', value: 'cunning', threshold: 2 },
       { group: 'skills', value: 'intimidation', threshold: 2 },
-    ],
+    ]),
+    hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
     keywords: 'Ork,[Clan]',
     archetypeFeatures: [
       {
@@ -1603,15 +1620,15 @@ const aaoaOrks = [
     influence: 2,
   },
   {
+    name: 'Weirdboy',
     ...archetype('aaoa',86,'Orks','Weirdboy',3,'Ork'),
-    ...cost(126,80,46, 0, 0),
-    hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
-    prerequisites: [
+    ...cost(66,[
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'psychicMastery', threshold: 2 },
-    ],
+    ]),
+    hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
     keywords: 'Ork,Psyker,[Clan]',
     archetypeFeatures: [
       {
@@ -1631,18 +1648,18 @@ const aaoaOrks = [
 ];
 
 const aaoaAeldari = [
+  // Craftsworld
   {
     name: 'Guardian',
     ...archetype('aaoa', 35, 'Aeldari', 'Guardian', 1, 'Aeldari'),
-    ...cost(38,0,38, 0, 0),
-    hint: 'A Cratsworld Last Line of Defence.',
-    keywords: 'Aeldari, Asuryani, [Craftworld]',
-    prerequisites: [
+    ...costz(20,[
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'attributes', value: 'willpower', threshold: 2 },
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       // OR { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
+    ]),
+    hint: 'A Cratsworld Last Line of Defence.',
+    keywords: 'Aeldari, Asuryani, [Craftworld]',
     archetypeFeatures: [
       {
         name: 'The Last Line',
@@ -1655,17 +1672,15 @@ const aaoaAeldari = [
   {
     name: 'Bonesinger',
     ...archetype('aaoa', 47, 'Aeldari', 'Bonesinger', 2, 'Aeldari'),
-    ...cost(102,40,62, 0, 0),
-    hint: 'Shapers of Bone.',
-    keywords: 'Aeldari, Asuryani, [Craftworld], Psyker',
-    prerequisites: [
+    ...costz(72,[
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 4 },
       { group: 'attributes', value: 'willpower', threshold: 4 },
       { group: 'skills', value: 'psychicMastery', threshold: 2 },
       { group: 'skills', value: 'tech', threshold: 2 },
-      // OR { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
+    ]),
+    hint: 'Shapers of Bone.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Psyker',
     archetypeFeatures: [
       {
         name: 'Path of the Shaper',
@@ -1704,20 +1719,19 @@ const aaoaAeldari = [
     wargear: wargearz('Rune armour, psytronome shaper, a set of wraithbone runes, Bonesinger shard, Spirit Stone'),
     influence: 1,
   },
-  // Aspect warriors
+  // Craftsworld > Aspect warriors
   {
     name: 'Dark Reaper',
     ...archetype('aaoa', 67, 'Aeldari', 'Dark Reaper', 3, 'Aeldari'),
-    ...cost(112,30,82, 0, 0),
-    hint: 'Aspect warriors, merciless and deadly at range.',
-    prerequisites: [
+    ...costz(92,[
       reqAttribute('agility', 3),
       reqAttribute('strength', 4),
       reqAttribute('willpower', 3),
       reqSkill('ballisticSkill', 5),
       reqSkill('awareness', 3),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    ]),
+    hint: 'Aspect warriors, merciless and deadly at range.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
     archetypeFeatures: [
       simpleAbility('Inescapable Aim: You may reroll up to Double Rank dice on any Ranged Attack you make.'),
     ],
@@ -1727,17 +1741,16 @@ const aaoaAeldari = [
   {
     name: 'Dire Avenger',
     ...archetype('aaoa', 70, 'Aeldari', 'Dire Avenger', 3, 'Aeldari'),
-    ...cost(126,30,96, 0, 0),
-    hint: 'Aspect warriors, skilled in the arts of aggressive defence.',
-    prerequisites: [
+    ...costz(116,[
       reqAttribute('agility', 4),
       reqAttribute('initiative', 4),
       reqAttribute('willpower', 3),
       reqSkill('ballisticSkill', 4),
       reqSkill('leadership', 2),
       reqSkill('weaponSkill', 4),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    ]),
+    hint: 'Aspect warriors, skilled in the arts of aggressive defence.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
     archetypeFeatures: [
       simpleAbility('Defensive Tactics: You add +Rank to your Defence. In addition, when an enemy Charges you, you may make a ranged attack against them as a Reflexive Action, adding +2 to the DN of the attack. This attack is resolved before the enemy moves.'),
     ],
@@ -1747,17 +1760,16 @@ const aaoaAeldari = [
   {
     name: 'Fire Dragon',
     ...archetype('aaoa', 71, 'Aeldari', 'Fire Dragon', 3, 'Aeldari'),
-    ...cost(118,30,88, 0, 0),
-    hint: 'Aspect warriors, turning all in their path to molten ruin.',
-    prerequisites: [
+    ...costz(108,[
       reqAttribute('toughness', 3),
       reqAttribute('agility', 4),
       reqAttribute('willpower', 3),
       reqSkill('athletics', 2),
       reqSkill('ballisticSkill', 5),
       reqSkill('tech', 3),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    ]),
+    hint: 'Aspect warriors, turning all in their path to molten ruin.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
     modifications: [],
     archetypeFeatures: [
       simpleAbility('Assured Destruction: When you attack a vehicle, structure, or monstrous creature, add +Rank ED to the attack. In addition, add +Rank to your resilience against attacks with the FIRE or MELTA keywords.'),
@@ -1768,17 +1780,16 @@ const aaoaAeldari = [
   {
     name: 'Howling Banshee',
     ...archetype('aaoa', 75, 'Aeldari', 'Howling Banshee', 3, 'Aeldari'),
-    ...cost(137,30,107, 0, 0),
-    hint: 'Aspect warriors, swift shock troops whose shriek freezes the hearts of their foes.',
-    prerequisites: [
+    ...costz(127,[
       reqAttribute('agility', 5),
       reqAttribute('initiative', 4),
       reqAttribute('willpower', 3),
       reqSkill('athletics', 2),
       reqSkill('intimidation', 2),
       reqSkill('weaponSkill', 5),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    ]),
+    hint: 'Aspect warriors, swift shock troops whose shriek freezes the hearts of their foes.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
     archetypeFeatures: [
       simpleAbility('Swift Death: When you Run, Charge, or Sprint, increase your Speed by +Rank. In addition, you may use Agility instead of Strength for your Athletics skill tests.'),
     ],
@@ -1788,17 +1799,16 @@ const aaoaAeldari = [
   {
     name: 'Shining Spear',
     ...archetype('aaoa', 75, 'Aeldari', 'Shining Spear', 3, 'Aeldari'),
-    ...cost(151,30,131, 0, 0),
-    hint: 'Aspect warriors, jetbike-mounted lancers who slay the mightiest foes',
-    prerequisites: [
+    ...costz(141,[
       reqAttribute('strength', 2),
       reqAttribute('agility', 5),
       reqAttribute('willpower', 3),
       reqSkill('pilot', 5),
       reqSkill('tech', 2),
       reqSkill('weaponSkill', 5),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    ]),
+    hint: 'Aspect warriors, jetbike-mounted lancers who slay the mightiest foes',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
     archetypeFeatures: [
       simpleAbility('Ride the Wind: You may reroll Double Rank dice on any Pilot test you make when operating an Aeldari Jetbike'),
     ],
@@ -1808,17 +1818,16 @@ const aaoaAeldari = [
   {
     name: 'Striking Scorpion',
     ...archetype('aaoa', 82, 'Aeldari', 'Striking Scorpion', 3, 'Aeldari'),
-    ...cost(118,30,88, 0, 0),
-    hint: 'Aspect warriors, stealthy killers who strike with unseen power.',
-    prerequisites: [
+    ...costz(108,[
       reqAttribute('strength', 3),
       reqAttribute('agility', 4),
       reqAttribute('willpower', 3),
       reqSkill('athletics', 2),
       reqSkill('stealth', 3),
       reqSkill('weaponSkill', 5),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    ]),
+    hint: 'Aspect warriors, stealthy killers who strike with unseen power.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
     archetypeFeatures: [
       simpleAbility('Hunt in the Shadows: You may reroll up to Double Rank dice when making a Stealth test. In addition, you add +Rank bonus dice when you make a Surprise Attack.'),
     ],
@@ -1828,15 +1837,14 @@ const aaoaAeldari = [
   {
     name: 'Swooping Hawk',
     ...archetype('aaoa', 83, 'Aeldari', 'Swooping Hawk', 3, 'Aeldari'),
-    ...cost(111,30,81, 0, 0),
-    hint: 'Aspect warriors, flitting across the skies to deal vengeance.',
-    prerequisites: [
+    ...costz(101,[
       reqAttribute('agility', 5),
       reqAttribute('willpower', 3),
       reqSkill('athletics', 2),
       reqSkill('ballisticSkill', 5),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    ]),
+    hint: 'Aspect warriors, flitting across the skies to deal vengeance.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
     archetypeFeatures: [
       simpleAbility('Skyleap: So long as you are able to Fly, you may Fall Back as a Simple action, rather than a Combat Action. In addition, when you take the Full Defence action, you immediately move twice your Flying Speed (instead of halving your Speed) away from the enemy and add +Rank bonus dice to the Initiative test to increase your Defence. Naturally, these abilities require that you be able to fly, and have room to do so.'),
     ],
@@ -1846,17 +1854,16 @@ const aaoaAeldari = [
   {
     name: 'Warp Spider',
     ...archetype('aaoa', 85, 'Aeldari', 'Warp Spider', 3, 'Aeldari'),
-    ...cost(118,30,88, 0, 0),
-    hint: 'Aspect warriors, appearing from nowhere to cut down their prey.',
-    prerequisites: [
+    ...costz(108,[
       reqAttribute('agility', 4),
       reqAttribute('intellect', 3),
       reqAttribute('willpower', 4),
       reqSkill('awareness', 3),
       reqSkill('ballisticSkill', 4),
       reqSkill('tech', 2),
-    ],
-    keywords: 'Aeldari, Asuryani, <Craftworld>, Aspect Warrior',
+    ]),
+    hint: 'Aspect warriors, appearing from nowhere to cut down their prey.',
+    keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
     archetypeFeatures: [
       simpleAbility('Flickerjump: As a Reflexive Action when a ranged attack is made against you, you may add +Double Rank to your Defence, as you use your Warp Jump Generator to flicker in and out of reality.'),
     ],
@@ -1873,17 +1880,16 @@ const aaoaAeldari = [
   {
     name: 'Kabalite Warrior',
     ...archetype('aaoa', 38, 'Drukhari', 'Kabalite Warrior', 1, 'aaoa/Drukhari'),
-    ...cost(38,0,38, 0, 0),
-    hint: 'A dark hunter from the noble houses.',
-    keywords: 'Aeldari,Drukhari,[Cabal]',
-    prerequisites: [
+    ...costz(38,[
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'attributes', value: 'strength', threshold: 2 },
       { group: 'attributes', value: 'initiative', threshold: 3 },
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'cunning', threshold: 1 },
       { group: 'skills', value: 'intimidation', threshold: 2 },
-    ],
+    ]),
+    hint: 'A dark hunter from the noble houses.',
+    keywords: 'Aeldari,Drukhari,[Cabal]',
     archetypeFeatures: [
       {
         name: 'Tormentor',
@@ -1896,17 +1902,16 @@ const aaoaAeldari = [
   {
     name: 'Wych',
     ...archetype('aaoa', 38, 'Drukhari', 'Wych', 1, 'aaoa/Drukhari'),
-    ...cost(52,0,52, 0, 0),
-    hint: 'A deadly cult gladiator.',
-    keywords: 'Aeldari,Drukhari,[Cult]',
-    prerequisites: [
+    ...costz(52,[
       { group: 'attributes', value: 'agility', threshold: 4 },
       { group: 'attributes', value: 'strength', threshold: 2 },
       { group: 'attributes', value: 'initiative', threshold: 3 },
       { group: 'skills', value: 'athletics', threshold: 2 },
       { group: 'skills', value: 'intimidation', threshold: 2 },
       { group: 'skills', value: 'weaponSkill', threshold: 2 },
-    ],
+    ]),
+    hint: 'A deadly cult gladiator.',
+    keywords: 'Aeldari,Drukhari,[Cult]',
     archetypeFeatures: [
       {
         name: 'Hekatarii Prowess',
@@ -1918,17 +1923,16 @@ const aaoaAeldari = [
   {
     name: 'Incubus',
     ...archetype('aaoa', 76, 'Drukhari', 'Incubus', 3, 'aaoa/Drukhari'),
-    ...cost(108,0,58, 0, 0),
-    hint: 'A deadly cult gladiator.',
-    keywords: 'Drukhari',
-    prerequisites: [
+    ...costz(102,[
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'agility', threshold: 4 },
       { group: 'attributes', value: 'willpower', threshold: 3 },
       { group: 'skills', value: 'athletics', threshold: 2 },
       { group: 'skills', value: 'intimidation', threshold: 2 },
       { group: 'skills', value: 'weaponSkill', threshold: 5 },
-    ],
+    ]),
+    hint: 'A deadly cult gladiator.',
+    keywords: 'Drukhari',
     archetypeFeatures: [
       {
         name: 'Lethal Precision',
@@ -2080,11 +2084,904 @@ const aaoaSquat = [
   },
 ];
 
-const aaoaRep = [
-  ...aaoaAeldari,
-  ...aaoaOrks,
-  ...aaoaSquat,
+const aaoaAstraMilitarum = [
   {
+    name: 'Imperial Guard Medic',
+    ...archetype('aaoa', 36, 'Astra Militarum', 'Imperial Guard Medic', 1, 'Human'),
+    ...costz(22, [
+      reqAttribute('intellect', 3),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('medicae', 2),
+    ]),
+    hint: 'A disciplined soldier trained to treat the injuries of their comrades.',
+    keywords: 'Imperium,Astra Militarum,<Regiment>',
+    influence: 0,
+    archetypeFeatures: [
+      simpleAbility('Field Medic',
+        'When you make a Medicae test during combat on a Dying character, +Double Rank bonus dice.'),
+    ],
+    wargear: wargearz(
+      'Flak armour, Lasgun, knife, Munitorum-Issue Mess Kit/guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration pack, medikit'),
+  },
+  {
+    name: 'Imperial Guard Officer',
+    ...archetype('aaoa',37, 'Astra Militarum', 'Imperial Guard Officer', 1, 'Human'),
+    ...costz(22,[
+      reqAttribute('fellowship', 3),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('leadership', 2),
+    ]),
+    hint: 'A stern commander trained to inspire and lead others into the fray.',
+    keywords: 'Imperium,Astra Militarum,<Regiment>,Officer',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Voice of Command',
+        description:
+          '<p>An Officer may spend an action giving an order to a character with the Astra Militarum keyword who is within hearing range and subordinate to the officer. This requires a Leadership test (DN 3). A successful test allows the ordered character to gain one of the following benefits (Officer’s choice, see pg. 37) on their next turn:</p>' +
+          '<ul>' +
+          '<li>The ally may re-roll Double Rank dice on their next aimed ranged attack.</li>' +
+          '<li>The officer chooses a single enemy, and the ally adds +Rank ED to their next ranged attack against that target..</li>' +
+          '<li>The ally may shoot as part of a run action as if their weapon had the Assault trait.</li>' +
+          '<li>The ally adds +Rank to their Speed if they Run or Sprint in their next turn.</li>' +
+          '<li>The ally adds +Rank bonus dice to their next melee attack.</li>' +
+          '</ul>' +
+          '<p>An officer may issue orders to multiple characters, adding +2 to the DN of the leadership test for each character after the first being orders. All character ordered must receive the same benefit.</p>'
+      },
+    ],
+    wargear: wargearz('Flak armour, Refractor Field, Laspistol, chainsword, knife, Munitorum-Issue Mess Kit/guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration packs.'),
+  },
+];
+
+const aaoaPrimarisAstartes = [
+  {
+    ...archetype('aaoa', 100, 'Adeptus Astartes', 'Primaris Hellblaster',  4, 'Primaris Astartes'),
+    ...costz(228, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A specialised warrior, armed with sophisticated, powerful weapons to deal with the toughest foes.',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Hellblaster Focus: When you make an attack with a Plasma weapon, you may re-roll up to Double Rank dice.'),
+    ],
+    wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Plasma Incinerator, Heavy Bolt Pistol, Astartes Combat Knife, 3 frag grenade, 3 krak grenade'),
+  },
+  {
+    ...archetype('aaoa', 101, 'Adeptus Astartes', 'Primaris Inceptor', 4,'Primaris Astartes'),
+    ...costz(230,[
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('pilot', 1),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'An airborne warrior, dealing death from above.',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Meteoric Descent','You run, sprint, or charge using your jump pack, any enemy within 2m of the point where you landed must pass an Agility test (DN 2+Rank) or be knocked prone and suffer a Mortal Wound.'),
+      simpleAbility('Guns Blazing','When you wield a pair of Assault Bolters or Plasma Exterminators, you may benefit from the Dual Wield or Simultaneous Strike talents even though those weapons lack the Pistol trait.'),
+    ],
+    wargearString:
+      'Mark X Gravis Power Armour, Jump Pack, Grav-Chute, two Assault Bolters or two Plasma Exterminators.',
+    wargear: [
+      { name: 'Gravis Mark X' },
+      { name: 'Jump Pack' },
+      { name: 'Grav-Chute' },
+      {
+        name: 'Choose either two Assault Bolters or two Plasma Exterminators',
+        selected: '',
+        options: [
+          { name: 'Two Assault Bolters' },
+          { name: 'Two Plasma Exterminators' },
+        ],
+      },
+    ],
+  },
+  {
+    ...archetype('aaoa', 104,  'Adeptus Astartes', 'Primaris Reiver', 4,'Primaris Astartes'),
+    ...costz(228, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A cunning warrior, spreading death and terror to the enemy.',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Terror Troops', 'When you charge an enemy who was unaware of you before you charged, they must make a Fear test with a DN equal to your Stealth Score.'),
+    ],
+    wargearString:
+      'Mark X Phobos power armour, heavy bolt pistol, bolt carbine, Astartes combat knife, grav-chute, grapple gun, 3 shock grenades, 3 frag grenades, 3 krak grenades.',
+    wargear: [
+      { name: 'Phobos Mark X' },
+      { name: 'Heavy Bolt Pistol' },
+      { name: 'Bolt Carbine' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Grav-chute' },
+      { name: 'Grapple gun' },
+      { name: 'Shock Grenade', amount: 3 },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...archetype('aaoa', 102, 'Adeptus Astartes', 'Primaris Incursor',  4,'Primaris Astartes'),
+    ...costz(228, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'Aggressive, close-assault shock troops, wearing advanced sensors that expose enemies.',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Close Quarters Assault: When making a melee attack, or a ranged attack at short range, against an enemy in cover, an Incursor may re-roll up to Rank dice.'),
+    ],
+    wargearString:
+      'Mark X Phobos power armour, bolt pistol, Occulus bolt carbine, Divinator-class Auspex, two Astartes combat knives (with Matched Pair upgrade), 3 smoke grenades, 3 frag grenades, 3 krak grenades.',
+    wargear: [
+      { name: 'Phobos Mark X' },
+      { name: 'Bolt Pistol' },
+      { name: 'Occulus Bolt Carbine' },
+      { name: 'Divinator-class Auspex' },
+      { name: 'Astartes Combat Knife', variant: 'Two Astartes combat knives (with Matched Pair upgrade)' },
+      { name: 'Smoke Grenade', amount: 3 },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...archetype('aaoa', 103,  'Adeptus Astartes', 'Primaris Vanguard Infiltrator', 4,'Primaris Astartes'),
+    ...costz(228, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'Saboteurs and marksmen, used to operating far from support',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+    archetypeFeatures: [
+      simpleAbility('Voxbane: When you make a Tech interaction attack against an enemy, the range of the attack is increased by 1+Double Rank.'),
+    ],
+    influence: 1,
+    wargearString:
+      'Mark X Phobos power armour, bolt pistol, Marksman bolt carbine, Astartes combat knife, 3 smoke grenades, 3 frag grenades, 3 krak grenades.',
+    wargear: [
+      { name: 'Phobos Mark X' },
+      { name: 'Bolt Pistol' },
+      { name: 'Marksman Bolt Carbine' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Smoke Grenade', amount: 3 },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+    ],
+  },
+  {
+    ...archetype('aaoa', 98, 'Adeptus Astartes', 'Primaris Aggressor', 4,'Primaris Astartes'),
+    ...costz(228, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A mighty warrior, overwhelming foes at close range.',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Relentless Advance: When you Run, you ignore the DN increase for firing an Assault weapon as part of your move.'),
+      simpleAbility('Fire Storm: When you make a ranged attack and do not move during your turn, you increase the Salvo of your weapons by +Rank. In addition, when you wield a pair of Auto Boltstorm Gauntlets or Flamestorm Gauntlets, you may benefit from the Dual Wield or Simultaneous Strike talents even though those weapons lack the Pistol trait.'),
+    ],
+    wargearString:
+      'Mark X Gravis Power Armour, ammunition backpack, Ballistic Appeasement Autoreliquary, and either: Fragstorm Grenade Launcher and 2 Auto Boltstorm Gauntlets or 2 Flamestorm Gauntlets.',
+    wargear: [
+      { name: 'Gravis Mark X' },
+      { name: 'Ammunition Backpack' },
+      { name: 'Ballistic Appeasement Autoreliquary' },
+      { name: 'Fragstorm grenade launcher' },
+      {
+        options: [
+          { name: 'Auto-Boltstorm Gauntlet', variant: 'Paried Auto Boltstorm Gauntlets' },
+          { name: 'Flamestorm Gauntlets', variant: 'Paried Flamestorm Gauntlets' },
+        ],
+      }
+    ],
+  },
+  {
+    ...archetype('aaoa', 99, 'Adeptus Astartes', 'Primaris Vanguard Eliminator', 4,'Primaris Astartes'),
+    ...costz(228, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A mighty warrior, executing foes at long range.',
+    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Precision Shots: When you aim, you add +Rank bonus dice onto the following ranged attack, in addition to the other benefits of aiming.'),
+    ],
+    wargearString:
+      'Mark X Phobos Power Armour, Cameleoline Cloak, Preysense Goggle, Bolt Pistol, Astartes Combat Knife, 3 Frag Grenades, 3 Krak Grenades, and either: a Bolt Sniper Rifle or a Las Fusil.',
+    wargear: [
+      { name: 'Phobos Mark X' },
+      { name: 'Cameleoline Cloak' },
+      { name: 'Preysense Goggle' },
+      { name: 'Bolt Pistol' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenade', ammount: 3 },
+      { name: 'Krak Grenade', ammount: 3 },
+      {
+        name: 'Chose either a Bolt Sniper Rifle or a Las Fusil',
+        selected: '',
+        options: [
+          { name: 'Bolt Sniper Rifle' },
+          { name: 'Las Fusil' },
+        ],
+      }
+    ],
+  },
+  {
+    ...archetype('aaoa',60,'Adeptus Astartes','Primaris Apothecary',4,'Primaris Astartes'),
+    ...costz(294, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 4),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('scholar', 2),
+      reqSkill('medicae', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A warrior-healer, guardian of his brothers’ lives.',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter],Primaris',
+    influence: 2,
+    archetypeFeatures: [
+      simpleAbility('Guard Thy Brethren: Whenever you succeed at a Medicae test upon a Dying ally with the ADEPTUS ASTARTES keyword, gain 1 Wrath. In addition, you gain +Rank to Resolve and Determination while you can see or hear one or more Dying Adeptus Astartes allies.'),
+    ],
+    wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Absolvor Bolt Pistol, Narthecium, Reductor, 3 Frag Grenade, 3 Krak Grenade'),
+  },
+  {
+    ...archetype('aaoa', 108,  'Adeptus Astartes', 'Primaris Techmarine', 4,'Primaris Techmarine'),
+    ...costz(403, [
+      reqAttribute('strength', 6),
+      reqAttribute('toughness', 6),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 5),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 5),
+      reqSkill('pilot', 2),
+      reqSkill('scholar', 3),
+      reqSkill('stealth', 3),
+      reqSkill('tech', 4),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus, Primaris',
+    archetypeFeatures: [
+      simpleAbility('Rite of Repair: You receive +Double Rank to Tech tests to repair damaged machinery. All Tech tests you make take half the standard time..'),
+    ],
+    influence: 2,
+    wargearString:
+      'Artificer Armour, Heavy Bolt Pistol, Omnissian Axe, Heavy Bolter, 3 Frag Grenades, 3 Krak Grenades, Augmetic Servo-arm, and any 2 augmetics.',
+    wargear: [
+      { name: 'Artificer Armour' },
+      { name: 'Heavy Bolt Pistol' },
+      { name: 'Omnissian Axe' },
+      { name: 'Heavy Bolter' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+      { name: 'Mechadendrites (Servo-Arm)' },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: ['Augmetics'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    ...archetype('aaoa',106,'Adeptus Astartes','Primaris Chaplain',5,'Primaris Astartes'),
+    ...costz(384,[
+      reqAttribute('strength', 6),
+      reqAttribute('toughness', 6),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 4),
+      reqAttribute('intellect', 3),
+      reqAttribute('fellowship', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 4),
+      reqSkill('ballisticSkill', 5),
+      reqSkill('intimidation', 2),
+      reqSkill('leadership', 2),
+      reqSkill('persuasion', 2),
+      reqSkill('scholar', 2),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 5),
+    ]),
+    hint: 'A devout warrior, who tends to the spirits of his comrades.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter],Primaris,Priest',
+    influence: 3,
+    archetypeFeatures: [
+      simpleAbility('Spiritual Leaders', 'You, and all allies with the IMPERIUM keyword within 15+Rank metres add +Rank to Resolve. This increases to +Double Rank if they share your [CHAPTER] keyword.'),
+    ],
+    wargear: wargearz('Tacticus Mk X/Mark X Tacticus power armour, Absolver Bolt Pistol, Crozius Arcanum, 3 Frag Grenade, 3 Krak Grenade, Rosarius'),
+  },
+  {
+    ...archetype('aaoa', 107, 'Adeptus Astartes', 'Primaris Librarian', 5,'Primaris Astartes'),
+    ...costz(375,[
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 6),
+      reqAttribute('intellect', 4),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 4),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('intimidation', 1),
+      reqSkill('leadership', 1),
+      reqSkill('psychicMastery', 4),
+      reqSkill('scholar', 3),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'A warrior-sage of the Adeptus Astartes.',
+    keywords: 'Imperium, Adeptus Astartes, [Chapter], Psyker',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Psyker',
+        snippet: 'You know the Smite psychic power.',
+        description:
+          '<p>You are a psyker; you know the Smite psychic power.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          //{ name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor and Universal Disciplines. You unlock an addtional single Psychic Discipline: Divination, Pyromancy, Telekinesis, Telepathy, Maleficarum, Librarius, or a discipline unique to your Chapter',
+        description: '<p>You gain access to the Minor and Universal Disciplines. You unlock an additional single Psychic Discipline: Divination, Pyromancy, Telekinesis, Telepathy, Maleficarum, Librarius, or a discipline unique to your Chapter.</p>',
+        selected: [''],
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'aaoa-librarius', name: 'Librarius', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Librarius' }] },
+          // TODO Chapter Disciplines
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+        ],
+      },
+    ],
+    wargear: wargearz('Tacticus Mk X/Mark X Tacticus power armour, Heavy Bolt Pistol, Force Sword, 3 Frag Grenade, 3 Krak Grenade, Psychic Hood'),
+  },
+];
+
+const aaoaAdeptusAstartes = [
+  {
+    ...archetype('aaoa', 61, 'Adeptus Astartes', 'Assault Space Marine',3, 'Adeptus Astartes'),
+    ...costz(270, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('pilot', 4),
+      reqSkill('scholar', 1),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'A deadly shock trooper, taking the fight to the enemy.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Hammer of Wrath',
+        description:
+          '<p>When you charge into melee using your jump pack, all enemies 2 metres of the point where you land must pass an Agility test (DN 2 +Rank) or be knocked <em>Prone</em>.</p>',
+      },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Chainsword, Jump Pack, 3 Frag Grenade, 3 Krak Grenade'),
+  },
+  {
+    ...archetype('aaoa', 69, 'Adeptus Astartes', 'Devastator Space Marine', 3, 'Adeptus Astartes'),
+    ...costz(270, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 5),
+      reqSkill('scholar', 1),
+      reqSkill('stealth', 3),
+      reqSkill('tech', 1),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'A ruthless heavy weapons specialist, delivering death at a distance.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Unrelenting Devastation',
+        description:
+          'When you sacrifice your Move to Brace a Heavy weapon, you may add +Rank bonus dice to all attacks with that weapon, and +Rank ED to that weapon’s damage.',
+      },
+    ],
+    wargearString:
+      'Aquila Power Armour, Bolt Pistol, Astartes combat knife, 3 Frag Grenades, 3 Krak Grenades, ammunition backpack, and one heavy weapon from the following list: heavy bolter, missile launcher with 6 frag and 6 krak missiles, lascannon, multi-melta, plasma cannon, or grav-cannon.',
+    wargear: [
+      { name: 'Aquila Mk VII' },
+      { name: 'Bolt Pistol' },
+      { name: 'Astartes Combat Knife' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+      { name: 'Ammunition backpack' },
+      {
+        name: 'One of the following heavy weapons: heavy bolter, missile launcher with 6 frag and 6 krak missiles, lascannon, multi-melta, plasma cannon, or grav-cannon.',
+        options: [
+          { name: 'Heavy Bolter' },
+          { name: 'Missile Launcher' },
+          { name: 'Lascannon' },
+          { name: 'Multi-Melta' },
+          { name: 'Plasma Cannon' },
+          { name: 'Grav-cannon' },
+        ]
+      }
+    ],
+  },
+  {
+    ...archetype('aaoa', 92, 'Adeptus Astartes', 'Grey Knight', 4, 'Adeptus Astartes'),
+    ...costz(340,[
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 4),
+      reqAttribute('intellect', 4),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 4),
+      reqSkill('ballisticSkill', 5),
+      reqSkill('psychicMastery', 4),
+      reqSkill('scholar', 2),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 5),
+    ]),
+    hint: 'A member of a secretive order of elite psychic daemon-hunters',
+    keywords: 'Imperium,Adeptus Astartes,Grey Knights,Psyker,Inquisition, Ordo Malleus',
+    influence: 1,
+    archetypeFeatures: [
+      {
+        name: 'Psyker',
+        snippet: 'You are a Psyker; you begin play with the Rites of Banishment psychic power. You may purchase additional powers from the Sanctic discipline.',
+        description:
+          '<p>A Grey Knight begins play with the Rites of Banishment psychic power. You may purchase additional powers from the Sanctic discipline.</p>',
+        psychicPowers: [
+          { name: 'psykerRitesOfBanishment', selected: 'Rites of Banishment', query: { name: 'Rites of Banishment' }, options: [], free: true },
+          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Biomancy',
+          'Divination',
+          'Pyromancy',
+          'Telekinesis',
+          'Telepathy',
+          'Universal',
+          'Sanctic',
+        ],
+      },
+    ],
+    wargearString:
+      'Aquila power armour, aegis, nemesis force sword, storm bolter, 3 psyk-out grenades, armoured copy of the liber daemonica.',
+    wargear: [
+      { name: 'Aegis Power Armour' },
+      { name: 'Nemesis Force Sword' },
+      { name: 'Storm Bolter' },
+      { name: 'Psyk-out Grenade', amount: 3 },
+      { name: 'Liber Daemonica', variant: 'Armoured copy of the liber daemonica' },
+    ],
+  },
+  {
+    ...archetype('aaoa', 60, 'Adeptus Astartes', 'Apothecary', 3, 'Adeptus Astartes'),
+    ...costz(276, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 5),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('scholar', 2),
+      reqSkill('medicae', 4),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A warrior-healer, guardian of his brothers’ lives.',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter]',
+    influence: 2,
+    archetypeFeatures: [
+      simpleAbility('Guard Thy Brethren: Whenever you succeed at a Medicae test upon a Dying ally with the ADEPTUS ASTARTES keyword, gain 1 Wrath. In addition, you gain +Rank to Resolve and Determination while you can see or hear one or more Dying Adeptus Astartes allies.'),
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Chainsword, Narthecium, Reductor, 3 Frag Grenade, 3 Krak Grenade'),
+  },
+  {
+    ...archetype('aaoa', 108,  'Adeptus Astartes', 'Techmarine',3, 'Adeptus Astartes'),
+    ...costz(329, [
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 5),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('pilot', 2),
+      reqSkill('scholar', 3),
+      reqSkill('stealth', 3),
+      reqSkill('tech', 4),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
+    keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus',
+    archetypeFeatures: [
+      simpleAbility('Rite of Repair: You receive +Double Rank to Tech tests to repair damaged machinery. All Tech tests you make take half the standard time.'),
+    ],
+    wargearString:
+      'Artificer Armour, Bolt Pistol, Omnissian Axe, 3 Frag Grenades, 3 Krak Grenades, Augmetic Servo-arm, and any 2 augmetics.',
+    influence: 2,
+    wargear: [
+      { name: 'Artificer Armour' },
+      { name: 'Bolt Pistol' },
+      { name: 'Omnissian Axe' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+      { name: 'Mechadendrites (Servo-Arm)' },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            subtypeFilter: ['Augmetics'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    ...archetype('aaoa',106,'Adeptus Astartes','Space Marine Chaplain',4,'Adeptus Astartes'),
+    ...costz(312,[
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 4),
+      reqAttribute('intellect', 3),
+      reqAttribute('fellowship', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('intimidation', 2),
+      reqSkill('leadership', 1),
+      reqSkill('persuasion', 4),
+      reqSkill('scholar', 2),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'A devout warrior, who tends to the spirits of his comrades.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter],Priest',
+    influence: 3,
+    archetypeFeatures: [
+      simpleAbility('Spiritual Leaders', 'You, and all allies with the IMPERIUM keyword within 15+Rank metres add +Rank to Resolve. This increases to +Double Rank if they share your [CHAPTER] keyword.'),
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Crozius Arcanum, 3 Frag Grenade, 3 Krak Grenade, Rosarius'),
+  },
+  {
+    ...archetype('aaoa', 107, 'Adeptus Astartes', 'Space Marine Librarian', 4,'Adeptus Astartes'),
+    ...costz(367,[
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 5),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 6),
+      reqAttribute('intellect', 4),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('leadership', 1),
+      reqSkill('psychicMastery', 4),
+      reqSkill('scholar', 3),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'A warrior-sage of the Adeptus Astartes.',
+    keywords: 'Imperium, Adeptus Astartes, [Chapter], Psyker',
+    influence: 2,
+    archetypeFeatures: [
+      {
+        name: 'Psyker',
+        snippet: 'You know the Smite psychic power.',
+        description:
+          '<p>You are a psyker; you know the Smite psychic power.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          //{ name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor and Universal Disciplines. You unlock an addtional single Psychic Discipline: Divination, Pyromancy, Telekinesis, Telepathy, Maleficarum, Librarius, or a discipline unique to your Chapter',
+        description: '<p>You gain access to the Minor and Universal Disciplines. You unlock an additional single Psychic Discipline: Divination, Pyromancy, Telekinesis, Telepathy, Maleficarum, Librarius, or a discipline unique to your Chapter.</p>',
+        selected: [''],
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'aaoa-librarius', name: 'Librarius', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Librarius' }] },
+          // TODO Chapter Disciplines
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+        ],
+      },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Force Staff, 3 Frag Grenade, 3 Krak Grenade, Psychic Hood'),
+  },
+  ...aaoaPrimarisAstartes,
+];
+
+const aaoaOfficioAssassinorum = [
+  {
+    name: 'Callidus Assassin',
+    ...archetype('aaoa',109,'Officio Assassinorum','Callidus Assassin',5,'Human',true),
+    ...costz(308,[
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 4),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 3),
+      reqAttribute('fellowship', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 2),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('deception', 4),
+      reqSkill('insight', 4),
+      reqSkill('medicae', 1),
+      reqSkill('persuasion', 2),
+      reqSkill('pilot', 1),
+      reqSkill('scholar', 1),
+      reqSkill('stealth', 4),
+      reqSkill('survival', 2),
+      reqSkill('tech', 1),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'The second skinned assassin.',
+    keywords: 'Imperium,Officio Assassinorum,Templum Callidus',
+    archetypeFeatures: [
+      {
+        name: 'Assassinorum Conditioning',
+        snippet: 'You add +Rank ED to all damage rolls and +Double Rank to damage value of unarmed strikes. You may substitute Agility for Toughness for Determination. You may roll Determination against Mortal Wounds.',
+        description:
+          '<p>You add +Rank ED to all damage rolls, and you add +Double Rank to the damage value of your Unarmed Strikes. In addition, so long as you are not immobilised or Restrained, you may use Agility instead of Toughness when you roll Determination, and you may roll Determination against Mortal Wounds.</p>',
+      },
+      {
+        name: 'Betrayal’s Blade',
+        snippet: 'When disguised or otherwise concealing your identity, you gain a Stealth Score based on the total of your Deception test. This score only decreases when you take actions which may reveal your true intentions (GM’s discretion).',
+        description:
+          '<p>When disguised or otherwise concealing your identity, you gain a Stealth Score based on the total of your Deception test. This score only decreases when you take actions which may reveal your true intentions (GM’s discretion).</p>',
+      },
+    ],
+    influence: 0,
+    wargear: wargearz('C’Tan Phase Sword, Neural Shredder, 2 Polymorphine, 3 poisoned mono-knive, bodyglove'),
+  },
+  {
+    name: 'Culexus Assassin',
+    ...archetype('aaoa',110,'Officio Assassinorum','Culexus Assassin',5,'aaoa/Pariah', false),
+    ...costz(308,[
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 4),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 4),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 2),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('medicae', 1),
+      reqSkill('pilot', 1),
+      reqSkill('scholar', 1),
+      reqSkill('stealth', 4),
+      reqSkill('survival', 3),
+      reqSkill('tech', 1),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'Witch-slayer, wyrd-bane, living nightmare to all psykers.',
+    keywords: 'Imperium,Officio Assassinorum,Templum Culexus',
+    archetypeFeatures: [
+      {
+        name: 'Assassinorum Conditioning',
+        snippet: 'You add +Rank ED to all damage rolls and +Double Rank to damage value of unarmed strikes. You may substitute Agility for Toughness for Determination. You may roll Determination against Mortal Wounds.',
+        description:
+          '<p>You add +Rank ED to all damage rolls, and you add +Double Rank to the damage value of your Unarmed Strikes. In addition, so long as you are not immobilised or Restrained, you may use Agility instead of Toughness when you roll Determination, and you may roll Determination against Mortal Wounds.</p>',
+      },
+      {
+        name: 'Life Drain',
+        snippet: 'Enemies engaged with you at the end of their turn must pass a Willpower test (DN 2+Rank) or suffer Shock equal to your Rank. PSYKERS suffer Double Rank shock damage instead.',
+        description:
+          '<p>Enemies engaged with you at the end of their turn must pass a Willpower test (DN 2+Rank) or suffer Shock equal to your Rank. PSYKERS suffer Shock equal to twice your Rank instead.</p>',
+      },
+    ],
+    influence: 0,
+    wargear: wargearz('Etherium, Force Matrix, Animus Speculum, 3 Psyk-Out Grenade, Bodyglove'),
+    description:
+      '<p><strong>You are anathema, witch-bane, wyrdslayer, psychic abomination. Your foes dread your presence, desperately hoping that you are a nightmarish figment, for their minds cannot bear to acknowledge the abyss within your soul.</strong></p>' +
+      '<p>The Culexus Assassins are the most sinister, feared, and hated of all Imperial Assassins. They are null-entities in the warp, and their unnatural lack of a presence inspiring a sense of unease even in non-psykers. To psykers their mere presence is terrifying, invoking panic. In the confusion caused by this fear, the assassin can move in on its target and eliminate them. To purely psychic entities like daemons, they are nigh-invisible at best, akin to trying to see a black hole amidst the inky void of space.</p>' +
+      '<p>The Culexus Assassins possess the "Pariah Gene", making them for all intents, "soulless," accounting for their lack of warp-presence. This gene manifests itself very rarely, in a single individual among a billion, or more. This extreme rarity, coupled with the inevitable losses during training, makes the Culexus assassins the rarest of all Imperial assassins. The Culexus temple is known to hunt down and recruit these Pariahs but also to vat-grow them, an arduous and complex process that produces only a few viable candidates a year.</p>',
+  },
+  {
+    name: 'Eversor Assassin',
+    ...archetype('aaoa',111,'Officio Assassinorum','Eversor Assassin',5,'Human'),
+    ...costz(308,[
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 4),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 4),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 2),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('medicae', 1),
+      reqSkill('pilot', 1),
+      reqSkill('scholar', 1),
+      reqSkill('stealth', 4),
+      reqSkill('survival', 3),
+      reqSkill('tech', 1),
+      reqSkill('weaponSkill', 4),
+    ]),
+    hint: 'Hunter, killer, bane.',
+    keywords: 'Imperium,Officio Assassinorum,Templum Eversor',
+    archetypeFeatures: [
+      {
+        name: 'Assassinorum Conditioning',
+        snippet: 'You add +Rank ED to all damage rolls and +Double Rank to damage value of unarmed strikes. You may substitute Agility for Toughness for Determination. You may roll Determination against Mortal Wounds.',
+        description:
+          '<p>You add +Rank ED to all damage rolls, and you add +Double Rank to the damage value of your Unarmed Strikes. In addition, so long as you are not immobilised or Restrained, you may use Agility instead of Toughness when you roll Determination, and you may roll Determination against Mortal Wounds.</p>',
+      },
+      {
+        name: 'Alchemical Metabolism',
+        snippet: 'When you suffer one or more Wounds in melee, roll 1d6; on a 4+, the attacker suffers a Mortal Wound. If you are killed, you detonate, inflicting 10+4ED damage with AP-2 to everything within a number of metres equal to your Toughness.',
+        description:
+          '<p>When you suffer one or more Wounds in melee, roll 1d6; on a 4+, the attacker suffers a Mortal Wound. If you are killed, you detonate, inflicting 10+4ED damage with AP-2 to everything within a number of metres equal to your Toughness.</p>',
+      },
+    ],
+    influence: 0,
+    wargear: wargearz('Augmetic viscera, cardioproxy, reflex catalyst, sinew armature, executor pistol, sentinel array, neuro-gauntlet, power sword, 2 melta bomb, Eversor combat drugs, 3 Fury, 3 Destroyer, 1 Terminus, Bodyglove'),
+  },
+  {
+    name: 'Vindicare Assassin',
+    ...archetype('aaoa',116,'Officio Assassinorum','Vindicare Assassin',5,'Human',true),
+  },
+];
+
+const aaoaAdeptusMinistorum=  [
+  {
+    name: 'Frateris Militia',
     ...simpleStub('aaoa2', 22, 'core-human', 'Adeptus Ministorum', 'Frateris Militia', 0, 1, false),
     hint: 'A faithful citizen whipped into a fervour and eager to slay in the Emperor’s name.',
     prerequisites: [
@@ -2123,6 +3020,7 @@ const aaoaRep = [
     ],
   },
   {
+    name: 'Confessor',
     ...simpleStub('aaoa2', 22, 'core-human', 'Adeptus Ministorum', 'Confessor', 40, 3, false),
     hint: 'A high-ranking priest whose rhetoric inspires zeal and piety wherever they go.',
     prerequisites: [
@@ -2166,7 +3064,11 @@ const aaoaRep = [
       { name: 'symbol of authority' },
     ],
   },
+];
+
+const aaoaAdeptaSororitas = [
   {
+    name: 'Sister Dialogous',
     ...simpleStub('aaoa2', 23, 'core-human', 'Adepta Sororitas', 'Sister Dialogous', 0, 1, false),
     hint: 'A devout scholar of language, ensuring that the Emperor’s Word is understood by all.',
     prerequisites: [
@@ -2195,6 +3097,7 @@ const aaoaRep = [
     ],
   },
   {
+    name: 'Sister Famulous',
     ...simpleStub('aaoa2', 23, 'core-human', 'Adepta Sororitas', 'Sister Famulous', 10, 1, false),
     hint: 'A pious advisor to those of noble birth and ancient bloodlines.',
     prerequisites: [
@@ -2224,6 +3127,7 @@ const aaoaRep = [
     ],
   },
   {
+    name: 'Sister Seraphim',
     ...simpleStub('aaoa2', 24, 'core-human', 'Adepta Sororitas', 'Sister Seraphim', 55, 3, false),
     hint: 'An elite and zealous warrior, faithful even compared to other Sisters of Battle.',
     prerequisites: [
@@ -2260,6 +3164,7 @@ const aaoaRep = [
     ],
   },
   {
+    name: 'Sister Repentia',
     ...simpleStub('aaoa2', 24, 'core-human', 'Adepta Sororitas', 'Sister Repentia', 40, 2, false),
     hint: 'A penitent soul, seeking atonement for her sins through death and pain.',
     prerequisites: [
@@ -2291,845 +3196,9 @@ const aaoaRep = [
       { name: 'Clothing', variant: 'tattered penitent robes' },
     ],
   },
-  {
-    ...simpleStub('aaoa2', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Medic', 0, 1, false),
-    hint: 'A disciplined soldier trained to treat the injuries of their comrades.',
-    prerequisites: [
-      reqAttribute('intellect', 3),
-      reqSkill('ballisticSkill', 2),
-      reqSkill('medicae', 2),
-    ],
-    keywords: 'Imperium,Astra Militarum,<Regiment>',
-    influence: 0,
-    archetypeFeatures: [
-      {
-        name: 'Field Medic',
-        snippet:
-          'When an Imperial Guard Medic stabilises a dying character, each shifted Exalted Icon restores one additional wound in the character being stabilised.'
-      },
-      {
-        name: 'Regiment Affiliation',
-        snippet:
-          'Select a regiment to which the character belongs (see Regiments on page 114 of the Wrath & Glory rulebook).'
-      },
-    ],
-    wargearString:
-      'Flak armour, Lasgun, knife, Munitorum-Issue Mess Kit, blanket, grooming kit, Uplifting Primer, 3 ration packs, medikit.',
-    wargear: [
-      { name: 'Flak Armour' },
-      { name: 'Lasgun' },
-      { name: 'Knife' },
-      { name: 'Munitorum-Issue Mess Kit' },
-      { name: 'Blanket' },
-      { name: 'Grooming kit' },
-      { name: 'Uplifting Primer' },
-      { name: 'Ration Packs', amount: 3 },
-      { name: 'Medkit' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 25, 'core-human', 'Astra Militarum', 'Imperial Guard Officer', 15, 1, false),
-    hint: 'A stern commander trained to inspire and lead others into the fray.',
-    prerequisites: [
-      reqAttribute('fellowship', 3),
-      reqSkill('ballisticSkill', 2),
-      reqSkill('leadership', 2),
-    ],
-    keywords: 'Imperium,Astra Militarum,<Regiment>,Officer',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Voice of Command',
-        description:
-          '<p>An Officer may spend an action giving an order to a character with the Astra Militarum keyword who is within hearing range and subordinate to the officer. This requires a Leadership test (DN 3). A successful test allows the ordered character to gain one of the following benefits (Officer’s choice) on their next turn:</p>' +
-          '<ul>' +
-            '<li>Reduce the DN penalty for taking a Multi-action by the Officer’s Rank.</li>' +
-            '<li>Add the Officer’s Rank as a bonus on one test they attempt.</li>' +
-            '<li>Add the Officer’s Rank as +ED on the damage of one successful attack they make.</li>' +
-          '</ul>' +
-          '<p>An officer may issue orders to multiple characters, adding +2 to the DN of the leadership test for each character after the first being orders. All character ordered must receive the same benefit.</p>'
-      },
-      {
-        name: 'Regiment Affiliation',
-        snippet:
-          'Select a regiment to which the character belongs (see Regiments on page 114 of the Wrath & Glory rulebook).'
-      },
-    ],
-    wargearString:
-      'Flak armour, Laspistol, chainsword, knife, Munitorum-Issue Mess Kit, blanket, grooming kit, Uplifting Primer, 3 ration packs.',
-    wargear: [
-      { name: 'Flak Armour' },
-      { name: 'Lasgun' },
-      { name: 'Chainsword' },
-      { name: 'Knife' },
-      { name: 'Munitorum-Issue Mess Kit' },
-      { name: 'Blanket' },
-      { name: 'Grooming kit' },
-      { name: 'Uplifting Primer' },
-      { name: 'Ration Packs', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3, false),
-    hint: 'A deadly shock trooper, taking the fight to the enemy.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqSkill('weaponSkill', 3),
-      reqSkill('pilot', 3),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Hammer of Wrath',
-        description:
-         'When an Assault Marine charges into melee using his jump pack, all enemies within 2m of the point where he lands must pass an Agility test (DN 2+Rank) or be knocked prone.',
-      },
-    ],
-    wargearString:
-      'Aquila power armour, bolt pistol, chainsword, 3 frag and krak grenades, jump pack.',
-    wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Bolt Pistol' },
-      { name: 'Chainsword' },
-      { name: 'Jump Pack' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 26, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 55, 3, false),
-    hint: 'A ruthless heavy weapons specialist, delivering death at a distance.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqSkill('ballisticSkill', 3),
-      reqSkill('tech', 3),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Unrelenting Devastation',
-        description:
-          'When a Devastator Marine sacrifices their move action to brace, and then makes a ranged attack, they add ½ Rank to their Ballistic Skill test and ½ Rank bonus ED to the weapon’s damage.',
-      },
-    ],
-    wargearString:
-      'Aquila power armour, bolt pistol, 3 frag and krak grenades, ' +
-      'and one of the following heavy weapons (all of which are accompanied by an ammunition backpack, barring the missile launcher): ' +
-      'heavy bolter, missile launcher with 6 frag and 6 krak missiles, lascannon, multi-melta, plasma cannon, or grav-cannon.',
-    wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Bolt Pistol' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-      {
-        name: 'One of the following heavy weapons (all of which are accompanied by an ammunition backpack, barring the missile launcher)',
-        options: [
-          { name: 'Heavy Bolter and Ammunition Backpack' },
-          { name: 'Lascannon and Ammunition Backpack' },
-          { name: 'Multi-Melta and Ammunition Backpack' },
-          { name: 'Plasma Cannon and Ammunition Backpack' },
-          { name: 'Grav Cannon and Ammunition Backpack' },
-          { name: 'Missile Launcher' },
-        ]
-      }
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 27, 'core-adeptus-astartes', 'Adeptus Astartes', 'Grey Knight', 60, 3, false),
-    hint: 'A member of a secretive order of elite psychic daemon-hunters',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqSkill('weaponSkill', 4),
-      reqSkill('psychicMastery', 2),
-      reqSkill('scholar', 3),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,Grey Knights,Psyker,Inquisition, Ordo Malleus',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Rites of Banishment',
-        snippet: 'You learn the Rites of Banishment power and one additional minor power. You gain access to Minor, Universal and Sanctic powers.',
-        description:
-          '<p>A Grey Knight begins play with the Rites of Banishment psychic power and one minor psychic power. ' +
-          'He may also purchase additional minor psychic powers and Sanctic Psychic powers, subject to Tier restrictions.</p>',
-        psychicPowers: [
-          { name: 'psykerRitesOfBanishment', selected: 'Rites of Banishment', query: { name: 'Rites of Banishment' }, options: [], free: true },
-          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Universal',
-          'Sanctic',
-        ],
-      },
-    ],
-    wargearString:
-      'Aquila power armour, aegis, nemesis force sword, storm bolter, 3 psyk-out grenades, armoured copy of the liber daemonica.',
-    wargear: [
-      { name: 'Aegis Power Armour' },
-      { name: 'Nemesis Force Sword' },
-      { name: 'Storm Bolter' },
-      { name: 'Psyk-out Grenade', amount: 3 },
-      { name: 'Liber Daemonica', variant: 'Armoured copy of the liber daemonica' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 27, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Hellblaster', 60, 4, false),
-    hint: 'A specialised warrior, armed with sophisticated, powerful weapons to deal with the toughest foes.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('tech', 4),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      simpleAbility('Hellblaster Focus', 'When firing a plasma incinerator (including assault plasma incinerators and heavy plasma incinerators), Hellblasters gain +½ Rank bonus ED to weapon damage.'),
-    ],
-    wargearString:
-      'Mark X Tacticus power armour, plasma incinerator, heavy bolt pistol, Astartes combat knife, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Tacticus Mk X' },
-      { name: 'Plasma Incinerator' },
-      { name: 'Heavy Bolt Pistol' },
-      { name: 'Astartes Combat Knife' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Inceptor', 70, 4,false),
-    hint: 'An airborne warrior, dealing death from above.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('pilot', 4),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      simpleAbility('Meteoric Impact:When an Inceptor charges into melee using his heavy jump pack, all enemies within 2m of the point where he lands must pass an Agility test (DN 2+Rank) or be knocked prone and suffer a Mortal Wound.'),
-    ],
-    wargearString:
-      'Mark X Gravis power armour with jump pack and grav-chute, two Assault Bolters.',
-    wargear: [
-      { name: 'Gravis Mark X' },
-      { name: 'Jump Pack' },
-      { name: 'Grav-chute' },
-      { name: 'Assault Bolter' },
-      { name: 'Assault Bolter' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Reiver', 50, 4,false),
-    hint: 'A cunning warrior, spreading death and terror to the enemy.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 5),
-      reqAttribute('toughness', 4),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('weaponSkill', 4),
-      reqSkill('stealth', 3),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      simpleAbility('Terror Troops', 'Enemies who encounter a Reiver must make a Fear test (DN 2+ ½ Rank).'),
-    ],
-    wargearString:
-      'Mark X Phobos power armour, heavy bolt pistol, bolt carbine, Astartes combat knife, grav-chute, grapple gun, 3 shock grenades, 3 frag grenades, 3 krak grenades.',
-    wargear: [
-      { name: 'Phobos Mark X' },
-      { name: 'Heavy Bolt Pistol' },
-      { name: 'Bolt Carbine' },
-      { name: 'Astartes Combat Knife' },
-      { name: 'Grav-chute' },
-      { name: 'Grapple gun' },
-      { name: 'Shock Grenade', amount: 3 },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Incursor', 50, 4,false),
-    hint: 'Aggressive, close-assault shock troops, wearing advanced sensors that expose enemies.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 5),
-      reqAttribute('initiative', 4),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('weaponSkill', 4),
-      reqSkill('stealth', 3),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      simpleAbility('Close Quarters Assault: When making a melee attack, or a ranged attack at short range, against an enemy in cover, an Incursor may re-roll up to Rank dice.'),
-    ],
-    wargearString:
-      'Mark X Phobos power armour, bolt pistol, Occulus bolt carbine, Divinator-class Auspex, two Astartes combat knives (with Matched Pair upgrade), 3 smoke grenades, 3 frag grenades, 3 krak grenades.',
-    wargear: [
-      { name: 'Phobos Mark X' },
-      { name: 'Bolt Pistol' },
-      { name: 'Occulus Bolt Carbine' },
-      { name: 'Divinator-class Auspex' },
-      { name: 'Astartes Combat Knife', variant: 'Two Astartes combat knives (with Matched Pair upgrade)' },
-      { name: 'Smoke Grenade', amount: 3 },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Infiltrator', 50, 4,false),
-    hint: 'Saboteurs and marksmen, used to operating far from support',
-    prerequisites: [
-      reqAttribute('intellect', 4),
-      reqAttribute('agility', 5),
-      reqAttribute('toughness', 4),
-      reqSkill('stealth', 4),
-      reqSkill('survival', 3),
-      reqSkill('tech', 3),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      simpleAbility('Voxbane: When an Infiltrator makes a Tech interaction attack against enemies, the range of the attack is multiplied by 1+Rank.'),
-    ],
-    wargearString:
-      'Mark X Phobos power armour, bolt pistol, Marksman bolt carbine, Astartes combat knife, 3 smoke grenades, 3 frag grenades, 3 krak grenades.',
-    wargear: [
-      { name: 'Phobos Mark X' },
-      { name: 'Bolt Pistol' },
-      { name: 'Marksman Bolt Carbine' },
-      { name: 'Astartes Combat Knife' },
-      { name: 'Smoke Grenade', amount: 3 },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 30, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Eliminator', 60, 4,false),
-    hint: 'Expert snipers, laying down supporting fire from concealed positions',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 5),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('stealth', 4),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      simpleAbility('Precision Fire: When an Eliminator aims, they may add +½ Rank additional dice to their next ranged attack, in addition to other benefits.'),
-    ],
-    wargearString:
-      'Mark X Phobos power armour, bolt pistol, bolt sniper rifle, Astartes combat knife, camo cloak, 3 frag grenades, 3 krak grenades.',
-    wargear: [
-      { name: 'Phobos Mark X' },
-      { name: 'Bolt Pistol' },
-      { name: 'Bolt Sniper Rifle' },
-      { name: 'Astartes Combat Knife' },
-      { name: 'Cameo Cloak' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 30, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Aggressor', 80, 4,false),
-    hint: 'A mighty warrior, overwhelming foes at close range.',
-    prerequisites: [
-      reqAttribute('strength', 5),
-      reqAttribute('agility', 3),
-      reqAttribute('toughness', 4),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('weaponSkill', 4),
-    ],
-    keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      simpleAbility('Fire Storm: Aggressors who sacrifice their move to Brace may double the Salvo rating of their weapons until the start of their next Turn.'),
-      simpleAbility('Relentless Advance: Aggressors do not suffer any DN increase when fire an Assault weapon as part of a Run action.'),
-    ],
-    wargearString:
-      'Mark X Gravis power armour with Fragstorm grenade launcher and ammunition backpack, two Auto Boltstorm Gauntlets.',
-    wargear: [
-      { name: 'Gravis Mark X' },
-      { name: 'Fragstorm grenade launcher' },
-      { name: 'Ammunition Backpack' },
-      { name: 'Auto-Boltstorm Gauntlet', variant: 'Paried Auto Boltstorm Gauntlets' },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 31, 'core-adeptus-astartes', 'Adeptus Astartes', 'Codicier', 60, 3, false),
-    hint: 'A potent warrior-mystic, whose minds are deadly weapons.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqAttribute('willpower', 2),
-      reqSkill('ballisticSkill', 2),
-      reqSkill('weaponSkill', 2),
-      reqSkill('scholar', 2),
-      reqSkill('psychicMastery', 3),
-    ],
-    keywords: 'Imperium, Adeptus Astartes,[Chapter], Psyker',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Psyker',
-        snippet: 'You learn the Smite power and one additional minor power. You gain access to Minor and Universal powers. You also gain access to either Librarius or Chapter specifc powers',
-        description:
-          '<p>A Codicier begins play with the smite psychic power and one minor psychic power.' +
-          ' He may also purchase additional minor psychic powers, Universal Psychic powers, ' +
-          'and either Librarius psychic powers or powers from another Astartes discipline according to their Chapter, ' +
-          'subject to Tier restrictions.</p>',
-        psychicPowers: [
-          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Universal',
-          'Librarius', // OR Chapter Specific
-        ],
-      },
-    ],
-    wargearString:
-      'Aquila power armour, force sword, psychic hood, bolt pistol, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Force Sword' },
-      { name: 'Bolt Pistol' },
-      { name: 'Psychic Hood' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 31, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Codicier', 60, 4, false),
-    hint: 'A potent warrior-mystic, whose minds are deadly weapons.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqAttribute('willpower', 2),
-      reqSkill('ballisticSkill', 2),
-      reqSkill('weaponSkill', 2),
-      reqSkill('scholar', 2),
-      reqSkill('psychicMastery', 3),
-    ],
-    keywords: 'Imperium, Adeptus Astartes,[Chapter], Psyker, Primaris',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Psyker',
-        snippet: 'You learn the Smite power and one additional minor power. You gain access to Minor and Universal powers. You also gain access to either Librarius or Chapter specifc powers',
-        description:
-          '<p>A Codicier begins play with the smite psychic power and one minor psychic power.' +
-          ' He may also purchase additional minor psychic powers, Universal Psychic powers, ' +
-          'and either Librarius psychic powers or powers from another Astartes discipline according to their Chapter, ' +
-          'subject to Tier restrictions.</p>',
-        psychicPowers: [
-          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Universal',
-          'Librarius', // OR Chapter Specific
-        ],
-      },
-    ],
-    wargearString:
-      'Mark X Tacticus power armour, force sword, psychic hood, heavy bolt pistol, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Tacticus Mk X' },
-      { name: 'Force Sword' },
-      { name: 'Psychic Hood' },
-      { name: 'Heavy Bolt Pistol' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 31, 'core-adeptus-astartes', 'Adeptus Astartes', 'Epistolary', 80, 4, false),
-    hint: 'A veteran battle-psyker with greater command of his deadly mind.',
-    prerequisites: [
-      reqAttribute('strength', 5),
-      reqAttribute('agility', 5),
-      reqAttribute('toughness', 5),
-      reqAttribute('willpower', 3),
-      reqSkill('ballisticSkill', 3),
-      reqSkill('weaponSkill', 3),
-      reqSkill('scholar', 3),
-      reqSkill('psychicMastery', 4),
-    ],
-    keywords: 'Imperium, Adeptus Astartes,[Chapter], Psyker',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Psyker',
-        snippet: 'You learn the Smite and Telepathy power, and one additional minor power. You gain access to Minor and Universal powers. You also gain access to either Librarius or Chapter specific powers.',
-        description:
-          '<p>An Epistolary begins play with the smite and telepathy psychic powers and one minor psychic power. ' +
-          'He may also purchase additional minor psychic powers, Universal Psychic powers, ' +
-          'and either Librarius psychic powers or powers from another Astartes discipline according to their Chapter, subject to Tier restrictions.</p>',
-        psychicPowers: [
-          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerTelepathy', selected: 'Telepathy', query: { name: 'Telepathy' }, options: [], free: true },
-          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Universal',
-          'Librarius', // OR Chapter Specific
-        ],
-      },
-      simpleAbility('Potent Psyker', 'an Epistolary reduces the DN penalty caused by sustaining multiple psychic powers by Rank.'),
-    ],
-    wargearString:
-      'Aquila power armour, force sword, psychic hood, bolt pistol, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Force Sword' },
-      { name: 'Bolt Pistol' },
-      { name: 'Psychic Hood' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 31, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Epistolary', 80, 4, false),
-    hint: 'A veteran battle-psyker with greater command of his deadly mind.',
-    prerequisites: [
-      reqAttribute('strength', 5),
-      reqAttribute('agility', 5),
-      reqAttribute('toughness', 5),
-      reqAttribute('willpower', 3),
-      reqSkill('ballisticSkill', 3),
-      reqSkill('weaponSkill', 3),
-      reqSkill('scholar', 3),
-      reqSkill('psychicMastery', 4),
-    ],
-    keywords: 'Imperium, Adeptus Astartes,[Chapter], Psyker, Primaris',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Psyker',
-        snippet: 'You learn the Smite and Telepathy power, and one additional minor power. You gain access to Minor and Universal powers. You also gain access to either Librarius or Chapter specific powers.',
-        description:
-          '<p>An Epistolary begins play with the smite and telepathy psychic powers and one minor psychic power. ' +
-          'He may also purchase additional minor psychic powers, Universal Psychic powers, ' +
-          'and either Librarius psychic powers or powers from another Astartes discipline according to their Chapter, subject to Tier restrictions.</p>',
-        psychicPowers: [
-          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerTelepathy', selected: 'Telepathy', query: { name: 'Telepathy' }, options: [], free: true },
-          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
-          'Telekinesis',
-          'Telepathy',
-          'Universal',
-          'Librarius', // OR Chapter Specific
-        ],
-      },
-      simpleAbility('Potent Psyker', 'an Epistolary reduces the DN penalty caused by sustaining multiple psychic powers by Rank.'),
-    ],
-    wargearString:
-      'Mark X Tacticus power armour, force sword, psychic hood, heavy bolt pistol, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Tacticus Mk X' },
-      { name: 'Force Sword' },
-      { name: 'Psychic Hood' },
-      { name: 'Heavy Bolt Pistol' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 32, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 50, 3, false),
-    hint: 'A warrior-healer, guardian of his brothers’ lives.',
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('agility', 4),
-      reqAttribute('toughness', 4),
-      reqSkill('ballisticSkill', 3),
-      reqSkill('weaponSkill', 3),
-      reqSkill('scholar', 2),
-      reqSkill('medicae', 3),
-    ],
-    keywords: 'Imperium, Adeptus Astartes,[Chapter]',
-    influence: 1,
-    archetypeFeatures: [
-      simpleAbility('Battlefield Medic: When an Apothecary attempts a Medicae test, they may choose to gain two of the benefits listed on page 166 of the Wrath & Glory rulebook (remove a combat effect, stabilise a dying character, heal a wounded character, heal shock) rather than one. The DN for this is equal to the highest DN for either of the options chosen, +2.'),
-    ],
-    wargearString:
-      'Aquila power armour, bolt pistol, chainsword, 3 frag and krak grenades, Narthecium, Reductor.',
-    wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Bolt Pistol' },
-      { name: 'Chainsword' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-      { name: 'Narthecium' },
-      { name: 'Reductor' },
-    ],
-  },
-  {
-    ...archetype('aaoa',60,'Adeptus Astartes','Primaris Apothecary',4,'Primaris Astartes'),
-    ...cost(294 ,50,243, 0, 0),
-    hint: 'A warrior-healer, guardian of his brothers’ lives.',
-    prerequisites: [
-      reqAttribute('strength', 5),
-      reqAttribute('toughness', 5),
-      reqAttribute('agility', 4),
-      reqAttribute('initiative', 4),
-      reqAttribute('willpower', 3),
-      reqAttribute('intellect', 4),
-      reqSkill('athletics', 3),
-      reqSkill('awareness', 3),
-      reqSkill('ballisticSkill', 4),
-      reqSkill('scholar', 2),
-      reqSkill('medicae', 4),
-      reqSkill('stealth', 3),
-      reqSkill('weaponSkill', 3),
-    ],
-    keywords: 'Imperium, Adeptus Astartes,[Chapter],Primaris',
-    influence: 2,
-    archetypeFeatures: [
-      simpleAbility('Guard Thy Brethren: Whenever you succeed at a Medicae test upon a Dying ally with the ADEPTUS ASTARTES keyword, gain 1 Wrath. In addition, you gain +Rank to Resolve and Determination while you can see or hear one or more Dying Adeptus Astartes allies.'),
-    ],
-    wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Absolvor Bolt Pistol, Narthecium, Reductor, 3 Frag Grenade, 3 Krak Grenade'),
-  },
-  {
-    ...simpleStub('aaoa2', 32, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 55, 3, false),
-    hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
-    keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus',
-    influence: 1,
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('toughness', 4),
-      reqAttribute('intellect', 3),
-      reqSkill('ballisticSkill', 3),
-      reqSkill('weaponSkill', 3),
-      reqSkill('scholar', 1),
-      reqSkill('tech', 3),
-    ],
-    archetypeFeatures: [
-      simpleAbility('Rite of Repair: Techmarines automatically reduce the time by half for any Tech test. They receive +Rank on Tech tests to fix or repair damaged machines.'),
-    ],
-    wargearString:
-      'Aquila power armour, bolt pistol, Omnissian Axe, 3 frag and krak grenades, augmetic servo-arm, choice of two augmetics.',
-    wargear: [
-      { name: 'Aquila Mk VII' },
-      { name: 'Bolt Pistol' },
-      { name: 'Omnissian Axe' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-      { name: 'Mechadendrites (Servo-Arm)' },
-      {
-        name: 'One augmetics of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            subtypeFilter: ['Augmetics'],
-          },
-        ],
-      },
-      {
-        name: 'One augmetics of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            subtypeFilter: ['Augmetics'],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    ...simpleStub('aaoa2', 32, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Techmarine', 55, 4, false),
-    hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
-    keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus, Primaris',
-    influence: 1,
-    prerequisites: [
-      reqAttribute('strength', 4),
-      reqAttribute('toughness', 4),
-      reqAttribute('intellect', 3),
-      reqSkill('ballisticSkill', 3),
-      reqSkill('weaponSkill', 3),
-      reqSkill('scholar', 1),
-      reqSkill('tech', 3),
-    ],
-    archetypeFeatures: [
-      simpleAbility('Rite of Repair: Techmarines automatically reduce the time by half for any Tech test. They receive +Rank on Tech tests to fix or repair damaged machines.'),
-    ],
-    wargearString:
-      'Mark X Tacticus power armour, heavy bolt pistol, Omnissian Axe, 3 frag and krak grenades, augmetic servo-arm, choice of two augmetics.',
-    wargear: [
-      { name: 'Tacticus Mk X' },
-      { name: 'Heavy Bolt Pistol' },
-      { name: 'Omnissian Axe' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-      { name: 'Mechadendrites (Servo-Arm)' },
-      {
-        name: 'One augmetics of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            subtypeFilter: ['Augmetics'],
-          },
-        ],
-      },
-      {
-        name: 'One augmetics of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            subtypeFilter: ['Augmetics'],
-          },
-        ],
-      },
-    ],
-  },
-  {
-    ...archetype('aaoa',106,'Adeptus Astartes','Space Marine Chaplain',4,'Adeptus Astartes'),
-    ...cost(282,40,242, 0, 0),
-    hint: 'A devout warrior, who tends to the spirits of his comrades.',
-    keywords: 'Imperium,Adeptus Astartes,[Chapter],Priest',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 4 }, // 20
-      { group: 'attributes', value: 'toughness', threshold: 4 }, // 20
-      { group: 'attributes', value: 'agility', threshold: 4 }, // 20
-      { group: 'attributes', value: 'initiative', threshold: 4 }, // 20
-      { group: 'attributes', value: 'willpower', threshold: 4 }, // 10
-      { group: 'attributes', value: 'intellect', threshold: 3 }, // 10
-      { group: 'attributes', value: 'fellowship', threshold: 3 }, // 10
-      { group: 'skills', value: 'athletics', threshold: 3 }, // 12
-      { group: 'skills', value: 'awareness', threshold: 3 }, // 12
-      { group: 'skills', value: 'ballisticSkill', threshold: 3 }, // 12
-      { group: 'skills', value: 'persuasion', threshold: 2 }, // 6
-      { group: 'skills', value: 'scholar', threshold: 2 }, // 6
-      { group: 'skills', value: 'stealth', threshold: 3 }, // 12
-      { group: 'skills', value: 'weaponSkill', threshold: 3 }, // 12
-    ],
-    influence: 3,
-    archetypeFeatures: [
-      simpleAbility('Spiritual Leaders', 'You, and all allies with the IMPERIUM keyword within 15+Rank metres add +Rank to Resolve. This increases to +Double Rank if they share your [CHAPTER] keyword.'),
-    ],
-    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Crozius Arcanum, 3 Frag Grenade, 3 Krak Grenade, Rosarius'),
-  },
-  {
-    ...simpleStub('aaoa2', 33, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Chaplain', 60, 4,false),
-    hint: 'A devout warrior, who tends to the spirits of his comrades.',
-    keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Ministorum, Priest, Primaris',
-    influence: 3,
-    prerequisites: [
-      reqAttribute('strength', 5),
-      reqAttribute('toughness', 5),
-      reqAttribute('toughness', 5),
-      reqAttribute('fellowship', 3),
-      reqSkill('weaponSkill', 4),
-      reqSkill('scholar', 4),
-      reqSkill('intimidation', 3),
-    ],
-    archetypeFeatures: [
-      simpleAbility('Spiritual Leaders: A Chaplain, and all allies with the Imperium keyword within 15+Rank metres, may add +Rank to their Resolve.'),
-    ],
-    wargearString:
-      'Mark X Tacticus power armour, Absolvor bolt pistol, Crozius Arcanum, 3 frag and krak grenades, Rosarius.',
-    wargear: [
-      { name: 'Tacticus Mk X' },
-      { name: 'Absolvor Bolt Pistol' },
-      { name: 'Crozius Arcanum' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-      { name: 'Rosarius' },
-    ],
-  },
-  simpleStub('aaoa2',32,'core-human','Agents of the Imperium','Astropath', 60, 2),
-  simpleStub('aaoa2',33,'core-human','Agents of the Imperium','Sister of Silence', 40, 3),
-  simpleStub('aaoa2',33,'core-human','Agents of the Imperium','Arbitrator', 30, 3),
-  simpleStub('aaoa2',34,'core-human','Agents of the Imperium','Eversor Assassin', 150, 5),
-  simpleStub('aaoa2',34,'core-human','Agents of the Imperium','Callidus Assassin', 150, 5),
-  {
-    ...simpleStub('aaoa2', 35, 'aaoa-pariah', 'Agents of the Imperium', 'Culexus Assassin', 150, 5, false),
-    hint: 'Witch-slayer, wyrd-bane, living nightmare to all psykers.',
-    prerequisites: [
-      { group: 'attributes', value: 'strength', threshold: 5 },
-      { group: 'attributes', value: 'agility', threshold: 5 },
-      { group: 'attributes', value: 'initiative', threshold: 5 },
-      { group: 'attributes', value: 'willpower', threshold: 5 },
-      { group: 'skills', value: 'ballisticSkill', threshold: 5 },
-      { group: 'skills', value: 'weaponSkill', threshold: 5 },
-      { group: 'skills', value: 'stealth', threshold: 5 },
-    ],
-    keywords: 'Imperium,Officio Assassinorum,Templum Culexus',
-    influence: 1,
-    archetypeFeatures: [
-      {
-        name: 'Dodge',
-        snippet: 'You my soak mortal wounds and use agility when doing so.',
-        description:
-          '<p>A Culexus Assassin may Soak mortal wounds and may roll Agility rather than Toughness when doing so.</p>',
-      },
-      {
-        name: 'Life Drain',
-        description:
-          '<p>A character with the Psyker keyword who ends their turn within 2m of a Culexus Assassin must pass a Willpower test (DN is the Culexus Assassin’s Willpower) or suffer 1d3+2 Shock.</p>',
-      },
-    ],
-    wargearString:
-      'Etherium, Force Matrix, Animus Speculum, Psyk-Out Grenades, Bodyglove',
-    wargear: [
-      { name: 'Etherium' },
-      { name: 'Force Matrix' },
-      { name: 'Animus Speculum' },
-      { name: 'Psyk-Out Grenade' },
-      { name: 'Bodyglove' },
-    ],
-  },
-  simpleStub('aaoa2', 35, 'core-human', 'Agents of the Imperium', 'Vindicare Assassin', 150, 5),
+];
+
+const aaoaAdeptusMechanicus = [
   simpleStub('aaoa2', 37, 'core-human', 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 40, 2),
   simpleStub('aaoa2', 37, 'core-human', 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 40, 2),
   simpleStub('aaoa2', 38, 'core-human', 'Adeptus Mechanicus', 'Skitarius Vanguard', 50, 2),
@@ -3249,6 +3318,9 @@ const aaoaRep = [
       { name: 'Light Power Armour' },
     ],
   },
+];
+
+const aaoaChaos = [
   {
     ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine', 50, 3, false),
     hint: 'Monstrous traitors and savage posthuman killers',
@@ -3259,7 +3331,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 3),
       reqSkill('weaponSkill', 3),
     ],
-    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
     influence: 2,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3295,7 +3367,7 @@ const aaoaRep = [
       reqSkill('pilot', 3),
       reqSkill('intimidation', 3),
     ],
-    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
     influence: 2,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3325,7 +3397,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 4),
       reqSkill('tech', 3),
     ],
-    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
     influence: 2,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3363,7 +3435,7 @@ const aaoaRep = [
       reqAttribute('toughness', 4),
       reqSkill('weaponSkill', 5),
     ],
-    keywords: 'Heretic, Chaos, Khorne, Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, Khorne, Heretic Astartes, [Legion]',
     influence: 1,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3396,7 +3468,7 @@ const aaoaRep = [
       reqAttribute('toughness', 5),
       reqSkill('ballisticSkill', 4),
     ],
-    keywords: 'Heretic, Chaos, Nurgle, Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, Nurgle, Heretic Astartes, [Legion]',
     influence: 1,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3430,7 +3502,7 @@ const aaoaRep = [
       reqSkill('ballisticSkill', 4),
       reqSkill('awareness', 4),
     ],
-    keywords: 'Heretic, Chaos, Slaanesh, Heretic Astartes, <Legion>',
+    keywords: 'Heretic, Chaos, Slaanesh, Heretic Astartes, [Legion]',
     influence: 1,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3467,7 +3539,7 @@ const aaoaRep = [
       reqSkill('scholar', 2),
       reqSkill('psychicMastery', 3),
     ],
-    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>, Psyker',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Psyker',
     influence: 3,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3520,7 +3592,7 @@ const aaoaRep = [
       reqSkill('scholar', 1),
       reqSkill('tech', 3),
     ],
-    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>, Dark Mechanicus',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Dark Mechanicus',
     influence: 1,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3571,7 +3643,7 @@ const aaoaRep = [
       reqSkill('scholar', 4),
       reqSkill('intimidation', 4),
     ],
-    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, <Legion>, Priest',
+    keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Priest',
     influence: 3,
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
@@ -3694,6 +3766,30 @@ const aaoaRep = [
       },
     ],
   },
+];
+
+const aaoaRep = [
+  ...aaoaAeldari,
+  ...aaoaOrks,
+  ...aaoaSquat,
+  ...aaoaAstraMilitarum,
+  ...aaoaAdeptusAstartes,
+  ...aaoaOfficioAssassinorum,
+  ...aaoaAdeptusMinistorum,
+  ...aaoaAdeptaSororitas,
+  ...aaoaAdeptusMechanicus,
+  ...aaoaChaos,
+  // Others
+  simpleStub('aaoa2',32,'core-human','Agents of the Imperium','Astropath', 60, 2),
+  simpleStub('aaoa2',33,'core-human','Agents of the Imperium','Sister of Silence', 40, 3),
+  simpleStub('aaoa2',33,'core-human','Agents of the Imperium','Arbitrator', 30, 3),
+];
+
+const aotgtRep = [
+  simpleStub('aotgt', '', 'core-human', 'Agents of the Imperium', 'Callidus Assassin', 70, 4),
+  simpleStub('aotgt', '', 'core-human', 'Agents of the Imperium', 'Culexus Assassin', 75, 4),
+  simpleStub('aotgt', '', 'core-human', 'Agents of the Imperium', 'Vindicare Assassin', 80, 4),
+  simpleStub('aotgt', '', 'core-adeptus-astartes', 'Agents of the Imperium', 'Grey Knight', 90, 4),
 ];
 
 const ltgbRep = [

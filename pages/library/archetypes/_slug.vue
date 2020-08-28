@@ -17,7 +17,7 @@
 <script>
 import ColorfulEntry from '~/components/shared/ColorfulEntry';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
-import ArchetypePreview from '~/components/forge/ArchetypePreviewV2';
+import ArchetypePreview from '~/components/forge/ArchetypePreviewV3';
 import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
 
 export default {

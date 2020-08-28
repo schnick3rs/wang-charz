@@ -304,8 +304,8 @@ export default {
 
         if (this.characterSpecies) {
           archetypes = archetypes.filter((a) => {
-            if ( a.speciesKey.includes(this.characterSpecies.key) ) return true;
-            if ( a.speciesKey.includes(this.characterSpecies.variant) ) return true;
+            if ( a.species.some((s) => s.key.includes(this.characterSpecies.key) ) ) return true;
+            if ( a.species.some((s) => s.key.includes(this.characterSpecies.variant) ) ) return true;
             return false;
           });
 
@@ -325,8 +325,8 @@ export default {
 
         if (this.characterSpecies) {
           archetypes = archetypes.filter((a) => {
-            if ( a.speciesKey.includes(this.characterSpecies.key) ) return true;
-            if ( a.speciesKey.includes(this.characterSpecies.variant) ) return true;
+            if ( a.species.some((s) => s.key.includes(this.characterSpecies.key) ) ) return true;
+            if ( a.species.some((s) => s.key.includes(this.characterSpecies.variant) ) ) return true;
             return false;
           });
 
@@ -408,8 +408,8 @@ export default {
 
       if (this.characterSpecies) {
         archetypes = archetypes.filter((a) => {
-          if ( a.speciesKey.includes(this.characterSpecies.key) ) return true;
-          if ( a.speciesKey.includes(this.characterSpecies.variant) ) return true;
+          if ( a.species.some((s) => s.key.includes(this.characterSpecies.key) ) ) return true;
+          if ( a.species.some((s) => s.key.includes(this.characterSpecies.variant) ) ) return true;
           return false;
         });
 

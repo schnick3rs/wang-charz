@@ -27,7 +27,7 @@
       </v-toolbar-items>
     </v-app-bar>
 
-    <v-content>
+    <v-main>
       <v-toolbar dense style="overflow: auto">
         <v-toolbar-items>
           <v-btn text small nuxt to="/library/wargear/weapons">
@@ -49,7 +49,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
 
     <default-footer />
   </v-app>
