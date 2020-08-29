@@ -1871,11 +1871,11 @@ const aaoaAeldari = [
     influence: 1,
   },
   // Harlequin
-  simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Player', 100, 4),
-  simpleStub('aaoa2', 57, 'Eldar', 'Aeldari', 'Harlequin Troupe Master', 150, 5),
-  simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Shadowseer', 150, 5),
-  simpleStub('aaoa2', 58, 'Eldar', 'Aeldari', 'Harlequin Death Jester', 150, 5),
-  simpleStub('aaoa2', 59, 'Eldar', 'Aeldari', 'Harlequin Solitaire', 150, 5),
+  archetype('aaoa', 93, 'Aeldari', 'Harlequin Player', 4, 'Aeldari', true),
+  archetype('aaoa', 114, 'Aeldari', 'Harlequin Troupe Master', 5, 'Aeldari', true),
+  archetype('aaoa', 113, 'Aeldari', 'Harlequin Shadowseer', 5, 'Aeldari', true),
+  archetype('aaoa', 112, 'Aeldari', 'Harlequin Death Jester', 5, 'Aeldari', true),
+  archetype('aaoa', 114, 'Aeldari', 'Harlequin Solitaire', 5, 'Aeldari', true),
   // druchari
   {
     name: 'Kabalite Warrior',
