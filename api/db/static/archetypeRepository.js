@@ -3440,7 +3440,7 @@ const aaoaAdeptusMechanicus = [
 
 const aaoaChaos = [
   {
-    ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine', 50, 3, false),
+    ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Chaos', 'Chaos Space Marine', 50, 3, false),
     hint: 'Monstrous traitors and savage posthuman killers',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3475,7 +3475,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Raptor', 60, 3, false),
+    ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Chaos', 'Chaos Space Marine Raptor', 60, 3, false),
     hint: 'Cruel hunters who descent upon shrieking wings of fire',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3506,7 +3506,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 45, 'core-adeptus-astartes', 'Renegades', 'Chaos Space Marine Havoc', 60, 3, false),
+    ...simpleStub('aaoa2', 45, 'core-adeptus-astartes', 'Chaos', 'Chaos Space Marine Havoc', 60, 3, false),
     hint: 'Heavy weapon specialists who revel in endless destruction',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3545,7 +3545,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 43, 'core-adeptus-astartes', 'Renegades', 'Khorne Berzerker', 80, 3, false),
+    ...simpleStub('aaoa2', 43, 'core-adeptus-astartes', 'Chaos', 'Khorne Berzerker', 80, 3, false),
     hint: 'Frenzied, bloodthirsty killers who have devoted themselves to the Blood God',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3578,7 +3578,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Renegades', 'Nurgle Plague Marine', 70, 3),
+    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Chaos', 'Nurgle Plague Marine', 70, 3),
     hint: 'Nigh-unstoppable foot-soldiers of the God of Disease',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3611,7 +3611,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Renegades', 'Slaanesh Noise Marine', 60, 3),
+    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Chaos', 'Slaanesh Noise Marine', 60, 3),
     hint: 'Sensation-addicted warriors of the Prince of Pleasure, armed with sonic weaponry',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3645,7 +3645,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 47, 'core-adeptus-astartes', 'Renegades', 'Chaos Sorcerer', 60, 3),
+    ...simpleStub('aaoa2', 47, 'core-adeptus-astartes', 'Chaos', 'Chaos Sorcerer', 60, 3),
     hint: 'Warrior-mystics who have dabbled in the blasphemous powers of the Warp',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3699,7 +3699,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Renegades', 'Warpsmith', 55, 3, false),
+    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Chaos', 'Warpsmith', 55, 3, false),
     hint: 'An artisan who blends warpcraft and engineering to create daemonic machines of war.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3750,7 +3750,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Renegades', 'Dark Apostle', 60, 4, false),
+    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Chaos', 'Dark Apostle', 60, 4, false),
     hint: 'A furious zealot-priest, speaking blasphemous prayers from blood-flecked lips.',
     prerequisites: [
       reqAttribute('strength', 5),
@@ -3780,7 +3780,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 48, 'aaoa-beastman', 'Renegades', 'Khorngor', 20, 1, false),
+    ...simpleStub('aaoa2', 48, 'aaoa-beastman', 'Chaos', 'Khorngor', 20, 1, false),
     hint: 'Savage beastmen, driven to a berserk rage by the scent of blood.',
     prerequisites: [
       reqAttribute('strength', 3),
@@ -3809,7 +3809,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 49, 'aaoa-beastman', 'Renegades', 'Pestigor', 20, 1, false),
+    ...simpleStub('aaoa2', 49, 'aaoa-beastman', 'Chaos', 'Pestigor', 20, 1, false),
     hint: 'Monstrous beastmen, uncaring to pain or fear.',
     prerequisites: [
       reqAttribute('agility', 3),
@@ -3833,7 +3833,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 49, 'aaoa-beastman', 'Renegades', 'Slaangor', 20, 1,false),
+    ...simpleStub('aaoa2', 49, 'aaoa-beastman', 'Chaos', 'Slaangor', 20, 1,false),
     hint: 'Beastmen who glory in the name of the Prince of Pleasure',
     prerequisites: [
       reqAttribute('agility', 3),
@@ -3857,7 +3857,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 50, 'aaoa-beastman', 'Renegades', 'Tzaangor', 20, 1,false),
+    ...simpleStub('aaoa2', 50, 'aaoa-beastman', 'Chaos', 'Tzaangor', 20, 1,false),
     hint: 'Twisted, cunning Beastmen who serve sorcerous masters',
     prerequisites: [
       reqAttribute('intellect', 3),
