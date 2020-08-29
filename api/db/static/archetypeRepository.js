@@ -2072,7 +2072,7 @@ const aaoaAdeptusArbites = [
       reqSkill('intimidation', 2),
       reqSkill('weaponSkill', 2),
     ]),
-    hint: '',
+    hint: 'An armoured enforcer of the Emperor’s Law, unyielding in their devotion',
     keywords: 'Imperium,Adeptus Arbites',
     influence: 1,
     archetypeFeatures: [
@@ -2106,7 +2106,7 @@ const aaoaAdeptusArbites = [
       reqSkill('investigation', 2),
       reqSkill('scholar', 2),
     ]),
-    hint: '',
+    hint: 'A scholar of the Law, passing judgement upon the guilty',
     keywords: 'Imperium,Adeptus Arbites',
     influence: 1,
     archetypeFeatures: [
@@ -2136,7 +2136,7 @@ const aaoaAdeptusArbites = [
       reqSkill('persuasion', 2),
       reqSkill('weaponSkill', 2),
     ]),
-    hint: '',
+    hint: 'A dogged pursuer of those who would flee the Emperor’s judgement',
     keywords: 'Imperium,Adeptus Arbites',
     influence: 2,
     archetypeFeatures: [
@@ -2159,7 +2159,7 @@ const aaoaAdeptusArbites = [
       reqSkill('scholar', 1),
       reqSkill('stealth', 2),
     ]),
-    hint: '',
+    hint: 'A specialised investigator, assigned to solve more complex crimes',
     keywords: 'Imperium,Adeptus Arbites',
     influence: 2,
     archetypeFeatures: [
@@ -2198,7 +2198,7 @@ const aaoaAdeptusArbites = [
       reqSkill('investigation', 3),
       reqSkill('tech', 2),
     ]),
-    hint: '',
+    hint: 'A technician who studies the scenes of crimes to uncover evidence',
     keywords: 'Imperium, Adeptus Arbites, Adeptus Mechanicus',
     influence: 2,
     archetypeFeatures: [
