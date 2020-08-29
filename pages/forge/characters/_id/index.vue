@@ -336,7 +336,6 @@
                 <td class="text-center pa-1 small">
                   <span v-if="item.attribute">
                     {{ item.attribute.substring(0,3) }}
-                    ({{item.attributeObject.adjustedRating}})
                   </span>
                 </td>
                 <td class="text-center pa-1 small">
