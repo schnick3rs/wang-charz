@@ -247,6 +247,7 @@ import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 import KeywordSelect from '~/components/forge/KeywordSelect.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import WargearMixin from '~/mixins/WargearMixin';
 
 export default {
   name: 'ascension-manage',
@@ -254,6 +255,7 @@ export default {
   mixins: [
     KeywordRepositoryMixin,
     StatRepositoryMixin,
+    WargearMixin,
   ],
   async asyncData({ params, $axios, error }) {
     const wargearResponse = await $axios.get('/api/wargear/');
@@ -728,26 +730,7 @@ export default {
       return feature.options.find((o)=>o.key === feature.selected);
     },
     computeWargearOptionsByFilter(filter, ascension = {targetTier:0}) {
-      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, keywordFilter } = filter;
-      if ( this.wargearList ) {
-        return this.wargearList.filter( (gear) => {
-          let valueReq = true;
-          if ( valueFilter ) {
-            let maxValue = 0;
-            maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
-            maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
-            maxValue += valueFilter.useAscensionTargetTier ? ascension.targetTier : 0;
-            // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
-            valueReq = gear.value <= maxValue;
-          }
-          const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
-          const typeReq = typeFilter ? typeFilter.includes(gear.type) : true;
-          const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
-          const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
-          return valueReq && rarityReq && typeReq && subtypeReq && keywordReq;
-        });
-      }
-      return [];
+      return this.wargearList ? this.filterWargear(this.wargearList, filter, this.settingTier, ascension) : [];
     },
   },
 }

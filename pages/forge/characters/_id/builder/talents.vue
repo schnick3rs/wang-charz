@@ -253,6 +253,7 @@
 <script lang="js">
 import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+import WargearMixin from '~/mixins/WargearMixin';
 import IssueList from '~/components/IssueList.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
 
@@ -266,6 +267,7 @@ export default {
   mixins: [
     KeywordRepositoryMixin,
     StatRepositoryMixin,
+    WargearMixin,
   ],
   props: [],
   head() {
@@ -801,26 +803,7 @@ export default {
       }
     },
     computeWargearOptionsByFilter(filter) {
-      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, triptypeFilter, keywordFilter } = filter;
-      if ( this.wargearList ) {
-        return this.wargearList.filter( (gear) => {
-          let valueReq = true;
-          if ( valueFilter ) {
-            let maxValue = 0;
-            maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
-            maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
-            // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
-            valueReq = gear.value <= maxValue;
-          }
-          const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
-          const typeReq = typeFilter ? typeFilter.includes(gear.type) : true;
-          const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
-          const triptypeReq = triptypeFilter ? (gear.triptype && gear.triptype !== null ? gear.triptype.includes(triptypeFilter) : false ) : true;
-          const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
-          return valueReq && rarityReq && typeReq && subtypeReq && triptypeReq && keywordReq;
-        });
-      }
-      return [];
+      return this.wargearList ? this.filterWargear(this.wargearList, filter, this.settingTier) : [];
     },
   },
 };
