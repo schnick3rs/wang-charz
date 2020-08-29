@@ -3899,9 +3899,8 @@ const aaoaRep = [
   ...aaoaAdeptusMechanicus,
   ...aaoaChaos,
   // Others
-  simpleStub('aaoa2',32,'core-human','Agents of the Imperium','Astropath', 60, 2),
-  simpleStub('aaoa2',33,'core-human','Agents of the Imperium','Sister of Silence', 40, 3),
-  simpleStub('aaoa2',33,'core-human','Agents of the Imperium','Arbitrator', 30, 3),
+  archetype('aaoa',46,'Adeptus Astra Telephatica','Astropath',  2, 'Human', false),
+  archetype('aaoa',80,'Adeptus Astra Telephatica','Sister of Silence',  2, 'aaoa/Pariah', false),
 ];
 
 const aotgtRep = [
