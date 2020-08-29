@@ -1,9 +1,8 @@
 const source = {
-  core: { book: 'Core Rules (v1.5.1)', key: 'core', version: 'v1.5.1' },
-  core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1.0' },
-  coreab: { book: 'Abhumans (Beta)', key: 'core-legacy-abhumans', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha (v3)', sumplements: 'core', key: 'aaoa', version: 'v3', path: '/vault/an-abundance-of-apocrypha' },
-  aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
+  core: { book: 'Core Rules', key: 'core', version: 'v1.5.2', link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959' },
+  core10: { book: 'Core Rules', key: 'core10', version: 'v1' },
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v3.2', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa2: { book: 'An Abundance of Apocrypha', key: 'aaoa2', version: 'v2.0', path: '/vault/an-abundance-of-apocrypha' },
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -456,7 +455,7 @@ const aaoa = [
   },
   // Squats
   {
-    ...species('aaoa', 11,'Squats','Squat','The forgotten',28,5),
+    ...species('aaoa', 13, 'Squats','Squat','The forgotten',28,5),
     ...cost(28,28,0, 0),
     ...commonNames('Algunella, Athgni, Athlun, Balgrimella, Beladokina, Burnir, Burzin, Drokgrimella, Dronglin, Elanya, Elruna, Fimagrin, Fimarun, Gadrinella, Gimzin, Grendl, Grimgrund, Grimtoka, Hakakin, Harmin, Harnina, Kazgrond, Lundor, Moranina, Mori, Odaskina,Olfmir, Ollagona, Ollanya, Ragni, Rorangona, Rorgar, Skagromina, Skoraskina, Skordokina, Snoragund, Throngana, Thuramin, Uthagrund, Zakgni'),
     prerequisites: [

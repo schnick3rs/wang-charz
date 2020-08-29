@@ -2059,6 +2059,156 @@ const aaoaSquat = [
   },
 ];
 
+const aaoaAdeptusArbites = [
+  {
+    name: 'Arbitrator',
+    ...archetype('aaoa', 45, 'Adeptus Arbites', 'Arbitrator', 2, 'Human'),
+    ...costz(58, [
+      reqAttribute('strength', 3),
+      reqAttribute('toughness', 3),
+      reqAttribute('intellect', 2),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('investigation', 2),
+      reqSkill('intimidation', 2),
+      reqSkill('weaponSkill', 2),
+    ]),
+    hint: '',
+    keywords: 'Imperium,Adeptus Arbites',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('I am the Law!',
+        'When you attempt an Intimidation interaction attack, you may affect up to Double Rank targets at once. Add +Rank bonus dice if you’re attacking enemies who possess the SCUM keyword.'),
+    ],
+    wargearString: 'Arbites Carapace, combat shotgun or shock maul and suppression shield, magnacles, Book of Judgement (abridged).',
+    wargear: [
+      { name: 'Arbites Carapace' },
+      {
+        name: 'combat shotgun or shock maul and suppression shield',
+        selected: '',
+        options: [
+          { name: 'Combat Shotgun' },
+          { name: 'Shock Maul and Spression Shield' },
+        ],
+      },
+      { name: 'Magnacles' },
+      { name: 'Book of Judgment', variant: 'Book of Judgement (abridged)' },
+    ],
+  },
+  {
+    name: 'Magistrate',
+    ...archetype('aaoa', 51, 'Adeptus Arbites', 'Magistrate', 2, 'Human'),
+    ...costz(70, [
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 3),
+      reqAttribute('fellowship', 3),
+      reqSkill('insight', 2),
+      reqSkill('intimidation', 2),
+      reqSkill('investigation', 2),
+      reqSkill('scholar', 2),
+    ]),
+    hint: '',
+    keywords: 'Imperium,Adeptus Arbites',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Cast Judgement',
+        'Add +Rank bonus dice when you make an Intimidation test—including an interaction attack—to coerce or subdue someone. Increase that to Double Rank bonus dice your target possess the SCUM keyword.'),
+    ],
+    wargearString: 'Flak coat, stubber, auto quill, data slate, Book of Judgement (abridged)',
+    wargear: [
+      { name: 'Flak coat' },
+      { name: 'auto quill' },
+      { name: 'data slate' },
+      { name: 'Book of Judgment', variant: 'Book of Judgement (abridged)' },
+    ],
+  },
+  {
+    name: 'Chastener',
+    ...archetype('aaoa', 65, 'Adeptus Arbites', 'Chastener', 3, 'Human'),
+    ...costz(110, [
+      reqAttribute('toughness', 3),
+      reqAttribute('strength', 3),
+      reqAttribute('willpower', 4),
+      reqAttribute('fellowship', 3),
+      reqSkill('cunning', 1),
+      reqSkill('insight', 3),
+      reqSkill('intimidation', 3),
+      reqSkill('medicae', 1),
+      reqSkill('persuasion', 2),
+      reqSkill('weaponSkill', 2),
+    ]),
+    hint: '',
+    keywords: 'Imperium,Adeptus Arbites',
+    influence: 2,
+    archetypeFeatures: [
+      simpleAbility('Subdue and Interrogate',
+        'You add +Rank bonus dice to all Intimidation and Insight tests during an interrogation. In addition, when you make an attack with an Agonizing weapon and your target exceeds their Max Wounds as a result, you may choose for them to become unconscious (unable to take further action, unaware of their surroundings) rather than dying.'),
+    ],
+    wargear: wargearz('Arbites Carapace Armour, Shock Maul, Combat Shotgun, magnacles, medkit, Book of Law/Book of Law (abridged)'),
+  },
+  {
+    name: 'Detective',
+    ...archetype('aaoa', 68, 'Adeptus Arbites', 'Detective', 3, 'Human'),
+    ...costz(108, [
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 4),
+      reqAttribute('fellowship', 4),
+      reqSkill('awareness', 2),
+      reqSkill('cunning', 2),
+      reqSkill('deception', 2),
+      reqSkill('investigation', 3),
+      reqSkill('scholar', 1),
+      reqSkill('stealth', 2),
+    ]),
+    hint: '',
+    keywords: 'Imperium,Adeptus Arbites',
+    influence: 2,
+    archetypeFeatures: [
+      simpleAbility('Undercover Agent',
+        'You gain +Rank bonus dice on all Deception tests make to disguise yourself or present yourself as someone else. In addition, you may spend an Exalted Icon from a Deception test to grant yourself the use of a Keyword which you don’t normally possess. This keyword must relate to your current disguise or alias.'),
+    ],
+    wargearString: 'Flak coat, combi-tool, any one ranged weapon of uncommon or lower rarity, knife, auspex, three sets of clothing for use in disguises, symbol of authority, vox caster.',
+    wargear: [
+      { name: 'Flak coat' },
+      { name: 'combi-tool' },
+      {
+        name: 'any one ranged weapon of uncommon or lower rarity',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            rarityFilter: ['Common','Uncommon'],
+            typeFilter: ['Ranged Weapon'],
+          },
+        ],
+      },
+      { name: 'Knife' },
+      { name: 'Auspex' },
+      { name: 'three sets of clothing for use in disguises' },
+      { name: 'symbol of authority' },
+      { name: 'vox caster' },
+    ],
+  },
+  {
+    name: 'Verispex Adept',
+    ...archetype('aaoa', 84, 'Adeptus Arbites', 'Verispex Adept', 3, 'Human'),
+    ...costz(107, [
+      reqAttribute('willpower', 3),
+      reqAttribute('intellect', 5),
+      reqSkill('awareness', 3),
+      reqSkill('investigation', 3),
+      reqSkill('tech', 2),
+    ]),
+    hint: '',
+    keywords: 'Imperium, Adeptus Arbites, Adeptus Mechanicus',
+    influence: 2,
+    archetypeFeatures: [
+      simpleAbility('Crime Scene Investigation',
+        'You have seen enough crime scenes that you can quickly identify common patterns. When you shift one or more Exalted Icons on an Investigate test, you count as having shifted +Rank additional Exalted Icons (this doesn’t affect whether you pass or fail, just the number of extra benefits you get from shifting).'),
+    ],
+    wargear: wargearz('Bodyglove, clothing, Laspistol, knife, Auspex, data-slate, Preysense goggles, Memorance Implant'),
+  },
+];
+
 const aaoaAstraMilitarum = [
   {
     name: 'Imperial Guard Medic',
@@ -2069,7 +2219,7 @@ const aaoaAstraMilitarum = [
       reqSkill('medicae', 2),
     ]),
     hint: 'A disciplined soldier trained to treat the injuries of their comrades.',
-    keywords: 'Imperium,Astra Militarum,<Regiment>',
+    keywords: 'Imperium,Astra Militarum,[Regiment]',
     influence: 0,
     archetypeFeatures: [
       simpleAbility('Field Medic',
@@ -2087,7 +2237,7 @@ const aaoaAstraMilitarum = [
       reqSkill('leadership', 2),
     ]),
     hint: 'A stern commander trained to inspire and lead others into the fray.',
-    keywords: 'Imperium,Astra Militarum,<Regiment>,Officer',
+    keywords: 'Imperium,Astra Militarum,[Regiment],Officer',
     influence: 1,
     archetypeFeatures: [
       {
@@ -2957,23 +3107,20 @@ const aaoaOfficioAssassinorum = [
 const aaoaAdeptusMinistorum=  [
   {
     name: 'Frateris Militia',
-    ...simpleStub('aaoa2', 22, 'core-human', 'Adeptus Ministorum', 'Frateris Militia', 0, 1, false),
-    hint: 'A faithful citizen whipped into a fervour and eager to slay in the Emperor’s name.',
-    prerequisites: [
+    ...archetype('aaoa', 34,  'Adeptus Ministorum', 'Frateris Militia', 1, 'Human'),
+    ...costz(6, [
       reqAttribute('willpower', 2),
       reqSkill('ballisticSkill', 1),
-      reqSkill('weaponSkill', 1),
-    ],
+      // or reqSkill('weaponSkill', 1),
+    ]),
+    hint: 'A faithful citizen whipped into a fervour and eager to slay in the Emperor’s name.',
     keywords: 'Imperium',
     influence: 0,
     archetypeFeatures: [
       {
         name: 'Fevour',
-        snippet:
-          'When within hearing range of a character with the Adeptus Ministorum keyword, ' +
-          'a Frateris Militiaman increases their Resolve by +½ Rank. ' +
-          'In addition, if that Adeptus Ministorum character has suffered any wounds during the current scene, ' +
-          'the Frateris Militiaman’s Soak is increased by +½ Rank while they remain within ten metres.'
+        description:
+          '<p>When within hearing range of a character with the ADEPTUS MINISTORUM keyword, you increase your Resolve by +Rank. In addition, if that Adeptus Ministorum character has suffered any wounds during the current scene, your Determination is increased by +Rank while you remain within 10 metres of them.</p>'
       },
     ],
     wargearString: 'One ranged or melee weapon of Value 3 or less of up to Common rarity, knife, symbol of devotion (tin aquila, devotional scroll, etc.).',
@@ -2996,28 +3143,24 @@ const aaoaAdeptusMinistorum=  [
   },
   {
     name: 'Confessor',
-    ...simpleStub('aaoa2', 22, 'core-human', 'Adeptus Ministorum', 'Confessor', 40, 3, false),
-    hint: 'A high-ranking priest whose rhetoric inspires zeal and piety wherever they go.',
-    prerequisites: [
+    ...archetype('aaoa', 66,  'Adeptus Ministorum', 'Confessor',  3, 'Human'),
+    ...costz(84, [
       reqAttribute('willpower', 4),
       reqAttribute('fellowship', 4),
       reqSkill('persuasion', 3),
       reqSkill('scholar', 2),
-    ],
+    ]),
+    hint: 'A high-ranking priest whose rhetoric inspires zeal and piety wherever they go.',
     keywords: 'Imperium,Adeptus Ministorum,Priest',
     influence: 3,
     archetypeFeatures: [
       {
         name: 'Incite Zeal',
-        snippet:
-          'A Confessor adds +Rank to all Persuade Interaction attacks against targets with the Imperium, Scum, or Heretic keywords. ' +
-          'In addition, a Confessor may spend a Wrath point to make themselves frenzied; ' +
-          'If they do so, they may also make all allies with the Imperium keyword within 15+Rank metres frenzied too.'
+        description:
+          '<p>You add +Double Rank to all Persuasion Interaction attacks against targets with the IMPERIUM, SCUM, or HERETIC keywords. In addition, you may spend a Wrath point to make yourself Frenzied; If you do so, then you may make all allies with the IMPERIUM keyword within 15 +Double Rank metres Frenzied as well.</p>'
       },
     ],
-    wargearString:
-      'Laspistol, one melee weapon or one ranged weapon of up to Value 7 and a rarity of up to Rare, ' +
-      'Rosarius, knife, clothing (Ministorum robes), missionary kit, symbol of authority.',
+    wargearString: 'Laspistol, one melee weapon or one ranged weapon of up to Value 7 and a rarity of up to Rare, Rosarius, knife, clothing (Ministorum robes), missionary kit, symbol of authority.',
     wargear: [
       { name: 'Laspistol' },
       {
@@ -3747,6 +3890,7 @@ const aaoaRep = [
   ...aaoaAeldari,
   ...aaoaOrks,
   ...aaoaSquat,
+  ...aaoaAdeptusArbites,
   ...aaoaAstraMilitarum,
   ...aaoaAdeptusAstartes,
   ...aaoaOfficioAssassinorum,
