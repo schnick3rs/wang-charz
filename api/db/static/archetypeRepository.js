@@ -1946,140 +1946,115 @@ const aaoaAeldari = [
 
 const aaoaSquat = [
   {
-    ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'War-Pledged Warrior', 0, 1, false),
-    hint: 'The rank and file of a Squat Stronghold.',
-    prerequisites: [
+    name: 'War-Pledged Warrior',
+    ...archetype('aaoa',43,'Squats','War-Pledged Warrior',1,'aaoa/Squat'),
+    ...costz(34,  [
       { group: 'attributes', value: 'toughness', threshold: 4 },
       { group: 'attributes', value: 'willpower', threshold: 3 },
-      { group: 'skills', value: 'weaponSkill', threshold: 2 },
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
-      { group: 'skills', value: 'cunning', threshold: 2 },
-    ],
-    keywords: 'Squat,<League>',
+      { group: 'skills', value: 'tech', threshold: 1 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ]),
+    hint: 'The rank and file of a Squat Stronghold.',
+    keywords: 'Squat, [League]',
     influence: 0,
     archetypeFeatures: [
       {
         name: 'War-Pledged',
         description:
-          '<p>A War-Pledged Warrior is bound by oaths of loyalty and duty and stands united with their comrades-in-arms.</p>' +
-          'Whenever a War-Pledged Warrior attacks an enemy who has been attacked by an ' +
-          'ally already during this round (including Interaction attacks), ' +
-          'they gain a bonus of +½ Rank to their attack.</p>',
+          '<p>When you make an attack against an enemy who has already been attacked this round, you gain +Rank bonus dice.</p>',
       },
     ],
-    wargearString:
-      'Boltgun, hand-cannon, mono knife, Flak armour, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Boltgun' },
-      { name: 'Hand-cannon' },
-      { name: 'mono knife' },
-      { name: 'Flak armour' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
+    wargear: wargearz('Bolter, hand-cannon, axe, flak armour, 3 frag grenade'),
   },
   {
-    ...simpleStub('aaoa2', 63, 'aaoa-squat', 'Squats', 'Guild Engineer', 60, 3, false),
-    hint: 'Masterful artisans, creating the devices necessary for survival.',
-    prerequisites: [
+    ...archetype('aaoa', 73,  'Squats', 'Guild Engineer',  3, 'aaoa/Squat'),
+    ...costz(70,[
+      { group: 'attributes', value: 'toughness', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
       { group: 'attributes', value: 'intellect', threshold: 3 },
-      { group: 'skills', value: 'tech', threshold: 3 },
       { group: 'skills', value: 'scholar', threshold: 1 },
-    ],
-    keywords: 'Squat,<League>',
+      { group: 'skills', value: 'tech', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 3 },
+    ]),
+    hint: 'Masterful artisans, creating the devices necessary for survival.',
+    keywords: 'Squat, [League]',
     influence: 2,
     archetypeFeatures: [
       {
         name: 'Guild Techniques',
         description:
-          '<p>Guild Engineers receive +Rank on Tech tests to repair a damaged machine. They may re-roll up to ½ Rank dice on any skill test to use a device that they have personally built or repaired. They are considered to have built all of their starting wargear.</p>',
+          '<p>You receive +Rank on Tech tests to repair a damaged machine, or to craft a new one. You may re-roll up to Rank dice on any skill test made to use a device you’ve personally built. You are considered to have built all of your starting wargear personally.</p>',
       },
     ],
-    wargearString:
-      'Boltgun, Power Axe, augmetic servo-arm, Ionclad Carapace armour, Refractor field, Guild Engineer’s tools.',
-    wargear: [
-      { name: 'Boltgun' },
-      { name: 'Power Axe' },
-      { name: 'Mechadendrites (Servo-Arm)' },
-      { name: 'Ionclad Carapace Armour' },
-      { name: 'Refractor field' },
-      { name: 'Guild Engineer’s tools' },
-    ],
+    wargear: wargearz('Bolt Pistol, Power Axe, augmetic servo-arm, Ionclad Carapace Armour, Refractor Field, combi-tool'),
   },
   {
-    ...simpleStub('aaoa2', 64, 'aaoa-squat', 'Squats', 'Hearthguard', 60, 3, false),
-    hint: 'Doughty elite warriors pledged to defend hearth and home.',
-    prerequisites: [
+    name: 'Hearthguard',
+    ...archetype('aaoa', 74, 'Squats', 'Hearthguard',  3,'aaoa/Squat'),
+    ...costz(128,[
+      { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 4 },
-      { group: 'attributes', value: 'willpower', threshold: 3 },
-      { group: 'attributes', value: 'fellowship', threshold: 3 },
-      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+      { group: 'attributes', value: 'willpower', threshold: 4 },
+      { group: 'attributes', value: 'fellowship', threshold: 2 },
       { group: 'skills', value: 'ballisticSkill', threshold: 4 },
       { group: 'skills', value: 'leadership', threshold: 2 },
-    ],
-    keywords: 'Squat,<League>',
+      { group: 'skills', value: 'persuasion', threshold: 2 },
+      { group: 'skills', value: 'tech', threshold: 1 },
+      { group: 'skills', value: 'weaponSkill', threshold: 4 },
+    ]),
+    hint: 'Doughty elite warriors pledged to defend hearth and home.',
+    keywords: 'Squat, [League]',
     influence: 2,
     archetypeFeatures: [
       {
-        name: 'Bodyguard',
+        name: 'Close Protection',
         description:
-          '<p>A Hearthguard is unstinting in their devotion to their comrades, ' +
-          'and they will not permit their allies to come to harm if it can be helped. ' +
-          'When an enemy makes an attack against a character within 5m of the Hearthguard (and who is one of the Hearthguard’s allies), the DN of the attack is increased by ½ the Hearthguard’s Rank.</p>',
+          '<p>When an enemy makes an attack against an ally within 5m of you, then as a Reflexive Action, you may increase that ally’s Defence and Resilience by +Rank against that attack.</p>',
       },
     ],
-    wargearString:
-      'Boltgun, Power Axe, Bolt Pistol, mono knife, Ionclad Carapace Armour, 3 frag and 3 krak grenades.',
-    wargear: [
-      { name: 'Boltgun' },
-      { name: 'Power Axe' },
-      { name: 'Bolt Pistol' },
-      { name: 'Mono Knife' },
-      { name: 'Ionclad Carapace Armour' },
-      { name: 'Frag Grenade', amount: 3 },
-      { name: 'Krak Grenade', amount: 3 },
-    ],
+    wargear: wargearz('Bolter, Power Axe, Bolt Pistol, mono-knife, Ionclad Carapace Armour, 3 frag grenade, 3 krak grenade'),
   },
   {
-    ...simpleStub('aaoa2', 64, 'aaoa-squat', 'Squats', 'Ancestor Lord', 100, 4, false),
-    hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
-    prerequisites: [
+    name: 'Ancestor Lord',
+    ...archetype('aaoa', 87, 'Squats', 'Ancestor Lord', 4,'aaoa/Saquat'),
+    ...costz(182,[
+      { group: 'attributes', value: 'toughness', threshold: 5 },
       { group: 'attributes', value: 'willpower', threshold: 5 },
-      { group: 'attributes', value: 'fellowship', threshold: 4 },
-      { group: 'skills', value: 'leadership', threshold: 3 },
-      { group: 'skills', value: 'psychicMastery', threshold: 3 },
-    ],
-    keywords: 'Squat,<League>,Psyker',
+      { group: 'attributes', value: 'intellect', threshold: 4 },
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'leadership', threshold: 2 },
+      { group: 'skills', value: 'persuasion', threshold: 2 },
+      { group: 'skills', value: 'psychicMastery', threshold: 4 },
+      { group: 'skills', value: 'scholar', threshold: 3 },
+      { group: 'skills', value: 'tech', threshold: 1 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ]),
+    hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
+    keywords: 'Squat [League], Psyker',
     influence: 4,
     archetypeFeatures: [
       {
         name: 'Psychic Protector',
         description:
-          '<p>An Ancestor Lord begins play with the Psyniscience and smite psychic powers (which do not count towards the maximum), ' +
-          'and may purchase additional Minor Psychic Powers, Universal Psychic Powers, and Ancestral Rites Psychic Powers, ' +
-          'subject to Tier restrictions.</p>',
+          '<p>You are a Psyker; you know the <strong>Smite</strong> psychic power and may learn other powers from the <strong>Telekinesis</strong> and <strong>Ancestral Rites</strong> disciplines.</p>',
         psychicPowers: [
           { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          { name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
         ],
         psychicDisciplines: [
           'Minor',
-          'Biomancy',
-          'Divination',
-          'Pyromancy',
           'Telekinesis',
-          'Telepathy',
           'Universal',
           'Ancestral Rites',
         ],
       },
     ],
-    wargearString:
-      'Master-Crafted Force Rod, Ionclad Carapace armour, clothing (Ancestor’s robes).',
+    wargearString: 'Ionclad Carapace armour, ancestor’s robes (clothing), Master-Crafted Force Rod, Master-Crafted Bolt Pistol.',
     wargear: [
-      { name: 'Force Rod', variant: 'Master-Crafted Force Rod' },
       { name: 'Ionclad Carapace Armour' },
       { name: 'Clothing', variant: 'Ancestor’s robes' },
+      { name: 'Force Rod (MC)', variant: 'Master-Crafted Force Rod' },
+      { name: 'Bolt Pistol (MC)', variant: 'Master-Crafted Bolt Pistol' },
     ],
   },
 ];
