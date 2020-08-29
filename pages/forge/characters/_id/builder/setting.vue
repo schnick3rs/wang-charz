@@ -409,6 +409,15 @@ export default {
         },
         {
           active: true,
+          key: 'tog',
+          name: '\'Tome of Glory\' content',
+          hint: 'Add Chaos Archetypes.',
+          enabled: true,
+          nuxt: '/vault/tome-of-glory',
+          source: '',
+        },
+        {
+          active: true,
           key: 'tea',
           name: '\'The Emperor´s Angels\' content',
           hint: 'Add Space Marine archetypes and Librarius Powers.',

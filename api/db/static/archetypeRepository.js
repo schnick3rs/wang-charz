@@ -8,10 +8,11 @@ const source = {
   core10: { book: 'Core Rules', key: 'core10', version: 'v1' },
   // Doctors of Doom
   dod: { book: 'Doctors of Doom Compendium', key: 'dod', version: '', path: '' },
-  // Homebrews
+  // Homebrews (Up to date)
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v3.2', path: '/vault/an-abundance-of-apocrypha' },
   aaoa2: { book: 'An Abundance of Apocrypha', key: 'aaoa2', version: 'v2.0', path: '/vault/an-abundance-of-apocrypha' },
   tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
+  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
   // Other (Outdated)
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
@@ -24,7 +25,6 @@ const source = {
   goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
   pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
   sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
-  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
 };
 
 const _statCosts = {
@@ -4137,12 +4137,50 @@ const goenRep = [
 
 const togRep = [
   {
-    ...archetype('tog', 8, 'Renegades', 'Raider', 2, 'Human', true),
+    name: 'Raider',
+    ...archetype('tog', 8, 'Chaos', 'Raider', 2, 'Human'),
     ...costz(24, [
-
+      reqSkill('ballisticSkill', 2),
+      reqSkill('cunning', 2),
+      reqSkill('pilot', 1),
     ]),
+    hint: 'A corrupted thug for lightning strikes',
+    keywords: '[Any],Chaos,[Mark of Chaos]',
+    archetypeFeatures: [
+      {
+        ...simpleAbility('Take Everything!', 'The Raider gains +Rank to all Pilot tests. They also begin each game session with one additional Reload.'),
+      },
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 2 },
+    ],
+    wargearString: ('Lasgun or Hand Flamer, Mono Knife or Sword, 2 Throwing Knives, 1 Frag Grenade, Mesh Armour.'),
+    influence: 1,
   },
-  archetype('tog', 6, 'Renegades', 'Champion', 3, 'Human', true),
+  {
+    name: 'Champion',
+    ...archetype('tog', 8, 'Chaos', 'Champion', 3, 'Human'),
+    ...costz(64, [
+      reqAttribute('strength', 3),
+      reqAttribute('willpower', 3),
+      reqAttribute('initiative', 3),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('scholar', 1),
+      reqSkill('weaponSkill', 2),
+    ]),
+    hint: 'A champion for the dark gods',
+    keywords: 'Chaos,Heretic,[Mark of Chaos]',
+    archetypeFeatures: [
+      {
+        ...simpleAbility('Favour of the Gods', 'You start each session with an additional point of Wrath. You also gain a Wrath point when you kill a creature with the IMPERIUM Keyword.'),
+      },
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+    ],
+    wargearString: ('Flak Armour, Chain Axe or Chain Sword, Bolt Pistol, 2 Frag Grenades, 1 krak Grenade.'),
+    influence: 2,
+  },
   archetype('tog', 7, 'Renegades', 'Apostate', 3, 'Human', true),
   archetype('tog', 8, 'Renegades', 'Plague Marine', 3, 'Adeptus Astartes', true),
   archetype('tog', 8, 'Renegades', 'Khorne Berserker', 3, 'Adeptus Astartes', true),
