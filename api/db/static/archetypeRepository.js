@@ -192,7 +192,7 @@ const wargearz = function(wargearString) {
     let parts = part.split(' or ');
     if (parts.length > 1) {
       return {
-        name: 'part',
+        name: part,
         selected: '',
         options: parts.map((p) => wargearOptionFromString(p)),
       }
