@@ -2,11 +2,17 @@
 // Astra Militarum
 
 const source = {
+  // Official
   core: { book: 'Core Rules', key: 'core', version: 'v1.5.2', link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
   core10: { book: 'Core Rules', key: 'core10', version: 'v1' },
+  // Doctors of Doom
+  dod: { book: 'Doctors of Doom Compendium', key: 'dod', version: '', path: '' },
+  // Homebrews
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v3.2', path: '/vault/an-abundance-of-apocrypha' },
   aaoa2: { book: 'An Abundance of Apocrypha', key: 'aaoa2', version: 'v2.0', path: '/vault/an-abundance-of-apocrypha' },
+  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
+  // Other (Outdated)
   lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
   thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
   ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
@@ -16,11 +22,9 @@ const source = {
   tea: { book: 'The Emperor\'s Angels', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
   heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
   goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
-  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
   pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
   sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
   amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
-  dod: { book: 'Doctors of Doom Compendium', key: 'dod', version: '', path: '' },
 };
 
 const _statCosts = {
@@ -98,48 +102,6 @@ const archetype = function (sourceKey, sourcePage, faction, name, tier, species,
     influence: 0,
   };
 }
-
-const simpleStub = function (sourceKey, sourcePage, species, faction, name, bp, tier, stub = true) {
-  let speciesSourceKey = 'core';
-  let speciesName = 'Human';
-
-  let split = [];
-
-  split = species.split('/');
-  if ( split.length === 2) {
-    speciesSourceKey = split[0];
-    speciesName = split[1];
-  } else {
-    split = species.split('-');
-    if ( split.length >= 2 ){
-      speciesSourceKey = split[0];
-      speciesName = split.splice(1).map((i)=>i.charAt(0).toUpperCase() + i.slice(1)).join(' ');
-    } else {
-      speciesName = species;
-    }
-  }
-
-  const speciesObject = {
-    name: speciesName,
-    key: `${speciesSourceKey.toLowerCase()}-${stringToKebab(speciesName)}`,
-    sourceKey: speciesSourceKey.toLowerCase(),
-  };
-
-  return {
-    source: {
-      ...source[sourceKey],
-      page: sourcePage,
-    },
-    key: `${stringToKebab(`${sourceKey} ${name}`)}`,
-    name,
-    cost: bp,
-    tier,
-    species: [ speciesObject ],
-    stub: stub,
-    faction,
-    factionKey: `${stringToKebab(`core ${faction}`)}`,
-  };
-};
 
 const reqAttribute = function(key, value) {
   return {
@@ -3197,7 +3159,7 @@ const aaoaAdeptaSororitas = [
       reqSkill('persuasion', 1),
       reqSkill('scholar', 2),
     ],
-    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     influence: 1,
     archetypeFeatures: [
       {
@@ -3228,7 +3190,7 @@ const aaoaAdeptaSororitas = [
       reqSkill('leadership', 1),
       reqSkill('scholar', 1),
     ],
-    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     influence: 1,
     archetypeFeatures: [
       {
@@ -3262,7 +3224,7 @@ const aaoaAdeptaSororitas = [
       reqSkill('weaponSkill', 4),
       reqSkill('pilot', 4),
     ],
-    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     influence: 2,
     archetypeFeatures: [
       {
@@ -3298,7 +3260,7 @@ const aaoaAdeptaSororitas = [
       reqSkill('scholar', 2),
       reqSkill('weaponSkill', 4),
     ],
-    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,<Order>',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     influence: -2,
     archetypeFeatures: [
       {
@@ -3445,7 +3407,8 @@ const aaoaAdeptusMechanicus = [
 
 const aaoaChaos = [
   {
-    ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Chaos', 'Chaos Space Marine', 50, 3, false),
+    ...archetype('aaoa2', 44, 'Chaos', 'Chaos Space Marine', 3, 'Adeptus Astartes'),
+    ...costz(50, [  /* TODO */]),
     hint: 'Monstrous traitors and savage posthuman killers',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3480,7 +3443,8 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 44, 'core-adeptus-astartes', 'Chaos', 'Chaos Space Marine Raptor', 60, 3, false),
+    ...archetype('aaoa2', 44, 'Chaos', 'Chaos Space Marine Raptor', 3, 'Adeptus Astartes'),
+    ...costz(60, [  /* TODO */]),
     hint: 'Cruel hunters who descent upon shrieking wings of fire',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3511,7 +3475,8 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 45, 'core-adeptus-astartes', 'Chaos', 'Chaos Space Marine Havoc', 60, 3, false),
+    ...archetype('aaoa2', 45, 'Chaos', 'Chaos Space Marine Havoc', 3, 'Adeptus Astartes'),
+    ...costz(60, [  /* TODO */]),
     hint: 'Heavy weapon specialists who revel in endless destruction',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3550,7 +3515,8 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 43, 'core-adeptus-astartes', 'Chaos', 'Khorne Berzerker', 80, 3, false),
+    ...archetype('aaoa2', 43, 'Chaos', 'Khorne Berzerker', 3, 'Adeptus Astartes'),
+    ...costz(80, [  /* TODO */]),
     hint: 'Frenzied, bloodthirsty killers who have devoted themselves to the Blood God',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3704,7 +3670,8 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Chaos', 'Warpsmith', 55, 3, false),
+    ...archetype('aaoa2', 46, 'Chaos', 'Warpsmith', 3, 'Adeptus Astartes'),
+    ...costz(55, [  /* TODO */]),
     hint: 'An artisan who blends warpcraft and engineering to create daemonic machines of war.',
     prerequisites: [
       reqAttribute('strength', 4),
@@ -3755,7 +3722,8 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 46, 'core-adeptus-astartes', 'Chaos', 'Dark Apostle', 60, 4, false),
+    ...archetype('aaoa2', 46, 'Chaos', 'Dark Apostle', 4, 'Adeptus Astartes'),
+    ...costz(60, [  /* TODO */]),
     hint: 'A furious zealot-priest, speaking blasphemous prayers from blood-flecked lips.',
     prerequisites: [
       reqAttribute('strength', 5),
@@ -3785,7 +3753,8 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 48, 'aaoa-beastman', 'Chaos', 'Khorngor', 20, 1, false),
+    ...archetype('aaoa2', 48, 'Chaos', 'Khorngor', 1, 'aaoa/Beastman'),
+    ...costz(20, [  /* TODO */]),
     hint: 'Savage beastmen, driven to a berserk rage by the scent of blood.',
     prerequisites: [
       reqAttribute('strength', 3),
@@ -3814,7 +3783,8 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 49, 'aaoa-beastman', 'Chaos', 'Pestigor', 20, 1, false),
+    ...archetype('aaoa2', 49, 'Chaos', 'Pestigor', 1, 'aaoa/Beastman'),
+    ...costz(20, [  /* TODO */]),
     hint: 'Monstrous beastmen, uncaring to pain or fear.',
     prerequisites: [
       reqAttribute('agility', 3),
@@ -3838,13 +3808,13 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 49, 'aaoa-beastman', 'Chaos', 'Slaangor', 20, 1,false),
-    hint: 'Beastmen who glory in the name of the Prince of Pleasure',
-    prerequisites: [
+    ...archetype('aaoa2', 49,  'Chaos', 'Slaangor',  1,'aaoa/Beastman', false),
+    ...costz(20, [
       reqAttribute('agility', 3),
       reqSkill('weaponSkill', 2),
       reqSkill('persuasion', 1),
-    ],
+    ]),
+    hint: 'Beastmen who glory in the name of the Prince of Pleasure',
     keywords: 'Heretic, Chaos, Slaanesh',
     influence: 1,
     modifications: [
@@ -3915,7 +3885,7 @@ const aotgtRep = [
   archetype('aotgt', '', 'Agents of the Imperium', 'Callidus Assassin', 4, 'Human', true),
   archetype('aotgt', '', 'Agents of the Imperium', 'Culexus Assassin', 4, 'Human', true),
   archetype('aotgt', '', 'Agents of the Imperium', 'Vindicare Assassin', 4, 'Human', true),
-  simpleStub('aotgt', '', 'core-adeptus-astartes', 'Agents of the Imperium', 'Grey Knight', 90, 4),
+  archetype('aotgt', '', 'Agents of the Imperium', 'Grey Knight', 4, 'Adeptus Astartes', true),
 ];
 
 const ltgbRep = [
@@ -3938,7 +3908,8 @@ const ltgbRep = [
 
 const teaRep = [
   {
-    ...simpleStub('tea', 22, 'core-adeptus-astartes', 'Adeptus Astartes', 'Devastator Space Marine', 60, 3, false),
+    ...archetype('tea', 22, 'Adeptus Astartes', 'Devastator Space Marine', 3, 'Adeptus Astartes'),
+    ...costz(60, [  /* TODO */]),
     hint: 'Devastate the wast masses of enemies with your focus fire.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -3968,7 +3939,8 @@ const teaRep = [
     ],
   },
   {
-    ...simpleStub('tea', 23, 'core-adeptus-astartes', 'Adeptus Astartes', 'Assault Space Marine', 55, 3, false),
+    ...archetype('tea', 23, 'Adeptus Astartes', 'Assault Space Marine', 3, 'Adeptus Astartes'),
+    ...costz(55, [  /* TODO */]),
     hint: 'Decent like a meteor into the enemy lines.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -3998,7 +3970,8 @@ const teaRep = [
   },
   archetype('tea', 23, 'Adeptus Astartes', 'Tactical Marine', 3, 'Adeptus Astartes', true),
   {
-    ...simpleStub('tea', 24, 'core-adeptus-astartes', 'Adeptus Astartes', 'Techmarine', 85, 3, false),
+    ...archetype('tea', 24, 'Adeptus Astartes', 'Techmarine', 3, 'Adeptus Astartes'),
+    ...costz(85, [  /* TODO */]),
     hint: 'Support the Chapter with your craftsmanship and technical knock.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -4036,7 +4009,8 @@ const teaRep = [
     ],
   },
   {
-    ...simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Apothecary', 70, 3, false),
+    ...archetype('tea', 25, 'Adeptus Astartes', 'Apothecary', 3, 'Adeptus Astartes'),
+    ...costz(70, [  /* TODO */]),
     hint: 'Rescue the dying from their well earned retirement.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -4076,7 +4050,8 @@ const teaRep = [
     ],
   },
   {
-    ...simpleStub('tea', 25, 'core-adeptus-astartes', 'Adeptus Astartes', 'Librarian', 80, 3, false),
+    ...archetype('tea', 25, 'Adeptus Astartes', 'Librarian', 3, 'Adeptus Astartes'),
+    ...costz(80, [  /* TODO */]),
     hint: 'Harness the universal and librarius powers of the warp.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -4180,7 +4155,7 @@ const lotnRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 4 },
       { group: 'skills', value: 'weaponSkill', threshold: 3 },
     ],
-    keywords: 'Necron,<Dynasty>',
+    keywords: 'Necron,[Dynasty]',
     influence: 1,
     archetypeFeatures: [
       {
@@ -4212,7 +4187,7 @@ const lotnRep = [
       { group: 'skills', value: 'stealth', threshold: 4 },
       { group: 'skills', value: 'awareness', threshold: 3 },
     ],
-    keywords: 'Necron,<Dynasty>',
+    keywords: 'Necron,[Dynasty]',
     influence: 1,
     archetypeFeatures: [
       {
@@ -4244,7 +4219,7 @@ const lotnRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 4 },
       { group: 'skills', value: 'weaponSkill', threshold: 4 },
     ],
-    keywords: 'Necron,<Dynasty>',
+    keywords: 'Necron,[Dynasty]',
     influence: 1,
     archetypeFeatures: [
       {
@@ -4274,7 +4249,7 @@ const lotnRep = [
       { group: 'skills', value: 'weaponSkill', threshold: 5 },
       { group: 'skills', value: 'awareness', threshold: 4 },
     ],
-    keywords: 'Necron,<Dynasty>',
+    keywords: 'Necron,[Dynasty]',
     influence: 2,
     archetypeFeatures: [
       {
@@ -4347,7 +4322,7 @@ const lotnRep = [
       { group: 'skills', value: 'leadership', threshold: 5 },
       { group: 'skills', value: 'persuasion', threshold: 3 },
     ],
-    keywords: 'Necron,<Dynasty>',
+    keywords: 'Necron,[Dynasty]',
     influence: 3,
     archetypeFeatures: [
       {
@@ -4380,7 +4355,7 @@ const lotnRep = [
       { group: 'skills', value: 'tech', threshold: 5 },
       { group: 'skills', value: 'scholar', threshold: 4 },
     ],
-    keywords: 'Necron,<Dynasty>',
+    keywords: 'Necron,[Dynasty]',
     influence: 2,
     archetypeFeatures: [
       {
@@ -4409,7 +4384,7 @@ const lotnRep = [
       { group: 'skills', value: 'leadership', threshold: 5 },
       { group: 'skills', value: 'persuasion', threshold: 4 },
     ],
-    keywords: 'Necron,<Dynasty>',
+    keywords: 'Necron,[Dynasty]',
     influence: 3,
     archetypeFeatures: [
       {
@@ -4444,7 +4419,7 @@ const paxRep = [
       { group: 'skills', value: 'weaponSkill', threshold: 2 },
       { group: 'skills', value: 'intimidation', threshold: 2 },
     ],
-    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
     influence: 1,
     archetypeFeatures: [
       {
@@ -4496,7 +4471,7 @@ const paxRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'intimidation', threshold: 3 },
     ],
-    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
     influence: 2,
     archetypeFeatures: [
       {
@@ -4551,7 +4526,7 @@ const paxRep = [
       { group: 'skills', value: 'survival', threshold: 2 },
       { group: 'skills', value: 'stealth', threshold: 2 },
     ],
-    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
     influence: 3,
     archetypeFeatures: [
       {
@@ -4597,7 +4572,7 @@ const paxRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'intimidation', threshold: 4 },
     ],
-    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
     influence: 3,
     archetypeFeatures: [
       {
@@ -4654,7 +4629,7 @@ const paxRep = [
       { group: 'skills', value: 'ballisticSkill', threshold: 2 },
       { group: 'skills', value: 'intimidation', threshold: 5 },
     ],
-    keywords: 'Imperium,Adeptus Arbites,<Predict>,Military',
+    keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
     influence: 3,
     archetypeFeatures: [
       {
@@ -4751,7 +4726,7 @@ const paxRep = [
     hint: 'An inexperienced youth, eager for chance to prove themselves.',
     prerequisites: [],
     prerequisiteText: 'The respective <Gang> Skill at (1).',
-    keywords: 'Imperium,Scum,<Gang>,Outcast',
+    keywords: 'Imperium,Scum,[Gang],Outcast',
     influence: -1,
     archetypeFeatures: [
       {
@@ -4801,7 +4776,7 @@ const paxRep = [
       { group: 'skills', value: 'cunning', threshold: 1 },
     ],
     prerequisiteText: 'The respective <Gang> Skill at (3).',
-    keywords: 'Imperium,Scum,<Gang>,Outcast',
+    keywords: 'Imperium,Scum,[Gang],Outcast',
     influence: 1,
     archetypeFeatures: [
       {
@@ -4861,7 +4836,7 @@ const paxRep = [
       { group: 'attributes', value: 'toughness', threshold: 3 },
     ],
     prerequisiteText: 'The respective <Gang> Skill at (1).',
-    keywords: 'Imperium,Scum,<Gang>,Outcast',
+    keywords: 'Imperium,Scum,[Gang],Outcast',
     influence: 1,
     archetypeFeatures: [
       {
@@ -4907,7 +4882,7 @@ const paxRep = [
       { group: 'attributes', value: 'strength', threshold: 3 },
     ],
     prerequisiteText: 'The respective <Gang> Skill at (4).',
-    keywords: 'Imperium,Scum,<Gang>,Outcast',
+    keywords: 'Imperium,Scum,[Gang],Outcast',
     influence: 2,
     archetypeFeatures: [
       {
@@ -4997,7 +4972,8 @@ const paxRep = [
   archetype('pax', '-', 'Mutant Outcast', 'Scavvy', 2, 'Human', true),
   archetype('pax', '-', 'Mutant Outcast', 'Hullghast', 3, 'Human', true),
   {
-    ...simpleStub('pax', 195, 'pax-navigator', 'Navis Nobility Houses', 'Navis Scion', 20, 1),
+    ...archetype('pax', 195, 'Navis Nobility Houses', 'Navis Scion', 1, 'pax/Navigator'),
+    ...costz(20, [/* TODO */]),
     stub: false,
     hint: 'A young navigator, groomed for diplomacy since birth.',
     prerequisites: [
@@ -5025,7 +5001,8 @@ const paxRep = [
     ],
   },
   {
-    ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Nobilite Emissary', 10, 1),
+    ...archetype('pax', '-', 'Navis Nobility Houses', 'Nobilite Emissary', 1, 'pax/Navigator'),
+    ...costz(10, [/* TODO */]),
     stub: false,
     hint: 'A representative of the Navis Nobilite, empowered to enact the will of a houses Novators.',
     species: [ 'Human (core)', 'Navigator (pax)' ],
@@ -5103,7 +5080,8 @@ const paxRep = [
     ],
   },
   {
-    ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Novator', 40, 3),
+    ...archetype('pax', '-', 'Navis Nobility Houses', 'Novator', 3, 'pax/Navigator'),
+    ...costz(40, [/* TODO */]),
     stub: false,
     hint: 'An elder navigator who directs the interests of their house.',
     prerequisites: [
@@ -5151,7 +5129,8 @@ const paxRep = [
     ],
   },
   {
-    ...simpleStub('pax', '-', 'pax-navigator', 'Navis Nobility Houses', 'Heir-Apparent', 50, 4),
+    ...archetype('pax', '-', 'Navis Nobility Houses', 'Heir-Apparent', 4, 'pax/Navigator'),
+    ...costz(50, [/* TODO */]),
     stub: false,
     hint: 'The strongest navigators, primed to become the next paternova.',
     prerequisites: [
@@ -5229,7 +5208,8 @@ const paxRep = [
   archetype('pax', '-', 'Underworld Syndicates', 'Cold Trader', 2, 'Human', true),
   archetype('pax', '-', 'Underworld Syndicates', 'Crime Lord', 2, 'Human', true),
   {
-    ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Blank', 0, 1),
+    ...archetype('pax', '-', 'Untouchables', 'Blank', 1, 'pax/Untouchable'),
+    ...costz(0, [ /* TODO */ ]),
     stub: false,
     hint: 'An untouchable, whose aura of ‘wrongness’ sets them apart from his fellow man.',
     prerequisites: [
@@ -5286,7 +5266,8 @@ const paxRep = [
     ],
   },
   {
-    ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Null', 20, 2),
+    ...archetype('pax', '-', 'Untouchables', 'Null', 2, 'pax/Untouchable'),
+    ...costz(20, [ /* TODO */ ]),
     stub: false,
     hint: 'A more unnatural untouchable, whose presence can harm the psychically gifted and ward of the daemonic.',
     prerequisites: [
@@ -5340,7 +5321,8 @@ const paxRep = [
     ],
   },
   {
-    ...simpleStub('pax', '-', 'pax-untouchable', 'Untouchables', 'Pariah', 50, 3),
+    ...archetype('pax', '-', 'Untouchables', 'Pariah', 3, 'pax/Untouchable'),
+    ...costz(50, [ /* TODO */ ]),
     stub: false,
     hint: 'A particularly powerful untouchable, whose aura is palpable and capable of disrupting the strongest of psychic manifestations.',
     prerequisites: [
