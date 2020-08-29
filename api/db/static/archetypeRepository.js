@@ -3832,7 +3832,8 @@ const aaoaChaos = [
     ],
   },
   {
-    ...simpleStub('aaoa2', 50, 'aaoa-beastman', 'Chaos', 'Tzaangor', 20, 1,false),
+    ...archetype('aaoa2', 50, 'Chaos', 'Tzaangor', 1, 'aaoa/Beastman'),
+    ...costz(20, [ /* TODO */]),
     hint: 'Twisted, cunning Beastmen who serve sorcerous masters',
     prerequisites: [
       reqAttribute('intellect', 3),
@@ -4111,14 +4112,14 @@ const teaRep = [
     ],
   },
   archetype('tea', 26, 'Adeptus Astartes', 'Chaplain', 4, 'Adeptus Astartes', true),
-  simpleStub('tea', 27, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Intercessor', 60, 4),
-  simpleStub('tea', 27, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Hellblaster', 75, 4),
-  simpleStub('tea', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Reiver', 60, 4),
-  simpleStub('tea', 28, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Inceptor', 80, 4),
-  simpleStub('tea', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Aggressor', 80, 4),
-  simpleStub('tea', 29, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Apothecary', 80, 4),
-  simpleStub('tea', 30, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Librarian', 90, 4),
-  simpleStub('tea', 31, 'core-primaris-astartes', 'Adeptus Astartes', 'Primaris Chaplain', 95, 5),
+  archetype('tea', 27, 'Adeptus Astartes', 'Primaris Intercessor', 4, 'Primaris Astartes', true),
+  archetype('tea', 27, 'Adeptus Astartes', 'Primaris Hellblaster', 4, 'Primaris Astartes', true),
+  archetype('tea', 28, 'Adeptus Astartes', 'Primaris Reiver', 4, 'Primaris Astartes', true),
+  archetype('tea', 28, 'Adeptus Astartes', 'Primaris Inceptor', 4, 'Primaris Astartes', true),
+  archetype('tea', 29, 'Adeptus Astartes', 'Primaris Aggressor', 4, 'Primaris Astartes', true),
+  archetype('tea', 29, 'Adeptus Astartes', 'Primaris Apothecary', 4, 'Primaris Astartes', true),
+  archetype('tea', 30, 'Adeptus Astartes', 'Primaris Librarian', 4, 'Primaris Astartes', true),
+  archetype('tea', 31, 'Adeptus Astartes', 'Primaris Chaplain', 5, 'Primaris Astartes', true),
 ];
 
 const hevaRep = [
@@ -4135,7 +4136,12 @@ const goenRep = [
 ];
 
 const togRep = [
-  archetype('tog', 6, 'Renegades', 'Raider', 2, 'Human', true),
+  {
+    ...archetype('tog', 8, 'Renegades', 'Raider', 2, 'Human', true),
+    ...costz(24, [
+
+    ]),
+  },
   archetype('tog', 6, 'Renegades', 'Champion', 3, 'Human', true),
   archetype('tog', 7, 'Renegades', 'Apostate', 3, 'Human', true),
   archetype('tog', 8, 'Renegades', 'Plague Marine', 3, 'Adeptus Astartes', true),
@@ -4146,7 +4152,8 @@ const togRep = [
 
 const lotnRep = [
   {
-    ...simpleStub('lotn', 5, 'lotn-necron', 'Necrons', 'Immortal', 60, 3, false),
+    ...archetype('lotn', 5, 'Necrons', 'Immortal', 3, 'lotn/Necron'),
+    ...costz(60, [ /* TODO */]),
     hint: 'Formerly members of the Necrontyr’s professional military, the Immortals were known for their peerless skill and resolve.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -4177,7 +4184,8 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 5, 'lotn-necron', 'Necrons', 'Deathmark', 65, 3, false),
+    ...archetype('lotn', 5, 'Necrons', 'Deathmark', 3, 'lotn/Necron'),
+    ...costz(65, [ /* TODO */]),
     hint: 'Assassins without peer, the Deathmarks are highly accurate and well-trained soldiers',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -4210,7 +4218,8 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Destroyer', 85, 3, false),
+    ...archetype('lotn', 6, 'Necrons', 'Destroyer', 3, 'lotn/Necron'),
+    ...costz(85, [ /* TODO */]),
     hint: 'Awoken with their minds decayed and damaged.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -4239,7 +4248,8 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 6, 'lotn-necron', 'Necrons', 'Lychguard', 70, 4, false),
+    ...archetype('lotn', 6, 'Necrons', 'Lychguard', 4, 'lotn/Necron'),
+    ...costz(70, [ /* TODO */]),
     hint: 'The Royal Guard of the Necron Dynasties.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },
@@ -4273,7 +4283,8 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Triarch Praetorian', 70, 4, false),
+    ...archetype('lotn', 7, 'Necrons', 'Triarch Praetorian', 4, 'lotn/Necron'),
+    ...costz(70, [ /* TODO */]),
     hint: 'The law enforcing arm of the old triarch.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },
@@ -4309,7 +4320,8 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 7, 'lotn-necron', 'Necrons', 'Lord', 80, 4, false),
+    ...archetype('lotn', 7, 'Necrons', 'Lord', 4, 'lotn/Necron'),
+    ...costz(80, [ /* TODO */]),
     hint: 'The least of the many nobles that make up a Necron Dynasty.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },
@@ -4343,7 +4355,8 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Cryptek', 75, 4, false),
+    ...archetype('lotn', 8, 'Necrons', 'Cryptek', 4, 'lotn/Necron'),
+    ...costz(75, [ /* TODO */]),
     hint: 'Techno-Wizards that dedicated their lives to understanding and working with the many Necron technologies.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 4 },
@@ -4371,7 +4384,8 @@ const lotnRep = [
     ],
   },
   {
-    ...simpleStub('lotn', 8, 'lotn-necron', 'Necrons', 'Destroyer Lord', 95, 5, false),
+    ...archetype('lotn', 8, 'Necrons', 'Destroyer Lord', 5, 'lotn/Necron'),
+    ...costz(95, [ /* TODO */]),
     hint: 'Of those that fall victim to the path of the Destroyer, few are seemingly as insane as the Destroyer Lords.',
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },
@@ -4619,7 +4633,8 @@ const paxRep = [
     ],
   },
   {
-    ...simpleStub('pax', 40, 'core-human', 'Adeptus Arbites', 'Judge', 80, 4,false),
+    ...archetype('pax', 40, 'Adeptus Arbites', 'Judge', 4, 'Human'),
+    ...costz(80, [ /* TODO */]),
     hint: 'A lord of justice, inspiring both dread and respect in great measure.',
     prerequisites: [
       { group: 'attributes', value: 'willpower', threshold: 5 },
@@ -4722,7 +4737,8 @@ const paxRep = [
   archetype('pax', '-', 'Hired Guns', 'Arch-Militant', 3, 'Human', true),
   archetype('pax', '-', 'Hired Guns', 'ArchGunslinger', 3, 'Human', true),
   {
-    ...simpleStub('pax',116, 'core-human', 'Hive Ganger', 'Juve', 0, 1, false),
+    ...archetype('pax', 116, 'Hive Ganger', 'Juve', 1, 'Human'),
+    ...costz(0, [ /* TODO */]),
     hint: 'An inexperienced youth, eager for chance to prove themselves.',
     prerequisites: [],
     prerequisiteText: 'The respective <Gang> Skill at (1).',
@@ -5043,7 +5059,8 @@ const paxRep = [
     ],
   },
   {
-    ...simpleStub('pax','-','pax-navigator','Navis Nobility Houses','Navigator Primaris',30,2),
+    ...archetype('pax', '-', 'Navis Nobility Houses', 'Navigator Primaris', 2, 'pax/Navigator'),
+    ...costz(30, [ /* TODO */]),
     stub: false,
     hint: 'A warp guide, tasked with the sacred charge of guiding voidships through the immaterium.',
     prerequisites: [
