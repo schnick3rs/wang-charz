@@ -160,22 +160,46 @@ const suggestedAttributes = function(str,tou,agi,ini,wil,int,fel) {
   ]
 }
 
+const wargearOptionFromString = function(partString) {
+  let part = partString.trim();
+  const gear = {};
+
+  // of it does start with a number
+  if (!isNaN(part.split(' ')[0])) {
+    gear.amount = part.split(/ /)[0];
+    part = part.split(/ (.+)/)[1];
+    // remove trailing s, indicating a plural
+    part = part.replace(/s$/, "");
+  }
+
+  // if it contains a /
+  if (part.indexOf('/') > 0) {
+    parts = part.split('/');
+    gear.name = parts[0];
+    gear.variant = parts[1];
+  } else {
+    gear.name = part;
+  }
+
+  return gear;
+}
+
 const wargearz = function(wargearString) {
   const gears = wargearString.split(',').map(partString => {
     let part = partString.trim();
     const gear = {};
-    if (!isNaN(part.split(' ')[0])) {
-      gear.amount = part.split(/ /)[0];
-      part = part.split(/ (.+)/)[1];
-    }
-    if (part.indexOf('/') > 0) {
-      parts = part.split('/');
-      gear.name = parts[0];
-      gear.variant = parts[1];
+
+    let parts = part.split(' or ');
+    if (parts.length > 1) {
+      return {
+        name: 'part',
+        selected: '',
+        options: parts.map((p) => wargearOptionFromString(p)),
+      }
     } else {
-      gear.name = part;
+      return wargearOptionFromString(part);
     }
-    return gear;
+
   })
   return gears;
 }
@@ -4154,7 +4178,7 @@ const togRep = [
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 2 },
     ],
-    wargearString: ('Lasgun or Hand Flamer, Mono Knife or Sword, 2 Throwing Knives, 1 Frag Grenade, Mesh Armour.'),
+    wargear: wargearz('Lasgun or Hand Flamer, Mono Knife or Sword, 2 Throwing Knifes, 1 Frag Grenade, Mesh Armour'),
     influence: 1,
   },
   {
@@ -4178,14 +4202,191 @@ const togRep = [
     modifications: [
       { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
     ],
-    wargearString: ('Flak Armour, Chain Axe or Chain Sword, Bolt Pistol, 2 Frag Grenades, 1 krak Grenade.'),
+    wargear: wargearz('Flak Armour, Chain Axe or Chain Sword, Bolt Pistol, 2 Frag Grenades, 1 krak Grenade'),
     influence: 2,
   },
-  archetype('tog', 7, 'Renegades', 'Apostate', 3, 'Human', true),
-  archetype('tog', 8, 'Renegades', 'Plague Marine', 3, 'Adeptus Astartes', true),
-  archetype('tog', 8, 'Renegades', 'Khorne Berserker', 3, 'Adeptus Astartes', true),
-  archetype('tog', 9, 'Renegades', 'Chaos Sorcerer', 3, 'Adeptus Astartes', true),
-  archetype('tog', 9, 'Renegades', 'Noise Marine', 3, 'Adeptus Astartes', true),
+  {
+    name: 'Apostate',
+    ...archetype('tog', 9, 'Chaos', 'Apostate', 2, 'Human'),
+    ...costz(78, [
+      reqAttribute('fellowship', 4),
+      reqAttribute('willpower', 3),
+      reqSkill('leadership', 4),
+      reqSkill('persuasion', 3),
+      reqSkill('scholar', 2),
+    ]),
+    hint: 'A demagoge of the forbidden words',
+    keywords: 'Chaos,Heretic,[Mark of Chaos]',
+    archetypeFeatures: [
+      {
+        ...simpleAbility('Demagogue', 'You gain +Rank on all Leadership and Persuasion tests.'),
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1 },
+          { targetGroup: 'skills', targetValue: 'persuasion', modifier: 0, rank: 1 },
+        ],
+      },
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+    ],
+    wargear: wargearz('Duelling Las Pistol, Mono Knife, Refractor Field, Heretical Texts, Fine Robes'),
+    influence: 2,
+  },
+  {
+    name: 'Plague Marine',
+    ...archetype('tog', 9, 'Chaos', 'Plague Marine', 3, 'Adeptus Astartes'),
+    ...costz(246, [
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 5),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('stealth', 3),
+      reqSkill('intimidation', 3),
+      reqSkill('medicae', 2),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A bloated harbinger of plages',
+    keywords: 'Chaos,Heretic Astartes,[Legion],[Nurgle]',
+    archetypeFeatures: [
+      {
+        ...simpleAbility('Abnormal Physiology', 'The marine is immune to all diseases, poisons, and automatically passes any test that would case FEAR. You also gain +Rank bonus when using Intimidation or any effect that instills FEAR.'),
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 0, rank: 1 },
+        ],
+      },
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+    ],
+    wargear: wargearz('Plague Marine Armour, Boltgun, Bolt Pistol, Plague Knife, 3 frag grenades, 3 tox grenades'),
+    influence: 1,
+  },
+  {
+    name: 'Khorne Berserker',
+    ...archetype('tog', 9, 'Chaos', 'Khorne Berserker', 3, 'Adeptus Astartes', true),
+    ...costz(228, [
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 4),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 3),
+      reqAttribute('fellowship', 3),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 4),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A raging berserker in search for worthy prey',
+    keywords: 'Chaos,Heretic Astartes,[Legion],[Khorne]',
+    archetypeFeatures: [
+      {
+        ...simpleAbility('More Blood!', 'Increase the berserkers speed by 2 when they charge. You do not suffer a penalty when wounded and instead gain +Rank bonus to all Weapon Skill and Resolve tests'),
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'speed', modifier: 2, rank: 0, condition: 'when charging' },
+          { targetGroup: 'skills', targetValue: 'weaponSkill', modifier: 0, rank: 1, condition: 'when wounded' },
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1, condition: 'when wounded' },
+        ],
+      },
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 2 },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Chain Axe or Chain Sword, Bolt Pistol, Astartes Combat Knife, 3 frag grenades, 3 krak grenades'),
+    influence: 1,
+  },
+  {
+    name: 'Noise Marine',
+    ...archetype('tog', 9, 'Chaos', 'Chaos Sorcerer', 3, 'Adeptus Astartes'),
+    ...costz(226, [
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 5),
+      reqAttribute('strength', 5),
+      reqAttribute('toughness', 4),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 3),
+      reqSkill('athletics', 4),
+      reqSkill('awareness', 3),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'A sound adicted follower of slaanesh',
+    keywords: 'Chaos,Heretic Astartes,[Legion],[Slaanesh]',
+    archetypeFeatures: [
+      {
+        ...simpleAbility('New Sensations', 'The Gamemaster must spend 2 Ruin o Seize the initative while you are in the necounter. In Addition, once per combat encounter the Noise Marine may seize the initiative without spending a point of Glory.'),
+      },
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Noise Marine Sonic Blaster, Bolt Pistol, Astartes Combat Knife, 3 frag grenades, 3 concussion grenades'),
+    influence: 2,
+  },
+  {
+    name: 'Chaos Sorcerer',
+    ...archetype('tog', 9, 'Chaos', 'Chaos Sorcerer', 3, 'Adeptus Astartes'),
+    ...costz(214, [
+      reqAttribute('agility', 4),
+      reqAttribute('initiative', 4),
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 4),
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 4),
+      reqSkill('athletics', 3),
+      reqSkill('awareness', 4),
+      reqSkill('ballisticSkill', 3),
+      reqSkill('stealth', 3),
+      reqSkill('weaponSkill', 3),
+      reqSkill('scholar', 3),
+      reqSkill('psychicMastery', 3),
+    ]),
+    hint: 'A weaver of the corrupted warp magic',
+    keywords: 'Chaos,Heretic Astartes,[Legion],[Mark of Chaos],Psyker',
+    archetypeFeatures: [
+      {
+        ...simpleAbility('Arcane Secrets', 'The Character gains the PSYKER keyword and starts the game with one minor Psychic Power and Smite. When performing a Ritual they may reroll a number of failed dice equal to Rank. Complications cannot be rerolled. If they already posses the PSYKER keyword, the start with an additional minor power.'),
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+          { name: 'psykerMinorDouble', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+        ],
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor and Universal Disciplines. You unlock an addtional single Psychic Discipline.',
+        description: '<p>You gain access to the Minor and Universal Disciplines. You unlock an additional single Psychic Discipline, following the rules in Chapter 11.</p>',
+        selected: [''],
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+        ],
+      },
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 2 },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Force Axe or Force Sword, Boltgun, Astartes Combat Knife, PSychic Focus'),
+    influence: 1,
+  },
 ];
 
 const lotnRep = [
