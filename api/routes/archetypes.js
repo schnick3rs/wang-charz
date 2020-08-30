@@ -1,7 +1,6 @@
 const Router = require('express-promise-router');
 
 const archetypeRepository = require('../db/static/archetypeRepository');
-const objectivesRepository = require('../db/static/archetypeObjectivesRepository');
 
 const router = new Router();
 
@@ -42,14 +41,6 @@ router.get('/groups/', (request, response) => {
   items = items.map((item) => item.group);
 
   items = [...new Set(items)].sort();
-
-  response.set('Cache-Control', 'public, max-age=3600'); // one hour
-  response.status(200).json(items);
-});
-
-router.get('/objectives/', (request, response) => {
-  let items = [];
-  items = objectivesRepository;
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(items);

@@ -1,23 +1,4 @@
-const source = {
-  core: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5' },
-  core10: { book: 'Core Rules (v1.0)', key: 'core10', version: 'v1' },
-  coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  aaoa: { book: 'An Abundance of Apocrypha (v3.1)', sumplements: 'core', key: 'aaoa', version: 'v3.1', path: '/vault/an-abundance-of-apocrypha' },
-  aaoa2: { book: 'An Abundance of Apocrypha (v2)', sumplements: 'core10', key: 'aaoa2', version: 'v2', path: '/vault/an-abundance-of-apocrypha' },
-  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
-  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
-  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
-  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
-  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
-  aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
-  tea: { book: 'The Emperor\'s Angels', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
-  heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
-  goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
-  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
-  pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
-  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
-  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
-};
+import { source } from './_sourcesRepository';
 
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');

@@ -1,10 +1,4 @@
-// TODO
-// Astra Militarum
-
-const source = {
-  core: { book: 'Core Rules', key: 'core', version: 'v1.5' },
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v3.1', path: '/vault/an-abundance-of-apocrypha' },
-};
+import { source } from './_sourcesRepository';
 
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
