@@ -332,11 +332,18 @@ export default {
           key: 'aaoa-nemesis',
           name: 'Nemesis',
           hint: '',
-          effect: 'Deamons may not soak wound or mortal wounds inflicted by this weapon.',
+          crunch: 'Deamons may not soak wound or mortal wounds inflicted by this weapon.',
           description:
-            'Nemesis weapons are created to be bane to daemons. ' +
-            'The daemonic cannot bear the touch of their rune-etched, silvered steel. ' +
-            'Daemons may not Soak wounds or mortal wounds inflicted by Nemesis weapons.',
+            '<p>Nemesis weapons are created to be bane to daemons. The daemonic cannot bear the touch of their rune-etched, silvered steel. Daemons may not Soak wounds or mortal wounds inflicted by Nemesis weapons.</p>',
+        },
+        {
+          source: 'aaoa',
+          key: 'aaoa-tesla',
+          name: 'Tesla',
+          hint: '',
+          crunch: 'May shift exalted icons from an attack to an additional enemy (per shift) within 3m with the weapons default damage and AP.',
+          description:
+            '<p>The weapon discharges in arcs of crackling lightning, which leap from foe to foe. When you shift Exalted Icons from a successful attack, you may shift Exalted Icons to hit enemies within 3m of an existing target as well as the main target, using the weapon’s normal damage and AP. Each Exalted Icon shifted may only be used to hit additional enemies or to gain +ED, not both.</p>',
         },
       ],
     };

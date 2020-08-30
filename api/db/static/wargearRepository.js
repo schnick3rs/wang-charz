@@ -1433,11 +1433,75 @@ const aaoaOrk = [
   },
 ];
 
+const aaoaAdeptusMechanicus = [
+  // Melee
+  {
+    ...gear('aaoa',135,'Electrostatic Gauntlets', '6R', 'Luminen, 2-Handed, Adeptus Mechanicus'),
+    ...meleez('Exotic Melee Weapon', 6, 3, 0, 1,  'Tesla'),
+    //...rangez('Projectile Range Weapon', 10, 1, 0, 18, 3, 'Pistol'),
+    description:
+      '<p><strong>Ranged: </strong>Electrostatic Gauntlets can be used as a Ranged weapon, using the following profile:</p>' +
+      '<p>Range: 12, Damage: 12+1ED, Salvo: 3, Assault, Tesla</p>' +
+      '<p><strong>Special: </strong>Only a character with a Luminen Capacitor may wield Electrostatic Gauntlets. Electrostatic Gauntlets do not use normal reloads – instead, the wielder may expend charges from their Luminen Capacitor to gain the benefits of spending a reload, with each charge spent counting as one reload.</p>',
+  },
+  // Ranged
+  {
+    ...gear('aaoa',146,'Stubcarbine', '5R', 'Projectile, Adeptus Mechanicus'),
+    ...rangez('Projectile Range Weapon', 10, 1, 0, 18, 3, 'Pistol'),
+  },
+  // Armour
+  {
+    ...gear('aaoa',167,'Sicarian battle-armour', '6V', 'Heavy, Imperium, Adeptus Mechanicus, Skitarii'),
+    ...armour('Basic Armour', 4),
+    description:
+      '<p>Sicarian Battle-Armour has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
+  },
+  {
+    ...gear('aaoa',174,'Voltagheist Field Generator', '6R', 'Force Field, Cult Mechanicus'),
+    ...armour('Basic Armour', 3),
+    description:
+      '<p><strong>Discharge: </strong>When you charge while wearing a Voltagheist Field generator, roll a d6 for each enemy within 2m of you when you finish the charge. For each 6 rolled, that enemy suffers a Mortal Wound. Any enemy who rolls a 1 on their Wrath die when making a melee attack against you also suffers one Mortal Wound.</p>' +
+      '<p><strong>Luminen Charge: </strong>A Voltagheist field generator will not function unless you have a Luminen Capacitor implant with one or more charges. If the Capacitor has more charges than its normal amount, then add +1 to the Armour Rating of the field for every additional charge you have, to a maximum Armour Rating of 6.</p>'
+  },
+  // Augmetics
+  {
+    ...gear('aaoa',190,'Data-Tether', '3U', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Silently communicate your thoughts and status to similar equipped within 1km. ',
+    description:
+      '<p>Characters with a data-tether may communicate silently to similarly-equipped characters within 1km, transmitting their thoughts and status through the implant to one another. A data-tether may be tuned to receive normal vox transmissions from non-Skitarii allies, though this is less efficient.</p>',
+  },
+  {
+    ...gear('aaoa',191,'Luminen capacitor', '7V', 'Cult Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    //snippet: 'Extensive rules, see AAOA pg. 191.',
+    description:
+      '<p>A luminen capacitor contains a number of charges equal to the recipient’s Toughness. With a successful Toughness test, and a minute of meditative focus, the character may spend charges to recharge or power machinery. The DN of this test is equal to 2 plus the number of charges spent, and the number of charges required varies based on the system being charged.</p>' +
+      '<ul>' +
+      '<li>1 charge: simple power cell, illuminator</li>' +
+      '<li>2 charges: weapon charge pack, data-slate, starship bridge terminal</li>' +
+      '<li>3 charges: shuttle electronics, servo skull</li>' +
+      '<li>4 charges: heavy weapon charge pack, servitor, hololithic projector</li>' +
+      '<li>5 charges: cogitator core, reactor machine spirit, xenos technology</li>' +
+      '</ul>' +
+      '<p>If a character would suffer Shock from using an implant or cybernetic, then they may spend charges to reduce this, suffering one fewer Shock for each charge spent.</p>' +
+      '<p>The luminen capacitor regains its full charges during a Regroup. The character may also siphon power from powered devices and power sources, requiring a Toughness test (DN 3) and an action. Success means the character regains 1d3 charges, plus 1 for each Exalted Icon shifted. At the GM’s discretion, this may depower the device, and complications may cause damage to the device or the recipient.</p>',
+  },
+  {
+    ...gear('aaoa',192,'Neurostatic projector', '6R', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'All Creatures (excluding ADEPTUS MECHANICUS allies) within 10m suffer +Rank DN to Intellect and Resolve tests.',
+    description:
+      '<p>Creatures within 10 metres of the character add +Rank to the DN of all Intellect tests (including Awareness), and Resolve tests. Allies with the ADEPTUS MECHANICUS keyword receive null-codes which render them immune to this.</p>',
+  }
+];
+
 const aaoa = [
   ...aaoaAstartes,
   ...aaoaAeldari,
   ...aaoaDrukhari,
   ...aaoaOrk,
+  ...aaoaAdeptusMechanicus,
 ];
 
 const aaoav2 = [
