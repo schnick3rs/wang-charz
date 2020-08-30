@@ -105,11 +105,11 @@ const toolz = function(subtype, snippet) {
   };
 }
 
-const metaRange = function(static, ed, ap, range, salvo, traits) {
+const metaRange = function(staticPart, ed, ap, range, salvo, traits) {
   return {
     type: 'ranged-weapon',
     range,
-    damage: { static, ed },
+    damage: { static: staticPart, ed },
     ap,
     salvo,
     traits,
@@ -126,11 +126,11 @@ const rangez = function (subtype, damage, ed, ap, range, salvo, traits) {
   };
 };
 
-const metaMelee = function(static, ed, ap, range, traits) {
+const metaMelee = function(staticPart, ed, ap, range, traits) {
   return {
     type: 'melee-weapon',
     range,
-    damage: { static, ed },
+    damage: { static: staticPart, ed },
     ap,
     traits,
   };

@@ -3281,27 +3281,413 @@ const aaoaAdeptaSororitas = [
 ];
 
 const aaoaAdeptusMechanicus = [
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 2, 'Human', true),
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 2, 'Human', true),
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Skitarius Vanguard', 2, 'Human', true),
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Sicarian Infiltrator', 3, 'Human', true),
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Sicarian Ruststalker', 3, 'Human', true),
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Lexmechanic', 2, 'Human', true),
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Transmechanic', 2, 'Human', true),
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Genetor', 4, 'Human', true),
-  archetype('aaoa', '?', 'Adeptus Mechanicus', 'Logis', 4, 'Human', true),
   {
-    ...archetype('aaoa',96,'Adeptus Mechanicus','Magos',4,'Human'),
-    ...cost(199 ,106,93, 0, 0),
-    hint: 'The High-Priest of the Omnissiah.',
+    name: 'Corpuscarii Electro-Priest',
+    ...archetype('aaoa', 49, 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 2, 'Human'),
+    ...costz(46,[
+      reqAttribute('toughness', 3),
+      reqAttribute('willpower', 3),
+      reqSkill('ballisticSkill', 2),
+      reqSkill('scholar', 1),
+      reqSkill('tech', 2),
+      reqSkill('weaponSkill', 1),
+    ]),
+    hint: 'Devotee of the Motive Force that flows through the universe.',
     keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
-    prerequisites: [
-      reqAttribute('willpower', 4),
+    influence: 0,
+    archetypeFeatures: [
+      simpleAbility('Fanatical Devotion', 'You add +Double Rank bonus dice to Determination rolls, and you do not suffer any Shock when you roll Determination.'),
+    ],
+    wargearString: 'Luminen capacitor, electrostatic gauntlets, Voltagheist field generator, any two augmetics.',
+    wargear: [
+      { name: 'Luminen capacitor' },
+      { name: 'electrostatic gauntlets' },
+      { name: 'Voltagheist field generator' },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Fulgurite Electro-Priest',
+    ...archetype('aaoa', 50, 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 2, 'Human'),
+    ...costz(50,[
+      reqAttribute('toughness', 3),
+      reqAttribute('willpower', 3),
+      reqSkill('scholar', 1),
+      reqSkill('tech', 2),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'Devotee of the Motive Force that flows through the universe.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+    influence: 0,
+    archetypeFeatures: [
+      simpleAbility('Fanatical Devotion', 'You add +Double Rank bonus dice to Determination rolls, and you do not suffer any Shock when you roll Determination.'),
+    ],
+    wargearString: 'Luminen capacitor, electroleech staff, Voltagheist field generator, any two augmetics.',
+    wargear: [
+      { name: 'Luminen capacitor' },
+      { name: 'electroleech staff' },
+      { name: 'Voltagheist field generator' },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Skitarius Vanguard',
+    ...archetype('aaoa', 57, 'Adeptus Mechanicus', 'Skitarius Vanguard', 2, 'Human'),
+    ...costz(28,[
+      reqAttribute('toughness', 3),
+      reqSkill('ballsiticSkill', 2),
+      reqSkill('tech', 1),
+    ]),
+    hint: 'Devotee of the Motive Force that flows through the universe.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+    influence: 0,
+    archetypeFeatures: [
+      simpleAbility('Irradiated and Augmented','You do not bleed (making you immune to Bleeding), and gain +Rank bonus dice to Determination rolls. In addition, any living creature without the ADEPTUS MECHANICUS keyword within 2 metres of you at the start of their turn must pass a DN 3 Toughness Test or suffer the Poisoned condition. This poison is radiation poisoning, inflicting 1 Mortal Wound and Rank Shock at the start of each of the Poisoned character’s turns.'),
+    ],
+    wargear: wargearz('Radium carbine, data-tether, Skitarii Auto-Cuirass'),
+  },
+  {
+    name: 'Sicarian Infiltrator',
+    ...archetype('aaoa', 78, 'Adeptus Mechanicus', 'Sicarian Infiltrator', 3, 'Human'),
+    ...costz(94,[
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 3),
+      reqAttribute('initiative', 4),
+      reqSkill('stealth', 2),
+      reqSkill('tech', 2),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'You are an assassin, a blade turned towards those who would blaspheme against the Machine God.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('More Machine Than Man','You do not bleed (making you immune to Bleeding), and you add +Rank to your Maximum Wounds and Maximum Shock.'),
+    ],
+    wargearString: 'Sicarian battle-armour, stubcarbine and power sword or flechette blaster and taser goad, Augmetic Arms (two), data-tether, augmetic legs, augmetic viscera, Neurostatic projector',
+    wargear: [
+      { name: 'Sicarian battle-armour' },
+      {
+        name: 'stubcarbine and power sword or flechette blaster and taser goad',
+        selected: '',
+        options: [
+          { name: 'stubcarbine and power sword' },
+          { name: 'flechette blaster and taser goad' },
+        ],
+      },
+      { name: 'Augmetic Arms' },
+      { name: 'Augmetic Arms' },
+      { name: 'data-tether' },
+      { name: 'augmetic legs' },
+      { name: 'augmetic viscera' },
+      { name: 'Neurostatic projector' },
+    ],
+  },
+  {
+    name: 'Sicarian Ruststalker',
+    ...archetype('aaoa', 94, 'Adeptus Mechanicus', 'Sicarian Ruststalker', 3, 'Human'),
+    ...costz(94,[
+      reqAttribute('strength', 4),
+      reqAttribute('toughness', 3),
+      reqAttribute('initiative', 4),
+      reqSkill('stealth', 2),
+      reqSkill('tech', 2),
+      reqSkill('weaponSkill', 3),
+    ]),
+    hint: 'You have had the weakness of flesh cast away to hone your body into a living weapon in the Omnissiah’s arsenal.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World], Skitarii',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('More Machine Than Man','You do not bleed (making you immune to Bleeding), and you add +Rank to your Maximum Wounds and Maximum Shock.'),
+    ],
+    wargear: wargearz('Sicarian battle-armour, transonic razor and chordclaw or transonic blade and transonic blade, Augmetic Arms, Augmetic Arms, data-tether, augmetic legs, augmetic viscera'),
+  },
+  {
+    name: 'Transmechanic',
+    ... archetype('aaoa', 48, 'Adeptus Mechanicus', 'Transmechanic', 2, 'Human'),
+    ...costz(28,[
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 2),
+      reqSkill('investigation', 2),
+      reqSkill('scholar', 3),
+      reqSkill('tech', 2),
+    ]),
+    hint: 'You are attuned to wavelengths and signals that flesh cannot discern.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Vox Communion','You can silently communicate with any vox or similar communications device within Rank x100 kilometres. You may also make Awareness or Investigation tests to detect concealed signals and study intercepted signals. You add +Rank bonus dice to any Investigation or Scholar test to decipher a code, translate a language, or create a new cipher.'),
+    ],
+    wargearString: 'Augur array (auspex), enhanced data tether, any two augmetics, mesh armour, laspistol.',
+    wargear: [
+      { name: 'Augur array (auspex)' },
+      { name: 'enhanced data tether' },
+      { name: 'mesh armour' },
+      { name: 'laspistol' },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Lexmechanic',
+    ...archetype('aaoa', 52, 'Adeptus Mechanicus', 'Lexmechanic', 2, 'Human'),
+    ...costz(28,[
+      reqAttribute('intellect', 3),
+      reqAttribute('willpower', 2),
+      reqSkill('investigation', 1),
+      reqSkill('scholar', 3),
+      reqSkill('tech', 2),
+    ]),
+    hint: 'You are a voracious consumer of information, collating and compiling vast quantities of data.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+    influence: 1,
+    archetypeFeatures: [
+      simpleAbility('Infovore','You may reroll up to Double Rank dice on Investigation and Scholar tests, and such tests take you only half as long to perform.'),
+    ],
+    wargearString: 'Calculus Logi implant, one optical or utility Mechadendrite, any two Augmetics, mesh armour, laspistol.',
+    wargear: [
+      { name: 'Calculus Logi implant' },
+      { name: 'mesh armour' },
+      { name: 'laspistol' },
+      {
+        name: 'optical or utility Mechadendrite.',
+        selected: '',
+        options: [
+          { name: 'Mechadendrites (Utility)' },
+          { name: 'Mechadendrites (Optical)' },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Genetor',
+    ...archetype('aaoa', 91, 'Adeptus Mechanicus', 'Genetor', 4, 'Human'),
+    ...costz(98,[
+      reqAttribute('toughness', 2),
+      reqAttribute('intellect', 4),
+      reqSkill('medicae', 3),
+      reqSkill('scholar', 2),
+      reqSkill('tech', 4),
+    ]),
+    hint: 'A devotee of the biological sciences.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+    influence: 3,
+    archetypeFeatures: [
+      simpleAbility('Magos Biologis','You add +Rank bonus dice to any Medicae test you attempt and take only half as long to perform a Medicae test. In addition, your bioengineered and genetic augmentations increase your Max Wounds and Max Shock by +Rank.'),
+    ],
+    wargearString: 'Omnissian Axe, Augur Array (diagnostor), Medicae Mechadendrite, any two augmetics, any one cybernetic of up to Availability 7 (Unique), light power armour, and any one weapon of up to Availability 6 (Very Rare).',
+    wargear: [
+      { name: 'Omnissian Axe' },
+      { name: 'Augur array (diagnostor)' },
+      { name: 'Mechadendrites (Medicae)' },
+      { name: 'light power armour' },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'one cybernetic of up to Availability 7 (Unique)',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'one weapon of up to Availability 6 (Very Rare).',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 6 },
+            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+            typeFilter: ['Ranged Weapon','Melee Weapon'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Logis',
+    ...archetype('aaoa', 95, 'Adeptus Mechanicus', 'Logis', 4, 'Human'),
+    ...costz(109,[
+      reqAttribute('intellect', 5),
+      reqSkill('investigate', 3),
+      reqSkill('scholar', 3),
+      reqSkill('tech', 4),
+    ]),
+    hint: 'Through mathemantic rite and numerological prophecy, you discern the future from the raw data of today.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+    influence: 3,
+    archetypeFeatures: [
+      simpleAbility('Technoprophet','You may purchase psychic powers from the Divination discipline even though you are not a Psyker. Using these powers requires an Investigation test in place of a Psychic Mastery test, and you do not choose a power level. Use of these abilities is not considered a psychic power. A Complication that results from one of these abilities inflicts 1d3+1 Shock, due to logic errors and paradoxical outcomes.'),
+    ],
+    wargearString: 'Omnissian Axe, Calculus Logi implant, any 3 augmetics, any one cybernetic of up to Availability 7 (Unique), light power armour, and any one weapon of up to Availability 6 (Very Rare).',
+    wargear: [
+      { name: 'Omnissian Axe' },
+      { name: 'Calculus Logi implant' },
+      { name: 'light power armour' },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'one cybernetic of up to Availability 7 (Unique)',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'one weapon of up to Availability 6 (Very Rare).',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 6 },
+            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+            typeFilter: ['Ranged Weapon','Melee Weapon'],
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Magos',
+    ...archetype('aaoa',96,'Adeptus Mechanicus','Magos',4,'Human'),
+    ...costz(139 ,[
+      reqAttribute('willpower', 5),
       reqAttribute('intellect', 5),
       reqSkill('leadership', 2),
       reqSkill('scholar', 3),
       reqSkill('tech', 4),
-    ],
+    ]),
+    hint: 'The High-Priest of the Omnissiah.',
+    keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
     influence: 4,
     archetypeFeatures: [
       simpleAbility('Forge-Lord', 'You halve the time it takes to attempt any Tech test, and you add +Double Rank bonus dice to interact with machinery. In addition, as a Simple Action you may invoke one of the Canticles of the Omnissiah (see AAOA, pg. 96).'),
@@ -3323,81 +3709,79 @@ const aaoaAdeptusMechanicus = [
           '</ul>',
       }
     ],
-    wargearString: 'Omnissian Axe, augmetic servo-arm, any two augmetic enhancements, any two augmetic implants of up to Availability 7 (Unique), light power armour, and any two weapons of up to Availability 7 (Unique).',
+    wargearString: 'Omnissian Axe, augmetic servo-arm, any two augmetics, any two cybernetics of up to Availability 7 (Unique), light power armour, and any two weapons of up to Availability 7 (Unique).',
     wargear: [
       { name: 'Omnissian Axe' },
       { name: 'Mechadendrites (Servo-Arm)' },
-      {
-        name: 'One augmetic enhancement of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            typeFilter: ['Augmetics'],
-            subtypeFilter: ['Augmetic Enhancements'],
-          },
-        ],
-      },
-      {
-        name: 'One augmetic enhancement of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            typeFilter: ['Augmetics'],
-            subtypeFilter: ['Augmetic Enhancements'],
-          },
-        ],
-      },
-      {
-        name: 'One augmetic implant up to value 7 of Unique or lower rarity of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Unique'],
-            typeFilter: ['Augmetics'],
-            subtypeFilter: ['Augmetic Implants'],
-            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
-          },
-        ],
-      },
-      {
-        name: 'One augmetic implant up to value 7 of Unique or lower rarity of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare', 'Unique'],
-            typeFilter: ['Augmetics'],
-            subtypeFilter: ['Augmetic Implants'],
-            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
-          },
-        ],
-      },
-      {
-        name: 'One unique weapon up to value 7 of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            typeFilter: ['Melee Weapon','Ranged Weapon'],
-            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
-          },
-        ],
-      },
-      {
-        name: 'One unique weapon up to value 7 of your choice.',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            typeFilter: ['Melee Weapon','Ranged Weapon'],
-            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
-          },
-        ],
-      },
       { name: 'Light Power Armour' },
+      {
+        name: 'One augmetic enhancement of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Enhancements'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic enhancement of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Enhancements'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetic implant up to value 7 of Unique or lower rarity of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Implants'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+          },
+        ],
+      },
+      {
+        name: 'One augmetic implant up to value 7 of Unique or lower rarity of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Implants'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+          },
+        ],
+      },
+      {
+        name: 'One unique weapon up to value 7 of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Melee Weapon','Ranged Weapon'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+          },
+        ],
+      },
+      {
+        name: 'One unique weapon up to value 7 of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Melee Weapon','Ranged Weapon'],
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+          },
+        ],
+      },
     ],
   },
 ];
@@ -3860,8 +4244,8 @@ const aaoaChaos = [
 ];
 
 const aaoaAdeptusAstraTelephatica = [
-  archetype('aaoa',46,'Adeptus Astra Telephatica','Astropath',  2, 'Human', true),
-  archetype('aaoa',80,'Adeptus Astra Telephatica','Sister of Silence',  2, 'aaoa/Pariah', true),
+  archetype('aaoa',46,'Adeptus Astra Telephatica','Astropath',2,'Human',true),
+  archetype('aaoa',80,'Adeptus Astra Telephatica','Sister of Silence',2,'aaoa/Pariah',true),
 ];
 
 const aaoaRep = [
