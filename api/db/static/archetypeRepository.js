@@ -1,31 +1,4 @@
-// TODO
-// Astra Militarum
-
-const source = {
-  // Official
-  core: { book: 'Core Rules', key: 'core', version: 'v1.5.2', link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959' },
-  coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
-  core10: { book: 'Core Rules', key: 'core10', version: 'v1' },
-  // Doctors of Doom
-  dod: { book: 'Doctors of Doom Compendium', key: 'dod', version: '', path: '' },
-  // Homebrews (Up to date)
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v3.2', path: '/vault/an-abundance-of-apocrypha' },
-  aaoa2: { book: 'An Abundance of Apocrypha', key: 'aaoa2', version: 'v2.0', path: '/vault/an-abundance-of-apocrypha' },
-  tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
-  amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
-  // Other (Outdated)
-  lotn: { book: 'Legacy of the Necrontyr', key: 'lotn', version: '', path: '/vault/legacy-of-the-necrontyr' },
-  thaot: { book: 'The High Altar of Technology', key: 'thaot', version: '', path: '/vault/the-high-altar-of-technology' },
-  ltgb: { book: 'Let The Galaxy Burn', key: 'ltgb', version: '', path: '/vault/let-the-galaxy-burn' },
-  aptb: { book: 'ArdentPurple\'s Tyranid Bestiary', key: 'aptb', version: '', path: '/vault/ardentpurples-tyranid-bestiary' },
-  jtb: { book: 'Javelin\'s Tyranid Bestiary', key: 'jtb', version: '', path: '/vault/javelins-tyranid-bestiary' },
-  aotgt: { book: 'Agents of the Golden Throne', key: 'aotgt', version: '', path: '/vault/agents-of-the-golden-throne' },
-  tea: { book: 'The Emperor\'s Angels', key: 'tea', version: '', path: '/vault/the-emperors-angels' },
-  heva: { book: 'Hesperaxs\'s Vault', key: 'heva', version: '', path: '/vault/hesperaxs-vault' },
-  goen: { book: 'God Engines', key: 'goen', version: '', path: '/vault/god-engines' },
-  pax: { book: 'Pax Imperialis', key: 'pax', version: '', path: '/vault/pax-imperialis' },
-  sotah: { book: 'The Deathwatch - Slayer of the Alien Hordes', key: 'sotah', version: '', path: '/vault/the-deathwatch---slayers-of-the-alien-horde' },
-};
+import { source } from './_sourcesRepository';
 
 const _statCosts = {
   attributes: [0, 0, 4, 10, 20, 35, 55, 80, 110, 145, 185, 230, 280],
@@ -174,7 +147,7 @@ const wargearOptionFromString = function(partString) {
 
   // if it contains a /
   if (part.indexOf('/') > 0) {
-    parts = part.split('/');
+    let parts = part.split('/');
     gear.name = parts[0];
     gear.variant = parts[1];
   } else {
@@ -400,10 +373,7 @@ const core = [
   },
   {
     ...archetype('core',111,'Astra Militarum','Imperial Commissar',3,'Human'),
-    ...cost(76,20,56, 0, 0),
-    hint: 'A fearsome leader, inspiring both dread and respect in great measure.',
-    keywords: 'Imperium,Astra Militarum,Officio Prefectus',
-    prerequisites: [
+    ...costz(76,[
       { group: 'attributes', value: 'strength', threshold: 3 },
       { group: 'attributes', value: 'toughness', threshold: 3 },
       { group: 'attributes', value: 'willpower', threshold: 4 },
@@ -411,12 +381,15 @@ const core = [
       { group: 'skills', value: 'intimidation', threshold: 2 },
       { group: 'skills', value: 'leadership', threshold: 2 },
       { group: 'skills', value: 'weaponSkill', threshold: 1 },
-    ],
+    ]),
+    hint: 'A fearsome leader, inspiring both dread and respect in great measure.',
+    keywords: 'Imperium,Astra Militarum,Officio Prefectus',
     archetypeFeatures: [
       {
         name: 'Fearsome Respect',
         snippet: 'You and any allies within 15 metres of you that can see you may add +Double Rank bonus dice to Resolve Tests. You add +Double Rank bonus dice to any Intimidation (Wil) Tests, including Interaction Attacks.',
         modifications: [
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 2, condition: 'for You and allies within 15 metres' },
           { targetGroup: 'skills', targetValue: 'intimidation', modifier: 0, rank: 2, condition: null },
         ],
       },
@@ -4268,7 +4241,7 @@ const togRep = [
   },
   {
     name: 'Khorne Berserker',
-    ...archetype('tog', 9, 'Chaos', 'Khorne Berserker', 3, 'Adeptus Astartes', true),
+    ...archetype('tog', 9, 'Chaos', 'Khorne Berserker', 3, 'Adeptus Astartes'),
     ...costz(228, [
       reqAttribute('agility', 5),
       reqAttribute('initiative', 5),
@@ -4303,7 +4276,7 @@ const togRep = [
   },
   {
     name: 'Noise Marine',
-    ...archetype('tog', 9, 'Chaos', 'Chaos Sorcerer', 3, 'Adeptus Astartes'),
+    ...archetype('tog', 9, 'Chaos', 'Noise Marine', 3, 'Adeptus Astartes'),
     ...costz(226, [
       reqAttribute('agility', 4),
       reqAttribute('initiative', 5),
