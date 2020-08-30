@@ -832,6 +832,66 @@ const aaoaAeldariPowers = [
   },
   // Runes of Fate Farseer)
   // Phantasmancy (Harlequin)
+    {
+      ...powerz('aaoa',230,'Fog of Dreams','Phantasmancy',20),
+      ...simpleCrunch(5,'Action','1 round','18 m',false),
+      keywords: ['Aeldari','Psychic', 'Telepathy'],
+      prerequisite: ['Psyker must have the HARLEQUIN Keyword.'],
+      hint: 'Reduce the attack efficiency of affected ennemies',
+      effect: 'The power affects all enemies in a Medium Blast within range. All attacks made by the affected enemies suffer +2 DN until the start of your next turn.',
+      description:
+        '<p>You send forth your consciousness like a creeping mist, baffling the senses of the enemy. The power affects all enemies in a Medium Blast within range. All attacks made by the affected enemies suffer +2 DN until the start of your next turn..</p>',
+    },
+    {
+      ...powerz('aaoa',230,'Mirror of Minds','Phantasmancy',25),
+      ...simpleCrunch(6,'Action','1 round','25 m',false),
+      keywords: ['Aeldari','Psychic', 'Telepathy'],
+      prerequisite: ['Psyker must have the HARLEQUIN Keyword.'],
+      hint: 'you gamble with your target to deal mortal wounds',
+      effect: 'you and the target roll 1d6. If you roll equal to or higher than the target, then the target suffers 1 Mortal Wound. Repeat this until either the target is reduced to 0 Wounds or they roll higher than you.',
+      description:
+        '<p>A maddening clash of wills consumes the victim’s mind as reality falls away. Select an enemy within range, and both you and the target roll 1d6. If you roll equal to or higher than the target, then the target suffers 1 Mortal Wound. Repeat this until either the target is reduced to 0 Wounds or they roll higher than you.</p>',
+    },
+    {
+      ...powerz('aaoa',230,'Shards of Light','Phantasmancy',20),
+      ...simpleCrunch(7,'Action','1 round','18 m',false),
+      keywords: ['Aeldari','Psychic', 'Telepathy'],
+      prerequisite: ['Psyker must have the HARLEQUIN Keyword.'],
+      hint: 'Deal mortal wound and apply nasty status effect in an area',
+      effect: 'The power affects all enemies in a Medium Blast within range. Each target suffers 1 Mortal Wound and is blinded and pinned until the start of your next turn.',
+      description:
+        '<p>Blades of polychrome energy dazzle the foe, inflicting horrific and disorienting psychosomatic wounds. The power affects all enemies in a Medium Blast within range. Each target suffers 1 Mortal Wound and is blinded and pinned until the start of your next turn.</p>',
+    },
+    {
+      ...powerz('aaoa',230,'Twilight Pathways','Phantasmancy',15),
+      ...simpleCrunch(6,'Action','Instant','5 m',false),
+      keywords: ['Aeldari','Psychic',],
+      prerequisite: ['Psyker must have the HARLEQUIN Keyword.'],
+      hint: 'Immediate group free movement',
+      effect: 'You and any number of allies within range may immediately move up to your Speed.',
+      description:
+        '<p>Eerie half-lit tunnels blink into existence, opening new paths of manoeuvre and attack. You and any number of allies within range may immediately move up to your Speed.</p>',
+    },
+    {
+      ...powerz('aaoa',230,'Veil of Tear','Phantasmancy',15),
+      ...simpleCrunch(6,'Action','1 round','18 m',false),
+      keywords: ['Aeldari','Psychic', 'Telepathy'],
+      prerequisite: ['Psyker must have the HARLEQUIN Keyword.'],
+      hint: 'Boost defence and stealth of allies',
+      effect: 'Select a number of allies equal to your Willpower within range. The affected allies gain +2 Defence and +2 bonus dice on Stealth tests.',
+      description:
+        '<p>Sketching a gesture in the air, you snatch the image of your allies from the minds of your foes, hiding them from sight. Select a number of allies equal to your Willpower within range. The affected allies gain +2 Defence and +2 bonus dice on Stealth tests.</p>',
+    },
+    {
+      ...powerz('aaoa',230,'Webway Dance','Phantasmancy',25),
+      ...simpleCrunch(6,'Action','1 round','12 m',false),
+      keywords: ['Aeldari','Psychic'],
+      prerequisite: ['Psyker must have the HARLEQUIN Keyword.'],
+      hint: 'Allies and you roll Determination without suffering shock',
+      effect: 'Until the start of your next turn, you and any allies within range may roll Determination without suffering Shock—Icons rolled simply negate Wounds instead.',
+      description:
+        '<p>The veil between realspace and the Webway grows thin, allowing Harlequins to jink away from danger in directions that shouldn’t exist, only to reappear unharmed moments later. Until the start of your next turn, you and any allies within range may roll Determination without suffering Shock—Icons rolled simply negate Wounds instead.</p>',
+    },
   // Revenant (Ynnari)
 ];
 
