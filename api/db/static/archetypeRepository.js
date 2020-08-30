@@ -3412,8 +3412,8 @@ const aaoaAdeptusMechanicus = [
           { name: 'flechette blaster and taser goad' },
         ],
       },
-      { name: 'Augmetic Arms' },
-      { name: 'Augmetic Arms' },
+      { name: 'Augmetic Arm' },
+      { name: 'Augmetic Arm' },
       { name: 'data-tether' },
       { name: 'augmetic legs' },
       { name: 'augmetic viscera' },
@@ -3437,7 +3437,7 @@ const aaoaAdeptusMechanicus = [
     archetypeFeatures: [
       simpleAbility('More Machine Than Man','You do not bleed (making you immune to Bleeding), and you add +Rank to your Maximum Wounds and Maximum Shock.'),
     ],
-    wargear: wargearz('Sicarian battle-armour, transonic razor and chordclaw or transonic blade and transonic blade, Augmetic Arms, Augmetic Arms, data-tether, augmetic legs, augmetic viscera'),
+    wargear: wargearz('Sicarian battle-armour, transonic razor and chordclaw or transonic blade and transonic blade, Augmetic Arm, Augmetic Arm, data-tether, augmetic legs, augmetic viscera'),
   },
   {
     name: 'Transmechanic',
