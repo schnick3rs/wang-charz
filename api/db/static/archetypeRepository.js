@@ -1956,7 +1956,7 @@ const aaoaAeldari = [
       reqSkill('deception', 3),
       reqSkill('intimidation', 2),
       reqSkill('insight', 3),
-      reqSkill('psychic mastery', 4),
+      reqSkill('psychicMastery', 4),
       reqSkill('scholar', 2),
       reqSkill('weaponSkill', 5),
     ]),
