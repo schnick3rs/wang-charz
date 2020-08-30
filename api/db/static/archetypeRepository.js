@@ -1832,288 +1832,311 @@ const aaoaAeldari = [
   },
   // Harlequin
   {
-      name: 'Harlequin Player',
-      ...archetype('aaoa', 93, 'Aeldari', 'Harlequin Player', 4, 'Aeldari'),
-      ...costz(200, [
-        reqAttribute('strength', 3),
-        reqAttribute('agility', 5),
-        reqAttribute('initiative', 5),
-        reqAttribute('willpower', 3),
-        reqSkill('athletics', 4),
-        reqSkill('deception', 3),
-        reqSkill('insight', 3),
-        reqSkill('scholar', 2),
-        reqSkill('weaponSkill', 5),
-      ]),
-      hint: 'You are a performer upon a galactic stage, playing your part in a performance that shapes worlds and lives. Your existence is enigma, but there can be no doubting your skill or your lethality.',
+    name: 'Harlequin Player',
+    ...archetype('aaoa', 93, 'Aeldari', 'Harlequin Player', 4, 'Aeldari'),
+    ...costz(200, [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 3),
+      reqSkill('athletics', 4),
+      reqSkill('deception', 3),
+      reqSkill('insight', 3),
+      reqSkill('scholar', 2),
+      reqSkill('weaponSkill', 5),
+    ]),
+    hint: 'You are a performer upon a galactic stage, playing your part in a performance that shapes worlds and lives. Your existence is enigma, but there can be no doubting your skill or your lethality.',
     keywords: 'Aeldari, Harlequin, [Masque]',
     archetypeFeatures: [
       {
         name: 'We Dance the Dance of Death',
         description:
           '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+        ],
       },
     ],
     wargear: wargearz('Holo-suit, Agaith, Flip-Belt, Harlequin’s Blade, Shuriken Pistol, 3 Plasma Grenades'),
     influence: 3,
   },
   {
-        name: 'Harlequin Troupe Master',
-        ...archetype('aaoa', 115, 'Aeldari', 'Harlequin Troupe Master', 5, 'Aeldari'),
-        ...costz(226, [
-          reqAttribute('strength', 3),
-          reqAttribute('agility', 5),
-          reqAttribute('initiative', 5),
-          reqAttribute('willpower', 4),
-          reqSkill('athletics', 4),
-          reqSkill('deception', 3),
-          reqSkill('insight', 3),
-          reqSkill('leadership', 2),
-          reqSkill('scholar', 2),
-          reqSkill('weaponSkill', 5),
-        ]),
-        hint: 'Your soul is forfeit, for you portray the Great Enemy in the grimmest of performances, and none can do so without cost. But you pay that price willingly, to defend your people from the horror that awaits you.',
-      keywords: 'Aeldari, Harlequin, [Masque]',
-      archetypeFeatures: [
-        {
-          name: 'We Dance the Dance of Death',
-          description:
-            '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
-        },
-        {
-          name: 'Pivotal Role',
-                  snippet: 'Choose one...',
-                  selected: [''],
-                  options: [
-                    {
-                      name: 'Choreographer of War',
-                      snippet: 'Harlequin allies within 6 metres of you add +Rank ED to their melee attacks.',
-                    },
-                    {
-                      name: 'PRINCE OF LIGHT',
-                      snippet: 'When you or any HARLEQUIN allies within 6 metres Charge, you increase your total movement by +Rank.',
-                    },
-                    {
-                      name: 'DARKNESS BITE',
-                      snippet: 'After you make a melee attack, you may inflict a number of Mortal Wounds equal to your Rank, allocated amongst any enemies you hit during your attack.',
-                    },
-                    {
-                      name: 'TWILIGHT GRASP',
-                      snippet: 'When you make a melee attack against an enemy which is not a Vehicle or Monstrous Creature, your melee weapon gains the Warp Weapon trait.',
-                    },
-                  ],
-        },
-      ],
-      wargear: [
-          { name: 'Holo-suit' },
-          { name: 'Agaith' },
-          { name: 'flip-belt' },
-          { name: 'Webway Keystone' },
-          { name: '3 Plasma Grenades' },
+    name: 'Harlequin Troupe Master',
+    ...archetype('aaoa', 115, 'Aeldari', 'Harlequin Troupe Master', 5, 'Aeldari'),
+    ...costz(226, [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 4),
+      reqSkill('athletics', 4),
+      reqSkill('deception', 3),
+      reqSkill('insight', 3),
+      reqSkill('leadership', 2),
+      reqSkill('scholar', 2),
+      reqSkill('weaponSkill', 5),
+    ]),
+    hint: 'Your soul is forfeit, for you portray the Great Enemy in the grimmest of performances, and none can do so without cost. But you pay that price willingly, to defend your people from the horror that awaits you.',
+    keywords: 'Aeldari, Harlequin, [Masque]',
+    archetypeFeatures: [
+      {
+        name: 'We Dance the Dance of Death',
+        description:
+          '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+        ],
+      },
+      {
+        name: 'Pivotal Role',
+        snippet: 'Choose one...',
+        selected: [''],
+        options: [
           {
-            name: 'Any one AELDARI melee weapon of Value 9 or less up to Very Rare',
-            selected: '',
-            options: [
-              {
-                filter: true,
-                valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
-                rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
-                typeFilter: ['Melee Weapon'],
-                keywordFilter: ['Aeldari'],
-              },
+            name: 'Choreographer of War',
+            snippet: 'Harlequin allies within 6 metres of you add +Rank ED to their melee attacks.',
+          },
+          {
+            name: 'Prince of Light',
+            snippet: 'When you or any HARLEQUIN allies within 6 metres Charge, you increase your total movement by +Rank.',
+          },
+          {
+            name: 'Darkness Bite',
+            snippet: 'After you make a melee attack, you may inflict a number of Mortal Wounds equal to your Rank, allocated amongst any enemies you hit during your attack.',
+          },
+          {
+            name: 'Twilight Grasp',
+            snippet: 'When you make a melee attack against an enemy which is not a Vehicle or Monstrous Creature, your melee weapon gains the Warp Weapon trait.',
+          },
+        ],
+      },
+    ],
+    wargear: [
+      { name: 'Holo-suit' },
+      { name: 'Agaith' },
+      { name: 'flip-belt' },
+      { name: 'Webway Keystone' },
+      { name: '3 Plasma Grenades' },
+      {
+        name: 'Any one AELDARI melee weapon of Value 9 or less up to Very Rare',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+            typeFilter: ['Melee Weapon'],
+            keywordFilter: ['Aeldari'],
+          },
+        ],
+      },
+      {
+        name: 'Any one pistol of Value 9 or less up to Very Rare',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
+            rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
+            traitFilter: ['Pistol']
+          },
+        ],
+      },
+    ],
+    influence: 5,
+  },
+  {
+    name: 'Harlequin Shadowseer',
+    ...archetype('aaoa', 113, 'Aeldari', 'Harlequin Shadowseer', 5, 'Aeldari'),
+    ...costz(281, [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 6),
+      reqSkill('athletics', 4),
+      reqSkill('deception', 3),
+      reqSkill('intimidation', 2),
+      reqSkill('insight', 3),
+      reqSkill('psychic mastery', 4),
+      reqSkill('scholar', 2),
+      reqSkill('weaponSkill', 5),
+    ]),
+    hint: 'You personify Fate, and all who look upon your mirrored face see something different; what was, what might be, what could have been, or what must be.',
+    keywords: 'Aeldari, Harlequin, [Masque], Psyker',
+    archetypeFeatures: [
+      {
+        ...simpleAbility('We Dance the Dance of Death', 'You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.'),
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+        ],
+      },
+      {
+        name: 'Pivotal Role',
+        snippet: 'Choose one...',
+        selected: [''],
+        options: [
+          {
+            name: 'Shield from Harm',
+            snippet: 'Allies within 6 metres of you add +Rank to their Resilience.',
+          },
+          {
+            name: 'Veil of Illusion',
+            snippet: 'Whenever a ranged attack targets an ally within 6 metres of you, the attacker counts the range to their attacker as being +Triple Rank metres longer than it actually is.',
+          },
+          {
+            name: 'Gloomwake',
+            snippet: 'Allies within 6 metres of you receive +Rank Defence against ranged attacks. This is considered to be a bonus from Cover.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1, condition: 'you and allies within 6m, against ranged attacks.' },
             ],
           },
           {
-              name: 'Any one pistol of Value 9 or less up to Very Rare',
-              selected: '',
-              options: [
-                {
-                  filter: true,
-                  valueFilter: { useCharacterTier: false, useSettingTier: false, fixedValue: 7 },
-                  rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
-                  traitFilter: ['Pistol']
-                },
-              ],
-            },
-      ],
-      influence: 5,
+            name: 'Agent of Bedlam',
+            snippet: 'Enemies within 6 metres of you add +Rank to the DN of all melee attacks they make.',
+          },
+        ],
+      },
+      {
+        name: 'Psyker',
+        snippet: 'You are a Psyker, and you know the Smite psychic power. You may learn additional psychic powers from the Divination, Telepathy, and Phantasmancy disciplines.',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Divination',
+          'Telepathy',
+          'Phantasmancy', // AAOA Spells
+        ],
+      },
+    ],
+    wargear: wargearz('Holo-suit, Agaith, flip-belt, miststave, shuriken pistol, pack grenade launcher, 6 hallucinogen grenades'),
+    influence: 4,
   },
   {
-          name: 'Harlequin Shadowseer',
-          ...archetype('aaoa', 113, 'Aeldari', 'Harlequin Shadowseer', 5, 'Aeldari'),
-          ...costz(281, [
-            reqAttribute('strength', 3),
-            reqAttribute('agility', 5),
-            reqAttribute('initiative', 5),
-            reqAttribute('willpower', 6),
-            reqSkill('athletics', 4),
-            reqSkill('deception', 3),
-            reqSkill('intimidation', 2),
-            reqSkill('insight', 3),
-            reqSkill('psychic mastery', 4),
-            reqSkill('scholar', 2),
-            reqSkill('weaponSkill', 5),
-          ]),
-          hint: 'You personify Fate, and all who look upon your mirrored face see something different; what was, what might be, what could have been, or what must be.',
-        keywords: 'Aeldari, Harlequin, [Masque], Psyker',
-        archetypeFeatures: [
-          {
-            name: 'We Dance the Dance of Death',
-            description:
-              '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
-          },
-          {
-            name: 'Pivotal Role',
-                    snippet: 'Choose one...',
-                    selected: [''],
-                    options: [
-                      {
-                        name: 'Shield from Harm',
-                        snippet: 'Allies within 6 metres of you add +Rank to their Resilience.',
-                      },
-                      {
-                        name: 'VEIL OF ILLUSION',
-                        snippet: 'Whenever a ranged attack targets an ally within 6 metres of you, the attacker counts the range to their attacker as being +Triple Rank metres longer than it actually is.',
-                      },
-                      {
-                        name: 'GLOOMWAKE',
-                        snippet: 'Allies within 6 metres of you receive +Rank Defence against ranged attacks. This is considered to be a bonus from Cover.',
-                      },
-                      {
-                        name: 'AGENT OF BEDLAM',
-                        snippet: 'Enemies within 6 metres of you add +Rank to the DN of all melee attacks they make.',
-                      },
-                    ],
-          },
-          {
-                  name: 'Psyker',
-                  snippet: 'You are a Psyker, and you know the Smite psychic power. You may learn additional psychic powers from the Divination, Telepathy, and Phantasmancy disciplines.',
-                  psychicPowers: [
-                    { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-                  ],
-                  psychicDisciplines: [
-                    'Divination',
-                    'Telepathy',
-                    'Phantasmancy', // AAOA Spells
-                  ],
-                },
+    name: 'Harlequin Death Jester',
+    ...archetype('aaoa', 112, 'Aeldari', 'Harlequin Death Jester', 5, 'Aeldari'),
+    ...costz(238, [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 3),
+      reqSkill('athletics', 4),
+      reqSkill('ballisticSkill', 4),
+      reqSkill('deception', 3),
+      reqSkill('intimidation', 2),
+      reqSkill('insight', 3),
+      reqSkill('scholar', 2),
+      reqSkill('tech', 1),
+      reqSkill('weaponSkill', 5),
+    ]),
+    hint: 'Upon the stage and the battlefield alike, you portray Death itself—aloof, bold, inescapable, cruel, and often ironic.',
+    keywords: 'Aeldari, Harlequin, [Masque]',
+    archetypeFeatures: [
+      {
+        name: 'We Dance the Dance of Death',
+        description:
+          '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
         ],
-        wargear: wargearz('Holo-suit, Agaith, flip-belt, miststave, shuriken pistol, pack grenade launcher, 6 hallucinogen grenades'),
-        influence: 4,
-},
+      },
+      {
+        name: 'Pivotal Role',
+        snippet: 'Choose one...',
+        selected: [''],
+        options: [
+          {
+            name: 'Death is Not Enough',
+            snippet: 'Damage rolls you make against enemies who are currently suffering from the effects of Fear, Terror, or Pinning add +Rank ED.',
+          },
+          {
+            name: 'Harvester of Torment',
+            snippet: 'When you make a successful ranged attack against a Mob, you count as scoring +Double Rank additional Icons when determining how many of the Mob you hit.',
+          },
+          {
+            name: 'The Jest Inescapable',
+            snippet: 'Add +6 to the short range of your ranged weapon, +12 to the medium range, and +18 to the long range. In addition, the weapon gains the Mortal [1] trait.',
+          },
+          {
+            name: 'Humbling Cruelity',
+            snippet: 'Your ranged weapon gains the Inflict [Pinned] trait, and enemies add your Rank to the DN of tests to resist being Pinned or to recover from pinning.',
+          },
+        ],
+      },
+    ],
+    wargearString:'Holo-suit, Agaith, Flip-Belt, Master-Crafted Shuriken Cannon, 3 Shrieker Bio-Explosive Discs',
+    wargear: [
+     { name: 'Holo-suit' },
+     { name: 'Agaith' },
+     { name: 'Flip-Belt' },
+     { name: 'Shrieker Bio-Explosive Discs', amount: 3 },
+     { name: 'Shuriken Cannon (MC)', variant: 'Master-Crafted Shuriken Cannon' },
+    ],
+    influence: 4,
+  },
   {
-          name: 'Harlequin Death Jester',
-          ...archetype('aaoa', 112, 'Aeldari', 'Harlequin Death Jester', 5, 'Aeldari'),
-          ...costz(238, [
-            reqAttribute('strength', 3),
-            reqAttribute('agility', 5),
-            reqAttribute('initiative', 5),
-            reqAttribute('willpower', 3),
-            reqSkill('athletics', 4),
-            reqSkill('ballisticSkill', 4),
-            reqSkill('deception', 3),
-            reqSkill('intimidation', 2),
-            reqSkill('insight', 3),
-            reqSkill('scholar', 2),
-            reqSkill('tech', 1),
-            reqSkill('weaponSkill', 5),
-          ]),
-          hint: 'Upon the stage and the battlefield alike, you portray Death itself—aloof, bold, inescapable, cruel, and often ironic.',
-        keywords: 'Aeldari, Harlequin, [Masque]',
-        archetypeFeatures: [
+    name: 'Harlequin Solitaire',
+    ...archetype('aaoa', 114, 'Aeldari', 'Harlequin Solitaire', 5, 'Aeldari'),
+    ...costz(283, [
+      reqAttribute('strength', 3),
+      reqAttribute('agility', 5),
+      reqAttribute('initiative', 5),
+      reqAttribute('willpower', 6),
+      reqSkill('athletics', 4),
+      reqSkill('deception', 3),
+      reqSkill('intimidation', 3),
+      reqSkill('insight', 3),
+      reqSkill('scholar', 2),
+      reqSkill('weaponSkill', 6),
+    ]),
+    hint: 'Your soul is forfeit, for you portray the Great Enemy in the grimmest of performances, and none can do so without cost. But you pay that price willingly, to defend your people from the horror that awaits you.',
+    keywords: 'Aeldari, Harlequin, [Masque]',
+    archetypeFeatures: [
+      {
+        name: 'Impossible Grace',
+        description:
+          '<p>You add +Rank to Speed and Defence, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1 },
+        ],
+      },
+      {
+        name: 'The Path of Damnation',
+        description:
+          '<p>Other Aeldari shun you, and you add +6 to the DN of all Interaction tests with other Aeldari outside of ritual circumstances or performances. All Aeldari – even allies – must pass a Fear test (DN 3) when they first meet you. However, you automatically succeed at all Conviction and Resolve tests.</p>',
+        },
+      {
+        name: 'Pivotal Role',
+        snippet: 'Choose one...',
+        selected: [''],
+        options: [
           {
-            name: 'We Dance the Dance of Death',
-            description:
-              '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
+            name: 'Blitz',
+            snippet: 'At the start of one of your turns, you may choose to initiate a Blitz. When you do so, your Speed is doubled, and you ignore Double Rank DN increases on Multi-Attacks until the end of your turn. Once you have done this, you cannot do so again until after your next Regroup.',
           },
           {
-            name: 'Pivotal Role',
-                    snippet: 'Choose one...',
-                    selected: [''],
-                    options: [
-                      {
-                        name: 'Death is Not Enough',
-                        snippet: 'Damage rolls you make against enemies who are currently suffering from the effects of Fear, Terror, or Pinning add +Rank ED.',
-                      },
-                      {
-                        name: 'HARVESTER OF TORMENT',
-                        snippet: 'When you make a successful ranged attack against a Mob, you count as scoring +Double Rank additional Icons when determining how many of the Mob you hit.',
-                      },
-                      {
-                        name: 'THE JEST INESCAPABLE',
-                        snippet: 'Add +6 to the short range of your ranged weapon, +12 to the medium range, and +18 to the long range. In addition, the weapon gains the Mortal [1] trait.',
-                      },
-                      {
-                        name: 'HUMBLING CRUELTY',
-                        snippet: 'Your ranged weapon gains the Inflict [Pinned] trait, and enemies add your Rank to the DN of tests to resist being Pinned or to recover from pinning.',
-                      },
-                    ],
+            name: 'Shocking Emergence',
+            snippet: 'As a Free Action at the start of combat, you may take on an indistinct, shimmering form, and cannot be seen or targeted by enemies or allies; you cannot take any actions other than movement in this form. At the start of any of your turns, you may reveal yourself, and you add +Rank bonus dice to any melee attack you make if you charge on the turn you reveal yourself.',
+          },
+          {
+            name: 'Chromatic Rush',
+            snippet: 'Your speed is increased by +Double Rank instead of +Rank.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+            ],
+          },
+          {
+            name: 'Unnatural Acrobatics',
+            snippet: 'Your Defence is increased by +Double Rank instead of +Rank.',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1 },
+            ],
           },
         ],
-        wargearString:'Holo-suit, Agaith, Flip-Belt, Master-Crafted Shuriken Cannon, 3 Shrieker Bio-Explosive Discs',
-        wargear: [
-           { name: 'Holo-suit' },
-           { name: 'Agaith' },
-           { name: 'Flip-Belt' },
-           { name: 'Shrieker Bio-Explosive Discs', amount: 3 },
-           { name: 'Shuriken Cannon (MC)', variant: 'Master-Crafted Shuriken Cannon' },
-        ],
-        influence: 4,
-},
-  {
-          name: 'Harlequin Solitaire',
-          ...archetype('aaoa', 114, 'Aeldari', 'Harlequin Solitaire', 5, 'Aeldari'),
-          ...costz(283, [
-            reqAttribute('strength', 3),
-            reqAttribute('agility', 5),
-            reqAttribute('initiative', 5),
-            reqAttribute('willpower', 6),
-            reqSkill('athletics', 4),
-            reqSkill('deception', 3),
-            reqSkill('intimidation', 3),
-            reqSkill('insight', 3),
-            reqSkill('scholar', 2),
-            reqSkill('weaponSkill', 6),
-          ]),
-          hint: 'Your soul is forfeit, for you portray the Great Enemy in the grimmest of performances, and none can do so without cost. But you pay that price willingly, to defend your people from the horror that awaits you.',
-        keywords: 'Aeldari, Harlequin, [Masque]',
-        archetypeFeatures: [
-          {
-            name: 'We Dance the Dance of Death',
-            description:
-              '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
-          },
-          {
-                      name: 'The Path of Damnation',
-                      description:
-                        '<p>Other Aeldari shun you, and you add +6 to the DN of all Interaction tests with other Aeldari outside of ritual circumstances or performances. All Aeldari – even allies – must pass a Fear test (DN 3) when they first meet you. However, you automatically succeed at all Conviction and Resolve tests.</p>',
-            },
-          {
-            name: 'Pivotal Role',
-                    snippet: 'Choose one...',
-                    selected: [''],
-                    options: [
-                      {
-                        name: 'Blitz',
-                        snippet: 'At the start of one of your turns, you may choose to initiate a Blitz. When you do so, your Speed is doubled, and you ignore Double Rank DN increases on Multi-Attacks until the end of your turn. Once you have done this, you cannot do so again until after your next Regroup.',
-                      },
-                      {
-                        name: 'SHOCKING EMERGENCE',
-                        snippet: 'As a Free Action at the start of combat, you may take on an indistinct, shimmering form, and cannot be seen or targeted by enemies or allies; you cannot take any actions other than movement in this form. At the start of any of your turns, you may reveal yourself, and you add +Rank bonus dice to any melee attack you make if you charge on the turn you reveal yourself.',
-                      },
-                      {
-                        name: 'CHROMATIC RUSH',
-                        snippet: 'Your speed is increased by +Double Rank instead of +Rank.',
-                      },
-                      {
-                        name: 'UNNATURAL ACROBATICS',
-                        snippet: 'Your Defence is increased by +Double Rank instead of +Rank.',
-                      },
-                    ],
-          },
-        ],
-        wargear: wargearz('Holo-suit, Agaith, flip-belt, Harlequin’s Caress, Harlequin’s Kiss'),
-},
+      },
+    ],
+    wargear: wargearz('Holo-suit, Agaith, flip-belt, Harlequin’s Caress, Harlequin’s Kiss'),
+  },
   // druchari
   {
     name: 'Kabalite Warrior',
@@ -3651,7 +3674,7 @@ const aaoaAdeptusMechanicus = [
     ...archetype('aaoa', 57, 'Adeptus Mechanicus', 'Skitarius Vanguard', 2, 'Human'),
     ...costz(28,[
       reqAttribute('toughness', 3),
-      reqSkill('ballsiticSkill', 2),
+      reqSkill('ballisticSkill', 2),
       reqSkill('tech', 1),
     ]),
     hint: 'Devotee of the Motive Force that flows through the universe.',
