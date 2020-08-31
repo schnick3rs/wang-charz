@@ -2476,7 +2476,7 @@ const aaoaAstraMilitarum = [
     ...archetype('aaoa', 33, 'Astra Militarum', 'Beastman Auxiliary', 1, 'aaoa/Beastman'),
     ...costz(28, [
       reqAttribute('strength', 3),
-      reqAttribute('toughnes', 3),
+      reqAttribute('toughness', 3),
       reqSkill('athletics', 1),
       reqSkill('weaponSkill', 2),
     ]),
