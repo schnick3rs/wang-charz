@@ -3504,64 +3504,67 @@ const aaoaAdeptusMinistorum=  [
 
 const aaoaAdeptaSororitas = [
   {
-    name: 'Sister Dialogous',
-    ...archetype('aaoa2', 23, 'Adepta Sororitas', 'Sister Dialogous', 1, 'Human'),
-    ...costz(0, [ /* TODO */]),
-    hint: 'A devout scholar of language, ensuring that the Emperor’s Word is understood by all.',
-    prerequisites: [
-      reqAttribute('intellect', 2),
+    name: 'Sister Dialogus',
+    ...archetype('aaoa2', 40, 'Adepta Sororitas', 'Sister Dialogus', 1, 'Human'),
+    ...costz(24, [
+      reqAttribute('intellect', 3),
       reqAttribute('willpower', 3),
       reqSkill('persuasion', 1),
-      reqSkill('scholar', 2),
-    ],
+      reqSkill('scholar', 1),
+    ]),
+    hint: 'A devout scholar of language, ensuring that the Emperor’s Word is understood by all.',
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     influence: 1,
     archetypeFeatures: [
       {
-        name: 'Linguist',
-        snippet:
-          'A Sister Dialogous knows three additional languages and adds +Rank on Scholar tests relating to language. In addition, an ally may attempt Persuade or Intimidation tests against characters who do not share a common language so long as a Sister Dialogous is present and knows the target’s language – the Sister translates for her ally.'
+        ...simpleAbility('Sanctified Linguist','You add +Rank bonus dice on Scholar tests relating to language, and you know Double Rank additional languages. You also gain +Rank Conviction.'),
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'scholar', modifier: 0, rank: 1, condition: 'when related to language' },
+          { targetGroup: 'traits', targetValue: 'conviction', modifier: 0, rank: 1 },
+        ],
       },
     ],
-    wargearString:
-      'Laspistol, clothing (Sororitas vestments), copy of the Rule of the Sororitas, collection of reference books, vox-caster.',
+    wargearString: 'Sororitas power armour, bolt pistol, copy of the Rule of the Sororitas, collection of reference texts, vox-caster, laud hailer.',
     wargear: [
-      { name: 'Laspistol' },
-      { name: 'Clothing', variant: 'Sororitas vestments' },
+      { name: 'Sororitas power armour' },
+      { name: 'Bolt Pistol' },
       { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
-      { name: 'collection of reference books' },
+      { name: 'collection of reference texts' },
       { name: 'vox-caster' },
+      { name: 'laud hailer' },
     ],
   },
   {
     name: 'Sister Famulous',
     ...archetype('aaoa2', 23, 'Adepta Sororitas', 'Sister Famulous', 1, 'Human'),
-    ...costz(10, [ /* TODO */]),
-    hint: 'A pious advisor to those of noble birth and ancient bloodlines.',
-    prerequisites: [
+    ...costz(28, [
       reqAttribute('intellect', 2),
       reqAttribute('willpower', 3),
       reqAttribute('fellowship', 3),
       reqSkill('leadership', 1),
-      reqSkill('scholar', 1),
-    ],
+      reqSkill('persuasion', 1),
+    ]),
+    hint: 'A pious advisor to those of noble birth and ancient bloodlines.',
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
     influence: 1,
     archetypeFeatures: [
       {
-        name: 'Major-domo',
-        snippet:
-          'A Sister Famulous adds +Rank to Scholar tests to know information about noble families and similar high-status groups. In addition, a Sister Famulous may, when acting on behalf of a client, add +Rank to Influence tests and interaction skills where social status is relevant.'
+        ...simpleAbility('piritual Advisor','You add +Rank bonus dice to Leadership and Persuasion tests when interacting with the Nobility of the Imperium. You also add +Rank to your Conviction.'),
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1, condition: 'when interacting with imperial nobility.' },
+          { targetGroup: 'skills', targetValue: 'persuasion', modifier: 0, rank: 1, condition: 'when interacting with imperial nobility.' },
+          { targetGroup: 'traits', targetValue: 'conviction', modifier: 0, rank: 1 },
+        ],
       },
     ],
-    wargearString:
-      'Laspistol, clothing (Sororitas vestments), copy of the Rule of the Sororitas, collection of reference books, vox-caster.',
+    wargearString: 'Formal Sororitas Robes (clothing), bodyglove, Laspistol, mono-knife, Chaplet Ecclesiasticus, copy of Rule of the Sororitas.',
     wargear: [
       { name: 'Laspistol' },
-      { name: 'Clothing', variant: 'Sororitas vestments' },
+      { name: 'Bodyglove' },
+      { name: 'Clothing', variant: 'Formal Sororitas Robes' },
+      { name: 'mono-knife' },
+      { name: 'Chaplet Ecclesiasticus' },
       { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
-      { name: 'collection of reference books' },
-      { name: 'vox-caster' },
     ],
   },
   {
