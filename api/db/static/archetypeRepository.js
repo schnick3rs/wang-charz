@@ -2472,6 +2472,56 @@ const aaoaAdeptusArbites = [
 
 const aaoaAstraMilitarum = [
   {
+    name: 'Beastman Auxiliary',
+    ...archetype('aaoa', 33, 'Astra Militarum', 'Beastman Auxiliary', 1, 'aaoa/Beastman'),
+    ...costz(28, [
+      reqAttribute('strength', 3),
+      reqAttribute('toughnes', 3),
+      reqSkill('athletics', 1),
+      reqSkill('weaponSkill', 2),
+    ]),
+    hint: 'You have been drafted to serve alongside Astra Militarum forces as an auxiliary.',
+    keywords: 'Imperium,Astra Militarum,[Regiment]',
+    influence: 0,
+    archetypeFeatures: [
+      {
+        ...simpleAbility('Bestial Zealotry','When you are able to see an enemy (either an obvious foe, or a creature identified as an enemy by an ally or superior), you add +Rank to your Resolve, and add +Rank bonus dice to any melee attacks you make when you charge.'),
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1, condition: 'when you can see your enemy.' },
+          // XXX { targetGroup: 'combat', targetValue: 'meleeAttacks', modifier: 0, rank: 1, condition: 'when you can see charge.' },
+        ],
+      }
+    ],
+    wargearString: 'Two melee weapons each of Value 3 or less of up to Common rarity, primitive armour',
+    wargear: [
+      { name: 'Primitive Armour' },
+      {
+        name: 'Common Melee Weapon up to value 3',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+            typeFilter: ['Melee Weapon'],
+            rarityFilter: ['Common'],
+          },
+        ],
+      },
+      {
+        name: 'Common Melee Weapon up to value 3',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+            typeFilter: ['Melee Weapon'],
+            rarityFilter: ['Common'],
+          },
+        ],
+      },
+    ],
+  },
+  {
     name: 'Imperial Guard Medic',
     ...archetype('aaoa', 36, 'Astra Militarum', 'Imperial Guard Medic', 1, 'Human'),
     ...costz(22, [
@@ -2483,8 +2533,12 @@ const aaoaAstraMilitarum = [
     keywords: 'Imperium,Astra Militarum,[Regiment]',
     influence: 0,
     archetypeFeatures: [
-      simpleAbility('Field Medic',
-        'When you make a Medicae test during combat on a Dying character, +Double Rank bonus dice.'),
+      {
+        ...simpleAbility('Field Medic','When you make a Medicae test during combat on a Dying character, +Double Rank bonus dice.'),
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'medicae', modifier: 0, rank: 2, condition: 'when treating a Dying character.' },
+        ],
+      },
     ],
     wargear: wargearz(
       'Flak armour, Lasgun, knife, Munitorum-Issue Mess Kit/guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration pack, medikit'),
@@ -2515,7 +2569,7 @@ const aaoaAstraMilitarum = [
           '<p>An officer may issue orders to multiple characters, adding +2 to the DN of the leadership test for each character after the first being orders. All character ordered must receive the same benefit.</p>'
       },
     ],
-    wargear: wargearz('Flak armour, Refractor Field, Laspistol, chainsword, knife, Munitorum-Issue Mess Kit/guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration packs.'),
+    wargear: wargearz('Flak armour, Refractor Field, Laspistol, chainsword, knife, Munitorum-Issue Mess Kit/guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration packs'),
   },
 ];
 
@@ -3379,9 +3433,12 @@ const aaoaAdeptusMinistorum=  [
     influence: 0,
     archetypeFeatures: [
       {
-        name: 'Fevour',
-        description:
-          '<p>When within hearing range of a character with the ADEPTUS MINISTORUM keyword, you increase your Resolve by +Rank. In addition, if that Adeptus Ministorum character has suffered any wounds during the current scene, your Determination is increased by +Rank while you remain within 10 metres of them.</p>'
+        ...simpleAbility('Fevour','When within hearing range of a character with the ADEPTUS MINISTORUM keyword, you increase your Resolve by +Rank. In addition, if that Adeptus Ministorum character has suffered any wounds during the current scene, your Determination is increased by +Rank while you remain within 10 metres of them.'),
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1, condition: 'when in hearing range of another ADEPTUS MINISTORUM character.' },
+          { targetGroup: 'traits', targetValue: 'determination', modifier: 0, rank: 1, condition: 'when an ADEPTUS MINISTORUM character within hearing range suffere any wound during this combat and you are witin 10m.' },
+          // XXX { targetGroup: 'combat', targetValue: 'meleeAttacks', modifier: 0, rank: 1, condition: 'when you can see charge.' },
+        ],
       },
     ],
     wargearString: 'One ranged or melee weapon of Value 3 or less of up to Common rarity, knife, symbol of devotion (tin aquila, devotional scroll, etc.).',
