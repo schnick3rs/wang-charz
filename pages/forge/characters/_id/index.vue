@@ -440,24 +440,32 @@
                 >
                   <template v-slot:item="{ item }">
                     <tr>
+
                       <td class="text-left pa-1 small">
                         {{ item.name }}
                       </td>
+
                       <td class="text-center pa-1 small">
                         <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 4">
                           {{ item.meta[0].range/2 }} | {{ item.meta[0].range }} | {{ item.meta[0].range*1.5 }}
                         </span>
                         <span v-else-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
                         <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
+                        <span v-if="item.meta && item.meta.length > 0 && isNaN(item.meta[0].range) && item.meta[0].range.startsWith('STRx')">{{item.meta[0].range}}</span>
                       </td>
+
                       <td class="text-center pa-1 small">
                         <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                          <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
-                          <span v-else>{{ item.meta[0].damage.static }}</span>
-                          <span> + </span>
-                          <span>{{ item.meta[0].damage.ed }} ED</span>
+                          <div v-if="item.meta[0].damage.static === '*'">*</div>
+                          <div v-else>
+                            <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
+                            <span v-else>{{ item.meta[0].damage.static }}</span>
+                            <span> + </span>
+                            <span>{{ item.meta[0].damage.ed }} ED</span>
+                          </div>
                         </div>
                       </td>
+
                       <td class="text-center pa-1 small">
                         <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
                       </td>

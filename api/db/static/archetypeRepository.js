@@ -3524,13 +3524,13 @@ const aaoaAdeptaSororitas = [
         ],
       },
     ],
-    wargearString: 'Sororitas power armour, bolt pistol, copy of the Rule of the Sororitas, collection of reference texts, vox-caster, laud hailer.',
+    wargearString: 'Sororitas power armour, bolt pistol, copy of the Rule of the Sororitas, collection of reference texts, vox caster, laud hailer.',
     wargear: [
       { name: 'Sororitas power armour' },
       { name: 'Bolt Pistol' },
       { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
       { name: 'collection of reference texts' },
-      { name: 'vox-caster' },
+      { name: 'vox caster' },
       { name: 'laud hailer' },
     ],
   },
@@ -3549,7 +3549,7 @@ const aaoaAdeptaSororitas = [
     influence: 1,
     archetypeFeatures: [
       {
-        ...simpleAbility('piritual Advisor','You add +Rank bonus dice to Leadership and Persuasion tests when interacting with the Nobility of the Imperium. You also add +Rank to your Conviction.'),
+        ...simpleAbility('Spiritual Advisor','You add +Rank bonus dice to Leadership and Persuasion tests when interacting with the Nobility of the Imperium. You also add +Rank to your Conviction.'),
         modifications: [
           { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1, condition: 'when interacting with imperial nobility.' },
           { targetGroup: 'skills', targetValue: 'persuasion', modifier: 0, rank: 1, condition: 'when interacting with imperial nobility.' },

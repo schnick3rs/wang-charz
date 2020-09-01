@@ -1267,6 +1267,10 @@ const aaoaAeldari = [
     ...meleez('Aeldari Melee Weapon', 4, 3, 0, 1, 'Parry, Rending (2)'),
   },
   {
+    ...gear('aaoa',138,'Miststave', '7V','Force, Harlequin', ''),
+    ...meleez('Aeldari Melee Weapon', 5, 3, -1, 1, 'Agonizing, Force'),
+  },
+  {
     ...gear('aaoa',138,'Power Blade', '6R','Power Field, Aeldari, Asuryani', ''),
     ...meleez('Aeldari Melee Weapon', 5, 3, -2, 1),
   },
@@ -1308,6 +1312,18 @@ const aaoaAeldari = [
       '<p><strong>Special:</strong> When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>',
   },
   {
+    ...gear('aaoa',153,'Hallucinogen Grenade', '7R','Gas, Aeldari, Harlequins', ''),
+    ...rangez('Aeldari Ranged Weapon', '*','*','*', 'STRx4', '-', 'Blast (Large), Special'),
+    description:
+      '<p><strong>Special:</strong> Any creature caught in the blast of a Hallucinogen Grenade must pass a Terror test (TN 5). Further, if a creature suffers a complication on this test, then they also suffer 1d3 mortal wounds.</p>',
+  },
+  {
+    ...gear('aaoa',153,'Pack Grenade Launcher', '7R','Explosive, Harlequins', ''),
+    ...rangez('Aeldari Ranged Weapon','*','*','*',18,'-','Assault, Special'),
+    description:
+      '<p><strong>Special:</strong> A Pack Grenade Launcher can carry up to 6 grenades, and additional grenades cannot be loaded during battle.</p>',
+  },
+  {
     ...simpleStub(31022, 'aaoa2',102,'Reaper Launcher', '7V','Explosive, Aeldari, Asuryani', ''),
     // Starshot Missile
     ...rangeAaoa('16+3ED; AP -2; Range 100m; Salvo –; Blast (Small), Heavy (5)', 'Aeldari Ranged Weapon'),
@@ -1337,9 +1353,22 @@ const aaoaAeldari = [
     ...armour('Aeldari Armour', 3, 'Force Shield, Shield'),
   },
   {
-    ...gear('aaoa',176,'Holo Shield', '7V', 'Hologram, Light, Harlequin', ''),
+    ...gear('aaoa',176,'Holo-Suit', '7V', 'Hologram, Light, Harlequin', ''),
     ...armour('Aeldari Armour', 1, 'Force Shield, Domino Field'),
-    snippet: 'Domino Field: A Holo-Suit increases the wearer’s Defence based on how much they have moved. It grants +1 Defence if the wearer was stationary last turn. This increases to +2 if the wearer moved, +3 if the wearer Ran, or +4 if the wearer Sprinted.',
+    snippet: 'Gain defence bonus depending on previous movement: +1 (stationary), +2 (moved), +3 (ran), +4 (sprinted).',
+    description:
+      '<p><strong>Domino Field: </strong>A Holo-Suit increases the wearer’s Defence based on how much they have moved. It grants +1 Defence if the wearer was stationary last turn. This increases to +2 if the wearer moved, +3 if the wearer Ran, or +4 if the wearer Sprinted.</p>',
+  },
+  // Aeldari Tools
+  {
+    ...gear('aaoa',185,'Agaith','7V','Harlequin',''),
+    ...toolz('Aeldari Equipment','You cause Fear (DN 3+Rank)'),
+  },
+  {
+    ...gear('aaoa',186,'Flip-Belt','7V','Harlequin',''),
+    ...toolz('Aeldari Equipment','Ignore difficult terrain and obstavles less then 2m tal or wide. You may stand up as a free action. You may use Agility (instead of Strength) fo jump distance. While not unconcious, you do not suffer falling damage.'),
+    description:
+      '<p>A Harlequin wearing a Flip-Belt ignores the effects of difficult terrain, can ignore any obstacles less than 2m tall or wide during their movement, and may stand up from prone as a free action at any time without penalty. In addition, a Harlequin wearing a flip-belt determines jump distance using their Agility instead of their Strength, and they do not suffer falling damage unless unconscious.</p>',
   },
 ];
 
