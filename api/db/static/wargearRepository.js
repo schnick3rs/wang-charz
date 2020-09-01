@@ -1263,7 +1263,7 @@ const aaoaAstartes = [
 const aaoaAeldari = [
   // AAOA Aeldari Melee Weapons
   {
-    ...gear('aaoa',138,'Harlequin´s Blade', '4U','Blade, Harlequin'),
+    ...gear('aaoa',138,'Harlequins Blade', '4U','Blade, Harlequin'),
     ...meleez('Aeldari Melee Weapon', 4, 3, 0, 1, 'Parry, Rending (2)'),
   },
   {
