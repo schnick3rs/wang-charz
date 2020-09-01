@@ -1627,7 +1627,7 @@ const aaoaAeldari = [
           '<p>Guardians march to war only when necessary, for the Asuryani are few and their lives are precious. This grim necessity means you increase your Resolve and Conviction by Rank.</p>',
       },
     ],
-    wargear: wargearz('Eldar Mesh Armour, Shuriken Catapult, mono-knife, 3 plasma grenade, spirit stone'),
+    wargear: wargearz('Eldar Mesh Armour, Shuriken Catapult, Mono Knife, 3 plasma grenade, spirit stone'),
   },
   {
     name: 'Bonesinger',
@@ -1695,7 +1695,7 @@ const aaoaAeldari = [
     archetypeFeatures: [
       simpleAbility('Inescapable Aim: You may reroll up to Double Rank dice on any Ranged Attack you make.'),
     ],
-    wargear: wargearz('Heavy Aspect Armour, Reaper Launcher, Dark Reaper Rangefinder, mono-knife, spirit stone'),
+    wargear: wargearz('Heavy Aspect Armour, Reaper Launcher, Dark Reaper Rangefinder, Mono Knife, spirit stone'),
     influence: 1,
   },
   {
@@ -1714,7 +1714,7 @@ const aaoaAeldari = [
     archetypeFeatures: [
       simpleAbility('Defensive Tactics: You add +Rank to your Defence. In addition, when an enemy Charges you, you may make a ranged attack against them as a Reflexive Action, adding +2 to the DN of the attack. This attack is resolved before the enemy moves.'),
     ],
-    wargear: wargearz('Aspect Armour, Avenger Shuriken Catapult, targeting vane, mono-knife, 3 plasma grenade, spirit stone'),
+    wargear: wargearz('Aspect Armour, Avenger Shuriken Catapult, targeting vane, Mono Knife, 3 plasma grenade, spirit stone'),
     influence: 2,
   },
   {
@@ -1734,7 +1734,7 @@ const aaoaAeldari = [
     archetypeFeatures: [
       simpleAbility('Assured Destruction: When you attack a vehicle, structure, or monstrous creature, add +Rank ED to the attack. In addition, add +Rank to your resilience against attacks with the FIRE or MELTA keywords.'),
     ],
-    wargear: wargearz('Heavy Aspect Armour, Fusion Gun, 1 melta bomb, mono-knife, spirit stone'),
+    wargear: wargearz('Heavy Aspect Armour, Fusion Gun, 1 melta bomb, Mono Knife, spirit stone'),
     influence: 1,
   },
   {
@@ -1808,7 +1808,7 @@ const aaoaAeldari = [
     archetypeFeatures: [
       simpleAbility('Skyleap: So long as you are able to Fly, you may Fall Back as a Simple action, rather than a Combat Action. In addition, when you take the Full Defence action, you immediately move twice your Flying Speed (instead of halving your Speed) away from the enemy and add +Rank bonus dice to the Initiative test to increase your Defence. Naturally, these abilities require that you be able to fly, and have room to do so.'),
     ],
-    wargear: wargearz('Aspect Armour, Lasblaster, mono-knife, Swooping Hawk Wings, Swooping Hawk Grenade Pack, 6 plasma grenade, Spirit Stone'),
+    wargear: wargearz('Aspect Armour, Lasblaster, Mono Knife, Swooping Hawk Wings, Swooping Hawk Grenade Pack, 6 plasma grenade, Spirit Stone'),
     influence: 2,
   },
   {
@@ -1827,7 +1827,7 @@ const aaoaAeldari = [
     archetypeFeatures: [
       simpleAbility('Flickerjump: As a Reflexive Action when a ranged attack is made against you, you may add +Double Rank to your Defence, as you use your Warp Jump Generator to flicker in and out of reality.'),
     ],
-    wargear: wargearz('Heavy Aspect Armour, Death Spinner, Warp Jump Generator, mono-knife, spirit stone'),
+    wargear: wargearz('Heavy Aspect Armour, Death Spinner, Warp Jump Generator, Mono Knife, spirit stone'),
     influence: 1,
   },
   // Harlequin
@@ -2274,7 +2274,7 @@ const aaoaSquat = [
           '<p>When an enemy makes an attack against an ally within 5m of you, then as a Reflexive Action, you may increase that ally’s Defence and Resilience by +Rank against that attack.</p>',
       },
     ],
-    wargear: wargearz('Bolter, Power Axe, Bolt Pistol, mono-knife, Ionclad Carapace Armour, 3 frag grenade, 3 krak grenade'),
+    wargear: wargearz('Bolter, Power Axe, Bolt Pistol, Mono Knife, Ionclad Carapace Armour, 3 frag grenade, 3 krak grenade'),
   },
   {
     name: 'Ancestor Lord',
@@ -3505,7 +3505,7 @@ const aaoaAdeptusMinistorum=  [
 const aaoaAdeptaSororitas = [
   {
     name: 'Sister Dialogus',
-    ...archetype('aaoa2', 40, 'Adepta Sororitas', 'Sister Dialogus', 1, 'Human'),
+    ...archetype('aaoa', 40, 'Adepta Sororitas', 'Sister Dialogus', 1, 'Human'),
     ...costz(24, [
       reqAttribute('intellect', 3),
       reqAttribute('willpower', 3),
@@ -3536,7 +3536,7 @@ const aaoaAdeptaSororitas = [
   },
   {
     name: 'Sister Famulous',
-    ...archetype('aaoa2', 23, 'Adepta Sororitas', 'Sister Famulous', 1, 'Human'),
+    ...archetype('aaoa', 23, 'Adepta Sororitas', 'Sister Famulous', 1, 'Human'),
     ...costz(28, [
       reqAttribute('intellect', 2),
       reqAttribute('willpower', 3),
@@ -3557,12 +3557,12 @@ const aaoaAdeptaSororitas = [
         ],
       },
     ],
-    wargearString: 'Formal Sororitas Robes (clothing), bodyglove, Laspistol, mono-knife, Chaplet Ecclesiasticus, copy of Rule of the Sororitas.',
+    wargearString: 'Formal Sororitas Robes (clothing), bodyglove, Laspistol, Mono Knife, Chaplet Ecclesiasticus, copy of Rule of the Sororitas.',
     wargear: [
       { name: 'Laspistol' },
       { name: 'Bodyglove' },
       { name: 'Clothing', variant: 'Formal Sororitas Robes' },
-      { name: 'mono-knife' },
+      { name: 'Mono Knife' },
       { name: 'Chaplet Ecclesiasticus' },
       { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
     ],
