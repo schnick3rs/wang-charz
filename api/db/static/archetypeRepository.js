@@ -36,6 +36,18 @@ const SKILLS = {
   WEAPON_SKILL: 'weaponSkill',
 };
 
+const TRAITS = {
+  RESOLVE: 'resolve',
+  CONVICTION: 'conviction',
+  DEFENCE: 'defence',
+  RESILIENCE: 'resilience',
+  MAX_SHOCK: 'maxShock',
+  MAX_WOUNDS: 'maxWounds',
+  DETERMINATION: 'determination',
+  SPEED: 'speed',
+  CORRUPTION: 'corruption',
+};
+
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
 };
@@ -283,7 +295,7 @@ const core = [
         name: 'Armour of Faith',
         snippet: 'You gain +Double Rank bonus dice to melee attack tests against targets with the CHAOS or HERETIC keyword. Your Resolve also increases by +Rank.',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 0, rank: 1 },
         ],
       },
     ],
@@ -420,8 +432,8 @@ const core = [
         name: 'Fearsome Respect',
         snippet: 'You and any allies within 15 metres of you that can see you may add +Double Rank bonus dice to Resolve Tests. You add +Double Rank bonus dice to any Intimidation (Wil) Tests, including Interaction Attacks.',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 2, condition: 'for You and allies within 15 metres' },
-          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 0, rank: 2, condition: null },
+          { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 0, rank: 2, condition: 'for You and allies within 15 metres' },
+          { targetGroup: 'skills', targetValue: SKILLS.INTIMIDATION, modifier: 0, rank: 2, condition: null },
         ],
       },
     ],
@@ -487,7 +499,7 @@ const core = [
         name: 'Administratum Records',
         snippet: 'You are particularly adept at navigating the Imperium’s colossal bureaucracy. You gain +Rank bonus dice whenever you make a Test to gather information from Imperial sources, typically on Influence or Investigation (Int) tests.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'investigation', modifier: 0, rank: 1, condition: 'when gathering information from Imperial sources' },
+          { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 0, rank: 1, condition: 'when gathering information from Imperial sources' },
         ],
       },
     ],
@@ -671,7 +683,7 @@ const core = [
         name: 'Use the Terrain',
         snippet: 'You gain +Rank to any Stealth (A) Test when there is some form of terrain to hide behind.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1, condition: 'when there is some form of terrain to hide behind' },
+          { targetGroup: 'skills', targetValue: SKILLS.STEALTH, modifier: 0, rank: 1, condition: 'when there is some form of terrain to hide behind' },
         ],
       },
     ],
@@ -787,7 +799,7 @@ const core = [
         name: 'Rite of Repair',
         snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
+          { targetGroup: 'skills', targetValue: SKILLS.TECH, modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
         ],
       },
     ],
@@ -849,7 +861,7 @@ const core = [
         description:
           '<p>Your life with less has made you adept at finding spares and supplies in the most unlikely of places. You gain +Rank bonus dice to Cunning (Fel) Tests. Once per session you may make an Influence or Cunning Test to acquire an item, representing something you have prepared in advance.</p>',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'cunning', modifier: 0, rank: 1, condition: null },
+          { targetGroup: 'skills', targetValue: SKILLS.CUNNING, modifier: 0, rank: 1, condition: null },
         ],
       },
     ],
@@ -903,7 +915,7 @@ const core = [
             name: 'Hint of Red Eye',
             snippet: 'Add 1 dice to Awareness (Int) Tests. You suffer +1 DN to actions that require vision, while exposed to light.',
             modifications: [
-              { targetGroup: 'skills', targetValue: 'awareness', modifier: 1, condition: null },
+              { targetGroup: 'skills', targetValue: SKILLS.AWARENESS, modifier: 1, condition: null },
             ],
           },
           {
@@ -918,9 +930,9 @@ const core = [
             name: 'Gossamer Flesh',
             snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.',
             modifications: [
-              { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 2, condition: 'when involving touch' },
-              { targetGroup: 'traits', targetValue: 'resilience', modifier: -1 },
-              { targetGroup: 'traits', targetValue: 'maxShock', modifier: -1 },
+              { targetGroup: 'skills', targetValue: SKILLS.AWARENESS, modifier: 0, rank: 2, condition: 'when involving touch' },
+              { targetGroup: 'traits', targetValue: TRAITS.RESILIENCE, modifier: -1 },
+              { targetGroup: 'traits', targetValue: TRAITS.MAX_SHOCK, modifier: -1 },
             ],
           },
           {
@@ -935,31 +947,31 @@ const core = [
             name: 'Misshapen',
             snippet: 'Increase your Resolve by 2. Reduce your Max Shock by 1.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'resolve', modifier: 2 },
-              { targetGroup: 'traits', targetValue: 'maxShock', modifier: -1 },
+              { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 2 },
+              { targetGroup: 'traits', targetValue: TRAITS.MAX_SHOCK, modifier: -1 },
             ],
           },
           {
             name: 'Grotesque',
             snippet: 'You add +1 die to Intimidation (Wil) Tests. You suffer +1 DN to (other) social interaction tests with non-CHAOS.',
             modifications: [
-              { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
+              { targetGroup: 'skills', targetValue: SKILLS.INTIMIDATION, modifier: 1 },
             ],
           },
           {
             name: 'Bestial Hide',
             snippet: 'Increase your Resilience by 1. You add +1 dice to Intimidation (Wil) Tests. You suffer +2 DN to (other) social interaction tests with non-CHAOS.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'resilience', modifier: 1 },
-              { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
+              { targetGroup: 'traits', targetValue: TRAITS.RESILIENCE, modifier: 1 },
+              { targetGroup: 'skills', targetValue: SKILLS.INTIMIDATION, modifier: 1 },
             ],
           },
           {
             name: 'Brute',
             snippet: 'Increase your Strength and Toughness by 1. You suffer +1 DN to all tests involving Tools and Range Weapons, if they are not adjusted to your build.',
             modifications: [
-              { targetGroup: 'attributes', targetValue: 'strength', modifier: 1 },
-              { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 },
+              { targetGroup: 'attributes', targetValue: ATTRIBUTES.STRENGTH, modifier: 1 },
+              { targetGroup: 'attributes', targetValue: ATTRIBUTES.TOUGHNESS, modifier: 1 },
             ],
           },
           {
@@ -970,16 +982,16 @@ const core = [
             name: 'Withered',
             snippet: 'Increase your Willpower by 2. Reduce your Toughness by 1.',
             modifications: [
-              { targetGroup: 'attributes', targetValue: 'willpower', modifier: 2 },
-              { targetGroup: 'attributes', targetValue: 'toughness', modifier: -1 },
+              { targetGroup: 'attributes', targetValue: ATTRIBUTES.WILLPOWER, modifier: 2 },
+              { targetGroup: 'attributes', targetValue: ATTRIBUTES.TOUGHNESS, modifier: -1 },
             ],
           },
           {
             name: 'Vile Alacrity',
             snippet: 'Increase your Speed by 2. Add +1 dice to Athletic (Str) tests. You suffer (at least) +2 DN to social interaction tests with non-CHAOS.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'speed', modifier: 2 },
-              { targetGroup: 'skills', targetValue: 'athletic', modifier: 1 },
+              { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 2 },
+              { targetGroup: 'skills', targetValue: SKILLS.ATHLETICS, modifier: 1 },
             ],
           },
         ],
@@ -1065,7 +1077,7 @@ const core = [
         name: 'Enemy Within',
         snippet: 'You gain +Double Rank bonus dice to Deception (Fel) Tests, including Interaction Attacks, against targets with the IMPERIUM Keyword.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'deception', modifier: 0, rank: 2, condition: 'against IMPERIAL targets' },
+          { targetGroup: 'skills', targetValue: SKILLS.DECEPTION, modifier: 0, rank: 2, condition: 'against IMPERIAL targets' },
         ],
       },
       {
@@ -1073,9 +1085,9 @@ const core = [
         snippet: 'You gain 1d3 corruption.',
         selected: [''],
         options: [
-          { key: 'corruption-1', name: 'Gain 1 point Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 1 }] },
-          { key: 'corruption-2', name: 'Gain 2 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 2 }] },
-          { key: 'corruption-3', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }] },
+          { key: 'corruption-1', name: 'Gain 1 point Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 1 }] },
+          { key: 'corruption-2', name: 'Gain 2 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 2 }] },
+          { key: 'corruption-3', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 }] },
         ],
       },
     ],
@@ -1151,9 +1163,9 @@ const core = [
         snippet: 'You gain 1d3 x2 corruption.',
         selected: [''],
         options: [
-          { key: 'corruption-1', name: 'Gain 2 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 2 }] },
-          { key: 'corruption-2', name: 'Gain 4 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 4 }] },
-          { key: 'corruption-3', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 6 }] },
+          { key: 'corruption-1', name: 'Gain 2 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 2 }] },
+          { key: 'corruption-2', name: 'Gain 4 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 4 }] },
+          { key: 'corruption-3', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 6 }] },
         ],
       },
     ],
@@ -1174,7 +1186,7 @@ const core = [
         name: 'Rite of Repair',
         snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
+          { targetGroup: 'skills', targetValue: SKILLS.TECH, modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
         ],
       },
       {
@@ -1182,9 +1194,9 @@ const core = [
         snippet: 'You gain 1d3 x3 corruption.',
         selected: [''],
         options: [
-          { key: 'corruption-1', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }] },
-          { key: 'corruption-2', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 6 }] },
-          { key: 'corruption-3', name: 'Gain 9 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 9 }] },
+          { key: 'corruption-1', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 }] },
+          { key: 'corruption-2', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 6 }] },
+          { key: 'corruption-3', name: 'Gain 9 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 9 }] },
         ],
       },
     ],
@@ -1264,9 +1276,9 @@ const core = [
         snippet: 'You gain 1d3 x3 corruption.',
         selected: [''],
         options: [
-          { key: 'corruption-1', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }] },
-          { key: 'corruption-2', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 6 }] },
-          { key: 'corruption-3', name: 'Gain 9 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 9 }] },
+          { key: 'corruption-1', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 }] },
+          { key: 'corruption-2', name: 'Gain 6 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 6 }] },
+          { key: 'corruption-3', name: 'Gain 9 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 9 }] },
         ],
       },
     ],
@@ -1401,7 +1413,7 @@ const core = [
         name: 'Kunnin\' Plan',
         snippet: 'You and any of your allies with the ORK within 15 metres gain +Rank bonus dice to Stealth (A) Tests.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1, condition: 'for You and ORK allies within 15 metres' },
+          { targetGroup: 'skills', targetValue: SKILLS.STEALTH, modifier: 0, rank: 1, condition: 'for You and ORK allies within 15 metres' },
         ],
       },
     ],
@@ -1884,7 +1896,7 @@ const aaoaAeldari = [
         description:
           '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 0, rank: 1 },
         ],
       },
     ],
@@ -1914,7 +1926,7 @@ const aaoaAeldari = [
         description:
           '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 0, rank: 1 },
         ],
       },
       {
@@ -1997,7 +2009,7 @@ const aaoaAeldari = [
       {
         ...simpleAbility('We Dance the Dance of Death', 'You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.'),
         modifications: [
-          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 0, rank: 1 },
         ],
       },
       {
@@ -2017,7 +2029,7 @@ const aaoaAeldari = [
             name: 'Gloomwake',
             snippet: 'Allies within 6 metres of you receive +Rank Defence against ranged attacks. This is considered to be a bonus from Cover.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1, condition: 'you and allies within 6m, against ranged attacks.' },
+              { targetGroup: 'traits', targetValue: TRAITS.DEFENCE, modifier: 0, rank: 1, condition: 'you and allies within 6m, against ranged attacks.' },
             ],
           },
           {
@@ -2067,7 +2079,7 @@ const aaoaAeldari = [
         description:
           '<p>You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 0, rank: 1 },
         ],
       },
       {
@@ -2127,8 +2139,8 @@ const aaoaAeldari = [
         description:
           '<p>You add +Rank to Speed and Defence, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.</p>',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
-          { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 0, rank: 1 },
+          { targetGroup: 'traits', targetValue: TRAITS.DEFENCE, modifier: 0, rank: 1 },
         ],
       },
       {
@@ -2153,14 +2165,14 @@ const aaoaAeldari = [
             name: 'Chromatic Rush',
             snippet: 'Your speed is increased by +Double Rank instead of +Rank.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1 },
+              { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 0, rank: 1 },
             ],
           },
           {
             name: 'Unnatural Acrobatics',
             snippet: 'Your Defence is increased by +Double Rank instead of +Rank.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1 },
+              { targetGroup: 'traits', targetValue: TRAITS.DEFENCE, modifier: 0, rank: 1 },
             ],
           },
         ],
@@ -2518,7 +2530,7 @@ const aaoaAstraMilitarum = [
       {
         ...simpleAbility('Bestial Zealotry','When you are able to see an enemy (either an obvious foe, or a creature identified as an enemy by an ally or superior), you add +Rank to your Resolve, and add +Rank bonus dice to any melee attacks you make when you charge.'),
         modifications: [
-          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1, condition: 'when you can see your enemy.' },
+          { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 0, rank: 1, condition: 'when you can see your enemy.' },
           // XXX { targetGroup: 'combat', targetValue: 'meleeAttacks', modifier: 0, rank: 1, condition: 'when you can see charge.' },
         ],
       }
@@ -2567,7 +2579,7 @@ const aaoaAstraMilitarum = [
       {
         ...simpleAbility('Field Medic','When you make a Medicae test during combat on a Dying character, +Double Rank bonus dice.'),
         modifications: [
-          { targetGroup: 'skills', targetValue: 'medicae', modifier: 0, rank: 2, condition: 'when treating a Dying character.' },
+          { targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 0, rank: 2, condition: 'when treating a Dying character.' },
         ],
       },
     ],
@@ -3466,8 +3478,8 @@ const aaoaAdeptusMinistorum=  [
       {
         ...simpleAbility('Fevour','When within hearing range of a character with the ADEPTUS MINISTORUM keyword, you increase your Resolve by +Rank. In addition, if that Adeptus Ministorum character has suffered any wounds during the current scene, your Determination is increased by +Rank while you remain within 10 metres of them.'),
         modifications: [
-          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1, condition: 'when in hearing range of another ADEPTUS MINISTORUM character.' },
-          { targetGroup: 'traits', targetValue: 'determination', modifier: 0, rank: 1, condition: 'when an ADEPTUS MINISTORUM character within hearing range suffere any wound during this combat and you are witin 10m.' },
+          { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 0, rank: 1, condition: 'when in hearing range of another ADEPTUS MINISTORUM character.' },
+          { targetGroup: 'traits', targetValue: TRAITS.DETERMINATION, modifier: 0, rank: 1, condition: 'when an ADEPTUS MINISTORUM character within hearing range suffere any wound during this combat and you are witin 10m.' },
           // XXX { targetGroup: 'combat', targetValue: 'meleeAttacks', modifier: 0, rank: 1, condition: 'when you can see charge.' },
         ],
       },
@@ -3550,8 +3562,8 @@ const aaoaAdeptaSororitas = [
       {
         ...simpleAbility('Sanctified Linguist','You add +Rank bonus dice on Scholar tests relating to language, and you know Double Rank additional languages. You also gain +Rank Conviction.'),
         modifications: [
-          { targetGroup: 'skills', targetValue: 'scholar', modifier: 0, rank: 1, condition: 'when related to language' },
-          { targetGroup: 'traits', targetValue: 'conviction', modifier: 0, rank: 1 },
+          { targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 0, rank: 1, condition: 'when related to language' },
+          { targetGroup: 'traits', targetValue: TRAITS.CONVICTION, modifier: 0, rank: 1 },
         ],
       },
     ],
@@ -3582,9 +3594,9 @@ const aaoaAdeptaSororitas = [
       {
         ...simpleAbility('Spiritual Advisor','You add +Rank bonus dice to Leadership and Persuasion tests when interacting with the Nobility of the Imperium. You also add +Rank to your Conviction.'),
         modifications: [
-          { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1, condition: 'when interacting with imperial nobility.' },
-          { targetGroup: 'skills', targetValue: 'persuasion', modifier: 0, rank: 1, condition: 'when interacting with imperial nobility.' },
-          { targetGroup: 'traits', targetValue: 'conviction', modifier: 0, rank: 1 },
+          { targetGroup: 'skills', targetValue: SKILLS.LEADERSHIP, modifier: 0, rank: 1, condition: 'when interacting with imperial nobility.' },
+          { targetGroup: 'skills', targetValue: SKILLS.PERSUASION, modifier: 0, rank: 1, condition: 'when interacting with imperial nobility.' },
+          { targetGroup: 'traits', targetValue: TRAITS.CONVICTION, modifier: 0, rank: 1 },
         ],
       },
     ],
@@ -4193,7 +4205,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
     influence: 2,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Masters of Slaughter: The cruelty and malice of a Chaos Space Marine knows no limit, and few can endure their wrath. When making a critical hit, they count as improving the severity of the critical hit as if they had spent one Glory. They may still spend additional Glory to increase the severity further.'),
@@ -4230,7 +4242,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
     influence: 2,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Cruel Hunters: Enemies within 15m of a Chaos Space Marine Raptor add +½ Rank to the DN of any Resolve tests they are required to make.'),
@@ -4261,7 +4273,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
     influence: 2,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Addicted to Destruction: When a Chaos Space Marine Havoc rolls a 6 on their Wrath die when making a ranged attack, they may forego their critical hit and spend a reload in order to make a second ranged attack with that weapon. This second attack may not allow them to make any additional attacks.'),
@@ -4300,7 +4312,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, Khorne, Heretic Astartes, [Legion]',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Blood for the Blood God!: When a Khorne Berzerker makes an All-Out Attack, they may choose up to ½ Rank dice in their dice pool to be Wrath dice, in addition to the normal Wrath die. If any of these Wrath dice are 6s, then the character scores a critical hit. They gain one level of extra severity on that critical hit, as if a Glory had been spent, for every Wrath die after the first which rolls a 6.'),
@@ -4333,8 +4345,8 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, Nurgle, Heretic Astartes, [Legion]',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
-      { targetGroup: 'traits', targetValue: 'speed', modification: -1 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.SPEED, modification: -1 },
     ],
     archetypeFeatures: [
       simpleAbility('Disgustingly Resilient: Plague Marines are extraordinarily durable, as they feel no pain and they draw their nauseating vitality from their patron god. A Plague Marine may Soak mortal wounds and does not cost them any Shock.'),
@@ -4367,7 +4379,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, Slaanesh, Heretic Astartes, [Legion]',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Cacophony and Ecstasy: Noise Marines gain +Rank on all skill tests that relate specifically to hearing, and can pick out sounds, and variations in sounds that a normal human cannot. Further, a Noise Marine heals ½ Rank shock at the end of every turn, as they revel in the sensations of battle. However, a Noise Marine who is reduced to 0 Shock is staggered as well as exhausted, as they are overcome by sensation.'),
@@ -4404,7 +4416,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Psyker',
     influence: 3,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       {
@@ -4458,7 +4470,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Dark Mechanicus',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Master of Mechanisms: Warpsmiths automatically reduce the time by half for any Tech test. They receive +Rank on any test to summon or bind a daemon into a machine, or to command a daemonic machine.'),
@@ -4510,7 +4522,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Priest',
     influence: 3,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Demagogue: A Chaplain, and all allies with the Chaos keyword within 15+Rank metres, may add +Rank to their Resolve.'),
@@ -4537,7 +4549,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, Khorne',
     influence: 0,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('The Scent of Blood: After an enemy has been killed in a scene, a Khorngor becomes frenzied, and must make WP tests to restrain themselves. While frenzied, however, they add +½ Rank ED to all melee damage rolls they make.'),
@@ -4567,7 +4579,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, Nurgle',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Inured to Suffering: Pestigor know no pain or fear, and little can dissuade them from their task. They increase both their Resolve and their Soak by +½ Rank.'),
@@ -4591,7 +4603,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, Slaanesh',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Distracting Musk: Slaangor exude a faintly soporific musk that disrupts the concentration of any who stray too close. Characters within 5m of a Slaangor increase the DN of all Willpower and Resolve tests by ½ Rank. This does not affect characters with the Slaanesh keyword, who’ve already built up a resistance to it.'),
@@ -4616,7 +4628,7 @@ const aaoaChaos = [
     keywords: 'Heretic, Chaos, Tzeentch',
     influence: 1,
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
       simpleAbility('Aura of Change: Tzaangor are wreathed in an aura of warp energy and twisted probabilities, which shields them from harm. A Tzaangor may Soak Mortal Wounds and increases their Resilience by +½ Rank. This increase to their Resilience is considered to be a force field, and thus cannot be reduced by an attack’s AP.'),
@@ -4925,7 +4937,7 @@ const togRep = [
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 2 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 2 },
     ],
     wargear: wargearz('Lasgun or Hand Flamer, Mono Knife or Sword, 2 Throwing Knifes, 1 Frag Grenade, Mesh Armour'),
     influence: 1,
@@ -4949,7 +4961,7 @@ const togRep = [
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     wargear: wargearz('Flak Armour, Chain Axe or Chain Sword, Bolt Pistol, 2 Frag Grenades, 1 krak Grenade'),
     influence: 2,
@@ -4970,13 +4982,13 @@ const togRep = [
       {
         ...simpleAbility('Demagogue', 'You gain +Rank on all Leadership and Persuasion tests.'),
         modifications: [
-          { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1 },
-          { targetGroup: 'skills', targetValue: 'persuasion', modifier: 0, rank: 1 },
+          { targetGroup: 'skills', targetValue: SKILLS.LEADERSHIP, modifier: 0, rank: 1 },
+          { targetGroup: 'skills', targetValue: SKILLS.PERSUASION, modifier: 0, rank: 1 },
         ],
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     wargear: wargearz('Duelling Las Pistol, Mono Knife, Refractor Field, Heretical Texts, Fine Robes'),
     influence: 2,
@@ -5005,12 +5017,12 @@ const togRep = [
       {
         ...simpleAbility('Abnormal Physiology', 'The marine is immune to all diseases, poisons, and automatically passes any test that would case FEAR. You also gain +Rank bonus when using Intimidation or any effect that instills FEAR.'),
         modifications: [
-          { targetGroup: 'skills', targetValue: 'intimidation', modifier: 0, rank: 1 },
+          { targetGroup: 'skills', targetValue: SKILLS.INTIMIDATION, modifier: 0, rank: 1 },
         ],
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     wargear: wargearz('Plague Marine Armour, Boltgun, Bolt Pistol, Plague Knife, 3 frag grenades, 3 tox grenades'),
     influence: 1,
@@ -5038,14 +5050,14 @@ const togRep = [
       {
         ...simpleAbility('More Blood!', 'Increase the berserkers speed by 2 when they charge. You do not suffer a penalty when wounded and instead gain +Rank bonus to all Weapon Skill and Resolve tests'),
         modifications: [
-          { targetGroup: 'traits', targetValue: 'speed', modifier: 2, rank: 0, condition: 'when charging' },
-          { targetGroup: 'skills', targetValue: 'weaponSkill', modifier: 0, rank: 1, condition: 'when wounded' },
-          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1, condition: 'when wounded' },
+          { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 2, rank: 0, condition: 'when charging' },
+          { targetGroup: 'skills', targetValue: SKILLS.WEAPON_SKILL, modifier: 0, rank: 1, condition: 'when wounded' },
+          { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 0, rank: 1, condition: 'when wounded' },
         ],
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 2 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 2 },
     ],
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Chain Axe or Chain Sword, Bolt Pistol, Astartes Combat Knife, 3 frag grenades, 3 krak grenades'),
     influence: 1,
@@ -5074,7 +5086,7 @@ const togRep = [
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Noise Marine Sonic Blaster, Bolt Pistol, Astartes Combat Knife, 3 frag grenades, 3 concussion grenades'),
     influence: 2,
@@ -5131,7 +5143,7 @@ const togRep = [
       },
     ],
     modifications: [
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 2 },
+      { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 2 },
     ],
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Force Axe or Force Sword, Boltgun, Astartes Combat Knife, PSychic Focus'),
     influence: 1,
