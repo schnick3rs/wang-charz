@@ -299,7 +299,7 @@
       <v-col :cols="12" :sm="6" :md="6" :lg="3">
         <v-row no-gutters>
           <v-col :cols="12" class="pa-1">
-          <v-card style="height: 612px; display: flex; flex-flow: column;">
+          <v-card style="height: 755px; display: flex; flex-flow: column;">
             <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
               Skills
             </v-card-title>
@@ -2418,7 +2418,7 @@ export default {
   }
 
   .my-tab-item {
-    height: 564px;
+    height: 705px;
     overflow-y: auto;
   }
 

@@ -2178,7 +2178,7 @@ const aaoaAeldari = [
         ],
       },
     ],
-    wargear: wargearz('Holo-suit, Agaith, flip-belt, Harlequin’s Caress, Harlequin’s Kiss'),
+    wargear: wargearz('Holo-suit, Agaith, flip-belt, Harlequins Caress, Harlequins Kiss'),
   },
   // druchari
   {

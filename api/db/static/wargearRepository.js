@@ -1267,6 +1267,18 @@ const aaoaAeldari = [
     ...meleez('Aeldari Melee Weapon', 4, 3, 0, 1, 'Parry, Rending (2)'),
   },
   {
+    ...gear('aaoa',138,'Harlequins Caress', '6V','Power Field, Harlequin'),
+    ...meleez('Aeldari Melee Weapon', 5, 5, -2, 1, 'Brutal'),
+  },
+  {
+    ...gear('aaoa',138,'Harlequins Embrace', '6V','Monofilament, Harlequin'),
+    ...meleez('Aeldari Melee Weapon', 5, 4, -3, 1),
+  },
+  {
+    ...gear('aaoa',138,'Harlequins Kiss', '6V','Monofilament, Harlequin'),
+    ...meleez('Aeldari Melee Weapon', 5, 4, -1, 1, 'Careful, Mortal (3)'),
+  },
+  {
     ...gear('aaoa',138,'Miststave', '7V','Force, Harlequin'),
     ...meleez('Aeldari Melee Weapon', 5, 3, -1, 1, 'Agonizing, Force'),
   },
@@ -1312,6 +1324,12 @@ const aaoaAeldari = [
       '<p><strong>Special:</strong> When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>',
   },
   {
+    ...gear('aaoa',153,'Neuro Disruptor', '8V','Exotic, Harlequins'),
+    ...rangez('Aeldari Ranged Weapon', 4,4,0, 18, 0, 'Pistol, Special'),
+    description:
+      '<p><strong>Special:</strong> A Neuro Disruptor uses no ammunition and cannot run out of ammunition. It just works. Nobody knows entirely how. The damage of a Neuro Disruptor is compared to the target’s Resolve, rather than Resilience, and each point of damage inflicted is a Mortal Wound instead of a normal wound. It has no effect against mindless creatures or inanimate objects.</p>',
+  },
+  {
     ...gear('aaoa',153,'Hallucinogen Grenade', '7R','Gas, Aeldari, Harlequins'),
     ...rangez('Aeldari Ranged Weapon', '*','*','*', 'STRx4', '-', 'Blast (Large), Special'),
     description:
@@ -1322,6 +1340,20 @@ const aaoaAeldari = [
     ...rangez('Aeldari Ranged Weapon','*','*','*',18,'-','Assault, Special'),
     description:
       '<p><strong>Special:</strong> A Pack Grenade Launcher can carry up to 6 grenades, and additional grenades cannot be loaded during battle.</p>',
+  },
+  {
+    ...gear('aaoa',153,'Shuriken Cannon', '6R','Shuriken, Aeldari'),
+    ...rangez('Aeldari Ranged Weapon',14,2,0,24,4,'Assault, Heavy (3), Rending (3)'),
+  },
+  {
+    ...gear('aaoa',163,'Shrieker Bio-Explosive Discs','9L','Harlequin'),
+    type: 'Ammo',
+    subtype: 'Special Shuriken Ammo',
+    snippet: 'The Weapon gains the Careful and Inflict (Poison 7) traits. It also gains Bio-Explosive (explodes on death) and is only a single round (no salvo, its gone).',
+    description:
+      '<p><strong>Effect: </strong>The weapon gains the Careful and Inflict (Poisoned 7) trait.</p>' +
+      '<p><strong>Bio-Explosive: </strong>A character who is Poisoned by Shrieker ammo is also Staggered and suffers 1d3 Mortal Wounds at the start of each of their turns. If they are slain by this damage, they explode with a Medium blast, inflicting 10+6ED damage to anyone in that blast. Any of the victim’s allies within 15 metres must attempt a Terror test (DN 7).</p>' +
+      '<p><strong>Single Shot: </strong>A reload of Shrieker ammo consists of a single round. Using this ammunition expends that round, and grants none of the normal benefits a Salvo action.</p>',
   },
   {
     ...simpleStub(31022, 'aaoa2',102,'Reaper Launcher', '7V','Explosive, Aeldari, Asuryani', ''),
