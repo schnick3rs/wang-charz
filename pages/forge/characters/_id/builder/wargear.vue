@@ -391,7 +391,7 @@ export default {
             gear.source = chargear.source;
             characterWargear.push({
               id: chargear.id,
-              name: chargear.name,
+              name: gear.name,
               subtitle: this.wargearSubtitle(gear),
               type: gear.type,
               avatar: this.getAvatar(gear.type),

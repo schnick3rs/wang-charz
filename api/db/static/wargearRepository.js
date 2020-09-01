@@ -1263,48 +1263,48 @@ const aaoaAstartes = [
 const aaoaAeldari = [
   // AAOA Aeldari Melee Weapons
   {
-    ...gear('aaoa',138,'Harlequin´s Blade', '4U','Blade, Harlequin', ''),
+    ...gear('aaoa',138,'Harlequin´s Blade', '4U','Blade, Harlequin'),
     ...meleez('Aeldari Melee Weapon', 4, 3, 0, 1, 'Parry, Rending (2)'),
   },
   {
-    ...gear('aaoa',138,'Miststave', '7V','Force, Harlequin', ''),
+    ...gear('aaoa',138,'Miststave', '7V','Force, Harlequin'),
     ...meleez('Aeldari Melee Weapon', 5, 3, -1, 1, 'Agonizing, Force'),
   },
   {
-    ...gear('aaoa',138,'Power Blade', '6R','Power Field, Aeldari, Asuryani', ''),
+    ...gear('aaoa',138,'Power Blade', '6R','Power Field, Aeldari, Asuryani'),
     ...meleez('Aeldari Melee Weapon', 5, 3, -2, 1),
   },
   {
-    ...gear('aaoa',138,'Scorpion Chainsword', '5R','Chain, Aeldari', ''),
+    ...gear('aaoa',138,'Scorpion Chainsword', '5R','Chain, Aeldari'),
     ...meleez('Aeldari Melee Weapon', 5, 4, 0, 1, 'Brutal, Parry, Silent'),
   },
   // AAOA Aeldari Ranged Weapons
   {
-    ...gear('aaoa',152,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani', ''),
+    ...gear('aaoa',152,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani'),
     ...rangez('Aeldari Ranged Weapon', 10, 1, 0, 18, 3, 'Assault, Rending (3)'),
   },
   {
-    ...gear('aaoa',152,'Bright Lance', '7R','Las, Aeldari, Asuryani', ''),
+    ...gear('aaoa',152,'Bright Lance', '7R','Las, Aeldari, Asuryani'),
     ...rangez('Aeldari Ranged Weapon', 16, 3, -4, 36, 0, 'Heavy (4), Sniper (1)'),
   },
   {
-    ...gear('aaoa',152,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani', ''),
+    ...gear('aaoa',152,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani'),
     ...rangez('Aeldari Ranged Weapon', 14, 2, 0, 12, 3, 'Assault, Brutal, Inflict (Restrained), Rending (4)'),
   },
   {
-    ...gear('aaoa',152,'Dragon´s Breath Flamer', '7L','Fire, Ancient, Aeldari, Asuryani', ''),
+    ...gear('aaoa',152,'Dragon´s Breath Flamer', '7L','Fire, Ancient, Aeldari, Asuryani'),
     ...rangez('Aeldari Ranged Weapon', 12, 3, -1, 20, 3, 'Assault, Blast (Large), Inflict (On Fire), Spread'),
   },
   {
-    ...gear('aaoa',152,'Firepike', '7L','Melta, Ancient, Aeldari, Asuryani', ''),
+    ...gear('aaoa',152,'Firepike', '7L','Melta, Ancient, Aeldari, Asuryani'),
     ...rangez('Aeldari Ranged Weapon', 16, 4, -4, 18, 1, 'Assault, Blast (Small), Inflict (On Fire), Melta'),
   },
   {
-    ...gear('aaoa',152,'Fusion Pistol', '7R','Melta, Aeldari', ''),
+    ...gear('aaoa',152,'Fusion Pistol', '7R','Melta, Aeldari'),
     ...rangez('Aeldari Ranged Weapon', 16, 1, -4, 6, 1, 'Melta, Pistol'),
   },
   {
-    ...gear('aaoa',152,'Laser Lance', '7R','Las, Aeldari, Asuryani, Exodite', ''),
+    ...gear('aaoa',152,'Laser Lance', '7R','Las, Aeldari, Asuryani, Exodite'),
     ...rangez('Aeldari Ranged Weapon', 14, 2, -4, 6, 0, 'Assault, Melee'),
     description:
       '<p><strong>Melee:</strong> A Laser Lance can be used as a melee weapon, using the following profile:</p>' +
@@ -1312,13 +1312,13 @@ const aaoaAeldari = [
       '<p><strong>Special:</strong> When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>',
   },
   {
-    ...gear('aaoa',153,'Hallucinogen Grenade', '7R','Gas, Aeldari, Harlequins', ''),
+    ...gear('aaoa',153,'Hallucinogen Grenade', '7R','Gas, Aeldari, Harlequins'),
     ...rangez('Aeldari Ranged Weapon', '*','*','*', 'STRx4', '-', 'Blast (Large), Special'),
     description:
       '<p><strong>Special:</strong> Any creature caught in the blast of a Hallucinogen Grenade must pass a Terror test (TN 5). Further, if a creature suffers a complication on this test, then they also suffer 1d3 mortal wounds.</p>',
   },
   {
-    ...gear('aaoa',153,'Pack Grenade Launcher', '7R','Explosive, Harlequins', ''),
+    ...gear('aaoa',153,'Pack Grenade Launcher', '7R','Explosive, Harlequins'),
     ...rangez('Aeldari Ranged Weapon','*','*','*',18,'-','Assault, Special'),
     description:
       '<p><strong>Special:</strong> A Pack Grenade Launcher can carry up to 6 grenades, and additional grenades cannot be loaded during battle.</p>',
@@ -1337,23 +1337,23 @@ const aaoaAeldari = [
   },
   // AAOA Aeldari Armour
   {
-    ...gear('aaoa',176,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...gear('aaoa',176,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior'),
     ...armour('Aeldari Armour', 4),
   },
   {
-    ...gear('aaoa',176,'Heavy Aspect Armour', '5V', 'Heavy, Aeldari, Asuryani, Aspect Warrior', ''),
+    ...gear('aaoa',176,'Heavy Aspect Armour', '5V', 'Heavy, Aeldari, Asuryani, Aspect Warrior'),
     ...armour('Aeldari Armour', 5, 'Bulk (1)'),
   },
   {
-    ...gear('aaoa',167,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
+    ...gear('aaoa',167,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior'),
     ...armour('Aeldari Armour', 6),
   },
   {
-    ...gear('aaoa',176,'Forceshield', '8L', 'Force Field, Aeldari', ''),
+    ...gear('aaoa',176,'Forceshield', '8L', 'Force Field, Aeldari'),
     ...armour('Aeldari Armour', 3, 'Force Shield, Shield'),
   },
   {
-    ...gear('aaoa',176,'Holo-Suit', '7V', 'Hologram, Light, Harlequin', ''),
+    ...gear('aaoa',176,'Holo-Suit', '7V', 'Hologram, Light, Harlequin'),
     ...armour('Aeldari Armour', 1, 'Force Shield, Domino Field'),
     snippet: 'Gain defence bonus depending on previous movement: +1 (stationary), +2 (moved), +3 (ran), +4 (sprinted).',
     description:
@@ -1361,11 +1361,11 @@ const aaoaAeldari = [
   },
   // Aeldari Tools
   {
-    ...gear('aaoa',185,'Agaith','7V','Harlequin',''),
+    ...gear('aaoa',185,'Agaith','7V','Harlequin'),
     ...toolz('Aeldari Equipment','You cause Fear (DN 3+Rank)'),
   },
   {
-    ...gear('aaoa',186,'Flip-Belt','7V','Harlequin',''),
+    ...gear('aaoa',186,'Flip-Belt','7V','Harlequin'),
     ...toolz('Aeldari Equipment','Ignore difficult terrain and obstavles less then 2m tal or wide. You may stand up as a free action. You may use Agility (instead of Strength) fo jump distance. While not unconcious, you do not suffer falling damage.'),
     description:
       '<p>A Harlequin wearing a Flip-Belt ignores the effects of difficult terrain, can ignore any obstacles less than 2m tall or wide during their movement, and may stand up from prone as a free action at any time without penalty. In addition, a Harlequin wearing a flip-belt determines jump distance using their Agility instead of their Strength, and they do not suffer falling damage unless unconscious.</p>',
@@ -1389,20 +1389,20 @@ const aaoaDrukhari = [
   },
   // AAOA Drukhari Armour
   {
-    ...gear('aaoa',177,'Clone Field', '8L', 'Hologram, Drukhari', ''),
+    ...gear('aaoa',177,'Clone Field', '8L', 'Hologram, Drukhari'),
     ...armour('Drukhari Armour', 0, 'Deceptive Defence'),
     description:
       '<p>A Clone Field cannot be worn with Force Field armour, as energy fields disrupt the holographic decoys.</p>' +
       '<p><strong>Deceptive Defence:</strong> Whenever you are attacked while wearing a Clone Field, roll a d6. On an Icon, the attack is considered to have missed. This has no effect against Blasts or area effect attacks.</p>'
   },
   {
-    ...gear('aaoa',177,'Ghostplate', '6V', 'Light, Drukhari', ''),
+    ...gear('aaoa',177,'Ghostplate', '6V', 'Light, Drukhari'),
     ...armour('Drukhari Armour', 4, 'Force Shield, Field Projectors'),
     description:
       '<p><strong>Field Projectors:</strong> Ghostplate has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
   },
   {
-    ...gear('aaoa',177,'Incubus Warsuit', '6V', 'Heavy, Drukhari', ''),
+    ...gear('aaoa',177,'Incubus Warsuit', '6V', 'Heavy, Drukhari'),
     ...armour('Drukhari Armour', 5, 'Tormentor'),
     description:
       '<p><strong>Tormentor:</strong> Enemies within 6 metres of this armour’s wearer suffer 1 Shock at the start of their turn.</p>'
@@ -1413,7 +1413,7 @@ const aaoaDrukhari = [
     snippet: 'Contains a vox and a rebreather, or Dark Eldar equivalents of these items.',
   },
   {
-    ...gear('aaoa',177,'Shadowfield', '8L', 'Force Field, Drukhari', ''),
+    ...gear('aaoa',177,'Shadowfield', '8L', 'Force Field, Drukhari'),
     ...armour('Drukhari Armour', 8, 'Force Shield, Near-Perfect Defence, Overload'),
     description:
       '<p><strong>Near-Perfect Defence:</strong> The wearer of a functioning Shadowfield may roll Determination without spending Shock, and rolls 9d6 when they roll Determination.</p>' +
