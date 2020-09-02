@@ -1,4 +1,5 @@
 import { source } from './_sourcesRepository';
+import { ATTRIBUTES, SKILLS, TRAITS } from './_statUtils';
 
 const rarity = {
   'C': 'Common',
@@ -914,7 +915,7 @@ const core = [
     ...toolz('Imperial Equipment','Very Rare Clothing may grant a small bonus to social skill tests.'),
   },
   {
-    ...gear('core',236,'Clombi-Tool','3U','[Any]'),
+    ...gear('core',236,'Combi-Tool','3U','[Any]'),
     ...toolz('Universal Equipment','You ignore DN penalties to build, repair, maintain, and sabotage Imperial technology.'),
   },
   {
@@ -1512,7 +1513,7 @@ const aaoaAdeptusMechanicus = [
   },
   // Armour
   {
-    ...gear('aaoa',167,'Sicarian battle-armour', '6V', 'Heavy, Imperium, Adeptus Mechanicus, Skitarii'),
+    ...gear('aaoa',167,'Sicarian Battle-Armour', '6V', 'Heavy, Imperium, Adeptus Mechanicus, Skitarii'),
     ...armour('Basic Armour', 4),
     description:
       '<p>Sicarian Battle-Armour has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
@@ -1554,6 +1555,43 @@ const aaoaAdeptusMechanicus = [
     snippet: 'All Creatures (excluding ADEPTUS MECHANICUS allies) within 10m suffer +Rank DN to Intellect and Resolve tests.',
     description:
       '<p>Creatures within 10 metres of the character add +Rank to the DN of all Intellect tests (including Awareness), and Resolve tests. Allies with the ADEPTUS MECHANICUS keyword receive null-codes which render them immune to this.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,191,'Memorance Implant','6R','Adeptus Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Record everything you see. You gain +1 bonus die to Investigation or Scholar based on Information witnessed or recorded.',
+    description:
+      '<p>The recipient always has a perfect visual record of everything they see, which may be transferred to other data storage if they have a way to connect to those devices (such as an interface port). Further, they gain a +1d bonus on any Investigate or Scholar tests based on information they have already witnessed and recorded.</p>',
+    modifications: [
+      { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 1, rank: 0, condition: 'when based on information witnessed and recorder.' },
+      { targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 1, rank: 0, condition: 'when based on information witnessed and recorder.' },
+    ],
+  },
+];
+
+const aaoaArbites = [
+  {
+    ...gear(source.aaoa.key,166,'Arbites Carapace','6V','Heavy, Imperium, Adeptus Arbites'),
+    ...armour('Imperial Armour',4),
+  },
+  {
+    ...gear(source.aaoa.key,166,'Riot Shield','4U','Light,Imperium'),
+    ...armour('Imperial Armour',1,'Shield'),
+  },
+  {
+    ...gear(source.aaoa.key,166,'Supression Shield','6R','Heavy,Shock,Imperium,Adeptus Arbites'),
+    ...armour('Imperial Armour',2,'Bulk (1), Shield, Discharge'),
+    description:
+      '<p><strong>Discharge: </strong>An enemy who fails a melee attack against someone wielding a suppression shield immediately suffers 1 Shock. Anyone suffering a complication on a melee attack against someone wielding a suppression shield suffers 1d3 Shock.</p>',
+  },
+  // Gear
+  {
+    ...gear(source.aaoa.key,180,'Book of Judgment (abridged)','2U','Adeptus Arbites'),
+    ...toolz(undefined, 'The Book of Judgement is the legal code of the Imperium, enforced by the Adeptus Arbites.'),
+  },
+  {
+    ...gear(source.aaoa.key,181,'Magnacles','3U','Imperium,Adeptus Arbites,Inquisition'),
+    ...toolz(undefined, 'Breaking free of magnacles’ magnetic lock requires a Strength test (DN 5).'),
   }
 ];
 
@@ -1563,6 +1601,7 @@ const aaoa = [
   ...aaoaDrukhari,
   ...aaoaOrk,
   ...aaoaAdeptusMechanicus,
+  ...aaoaArbites,
 ];
 
 const aaoav2 = [

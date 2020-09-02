@@ -1,65 +1,12 @@
 import { source } from './_sourcesRepository';
+import { stringToKebab } from './_stringUtils';
+import { ATTRIBUTES, SKILLS, TRAITS } from './_statUtils';
 
 const _statCosts = {
   attributes: [0, 0, 4, 10, 20, 35, 55, 80, 110, 145, 185, 230, 280],
   skills: [0, 2, 6, 12, 20, 30, 42, 56, 72],
 };
 
-const ATTRIBUTES = {
-  STRENGTH: 'strength',
-  TOUGHNESS: 'toughness',
-  AGILITY: 'agility',
-  INITIATIVE: 'initiative',
-  WILLPOWER: 'willpower',
-  FELLOWSHIP: 'fellowship',
-  INTELLECT: 'intellect',
-};
-
-const SKILLS = {
-  ATHLETICS: 'athletics',
-  AWARENESS: 'awareness',
-  BALLISTIC_SKILL: 'ballisticSkill',
-  STEALTH: 'stealth',
-  MEDICAE: 'medicae',
-  SCHOLAR: 'scholar',
-  SURVIVAL: 'survival',
-  INTIMIDATION: 'intimidation',
-  INVESTIGATION: 'investigation',
-  LEADERSHIP: 'leadership',
-  DECEPTION: 'deception',
-  CUNNING: 'cunning',
-  INSIGHT: 'insight',
-  PERSUASION: 'persuasion',
-  TECH: 'tech',
-  PILOT: 'pilot',
-  PSYCHIC_MASTERY: 'psychicMastery',
-  WEAPON_SKILL: 'weaponSkill',
-};
-
-const TRAITS = {
-  RESOLVE: 'resolve',
-  CONVICTION: 'conviction',
-  DEFENCE: 'defence',
-  RESILIENCE: 'resilience',
-  MAX_SHOCK: 'maxShock',
-  MAX_WOUNDS: 'maxWounds',
-  DETERMINATION: 'determination',
-  SPEED: 'speed',
-  CORRUPTION: 'corruption',
-};
-
-const stringToKebab = function (text) {
-  return text.toLowerCase().replace(/\W/gm, '-');
-};
-
-const kebabToCamel = function (slug) {
-  return slug.replace(/-([a-z0-9])/g, (g) => g[1].toUpperCase());
-};
-
-const stringToKebabToCamel = function (text) {
-  const slug = stringToKebab(text);
-  return kebabToCamel(slug);
-};
 
 const cost = function (cost, archetype = 0, stats = 0, species = 0, other = 0) {
   return {
@@ -74,7 +21,7 @@ const cost = function (cost, archetype = 0, stats = 0, species = 0, other = 0) {
   };
 }
 
-// ...archetype('core',99,'Adepta Sororitas','Sister of Battle',2,'Human',94),
+// ...archetype(source.core.key, 99,'Adepta Sororitas','Sister of Battle',2,'Human',94),
 const archetype = function (sourceKey, sourcePage, faction, name, tier, species, stub = false) {
   let speciesSourceKey = 'core';
   let speciesName = 'Human';
@@ -223,7 +170,7 @@ const wargearz = function(wargearString) {
 const core = [
   // Adeptus Ministorum
   {
-    ...archetype('core',92,'Adeptus Ministorum','Ministorum Priest',1,'Human'),
+    ...archetype(source.core.key,92,'Adeptus Ministorum','Ministorum Priest',1,'Human'),
     ...cost(12,0,12, 0, 0),
     hint: 'A zealous preacher of the Imperial Creed.',
     keywords: 'Imperium,Adeptus Ministorum',
@@ -261,7 +208,7 @@ const core = [
     ],
   },
   {
-    ...archetype('core',102,'Adeptus Ministorum','Death Cult Assassin',2,'Human'),
+    ...archetype(source.core.key, 102,'Adeptus Ministorum','Death Cult Assassin',2,'Human'),
     ...cost(36,10,26, 0, 0),
     hint: 'An agile killer, expressing worship through the art of death.',
     keywords: 'Imperium,Adeptus Ministorum',
@@ -280,7 +227,7 @@ const core = [
     influence: 1,
   },
   {
-    ...archetype('core',110,'Adeptus Ministorum','Crusader',3,'Human'),
+    ...archetype(source.core.key, 110,'Adeptus Ministorum','Crusader',3,'Human'),
     ...cost(54,20,34, 0, 0),
     hint: 'A holy warrior with unfl agging devotion to the God-Emperor.',
     keywords: 'Imperium,Adeptus Ministorum',
@@ -304,7 +251,7 @@ const core = [
   },
   // Adepta Sororitas
   {
-    ...archetype('core',91,'Adepta Sororitas','Sister Hospitaller',1,'Human'),
+    ...archetype(source.core.key, 91,'Adepta Sororitas','Sister Hospitaller',1,'Human'),
     ...cost(24,0,24,0,0),
     hint: 'A pious healer dedicated to care of both body and soul.',
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
@@ -331,7 +278,7 @@ const core = [
     ],
   },
   {
-    ...archetype('core',99,'Adepta Sororitas','Sister of Battle',2,'Human'),
+    ...archetype(source.core.key, 99,'Adepta Sororitas','Sister of Battle',2,'Human'),
     ...cost(64,10,54, 0, 0),
     hint: 'A determined warrior, filled with purity and faith.',
     keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
@@ -369,7 +316,7 @@ const core = [
   },
   // Adeptus Militarum
   {
-    ...archetype('core',93,'Astra Militarum','Imperial Guardsman',1,'Human'),
+    ...archetype(source.core.key, 93,'Astra Militarum','Imperial Guardsman',1,'Human'),
     ...cost(6,0,6, 0, 0),
     hint: 'A disciplined soldier, used to fighting amid multitudes',
     keywords: 'Imperium,Astra Militarum,[Regiment]',
@@ -394,7 +341,7 @@ const core = [
     ],
   },
   {
-    ...archetype('core',103,'Astra Militarum','Tempestus Scion',2,'Human'),
+    ...archetype(source.core.key, 103,'Astra Militarum','Tempestus Scion',2,'Human'),
     ...cost(52,10,42, 0, 0),
     hint: 'An elite, highly-trained soldier, used to undertaking special missions.',
     keywords: 'Imperium,Astra Militarum,Militarum Tempest',
@@ -415,7 +362,7 @@ const core = [
     influence: 1,
   },
   {
-    ...archetype('core',111,'Astra Militarum','Imperial Commissar',3,'Human'),
+    ...archetype(source.core.key, 111,'Astra Militarum','Imperial Commissar',3,'Human'),
     ...costz(76,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -442,7 +389,7 @@ const core = [
   },
   // Inquisition
   {
-    ...archetype('core',94,'The Inquisition','Inquisitorial Acolyte',1,'Human'),
+    ...archetype(source.core.key, 94,'The Inquisition','Inquisitorial Acolyte',1,'Human'),
     ...cost(6,0,6, 0, 0),
     hint: 'A representative of the Inquisition, adaptable and possessing great potential.',
     keywords: 'Imperium,Inquisition,[ANY],[ORDO]',
@@ -486,7 +433,7 @@ const core = [
     ],
   },
   {
-    ...archetype('core',95,'The Inquisition','Inquisitorial Sage',1,'Human'),
+    ...archetype(source.core.key, 95,'The Inquisition','Inquisitorial Sage',1,'Human'),
     ...cost(16,0,16, 0, 0),
     hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
     keywords: 'Adeptus Administratum,Imperium,Inquisition,[Ordo]',
@@ -503,11 +450,11 @@ const core = [
         ],
       },
     ],
-    wargear: wargearz('Clothing/Administratum Robes, Laspistol, Knife, Auto Quill, Data-Slate, 3 Scroll of Ancient Records'),
+    wargear: wargearz('Clothing/Administratum Robes, Laspistol, Knife, Auto-Quill, Data-Slate, 3 Scroll of Ancient Records'),
     influence: 1,
   },
   {
-    ...archetype('core',104,'Rogue Trader Dynasties','Rogue Trader',2,'Human'),
+    ...archetype(source.core.key, 104,'Rogue Trader Dynasties','Rogue Trader',2,'Human'),
     ...cost(36,10,26,0,0),
     hint: 'An adventuresome and influential explorer with their own space vessel.',
     keywords: 'Imperium,Rogue Trader,[Dynasty]',
@@ -561,7 +508,7 @@ const core = [
     influence: 2,
   },
   {
-    ...archetype('core',100,'Adeptus Astra Telephatica','Sanctioned Psyker',2,'Human'),
+    ...archetype(source.core.key, 100,'Adeptus Astra Telephatica','Sanctioned Psyker',2,'Human'),
     ...cost(32,10,22, 0, 0),
     hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
     keywords: 'Imperium,Adeptus Astra Telepathica,Psyker,Scholastica Psykana',
@@ -605,7 +552,7 @@ const core = [
     wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Munitorum-Issue Mess Kit, Blanket, Grooming kit, 2 ration packs'),
   },
   {
-    ...archetype('core',116,'The Inquisition','Inquisitor',4,'Human'),
+    ...archetype(source.core.key, 116,'The Inquisition','Inquisitor',4,'Human'),
     ...cost(110,30,80, 0, 0),
     hint: 'A bearer of profound Imperial authority, adept at discovering the truth in the shadows.',
     keywords: 'Imperium,Inquisition,[Ordo],[Any]',
@@ -661,7 +608,7 @@ const core = [
     influence: 4,
   },
   {
-    ...archetype('core',106,'Adeptus Astartes','Space Marine Scout',2,'Adeptus Astartes'),
+    ...archetype(source.core.key, 106,'Adeptus Astartes','Space Marine Scout',2,'Adeptus Astartes'),
     ...cost(170,10,160, 0, 0),
     hint: 'A stealthy warrior adept at reconnaissance.',
     keywords: 'Imperium,Adeptus Astartes,[Chapter]',
@@ -706,7 +653,7 @@ const core = [
     influence: 1,
   },
   {
-    ...archetype('core',113,'Adeptus Astartes','Tactical Space Marine',3,'Adeptus Astartes'),
+    ...archetype(source.core.key, 113,'Adeptus Astartes','Tactical Space Marine',3,'Adeptus Astartes'),
     ...cost(272,20,252, 0, 0),
     hint: 'A versatile warrior, veteran of a hundred battles.',
     keywords: 'Imperium,Adeptus Astartes,[Chapter]',
@@ -739,7 +686,7 @@ const core = [
     influence: 2,
   },
   {
-    ...archetype('core',117,'Adeptus Astartes','Primaris Intercessor',4,'Primaris Astartes'),
+    ...archetype(source.core.key, 117,'Adeptus Astartes','Primaris Intercessor',4,'Primaris Astartes'),
     ...cost(228,30,198, 0, 0),
     hint: 'A skilled and focused warrior, adept at bringing death at range.',
     keywords: 'Imperium, Adeptus Astartes, Primaris, [Chapter]',
@@ -767,7 +714,7 @@ const core = [
   },
   // Adeptus Mechanicus
   {
-    ...archetype('core',101,'Adeptus Mechanicus','Skitarius',2,'Human'),
+    ...archetype(source.core.key, 101,'Adeptus Mechanicus','Skitarius',2,'Human'),
     ...cost(28,10,18, 0, 0),
     hint: 'A warrior of the Machine Cult, sturdy and reliable.',
     keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
@@ -785,7 +732,7 @@ const core = [
     wargear: wargearz('Combi-Tool, Galvanic Rifle, Skitarii Auto-Cuirass'),
   },
   {
-    ...archetype('core',109,'Adeptus Mechanicus','Tech-Priest',3,'Human'),
+    ...archetype(source.core.key, 109,'Adeptus Mechanicus','Tech-Priest',3,'Human'),
     ...cost(44,20,24, 0, 0),
     hint: 'A priest of the Omnissiah, able to commune with the machine-spirits.',
     keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World]',
@@ -803,7 +750,7 @@ const core = [
         ],
       },
     ],
-    wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
+    wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi-Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
     wargear: [
       { name: 'Omnissian Axe' },
       { name: 'Laspistol' },
@@ -839,7 +786,7 @@ const core = [
           },
         ],
       },
-      { name: 'Combi tool' },
+      { name: 'Combi-Tool' },
       { name: 'Light Power Armour' },
       { name: 'Symbol of Authority', variant: 'Omnissian Sigil' },
     ],
@@ -847,7 +794,7 @@ const core = [
   },
   // Scum
   {
-    ...archetype('core',96,'Scum','Ganger',1,'Human'),
+    ...archetype(source.core.key, 96,'Scum','Ganger',1,'Human'),
     ...cost(2,0,2, 0, 0),
     hint: 'A resourceful and tenacious survivor from the depths of enormous industrial cities.',
     keywords: 'Scum,[Any]',
@@ -892,7 +839,7 @@ const core = [
     influence: 1,
   },
   {
-    ...archetype('core',105,'Scum','Scavvy',2,'Human'),
+    ...archetype(source.core.key, 105,'Scum','Scavvy',2,'Human'),
     ...cost(16,10,6, 0, 0),
     hint: 'A mutant—cast out and reviled—yet their mutations give them power.',
     keywords: 'Scum,[Any]',
@@ -1015,7 +962,7 @@ const core = [
     influence: -1,
   },
   {
-    ...archetype('core',112,'Scum','Desperado',3,'Human'),
+    ...archetype(source.core.key, 112,'Scum','Desperado',3,'Human'),
     ...cost(52,20,32, 0, 0),
     hint: 'A savvy and dangerous bounty hunter, mercenary, and gun for hire.',
     keywords: 'Scum,[Any]',
@@ -1037,7 +984,7 @@ const core = [
       { name: 'Flak Coat' },
       { name: 'Prysense Googles' },
       { name: 'Maps of the Heartworlds' },
-      { name: 'Combi Tool' },
+      { name: 'Combi-Tool' },
       {
         name: 'any PROJECTILE weapon',
         selected: '',
@@ -1065,7 +1012,7 @@ const core = [
   },
   // Renegades
   {
-    ...archetype('core',96,'Chaos','Cultist',1,'Human'),
+    ...archetype(source.core.key, 96,'Chaos','Cultist',1,'Human'),
     ...cost(2,0,2, 0, 0),
     hint: 'A disciple of the Ruinous Powers, eager to gain their capricious favour.',
     keywords: 'Scum,[Any],Chaos,[Mark of Chaos]',
@@ -1117,7 +1064,7 @@ const core = [
     ],
   },
   {
-    ...archetype('core',100,'Chaos','Rogue Psyker',2,'Human'),
+    ...archetype(source.core.key, 100,'Chaos','Rogue Psyker',2,'Human'),
     ...cost(72,50,22, 0, 0),
     hint: 'How could you...',
     keywords: 'Chaos,Psyker,Scholastica Psykana',
@@ -1172,7 +1119,7 @@ const core = [
     wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Munitorum-Issue Mess Kit, Blanket, Grooming kit, 2 ration packs'),
   },
   {
-    ...archetype('core',109,'Chaos','Heretek',3,'Human'),
+    ...archetype(source.core.key, 109,'Chaos','Heretek',3,'Human'),
     ...cost(84,60,24, 0, 0),
     hint: 'A fallen priest, able to commune with the heretic machine-spirits.',
     keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World],Chaos,Dark Mechanicus',
@@ -1200,7 +1147,7 @@ const core = [
         ],
       },
     ],
-    wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
+    wargearString: 'Omnissian Axe, Laspistol, One Mechadendrite, any 2 Augmetics, Combi-Tool, Light Power Armour, Omnissian Sigil (Symbol of Authority)',
     wargear: [
       { name: 'Omnissian Axe' },
       { name: 'Laspistol' },
@@ -1236,14 +1183,14 @@ const core = [
           },
         ],
       },
-      { name: 'Combi tool' },
+      { name: 'Combi-Tool' },
       { name: 'Light Power Armour' },
       { name: 'Symbol of Authority', variant: 'Omnissian Sigil' },
     ],
     influence: 2,
   },
   {
-    ...archetype('core',113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
+    ...archetype(source.core.key, 113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
     ...cost(272,20,252, 0, 0),
     hint: 'A dark warrior, veteran of a thousand years.',
     keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Mark of Chaos],Heretic Astartes',
@@ -1287,7 +1234,7 @@ const core = [
   },
   // Aeldari
   {
-    ...archetype('core',97,'Aeldari','Corsair',1,'Aeldari'),
+    ...archetype(source.core.key, 97,'Aeldari','Corsair',1,'Aeldari'),
     ...cost(16,0,16, 0, 0),
     hint: 'A space-faring pirate of an ancient race.',
     keywords: 'Aeldari,Anhrathe,[Corerie]',
@@ -1304,7 +1251,7 @@ const core = [
     wargear: wargearz('Corsair Armour, Shuriken Pistol, Lasblaster, Spirit Stone, 3 Plasma Grenade, Void Suit'),
   },
   {
-    ...archetype('core',107,'Aeldari','Ranger',2,'Aeldari'),
+    ...archetype(source.core.key, 107,'Aeldari','Ranger',2,'Aeldari'),
     ...cost(34,10,24, 0, 0),
     hint: 'A wanderer, a scout, and tracker for the good of their people.',
     keywords: 'Aeldari,Asuryani',
@@ -1323,7 +1270,7 @@ const core = [
     wargear: wargearz('Cameleoline Cloak, Aeldari Mesh Armour, Ranger Long Rifle, Shuriken Pistol, Knife, Spirit Stone, Bedroll, Blanket, Magnocular Scope'),
   },
   {
-    ...archetype('core',114,'Aeldari','Warlock',3,'Aeldari'),
+    ...archetype(source.core.key, 114,'Aeldari','Warlock',3,'Aeldari'),
     ...cost(56,20,36, 0, 0),
     hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
     keywords: 'Aeldari,Asuryani,Psyker,[Craftworld]',
@@ -1378,7 +1325,7 @@ const core = [
   },
   // Orks
   {
-    ...archetype('core',98,'Orks','Boy',1,'Ork'),
+    ...archetype(source.core.key, 98,'Orks','Boy',1,'Ork'),
     ...cost(26,0,26, 0, 0),
     hint: 'A brutish warrior and thug who believes that might makes right.',
     keywords: 'Ork,[Clan]',
@@ -1396,7 +1343,7 @@ const core = [
     wargear: wargearz('Shoota, Slugga, Choppa, Clothing/Ripped clothes'),
   },
   {
-    ...archetype('core',108,'Orks','Kommando',2,'Ork'),
+    ...archetype(source.core.key, 108,'Orks','Kommando',2,'Ork'),
     ...cost(54,10,44, 0, 0),
     hint: 'A stealthy and cunning warrior who knows how to turn almost any battle to his advantage.',
     keywords: 'Ork,[Clan]',
@@ -1420,7 +1367,7 @@ const core = [
     wargear: wargearz('Shoota, Slugga, Choppa, 3 Stikkbomb, Survival Kit'),
   },
   {
-    ...archetype('core',115,'Orks','Ork Nob',3,'Ork'),
+    ...archetype(source.core.key, 115,'Orks','Ork Nob',3,'Ork'),
     key: 'core-nob',
     ...cost(56,20,36, 0, 0),
     hint: 'A savage warrior and capable leader, using brute force to succeed where others fail.',
@@ -1445,7 +1392,7 @@ const core = [
 const dodScumPsyker = [
   {
     name: 'Scum Psyker',
-    ...archetype('dod','','Scum','Scum Psyker',2,'Human'),
+    ...archetype(source.dod.key, '','Scum','Scum Psyker',2,'Human'),
     ...costz(20,[
       reqAttribute(ATTRIBUTES.WILLPOWER, 4),
       reqSkill(SKILLS.PSYCHIC_MASTERY, 1),
@@ -1494,7 +1441,7 @@ const dodScumPsyker = [
 const aaoaOrks = [
   {
     name: 'Burna Boy',
-    ...archetype('aaoa',48,'Orks','Burna Boy',2,'Ork'),
+    ...archetype(source.aaoa.key, 48,'Orks','Burna Boy',2,'Ork'),
     ...costz(48,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -1515,7 +1462,7 @@ const aaoaOrks = [
   },
   {
     name: 'Mekboy',
-    ...archetype('aaoa',53,'Orks','Mekboy',2,'Ork'),
+    ...archetype(source.aaoa.key, 53,'Orks','Mekboy',2,'Ork'),
     ...costz(52,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -1536,7 +1483,7 @@ const aaoaOrks = [
   },
   {
     name: 'Painboy',
-    ...archetype('aaoa',55,'Orks','Painboy',2,'Ork'),
+    ...archetype(source.aaoa.key, 55,'Orks','Painboy',2,'Ork'),
     ...cost(52,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -1557,7 +1504,7 @@ const aaoaOrks = [
   },
   {
     name: 'Runtherd',
-    ...archetype('aaoa',55,'Orks','Runtherd',2,'Ork'),
+    ...archetype(source.aaoa.key, 55,'Orks','Runtherd',2,'Ork'),
     ...costz(58,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -1579,7 +1526,7 @@ const aaoaOrks = [
   },
   {
     name: 'Tankbusta',
-    ...archetype('aaoa',58,'Orks','Tankbusta',2,'Ork'),
+    ...archetype(source.aaoa.key, 58,'Orks','Tankbusta',2,'Ork'),
     ...costz(48,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -1601,7 +1548,7 @@ const aaoaOrks = [
   },
   {
     name: 'Flash Git',
-    ...archetype('aaoa',72,'Orks','Flash Git',3,'Ork'),
+    ...archetype(source.aaoa.key, 72,'Orks','Flash Git',3,'Ork'),
     ...costz(84,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -1624,7 +1571,7 @@ const aaoaOrks = [
   },
   {
     name: 'Weirdboy',
-    ...archetype('aaoa',86,'Orks','Weirdboy',3,'Ork'),
+    ...archetype(source.aaoa.key, 86,'Orks','Weirdboy',3,'Ork'),
     ...cost(66,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -1654,7 +1601,7 @@ const aaoaAeldari = [
   // Craftsworld
   {
     name: 'Guardian',
-    ...archetype('aaoa', 35, 'Aeldari', 'Guardian', 1, 'Aeldari'),
+    ...archetype(source.aaoa.key, 35, 'Aeldari', 'Guardian', 1, 'Aeldari'),
     ...costz(20,[
       reqAttribute(ATTRIBUTES.AGILITY, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 2),
@@ -1674,7 +1621,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Bonesinger',
-    ...archetype('aaoa', 47, 'Aeldari', 'Bonesinger', 2, 'Aeldari'),
+    ...archetype(source.aaoa.key, 47, 'Aeldari', 'Bonesinger', 2, 'Aeldari'),
     ...costz(72,[
       reqAttribute(ATTRIBUTES.AGILITY, 3),
       reqAttribute(ATTRIBUTES.INTELLECT, 4),
@@ -1725,7 +1672,7 @@ const aaoaAeldari = [
   // Craftsworld > Aspect warriors
   {
     name: 'Dark Reaper',
-    ...archetype('aaoa', 67, 'Aeldari', 'Dark Reaper', 3, 'Aeldari'),
+    ...archetype(source.aaoa.key, 67, 'Aeldari', 'Dark Reaper', 3, 'Aeldari'),
     ...costz(92,[
       reqAttribute(ATTRIBUTES.AGILITY, 3),
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
@@ -1743,7 +1690,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Dire Avenger',
-    ...archetype('aaoa', 70, 'Aeldari', 'Dire Avenger', 3, 'Aeldari'),
+    ...archetype(source.aaoa.key, 70, 'Aeldari', 'Dire Avenger', 3, 'Aeldari'),
     ...costz(116,[
       reqAttribute(ATTRIBUTES.AGILITY, 4),
       reqAttribute(ATTRIBUTES.INITIATIVE, 4),
@@ -1762,7 +1709,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Fire Dragon',
-    ...archetype('aaoa', 71, 'Aeldari', 'Fire Dragon', 3, 'Aeldari'),
+    ...archetype(source.aaoa.key, 71, 'Aeldari', 'Fire Dragon', 3, 'Aeldari'),
     ...costz(108,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.AGILITY, 4),
@@ -1782,7 +1729,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Howling Banshee',
-    ...archetype('aaoa', 75, 'Aeldari', 'Howling Banshee', 3, 'Aeldari'),
+    ...archetype(source.aaoa.key, 75, 'Aeldari', 'Howling Banshee', 3, 'Aeldari'),
     ...costz(127,[
       reqAttribute(ATTRIBUTES.AGILITY, 5),
       reqAttribute(ATTRIBUTES.INITIATIVE, 4),
@@ -1801,7 +1748,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Shining Spear',
-    ...archetype('aaoa', 75, 'Aeldari', 'Shining Spear', 3, 'Aeldari'),
+    ...archetype(source.aaoa.key, 75, 'Aeldari', 'Shining Spear', 3, 'Aeldari'),
     ...costz(141,[
       reqAttribute(ATTRIBUTES.STRENGTH, 2),
       reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -1820,7 +1767,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Striking Scorpion',
-    ...archetype('aaoa', 82, 'Aeldari', 'Striking Scorpion', 3, 'Aeldari'),
+    ...archetype(source.aaoa.key, 82, 'Aeldari', 'Striking Scorpion', 3, 'Aeldari'),
     ...costz(108,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.AGILITY, 4),
@@ -1839,7 +1786,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Swooping Hawk',
-    ...archetype('aaoa', 83, 'Aeldari', 'Swooping Hawk', 3, 'Aeldari'),
+    ...archetype(source.aaoa.key, 83, 'Aeldari', 'Swooping Hawk', 3, 'Aeldari'),
     ...costz(101,[
       reqAttribute(ATTRIBUTES.AGILITY, 5),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -1856,7 +1803,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Warp Spider',
-    ...archetype('aaoa', 85, 'Aeldari', 'Warp Spider', 3, 'Aeldari'),
+    ...archetype(source.aaoa.key, 85, 'Aeldari', 'Warp Spider', 3, 'Aeldari'),
     ...costz(108,[
       reqAttribute(ATTRIBUTES.AGILITY, 4),
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
@@ -1876,7 +1823,7 @@ const aaoaAeldari = [
   // Harlequin
   {
     name: 'Harlequin Player',
-    ...archetype('aaoa', 93, 'Aeldari', 'Harlequin Player', 4, 'Aeldari'),
+    ...archetype(source.aaoa.key, 93, 'Aeldari', 'Harlequin Player', 4, 'Aeldari'),
     ...costz(200, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -1905,7 +1852,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Harlequin Troupe Master',
-    ...archetype('aaoa', 115, 'Aeldari', 'Harlequin Troupe Master', 5, 'Aeldari'),
+    ...archetype(source.aaoa.key, 115, 'Aeldari', 'Harlequin Troupe Master', 5, 'Aeldari'),
     ...costz(226, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -1989,7 +1936,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Harlequin Shadowseer',
-    ...archetype('aaoa', 113, 'Aeldari', 'Harlequin Shadowseer', 5, 'Aeldari'),
+    ...archetype(source.aaoa.key, 113, 'Aeldari', 'Harlequin Shadowseer', 5, 'Aeldari'),
     ...costz(281, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -2056,7 +2003,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Harlequin Death Jester',
-    ...archetype('aaoa', 112, 'Aeldari', 'Harlequin Death Jester', 5, 'Aeldari'),
+    ...archetype(source.aaoa.key, 112, 'Aeldari', 'Harlequin Death Jester', 5, 'Aeldari'),
     ...costz(238, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -2118,7 +2065,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Harlequin Solitaire',
-    ...archetype('aaoa', 114, 'Aeldari', 'Harlequin Solitaire', 5, 'Aeldari'),
+    ...archetype(source.aaoa.key, 114, 'Aeldari', 'Harlequin Solitaire', 5, 'Aeldari'),
     ...costz(283, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -2183,7 +2130,7 @@ const aaoaAeldari = [
   // druchari
   {
     name: 'Kabalite Warrior',
-    ...archetype('aaoa', 38, 'Drukhari', 'Kabalite Warrior', 1, 'aaoa/Drukhari'),
+    ...archetype(source.aaoa.key, 38, 'Drukhari', 'Kabalite Warrior', 1, 'aaoa/Drukhari'),
     ...costz(38,[
       reqAttribute(ATTRIBUTES.AGILITY, 3),
       reqAttribute(ATTRIBUTES.STRENGTH, 2),
@@ -2205,7 +2152,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Wych',
-    ...archetype('aaoa', 38, 'Drukhari', 'Wych', 1, 'aaoa/Drukhari'),
+    ...archetype(source.aaoa.key, 38, 'Drukhari', 'Wych', 1, 'aaoa/Drukhari'),
     ...costz(52,[
       reqAttribute(ATTRIBUTES.AGILITY, 4),
       reqAttribute(ATTRIBUTES.STRENGTH, 2),
@@ -2226,7 +2173,7 @@ const aaoaAeldari = [
   },
   {
     name: 'Incubus',
-    ...archetype('aaoa', 76, 'Drukhari', 'Incubus', 3, 'aaoa/Drukhari'),
+    ...archetype(source.aaoa.key, 76, 'Drukhari', 'Incubus', 3, 'aaoa/Drukhari'),
     ...costz(102,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.AGILITY, 4),
@@ -2251,7 +2198,7 @@ const aaoaAeldari = [
 const aaoaSquat = [
   {
     name: 'War-Pledged Warrior',
-    ...archetype('aaoa',43,'Squats','War-Pledged Warrior',1,'aaoa/Squat'),
+    ...archetype(source.aaoa.key, 43,'Squats','War-Pledged Warrior',1,'aaoa/Squat'),
     ...costz(34,  [
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -2272,7 +2219,7 @@ const aaoaSquat = [
     wargear: wargearz('Bolter, hand-cannon, axe, flak armour, 3 frag grenade'),
   },
   {
-    ...archetype('aaoa', 73,  'Squats', 'Guild Engineer',  3, 'aaoa/Squat'),
+    ...archetype(source.aaoa.key, 73,  'Squats', 'Guild Engineer',  3, 'aaoa/Squat'),
     ...costz(70,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -2295,7 +2242,7 @@ const aaoaSquat = [
   },
   {
     name: 'Hearthguard',
-    ...archetype('aaoa', 74, 'Squats', 'Hearthguard',  3,'aaoa/Squat'),
+    ...archetype(source.aaoa.key, 74, 'Squats', 'Hearthguard',  3,'aaoa/Squat'),
     ...costz(128,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -2321,7 +2268,7 @@ const aaoaSquat = [
   },
   {
     name: 'Ancestor Lord',
-    ...archetype('aaoa', 87, 'Squats', 'Ancestor Lord', 4,'aaoa/Saquat'),
+    ...archetype(source.aaoa.key, 87, 'Squats', 'Ancestor Lord', 4,'aaoa/Saquat'),
     ...costz(182,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
       reqAttribute(ATTRIBUTES.WILLPOWER, 5),
@@ -2366,7 +2313,7 @@ const aaoaSquat = [
 const aaoaAdeptusArbites = [
   {
     name: 'Arbitrator',
-    ...archetype('aaoa', 45, 'Adeptus Arbites', 'Arbitrator', 2, 'Human'),
+    ...archetype(source.aaoa.key, 45, 'Adeptus Arbites', 'Arbitrator', 2, 'Human'),
     ...costz(58, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -2395,12 +2342,12 @@ const aaoaAdeptusArbites = [
         ],
       },
       { name: 'Magnacles' },
-      { name: 'Book of Judgment', variant: 'Book of Judgement (abridged)' },
+      { name: 'Book of Judgement (abridged)' },
     ],
   },
   {
     name: 'Magistrate',
-    ...archetype('aaoa', 51, 'Adeptus Arbites', 'Magistrate', 2, 'Human'),
+    ...archetype(source.aaoa.key, 51, 'Adeptus Arbites', 'Magistrate', 2, 'Human'),
     ...costz(70, [
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
@@ -2417,17 +2364,17 @@ const aaoaAdeptusArbites = [
       simpleAbility('Cast Judgement',
         'Add +Rank bonus dice when you make an Intimidation test—including an interaction attack—to coerce or subdue someone. Increase that to Double Rank bonus dice your target possess the SCUM keyword.'),
     ],
-    wargearString: 'Flak coat, stubber, auto quill, data slate, Book of Judgement (abridged)',
+    wargearString: 'Flak coat, stubber, auto-quill, Data-Slate, Book of Judgement (abridged)',
     wargear: [
-      { name: 'Flak coat' },
-      { name: 'auto quill' },
-      { name: 'data slate' },
-      { name: 'Book of Judgment', variant: 'Book of Judgement (abridged)' },
+      { name: 'Flak Coat' },
+      { name: 'Auto-Quill' },
+      { name: 'Data-Slate' },
+      { name: 'Book of Judgement (abridged)' },
     ],
   },
   {
     name: 'Chastener',
-    ...archetype('aaoa', 65, 'Adeptus Arbites', 'Chastener', 3, 'Human'),
+    ...archetype(source.aaoa.key, 65, 'Adeptus Arbites', 'Chastener', 3, 'Human'),
     ...costz(110, [
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
@@ -2447,11 +2394,11 @@ const aaoaAdeptusArbites = [
       simpleAbility('Subdue and Interrogate',
         'You add +Rank bonus dice to all Intimidation and Insight tests during an interrogation. In addition, when you make an attack with an Agonizing weapon and your target exceeds their Max Wounds as a result, you may choose for them to become unconscious (unable to take further action, unaware of their surroundings) rather than dying.'),
     ],
-    wargear: wargearz('Arbites Carapace Armour, Shock Maul, Combat Shotgun, magnacles, medkit, Book of Law/Book of Law (abridged)'),
+    wargear: wargearz('Arbites Carapace, Shock Maul, Combat Shotgun, magnacles, medkit, Book of Law/Book of Law (abridged)'),
   },
   {
     name: 'Detective',
-    ...archetype('aaoa', 68, 'Adeptus Arbites', 'Detective', 3, 'Human'),
+    ...archetype(source.aaoa.key, 68, 'Adeptus Arbites', 'Detective', 3, 'Human'),
     ...costz(108, [
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
       reqAttribute(ATTRIBUTES.INTELLECT, 4),
@@ -2494,7 +2441,7 @@ const aaoaAdeptusArbites = [
   },
   {
     name: 'Verispex Adept',
-    ...archetype('aaoa', 84, 'Adeptus Arbites', 'Verispex Adept', 3, 'Human'),
+    ...archetype(source.aaoa.key, 84, 'Adeptus Arbites', 'Verispex Adept', 3, 'Human'),
     ...costz(107, [
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
       reqAttribute(ATTRIBUTES.INTELLECT, 5),
@@ -2516,7 +2463,7 @@ const aaoaAdeptusArbites = [
 const aaoaAstraMilitarum = [
   {
     name: 'Beastman Auxiliary',
-    ...archetype('aaoa', 33, 'Astra Militarum', 'Beastman Auxiliary', 1, 'aaoa/Beastman'),
+    ...archetype(source.aaoa.key, 33, 'Astra Militarum', 'Beastman Auxiliary', 1, 'aaoa/Beastman'),
     ...costz(28, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -2566,7 +2513,7 @@ const aaoaAstraMilitarum = [
   },
   {
     name: 'Imperial Guard Medic',
-    ...archetype('aaoa', 36, 'Astra Militarum', 'Imperial Guard Medic', 1, 'Human'),
+    ...archetype(source.aaoa.key, 36, 'Astra Militarum', 'Imperial Guard Medic', 1, 'Human'),
     ...costz(22, [
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqSkill(SKILLS.BALLISTIC_SKILL, 2),
@@ -2588,7 +2535,7 @@ const aaoaAstraMilitarum = [
   },
   {
     name: 'Imperial Guard Officer',
-    ...archetype('aaoa',37, 'Astra Militarum', 'Imperial Guard Officer', 1, 'Human'),
+    ...archetype(source.aaoa.key, 37, 'Astra Militarum', 'Imperial Guard Officer', 1, 'Human'),
     ...costz(22,[
       reqAttribute(ATTRIBUTES.FELLOWSHIP, 3),
       reqSkill(SKILLS.BALLISTIC_SKILL, 2),
@@ -2618,7 +2565,7 @@ const aaoaAstraMilitarum = [
 
 const aaoaPrimarisAstartes = [
   {
-    ...archetype('aaoa', 100, 'Adeptus Astartes', 'Primaris Hellblaster',  4, 'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 100, 'Adeptus Astartes', 'Primaris Hellblaster',  4, 'Primaris Astartes'),
     ...costz(228, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -2641,7 +2588,7 @@ const aaoaPrimarisAstartes = [
     wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Plasma Incinerator, Heavy Bolt Pistol, Astartes Combat Knife, 3 frag grenade, 3 krak grenade'),
   },
   {
-    ...archetype('aaoa', 101, 'Adeptus Astartes', 'Primaris Inceptor', 4,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 101, 'Adeptus Astartes', 'Primaris Inceptor', 4,'Primaris Astartes'),
     ...costz(230,[
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -2680,7 +2627,7 @@ const aaoaPrimarisAstartes = [
     ],
   },
   {
-    ...archetype('aaoa', 104,  'Adeptus Astartes', 'Primaris Reiver', 4,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 104,  'Adeptus Astartes', 'Primaris Reiver', 4,'Primaris Astartes'),
     ...costz(228, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -2715,7 +2662,7 @@ const aaoaPrimarisAstartes = [
     ],
   },
   {
-    ...archetype('aaoa', 102, 'Adeptus Astartes', 'Primaris Incursor',  4,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 102, 'Adeptus Astartes', 'Primaris Incursor',  4,'Primaris Astartes'),
     ...costz(228, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -2749,7 +2696,7 @@ const aaoaPrimarisAstartes = [
     ],
   },
   {
-    ...archetype('aaoa', 103,  'Adeptus Astartes', 'Primaris Vanguard Infiltrator', 4,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 103,  'Adeptus Astartes', 'Primaris Vanguard Infiltrator', 4,'Primaris Astartes'),
     ...costz(228, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -2782,7 +2729,7 @@ const aaoaPrimarisAstartes = [
     ],
   },
   {
-    ...archetype('aaoa', 98, 'Adeptus Astartes', 'Primaris Aggressor', 4,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 98, 'Adeptus Astartes', 'Primaris Aggressor', 4,'Primaris Astartes'),
     ...costz(228, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -2819,7 +2766,7 @@ const aaoaPrimarisAstartes = [
     ],
   },
   {
-    ...archetype('aaoa', 99, 'Adeptus Astartes', 'Primaris Vanguard Eliminator', 4,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 99, 'Adeptus Astartes', 'Primaris Vanguard Eliminator', 4,'Primaris Astartes'),
     ...costz(228, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -2860,7 +2807,7 @@ const aaoaPrimarisAstartes = [
     ],
   },
   {
-    ...archetype('aaoa',60,'Adeptus Astartes','Primaris Apothecary',4,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 60,'Adeptus Astartes','Primaris Apothecary',4,'Primaris Astartes'),
     ...costz(294, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -2885,7 +2832,7 @@ const aaoaPrimarisAstartes = [
     wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Absolvor Bolt Pistol, Narthecium, Reductor, 3 Frag Grenade, 3 Krak Grenade'),
   },
   {
-    ...archetype('aaoa', 108,  'Adeptus Astartes', 'Primaris Techmarine', 4,'Primaris Techmarine'),
+    ...archetype(source.aaoa.key, 108,  'Adeptus Astartes', 'Primaris Techmarine', 4,'Primaris Techmarine'),
     ...costz(403, [
       reqAttribute(ATTRIBUTES.STRENGTH, 6),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 6),
@@ -2941,7 +2888,7 @@ const aaoaPrimarisAstartes = [
     ],
   },
   {
-    ...archetype('aaoa',106,'Adeptus Astartes','Primaris Chaplain',5,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 106,'Adeptus Astartes','Primaris Chaplain',5,'Primaris Astartes'),
     ...costz(384,[
       reqAttribute(ATTRIBUTES.STRENGTH, 6),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 6),
@@ -2969,7 +2916,7 @@ const aaoaPrimarisAstartes = [
     wargear: wargearz('Tacticus Mk X/Mark X Tacticus power armour, Absolver Bolt Pistol, Crozius Arcanum, 3 Frag Grenade, 3 Krak Grenade, Rosarius'),
   },
   {
-    ...archetype('aaoa', 107, 'Adeptus Astartes', 'Primaris Librarian', 5,'Primaris Astartes'),
+    ...archetype(source.aaoa.key, 107, 'Adeptus Astartes', 'Primaris Librarian', 5,'Primaris Astartes'),
     ...costz(375,[
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -3030,7 +2977,7 @@ const aaoaPrimarisAstartes = [
 
 const aaoaAdeptusAstartes = [
   {
-    ...archetype('aaoa', 61, 'Adeptus Astartes', 'Assault Space Marine',3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa.key, 61, 'Adeptus Astartes', 'Assault Space Marine',3, 'Adeptus Astartes'),
     ...costz(270, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -3059,7 +3006,7 @@ const aaoaAdeptusAstartes = [
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Chainsword, Jump Pack, 3 Frag Grenade, 3 Krak Grenade'),
   },
   {
-    ...archetype('aaoa', 69, 'Adeptus Astartes', 'Devastator Space Marine', 3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa.key, 69, 'Adeptus Astartes', 'Devastator Space Marine', 3, 'Adeptus Astartes'),
     ...costz(270, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -3108,7 +3055,7 @@ const aaoaAdeptusAstartes = [
     ],
   },
   {
-    ...archetype('aaoa', 92, 'Adeptus Astartes', 'Grey Knight', 4, 'Adeptus Astartes'),
+    ...archetype(source.aaoa.key, 92, 'Adeptus Astartes', 'Grey Knight', 4, 'Adeptus Astartes'),
     ...costz(340,[
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -3160,7 +3107,7 @@ const aaoaAdeptusAstartes = [
     ],
   },
   {
-    ...archetype('aaoa', 60, 'Adeptus Astartes', 'Apothecary', 3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa.key, 60, 'Adeptus Astartes', 'Apothecary', 3, 'Adeptus Astartes'),
     ...costz(276, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -3185,7 +3132,7 @@ const aaoaAdeptusAstartes = [
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Chainsword, Narthecium, Reductor, 3 Frag Grenade, 3 Krak Grenade'),
   },
   {
-    ...archetype('aaoa', 108,  'Adeptus Astartes', 'Techmarine',3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa.key, 108,  'Adeptus Astartes', 'Techmarine',3, 'Adeptus Astartes'),
     ...costz(329, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -3240,7 +3187,7 @@ const aaoaAdeptusAstartes = [
     ],
   },
   {
-    ...archetype('aaoa',106,'Adeptus Astartes','Space Marine Chaplain',4,'Adeptus Astartes'),
+    ...archetype(source.aaoa.key, 106,'Adeptus Astartes','Space Marine Chaplain',4,'Adeptus Astartes'),
     ...costz(312,[
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -3268,7 +3215,7 @@ const aaoaAdeptusAstartes = [
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Crozius Arcanum, 3 Frag Grenade, 3 Krak Grenade, Rosarius'),
   },
   {
-    ...archetype('aaoa', 107, 'Adeptus Astartes', 'Space Marine Librarian', 4,'Adeptus Astartes'),
+    ...archetype(source.aaoa.key, 107, 'Adeptus Astartes', 'Space Marine Librarian', 4,'Adeptus Astartes'),
     ...costz(367,[
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -3330,7 +3277,7 @@ const aaoaAdeptusAstartes = [
 const aaoaOfficioAssassinorum = [
   {
     name: 'Callidus Assassin',
-    ...archetype('aaoa',109,'Officio Assassinorum','Callidus Assassin',5,'Human',true),
+    ...archetype(source.aaoa.key, 109,'Officio Assassinorum','Callidus Assassin',5,'Human',true),
     ...costz(308,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -3374,7 +3321,7 @@ const aaoaOfficioAssassinorum = [
   },
   {
     name: 'Culexus Assassin',
-    ...archetype('aaoa',110,'Officio Assassinorum','Culexus Assassin',5,'aaoa/Pariah', false),
+    ...archetype(source.aaoa.key, 110,'Officio Assassinorum','Culexus Assassin',5,'aaoa/Pariah', false),
     ...costz(308,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -3418,7 +3365,7 @@ const aaoaOfficioAssassinorum = [
   },
   {
     name: 'Eversor Assassin',
-    ...archetype('aaoa',111,'Officio Assassinorum','Eversor Assassin',5,'Human'),
+    ...archetype(source.aaoa.key, 111,'Officio Assassinorum','Eversor Assassin',5,'Human'),
     ...costz(308,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -3458,14 +3405,14 @@ const aaoaOfficioAssassinorum = [
   },
   {
     name: 'Vindicare Assassin',
-    ...archetype('aaoa',116,'Officio Assassinorum','Vindicare Assassin',5,'Human',true),
+    ...archetype(source.aaoa.key, 116,'Officio Assassinorum','Vindicare Assassin',5,'Human',true),
   },
 ];
 
 const aaoaAdeptusMinistorum=  [
   {
     name: 'Frateris Militia',
-    ...archetype('aaoa', 34,  'Adeptus Ministorum', 'Frateris Militia', 1, 'Human'),
+    ...archetype(source.aaoa.key, 34,  'Adeptus Ministorum', 'Frateris Militia', 1, 'Human'),
     ...costz(6, [
       reqAttribute(ATTRIBUTES.WILLPOWER, 2),
       reqSkill(SKILLS.BALLISTIC_SKILL, 1),
@@ -3476,7 +3423,7 @@ const aaoaAdeptusMinistorum=  [
     influence: 0,
     archetypeFeatures: [
       {
-        ...simpleAbility('Fevour','When within hearing range of a character with the ADEPTUS MINISTORUM keyword, you increase your Resolve by +Rank. In addition, if that Adeptus Ministorum character has suffered any wounds during the current scene, your Determination is increased by +Rank while you remain within 10 metres of them.'),
+        ...simpleAbility('Fevour', 'When within hearing range of a character with the ADEPTUS MINISTORUM keyword, you increase your Resolve by +Rank. In addition, if that Adeptus Ministorum character has suffered any wounds during the current scene, your Determination is increased by +Rank while you remain within 10 metres of them.'),
         modifications: [
           { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 0, rank: 1, condition: 'when in hearing range of another ADEPTUS MINISTORUM character.' },
           { targetGroup: 'traits', targetValue: TRAITS.DETERMINATION, modifier: 0, rank: 1, condition: 'when an ADEPTUS MINISTORUM character within hearing range suffere any wound during this combat and you are witin 10m.' },
@@ -3504,7 +3451,7 @@ const aaoaAdeptusMinistorum=  [
   },
   {
     name: 'Confessor',
-    ...archetype('aaoa', 66,  'Adeptus Ministorum', 'Confessor',  3, 'Human'),
+    ...archetype(source.aaoa.key, 66,  'Adeptus Ministorum', 'Confessor',  3, 'Human'),
     ...costz(84, [
       reqAttribute(ATTRIBUTES.WILLPOWER, 4),
       reqAttribute(ATTRIBUTES.FELLOWSHIP, 4),
@@ -3548,7 +3495,7 @@ const aaoaAdeptusMinistorum=  [
 const aaoaAdeptaSororitas = [
   {
     name: 'Sister Dialogus',
-    ...archetype('aaoa', 40, 'Adepta Sororitas', 'Sister Dialogus', 1, 'Human'),
+    ...archetype(source.aaoa.key, 40, 'Adepta Sororitas', 'Sister Dialogus', 1, 'Human'),
     ...costz(24, [
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -3579,7 +3526,7 @@ const aaoaAdeptaSororitas = [
   },
   {
     name: 'Sister Famulous',
-    ...archetype('aaoa', 23, 'Adepta Sororitas', 'Sister Famulous', 1, 'Human'),
+    ...archetype(source.aaoa.key, 23, 'Adepta Sororitas', 'Sister Famulous', 1, 'Human'),
     ...costz(28, [
       reqAttribute(ATTRIBUTES.INTELLECT, 2),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -3612,7 +3559,7 @@ const aaoaAdeptaSororitas = [
   },
   {
     name: 'Sister Seraphim',
-    ...archetype('aaoa2', 24, 'Adepta Sororitas', 'Sister Seraphim', 3, 'Human'),
+    ...archetype(source.aaoa2.key, 24, 'Adepta Sororitas', 'Sister Seraphim', 3, 'Human'),
     ...costz(55, [ /* TODO */]),
     hint: 'An elite and zealous warrior, faithful even compared to other Sisters of Battle.',
     prerequisites: [
@@ -3650,7 +3597,7 @@ const aaoaAdeptaSororitas = [
   },
   {
     name: 'Sister Repentia',
-    ...archetype('aaoa2', 24, 'Adepta Sororitas', 'Sister Repentia', 2, 'Human'),
+    ...archetype(source.aaoa2.key, 24, 'Adepta Sororitas', 'Sister Repentia', 2, 'Human'),
     ...costz(40, [ /* TODO */]),
     hint: 'A penitent soul, seeking atonement for her sins through death and pain.',
     prerequisites: [
@@ -3687,7 +3634,7 @@ const aaoaAdeptaSororitas = [
 const aaoaAdeptusMechanicus = [
   {
     name: 'Corpuscarii Electro-Priest',
-    ...archetype('aaoa', 49, 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 2, 'Human'),
+    ...archetype(source.aaoa.key, 49, 'Adeptus Mechanicus', 'Corpuscarii Electro-Priest', 2, 'Human'),
     ...costz(46,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -3731,7 +3678,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Fulgurite Electro-Priest',
-    ...archetype('aaoa', 50, 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 2, 'Human'),
+    ...archetype(source.aaoa.key, 50, 'Adeptus Mechanicus', 'Fulgurite Electro-Priest', 2, 'Human'),
     ...costz(50,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -3774,7 +3721,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Skitarius Vanguard',
-    ...archetype('aaoa', 57, 'Adeptus Mechanicus', 'Skitarius Vanguard', 2, 'Human'),
+    ...archetype(source.aaoa.key, 57, 'Adeptus Mechanicus', 'Skitarius Vanguard', 2, 'Human'),
     ...costz(28,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqSkill(SKILLS.BALLISTIC_SKILL, 2),
@@ -3790,7 +3737,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Sicarian Infiltrator',
-    ...archetype('aaoa', 78, 'Adeptus Mechanicus', 'Sicarian Infiltrator', 3, 'Human'),
+    ...archetype(source.aaoa.key, 78, 'Adeptus Mechanicus', 'Sicarian Infiltrator', 3, 'Human'),
     ...costz(94,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -3826,7 +3773,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Sicarian Ruststalker',
-    ...archetype('aaoa', 94, 'Adeptus Mechanicus', 'Sicarian Ruststalker', 3, 'Human'),
+    ...archetype(source.aaoa.key, 94, 'Adeptus Mechanicus', 'Sicarian Ruststalker', 3, 'Human'),
     ...costz(94,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -3845,7 +3792,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Transmechanic',
-    ... archetype('aaoa', 48, 'Adeptus Mechanicus', 'Transmechanic', 2, 'Human'),
+    ... archetype(source.aaoa.key, 48, 'Adeptus Mechanicus', 'Transmechanic', 2, 'Human'),
     ...costz(28,[
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 2),
@@ -3889,7 +3836,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Lexmechanic',
-    ...archetype('aaoa', 52, 'Adeptus Mechanicus', 'Lexmechanic', 2, 'Human'),
+    ...archetype(source.aaoa.key, 52, 'Adeptus Mechanicus', 'Lexmechanic', 2, 'Human'),
     ...costz(28,[
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 2),
@@ -3901,7 +3848,7 @@ const aaoaAdeptusMechanicus = [
     keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
     influence: 1,
     archetypeFeatures: [
-      simpleAbility('Infovore','You may reroll up to Double Rank dice on Investigation and Scholar tests, and such tests take you only half as long to perform.'),
+      simpleAbility('Infovore', 'You may reroll up to Double Rank dice on Investigation and Scholar tests, and such tests take you only half as long to perform.'),
     ],
     wargearString: 'Calculus Logi implant, one optical or utility Mechadendrite, any two Augmetics, mesh armour, laspistol.',
     wargear: [
@@ -3940,7 +3887,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Genetor',
-    ...archetype('aaoa', 91, 'Adeptus Mechanicus', 'Genetor', 4, 'Human'),
+    ...archetype(source.aaoa.key, 91, 'Adeptus Mechanicus', 'Genetor', 4, 'Human'),
     ...costz(98,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 2),
       reqAttribute(ATTRIBUTES.INTELLECT, 4),
@@ -4007,7 +3954,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Logis',
-    ...archetype('aaoa', 95, 'Adeptus Mechanicus', 'Logis', 4, 'Human'),
+    ...archetype(source.aaoa.key, 95, 'Adeptus Mechanicus', 'Logis', 4, 'Human'),
     ...costz(109,[
       reqAttribute(ATTRIBUTES.INTELLECT, 5),
       reqSkill(SKILLS.INVESTIGATE, 3),
@@ -4018,7 +3965,7 @@ const aaoaAdeptusMechanicus = [
     keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
     influence: 3,
     archetypeFeatures: [
-      simpleAbility('Technoprophet','You may purchase psychic powers from the Divination discipline even though you are not a Psyker. Using these powers requires an Investigation test in place of a Psychic Mastery test, and you do not choose a power level. Use of these abilities is not considered a psychic power. A Complication that results from one of these abilities inflicts 1d3+1 Shock, due to logic errors and paradoxical outcomes.'),
+      simpleAbility('Technoprophet', 'You may purchase psychic powers from the Divination discipline even though you are not a Psyker. Using these powers requires an Investigation test in place of a Psychic Mastery test, and you do not choose a power level. Use of these abilities is not considered a psychic power. A Complication that results from one of these abilities inflicts 1d3+1 Shock, due to logic errors and paradoxical outcomes.'),
     ],
     wargearString: 'Omnissian Axe, Calculus Logi implant, any 3 augmetics, any one cybernetic of up to Availability 7 (Unique), light power armour, and any one weapon of up to Availability 6 (Very Rare).',
     wargear: [
@@ -4082,7 +4029,7 @@ const aaoaAdeptusMechanicus = [
   },
   {
     name: 'Magos',
-    ...archetype('aaoa',96,'Adeptus Mechanicus','Magos',4,'Human'),
+    ...archetype(source.aaoa.key, 96,'Adeptus Mechanicus','Magos',4,'Human'),
     ...costz(139 ,[
       reqAttribute(ATTRIBUTES.WILLPOWER, 5),
       reqAttribute(ATTRIBUTES.INTELLECT, 5),
@@ -4192,7 +4139,7 @@ const aaoaAdeptusMechanicus = [
 
 const aaoaChaos = [
   {
-    ...archetype('aaoa2', 44, 'Chaos', 'Chaos Space Marine', 3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa2.key, 44, 'Chaos', 'Chaos Space Marine', 3, 'Adeptus Astartes'),
     ...costz(50, [  /* TODO */]),
     hint: 'Monstrous traitors and savage posthuman killers',
     prerequisites: [
@@ -4228,7 +4175,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 44, 'Chaos', 'Chaos Space Marine Raptor', 3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa2.key, 44, 'Chaos', 'Chaos Space Marine Raptor', 3, 'Adeptus Astartes'),
     ...costz(60, [  /* TODO */]),
     hint: 'Cruel hunters who descent upon shrieking wings of fire',
     prerequisites: [
@@ -4260,7 +4207,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 45, 'Chaos', 'Chaos Space Marine Havoc', 3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa2.key, 45, 'Chaos', 'Chaos Space Marine Havoc', 3, 'Adeptus Astartes'),
     ...costz(60, [  /* TODO */]),
     hint: 'Heavy weapon specialists who revel in endless destruction',
     prerequisites: [
@@ -4300,7 +4247,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 43, 'Chaos', 'Khorne Berzerker', 3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa2.key, 43, 'Chaos', 'Khorne Berzerker', 3, 'Adeptus Astartes'),
     ...costz(80, [  /* TODO */]),
     hint: 'Frenzied, bloodthirsty killers who have devoted themselves to the Blood God',
     prerequisites: [
@@ -4334,7 +4281,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 46, 'Chaos', 'Nurgle Plague Marine', 3, 'Adeptus Astartes', true),
+    ...archetype(source.aaoa2.key, 46, 'Chaos', 'Nurgle Plague Marine', 3, 'Adeptus Astartes', true),
     hint: 'Nigh-unstoppable foot-soldiers of the God of Disease',
     prerequisites: [
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
@@ -4367,7 +4314,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 46, 'Chaos', 'Slaanesh Noise Marine', 3, 'Adeptus Astartes', true),
+    ...archetype(source.aaoa2.key, 46, 'Chaos', 'Slaanesh Noise Marine', 3, 'Adeptus Astartes', true),
     hint: 'Sensation-addicted warriors of the Prince of Pleasure, armed with sonic weaponry',
     prerequisites: [
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
@@ -4401,7 +4348,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 47, 'Chaos', 'Chaos Sorcerer', 3, 'Adeptus Astartes', true),
+    ...archetype(source.aaoa2.key, 47, 'Chaos', 'Chaos Sorcerer', 3, 'Adeptus Astartes', true),
     hint: 'Warrior-mystics who have dabbled in the blasphemous powers of the Warp',
     prerequisites: [
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
@@ -4455,7 +4402,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 46, 'Chaos', 'Warpsmith', 3, 'Adeptus Astartes'),
+    ...archetype(source.aaoa2.key, 46, 'Chaos', 'Warpsmith', 3, 'Adeptus Astartes'),
     ...costz(55, [  /* TODO */]),
     hint: 'An artisan who blends warpcraft and engineering to create daemonic machines of war.',
     prerequisites: [
@@ -4507,7 +4454,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 46, 'Chaos', 'Dark Apostle', 4, 'Adeptus Astartes'),
+    ...archetype(source.aaoa2.key, 46, 'Chaos', 'Dark Apostle', 4, 'Adeptus Astartes'),
     ...costz(60, [  /* TODO */]),
     hint: 'A furious zealot-priest, speaking blasphemous prayers from blood-flecked lips.',
     prerequisites: [
@@ -4538,7 +4485,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 48, 'Chaos', 'Khorngor', 1, 'aaoa/Beastman'),
+    ...archetype(source.aaoa2.key, 48, 'Chaos', 'Khorngor', 1, 'aaoa/Beastman'),
     ...costz(20, [  /* TODO */]),
     hint: 'Savage beastmen, driven to a berserk rage by the scent of blood.',
     prerequisites: [
@@ -4568,7 +4515,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 49, 'Chaos', 'Pestigor', 1, 'aaoa/Beastman'),
+    ...archetype(source.aaoa2.key, 49, 'Chaos', 'Pestigor', 1, 'aaoa/Beastman'),
     ...costz(20, [  /* TODO */]),
     hint: 'Monstrous beastmen, uncaring to pain or fear.',
     prerequisites: [
@@ -4593,7 +4540,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 49,  'Chaos', 'Slaangor',  1,'aaoa/Beastman', false),
+    ...archetype(source.aaoa2.key, 49,  'Chaos', 'Slaangor',  1,'aaoa/Beastman', false),
     ...costz(20, [
       reqAttribute(ATTRIBUTES.AGILITY, 3),
       reqSkill(SKILLS.WEAPON_SKILL, 2),
@@ -4617,7 +4564,7 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype('aaoa2', 50, 'Chaos', 'Tzaangor', 1, 'aaoa/Beastman'),
+    ...archetype(source.aaoa2.key, 50, 'Chaos', 'Tzaangor', 1, 'aaoa/Beastman'),
     ...costz(20, [ /* TODO */]),
     hint: 'Twisted, cunning Beastmen who serve sorcerous masters',
     prerequisites: [
@@ -4648,8 +4595,8 @@ const aaoaChaos = [
 ];
 
 const aaoaAdeptusAstraTelephatica = [
-  archetype('aaoa',46,'Adeptus Astra Telephatica','Astropath',2,'Human',true),
-  archetype('aaoa',80,'Adeptus Astra Telephatica','Sister of Silence',2,'aaoa/Pariah',true),
+  archetype(source.aaoa.key, 46,'Adeptus Astra Telephatica','Astropath',2,'Human',true),
+  archetype(source.aaoa.key, 80,'Adeptus Astra Telephatica','Sister of Silence',2,'aaoa/Pariah',true),
 ];
 
 const aaoaRep = [
@@ -4668,33 +4615,33 @@ const aaoaRep = [
 ];
 
 const aotgtRep = [
-  archetype('aotgt', '', 'Agents of the Imperium', 'Callidus Assassin', 4, 'Human', true),
-  archetype('aotgt', '', 'Agents of the Imperium', 'Culexus Assassin', 4, 'Human', true),
-  archetype('aotgt', '', 'Agents of the Imperium', 'Vindicare Assassin', 4, 'Human', true),
-  archetype('aotgt', '', 'Agents of the Imperium', 'Grey Knight', 4, 'Adeptus Astartes', true),
+  archetype(source.aotgt.key, '', 'Agents of the Imperium', 'Callidus Assassin', 4, 'Human', true),
+  archetype(source.aotgt.key, '', 'Agents of the Imperium', 'Culexus Assassin', 4, 'Human', true),
+  archetype(source.aotgt.key, '', 'Agents of the Imperium', 'Vindicare Assassin', 4, 'Human', true),
+  archetype(source.aotgt.key, '', 'Agents of the Imperium', 'Grey Knight', 4, 'Adeptus Astartes', true),
 ];
 
 const ltgbRep = [
-  archetype('ltgb', '9', 'Renegades', 'Apostate', 1, 'Human', true),
-  archetype('ltgb', 10, 'Renegades', 'Cultist', 1, 'Human', true),
-  archetype('ltgb', 11, 'Renegades', 'Renegade', 1, 'Human', true),
-  archetype('ltgb', 11, 'Renegades', 'Heretek', 2, 'Human', true),
-  archetype('ltgb', 12, 'Renegades', 'Rogue Psyker', 2, 'Human', true),
-  archetype('ltgb', 13, 'Renegades', 'Pirate', 2, 'Human', true),
-  archetype('ltgb', 13, 'Renegades', 'Legionnaire', 3, 'Adeptus Astartes', true),
-  archetype('ltgb', 14, 'Renegades', 'Havoc', 3, 'Adeptus Astartes', true),
-  archetype('ltgb', 15, 'Renegades', 'Raptor', 3, 'Adeptus Astartes', true),
-  archetype('ltgb', 15, 'Renegades', 'Warpsmith', 3, 'Adeptus Astartes', true),
-  archetype('ltgb', 16, 'Renegades', 'Sorcerer', 3, 'Adeptus Astartes', true),
-  archetype('ltgb', 17, 'Renegades', 'Noise Marine', 3, 'Adeptus Astartes', true),
-  archetype('ltgb', 17, 'Renegades', 'Plague Marine', 3, 'Adeptus Astartes', true),
-  archetype('ltgb', 18, 'Renegades', 'Khorne Berzerker', 3, 'Adeptus Astartes', true),
-  archetype('ltgb', 19, 'Renegades', 'Dark Apostle', 4, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, '9', 'Renegades', 'Apostate', 1, 'Human', true),
+  archetype(source.ltgb.key, 10, 'Renegades', 'Cultist', 1, 'Human', true),
+  archetype(source.ltgb.key, 11, 'Renegades', 'Renegade', 1, 'Human', true),
+  archetype(source.ltgb.key, 11, 'Renegades', 'Heretek', 2, 'Human', true),
+  archetype(source.ltgb.key, 12, 'Renegades', 'Rogue Psyker', 2, 'Human', true),
+  archetype(source.ltgb.key, 13, 'Renegades', 'Pirate', 2, 'Human', true),
+  archetype(source.ltgb.key, 13, 'Renegades', 'Legionnaire', 3, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, 14, 'Renegades', 'Havoc', 3, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, 15, 'Renegades', 'Raptor', 3, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, 15, 'Renegades', 'Warpsmith', 3, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, 16, 'Renegades', 'Sorcerer', 3, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, 17, 'Renegades', 'Noise Marine', 3, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, 17, 'Renegades', 'Plague Marine', 3, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, 18, 'Renegades', 'Khorne Berzerker', 3, 'Adeptus Astartes', true),
+  archetype(source.ltgb.key, 19, 'Renegades', 'Dark Apostle', 4, 'Adeptus Astartes', true),
 ];
 
 const teaRep = [
   {
-    ...archetype('tea', 22, 'Adeptus Astartes', 'Devastator Space Marine', 3, 'Adeptus Astartes'),
+    ...archetype(source.tea.key, 22, 'Adeptus Astartes', 'Devastator Space Marine', 3, 'Adeptus Astartes'),
     ...costz(60, [  /* TODO */]),
     hint: 'Devastate the wast masses of enemies with your focus fire.',
     prerequisites: [
@@ -4725,7 +4672,7 @@ const teaRep = [
     ],
   },
   {
-    ...archetype('tea', 23, 'Adeptus Astartes', 'Assault Space Marine', 3, 'Adeptus Astartes'),
+    ...archetype(source.tea.key, 23, 'Adeptus Astartes', 'Assault Space Marine', 3, 'Adeptus Astartes'),
     ...costz(55, [  /* TODO */]),
     hint: 'Decent like a meteor into the enemy lines.',
     prerequisites: [
@@ -4754,9 +4701,9 @@ const teaRep = [
       { name: 'Krak Grenade', amount: 3 },
     ],
   },
-  archetype('tea', 23, 'Adeptus Astartes', 'Tactical Marine', 3, 'Adeptus Astartes', true),
+  archetype(source.tea.key, 23, 'Adeptus Astartes', 'Tactical Marine', 3, 'Adeptus Astartes', true),
   {
-    ...archetype('tea', 24, 'Adeptus Astartes', 'Techmarine', 3, 'Adeptus Astartes'),
+    ...archetype(source.tea.key, 24, 'Adeptus Astartes', 'Techmarine', 3, 'Adeptus Astartes'),
     ...costz(85, [  /* TODO */]),
     hint: 'Support the Chapter with your craftsmanship and technical knock.',
     prerequisites: [
@@ -4795,7 +4742,7 @@ const teaRep = [
     ],
   },
   {
-    ...archetype('tea', 25, 'Adeptus Astartes', 'Apothecary', 3, 'Adeptus Astartes'),
+    ...archetype(source.tea.key, 25, 'Adeptus Astartes', 'Apothecary', 3, 'Adeptus Astartes'),
     ...costz(70, [  /* TODO */]),
     hint: 'Rescue the dying from their well earned retirement.',
     prerequisites: [
@@ -4836,7 +4783,7 @@ const teaRep = [
     ],
   },
   {
-    ...archetype('tea', 25, 'Adeptus Astartes', 'Librarian', 3, 'Adeptus Astartes'),
+    ...archetype(source.tea.key, 25, 'Adeptus Astartes', 'Librarian', 3, 'Adeptus Astartes'),
     ...costz(80, [  /* TODO */]),
     hint: 'Harness the universal and librarius powers of the warp.',
     prerequisites: [
@@ -4896,34 +4843,34 @@ const teaRep = [
       { name: 'Krak Grenade', amount: 3 },
     ],
   },
-  archetype('tea', 26, 'Adeptus Astartes', 'Chaplain', 4, 'Adeptus Astartes', true),
-  archetype('tea', 27, 'Adeptus Astartes', 'Primaris Intercessor', 4, 'Primaris Astartes', true),
-  archetype('tea', 27, 'Adeptus Astartes', 'Primaris Hellblaster', 4, 'Primaris Astartes', true),
-  archetype('tea', 28, 'Adeptus Astartes', 'Primaris Reiver', 4, 'Primaris Astartes', true),
-  archetype('tea', 28, 'Adeptus Astartes', 'Primaris Inceptor', 4, 'Primaris Astartes', true),
-  archetype('tea', 29, 'Adeptus Astartes', 'Primaris Aggressor', 4, 'Primaris Astartes', true),
-  archetype('tea', 29, 'Adeptus Astartes', 'Primaris Apothecary', 4, 'Primaris Astartes', true),
-  archetype('tea', 30, 'Adeptus Astartes', 'Primaris Librarian', 4, 'Primaris Astartes', true),
-  archetype('tea', 31, 'Adeptus Astartes', 'Primaris Chaplain', 5, 'Primaris Astartes', true),
+  archetype(source.tea.key, 26, 'Adeptus Astartes', 'Chaplain', 4, 'Adeptus Astartes', true),
+  archetype(source.tea.key, 27, 'Adeptus Astartes', 'Primaris Intercessor', 4, 'Primaris Astartes', true),
+  archetype(source.tea.key, 27, 'Adeptus Astartes', 'Primaris Hellblaster', 4, 'Primaris Astartes', true),
+  archetype(source.tea.key, 28, 'Adeptus Astartes', 'Primaris Reiver', 4, 'Primaris Astartes', true),
+  archetype(source.tea.key, 28, 'Adeptus Astartes', 'Primaris Inceptor', 4, 'Primaris Astartes', true),
+  archetype(source.tea.key, 29, 'Adeptus Astartes', 'Primaris Aggressor', 4, 'Primaris Astartes', true),
+  archetype(source.tea.key, 29, 'Adeptus Astartes', 'Primaris Apothecary', 4, 'Primaris Astartes', true),
+  archetype(source.tea.key, 30, 'Adeptus Astartes', 'Primaris Librarian', 4, 'Primaris Astartes', true),
+  archetype(source.tea.key, 31, 'Adeptus Astartes', 'Primaris Chaplain', 5, 'Primaris Astartes', true),
 ];
 
 const hevaRep = [
-  archetype('heva', 9, 'Aeldari', 'Kabalite', 1, 'heva/Dark Eldar', true),
-  archetype('heva', 10, 'Aeldari', 'Wych', 2, 'heva/Dark Eldar', true),
-  archetype('heva', 11, 'Aeldari', 'Scourge', 3, 'heva/Dark Eldar', true),
-  archetype('heva', 12, 'Aeldari', 'Incubus', 4, 'heva/Dark Eldar', true),
+  archetype(source.heva.key, 9, 'Aeldari', 'Kabalite', 1, 'heva/Dark Eldar', true),
+  archetype(source.heva.key, 10, 'Aeldari', 'Wych', 2, 'heva/Dark Eldar', true),
+  archetype(source.heva.key, 11, 'Aeldari', 'Scourge', 3, 'heva/Dark Eldar', true),
+  archetype(source.heva.key, 12, 'Aeldari', 'Incubus', 4, 'heva/Dark Eldar', true),
 ];
 
 const goenRep = [
-  archetype('goen', 6, 'Adeptus Titanicus', 'Moderati', 2,'Human', true),
-  archetype('goen', 7, 'Adeptus Titanicus', 'Princeps', 3, 'Human', true),
-  archetype('goen', 8, 'Adeptus Titanicus', 'Legate', 4, 'Human', true),
+  archetype(source.goen.key, 6, 'Adeptus Titanicus', 'Moderati', 2,'Human', true),
+  archetype(source.goen.key, 7, 'Adeptus Titanicus', 'Princeps', 3, 'Human', true),
+  archetype(source.goen.key, 8, 'Adeptus Titanicus', 'Legate', 4, 'Human', true),
 ];
 
 const togRep = [
   {
     name: 'Raider',
-    ...archetype('tog', 8, 'Chaos', 'Raider', 2, 'Human'),
+    ...archetype(source.tog.key, 8, 'Chaos', 'Raider', 2, 'Human'),
     ...costz(24, [
       reqSkill(SKILLS.BALLISTIC_SKILL, 2),
       reqSkill(SKILLS.CUNNING, 2),
@@ -4944,7 +4891,7 @@ const togRep = [
   },
   {
     name: 'Champion',
-    ...archetype('tog', 8, 'Chaos', 'Champion', 3, 'Human'),
+    ...archetype(source.tog.key, 8, 'Chaos', 'Champion', 3, 'Human'),
     ...costz(64, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -4968,7 +4915,7 @@ const togRep = [
   },
   {
     name: 'Apostate',
-    ...archetype('tog', 9, 'Chaos', 'Apostate', 2, 'Human'),
+    ...archetype(source.tog.key, 9, 'Chaos', 'Apostate', 2, 'Human'),
     ...costz(78, [
       reqAttribute(ATTRIBUTES.FELLOWSHIP, 4),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -4995,7 +4942,7 @@ const togRep = [
   },
   {
     name: 'Plague Marine',
-    ...archetype('tog', 9, 'Chaos', 'Plague Marine', 3, 'Adeptus Astartes'),
+    ...archetype(source.tog.key, 9, 'Chaos', 'Plague Marine', 3, 'Adeptus Astartes'),
     ...costz(246, [
       reqAttribute(ATTRIBUTES.AGILITY, 4),
       reqAttribute(ATTRIBUTES.INITIATIVE, 4),
@@ -5029,7 +4976,7 @@ const togRep = [
   },
   {
     name: 'Khorne Berserker',
-    ...archetype('tog', 9, 'Chaos', 'Khorne Berserker', 3, 'Adeptus Astartes'),
+    ...archetype(source.tog.key, 9, 'Chaos', 'Khorne Berserker', 3, 'Adeptus Astartes'),
     ...costz(228, [
       reqAttribute(ATTRIBUTES.AGILITY, 5),
       reqAttribute(ATTRIBUTES.INITIATIVE, 5),
@@ -5064,7 +5011,7 @@ const togRep = [
   },
   {
     name: 'Noise Marine',
-    ...archetype('tog', 9, 'Chaos', 'Noise Marine', 3, 'Adeptus Astartes'),
+    ...archetype(source.tog.key, 9, 'Chaos', 'Noise Marine', 3, 'Adeptus Astartes'),
     ...costz(226, [
       reqAttribute(ATTRIBUTES.AGILITY, 4),
       reqAttribute(ATTRIBUTES.INITIATIVE, 5),
@@ -5093,7 +5040,7 @@ const togRep = [
   },
   {
     name: 'Chaos Sorcerer',
-    ...archetype('tog', 9, 'Chaos', 'Chaos Sorcerer', 3, 'Adeptus Astartes'),
+    ...archetype(source.tog.key, 9, 'Chaos', 'Chaos Sorcerer', 3, 'Adeptus Astartes'),
     ...costz(214, [
       reqAttribute(ATTRIBUTES.AGILITY, 4),
       reqAttribute(ATTRIBUTES.INITIATIVE, 4),
@@ -5152,7 +5099,7 @@ const togRep = [
 
 const lotnRep = [
   {
-    ...archetype('lotn', 5, 'Necrons', 'Immortal', 3, 'lotn/Necron'),
+    ...archetype(source.lotn.key, 5, 'Necrons', 'Immortal', 3, 'lotn/Necron'),
     ...costz(60, [ /* TODO */]),
     hint: 'Formerly members of the Necrontyr’s professional military, the Immortals were known for their peerless skill and resolve.',
     prerequisites: [
@@ -5184,7 +5131,7 @@ const lotnRep = [
     ],
   },
   {
-    ...archetype('lotn', 5, 'Necrons', 'Deathmark', 3, 'lotn/Necron'),
+    ...archetype(source.lotn.key, 5, 'Necrons', 'Deathmark', 3, 'lotn/Necron'),
     ...costz(65, [ /* TODO */]),
     hint: 'Assassins without peer, the Deathmarks are highly accurate and well-trained soldiers',
     prerequisites: [
@@ -5218,7 +5165,7 @@ const lotnRep = [
     ],
   },
   {
-    ...archetype('lotn', 6, 'Necrons', 'Destroyer', 3, 'lotn/Necron'),
+    ...archetype(source.lotn.key, 6, 'Necrons', 'Destroyer', 3, 'lotn/Necron'),
     ...costz(85, [ /* TODO */]),
     hint: 'Awoken with their minds decayed and damaged.',
     prerequisites: [
@@ -5248,7 +5195,7 @@ const lotnRep = [
     ],
   },
   {
-    ...archetype('lotn', 6, 'Necrons', 'Lychguard', 4, 'lotn/Necron'),
+    ...archetype(source.lotn.key, 6, 'Necrons', 'Lychguard', 4, 'lotn/Necron'),
     ...costz(70, [ /* TODO */]),
     hint: 'The Royal Guard of the Necron Dynasties.',
     prerequisites: [
@@ -5283,7 +5230,7 @@ const lotnRep = [
     ],
   },
   {
-    ...archetype('lotn', 7, 'Necrons', 'Triarch Praetorian', 4, 'lotn/Necron'),
+    ...archetype(source.lotn.key, 7, 'Necrons', 'Triarch Praetorian', 4, 'lotn/Necron'),
     ...costz(70, [ /* TODO */]),
     hint: 'The law enforcing arm of the old triarch.',
     prerequisites: [
@@ -5320,7 +5267,7 @@ const lotnRep = [
     ],
   },
   {
-    ...archetype('lotn', 7, 'Necrons', 'Lord', 4, 'lotn/Necron'),
+    ...archetype(source.lotn.key, 7, 'Necrons', 'Lord', 4, 'lotn/Necron'),
     ...costz(80, [ /* TODO */]),
     hint: 'The least of the many nobles that make up a Necron Dynasty.',
     prerequisites: [
@@ -5355,7 +5302,7 @@ const lotnRep = [
     ],
   },
   {
-    ...archetype('lotn', 8, 'Necrons', 'Cryptek', 4, 'lotn/Necron'),
+    ...archetype(source.lotn.key, 8, 'Necrons', 'Cryptek', 4, 'lotn/Necron'),
     ...costz(75, [ /* TODO */]),
     hint: 'Techno-Wizards that dedicated their lives to understanding and working with the many Necron technologies.',
     prerequisites: [
@@ -5384,7 +5331,7 @@ const lotnRep = [
     ],
   },
   {
-    ...archetype('lotn', 8, 'Necrons', 'Destroyer Lord', 5, 'lotn/Necron'),
+    ...archetype(source.lotn.key, 8, 'Necrons', 'Destroyer Lord', 5, 'lotn/Necron'),
     ...costz(95, [ /* TODO */]),
     hint: 'Of those that fall victim to the path of the Destroyer, few are seemingly as insane as the Destroyer Lords.',
     prerequisites: [
@@ -5420,12 +5367,12 @@ const lotnRep = [
 ];
 
 const paxRep = [
-  archetype('pax', '-', 'Adeptus Administratum', 'Scribe', 1, 'Human', true),
-  archetype('pax', '-', 'Adeptus Administratum', 'Ordinate', 2, 'Human', true),
-  archetype('pax', '-', 'Adeptus Administratum', 'Sage', 3, 'Human', true),
-  archetype('pax', '-', 'Adeptus Administratum', 'Prefect', 4, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Administratum', 'Scribe', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Administratum', 'Ordinate', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Administratum', 'Sage', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Administratum', 'Prefect', 4, 'Human', true),
   {
-    ...archetype('pax', 37, 'Adeptus Arbites', 'Arbitrator', 1, 'Human'),
+    ...archetype(source.pax.key, 37, 'Adeptus Arbites', 'Arbitrator', 1, 'Human'),
     ...costz(10, [ /* TODO */]),
     hint: 'A guardian of imperial law, ruthless and implacable.',
     prerequisites: [
@@ -5474,7 +5421,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', 38, 'Adeptus Arbites', 'Proctor', 1, 'Human'),
+    ...archetype(source.pax.key, 38, 'Adeptus Arbites', 'Proctor', 1, 'Human'),
     ...costz(30, [ /* TODO */]),
     hint: 'An unrelenting warrior, adept at tracking down the most recalcitrant recidivist.',
     prerequisites: [
@@ -5527,7 +5474,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', 38, 'Adeptus Arbites', 'Mortiurge', 3, 'Human'),
+    ...archetype(source.pax.key, 38, 'Adeptus Arbites', 'Mortiurge', 3, 'Human'),
     ...costz(50, [ /* TODO */]),
     hint: 'Little more than judicially recognized assassins',
     prerequisites: [
@@ -5569,13 +5516,13 @@ const paxRep = [
           { name: 'Needle Rifle' },
         ],
       },
-      { name: 'Arbites Carapace Armour' },
+      { name: 'Arbites Carapace' },
       { name: 'Symbol of Authority', variant: 'Arbitrator ID' },
       { name: 'abridged copy of the Lex Imperialis' },
     ],
   },
   {
-    ...archetype('pax', 39, 'Adeptus Arbites', 'Marshal', 3, 'Human'),
+    ...archetype(source.pax.key, 39, 'Adeptus Arbites', 'Marshal', 3, 'Human'),
     ...costz(60, [ /* TODO */]),
     hint: 'A fearsome commander, championing the righteous Imperial law.',
     prerequisites: [
@@ -5633,7 +5580,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', 40, 'Adeptus Arbites', 'Judge', 4, 'Human'),
+    ...archetype(source.pax.key, 40, 'Adeptus Arbites', 'Judge', 4, 'Human'),
     ...costz(80, [ /* TODO */]),
     hint: 'A lord of justice, inspiring both dread and respect in great measure.',
     prerequisites: [
@@ -5701,43 +5648,43 @@ const paxRep = [
       },
     ],
   },
-  archetype('pax', '-', 'Adeptus Ministorum', 'Cleric', 1, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Confessor', 1, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Deacon', 1, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Preacher', 1, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Banisher', 2, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Exorcist', 2, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Missionary', 2, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Saint', 2, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Cardinal', 3, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Crusader', 3, 'Human', true),
-  archetype('pax', '-', 'Adeptus Ministorum', 'Heirophant', 4, 'Human', true),
-  archetype('pax', '-', 'Astrophathicus Choirs', 'Astropathicus Envoy', 1, 'Human', true),
-  archetype('pax', '-', 'Astrophathicus Choirs', 'Black Sentinel', 1, 'Human', true),
-  archetype('pax', '-', 'Astrophathicus Choirs', 'Astropath', 2, 'Human', true),
-  archetype('pax', '-', 'Astrophathicus Choirs', 'Choirmaster', 3, 'Human', true),
-  archetype('pax', '-', 'Astrophathicus Choirs', 'Astropath Transcendent', 4, 'Human', true),
-  archetype('pax', '-', 'Commercia Imperialis', 'Acquisitionist', 1, 'Human', true),
-  archetype('pax', '-', 'Commercia Imperialis', 'Guilder', 1, 'Human', true),
-  archetype('pax', '-', 'Commercia Imperialis', 'Chartist Captain', 2, 'Human', true),
-  archetype('pax', '-', 'Commercia Imperialis', 'Executioner', 2, 'Human', true),
-  archetype('pax', '-', 'Commercia Imperialis', 'Seneschal', 2, 'Human', true),
-  archetype('pax', '-', 'Commercia Imperialis', 'Servo-Master', 2, 'Human', true),
-  archetype('pax', '-', 'Commercia Imperialis', 'Tech-Thrall', 2, 'Human', true),
-  archetype('pax', '-', 'Commercia Imperialis', 'Merchant Magnate', 3, 'Human', true),
-  archetype('pax', '-', 'Highborn', 'Noble Scion', 1, 'Human', true),
-  archetype('pax', '-', 'Highborn', 'Politico', 1, 'Human', true),
-  archetype('pax', '-', 'Highborn', 'Noble Lord', 2, 'Human', true),
-  archetype('pax', '-', 'Highborn', 'Sprye Hunter', 3, 'Human', true),
-  archetype('pax', '-', 'Hired Guns', 'Blooodsworn', 1, 'Human', true),
-  archetype('pax', '-', 'Hired Guns', 'Bounty Hunter', 1, 'Human', true),
-  archetype('pax', '-', 'Hired Guns', 'Freelancer', 1, 'Human', true),
-  archetype('pax', '-', 'Hired Guns', 'Oathsworn Bodyguard', 2, 'Human', true),
-  archetype('pax', '-', 'Hired Guns', 'Veteran Guardsman', 2, 'Human', true),
-  archetype('pax', '-', 'Hired Guns', 'Arch-Militant', 3, 'Human', true),
-  archetype('pax', '-', 'Hired Guns', 'ArchGunslinger', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Cleric', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Confessor', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Deacon', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Preacher', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Banisher', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Exorcist', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Missionary', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Saint', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Cardinal', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Crusader', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Adeptus Ministorum', 'Heirophant', 4, 'Human', true),
+  archetype(source.pax.key, '-', 'Astrophathicus Choirs', 'Astropathicus Envoy', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Astrophathicus Choirs', 'Black Sentinel', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Astrophathicus Choirs', 'Astropath', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Astrophathicus Choirs', 'Choirmaster', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Astrophathicus Choirs', 'Astropath Transcendent', 4, 'Human', true),
+  archetype(source.pax.key, '-', 'Commercia Imperialis', 'Acquisitionist', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Commercia Imperialis', 'Guilder', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Commercia Imperialis', 'Chartist Captain', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Commercia Imperialis', 'Executioner', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Commercia Imperialis', 'Seneschal', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Commercia Imperialis', 'Servo-Master', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Commercia Imperialis', 'Tech-Thrall', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Commercia Imperialis', 'Merchant Magnate', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Highborn', 'Noble Scion', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Highborn', 'Politico', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Highborn', 'Noble Lord', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Highborn', 'Sprye Hunter', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Hired Guns', 'Blooodsworn', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Hired Guns', 'Bounty Hunter', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Hired Guns', 'Freelancer', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Hired Guns', 'Oathsworn Bodyguard', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Hired Guns', 'Veteran Guardsman', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Hired Guns', 'Arch-Militant', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Hired Guns', 'ArchGunslinger', 3, 'Human', true),
   {
-    ...archetype('pax', 116, 'Hive Ganger', 'Juve', 1, 'Human'),
+    ...archetype(source.pax.key, 116, 'Hive Ganger', 'Juve', 1, 'Human'),
     ...costz(0, [ /* TODO */]),
     hint: 'An inexperienced youth, eager for chance to prove themselves.',
     prerequisites: [],
@@ -5785,7 +5732,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', 117, 'Hive Ganger', 'Ganger', 1, 'Human'),
+    ...archetype(source.pax.key, 117, 'Hive Ganger', 'Ganger', 1, 'Human'),
     ...costz(10, [ /* TODO */]),
     hint: 'Competent and trusted fighters, accustomed to brutality and violence.',
     prerequisites: [
@@ -5844,7 +5791,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', 118, 'Hive Ganger', 'Heavy', 1, 'Human'),
+    ...archetype(source.pax.key, 118, 'Hive Ganger', 'Heavy', 1, 'Human'),
     ...costz(20, [ /* TODO */]),
     hint: 'A strong warrior, bigger and burlier than ordinary gangers.',
     prerequisites: [
@@ -5890,7 +5837,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', 118, 'Hive Ganger', 'Gang Leader', 2, 'Human'),
+    ...archetype(source.pax.key, 118, 'Hive Ganger', 'Gang Leader', 2, 'Human'),
     ...costz(30, [ /* TODO */]),
     hint: 'A terrifying leader, leading by strength and will',
     prerequisites: [
@@ -5949,46 +5896,46 @@ const paxRep = [
       { name: 'Trappings', variant: 'Gang Trappings' },
     ],
   },
-  archetype('pax', '-', 'Imperial Civilians', 'Scholar', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Civilians', 'Artisan', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Civilians', 'Chirurgeon', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Civilians', 'Colonist', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Civilians', 'Enforcer', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Civilians', 'Menial', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Civilians', 'Planetary Defender', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Civilians', 'Bonded Emissary', 2, 'Human', true),
-  archetype('pax', '-', 'Imperial Civilians', 'Planetary Governor', 4, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Charlatan', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Convert', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Cultist', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Frateris Militia', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Penitent', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Crusader of Faith', 2, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Cult Magus', 2, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Death Cult Assassin', 2, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Fanatic', 2, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Redemptionist', 2, 'Human', true),
-  archetype('pax', '-', 'Imperial Cults', 'Demagoge', 3, 'Human', true),
-  archetype('pax', '-', 'Imperial Navy', 'Rating', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Navy', 'Voidsman-At-Arms', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Navy', 'Midshipman', 1, 'Human', true),
-  archetype('pax', '-', 'Imperial Navy', 'Junior Officer', 2, 'Human', true),
-  archetype('pax', '-', 'Imperial Navy', 'Warrant Officer', 2, 'Human', true),
-  archetype('pax', '-', 'Imperial Navy', 'Senior Officer', 3, 'Human', true),
-  archetype('pax', '-', 'Magistratum', 'Law-Wright', 1, 'Human', true),
-  archetype('pax', '-', 'Magistratum', 'Offense-Barker', 1, 'Human', true),
-  archetype('pax', '-', 'Magistratum', 'Magistrate', 2, 'Human', true),
-  archetype('pax', '-', 'Magistratum', 'Sentencing Lord', 2, 'Human', true),
-  archetype('pax', '-', 'Mutant Outcast', 'Hive Twist', 1, 'Human', true),
-  archetype('pax', '-', 'Mutant Outcast', 'Mutant Outcast', 1, 'Human', true),
-  archetype('pax', '-', 'Mutant Outcast', 'Twist Hulk', 1, 'Human', true),
-  archetype('pax', '-', 'Mutant Outcast', 'Wyrd', 1, 'Human', true),
-  archetype('pax', '-', 'Mutant Outcast', 'Ghilliam', 2, 'Human', true),
-  archetype('pax', '-', 'Mutant Outcast', 'Psychic Abomination', 2, 'Human', true),
-  archetype('pax', '-', 'Mutant Outcast', 'Scavvy', 2, 'Human', true),
-  archetype('pax', '-', 'Mutant Outcast', 'Hullghast', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Scholar', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Artisan', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Chirurgeon', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Colonist', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Enforcer', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Menial', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Planetary Defender', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Bonded Emissary', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Civilians', 'Planetary Governor', 4, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Charlatan', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Convert', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Cultist', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Frateris Militia', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Penitent', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Crusader of Faith', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Cult Magus', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Death Cult Assassin', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Fanatic', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Redemptionist', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Cults', 'Demagoge', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Navy', 'Rating', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Navy', 'Voidsman-At-Arms', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Navy', 'Midshipman', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Navy', 'Junior Officer', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Navy', 'Warrant Officer', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Imperial Navy', 'Senior Officer', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Magistratum', 'Law-Wright', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Magistratum', 'Offense-Barker', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Magistratum', 'Magistrate', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Magistratum', 'Sentencing Lord', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Mutant Outcast', 'Hive Twist', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Mutant Outcast', 'Mutant Outcast', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Mutant Outcast', 'Twist Hulk', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Mutant Outcast', 'Wyrd', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Mutant Outcast', 'Ghilliam', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Mutant Outcast', 'Psychic Abomination', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Mutant Outcast', 'Scavvy', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Mutant Outcast', 'Hullghast', 3, 'Human', true),
   {
-    ...archetype('pax', 195, 'Navis Nobility Houses', 'Navis Scion', 1, 'pax/Navigator'),
+    ...archetype(source.pax.key, 195, 'Navis Nobility Houses', 'Navis Scion', 1, 'pax/Navigator'),
     ...costz(20, [/* TODO */]),
     stub: false,
     hint: 'A young navigator, groomed for diplomacy since birth.',
@@ -6017,7 +5964,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', '-', 'Navis Nobility Houses', 'Nobilite Emissary', 1, 'pax/Navigator'),
+    ...archetype(source.pax.key, '-', 'Navis Nobility Houses', 'Nobilite Emissary', 1, 'pax/Navigator'),
     ...costz(10, [/* TODO */]),
     stub: false,
     hint: 'A representative of the Navis Nobilite, empowered to enact the will of a houses Novators.',
@@ -6059,7 +6006,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', '-', 'Navis Nobility Houses', 'Navigator Primaris', 2, 'pax/Navigator'),
+    ...archetype(source.pax.key, '-', 'Navis Nobility Houses', 'Navigator Primaris', 2, 'pax/Navigator'),
     ...costz(30, [ /* TODO */]),
     stub: false,
     hint: 'A warp guide, tasked with the sacred charge of guiding voidships through the immaterium.',
@@ -6097,7 +6044,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', '-', 'Navis Nobility Houses', 'Novator', 3, 'pax/Navigator'),
+    ...archetype(source.pax.key, '-', 'Navis Nobility Houses', 'Novator', 3, 'pax/Navigator'),
     ...costz(40, [/* TODO */]),
     stub: false,
     hint: 'An elder navigator who directs the interests of their house.',
@@ -6146,7 +6093,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', '-', 'Navis Nobility Houses', 'Heir-Apparent', 4, 'pax/Navigator'),
+    ...archetype(source.pax.key, '-', 'Navis Nobility Houses', 'Heir-Apparent', 4, 'pax/Navigator'),
     ...costz(50, [/* TODO */]),
     stub: false,
     hint: 'The strongest navigators, primed to become the next paternova.',
@@ -6190,42 +6137,42 @@ const paxRep = [
       { name: 'Micro-bead' },
     ],
   },
-  archetype('pax', '-', 'Questoris Famila', 'Bannerman', 1, 'Human', true),
-  archetype('pax', '-', 'Questoris Famila', 'Boundsman', 1, 'Human', true),
-  archetype('pax', '-', 'Questoris Famila', 'Drover', 1, 'Human', true),
-  archetype('pax', '-', 'Questoris Famila', 'Serfitor', 1, 'Human', true),
-  archetype('pax', '-', 'Questoris Famila', 'Knight Scion', 2, 'Human', true),
-  archetype('pax', '-', 'Questoris Famila', 'Sacristan', 2, 'Human', true),
-  archetype('pax', '-', 'Questoris Famila', 'Freeblade', 3, 'Human', true),
-  archetype('pax', '-', 'Questoris Famila', 'Knight Baron', 4, 'Human', true),
-  archetype('pax', '-', 'Rogue Trader Fleets', 'Household Trooper', 1, 'Human', true),
-  archetype('pax', '-', 'Rogue Trader Fleets', 'Rejuvenat Adept', 2, 'Human', true),
-  archetype('pax', '-', 'Rogue Trader Fleets', 'Child of Destiny', 2, 'Human', true),
-  archetype('pax', '-', 'Rogue Trader Fleets', 'Companion', 2, 'Human', true),
-  archetype('pax', '-', 'Rogue Trader Fleets', 'Rogue Trader', 3, 'Human', true),
-  archetype('pax', '-', 'Rogue Trader Fleets', 'Legendary Trader', 4, 'Human', true),
-  archetype('pax', '-', 'Schola Progenium', 'Explicator-Progenii', 1, 'Human', true),
-  archetype('pax', '-', 'Schola Progenium', 'Progena', 1, 'Human', true),
-  archetype('pax', '-', 'Schola Progenium', 'Truant', 1, 'Human', true),
-  archetype('pax', '-', 'Schola Progenium', 'Drill-Abbot', 2, 'Human', true),
-  archetype('pax', '-', 'Scum', 'Scapegrace', 1, 'Human', true),
-  archetype('pax', '-', 'Scum', 'Scavenger', 1, 'Human', true),
-  archetype('pax', '-', 'Scum', 'Stubjack', 1, 'Human', true),
-  archetype('pax', '-', 'Scum', 'Performancer', 1, 'Human', true),
-  archetype('pax', '-', 'Scum', 'Verminspeaker', 1, 'Human', true),
-  archetype('pax', '-', 'Scum', 'Witch', 1, 'Human', true),
-  archetype('pax', '-', 'Scum', 'Reclaimator', 2, 'Human', true),
-  archetype('pax', '-', 'Scum', 'Desperado', 3, 'Human', true),
-  archetype('pax', '-', 'Underworld Syndicates', 'Dreg', 1, 'Human', true),
-  archetype('pax', '-', 'Underworld Syndicates', 'Fixer', 1, 'Human', true),
-  archetype('pax', '-', 'Underworld Syndicates', 'Malifixer', 1, 'Human', true),
-  archetype('pax', '-', 'Underworld Syndicates', 'Skulker', 1, 'Human', true),
-  archetype('pax', '-', 'Underworld Syndicates', 'Smuggler', 1, 'Human', true),
-  archetype('pax', '-', 'Underworld Syndicates', 'Thug', 1, 'Human', true),
-  archetype('pax', '-', 'Underworld Syndicates', 'Cold Trader', 2, 'Human', true),
-  archetype('pax', '-', 'Underworld Syndicates', 'Crime Lord', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Questoris Famila', 'Bannerman', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Questoris Famila', 'Boundsman', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Questoris Famila', 'Drover', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Questoris Famila', 'Serfitor', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Questoris Famila', 'Knight Scion', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Questoris Famila', 'Sacristan', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Questoris Famila', 'Freeblade', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Questoris Famila', 'Knight Baron', 4, 'Human', true),
+  archetype(source.pax.key, '-', 'Rogue Trader Fleets', 'Household Trooper', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Rogue Trader Fleets', 'Rejuvenat Adept', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Rogue Trader Fleets', 'Child of Destiny', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Rogue Trader Fleets', 'Companion', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Rogue Trader Fleets', 'Rogue Trader', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Rogue Trader Fleets', 'Legendary Trader', 4, 'Human', true),
+  archetype(source.pax.key, '-', 'Schola Progenium', 'Explicator-Progenii', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Schola Progenium', 'Progena', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Schola Progenium', 'Truant', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Schola Progenium', 'Drill-Abbot', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Scum', 'Scapegrace', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Scum', 'Scavenger', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Scum', 'Stubjack', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Scum', 'Performancer', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Scum', 'Verminspeaker', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Scum', 'Witch', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Scum', 'Reclaimator', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Scum', 'Desperado', 3, 'Human', true),
+  archetype(source.pax.key, '-', 'Underworld Syndicates', 'Dreg', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Underworld Syndicates', 'Fixer', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Underworld Syndicates', 'Malifixer', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Underworld Syndicates', 'Skulker', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Underworld Syndicates', 'Smuggler', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Underworld Syndicates', 'Thug', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Underworld Syndicates', 'Cold Trader', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Underworld Syndicates', 'Crime Lord', 2, 'Human', true),
   {
-    ...archetype('pax', '-', 'Untouchables', 'Blank', 1, 'pax/Untouchable'),
+    ...archetype(source.pax.key, '-', 'Untouchables', 'Blank', 1, 'pax/Untouchable'),
     ...costz(0, [ /* TODO */ ]),
     stub: false,
     hint: 'An untouchable, whose aura of ‘wrongness’ sets them apart from his fellow man.',
@@ -6283,7 +6230,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', '-', 'Untouchables', 'Null', 2, 'pax/Untouchable'),
+    ...archetype(source.pax.key, '-', 'Untouchables', 'Null', 2, 'pax/Untouchable'),
     ...costz(20, [ /* TODO */ ]),
     stub: false,
     hint: 'A more unnatural untouchable, whose presence can harm the psychically gifted and ward of the daemonic.',
@@ -6338,7 +6285,7 @@ const paxRep = [
     ],
   },
   {
-    ...archetype('pax', '-', 'Untouchables', 'Pariah', 3, 'pax/Untouchable'),
+    ...archetype(source.pax.key, '-', 'Untouchables', 'Pariah', 3, 'pax/Untouchable'),
     ...costz(50, [ /* TODO */ ]),
     stub: false,
     hint: 'A particularly powerful untouchable, whose aura is palpable and capable of disrupting the strongest of psychic manifestations.',
@@ -6399,34 +6346,34 @@ const paxRep = [
       { name: 'Null-Limiter' },
     ],
   },
-  archetype('pax', '-', 'Voidfarers', 'Dark-Holder', 1, 'Human', true),
-  archetype('pax', '-', 'Voidfarers', 'Pilgrim', 1, 'Human', true),
-  archetype('pax', '-', 'Voidfarers', 'Voidborn Clanner', 1, 'Human', true),
-  archetype('pax', '-', 'Voidfarers', 'Void-Master', 2, 'Human', true),
-  archetype('pax', '-', 'Void Pirates', 'Wolfpack Raiders', 1, 'Human', true),
-  archetype('pax', '-', 'Void Pirates', 'Pirate Prince', 2, 'Human', true),
-  archetype('pax', '-', 'Void Pirates', 'Reaver', 2, 'Human', true),
-  archetype('pax', '-', 'Void Pirates', 'Swashbuckler', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Voidfarers', 'Dark-Holder', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Voidfarers', 'Pilgrim', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Voidfarers', 'Voidborn Clanner', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Voidfarers', 'Void-Master', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Void Pirates', 'Wolfpack Raiders', 1, 'Human', true),
+  archetype(source.pax.key, '-', 'Void Pirates', 'Pirate Prince', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Void Pirates', 'Reaver', 2, 'Human', true),
+  archetype(source.pax.key, '-', 'Void Pirates', 'Swashbuckler', 2, 'Human', true),
 ];
 
 const sotahRep = [
-  archetype('sotah', 4, 'Deathwatch', 'Blackshield', 4, 'Adeptus Astartes', true),
-  archetype('sotah', 4, 'Deathwatch', 'Keeper', 5, 'Adeptus Astartes', true),
-  archetype('sotah', 5, 'Deathwatch', 'Kill Marine', 4, 'Adeptus Astartes', true),
+  archetype(source.sotah.key, 4, 'Deathwatch', 'Blackshield', 4, 'Adeptus Astartes', true),
+  archetype(source.sotah.key, 4, 'Deathwatch', 'Keeper', 5, 'Adeptus Astartes', true),
+  archetype(source.sotah.key, 5, 'Deathwatch', 'Kill Marine', 4, 'Adeptus Astartes', true),
 ];
 
 const thaotRep = [
-  archetype('thaot', 4, 'Adeptus Astartes', 'Techmarin', 3, 'Adeptus Astartes', true),
+  archetype(source.thaot.key, 4, 'Adeptus Astartes', 'Techmarin', 3, 'Adeptus Astartes', true),
 ];
 
 const ambRep = [
-  archetype('amb', 2, 'Astra Militarum', 'Weapon Specialist', 2, 'Human', true),
-  archetype('amb', 3, 'Astra Militarum', 'Brawler', 2, 'Human', true),
-  archetype('amb', 4, 'Astra Militarum', 'Scout', 2, 'Human', true),
-  archetype('amb', 4, 'Astra Militarum', 'Sniper', 2, 'Human', true),
-  archetype('amb', 5, 'Astra Militarum', 'Heavy Weapon Specialist', 2, 'Human', true),
-  archetype('amb', 6, 'Astra Militarum', 'Bulwark',  2, 'coreab/Ogryn', true),
-  archetype('amb', 6, 'Astra Militarum', 'Field Medicae', 2, 'Human', true),
+  archetype(source.amb.key, 2, 'Astra Militarum', 'Weapon Specialist', 2, 'Human', true),
+  archetype(source.amb.key, 3, 'Astra Militarum', 'Brawler', 2, 'Human', true),
+  archetype(source.amb.key, 4, 'Astra Militarum', 'Scout', 2, 'Human', true),
+  archetype(source.amb.key, 4, 'Astra Militarum', 'Sniper', 2, 'Human', true),
+  archetype(source.amb.key, 5, 'Astra Militarum', 'Heavy Weapon Specialist', 2, 'Human', true),
+  archetype(source.amb.key, 6, 'Astra Militarum', 'Bulwark',  2, 'coreab/Ogryn', true),
+  archetype(source.amb.key, 6, 'Astra Militarum', 'Field Medicae', 2, 'Human', true),
 ];
 
 const archetypeRepository = [
