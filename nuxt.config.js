@@ -1,5 +1,3 @@
-import redirectSSL from 'redirect-ssl';
-
 const colors = require('vuetify/es5/util/colors').default;
 const path = require('path');
 const axios = require('axios');
@@ -149,33 +147,33 @@ module.exports = {
 
       const homebrewResponse = await axios.get(`${base}/api/homebrews/`);
       const homebrewRoutes = homebrewResponse.data
-        .map((item) => {
-          return {
-            url: `/vault/${item.fields.urlSlug}`,
-            changefreq: 'weekly',
-            priority: 1,
-            lastmod: item.sys.updatedAt,
-          };
-        });
+      .map((item) => {
+        return {
+          url: `/vault/${item.fields.urlSlug}`,
+          changefreq: 'weekly',
+          priority: 1,
+          lastmod: item.sys.updatedAt,
+        };
+      });
 
       const threatResponse = await axios.get(`${base}/api/threats/`);
       const threatRoutes = threatResponse.data
-        .filter((item) => item.source.key !== 'core')
-        .map((item) => {
-          const slug = item.key.replace(/([a-z][A-Z])/g, (g) => `${g[0]}-${g[1].toLowerCase()}`);
-          return `/bestiary/${slug}`;
-        });
+      .filter((item) => item.source.key !== 'core')
+      .map((item) => {
+        const slug = item.key.replace(/([a-z][A-Z])/g, (g) => `${g[0]}-${g[1].toLowerCase()}`);
+        return `/bestiary/${slug}`;
+      });
 
       const postResponse = await axios.get(`${base}/api/posts/`);
       const postRoutes = postResponse.data
-        .map( (item) => {
-          return {
-            url: `/posts/${item.fields.slug}`,
-            changefreq: 'weekly',
-            priority: 1,
-            lastmod: item.sys.updatedAt,
-          };
-        });
+      .map( (item) => {
+        return {
+          url: `/posts/${item.fields.slug}`,
+          changefreq: 'weekly',
+          priority: 1,
+          lastmod: item.sys.updatedAt,
+        };
+      });
 
       return [
         ...homebrewRoutes,
@@ -235,16 +233,14 @@ module.exports = {
   },
 
   serverMiddleware: [
-    redirectSSL.create({
-      enabled: process.env.NODE_ENV === 'production'
-    }),
+    'redirect-ssl',
     '~/api/express', // handles /api/** calls
     // '~/serverMiddleware/forcedomain'
   ],
 
   /**
-    * Build configuration
-    */
+   * Build configuration
+   */
   build: {
     /*
     ** You can extend webpack config here
