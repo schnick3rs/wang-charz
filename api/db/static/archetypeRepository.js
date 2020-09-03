@@ -7,7 +7,6 @@ const _statCosts = {
   skills: [0, 2, 6, 12, 20, 30, 42, 56, 72],
 };
 
-
 const cost = function (cost, archetype = 0, stats = 0, species = 0, other = 0) {
   return {
     cost,
@@ -3401,7 +3400,7 @@ const aaoaOfficioAssassinorum = [
       },
     ],
     influence: 0,
-    wargear: wargearz('Augmetic viscera, cardioproxy, reflex catalyst, sinew armature, executor pistol, sentinel array, neuro-gauntlet, power sword, 2 melta bomb, Eversor combat drugs, 3 Fury, 3 Destroyer, 1 Terminus, Bodyglove'),
+    wargear: wargearz('Augmetic viscera, cardioproxy, reflex catalyst, sinew armature, executor pistol, sentinel array, neuro-gauntlet, power sword, 2 melta bomb, Eversor combat drugs, Bodyglove'),
   },
   {
     name: 'Vindicare Assassin',
