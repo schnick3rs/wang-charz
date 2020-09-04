@@ -40,7 +40,7 @@
 
         <p><strong>Tier:</strong> {{ item.tier }}</p>
 
-        <p><strong>Species:</strong> {{ item.species.join(', ') }}</p>
+        <p><strong>Species:</strong> {{ item.species.map((s)=>s.name).join(', ') }}</p>
 
         <p><strong>XP Cost:</strong> {{ item.cost }}, incl. Archetype ({{ item.costs.archetype }} XP) and Stats ({{ item.costs.stats }} XP)</p>
 
@@ -440,8 +440,13 @@ export default {
         tier: this.characterArchetypeTier,
         faction: this.characterFactionKey.toLowerCase(),
         factionKey: this.characterFactionKey,
-        species: [this.characterSpeciesLabel],
-        speciesKey: [this.characterSpeciesKey],
+        species: [
+          {
+            name: this.characterSpeciesLabel,
+            key: this.characterSpeciesKey,
+            sourceKey: 'core',
+          },
+        ],
         wargearString: this.getAdvancedWargearOptionByTier(this.characterArchetypeTier).wargearString,
         prerequisites: [],
         archetypeFeatures: data.archetypeFeatures,

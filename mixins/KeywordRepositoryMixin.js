@@ -40,6 +40,12 @@ export default {
       },
       {
         source: 'aaoa',
+        name: '[Masque]',
+        type: 'Species',
+        description: 'A specific Harlequin Masque (replaces this keyword when chosen).',
+      },
+      {
+        source: 'aaoa',
         name: '[Coven]',
         type: 'Species',
         description: 'A specific Drukhari Haemunculus Coven (replaces this keyword when chosen).',
@@ -56,7 +62,6 @@ export default {
       {
         name: '[Clan]', type: 'Species', parentKeyword: 'Ork', description: 'A specific Ork clan (replaces this keyword when chosen).',
       },
-
       { source: 'aaoa', name: '[League]', type: 'Species', parentKeyword: 'Squat', description: 'A specific Squat league (replaces this keyword when chosen).' },
 
       // Imperium Keywords

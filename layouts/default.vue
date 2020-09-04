@@ -111,7 +111,7 @@
       <v-app-bar-nav-icon @click.stop="toggleDrawer" class="d-md-none" />
     </v-app-bar>
 
-    <v-content>
+    <v-main>
 
       <v-toolbar dense class="d-none d-md-block">
         <v-toolbar-items>
@@ -138,7 +138,7 @@
           </v-col>
         </v-row>
       </v-container>
-    </v-content>
+    </v-main>
 
     <default-footer />
   </v-app>

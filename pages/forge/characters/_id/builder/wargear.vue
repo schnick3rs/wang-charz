@@ -259,6 +259,7 @@ import WargearSearch from '~/components/forge/WargearSearch.vue';
 import WargearSelect from '~/components/forge/WargearSelect.vue';
 import CharacterCreationMixin from '~/mixins/CharacterCreationMixin';
 import SluggerMixin from '~/mixins/SluggerMixin';
+import WargearMixin from '~/mixins/WargearMixin';
 
 export default {
   name: 'Wargear',
@@ -270,6 +271,7 @@ export default {
   mixins: [
     CharacterCreationMixin,
     SluggerMixin,
+    WargearMixin,
   ],
   props: [],
   head() {
@@ -389,7 +391,7 @@ export default {
             gear.source = chargear.source;
             characterWargear.push({
               id: chargear.id,
-              name: chargear.name,
+              name: gear.name,
               subtitle: this.wargearSubtitle(gear),
               type: gear.type,
               avatar: this.getAvatar(gear.type),
@@ -513,26 +515,7 @@ export default {
     const keywordReq = (item.keywords) ? item.keywords.split(',').includes('Imperium') : false;
      */
     computeWargearOptionsByFilter(filter) {
-      const { valueFilter, rarityFilter, typeFilter, subtypeFilter, triptypeFilter, keywordFilter } = filter;
-      if ( this.wargearList ) {
-        return this.wargearList.filter( (gear) => {
-          let valueReq = true;
-          if ( valueFilter ) {
-            let maxValue = 0;
-            maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
-            maxValue += valueFilter.useSettingTier ? this.settingTier : 0;
-            // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
-            valueReq = gear.value <= maxValue;
-          }
-          const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
-          const typeReq = typeFilter ? typeFilter.includes(gear.type) : true;
-          const subtypeReq = subtypeFilter ? (gear.subtype && gear.subtype !== null ? gear.subtype.includes(subtypeFilter) : false ) : true;
-          const triptypeReq = triptypeFilter ? (gear.triptype && gear.triptype !== null ? gear.triptype.includes(triptypeFilter) : false ) : true;
-          const keywordReq = keywordFilter ? (gear.keywords ? gear.keywords.includes(keywordFilter) : false) : true;
-          return valueReq && rarityReq && typeReq && subtypeReq && triptypeReq && keywordReq;
-        });
-      }
-      return [];
+      return this.wargearList ? this.filterWargear(this.wargearList, filter, this.settingTier) : [];
     },
   },
 };

@@ -45,9 +45,9 @@
               <!-- filter group -->
               <v-col :cols="12" :sm="4">
                 <v-select
-                  v-model="filters.group.model"
+                  v-model="filters.faction.model"
                   :items="filterGroupOptions"
-                  :label="filters.group.label"
+                  :label="filters.faction.label"
                   filled
                   clearable
                   multiple
@@ -87,18 +87,28 @@
             @page-count="pagination.pageCount = $event"
           >
             <template v-slot:item.species="{ item }">
-              {{ item.species.join(', ') }}
+              <span v-for="species in item.species">
+                {{ species.name }}
+                <v-chip
+                    v-if="species.sourceKey && !species.sourceKey.startsWith('c')"
+                    color="info"
+                    outlined
+                    tags
+                    x-small
+                    label
+                >{{species.sourceKey.toUpperCase()}}</v-chip>
+              </span>
             </template>
 
             <template v-slot:item.source.book="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.source.book }}
-                  <NuxtLink v-if="item.source.path" :to="item.source.path" target="_blank">
+                  <nuxt-link v-if="item.source.path" :to="item.source.path" target="_blank">
                     <v-icon small>
                       launch
                     </v-icon>
-                  </NuxtLink>
+                  </nuxt-link>
                 </v-col>
                 <v-col v-if="item.source.page" :cols="12" class="caption grey--text">
                   pg. {{ item.source.page }}
@@ -193,7 +203,7 @@ export default {
           text: 'Name', align: 'start', value: 'name', class: '',
         },
         {
-          text: 'Group', align: 'start', value: 'group', class: '',
+          text: 'Faction', align: 'start', value: 'faction', class: '',
         },
         {
           text: 'Species', align: 'start', value: 'species', class: '',
@@ -219,7 +229,12 @@ export default {
       return this.items;
     },
     filterSourceOptions() {
-      const options = this.activeRepository.map((i) => ({ value: i.source.key, text: i.source.book }));
+      const options = this.activeRepository.map((i) => (
+          {
+            value: i.source.key,
+            text: `${i.source.book}${i.source.version ? ' ('+i.source.version+')' : ''}`,
+          }
+      ));
       return [...new Set(options)].sort((a, b) => a.text.localeCompare(b.text));
     },
     searchResult() {
@@ -242,12 +257,12 @@ export default {
 
       filter = this.filters.species;
       if (filter.model.length > 0) {
-        filteredResults = filteredResults.filter((item) => filter.model.some((m) => item.species.includes(m)));
+        filteredResults = filteredResults.filter((item) => filter.model.some((m) => item.species.map((s)=>s.name).includes(m)));
       }
 
-      filter = this.filters.group;
+      filter = this.filters.faction;
       if (filter.model.length > 0) {
-        filteredResults = filteredResults.filter((item) => filter.model.includes(item.group));
+        filteredResults = filteredResults.filter((item) => filter.model.includes(item.faction));
       }
 
       return filteredResults;
@@ -265,13 +280,13 @@ export default {
     filterSpeciesOptions() {
       const array = [];
       this.activeRepository.forEach((item) => {
-        array.push(...item.species);
+        array.push(...item.species.map((s)=>s.name));
       });
       const distinct = [...new Set(array)];
       return distinct.sort();
     },
     filterGroupOptions() {
-      const reduce = this.activeRepository.map((item) => item.group);
+      const reduce = this.activeRepository.map((item) => item.faction);
       const distinct = [...new Set(reduce)];
       return distinct.filter((d) => d !== null).sort();
     },
@@ -300,7 +315,7 @@ export default {
       filters: {
         settingTier: { model: 6, label: 'Filter by Archetype-Group' },
         species: { model: [], label: 'Filter by Species' },
-        group: { model: factionGroupSelections, label: 'Filter by Archetype-Group' },
+        faction: { model: factionGroupSelections, label: 'Filter by Faction' },
         source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
       },
     };

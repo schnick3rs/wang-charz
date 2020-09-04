@@ -19,7 +19,7 @@ export default {
         { key: 'aaoa-runes-of-fortune', name: 'Runes of Fortune', source: 'aaoa' },
         { key: 'aaoa-runes-of-shaping', name: 'Runes of Shaping', source: 'aaoa' },
         { key: 'aaoa-runes-of-faith', name: 'Runes of Faith', source: 'aaoa' },
-        //{ key: 'aaoa-phantasmancy', name: 'Phantasmancy', source: 'aaoa' },
+        { key: 'aaoa-phantasmancy', name: 'Phantasmancy', source: 'aaoa' },
         //{ key: 'aaoa-revenant', name: 'Revenant', source: 'aaoa' },
         // AAOA Orks
         { key: 'aaoa-waaagh', name: 'WAAAGH!', source: 'aaoa' },
