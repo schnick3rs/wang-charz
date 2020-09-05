@@ -227,6 +227,9 @@ export const getters = {
     if (character.species.key && ['aaoa-beastman'].includes(character.species.key)) {
       traits.speed = 7;
     }
+    if (character.species.key && ['aaoa-squat'].includes(character.species.key)) {
+      traits.speed = 5;
+    }
     if (character.species.key && character.species.key.endsWith('-astartes')) {
       traits.speed = 7;
     }
