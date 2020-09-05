@@ -811,16 +811,16 @@ const core = [
         ],
       },
     ],
-    wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stub Gun',
+    wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stubber',
     wargear: [
       {
-        name: 'Choice of Laspistol, Autopistol, Hand Cannon or Stub Gun.',
+        name: 'Choice of Laspistol, Autopistol, Hand Cannon or Stubber.',
         selected: 'Autopistol',
         options: [
           { name: 'Autopistol' },
           { name: 'Laspistol' },
           { name: 'Hand Cannon' },
-          { name: 'Stub Gun' },
+          { name: 'Stubber' },
         ],
       },
       {
@@ -1037,16 +1037,16 @@ const core = [
         ],
       },
     ],
-    wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stub Gun',
+    wargearString: 'A Knife or a Sword, Bedroll, Canteen, Gang colours, any one of the following: a Laspistol or an Autopistol or a Hand Cannon or a Stubber',
     wargear: [
       {
-        name: 'Choice of Laspistol, Autopistol, Hand Cannon or Stub Gun.',
+        name: 'Choice of Laspistol, Autopistol, Hand Cannon or Stubber.',
         selected: 'Autopistol',
         options: [
           { name: 'Autopistol' },
           { name: 'Laspistol' },
           { name: 'Hand Cannon' },
-          { name: 'Stub Gun' },
+          { name: 'Stubber' },
         ],
       },
       {
