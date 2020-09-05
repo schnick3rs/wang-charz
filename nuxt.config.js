@@ -90,6 +90,7 @@ module.exports = {
     { src: '~/plugins/vuex-persist', ssr: false },
     { src: '~/plugins/vue-croppa.js', ssr: false },
     '~/plugins/filters.js',
+    '~/plugins/hint-box-component.js',
   ],
   /*
   ** Nuxt.js dev-modules
@@ -250,6 +251,9 @@ module.exports = {
       config.node = {
         fs: 'empty'
       };
+
+      // Include the compiler version of Vue so that wp-content works
+      config.resolve.alias["vue$"] = "vue/dist/vue.esm.js"
 
       // add frontmatter-markdown-loader
       config.module.rules.push(

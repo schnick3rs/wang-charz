@@ -1,22 +1,15 @@
 <template>
   <div>
-    <div
-      v-show="showTooltip"
-      class="tooltip-container"
-      :style="{ left: tooltip.position.x, top: tooltip.position.y }"
+
+    <doom-tooltip
+        v-show="showTooltip"
+        :loading="tooltip.loading"
+        :position="tooltip.position"
+        :title="tooltipItem.title"
+        :type="tooltipItem.type"
     >
-      <v-card v-if="tooltip.loading" dark color="success" class="text-center">
-        <v-progress-circular indeterminate />
-      </v-card>
-      <v-card v-else raised dark color="success">
-        <v-card-title class="tooltip-container__header">
-          {{ hintBoxItem.title }}
-        </v-card-title>
-        <v-card-text>
-          {{ hintBoxItem.description }}
-        </v-card-text>
-      </v-card>
-    </div>
+      {{ tooltipItem.description }}
+    </doom-tooltip>
 
     <dod-default-breadcrumbs :items="breadcrumbItems" />
 
@@ -37,7 +30,7 @@
           <v-row>
             <v-col :cols="12" :md="10">
               <p>{{ post.fields.description }}</p>
-              <div v-html="toHtml(post.fields.content)" class="markdown-html"></div>
+              <contentful-html-text :html="toHtml(post.fields.content)"></contentful-html-text>
             </v-col>
           </v-row>
         </ColorfulEntry>
@@ -63,12 +56,16 @@ import ArticleSchemaMixin from '~/mixins/ArticleSchemaMixin';
 import { BLOCKS } from '@contentful/rich-text-types';
 import { documentToHtmlString } from '@contentful/rich-text-html-renderer';
 import ColorfulEntry from '~/components/shared/ColorfulEntry';
+import ContentfulHtmlText from '@/components/shared/ContentulHtmlText';
+import DoomTooltip from '@/components/shared/DoomTooltip';
 
 const fixedTime = new Date();
 
 export default {
   name: 'BlogPostDetail',
   components: {
+    DoomTooltip,
+    ContentfulHtmlText,
     ColorfulEntry,
     DodDefaultBreadcrumbs,
   },
@@ -104,7 +101,7 @@ export default {
         position: { x: 0, y: 0 },
         loading: false,
       },
-      hintBoxItem: { title: '', description: '', type: '' },
+      tooltipItem: { title: '', description: '', type: '' },
     };
   },
   head() {
@@ -133,6 +130,25 @@ export default {
       ],
     };
   },
+  mounted() {
+    this.$root.$on('hoverHint', (payload) => {
+      const { event, endpoint } = payload;
+      const category = endpoint.split('/')[1].replace(/(^\w|-\w)/g, (g) => { return g.replace(/-/, "").toUpperCase(); });
+      this.$axios.get(`/api${endpoint}`).then(({ data }) => {
+        this.tooltipItem = {
+          title: data.name,
+          description: data.snippet,
+          type: category,
+          data,
+        };
+        this.tooltip.loading = false;
+      });
+      this.showTooltip = true;
+      this.tooltip.position.x = `${event.pageX}px`;
+      this.tooltip.position.y = `${event.pageY}px`;
+    });
+    this.$root.$on('hideHint', () => this.showTooltip = false );
+  },
   computed: {
     breadcrumbItems() {
       return [
@@ -157,82 +173,11 @@ export default {
       };
       return documentToHtmlString(rich, options);
     },
-    setHintBoxItem($event, talentId) {
-      this.tooltip.loading = true;
-      this.$axios.get(`/api/talents/${talentId}`)
-      .then(({ data }) => {
-        this.hintBoxItem = {
-          title: data.name,
-          description: data.effect,
-          type: 'Talent',
-        };
-        this.tooltip.loading = false;
-      });
-      this.showTooltip = true;
-      this.tooltip.position.x = `${$event.pageX}px`;
-      this.tooltip.position.y = `${$event.pageY}px`;
-    },
   },
 };
 </script>
 
 <style lang="scss" scoped>
 
-  .markdown-html {
-
-    & ul,ol {
-      margin-bottom: 16px !important;
-    }
-
-    & code {
-      color: hsl(194, 90%, 45%);
-    }
-
-    & blockquote {
-
-      background-color: lightyellow;
-      padding: 8px 16px;
-      font-size: 18px;
-      font-weight: 300;
-      border-bottom: 1px solid lightgray;
-      border-top: 1px solid lightgray;
-      margin-top: 8px;
-      margin-bottom: 16px;
-
-      & p {
-        //padding: 12px 12px 12px 24px;
-        font-size: 18px;
-        font-weight: 300;
-        margin: 0;
-      }
-
-    }
-
-  }
-
-  .tooltip {
-
-    font-weight: 600;
-    text-decoration: none;
-    color: hsl(194, 90%, 45%);
-
-    &--talent {
-    }
-  }
-
-  .tooltip-container {
-
-    z-index: 1;
-    position: absolute;
-    min-width: 450px;
-    max-width: 450px;
-    min-height: 100px;
-    &__header {
-
-    }
-    &__content {
-
-    }
-  }
 
 </style>
