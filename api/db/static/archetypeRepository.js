@@ -2138,6 +2138,7 @@ const aaoaAeldari = [
       reqSkill(SKILLS.CUNNING, 1),
       reqSkill(SKILLS.INTIMIDATION, 2),
     ]),
+    factionKey: aaoa-drukhari,
     hint: 'A dark hunter from the noble houses.',
     keywords: 'Aeldari,Drukhari,[Cabal]',
     archetypeFeatures: [
@@ -2160,6 +2161,7 @@ const aaoaAeldari = [
       reqSkill(SKILLS.INTIMIDATION, 2),
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
+    factionKey: aaoa-drukhari,
     hint: 'A deadly cult gladiator.',
     keywords: 'Aeldari,Drukhari,[Cult]',
     archetypeFeatures: [
@@ -2181,6 +2183,7 @@ const aaoaAeldari = [
       reqSkill(SKILLS.INTIMIDATION, 2),
       reqSkill(SKILLS.WEAPON_SKILL, 5),
     ]),
+    factionKey: aaoa-drukhari,
     hint: 'A deadly cult gladiator.',
     keywords: 'Drukhari',
     archetypeFeatures: [
@@ -2205,6 +2208,7 @@ const aaoaSquat = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
+    factionKey: aaoa-the-squat-remnant,
     hint: 'The rank and file of a Squat Stronghold.',
     keywords: 'Squat, [League]',
     influence: 0,
@@ -2253,6 +2257,7 @@ const aaoaSquat = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 4),
     ]),
+    factionKey: aaoa-the-squat-remnant,
     hint: 'Doughty elite warriors pledged to defend hearth and home.',
     keywords: 'Squat, [League]',
     influence: 2,
@@ -2280,6 +2285,7 @@ const aaoaSquat = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
+    factionKey: aaoa-the-squat-remnant,
     hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
     keywords: 'Squat [League], Psyker',
     influence: 4,
@@ -3276,7 +3282,7 @@ const aaoaAdeptusAstartes = [
 const aaoaOfficioAssassinorum = [
   {
     name: 'Callidus Assassin',
-    ...archetype(source.aaoa.key, 109,'Officio Assassinorum','Callidus Assassin',5,'Human',true),
+    ...archetype(source.aaoa.key, 109,'Officio Assassinorum','Callidus Assassin',5,'Human',
     ...costz(308,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -3299,6 +3305,7 @@ const aaoaOfficioAssassinorum = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 4),
     ]),
+    factionKey: 'aaoa-officio-assassinorum',
     hint: 'The second skinned assassin.',
     keywords: 'Imperium,Officio Assassinorum,Templum Callidus',
     archetypeFeatures: [
@@ -3320,7 +3327,7 @@ const aaoaOfficioAssassinorum = [
   },
   {
     name: 'Culexus Assassin',
-    ...archetype(source.aaoa.key, 110,'Officio Assassinorum','Culexus Assassin',5,'aaoa/Pariah', false),
+    ...archetype(source.aaoa.key, 110,'Officio Assassinorum','Culexus Assassin',5,'aaoa/Pariah'),
     ...costz(308,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -3339,6 +3346,7 @@ const aaoaOfficioAssassinorum = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 4),
     ]),
+    factionKey: 'aaoa-officio-assassinorum',
     hint: 'Witch-slayer, wyrd-bane, living nightmare to all psykers.',
     keywords: 'Imperium,Officio Assassinorum,Templum Culexus',
     archetypeFeatures: [
@@ -3383,6 +3391,7 @@ const aaoaOfficioAssassinorum = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 4),
     ]),
+    factionKey: 'aaoa-officio-assassinorum',
     hint: 'Hunter, killer, bane.',
     keywords: 'Imperium,Officio Assassinorum,Templum Eversor',
     archetypeFeatures: [
@@ -3405,6 +3414,7 @@ const aaoaOfficioAssassinorum = [
   {
     name: 'Vindicare Assassin',
     ...archetype(source.aaoa.key, 116,'Officio Assassinorum','Vindicare Assassin',5,'Human',true),
+    factionKey: 'aaoa-officio-assassinorum',
   },
 ];
 
