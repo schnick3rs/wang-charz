@@ -461,7 +461,7 @@ const aaoa = [
       // Accomplishment
       background('REUNION: You were reunited with some who you thought lost, perhaps old comrades, perhaps family, perhaps merely other wandering refugees','Influence','Accomplishment'),
       background('GRUDGE SETTLED: You worked to defeat a notorious enemy of your kind and bring some measure of recompense to the lost. It was a long, hard effort, but you’ve now got one less grudge to avenge.','Max Wounds','Accomplishment'),
-      background('RECLAMATION: A piece of technology, an heirloom, or some other item of great value, thought lost, has been returned to your people through your efforts.','Determination','Wealth'),
+      background('RECLAMATION: A piece of technology, an heirloom, or some other item of great value, thought lost, has been returned to your people through your efforts.','Wealth','Accomplishment'),
       // Goal
       background('SURVIVAL: In the face of extinction, to endure for even another day is a victory. Securing as many days as possible is your priority.','Determination','Goal'),
       background('RESURGENCE: Your people are hardy, and you once prospered and thrived amidst the least hospitable conditions. No disaster is so great that it cannot be recovered from.','Resolve','Goal'),
