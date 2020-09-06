@@ -27,17 +27,9 @@
 
     <v-row justify="center">
 
-      <v-col :cols="12">
+      <v-col :cols="12" v-if="false">
         <v-alert type="info" outlined >
           <p>On July the 24th 2020, <a href="https://www.cubicle7games.com/">Cubicle7</a> <a href="https://www.cubicle7games.com/wrath-glory-errata/">posted about the latest Errata</a> for Wrath and Glory. The <a href="https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959" title="Wrath & Glory Core Rules (Affiliate Link)">respective PDF on e.g. drivethrurpg.com</a> (affiliate link) is also updated. The Forge is brought up to date regarding Archetype Cost and Advanced Character Creation options. The most notable changes are:</p>
-          <ul class="mb-4">
-            <li>Wounds are now Toughness plus two times Campaign Tier.</li>
-            <li>Many Archetypes and Advanced Creation got cheaper (check out the Archetype Section in the Forge to re-calculate the costs).</li>
-            <li>Advanced Character Creation now allows (ask your GM) to buy Archetype Abilities.</li>
-            <li>Inquisitor got a different (read: better) starting gear.</li>
-            <li>Some Wargear got renamed. Please check and re-add if necessary.</li>
-          </ul>
-          <p>Some smaller Wargear and Talents changes probably slipped through this first round of Forge updates, to please <a href="mailto:docsofdoom+forge@gmail.com">reach out</a> if you find any inconsistencies. Thanks in advance and enjoy.</p>
         </v-alert>
       </v-col>
 

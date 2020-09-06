@@ -5,12 +5,23 @@ export default {
     html: String,
   },
   methods: {
+    parseHtml(html) {
+      let finalHtml = this.parseForInternalLinks(html);
+      finalHtml = this.parseForShortcodes(finalHtml);
+      return finalHtml;
+    },
+    parseForInternalLinks(html){
+      let result = html;
+      result = result.replace(/<(a)\shref="\/([^"]*)">([^<]*)(<\/\1>)/gm, `<nuxt-link to="/$2">$3</nuxt-link>`);
+      result = result.replace(/<(a)\shref=https:\/\/doctors-of-doom.com\/([^"]*)">([^<]*)(<\/\1>)/gm, `<nuxt-link to="/$2">$3</nuxt-link>`);
+      return result;
+    },
     parseForShortcodes(html) {
       return html.replace(/{([\w/-]+)#([\w\s-]+)}/mg, `<hint-box endpoint="$1" label="$2"/>`);
     },
   },
   render(h) {
-    const template = this.parseForShortcodes(this.html);
+    const template = this.parseHtml(this.html);
     return h({
       template: `<div class="markdown-html-text">${template}</div>`,
     });
