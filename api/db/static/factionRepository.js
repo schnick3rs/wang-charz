@@ -452,7 +452,7 @@ const aaoa = [
   },
   {
     name: 'The Squat Remnant',
-    ...faction('aaoa',29,'The Squat Remnant','The Squat Remnant'),
+    ...faction('aaoa',29,'Squats','The Squat Remnant'),
     backgroundSection: [
       // Origin
       background('ADRIFT: You were aboard one of the vessels fleeing the Cataclysm, floating through the void as a remnant of a once-proud civilisation.','Resolves','Origin'),
