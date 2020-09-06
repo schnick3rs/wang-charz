@@ -3283,7 +3283,7 @@ const aaoaAdeptusAstartes = [
 const aaoaOfficioAssassinorum = [
   {
     name: 'Callidus Assassin',
-    ...archetype(source.aaoa.key, 109,'Officio Assassinorum','Callidus Assassin',5,'Human')
+    ...archetype(source.aaoa.key, 109,'Officio Assassinorum','Callidus Assassin',5,'Human'),
     ...costz(308,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
