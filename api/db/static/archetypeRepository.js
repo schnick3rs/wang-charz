@@ -2208,7 +2208,7 @@ const aaoaSquat = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
-    factionKey: aaoa-the-squat-remnant,
+    factionKey: 'aaoa-the-squat-remnant',
     hint: 'The rank and file of a Squat Stronghold.',
     keywords: 'Squat, [League]',
     influence: 0,
@@ -2231,6 +2231,7 @@ const aaoaSquat = [
       reqSkill(SKILLS.TECH, 3),
       reqSkill(SKILLS.WEAPON_SKILL, 3),
     ]),
+    factionKey: 'aaoa-the-squat-remnant',
     hint: 'Masterful artisans, creating the devices necessary for survival.',
     keywords: 'Squat, [League]',
     influence: 2,
@@ -2257,7 +2258,7 @@ const aaoaSquat = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 4),
     ]),
-    factionKey: aaoa-the-squat-remnant,
+    factionKey: 'aaoa-the-squat-remnant',
     hint: 'Doughty elite warriors pledged to defend hearth and home.',
     keywords: 'Squat, [League]',
     influence: 2,
@@ -2285,7 +2286,7 @@ const aaoaSquat = [
       reqSkill(SKILLS.TECH, 1),
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
-    factionKey: aaoa-the-squat-remnant,
+    factionKey: 'aaoa-the-squat-remnant',
     hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
     keywords: 'Squat [League], Psyker',
     influence: 4,
@@ -3282,7 +3283,7 @@ const aaoaAdeptusAstartes = [
 const aaoaOfficioAssassinorum = [
   {
     name: 'Callidus Assassin',
-    ...archetype(source.aaoa.key, 109,'Officio Assassinorum','Callidus Assassin',5,'Human',
+    ...archetype(source.aaoa.key, 109,'Officio Assassinorum','Callidus Assassin',5,'Human')
     ...costz(308,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -3460,7 +3461,7 @@ const aaoaAdeptusMinistorum=  [
   },
   {
     name: 'Confessor',
-    ...archetype(source.aaoa.key, 66,  'Adeptus Ministorum', 'Confessor',  3, 'Human'),
+    ...archetype(source.aaoa.key, 66, 'Adeptus Ministorum', 'Confessor', 3, 'Human'),
     ...costz(84, [
       reqAttribute(ATTRIBUTES.WILLPOWER, 4),
       reqAttribute(ATTRIBUTES.FELLOWSHIP, 4),
