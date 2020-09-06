@@ -2197,7 +2197,7 @@ const aaoaAeldari = [
 const aaoaSquat = [
   {
     name: 'War-Pledged Warrior',
-    ...archetype(source.aaoa.key, 43,'Squats','War-Pledged Warrior',1,'aaoa/Squat'),
+    ...archetype(source.aaoa.key, 43,'The Squat Remnant','War-Pledged Warrior',1,'aaoa/Squat'),
     ...costz(34,  [
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -2218,7 +2218,7 @@ const aaoaSquat = [
     wargear: wargearz('Bolter, hand-cannon, axe, flak armour, 3 frag grenade'),
   },
   {
-    ...archetype(source.aaoa.key, 73,  'Squats', 'Guild Engineer',  3, 'aaoa/Squat'),
+    ...archetype(source.aaoa.key, 73,  'The Squat Remnant', 'Guild Engineer',  3, 'aaoa/Squat'),
     ...costz(70,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
@@ -2241,7 +2241,7 @@ const aaoaSquat = [
   },
   {
     name: 'Hearthguard',
-    ...archetype(source.aaoa.key, 74, 'Squats', 'Hearthguard',  3,'aaoa/Squat'),
+    ...archetype(source.aaoa.key, 74, 'The Squat Remnant', 'Hearthguard',  3,'aaoa/Squat'),
     ...costz(128,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -2267,7 +2267,7 @@ const aaoaSquat = [
   },
   {
     name: 'Ancestor Lord',
-    ...archetype(source.aaoa.key, 87, 'Squats', 'Ancestor Lord', 4,'aaoa/Saquat'),
+    ...archetype(source.aaoa.key, 87, 'The Squat Remnant', 'Ancestor Lord', 4,'aaoa/Saquat'),
     ...costz(182,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
       reqAttribute(ATTRIBUTES.WILLPOWER, 5),
