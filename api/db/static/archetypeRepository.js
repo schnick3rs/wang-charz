@@ -2138,7 +2138,7 @@ const aaoaAeldari = [
       reqSkill(SKILLS.CUNNING, 1),
       reqSkill(SKILLS.INTIMIDATION, 2),
     ]),
-    factionKey: aaoa-drukhari,
+    factionKey: 'aaoa-drukhari',
     hint: 'A dark hunter from the noble houses.',
     keywords: 'Aeldari,Drukhari,[Cabal]',
     archetypeFeatures: [
@@ -2161,7 +2161,7 @@ const aaoaAeldari = [
       reqSkill(SKILLS.INTIMIDATION, 2),
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
-    factionKey: aaoa-drukhari,
+    factionKey: 'aaoa-drukhari',
     hint: 'A deadly cult gladiator.',
     keywords: 'Aeldari,Drukhari,[Cult]',
     archetypeFeatures: [
@@ -2183,7 +2183,7 @@ const aaoaAeldari = [
       reqSkill(SKILLS.INTIMIDATION, 2),
       reqSkill(SKILLS.WEAPON_SKILL, 5),
     ]),
-    factionKey: aaoa-drukhari,
+    factionKey: 'aaoa-drukhari',
     hint: 'A deadly cult gladiator.',
     keywords: 'Drukhari',
     archetypeFeatures: [
