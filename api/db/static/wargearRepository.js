@@ -11,7 +11,8 @@ const rarity = {
 };
 
 const TYPES = {
-
+  RANGED: 'Ranged Weapon',
+  MELEE: 'Melee Weapon',
 };
 
 const gear = function (sourceKey, sourcePage, name, value, keywords, stub = false) {
@@ -107,7 +108,18 @@ const toolz = function(subtype, snippet) {
   };
 }
 
-const metaRange = function(staticPart, ed, ap, range, salvo, traits) {
+/**
+ *
+ * @param staticPart
+ * @param ed
+ * @param ap
+ * @param range
+ * @param salvo
+ * @param traits
+ * @param label
+ * @returns {{damage: {static: *, ed: *}, traits: *, salvo: *, range: *, label: undefined, type: string, ap: *}}
+ */
+const metaRange = function(staticPart, ed, ap, range, salvo, traits, label = undefined) {
   return {
     type: 'ranged-weapon',
     range,
@@ -115,6 +127,7 @@ const metaRange = function(staticPart, ed, ap, range, salvo, traits) {
     ap,
     salvo,
     traits,
+    label,
   };
 }
 
@@ -290,7 +303,7 @@ const core = [
     ...meleez('Exotic Melee Weapon',3,2,-2,4,'Agonising'),
   },
   {
-    ...gear(source.core.key,214,'Shock Whip','4V','Excotic,[Any]'),
+    ...gear(source.core.key,214,'Shock Whip','4V','Exotic,[Any]'),
     ...meleez('Exotic Melee Weapon',4,2,0,4,'Agonising,Rending(2)'),
   },
   {
@@ -1522,20 +1535,321 @@ const aaoaMelee = [
 ];
 
 const aaoaRanged = [
-  // Bolt < Ranged
-  {
-    ...gear(source.aaoa.key,142,'Absolvor Bolt Pistol','8V','Bolt, Imperium, Adeptus Astartes, Primaris'),
-    ...rangez('Bolt Weapon',12,2,-1,16,1,'Brutal,Pistol'),
-  },
+  // Bolt Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,142,'Absolvor Bolt Pistol','8V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',12,2,-1,16,1,'Brutal,Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,142,'Auto Bolt Rifle','7V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,24,3,'Assault,Brutal'),
+      description:
+        '<p><em>An Auto Bolt Rifle is fitted with an Ammunition Drum as standard.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Auto-Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,18,3,'Assault, Brutal, Paired'),
+      description:
+        '<p>May be used as Power Fist (Core pg. 212).</p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,14,2,'Assault, Brutal, Steadfast'),
+    },
+    {
+      ...gear(source.aaoa.key,142,'Bolt Sniper Rifle','8V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',12,1,0,36,1,'Brutal, Heavy (6), Sniper (2), Special'),
+      description:
+        '<p><strong>Special: </strong>When firing a Bolt Sniper Rifle, choose a single ammo type: Executioner (AP -1, +2d to the attack roll and ignore cover), Hyperfrag (add the Blast [Small] trait), or Mortis (+1ED, AP -2, add Inflict [Poisoned 5] trait)</p>' +
+        '<p><em>A Bolt Sniper Rifle includes a Monoscope, Preysense Sight, and Silencer as standard.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,12,3,'Brutal, Pistol'),
+      description:
+        '<p>May be used as Power Fist (Core pg. 212).</p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Instigator Bolt Carbine','7R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,2,-1,24,1,'Assault, Brutal, Silent, Sniper (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,142,'Marksman Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,24,1,'Brutal, Rapid Fire (1), Sniper (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,142,'Occulus Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,24,1,'Brutal, Rapid Fire (1), Special'),
+      description:
+        '<p><strong>Special: </strong>If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.</p>' +
+        '<p><em>Marksman Bolt Carbines are fitted with a Preysense Sight as standard.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Stalker Bolt Rifle','7V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,2,-2,36,1,'Brutal, Heavy (4), Sniper (1)'),
+      description:
+        '<p><em>A Stalker Bolt Rifle comes with a Monoscope as standard.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Stalker-Pattern Boltgun','7V','Bolt, Adeptus Astartes, Deathwatch'),
+      ...rangez('Bolt Weapon',10,1,-1,30,2,'Brutal, Heavy (4), Sniper (1)'),
+      description:
+        '<p><em>A Stalker-pattern Boltgun comes with a Monoscope as standard.</em></p>',
+    },
+  ],
   // Grav < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key,143,'Grav-pistol','6V','Grav, Adeptus Astartes, Adeptus Mechanicus, Squat'),
+      ...rangez('Grav Weapon',8,1,-3,12,1,'Grav, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,143,'Grav-gun','6V','Grav, Adeptus Astartes, Adeptus Mechanicus, Squat'),
+      ...rangez('Grav Weapon',8,1,-3,18,1,'Grav, Rapid Fire (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,143,'Grav-cannon','7V','Grav, Adeptus Astartes, Adeptus Mechanicus, Squat'),
+      ...rangez('Grav Weapon',8,2,-3,24,4,'Grav, Heavy (8)'),
+    },
+  ],
   // Plasma < Ranged
-  // Flame < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key,144,'Plasma Incinerator','7V','Plasma, Adeptus Astartes, Primaris'),
+      ...rangez('Plasma Weapon',15,1,-4,30,2,'Rapid Fire (1), Supercharge'),
+    },
+    {
+      ...gear(source.aaoa.key,144,'Assault Plasma Incinerator','7V','Plasma, Adeptus Astartes, Primaris'),
+      ...rangez('Plasma Weapon',13,1,-4,24,2,'Assault, Supercharge'),
+    },
+    {
+      ...gear(source.aaoa.key,144,'Heavy Plasma Incinerator','7V','Plasma, Adeptus Astartes, Primaris'),
+      ...rangez('Plasma Weapon',16,2,-4,36,1,'Heavy (4), Supercharge'),
+      description:
+        '<p><em>A Heavy Plasma Incinerator comes with a backpack ammunition supply.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,144,'Plasma Exterminator','8V','Plasma, Adeptus Astartes, Primaris'),
+      ...rangez('Plasma Weapon',15,2,-3,18,1,'Blast (Small), Heavy (4), Supercharge'),
+    },
+    {
+      ...gear(source.aaoa.key,144,'Plasma Caliver','8V','Plasma, Adeptus Mechanicus, Skitarii'),
+      ...rangez('Plasma Weapon',15,1,-3,18,3,'Assault, Supercharge'),
+    },
+  ],
+  // Flame Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,145,'Flamestorm Gauntlet','8V','Flame, Power Field, Adeptus Astartes, Primaris'),
+      ...rangez('Flame Weapon',10,1,0,8,1,'Assault, Blast (Medium), Inflict (On Fire), Paired, Spread'),
+      description:
+        '<p>May be used as Power Fist (Core pg. 212).</p>',
+    },
+    {
+      ...gear(source.aaoa.key,145,'Incinerator','8V','Flame, Power Field, Adeptus Astartes, Grey Knights'),
+      ...rangez('Flame Weapon',13,2,-1,8,2,'Blast (Large), Inflict (On Fire), Heavy (6), Spread'),
+    },
+  ],
   // Exotic < Ranged
-  {
-    ...gear(source.aaoa.key,146,'Stubcarbine', '5R', 'Projectile, Adeptus Mechanicus'),
-    ...rangez('Projectile Range Weapon', 10, 1, 0, 18, 3, 'Pistol'),
-  },
+  ...[
+    {
+      ...gear(source.aaoa.key,145,'Animus Speculum', '10L', 'Exotic, Officio Assasinorum, Tempus Culexus'),
+      ...rangez('Exotic Weapon', 12, 1, -4, 18, 3, 'Agonizing, Assault, Special'),
+      description:
+        '<p><strong>Special: </strong>The animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,145,'Archeo-Revolver', '7R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 12, 2, -2, 12, 1, 'Pistol, Stalwart'),
+    },
+    {
+      ...gear(source.aaoa.key,145,'Deathwatch Frag Cannon', '8V', 'Explosive, Projectile, Deathwatch'),
+      meta: [
+        metaRange(14, 2, -1, 8, 2, ['Assault', 'Blast (Large)', 'Heavy (6)', 'Spread', 'Special'], 'Shrapnel'),
+        metaRange(16, 2, -2, 24, 2, ['Assault', 'Heavy (6)', 'Special'], 'Shell'),
+      ],
+      description:
+        '<p><strong>Special: </strong>When firing a Deathwatch frag cannon, select either shrapnel or solid shell mode. When the solid shell mode is used, add +2ED to the damage, and increase the AP to -3 when the target is within short range.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,145,'Executioner', '9L', 'Bolt, Needle, Officio Assasinorum, Tempus Eversor'),
+      subtype: 'Exotic Weapon',
+      meta: [
+        metaRange(10, 2, 0, 12, 1, ['Brutal', 'Pistol', 'Silent', 'Special'], 'Bolt'),
+        metaRange(8, 3, 0, 12, 1, ['Agonizing', 'Inflict (Poisoned 4)', 'Pistol', 'Silent', 'Special'], 'Needler'),
+      ],
+      description:
+        '<p><em>This functions as a combi-weapon (CORE, pg. 227) composed of a customised master-crafted bolt pistol and a customised needle pistol, fitted with a gene-grip bio-veritor.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,145,'Exitus Longrifle', '9L', 'Projectile, Officio Assasinorum, Tempus Vindicare'),
+      ...rangez('Exotic Weapon', 10, 2, -3, 72, 1, 'Sniper (3), Steadfast'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Exitus Pistol', '9L', 'Projectile, Officio Assasinorum, Tempus Vindicare'),
+      ...rangez('Exotic Weapon', 10, 1, -3, 12, 2, 'Pistol, Steadfast'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Flechette Blaster', '5R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 7, 2, 0, 12, 5, 'Pistol, Spread'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Flechette Carbine', '5R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 7, 3, 0, 24, 5, 'Assault, Spread'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Macrostubber', '5R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 10, 1, 0, 12, 5, 'Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Neural Shredder', '9L', 'Exotic, Officio Assasinorum, Templum Callidus'),
+      ...rangez('Exotic Weapon', 4, 4, 0, 9, 0, 'Assault, Blast (Medium), Special'),
+      description:
+        '<p><strong>Special: </strong>A Neural Shredder uses no ammo and never needs to reload. It just works. Nobody knows entirely how. The damage of a Neuro Disruptor is compared to the target’s Resolve, rather than Resilience, and each point of damage inflicted is a Mortal Wound instead of a normal wound. It has no effect against mindless creatures or inanimate objects.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Blast Pistol', '6R', 'Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 12, 1, -1, 12, 1, 'Inflict (On Fire), Luminagen, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Carbine', '6R', 'Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 12, 1, -1, 24, 4, 'Assault, Inflict (On Fire), Luminagen'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Pistol', '5R', 'Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 10, 1, -1, 12, 1, 'Luminagen, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Serpenta', '7V', 'Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 12, 1, -1, 18, 1, 'Assault, Inflict (On Fire), Luminagen'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Torch', '6R', 'Fire, Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 10, 1, -1, 12, 1, 'Assault, Blast (Medium), Inflict (On Fire), Spread'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Psilencer', '7V', 'Force, Grey Knights'),
+      ...rangez('Exotic Weapon', 10, 2, 0, 24, 6, 'Force, Heavy (6), Special'),
+      description:
+        '<p><strong>Special: </strong>A Psilencer will not function in the hands of any character who does not have the PSYKER keyword.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,146,'Psycannon', '7V', 'Bolt, Force, Grey Knights, Ordo Malleus'),
+      ...rangez('Exotic Weapon', 13, 2, -1, 36, 4, 'Brutal, Force, Heavy (6)'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Stubcarbine', '5R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 10, 1, 0, 18, 3, 'Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Transuranic Arquebus', '8V', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 16, 2, -2, 60, 0, 'Heavy (6), Mortal (1), Sniper (3), Special'),
+      description:
+        '<p><strong>Special: </strong>A Transuranic Arquebus cannot be fired if the wielder has moved in the same turn.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,146,'Volkite Serpenta', '10L', 'Volite, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 13, 1, 0, 10, 1, 'Inflict (On Fire), Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Volkite Charger', '10L', 'Volite, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 13, 1, 0, 15, 2, 'Assault, Inflict (On Fire)'),
+    },
+  ],
   // Grenades & Launchers < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key, 149, 'Fragstorm Grenade Launcher', '6V', 'Explosive, Adeptus Astartes, Primaris'),
+      ...rangez('Grenades & Grenade Launcher', 10, 4, 0, 18, 0, 'Assault, Blast (Medium)'),
+      triptype: 'Grenade Launcher',
+    },
+    {
+      ...gear(source.aaoa.key, 149, 'Melta Bomb', '6R', 'Melta, Imperium, Aeldari'),
+      ...rangez('Grenades & Grenade Launcher', 16, 6, -4, 'STRx4', '-', 'Blast (Small), Melta, Unwieldy (2)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Any target within a Melta Bomb’s blast is considered to be within close range for the purposes of the Melta trait. Melta Bombs cannot be used in a grenade launcher. In addition, they may be placed onto a vehicle or structure within 1m rather than thrown, requiring a Tech test with a DN equal to the vehicle’s Defence. Placed melta bombs do not detonate immediately and can be detonated as a simple action on any of the character’s subsequent turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 149, 'Psyk-Out Grenade', '8L', 'Exotic, Silent Sisterhood, Grey Knights, Templum Culexus'),
+      ...rangez('Grenades & Grenade Launcher', 7, 4, 0, 'STRx4', '-', 'Blast (Medium)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 149, 'Shock Grenade', '7V', 'Exotic, Adeptus Astartes, Primaris'),
+      ...rangez('Grenades & Grenade Launcher', '-', '-', '-', 'STRx4', '-', 'Blast (Medium)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Shock Grenades do not inflict damage. Rather, to use a Shock Grenade, make a Ballistic Skill test as an Interaction Attack against your targets’ Resolve (make one test and compare it individually to the Resolve of each enemy in the blast). This inflicts the normal results from an Interaction Attack on each affected target, and all targets must either be hindered or vulnerable—you can’t mix and match.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 149, 'Smoke Grenade', '4C', 'Explosive, [Any]'),
+      ...rangez('Grenades & Grenade Launcher', '-', '-', '-', 'STRx4', '-', 'Blast (Large)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round. Strong winds may make the smoke dissipate more quickly, at GM’s discretion.</p>',
+    },
+  ],
+  // Chaos Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key, 150, 'Blastmaster', '7V', 'Sonic, Chaos, Slaanesh'),
+      meta: [
+        ...metaRange(16, 2, -2, 48, 1, ['Blast (Medium)', 'Cacophony', 'Heavy (6)'], 'Single Frequenzy'),
+        ...metaRange(10, 1, -1, 36, 1, ['Blast (Large)', 'Cacophony', 'Heavy (6)'], 'Varied Frequenzy'),
+      ],
+      type: 'Ranged Weapon', subtype: 'Chaos Weapon',
+      description:
+        '<p><strong>Special: </strong>When firing a Blastmaster, choose which profile you wish to use before resolving the attack.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Blight Grenade', '4U', 'Explosive, Chaos, Nurgle'),
+      ...rangez('Chaos Weapon',10,4,0,'STRx4','-','Blast (Medium), Inflict (Poisoned 4)'),
+      description:
+        '<p><strong>Special: </strong>A character Poisoned by a NURGLE weapon suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Blight Launcher', '7V', 'Explosive, Chaos, Nurgle'),
+      ...rangez('Chaos Weapon',13,4,-2,24,2,'Assault, Blast (Medium), Inflict (Poisoned 4)'),
+      description:
+        '<p><strong>Special: </strong>A character Poisoned by a NURGLE weapon suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Doom Siren', '6R', 'Sonic, Chaos, Slaanesh'),
+      ...rangez('Chaos Weapon',12,1,-2,8,1,'Assault, Blast (Medium), Cacophony'),
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Heavy Warpflamer', '6R', 'Fire, Chaos, Tzeench'),
+      ...rangez('Chaos Weapon',12,2,-2,8,2,'Corrupting, Flamer, Heavy (6)'),
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Plague Belcher', '6R', 'Pestilent, Chaos, Nurgle'),
+      ...rangez('Chaos Weapon',10,1,0,8,1,'Assault, Flamer, Inflict (Poisoned 4), Spread'),
+      description:
+        '<p><strong>Special: </strong>PESTILENT weapons with the Flamer trait do not inflict the On Fire condition. Rather, they inflict the Poisoned 4 condition. A character Poisoned by a NURGLE weapon suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Plague Spewer', '6R', 'Pestilent, Chaos, Nurgle'),
+      ...rangez('Chaos Weapon',12,2,-1,8,2,'Flamer, Heavy (6), Inflict (Poisoned 4)'),
+      description:
+        '<p><strong>Special: </strong>PESTILENT weapons with the Flamer trait do not inflict the On Fire condition. Rather, they inflict the Poisoned 4 condition. A character Poisoned by a NURGLE weapon suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Sonic Blaster', '6R', 'Sonic, Chaos, Slaanesh'),
+      ...rangez('Chaos Weapon',10,1,0,24,3,'Assault, Cacophony'),
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Warpflame Pistol', '6R', 'Fire, Chaos, Tzeench'),
+      ...rangez('Chaos Weapon',7,1,-2,6,1,'Corrupting, Flamer, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Warpflamer', '6R', 'Fire, Chaos, Tzeench'),
+      ...rangez('Chaos Weapon',10,1,-2,8,1,'Assault, Corrupting, Flamer'),
+    },
+  ],
   // Aeldari < Ranged
   {
     ...gear(source.aaoa.key,152,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani'),
@@ -1911,12 +2225,6 @@ const aaoav2 = [
     ...rangeAaoa('15+1ED; AP -4; Range 60m; Salvo 2; Rapid Fire [1], Supercharge', 'Plasma Weapon', ''),
     description:
       '<p>A more advanced version of the standard plasma gun, the Mark III Belisarius-pattern plasma incinerator is the primary weapon of Primaris Hellblasters, used to deliver death and destruction to armoured targets from afar.</p>',
-  },
-  {
-    ...simpleStub(30934, 'aaoa2', 93, 'Fragstorm Grenade Launcher', '6V', 'Explosive, Imperium, Adeptus Astartes, Primaris', ''),
-    ...rangeAaoa('10+1ED; AP 0; Range 35m; Salvo 3; Assault, Blast (Medium)', 'Grenades and Grenade Launchers', ''),
-    description:
-      '<p>Utilised by Primaris Aggressors and aboard certain Astartes vehicles, Fragstorm grenade launchers fire salvoes of charges similar to frag grenades, though somewhat denser and more compact, raining down fire and shrapnel upon the enemy.</p>',
   },
   {
     ...simpleStub(30936, 'aaoa2', 93, 'Psyk-Out Grenades', '8L', 'Explosive, Imperium, Inquisition, Grey Knights, Silent Sisterhood, Templum Culexus', ''),
