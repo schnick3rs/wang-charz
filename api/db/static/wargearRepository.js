@@ -2222,11 +2222,12 @@ const aaoaAugmetics = [
       '<p>The luminen capacitor regains its full charges during a Regroup. The character may also siphon power from powered devices and power sources, requiring a Toughness test (DN 3) and an action. Success means the character regains 1d3 charges, plus 1 for each Exalted Icon shifted. At the GM’s discretion, this may depower the device, and complications may cause damage to the device or the recipient.</p>',
   },
   {
-    ...gear(source.aaoa.key,192,'Neurostatic projector', '6R', 'Adeptus Mechanicus, Skitarii'),
+    ...gear(source.aaoa.key,191,'Maglev Coils', '8V', 'Cult Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
-    snippet: 'All Creatures (excluding ADEPTUS MECHANICUS allies) within 10m suffer +Rank DN to Intellect and Resolve tests.',
+    snippet: 'Allow the user to fly.',
     description:
-      '<p>Creatures within 10 metres of the character add +Rank to the DN of all Intellect tests (including Awareness), and Resolve tests. Allies with the ADEPTUS MECHANICUS keyword receive null-codes which render them immune to this.</p>',
+      '<p>When activated, the character gains the ability to fly, at a speed equal to their Willpower (rounded up), but they may not Run or Sprint while flying in this manner. Each turn the character remains aloft, they suffer 1 Shock.</p>'+
+      '<p>The character may also use this implant to slow their descent while falling, suffering 1d3 Shock, plus 1 additional Shock for every 10 meters fallen, instead of the normal falling damage.</p>',
   },
   {
     ...gear(source.aaoa.key,191,'Memorance Implant','6R','Adeptus Mechanicus'),
@@ -2238,6 +2239,38 @@ const aaoaAugmetics = [
       { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 1, rank: 0, condition: 'when based on information witnessed and recorder.' },
       { targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 1, rank: 0, condition: 'when based on information witnessed and recorder.' },
     ],
+  },
+  {
+    ...gear(source.aaoa.key,192,'Neurostatic projector', '6R', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'All Creatures (excluding ADEPTUS MECHANICUS allies) within 10m suffer +Rank DN to Intellect and Resolve tests.',
+    description:
+      '<p>Creatures within 10 metres of the character add +Rank to the DN of all Intellect tests (including Awareness), and Resolve tests. Allies with the ADEPTUS MECHANICUS keyword receive null-codes which render them immune to this.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,192,'Omnispex', '6R', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'High end Auspex with target acquisition and data sharing capability.',
+    description:
+	  '<p>An omnispex functions as an auspex, in addition if the recipient aims at an enemy, then they ignore any Defence bonuses from cover on their next ranged attack.</p>'+
+	  '<p>If the recipient is equipped with a data-tether, they may share this bonus with any allies equipped with data-tethers within 10m.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,192,'Scribe-Tines', '4U', 'Imperium, Adeptus Mechanicus, Adeptus Ministorum'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Specialised and sensitive tools for page-turning, autoscribing, data-slate manipulation, and other activities for a sage.',
+    description:
+      '<p>Replace the hand and lower forearm, The user gains a +2d bonus on Investigation tests, as they are able to record and retrieve information quickly.</p>',
+	modifications: [
+	 { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 1, rank: 0' },
+    ],
+  },
+  {
+    ...gear(source.aaoa.key,192,'Voidskin', '4U', 'Imperium, Adeptus Mechanicus, Imperial Navy'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Help resist exposure to hard vacuum, extreme cold and radiation',
+    description:
+      '<p>Subdermal  skin  tissue and synthetic  chem-glands giving a +3d bonus on all tests to resist the effects of exposure to hard vacuum, extreme cold, and radiation.</p>',
   },
 ];
 
