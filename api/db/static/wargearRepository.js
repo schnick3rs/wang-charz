@@ -1327,7 +1327,7 @@ const aaoaMelee = [
   // Exotic Melee Weapons
   ...[
     {
-      ...gear(source.aaoa.key,135,'Chordclaw', '6R', 'Transonic,Adaptus Mechanicus,Skitarii'),
+      ...gear(source.aaoa.key,135,'Chordclaw', '6R', 'Transonic,Adeptus Mechanicus,Skitarii'),
       ...meleez('Exotic Melee Weapon',4,3,0,1,'Careful, Mortal (d3)'),
     },
     {
@@ -2136,11 +2136,74 @@ const aaoaToolsEquipment = [
 const aaoaAugmetics = [
   // Augmetics
   {
+    ...gear(source.aaoa.key,189,'Autosanguine', '6V', 'Adeptus Mechanicus, Cult Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Greatly enhance healing capacity and ignore wounded penalty.',
+    description:
+      '<p>Whenever you  regain  one or  more  Wounds, you regain one additional Wound. You also ignore the penalty for being Wounded. </p>',
+  },
+  {
+    ...gear(source.aaoa.key,189,'Baleful Eye', '8L', 'Adeptus Mechanicus, Imperium'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Give a Hot-Shot laser eye',
+    description:
+      '<p>A character with a Baleful Eye is considered to have a Hot-Shot  Laspistol  within  the  eye.  The  weapon  runs from an internal power source, and never runs out of ammunition, but this also means that ammo may not be spent on the weapon’s attacks. As might be imagined, it is very intimidating when used as a part of negotiations with primitive societies.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,190,'Blade-Tines', '5R', 'Chaos, Dark Mechanicus, Drukhari'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Hand mounted scalpel like blade. Good for medic or killer.',
+    description:
+      '<p>Blade-tines  grant  the  recipient  +1d  on  all  Medicae tests, and they can be used as a Mono-Knife in melee. </p>',
+	modifications: [
+		{ targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 1, rank: 0},
+    ],
+  },
+  {
+    ...gear(source.aaoa.key,190,'Calculus Logi Implant', '6V', 'Imperium, Adeptus Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Internal cogitator implants which aid in data retention and processing',
+    description:
+      '<p>The recipient has a +2d bonus on all Investigation and Scholar tests.</p>',
+	modifications: [
+		{ targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 2, rank: 0},
+		{ targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 2, rank: 0},
+    ],
+  },
+  {
+    ...gear(source.aaoa.key,190,'Chem Injector', '5R', 'Adeptus Mechanicus, Imperium, Adeptus Ministorum'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'This implant allows a dose of a drug or stimulant to be auto-injected  into  the  recipient’s  body.',
+    description:
+      '<p>Once  loaded with  a  dose  of  a  drug, the character can administer that dose at will as a simple action.</p>'+
+	  '<p>Some Chem Injector can be remotely controlled by another character via vox link.</p>'+
+	  '<p>A character can  have multiple Chem Injector, they do not need to contain the same drug.</p>',
+  },
+  {
     ...gear(source.aaoa.key,190,'Data-Tether', '3U', 'Adeptus Mechanicus, Skitarii'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'Silently communicate your thoughts and status to similar equipped within 1km. ',
     description:
       '<p>Characters with a data-tether may communicate silently to similarly-equipped characters within 1km, transmitting their thoughts and status through the implant to one another. A data-tether may be tuned to receive normal vox transmissions from non-Skitarii allies, though this is less efficient.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,190,'Enhanced Data-Tether', '5R', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Commanding officier version of a Data-Tether with a range of 100km.',
+    description:
+      '<p>Enhanced data-tether with a range of 100k. In addition the recipient and anyone in the group with a NORMAL data-tether may re-roll failures on Resolve tests.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,190,'Interface Port', '7R', 'Adeptus Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Direct neural interface for cogitator, data storage devices or advanced machinery.',
+    description:
+      '<p>This allows the user faster and smoother access to the valuable information within, and grants a +1d bonus  to  Scholar,  Investigate,  and  Tech  tests  while connected to a relevant mechanism or data-spool.</p>',
+	modifications: [
+      { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 1, rank: 0, condition: 'while connected to a relevant mechanism or data-spool.' },
+      { targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 1, rank: 0, condition: 'while connected to a relevant mechanism or data-spool.' },
+	  { targetGroup: 'skills', targetValue: SKILLS.TECH, modifier: 1, rank: 0, condition: 'while connected to a relevant mechanism or data-spool.' }
+    ],
   },
   {
     ...gear(source.aaoa.key,191,'Luminen capacitor', '7V', 'Cult Mechanicus'),
