@@ -1851,60 +1851,61 @@ const aaoaRanged = [
     },
   ],
   // Aeldari < Ranged
-  {
+  ...[{
     ...gear(source.aaoa.key,152,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani'),
     ...rangez('Aeldari Ranged Weapon', 10, 1, 0, 18, 3, 'Assault, Rending (3)'),
   },
-  {
-    ...gear(source.aaoa.key,152,'Bright Lance', '7R','Las, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 16, 3, -4, 36, 0, 'Heavy (4), Sniper (1)'),
-  },
-  {
-    ...gear(source.aaoa.key,152,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 14, 2, 0, 12, 3, 'Assault, Brutal, Inflict (Restrained), Rending (4)'),
-  },
-  {
-    ...gear(source.aaoa.key,152,'Dragon´s Breath Flamer', '7L','Fire, Ancient, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 12, 3, -1, 20, 3, 'Assault, Blast (Large), Inflict (On Fire), Spread'),
-  },
-  {
-    ...gear(source.aaoa.key,152,'Firepike', '7L','Melta, Ancient, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 16, 4, -4, 18, 1, 'Assault, Blast (Small), Inflict (On Fire), Melta'),
-  },
-  {
-    ...gear(source.aaoa.key,152,'Fusion Pistol', '7R','Melta, Aeldari'),
-    ...rangez('Aeldari Ranged Weapon', 16, 1, -4, 6, 1, 'Melta, Pistol'),
-  },
-  {
-    ...gear(source.aaoa.key,152,'Laser Lance', '7R','Las, Aeldari, Asuryani, Exodite'),
-    ...rangez('Aeldari Ranged Weapon', 14, 2, -4, 6, 0, 'Assault, Melee'),
-    description:
-      '<p><strong>Melee:</strong> A Laser Lance can be used as a melee weapon, using the following profile:</p>' +
-      '<p>Range: 2m, Damage: 3 +3ED, AP: -4, Special</p>' +
-      '<p><strong>Special:</strong> When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>',
-  },
-  {
-    ...gear(source.aaoa.key,153,'Neuro Disruptor', '8V','Exotic, Harlequins'),
-    ...rangez('Aeldari Ranged Weapon', 4,4,0, 18, 0, 'Pistol, Special'),
-    description:
-      '<p><strong>Special:</strong> A Neuro Disruptor uses no ammunition and cannot run out of ammunition. It just works. Nobody knows entirely how. The damage of a Neuro Disruptor is compared to the target’s Resolve, rather than Resilience, and each point of damage inflicted is a Mortal Wound instead of a normal wound. It has no effect against mindless creatures or inanimate objects.</p>',
-  },
-  {
-    ...gear(source.aaoa.key,153,'Hallucinogen Grenade', '7R','Gas, Aeldari, Harlequins'),
-    ...rangez('Aeldari Ranged Weapon', '*','*','*', 'STRx4', '-', 'Blast (Large), Special'),
-    description:
-      '<p><strong>Special:</strong> Any creature caught in the blast of a Hallucinogen Grenade must pass a Terror test (TN 5). Further, if a creature suffers a complication on this test, then they also suffer 1d3 mortal wounds.</p>',
-  },
-  {
-    ...gear(source.aaoa.key,153,'Pack Grenade Launcher', '7R','Explosive, Harlequins'),
-    ...rangez('Aeldari Ranged Weapon','*','*','*',18,'-','Assault, Special'),
-    description:
-      '<p><strong>Special:</strong> A Pack Grenade Launcher can carry up to 6 grenades, and additional grenades cannot be loaded during battle.</p>',
-  },
-  {
-    ...gear(source.aaoa.key,153,'Shuriken Cannon', '6R','Shuriken, Aeldari'),
-    ...rangez('Aeldari Ranged Weapon',14,2,0,24,4,'Assault, Heavy (3), Rending (3)'),
-  },
+    {
+      ...gear(source.aaoa.key,152,'Bright Lance', '7R','Las, Aeldari, Asuryani'),
+      ...rangez('Aeldari Ranged Weapon', 16, 3, -4, 36, 0, 'Heavy (4), Sniper (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani'),
+      ...rangez('Aeldari Ranged Weapon', 14, 2, 0, 12, 3, 'Assault, Brutal, Inflict (Restrained), Rending (4)'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Dragon´s Breath Flamer', '7L','Fire, Ancient, Aeldari, Asuryani'),
+      ...rangez('Aeldari Ranged Weapon', 12, 3, -1, 20, 3, 'Assault, Blast (Large), Inflict (On Fire), Spread'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Firepike', '7L','Melta, Ancient, Aeldari, Asuryani'),
+      ...rangez('Aeldari Ranged Weapon', 16, 4, -4, 18, 1, 'Assault, Blast (Small), Inflict (On Fire), Melta'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Fusion Pistol', '7R','Melta, Aeldari'),
+      ...rangez('Aeldari Ranged Weapon', 16, 1, -4, 6, 1, 'Melta, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Laser Lance', '7R','Las, Aeldari, Asuryani, Exodite'),
+      ...rangez('Aeldari Ranged Weapon', 14, 2, -4, 6, 0, 'Assault, Melee'),
+      description:
+        '<p><strong>Melee:</strong> A Laser Lance can be used as a melee weapon, using the following profile:</p>' +
+        '<p>Range: 2m, Damage: 3 +3ED, AP: -4, Special</p>' +
+        '<p><strong>Special:</strong> When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,153,'Neuro Disruptor', '8V','Exotic, Harlequins'),
+      ...rangez('Aeldari Ranged Weapon', 4,4,0, 18, 0, 'Pistol, Special'),
+      description:
+        '<p><strong>Special:</strong> A Neuro Disruptor uses no ammunition and cannot run out of ammunition. It just works. Nobody knows entirely how. The damage of a Neuro Disruptor is compared to the target’s Resolve, rather than Resilience, and each point of damage inflicted is a Mortal Wound instead of a normal wound. It has no effect against mindless creatures or inanimate objects.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,153,'Hallucinogen Grenade', '7R','Gas, Aeldari, Harlequins'),
+      ...rangez('Aeldari Ranged Weapon', '*','*','*', 'STRx4', '-', 'Blast (Large), Special'),
+      description:
+        '<p><strong>Special:</strong> Any creature caught in the blast of a Hallucinogen Grenade must pass a Terror test (TN 5). Further, if a creature suffers a complication on this test, then they also suffer 1d3 mortal wounds.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,153,'Pack Grenade Launcher', '7R','Explosive, Harlequins'),
+      ...rangez('Aeldari Ranged Weapon','*','*','*',18,'-','Assault, Special'),
+      description:
+        '<p><strong>Special:</strong> A Pack Grenade Launcher can carry up to 6 grenades, and additional grenades cannot be loaded during battle.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,153,'Shuriken Cannon', '6R','Shuriken, Aeldari'),
+      ...rangez('Aeldari Ranged Weapon',14,2,0,24,4,'Assault, Heavy (3), Rending (3)'),
+    },
+  ],
   // Drukhari < Ranged
   ...[
     {
