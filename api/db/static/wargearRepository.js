@@ -1665,6 +1665,8 @@ const aaoaRanged = [
     },
     {
       ...gear(source.aaoa.key,145,'Deathwatch Frag Cannon', '8V', 'Explosive, Projectile, Deathwatch'),
+      type: 'Ranged Weapon',
+      subtype: 'Exotic Weapon',
       meta: [
         metaRange(14, 2, -1, 8, 2, ['Assault', 'Blast (Large)', 'Heavy (6)', 'Spread', 'Special'], 'Shrapnel'),
         metaRange(16, 2, -2, 24, 2, ['Assault', 'Heavy (6)', 'Special'], 'Shell'),
@@ -1674,6 +1676,7 @@ const aaoaRanged = [
     },
     {
       ...gear(source.aaoa.key,145,'Executioner', '9L', 'Bolt, Needle, Officio Assasinorum, Tempus Eversor'),
+      type: 'Ranged Weapon',
       subtype: 'Exotic Weapon',
       meta: [
         metaRange(10, 2, 0, 12, 1, ['Brutal', 'Pistol', 'Silent', 'Special'], 'Bolt'),
@@ -1797,11 +1800,11 @@ const aaoaRanged = [
   ...[
     {
       ...gear(source.aaoa.key, 150, 'Blastmaster', '7V', 'Sonic, Chaos, Slaanesh'),
+      type: 'Ranged Weapon', subtype: 'Chaos Weapon',
       meta: [
         metaRange(16, 2, -2, 48, 1, ['Blast (Medium)', 'Cacophony', 'Heavy (6)'], 'Single Frequenzy'),
         metaRange(10, 1, -1, 36, 1, ['Blast (Large)', 'Cacophony', 'Heavy (6)'], 'Varied Frequenzy'),
       ],
-      type: 'Ranged Weapon', subtype: 'Chaos Weapon',
       description:
         '<p><strong>Special: </strong>When firing a Blastmaster, choose which profile you wish to use before resolving the attack.</p>',
     },
