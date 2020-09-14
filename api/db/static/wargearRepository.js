@@ -2182,7 +2182,7 @@ const aaoaAugmetics = [
   {
     ...gear(source.aaoa.key,190,'Data-Tether', '3U', 'Adeptus Mechanicus, Skitarii'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
-    snippet: 'Silently communicate your thoughts and status to similar equipped within 1km. ',
+    snippet: 'Silently communicate your thoughts and status to similar equipped within 1km.',
     description:
       '<p>Characters with a data-tether may communicate silently to similarly-equipped characters within 1km, transmitting their thoughts and status through the implant to one another. A data-tether may be tuned to receive normal vox transmissions from non-Skitarii allies, though this is less efficient.</p>',
   },
@@ -2262,7 +2262,7 @@ const aaoaAugmetics = [
     description:
       '<p>Replace the hand and lower forearm, The user gains a +2d bonus on Investigation tests, as they are able to record and retrieve information quickly.</p>',
 	modifications: [
-	 { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 1, rank: 0' },
+	 { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 2, rank: 0 },
     ],
   },
   {
@@ -2383,7 +2383,7 @@ const aaoav2 = [
   {
     ...simpleStub(31193, 'aaoa2', 119, 'Inferno Bolt Rounds', '7R', 'Chaos, Heretic Astartes, Tzeentch', ''),
     type: 'Reloads and Ammunition',
-    snippet: 'Weapon gains AP -2, and the Fire keyword..',
+    snippet: 'Weapon gains AP -2, and the Fire keyword.',
   },
   {
     ...simpleStub(31262, 'aaoa2',126,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
