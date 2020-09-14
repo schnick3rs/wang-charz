@@ -1798,8 +1798,8 @@ const aaoaRanged = [
     {
       ...gear(source.aaoa.key, 150, 'Blastmaster', '7V', 'Sonic, Chaos, Slaanesh'),
       meta: [
-        ...metaRange(16, 2, -2, 48, 1, ['Blast (Medium)', 'Cacophony', 'Heavy (6)'], 'Single Frequenzy'),
-        ...metaRange(10, 1, -1, 36, 1, ['Blast (Large)', 'Cacophony', 'Heavy (6)'], 'Varied Frequenzy'),
+        metaRange(16, 2, -2, 48, 1, ['Blast (Medium)', 'Cacophony', 'Heavy (6)'], 'Single Frequenzy'),
+        metaRange(10, 1, -1, 36, 1, ['Blast (Large)', 'Cacophony', 'Heavy (6)'], 'Varied Frequenzy'),
       ],
       type: 'Ranged Weapon', subtype: 'Chaos Weapon',
       description:
