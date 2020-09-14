@@ -1,3 +1,5 @@
+//import redirectSSL from 'redirect-ssl';
+
 const colors = require('vuetify/es5/util/colors').default;
 const path = require('path');
 const axios = require('axios');
@@ -16,7 +18,6 @@ module.exports = {
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-
       { hid: 'robots', name: 'robots', content: 'index,follow' },
       { hid: 'description', name: 'description', content: process.env.npm_package_description || '' },
       { hid: 'keywords', name: 'keywords', content: 'Wrath and Glory,Wrath & Glory,W&G,Homebrew,40k,Warhammer,Roleplaying Game' },
@@ -235,6 +236,7 @@ module.exports = {
 
   serverMiddleware: [
     'redirect-ssl',
+    //redirectSSL.create({enabled: process.env.NODE_ENV === 'production'}),
     '~/api/express', // handles /api/** calls
     // '~/serverMiddleware/forcedomain'
   ],

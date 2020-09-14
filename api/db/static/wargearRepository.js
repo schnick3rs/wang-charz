@@ -11,7 +11,8 @@ const rarity = {
 };
 
 const TYPES = {
-
+  RANGED: 'Ranged Weapon',
+  MELEE: 'Melee Weapon',
 };
 
 const gear = function (sourceKey, sourcePage, name, value, keywords, stub = false) {
@@ -107,7 +108,18 @@ const toolz = function(subtype, snippet) {
   };
 }
 
-const metaRange = function(staticPart, ed, ap, range, salvo, traits) {
+/**
+ *
+ * @param staticPart
+ * @param ed
+ * @param ap
+ * @param range
+ * @param salvo
+ * @param traits
+ * @param label
+ * @returns {{damage: {static: *, ed: *}, traits: *, salvo: *, range: *, label: undefined, type: string, ap: *}}
+ */
+const metaRange = function(staticPart, ed, ap, range, salvo, traits, label = undefined) {
   return {
     type: 'ranged-weapon',
     range,
@@ -115,6 +127,7 @@ const metaRange = function(staticPart, ed, ap, range, salvo, traits) {
     ap,
     salvo,
     traits,
+    label,
   };
 }
 
@@ -232,7 +245,6 @@ const meleePax = function (paxString, subtype = '') {
   };
 };
 
-
 const core = [
   {
     ...gear(source.core.key,211,'Knife','2C','Blade,[Any]'),
@@ -291,7 +303,7 @@ const core = [
     ...meleez('Exotic Melee Weapon',3,2,-2,4,'Agonising'),
   },
   {
-    ...gear(source.core.key,214,'Shock Whip','4V','Excotic,[Any]'),
+    ...gear(source.core.key,214,'Shock Whip','4V','Exotic,[Any]'),
     ...meleez('Exotic Melee Weapon',4,2,0,4,'Agonising,Rending(2)'),
   },
   {
@@ -1237,18 +1249,839 @@ const core = [
   },
 ];
 
-const aaoaAstartes = [
+const aaoaMelee = [
+  // Ordinary Melee Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,133,'Axe', '3C','Blade, [Any]'),
+      ...meleez('Ordinary Melee Weapon', 3, 4, 0, 1, 'Rending (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,133,'Flail', '3C','[Any]'),
+      ...meleez('Ordinary Melee Weapon', 3, 3, 0, 1, 'Brutal, Overhelming'),
+    },
+    {
+      ...gear(source.aaoa.key,133,'Greataxe', '3C','Blade, 2-Handed, [Any]'),
+      ...meleez('Ordinary Melee Weapon', 4, 4, 0, 2, 'Rending (1), Unwieldy (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,133,'Greatsword', '3C','Blade, 2-Handed, [Any]'),
+      ...meleez('Ordinary Melee Weapon', 4, 3, -1, 2, 'Parry'),
+    },
+    {
+      ...gear(source.aaoa.key,133,'Spear', '2C','[Any]'),
+      ...meleez('Ordinary Melee Weapon', 3, 3, 0, 2, ''),
+    },
+  ],
+  // Force Melee Weapon
+  ...[
+
+    {
+      ...gear(source.aaoa.key,133,'Nemesis Falchion', '6V','Force, Grey Knights'),
+      ...meleez('Force Weapon', 5, 4, -2, 1, 'Force, Nemesis, Paired, Parry'),
+    },
+    {
+      ...gear(source.aaoa.key,133,'Nemesis Force Halberd', '6V','Force, Grey Knights'),
+      ...meleez('Force Weapon', 5, 5, -2, 2, 'Force, Nemesis'),
+    },
+    {
+      ...gear(source.aaoa.key,133,'Nemesis Force Sword', '6V','Force, Grey Knights'),
+      ...meleez('Force Weapon', 5, 4, -3, 1, 'Force, Nemesis, Parry'),
+    },
+    {
+      ...gear(source.aaoa.key,133,'Nemesis Warding Stave', '6V','Force, Grey Knights'),
+      ...meleez('Force Weapon', 4, 2, -1, 1, 'Brutal, Force, Nemesis, Special'),
+      description:
+        '<p><strong>Special: </strong>Against melee attacks, a Nemesis Warding Stave also counts as a shield, providing an Armour Rating of *2, with the Force Shield and Shield traits.</p>',
+    },
+  ],
+  // Power Melee Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,134,'Crozius Arcanum', '6V', 'Power Field,Adeptus Astartes'),
+      ...meleez('Power Weapon',5,5,-1,1,'Brutal'),
+    },
+    {
+      ...gear(source.aaoa.key,134,'Accursed Crozius', '6V', 'Power Field,Heretic Astartes'),
+      ...meleez('Power Weapon',5,5,-1,1,'Brutal'),
+    },
+    {
+      ...gear(source.aaoa.key,134,'Executioner Greatblade', '6V', 'Power Field, 2-Handed, Silent Sisterhood'),
+      ...meleez('Power Weapon',6,4,-3,2,'Parry'),
+    },
+    {
+      ...gear(source.aaoa.key,134,'Lightning Claw', '7V', 'Power Field, Adeptus Astartes'),
+      ...meleez('Power Weapon',5,4,-2,1,'Paired, Tearing'),
+    },
+    {
+      ...gear(source.aaoa.key,134,'Power Lance', '6V', 'Power Field, Imperium, Adeptus Astartes'),
+      ...meleez('Power Weapon',5,4,-1,2,'Special'),
+      description:
+        '<p><strong>Special: </strong>When used from a moving open-topped vehicle or other mount, add the Brutal trait.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,134,'Relic Blade', '8V', 'Power Field, 2-Headed, Adeptus Astartes'),
+      ...meleez('Power Weapon',6,5,-3,2,''),
+    },
+  ],
+  // Exotic Melee Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,135,'Chordclaw', '6R', 'Transonic,Adeptus Mechanicus,Skitarii'),
+      ...meleez('Exotic Melee Weapon',4,3,0,1,'Careful, Mortal (d3)'),
+    },
+    {
+      ...gear(source.aaoa.key,135,'Electrostatic Staff', '6R', 'Luminen, 2-Handed, Adeptus Mechanicus'),
+      ...meleez('Exotic Melee Weapon', 6, 3, -2, 2,  'Agonizing, Mortal(d3), Special'),
+      description:
+        '<p><strong>Special: </strong>Only a character with a Luminen Capacitor may wield an Electroleech Staff – in the hands of anyone else, it counts as a normal staff. Each point of Shock inflicted by an Electroleech Staff adds 1 point of charge to the user’s Luminen Capacitor..</p>',
+    },
+    {
+      ...gear(source.aaoa.key,135,'Electrostatic Gauntlets', '6R', 'Luminen, 2-Handed, Adeptus Mechanicus'),
+      ...meleez('Exotic Melee Weapon', 6, 3, 0, 1,  'Tesla'),
+      //...rangez('Projectile Range Weapon', 12, 1, 0, 12, 3, 'Assault, Tesla, Special'),
+      description:
+        '<p><strong>Ranged: </strong>Electrostatic Gauntlets can be used as a Ranged weapon, using the following profile:</p>' +
+        '<p>Range: 12, Damage: 12+1ED, Salvo: 3, Assault, Tesla</p>' +
+        '<p><strong>Special: </strong>Only a character with a Luminen Capacitor may wield Electrostatic Gauntlets. Electrostatic Gauntlets do not use normal reloads – instead, the wielder may expend charges from their Luminen Capacitor to gain the benefits of spending a reload, with each charge spent counting as one reload.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,135,'Neuro Gauntlet', '9L', 'Officio Assassinorum, Templus Eversor'),
+      ...meleez('Exotic Melee Weapon', 6, 4, -1, 1,  'Inflict (Poisoned 5), Special'),
+      description:
+        '<p><strong>Special: </strong>While <em>Poisoned</em> by a Neuro-Gauntlet, a character is <em>Restrained</em> and suffers 1d3 Mortal Wounds at the beginning of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,135,'Phase Sword', '10L', 'Phase Blade, Officio Assasinorum, Templum Callidus'),
+      ...meleez('Exotic Melee Weapon',5,4,-3,1,'Warp Weapon'),
+    },
+    {
+      ...gear(source.aaoa.key,135,'Poisoned Blades', '7V', 'Blade, Officio Assasinorum, Templum Callidus'),
+      ...meleez('Exotic Melee Weapon',3,2,-1,1,'Inflict (Poisoned 5), Mortal (d3), Rending (3), Special'),
+      description:
+        '<p><strong>Special: </strong>A character Poisoned by Poisoned Blades suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,135,'Taser Goad', '5R', 'Taser, Adeptus Mechanicus, Skitarii'),
+      ...meleez('Exotic Melee Weapon',7,3,0,1,'Agonizing, Tesla'),
+    },
+    {
+      ...gear(source.aaoa.key,135,'Transonic Blade', '6R', 'Transonic, Adeptus Mechanicus, Skitarii'),
+      ...meleez('Exotic Melee Weapon',5,3,0,1,'Paired, Mortal (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,135,'Transonic Razor', '6R', 'Transonic, Adeptus Mechanicus, Skitarii'),
+      ...meleez('Exotic Melee Weapon',4,3,0,1,'Mortal (1)'),
+    },
+  ],
+  // Chaos Melee Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,137,'Bubobic Axe', '7R', 'Blade, Chaos, Nurgle'),
+      ...meleez('Chaos Melee Weapon',5,5,-2,1,'Inflict (Poisoned 4), Rending (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,137,'Flail of Corruption', '7R', 'Chaos, Nurgle'),
+      ...meleez('Chaos Melee Weapon',6,4,-2,2,'Brutal, Inflict (Poisoned 4), Overwhelming'),
+    },
+    {
+      ...gear(source.aaoa.key,137,'Great Plague Cleaver', '7V', 'Blade, 2-Handed, Chaos, Nurgle'),
+      ...meleez('Chaos Melee Weapon',8,6,-3,2,'Brutal, Inflict (Poisoned 4), Unwieldy (2)'),
+    },
+    {
+      ...gear(source.aaoa.key,137,'Mace of Contagion', '6R', '2-Handed, Chaos, Nurgle'),
+      ...meleez('Chaos Melee Weapon',5,5,-1,1,'Inflict (Poisoned 4), Unwieldy (2)'),
+    },
+    {
+      ...gear(source.aaoa.key,137,'Manreaper', '7L', 'Blade, 2-Handed, Chaos, Nurgle, Heretic Astartes'),
+      ...meleez('Chaos Melee Weapon',7,4,-3,2,'Inflict (Poisoned 4), Reaping'),
+    },
+    {
+      ...gear(source.aaoa.key,137,'Plague Knife', '5U', 'Blade, Chaos, Nurgle'),
+      ...meleez('Chaos Melee Weapon',3,2,0,1,'Inflict (Poisoned 3)'),
+    },
+    {
+      ...gear(source.aaoa.key,137,'Plague Sword', '7R', 'Blade, Chaos, Daemon, Nurgle'),
+      ...meleez('Chaos Melee Weapon',5,4,0,1,'Inflict (Poisoned 4), Parry'),
+    },
+  ],
+  // Aeldari Melee Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,138,'Biting Blade', '8L','Chain, 2-Handed, Ancient, Aeldari, Asuryani'),
+      ...meleez('Aeldari Melee Weapon', 6, 4, -1, 2, 'Brutal, Silent, Parry, Tearing'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Diresword', '9L','Power Field, Force, Ancient, Aeldari, Asuryani'),
+      ...meleez('Aeldari Melee Weapon', 5, 3, -3, 1, 'Force, Mortal (1), Parry'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Executioner', '9L','Power Field, 2-Handed, Ancient, Aeldari, Asuryani'),
+      ...meleez('Aeldari Melee Weapon', 7, 4, -3, 2, 'Parry, Special'),
+      description:
+        '<p><strong>Special: </strong>The Parry trait of an Executioner adds +2 to the wielder’s Defence in melee, rather than +1.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,138,'Harlequins Blade', '4U','Blade, Harlequin'),
+      ...meleez('Aeldari Melee Weapon', 4, 3, 0, 1, 'Parry, Rending (2)'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Harlequins Caress', '6V','Power Field, Harlequin'),
+      ...meleez('Aeldari Melee Weapon', 5, 5, -2, 1, 'Brutal'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Harlequins Embrace', '6V','Monofilament, Harlequin'),
+      ...meleez('Aeldari Melee Weapon', 5, 4, -3, 1),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Harlequins Kiss', '6V','Monofilament, Harlequin'),
+      ...meleez('Aeldari Melee Weapon', 5, 4, -1, 1, 'Careful, Mortal (3)'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Mirrorsword', '9L','Power Field, Aeldari, Anient, Asuryani'),
+      ...meleez('Aeldari Melee Weapon', 5, 4, -2, 1, 'Paired, Parry'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Miststave', '7V','Force, Harlequin'),
+      ...meleez('Aeldari Melee Weapon', 5, 3, -1, 1, 'Agonizing, Force'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Power Blade', '6R','Power Field, Aeldari, Asuryani'),
+      ...meleez('Aeldari Melee Weapon', 5, 3, -2, 1),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Psytronome Shaper', '5R','Force, Aeldari, Asuryani'),
+      ...meleez('Aeldari Melee Weapon', 3, 2, 0, 1, 'Force'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Scorpion Chainsword', '5R','Chain, Asuryani'),
+      ...meleez('Aeldari Melee Weapon', 5, 4, 0, 1, 'Brutal, Parry, Silent'),
+    },
+    {
+      ...gear(source.aaoa.key,138,'Scorpions Claw', '5R','Power Field, Aeldari, Anient, Asuryani'),
+      ...meleez('Aeldari Melee Weapon', 5, 5, -3, 1, 'Brutal'),
+    },
+  ],
+  // Drukhari Melee Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,140,'Agoniser','7V','Exotic, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',5,3,-2,2,'Agonizing, Inflict (Poisoned 5), Special'),
+      description:
+        '<p><strong>Special: </strong>While suffering the Poisoned condition from an Agoniser, a creature also suffers 1d3+1 Shock at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,140,'Hekatarii Blade','5R','Blade, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',3,3,-1,1,'Parry,Rending(1)'),
+    },
+    {
+      ...gear(source.aaoa.key,140,'Huskblade','8V','Blade, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',6,4,-2,1,'Mortal (d3)'),
+    },
+    {
+      ...gear(source.aaoa.key,140,'Hydra Gauntlet','6V','Exotic, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',4,3,-1,1,'Paired, Tearing'),
+    },
+    {
+      ...gear(source.aaoa.key,140,'Impaler','6V','Blade, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',4,4,-1,2,'Brutal'),
+    },
+    {
+      ...gear(source.aaoa.key,140,'Klaive','7V','Power Field, 2-Handed, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',5,5,-3,1,'Parry'),
+    },
+    {
+      ...gear(source.aaoa.key,140,'Raizorflail','5R','Blade, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',4,3,-1,2,'Overwhelming, Reaping'),
+    },
+    {
+      ...gear(source.aaoa.key,140,'Shardnet','6R','Exotic, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',4,4,0,3,'Agonising, Careful, Inflict (Restrained)'),
+    },
+    {
+      ...gear(source.aaoa.key,140,'Venom Blade','7V','Blade, Drukhari'),
+      ...meleez('Drukhari Melee Weapon',5,4,0,1,'Inflict (Poisoned 7), Special'),
+      description:
+        '<p>Special: While suffering the Poisoned condition from a Venom Blade, a creature also suffers 1d3 Mortal Wounds at the start of each of their turns.</p>'
+    },
+  ],
+  // Ork Melee Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,141,'‘Urty Syringe', '4U', 'Exotic, Ork'),
+      ...meleez('Ork Melee Weapon', 4, 4, 0, 1, 'Careful,Inflict(Poisoned 4), Waaagh!'),
+    },
+    {
+      ...gear(source.aaoa.key,141,'Grabba Stikk', '4U', 'Exotic, Ork'),
+      ...meleez('Ork Melee Weapon', 5, 3, 0, 2, 'Inflict(Restrained), Waaagh!'),
+    },
+    {
+      ...gear(source.aaoa.key,141,'Grot Prod', '5R', 'Exotic, Ork'),
+      ...meleez('Ork Melee Weapon', 5, 5, -1, 1, 'Agonising, Waaagh!'),
+    },
+    {
+      ...gear(source.aaoa.key,141,'Killsaw', '10V', 'Exotic, Ork'),
+      ...meleez('Ork Melee Weapon', 7, 6, -4, 1, 'Brutal, Unwieldy (3), Waaagh!'),
+    },
+    {
+      ...gear(source.aaoa.key,141,'Power Stabba', '6R', 'Power Field, Ork'),
+      ...meleez('Ork Melee Weapon', 5, 4, -2, 1, 'Waaagh!'),
+    },
+    {
+      ...gear(source.aaoa.key,141,'Tankhammer', '8U', 'Exotic, Ork'),
+      ...meleez('Ork Melee Weapon', 10, 5, -2, 1, 'Careful, Blast (Small), Waaagh!'),
+    },
+  ],
+];
+
+const aaoaRanged = [
+  // Bolt Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,142,'Absolvor Bolt Pistol','8V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',12,2,-1,16,1,'Brutal,Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,142,'Auto Bolt Rifle','7V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,24,3,'Assault,Brutal'),
+      description:
+        '<p><em>An Auto Bolt Rifle is fitted with an Ammunition Drum as standard.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Auto-Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,18,3,'Assault, Brutal, Paired'),
+      description:
+        '<p>May be used as Power Fist (Core pg. 212).</p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,14,2,'Assault, Brutal, Steadfast'),
+    },
+    {
+      ...gear(source.aaoa.key,142,'Bolt Sniper Rifle','8V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',12,1,0,36,1,'Brutal, Heavy (6), Sniper (2), Special'),
+      description:
+        '<p><strong>Special: </strong>When firing a Bolt Sniper Rifle, choose a single ammo type: Executioner (AP -1, +2d to the attack roll and ignore cover), Hyperfrag (add the Blast [Small] trait), or Mortis (+1ED, AP -2, add Inflict [Poisoned 5] trait)</p>' +
+        '<p><em>A Bolt Sniper Rifle includes a Monoscope, Preysense Sight, and Silencer as standard.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,12,3,'Brutal, Pistol'),
+      description:
+        '<p>May be used as Power Fist (Core pg. 212).</p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Instigator Bolt Carbine','7R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,2,-1,24,1,'Assault, Brutal, Silent, Sniper (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,142,'Marksman Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,24,1,'Brutal, Rapid Fire (1), Sniper (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,142,'Occulus Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,24,1,'Brutal, Rapid Fire (1), Special'),
+      description:
+        '<p><strong>Special: </strong>If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.</p>' +
+        '<p><em>Marksman Bolt Carbines are fitted with a Preysense Sight as standard.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Stalker Bolt Rifle','7V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,2,-2,36,1,'Brutal, Heavy (4), Sniper (1)'),
+      description:
+        '<p><em>A Stalker Bolt Rifle comes with a Monoscope as standard.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,142,'Stalker-Pattern Boltgun','7V','Bolt, Adeptus Astartes, Deathwatch'),
+      ...rangez('Bolt Weapon',10,1,-1,30,2,'Brutal, Heavy (4), Sniper (1)'),
+      description:
+        '<p><em>A Stalker-pattern Boltgun comes with a Monoscope as standard.</em></p>',
+    },
+  ],
+  // Grav < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key,143,'Grav-pistol','6V','Grav, Adeptus Astartes, Adeptus Mechanicus, Squat'),
+      ...rangez('Grav Weapon',8,1,-3,12,1,'Grav, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,143,'Grav-gun','6V','Grav, Adeptus Astartes, Adeptus Mechanicus, Squat'),
+      ...rangez('Grav Weapon',8,1,-3,18,1,'Grav, Rapid Fire (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,143,'Grav-cannon','7V','Grav, Adeptus Astartes, Adeptus Mechanicus, Squat'),
+      ...rangez('Grav Weapon',8,2,-3,24,4,'Grav, Heavy (8)'),
+    },
+  ],
+  // Plasma < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key,144,'Plasma Incinerator','7V','Plasma, Adeptus Astartes, Primaris'),
+      ...rangez('Plasma Weapon',15,1,-4,30,2,'Rapid Fire (1), Supercharge'),
+    },
+    {
+      ...gear(source.aaoa.key,144,'Assault Plasma Incinerator','7V','Plasma, Adeptus Astartes, Primaris'),
+      ...rangez('Plasma Weapon',13,1,-4,24,2,'Assault, Supercharge'),
+    },
+    {
+      ...gear(source.aaoa.key,144,'Heavy Plasma Incinerator','7V','Plasma, Adeptus Astartes, Primaris'),
+      ...rangez('Plasma Weapon',16,2,-4,36,1,'Heavy (4), Supercharge'),
+      description:
+        '<p><em>A Heavy Plasma Incinerator comes with a backpack ammunition supply.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,144,'Plasma Exterminator','8V','Plasma, Adeptus Astartes, Primaris'),
+      ...rangez('Plasma Weapon',15,2,-3,18,1,'Blast (Small), Heavy (4), Supercharge'),
+    },
+    {
+      ...gear(source.aaoa.key,144,'Plasma Caliver','8V','Plasma, Adeptus Mechanicus, Skitarii'),
+      ...rangez('Plasma Weapon',15,1,-3,18,3,'Assault, Supercharge'),
+    },
+  ],
+  // Flame Weapons
+  ...[
+    {
+      ...gear(source.aaoa.key,145,'Flamestorm Gauntlet','8V','Flame, Power Field, Adeptus Astartes, Primaris'),
+      ...rangez('Flame Weapon',10,1,0,8,1,'Assault, Blast (Medium), Inflict (On Fire), Paired, Spread'),
+      description:
+        '<p>May be used as Power Fist (Core pg. 212).</p>',
+    },
+    {
+      ...gear(source.aaoa.key,145,'Incinerator','8V','Flame, Power Field, Adeptus Astartes, Grey Knights'),
+      ...rangez('Flame Weapon',13,2,-1,8,2,'Blast (Large), Inflict (On Fire), Heavy (6), Spread'),
+    },
+  ],
+  // Exotic < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key,145,'Animus Speculum', '10L', 'Exotic, Officio Assasinorum, Tempus Culexus'),
+      ...rangez('Exotic Weapon', 12, 1, -4, 18, 3, 'Agonizing, Assault, Special'),
+      description:
+        '<p><strong>Special: </strong>The animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,145,'Archeo-Revolver', '7R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 12, 2, -2, 12, 1, 'Pistol, Stalwart'),
+    },
+    {
+      ...gear(source.aaoa.key,145,'Deathwatch Frag Cannon', '8V', 'Explosive, Projectile, Deathwatch'),
+      type: 'Ranged Weapon',
+      subtype: 'Exotic Weapon',
+      meta: [
+        metaRange(14, 2, -1, 8, 2, ['Assault', 'Blast (Large)', 'Heavy (6)', 'Spread', 'Special'], 'Shrapnel'),
+        metaRange(16, 2, -2, 24, 2, ['Assault', 'Heavy (6)', 'Special'], 'Shell'),
+      ],
+      description:
+        '<p><strong>Special: </strong>When firing a Deathwatch frag cannon, select either shrapnel or solid shell mode. When the solid shell mode is used, add +2ED to the damage, and increase the AP to -3 when the target is within short range.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,145,'Executioner', '9L', 'Bolt, Needle, Officio Assasinorum, Tempus Eversor'),
+      type: 'Ranged Weapon',
+      subtype: 'Exotic Weapon',
+      meta: [
+        metaRange(10, 2, 0, 12, 1, ['Brutal', 'Pistol', 'Silent', 'Special'], 'Bolt'),
+        metaRange(8, 3, 0, 12, 1, ['Agonizing', 'Inflict (Poisoned 4)', 'Pistol', 'Silent', 'Special'], 'Needler'),
+      ],
+      description:
+        '<p><em>This functions as a combi-weapon (CORE, pg. 227) composed of a customised master-crafted bolt pistol and a customised needle pistol, fitted with a gene-grip bio-veritor.</em></p>',
+    },
+    {
+      ...gear(source.aaoa.key,145,'Exitus Longrifle', '9L', 'Projectile, Officio Assasinorum, Tempus Vindicare'),
+      ...rangez('Exotic Weapon', 10, 2, -3, 72, 1, 'Sniper (3), Steadfast'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Exitus Pistol', '9L', 'Projectile, Officio Assasinorum, Tempus Vindicare'),
+      ...rangez('Exotic Weapon', 10, 1, -3, 12, 2, 'Pistol, Steadfast'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Flechette Blaster', '5R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 7, 2, 0, 12, 5, 'Pistol, Spread'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Flechette Carbine', '5R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 7, 3, 0, 24, 5, 'Assault, Spread'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Macrostubber', '5R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 10, 1, 0, 12, 5, 'Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Neural Shredder', '9L', 'Exotic, Officio Assasinorum, Templum Callidus'),
+      ...rangez('Exotic Weapon', 4, 4, 0, 9, 0, 'Assault, Blast (Medium), Special'),
+      description:
+        '<p><strong>Special: </strong>A Neural Shredder uses no ammo and never needs to reload. It just works. Nobody knows entirely how. The damage of a Neuro Disruptor is compared to the target’s Resolve, rather than Resilience, and each point of damage inflicted is a Mortal Wound instead of a normal wound. It has no effect against mindless creatures or inanimate objects.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Blast Pistol', '6R', 'Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 12, 1, -1, 12, 1, 'Inflict (On Fire), Luminagen, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Carbine', '6R', 'Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 12, 1, -1, 24, 4, 'Assault, Inflict (On Fire), Luminagen'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Pistol', '5R', 'Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 10, 1, -1, 12, 1, 'Luminagen, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Serpenta', '7V', 'Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 12, 1, -1, 18, 1, 'Assault, Inflict (On Fire), Luminagen'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Phosphor Torch', '6R', 'Fire, Phosphex, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 10, 1, -1, 12, 1, 'Assault, Blast (Medium), Inflict (On Fire), Spread'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Psilencer', '7V', 'Force, Grey Knights'),
+      ...rangez('Exotic Weapon', 10, 2, 0, 24, 6, 'Force, Heavy (6), Special'),
+      description:
+        '<p><strong>Special: </strong>A Psilencer will not function in the hands of any character who does not have the PSYKER keyword.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,146,'Psycannon', '7V', 'Bolt, Force, Grey Knights, Ordo Malleus'),
+      ...rangez('Exotic Weapon', 13, 2, -1, 36, 4, 'Brutal, Force, Heavy (6)'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Stubcarbine', '5R', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 10, 1, 0, 18, 3, 'Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Transuranic Arquebus', '8V', 'Projectile, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 16, 2, -2, 60, 0, 'Heavy (6), Mortal (1), Sniper (3), Special'),
+      description:
+        '<p><strong>Special: </strong>A Transuranic Arquebus cannot be fired if the wielder has moved in the same turn.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,146,'Volkite Serpenta', '10L', 'Volite, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 13, 1, 0, 10, 1, 'Inflict (On Fire), Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,146,'Volkite Charger', '10L', 'Volite, Adeptus Mechanicus'),
+      ...rangez('Exotic Weapon', 13, 1, 0, 15, 2, 'Assault, Inflict (On Fire)'),
+    },
+  ],
+  // Grenades & Launchers < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key, 149, 'Fragstorm Grenade Launcher', '6V', 'Explosive, Adeptus Astartes, Primaris'),
+      ...rangez('Grenades & Grenade Launcher', 10, 4, 0, 18, 0, 'Assault, Blast (Medium)'),
+      triptype: 'Grenade Launcher',
+    },
+    {
+      ...gear(source.aaoa.key, 149, 'Melta Bomb', '6R', 'Melta, Imperium, Aeldari'),
+      ...rangez('Grenades & Grenade Launcher', 16, 6, -4, 'STRx4', '-', 'Blast (Small), Melta, Unwieldy (2)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Any target within a Melta Bomb’s blast is considered to be within close range for the purposes of the Melta trait. Melta Bombs cannot be used in a grenade launcher. In addition, they may be placed onto a vehicle or structure within 1m rather than thrown, requiring a Tech test with a DN equal to the vehicle’s Defence. Placed melta bombs do not detonate immediately and can be detonated as a simple action on any of the character’s subsequent turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 149, 'Psyk-Out Grenade', '8L', 'Exotic, Silent Sisterhood, Grey Knights, Templum Culexus'),
+      ...rangez('Grenades & Grenade Launcher', 7, 4, 0, 'STRx4', '-', 'Blast (Medium)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 149, 'Shock Grenade', '7V', 'Exotic, Adeptus Astartes, Primaris'),
+      ...rangez('Grenades & Grenade Launcher', '-', '-', '-', 'STRx4', '-', 'Blast (Medium)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Shock Grenades do not inflict damage. Rather, to use a Shock Grenade, make a Ballistic Skill test as an Interaction Attack against your targets’ Resolve (make one test and compare it individually to the Resolve of each enemy in the blast). This inflicts the normal results from an Interaction Attack on each affected target, and all targets must either be hindered or vulnerable—you can’t mix and match.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 149, 'Smoke Grenade', '4C', 'Explosive, [Any]'),
+      ...rangez('Grenades & Grenade Launcher', '-', '-', '-', 'STRx4', '-', 'Blast (Large)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round. Strong winds may make the smoke dissipate more quickly, at GM’s discretion.</p>',
+    },
+  ],
+  // Chaos Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key, 150, 'Blastmaster', '7V', 'Sonic, Chaos, Slaanesh'),
+      type: 'Ranged Weapon', subtype: 'Chaos Weapon',
+      meta: [
+        metaRange(16, 2, -2, 48, 1, ['Blast (Medium)', 'Cacophony', 'Heavy (6)'], 'Single Frequenzy'),
+        metaRange(10, 1, -1, 36, 1, ['Blast (Large)', 'Cacophony', 'Heavy (6)'], 'Varied Frequenzy'),
+      ],
+      description:
+        '<p><strong>Special: </strong>When firing a Blastmaster, choose which profile you wish to use before resolving the attack.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Blight Grenade', '4U', 'Explosive, Chaos, Nurgle'),
+      ...rangez('Chaos Weapon',10,4,0,'STRx4','-','Blast (Medium), Inflict (Poisoned 4)'),
+      description:
+        '<p><strong>Special: </strong>A character Poisoned by a NURGLE weapon suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Blight Launcher', '7V', 'Explosive, Chaos, Nurgle'),
+      ...rangez('Chaos Weapon',13,4,-2,24,2,'Assault, Blast (Medium), Inflict (Poisoned 4)'),
+      description:
+        '<p><strong>Special: </strong>A character Poisoned by a NURGLE weapon suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Doom Siren', '6R', 'Sonic, Chaos, Slaanesh'),
+      ...rangez('Chaos Weapon',12,1,-2,8,1,'Assault, Blast (Medium), Cacophony'),
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Heavy Warpflamer', '6R', 'Fire, Chaos, Tzeench'),
+      ...rangez('Chaos Weapon',12,2,-2,8,2,'Corrupting, Flamer, Heavy (6)'),
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Plague Belcher', '6R', 'Pestilent, Chaos, Nurgle'),
+      ...rangez('Chaos Weapon',10,1,0,8,1,'Assault, Flamer, Inflict (Poisoned 4), Spread'),
+      description:
+        '<p><strong>Special: </strong>PESTILENT weapons with the Flamer trait do not inflict the On Fire condition. Rather, they inflict the Poisoned 4 condition. A character Poisoned by a NURGLE weapon suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Plague Spewer', '6R', 'Pestilent, Chaos, Nurgle'),
+      ...rangez('Chaos Weapon',12,2,-1,8,2,'Flamer, Heavy (6), Inflict (Poisoned 4)'),
+      description:
+        '<p><strong>Special: </strong>PESTILENT weapons with the Flamer trait do not inflict the On Fire condition. Rather, they inflict the Poisoned 4 condition. A character Poisoned by a NURGLE weapon suffers 1d3 Mortal Wounds at the start of each of their turns.</p>',
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Sonic Blaster', '6R', 'Sonic, Chaos, Slaanesh'),
+      ...rangez('Chaos Weapon',10,1,0,24,3,'Assault, Cacophony'),
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Warpflame Pistol', '6R', 'Fire, Chaos, Tzeench'),
+      ...rangez('Chaos Weapon',7,1,-2,6,1,'Corrupting, Flamer, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key, 150, 'Warpflamer', '6R', 'Fire, Chaos, Tzeench'),
+      ...rangez('Chaos Weapon',10,1,-2,8,1,'Assault, Corrupting, Flamer'),
+    },
+  ],
+  // Aeldari < Ranged
+  ...[{
+    ...gear(source.aaoa.key,152,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani'),
+    ...rangez('Aeldari Ranged Weapon', 10, 1, 0, 18, 3, 'Assault, Rending (3)'),
+  },
+    {
+      ...gear(source.aaoa.key,152,'Bright Lance', '7R','Las, Aeldari, Asuryani'),
+      ...rangez('Aeldari Ranged Weapon', 16, 3, -4, 36, 0, 'Heavy (4), Sniper (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani'),
+      ...rangez('Aeldari Ranged Weapon', 14, 2, 0, 12, 3, 'Assault, Brutal, Inflict (Restrained), Rending (4)'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Dragon´s Breath Flamer', '7L','Fire, Ancient, Aeldari, Asuryani'),
+      ...rangez('Aeldari Ranged Weapon', 12, 3, -1, 20, 3, 'Assault, Blast (Large), Inflict (On Fire), Spread'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Firepike', '7L','Melta, Ancient, Aeldari, Asuryani'),
+      ...rangez('Aeldari Ranged Weapon', 16, 4, -4, 18, 1, 'Assault, Blast (Small), Inflict (On Fire), Melta'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Fusion Pistol', '7R','Melta, Aeldari'),
+      ...rangez('Aeldari Ranged Weapon', 16, 1, -4, 6, 1, 'Melta, Pistol'),
+    },
+    {
+      ...gear(source.aaoa.key,152,'Laser Lance', '7R','Las, Aeldari, Asuryani, Exodite'),
+      ...rangez('Aeldari Ranged Weapon', 14, 2, -4, 6, 0, 'Assault, Melee'),
+      description:
+        '<p><strong>Melee:</strong> A Laser Lance can be used as a melee weapon, using the following profile:</p>' +
+        '<p>Range: 2m, Damage: 3 +3ED, AP: -4, Special</p>' +
+        '<p><strong>Special:</strong> When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,153,'Neuro Disruptor', '8V','Exotic, Harlequins'),
+      ...rangez('Aeldari Ranged Weapon', 4,4,0, 18, 0, 'Pistol, Special'),
+      description:
+        '<p><strong>Special:</strong> A Neuro Disruptor uses no ammunition and cannot run out of ammunition. It just works. Nobody knows entirely how. The damage of a Neuro Disruptor is compared to the target’s Resolve, rather than Resilience, and each point of damage inflicted is a Mortal Wound instead of a normal wound. It has no effect against mindless creatures or inanimate objects.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,153,'Hallucinogen Grenade', '7R','Gas, Aeldari, Harlequins'),
+      ...rangez('Aeldari Ranged Weapon', '*','*','*', 'STRx4', '-', 'Blast (Large), Special'),
+      description:
+        '<p><strong>Special:</strong> Any creature caught in the blast of a Hallucinogen Grenade must pass a Terror test (TN 5). Further, if a creature suffers a complication on this test, then they also suffer 1d3 mortal wounds.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,153,'Pack Grenade Launcher', '7R','Explosive, Harlequins'),
+      ...rangez('Aeldari Ranged Weapon','*','*','*',18,'-','Assault, Special'),
+      description:
+        '<p><strong>Special:</strong> A Pack Grenade Launcher can carry up to 6 grenades, and additional grenades cannot be loaded during battle.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,153,'Shuriken Cannon', '6R','Shuriken, Aeldari'),
+      ...rangez('Aeldari Ranged Weapon',14,2,0,24,4,'Assault, Heavy (3), Rending (3)'),
+    },
+  ],
+  // Drukhari < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key,156,'Splinter Pistol','5U','Splinter,Drukhari'),
+      ...rangez('Drukhari Ranged Weapon',8,2,0,12,2,'Inflict(Poisoned 4),Pistol'),
+      snippet: 'A character who was Poisoned by a weapon with the SPLINTER keyword suffers 1 Mortal Wound at the start of each of their turns. A selection of alternative Drukhari poisons are presented in the Reloads and Ammunition section, which replace this effect.',
+    },
+    {
+      ...gear(source.aaoa.key,156,'Splinter Rifle','5U','Splinter,Drukhari'),
+      ...rangez('Drukhari Ranged Weapon',8,2,0,24,2,'Inflict(Poisoned 4),Rapid Fire(2)'),
+      snippet: 'A character who was Poisoned by a weapon with the SPLINTER keyword suffers 1 Mortal Wound at the start of each of their turns. A selection of alternative Drukhari poisons are presented in the Reloads and Ammunition section, which replace this effect.',
+    },
+  ],
+  // Ork < Ranged
+  ...[
+    {
+      ...gear(source.aaoa.key,158,'Kustom Mega Blasta','7R','Kustom, Plasma, Ork'),
+      ...rangez('Ork Weapon',16,5,-3,24,1,'Assault,Supercharge,Waaagh!'),
+      snippet: 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it. The additional ED it provides are already included in the weapon’s profile.',
+    },
+    {
+      ...gear(source.aaoa.key,158,'Tankbusta Bomb', '5R', 'Explosive, Ork'),
+      ...rangez('Ork Range Weapon', 16, 3, -3, 1, '-', 'Brutal, Blast(Small), Waaagh!'),
+      snippet: 'A Tankbusta Bomb cannot be thrown or fired from a launcher. It must be planted with a Tech test against a vehicle within 1m, with a DN equal to the vehicle’s Defence. The bomb will detonate at the end of the current turn. After placing a Tankbusta Bomb, the character may move 1d3+1 metres away from the bomb and fall Prone as they leap away before the bomb detonates.',
+    },
+  ],
+];
+
+const aaoaWeaponUpgrades = [
+  // Upgrades
+  ...[
+  ],
+  // Reloads & Ammunition
+  ...[
+    {
+      ...gear(source.aaoa.key,163,'Shrieker Bio-Explosive Discs','9L','Harlequin'),
+      type: 'Ammo',
+      subtype: 'Special Shuriken Ammo',
+      snippet: 'The Weapon gains the Careful and Inflict (Poison 7) traits. It also gains Bio-Explosive (explodes on death) and is only a single round (no salvo, its gone).',
+      description:
+        '<p><strong>Effect: </strong>The weapon gains the Careful and Inflict (Poisoned 7) trait.</p>' +
+        '<p><strong>Bio-Explosive: </strong>A character who is Poisoned by Shrieker ammo is also Staggered and suffers 1d3 Mortal Wounds at the start of each of their turns. If they are slain by this damage, they explode with a Medium blast, inflicting 10+6ED damage to anyone in that blast. Any of the victim’s allies within 15 metres must attempt a Terror test (DN 7).</p>' +
+        '<p><strong>Single Shot: </strong>A reload of Shrieker ammo consists of a single round. Using this ammunition expends that round, and grants none of the normal benefits a Salvo action.</p>',
+    },
+  ],
+  // Drukhari Poisons
+  ...[
+  ],
+];
+
+const aaoaArmour = [
+  // Basic
+  ...[
+    {
+      ...gear(source.aaoa.key,166,'Arbites Carapace','6V','Heavy, Imperium, Adeptus Arbites'),
+      ...armour('Basic Armour',4),
+      description:
+        '<p>The armour includes built-in vox-bead and a respirator.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,166,'Riot Shield','4U','Light,Imperium'),
+      ...armour('Basic Armour',1,'Shield'),
+    },
+    {
+      ...gear(source.aaoa.key,166,'Supression Shield','6R','Heavy,Shock,Imperium,Adeptus Arbites'),
+      ...armour('Basic Armour',2,'Bulk (1), Shield, Discharge'),
+      description:
+        '<p><strong>Discharge: </strong>An enemy who fails a melee attack against someone wielding a suppression shield immediately suffers 1 Shock. Anyone suffering a complication on a melee attack against someone wielding a suppression shield suffers 1d3 Shock.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,166,'Vindicare Stealth Suit','10L','Light,Imperium,Officio Assassinorum,Templum Vindicare'),
+      ...armour('Basic Armour',2, 'Cameleoline'),
+      description:
+        '<p><strong>Cameleoline: </strong>The photoreactive mimic-fibres in the suit blur’s the wearer’s outline, granting a +2d bonus to Stealth tests and a +2 bonus to Defence when in shadow or in cover.</p>',
+    },
+  ],
   {
-    ...gear('aaoa',142,'Absolvor Bolt Pistol','8V','Bolt, Imperium, Adeptus Astartes, Primaris'),
-    ...rangez('Bolt Weapon',12,2,-1,16,1,'Brutal,Pistol'),
+    ...gear(source.aaoa.key,167,'Sicarian Battle-Armour', '6V', 'Heavy, Imperium, Adeptus Mechanicus, Skitarii'),
+    ...armour('Basic Armour', 4),
+    description:
+      '<p>Sicarian Battle-Armour has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
+  },
+  // Astartes
+  // Force Shields
+  {
+    ...gear(source.aaoa.key,174,'Voltagheist Field Generator', '6R', 'Force Field, Cult Mechanicus'),
+    ...armour('Basic Armour', 3),
+    description:
+      '<p><strong>Discharge: </strong>When you charge while wearing a Voltagheist Field generator, roll a d6 for each enemy within 2m of you when you finish the charge. For each 6 rolled, that enemy suffers a Mortal Wound. Any enemy who rolls a 1 on their Wrath die when making a melee attack against you also suffers one Mortal Wound.</p>' +
+      '<p><strong>Luminen Charge: </strong>A Voltagheist field generator will not function unless you have a Luminen Capacitor implant with one or more charges. If the Capacitor has more charges than its normal amount, then add +1 to the Armour Rating of the field for every additional charge you have, to a maximum Armour Rating of 6.</p>'
+  },
+  // Chaos
+  // Aeldari
+  ...[
+    {
+      ...gear(source.aaoa.key,176,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior'),
+      ...armour('Aeldari Armour', 4),
+    },
+    {
+      ...gear(source.aaoa.key,176,'Heavy Aspect Armour', '5V', 'Heavy, Aeldari, Asuryani, Aspect Warrior'),
+      ...armour('Aeldari Armour', 5, 'Bulk (1)'),
+    },
+    {
+      ...gear(source.aaoa.key,167,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior'),
+      ...armour('Aeldari Armour', 6),
+    },
+    {
+      ...gear(source.aaoa.key,176,'Forceshield', '8L', 'Force Field, Aeldari'),
+      ...armour('Aeldari Armour', 3, 'Force Shield, Shield'),
+    },
+    {
+      ...gear(source.aaoa.key,176,'Holo-Suit', '7V', 'Hologram, Light, Harlequin'),
+      ...armour('Aeldari Armour', 1, 'Force Shield, Domino Field'),
+      snippet: 'Gain defence bonus depending on previous movement: +1 (stationary), +2 (moved), +3 (ran), +4 (sprinted).',
+      description:
+        '<p><strong>Domino Field: </strong>A Holo-Suit increases the wearer’s Defence based on how much they have moved. It grants +1 Defence if the wearer was stationary last turn. This increases to +2 if the wearer moved, +3 if the wearer Ran, or +4 if the wearer Sprinted.</p>',
+    },
+  ],
+  // Drukhari
+  ...[
+    {
+      ...gear(source.aaoa.key,177,'Clone Field', '8L', 'Hologram, Drukhari'),
+      ...armour('Drukhari Armour', 0, 'Deceptive Defence'),
+      description:
+        '<p>A Clone Field cannot be worn with Force Field armour, as energy fields disrupt the holographic decoys.</p>' +
+        '<p><strong>Deceptive Defence:</strong> Whenever you are attacked while wearing a Clone Field, roll a d6. On an Icon, the attack is considered to have missed. This has no effect against Blasts or area effect attacks.</p>'
+    },
+    {
+      ...gear(source.aaoa.key,177,'Ghostplate', '6V', 'Light, Drukhari'),
+      ...armour('Drukhari Armour', 4, 'Force Shield, Field Projectors'),
+      description:
+        '<p><strong>Field Projectors:</strong> Ghostplate has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
+    },
+    {
+      ...gear(source.aaoa.key,177,'Incubus Warsuit', '6V', 'Heavy, Drukhari'),
+      ...armour('Drukhari Armour', 5, 'Tormentor'),
+      description:
+        '<p><strong>Tormentor:</strong> Enemies within 6 metres of this armour’s wearer suffer 1 Shock at the start of their turn.</p>'
+    },
+    {
+      ...gear(source.aaoa.key,177,'Kabalite Warsuit','4R','Light,Drukhari'),
+      ...armour('Drukhari Armour', 3),
+      snippet: 'Contains a vox and a rebreather, or Dark Eldar equivalents of these items.',
+    },
+    {
+      ...gear(source.aaoa.key,177,'Shadowfield', '8L', 'Force Field, Drukhari'),
+      ...armour('Drukhari Armour', 8, 'Force Shield, Near-Perfect Defence, Overload'),
+      description:
+        '<p><strong>Near-Perfect Defence:</strong> The wearer of a functioning Shadowfield may roll Determination without spending Shock, and rolls 9d6 when they roll Determination.</p>' +
+        '<p><strong>Overload:</strong>If the wearer of a Shadowfield takes any damage, the field overloads and will provide no benefit until after the next Regroup.</p>'
+    },
+    {
+      ...gear(source.aaoa.key,167,'Wychsuit','3U','Light,Drukhari'),
+      ...armour('Drukhari Armour', 1),
+    },
+  ],
+  // Ork
+  // Squat
+];
+
+const aaoaToolsEquipment = [
+  // Imperial
+  {
+    ...gear(source.aaoa.key,180,'Book of Judgment (abridged)','2U','Adeptus Arbites'),
+    ...toolz(undefined, 'The Book of Judgement is the legal code of the Imperium, enforced by the Adeptus Arbites.'),
   },
   {
-    ...gear('aaoa',134,'Crozius Arcanum', '6V', 'Power Field,Adeptus Astartes', ''),
-    ...meleez('Power Weapon',5,5,-1,1,'Brutal'),
+    ...gear(source.aaoa.key,181,'Magnacles','3U','Imperium,Adeptus Arbites,Inquisition'),
+    ...toolz(undefined, 'Breaking free of magnacles’ magnetic lock requires a Strength test (DN 5).'),
   },
   // AAOA Astartes Gear
   {
-    ...gear('aaoa',180,'Narthecium','5R','Adeptus Astartes'),
+    ...gear(source.aaoa.key,180,'Narthecium','5R','Adeptus Astartes'),
     ...toolz('Imperial Equipment','A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.'),
     description:
       '<p>A Narthecium is a tool of a Space Marine Apothecary\'s trade, containing implements specially designed for treating the Astartes\' genetically engineered physiology and for performing first aid without having to remove the patient\'s Power Armour.</p>' +
@@ -1257,209 +2090,23 @@ const aaoaAstartes = [
       '<p>A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.</p>',
   },
   {
-    ...gear('aaoa',181,'Reductor','5R','Adeptus Astartes'),
+    ...gear(source.aaoa.key,181,'Reductor','5R','Adeptus Astartes'),
     ...toolz('Imperial Equipment','As an action, an Apothecary can use a Reductor to remove the gene-seed of a deceased Space Marine. This requires a Medicae test (DN 3). Though a grim task, it is a vital one, and an Apothecary who extracts a fallen brother’s gene-seed gains 1 Wrath immediately, as their duty drives them to press on.'),
-  },
-];
-
-const aaoaAeldari = [
-  // AAOA Aeldari Melee Weapons
-  {
-    ...gear('aaoa',138,'Harlequins Blade', '4U','Blade, Harlequin'),
-    ...meleez('Aeldari Melee Weapon', 4, 3, 0, 1, 'Parry, Rending (2)'),
-  },
-  {
-    ...gear('aaoa',138,'Harlequins Caress', '6V','Power Field, Harlequin'),
-    ...meleez('Aeldari Melee Weapon', 5, 5, -2, 1, 'Brutal'),
-  },
-  {
-    ...gear('aaoa',138,'Harlequins Embrace', '6V','Monofilament, Harlequin'),
-    ...meleez('Aeldari Melee Weapon', 5, 4, -3, 1),
-  },
-  {
-    ...gear('aaoa',138,'Harlequins Kiss', '6V','Monofilament, Harlequin'),
-    ...meleez('Aeldari Melee Weapon', 5, 4, -1, 1, 'Careful, Mortal (3)'),
-  },
-  {
-    ...gear('aaoa',138,'Miststave', '7V','Force, Harlequin'),
-    ...meleez('Aeldari Melee Weapon', 5, 3, -1, 1, 'Agonizing, Force'),
-  },
-  {
-    ...gear('aaoa',138,'Power Blade', '6R','Power Field, Aeldari, Asuryani'),
-    ...meleez('Aeldari Melee Weapon', 5, 3, -2, 1),
-  },
-  {
-    ...gear('aaoa',138,'Scorpion Chainsword', '5R','Chain, Aeldari'),
-    ...meleez('Aeldari Melee Weapon', 5, 4, 0, 1, 'Brutal, Parry, Silent'),
-  },
-  // AAOA Aeldari Ranged Weapons
-  {
-    ...gear('aaoa',152,'Avenger Shuriken Catapult', '7R','Shuriken, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 10, 1, 0, 18, 3, 'Assault, Rending (3)'),
-  },
-  {
-    ...gear('aaoa',152,'Bright Lance', '7R','Las, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 16, 3, -4, 36, 0, 'Heavy (4), Sniper (1)'),
-  },
-  {
-    ...gear('aaoa',152,'Deathspinner', '7V','Monofilament, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 14, 2, 0, 12, 3, 'Assault, Brutal, Inflict (Restrained), Rending (4)'),
-  },
-  {
-    ...gear('aaoa',152,'Dragon´s Breath Flamer', '7L','Fire, Ancient, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 12, 3, -1, 20, 3, 'Assault, Blast (Large), Inflict (On Fire), Spread'),
-  },
-  {
-    ...gear('aaoa',152,'Firepike', '7L','Melta, Ancient, Aeldari, Asuryani'),
-    ...rangez('Aeldari Ranged Weapon', 16, 4, -4, 18, 1, 'Assault, Blast (Small), Inflict (On Fire), Melta'),
-  },
-  {
-    ...gear('aaoa',152,'Fusion Pistol', '7R','Melta, Aeldari'),
-    ...rangez('Aeldari Ranged Weapon', 16, 1, -4, 6, 1, 'Melta, Pistol'),
-  },
-  {
-    ...gear('aaoa',152,'Laser Lance', '7R','Las, Aeldari, Asuryani, Exodite'),
-    ...rangez('Aeldari Ranged Weapon', 14, 2, -4, 6, 0, 'Assault, Melee'),
-    description:
-      '<p><strong>Melee:</strong> A Laser Lance can be used as a melee weapon, using the following profile:</p>' +
-      '<p>Range: 2m, Damage: 3 +3ED, AP: -4, Special</p>' +
-      '<p><strong>Special:</strong> When a character wielding a laser lance charges while mounted (upon a vehicle or creature), the laser lance’s damage in melee is 14+2ED, though it is not modified by the user’s Strength.</p>',
-  },
-  {
-    ...gear('aaoa',153,'Neuro Disruptor', '8V','Exotic, Harlequins'),
-    ...rangez('Aeldari Ranged Weapon', 4,4,0, 18, 0, 'Pistol, Special'),
-    description:
-      '<p><strong>Special:</strong> A Neuro Disruptor uses no ammunition and cannot run out of ammunition. It just works. Nobody knows entirely how. The damage of a Neuro Disruptor is compared to the target’s Resolve, rather than Resilience, and each point of damage inflicted is a Mortal Wound instead of a normal wound. It has no effect against mindless creatures or inanimate objects.</p>',
-  },
-  {
-    ...gear('aaoa',153,'Hallucinogen Grenade', '7R','Gas, Aeldari, Harlequins'),
-    ...rangez('Aeldari Ranged Weapon', '*','*','*', 'STRx4', '-', 'Blast (Large), Special'),
-    description:
-      '<p><strong>Special:</strong> Any creature caught in the blast of a Hallucinogen Grenade must pass a Terror test (TN 5). Further, if a creature suffers a complication on this test, then they also suffer 1d3 mortal wounds.</p>',
-  },
-  {
-    ...gear('aaoa',153,'Pack Grenade Launcher', '7R','Explosive, Harlequins'),
-    ...rangez('Aeldari Ranged Weapon','*','*','*',18,'-','Assault, Special'),
-    description:
-      '<p><strong>Special:</strong> A Pack Grenade Launcher can carry up to 6 grenades, and additional grenades cannot be loaded during battle.</p>',
-  },
-  {
-    ...gear('aaoa',153,'Shuriken Cannon', '6R','Shuriken, Aeldari'),
-    ...rangez('Aeldari Ranged Weapon',14,2,0,24,4,'Assault, Heavy (3), Rending (3)'),
-  },
-  {
-    ...gear('aaoa',163,'Shrieker Bio-Explosive Discs','9L','Harlequin'),
-    type: 'Ammo',
-    subtype: 'Special Shuriken Ammo',
-    snippet: 'The Weapon gains the Careful and Inflict (Poison 7) traits. It also gains Bio-Explosive (explodes on death) and is only a single round (no salvo, its gone).',
-    description:
-      '<p><strong>Effect: </strong>The weapon gains the Careful and Inflict (Poisoned 7) trait.</p>' +
-      '<p><strong>Bio-Explosive: </strong>A character who is Poisoned by Shrieker ammo is also Staggered and suffers 1d3 Mortal Wounds at the start of each of their turns. If they are slain by this damage, they explode with a Medium blast, inflicting 10+6ED damage to anyone in that blast. Any of the victim’s allies within 15 metres must attempt a Terror test (DN 7).</p>' +
-      '<p><strong>Single Shot: </strong>A reload of Shrieker ammo consists of a single round. Using this ammunition expends that round, and grants none of the normal benefits a Salvo action.</p>',
-  },
-  {
-    ...simpleStub(31022, 'aaoa2',102,'Reaper Launcher', '7V','Explosive, Aeldari, Asuryani', ''),
-    // Starshot Missile
-    ...rangeAaoa('16+3ED; AP -2; Range 100m; Salvo –; Blast (Small), Heavy (5)', 'Aeldari Ranged Weapon'),
-    // Starswarm Missile
-    ...rangeAaoa('12+2ED; AP -2; Range 100m; Salvo 3; Heavy (5)', 'Aeldari Ranged Weapon'),
-  },
-  {
-    ...simpleStub(31043, 'aaoa2',104,'Grenade Pack', '6V','Explosive, Aeldari, Asuryani', ''),
-    ...simpleRange('Grenades and Grenade Launchers', 'special', '-', '-', '-', '-', 'Assault'),
-    description: '<p>A Swooping Hawk Grenade Pack can only launch grenades downwards, and the user may launch grenades at any point while flying. This is done as part of the character’s move, rather than as a distinct attack action.</p>',
-  },
-  // AAOA Aeldari Armour
-  {
-    ...gear('aaoa',176,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior'),
-    ...armour('Aeldari Armour', 4),
-  },
-  {
-    ...gear('aaoa',176,'Heavy Aspect Armour', '5V', 'Heavy, Aeldari, Asuryani, Aspect Warrior'),
-    ...armour('Aeldari Armour', 5, 'Bulk (1)'),
-  },
-  {
-    ...gear('aaoa',167,'Exarch Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior'),
-    ...armour('Aeldari Armour', 6),
-  },
-  {
-    ...gear('aaoa',176,'Forceshield', '8L', 'Force Field, Aeldari'),
-    ...armour('Aeldari Armour', 3, 'Force Shield, Shield'),
-  },
-  {
-    ...gear('aaoa',176,'Holo-Suit', '7V', 'Hologram, Light, Harlequin'),
-    ...armour('Aeldari Armour', 1, 'Force Shield, Domino Field'),
-    snippet: 'Gain defence bonus depending on previous movement: +1 (stationary), +2 (moved), +3 (ran), +4 (sprinted).',
-    description:
-      '<p><strong>Domino Field: </strong>A Holo-Suit increases the wearer’s Defence based on how much they have moved. It grants +1 Defence if the wearer was stationary last turn. This increases to +2 if the wearer moved, +3 if the wearer Ran, or +4 if the wearer Sprinted.</p>',
   },
   // Aeldari Tools
   {
-    ...gear('aaoa',185,'Agaith','7V','Harlequin'),
+    ...gear(source.aaoa.key,185,'Agaith','7V','Harlequin'),
     ...toolz('Aeldari Equipment','You cause Fear (DN 3+Rank)'),
   },
   {
-    ...gear('aaoa',186,'Flip-Belt','7V','Harlequin'),
+    ...gear(source.aaoa.key,186,'Flip-Belt','7V','Harlequin'),
     ...toolz('Aeldari Equipment','Ignore difficult terrain and obstavles less then 2m tal or wide. You may stand up as a free action. You may use Agility (instead of Strength) fo jump distance. While not unconcious, you do not suffer falling damage.'),
     description:
       '<p>A Harlequin wearing a Flip-Belt ignores the effects of difficult terrain, can ignore any obstacles less than 2m tall or wide during their movement, and may stand up from prone as a free action at any time without penalty. In addition, a Harlequin wearing a flip-belt determines jump distance using their Agility instead of their Strength, and they do not suffer falling damage unless unconscious.</p>',
   },
-];
-
-const aaoaDrukhari = [
-  {
-    ...gear('aaoa',140,'Hekatarii Blade','5R','Blade,Drukhari'),
-    ...meleez('Drukhari Melee Weapon',3,3,-1,1,'Parry,Rending(1)'),
-  },
-  {
-    ...gear('aaoa',156,'Splinter Pistol','5U','Splinter,Drukhari'),
-    ...rangez('Drukhari Ranged Weapon',8,2,0,12,2,'Inflict(Poisoned 4),Pistol'),
-    snippet: 'A character who was Poisoned by a weapon with the SPLINTER keyword suffers 1 Mortal Wound at the start of each of their turns. A selection of alternative Drukhari poisons are presented in the Reloads and Ammunition section, which replace this effect.',
-  },
-  {
-    ...gear('aaoa',156,'Splinter Rifle','5U','Splinter,Drukhari'),
-    ...rangez('Drukhari Ranged Weapon',8,2,0,24,2,'Inflict(Poisoned 4),Rapid Fire(2)'),
-    snippet: 'A character who was Poisoned by a weapon with the SPLINTER keyword suffers 1 Mortal Wound at the start of each of their turns. A selection of alternative Drukhari poisons are presented in the Reloads and Ammunition section, which replace this effect.',
-  },
-  // AAOA Drukhari Armour
-  {
-    ...gear('aaoa',177,'Clone Field', '8L', 'Hologram, Drukhari'),
-    ...armour('Drukhari Armour', 0, 'Deceptive Defence'),
-    description:
-      '<p>A Clone Field cannot be worn with Force Field armour, as energy fields disrupt the holographic decoys.</p>' +
-      '<p><strong>Deceptive Defence:</strong> Whenever you are attacked while wearing a Clone Field, roll a d6. On an Icon, the attack is considered to have missed. This has no effect against Blasts or area effect attacks.</p>'
-  },
-  {
-    ...gear('aaoa',177,'Ghostplate', '6V', 'Light, Drukhari'),
-    ...armour('Drukhari Armour', 4, 'Force Shield, Field Projectors'),
-    description:
-      '<p><strong>Field Projectors:</strong> Ghostplate has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
-  },
-  {
-    ...gear('aaoa',177,'Incubus Warsuit', '6V', 'Heavy, Drukhari'),
-    ...armour('Drukhari Armour', 5, 'Tormentor'),
-    description:
-      '<p><strong>Tormentor:</strong> Enemies within 6 metres of this armour’s wearer suffer 1 Shock at the start of their turn.</p>'
-  },
-  {
-    ...gear('aaoa',177,'Kabalite Warsuit','4R','Light,Drukhari'),
-    ...armour('Drukhari Armour', 3),
-    snippet: 'Contains a vox and a rebreather, or Dark Eldar equivalents of these items.',
-  },
-  {
-    ...gear('aaoa',177,'Shadowfield', '8L', 'Force Field, Drukhari'),
-    ...armour('Drukhari Armour', 8, 'Force Shield, Near-Perfect Defence, Overload'),
-    description:
-      '<p><strong>Near-Perfect Defence:</strong> The wearer of a functioning Shadowfield may roll Determination without spending Shock, and rolls 9d6 when they roll Determination.</p>' +
-      '<p><strong>Overload:</strong>If the wearer of a Shadowfield takes any damage, the field overloads and will provide no benefit until after the next Regroup.</p>'
-  },
-  {
-    ...gear('aaoa',167,'Wychsuit','3U','Light,Drukhari'),
-    ...armour('Drukhari Armour', 1),
-  },
   // AAOA Drukhari Gear
   {
-    ...gear('aaoa',186,'Hekatarii Combat Drugs','6R','Drukhari'),
+    ...gear(source.aaoa.key,186,'Hekatarii Combat Drugs','6R','Drukhari'),
     ...toolz('Aeldari Equipment'),
     triptype: 'Hekatarii Combat Drugs',
     description:
@@ -1473,130 +2120,7 @@ const aaoaDrukhari = [
       '<li>Splintermind help the user’s mind compartmentalise and disassociate from the parts which feel fear. While under the drug’s effect, the character’s Resolve is increased by +2.</li>' +
       '</ul>',
   },
-];
-
-const aaoaOrk = [
-  {
-    ...gear('aaoa',158,'Kustom Mega Blasta','7R','Kustom, Plasma, Ork'),
-    ...rangez('Ork Weapon',16,5,-3,24,1,'Assault,Supercharge,Waaagh!'),
-    snippet: 'The Supercharge trait is always in effect on a Kustom Mega-Blasta—the firer cannot choose not to use it. The additional ED it provides are already included in the weapon’s profile.',
-  },
-  {
-    ...gear('aaoa',141,'‘Urty Syringe', '4U', 'Exotic, Ork'),
-    ...meleez('Ork Melee Weapon', 4, 4, 0, 1, 'Careful,Inflict(Poisoned 4), Waaagh!'),
-  },
-  {
-    ...gear('aaoa',141,'Grabba Stikk', '4U', 'Exotic, Ork'),
-    ...meleez('Ork Melee Weapon', 5, 3, 0, 2, 'Inflict(Restrained), Waaagh!'),
-  },
-  {
-    ...gear('aaoa',158,'Tankbusta Bomb', '5R', 'Explosive, Ork'),
-    ...rangez('Ork Range Weapon', 16, 3, -3, 1, '-', 'Brutal, Blast(Small), Waaagh!'),
-    snippet: 'A Tankbusta Bomb cannot be thrown or fired from a launcher. It must be planted with a Tech test against a vehicle within 1m, with a DN equal to the vehicle’s Defence. The bomb will detonate at the end of the current turn. After placing a Tankbusta Bomb, the character may move 1d3+1 metres away from the bomb and fall Prone as they leap away before the bomb detonates.',
-  },
-];
-
-const aaoaAdeptusMechanicus = [
-  // Melee
-  {
-    ...gear('aaoa',135,'Electrostatic Gauntlets', '6R', 'Luminen, 2-Handed, Adeptus Mechanicus'),
-    ...meleez('Exotic Melee Weapon', 6, 3, 0, 1,  'Tesla'),
-    //...rangez('Projectile Range Weapon', 10, 1, 0, 18, 3, 'Pistol'),
-    description:
-      '<p><strong>Ranged: </strong>Electrostatic Gauntlets can be used as a Ranged weapon, using the following profile:</p>' +
-      '<p>Range: 12, Damage: 12+1ED, Salvo: 3, Assault, Tesla</p>' +
-      '<p><strong>Special: </strong>Only a character with a Luminen Capacitor may wield Electrostatic Gauntlets. Electrostatic Gauntlets do not use normal reloads – instead, the wielder may expend charges from their Luminen Capacitor to gain the benefits of spending a reload, with each charge spent counting as one reload.</p>',
-  },
-  // Ranged
-  {
-    ...gear('aaoa',146,'Stubcarbine', '5R', 'Projectile, Adeptus Mechanicus'),
-    ...rangez('Projectile Range Weapon', 10, 1, 0, 18, 3, 'Pistol'),
-  },
-  // Armour
-  {
-    ...gear('aaoa',167,'Sicarian Battle-Armour', '6V', 'Heavy, Imperium, Adeptus Mechanicus, Skitarii'),
-    ...armour('Basic Armour', 4),
-    description:
-      '<p>Sicarian Battle-Armour has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
-  },
-  {
-    ...gear('aaoa',174,'Voltagheist Field Generator', '6R', 'Force Field, Cult Mechanicus'),
-    ...armour('Basic Armour', 3),
-    description:
-      '<p><strong>Discharge: </strong>When you charge while wearing a Voltagheist Field generator, roll a d6 for each enemy within 2m of you when you finish the charge. For each 6 rolled, that enemy suffers a Mortal Wound. Any enemy who rolls a 1 on their Wrath die when making a melee attack against you also suffers one Mortal Wound.</p>' +
-      '<p><strong>Luminen Charge: </strong>A Voltagheist field generator will not function unless you have a Luminen Capacitor implant with one or more charges. If the Capacitor has more charges than its normal amount, then add +1 to the Armour Rating of the field for every additional charge you have, to a maximum Armour Rating of 6.</p>'
-  },
-  // Augmetics
-  {
-    ...gear('aaoa',190,'Data-Tether', '3U', 'Adeptus Mechanicus, Skitarii'),
-    type: 'Augmetics', subtype: 'Augmetic Implants',
-    snippet: 'Silently communicate your thoughts and status to similar equipped within 1km. ',
-    description:
-      '<p>Characters with a data-tether may communicate silently to similarly-equipped characters within 1km, transmitting their thoughts and status through the implant to one another. A data-tether may be tuned to receive normal vox transmissions from non-Skitarii allies, though this is less efficient.</p>',
-  },
-  {
-    ...gear('aaoa',191,'Luminen capacitor', '7V', 'Cult Mechanicus'),
-    type: 'Augmetics', subtype: 'Augmetic Implants',
-    //snippet: 'Extensive rules, see AAOA pg. 191.',
-    description:
-      '<p>A luminen capacitor contains a number of charges equal to the recipient’s Toughness. With a successful Toughness test, and a minute of meditative focus, the character may spend charges to recharge or power machinery. The DN of this test is equal to 2 plus the number of charges spent, and the number of charges required varies based on the system being charged.</p>' +
-      '<ul>' +
-      '<li>1 charge: simple power cell, illuminator</li>' +
-      '<li>2 charges: weapon charge pack, data-slate, starship bridge terminal</li>' +
-      '<li>3 charges: shuttle electronics, servo skull</li>' +
-      '<li>4 charges: heavy weapon charge pack, servitor, hololithic projector</li>' +
-      '<li>5 charges: cogitator core, reactor machine spirit, xenos technology</li>' +
-      '</ul>' +
-      '<p>If a character would suffer Shock from using an implant or cybernetic, then they may spend charges to reduce this, suffering one fewer Shock for each charge spent.</p>' +
-      '<p>The luminen capacitor regains its full charges during a Regroup. The character may also siphon power from powered devices and power sources, requiring a Toughness test (DN 3) and an action. Success means the character regains 1d3 charges, plus 1 for each Exalted Icon shifted. At the GM’s discretion, this may depower the device, and complications may cause damage to the device or the recipient.</p>',
-  },
-  {
-    ...gear('aaoa',192,'Neurostatic projector', '6R', 'Adeptus Mechanicus, Skitarii'),
-    type: 'Augmetics', subtype: 'Augmetic Implants',
-    snippet: 'All Creatures (excluding ADEPTUS MECHANICUS allies) within 10m suffer +Rank DN to Intellect and Resolve tests.',
-    description:
-      '<p>Creatures within 10 metres of the character add +Rank to the DN of all Intellect tests (including Awareness), and Resolve tests. Allies with the ADEPTUS MECHANICUS keyword receive null-codes which render them immune to this.</p>',
-  },
-  {
-    ...gear(source.aaoa.key,191,'Memorance Implant','6R','Adeptus Mechanicus'),
-    type: 'Augmetics', subtype: 'Augmetic Implants',
-    snippet: 'Record everything you see. You gain +1 bonus die to Investigation or Scholar based on Information witnessed or recorded.',
-    description:
-      '<p>The recipient always has a perfect visual record of everything they see, which may be transferred to other data storage if they have a way to connect to those devices (such as an interface port). Further, they gain a +1d bonus on any Investigate or Scholar tests based on information they have already witnessed and recorded.</p>',
-    modifications: [
-      { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 1, rank: 0, condition: 'when based on information witnessed and recorder.' },
-      { targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 1, rank: 0, condition: 'when based on information witnessed and recorder.' },
-    ],
-  },
-];
-
-const aaoaArbites = [
-  {
-    ...gear(source.aaoa.key,166,'Arbites Carapace','6V','Heavy, Imperium, Adeptus Arbites'),
-    ...armour('Imperial Armour',4),
-  },
-  {
-    ...gear(source.aaoa.key,166,'Riot Shield','4U','Light,Imperium'),
-    ...armour('Imperial Armour',1,'Shield'),
-  },
-  {
-    ...gear(source.aaoa.key,166,'Supression Shield','6R','Heavy,Shock,Imperium,Adeptus Arbites'),
-    ...armour('Imperial Armour',2,'Bulk (1), Shield, Discharge'),
-    description:
-      '<p><strong>Discharge: </strong>An enemy who fails a melee attack against someone wielding a suppression shield immediately suffers 1 Shock. Anyone suffering a complication on a melee attack against someone wielding a suppression shield suffers 1d3 Shock.</p>',
-  },
-  // Gear
-  {
-    ...gear(source.aaoa.key,180,'Book of Judgment (abridged)','2U','Adeptus Arbites'),
-    ...toolz(undefined, 'The Book of Judgement is the legal code of the Imperium, enforced by the Adeptus Arbites.'),
-  },
-  {
-    ...gear(source.aaoa.key,181,'Magnacles','3U','Imperium,Adeptus Arbites,Inquisition'),
-    ...toolz(undefined, 'Breaking free of magnacles’ magnetic lock requires a Strength test (DN 5).'),
-  }
-];
-
-const aaoaDrugsAndConsumables = [
+  // Drugs
   {
     ...gear(source.aaoa.key,183,'Eversor Combat Drugs','11L','Templum Eversor'),
     ...toolz('Drugs and Consumables'),
@@ -1612,13 +2136,155 @@ const aaoaDrugsAndConsumables = [
   },
 ];
 
+const aaoaAugmetics = [
+  // Augmetics
+  {
+    ...gear(source.aaoa.key,189,'Autosanguine', '6V', 'Adeptus Mechanicus, Cult Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Greatly enhance healing capacity and ignore wounded penalty.',
+    description:
+      '<p>Whenever you  regain  one or  more  Wounds, you regain one additional Wound. You also ignore the penalty for being Wounded. </p>',
+  },
+  {
+    ...gear(source.aaoa.key,189,'Baleful Eye', '8L', 'Adeptus Mechanicus, Imperium'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Give a Hot-Shot laser eye',
+    description:
+      '<p>A character with a Baleful Eye is considered to have a Hot-Shot  Laspistol  within  the  eye.  The  weapon  runs from an internal power source, and never runs out of ammunition, but this also means that ammo may not be spent on the weapon’s attacks. As might be imagined, it is very intimidating when used as a part of negotiations with primitive societies.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,190,'Blade-Tines', '5R', 'Chaos, Dark Mechanicus, Drukhari'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Hand mounted scalpel like blade. Good for medic or killer.',
+    description:
+      '<p>Blade-tines  grant  the  recipient  +1d  on  all  Medicae tests, and they can be used as a Mono-Knife in melee. </p>',
+	modifications: [
+		{ targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 1, rank: 0},
+    ],
+  },
+  {
+    ...gear(source.aaoa.key,190,'Calculus Logi Implant', '6V', 'Imperium, Adeptus Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Internal cogitator implants which aid in data retention and processing',
+    description:
+      '<p>The recipient has a +2d bonus on all Investigation and Scholar tests.</p>',
+	modifications: [
+		{ targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 2, rank: 0},
+		{ targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 2, rank: 0},
+    ],
+  },
+  {
+    ...gear(source.aaoa.key,190,'Chem Injector', '5R', 'Adeptus Mechanicus, Imperium, Adeptus Ministorum'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'This implant allows a dose of a drug or stimulant to be auto-injected  into  the  recipient’s  body.',
+    description:
+      '<p>Once  loaded with  a  dose  of  a  drug, the character can administer that dose at will as a simple action.</p>'+
+	  '<p>Some Chem Injector can be remotely controlled by another character via vox link.</p>'+
+	  '<p>A character can  have multiple Chem Injector, they do not need to contain the same drug.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,190,'Data-Tether', '3U', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Silently communicate your thoughts and status to similar equipped within 1km.',
+    description:
+      '<p>Characters with a data-tether may communicate silently to similarly-equipped characters within 1km, transmitting their thoughts and status through the implant to one another. A data-tether may be tuned to receive normal vox transmissions from non-Skitarii allies, though this is less efficient.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,190,'Enhanced Data-Tether', '5R', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Commanding officier version of a Data-Tether with a range of 100km.',
+    description:
+      '<p>Enhanced data-tether with a range of 100k. In addition the recipient and anyone in the group with a NORMAL data-tether may re-roll failures on Resolve tests.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,190,'Interface Port', '7R', 'Adeptus Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Direct neural interface for cogitator, data storage devices or advanced machinery.',
+    description:
+      '<p>This allows the user faster and smoother access to the valuable information within, and grants a +1d bonus  to  Scholar,  Investigate,  and  Tech  tests  while connected to a relevant mechanism or data-spool.</p>',
+	modifications: [
+      { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 1, rank: 0, condition: 'while connected to a relevant mechanism or data-spool.' },
+      { targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 1, rank: 0, condition: 'while connected to a relevant mechanism or data-spool.' },
+	  { targetGroup: 'skills', targetValue: SKILLS.TECH, modifier: 1, rank: 0, condition: 'while connected to a relevant mechanism or data-spool.' }
+    ],
+  },
+  {
+    ...gear(source.aaoa.key,191,'Luminen capacitor', '7V', 'Cult Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    //snippet: 'Extensive rules, see AAOA pg. 191.',
+    description:
+      '<p>A luminen capacitor contains a number of charges equal to the recipient’s Toughness. With a successful Toughness test, and a minute of meditative focus, the character may spend charges to recharge or power machinery. The DN of this test is equal to 2 plus the number of charges spent, and the number of charges required varies based on the system being charged.</p>' +
+      '<ul>' +
+      '<li>1 charge: simple power cell, illuminator</li>' +
+      '<li>2 charges: weapon charge pack, data-slate, starship bridge terminal</li>' +
+      '<li>3 charges: shuttle electronics, servo skull</li>' +
+      '<li>4 charges: heavy weapon charge pack, servitor, hololithic projector</li>' +
+      '<li>5 charges: cogitator core, reactor machine spirit, xenos technology</li>' +
+      '</ul>' +
+      '<p>If a character would suffer Shock from using an implant or cybernetic, then they may spend charges to reduce this, suffering one fewer Shock for each charge spent.</p>' +
+      '<p>The luminen capacitor regains its full charges during a Regroup. The character may also siphon power from powered devices and power sources, requiring a Toughness test (DN 3) and an action. Success means the character regains 1d3 charges, plus 1 for each Exalted Icon shifted. At the GM’s discretion, this may depower the device, and complications may cause damage to the device or the recipient.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,191,'Maglev Coils', '8V', 'Cult Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Allow the user to fly.',
+    description:
+      '<p>When activated, the character gains the ability to fly, at a speed equal to their Willpower (rounded up), but they may not Run or Sprint while flying in this manner. Each turn the character remains aloft, they suffer 1 Shock.</p>'+
+      '<p>The character may also use this implant to slow their descent while falling, suffering 1d3 Shock, plus 1 additional Shock for every 10 meters fallen, instead of the normal falling damage.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,191,'Memorance Implant','6R','Adeptus Mechanicus'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Record everything you see. You gain +1 bonus die to Investigation or Scholar based on Information witnessed or recorded.',
+    description:
+      '<p>The recipient always has a perfect visual record of everything they see, which may be transferred to other data storage if they have a way to connect to those devices (such as an interface port). Further, they gain a +1d bonus on any Investigate or Scholar tests based on information they have already witnessed and recorded.</p>',
+    modifications: [
+      { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 1, rank: 0, condition: 'when based on information witnessed and recorder.' },
+      { targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 1, rank: 0, condition: 'when based on information witnessed and recorder.' },
+    ],
+  },
+  {
+    ...gear(source.aaoa.key,192,'Neurostatic projector', '6R', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'All Creatures (excluding ADEPTUS MECHANICUS allies) within 10m suffer +Rank DN to Intellect and Resolve tests.',
+    description:
+      '<p>Creatures within 10 metres of the character add +Rank to the DN of all Intellect tests (including Awareness), and Resolve tests. Allies with the ADEPTUS MECHANICUS keyword receive null-codes which render them immune to this.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,192,'Omnispex', '6R', 'Adeptus Mechanicus, Skitarii'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'High end Auspex with target acquisition and data sharing capability.',
+    description:
+	  '<p>An omnispex functions as an auspex, in addition if the recipient aims at an enemy, then they ignore any Defence bonuses from cover on their next ranged attack.</p>'+
+	  '<p>If the recipient is equipped with a data-tether, they may share this bonus with any allies equipped with data-tethers within 10m.</p>',
+  },
+  {
+    ...gear(source.aaoa.key,192,'Scribe-Tines', '4U', 'Imperium, Adeptus Mechanicus, Adeptus Ministorum'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Specialised and sensitive tools for page-turning, autoscribing, data-slate manipulation, and other activities for a sage.',
+    description:
+      '<p>Replace the hand and lower forearm, The user gains a +2d bonus on Investigation tests, as they are able to record and retrieve information quickly.</p>',
+	modifications: [
+	 { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 2, rank: 0 },
+    ],
+  },
+  {
+    ...gear(source.aaoa.key,192,'Voidskin', '4U', 'Imperium, Adeptus Mechanicus, Imperial Navy'),
+    type: 'Augmetics', subtype: 'Augmetic Implants',
+    snippet: 'Help resist exposure to hard vacuum, extreme cold and radiation',
+    description:
+      '<p>Subdermal  skin  tissue and synthetic  chem-glands giving a +3d bonus on all tests to resist the effects of exposure to hard vacuum, extreme cold, and radiation.</p>',
+  },
+];
+
+
 const aaoa = [
-  ...aaoaAstartes,
-  ...aaoaAeldari,
-  ...aaoaDrukhari,
-  ...aaoaOrk,
-  ...aaoaAdeptusMechanicus,
-  ...aaoaArbites,
+  ...aaoaMelee,
+  ...aaoaRanged,
+  ...aaoaWeaponUpgrades,
+  ...aaoaArmour,
+  ...aaoaToolsEquipment,
+  ...aaoaAugmetics,
 ];
 
 const aaoav2 = [
@@ -1659,12 +2325,6 @@ const aaoav2 = [
     ...rangeAaoa('15+1ED; AP -4; Range 60m; Salvo 2; Rapid Fire [1], Supercharge', 'Plasma Weapon', ''),
     description:
       '<p>A more advanced version of the standard plasma gun, the Mark III Belisarius-pattern plasma incinerator is the primary weapon of Primaris Hellblasters, used to deliver death and destruction to armoured targets from afar.</p>',
-  },
-  {
-    ...simpleStub(30934, 'aaoa2', 93, 'Fragstorm Grenade Launcher', '6V', 'Explosive, Imperium, Adeptus Astartes, Primaris', ''),
-    ...rangeAaoa('10+1ED; AP 0; Range 35m; Salvo 3; Assault, Blast (Medium)', 'Grenades and Grenade Launchers', ''),
-    description:
-      '<p>Utilised by Primaris Aggressors and aboard certain Astartes vehicles, Fragstorm grenade launchers fire salvoes of charges similar to frag grenades, though somewhat denser and more compact, raining down fire and shrapnel upon the enemy.</p>',
   },
   {
     ...simpleStub(30936, 'aaoa2', 93, 'Psyk-Out Grenades', '8L', 'Explosive, Imperium, Inquisition, Grey Knights, Silent Sisterhood, Templum Culexus', ''),
@@ -1726,7 +2386,7 @@ const aaoav2 = [
   {
     ...simpleStub(31193, 'aaoa2', 119, 'Inferno Bolt Rounds', '7R', 'Chaos, Heretic Astartes, Tzeentch', ''),
     type: 'Reloads and Ammunition',
-    snippet: 'Weapon gains AP -2, and the Fire keyword..',
+    snippet: 'Weapon gains AP -2, and the Fire keyword.',
   },
   {
     ...simpleStub(31262, 'aaoa2',126,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
