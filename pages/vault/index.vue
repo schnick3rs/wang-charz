@@ -116,7 +116,7 @@
 
             <template v-slot:item.supplements="{ item }">
               <v-chip
-                v-if="item.supplements === 'Core v1.5'"
+                v-if="item.supplements.startsWith('Core v2')"
                 color="green"
                 text-color="white"
                 tags x-small label
