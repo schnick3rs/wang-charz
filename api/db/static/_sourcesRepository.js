@@ -1,6 +1,6 @@
 const source = {
   // Official
-  core: { book: 'Core Rules', key: 'core', version: 'v1.5.2', link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959' },
+  core: { book: 'Core Rules', key: 'core', version: 'v2.1', link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
   core10: { book: 'Core Rules', key: 'core10', version: 'v1' },
   // Doctors of Doom

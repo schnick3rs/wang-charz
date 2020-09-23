@@ -347,9 +347,20 @@ export default {
         + 'dice for any Scholar or Investigation tests related to xenos.',
         modification: {},
         modifications: [
-          { name: 'Understand your enemies', snippet: 'The character is fluent in one alien language,' },
-          { name: 'Know your enemies', snippet: '+2 bonus dice to Scholar tests related to xenos.' },
-          { name: 'Exploit your enemies', snippet: '+2 bonus dice to Investigation tests related to xenos.' },
+          {
+            name: 'Understand your enemies',
+            snippet: 'The character is fluent in one alien language,',
+          },
+          {
+            name: 'Know your enemies',
+            snippet: '+2 bonus dice to Scholar tests related to xenos.',
+          },
+          {
+            name: 'Exploit your enemies',
+            snippet: '+2 bonus dice to Investigation tests related to xenos.',
+          },
+          { targetGroup: 'skills', targetValue: 'scholar', modifier: 2, condition: 'when related to xenos.' },
+          { targetGroup: 'skills', targetValue: 'investigation', modifier: 2, condition: 'when related to xenos.' },
         ],
       },
       {
@@ -367,7 +378,11 @@ export default {
           {
             name: 'Ordo Malleus Specialisaton',
             snippet: 'You gain +3 Corruption and +1 Conviction.',
-            description: ''
+            description: '',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+              { targetGroup: 'traits', targetValue: 'conviction', modifier: 1 },
+            ],
           },
           {
             name: 'Ordo Malleus Specialisaton',

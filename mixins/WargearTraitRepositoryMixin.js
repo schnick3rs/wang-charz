@@ -44,17 +44,18 @@ export default {
           name: 'Blast',
           hint: '',
           fluff: 'Explosive weapons can devastate multiple enemies with a single attack.',
-          crunch: 'Target a point (DN 3) and deal damage to anyone in the blast radius.',
+          crunch: 'Target a point (DN 3) and deal damage to anyone in the blast radius. You can´t shift for damage.',
           description:
             '<p>Explosive weapons can devastate multiple enemies with a single attack.</p>' +
             '<p>Every Blast weapon has a (Size) which determines how many enemies it can hit, assuming they are close together. Choose any point in range, and make a DN 3 Ballistic Skill (A) Test; if you succeed, you deal Damage to all individuals within the Blast Radius. If you’re measuring distance accurately or using miniatures, multiply the Radius by 3 for the approximate circumference of the explosion in metres.</p>' +
             '<ul>' +
-            '<li>Small, Radius 1</li>' +
-            '<li>Medium, Radius 3</li>' +
-            '<li>Large, Radius 5</li>' +
-            '<li>Very Large, Radius 10</li>' +
-            '<li>Hugh, Radius 15</li>' +
+            '<li>Rating 2m, ~1 Target</li>' +
+            '<li>Rating 6m, ~3 Targets</li>' +
+            '<li>Rating 10m, ~5 Targets</li>' +
+            '<li>Rating 20m, ~10 Targets</li>' +
+            '<li>Rating 30m, ~15 Targets</li>' +
             '</ul>' +
+            '<p><ou can not shift for damage/p>' +
             '<p>If a weapon with the Blast Trait misses, it Scatters (p.186).</p>',
         },
         {
@@ -90,8 +91,10 @@ export default {
           crunch: 'You can target up to  2x Ballistic Skill targets. Your Weapon gains the Inflict (On Fire) Trait.',
           description:
             '<p>Flamers spew a stream of burning chemical liquid. The flowing torrent of flame can be guided by the wielder of a Flamer to set multiple foes ablaze.</p>' +
-            '<p>When you fire a Flamer weapon, you can target a maximum number of individuals in the weapon’s range equal to double your Ballistic Skill Rating. You automatically hit every target, and any target may attempt to reduce the damage using the rules for Dodging Area Effect Attacks on p.186.</p>' +
-            '<p>A weapon with the Flamer Trait is considered to have the Inflict (<em>On Fire</em>) Trait.</p>',
+            '<p> Attacks made with a Flamer ignore cover. If you hit a target with a Flamer, blazing liquid fills the space between you and your target in a straight line. Anything in that line is also hit by the attack.</p>' +
+            '<p>You can Shift when you make a ranged attack Test with a Flamer to arc the stream of burning chemicals a number of metres equal to your Ballistic Skill Rating. Anything in this arc is hit by the attack.</p>' +
+            '<p>Whenever you hit multiple targets, roll damage once and apply that damage to all targets. Any target may attempt to reduce the damage using the rules for Dodging Area Effect Attacks on p.186.</p>' +
+            '<p>A weapon with the Flamer Trait is considered to have the Inflict (On Fire) Trait.</p>',
         },
         {
           key: 'core-heavy',

@@ -40,6 +40,7 @@ const TRAITS = {
   DETERMINATION: 'determination',
   SPEED: 'speed',
   CORRUPTION: 'corruption',
+  INFLUENCE: 'influence',
 };
 
 export {

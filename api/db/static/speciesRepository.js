@@ -154,10 +154,6 @@ const coreRep = [
     ],
     speciesFeatures: [
       {
-        name: 'Outsider',
-        snippet: '+2DN to all Interaction tests with members of the Imperium.',
-      },
-      {
         name: 'Intense Emotion',
         snippet: '+1DN to all Resolve Tests. If you fail a Willpower based test in a scene involving emotion, the GM gains +1 Ruin.',
       },
@@ -238,10 +234,6 @@ const coreRep = [
       { group: 'attributes', value: 'toughness', threshold: 3 },
     ],
     speciesFeatures: [
-      {
-        name: 'Outsider',
-        snippet: '+2DN to all Interaction tests with members of the Imperium.',
-      },
       {
         name: 'Orky',
         snippet: '+1 bonus dice to Intimidation Tests.',

@@ -313,7 +313,7 @@ const core = [
       '<p>You are a master of melee combat, able to find an opening in your opponent’s guard when they attack.</p>' +
       '<p>You can use this Talent whenever an enemy targets you with a melee attack. After the enemy has completed their attack, you may make a single melee attack against that enemy as a Reflexive Action.</p>' +
       '<p>You may not apply any other Talents, Abilities, or combat options to a Counter Attack.</p>' +
-      '<p>You may Counter Attack. up to Double Rank times per Round.</p>' +
+      '<p>You may Counter Attack up to Rank times per Round.</p>' +
       '<p>If you Counter Attack, you cannot take any Move Actions on your next turn.</p>',
     requirements: [ requireSkill('weaponSkill', 5) ],
   },
@@ -426,10 +426,10 @@ const core = [
   {
     ...talent('core',133,'Duty Until Death',20,'Combat'),
     hint: 'Your ardent faith in the Emperor allows you to push beyond the limits of injury to act in His will, at a cost to your physical form.',
-    snippet: 'When reaching Max Wounds, you can act normal for one final round. You are still dying and rolling Complications is not a good idea.',
+    snippet: 'When suffer more Wounds then your Max Wounds, you can act normal for one final round. You are still dying and rolling Complications is not a good idea.',
     description:
       '<p>Your ardent faith in the Emperor allows you to push beyond the limits of injury to act in His will, at a cost to your physical form.</p>' +
-      '<p>Whenever you reach Max Wounds, you can use this Talent. You may take your next turn normally; you begin Dying at the end of that turn. You may choose to take your next turn immediately after activating this Talent, potentially interrupting an enemy’s turn. If you roll a Complication on any Test, you take a Traumatic Wound.</p>',
+      '<p>Whenever you suffer more Wounds than your Max Wounds, you can use this Talent. You may take your next Turn normally; you begin Dying at the end of that Turn. You may choose to take your next Turn immediately after activating this Talent, potentially interrupting an enemy’s Turn. If you roll a Complication on any Test, you take a Traumatic Wound.</p>',
     requirements: [
       requireAttribute('willpower',3),
       requireKeyword('IMPERIUM'),
@@ -530,10 +530,10 @@ const core = [
   },
   {
     ...talent('core',134,'Gallows Humour',20,'Support,Survival'),
-    snippet: 'As a Simple Action you can roll Fellowship when wounded or suffer a condition. You and you allies heal Shock equals to Icons Rolled +Rank.',
+    snippet: 'As a Simple Action you can roll Fellowship vs DN 2 when wounded or suffer a condition. You and you allies heal Shock equals to Icons Rolled +Rank.',
     description:
       '<p>You find humour in the darkest of places, and can use it to bolster the resolve of your allies.</p>' +
-      '<p>You can take a Simple Action to make a grim joke whenever you are Wounded or are suffering from a Condition. Make a Fellowship Attribute Test when you do so; you and any allies that can hear you recover Shock equal to your rank plus the number of Icons rolled.</p>',
+      '<p>You can take a Simple Action to make a grim joke whenever you are Wounded or are suffering from a Condition, as long as you are still able to speak. Make a DN 2 Fellowship Attribute Test. If you succeed, you and any allies that can hear you recover Shock equal to your Rank plus the number of Icons rolled.</p>',
     requirements: [],
   },
   {
@@ -741,9 +741,11 @@ const core = [
   },
   {
     ...talent('core',137,'Orthopraxy',20),
-    snippet: 'As a Simple Action, you gain +1 to Willpower for Rank turns. Use once per Short Rest.',
+    snippet: 'As an ongoing Simple Action, you gain +1 to Willpower for up to Double Rank turns. Use once per Respite (Short Rest).',
     description:
-      '<p></p>',
+      '<p>The litanies of His holy word have burned themselves deep in your memory. You can recite hymns and prayers to the Emperor by rote, and can use them to bolster your mind.</p>' +
+      '<p>As a Simple Action you can begin mentally reciting Ecclesiastical liturgies. As long as you sacrifice your Simple Action in this way, you gain +1 bonus Willpower, for a maximum of Double Rank Rounds.</p>' +
+      '<p>You can’t use this Talent again until you complete a Respite.</p>',
     requirements: [ requireKeyword('IMPERIUM') ],
   },
   {
@@ -767,9 +769,11 @@ const core = [
   },
   {
     ...talent('core',138,'Promethium Proficiency',20),
-    snippet: 'Your Inflict(On Fire) weapons add +Rank ED. You gain 1 Wrath when killing an enemy of the Imperium with such a weapon.',
+    snippet: 'Your Inflict(On Fire) weapons, add +Rank ED. Once per round, you gain 1 Wrath when killing an enemy of the Imperium with such a weapon.',
     description:
-      '<p></p>',
+      '<p>You have been trained in the use of the Emperor’s holy fire.</p>' +
+      '<p>When using weapons with the Inflict (On Fire) Trait, you gain +Rank ED to any damage rolls.</p>' +
+      '<p>Once per Round, you may gain 1 Wrath when you kill an enemy of the Imperium using a weapon with the Inflict (On Fire) Trait.</p>',
     requirements: [ requireKeyword('IMPERIUM') ],
   },
   {

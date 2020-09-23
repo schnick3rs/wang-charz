@@ -327,6 +327,7 @@ const core = [
         name: 'Look Out, Sir!',
         snippet: 'Once per combat, as a Reflexive Action, move up to half your Speed to intercept an attack that hit an ally. You Resilience is increased by +Rank.',
         description: '<p>You have been drilled in sacrificing yourself to save your allies. Once per combat, you may take a Reflexive Action to move up to half your Speed to get in the way of any attack that hit an ally. The attacker then rolls against your Resilience instead of your ally’s, and may deal Wounds to you. Your Resilience increases by +Rank for the purpose of calculating damage.</p>'
+        // TODO conditional modifier
       },
     ],
     wargear: wargearz('Flak Armour, Lasgun, Knife, Munitorum-Issue Mess Kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
@@ -357,7 +358,7 @@ const core = [
         snippet: 'You’re an expert in inflicting pain through the weapons of the Imperium. Whenever you spend Glory to increase damage when using a weapon with the ASTRA MILITARUM you can add +Rank to the final damage value.',
       },
     ],
-    wargear: wargearz('Carapace Armour, Hot-Shot Lasgun, Grav-Chute, Knife, Munitorum-Issue Mess Kit, Uplifting Primer/a copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
+    wargear: wargearz('Carapace Armour, Hot-Shot Lasgun, Grav-Chute, Knife, Munitorum-Issue Mess Kit, Uplifting Primer/a copy of the Imperial Infantryman’s Uplifting Primer, Slate Monitron, Monoscope, 3 ration packs'),
     influence: 1,
   },
   {
@@ -467,7 +468,11 @@ const core = [
     archetypeFeatures: [
       {
         name: 'Warrant of Trade',
-        snippet: 'You are a master of manipulating a situation to your advantage. You gain +Rank bonus dice to all Persuasion tests and Influence tests to acquire goods and services.',
+        snippet: 'You are a master of manipulating a situation to your advantage. You gain +Rank bonus dice to all Persuasion (Fel) Tests and Influence tests to acquire goods and services.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: SKILLS.PERSUASION, modifier: 0, rank: 1, condition: 'when acquiring goods and services.' },
+          { targetGroup: 'traits', targetValue: TRAITS.INFLUENCE, modifier: 0, rank: 1, condition: 'when acquiring goods and services.' },
+        ],
       },
     ],
     wargearString: 'Imperial Frigate. Choose any two pieces of Wargear with a Value of your Tier +4 or less, and a Rarity of Rare or lower. Choose from any of the following options; Flak Coat or Carapace Armour or Light Power Armour.',
@@ -686,26 +691,28 @@ const core = [
   },
   {
     ...archetype(source.core.key, 117,'Adeptus Astartes','Primaris Intercessor',4,'Primaris Astartes'),
-    ...cost(228,30,198, 0, 0),
-    hint: 'A skilled and focused warrior, adept at bringing death at range.',
-    keywords: 'Imperium, Adeptus Astartes, Primaris, [Chapter]',
-    prerequisites: [
+    ...costz(300, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
-      reqAttribute(ATTRIBUTES.AGILITY, 4),
-      reqAttribute(ATTRIBUTES.INITIATIVE, 4),
+      reqAttribute(ATTRIBUTES.AGILITY, 5),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqSkill(SKILLS.ATHLETICS, 3),
       reqSkill(SKILLS.AWARENESS, 3),
-      reqSkill(SKILLS.BALLISTIC_SKILL, 4),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 6),
       reqSkill(SKILLS.STEALTH, 3),
       reqSkill(SKILLS.WEAPON_SKILL, 3),
-    ],
+    ]),
+    hint: 'A skilled and focused warrior, adept at bringing death at range.',
+    keywords: 'Imperium, Adeptus Astartes, Primaris, [Chapter]',
     archetypeFeatures: [
       {
         name: 'Intercessor Focus',
         snippet: 'You gain +Double Rank bonus dice to any Ballistic Skill Tests to fire a ranged weapon with the PRIMARIS Keyword.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: SKILLS.BALLISTIC_SKILL, modifier: 0, rank: 2, condition: 'when firing a PRIMARIS weapon.' },
+        ],
       },
     ],
     wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Bolt Rifle, Heavy Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade'),
@@ -1281,10 +1288,10 @@ const core = [
     archetypeFeatures: [
       {
         name: 'Runes of Battle',
-        snippet: 'You are a Psyker; you know the Smite psyhcic power and may learn other powers as described in Chapter 11.',
+        snippet: 'You are a Psyker; you know the Smite psyhcic power, a single Runes of Battle psychic power and may learn other powers as described in Chapter 11.',
         psychicPowers: [
           { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
-          //{ name: 'psykerPsyniscience', selected: 'Psyniscience', query: { name: 'Psyniscience' }, options: [], free: true },
+          { name: 'psykerRunesOfBattle', selected: 'Runes of Battle', query: { discipline: 'Runes of Battle' }, options: [], free: true },
         ],
       },
       {
