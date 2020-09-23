@@ -215,7 +215,7 @@ export default {
           crunch: 'When a weapon with this Trait is used as part of an attack, your Stealth Score is only reduced by 3.',
           description:
             '<p>These stealthy weapons are designed to deal damage as quietly as possible.</p>' +
-            '<p>When a weapon with this Trait is used as part of an attack, your Stealth Score is only reduced by 3.</p>',
+            '<p>When a weapon with this Trait is used as part of an attack, your Stealth Score is only reduced by 2.</p>',
         },
         {
           key: 'core-sniper',
@@ -232,10 +232,10 @@ export default {
           name: 'Spread',
           hint: '',
           fluff: 'These wide-bore weapons wreak havoc on closely packed combatants.',
-          crunch: 'When fired at Short Range, a Spread weapon can hit any number of targets as long as they are all within 3 metres of one another. When you fire a Spread Weapon at a Mob you gain +Rank bonus dice.',
+          crunch: 'When fired at Short Range, a Spread weapon can hit any number of targets as long as they are all within 3 metres of one another. When you fire a Spread Weapon at a Mob you gain +3 bonus dice.',
           description:
             '<p>These wide-bore weapons wreak havoc on closely packed combatants.</p>' +
-            '<p>When fired at Short Range, a Spread weapon can hit any number of targets as long as they are all within 3 metres of one another. When you fire a Spread Weapon at a Mob you gain +Rank bonus dice.</p>',
+            '<p>When fired at Short Range, a Spread weapon can hit any number of targets as long as they are all within 3 metres of one another. When you fire a Spread Weapon at a Mob you gain +3 bonus dice.</p>',
         },
         {
           key: 'core-supercharge',
