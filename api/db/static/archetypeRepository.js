@@ -693,7 +693,7 @@ const core = [
     ...archetype(source.core.key, 117,'Adeptus Astartes','Primaris Intercessor',4,'Primaris Astartes'),
     ...costz(300, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
-      reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 6),
       reqAttribute(ATTRIBUTES.AGILITY, 5),
       reqAttribute(ATTRIBUTES.INITIATIVE, 5),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
