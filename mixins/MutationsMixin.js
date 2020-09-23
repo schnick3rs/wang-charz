@@ -53,7 +53,7 @@ export default {
       {
         key: 'core-hint-of-red-eye',
         name: 'Hint of Red Eye',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '288' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '288' },
         severity: SEVERITY.SUBTILE,
         roll: [11,12,13,14,15,16],
         snippet: 'Add 1 dice to Awareness (Int) Tests. You suffer +1 DN to actions that require vision, while exposed to light.',
@@ -66,7 +66,7 @@ export default {
       {
         key: 'core-voice-of-the-aurelian',
         name: 'Voice of the Aurelian',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '288' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '288' },
         severity: SEVERITY.SUBTILE,
         roll: [21,22,23,24,25,26],
         snippet: 'Add +Rank dice to social tests. Psykers within 25m must reroll Wrath Dice without complications.',
@@ -76,7 +76,7 @@ export default {
       {
         key: 'core-living-shadow',
         name: 'Living Shadow',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '288' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '288' },
         severity: SEVERITY.SUBTILE,
         roll: [31,32,33],
         snippet: 'You are aware of any Ambush as if you had spend a Point of Glory. You suffer +1 DN to opposing psychic powers of its effect.',
@@ -86,7 +86,7 @@ export default {
       {
         key: 'core-gossamer-flesh',
         name: 'Gossamer Flesh',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '288' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '288' },
         severity: SEVERITY.SUBTILE,
         roll: [34,35,36],
         snippet: 'You gain +Double Rank dice to Awareness (Int) Tests involving touch. You Reduce Resistance and Max Shock by 1. You suffer +1 DN to resist painfull contact.',
@@ -101,7 +101,7 @@ export default {
       {
         key: 'core-visions',
         name: 'Visions',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '289' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '289' },
         severity: SEVERITY.SUBTILE,
         roll: [41,42,43],
         snippet: 'You may activate the following effect on a Complication or when the Gm spends 1 Ruin to force you: Roll on the Vision Table (core, pg. 289).',
@@ -111,7 +111,7 @@ export default {
       {
         key: 'core-echoes',
         name: 'Echoes',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '289' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '289' },
         severity: SEVERITY.SUBTILE,
         roll: [44,45,46],
         snippet: 'You may activate the following effect on a Complication or when the Gm spends 1 Ruin to force you: You must reroll all any Wrath die that is no [1,6].',
@@ -121,7 +121,7 @@ export default {
       {
         key: 'core-blighted-soul',
         name: 'Blighted Soul',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '289' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '289' },
         severity: SEVERITY.SUBTILE,
         roll: [51,52,53],
         snippet: 'You add +1 dice to resist Poison. You and anyone within 10m suffer +1 DN to Corruption and Malignancy Tests.',
@@ -131,7 +131,7 @@ export default {
       {
         key: 'core-wyrdling',
         name: 'Wyrdling',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '290' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '290' },
         severity: SEVERITY.SUBTILE,
         roll: [54,55,56],
         snippet: 'You gain the PSYKER Keyword. You gain one Minor Psychic Power (GM choice). If you already are a PSYKER, you gan one aditional Minow Psychic Power.',
@@ -143,7 +143,7 @@ export default {
       {
         key: 'core-misshapen',
         name: 'Misshapen',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '290' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '290' },
         severity: SEVERITY.MINOR,
         roll: [11,12,13,14,15,16],
         snippet: 'Increase your Resolve by 2. Reduce your Max Shock by 1.',
@@ -157,7 +157,7 @@ export default {
       {
         key: 'core-grotesque',
         name: 'Grotesque',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '290' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '290' },
         severity: SEVERITY.MINOR,
         roll: [21,22,23,24,25,26],
         snippet: 'Add +1 to Intimidation tests. You suffer +1 DN to social interactions with non-CHAOS characteres.',
@@ -170,7 +170,7 @@ export default {
       {
         key: 'core-bestial-hide',
         name: 'Bestial Hide',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '290' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '290' },
         severity: SEVERITY.MINOR,
         roll: [31,32,33],
         snippet: 'Increase Resilience by 1. Add +1 to Intimidation tests. You suffer +2 DN to social interactions with non-CHAOS characteres.',
@@ -184,7 +184,7 @@ export default {
       {
         key: 'core-brute',
         name: 'Brute',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '290' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '290' },
         severity: SEVERITY.MINOR,
         roll: [34,35,36,41,42,43],
         snippet: 'Increase Strength and Toughness by 1. Using equipment (incl. ranged weapons), not adjusted to your size, suffer a +1 DN.',
@@ -198,7 +198,7 @@ export default {
       {
         key: 'core-horns-spines-fangs-or-claws',
         name: 'Horns, Spines, Fangs or Claws',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '290' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '290' },
         severity: SEVERITY.MINOR,
         roll: [44,45,46],
         snippet: 'Melee (Strength 5 +Rank ED). When these growth are visible, you suffer +2 DN to social interactions with non-CHAOS characters.',
@@ -209,7 +209,7 @@ export default {
       {
         key: 'core-corrosive-miasma',
         name: 'Corrosive Miasma',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '291' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '291' },
         severity: SEVERITY.MINOR,
         roll: [51,52,53],
         snippet: 'On a Complication, you may destroy one item. The GM may spend 1 Ruin to choose the item. You my shift from a melee attack to Inflict Poisoned (1 Mortal Wound).',
@@ -219,7 +219,7 @@ export default {
       {
         key: 'core-toxic-blood',
         name: 'Toxic Blood',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '291' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '291' },
         severity: SEVERITY.MINOR,
         roll: [54,55,56],
         snippet: 'Medicae test on you suffer +2 DN. On A Medicae Complication, the user must success Toughness DN 4 or suffer 1 Mortal Wound.',
@@ -229,7 +229,7 @@ export default {
       {
         key: 'core-extra-appendages',
         name: 'Extra Appendages',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '291' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '291' },
         severity: SEVERITY.SEVERE,
         roll: [11,12],
         snippet: 'You gain an appendage (roll on core pg. 291). Non concealed limbs cause you to suffer a +2 DN on Persuasion Tests with non-CHAOS characters.',
@@ -285,7 +285,7 @@ export default {
       {
         key: 'core-aberration',
         name: 'Aberration',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '292' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '292' },
         severity: SEVERITY.SEVERE,
         roll: [13,14],
         snippet: 'Roll your animalistic aberration (see core pg. 292). Visible mutations cause you to suffer +2 DN to social Interactions with non-CHAOS.',
@@ -356,7 +356,7 @@ export default {
       {
         key: 'core-corrupted-flesh',
         name: 'Corrupted Flesh',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '292' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '292' },
         severity: SEVERITY.SEVERE,
         roll: [15,16],
         snippet: 'Increase Toughness by 1. Medicae tests on you suffer +2 DN.',
@@ -369,7 +369,7 @@ export default {
       {
         key: 'core-wings',
         name: 'Wings',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '293' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '293' },
         severity: SEVERITY.SEVERE,
         roll: [21,22],
         snippet: 'Fly with double your normal speed.',
@@ -379,7 +379,7 @@ export default {
       {
         key: 'core-serpentine-body',
         name: 'Serpentine Body',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '293' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '293' },
         severity: SEVERITY.SEVERE,
         roll: [23,24],
         snippet: 'Increase Wounds by 2 and Resilience by 1. You are always considered Crawling and Prone without the penalties.',
@@ -393,7 +393,7 @@ export default {
       {
         key: 'core-cannibalistic-drive',
         name: 'Cannibalistic Drive',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '293' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '293' },
         severity: SEVERITY.SEVERE,
         roll: [25,26],
         snippet: 'Increase Toughness and Strength by 2. You must consume flesh from sentient creatures or suffer penalties (see core pg. 293).',
@@ -407,7 +407,7 @@ export default {
       {
         key: 'core-withered',
         name: 'Withered',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '293' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '293' },
         severity: SEVERITY.SEVERE,
         roll: [31,32],
         snippet: 'Increase Willpower by 2 and reduce Toughness by 1.',
@@ -421,7 +421,7 @@ export default {
       {
         key: 'core-vile-alacrity',
         name: 'Vile Alacrity',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '293' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '293' },
         severity: SEVERITY.SEVERE,
         roll: [33,34],
         snippet: 'Increase Speed by 2. Add +1 die to Athetics Tests. You suffer at least +2 DN to Social Interaction tests with non-CHAOS targets.',
@@ -435,7 +435,7 @@ export default {
       {
         key: 'core-fleshmetal',
         name: 'Fleshmetal',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '293' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '293' },
         severity: SEVERITY.SEVERE,
         roll: [35,36],
         snippet: 'Increase Wounds and Shock by 2. You can´t remove worn armour. You suffer at least +2 DN to Social Interaction tests with non-CHAOS targets.',
@@ -449,7 +449,7 @@ export default {
       {
         key: 'core-corrosive-bile',
         name: 'Corrosive Bile',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '294' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '294' },
         severity: SEVERITY.SEVERE,
         roll: [41,42],
         snippet: 'Medicae tests on you suffer +3 DN. Bleeding causes you to spread bile to all characters within 2m. You may also vomit the bile once per scene. Both are a free action using ballistic skill. Range 2m; Damage 6 +1 ED; Assault, Toxic 7, Penetrating(1), Spread.',
@@ -459,7 +459,7 @@ export default {
       {
         key: 'core-corpulent',
         name: 'Corpulent',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '294' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '294' },
         severity: SEVERITY.SEVERE,
         roll: [43,44],
         snippet: 'Increase Toughness by 2. Add +1 dice to Intimidation Tests.',
@@ -473,7 +473,7 @@ export default {
       {
         key: 'core-an-excess-of-eyes',
         name: 'An Excess Of Eyes',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '294' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '294' },
         severity: SEVERITY.SEVERE,
         roll: [45,46],
         snippet: 'Increase Defence by 2 and Passive Awareness by 3. You add +2 dice to Awareness tests. You suffer at least +2 DN penalty to social interaction tests with non-CHAOS creatures.',
@@ -488,7 +488,7 @@ export default {
       {
         key: 'core-enduring-life',
         name: 'Enduring Life',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '294' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '294' },
         severity: SEVERITY.SEVERE,
         roll: [51,52],
         snippet: 'You cannot die. Whenever you take a Traumatic Wound you gain 1d6 Corruption points.',
@@ -498,7 +498,7 @@ export default {
       {
         key: 'core-aquatic',
         name: 'Aquatic',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '294' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '294' },
         severity: SEVERITY.SEVERE,
         roll: [53,54],
         snippet: 'You are immune to Suffocation (p.200) from water but suffer Suffocation from air. You no longer treat water as Difficult Terrain, and so may Swim at full Speed without an Athletics Test.',
@@ -508,7 +508,7 @@ export default {
       {
         key: 'core-amorphous',
         name: 'Amorphous',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '295' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '295' },
         severity: SEVERITY.SEVERE,
         roll: [55,56],
         snippet: 'Increase Toughness by 2. You can no longer wear clothing or armour. You movement is crawling but you may run and sprint. You are always prone without drawbacks. Add +1 die to Intimidation test. You suffer at least +6 DN penalty to social interaction tests with non-CHAOS characters.',
@@ -522,7 +522,7 @@ export default {
       {
         key: 'core-afflicted',
         name: 'Afflicted',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '295' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '295' },
         severity: SEVERITY.SEVERE,
         roll: [61,62,63],
         snippet: 'Increase Wounds by 3. Add +2 dice to Intimidation test. You suffer at least +2 DN penalty to social interaction tests with non-CHAOS characters.',
@@ -536,7 +536,7 @@ export default {
       {
         key: 'core-the-warp-made-manifest',
         name: 'The Warp Made Manifest',
-        source: { book: 'Core Rules (v1.5)', key: 'core', version: 'v1.5', page: '295' },
+        source: { book: 'Core Rules', key: 'core', version: 'v2.1', page: '295' },
         severity: SEVERITY.SEVERE,
         roll: [64],
         snippet: 'You gain Wings (p.293), Wyrdling (p.290), and Horns, Spines, Fangs, or Claws (p.290).',
