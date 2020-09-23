@@ -113,6 +113,16 @@ export default {
       ],
       assets: [
         {
+          name: 'Helper & Summary',
+          type: 'PDF on Google Drive',
+          author: 'Bill Gant',
+          text: 'Bill Gant has put some real effort into these extensive Summaries. Quite some colorful pages help you with all the combat and advancement (should you survive).',
+          parts: [
+            { title: 'Combat Summary' , url: 'https://drive.google.com/file/d/1KftBEI0SJ1BpKvVy3hqdSQlQ5OyXiLWN/view' },
+            { title: 'Advancement Summary' , url: 'https://drive.google.com/file/d/18NzfdwWFbHw6zyqtgPmJOkizBWlF8Nox/view' },
+          ],
+        },
+        {
           name: 'Combat Cheat Sheet',
           type: 'Google Docs',
           author: 'u/Z_Scribe',
