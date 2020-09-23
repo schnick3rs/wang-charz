@@ -380,7 +380,7 @@ const core = [
   },
   {
     ...gear(source.core.key,216,'Power Klaw','8V','Power Field,Ork'),
-    ...meleez('Ork Weapon',6,5,-3,2, 'Brutal,Unwieldy(3),Waaagh!'),
+    ...meleez('Ork Weapon',6,5,-3,1, 'Brutal,Unwieldy(3),Waaagh!'),
   },
   {
     ...gear(source.core.key,216,'Bolt Pistol','4U','Bolt,Imperium'),
@@ -400,7 +400,7 @@ const core = [
   },
   {
     ...gear(source.core.key,216,'Storm Bolter','6R','Bolt,Imperium'),
-    ...rangez('Bolt Weapon',10,1,0,24,4,'Brutal,Heavy(3),Rapid Fire(2)'),
+    ...rangez('Bolt Weapon',10,1,0,24,4,'Brutal,Heavy(3),Rapid Fire(3)'),
   },
   {
     ...gear(source.core.key,216,'Assault Bolter','8V','Bolt,Imperium,Adeptus Astartes,Adeptus Primaris'),
@@ -408,7 +408,7 @@ const core = [
   },
   {
     ...gear(source.core.key,216,'Heavy Bolter','6U','Bolt,Imperium'),
-    ...rangez('Bolt Weapon',12,2,-1,36,3,'Brutal,Heavy(4),Rapid Fire(1)'),
+    ...rangez('Bolt Weapon',12,2,-1,36,3,'Brutal,Heavy(4),Rapid Fire(4)'),
   },
   {
     ...gear(source.core.key,221,'Laspistol','3C','Las,Imperium'),
@@ -604,7 +604,7 @@ const core = [
   },
   {
     ...gear(source.core.key,226,'Ranger Long Rifle','7V','Las,Aeldari'),
-    ...rangez('Aeldari Weapon',10,1,0,36,0,'Sniper(2)'),
+    ...rangez('Aeldari Weapon',10,1,0,36,0,'Sniper(4)'),
   },
   {
     ...gear(source.core.key,226,'Fusion Gun','6V','Melta,Aeldari'),
@@ -874,7 +874,7 @@ const core = [
   },
   {
     ...gear(source.core.key,235,'Voidplate Harness','7R','Aeldari,Anhrathe'),
-    ...armour('Aeldari Armour',5,'Bulk(2)'),
+    ...armour('Aeldari Armour',5,'Bulk(1)'),
   },
   {
     ...gear(source.core.key,235,'Shimmershield','7R','Force Field,Aeldari,Asuryani'),
@@ -1011,11 +1011,11 @@ const core = [
   },
   {
     ...gear(source.core.key,239,'Rule Of The Sororitas','2U','[Any]'),
-    ...toolz('Imperial Equipment','If you have the ADEPTA SORORITAS Keyword, you can read the Rule of Sororitas as part of a Respite to recover 1d3 Shock.'),
+    ...toolz('Imperial Equipment','If you have the ADEPTA SORORITAS Keyword, you can read the Rule of Sororitas as part of a Regroup (Long Rest) to recover 1d3 Shock.'),
   },
   {
     ...gear(source.core.key,239,'Sacred Machine Oil','3U','Imperium,Adeptus Mechanicus'),
-    ...toolz('Imperial Equipment','You ignore the first Complication involving Imperial technology in any scene (including combat).'),
+    ...toolz('Imperial Equipment','You may ignore any Complication involving Imperial technology in any scene (including combat).'),
   },
   {
     ...gear(source.core.key,239,'Slate Monitron','5R','Imperium,Astra Militarum'),
