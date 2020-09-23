@@ -29,7 +29,7 @@
 
       <v-col :cols="12">
         <v-alert type="info" outlined >
-          <p>On September the 8th 2020, <a href="https://www.cubicle7games.com/">Cubicle7</a> <a href="https://www.cubicle7games.com/40k-updated-errata-file/">posted about the latest, updated Errata</a> for Wrath and Glory. The <a href="https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959" title="Wrath & Glory Core Rules (Affiliate Link)">respective PDF on e.g. drivethrurpg.com</a> (affiliate link) is also updated. This version is now labled v2.1 thus, the references in the vault is updated. Alsp, of course, the v2.1 changes are slowly finding their way into the forge. Species, Archetypes, Wargear and Talents are done. If you find inconsistencies, please reach out.</p>
+          <p>On September the 8th 2020, <a href="https://www.cubicle7games.com/">Cubicle7</a> <a href="https://www.cubicle7games.com/40k-updated-errata-file/">posted about the latest, updated Errata</a> for Wrath and Glory. The <a href="https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959" title="Wrath & Glory Core Rules (Affiliate Link)">respective PDF on e.g. drivethrurpg.com</a> (affiliate link) is also updated. This version is now labeled v2.1 thus, the references in the vault is updated. Also, these v2.1 changes are slowly finding their way into the forge. Species, Archetypes, Wargear and Talents are done. If you find inconsistencies, please reach out.</p>
         </v-alert>
       </v-col>
 
