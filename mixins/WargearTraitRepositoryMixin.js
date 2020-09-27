@@ -88,7 +88,7 @@ export default {
           name: 'Flamer',
           hint: 'Burn multiple Targets.',
           fluff: 'Flamers spew a stream of burning chemical liquid. The flowing torrent of flame can be guided by the wielder of a Flamer to set multiple foes ablaze.',
-          crunch: 'You can target up to  2x Ballistic Skill targets. Your Weapon gains the Inflict (On Fire) Trait.',
+          crunch: 'Flame attacks ignore cover and Inflict (On Fire). You may not shift for damage but shift to move a stream of flames (see. Core Rules).',
           description:
             '<p>Flamers spew a stream of burning chemical liquid. The flowing torrent of flame can be guided by the wielder of a Flamer to set multiple foes ablaze.</p>' +
             '<p> Attacks made with a Flamer ignore cover. If you hit a target with a Flamer, blazing liquid fills the space between you and your target in a straight line. Anything in that line is also hit by the attack.</p>' +
