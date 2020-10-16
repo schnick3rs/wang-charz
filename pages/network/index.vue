@@ -119,6 +119,7 @@ export default {
           text: 'Bill Gant has put some real effort into these extensive Summaries. Quite some colorful pages help you with all the combat and advancement (should you survive).',
           parts: [
             { title: 'Combat Summary' , url: 'https://drive.google.com/file/d/1KftBEI0SJ1BpKvVy3hqdSQlQ5OyXiLWN/view' },
+            { title: 'Combat Modifier Summary' , url: 'https://drive.google.com/file/d/1155NcLyI_B3HYlNdW2ES0cXDJOJqlORG/view' },
             { title: 'Advancement Summary' , url: 'https://drive.google.com/file/d/18NzfdwWFbHw6zyqtgPmJOkizBWlF8Nox/view' },
           ],
         },
