@@ -260,7 +260,7 @@ const core = [
   },
   {
     ...gear(source.core.key,211,'Sword','3C','Blade,[Any]'),
-    ...meleez(undefined,3,3,0,0,'Reliable'),
+    ...meleez(undefined,3,3,0,0,'Parry'),
   },
   {
     ...gear(source.core.key,211,'Mono Knife','3U','Blade,Imperium,Scum'),
