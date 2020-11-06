@@ -1604,7 +1604,18 @@ export default {
             };
             finalEnhancements.push(newMod);
           });
-        })
+        });
+        if(this.characterArchetype.influence) {
+          const newMod = {
+            targetGroup: 'traits',
+            targetValue: 'influence',
+            modifier: this.characterArchetype.influence,
+            provider: 'Archetype Influence',
+            category: this.characterArchetype.name,
+            source: this.characterArchetype.source,
+          };
+          finalEnhancements.push(newMod);
+        }
       }
 
       // from ascensions
