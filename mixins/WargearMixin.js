@@ -13,7 +13,8 @@ export default {
           let maxValue = 0;
           maxValue += valueFilter.fixedValue ? valueFilter.fixedValue : 0;
           maxValue += valueFilter.useSettingTier ? settingTier : 0;
-          // maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
+          //maxValue += valueFilter.useCharacterTier ? this.settingTier : 0;
+          maxValue += valueFilter.useAscensionTargetTier ? ascension.targetTier : 0;
           valueReq = gear.value <= maxValue;
         }
         const rarityReq = rarityFilter ? rarityFilter.includes(gear.rarity) : true;
