@@ -675,20 +675,22 @@ export default {
     },
     addTalent(talent) {
       const match = talent.name.match(/(<.*>)/);
+      const talentUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       const payload = {
+        id: talentUniqueId,
         name: talent.name,
         key: talent.key,
         cost: talent.cost,
         placeholder: (match !== null && match !== undefined) ? match[1] : undefined,
         selected: undefined,
-        source: `talent.${talent.id}`,
+        source: `talent.${talentUniqueId}`,
       };
       this.$store.commit('characters/addCharacterTalent', { id: this.characterId, talent: payload });
     },
     removeTalent(talent) {
       const id = this.characterId;
       const source = `talent.${talent.id}`;
-      // ToDo? clear modifications by source
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source });
       this.$store.commit('characters/removeCharacterWargearBySource', { id, source });
       this.$store.commit('characters/removeCharacterTalent', { id, talentId: talent.id });
     },
@@ -744,6 +746,10 @@ export default {
         name: talent.name,
         selected: selectedValue,
       };
+      const selectedOption = talent.options.find((o) => o.key === selectedValue);
+      if(selectedOption && selectedOption.modifications) {
+        this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: selectedOption.modifications, source: `talent.${talent.id}` } });
+      }
       this.$store.commit('characters/setCharacterTalentSelected', { id, talent: talentPayload });
     },
     talentAugmeticImplantsUpdateImplantChoice(gear, itemKey, talent) {

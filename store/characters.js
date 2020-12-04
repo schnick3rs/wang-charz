@@ -526,7 +526,7 @@ export const mutations = {
     const { talent } = payload;
     const talentUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
     console.info(`Adding Talent [${talentUniqueId}] ${talent.name}.`);
-    talent.id = talentUniqueId;
+    talent.id = talent.id ||talentUniqueId;
     character.talents.push(talent);
     //const hasTalent = character.talents.find((t) => t.id === talent.id) !== undefined;
     //if (!hasTalent) {
