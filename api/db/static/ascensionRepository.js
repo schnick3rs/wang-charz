@@ -1513,6 +1513,7 @@ const tog = [
       14,
       'Veteran of the Long War',
       'You have a burning Hatred for (well, against) the Imperium.',
+      false,
       ),
     cost: 0,
     costPerTier: 15,
@@ -1521,26 +1522,30 @@ const tog = [
     prerequisites: [
       'Required Skills +1',
       'Heretic Astartes',
-      'Hatred <Imperium>',
+      'Hatred IMPERIUM',
     ],
     // Benefits
     influenceBonus: 0,
-    influencePerTier: 1,
+    influencePerTier: 2,
     storyElementString: '',
     wargearString: '',
     // Crunch
     ascensionFeatures: [
       {
-        name: 'Keywords',
-        snippet: 'Gain the Inquisition and <Ordo> keywords if the character did not have them.',
+        name: 'Further corrupted',
+        description: '<p>You gain +2 corruption per tier ascended</p>',
         modifications: [
-          { targetGroup: 'keywords', targetValue: 'Inquisition' },
-          { targetGroup: 'keywords', targetValue: '<Ordo>' },
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 2, requiredAscendedTiers: 1 },
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 2, requiredAscendedTiers: 2 },
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 2, requiredAscendedTiers: 3 },
         ],
       },
       {
-        name: 'Unchecked Authority',
-        description: '<p>Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword.</p>',
+        name: 'Death to the False Emperor',
+        description: '<p>You may apply your Hatred Damage Bonus to Ranged attacks against those that bear the IMPERIUM keyword and you gain a +Rank bonus to Resolve tests.</p>',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
+        ],
       },
       {
         name: 'Wargear',
@@ -1615,6 +1620,7 @@ const goen = [
 module.exports = [
   ...core,
   ...aaoa,
+  ...tog,
   ...ltgb,
   ...aotgt,
   ...thaot,
