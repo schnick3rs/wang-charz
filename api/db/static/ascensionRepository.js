@@ -1492,7 +1492,12 @@ const thaot = [
 
 const tog = [
   {
-    ...simpleStub('tog', 14, 'Veteran of the Long War', 'You have a burning Hatred for (well, against) the Imperium.'),
+    ...simpleStub(
+      'tog',
+      14,
+      'Veteran of the Long War',
+      'You have a burning Hatred for (well, against) the Imperium.',
+      ),
     cost: 0,
     costPerTier: 15,
     // Prerequisites

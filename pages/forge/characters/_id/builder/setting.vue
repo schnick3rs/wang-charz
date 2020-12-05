@@ -412,7 +412,7 @@ export default {
           key: 'tog',
           name: '\'Tome of Glory\' content',
           hint: 'Add Chaos Archetypes.',
-          enabled: false,
+          enabled: true,
           nuxt: '/vault/tome-of-glory',
           source: '',
         },
