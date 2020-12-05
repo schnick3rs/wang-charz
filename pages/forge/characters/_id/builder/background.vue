@@ -2,7 +2,7 @@
 
   <v-row justify="center">
 
-    <!-- Backgrounds -->
+    <!-- headline -->
     <v-col :cols="12">
 
       <h2>Manage Backgrounds</h2>
@@ -12,27 +12,38 @@
         <strong>{{selectedPlusOne.title}}: </strong>You add +1 to your {{selectedPlusOne.plusOne}}
       </v-alert>
 
+    </v-col>
+
+    <!-- Backgrounds -->
+    <v-col :cols="12">
+      <v-alert
+          v-if="backgroundSectionTypes.length <= 0"
+          type="warning"
+          dense text
+      >
+        No fitting associated faction found for <strong>{{characterFactionKey}}</strong>. Check with your GM what background options are available.
+      </v-alert>
+
       <div v-for="type in backgroundSectionTypes" class="mt-2 mb-4">
         <h3>{{type}}</h3>
         <v-select
-          v-model="selectedBackgrounds[type.toLowerCase()]"
-          :items="backgroundsByType(type)"
-          outlined
-          dense
-          @change="changeBackground"
-          item-value="key"
-          item-text="label"
-          persistent-hint
-          :hint="backgroundHint(selectedBackgrounds[type.toLowerCase()])"
+            v-model="selectedBackgrounds[type.toLowerCase()]"
+            :items="backgroundsByType(type)"
+            outlined
+            dense
+            @change="changeBackground"
+            item-value="key"
+            item-text="label"
+            persistent-hint
+            :hint="backgroundHint(selectedBackgrounds[type.toLowerCase()])"
         ></v-select>
         <v-btn
-          small
-          :disabled="!selectedBackgrounds[type.toLowerCase()] || (selectedPlusOne && selectedPlusOne.key === selectedBackgrounds[type.toLowerCase()])"
-          :color="selectedPlusOne && selectedPlusOne.key === selectedBackgrounds[type.toLowerCase()] ? 'success' : ''"
-          @click="selectPlusOne(selectedBackgrounds[type.toLowerCase()])"
+            small
+            :disabled="!selectedBackgrounds[type.toLowerCase()] || (selectedPlusOne && selectedPlusOne.key === selectedBackgrounds[type.toLowerCase()])"
+            :color="selectedPlusOne && selectedPlusOne.key === selectedBackgrounds[type.toLowerCase()] ? 'success' : ''"
+            @click="selectPlusOne(selectedBackgrounds[type.toLowerCase()])"
         >Use this bonus</v-btn>
       </div>
-
     </v-col>
 
     <!-- Languages -->

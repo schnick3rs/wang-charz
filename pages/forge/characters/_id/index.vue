@@ -2105,6 +2105,16 @@ export default {
             return objectiveList.map((o) => ({ text: o }));
           }
         }
+      } else {
+        if (this.characterFactionKey) {
+          const faction = this.factionRepository.find((faction) => faction.key === this.characterFactionKey);
+          if (faction) {
+            const objectiveList = faction.objectives;
+            if (objectiveList) {
+              return objectiveList.map((o) => ({ text: o }));
+            }
+          }
+        }
       }
       return [];
     },
