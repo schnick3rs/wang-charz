@@ -23,7 +23,6 @@
       >
         No fitting associated faction found for <strong>{{characterFactionKey}}</strong>. Check with your GM what background options are available.
       </v-alert>
-
       <div v-for="type in backgroundSectionTypes" class="mt-2 mb-4">
         <h3>{{type}}</h3>
         <v-select
