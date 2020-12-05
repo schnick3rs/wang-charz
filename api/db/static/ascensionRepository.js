@@ -650,7 +650,7 @@ const aaoa = [
       {
         key: 'keywords',
         name: 'Keywords',
-        snippet: 'You gain the Inquisition and <Ordo> keyword.',
+        snippet: 'You gain the INQUISITION and [ORDO] keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Inquisition' },
           { targetGroup: 'keywords', targetValue: '[Ordo]' },
@@ -668,9 +668,25 @@ const aaoa = [
         name: 'Scourged from experience',
         snippet: 'You gain 3 points Corruption or a Memorable Injury.',
         description: '<p>Because of the circumstances of your recruitment to the Inquisition, you gain 3 Corruption points and a Memorable Injury.</p>',
-        modifications: [
-          { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
-          { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
+        selected: '',
+        optionsPlaceholder: 'Choose corruption ro injury',
+        options: [
+          {
+            key: 'corrupted',
+            name: 'Corrupted',
+            snippet: 'You gain 3 points Corruption.',
+            modifications: [
+              { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+            ],
+          },
+          {
+            key: 'memorable-injury',
+            name: 'Memorable Injury',
+            snippet: 'You gain a Memorable Injury.',
+            modifications: [
+              { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
+            ],
+          },
         ],
       },
       {
