@@ -1031,6 +1031,7 @@ const core = [
   {
     ...talent('core',141,'Warped Mind [Discipline]',30),
     snippet: 'You unlock an additional Psychic Discipline. You may reduce the costs by gaining Corruption, reducing cost by 5 for each point of corruption.',
+    alert: { type: 'warning', text: 'For reducing the cost for corruption: (a) give yourself custom xp and (b) add corruption in the corruption management in the character view.', },
     description:
       '<p></p>',
     requirements: [ requireSkill('psychicMastery',4) ],
