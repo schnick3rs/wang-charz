@@ -398,9 +398,7 @@ const core = [
             name: 'Influence',
             snippet: 'You gain 2 influence per tier ascended.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 1 },
-              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 2 },
-              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 3 },
+              { targetGroup: 'traits', targetValue: 'influence', modifier: 0, modifierPerAscendedTier: 2 },
             ],
           },
         ],
@@ -1530,7 +1528,10 @@ const tog = [
     // Benefits
     influenceBonus: 0,
     influencePerTier: 2,
-    storyElementString: '',
+    storyElementDescription:
+      '<p>You may apply your Hatred Damage Bonus to Ranged attacks against those that bear the IMPERIUM keyword and you gain a +Rank bonus to Resolve tests.</p>' +
+      '<p>You also gain 2 corruption per tier ascended</p>' +
+      '<p>Also some items.</p>',
     wargearString: '',
     // Crunch
     ascensionFeatures: [
@@ -1538,37 +1539,31 @@ const tog = [
         name: 'Further corrupted',
         description: '<p>You gain +2 corruption per tier ascended</p>',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'corruption', modifier: 2, requiredAscendedTiers: 1 },
-          { targetGroup: 'traits', targetValue: 'corruption', modifier: 2, requiredAscendedTiers: 2 },
-          { targetGroup: 'traits', targetValue: 'corruption', modifier: 2, requiredAscendedTiers: 3 },
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 0, modifierPerAscendedTier: 2 },
         ],
       },
       {
         name: 'Death to the False Emperor',
         description: '<p>You may apply your Hatred Damage Bonus to Ranged attacks against those that bear the IMPERIUM keyword and you gain a +Rank bonus to Resolve tests.</p>',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
+          { name: 'Death to the False Emperor', targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
         ],
       },
       {
         name: 'Wargear',
-        snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3  the new Tier. This may include cybernetics and must have the Imperium keyword. The character gains a Rosette (Symbol of Authority).',
-        wargear: [
-          { name: 'Symbol of Authority', variant: 'Rosette' },
-        ],
+        snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 4 the new Tier. This may include augmetics.',
         options: [
           {
             name: 'Two Rare Items ',
             wargear: [
               {
-                name: 'First Rare Item of Value new Tier+3',
+                name: 'First Rare Item of Value new Tier+4',
                 selected: '',
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue:4 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
-                    keywordFilter: 'Imperium',
                   },
                 ],
               },
@@ -1578,9 +1573,8 @@ const tog = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 4 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
-                    keywordFilter: 'Imperium',
                   },
                 ],
               },
@@ -1595,9 +1589,8 @@ const tog = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 4 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
-                    keywordFilter: 'Imperium',
                   },
                 ],
               },

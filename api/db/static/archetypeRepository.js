@@ -3482,7 +3482,7 @@ const aaoaAdeptusMinistorum=  [
       {
         name: 'Incite Zeal',
         description:
-          '<p>You add +Double Rank to all Persuasion Interaction attacks against targets with the IMPERIUM, SCUM, or HERETIC keywords. In addition, you may spend a Wrath point to make yourself Frenzied; If you do so, then you may make all allies with the IMPERIUM keyword within 15 +Double Rank metres Frenzied as well.</p>'
+          '<p>You add +Double Rank to all Persuasion Interaction attacks against targets with the IMPERIUM, SCUM, or HERETIC keywords. In addition, you may spend a Wrath point to make yourself Frenzied; If you do so, then you may make all allies with the IMPERIUM keyword within 15+Double Rank metres Frenzied as well.</p>'
       },
     ],
     wargearString: 'Laspistol, one melee weapon or one ranged weapon of up to Value 7 and a rarity of up to Rare, Rosarius, knife, clothing (Ministorum robes), missionary kit, symbol of authority.',

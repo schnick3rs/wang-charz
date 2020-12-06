@@ -209,8 +209,6 @@ export default {
       .forEach( (feature) => {
           modifications = [ ...modifications, ...feature.modifications ];
       });
-      console.info(modifications);
-      this.$store.commit('characters/setCharacterModifications', { id, content: { modifications: modifications, source: `ascension.${ascensionPackage.key}` } });
 
       modifications
       .filter( (m) => m.targetGroup === 'keywords' )

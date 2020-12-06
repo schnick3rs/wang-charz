@@ -264,7 +264,7 @@ const core = [
   },
   {
     ...talent('core',130,'Bombardment',40,'Ranged,Combat,Damage,Area'),
-    snippet: 'Once per session, deal 20 +Double Rank ED to all targets within 10 x Rank metres of the target.',
+    snippet: 'Once per session, deal 20+Double Rank ED to all targets within 10 x Rank metres of the target.',
     description:
       '<p>You have the connections and military backup to call in an airstrike. A bombardment may come from ground-based artillery, aircraft, or even a voidship in low orbit. In all cases, the attacks are devastating to their targets.</p>' +
       '<p>Once per game session, a character with this Talent and access to communications with their vessel or other forces may call in a bombardment. The bombardment attack deals 20 + Double Rank ED damage to all targets within Rank x 10 metres of the designated target.</p>',
