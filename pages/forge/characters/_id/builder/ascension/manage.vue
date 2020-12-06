@@ -714,15 +714,16 @@ export default {
 
       // the selected option has modifications that are saved as such
       if ( selectedOption.modifications ) {
-        const tiersAscended = ascension.targetTier - ascension.sourceTier;
+        const ascendedTiers = ascension.targetTier - ascension.sourceTier;
         const modz = selectedOption.modifications
           .filter((mod) => {
             if (mod.requiredAscendedTiers === undefined) return true;
-            if (mod.requiredAscendedTiers <= tiersAscended) return true;
+            if (mod.requiredAscendedTiers <= ascendedTiers) return true;
           })
           .map((mod) => {
             return {
               name: `${feature.name} • ${selectedOption.name}`,
+              ascendedTiers,
               ...mod,
             }
           });
