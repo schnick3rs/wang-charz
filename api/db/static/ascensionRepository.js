@@ -1183,10 +1183,27 @@ const aaoa = [
       {
         key: 'keywords',
         name: 'Keywords',
-        snippet: 'You gain the Daemon keyword and 1d3 points Corruption per tier ascended.',
+        snippet: 'You gain the Daemon keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Daemon' },
-          { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }, // todo
+        ],
+      },
+      {
+        key: 'heavily-corrupted',
+        name: 'Heavily Corrupted',
+        snippet: 'You gain 1d3 points Corruption per tier ascended.',
+        selected: '',
+        optionsPlaceholder: 'Choose your amount of corruption.',
+        options: [
+          { key: 'corruption-1', name: 'Corruption (1pt)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 1 }] },
+          { key: 'corruption-2', name: 'Corruption (2pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 2 }] },
+          { key: 'corruption-3', name: 'Corruption (3pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }] },
+          { key: 'corruption-4', name: 'Corruption (4pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 4 }] },
+          { key: 'corruption-5', name: 'Corruption (5pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 5 }] },
+          { key: 'corruption-6', name: 'Corruption (6pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 6 }] },
+          { key: 'corruption-7', name: 'Corruption (7pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 7 }] },
+          { key: 'corruption-8', name: 'Corruption (8pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 8 }] },
+          { key: 'corruption-9', name: 'Corruption (9pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 9 }] },
         ],
       },
       {
