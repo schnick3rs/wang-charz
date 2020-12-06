@@ -1480,10 +1480,6 @@ export default {
     characterResources() {
       return {
         faith: this.characterFaith,
-        assets: {
-          points: 3,
-          spend: 0,
-        }
       };
     },
     skills() {
