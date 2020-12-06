@@ -1433,7 +1433,7 @@ export default {
       if (influence && this.keywordStrings.includes('Adeptus Mechanicus')) {
         const intellect = attributes.find((attribute) => attribute.name === 'Intellect');
         let baseIntellect = 0;
-        baseIntellect = Math.ceil(intellect.adjustedRating * influence.compute.multi);
+        baseIntellect = Math.ceil(intellect.adjustedRating * influence.compute.multi)+influence.compute.static;
         influence.baseHelp = `${influence.baseHelp} / ${baseIntellect} (with Adeptus Mechanicus)`;
         influence.alternativeRating = baseIntellect + influence.adjustment;
       }
