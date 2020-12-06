@@ -559,11 +559,13 @@ const core = [
         selected: '',
         options: [
           {
-            key: 'corruption', name: '3 Corruption Points',
+            key: 'corruption',
+            name: '3 Corruption Points',
             modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }],
           },
           {
-            key: 'memorableInjury', name: 'Memorable Injury (+1 die to Intimidation)',
+            key: 'memorableInjury',
+            name: 'Memorable Injury (+1 die to Intimidation)',
             modifications: [ { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' }],
           },
         ],
@@ -682,7 +684,7 @@ const aaoa = [
           {
             key: 'memorable-injury',
             name: 'Memorable Injury',
-            snippet: 'You gain a Memorable Injury.',
+            snippet: 'You add +1 die to Intimidation Tests.',
             modifications: [
               { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
               { name: 'Memorable Injury', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
