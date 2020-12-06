@@ -348,7 +348,7 @@ const core = [
       '<p>When you take this Ascension Package, choose to gain one of the following:</p>' +
       '<ul>' +
       '<li>Immediately gain 1 item of Rare Wagear with a value of 3 + new Tier.</li>' +
-      '<li>Immediately gain 2 Assets.</li>' +
+      '<li>Immediately gain 2 Wealth.</li>' +
       '<li>Immediately gain +2 Influence per Tier Ascended.</li>' +
       '</ul>',
     ascensionFeatures: [
@@ -387,10 +387,10 @@ const core = [
           },
           {
             key: 'assets',
-            name: 'Assets',
-            snippet: 'You gain 2 Assets.',
+            name: 'Wealth',
+            snippet: 'You gain +2 wealth.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'assets', modifier: 2 },
+              { targetGroup: 'traits', targetValue: 'wealth', modifier: 2 },
             ],
           },
           {
