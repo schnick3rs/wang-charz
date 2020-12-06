@@ -421,7 +421,7 @@ const core = [
     storyElementDescription:
       '<p>Your new allies gift you the following:</p>' +
       '<ul>' +
-      '<li>3 Assets</li>' +
+      '<li>3 Wealth</li>' +
       '<li>1 item of Rare Wargear with a value of 3 + new Tier.</li>' +
       '</ul>',
     ascensionFeatures: [
@@ -452,11 +452,11 @@ const core = [
         ],
       },
       {
-        key: 'assets',
-        name: 'Assets',
-        snippet: 'You gain 3 Assets.',
+        key: 'wealth',
+        name: 'Wealth',
+        snippet: 'You gain +3 wealth.',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'assets', modifier: 3 },
+          { targetGroup: 'traits', targetValue: 'wealth', modifier: 3 },
         ],
       },
     ],

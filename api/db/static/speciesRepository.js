@@ -161,7 +161,7 @@ const coreRep = [
         name: 'Psychosensitive',
         snippet: 'You may choose to take the PSYKER Keyword.',
         description: '<p>You may choose to take the <strong>PSYKER</strong> Keyword.</p>',
-        // todo options to select beeing a psyker
+        // TODO options to select beeing a psyker
       },
       {
         name: 'Asuryani Paths',
