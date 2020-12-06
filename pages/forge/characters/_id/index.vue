@@ -1585,7 +1585,8 @@ export default {
           });
           if ( feature.options ) {
             const traitSelection = this.characterEnhancements.find( (e) => e.source.startsWith(`species.${feature.name}.`));
-            console.info(traitSelection)
+            console.info(traitSelection);
+            // TODO ?
           }
         })
       }
@@ -1662,7 +1663,7 @@ export default {
             }
           }
           if (sourceParts.length > 1) {
-            provider = sourceParts.slice(1).join(' • ');
+            provider = mod.name || sourceParts.slice(1).join(' • ');
             category = sourceParts[0].charAt(0).toUpperCase() + sourceParts[0].slice(1);
           }
           const newMod = {

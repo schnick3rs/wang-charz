@@ -181,26 +181,25 @@ export default {
       };
       this.$store.commit('characters/addCharacterAscensionPackage', payload);
 
-      if ( ascensionPackage.influencePerTier !== 0 ) {
-        const influenceDifference = ascensionPackage.targetTier - ascensionPackage.sourceTier;
-        const influenceModifier = influenceDifference * ascensionPackage.influencePerTier;
-        const modificationPayload = {
-          targetGroup: 'traits',
-          targetValue: 'influence',
-          modifier: influenceModifier,
-        };
-        const content = { modifications: [modificationPayload], source: `ascension.${ascensionPackage.key}.influence`, };
-        this.$store.commit('characters/setCharacterModifications', { id, content });
-      } else {
-        const influenceDifference = ascensionPackage.targetTier - ascensionPackage.sourceTier;
-        const influenceModifier = influenceDifference * ascensionPackage.influencePerTier;
-        const modificationPayload = {
-          targetGroup: 'traits',
-          targetValue: 'influence',
-          modifier: ascensionPackage.influenceBonus + influenceModifier,
-        };
-        const content = { modifications: [modificationPayload], source: `ascension.${ascensionPackage.key}.influence`, };
-        this.$store.commit('characters/setCharacterModifications', { id, content });
+      if (ascensionPackage.influenceBonus !== 0 || ascensionPackage.influencePerTier !== 0) {
+        const tierDifference = ascensionPackage.targetTier - ascensionPackage.sourceTier;
+        let influenceModifier = 0;
+        if (ascensionPackage.influenceBonus !== 0) {
+          influenceModifier += ascensionPackage.influenceBonus;
+        }
+        if (ascensionPackage.influencePerTier !== 0) {
+          influenceModifier += tierDifference * ascensionPackage.influencePerTier;
+        }
+        if (influenceModifier > 0) {
+          const modificationPayload = {
+            name: ascensionPackage.name,
+            targetGroup: 'traits',
+            targetValue: 'influence',
+            modifier: influenceModifier,
+          };
+          const content = { modifications: [modificationPayload], source: `ascension.${ascensionPackage.key}.influence`, };
+          this.$store.commit('characters/setCharacterModifications', { id, content });
+        }
       }
 
       let modifications = [];

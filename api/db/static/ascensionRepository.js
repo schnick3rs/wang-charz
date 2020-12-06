@@ -362,7 +362,7 @@ const core = [
       },
       {
         key: 'patrons-gift',
-        name: 'It´s a gift!',
+        name: 'A Patron`s Gift',
         snippet: 'Your Patron grants you either rare Wargear, two assets or significant influence',
         optionsPlaceholder: 'Choose: Wargear, Assets or Influence',
         options: [
@@ -685,6 +685,7 @@ const aaoa = [
             snippet: 'You gain a Memorable Injury.',
             modifications: [
               { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
+              { name: 'Memorable Injury', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
             ],
           },
         ],

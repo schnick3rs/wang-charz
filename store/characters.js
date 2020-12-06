@@ -706,9 +706,9 @@ export const mutations = {
     }
   },
   clearCharacterAscensionPackage(state, payload) {
-    const { id, value } = payload;
+    const { id, key } = payload;
     const character = state.characters[id];
-    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== value));
+    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.key !== key));
   },
 
   // Background { id, type, key }
@@ -895,7 +895,7 @@ export const actions = {
     commit('removeCharacterWargearBySource', { id, source: `ascension.${key}` });
 
     console.info(`Ascension [${value}] : Purge > Package`);
-    commit('clearCharacterAscensionPackage', { id, value });
+    commit('clearCharacterAscensionPackage', { id, key });
 
     console.info(`Ascension [${value}] : Purge > DONE`);
   },
