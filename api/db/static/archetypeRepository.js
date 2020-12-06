@@ -4992,8 +4992,8 @@ const togRep = [
     influence: 1,
   },
   {
-    name: 'Khorne Berserker',
-    ...archetype(source.tog.key, 9, 'Chaos', 'Khorne Berserker', 3, 'Adeptus Astartes'),
+    name: 'Khorne Berzerker',
+    ...archetype(source.tog.key, 9, 'Chaos', 'Khorne Berzerker', 3, 'Adeptus Astartes'),
     ...costz(228, [
       reqAttribute(ATTRIBUTES.AGILITY, 5),
       reqAttribute(ATTRIBUTES.INITIATIVE, 5),
