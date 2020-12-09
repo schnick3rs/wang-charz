@@ -348,7 +348,7 @@ const core = [
       '<p>When you take this Ascension Package, choose to gain one of the following:</p>' +
       '<ul>' +
       '<li>Immediately gain 1 item of Rare Wagear with a value of 3 + new Tier.</li>' +
-      '<li>Immediately gain 2 Assets.</li>' +
+      '<li>Immediately gain 2 Wealth.</li>' +
       '<li>Immediately gain +2 Influence per Tier Ascended.</li>' +
       '</ul>',
     ascensionFeatures: [
@@ -362,7 +362,7 @@ const core = [
       },
       {
         key: 'patrons-gift',
-        name: 'It´s a gift!',
+        name: 'A Patron`s Gift',
         snippet: 'Your Patron grants you either rare Wargear, two assets or significant influence',
         optionsPlaceholder: 'Choose: Wargear, Assets or Influence',
         options: [
@@ -387,10 +387,10 @@ const core = [
           },
           {
             key: 'assets',
-            name: 'Assets',
-            snippet: 'You gain 2 Assets.',
+            name: 'Wealth',
+            snippet: 'You gain +2 wealth.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'assets', modifier: 2 },
+              { targetGroup: 'traits', targetValue: 'wealth', modifier: 2 },
             ],
           },
           {
@@ -398,9 +398,7 @@ const core = [
             name: 'Influence',
             snippet: 'You gain 2 influence per tier ascended.',
             modifications: [
-              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 1 },
-              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 2 },
-              { targetGroup: 'traits', targetValue: 'influence', modifier: 2, requiredAscendedTiers: 3 },
+              { targetGroup: 'traits', targetValue: 'influence', modifier: 0, modifierPerAscendedTier: 2 },
             ],
           },
         ],
@@ -423,7 +421,7 @@ const core = [
     storyElementDescription:
       '<p>Your new allies gift you the following:</p>' +
       '<ul>' +
-      '<li>3 Assets</li>' +
+      '<li>3 Wealth</li>' +
       '<li>1 item of Rare Wargear with a value of 3 + new Tier.</li>' +
       '</ul>',
     ascensionFeatures: [
@@ -454,11 +452,11 @@ const core = [
         ],
       },
       {
-        key: 'assets',
-        name: 'Assets',
-        snippet: 'You gain 3 Assets.',
+        key: 'wealth',
+        name: 'Wealth',
+        snippet: 'You gain +3 wealth.',
         modifications: [
-          { targetGroup: 'traits', targetValue: 'assets', modifier: 3 },
+          { targetGroup: 'traits', targetValue: 'wealth', modifier: 3 },
         ],
       },
     ],
@@ -559,11 +557,13 @@ const core = [
         selected: '',
         options: [
           {
-            key: 'corruption', name: '3 Corruption Points',
+            key: 'corruption',
+            name: '3 Corruption Points',
             modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }],
           },
           {
-            key: 'memorableInjury', name: 'Memorable Injury (+1 die to Intimidation)',
+            key: 'memorableInjury',
+            name: 'Memorable Injury (+1 die to Intimidation)',
             modifications: [ { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' }],
           },
         ],
@@ -650,7 +650,7 @@ const aaoa = [
       {
         key: 'keywords',
         name: 'Keywords',
-        snippet: 'You gain the Inquisition and <Ordo> keyword.',
+        snippet: 'You gain the INQUISITION and [ORDO] keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Inquisition' },
           { targetGroup: 'keywords', targetValue: '[Ordo]' },
@@ -668,9 +668,26 @@ const aaoa = [
         name: 'Scourged from experience',
         snippet: 'You gain 3 points Corruption or a Memorable Injury.',
         description: '<p>Because of the circumstances of your recruitment to the Inquisition, you gain 3 Corruption points and a Memorable Injury.</p>',
-        modifications: [
-          { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
-          { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
+        selected: '',
+        optionsPlaceholder: 'Choose corruption ro injury',
+        options: [
+          {
+            key: 'corrupted',
+            name: 'Corrupted',
+            snippet: 'You gain 3 points Corruption.',
+            modifications: [
+              { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+            ],
+          },
+          {
+            key: 'memorable-injury',
+            name: 'Memorable Injury',
+            snippet: 'You add +1 die to Intimidation Tests.',
+            modifications: [
+              { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
+              { name: 'Memorable Injury', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
+            ],
+          },
         ],
       },
       {
@@ -1166,10 +1183,27 @@ const aaoa = [
       {
         key: 'keywords',
         name: 'Keywords',
-        snippet: 'You gain the Daemon keyword and 1d3 points Corruption per tier ascended.',
+        snippet: 'You gain the Daemon keyword.',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Daemon' },
-          { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }, // todo
+        ],
+      },
+      {
+        key: 'heavily-corrupted',
+        name: 'Heavily Corrupted',
+        snippet: 'You gain 1d3 points Corruption per tier ascended.',
+        selected: '',
+        optionsPlaceholder: 'Choose your amount of corruption.',
+        options: [
+          { key: 'corruption-1', name: 'Corruption (1pt)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 1 }] },
+          { key: 'corruption-2', name: 'Corruption (2pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 2 }] },
+          { key: 'corruption-3', name: 'Corruption (3pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }] },
+          { key: 'corruption-4', name: 'Corruption (4pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 4 }] },
+          { key: 'corruption-5', name: 'Corruption (5pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 5 }] },
+          { key: 'corruption-6', name: 'Corruption (6pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 6 }] },
+          { key: 'corruption-7', name: 'Corruption (7pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 7 }] },
+          { key: 'corruption-8', name: 'Corruption (8pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 8 }] },
+          { key: 'corruption-9', name: 'Corruption (9pts)', modifications: [{ targetGroup: 'traits', targetValue: 'corruption', modifier: 9 }] },
         ],
       },
       {
@@ -1492,7 +1526,13 @@ const thaot = [
 
 const tog = [
   {
-    ...simpleStub('tog', 14, 'Veteran of the Long War', 'You have a burning Hatred for (well, against) the Imperium.'),
+    ...simpleStub(
+      'tog',
+      14,
+      'Veteran of the Long War',
+      'You have a burning Hatred for (well, against) the Imperium.',
+      false,
+      ),
     cost: 0,
     costPerTier: 15,
     // Prerequisites
@@ -1500,46 +1540,47 @@ const tog = [
     prerequisites: [
       'Required Skills +1',
       'Heretic Astartes',
-      'Hatred <Imperium>',
+      'Hatred IMPERIUM',
     ],
     // Benefits
     influenceBonus: 0,
-    influencePerTier: 1,
-    storyElementString: '',
+    influencePerTier: 2,
+    storyElementDescription:
+      '<p>You may apply your Hatred Damage Bonus to Ranged attacks against those that bear the IMPERIUM keyword and you gain a +Rank bonus to Resolve tests.</p>' +
+      '<p>You also gain 2 corruption per tier ascended</p>' +
+      '<p>Also some items.</p>',
     wargearString: '',
     // Crunch
     ascensionFeatures: [
       {
-        name: 'Keywords',
-        snippet: 'Gain the Inquisition and <Ordo> keywords if the character did not have them.',
+        name: 'Further corrupted',
+        description: '<p>You gain +2 corruption per tier ascended</p>',
         modifications: [
-          { targetGroup: 'keywords', targetValue: 'Inquisition' },
-          { targetGroup: 'keywords', targetValue: '<Ordo>' },
+          { targetGroup: 'traits', targetValue: 'corruption', modifier: 0, modifierPerAscendedTier: 2 },
         ],
       },
       {
-        name: 'Unchecked Authority',
-        description: '<p>Inquisitors have supreme authority for maintaining the security of the Imperium. They gain +Rank to all Influence and Interaction skill tests involving characters with the Imperium Keyword.</p>',
+        name: 'Death to the False Emperor',
+        description: '<p>You may apply your Hatred Damage Bonus to Ranged attacks against those that bear the IMPERIUM keyword and you gain a +Rank bonus to Resolve tests.</p>',
+        modifications: [
+          { name: 'Death to the False Emperor', targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
+        ],
       },
       {
         name: 'Wargear',
-        snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 3  the new Tier. This may include cybernetics and must have the Imperium keyword. The character gains a Rosette (Symbol of Authority).',
-        wargear: [
-          { name: 'Symbol of Authority', variant: 'Rosette' },
-        ],
+        snippet: 'Select either two items of Rare Wargear or one item of Very Rare Wargear with a value equal or lesser than 4 the new Tier. This may include augmetics.',
         options: [
           {
             name: 'Two Rare Items ',
             wargear: [
               {
-                name: 'First Rare Item of Value new Tier+3',
+                name: 'First Rare Item of Value new Tier+4',
                 selected: '',
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue:4 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
-                    keywordFilter: 'Imperium',
                   },
                 ],
               },
@@ -1549,9 +1590,8 @@ const tog = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 4 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare'],
-                    keywordFilter: 'Imperium',
                   },
                 ],
               },
@@ -1566,9 +1606,8 @@ const tog = [
                 options: [
                   {
                     filter: true,
-                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 3 },
+                    valueFilter: { useCharacterTier: false, useSettingTier: false, useAscensionTargetTier: true, fixedValue: 4 },
                     rarityFilter: ['Common', 'Uncommon', 'Rare', 'Very Rare'],
-                    keywordFilter: 'Imperium',
                   },
                 ],
               },
@@ -1594,6 +1633,7 @@ const goen = [
 module.exports = [
   ...core,
   ...aaoa,
+  ...tog,
   ...ltgb,
   ...aotgt,
   ...thaot,

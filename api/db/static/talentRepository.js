@@ -264,7 +264,7 @@ const core = [
   },
   {
     ...talent('core',130,'Bombardment',40,'Ranged,Combat,Damage,Area'),
-    snippet: 'Once per session, deal 20 +Double Rank ED to all targets within 10 x Rank metres of the target.',
+    snippet: 'Once per session, deal 20+Double Rank ED to all targets within 10 x Rank metres of the target.',
     description:
       '<p>You have the connections and military backup to call in an airstrike. A bombardment may come from ground-based artillery, aircraft, or even a voidship in low orbit. In all cases, the attacks are devastating to their targets.</p>' +
       '<p>Once per game session, a character with this Talent and access to communications with their vessel or other forces may call in a bombardment. The bombardment attack deals 20 + Double Rank ED damage to all targets within Rank x 10 metres of the designated target.</p>',
@@ -1029,12 +1029,24 @@ const core = [
     requirements: [ requireKeyword('IMPERIUM') ],
   },
   {
-    ...talent('core',141,'Warped Mind',30),
+    ...talent('core',141,'Warped Mind [Discipline]',30),
     snippet: 'You unlock an additional Psychic Discipline. You may reduce the costs by gaining Corruption, reducing cost by 5 for each point of corruption.',
+    alert: { type: 'warning', text: 'For reducing the cost for corruption: (a) give yourself custom xp and (b) add corruption in the corruption management in the character view.', },
     description:
       '<p></p>',
     requirements: [ requireSkill('psychicMastery',4) ],
-    // TODO unlock discipline
+    selected: '',
+    optionsPlaceholder: 'Pick one discipline',
+    options: [
+      { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+      { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+      { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+      { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+      { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+      { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+      { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+      { key: 'aaoa-runes-of-shaping', name: 'Runes of Shaping', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Shaping' }] },
+    ],
   },
   // FAITH
   {

@@ -305,6 +305,9 @@ export default {
           description: undefined,
           type: 'Social',
           compute: { static: -1, multi: 1, tier: 0 },
+          calculate: (base) => {
+            return base-1;
+          },
         },
         {
           key: 'wealth',

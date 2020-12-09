@@ -3482,7 +3482,7 @@ const aaoaAdeptusMinistorum=  [
       {
         name: 'Incite Zeal',
         description:
-          '<p>You add +Double Rank to all Persuasion Interaction attacks against targets with the IMPERIUM, SCUM, or HERETIC keywords. In addition, you may spend a Wrath point to make yourself Frenzied; If you do so, then you may make all allies with the IMPERIUM keyword within 15 +Double Rank metres Frenzied as well.</p>'
+          '<p>You add +Double Rank to all Persuasion Interaction attacks against targets with the IMPERIUM, SCUM, or HERETIC keywords. In addition, you may spend a Wrath point to make yourself Frenzied; If you do so, then you may make all allies with the IMPERIUM keyword within 15+Double Rank metres Frenzied as well.</p>'
       },
     ],
     wargearString: 'Laspistol, one melee weapon or one ranged weapon of up to Value 7 and a rarity of up to Rare, Rosarius, knife, clothing (Ministorum robes), missionary kit, symbol of authority.',
@@ -4992,8 +4992,9 @@ const togRep = [
     influence: 1,
   },
   {
-    name: 'Khorne Berserker',
-    ...archetype(source.tog.key, 9, 'Chaos', 'Khorne Berserker', 3, 'Adeptus Astartes'),
+    name: 'Khorne Berzerker',
+    ...archetype(source.tog.key, 9, 'Chaos', 'Khorne Berzerker', 3, 'Adeptus Astartes'),
+    key: 'tog-khorne-berserker',
     ...costz(228, [
       reqAttribute(ATTRIBUTES.AGILITY, 5),
       reqAttribute(ATTRIBUTES.INITIATIVE, 5),

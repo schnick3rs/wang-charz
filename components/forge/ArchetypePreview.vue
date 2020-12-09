@@ -22,7 +22,7 @@
 
       <p class="text-lg-justify"><strong>Tier:</strong> {{ item.tier }}</p>
 
-      <p class="text-lg-justify"><strong>Species:</strong> {{ item.species.join(', ') }}</p>
+      <p class="text-lg-justify"><strong>Species:</strong> {{ item.species.map((s)=>s.name).join(', ') }}</p>
 
       <p class="text-lg-justify"><strong>XP Cost:</strong> {{ item.cost }}, incl. Archetype ({{ item.costs.archetype }} XP) and Stats ({{ item.costs.stats }} XP)</p>
 

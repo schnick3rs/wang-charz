@@ -526,7 +526,7 @@ export const mutations = {
     const { talent } = payload;
     const talentUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
     console.info(`Adding Talent [${talentUniqueId}] ${talent.name}.`);
-    talent.id = talentUniqueId;
+    talent.id = talent.id ||talentUniqueId;
     character.talents.push(talent);
     //const hasTalent = character.talents.find((t) => t.id === talent.id) !== undefined;
     //if (!hasTalent) {
@@ -706,9 +706,9 @@ export const mutations = {
     }
   },
   clearCharacterAscensionPackage(state, payload) {
-    const { id, value } = payload;
+    const { id, value, key } = payload;
     const character = state.characters[id];
-    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.value !== value));
+    character.ascensionPackages = character.ascensionPackages.filter((a) => (a.key !== key));
   },
 
   // Background { id, type, key }
@@ -895,7 +895,7 @@ export const actions = {
     commit('removeCharacterWargearBySource', { id, source: `ascension.${key}` });
 
     console.info(`Ascension [${value}] : Purge > Package`);
-    commit('clearCharacterAscensionPackage', { id, value });
+    commit('clearCharacterAscensionPackage', { id, value, key });
 
     console.info(`Ascension [${value}] : Purge > DONE`);
   },

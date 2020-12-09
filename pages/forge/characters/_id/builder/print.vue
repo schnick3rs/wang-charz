@@ -750,6 +750,9 @@ export default {
         if (enhancement.rank) {
           mody += (enhancement.rank * this.characterRank );
         }
+        if (enhancement.modifierPerAscendedTier) {
+          mody += (enhancement.modifierPerAscendedTier * enhancement.ascendedTiers);
+        }
         if ( traity ) {
           traity.adjustment += mody;
           traity.adjustedRating += mody;
@@ -785,12 +788,12 @@ export default {
         }
       }
 
-      let influence = finalTraits.find((t) => t.key == 'influence');
+      let influence = finalTraits.find((t) => t.key === 'influence');
       if (influence && this.keywords.includes('Adeptus Mechanicus')) {
         const intellect = attributes.find((attribute) => attribute.name === 'Intellect');
         let baseIntellect = 0;
-        baseIntellect = Math.ceil(intellect.adjustedRating * influence.compute.multi);
-        influence.modifiers[0] = `${influence.modifiers[0]} / ${baseIntellect} (with Adeptus Mechanicus)`;
+        baseIntellect = influence.calculate(intellect.adjustedRating);
+        influence.baseHelp = `${influence.baseHelp} / ${baseIntellect} (with Adeptus Mechanicus)`;
         influence.alternativeRating = baseIntellect + influence.adjustment;
       }
 
@@ -949,12 +952,13 @@ export default {
       const ascensionRepository = this.ascensionPackagesRepository;
       if (ascensionRepository && ascensionRepository.length > 0) {
         ascensionRepository.forEach((ascension) => {
+          const ascendedTiers = ascension.targetTier - ascension.sourceTier;
           ascension.ascensionFeatures.forEach((feature) => {
-
             if (feature.modifications) {
               feature.modifications.forEach((mod) => {
                 const newMod = {
                   ...mod,
+                  ascendedTiers,
                   provider: feature.name,
                   category: ascension.name,
                   source: ascension.source,
@@ -983,7 +987,7 @@ export default {
             category = sourceParts[0].charAt(0).toUpperCase() + sourceParts[0].slice(1);
           }
           if (sourceParts.length > 1) {
-            provider = sourceParts.slice(1).join(' • ');
+            provider = mod.name || sourceParts.slice(1).join(' • ');
             category = sourceParts[0].charAt(0).toUpperCase() + sourceParts[0].slice(1);
           }
           const newMod = {
@@ -1385,6 +1389,16 @@ export default {
             return objectiveList.map((o) => ({ text: o }));
           }
         }
+      } else {
+        if (this.characterFactionKey) {
+          const faction = this.factionRepository.find((faction) => faction.key === this.characterFactionKey);
+          if (faction) {
+            const objectiveList = faction.objectives;
+            if (objectiveList) {
+              return objectiveList.map((o) => ({ text: o }));
+            }
+          }
+        }
       }
       return [];
     },
@@ -1473,7 +1487,11 @@ export default {
       if ( ascensionList.length > 0 ){
         for (const ascension of ascensionList) {
           const { data } = await this.$axios.get(`/api/ascension-packages/${ascension.key}`);
-          packages.push(data);
+          const enrichedAscension = {
+            ...data,
+            ...ascension,
+          };
+          packages.push(enrichedAscension);
         }
       }
       this.ascensionPackagesRepository = packages;
@@ -1524,13 +1542,17 @@ export default {
       computed = computed.replace(/(\d+) Faith/g, '<em>$1 Faith</em>');
       computed = computed.replace(/(\d+ meters)/g, '<strong>$1</strong>');
       computed = computed.replace(/(\d+ metres)/g, '<strong>$1</strong>');
-      computed = computed.replace(/15 \+ ?Rank metres/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
-      computed = computed.replace(/15 \+ ?Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15 \+Rank metres/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
+      computed = computed.replace(/15 \+Rank meters/g, `<strong title="15 +Rank meters">${15 + rank} meters</strong>`);
       computed = computed.replace(/15\+Double Rank metres/g, `<strong>${15 + (2*rank)} metres</strong>`);
+      computed = computed.replace(/1\+Rank/g, `<strong>${(rank)+1}</strong>`);
       computed = computed.replace(/1\+Double Rank/g, `<strong>+${(2*rank)+1}</strong>`);
-      computed = computed.replace(/2 ?\+Double Rank/g, `<strong>${(2*rank)+2}</strong>`);
-      computed = computed.replace(/\+ ?Rank/g, `<strong>+${rank}</strong>`);
-      computed = computed.replace(/\+ ?Double Rank/g, `<strong>+${2*rank}</strong>`);
+      computed = computed.replace(/2\+Double Rank/g, `<strong>${(2*rank)+2}</strong>`);
+      computed = computed.replace(/3\+Double Rank/g, `<strong>${(2*rank)+3}</strong>`);
+      computed = computed.replace(/15\+Double Rank/g, `<strong>${(2*rank)+15}</strong>`);
+      computed = computed.replace(/20\+Double Rank/g, `<strong>${(2*rank)+20}</strong>`);
+      computed = computed.replace(/\+Rank/g, `<strong>+${rank}</strong>`);
+      computed = computed.replace(/\+Double Rank/g, `<strong>+${2*rank}</strong>`);
       computed = computed.replace(/10 ?x ?Rank/g, `<strong>${10*rank}</strong>`);
       computed = computed.replace(/10 ?x ?Double Rank/g, `<strong>${10*2*rank}</strong>`);
       computed = computed.replace(/ Double Rank/g, ` <strong>${2*rank}</strong>`);
