@@ -4581,21 +4581,37 @@ const aaoaChaos = [
     ],
   },
   {
-    ...archetype(source.aaoa2.key, 50, 'Chaos', 'Tzaangor', 1, 'aaoa/Beastman'),
-    ...costz(20, [ /* TODO */]),
+    ...archetype(source.aaoa.key, 42, 'Chaos', 'Tzaangor', 1, 'aaoa/Beastman'),
+    ...costz(
+      38,
+      [
+        reqAttribute(ATTRIBUTES.STRENGTH, 3),
+        reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+        reqAttribute(ATTRIBUTES.INTELLECT, 3),
+        reqSkill(SKILLS.SCHOLAR, 1),
+        reqSkill(SKILLS.WEAPON_SKILL, 2),
+      ],
+    ),
     hint: 'Twisted, cunning Beastmen who serve sorcerous masters',
-    prerequisites: [
-      reqAttribute(ATTRIBUTES.INTELLECT, 3),
-      reqSkill(SKILLS.WEAPON_SKILL, 2),
-      reqSkill(SKILLS.SCHOLAR, 1),
-    ],
-    keywords: 'Heretic, Chaos, Tzeentch',
+    keywords: 'Chaos, Abhuman, Heretic, Tzeentch',
     influence: 1,
     modifications: [
       { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
     ],
     archetypeFeatures: [
-      simpleAbility('Aura of Change: Tzaangor are wreathed in an aura of warp energy and twisted probabilities, which shields them from harm. A Tzaangor may Soak Mortal Wounds and increases their Resilience by +½ Rank. This increase to their Resilience is considered to be a force field, and thus cannot be reduced by an attack’s AP.'),
+      {
+        name: 'Aura of Change',
+        snippet: 'Your Resilience increases by +Rank, and you make roll Determination against Mortal Wounds. In addition, gain +1d3 Corruption.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: TRAITS.RESILIENCE, modifier: 0, rank: 1 },
+        ],
+        selected: [''],
+        options: [
+          { key: 'corruption-1', name: 'Gain 1 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 1 }] },
+          { key: 'corruption-2', name: 'Gain 2 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 2 }] },
+          { key: 'corruption-3', name: 'Gain 3 points Corruption', modifications: [{ targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 }] },
+        ],
+      },
     ],
     wargearString:
       'Two swords, or chainsword and autopistol.',
@@ -4604,7 +4620,7 @@ const aaoaChaos = [
         name: 'Two swords, or chainsword and autopistol.',
         options: [
           { name: 'Sword', amount: 2 },
-          { name: 'Chainsword and Autopistl' },
+          { name: 'Chainsword and Autopistol' },
         ],
       },
     ],
