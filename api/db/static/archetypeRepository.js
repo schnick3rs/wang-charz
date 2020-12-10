@@ -4991,7 +4991,7 @@ const togRep = [
       reqSkill(SKILLS.MEDICAE, 2),
       reqSkill(SKILLS.WEAPON_SKILL, 3),
     ]),
-    hint: 'A bloated harbinger of plages',
+    hint: 'A bloated harbinger of plagues',
     keywords: 'Chaos,Heretic Astartes,[Legion],[Nurgle]',
     archetypeFeatures: [
       {
@@ -5059,7 +5059,7 @@ const togRep = [
       reqSkill(SKILLS.STEALTH, 3),
       reqSkill(SKILLS.WEAPON_SKILL, 3),
     ]),
-    hint: 'A sound adicted follower of slaanesh',
+    hint: 'A sound addicted follower of slaanesh',
     keywords: 'Chaos,Heretic Astartes,[Legion],[Slaanesh]',
     archetypeFeatures: [
       {
