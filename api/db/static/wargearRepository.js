@@ -1320,7 +1320,7 @@ const aaoaMelee = [
         '<p><strong>Special: </strong>When used from a moving open-topped vehicle or other mount, add the Brutal trait.</p>',
     },
     {
-      ...gear(source.aaoa.key,134,'Relic Blade', '8V', 'Power Field, 2-Headed, Adeptus Astartes'),
+      ...gear(source.aaoa.key,134,'Relic Blade', '8V', 'Power Field, 2-Handed, Adeptus Astartes'),
       ...meleez('Power Weapon',6,5,-3,2,''),
     },
   ],
@@ -2335,13 +2335,6 @@ const aaoav2 = [
     ...simpleStub(30942, 'aaoa2',94,'Smoke Grenade', '4C','Explosive, Imperium', ''),
     ...simpleRange('Grenades and Grenade Launchers', '', '-', '-', '-', '-', 'Blast (Large)', 'Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round.'),
     snippet: 'Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round.',
-  },
-  {
-    ...simpleStub(30952, 'aaoa2', 95, 'Animus Speculum', '10L', 'Exotic, Imperium, Officio Assassinorum, Templum Culexus', ''),
-    ...rangeAaoa('12+1ED; AP -4; Range 36m; Salvo 3; Agonizing, Assault', 'Exotic Ranged Weapon', 'the animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.'),
-    snippet: 'The animus speculum draws power from the assassin’s Force Matrix, described later in this document. It does not use normal Reloads.',
-    description:
-      '<p>A helmet-mounted psychic weapon, the animus speculum focusses the negative psychic presence of the wearer into bolts of energy that overwhelm the minds and souls of others. They draw additional power from nearby psykers, becoming deadlier with each psyker nearby.</p>',
   },
   {
     ...simpleStub(30982, 'aaoa2',98,'Blight Grenade', '4U', 'Explosive, Chaos, Nurgle', ''),

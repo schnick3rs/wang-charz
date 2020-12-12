@@ -80,7 +80,7 @@
             :items="searchResult"
             :page.sync="pagination.page"
             :search="searchQuery"
-            item-key="name"
+            item-key="key"
             sort-by="name"
             show-expand
             hide-default-footer
