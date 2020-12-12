@@ -2290,13 +2290,6 @@ const aaoa = [
 const aaoav2 = [
   // AAOA v2
   {
-    ...simpleStub(30903, 'aaoa2',90,'Auto-Boltstorm Gauntlet', '8V','Bolt, Power Field, Imperium, Adeptus Astartes, Primaris', ''),
-    ...rangeAaoa('10+1ED; AP 0; Range 24m; Salvo 3; Assault, Brutal, Paired', 'Bolt Weapon',''),
-    description:
-      '<p>Larger, and more stable than the conventional Boltstorm Gauntlet, the bolter component of these weapons allows them to sustain a higher rate of fire while on the move, compared to the close quarters burst fire of the smaller version. Auto Boltstorm Gauntlets are normally wielded in pairs by Primaris Aggressors; when operated as a pair, they may fire as a single weapon, but with a Salvo value of 6.</p>' +
-      '<p>The profile below describes the gun component, though the Value and Keywords apply to the whole weapon. The power fist uses the profile found on page 293 of the Wrath & Glory rulebook but gains the Paired trait.</p>',
-  },
-  {
     ...simpleStub(30904, 'aaoa2',90,'Bolt Carbine', '6R', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('10+1ED; AP 0; Range 40m; Salvo 2; Assault, Brutal, Steadfast', 'Bolt Weapon', ''),
   },
