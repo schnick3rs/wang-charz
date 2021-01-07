@@ -391,8 +391,8 @@ export default {
     contentOptions() {
       let contentOptions = [];
       this.vaultItems.forEach((item) => {
-        if (item.contentTags) contentOptions.push(item.contentTags);
-        if (item.keywordTags) contentOptions.push(item.keywordTags);
+        if (item.contentTags) contentOptions.push(...item.contentTags);
+        if (item.keywordTags) contentOptions.push(...item.keywordTags);
       });
       return [...new Set(contentOptions)].sort();
     },
@@ -404,8 +404,13 @@ export default {
       }
 
       if (this.contentFilter.length > 0) {
-        filteredResults = filteredResults.filter((h) => [...h.contentTags, ...h.keywordTags]
-          .some((c) => this.contentFilter.includes(c)));
+        filteredResults = filteredResults
+          .filter((item) => {
+            let contentOptions = [];
+            if (item.contentTags) contentOptions.push(...item.contentTags);
+            if (item.keywordTags) contentOptions.push(...item.keywordTags);
+            return [...new Set(contentOptions)].some((c) => this.contentFilter.includes(c))
+          });
       }
 
       return filteredResults;
