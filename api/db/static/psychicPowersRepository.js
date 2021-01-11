@@ -452,6 +452,17 @@ const corePowers = [
   },
 ];
 
+const sotePowers = [
+  {
+    ...powerz(source.soti.key,0,'Some readable name','Minor',8),
+    ...simpleCrunch(5, ACTIVATION.ACTION, DURATION.SUSTAINED,'Self',false),
+    keywords: ['Psychic'],
+    effect: 'The effect in a crunch',
+    description: '<p>HTML code describing the spell</p>',
+    // TODO potencies...
+  },
+];
+
 const paxNavigatorPowers = [
   {
     ...simpleStub(101, 'pax', 190, 8, 'A Cloud in the Warp', 'Navigator Powers', 'Mask yourself from observations through powers.'),
@@ -947,6 +958,7 @@ const psychicPowersRepository = [
   ...aaoaLibrariusPowers,
   ...aaoaAeldariPowers,
   ...teaLibrariusPowers,
+  ...sotePowers,
 ];
 
 module.exports = {
