@@ -452,7 +452,7 @@ const corePowers = [
   },
 ];
 
-const sotePowers = [
+const sotiPowers = [
   {
     ...powerz(source.soti.key,0,'Some readable name','Shadowy Imperium Powers',8),
     ...simpleCrunch(5, ACTIVATION.ACTION, DURATION.SUSTAINED,'Self',false),
@@ -958,7 +958,7 @@ const psychicPowersRepository = [
   ...aaoaLibrariusPowers,
   ...aaoaAeldariPowers,
   ...teaLibrariusPowers,
-  ...sotePowers,
+  ...sotiPowers,
 ];
 
 module.exports = {
