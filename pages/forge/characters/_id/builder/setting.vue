@@ -456,7 +456,7 @@ export default {
           active: true,
           key: 'soti',
           name: '\'Shadow of the Imperium Sandbox\' content',
-          hint: 'Mostly drafts.',
+          hint: 'Highly experimental!',
           enabled: true,
           nuxt: undefined,
           source: '',
