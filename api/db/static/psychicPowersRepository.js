@@ -454,7 +454,7 @@ const corePowers = [
 
 const sotePowers = [
   {
-    ...powerz(source.soti.key,0,'Some readable name','Minor',8),
+    ...powerz(source.soti.key,0,'Some readable name','Shadowy Imperium Powers',8),
     ...simpleCrunch(5, ACTIVATION.ACTION, DURATION.SUSTAINED,'Self',false),
     keywords: ['Psychic'],
     effect: 'The effect in a crunch',
