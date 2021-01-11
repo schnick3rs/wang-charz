@@ -452,6 +452,15 @@ export default {
           nuxt: undefined,
           source: '',
         },
+        {
+          active: true,
+          key: 'soti',
+          name: '\'Shadow of the Imperium Sandbox\' content',
+          hint: 'Mostly drafts.',
+          enabled: true,
+          nuxt: undefined,
+          source: '',
+        },
       ],
       enabledHomebrews: [],
       settingHouseruleSelectors: [

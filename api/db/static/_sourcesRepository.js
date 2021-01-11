@@ -5,6 +5,7 @@ const source = {
   core10: { book: 'Core Rules', key: 'core10', version: 'v1' },
   // Doctors of Doom
   dod: { book: 'Doctors of Doom Compendium', key: 'dod', version: '', path: '' },
+  soti: { book: 'Shadow of the Imperium Sandbox', key: 'soti', version: 'v0.1' },
   // Homebrews (Up to date)
   aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v3.2', path: '/vault/an-abundance-of-apocrypha' },
   aaoa2: { book: 'An Abundance of Apocrypha', key: 'aaoa2', version: 'v2.0', path: '/vault/an-abundance-of-apocrypha' },
