@@ -463,7 +463,7 @@ const core = [
     ...rangez('Melta Weapon',16,2,-4,12,1,'Assault,Melta'),
   },
   {
-    ...gear(source.core.key,224,'Multi-Melta','7V','Melta,Imperium'),
+    ...gear(source.core.key,224,'Multi-Melta','7R','Melta,Imperium'),
     ...rangez('Melta Weapon',16,3,-4,24,1,'Heavy(8),Melta'),
   },
   {
