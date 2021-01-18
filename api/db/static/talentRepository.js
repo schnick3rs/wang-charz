@@ -763,7 +763,7 @@ const core = [
     requirements: [ requireSpecies('Primaris Astartes') ],
     modifications: [
       { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
-      { targetGroup: 'traits', targetValue: 'corruption', modifier: 0, rank: 1 },
+      //{ targetGroup: 'traits', targetValue: 'corruption', modifier: 0, rank: 1 },
       { targetGroup: 'skills', targetValue: 'scholar', modifier: 0, rank: 2, condition: 'when recalling long (<31k) gone events' },
     ],
   },
