@@ -530,6 +530,7 @@ export default {
         if (talent.requirements && talent.requirements.length > 0) {
           talent.requirements.forEach((requirement) => {
             switch (requirement.type) {
+
               // condition: 'must', type: 'keyword', key: ['Adeptus Ministorum', 'Adepta Sororitas'],
               case 'keyword':
                 const lowercaseKeywords = this.finalKeywords.map((k) => k.toUpperCase());

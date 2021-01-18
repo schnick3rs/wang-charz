@@ -44,7 +44,7 @@ const requireKeyword = function(keywords, not = false) {
   return {
     condition: not ? 'mustNot' : 'must',
     type: 'keyword',
-    key: [ keywords.split(',') ],
+    key: [ ...keywords.split(',') ],
   };
 };
 
@@ -1117,7 +1117,10 @@ const core = [
     snippet: '+1 Faith. As a Simple Action, spend 1 Faith to grant IMPERIUM allies within 10xRank metres your Hatred talent.',
     description:
       '<p></p>',
-    requirements: [ requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'), requireKeyword('CHAOS',true), ], // +++ Hatret talent
+    requirements: [
+      requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
+      requireKeyword('CHAOS',true),
+    ], // +++ Hatret talent
   },
   {
     ...talent('core',143,'Martyr’s Tears',20,'Faith'),
@@ -1187,12 +1190,13 @@ const core = [
     ...talent('core',144,'The Emperor Protects',30,'Faith'),
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: 'As A Reflexive Action, spend 2 Faith to force an attack directed at you to miss.',
+    snippet: '+1 Faith. As A Reflexive Action, spend 2 Faith to force an attack directed at you to miss.',
     description:
       '<p></p>',
     requirements: [
       requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
-      requireKeyword('CHAOS',true)
+      requireKeyword('CHAOS',true),
+      { key: 'at least 1 Faith' },
     ],
   },
 ];

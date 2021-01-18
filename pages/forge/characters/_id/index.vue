@@ -1472,7 +1472,7 @@ export default {
       const spend = this.$store.getters['characters/characterFaithSpendById'](this.characterId);
       let points = 0;
       this.talentsForFaith.forEach((t)=>{
-          points += ['core-the-emperor-protects'].includes(t.key) ? 0 : 1;
+          points += 1;
       });
 
       return { points, spend };
