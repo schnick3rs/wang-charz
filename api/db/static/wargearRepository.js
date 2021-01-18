@@ -801,7 +801,7 @@ const core = [
     ...armour('Imperial Armour',3),
   },
   {
-    ...gear(source.core.key,232,'Skitarri Auto-Cuirass','5R','Heavy,Imperium,Adeptus Mechanicus,Skitarii'),
+    ...gear(source.core.key,232,'Skitarii Auto-Cuirass','5R','Heavy,Imperium,Adeptus Mechanicus,Skitarii'),
     ...armour('Imperial Armour',4),
   },
   {
