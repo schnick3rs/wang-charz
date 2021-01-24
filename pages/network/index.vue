@@ -113,6 +113,15 @@ export default {
       ],
       assets: [
         {
+          name: 'Player Reference',
+          type: 'PDF on Google Drive',
+          author: 'GerdBerguukion',
+          text: 'Reddit user GerdBerguukion has created this 18 page rules reference that helps learning and playing the game.',
+          parts: [
+            { title: 'Rules Reference v1.1' , url: 'https://drive.google.com/file/d/1JSmfPlCE_tSvIORnhwMD9claPnF2pr4f/view' },
+          ],
+        },
+        {
           name: 'Helper & Summary',
           type: 'PDF on Google Drive',
           author: 'Bill Gant',
