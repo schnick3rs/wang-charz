@@ -1,4 +1,5 @@
 import { source } from './_sourcesRepository';
+import { SKILLS } from './_statUtils';
 
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
@@ -339,6 +340,139 @@ const fspg = [
       {
         name: 'Kroot Mutations',
         snippet: 'You have a number of Kroot Mutations equal to your Tier, and may gain additional Kroot Mutations as part of Ascension.',
+        alerts: [
+          { type: 'info', text: 'Only select the amount of mutations that you are allowed to.', },
+        ],
+        //selected: ['', '', '', ''],
+        options: [
+          {
+            name: 'Maneater (Strength)',
+            snippet: '+1 to your lowest Attribute (Strength).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 1  } ],
+          },
+          {
+            name: 'Maneater (Toughness)',
+            snippet: '+1 to your lowest Attribute (Toughness).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1  } ],
+          },
+          {
+            name: 'Maneater (Agility)',
+            snippet: '+1 to your lowest Attribute (Agility).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'agility', modifier: 1  } ],
+          },
+          {
+            name: 'Maneater (Initiative)',
+            snippet: '+1 to your lowest Attribute (Initiative).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'initiative', modifier: 1  } ],
+          },
+          {
+            name: 'Maneater (Willpower)',
+            snippet: '+1 to your lowest Attribute (Willpower).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1  } ],
+          },
+          {
+            name: 'Maneater (Intellect)',
+            snippet: '+1 to your lowest Attribute (Intellect).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1  } ],
+          },
+          {
+            name: 'Maneater (Fellowship)',
+            snippet: '+1 to your lowest Attribute (Fellowship).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'fellowship', modifier: 1  } ],
+          },
+          {
+            name: 'Astartes Eater (Strength)',
+            snippet: '+2 to any Attribute (Strength).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 2  } ],
+          },
+          {
+            name: 'Astartes Eater (Toughness)',
+            snippet: '+2 to any Attribute (Toughness).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2  } ],
+          },
+          {
+            name: 'Astartes Eater (Agility)',
+            snippet: '+2 to any Attribute (Agility).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'agility', modifier: 2  } ],
+          },
+          {
+            name: 'Astartes Eater (Initiative)',
+            snippet: '+2 to any Attribute (Initiative).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'initiative', modifier: 2  } ],
+          },
+          {
+            name: 'Astartes Eater (Willpower)',
+            snippet: '+2 to any Attribute (Willpower).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'willpower', modifier: 2  } ],
+          },
+          {
+            name: 'Astartes Eater (Intellect)',
+            snippet: '+2 to any Attribute (Intellect).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'intellect', modifier: 2  } ],
+          },
+          {
+            name: 'Astartes Eater (Fellowship)',
+            snippet: '+2 to any Attribute (Fellowship).',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'fellowship', modifier: 2  } ],
+          },
+          {
+            name: 'Aeldari Eater (Agility)',
+            snippet: '+1 to Agility.',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'agility', modifier: 1  } ],
+          },
+          {
+            name: 'Aeldari Eater (Willpower)',
+            snippet: '+1 to Willpower.',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1  } ],
+          },
+          {
+            name: 'Ork Eater (Strength)',
+            snippet: '+1 to Strength.',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 1  } ],
+          },
+          {
+            name: 'Ork Eater (Toughness)',
+            snippet: '+1 to Toughness.',
+            modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1  } ],
+          },
+          {
+            name: 'Armoured Hide',
+            snippet: 'You gain +Rank to your Base Resilience.',
+            modifications: [ { targetGroup: 'traits', targetValue: 'resilience', rank: 1  } ],
+          },
+          {
+            name: 'Bioluminescence',
+            snippet: 'You may cause any part of your body to glow with light. If your entire body is emitting light, it sheds enough light to see in a 10m radius.',
+          },
+          {
+            name: 'Camouflage',
+            snippet: 'As a Simple Action you can control the appearance of your hide, with the same effects as a Cameleoline Cloak (core, pg. 237).',
+          },
+          {
+            name: 'Facultative Bipedalism',
+            snippet: 'You may Sprint twice as fast as normal and make Athletics (S) Tests to jump or climb with +Double Rank Bonus Dice.',
+            modifications: [ { targetGroup: 'skills', targetValue: 'athletics', rank: 2, condition: 'when jumping or climbing.'  } ],
+          },
+          {
+            name: 'Hypersensetive Quills',
+            snippet: 'Your quills act as an Auspex (core, pg. 236) with a range of 30m.',
+          },
+          {
+            name: 'Wings',
+            snippet: 'You can Fly at Speed 7',
+          },
+          {
+            name: 'Weaponised Biology',
+            snippet: '',
+            description: '<p>Your Unarmed Strikes deal (S)+4 Damage / +3 ED, and have one of the following Traits:</p>' +
+              '<ul>' +
+              '<li>Brutal</li>' +
+              '<li>Rending (Rank)</li>' +
+              '<li>Inflict (Poison (Rank))</li>' +
+              '<li>Parry</li>' +
+              '</ul>',
+          },
+        ],
       },
       {
         name: 'Despise for Armour',
