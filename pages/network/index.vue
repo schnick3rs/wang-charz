@@ -116,7 +116,7 @@ export default {
           name: 'Vehicle Sheet',
           type: 'PDF on Google Drive',
           author: 'Darth Venrir',
-          text: 'Need a place to organize your warbands tank, frigatte or other vehicles or war? Here you go.',
+          text: 'Need a place to organize your warbands tank, frigatte or other vehicles or war? Darth Venrir put together this pdf for your usage.',
           parts: [
             { title: 'Wrath & Glory - Vehicle Sheet' , url: 'https://drive.google.com/file/d/1RRVVjBI4_HRCZl5MU4XhURTKPwS4Avod/view' },
           ],
