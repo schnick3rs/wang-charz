@@ -1396,7 +1396,185 @@ const core = [
 ];
 
 const fspg = [
-
+  {
+    ...archetype(source.fspg.key,114,'Astra Militarum','Ratling Sniper',1,'fspg/Ratling'),
+    ...costz(54,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 2),
+      reqAttribute(ATTRIBUTES.AGILITY, 2),
+      reqAttribute(ATTRIBUTES.FELLOWSHIP, 2),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.CUNNING, 2),
+      reqSkill(SKILLS.DECEPTION, 2),
+      reqSkill(SKILLS.STEALTH, 3),
+    ]),
+    hint: 'An uncatchable sniper.',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxillia,[Regiment],Abhuman',
+    archetypeFeatures: [
+      {
+        name: 'Shoot Sharp and Scarper',
+        snippet: 'When using a weapon with the Sniper Weapon Trait, increase the weapon’s Sniper rating by +Rank. In addition, when you make a successful ranged Attack Test, you may immediately move up to your Speed as a Reflexive Action.',
+      },
+    ],
+    wargear: [
+      {
+        name: 'Sniper Rifle or Long Las.',
+        selected: 'Sniper Rifle',
+        options: [
+          { name: 'Sniper Rifle' },
+          { name: 'Long Las' },
+        ],
+      },
+      { name: 'Knife' },
+      { name: 'Flak Armour' },
+      { name: 'Ration', amount: 3 },
+      { name: 'Ration', amount: 2, variant: 'Stolen Rations' },
+      { name: 'Ratling Keepsakes' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-deadshot', 'core-eliminator', 'core-silent' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(1,2,3,1,1,2,3),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.CUNNING, 2),
+      reqSkill(SKILLS.DECEPTION, 2),
+      reqSkill(SKILLS.INSIGHT, 1),
+      reqSkill(SKILLS.PERSUASION, 1),
+      reqSkill(SKILLS.STEALTH, 3),
+    ],
+  },
+  {
+    ...archetype(source.fspg.key,115,'Astra Militarum','Ogryn Warrior',2,'fspg/Ogryn'),
+    ...costz(98,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 5),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.SURVIVAL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'Fire at will!',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxillia,[Regiment],Abhuman',
+    archetypeFeatures: [
+      {
+        name: 'Let It Rip',
+        snippet: 'When you Charge and have a ranged weapon, you can fire it wildly as a Free Action. This is treated as a Salvo Option that awards Bonus Dice to your Melee Attack Test equal to your weapon’s Salvo rating.',
+      },
+    ],
+    wargear: [
+      { name: 'Flak Armour' },
+      { name: 'Ripper Gun' },
+      { name: 'Bayonet' },
+      { name: 'Frag Bomb', amount: 3 },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-augmetic', 'core-brutalist', 'core-duty-until-death' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(5,5,2,2,2,1,1),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.INTIMIDATION, 1),
+      reqSkill(SKILLS.SURVIVAL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 5),
+    ],
+  },
+  {
+    ...archetype(source.fspg.key,116,'Astra Militarum','Bullgryn',3,'fspg/Ogryn'),
+    ...costz(172,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 6),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 6),
+      reqAttribute(ATTRIBUTES.AGILITY, 2),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 2),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 2),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.SURVIVAL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'The handy bullwark',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxillia,[Regiment],Abhuman',
+    archetypeFeatures: [
+      {
+        name: 'Shieldwall',
+        snippet: 'You provide your allies with a mobile defence line formed of carapace, tank tracks and Abhuman muscle. If an attack is made against an ally within 3m, that ally can add your Shield’s Armour Rating to their Armour Rating.',
+      },
+    ],
+    wargear: [
+      { name: 'Bullgryn Plate' },
+      { name: 'Frag Bomb', amount: 3 },
+      {
+        name: 'Slapshield and Grenadier Gauntlet',
+        selected: 'Slapshield and Grenadier Gauntlet OR Bullgryn Maul and Brute Shield',
+        options: [
+          { name: 'Slapshield and Grenadier Gauntlet' },
+          { name: 'Bullgryn Maul and Brute Shield' },
+        ],
+      },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-brutalist', 'core-die-hard', 'core-fear' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(6,6,3,3,2,1,1),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.AWARENESS, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.LEADERSHIP, 1),
+      reqSkill(SKILLS.SURVIVAL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 6),
+    ],
+  },
+  {
+    ...archetype(source.fspg.key,119,'Tau Empire','Kroot Mercenary',1,'fspg/Kroot'),
+    ...costz(62,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 2),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 2),
+      reqSkill(SKILLS.ATHLETICS, 1),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.STEALTH, 2),
+      reqSkill(SKILLS.SURVIVAL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'Gourmet for hire',
+    keywords: 'Kroot,[Any]',
+    archetypeFeatures: [
+      {
+        name: 'Adaptive Loyalty',
+        snippet: 'You gain the [ANY] Keyword, which should be substituted for the Faction that currently commands your allegiance. At the GM’s discretion, you may swap this Keyword out for a different one when your loyalties shift in play.',
+      },
+    ],
+    wargear: [
+      { name: 'Kroot Rifle' },
+      { name: 'Kroot Armour' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-brutalist', 'core-die-hard', 'core-fear' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(3,2,3,2,2,1,1),
+      reqSkill(SKILLS.ATHLETICS, 1),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.INSIGHT, 3),
+      reqSkill(SKILLS.STEALTH, 2),
+      reqSkill(SKILLS.SURVIVAL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 5),
+    ],
+  },
 ];
 
 const dodScumPsyker = [

@@ -324,7 +324,7 @@ const fspg = [
     ],
   },
   {
-    ...species('fspg', 97, 'Kroot', 'Kroot', 'The mutating gourmet', 22, 5),
+    ...species('fspg',97,'Kroot','Kroot','The mutating gourmet',22,5),
     ...cost(22,22,0,0),
     ...commonNames('Anghkor, Braztyk, Cechkala, Dahyak, Enghok, Fenya, Gorok, Harbyx, Ixilla, Jiynko, Khort, Lucu, Meyzek, Nhatalla, Ortazk, Pechallai, Quon, Razick, Senghak, Tovrick, Ula, Vhey, Wihn, Xala, Yulu, Zhorick.'),
     ...statMax(12,12,12,12,10,6,6,10),
@@ -342,7 +342,7 @@ const fspg = [
       },
       {
         name: 'Despise for Armour',
-        snippet: 'if a Kroot wears armour with an AR of 4 or more, the DN of all Tests using the Strength, Agility, or Initiative Attribute increase by an amount equal to the AR of the armour.',
+        snippet: 'If a Kroot wears armour with an AR of 4 or more, the DN of all Tests using the Strength, Agility, or Initiative Attribute increase by an amount equal to the AR of the armour.',
       },
     ],
   },
@@ -913,6 +913,7 @@ const homebrewReps = [
   },
 ];
 */
+
 module.exports = [
   ...coreRep,
   ...fspg,
