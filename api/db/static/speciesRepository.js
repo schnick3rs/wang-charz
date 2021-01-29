@@ -1,6 +1,5 @@
 import { source } from './_sourcesRepository';
 
-
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
 };
@@ -241,6 +240,109 @@ const coreRep = [
       {
         name: 'Bigger is Better',
         snippet: 'You calculate Influence using Strength instead of Fellowship.',
+      },
+    ],
+  },
+];
+
+const fspg = [
+  {
+    ...species('fspg', 93, 'Mankind', 'Ogryn', 'The simple mind', 76, 6),
+    ...cost(76,76,0,0),
+    ...commonNames('Ank, Brok, Berta, Chukka, Dent, Frug, Grok, Hak, Igor, Jab, Karg, Kront, Lokk, Munt, Nork, Okka, Orod, Punt, Rakka, Smasha, Tock, Tug, Urok, Vohn, Wakka, Yarp.'),
+    ...statMax(12,12,7,4,8,1,4,8),
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 5 },
+      { group: 'attributes', value: 'toughness', threshold: 5 },
+      { group: 'skills', value: 'survival', threshold: 2 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Avalanche of Muscle',
+        snippet: 'When you Charge you gain an additional +Rank Bonus Dice to your melee attack Test.',
+        modifications: [
+          { targetGroup: 'skill', targetValue: 'weaponSkill', rank: 1, condition: 'when charging.' },
+        ],
+      },
+      {
+        name: 'Claustrophobic',
+        snippet: 'Whenever you enter an enclosed area you must make a Fear Test (default DN 2). Additionally, whenever you roll a Complication in an enclosed space, the GM can spend 1 Ruin to force you to repeat this Fear Test.',
+      },
+      {
+        name: 'Simple Loyalty',
+        snippet: 'Whenever an ally with the IMPERIUM Keyword makes a Leadership Test targeting an Ogryn they gain Bonus Dice equal to the Ogryn’s Rank ( +Rank ).',
+      },
+      {
+        name: 'Abhuman',
+        snippet: 'You suffer a +1 DN penalty to social tests with Humans, modified by the target`s Keywords.',
+      },
+      {
+        name: 'No recored Psykers',
+        snippet: 'There are no recorded instances of Ogryns with psychic abilities. You cannot have the PSYKER Keyword.',
+      },
+      {
+        name: 'Armour for Abhumans',
+        snippet: 'For abhumans like Ogryns, the Rarity of any Armour is increased by +1.',
+      },
+    ],
+  },
+  {
+    ...species('fspg', 95, 'Mankind', 'Ratling', 'The slippery raskal', 30, 5),
+    ...cost(30,30,0,0),
+    ...commonNames('Arble, Bigby, Chansey, Doc, Edegar, Fingers, Gormo, Helli, Irma, Jolli, Kelli, Kurds, Lobe, Malgoy, Merrin, Norm, Obbs, Pietra, Rally, Stumper, Talia, Ulto, Vinn, Wanda, Wisp, Yanush.'),
+    ...statMax(6,6,10,10,8,8,10,7),
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 2 },
+      { group: 'attributes', value: 'fellowship', threshold: 2 },
+      { group: 'skills', value: 'awareness', threshold: 2 },
+      { group: 'skills', value: 'ballisticSkill', threshold: 1 },
+      { group: 'skills', value: 'cunning', threshold: 1 },
+      { group: 'skills', value: 'deception', threshold: 2 },
+      { group: 'skills', value: 'stealth', threshold: 2 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Gourmand',
+        snippet: '+Double Rank Bonus Dice to any Test made to prepare food. Prepared food can be used during a Regroup to recover +Rank Shock.',
+      },
+      {
+        name: 'Shoot Sharp and Scarper',
+        snippet: 'You can move up to your Speed in metres after making a successful Ranged Attack Test.',
+      },
+      {
+        name: 'Abhuman',
+        snippet: 'You suffer a +1 DN penalty to social tests with Humans, modified by the target`s Keywords.',
+      },
+      {
+        name: 'No recored Psykers',
+        snippet: 'There are no recorded instances of Ratlings with psychic abilities. You cannot have the PSYKER Keyword.',
+      },
+      {
+        name: 'Armour for Abhumans',
+        snippet: 'For abhumans like Ratlings, the Rarity of any Armour is increased by +1.',
+      },
+    ],
+  },
+  {
+    ...species('fspg', 97, 'Kroot', 'Kroot', 'The mutating gourmet', 22, 5),
+    ...cost(22,22,0,0),
+    ...commonNames('Anghkor, Braztyk, Cechkala, Dahyak, Enghok, Fenya, Gorok, Harbyx, Ixilla, Jiynko, Khort, Lucu, Meyzek, Nhatalla, Ortazk, Pechallai, Quon, Razick, Senghak, Tovrick, Ula, Vhey, Wihn, Xala, Yulu, Zhorick.'),
+    ...statMax(12,12,12,12,10,6,6,10),
+    prerequisites: [
+      { group: 'skills', value: 'athletics', threshold: 1 },
+      { group: 'skills', value: 'awareness', threshold: 1 },
+      { group: 'skills', value: 'stealth', threshold: 2 },
+      { group: 'skills', value: 'survival', threshold: 2 },
+      { group: 'skills', value: 'weaponSkill', threshold: 2 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Kroot Mutations',
+        snippet: 'You have a number of Kroot Mutations equal to your Tier, and may gain additional Kroot Mutations as part of Ascension.',
+      },
+      {
+        name: 'Despise for Armour',
+        snippet: 'if a Kroot wears armour with an AR of 4 or more, the DN of all Tests using the Strength, Agility, or Initiative Attribute increase by an amount equal to the AR of the armour.',
       },
     ],
   },
@@ -813,6 +915,7 @@ const homebrewReps = [
 */
 module.exports = [
   ...coreRep,
+  ...fspg,
   ...aaoa,
   //...homebrewReps, xxx disavled for now, until updated to 1.5
 ];

@@ -1395,6 +1395,10 @@ const core = [
   },
 ];
 
+const fspg = [
+
+];
+
 const dodScumPsyker = [
   {
     name: 'Scum Psyker',
@@ -6412,6 +6416,7 @@ const ambRep = [
 
 const archetypeRepository = [
   ...core,
+  ...fspg,
   ...dodScumPsyker,
   ...aaoaRep,
   ...ltgbRep,
