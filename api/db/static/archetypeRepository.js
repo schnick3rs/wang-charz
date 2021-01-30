@@ -1468,7 +1468,7 @@ const fspg = [
     wargear: [
       { name: 'Flak Armour' },
       { name: 'Ripper Gun' },
-      { name: 'Bayonet' },
+      { name: 'Bayonet Lug' },
       { name: 'Frag Bomb', amount: 3 },
     ],
     suggested: {
