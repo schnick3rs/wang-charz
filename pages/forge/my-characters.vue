@@ -28,8 +28,8 @@
     <v-row justify="center">
 
       <v-col :cols="12">
-        <v-alert type="info" outlined >
-          <p>On Januar 2021, <a href="https://www.cubicle7games.com/">Cubicle7</a> <a href="https://www.cubicle7games.com/40k-forsaken-system-players-guide-pdf-out-now/">posted about their newest PDF</a> for Wrath and Glory. The can get the <a href="https://www.drivethrurpg.com/product/303930/Wrath--Glory--Forsaken-System-Players-Guide?affiliate_id=466959" title="Wrath & Glory Forsaken System Player´s Guide (Affiliate Link)">Forsaken System Player´s Guide on e.g. drivethrurpg.com</a> (affiliate link). It contains Abhuman Species and new archetypes for the Imperium, covering Sororitas, Inquisition, Mechanicus and Astartes.</p>
+        <v-alert type="info" outlined text>
+          On Januar 2021, <a href="https://www.cubicle7games.com/">Cubicle7</a> <a href="https://www.cubicle7games.com/40k-forsaken-system-players-guide-pdf-out-now/">posted about their newest PDF</a> for Wrath and Glory. The can get the <a href="https://www.drivethrurpg.com/product/303930/Wrath--Glory--Forsaken-System-Players-Guide?affiliate_id=466959" title="Wrath & Glory Forsaken System Player´s Guide (Affiliate Link)">Forsaken System Player´s Guide on e.g. drivethrurpg.com</a> (affiliate link). It contains Abhuman Species and new archetypes for the Imperium, covering Sororitas, Inquisition, Mechanicus and Astartes.
         </v-alert>
       </v-col>
 
