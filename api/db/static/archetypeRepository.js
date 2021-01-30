@@ -1409,7 +1409,7 @@ const fspg = [
       reqSkill(SKILLS.STEALTH, 3),
     ]),
     hint: 'An uncatchable sniper.',
-    keywords: 'Imperium,Astra Militarum,Militarum Auxillia,[Regiment],Abhuman',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
     archetypeFeatures: [
       {
         name: 'Shoot Sharp and Scarper',
@@ -1458,7 +1458,7 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
     hint: 'Fire at will!',
-    keywords: 'Imperium,Astra Militarum,Militarum Auxillia,[Regiment],Abhuman',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
     archetypeFeatures: [
       {
         name: 'Let It Rip',
@@ -1468,7 +1468,7 @@ const fspg = [
     wargear: [
       { name: 'Flak Armour' },
       { name: 'Ripper Gun' },
-      { name: 'Bayonet Lug' },
+      { name: 'Ripper Gun Bayonet' },
       { name: 'Frag Bomb', amount: 3 },
     ],
     suggested: {
@@ -1500,7 +1500,7 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 3),
     ]),
     hint: 'The handy bullwark',
-    keywords: 'Imperium,Astra Militarum,Militarum Auxillia,[Regiment],Abhuman',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
     archetypeFeatures: [
       {
         name: 'Shieldwall',

@@ -250,6 +250,7 @@ export default {
           key: 'core-unwieldy',
           name: 'Unwieldy',
           hint: 'Attacks have a +X DN penalty.',
+          crunch: 'Attacks have a +X DN penalty.',
           description:
             '<p>Whether unbalanced or too large, some weapons are harder to use.</p>' +
             '<p>Attacks made with Unwieldy weapons have their DN increased by an amount equal to their Unwieldy rating.</p>',

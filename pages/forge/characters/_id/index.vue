@@ -439,41 +439,50 @@
                   hide-default-footer
                 >
                   <template v-slot:item="{ item }">
-                    <tr>
+                    <tr
+                        v-if="item.meta"
+                        v-for="(meta, metaIndex) in item.meta.filter(m => m.type.indexOf('-weapon') > 0)"
+                        :key="`${item.name}-${metaIndex}`"
+                    >
 
                       <td class="text-left pa-1 small">
                         {{ item.name }}
+                        <template v-if="item.meta.length > 1">
+                          <span v-if="meta.type === 'melee-weapon'">(Melee)</span>
+                          <span v-else-if="meta.type === 'ranged-weapon'">(Ranged)</span>
+                        </template>
                       </td>
 
                       <td class="text-center pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 4">
-                          {{ item.meta[0].range/2 }} | {{ item.meta[0].range }} | {{ item.meta[0].range*1.5 }}
+                        <span v-if="meta.range > 4">
+                          {{ meta.range/2 }} | {{ meta.range }} | {{ meta.range*1.5 }}
                         </span>
-                        <span v-else-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
-                        <span v-if="item.meta && item.meta.length > 0 && isNaN(item.meta[0].range) && item.meta[0].range.startsWith('STRx')">{{item.meta[0].range}}</span>
+                        <span v-else-if="meta.range > 1">{{ meta.range }} m</span>
+                        <span v-if="meta.range === 1">melee</span>
+                        <span v-if="isNaN(meta.range) && meta.range.startsWith('STRx')">{{meta.range}}</span>
                       </td>
 
                       <td class="text-center pa-1 small">
-                        <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                          <div v-if="item.meta[0].damage.static === '*'">*</div>
+                        <div v-if="meta.damage">
+                          <div v-if="meta.damage.static === '*'">*</div>
                           <div v-else>
-                            <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
-                            <span v-else>{{ item.meta[0].damage.static }}</span>
+                            <span v-if="meta.type==='melee-weapon'">{{ meta.damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
+                            <span v-else>{{ meta.damage.static }}</span>
                             <span> + </span>
-                            <span>{{ item.meta[0].damage.ed }} ED</span>
+                            <span>{{ meta.damage.ed }} ED</span>
                           </div>
                         </div>
                       </td>
 
                       <td class="text-center pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
+                        <span>{{ meta.ap }}</span>
                       </td>
                       <td class="text-center pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo < 0 ? '-' : item.meta[0].salvo }}</span>
+                        <span>{{ isNaN(meta.salvo) ? '-' : meta.salvo }}</span>
                       </td>
                       <td class="text-left pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
+                        <span v-if="meta.traits && meta.traits.length >0">{{ meta.traits.join(', ') }}</span>
+                        <span v-else>-</span>
                       </td>
                     </tr>
                   </template>
@@ -496,16 +505,17 @@
                 </div>
 
                 <div class="mt-4">
-                  <p
+                  <templare
                     v-for="trait in weaponsTraitSet"
                     v-if="traitByName(trait)"
                     :key="trait"
                     class="body-2 mb-2 caption"
                   >
-                    <strong>{{ traitByName(trait).name }}: </strong>
-                    <span v-if="traitByName(trait).crunch">{{ traitByName(trait).crunch }}</span>
-                    <span v-else>{{ traitByName(trait).description }}</span>
-                  </p>
+                    <p v-if="traitByName(trait).crunch">
+                      <strong>{{ traitByName(trait).name }}: </strong> {{ traitByName(trait).crunch }}
+                    </p>
+                    <p v-else>{{ traitByName(trait).description }}</p>
+                  </templare>
                 </div>
               </div>
             </v-tab-item>
@@ -2076,7 +2086,22 @@ export default {
       return wargear;
     },
     weapons() {
-      return this.wargear.filter((w) => ['Ranged Weapon', 'Melee Weapon'].includes(w.type));
+      return this.wargear.filter((wargear) => {
+        let hasWeaponsProfile = false;
+        if (['Ranged Weapon', 'Melee Weapon'].includes(wargear.type)) {
+          hasWeaponsProfile = true;
+        } else {
+          if (wargear.meta) {
+            wargear.meta.forEach((meta) => {
+              console.info(['ranged-weapon', 'melee-weapon'].includes(meta.type));
+              if (['ranged-weapon', 'melee-weapon'].includes(meta.type)) {
+                hasWeaponsProfile = true;
+              }
+            })
+          }
+        }
+        return hasWeaponsProfile;
+      });
     },
     armour() {
       return this.wargear.filter((w) => ['Armour'].includes(w.type));
@@ -2128,10 +2153,11 @@ export default {
       const { weapons } = this;
 
       weapons.forEach((weapon) => {
-        // item.meta[0].traits
-        if (weapon.meta[0] && weapon.meta[0].traits && weapon.meta[0].traits.length > 0) {
-          weaponsTraitSet = [...weaponsTraitSet, ...weapon.meta[0].traits];
-        }
+        weapon.meta.forEach((meta) => {
+          if (meta.traits && meta.traits.length > 0) {
+            weaponsTraitSet = [...weaponsTraitSet, ...meta.traits];
+          }
+        })
       });
       weaponsTraitSet = weaponsTraitSet.map((t) => t.split(/ ?\(/)[0]);
       return [...new Set(weaponsTraitSet)].sort();

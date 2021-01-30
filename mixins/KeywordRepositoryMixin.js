@@ -11,6 +11,18 @@ export default {
 
       // Species Keywords
       {
+        name: 'Abhuman', type: 'Species', parentKeyword: undefined, description: 'Abhuman are merely accepted in imperial society.',
+      },
+      {
+        name: 'Ratling', type: 'Species', parentKeyword: undefined, description: 'The Ratling abhuman.',
+      },
+      {
+        name: 'Ogryn', type: 'Species', parentKeyword: undefined, description: 'The Ogryn abhuman.',
+      },
+      {
+        name: 'Kroot', type: 'Species', parentKeyword: undefined, description: 'The Kroot race.',
+      },
+      {
         name: 'Aeldari', type: 'Species', parentKeyword: undefined, description: 'The Eldar race.',
       },
       {
