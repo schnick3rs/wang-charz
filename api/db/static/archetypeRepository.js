@@ -1196,11 +1196,8 @@ const core = [
   },
   {
     ...archetype(source.core.key, 113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
-    ...cost(272,20,252, 0, 0),
-    hint: 'A dark warrior, veteran of a thousand years.',
-    keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Mark of Chaos],Heretic Astartes',
-    prerequisites: [
-      reqAttribute(ATTRIBUTES.STRENGTH, 5), // 20
+    ...costz(252,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 4), // 20
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
       reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
       reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
@@ -1214,7 +1211,9 @@ const core = [
       reqSkill(SKILLS.STEALTH, 3), // 12
       reqSkill(SKILLS.SURVIVAL, 1), // 12
       reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
-    ],
+    ]),
+    hint: 'A dark warrior, veteran of a thousand years.',
+    keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Mark of Chaos],Heretic Astartes',
     alerts: [
       { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
     ],
