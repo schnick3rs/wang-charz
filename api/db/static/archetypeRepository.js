@@ -658,11 +658,8 @@ const core = [
   },
   {
     ...archetype(source.core.key, 113,'Adeptus Astartes','Tactical Space Marine',3,'Adeptus Astartes'),
-    ...cost(272,20,252, 0, 0),
-    hint: 'A versatile warrior, veteran of a hundred battles.',
-    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
-    prerequisites: [
-      reqAttribute(ATTRIBUTES.STRENGTH, 5), // 20
+    ...costz(252,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 4), // 18
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
       reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
       reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
@@ -676,7 +673,9 @@ const core = [
       reqSkill(SKILLS.STEALTH, 3), // 12
       reqSkill(SKILLS.SURVIVAL, 1), // 12
       reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
-    ],
+    ]),
+    hint: 'A versatile warrior, veteran of a hundred battles.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     alerts: [
       { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
     ],
