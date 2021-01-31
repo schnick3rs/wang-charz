@@ -11,7 +11,7 @@ export default {
 
       // Species Keywords
       {
-        name: 'Abhuman', type: 'Species', parentKeyword: undefined, description: 'Abhuman are merely accepted in imperial society.',
+        name: 'Abhuman', type: 'Species', parentKeyword: undefined, description: 'Some mutated strains of Humanity, such as the muscular, oversized, impeccably loyal Ogryns, are allowed citizenship in parts of the Imperium due to their usefulness. These mutants are known as Abhumans.',
       },
       {
         name: 'Ratling', type: 'Species', parentKeyword: undefined, description: 'The Ratling abhuman.',
@@ -20,7 +20,7 @@ export default {
         name: 'Ogryn', type: 'Species', parentKeyword: undefined, description: 'The Ogryn abhuman.',
       },
       {
-        name: 'Kroot', type: 'Species', parentKeyword: undefined, description: 'The Kroot race.',
+        name: 'Kroot', type: 'Species', parentKeyword: undefined, description: 'A mercenary xenos Species with the ability to control their evolution through the consumption of other lifeforms.',
       },
       {
         name: 'Aeldari', type: 'Species', parentKeyword: undefined, description: 'The Eldar race.',
@@ -125,6 +125,9 @@ export default {
       },
       {
         name: 'Militarum Tempestus', type: 'Imperium', parentKeyword: undefined, description: 'Elite, specially-trained and equipped soldiers of the Astra Militarum.',
+      },
+      {
+        name: 'Militarum Auxilla', type: 'Imperium', parentKeyword: undefined, description: 'A division of the Astra Militarum that consists of Abhumans.',
       },
       {
         name: 'Officio Prefectus', type: 'Imperium', parentKeyword: undefined, description: 'Elite leaders and disciplinarians of the Imperium’s military.',
