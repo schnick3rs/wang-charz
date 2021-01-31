@@ -1449,7 +1449,7 @@ const fspg = [
   // lex
   {
     ...archetype(source.fspg.key,117,'Inquisition','Lexmechanicus',2,'Human'),
-    ...costz(48,[
+    ...costz(44,[
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqSkill(SKILLS.SCHOLAR, 3),
       reqSkill(SKILLS.TECH, 3),
