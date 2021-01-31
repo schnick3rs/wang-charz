@@ -1394,6 +1394,122 @@ const core = [
 ];
 
 const fspg = [
+  // Sororitas
+  // Mechanicus
+  {
+    ...archetype(source.fspg.key,109,'Adeptus Mechanicus','Tech-Adept',1,'Human'),
+    ...costz(22,[
+      reqAttribute(ATTRIBUTES.INTELLECT, 2),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 3),
+    ]),
+    hint: 'The mechanical admin.',
+    keywords: 'Imperium,Adeptus Mechanicus,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Admin Access',
+        snippet: 'Your purpose is to commune with Machine Spirits and catalogue their wisdom, to further the Quest for Knowledge. When you commune with a Machine Spirit as part of a Test, you gain Icons equal to your Rank.',
+      },
+    ],
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Clothing', variant: 'Adepts Robes' },
+      { name: 'Data-Slate' },
+      { name: 'Combi-Tool' },
+      { name: 'Sacred Machine Oil' },
+      {
+        name: 'Any Augmetic Enhancement',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Enhancements'],
+          },
+        ],
+      },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-augmetic', 'core-binary-chatter', 'core-deductive' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(1,2,1,1,1,4,1),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.INVESTIGATION, 2),
+      reqSkill(SKILLS.MEDICAE, 1),
+      reqSkill(SKILLS.PILOT, 1),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 4),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ],
+  },
+  // lex
+  {
+    ...archetype(source.fspg.key,117,'Inquisition','Lexmechanicus',2,'Human'),
+    ...costz(48,[
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.SCHOLAR, 3),
+      reqSkill(SKILLS.TECH, 3),
+    ]),
+    hint: 'The human prozessor.',
+    keywords: 'Imperium,Adeptus Mechanicus,[Forge World],Inquisition,[Ordo]',
+    archetypeFeatures: [
+      {
+        name: 'Statistical Certainty',
+        snippet: 'The assistance you provide your allies comes with the benefit of exacting mathematical analysis, to remove all possibility of ill-fortune or doubt. When you Help an ally, you may reduce the amount of Bonus Dice you provide by an amount equal up to your Rank. For every die removed, your ally gains an extra Icon on their Test result.',
+      },
+    ],
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Clothing', variant: 'Adepts Robes' },
+      { name: 'Auspex' },
+      { name: 'Auto-Quill' },
+      { name: 'Combi-Tool' },
+      { name: 'Data-Slate' },
+      {
+        name: 'Any Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'Any Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      { name: 'Sacred Machine Oil' },
+      { name: 'Symbol of Authority', variant: 'Symbol of the Mechanicus & Inquisition' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-augmetic', 'core-binary-chatter', 'core-deductive' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(1,2,1,1,1,4,1),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.INVESTIGATION, 2),
+      reqSkill(SKILLS.MEDICAE, 1),
+      reqSkill(SKILLS.PILOT, 1),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 4),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ],
+  },
+  // Abhumans
   {
     ...archetype(source.fspg.key,114,'Astra Militarum','Ratling Sniper',1,'fspg/Ratling'),
     ...costz(54,[
@@ -1532,6 +1648,7 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 6),
     ],
   },
+  // Kroot
   {
     ...archetype(source.fspg.key,119,'Tau Empire','Kroot Mercenary',1,'fspg/Kroot'),
     ...costz(62,[
@@ -1545,8 +1662,8 @@ const fspg = [
       reqSkill(SKILLS.SURVIVAL, 3),
       reqSkill(SKILLS.WEAPON_SKILL, 3),
     ]),
-    factionKey: 'fspg-tau-empire',
     hint: 'Gourmet for hire',
+    factionKey: 'fspg-tau-empire',
     keywords: 'Kroot,[Any]',
     archetypeFeatures: [
       {
