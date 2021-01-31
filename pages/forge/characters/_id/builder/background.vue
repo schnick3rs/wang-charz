@@ -111,6 +111,7 @@ export default {
       dialog: false,
       dialogItem: undefined,
       issues: [],
+      characterSpecies: undefined,
       characterFaction: undefined,
       characterBackground: undefined,
       languageInput: '',
@@ -123,6 +124,9 @@ export default {
     };
   },
   computed: {
+    characterSpeciesKey() {
+      return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
+    },
     characterFactionKey() {
       return this.$store.getters['characters/characterFactionKeyById'](this.characterId);
     },
@@ -150,8 +154,8 @@ export default {
       return this.$store.getters['characters/characterLanguagesById'](this.characterId);
     },
     backgroundSectionTypes() {
-      if (this.characterFaction) {
-        const types = this.characterFaction.backgroundSection.map(section => section.type);
+      if (this.backgroundRepository) {
+        const types = this.backgroundRepository.map(section => section.type);
         return [...new Set(types)];
       }
       return [];
@@ -161,9 +165,27 @@ export default {
         return this.getBackgroundBySectionByKey(this.characterBackgroundPlusOneKey);
       }
       return undefined;
-    }
+    },
+    backgroundRepository() {
+      let repository = [];
+      if (this.characterSpecies && this.characterSpecies.backgroundSection) {
+        repository.push(...this.characterSpecies.backgroundSection);
+      }
+      if (this.characterFaction && this.characterFaction.backgroundSection) {
+        repository.push(...this.characterFaction.backgroundSection);
+      }
+      return repository;
+    },
   },
   watch: {
+    characterSpeciesKey: {
+      handler(newVal) {
+        if (newVal) {
+          this.loadSpecies(newVal);
+        }
+      },
+      immediate: true, // make this watch function is called when component created
+    },
     characterFactionKey: {
       handler(newVal) {
         if (newVal) {
@@ -174,6 +196,12 @@ export default {
     },
   },
   methods: {
+    async loadSpecies(key) {
+      if ( key ) {
+        const { data } = await this.$axios.get(`/api/species/${key}`);
+        this.characterSpecies = data;
+      }
+    },
     async loadFaction(key) {
       if ( key ) {
         const { data } = await this.$axios.get(`/api/factions/${key}`);
@@ -181,8 +209,8 @@ export default {
       }
     },
     backgroundsByType(type) {
-      if (this.characterFaction) {
-        return this.characterFaction.backgroundSection
+      if (this.backgroundRepository) {
+        return this.backgroundRepository
           .filter(section => section.type === type)
           .map((section) => {
             return {
@@ -194,8 +222,8 @@ export default {
       return [];
     },
     getBackgroundBySectionByKey(key) {
-      if (this.characterFaction && key) {
-        return this.characterFaction.backgroundSection.find(section => section.key === key);
+      if (this.backgroundRepository && key) {
+        return this.backgroundRepository.find(section => section.key === key);
       }
       return undefined;
     },

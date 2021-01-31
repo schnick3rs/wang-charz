@@ -2140,7 +2140,9 @@ export default {
       return items;
     },
     objectives() {
-      if (this.characterArchetype && this.factionRepository) {
+      if (this.characterSpecies && this.characterSpecies.objectives) {
+        return this.characterSpecies.objectives.map((objective) => ({ text: objective }));
+      } else if (this.characterArchetype && this.factionRepository) {
         const faction = this.factionRepository.find((faction) => faction.name === this.characterArchetype.faction);
         if (faction) {
           const objectiveList = faction.objectives;

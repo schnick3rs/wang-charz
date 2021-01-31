@@ -14,6 +14,23 @@ const stringToKebabToCamel = function (text) {
   return kebabToCamel(slug);
 };
 
+const background = function (text, plusOne, type) {
+  const parts = text.split(': ');
+  const title = parts[0];
+  const snippet = parts[1];
+  const modification = plusOne === '[ANY] Keyword'
+    ? { targetGroup: 'keywords', targetValue: '[Any]' }
+    : { targetGroup: 'traits', targetValue: stringToKebabToCamel(plusOne), modifier: 1 };
+  return {
+    key: `${stringToKebab(title)}`,
+    title,
+    snippet,
+    plusOne,
+    type,
+    modification,
+  }
+}
+
 const statMax = function (str, tou, agi, ini, wil, int, fel, spe) {
   return {
     attributeMaximums: [
@@ -292,6 +309,28 @@ const fspg = [
         snippet: 'For abhumans like Ogryns, the Rarity of any Armour is increased by +1.',
       },
     ],
+    backgroundSection: [
+      // ORIGIN
+      background('Holy Inspiration: You followed in the footsteps of an Imperial Saint on a pilgrimage, an interstellar voyage, or a military campaign. Your idol inspired your faith to new heights.', 'Resolve', 'Origin'),
+      background('Heresy Begets Retribution: You survived a brutal heretical assault. At great sacrifice you emerged triumphant through your zeal. Their attacks only made your faith in Him stronger.', 'Determination', 'Origin'),
+      background('Blessed Tomes: The words of the faithful guided you since you first beheld them. You quote from these texts often, though not always in the way that the original writer intended!', 'Conviction', 'Origin'),
+      // ACCOMPLISHNMENT
+      background('Defended Enoch: One of Enoch’s many prized holy sites came under assault, and you were there to drive off the attackers. Pilgrims on the shrine world owe you their lives.', 'Influence', 'Accomplishment'),
+      background('Purge the Unclean: You led a kill-team to wipe out a nest of Corruption. Victory came at a cost', 'Max Wounds', 'Accomplishment'),
+      background('Saving Souls: The strongest waver in the face of nightmarish terror in the Gilead. You banished the doubts and fears of those who struggled on the path of the Imperial Creed.', 'Conviction', 'Accomplishment'),
+      // GOAL
+      background('Reclaim a Relic: Long ago, an important Ministorum relic went missing. You would do anything to recover this relic and restore it to the Ecclesiarchy.', 'Determination', 'Goal'),
+      background('Shine the Light: The dark closes in; you intend to push it back. Build a monastery and recruit holy warriors to your righteous cause.', 'Influence', 'Goal'),
+      background('Martyrdom: Your prayers have guided you to an inescapable truth — you must be a martyr. You search for a worthy cause to die for in the Emperor’s name.', 'Max Shock', 'Goal'),
+    ],
+    objectives: [
+      '1 Follow a superior’s orders to the letter.',
+      '2 Use your tremendous bulk to dominate a social situation.',
+      '3 Display the strength found in ignorance.',
+      '4 Apply your unique understanding of the Emperor’s will to the current situation.',
+      '5 Solve a problem through the judicious application of brute force.',
+      '6 Charge the enemies of the Imperium!,',
+    ],
   },
   {
     ...species('fspg', 95, 'Mankind', 'Ratling', 'The slippery raskal', 30, 5),
@@ -328,6 +367,28 @@ const fspg = [
         name: 'Armour for Abhumans',
         snippet: 'For abhumans like Ratlings, the Rarity of any Armour is increased by +1.',
       },
+    ],
+    backgroundSection: [
+      // ORIGIN
+      background('Holy Inspiration: You followed in the footsteps of an Imperial Saint on a pilgrimage, an interstellar voyage, or a military campaign. Your idol inspired your faith to new heights.', 'Resolve', 'Origin'),
+      background('Heresy Begets Retribution: You survived a brutal heretical assault. At great sacrifice you emerged triumphant through your zeal. Their attacks only made your faith in Him stronger.', 'Determination', 'Origin'),
+      background('Blessed Tomes: The words of the faithful guided you since you first beheld them. You quote from these texts often, though not always in the way that the original writer intended!', 'Conviction', 'Origin'),
+      // ACCOMPLISHNMENT
+      background('Defended Enoch: One of Enoch’s many prized holy sites came under assault, and you were there to drive off the attackers. Pilgrims on the shrine world owe you their lives.', 'Influence', 'Accomplishment'),
+      background('Purge the Unclean: You led a kill-team to wipe out a nest of Corruption. Victory came at a cost', 'Max Wounds', 'Accomplishment'),
+      background('Saving Souls: The strongest waver in the face of nightmarish terror in the Gilead. You banished the doubts and fears of those who struggled on the path of the Imperial Creed.', 'Conviction', 'Accomplishment'),
+      // GOAL
+      background('Reclaim a Relic: Long ago, an important Ministorum relic went missing. You would do anything to recover this relic and restore it to the Ecclesiarchy.', 'Determination', 'Goal'),
+      background('Shine the Light: The dark closes in; you intend to push it back. Build a monastery and recruit holy warriors to your righteous cause.', 'Influence', 'Goal'),
+      background('Martyrdom: Your prayers have guided you to an inescapable truth — you must be a martyr. You search for a worthy cause to die for in the Emperor’s name.', 'Max Shock', 'Goal'),
+    ],
+    objectives: [
+      '1 Follow a superior’s orders to the letter.',
+      '2 Use your tremendous bulk to dominate a social situation.',
+      '3 Display the strength found in ignorance.',
+      '4 Apply your unique understanding of the Emperor’s will to the current situation.',
+      '5 Solve a problem through the judicious application of brute force.',
+      '6 Charge the enemies of the Imperium!,',
     ],
   },
   {
@@ -484,6 +545,27 @@ const fspg = [
         name: 'Despise for Armour',
         snippet: 'If a Kroot wears armour with an AR of 4 or more, the DN of all Tests using the Strength, Agility, or Initiative Attribute increase by an amount equal to the AR of the armour.',
       },
+    ],
+    backgroundSection: [
+      background('Pech Native: Raised amongst the jungles of the Kroot homeworld Pech, you are accustomed to a primitive life, and may have fought alongside the enigmatic T’au.','Max Wounds', 'Origin'),
+      background('Void Born: Born aboard a warsphere, your nomadic life has been one of constant excursions on strange worlds and bizarre meals. You have met (and devoured) many minor Species, and now little surprises you.','Max Shock', 'Origin'),
+      background('Prodigal Carnivore: Mercenary work has been lucrative and has offered many opportunities to improve yourself, though you long for the day you can return to your kindred and pass on the rich genetic traits you have gained.','Wealth', 'Origin'),
+      //
+      background('Primitive Victor: Relying on your mutations, you managed to defeat a more technologically advanced foe. You are staunch in your beliefs that biological strength far outweighs any mechanical advantage.','Determination', 'Accomplishment'),
+      background('Sole Survivor: Through caution, courage, cowardice, or simple luck, you survived when the rest of your kindred was slain. You have been made strong by survival and are now free to consume any prey you find.','Resolve', 'Accomplishment'),
+      background('Contract Secured: Through shrewd diplomacy (and likely a little intimidation) you negotiated a deal that allowed you to fight alongside another Species against powerful foes.','Influence', 'Accomplishment'),
+      //
+      background('Return Home: Though you have learned much and consumed many foes on your sojourn from your homeworld, you long to return to Pech, and will stop at nothing to do so.','Conviction', 'Goal'),
+      background('Become Strong: You have the utmost respect for the goals of your Species. You will journey to any location and fight any foe in your quest to become stronger.','Max Wounds', 'Goal'),
+      background('Discovery: You have had a small taste of the vastness of the galaxy, and believe that there are secrets still hidden that could further advance the Kroot — you will be the one to discover them.','Determination', 'Goal'),
+    ],
+    objectives: [
+      'Speculate on how you could evolve to better cope with the current situation.',
+      'Point out how the advanced technology of another Species has made them weak.',
+      'Relate the wisdom of your Shaper to the current situation.',
+      'Use the environment to put yourself in a more advantageous situation.',
+      'Make an evaluation on how someone you meet would taste.',
+      'Consume the flesh of the strong.',
     ],
   },
 ];
