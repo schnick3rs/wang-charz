@@ -183,9 +183,6 @@ const coreRep = [
       {
         name: 'Asuryani Paths',
         snippet: 'You walked a path of the Asuryani.',
-        alerts: [
-          { type: 'warning', text: 'Due to recent changes, if this is unselected, please readd your path', },
-        ],
         selected: [''],
         options: [
           {

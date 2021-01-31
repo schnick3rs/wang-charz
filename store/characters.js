@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 10;
+const BUILDER_VERSION = 11;
 
 export const state = () => ({
   list: [],
@@ -505,12 +505,21 @@ export const mutations = {
     character.enhancements = character.enhancements.filter((e) => e.id !== payload.modificationId);
   },
   clearCharacterEnhancementsBySource(state, payload) {
-    const character = state.characters[payload.id];
-    let enhancements = character.enhancements;
-    const candidates = enhancements.filter((e) => e.source.includes(payload.source));
-    console.log(`Checked ${enhancements.length} enhancements, found ${candidates.length} for source ${payload.source} ...`);
-    character.enhancements = enhancements.filter((e) => !e.source.includes(payload.source));
-    console.log(`Done, ${enhancements.length} enhancements remain.`);
+    const { id, source, exact } = payload;
+    const character = state.characters[id];
+    let { enhancements } = character;
+
+    if (exact === true) {
+      const candidates = enhancements.filter((e) => e.source === source);
+      console.log(`Checked ${enhancements.length} enhancements, found ${candidates.length} EXACT for source ${source} ...`);
+      enhancements = enhancements.filter((e) => !e.source === source);
+    } else {
+      const candidates = enhancements.filter((e) => e.source.includes(source));
+      console.log(`Checked ${enhancements.length} enhancements, found ${candidates.length} INCLUDING for source ${source} ...`);
+      character.enhancements = enhancements.filter((e) => !e.source.includes(source));
+    }
+
+    console.log(`Done, ${character.enhancements.length} enhancements remain.`);
   },
   setCharacterSpeciesModifications(state, payload) {
     const character = state.characters[payload.id];

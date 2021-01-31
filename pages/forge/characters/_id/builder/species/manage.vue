@@ -330,7 +330,10 @@ export default {
     setSpeciesTraitOption(speciesTrait, inx) {
       const id = this.characterId;
       const selectedOption =  speciesTrait.options.find( (o) => o.name === speciesTrait.selected[inx] );
-      //this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `species.${speciesTrait.name}` });
+
+      // dirty hack to cleanup aeldari path
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `species.${speciesTrait.name}.Path` });
+
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `species.${speciesTrait.name}.${inx}` });
       // the option has a snippet, that is thus added as a custom ability
       if ( selectedOption.snippet ) {
