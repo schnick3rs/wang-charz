@@ -477,13 +477,16 @@
                       <td class="text-center pa-1 small">
                         <span>{{ meta.ap }}</span>
                       </td>
+
                       <td class="text-center pa-1 small">
                         <span>{{ isNaN(meta.salvo) ? '-' : meta.salvo }}</span>
                       </td>
+
                       <td class="text-left pa-1 small">
                         <span v-if="meta.traits && meta.traits.length >0">{{ meta.traits.join(', ') }}</span>
                         <span v-else>-</span>
                       </td>
+
                     </tr>
                   </template>
                 </v-data-table>

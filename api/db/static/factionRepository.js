@@ -371,18 +371,8 @@ const core = [
 const fspg = [
   {
     name: 'Tau Empire',
-    ...faction(source.fspg.key,93,'Tau Empire','Tau Imperium'),
+    ...faction(source.fspg.key,93,'Tau Empire','Tau Empire'),
     advancedCreationKeywords: ['Tau Empire'],
-  },
-  {
-    name: 'Ogryns',
-    ...faction(source.fspg.key,93,'Imperium','Ogryns'),
-    advancedCreationKeywords: ['Imperium','Astra Militarum'],
-  },
-  {
-    name: 'Ratlings',
-    ...faction(source.fspg.key,93,'Imperium','Ratlings'),
-    advancedCreationKeywords: ['Imperium','Astra Militarum'],
   },
 ];
 
