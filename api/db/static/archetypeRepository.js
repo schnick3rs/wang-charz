@@ -1395,6 +1395,43 @@ const core = [
 
 const fspg = [
   // Sororitas
+  {
+    ...archetype(source.fspg.key,100,'Adepta Sororitas','Sister Repentia',2,'Human'),
+    ...costz(70,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'The sinfull zealot.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Solace in Anguish',
+        snippet: '',
+        description:
+          '<p>You ignore DN penalties for being Wounded, and instead gain +Rank Bonus Dice to all melee Attack Tests whilst Wounded. When you are Dying, this bonus applies for all Tests — you do not fall Prone, and are not restricted in which actions you can take.</p>' +
+          '<p>You gain +Double Rank bonus dice to any Test to resist the effects of a Psychic Power.</p>',
+      },
+    ],
+    wargear: [
+      { name: 'Eviscerator' },
+      { name: 'Clothing', variant: 'Rags' },
+      { name: 'Purity Seals' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
+    ],
+    suggestedStats: [
+      ...suggestedAttributes(3,4,3,4,4,2,1),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.INTIMIDATION, 1),
+      reqSkill(SKILLS.SCHOLAR, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 5),
+    ],
+  },
   // Mechanicus
   {
     ...archetype(source.fspg.key,109,'Adeptus Mechanicus','Tech-Adept',1,'Human'),
@@ -1446,7 +1483,7 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 1),
     ],
   },
-  // lex
+  // Lexmechanicus
   {
     ...archetype(source.fspg.key,117,'Inquisition','Lexmechanicus',2,'Human'),
     ...costz(44,[
