@@ -834,14 +834,28 @@ export const mutations = {
   add(state, character) {
     state.list.push(character.id);
   },
+
   remove(state, characterId) {
     state.list.splice(state.list.indexOf(characterId), 1);
     delete state.characters[characterId];
   },
+
   migrate(state, config) {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 10:
+        console.debug(`v10 -> v11 : fixing aeldari path.`);
+        character.version = 11;
+        character.enhancements = character.enhancements.map((e) => {
+          if (e.source) {
+            e.source = e.source.includes('species.Asuryani Paths.Path') ? e.source.replace('species.Asuryani Paths.Path','species.Asuryani Paths.0.Path') : e.source;
+          }
+          return e;
+        });
+        state.characters[config.characterId] = { ...character };
+        console.info(`Character migrated to v11`);
+        break;
       case 9:
         console.debug(`v9 -> v10 : adding mutations.`);
         const mutations = {
@@ -947,7 +961,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 10, // 7+ is revised
+  version: 11, // 7+ is revised
   setting: undefined,
   settingSelected: true,
   settingTier: 3,
