@@ -505,7 +505,7 @@
                 </div>
 
                 <div class="mt-4">
-                  <templare
+                  <div
                     v-for="trait in weaponsTraitSet"
                     v-if="traitByName(trait)"
                     :key="trait"
@@ -515,7 +515,7 @@
                       <strong>{{ traitByName(trait).name }}: </strong> {{ traitByName(trait).crunch }}
                     </p>
                     <p v-else>{{ traitByName(trait).description }}</p>
-                  </templare>
+                  </div>
                 </div>
               </div>
             </v-tab-item>
@@ -590,10 +590,16 @@
                     <div v-for="ability in speciesAbilities" :key="ability.name" class="caption mb-2">
                       <strong>{{ ability.name }}</strong><em v-if="ability.source"> • {{ ability.source }}</em>
                       <div v-html="computeFormatedText(ability.effect)" />
-                      <div v-if="ability.selectedOption" class="ml-1 pl-2" style="border-left: solid 3px lightgrey;">
-                        <strong>{{ ability.selectedOption.name }}</strong>
-                        <div v-if="ability.selectedOption.effect"><p v-html="computeFormatedText(ability.selectedOption.effect)"></p></div>
-                        <div v-else v-html="computeFormatedText(ability.selectedOption.description)"></div>
+
+                      <div
+                          v-if="ability.selectedOptions"
+                          v-for="selectedOption in ability.selectedOptions"
+                          class="ml-1 pl-2"
+                          style="border-left: solid 3px lightgrey;"
+                      >
+                        <strong>{{ selectedOption.name }}</strong>
+                        <div v-if="selectedOption.snippet"><p class="mb-1" v-html="computeFormatedText(selectedOption.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(selectedOption.description)"></div>
                       </div>
                     </div>
                     <div v-if="speciesAbilities.length === 0" align="center" class="mt-2 mb-2">
@@ -1784,14 +1790,24 @@ export default {
                 description: feature.description,
                 source: this.speciesLabel,
                 hint: this.speciesLabel,
+                selectedOptions: [],
               };
               if ( feature.options ) {
-                const traitSelection = this.characterEnhancements.find( (e) => e.source.startsWith(`species.${feature.name}.`));
-                if ( traitSelection && traitSelection.effect ) {
-                  ability['selectedOption'] = {
-                    name: traitSelection.name,
-                    effect: traitSelection.effect,
-                  };
+                const traitSelection = this.characterEnhancements
+                  .filter( (e) => e.source.startsWith(`species.${feature.name}.`));
+                if ( traitSelection ) {
+                  traitSelection.forEach((selection) => {
+                    if (selection.effect) {
+                      ability.selectedOptions.push({
+                        name: selection.name,
+                        snippet: selection.effect,
+                      });
+                    } else if (selection.name) {
+                      ability.selectedOptions.push({
+                        name: selection.name,
+                      });
+                    }
+                  })
                 }
               }
               abilities.push(ability);

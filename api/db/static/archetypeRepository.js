@@ -1545,6 +1545,7 @@ const fspg = [
       reqSkill(SKILLS.SURVIVAL, 3),
       reqSkill(SKILLS.WEAPON_SKILL, 3),
     ]),
+    factionKey: 'fspg-tau-empire',
     hint: 'Gourmet for hire',
     keywords: 'Kroot,[Any]',
     archetypeFeatures: [

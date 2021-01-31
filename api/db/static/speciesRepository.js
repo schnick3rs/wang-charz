@@ -166,7 +166,10 @@ const coreRep = [
       {
         name: 'Asuryani Paths',
         snippet: 'You walked a path of the Asuryani.',
-        description: 'Select a fancy path',
+        alerts: [
+          { type: 'warning', text: 'Due to recent changes, if this is unselected, please readd your path', },
+        ],
+        selected: [''],
         options: [
           {
             name: 'Path of Awakening', snippet: 'You gain +Rank bonus dice to Awareness (Int) Tests.',
@@ -191,6 +194,9 @@ const coreRep = [
           {
             name: 'Path of The Dreamer',
             snippet: 'You gain +Rank bonus dice to Corruption Tests',
+            modifications: [
+              { targetGroup: 'traits', targetValue: 'conviction', modifier: 0, rank: 1, condition: 'to corruption tests' },
+            ],
           },
           {
             name: 'Path of The Mourner',
@@ -343,7 +349,7 @@ const fspg = [
         alerts: [
           { type: 'info', text: 'Only select the amount of mutations that you are allowed to.', },
         ],
-        //selected: ['', '', '', ''],
+        selected: ['', '', '', ''],
         options: [
           {
             name: 'Maneater (Strength)',

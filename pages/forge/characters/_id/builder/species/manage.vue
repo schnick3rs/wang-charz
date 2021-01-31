@@ -53,32 +53,41 @@
           v-for="feature in species.speciesFeatures"
           class="text-lg-justify"
         >
-          <div
-            v-if="feature.description"
-          >
-            <strong>{{feature.name}}</strong><div v-html="feature.description"></div>
+          <div>
+            <strong>{{ feature.name }}</strong>
+            <div v-if="feature.description" v-html="feature.description"></div>
+            <p v-else>{{ feature.snippet }}</p>
+            <v-alert
+                v-if="feature.alerts"
+                v-for="(alert, index) in feature.alerts"
+                :key="index"
+                :type="alert.type"
+                dense
+                text
+            >{{alert.text}}</v-alert>
           </div>
-          <p v-else><strong>{{feature.name}}: </strong>{{feature.snippet}}</p>
 
           <div v-if="feature.options && feature.options.length > 0">
-            <v-select
-              :items="feature.options"
-              v-model="feature.selected"
-              item-value="name"
-              item-text="name"
-              @change="setSpeciesTraitOption(feature)"
-              dense
-              solo
-            ></v-select>
-            <div
-              v-if="feature.selected && feature.selected.length > 0"
-              class="ml-4 mr-4"
-            >
+            <div v-for="inx in feature.selected.length">
+              <v-select
+                  :items="feature.options"
+                  v-model="feature.selected[inx-1]"
+                  item-value="name"
+                  item-text="name"
+                  @change="setSpeciesTraitOption(feature, inx-1)"
+                  dense
+                  solo
+              ></v-select>
               <div
-                v-if="feature.options.find((o)=>o.name === feature.selected).description"
-                v-html="feature.options.find((o)=>o.name === feature.selected).description"
-              ></div>
-              <p v-else>{{feature.options.find((o)=>o.name === feature.selected).snippet}}</p>
+                  v-if="feature.selected[inx-1] && feature.selected[inx-1].length > 0"
+                  class="ml-4 mr-4"
+              >
+                <div
+                    v-if="feature.options.find((o)=>o.name === feature.selected[inx-1]).description"
+                    v-html="feature.options.find((o)=>o.name === feature.selected[inx-1]).description"
+                ></div>
+                <p v-else>{{feature.options.find((o)=>o.name === feature.selected[inx-1]).snippet}}</p>
+              </div>
             </div>
           </div>
 
@@ -250,11 +259,22 @@ export default {
       }
 
       finalData.speciesFeatures
-        .filter((t) => t.options)
-        .forEach((t) => {
-          const enhancement = this.enhancements.find((m) => m.source.startsWith(`species.${t.name}`) );
-          if ( enhancement ) {
-            t.selected = enhancement.source.split('.').pop();
+        .filter((feature) => feature.options)
+        .forEach((feature) => {
+          const enhancements = this.enhancements
+          .filter((modifier) => modifier.source.startsWith(`species.${feature.name}`) );
+          if ( enhancements ) {
+            enhancements.forEach((e) => {
+              let foundInd = /\.(\d)\./.exec(e.source);
+              if (foundInd) {
+                feature.selected[foundInd[1]] = e.source.split('.').pop();
+              }
+            });
+          } else {
+            const enhancement = this.enhancements.find((modifier) => modifier.source.startsWith(`species.${feature.name}`) );
+            if ( enhancement ) {
+              feature.selected = enhancement.source.split('.').pop();
+            }
           }
         });
 
@@ -307,10 +327,11 @@ export default {
      *
      * @param speciesTrait
      */
-    setSpeciesTraitOption(speciesTrait) {
-      const selectedOption =  speciesTrait.options.find( (o) => o.name === speciesTrait.selected );
-
-      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id: this.characterId, source: `species.${speciesTrait.name}.` });
+    setSpeciesTraitOption(speciesTrait, inx) {
+      const id = this.characterId;
+      const selectedOption =  speciesTrait.options.find( (o) => o.name === speciesTrait.selected[inx] );
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `species.${speciesTrait.name}` });
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `species.${speciesTrait.name}.${inx}` });
       // the option has a snippet, that is thus added as a custom ability
       if ( selectedOption.snippet ) {
         const content = {
@@ -320,18 +341,18 @@ export default {
             targetValue: '',
             effect: selectedOption.snippet,
           }],
-          source: `species.${speciesTrait.name}.${selectedOption.name}`,
+          source: `species.${speciesTrait.name}.${inx}.${selectedOption.name}`,
         };
-        this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
+        this.$store.commit('characters/addCharacterModifications', { id, content });
       }
 
       // the selected option has modifications that are saved as such
       if ( selectedOption.modifications ) {
         const content = {
           modifications: selectedOption.modifications,
-          source: `species.${speciesTrait.name}.${selectedOption.name}`,
+          source: `species.${speciesTrait.name}.${inx}.${selectedOption.name}`,
         };
-        this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
+        this.$store.commit('characters/addCharacterModifications', { id, content });
       }
     },
     updateAstartesChapter(key) {

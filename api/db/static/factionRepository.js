@@ -370,8 +370,44 @@ const core = [
 
 const fspg = [
   {
+    name: 'Tau Empire',
+    ...faction(source.fspg.key,93,'Tau Empire','Ogryns'),
+    backgroundSection: [
+    ],
+    objectives: [
+    ],
+    advancedCreationKeywords: ['Tau Empire'],
+  },
+  {
     name: 'Ogryns',
     ...faction(source.fspg.key,93,'Imperium','Ogryns'),
+    backgroundSection: [
+      // ORIGIN
+      background('Holy Inspiration: You followed in the footsteps of an Imperial Saint on a pilgrimage, an interstellar voyage, or a military campaign. Your idol inspired your faith to new heights.', 'Resolve', 'Origin'),
+      background('Heresy Begets Retribution: You survived a brutal heretical assault. At great sacrifice you emerged triumphant through your zeal. Their attacks only made your faith in Him stronger.', 'Determination', 'Origin'),
+      background('Blessed Tomes: The words of the faithful guided you since you first beheld them. You quote from these texts often, though not always in the way that the original writer intended!', 'Conviction', 'Origin'),
+      // ACCOMPLISHNMENT
+      background('Defended Enoch: One of Enoch’s many prized holy sites came under assault, and you were there to drive off the attackers. Pilgrims on the shrine world owe you their lives.', 'Influence', 'Accomplishment'),
+      background('Purge the Unclean: You led a kill-team to wipe out a nest of Corruption. Victory came at a cost', 'Max Wounds', 'Accomplishment'),
+      background('Saving Souls: The strongest waver in the face of nightmarish terror in the Gilead. You banished the doubts and fears of those who struggled on the path of the Imperial Creed.', 'Conviction', 'Accomplishment'),
+      // GOAL
+      background('Reclaim a Relic: Long ago, an important Ministorum relic went missing. You would do anything to recover this relic and restore it to the Ecclesiarchy.', 'Determination', 'Goal'),
+      background('Shine the Light: The dark closes in; you intend to push it back. Build a monastery and recruit holy warriors to your righteous cause.', 'Influence', 'Goal'),
+      background('Martyrdom: Your prayers have guided you to an inescapable truth — you must be a martyr. You search for a worthy cause to die for in the Emperor’s name.', 'Max Shock', 'Goal'),
+    ],
+    objectives: [
+      '1 Follow a superior’s orders to the letter.',
+      '2 Use your tremendous bulk to dominate a social situation.',
+      '3 Display the strength found in ignorance.',
+      '4 Apply your unique understanding of the Emperor’s will to the current situation.',
+      '5 Solve a problem through the judicious application of brute force.',
+      '6 Charge the enemies of the Imperium!,',
+    ],
+    advancedCreationKeywords: ['Imperium','Astra Militarum'],
+  },
+  {
+    name: 'Ratlings',
+    ...faction(source.fspg.key,93,'Imperium','Ratlings'),
     backgroundSection: [
       // ORIGIN
       background('Holy Inspiration: You followed in the footsteps of an Imperial Saint on a pilgrimage, an interstellar voyage, or a military campaign. Your idol inspired your faith to new heights.', 'Resolve', 'Origin'),
