@@ -1254,7 +1254,7 @@ const core = [
 
 const fspg = [
   {
-    ...gear(source.fspg.key,121,'Kroot Rifle','3R','2-Handed,Blade,Kroot,Primitive'),
+    ...gear(source.fspg.key,121,'Kroot Rifle','3V','2-Handed,Blade,Kroot,Primitive'),
     type: 'Melee Weapon',
     subtype: undefined,
     meta: [
@@ -1263,40 +1263,44 @@ const fspg = [
     ],
   },
   {
-    ...gear(source.fspg.key,121,'Bulgryn Maul','3C','Imperium,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,121,'Bulgryn Maul','3U','Imperium,Astra Militarum,Militarum Auxilla'),
     ...meleez('Ogryn Melee',4,4,-1,0,'Brutal'),
   },
   {
-    ...gear(source.fspg.key,121,'Ripper Gun Bayonet','3C','Blade,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,121,'Ripper Gun Bayonet','3U','Blade,Imperium,Astra Militarum,Militarum Auxilla'),
     ...meleez('Ogryn Melee',3,3,-1,0,'Reliable'),
   },
   {
-    ...gear(source.fspg.key,123,'Grenadier Gauntlet','6R','Explosive,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,123,'Grenadier Gauntlet','6V','Explosive,Astra Militarum,Militarum Auxilla'),
     ...rangez('Militarum Auxilla',11,3,0,12,1, 'Assault,Blast(2),Heavy(5)'),
   },
   {
-    ...gear(source.fspg.key,123,'Ratling Rifle','6C','Projectile,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,123,'Ratling Rifle','6U','Projectile,Imperium,Astra Militarum,Militarum Auxilla'),
     ...rangez('Militarum Auxilla',9,1,0,36,0, 'Sniper(3),Reliable'),
   },
   {
-    ...gear(source.fspg.key,123,'Ripper Gun','5R','Projectile,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,123,'Ripper Gun','5V','Projectile,Imperium,Astra Militarum,Militarum Auxilla'),
     ...rangez('Militarum Auxilla',11,2,0,12,2, 'Assault,Brutal,Heavy(5)'),
   },
   {
-    ...gear(source.fspg.key,124,'Frag Bomb','5C','Explosive,Imperium'),
+    ...gear(source.fspg.key,124,'Frag Bomb','5U','Explosive,Imperium'),
     ...rangez('Grenades',12,4,0,'','-', 'Blast(8)'),
   },
   {
-    ...gear(source.fspg.key,125,'Kroot Armour','1C','Light,Primitive,Kroot'),
+    ...gear(source.fspg.key,125,'Kroot Armour','1U','Light,Primitive,Kroot'),
     ...armour(undefined,2,''),
   },
   {
-    ...gear(source.fspg.key,125,'Bullgryn Plate','5C','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,125,'Bullgryn Plate','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
     ...armour('Militarum Auxilla',4,''),
   },
   {
-    ...gear(source.fspg.key,125,'Brute Shield','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,125,'Brute Shield','5R','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
     ...armour('Militarum Auxilla',3,'Shield'),
+  },
+  {
+    ...gear(source.fspg.key,125,'Slapshield','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...armour('Militarum Auxilla',4,'Cumbersome,Shield'),
   },
   {
     ...gear(source.fspg.key,128,'B.O.N.E','4C','Imperium,Militarum Auxilla'),
@@ -1309,10 +1313,6 @@ const fspg = [
       { targetGroup: 'maxAttributes', targetValue: 'intellect', modifier: 3 },
       { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1 },
     ],
-  },
-  {
-    ...gear(source.fspg.key,125,'Slapshield','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
-    ...armour('Militarum Auxilla',4,'Cumbersome,Shield'),
   },
 ];
 
