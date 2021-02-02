@@ -1485,7 +1485,7 @@ const fspg = [
   },
   // Lexmechanicus
   {
-    ...archetype(source.fspg.key,117,'Inquisition','Lexmechanicus',2,'Human'),
+    ...archetype(source.fspg.key,117,'Inquisition','Lexmechanic',2,'Human'),
     ...costz(44,[
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqSkill(SKILLS.SCHOLAR, 3),
@@ -1499,6 +1499,7 @@ const fspg = [
         snippet: 'The assistance you provide your allies comes with the benefit of exacting mathematical analysis, to remove all possibility of ill-fortune or doubt. When you Help an ally, you may reduce the amount of Bonus Dice you provide by an amount equal up to your Rank. For every die removed, your ally gains an extra Icon on their Test result.',
       },
     ],
+    influence: 1,
     wargear: [
       { name: 'Laspistol' },
       { name: 'Clothing', variant: 'Adepts Robes' },
