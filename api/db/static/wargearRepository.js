@@ -327,7 +327,7 @@ const core = [
     ...meleez('Force Weapon',8,6,-3,2,'Brutal,Force,Unwieldy(2)'),
   },
   {
-    ...gear(source.core.key,215,'Death Cult Power Blade','6V','Power Field,Imperium,Adeptus Ministorum'),
+    ...gear(source.core.key,215,'Death Cult Powerblade','6V','Power Field,Imperium,Adeptus Ministorum'),
     ...meleez('Power Weapon',5,4,-2,0,'Parry'),
   },
   {

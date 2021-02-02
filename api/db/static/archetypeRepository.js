@@ -1483,7 +1483,7 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 1),
     ],
   },
-  // Lexmechanicus
+  // Lexmechanic
   {
     ...archetype(source.fspg.key,117,'Inquisition','Lexmechanic',2,'Human'),
     ...costz(44,[
@@ -1498,6 +1498,9 @@ const fspg = [
         name: 'Statistical Certainty',
         snippet: 'The assistance you provide your allies comes with the benefit of exacting mathematical analysis, to remove all possibility of ill-fortune or doubt. When you Help an ally, you may reduce the amount of Bonus Dice you provide by an amount equal up to your Rank. For every die removed, your ally gains an extra Icon on their Test result.',
       },
+    ],
+    alerts: [
+      { type: 'warning', text: 'The source (Forsaken System Player Guide) of this archetype is incomplete. The gaps are filled by the Doctors of Doom Chapter Master.', },
     ],
     influence: 1,
     wargear: [
