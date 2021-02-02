@@ -1485,7 +1485,7 @@ const fspg = [
   },
   // Lexmechanic
   {
-    ...archetype(source.fspg.key,117,'Inquisition','Lexmechanic',2,'Human'),
+    ...archetype(source.fspg.key,117,'The Inquisition','Lexmechanic',2,'Human'),
     ...costz(44,[
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqSkill(SKILLS.SCHOLAR, 3),
