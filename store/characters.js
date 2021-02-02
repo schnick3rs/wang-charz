@@ -1,4 +1,4 @@
-const BUILDER_VERSION = 10;
+const BUILDER_VERSION = 11;
 
 export const state = () => ({
   list: [],
@@ -505,9 +505,20 @@ export const mutations = {
     character.enhancements = character.enhancements.filter((e) => e.id !== payload.modificationId);
   },
   clearCharacterEnhancementsBySource(state, payload) {
-    const character = state.characters[payload.id];
-    console.log(`Clearing ${character.enhancements.length} enhancements for source ${payload.source}...`);
-    character.enhancements = character.enhancements.filter((e) => !e.source.includes(payload.source));
+    const { id, source, exact } = payload;
+    const character = state.characters[id];
+    let { enhancements } = character;
+
+    if (exact === true) {
+      const candidates = enhancements.filter((e) => e.source === source);
+      console.log(`Checked ${enhancements.length} enhancements, found ${candidates.length} EXACT for source ${source} ...`);
+      enhancements = enhancements.filter((e) => !e.source === source);
+    } else {
+      const candidates = enhancements.filter((e) => e.source.includes(source));
+      console.log(`Checked ${enhancements.length} enhancements, found ${candidates.length} INCLUDING for source ${source} ...`);
+      character.enhancements = enhancements.filter((e) => !e.source.includes(source));
+    }
+
     console.log(`Done, ${character.enhancements.length} enhancements remain.`);
   },
   setCharacterSpeciesModifications(state, payload) {
@@ -823,14 +834,28 @@ export const mutations = {
   add(state, character) {
     state.list.push(character.id);
   },
+
   remove(state, characterId) {
     state.list.splice(state.list.indexOf(characterId), 1);
     delete state.characters[characterId];
   },
+
   migrate(state, config) {
     const character = state.characters[config.characterId];
 
     switch (character.version) {
+      case 10:
+        console.debug(`v10 -> v11 : fixing aeldari path.`);
+        character.version = 11;
+        character.enhancements = character.enhancements.map((e) => {
+          if (e.source) {
+            e.source = e.source.includes('species.Asuryani Paths.Path') ? e.source.replace('species.Asuryani Paths.Path','species.Asuryani Paths.0.Path') : e.source;
+          }
+          return e;
+        });
+        state.characters[config.characterId] = { ...character };
+        console.info(`Character migrated to v11`);
+        break;
       case 9:
         console.debug(`v9 -> v10 : adding mutations.`);
         const mutations = {
@@ -936,7 +961,7 @@ export const actions = {
 
 const getDefaultState = () => ({
   id: -1,
-  version: 10, // 7+ is revised
+  version: 11, // 7+ is revised
   setting: undefined,
   settingSelected: true,
   settingTier: 3,

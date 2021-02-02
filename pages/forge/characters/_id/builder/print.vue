@@ -276,34 +276,55 @@
                 hide-default-footer
               >
                 <template v-slot:item="{ item }">
-                  <tr>
+
+                  <tr
+                      v-if="item.meta"
+                      v-for="(meta, metaIndex) in item.meta.filter(m => m.type.indexOf('-weapon') > 0)"
+                      :key="`${item.name}-${metaIndex}`"
+                  >
+
                     <td class="text-left pa-1 small">
                       {{ item.name }}
+                      <template v-if="item.meta.length > 1">
+                        <span v-if="meta.type === 'melee-weapon'">(Melee)</span>
+                        <span v-else-if="meta.type === 'ranged-weapon'">(Ranged)</span>
+                      </template>
                     </td>
+
                     <td class="text-center pa-1 small">
-                      <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
-                        <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
-                        <span v-else>{{ item.meta[0].damage.static }}</span>
-                        <span> + </span>
-                        <span>{{ item.meta[0].damage.ed }} ED</span>
+                      <div v-if="meta.damage">
+                        <div v-if="meta.damage.static === '*'">*</div>
+                        <div v-else>
+                          <span v-if="meta.type==='melee-weapon'">{{ meta.damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
+                          <span v-else>{{ meta.damage.static }}</span>
+                          <span> + </span>
+                          <span>{{ meta.damage.ed }} ED</span>
+                        </div>
                       </div>
                     </td>
+
                     <td class="text-center pa-1 small">
-                      <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
+                      {{meta.ap}}
                     </td>
+
                     <td class="text-center pa-1 small">
-                      <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo < 0 ? '-' : item.meta[0].salvo }}</span>
+                      {{ isNaN(meta.salvo) ? '-' : meta.salvo }}
                     </td>
+
                     <td class="text-center pa-1 small">
-                        <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range > 4">
-                          {{ item.meta[0].range/2 }} | {{ item.meta[0].range }} | {{ item.meta[0].range*1.5 }}
+                        <span v-if="meta.range > 4">
+                          {{ meta.range/2 }} | {{ meta.range }} | {{ meta.range*1.5 }}
                         </span>
-                      <span v-else-if="item.meta && item.meta.length > 0 && item.meta[0].range > 1">{{ item.meta[0].range }} m</span>
-                      <span v-if="item.meta && item.meta.length > 0 && item.meta[0].range === 1">melee</span>
+                      <span v-else-if="meta.range > 1">{{ meta.range }} m</span>
+                      <span v-if="meta.range === 1">melee</span>
+                      <span v-if="isNaN(meta.range) && meta.range.startsWith('STRx')">{{meta.range}}</span>
                     </td>
+
                     <td class="text-left pa-1 small">
-                      <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
+                      <span v-if="meta.traits && meta.traits.length >0">{{ meta.traits.join(', ') }}</span>
+                      <span v-else>-</span>
                     </td>
+
                   </tr>
                 </template>
               </v-data-table>
@@ -398,6 +419,17 @@
                       <div v-if="ability.selectedOption" class="ml-1 pl-2 mt-1" style="border-left: solid 3px lightgrey;">
                         <strong v-if="ability.selectedOption.name">{{ ability.selectedOption.name }}</strong>
                         <span v-if="ability.selectedOption.snippet">{{ability.selectedOption.snippet}}</span>
+                      </div>
+
+                      <div
+                          v-if="ability.selectedOptions"
+                          v-for="selectedOption in ability.selectedOptions"
+                          class="ml-1 pl-2 mt-1"
+                          style="border-left: solid 3px lightgrey;"
+                      >
+                        <strong>{{ selectedOption.name }}</strong>
+                        <div v-if="selectedOption.snippet"><p class="mb-1" v-html="computeFormatedText(selectedOption.snippet)"></p></div>
+                        <div v-else v-html="computeFormatedText(selectedOption.description)"></div>
                       </div>
 
                     </div>
@@ -568,6 +600,7 @@ export default {
     sources() {
       return [
         'core',
+        'fspg',
         ...this.settingHomebrews
       ];
     },
@@ -1097,15 +1130,24 @@ export default {
               description: speciesTrait.description,
               source: this.speciesLabel,
               hint: this.speciesLabel,
+              selectedOptions: [],
             };
             if ( speciesTrait.options ) {
-              const traitSelection = this.characterEnhancements.find( (e) => e.source.startsWith(`species.${speciesTrait.name}.`));
-              if ( traitSelection && traitSelection.effect ) {
-                ability['selectedOption'] = {
-                  name: traitSelection.name,
-                  effect: traitSelection.effect,
-                  snippet: traitSelection.effect,
-                };
+              const traitSelections = this.characterEnhancements.filter( (e) => e.source.startsWith(`species.${speciesTrait.name}.`));
+              if ( traitSelections ) {
+                traitSelections.forEach((selection) => {
+                  if (selection.effect) {
+                    ability.selectedOptions.push({
+                      name: selection.name,
+                      effect: selection.effect,
+                      snippet: selection.effect,
+                    });
+                  } else if (selection.name) {
+                    ability.selectedOptions.push({
+                      name: selection.name,
+                    });
+                  }
+                })
               }
             }
             abilities.push(ability);

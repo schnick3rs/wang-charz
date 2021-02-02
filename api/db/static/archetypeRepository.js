@@ -658,11 +658,8 @@ const core = [
   },
   {
     ...archetype(source.core.key, 113,'Adeptus Astartes','Tactical Space Marine',3,'Adeptus Astartes'),
-    ...cost(272,20,252, 0, 0),
-    hint: 'A versatile warrior, veteran of a hundred battles.',
-    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
-    prerequisites: [
-      reqAttribute(ATTRIBUTES.STRENGTH, 5), // 20
+    ...costz(252,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 4), // 18
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
       reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
       reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
@@ -676,7 +673,9 @@ const core = [
       reqSkill(SKILLS.STEALTH, 3), // 12
       reqSkill(SKILLS.SURVIVAL, 1), // 12
       reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
-    ],
+    ]),
+    hint: 'A versatile warrior, veteran of a hundred battles.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
     alerts: [
       { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
     ],
@@ -1197,11 +1196,8 @@ const core = [
   },
   {
     ...archetype(source.core.key, 113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
-    ...cost(272,20,252, 0, 0),
-    hint: 'A dark warrior, veteran of a thousand years.',
-    keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Mark of Chaos],Heretic Astartes',
-    prerequisites: [
-      reqAttribute(ATTRIBUTES.STRENGTH, 5), // 20
+    ...costz(252,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 4), // 20
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
       reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
       reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
@@ -1215,7 +1211,9 @@ const core = [
       reqSkill(SKILLS.STEALTH, 3), // 12
       reqSkill(SKILLS.SURVIVAL, 1), // 12
       reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
-    ],
+    ]),
+    hint: 'A dark warrior, veteran of a thousand years.',
+    keywords: 'Imperium,Adeptus Astartes,[Legion],Chaos,[Mark of Chaos],Heretic Astartes',
     alerts: [
       { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
     ],
@@ -1392,6 +1390,347 @@ const core = [
     ],
     wargear: wargearz('\'Eavy Armour, Kustom Slugga, Kustom Choppa'),
     influence: 2,
+  },
+];
+
+const fspg = [
+  // Sororitas
+  {
+    ...archetype(source.fspg.key,100,'Adepta Sororitas','Sister Repentia',2,'Human'),
+    ...costz(70,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'The sinfull zealot.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Solace in Anguish',
+        snippet: '',
+        description:
+          '<p>You ignore DN penalties for being Wounded, and instead gain +Rank Bonus Dice to all melee Attack Tests whilst Wounded. When you are Dying, this bonus applies for all Tests — you do not fall Prone, and are not restricted in which actions you can take.</p>' +
+          '<p>You gain +Double Rank bonus dice to any Test to resist the effects of a Psychic Power.</p>',
+      },
+    ],
+    wargear: [
+      { name: 'Eviscerator' },
+      { name: 'Clothing', variant: 'Rags' },
+      { name: 'Purity Seals' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
+    ],
+    suggestedStats: [
+      ...suggestedAttributes(3,4,3,4,4,2,1),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.INTIMIDATION, 1),
+      reqSkill(SKILLS.SCHOLAR, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 5),
+    ],
+  },
+  // Mechanicus
+  {
+    ...archetype(source.fspg.key,109,'Adeptus Mechanicus','Tech-Adept',1,'Human'),
+    ...costz(22,[
+      reqAttribute(ATTRIBUTES.INTELLECT, 2),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 3),
+    ]),
+    hint: 'The mechanical admin.',
+    keywords: 'Imperium,Adeptus Mechanicus,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Admin Access',
+        snippet: 'Your purpose is to commune with Machine Spirits and catalogue their wisdom, to further the Quest for Knowledge. When you commune with a Machine Spirit as part of a Test, you gain Icons equal to your Rank.',
+      },
+    ],
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Clothing', variant: 'Adepts Robes' },
+      { name: 'Data-Slate' },
+      { name: 'Combi-Tool' },
+      { name: 'Sacred Machine Oil' },
+      {
+        name: 'Any Augmetic Enhancement',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Enhancements'],
+          },
+        ],
+      },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-augmetic', 'core-binary-chatter', 'core-deductive' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(1,2,1,1,1,4,1),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.INVESTIGATION, 2),
+      reqSkill(SKILLS.MEDICAE, 1),
+      reqSkill(SKILLS.PILOT, 1),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 4),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ],
+  },
+  // Lexmechanic
+  {
+    ...archetype(source.fspg.key,117,'Inquisition','Lexmechanic',2,'Human'),
+    ...costz(44,[
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.SCHOLAR, 3),
+      reqSkill(SKILLS.TECH, 3),
+    ]),
+    hint: 'The human prozessor.',
+    keywords: 'Imperium,Adeptus Mechanicus,[Forge World],Inquisition,[Ordo]',
+    archetypeFeatures: [
+      {
+        name: 'Statistical Certainty',
+        snippet: 'The assistance you provide your allies comes with the benefit of exacting mathematical analysis, to remove all possibility of ill-fortune or doubt. When you Help an ally, you may reduce the amount of Bonus Dice you provide by an amount equal up to your Rank. For every die removed, your ally gains an extra Icon on their Test result.',
+      },
+    ],
+    alerts: [
+      { type: 'warning', text: 'The source (Forsaken System Player Guide) of this archetype is incomplete. The gaps are filled by the Doctors of Doom Chapter Master.', },
+    ],
+    influence: 1,
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Clothing', variant: 'Adepts Robes' },
+      { name: 'Auspex' },
+      { name: 'Auto-Quill' },
+      { name: 'Combi-Tool' },
+      { name: 'Data-Slate' },
+      {
+        name: 'Any Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'Any Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      { name: 'Sacred Machine Oil' },
+      { name: 'Symbol of Authority', variant: 'Symbol of the Mechanicus & Inquisition' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-augmetic', 'core-binary-chatter', 'core-deductive' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(1,2,1,1,1,4,1),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.INVESTIGATION, 2),
+      reqSkill(SKILLS.MEDICAE, 1),
+      reqSkill(SKILLS.PILOT, 1),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 4),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ],
+  },
+  // Abhumans
+  {
+    ...archetype(source.fspg.key,114,'Astra Militarum','Ratling Sniper',1,'fspg/Ratling'),
+    ...costz(54,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 2),
+      reqAttribute(ATTRIBUTES.AGILITY, 2),
+      reqAttribute(ATTRIBUTES.FELLOWSHIP, 2),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.CUNNING, 2),
+      reqSkill(SKILLS.DECEPTION, 2),
+      reqSkill(SKILLS.STEALTH, 3),
+    ]),
+    hint: 'An uncatchable sniper.',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
+    archetypeFeatures: [
+      {
+        name: 'Shoot Sharp and Scarper',
+        snippet: 'When using a weapon with the Sniper Weapon Trait, increase the weapon’s Sniper rating by +Rank. In addition, when you make a successful ranged Attack Test, you may immediately move up to your Speed as a Reflexive Action.',
+      },
+    ],
+    wargear: [
+      {
+        name: 'Sniper Rifle or Long Las.',
+        selected: 'Sniper Rifle',
+        options: [
+          { name: 'Sniper Rifle' },
+          { name: 'Long Las' },
+        ],
+      },
+      { name: 'Knife' },
+      { name: 'Flak Armour' },
+      { name: 'Ration', amount: 3 },
+      { name: 'Ration', amount: 2, variant: 'Stolen Rations' },
+      { name: 'Ratling Keepsakes' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-deadshot', 'core-eliminator', 'core-silent' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(1,2,3,1,1,2,3),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.CUNNING, 2),
+      reqSkill(SKILLS.DECEPTION, 2),
+      reqSkill(SKILLS.INSIGHT, 1),
+      reqSkill(SKILLS.PERSUASION, 1),
+      reqSkill(SKILLS.STEALTH, 3),
+    ],
+  },
+  {
+    ...archetype(source.fspg.key,115,'Astra Militarum','Ogryn Warrior',2,'fspg/Ogryn'),
+    ...costz(98,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 5),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.SURVIVAL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'Fire at will!',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
+    archetypeFeatures: [
+      {
+        name: 'Let It Rip',
+        snippet: 'When you Charge and have a ranged weapon, you can fire it wildly as a Free Action. This is treated as a Salvo Option that awards Bonus Dice to your Melee Attack Test equal to your weapon’s Salvo rating.',
+      },
+    ],
+    wargear: [
+      { name: 'Flak Armour' },
+      { name: 'Ripper Gun' },
+      { name: 'Ripper Gun Bayonet' },
+      { name: 'Frag Bomb', amount: 3 },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-augmetic', 'core-brutalist', 'core-duty-until-death' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(5,5,2,2,2,1,1),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.INTIMIDATION, 1),
+      reqSkill(SKILLS.SURVIVAL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 5),
+    ],
+  },
+  {
+    ...archetype(source.fspg.key,116,'Astra Militarum','Bullgryn',3,'fspg/Ogryn'),
+    ...costz(172,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 6),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 6),
+      reqAttribute(ATTRIBUTES.AGILITY, 2),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 2),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 2),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.SURVIVAL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'The handy bullwark',
+    keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
+    archetypeFeatures: [
+      {
+        name: 'Shieldwall',
+        snippet: 'You provide your allies with a mobile defence line formed of carapace, tank tracks and Abhuman muscle. If an attack is made against an ally within 3m, that ally can add your Shield’s Armour Rating to their Armour Rating.',
+      },
+    ],
+    wargear: [
+      { name: 'Bullgryn Plate' },
+      { name: 'Frag Bomb', amount: 3 },
+      {
+        name: 'Slapshield and Grenadier Gauntlet',
+        selected: 'Slapshield and Grenadier Gauntlet OR Bullgryn Maul and Brute Shield',
+        options: [
+          { name: 'Slapshield and Grenadier Gauntlet' },
+          { name: 'Bullgryn Maul and Brute Shield' },
+        ],
+      },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-brutalist', 'core-die-hard', 'core-fear' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(6,6,3,3,2,1,1),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.AWARENESS, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.LEADERSHIP, 1),
+      reqSkill(SKILLS.SURVIVAL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 6),
+    ],
+  },
+  // Kroot
+  {
+    ...archetype(source.fspg.key,119,'Tau Empire','Kroot Mercenary',1,'fspg/Kroot'),
+    ...costz(62,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 2),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 2),
+      reqSkill(SKILLS.ATHLETICS, 1),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.STEALTH, 2),
+      reqSkill(SKILLS.SURVIVAL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'Gourmet for hire',
+    factionKey: 'fspg-tau-empire',
+    keywords: 'Kroot,[Any]',
+    archetypeFeatures: [
+      {
+        name: 'Adaptive Loyalty',
+        snippet: 'You gain the [ANY] Keyword, which should be substituted for the Faction that currently commands your allegiance. At the GM’s discretion, you may swap this Keyword out for a different one when your loyalties shift in play.',
+      },
+    ],
+    wargear: [
+      { name: 'Kroot Rifle' },
+      { name: 'Kroot Armour' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-brutalist', 'core-die-hard', 'core-fear' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(3,2,3,2,2,1,1),
+      reqSkill(SKILLS.ATHLETICS, 1),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.INSIGHT, 3),
+      reqSkill(SKILLS.STEALTH, 2),
+      reqSkill(SKILLS.SURVIVAL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 5),
+    ],
   },
 ];
 
@@ -6412,6 +6751,7 @@ const ambRep = [
 
 const archetypeRepository = [
   ...core,
+  ...fspg,
   ...dodScumPsyker,
   ...aaoaRep,
   ...ltgbRep,

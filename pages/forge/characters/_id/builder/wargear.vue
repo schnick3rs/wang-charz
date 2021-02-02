@@ -353,6 +353,7 @@ export default {
     sources() {
       return [
         'core',
+        'fspg',
         ...this.settingHomebrews
       ];
     },

@@ -104,12 +104,8 @@ export default {
   data() {
     return {
       breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Network', nuxt: true, exact: true, to: '/network',
-        },
+        { text: '', nuxt: true, exact: true, to: '/' },
+        { text: 'Network', nuxt: true, exact: true, to: '/network' },
       ],
       assets: [
         {

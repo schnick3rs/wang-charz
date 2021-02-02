@@ -559,7 +559,7 @@ const core = [
           {
             key: 'corruption',
             name: '3 Corruption Points',
-            modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 }],
+            modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 } ],
           },
           {
             key: 'memorableInjury',

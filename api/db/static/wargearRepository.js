@@ -327,7 +327,7 @@ const core = [
     ...meleez('Force Weapon',8,6,-3,2,'Brutal,Force,Unwieldy(2)'),
   },
   {
-    ...gear(source.core.key,215,'Death Cult Power Blade','6V','Power Field,Imperium,Adeptus Ministorum'),
+    ...gear(source.core.key,215,'Death Cult Powerblade','6V','Power Field,Imperium,Adeptus Ministorum'),
     ...meleez('Power Weapon',5,4,-2,0,'Parry'),
   },
   {
@@ -1155,32 +1155,35 @@ const core = [
     modifications: [ { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1 } ],
   },
   {
-    ...gear(source.core.key,244,'Mechadendrites (Ballistic)','5R','Adeptus Mechanicus'),
+    ...gear(source.core.key,244,'Mechadendrites (Ballistic)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'Functions as a Laspistol (p.217). Your biology powers the weapon, so it does not use Ammo or need to be Reloaded.',
   },
   {
-    ...gear(source.core.key,245,'Mechadendrites (Exploration)','5R','Adeptus Mechanicus'),
+    ...gear(source.core.key,245,'Mechadendrites (Exploration)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'Functions as an Auspex (p.236). +1 bonus die to Survival (Wil) Tests to navigate or track.',
   },
   {
-    ...gear(source.core.key,245,'Mechadendrites (Medicae)','5R','Adeptus Mechanicus'),
+    ...gear(source.core.key,245,'Mechadendrites (Medicae)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'Functions as a Medikit and a Diagnostor (p.238 & p.237). +1 bonus die to Medicae (Int) Tests. Can be used to inject toxins, sedatives, and stimulants in combat as a Simple Injecting an unwilling target requires an Opposed Initiative Test.',
   },
   {
-    ...gear(source.core.key,245,'Mechadendrites (Optical)','5R','Adeptus Mechanicus'),
+    ...gear(source.core.key,245,'Mechadendrites (Optical)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'Functions as a Pict Recorder and Magnoculars (p.237). +1 bonus die to Awareness (Int) Tests; allows you to make microscopic examinations.',
   },
   {
-    ...gear(source.core.key,245,'Mechadendrites (Servo-Arm)','5R','Adeptus Mechanicus'),
+    ...gear(source.core.key,245,'Mechadendrites (Servo-Arm)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'You gain +4 Strength when using the arm. In combat, the arm allows you to Brace (p.189) as a Free Action. You can use the arm as a melee weapon with the following profile: Damage 6+2ED, AP-3, Unwieldy(2)',
+    meta: [
+      metaMelee(6,2,-3,1,['Unwieldy(2)']),
+    ],
   },
   {
-    ...gear(source.core.key,245,'Mechadendrites (Utility)','5R','Adeptus Mechanicus'),
+    ...gear(source.core.key,245,'Mechadendrites (Utility)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'Functions as a Combi-Tool (p.236). +1 bonus die to Tech (Int) Tests.',
   },
@@ -1246,6 +1249,70 @@ const core = [
     ...gear(source.core.key,247,'Rebuild Cranium','6V','Ork'),
     type: 'Augmetics', subtype: 'Ork Bionics',
     snippet: 'Roll 1d3 at the start of each session. Your Intellect Attribute increases by the result. You may spend a point of Wrath to reroll the 1d3 at any time. The GM may force a reroll of the 1d3 under circumstances that could cause the bionik to malfunction.',
+  },
+];
+
+const fspg = [
+  {
+    ...gear(source.fspg.key,121,'Kroot Rifle','3V','2-Handed,Blade,Kroot,Primitive'),
+    type: 'Melee Weapon',
+    subtype: undefined,
+    meta: [
+      metaMelee(4, 4, 0, 1,[]),
+      metaRange(8, 1, 0, 24,2,['Rapid Fire(1)']),
+    ],
+  },
+  {
+    ...gear(source.fspg.key,121,'Bulgryn Maul','3U','Imperium,Astra Militarum,Militarum Auxilla'),
+    ...meleez('Ogryn Melee',4,4,-1,0,'Brutal'),
+  },
+  {
+    ...gear(source.fspg.key,121,'Ripper Gun Bayonet','3U','Blade,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...meleez('Ogryn Melee',3,3,-1,0,'Reliable'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Grenadier Gauntlet','6V','Explosive,Astra Militarum,Militarum Auxilla'),
+    ...rangez('Militarum Auxilla',11,3,0,12,1, 'Assault,Blast(2),Heavy(5)'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Ratling Rifle','6U','Projectile,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...rangez('Militarum Auxilla',9,1,0,36,0, 'Sniper(3),Reliable'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Ripper Gun','5V','Projectile,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...rangez('Militarum Auxilla',11,2,0,12,2, 'Assault,Brutal,Heavy(5)'),
+  },
+  {
+    ...gear(source.fspg.key,124,'Frag Bomb','5U','Explosive,Imperium'),
+    ...rangez('Grenades',12,4,0,'','-', 'Blast(8)'),
+  },
+  {
+    ...gear(source.fspg.key,125,'Kroot Armour','1U','Light,Primitive,Kroot'),
+    ...armour(undefined,2,''),
+  },
+  {
+    ...gear(source.fspg.key,125,'Bullgryn Plate','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...armour('Militarum Auxilla',4,''),
+  },
+  {
+    ...gear(source.fspg.key,125,'Brute Shield','5R','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...armour('Militarum Auxilla',3,'Shield'),
+  },
+  {
+    ...gear(source.fspg.key,125,'Slapshield','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...armour('Militarum Auxilla',4,'Cumbersome,Shield'),
+  },
+  {
+    ...gear(source.fspg.key,128,'B.O.N.E','4C','Imperium,Militarum Auxilla'),
+    type: 'Augmetics', subtype: 'Aucilla Implants',
+    snippet: 'Increase Max Intellect to 3 and increase Intellect by 1.',
+    description:
+      '<p><strong>Requirements:</strong> Ogryn Species, Leadership 1, Rank 3</p>' +
+      '<p>Raise your Maximum Intellect to 3 and increase your Intellect by 1</p>',
+    modifications: [
+      { targetGroup: 'maxAttributes', targetValue: 'intellect', modifier: 3 },
+      { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1 },
+    ],
   },
 ];
 
@@ -2277,7 +2344,6 @@ const aaoaAugmetics = [
   },
 ];
 
-
 const aaoa = [
   ...aaoaMelee,
   ...aaoaRanged,
@@ -2833,6 +2899,7 @@ const tea = [
 
 module.exports = [
   ...core,
+  ...fspg,
   ...aaoa,
   ...aaoav2,
   ...pax,

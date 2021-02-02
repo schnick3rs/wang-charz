@@ -368,6 +368,14 @@ const core = [
   },
 ];
 
+const fspg = [
+  {
+    name: 'Tau Empire',
+    ...faction(source.fspg.key,93,'Tau Empire','Tau Empire'),
+    advancedCreationKeywords: ['Tau Empire'],
+  },
+];
+
 const aaoa = [
   {
     name: 'Adeptus Arbites',
@@ -481,6 +489,7 @@ const aaoa = [
 
 const factionRepository = [
   ...core,
+  ...fspg,
   ...aaoa,
 ];
 

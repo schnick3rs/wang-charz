@@ -346,7 +346,7 @@ const core = [
   },
   {
     ...talent('core',132,'Devotees',30,'Utility,Survival'),
-    snippet: 'You gain 2+Double Rank devotees. They can`t be better than you and you may sacrifice one to avoid damage.',
+    snippet: 'You gain 2+Double Rank devotees. They have Attributes and Skills equal 1+Double Rank. They can`t be better than you and you may sacrifice one to avoid damage.',
     description:
       '<p>Through reputation or assignment, you have gathered a number of followers that will do whatever you ask.</p>' +
       '<p>If you are attacked, they intervene.</p>' +
@@ -763,7 +763,7 @@ const core = [
     requirements: [ requireSpecies('Primaris Astartes') ],
     modifications: [
       { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
-      //{ targetGroup: 'traits', targetValue: 'corruption', modifier: 0, rank: 1 },
+      { targetGroup: 'traits', targetValue: 'corruption', modifier: 0, rank: 1, condition: 'to corruption tests' },
       { targetGroup: 'skills', targetValue: 'scholar', modifier: 0, rank: 2, condition: 'when recalling long (<31k) gone events' },
     ],
   },
