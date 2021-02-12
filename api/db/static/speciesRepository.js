@@ -349,10 +349,6 @@ const fspg = [
         snippet: '+Double Rank Bonus Dice to any Test made to prepare food. Prepared food can be used during a Regroup to recover +Rank Shock.',
       },
       {
-        name: 'Shoot Sharp and Scarper',
-        snippet: 'You can move up to your Speed in metres after making a successful Ranged Attack Test.',
-      },
-      {
         name: 'Abhuman',
         snippet: 'You suffer a +1 DN penalty to social tests with Humans, modified by the target`s Keywords.',
       },
