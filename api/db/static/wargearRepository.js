@@ -1255,12 +1255,40 @@ const core = [
 const fspg = [
   {
     ...gear(source.fspg.key,121,'Kroot Rifle','3V','2-Handed,Blade,Kroot,Primitive'),
-    type: 'Melee Weapon',
+    type: 'Ranged Weapon',
     subtype: undefined,
     meta: [
       metaMelee(4, 4, 0, 1,[]),
       metaRange(8, 1, 0, 24,2,['Rapid Fire(1)']),
     ],
+  },
+  {
+    ...gear(source.fspg.key,121,'Blessed Blade','8V','Blade,Imperium,Adeptus Ministorum,Adepta Sororitas'),
+    ...meleez('Imperium Melee',5,5,-3,0,'Blessed(3),Parry,Rending(1)'),
+  },
+  {
+    ...gear(source.fspg.key,121,'Crozius Arcanum','6V','Exotic,Adeptus Astartes'),
+    ...meleez('Imperium Melee',5,4,-2,0,'Brutal'),
+  },
+  {
+    ...gear(source.fspg.key,121,'Dialogs Staff','5R','Adepta Sororitas'),
+    ...meleez('Imperium Melee',3,3,0,0,'Reliable'),
+  },
+  {
+    ...gear(source.fspg.key,121,'Power Maul','6V','Power Field,Imperium,Adeptus Astartes,Adeptus Ministorum'),
+    ...meleez('Imperium Melee',5,4,0,0,'Brutal'),
+  },
+  {
+    ...gear(source.fspg.key,121,'Teaser Goad','4R','Adeptus Mechanicus'),
+    ...meleez('Adeptus Mechanicus Melee',5,5,0,0,'Agonising'),
+  },
+  {
+    ...gear(source.fspg.key,121,'Transonic Blade','6V','Blade,Transonic,Adeptus Mechanicus'),
+    ...meleez('Adeptus Mechanicus Melee',5,5,0,0,'Parry,Rending(5)'),
+  },
+  {
+    ...gear(source.fspg.key,121,'Transonic Razor','5V','Blade,Transonic,Adeptus Mechanicus'),
+    ...meleez('Adeptus Mechanicus Melee',3,4,0,0,'Rending(4)'),
   },
   {
     ...gear(source.fspg.key,121,'Bulgryn Maul','3U','Imperium,Astra Militarum,Militarum Auxilla'),
