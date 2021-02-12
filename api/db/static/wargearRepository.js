@@ -1305,7 +1305,7 @@ const fspg = [
   },
   {
     ...gear(source.fspg.key,123,'Condemnor Boltgun','6L','Bolt,Imperium,Adepta Sororitas'),
-    ...rangez(undefined,12,1,0,24,2, 'Assault,Brutal(2),Rapid Fire(2)'),
+    ...rangez(undefined,10,1,0,24,2, 'Assault,Brutal(2),Rapid Fire(2)'),
   },
   {
     ...gear(source.fspg.key,123,'Eradication Ray','8V','Adeptus Mechanicus'),
@@ -1382,6 +1382,9 @@ const fspg = [
     ...gear(source.fspg.key,125,'Slapshield','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
     ...armour('Militarum Auxilla',4,'Cumbersome,Shield'),
   },
+  // Equipment
+
+  // Augmetics
   {
     ...gear(source.fspg.key,128,'B.O.N.E','4C','Imperium,Militarum Auxilla'),
     type: 'Augmetics', subtype: 'Aucilla Implants',

@@ -84,6 +84,7 @@
             sort-by="name"
             show-expand
             hide-default-footer
+            items-per-page="25"
             @page-count="pagination.pageCount = $event"
           >
             <template v-slot:item.type="{ item }">
