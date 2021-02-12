@@ -1298,6 +1298,35 @@ const fspg = [
     ...gear(source.fspg.key,121,'Ripper Gun Bayonet','3U','Blade,Imperium,Astra Militarum,Militarum Auxilla'),
     ...meleez('Ogryn Melee',3,3,-1,0,'Reliable'),
   },
+  // Ranged Weapons
+  {
+    ...gear(source.fspg.key,123,'Bolt Carbine','6V','Bolt,Imperium,Adeptus Astartes,Astartes Primaris'),
+    ...rangez(undefined,12,1,0,24,2, 'Assault,Brutal(2),Rapid Fire(2)'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Condemnor Boltgun','6L','Bolt,Imperium,Adepta Sororitas'),
+    ...rangez(undefined,12,1,0,24,2, 'Assault,Brutal(2),Rapid Fire(2)'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Eradication Ray','8V','Adeptus Mechanicus'),
+    ...rangez('Adeptus Mechanicus Weapon',13,1,-2,24,1, 'Heavy(5),Rending(3)'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Flechette Blaster','4U','Projectile,Adeptus Mechanicus'),
+    ...rangez('Adeptus Mechanicus Weapon',8,2,0,12,2, 'Pistol,Rapid Fire(4)'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Macrostubber','6V','Projectile,Adeptus Mechanicus'),
+    ...rangez('Adeptus Mechanicus Weapon',9,2,0,12,3, 'Pistol,Rapid Fire(3)'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Phosphor Serpenta','7V','Phosphex,Adeptus Mechanicus'),
+    ...rangez('Adeptus Mechanicus Weapon',12,2,-1,18,1, 'Assault,Melta'),
+  },
+  {
+    ...gear(source.fspg.key,123,'Stubcarbine','6R','Projectile,Adeptus Mechanicus'),
+    ...rangez('Adeptus Mechanicus Weapon',10,1,0,18,1, 'Pistol'),
+  },
   {
     ...gear(source.fspg.key,123,'Grenadier Gauntlet','6V','Explosive,Astra Militarum,Militarum Auxilla'),
     ...rangez('Militarum Auxilla',11,3,0,12,1, 'Assault,Blast(2),Heavy(5)'),
@@ -1312,11 +1341,34 @@ const fspg = [
   },
   {
     ...gear(source.fspg.key,124,'Frag Bomb','5U','Explosive,Imperium'),
-    ...rangez('Grenades',12,4,0,'','-', 'Blast(8)'),
+    ...rangez('Grenades & Grenade Launcher',12,4,0,'STRx4','-', 'Blast(8)'),
   },
   {
+    ...gear(source.fspg.key,124,'Melta Bomb','5V','Explosive,Imperium'),
+    ...rangez('Grenades & Grenade Launcher',16,4,-4,'STRx4','-', 'Blast(4)'),
+  },
+  {
+    ...gear(source.fspg.key,124,'Mindscrambler Grenade','5R','Explosive,Adeptus Mechanicus'),
+    ...rangez('Grenades & Grenade Launcher',10,4,0,'STRx4','-', 'Agonising,Arc(4),Blast(6)'),
+  },
+  {
+    ...gear(source.fspg.key,124,'Shock Grenade','2U','Explosive,Imperium'),
+    ...rangez('Grenades & Grenade Launcher',3,4,0,'STRx4','-', 'Blast(6),Inflict(Blinded 1),Inflict(Vulnerable 1)'),
+    snippet: 'Deals shock damage instead of wounds. Those that suffer shock are affected by Blinded and Vulnerable.'
+    // does SHOCK damage
+  },
+  //
+  {
     ...gear(source.fspg.key,125,'Kroot Armour','1U','Light,Primitive,Kroot'),
-    ...armour(undefined,2,''),
+    ...armour('Primitive Armour',2,''),
+  },
+  {
+    ...gear(source.fspg.key,125,'Mk X Phobos Power Armour','9V','Powered,Imperium,Adeptus Astartes,Primaris'),
+    ...armour('Astartes Armour',4,'Powered(3)'),
+  },
+  {
+    ...gear(source.fspg.key,125,'Sicarian Battle Armour','6R','Imperium,Adeptus Mechanicus,Skitarii'),
+    ...armour('Astartes Armour',4,'Power Field'),
   },
   {
     ...gear(source.fspg.key,125,'Bullgryn Plate','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
