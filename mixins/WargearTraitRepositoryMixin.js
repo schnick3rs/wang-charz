@@ -226,6 +226,15 @@ export default {
           description:
             '<p></p>',
         },
+        {
+          key: 'fspg-blessed',
+          name: 'Blessed',
+          hint: '',
+          fluff: 'These weapon are particularly effective against the foul beings.',
+          crunch: 'Blessed weapons gain +ED equal to their rating when you use them to attack a target with the PSYKER or DAEMON Keywords.',
+          description:
+            '<p>Anointed by the priests of the Ecclesiarchy, or hexagrammicly warded against the foul forces of the archenemy, these weapons are particularly effective against the foul beings spawned by the Immaterium, and those tainted by its power. Blessed weapons gain +ED equal to their rating when you use them to attack a target with the PSYKER or DAEMON Keywords.</p>',
+        },
         // breakpoint
         {
           key: 'core-spread',
