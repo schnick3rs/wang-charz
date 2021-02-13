@@ -1666,10 +1666,10 @@ const fspg = [
       { name: 'Bullgryn Plate' },
       { name: 'Frag Bomb', amount: 3 },
       {
-        name: 'Slapshield and Grenadier Gauntlet',
-        selected: 'Slapshield and Grenadier Gauntlet OR Bullgryn Maul and Brute Shield',
+        name: 'Slabshield and Grenadier Gauntlet',
+        selected: 'Slabshield and Grenadier Gauntlet OR Bullgryn Maul and Brute Shield',
         options: [
-          { name: 'Slapshield and Grenadier Gauntlet' },
+          { name: 'Slabshield and Grenadier Gauntlet' },
           { name: 'Bullgryn Maul and Brute Shield' },
         ],
       },

@@ -1379,11 +1379,86 @@ const fspg = [
     ...armour('Militarum Auxilla',3,'Shield'),
   },
   {
-    ...gear(source.fspg.key,125,'Slapshield','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,125,'Slabshield','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
     ...armour('Militarum Auxilla',4,'Cumbersome,Shield'),
   },
   // Equipment
-
+  {
+    ...gear(source.fspg.key,125,'Brazier of Holy Fire','5L','Imperium,Adeptus Ministorum,Adepta Sororitas'),
+    type: 'Equipment',
+    snippet: 'Sheds light in 6m. If the carrier has Faith, DAEMONs touched by the light are Hindered. As a reflexive Action, spend Faith to attack with a +3ED (+6ED against DAEMONs) Hand Flamer (Core, pg. 219).',
+  },
+  {
+    ...gear(source.fspg.key,126,'Diagnostor Helmet','5V','Imperium,Adeptus Astartes'),
+    type: 'Equipment',
+    snippet: 'Add +1 dice (+2 when targeting Astartes) to Medicae, when detecting/diagnosing diseases, injuries, ailments and cause of death.',
+    modifications: [
+      { targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 1, rank: 0, condition: 'when detecting/diagnosing diseases, injuries, ailments, cause of death.'},
+      { targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 1, rank: 0, condition: 'when detecting/diagnosing diseases, injuries, ailments, cause of death targeting Astartes Species.'},
+    ],
+  },
+  {
+    ...gear(source.fspg.key,126,'Excrutiator','3R','Adeptus Ministorum,Inquisition'),
+    type: 'Equipment',
+    snippet: 'Oh boy, check the rules please',
+  },
+  {
+    ...gear(source.fspg.key,126,'Laud-Hailer','3C','[ANY]'),
+    type: 'Equipment',
+    snippet: 'Doubles the range of talents and abilities that uses you voice.',
+  },
+  {
+    ...gear(source.fspg.key,126,'Grapnel Launcher','4U','Imperium,Adeptus Astartes, Primaris'),
+    type: 'Equipment',
+    snippet: 'As Combat Action, fire at surface (Dn 3), range 30m, pull yourself up (Free Action).',
+  },
+  {
+    ...gear(source.fspg.key,126,'Infravision','4U','Imperium,Adeptus Mechanicus'),
+    type: 'Equipment',
+    snippet: 'Count as Preysense Googles (Core, pg. 239) and allows to detect radiation in immediate area.',
+  },
+  {
+    ...gear(source.fspg.key,127,'Narthecium','5R','Imperium,Adeptus Astartes'),
+    type: 'Equipment',
+    snippet: 'May make Medicae test for surgery and healing without DN penalty due to situation. When use as part of a Multi-Action, DN penalty is reduced by 2. Most Narthecium contains a Reductor to recover a dead Astartes geen seed with a Simple Action.',
+  },
+  {
+    ...gear(source.fspg.key,127,'Null Rod','5R','Imperium,Adeptus Astartes'),
+    type: 'Equipment',
+    snippet: 'While wielding, any Psychic Mastery test within 18m suffer +3 DN.',
+  },
+  {
+    ...gear(source.fspg.key,127,'Purity Seal','2R','Imperium'),
+    type: 'Equipment',
+    snippet: '+1 die to Corruption tests per seal while without corruption points.',
+    modifications: [
+      { targetGroup: 'traits', targetValue: TRAITS.CONVICTION, modifier: 1, rank: 0, condition: 'to corruption test while without corruption points.'},
+    ],
+  },
+  {
+    ...gear(source.fspg.key,127,'Psychic Hood','5V','Imperium,Adeptus Astartes'),
+    type: 'Equipment',
+    snippet: '+1 die to Psychic Mastery Test. Your Deny the Witch DN is equal 1+ DN of the power.',
+    modifications: [
+      { targetGroup: 'skills', targetValue: SKILLS.PSYCHIC_MASTERY, modifier: 1, rank: 0},
+    ],
+  },
+  {
+    ...gear(source.fspg.key,127,'Simulacrum Imperialis','5L','Imperium,Adeptus Ministorum,Adepta Sororitas'),
+    type: 'Equipment',
+    snippet: 'While wielding, you and all faithfull allies within 15m gain +2 dice to corruption tests. ',
+    modifications: [
+      { targetGroup: 'traits', targetValue: TRAITS.CONVICTION, modifier: 2, rank: 0, condition: 'to corruption tests, while faithfull and within 15m.'},
+    ],
+  },
+  {
+    ...gear(source.fspg.key,127,'Skull Helmet','4V','Imperium,Adeptus Astartes'),
+    type: 'Equipment',
+    snippet: 'While wearing, +1 die to Leadership tests against ADEPTUS ASTARTES.',
+    modifications: [
+      { targetGroup: 'skills', targetValue: SKILLS.LEADERSHIP, modifier: 1, rank: 0, condition: 'when targeting ADEPTUS ASTARTES.'},
+    ],
+  },
   // Augmetics
   {
     ...gear(source.fspg.key,128,'B.O.N.E','4C','Imperium,Militarum Auxilla'),
@@ -2231,7 +2306,7 @@ const aaoaToolsEquipment = [
   },
   // AAOA Astartes Gear
   {
-    ...gear(source.aaoa.key,180,'Narthecium','5R','Adeptus Astartes'),
+    ...gear(source.aaoa.key,180,'Narthecium (AAOA)','5R','Adeptus Astartes'),
     ...toolz('Imperial Equipment','A Narthecium provides all the means to treat battlefield injuries and perform medical procedures in the field. It also adds +2 bonus dice to Medicae tests to treat the injuries of characters of the Adeptus Astartes or Primaris Astartes species. On non-Astartes characters, use of a Narthecium can cause problems, as the equipment within is not meant for frail mortal physiology: a complication will inflict 1 Mortal Wound on a non-Astartes patient.'),
     description:
       '<p>A Narthecium is a tool of a Space Marine Apothecary\'s trade, containing implements specially designed for treating the Astartes\' genetically engineered physiology and for performing first aid without having to remove the patient\'s Power Armour.</p>' +
