@@ -1457,7 +1457,7 @@ const fspg = [
       },
     ],
     wargear: [
-      { name: 'Sororita Power Armour' },
+      { name: 'Sororitas Power Armour' },
       { name: 'Bolt Pistol' },
       { name: 'Dialogus Staff' },
       { name: 'Laud Hailer' },
@@ -1492,7 +1492,7 @@ const fspg = [
       },
     ],
     wargear: [
-      { name: 'Sororita Power Armour' },
+      { name: 'Sororitas Power Armour' },
       { name: 'Bolt Pistol' },
       { name: 'Boltgun' },
       { name: 'Frag Grenade', amount: 3 },
@@ -1527,7 +1527,7 @@ const fspg = [
       },
     ],
     wargear: [
-      { name: 'Sororita Power Armour' },
+      { name: 'Sororitas Power Armour' },
       { name: 'Jump Pack', variant: 'San Leor-pattern Jump Pack' },
       { name: 'Frag Grenade', amount: 3 },
       { name: 'Krak Grenade', amount: 3 },
@@ -1570,7 +1570,7 @@ const fspg = [
       },
     ],
     wargear: [
-      { name: 'Sororita Power Armour' },
+      { name: 'Sororitas Power Armour' },
       { name: 'Rosarius' },
       { name: 'Clothing', variant: 'Sororitas Vestments' },
       { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
