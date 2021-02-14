@@ -1461,8 +1461,16 @@ const fspg = [
   },
   // Augmetics
   {
+    ...gear(source.fspg.key,128,'Abeyant','8L','Adeptus Mechanicus'),
+    type: 'Augmetics',
+    snippet: 'Hover up to 3m and move at your speed. You take no falling damage.',
+    description:
+      '<p><strong>Requirements:</strong> Four other augmetics</p>' +
+      '<p>Allows you to hover up to 3 meters off the ground and move at your speed. You take no falling damage.</p>',
+  },
+  {
     ...gear(source.fspg.key,128,'B.O.N.E','4C','Imperium,Militarum Auxilla'),
-    type: 'Augmetics', subtype: 'Aucilla Implants',
+    type: 'Augmetics', subtype: 'Auxilla Implants',
     snippet: 'Increase Max Intellect to 3 and increase Intellect by 1.',
     description:
       '<p><strong>Requirements:</strong> Ogryn Species, Leadership 1, Rank 3</p>' +
@@ -1471,6 +1479,35 @@ const fspg = [
       { targetGroup: 'maxAttributes', targetValue: 'intellect', modifier: 3 },
       { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1 },
     ],
+  },
+  {
+    ...gear(source.fspg.key,128,'Chordclaw','5V','Imperium,Adeptus Mechanicus'),
+    type: 'Augmetics',
+    snippet: 'Your hand becomes a weapon.',
+    meta: [
+      metaMelee(3,3,0,0,['Agonising,Rending(6)']),
+    ],
+  },
+  {
+    ...gear(source.fspg.key,128,'Enhanced Ballistic Mechadendendri','5V','Imperium,Adeptus Mechanicus'),
+    type: 'Augmetics',
+    snippet: 'Reduce Multi-Attack/-Action DN penalty by 2. Using a Salvo option deals [Salvo] Shock. Never needs to be reloaded.',
+    description:
+      '<p><strong>Requirements:</strong> The Weapon you want to integrate into the Mechadendrite.</p>' +
+      '<p>Reduce the DN penalty by 2 when attacking with this weapon as part of a Multi-Action or Multi-Attack. The weapon does not need to reload. Using Salvo options deal [Salvo] Shock.</p>',
+  },
+  {
+    ...gear(source.fspg.key,128,'Infiltrator Headpiece','3U','Imperium,Adeptus Mechanicus'),
+    type: 'Augmetics',
+    snippet: '+Rank to Passive Awareness.',
+    modifications: [
+      { targetGroup: 'traits', targetValue: TRAITS.PASSIVE_AWARENESS, modifier: 0, rank: 1 },
+    ],
+  },
+  {
+    ...gear(source.fspg.key,129,'Princeps Limb Rig','5R','Imperium,Adeptus Mechanicus'),
+    type: 'Augmetics',
+    snippet: 'Additional limb that can operate equipment (pass a Tech test) or wield a melee weapon. Reduce Multi-Action/-Attack DN penalty by 1 when you use your additional limp.',
   },
 ];
 

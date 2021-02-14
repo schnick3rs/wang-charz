@@ -31,6 +31,7 @@ const SKILLS = {
 };
 
 const TRAITS = {
+  PASSIVE_AWARENESS: 'passiveAwareness',
   RESOLVE: 'resolve',
   CONVICTION: 'conviction',
   DEFENCE: 'defence',
