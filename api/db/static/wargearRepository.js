@@ -1485,7 +1485,7 @@ const fspg = [
     type: 'Augmetics',
     snippet: 'Your hand becomes a weapon.',
     meta: [
-      metaMelee(3,3,0,0,['Agonising,Rending(6)']),
+      metaMelee(3,3,0,0,['Agonising','Rending(6)']),
     ],
   },
   {
