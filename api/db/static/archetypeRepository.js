@@ -1466,6 +1466,154 @@ const fspg = [
     ],
     influence: 2,
   },
+  {
+    ...archetype(source.fspg.key,102,'Adepta Sororitas','Sister Imagifier',3,'Human'),
+    ...costz(146,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+      reqAttribute(ATTRIBUTES.FELLOWSHIP, 4),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.INTIMIDATION, 2),
+      reqSkill(SKILLS.LEADERSHIP, 4),
+      reqSkill(SKILLS.PERSUASION, 3),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'Bearer of your martyrs image.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Litany of Deeds',
+        description:
+          '<p>When you carry or are adjacent to your Simulacrum Imperialis, you and any allies faithful to the Imperial Cult within hearing distance gain +1 Strength.</p>' +
+          '<p>In addition, as a Combat Action, you can plant your Simulacrum in place. Until you next move, you and any allies faithful to the Imperial Cult within 5m gain +Rank Determination.</p>',
+      },
+    ],
+    wargear: [
+      { name: 'Sororita Power Armour' },
+      { name: 'Bolt Pistol' },
+      { name: 'Boltgun' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+      { name: 'Simulacrum Imperialis' },
+      { name: 'Complete records of your martyr' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
+    ],
+    influence: 2,
+  },
+  {
+    ...archetype(source.fspg.key,103,'Adepta Sororitas','Seraphim',3,'Human'),
+    ...costz(118,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 4),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.PILOT, 3),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'Wings of fire and flames.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Angelic Presence',
+        description:
+          '<p>You and any allies within 15m faithful to the Imperial Cult gain +Rank Bonus Dice to Resolve Tests.</p>' +
+          '<p>In addition, when you use a jump pack to move away from Engagement, enemies cannot make Reflexive Attacks against you.</p>',
+      },
+    ],
+    wargear: [
+      { name: 'Sororita Power Armour' },
+      { name: 'Jump Pack', variant: 'San Leor-pattern Jump Pack' },
+      { name: 'Frag Grenade', amount: 3 },
+      { name: 'Krak Grenade', amount: 3 },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
+      {
+        name: 'Pair of Bolt Pistols, Hand Flameres or Inferno Pistols',
+        selected: 'Bolt Pistol',
+        options: [
+          { name: 'Bolt Pistol', variant: '2 Bolt Pistols' },
+          { name: 'Hand Flamer', variant: '2 Hand Flamers' },
+          { name: 'Inferno Pistol', variant: '2 Inferno Pistols' },
+        ],
+      },
+    ],
+    influence: 2,
+  },
+  {
+    ...archetype(source.fspg.key,104,'Adepta Sororitas','Canoness',4,'Human'),
+    ...costz(249,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
+      reqAttribute(ATTRIBUTES.AGILITY, 4),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 4),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 6),
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqAttribute(ATTRIBUTES.FELLOWSHIP, 4),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.LEADERSHIP, 4),
+      reqSkill(SKILLS.SCHOLAR, 4),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'The seasoned matriarch.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Lead the Righteous',
+        description:
+          '<p>You are an inspiring warleader and walking miracle both. You gain +Rank Faith (see page142 of Wrath & Glory Rulebook).</p>' +
+          '<p>Whenever you deal a Wound, you may spend 1 Faith to gain +1 Glory as a Free Action.</p>',
+      },
+    ],
+    wargear: [
+      { name: 'Sororita Power Armour' },
+      { name: 'Rosarius' },
+      { name: 'Clothing', variant: 'Sororitas Vestments' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
+      {
+        name: 'Condemnor Boltgun or Boltgun with Combi-Weapon',
+        selected: 'Condemnor Boltgun',
+        options: [
+          { name: 'Condemnor Boltgun' },
+          { name: 'Boltgun and Combi Weapon and Flamer' },
+          { name: 'Boltgun and Combi Weapon and Meltagun' },
+          { name: 'Boltgun and Combi Weapon and Plasma Gun' },
+        ],
+      },
+      {
+        name: 'A Blessed Blade or a Chainsword or an Eviscerator or a Power Sword',
+        selected: 'Blessed Blade',
+        options: [
+          { name: 'Blessed Blade' },
+          { name: 'Chainsword' },
+          { name: 'Eviscerator' },
+          { name: 'Power Sword' },
+        ],
+      },
+      {
+        name: 'A Bolt Pistol or a Plasma Pistol or an Inferno Pistol',
+        selected: 'Bolt Pistol',
+        options: [
+          { name: 'Bolt Pistol' },
+          { name: 'Plasma Pistol' },
+          { name: 'Inferno Pistol' },
+        ],
+      },
+      {
+        name: 'A Brazier of Holy Fire or a Null Rod',
+        selected: 'Brazier of Holy Fire',
+        options: [
+          { name: 'Brazier of Holy Fire' },
+          { name: 'Null Rod' },
+        ],
+      },
+    ],
+    influence: 3,
+  },
   // Mechanicus
   {
     ...archetype(source.fspg.key,109,'Adeptus Mechanicus','Tech-Adept',1,'Human'),
