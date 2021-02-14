@@ -1573,11 +1573,11 @@ const fspg = [
     ],
     wargear: [
       {
-        name: 'Sniper Rifle or Long Las.',
-        selected: 'Sniper Rifle',
+        name: 'Ratling Rifle or Sniper Rifle.',
+        selected: 'Ratling Rifle',
         options: [
+          { name: 'Ratling Rifle' },
           { name: 'Sniper Rifle' },
-          { name: 'Long Las' },
         ],
       },
       { name: 'Knife' },
