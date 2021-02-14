@@ -1385,12 +1385,12 @@ const fspg = [
   // Equipment
   {
     ...gear(source.fspg.key,125,'Brazier of Holy Fire','5L','Imperium,Adeptus Ministorum,Adepta Sororitas'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'Sheds light in 6m. If the carrier has Faith, DAEMONs touched by the light are Hindered. As a reflexive Action, spend Faith to attack with a +3ED (+6ED against DAEMONs) Hand Flamer (Core, pg. 219).',
   },
   {
     ...gear(source.fspg.key,126,'Diagnostor Helmet','5V','Imperium,Adeptus Astartes'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'Add +1 dice (+2 when targeting Astartes) to Medicae, when detecting/diagnosing diseases, injuries, ailments and cause of death.',
     modifications: [
       { targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 1, rank: 0, condition: 'when detecting/diagnosing diseases, injuries, ailments, cause of death.'},
@@ -1399,37 +1399,37 @@ const fspg = [
   },
   {
     ...gear(source.fspg.key,126,'Excrutiator','3R','Adeptus Ministorum,Inquisition'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'Oh boy, check the rules please',
   },
   {
     ...gear(source.fspg.key,126,'Laud-Hailer','3C','[ANY]'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'Doubles the range of talents and abilities that uses you voice.',
   },
   {
     ...gear(source.fspg.key,126,'Grapnel Launcher','4U','Imperium,Adeptus Astartes, Primaris'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'As Combat Action, fire at surface (Dn 3), range 30m, pull yourself up (Free Action).',
   },
   {
     ...gear(source.fspg.key,126,'Infravision','4U','Imperium,Adeptus Mechanicus'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'Count as Preysense Googles (Core, pg. 239) and allows to detect radiation in immediate area.',
   },
   {
     ...gear(source.fspg.key,127,'Narthecium','5R','Imperium,Adeptus Astartes'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'May make Medicae test for surgery and healing without DN penalty due to situation. When use as part of a Multi-Action, DN penalty is reduced by 2. Most Narthecium contains a Reductor to recover a dead Astartes geen seed with a Simple Action.',
   },
   {
     ...gear(source.fspg.key,127,'Null Rod','5R','Imperium,Adeptus Astartes'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'While wielding, any Psychic Mastery test within 18m suffer +3 DN.',
   },
   {
     ...gear(source.fspg.key,127,'Purity Seal','2R','Imperium'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: '+1 die to Corruption tests per seal while without corruption points.',
     modifications: [
       { targetGroup: 'traits', targetValue: TRAITS.CONVICTION, modifier: 1, rank: 0, condition: 'to corruption test while without corruption points.'},
@@ -1437,7 +1437,7 @@ const fspg = [
   },
   {
     ...gear(source.fspg.key,127,'Psychic Hood','5V','Imperium,Adeptus Astartes'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: '+1 die to Psychic Mastery Test. Your Deny the Witch DN is equal 1+ DN of the power.',
     modifications: [
       { targetGroup: 'skills', targetValue: SKILLS.PSYCHIC_MASTERY, modifier: 1, rank: 0},
@@ -1445,7 +1445,7 @@ const fspg = [
   },
   {
     ...gear(source.fspg.key,127,'Simulacrum Imperialis','5L','Imperium,Adeptus Ministorum,Adepta Sororitas'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'While wielding, you and all faithfull allies within 15m gain +2 dice to corruption tests. ',
     modifications: [
       { targetGroup: 'traits', targetValue: TRAITS.CONVICTION, modifier: 2, rank: 0, condition: 'to corruption tests, while faithfull and within 15m.'},
@@ -1453,7 +1453,7 @@ const fspg = [
   },
   {
     ...gear(source.fspg.key,127,'Skull Helmet','4V','Imperium,Adeptus Astartes'),
-    type: 'Equipment',
+    type: 'Tools & Equipment',
     snippet: 'While wearing, +1 die to Leadership tests against ADEPTUS ASTARTES.',
     modifications: [
       { targetGroup: 'skills', targetValue: SKILLS.LEADERSHIP, modifier: 1, rank: 0, condition: 'when targeting ADEPTUS ASTARTES.'},
@@ -3050,7 +3050,7 @@ const tea = [
       'determine cause of death. This does not stack with a normal diagnostor.</p>',
   },
   {
-    ...simpleStub(30530,'tea',53,'Narthecium', '6R', 'Imperium,Adeptus Astartes', ''),
+    ...simpleStub(30530,'tea',53,'Narthecium (TEA)', '6R', 'Imperium,Adeptus Astartes', ''),
     type: 'Tools & Equipment',
     subtype: 'Armour Upgrades/Attachments',
     snippet:
