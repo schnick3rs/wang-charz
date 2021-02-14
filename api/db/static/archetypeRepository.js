@@ -1614,6 +1614,7 @@ const fspg = [
     ],
     influence: 3,
   },
+  // Astartes
   // Mechanicus
   {
     ...archetype(source.fspg.key,109,'Adeptus Mechanicus','Tech-Adept',1,'Human'),
@@ -1665,7 +1666,79 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 1),
     ],
   },
-  // Lexmechanic
+  {
+    ...archetype(source.fspg.key,110,'Adeptus Mechanicus','Sicarian Infiltrator',3,'Human'),
+    ...costz(76,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.INTELLECT, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 4),
+      reqSkill(SKILLS.INTIMIDATION, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'The transonic scout',
+    keywords: 'Imperium,Adeptus Mechanicus,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Mechanical Build',
+        snippet: 'You are immune to Bleeding.',
+      },
+      {
+        name: 'Neurostatic Aura',
+        snippet: 'As a Combat Action, you may choose a number up to your Rank, and inflict that many Hindered Conditions on all characters within 10m that don’t have this ability or null-code audio inputs.',
+      },
+    ],
+    wargear: [
+      { name: 'Sicarian Battle Armour' },
+      { name: 'Augmetic Legs' },
+      { name: 'Infiltrator Headpiece' },
+      {
+        name: 'Flechette Blaster and Taser Goad or Stubcarbine and Power Sword',
+        selected: 'Flechette Blaster and Taser Goad',
+        options: [
+          { name: 'Flechette Blaster and Taser Goad' },
+          { name: 'Stubcarbine and Power Sword' },
+        ],
+      },
+    ],
+  },
+  {
+    ...archetype(source.fspg.key,111,'Adeptus Mechanicus','Sicarian Ruststalker',3,'Human'),
+    ...costz(76,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 2),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.STEALTH, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 4),
+    ]),
+    hint: 'The mechanical assassin',
+    keywords: 'Imperium,Adeptus Mechanicus,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Mechanical Build',
+        snippet: 'You are immune to Bleeding.',
+      },
+      {
+        name: 'Transonic Assassin',
+        snippet: 'In addition, you gain +Rank bonus dice when Charging or making All-Out Attacks whilst wielding a weapon with the TRANSONIC Keyword.',
+      },
+    ],
+    wargear: [
+      { name: 'Sicarian Battle Armour' },
+      { name: 'Augmetic Legs' },
+      { name: 'Infiltrator Headpiece' },
+      {
+        name: '2 Transonic Blades or a Transonic Razor and a Chordclaw',
+        selected: 'Transonic Blade',
+        options: [
+          { name: 'Transonic Blade', variant: 'Pair of Transonic Blades' },
+          { name: 'Transonic Razor and a Chordclaw' },
+        ],
+      },
+    ],
+  },
+  // Inquisition
   {
     ...archetype(source.fspg.key,117,'The Inquisition','Lexmechanic',2,'Human'),
     ...costz(44,[
