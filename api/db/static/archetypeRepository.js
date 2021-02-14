@@ -1411,7 +1411,6 @@ const fspg = [
     archetypeFeatures: [
       {
         name: 'Solace in Anguish',
-        snippet: '',
         description:
           '<p>You ignore DN penalties for being Wounded, and instead gain +Rank Bonus Dice to all melee Attack Tests whilst Wounded. When you are Dying, this bonus applies for all Tests — you do not fall Prone, and are not restricted in which actions you can take.</p>' +
           '<p>You gain +Double Rank bonus dice to any Test to resist the effects of a Psychic Power.</p>',
@@ -1431,6 +1430,41 @@ const fspg = [
       reqSkill(SKILLS.SCHOLAR, 3),
       reqSkill(SKILLS.WEAPON_SKILL, 5),
     ],
+  },
+  {
+    ...archetype(source.fspg.key,101,'Adepta Sororitas','Sister Dialogus',3,'Human'),
+    ...costz(146,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+      reqAttribute(ATTRIBUTES.INTELLECT, 4),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.INVESTIGATION, 3),
+      reqSkill(SKILLS.LEADERSHIP, 2),
+      reqSkill(SKILLS.PERSUASION, 2),
+      reqSkill(SKILLS.SCHOLAR, 4),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'The word of the emperor.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Polyglot Superior',
+        description:
+          '<p>When you speak aloud another person’s words (for example, translating xenos text, distributing an officer’s orders, repeating another agent’s inspiring oration, reciting scripture), gain +Rank Bonus Dice to any corresponding Test.</p>' +
+          '<p>Half any DN penalties for interacting with an unfamiliar species or culture.</p>',
+      },
+    ],
+    wargear: [
+      { name: 'Sororita Power Armour' },
+      { name: 'Bolt Pistol' },
+      { name: 'Dialogus Staff' },
+      { name: 'Laud Hailer' },
+      { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
+      { name: 'Numerious books on linguistics and the Imperial Creed' },
+    ],
+    influence: 2,
   },
   // Mechanicus
   {
