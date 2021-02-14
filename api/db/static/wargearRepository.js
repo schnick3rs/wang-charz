@@ -1272,7 +1272,7 @@ const fspg = [
     snippet: 'Also counts as Symbol of Authority (core, pg. 240).',
   },
   {
-    ...gear(source.fspg.key,121,'Dialogs Staff','5R','Adepta Sororitas'),
+    ...gear(source.fspg.key,121,'Dialogus Staff','5R','Adepta Sororitas'),
     ...meleez('Imperium Melee',3,3,0,0,'Reliable'),
     snippet: 'A Dialogus Staff functions as a weapon, a Symbol of Authority (core, pg. 240),and a Laud-Hailer (fspg, pg. 126).'
   },
