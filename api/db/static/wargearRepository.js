@@ -1489,7 +1489,7 @@ const fspg = [
     ],
   },
   {
-    ...gear(source.fspg.key,128,'Enhanced Ballistic Mechadendendrit','5V','Imperium,Adeptus Mechanicus'),
+    ...gear(source.fspg.key,128,'Enhanced Ballistic Mechadendrit','5V','Imperium,Adeptus Mechanicus'),
     type: 'Augmetics',
     snippet: 'Reduce Multi-Attack/-Action DN penalty by 2. Using a Salvo option deals [Salvo] Shock. Never needs to be reloaded.',
     description:
