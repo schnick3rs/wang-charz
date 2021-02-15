@@ -1829,7 +1829,32 @@ const fspg = [
     influence: 2,
   },
   // Adeptus Ministorum
-  //  Confessor
+  {
+    ...archetype(source.fspg.key,113,'Adeptus Ministorum','Confessor',2,'Human'),
+    ...costz(90,[
+      reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.INSIGHT, 2),
+      reqSkill(SKILLS.INTIMIDATION, 2),
+      reqSkill(SKILLS.MEDICAE, 3),
+      reqSkill(SKILLS.SCHOLAR, 4),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'The spiritual companion',
+    keywords: 'Imperium,Adeptus Ministorum',
+    archetypeFeatures: [
+      {
+        name: 'Spiritual Administration',
+        snippet: 'When you Test to discover the sins of another character (by coercion, investigation, or instinct), gain +Rank Bonus Dice.',
+      },
+      {
+        name: 'Faithfull Replenishment',
+        snippet: 'During a Regroup, you can choose one character faithful to the Imperial Cult to regain all Shock.',
+      },
+    ],
+    wargear: wargearz('Ministorum Robes, Rosarius, Missionary Kit, Power Maul, Laspistol, Torture Kit, Ministorum Tomes, Portable Lectern'),
+    influence: 1,
+  },
   // Abhumans
   {
     ...archetype(source.fspg.key,114,'Astra Militarum','Ratling Sniper',1,'fspg/Ratling'),
