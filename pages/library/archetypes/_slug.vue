@@ -34,7 +34,8 @@ export default {
     const title = 'Archetypes - Wrath & Glory Reference | Library';
     const description = 'Oh there are way to many archetypes written by fans. Filter a little and then pick the one you want.'
       + ' Check the linked homebrews for details.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
+    const image = `/img/avatars/archetype/${this.item.key}.png`
 
     return {
       title,

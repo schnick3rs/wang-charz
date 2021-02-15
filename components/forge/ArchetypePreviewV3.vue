@@ -145,7 +145,7 @@ export default {
       for(const talentKey of this.item.suggested.talents) {
         const response = await this.$axios.get(`/api/talents/${talentKey}`);
         const { data } = response;
-        if (data !== undefined) {
+        if (data !== undefined && data !== '') {
           this.suggestedTalents.push(data);
         }
       }
