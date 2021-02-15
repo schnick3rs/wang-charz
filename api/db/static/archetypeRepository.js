@@ -1738,6 +1738,96 @@ const fspg = [
       },
     ],
   },
+  {
+    ...archetype(source.fspg.key, 112,'Adeptus Mechanicus','Tech-Priest Dominus',4,'Human'),
+    ...costz(113,[
+      reqAttribute(ATTRIBUTES.INTELLECT, 5),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 5),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'Behold! I roll Tech vs DN 13.',
+    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World]',
+    prerequisites: [
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.TECH, 3),
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Rite of Repair',
+        snippet: 'As a Simple Action, you can Help all allies within 10m that have the ADEPTUS MECHANICUS Keyword, or are utilising equipment with a Machine Spirit (including guns and non-basic melee weapons), granting +Rank Bonus Dice to their Tests.',
+      },
+    ],
+    wargear: [
+      { name: 'Omnissian Axe' },
+      {
+        name: 'Volkite Blaster or Eradication Ray',
+        selected: 'Volkite Blaster',
+        options: [
+          { name: 'Volkite Blaster' },
+          { name: 'Eradication Ray' },
+        ],
+      },
+      {
+        name: 'Macrostubber or Phosphor Serpenta',
+        selected: 'Macrostubber',
+        options: [
+          { name: 'Macrostubber' },
+          { name: 'Phosphor Serpenta' },
+        ],
+      },
+      { name: 'Light Power Armour' },
+      { name: 'Refractor Field' },
+      { name: 'Combi-Tool' },
+      { name: 'Symbol of Authority', variant: 'Omnissian Sigil' },
+      { name: 'Sacred Machine Oil' },
+      {
+        name: 'One Mechandrite.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+            subtypeFilter: ['Augmetic Implants'],
+            triptypeFilter: ['Mechadendrites'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'One augmetics of your choice.',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+    ],
+    influence: 2,
+  },
   // Inquisition
   {
     ...archetype(source.fspg.key,117,'The Inquisition','Lexmechanic',2,'Human'),
