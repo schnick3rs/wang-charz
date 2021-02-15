@@ -1756,7 +1756,7 @@ const fspg = [
     ],
     archetypeFeatures: [
       {
-        name: 'Rite of Repair',
+        name: 'Lord of the Machine Cult',
         snippet: 'As a Simple Action, you can Help all allies within 10m that have the ADEPTUS MECHANICUS Keyword, or are utilising equipment with a Machine Spirit (including guns and non-basic melee weapons), granting +Rank Bonus Dice to their Tests.',
       },
     ],
@@ -1828,73 +1828,8 @@ const fspg = [
     ],
     influence: 2,
   },
-  // Inquisition
-  {
-    ...archetype(source.fspg.key,117,'The Inquisition','Lexmechanic',2,'Human'),
-    ...costz(44,[
-      reqAttribute(ATTRIBUTES.INTELLECT, 3),
-      reqSkill(SKILLS.SCHOLAR, 3),
-      reqSkill(SKILLS.TECH, 3),
-    ]),
-    hint: 'The human prozessor.',
-    keywords: 'Imperium,Adeptus Mechanicus,[Forge World],Inquisition,[Ordo]',
-    archetypeFeatures: [
-      {
-        name: 'Statistical Certainty',
-        snippet: 'The assistance you provide your allies comes with the benefit of exacting mathematical analysis, to remove all possibility of ill-fortune or doubt. When you Help an ally, you may reduce the amount of Bonus Dice you provide by an amount equal up to your Rank. For every die removed, your ally gains an extra Icon on their Test result.',
-      },
-    ],
-    alerts: [
-      { type: 'warning', text: 'The source (Forsaken System Player Guide) of this archetype is incomplete. The gaps are filled by the Doctors of Doom Chapter Master.', },
-    ],
-    influence: 1,
-    wargear: [
-      { name: 'Laspistol' },
-      { name: 'Clothing', variant: 'Adepts Robes' },
-      { name: 'Auspex' },
-      { name: 'Auto-Quill' },
-      { name: 'Combi-Tool' },
-      { name: 'Data-Slate' },
-      {
-        name: 'Any Augmetic',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            typeFilter: ['Augmetics'],
-          },
-        ],
-      },
-      {
-        name: 'Any Augmetic',
-        selected: '',
-        options: [
-          {
-            filter: true,
-            typeFilter: ['Augmetics'],
-          },
-        ],
-      },
-      { name: 'Sacred Machine Oil' },
-      { name: 'Symbol of Authority', variant: 'Symbol of the Mechanicus & Inquisition' },
-    ],
-    suggested: {
-      attributes: [],
-      skills: [],
-      talents: [ 'core-augmetic', 'core-binary-chatter', 'core-deductive' ],
-    },
-    suggestedStats: [
-      ...suggestedAttributes(1,2,1,1,1,4,1),
-      reqSkill(SKILLS.AWARENESS, 2),
-      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
-      reqSkill(SKILLS.INVESTIGATION, 2),
-      reqSkill(SKILLS.MEDICAE, 1),
-      reqSkill(SKILLS.PILOT, 1),
-      reqSkill(SKILLS.SCHOLAR, 2),
-      reqSkill(SKILLS.TECH, 4),
-      reqSkill(SKILLS.WEAPON_SKILL, 1),
-    ],
-  },
+  // Adeptus Ministorum
+  //  Confessor
   // Abhumans
   {
     ...archetype(source.fspg.key,114,'Astra Militarum','Ratling Sniper',1,'fspg/Ratling'),
@@ -2034,6 +1969,74 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 6),
     ],
   },
+  // Inquisition
+  {
+    ...archetype(source.fspg.key,117,'The Inquisition','Lexmechanic',2,'Human'),
+    ...costz(44,[
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.SCHOLAR, 3),
+      reqSkill(SKILLS.TECH, 3),
+    ]),
+    hint: 'The human prozessor.',
+    keywords: 'Imperium,Adeptus Mechanicus,[Forge World],Inquisition,[Ordo]',
+    archetypeFeatures: [
+      {
+        name: 'Statistical Certainty',
+        snippet: 'The assistance you provide your allies comes with the benefit of exacting mathematical analysis, to remove all possibility of ill-fortune or doubt. When you Help an ally, you may reduce the amount of Bonus Dice you provide by an amount equal up to your Rank. For every die removed, your ally gains an extra Icon on their Test result.',
+      },
+    ],
+    alerts: [
+      { type: 'warning', text: 'The source (Forsaken System Player Guide) of this archetype is incomplete. The gaps are filled by the Doctors of Doom Chapter Master.', },
+    ],
+    influence: 1,
+    wargear: [
+      { name: 'Laspistol' },
+      { name: 'Clothing', variant: 'Adepts Robes' },
+      { name: 'Auspex' },
+      { name: 'Auto-Quill' },
+      { name: 'Combi-Tool' },
+      { name: 'Data-Slate' },
+      {
+        name: 'Any Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      {
+        name: 'Any Augmetic',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            typeFilter: ['Augmetics'],
+          },
+        ],
+      },
+      { name: 'Sacred Machine Oil' },
+      { name: 'Symbol of Authority', variant: 'Symbol of the Mechanicus & Inquisition' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ 'core-augmetic', 'core-binary-chatter', 'core-deductive' ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(1,2,1,1,1,4,1),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.INVESTIGATION, 2),
+      reqSkill(SKILLS.MEDICAE, 1),
+      reqSkill(SKILLS.PILOT, 1),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 4),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ],
+  },
+  //  Intorrogator
   // Kroot
   {
     ...archetype(source.fspg.key,119,'Tau Empire','Kroot Mercenary',1,'fspg/Kroot'),
