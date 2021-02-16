@@ -2083,7 +2083,7 @@ const fspg = [
     influence: 1,
     wargear: [
       { name: 'Symbol of Authority' },
-      { name: 'Excruciator' },
+      { name: 'Excrutiator' },
       {
         name: 'Any IMPERIUM weapon up to Rare rarity',
         selected: '',
