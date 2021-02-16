@@ -2061,7 +2061,64 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 1),
     ],
   },
-  //  Intorrogator
+  {
+    ...archetype(source.fspg.key,118,'The Inquisition','Interrogator',2,'Human'),
+    ...costz(64,[
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+      reqAttribute(ATTRIBUTES.INTELLECT, 4),
+      reqSkill(SKILLS.INSIGHT, 2),
+      reqSkill(SKILLS.MEDICAE, 3),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.TECH, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ]),
+    hint: '"Maybe if I clip another finger....".',
+    keywords: 'Imperium,Adeptus Mechanicus,[Forge World],Inquisition,[Ordo],[Any]',
+    archetypeFeatures: [
+      {
+        name: 'Extract the Truth',
+        snippet: 'To earn an Inquisitorial Rosette, the first skill you must master is to lay bare the sinful hearts of Human and xenos. When you succeed on a Test to acquire information from an individual, you gain free Shifts equal to your Rank.',
+      },
+    ],
+    influence: 1,
+    wargear: [
+      { name: 'Symbol of Authority' },
+      { name: 'Excruciator' },
+      {
+        name: 'Any IMPERIUM weapon up to Rare rarity',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            rarityFilter: ['Common', 'Uncommon', 'Rare'],
+            keywordFilter: 'Imperium',
+          },
+        ],
+      },
+      {
+        name: 'Any IMPERIUM weapon up to Rare rarity',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            rarityFilter: ['Common', 'Uncommon', 'Rare'],
+            keywordFilter: 'Imperium',
+          },
+        ],
+      },
+      {
+        name: 'Any IMPERIUM weapon up to Rare rarity',
+        selected: '',
+        options: [
+          {
+            filter: true,
+            rarityFilter: ['Common', 'Uncommon', 'Rare'],
+            keywordFilter: 'Imperium',
+          },
+        ],
+      },
+    ],
+  },
   // Kroot
   {
     ...archetype(source.fspg.key,119,'Tau Empire','Kroot Mercenary',1,'fspg/Kroot'),
