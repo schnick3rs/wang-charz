@@ -2073,7 +2073,7 @@ const fspg = [
       reqSkill(SKILLS.WEAPON_SKILL, 1),
     ]),
     hint: '"Maybe if I clip another finger....".',
-    keywords: 'Imperium,Adeptus Mechanicus,[Forge World],Inquisition,[Ordo],[Any]',
+    keywords: 'Imperium,Inquisition,[Ordo],[Any]',
     archetypeFeatures: [
       {
         name: 'Extract the Truth',
