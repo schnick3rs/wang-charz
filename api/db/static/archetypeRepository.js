@@ -1686,7 +1686,7 @@ const fspg = [
   },
   // Primaris
   {
-    ...archetype(source.core.key, 108,'Adeptus Astartes','Primaris Reiver',4,'Primaris Astartes'),
+    ...archetype(source.fspg.key, 108,'Adeptus Astartes','Primaris Reiver',4,'Primaris Astartes'),
     ...costz(288, [
       reqAttribute(ATTRIBUTES.STRENGTH, 5),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
