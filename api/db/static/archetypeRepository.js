@@ -2921,7 +2921,7 @@ const aaoaSquat = [
     name: 'War-Pledged Warrior',
     ...archetype(source.aaoa.key, 43,'The Squat Remnant','War-Pledged Warrior',1,'aaoa/Squat'),
     ...costz(34,  [
-      reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 3),
       reqSkill(SKILLS.BALLISTIC_SKILL, 2),
       reqSkill(SKILLS.TECH, 1),
