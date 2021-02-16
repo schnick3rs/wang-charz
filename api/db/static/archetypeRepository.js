@@ -1615,6 +1615,103 @@ const fspg = [
     influence: 3,
   },
   // Astartes
+  {
+    ...archetype(source.fspg.key, 105,'Adeptus Astartes','Astartes Apothecary',4,'Adeptus Astartes'),
+    ...costz(357,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 5), // 18
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
+      reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
+      reqAttribute(ATTRIBUTES.WILLPOWER, 4), // 10
+      reqAttribute(ATTRIBUTES.INTELLECT, 5), // 10
+      reqSkill(SKILLS.ATHLETICS, 3), // 12
+      reqSkill(SKILLS.AWARENESS, 3), // 12
+      reqSkill(SKILLS.BALLISTIC_SKILL, 5), // 12
+      reqSkill(SKILLS.LEADERSHIP, 1), // 12
+      reqSkill(SKILLS.MEDICAE, 5), // 12
+      reqSkill(SKILLS.SCHOLAR, 1), // 12
+      reqSkill(SKILLS.STEALTH, 3), // 12
+      reqSkill(SKILLS.SURVIVAL, 1), // 12
+      reqSkill(SKILLS.WEAPON_SKILL, 5), // 12
+    ]),
+    hint: 'The medical specialist.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+    archetypeFeatures: [
+      {
+        name: 'Prime helix',
+        snippet: 'When you succeed on a Medicae Test to heal a target’s Wounds, they recover +Rank additional Wounds.',
+      },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Chainsword, 3 Frag Grenade, 3 Krak Grenade, Narthecium, Reductor'),
+    influence: 2,
+  },
+  {
+    ...archetype(source.fspg.key, 105,'Adeptus Astartes','Astartes Chaplain',4,'Adeptus Astartes'),
+    ...costz(392,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 5), // 18
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
+      reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
+      reqAttribute(ATTRIBUTES.WILLPOWER, 5), // 10
+      reqAttribute(ATTRIBUTES.INTELLECT, 3), // 10
+      reqAttribute(ATTRIBUTES.FELLOWSHIP, 5), // 10
+      reqSkill(SKILLS.ATHLETICS, 3), // 12
+      reqSkill(SKILLS.AWARENESS, 3), // 12
+      reqSkill(SKILLS.BALLISTIC_SKILL, 5), // 12
+      reqSkill(SKILLS.INSIGHT, 3), // 12
+      reqSkill(SKILLS.LEADERSHIP, 3), // 12
+      reqSkill(SKILLS.SCHOLAR, 4), // 12
+      reqSkill(SKILLS.STEALTH, 3), // 12
+      reqSkill(SKILLS.SURVIVAL, 1), // 12
+      reqSkill(SKILLS.WEAPON_SKILL, 5), // 12
+    ]),
+    hint: 'Chapters beliefs incarnated.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+    archetypeFeatures: [
+      {
+        name: 'Chapter Cult',
+        snippet: 'You gain 1 Faith, and can purchase Faith Talents available to characters with the ADEPTUS MINISTORUM Keyword.',
+      },
+      {
+        name: 'Grant Brotherhood',
+        snippet: 'As a Combat Action, you may spend 1 Faith to give an ally within hearing distance your [CHAPTER] Keyword for the rest of the scene, with all corresponding effects except those with the Tradition or Gene-seed title, or that provide equipment.',
+      },
+      {
+        name: 'Beacon of Tradition',
+        snippet: 'Any allies within 5xRank metres who share your [CHAPTER] Keyword gain +Rank to Resolve Tests.',
+      },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Skull Helm, Crozius Arcanum, Bolt Pistol, Rosarius, 3 Frag Grenade, 3 Krak Grenade'),
+    influence: 2,
+  },
+  // Primaris
+  {
+    ...archetype(source.core.key, 108,'Adeptus Astartes','Primaris Reiver',4,'Primaris Astartes'),
+    ...costz(288, [
+      reqAttribute(ATTRIBUTES.STRENGTH, 5),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+      reqAttribute(ATTRIBUTES.AGILITY, 4),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 5),
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.ATHLETICS, 3),
+      reqSkill(SKILLS.AWARENESS, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 4),
+      reqSkill(SKILLS.INTIMIDATION, 3),
+      reqSkill(SKILLS.STEALTH, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 4),
+    ]),
+    hint: 'Shock and awe... aweeeeee.',
+    keywords: 'Imperium, Adeptus Astartes, Primaris, [Chapter]',
+    archetypeFeatures: [
+      {
+        name: 'Terror Tactics',
+        snippet: 'When your Stealth Score is reduced to 0 or you Ambush a Threat, you can choose for all enemies who can see or hear you to take a Terror Test, with a DN equal to 1+Rank.',
+      },
+    ],
+    wargear: wargearz('Mk X Phobos Power Armour, Bolt Carbine, Heavy Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade, 3 Shock Grenade'),
+    influence: 1,
+  },
   // Mechanicus
   {
     ...archetype(source.fspg.key,109,'Adeptus Mechanicus','Tech-Adept',1,'Human'),
