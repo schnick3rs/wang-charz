@@ -274,6 +274,7 @@
                 :headers="weaponHeaders"
                 :items="weapons"
                 hide-default-footer
+                dense
               >
                 <template v-slot:item="{ item }">
 
@@ -1625,7 +1626,7 @@ export default {
   }
 
   td.small {
-    font-size: 12px;
+    font-size: 3mm !important;
   }
 
   .sexy_line{
