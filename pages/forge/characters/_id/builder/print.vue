@@ -81,6 +81,15 @@
                         {{ item.adjustedRating }}<span v-if="item.alternativeRating">/{{ item.alternativeRating }}</span>
                       </td>
                     </tr>
+                    <tr v-if="characterFaith && characterFaith.points > 0">
+                      <td class="text-left pa-1 small">
+                        <span>Faith</span>
+                        <span style="float: right;">{{ '☐'.repeat(characterFaith.points) }}</span>
+                      </td>
+                      <td class="text-center pa-1 small">
+                        {{ characterFaith.points }}
+                      </td>
+                    </tr>
                   </tbody>
                 </v-simple-table>
 
@@ -335,7 +344,7 @@
                   v-for="trait in weaponsTraitSet"
                   v-if="traitByName(trait)"
                   :key="trait"
-                  class="body-2 mb-1 caption"
+                  class="body-2 caption text-snippet"
                 >
                   <strong>{{ traitByName(trait).name }}: </strong>
                   <span v-if="traitByName(trait).crunch">{{ traitByName(trait).crunch }}</span>
@@ -917,6 +926,24 @@ export default {
       return skills;
     },
 
+    talentsForFaith() {
+      if ( this.talents.length > 0 ) {
+        return this.talents.filter( talent => talent.groupKey && talent.groupKey === 'core-faith' );
+      }
+      return [];
+    },
+
+    characterFaith() {
+      //const points = this.$store.getters['characters/characterFaithPointsById'](this.characterId);
+      const spend = this.$store.getters['characters/characterFaithSpendById'](this.characterId);
+      let points = 0;
+      this.talentsForFaith.forEach((t)=>{
+        points += 1;
+      });
+
+      return { points, spend };
+    },
+
     characterEnhancements() {
       return this.$store.getters['characters/characterEnhancementsById'](this.characterId);
     },
@@ -1311,6 +1338,7 @@ export default {
             description: rawTalent.description,
             source: rawTalent.source,
             hint: rawTalent.name,
+            groupKey: rawTalent.groupKey,
             selectedOptions: [],
             modifications: rawTalent.modifications || [],
           };
@@ -1621,12 +1649,18 @@ export default {
   .page-title {
   }
 
+  .text-snippet {
+    margin-bottom: 1.5mm;
+    line-height: 1rem;
+  }
+
   .small {
     height: 24px;
   }
 
   td.small {
     font-size: 3mm !important;
+    height: 4mm !important;
   }
 
   .sexy_line{
