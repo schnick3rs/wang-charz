@@ -8,6 +8,7 @@
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
+      <v-container class="pa-0 fill-height" :class="{ 'pl-2 pr-2': this.$vuetify.breakpoint.mdAndUp }">
       <v-toolbar-items>
         <v-btn icon nuxt to="/">
           <v-icon>home</v-icon>
@@ -25,10 +26,12 @@
           <v-icon>help</v-icon>
         </v-btn>
       </v-toolbar-items>
+      </v-container>
     </v-app-bar>
 
     <v-main>
       <v-toolbar dense style="overflow: auto">
+        <v-container class="pa-0 fill-height" :class="{ 'pl-2 pr-2': this.$vuetify.breakpoint.mdAndUp }">
         <v-toolbar-items>
           <v-btn text small nuxt to="/library/wargear/weapons">
             Weapons
@@ -37,6 +40,7 @@
             Armour
           </v-btn>
         </v-toolbar-items>
+        </v-container>
       </v-toolbar>
 
       <v-container>

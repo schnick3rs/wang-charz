@@ -5,62 +5,62 @@
     <v-row justify="center">
 
       <!-- Filter -->
-      <v-col :cols="11">
+      <v-col :cols="12">
         <v-card>
           <v-card-text>
             <v-row justify="center">
               <v-col :cols="12" :xs="6">
                 <v-text-field
-                  v-model="searchQuery"
-                  filled
-                  dense
-                  clearable
-                  label="Search"
+                    v-model="searchQuery"
+                    filled
+                    dense
+                    clearable
+                    label="Search"
                 />
               </v-col>
 
-              <v-col :cols="4">
+              <v-col :cols="4" v-if="false">
                 <v-select
-                  v-model="filters.subtype.model"
-                  :items="filtersSubtypeOptions"
-                  :label="filters.subtype.label"
-                  filled
-                  dense
-                  clearable
-                  multiple
-                  chips
-                  deletable-chips
-                  single-line
+                    v-model="filters.subtype.model"
+                    :items="filtersSubtypeOptions"
+                    :label="filters.subtype.label"
+                    filled
+                    dense
+                    clearable
+                    multiple
+                    chips
+                    deletable-chips
+                    single-line
                 />
               </v-col>
 
-              <v-col :cols="4">
+              <v-col :cols="4" v-if="false">
                 <v-select
-                  v-model="filters.traits.model"
-                  :items="filterTraitsOptions"
-                  :label="filters.traits.label"
-                  filled
-                  dense
-                  clearable
-                  multiple
-                  chips
-                  deletable-chips
-                  single-line
+                    v-model="filters.traits.model"
+                    :items="filterTraitsOptions"
+                    :label="filters.traits.label"
+                    filled
+                    dense
+                    clearable
+                    multiple
+                    chips
+                    deletable-chips
+                    single-line
                 />
               </v-col>
 
-              <v-col :cols="4">
+              <v-col :cols="4" v-if="false">
                 <v-select
-                  v-model="filters.keywords.model"
-                  :items="filterKeywordsOptions"
-                  :label="filters.keywords.label"
-                  filled
-                  dense
-                  clearable
-                  multiple
-                  chips
-                  deletable-chips
-                  single-line
+                    v-model="filters.keywords.model"
+                    :items="filterKeywordsOptions"
+                    :label="filters.keywords.label"
+                    filled
+                    dense
+                    clearable
+                    multiple
+                    chips
+                    deletable-chips
+                    single-line
                 />
               </v-col>
             </v-row>
@@ -69,17 +69,18 @@
       </v-col>
 
       <!-- Table -->
-      <v-col :cols="11">
+      <v-col :cols="12">
         <v-card>
           <v-data-table
-            :headers="headers"
-            :items="searchResults"
-            :page.sync="pagination.page"
-            :search="searchQuery"
-            item-key="name"
-            sort-by="name"
-            hide-default-footer
-            @page-count="pagination.pageCount = $event"
+              :headers="headers"
+              :items="searchResults"
+              :page.sync="page"
+              :items-per-page="itemsPerPage"
+              :search="searchQuery"
+              item-key="key"
+              sort-by="name"
+              hide-default-footer
+              @page-count="pageCount = $event"
           >
 
             <template v-slot:item.name="{ item }">
@@ -138,8 +139,8 @@
 
           <div class="text-center pt-2">
             <v-pagination
-              v-model="pagination.page"
-              :length="pagination.pageCount"
+              v-model="page"
+              :length="pageCount"
             />
           </div>
         </v-card>
@@ -191,12 +192,9 @@ export default {
           label: 'Filter by Traits',
         },
       },
-      pagination: {
-        page: 1,
-        pageCount: 0,
-        sortBy: 'title',
-        rowsPerPage: 25,
-      },
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 25,
       headers: [
         { text: 'Name', align: 'left', value: 'name', class: '' },
         { text: 'Range', align: 'center', value: 'range', class: '' },

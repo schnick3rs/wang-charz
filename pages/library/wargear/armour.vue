@@ -3,14 +3,14 @@
     <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <v-row justify="center">
-      <v-col :cols="11">
+      <v-col :cols="12">
         <v-card>
           <v-card-text>
             <v-row justify="center">
               <v-col :cols="12" :xs="6">
                 <v-text-field
                   v-model="searchQuery"
-                  box
+                  filled
                   dense
                   clearable
                   label="Search"
@@ -21,17 +21,18 @@
         </v-card>
       </v-col>
 
-      <v-col :cols="11">
+      <v-col :cols="12">
         <v-card>
           <v-data-table
             :headers="headers"
             :items="armour"
-            :pagination.sync="pagination"
-            :expand="expand"
+            :page.sync="page"
+            :items-per-page="itemsPerPage"
             :search="searchQuery"
-            disable-initial-sort
             item-key="title"
-            hide-actions
+            sort-by="name"
+            hide-default-footer
+            @page-count="pageCount = $event"
           >
             <template v-slot:item="{ item }">
               <tr>
@@ -48,7 +49,7 @@
           </v-data-table>
 
           <div class="text-center pt-2">
-            <v-pagination v-model="pagination.page" :length="pages" />
+            <v-pagination v-model="page" :length="pageCount" />
           </div>
         </v-card>
       </v-col>
@@ -87,10 +88,9 @@ export default {
       searchQuery: '',
       settingFilter: [],
       contentFilter: [],
-      pagination: {
-        sortBy: 'title',
-        rowsPerPage: -1,
-      },
+      page: 1,
+      pageCount: 0,
+      itemsPerPage: 25,
       headers: [
         {
           text: 'Name', align: 'left', value: 'name', class: '',
@@ -147,13 +147,6 @@ export default {
       }
 
       return filteredResults;
-    },
-    pages() {
-      if (this.pagination.rowsPerPage == null
-        || this.pagination.totalItems == null
-      ) return 0;
-
-      return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
   },
   async asyncData({ app }) {

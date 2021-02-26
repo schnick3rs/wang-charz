@@ -84,7 +84,7 @@
             sort-by="name"
             show-expand
             hide-default-footer
-            items-per-page="25"
+            :items-per-page="25"
             @page-count="pagination.pageCount = $event"
           >
             <template v-slot:item.type="{ item }">
@@ -210,7 +210,7 @@
   import BreadcrumbSchemaMixin from '~/mixins/BreadcrumbSchemaMixin';
   import SluggerMixin from '~/mixins/SluggerMixin';
 
-  export default {
+export default {
   layout: 'library',
   components: {
     DodDefaultBreadcrumbs,
