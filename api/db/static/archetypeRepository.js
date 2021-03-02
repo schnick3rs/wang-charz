@@ -553,7 +553,7 @@ const core = [
         ],
       }
     ],
-    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Munitorum-Issue Mess Kit, Blanket, Grooming kit, 2 ration packs'),
+    wargear: wargearz('Laspistol, Force Stave, Psykana Mercy Blade, Munitorum-Issue Mess Kit, Blanket, Grooming kit, 2 ration packs'),
   },
   {
     ...archetype(source.core.key, 116,'The Inquisition','Inquisitor',4,'Human'),
@@ -1121,7 +1121,7 @@ const core = [
         ],
       },
     ],
-    wargear: wargearz('Laspistol, Force Rod, Psykana Mercy Blade, Munitorum-Issue Mess Kit, Blanket, Grooming kit, 2 ration packs'),
+    wargear: wargearz('Laspistol, Force Stave, Psykana Mercy Blade, Munitorum-Issue Mess Kit, Blanket, Grooming kit, 2 ration packs'),
   },
   {
     ...archetype(source.core.key, 109,'Chaos','Heretek',3,'Human'),
@@ -3179,11 +3179,11 @@ const aaoaSquat = [
         ],
       },
     ],
-    wargearString: 'Ionclad Carapace armour, ancestor’s robes (clothing), Master-Crafted Force Rod, Master-Crafted Bolt Pistol.',
+    wargearString: 'Ionclad Carapace armour, ancestor’s robes (clothing), Master-Crafted Force Stave, Master-Crafted Bolt Pistol.',
     wargear: [
       { name: 'Ionclad Carapace Armour' },
       { name: 'Clothing', variant: 'Ancestor’s robes' },
-      { name: 'Force Rod (MC)', variant: 'Master-Crafted Force Rod' },
+      { name: 'Force Stave (MC)', variant: 'Master-Crafted Force Stave' },
       { name: 'Bolt Pistol (MC)', variant: 'Master-Crafted Bolt Pistol' },
     ],
   },
