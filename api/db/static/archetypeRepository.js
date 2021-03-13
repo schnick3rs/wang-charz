@@ -1684,6 +1684,62 @@ const fspg = [
     wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Skull Helm, Crozius Arcanum, Bolt Pistol, Rosarius, 3 Frag Grenade, 3 Krak Grenade'),
     influence: 2,
   },
+  {
+    ...archetype(source.fspg.key, 107,'Adeptus Astartes','Astartes Librarian',4,'Adeptus Astartes'),
+    ...costz(359,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 5), // 18
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
+      reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
+      reqAttribute(ATTRIBUTES.WILLPOWER, 6), // 10
+      reqAttribute(ATTRIBUTES.INTELLECT, 3), // 10
+      reqSkill(SKILLS.ATHLETICS, 3), // 12
+      reqSkill(SKILLS.AWARENESS, 3), // 12
+      reqSkill(SKILLS.BALLISTIC_SKILL, 5), // 12
+      reqSkill(SKILLS.PSYCHIC_MASTERY, 4), // 12
+      reqSkill(SKILLS.SCHOLAR, 2), // 12
+      reqSkill(SKILLS.STEALTH, 3), // 12
+      reqSkill(SKILLS.SURVIVAL, 1), // 12
+      reqSkill(SKILLS.WEAPON_SKILL, 5), // 12
+    ]),
+    hint: 'Invoke the librarian powers.',
+    keywords: 'Imperium,Adeptus Astartes,[Chapter],Psyker',
+    archetypeFeatures: [
+      {
+        name: 'Psyker',
+        snippet: 'You know the Smite psychic power and one Librarius psychic.',
+        description:
+          '<p>You are a psyker; you know the Smite psychic power and one Librarius psychic power.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+          { name: 'psykerLibrarius', selected: '', query: { discipline: 'Librarius' }, options: [], free: true },
+        ],
+      },
+      {
+        name: 'Unlock Disciplines',
+        snippet: 'You gain access to the Minor Universal and Librarius Disciplines. You unlock an additional single Psychic Discipline: Divination, Pyromancy, Telekinesis, Telepathy, Maleficarum',
+        description: '<p>You gain access to the Minor Universal and Librarius Disciplines. You unlock an additional single Psychic Discipline: Divination, Pyromancy, Telekinesis, Telepathy, Maleficarum.</p>',
+        selected: [''],
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+          'Librarius',
+        ],
+      },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Psychic Hood, Bolt Pistol, Force Stave, 3 Frag Grenade, 3 Krak Grenade'),
+    influence: 2,
+  },
   // Primaris
   {
     ...archetype(source.fspg.key, 108,'Adeptus Astartes','Primaris Reiver',4,'Primaris Astartes'),
