@@ -12,6 +12,7 @@ export default {
         { key: 'core-telepathy', name: 'Telepathy', source: 'core' },
         { key: 'core-maleficarum', name: 'Maleficarum', source: 'core' },
         { key: 'core-runes-of-battle', name: 'Runes of Battle', source: 'core' },
+        { key: 'fspg-librarius', name: 'Librarius', source: 'fspg' },
         // AAOA Astartes
         { key: 'aaoa-librarius', name: 'Librarius', source: 'aaoa' },
         { key: 'aaoa-sanctic', name: 'Sanctic', source: 'aaoa' },
