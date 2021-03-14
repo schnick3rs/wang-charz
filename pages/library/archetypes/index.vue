@@ -284,8 +284,7 @@ export default {
         array.push(...speciesNames);
       });
       const distinct = [...new Set(array)];
-      const uniques = distinct.filter((d) => d !== null && d !== undefined).sort();
-      return uniques;
+      return distinct.filter((d) => d !== null && d !== undefined).sort();
     },
     filterGroupOptions() {
       const reduce = this.activeRepository.map((item) => item.faction);
