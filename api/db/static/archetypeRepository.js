@@ -6924,8 +6924,18 @@ const paxRep = [
     ...costz(10, [/* TODO */]),
     stub: false,
     hint: 'A representative of the Navis Nobilite, empowered to enact the will of a houses Novators.',
-    species: [ 'Human (core)', 'Navigator (pax)' ],
-    speciesKey: [ 'core-human', 'pax-navigator' ],
+    "species": [
+      {
+        "name": "Human",
+        "key": "core-human",
+        "sourceKey": "core"
+      },
+      {
+        "name": "Navigator",
+        "key": "pax-navigator",
+        "sourceKey": "pax"
+      },
+    ],
     prerequisites: [
       reqAttribute(ATTRIBUTES.FELLOWSHIP, 2),
       reqSkill(SKILLS.INTIMIDATION, 1),

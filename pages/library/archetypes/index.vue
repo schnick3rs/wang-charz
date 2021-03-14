@@ -80,7 +80,7 @@
             :items="searchResult"
             :page.sync="pagination.page"
             :search="searchQuery"
-            :items-per-page="15"
+            :items-per-page="25"
             item-key="key"
             sort-by="name"
             hide-default-footer
@@ -280,15 +280,17 @@ export default {
     filterSpeciesOptions() {
       const array = [];
       this.activeRepository.forEach((item) => {
-        array.push(...item.species.map((s)=>s.name));
+        const speciesNames = item.species.map((s)=>s.name);
+        array.push(...speciesNames);
       });
       const distinct = [...new Set(array)];
-      return distinct.sort();
+      const uniques = distinct.filter((d) => d !== null && d !== undefined).sort();
+      return uniques;
     },
     filterGroupOptions() {
       const reduce = this.activeRepository.map((item) => item.faction);
       const distinct = [...new Set(reduce)];
-      return distinct.filter((d) => d !== null).sort();
+      return distinct.filter((d) => d !== null && d !== undefined).sort();
     },
   },
   async asyncData({ $axios, query, error }) {
