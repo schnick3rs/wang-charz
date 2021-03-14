@@ -31,19 +31,28 @@ export default {
     BreadcrumbSchemaMixin,
   ],
   head() {
-    const title = 'Archetypes - Wrath & Glory Reference | Library';
-    const description = 'Oh there are way to many archetypes written by fans. Filter a little and then pick the one you want.'
-      + ' Check the linked homebrews for details.';
+    const title = `${this.item.name} - Archetypes`;
+    let isOfficial = ['core','fspg'].includes(this.item.source.key);
+    const description = isOfficial
+        ? `The ${this.item.name} from the ${this.item.faction} Faction is an official archetype described in the ${this.item.source.book}.`
+        : `The ${this.item.name} from the ${this.item.faction} Faction is a homebrew archetype provided by ${this.item.source.book}.`;
+    const image = `/img/avatars/archetype/${this.item.key}.png`;
 
-    const image = `/img/avatars/archetype/${this.item.key}.png`
+    const robots = {
+      hid: 'robots',
+      name: 'robots',
+      content: isOfficial ? 'noindex,follow' : 'index,follow',
+    };
 
     return {
+      titleTemplate: '%s | Wrath & Glory Library',
       title,
       meta: [
         { hid: 'description', name: 'description', content: description },
         { hid: 'og:title', name: 'og:title', content: title },
         { hid: 'og:description', name: 'og:description', content: description },
         { hid: 'og:image', name: 'og:image', content: image },
+        robots
       ],
       __dangerouslyDisableSanitizers: ['script'],
       script: [
