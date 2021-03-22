@@ -245,6 +245,12 @@ module.exports = {
    * Build configuration
    */
   build: {
+
+    transpile: [
+      'three',
+      'threejs-dice',
+    ],
+
     /*
     ** You can extend webpack config here
     */
