@@ -448,7 +448,7 @@ export default {
           key: 'dod',
           name: '\'Doctors of Doom Sandbox\' content',
           hint: 'Add Chapter Houses and Roguish Archetypes.',
-          enabled: false,
+          enabled: true,
           nuxt: undefined,
           source: '',
         },

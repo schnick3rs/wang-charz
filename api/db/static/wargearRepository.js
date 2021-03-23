@@ -1252,6 +1252,20 @@ const core = [
   },
 ];
 
+const doctorsOfDoom = [
+  {
+    ...gear(source.dod.key,0,'Lawgiver','6C','Projectile,Adeptus Arbites'),
+    type: 'Ranged Weapon',
+    subtype: undefined,
+    meta: [
+      metaRange(9,1,0,12,1,['Pistol']),
+      metaRange(9,1,0,12,2,['Pistol','Fullauto']),
+      metaRange(0,0,0,12,1,['Pistol','Shock']),
+      metaRange(9,1,0,12,1,['Pistol','Armor Piering']),
+    ],
+  },
+];
+
 const fspg = [
   {
     ...gear(source.fspg.key,121,'Kroot Rifle','3V','2-Handed,Blade,Kroot,Primitive'),
@@ -3096,6 +3110,7 @@ const tea = [
 
 module.exports = [
   ...core,
+  ...doctorsOfDoom,
   ...fspg,
   ...aaoa,
   ...aaoav2,
