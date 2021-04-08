@@ -2235,7 +2235,7 @@ const aaoaWeaponUpgrades = [
       ...gear(source.aaoa.key,162,'Exitus Hellfire Rounds','10L','Templum Vindicare'),
       type: 'Ammo',
       subtype: 'Special Exitus Ammo',
-      snippet: '+1 ED',
+      snippet: '2ED, +3ED against organic targets . In addition, the weapon gains the Careful and Inflict (Poisoned 5) trait. Poisoned. Single Shot. (see rules)',
       description:
         '<p>2ED, +3ED against organic targets . In addition, the weapon gains the Careful and Inflict (Poisoned 5) trait.</p>' +
         '<p><strong>Poisoned:</strong> A creature Poisoned by an Exitus round suffers 1d3 Mortal Wounds at the start of each of their turns.</p>' +
@@ -2245,18 +2245,18 @@ const aaoaWeaponUpgrades = [
       ...gear(source.aaoa.key,162,'Exitus Shield-breaker Rounds','10L','Templum Vindicare'),
       type: 'Ammo',
       subtype: 'Special Exitus Ammo',
-      snippet: '+1 ED',
+      snippet: 'The weapon gains the Careful and Warp Weapon traits. (see rules)',
       description:
-        '<p>The weapon gains the Careful and Warp Weapon traits.</p>' +
+        '<p>The weapon gains the Careful and Warp Weapon traits. Single Shot.</p>' +
         '<p><strong>Single Shot:</strong>A reload of Exitus special ammunition consists of a single round. You sing this ammunition expends that round, and grants none of the normal benefits a Salvo action.</p>',
     },
     {
       ...gear(source.aaoa.key,162,'Exitus Turbo-Penetrator Rounds','10L','Templum Vindicare'),
       type: 'Ammo',
       subtype: 'Special Exitus Ammo',
-      snippet: '+1 ED',
+      snippet: 'The weapon gains the Careful, Brutal , and Rending [4] traits. (see rules)',
       description:
-        '<p>The weapon gains the Careful, Brutal , and Rending [4] traits.</p>' +
+        '<p>The weapon gains the Careful, Brutal , and Rending [4] traits. Single Shot.</p>' +
         '<p><strong>Single Shot:</strong> A reload of Exitus special ammunition consist s of a single round. Using this ammunition expends that round, and grants none of the no rmal benefits a Salvo action</p>',
     },
   ],
@@ -2288,7 +2288,7 @@ const aaoaArmour = [
       ...gear(source.aaoa.key,166,'Vindicare Stealth Suit','10L','Light,Imperium,Officio Assassinorum,Templum Vindicare'),
       ...armour('Basic Armour',2, 'Cameleoline'),
       description:
-        '<p><strong>Cameleoline: </strong>The photoreactive mimic-fibres in the suit blur’s the wearer’s outline, granting a +2d bonus to Stealth tests and a +2 bonus to Defence when in shadow or in cover.</p>',
+        '<p><strong>Cameleoline:</strong> The photoreactive mimic - fibres in the suit blur’s the wearer’s outline, granting a +2d bonus to Stealth tests and a +2 bonus to Defence when in shadow or in cover.</p>',
     },
   ],
   {
@@ -2398,6 +2398,10 @@ const aaoaToolsEquipment = [
   {
     ...gear(source.aaoa.key,181,'Reductor','5R','Adeptus Astartes'),
     ...toolz('Imperial Equipment','As an action, an Apothecary can use a Reductor to remove the gene-seed of a deceased Space Marine. This requires a Medicae test (DN 3). Though a grim task, it is a vital one, and an Apothecary who extracts a fallen brother’s gene-seed gains 1 Wrath immediately, as their duty drives them to press on.'),
+  },
+  {
+    ...gear(source.aaoa.key,185,'Vindicare Spy Mask','11L','Templum Vindicare'),
+    ...toolz('Imperial Equipment','he mask renders the wearer immune to penalties due to darkness and fog and allows the wearer to ignore any modifiers to the targets’ Defence from being in cover.'),
   },
   // Aeldari Tools
   {

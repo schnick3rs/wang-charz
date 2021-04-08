@@ -4377,7 +4377,7 @@ const aaoaOfficioAssassinorum = [
       },
     ],
     influence: 0,
-    wargear: wargearz('Exitus Longrifle, Exitus Pistol, Exitus Hellfire Rounds, Exitus Shield-breaker Rounds, Exitus Turbo-Penetrator Rounds, Stealth Suit, Spy Mask'),
+    wargear: wargearz('Exitus Longrifle, Exitus Pistol, Exitus Hellfire Rounds, Exitus Shield-breaker Rounds, Exitus Turbo-Penetrator Rounds, Vindicare Stealth Suit, Vindicare Spy Mask'),
   },
 ];
 
