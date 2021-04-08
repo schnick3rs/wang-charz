@@ -1964,12 +1964,12 @@ const aaoaRanged = [
         '<p><em>This functions as a combi-weapon (CORE, pg. 227) composed of a customised master-crafted bolt pistol and a customised needle pistol, fitted with a gene-grip bio-veritor.</em></p>',
     },
     {
-      ...gear(source.aaoa.key,145,'Exitus Longrifle', '9L', 'Projectile, Officio Assasinorum, Tempus Vindicare'),
-      ...rangez('Exotic Weapon', 10, 2, -3, 72, 1, 'Sniper (3), Steadfast'),
+      ...gear(source.aaoa.key,148,'Exitus Longrifle', '9L', 'Projectile, Officio Assasinorum, Tempus Vindicare'),
+      ...rangez('Exotic Weapon', 12, 2, -3, 72, 1, 'Sniper (3), Steadfast'),
     },
     {
       ...gear(source.aaoa.key,146,'Exitus Pistol', '9L', 'Projectile, Officio Assasinorum, Tempus Vindicare'),
-      ...rangez('Exotic Weapon', 10, 1, -3, 12, 2, 'Pistol, Steadfast'),
+      ...rangez('Exotic Weapon', 10, 1, -3, 12, 1, 'Pistol, Steadfast'),
     },
     {
       ...gear(source.aaoa.key,146,'Flechette Blaster', '5R', 'Projectile, Adeptus Mechanicus'),
@@ -2230,6 +2230,34 @@ const aaoaWeaponUpgrades = [
         '<p><strong>Effect: </strong>The weapon gains the Careful and Inflict (Poisoned 7) trait.</p>' +
         '<p><strong>Bio-Explosive: </strong>A character who is Poisoned by Shrieker ammo is also Staggered and suffers 1d3 Mortal Wounds at the start of each of their turns. If they are slain by this damage, they explode with a Medium blast, inflicting 10+6ED damage to anyone in that blast. Any of the victim’s allies within 15 metres must attempt a Terror test (DN 7).</p>' +
         '<p><strong>Single Shot: </strong>A reload of Shrieker ammo consists of a single round. Using this ammunition expends that round, and grants none of the normal benefits a Salvo action.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,162,'Exitus Hellfire Rounds','10L','Templum Vindicare'),
+      type: 'Ammo',
+      subtype: 'Special Exitus Ammo',
+      snippet: '+1 ED',
+      description:
+        '<p>2ED, +3ED against organic targets . In addition, the weapon gains the Careful and Inflict (Poisoned 5) trait.</p>' +
+        '<p><strong>Poisoned:</strong> A creature Poisoned by an Exitus round suffers 1d3 Mortal Wounds at the start of each of their turns.</p>' +
+        '<p><strong>Single Shot:</strong> A reload of Exitus special ammunition consists of a single round. Using this ammunition expends that round , and grants none of the normal benefits a Salvo action.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,162,'Exitus Shield-breaker Rounds','10L','Templum Vindicare'),
+      type: 'Ammo',
+      subtype: 'Special Exitus Ammo',
+      snippet: '+1 ED',
+      description:
+        '<p>The weapon gains the Careful and Warp Weapon traits.</p>' +
+        '<p><strong>Single Shot:</strong>A reload of Exitus special ammunition consists of a single round. You sing this ammunition expends that round, and grants none of the normal benefits a Salvo action.</p>',
+    },
+    {
+      ...gear(source.aaoa.key,162,'Exitus Turbo-Penetrator Rounds','10L','Templum Vindicare'),
+      type: 'Ammo',
+      subtype: 'Special Exitus Ammo',
+      snippet: '+1 ED',
+      description:
+        '<p>The weapon gains the Careful, Brutal , and Rending [4] traits.</p>' +
+        '<p><strong>Single Shot:</strong> A reload of Exitus special ammunition consist s of a single round. Using this ammunition expends that round, and grants none of the no rmal benefits a Salvo action</p>',
     },
   ],
   // Drukhari Poisons

@@ -4343,8 +4343,41 @@ const aaoaOfficioAssassinorum = [
   },
   {
     name: 'Vindicare Assassin',
-    ...archetype(source.aaoa.key, 116,'Officio Assassinorum','Vindicare Assassin',5,'Human',true),
+    ...archetype(source.aaoa.key, 118,'Officio Assassinorum','Vindicare Assassin',5,'Human',false),
+    ...costz(320,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 5),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+      reqAttribute(ATTRIBUTES.AGILITY, 5),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+      reqSkill(SKILLS.ATHLETICS, 3),
+      reqSkill(SKILLS.AWARENESS, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 6),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.STEALTH, 4),
+      reqSkill(SKILLS.SURVIVAL, 2),
+      reqSkill(SKILLS.TECH, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 4),
+    ]),
     factionKey: 'aaoa-officio-assassinorum',
+    hint: 'Stalker, patience, death.',
+    keywords: 'Imperium,Officio Assassinorum,Templum Vindicare',
+    archetypeFeatures: [
+      {
+        name: 'Assassinorum Conditioning',
+        snippet: 'You add +Rank ED to all damage rolls and +Double Rank to damage value of unarmed strikes. You may substitute Agility for Toughness for Determination. You may roll Determination against Mortal Wounds.',
+        description:
+          '<p>You add +Rank ED to all damage rolls, and you add +Double Rank to the damage value of your Unarmed Strikes. In addition, so long as you are not immobilised or Restrained, you may use Agility instead of Toughness when you roll Determination, and you may roll Determination against Mortal Wounds.</p>',
+      },
+      {
+        name: 'Perfect Shot',
+        snippet: 'When you aim with a ranged weapon, you double the listed Range of the weapon, and you add +Rank bonus dice to the subsequent ranged attack.',
+        description:
+          '<p>: When you aim with a ranged weapon, you double the listed Range of the weapon, and you add +Rank bonus dice to the subsequent ranged attack.</p>',
+      },
+    ],
+    influence: 0,
+    wargear: wargearz('Exitus Longrifle, Exitus Pistol, Exitus Hellfire Rounds, Exitus Shield-breaker Rounds, Exitus Turbo-Penetrator Rounds, Stealth Suit, Spy Mask'),
   },
 ];
 
@@ -4896,7 +4929,7 @@ const aaoaAdeptusMechanicus = [
     ...archetype(source.aaoa.key, 95, 'Adeptus Mechanicus', 'Logis', 4, 'Human'),
     ...costz(109,[
       reqAttribute(ATTRIBUTES.INTELLECT, 5),
-      reqSkill(SKILLS.INVESTIGATE, 3),
+      reqSkill(SKILLS.INVESTIGATION, 3),
       reqSkill(SKILLS.SCHOLAR, 3),
       reqSkill(SKILLS.TECH, 4),
     ]),
