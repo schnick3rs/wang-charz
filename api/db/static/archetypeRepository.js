@@ -2238,7 +2238,7 @@ const fspg = [
       { name: 'Symbol of Authority' },
       { name: 'Excrutiator' },
       {
-        name: 'Any IMPERIUM weapon up to Rare rarity',
+        name: 'Any IMPERIUM equipment up to Rare rarity',
         selected: '',
         options: [
           {
@@ -2249,7 +2249,7 @@ const fspg = [
         ],
       },
       {
-        name: 'Any IMPERIUM weapon up to Rare rarity',
+        name: 'Any IMPERIUM equipment up to Rare rarity',
         selected: '',
         options: [
           {
@@ -2260,7 +2260,7 @@ const fspg = [
         ],
       },
       {
-        name: 'Any IMPERIUM weapon up to Rare rarity',
+        name: 'Any IMPERIUM equipment up to Rare rarity',
         selected: '',
         options: [
           {
