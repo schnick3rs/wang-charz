@@ -480,7 +480,7 @@ const core = [
   },
   {
     ...gear(source.core.key,222,'Stubber','2C','Projectile,Imperium,Scum'),
-    ...rangez('Projectile Weapon',7,1,0,12,3,'Pistol'),
+    ...rangez('Projectile Weapon',7,1,0,12,1,'Pistol'),
   },
   {
     ...gear(source.core.key,222,'Needle Pistol','6V','Projectile,Imperium'),
