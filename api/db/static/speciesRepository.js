@@ -179,6 +179,9 @@ const coreRep = [
         snippet: 'You may choose to take the PSYKER Keyword.',
         description: '<p>You may choose to take the <strong>PSYKER</strong> Keyword.</p>',
         // TODO options to select beeing a psyker
+        alerts: [
+          { type: 'warning', text: 'For the PSYKER variant choose the Aeldari (Psychosensitive) species variant.', },
+        ],
       },
       {
         name: 'Asuryani Paths',
@@ -261,7 +264,7 @@ const coreRep = [
       {
         name: 'Psychosensitive',
         snippet: 'You have the PSYKER Keyword. You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. You also gain access to on additional Discipline.',
-        description: '<p>You may choose to take the <strong>PSYKER</strong> Keyword.</p>',
+        description: '<p>You have the <strong>PSYKER</strong> Keyword. You gain access to the <em>Minor</em>, <em>Universal</em>, <em>Divination</em> and <em>Runes of Battle</em> Disciplines. You also gain access to on additional Discipline.</p>',
         modifications: [
           { targetGroup: 'keywords', targetValue: 'Psyker' },
         ],
