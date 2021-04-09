@@ -436,7 +436,7 @@ const core = [
     ],
   },
   {
-    ...talent('core',133,'Eleminator',20,'Combat,Stealth'),
+    ...talent('core',133,'Eliminator',20,'Combat,Stealth'),
     snippet: 'Add you Stealth Score as ED to unaware targets.',
     description:
       '<p>You strike from the shadows, using stealth and the element of surprise to take down your foes in one fell swoop.</p>' +
