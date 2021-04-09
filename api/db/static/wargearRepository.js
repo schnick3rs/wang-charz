@@ -1388,15 +1388,18 @@ const fspg = [
   },
   {
     ...gear(source.fspg.key,125,'Bullgryn Plate','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
-    ...armour('Militarum Auxilla',4,''),
+    ...armour('Militarum Auxilla',4,'Ogryn'),
+    snippet: 'Ogryn Armour can`t be worn by Average-sized characteres.',
   },
   {
     ...gear(source.fspg.key,125,'Brute Shield','5R','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
-    ...armour('Militarum Auxilla',3,'Shield'),
+    ...armour('Militarum Auxilla',3,'Shield,Ogryn'),
+    snippet: 'Average-sized characters treat Ogryn shields as having the Bulk(2) trait.',
   },
   {
     ...gear(source.fspg.key,125,'Slabshield','5U','Heavy,Imperium,Astra Militarum,Militarum Auxilla'),
-    ...armour('Militarum Auxilla',4,'Cumbersome,Shield'),
+    ...armour('Militarum Auxilla',4,'Cumbersome,Shield,Ogryn'),
+    snippet: 'Average-sized characters treat Ogryn shields as having the Bulk(2) trait.',
   },
   // Equipment
   {
