@@ -606,7 +606,7 @@ const fspg = [
           {
             name: 'Armoured Hide',
             snippet: 'You gain +Rank to your Base Resilience.',
-            modifications: [ { targetGroup: 'traits', targetValue: 'resilience', rank: 1  } ],
+            modifications: [ { targetGroup: 'traits', targetValue: 'resilience', modifier: 0, rank: 1  } ],
           },
           {
             name: 'Bioluminescence',
