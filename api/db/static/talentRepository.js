@@ -1365,6 +1365,37 @@ const aaoa = [
       requireAttribute('strength', 3),
     ],
   },
+  {
+    ...talent(source.aaoa.key, 121, 'Catfall', 10, ''),
+    snippet: 'When you fall, count the distance fallen as half the actual distance for determining how many Mortal Wounds you suffer.',
+    description:
+      '<p>When you fall, count the distance fallen as half the actual distance for determining how many Mortal Wounds you suffer.</p>',
+    requirements: [
+      requireAttribute('agility', 3),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 121, 'Codex Discipline', 10, ''),
+    snippet: 'You increase your Conviction and Resolve by +Rank.',
+    description:
+      '<p>You increase your Conviction and Resolve by +Rank.</p>',
+    requirements: [
+      requireKeyword('ULTRAMARINES'),
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'conviction', rank: 1 },
+      { targetGroup: 'traits', targetValue: 'resolve', rank: 1 },
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 121, 'Conqueror Imperative', 20, ''),
+    snippet: 'At the start of any of your turns, you may activate the Conqueror Imperative. This adds +Double Rank bonus dice to any melee attacks you attempt during that turn but increases the DN of any ranged attacks you attempt that turn by +3. At the end of a turn in which you activate the Conqueror Imperative, you suffer 1d3+2 Shock.',
+    description:
+      '<p>At the start of any of your turns, you may activate the Conqueror Imperative. This adds +Double Rank bonus dice to any melee attacks you attempt during that turn but increases the DN of any ranged attacks you attempt that turn by +3. At the end of a turn in which you activate the Conqueror Imperative, you suffer 1d3+2 Shock.</p>',
+    requirements: [
+      requireKeyword('SKITARII'),
+    ],
+  },
 
   // Excarch Powers
   {
