@@ -1396,6 +1396,66 @@ const aaoa = [
       requireKeyword('SKITARII'),
     ],
   },
+  {
+    ...talent(source.aaoa.key, 121, 'Death to the False Emperor', 30, ''),
+    snippet: 'When you make a successful melee attack against a character with the IMPERIUM keyword and roll a 6 on the Wrath die, you may choose to make an additional melee attack instead of inflicting a critical hit. This additional attack cannot be used to gain more attacks.',
+    description:
+      '<p>When you make a successful melee attack against a character with the IMPERIUM keyword and roll a 6 on the Wrath die, you may choose to make an additional melee attack instead of inflicting a critical hit. This additional attack cannot be used to gain more attacks.</p>',
+    requirements: [
+      requireKeyword('CHAOS'),
+      requireKeyword('HERETIC ASTARTES'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 121, 'Death Visions', 10, ''),
+    snippet: 'When you charge into melee, you may add +Rank ED to the damage of that attack. However, you increase the Difficulty of any Willpower test to resist The Red Thirst by an amount equal to your Rank, and a Complication suffered in combat may cause you to hallucinate that you are Sanguinius himself, battling traitors in the Horus Heresy. Primaris Space Marines who take this talent become subject to The Red Thirst despite being Primaris.',
+    description:
+      '<p>When you charge into melee, you may add +Rank ED to the damage of that attack. However, you increase the Difficulty of any Willpower test to resist The Red Thirst by an amount equal to your Rank, and a Complication suffered in combat may cause you to hallucinate that you are Sanguinius himself, battling traitors in the Horus Heresy. Primaris Space Marines who take this talent become subject to The Red Thirst despite being Primaris.</p>',
+    requirements: [
+      requireKeyword('BLOOD ANGLES'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 121, 'Deceptive Retreat', 20, ''),
+    snippet: 'After you make a melee attack, whether successful or not, you may spend one Glory to Disengage as a free action.',
+    description:
+      '<p>After you make a melee attack, whether successful or not, you may spend one Glory to Disengage as a free action.</p>',
+    requirements: [
+      { condition: 'must', type: 'species', value: [ 'Aeldari', 'Drukhari' ] },
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 121, 'Ded ‘Ard!', 40, ''),
+    snippet: 'Your Resilience is increased by +Rank, and you add +Rank to the number of Traumatic Injuries you can suffer before dying.',
+    description:
+      '<p>Your Resilience is increased by +Rank, and you add +Rank to the number of Traumatic Injuries you can suffer before dying.</p>',
+    requirements: [
+      requireSpecies('Ork'),
+      requireAttribute('toughness', 5),
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'resilience', rank: 1 },
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 121, 'Descent of Angels', 20, ''),
+    snippet: 'If you Charge into melee while using a Jump Pack, roll a number of dice equal to Double Rank. For each 6 rolled, you inflict a single Mortal Wound upon an enemy within 2 metres of your landing. Resolve this before making the melee attack from your Charge.',
+    description:
+      '<p>If you Charge into melee while using a Jump Pack, roll a number of dice equal to Double Rank. For each 6 rolled, you inflict a single Mortal Wound upon an enemy within 2 metres of your landing. Resolve this before making the melee attack from your Charge.</p>',
+    requirements: [
+      requireKeyword('BLOOD ANGLES'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 122, 'Dreadful Vigour', 25, ''),
+    snippet: 'You gain +1d3 Corruption. As a simple action, you may spend 1 Wrath to regain 1d3+2 Wounds.',
+    description:
+      '<p>You gain +1d3 Corruption. As a simple action, you may spend 1 Wrath to regain 1d3+2 Wounds.</p>',
+    requirements: [
+      requireKeyword('CHAOS'),
+      requireKeyword('NURGLE'),
+    ],
+  },
 
   // Excarch Powers
   {
