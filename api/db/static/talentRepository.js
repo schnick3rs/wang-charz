@@ -1330,10 +1330,40 @@ const aaoa = [
       '<p>Immediately after you kill an enemy with a melee attack, you may move up to half your Speed towards the next nearest enemy.</p>',
   },
   {
-    ...talent(source.aaoa.key, 120, 'Bloodlust', 20, ''),
-    snippet: 'Immediately after you kill an enemy with a melee attack, you may move up to half your Speed towards the next nearest enemy.',
+    ...talent(source.aaoa.key, 120, 'Bolter Drill', 20, ''),
+    snippet: 'When you make a successful attack with a weapon with the Bolt keyword, and you roll a 6 on your Wrath die, instead of inflicting a critical hit you may choose to spend 1 ammo and make an additional attack with that weapon immediately, at the same target or another within 2+Rank metres of the initial target. This additional attack may not generate any further attacks.',
     description:
-      '<p>Immediately after you kill an enemy with a melee attack, you may move up to half your Speed towards the next nearest enemy.</p>',
+      '<p>When you make a successful attack with a weapon with the Bolt keyword, and you roll a 6 on your Wrath die, instead of inflicting a critical hit you may choose to spend 1 ammo and make an additional attack with that weapon immediately, at the same target or another within 2+Rank metres of the initial target. This additional attack may not generate any further attacks.</p>',
+    requirements: [
+      requireKeyword('IMPERIAL FISTS,CRIMSON FISTS'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 120, 'Brotherhood of Psykers', 10, ''),
+    snippet: 'When you attempt a Psychic Mastery test, you may add +1 bonus dice for every GREY KNIGHT with this Talent within 10m of you.',
+    description:
+      '<p>When you attempt a Psychic Mastery test, you may add +1 bonus dice for every GREY KNIGHT with this Talent within 10m of you.</p>',
+    requirements: [
+      requireKeyword('GREY KNIGHTS'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 120, 'Bulging Biceps', 10, ''),
+    snippet: 'When you wield a Heavy weapon, you are no longer knocked Prone by a Complication when firing the weapon.',
+    description:
+      '<p>When you wield a Heavy weapon, you are no longer knocked Prone by a Complication when firing the weapon.</p>',
+    requirements: [
+      requireAttribute('strength', 3),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 120, 'Bulging Biceps', 10, ''),
+    snippet: 'When you Charge, your melee weapons gain the Inflict (Prone) trait for that attack. This has no effect on enemies who are larger than you.',
+    description:
+      '<p>When you Charge, your melee weapons gain the Inflict (Prone) trait for that attack. This has no effect on enemies who are larger than you.</p>',
+    requirements: [
+      requireAttribute('strength', 3),
+    ],
   },
 
   // Excarch Powers
