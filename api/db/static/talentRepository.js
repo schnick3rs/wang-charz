@@ -1305,11 +1305,12 @@ const aaoa = [
   },
   {
     ...talent(source.aaoa.key, 120, 'Battle Focus', 10, ''),
-    snippet: 'Whenever you inflict a Critical Hit with a melee attack, you immediately recover Double Rank Shock.',
+    snippet: 'You do not have to move in a straight line when you sprint. Further, when you Sprint, you may make a ranged attack with any weapon as if that weapon had the Assault trait. You do not suffer the normal +2DN on the attack for doing this. This does not apply to weapons with the Heavy trait.',
     description:
-      '<p>Whenever you inflict a Critical Hit with a melee attack, you immediately recover Double Rank Shock.</p>',
+      '<p>You do not have to move in a straight line when you sprint. Further, when you Sprint, you may make a ranged attack with any weapon as if that weapon had the Assault trait. You do not suffer the normal +2DN on the attack for doing this. This does not apply to weapons with the Heavy trait.</p>',
     requirements: [
-      requireSkill('weaponSkill', 3),
+      requireSpecies('Aeldari'),
+      requireKeyword('ASURYANI'),
     ],
   },
 
