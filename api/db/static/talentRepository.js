@@ -1313,6 +1313,28 @@ const aaoa = [
       requireKeyword('ASURYANI'),
     ],
   },
+  {
+    ...talent(source.aaoa.key, 120, 'Blood for the Blood God', 30, ''),
+    snippet: 'You gain +1d3 Corruption. After you make a melee attack, you may spend 1 Wrath to make an additional attack.',
+    description:
+      '<p>You gain +1d3 Corruption. After you make a melee attack, you may spend 1 Wrath to make an additional attack.</p>',
+    requirements: [
+      requireKeyword('CHAOS'),
+      requireKeyword('KHORNE'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 120, 'Bloodlust', 20, ''),
+    snippet: 'Immediately after you kill an enemy with a melee attack, you may move up to half your Speed towards the next nearest enemy.',
+    description:
+      '<p>Immediately after you kill an enemy with a melee attack, you may move up to half your Speed towards the next nearest enemy.</p>',
+  },
+  {
+    ...talent(source.aaoa.key, 120, 'Bloodlust', 20, ''),
+    snippet: 'Immediately after you kill an enemy with a melee attack, you may move up to half your Speed towards the next nearest enemy.',
+    description:
+      '<p>Immediately after you kill an enemy with a melee attack, you may move up to half your Speed towards the next nearest enemy.</p>',
+  },
 
   // Excarch Powers
   {
