@@ -1203,6 +1203,118 @@ const core = [
 
 const aaoa = [
   {
+    ...talent(source.aaoa.key, 119, '`Ere We Go!', 20, ''),
+    snippet: 'When you Charge, increase speed by +Rank and add +1 ED on attacks.',
+    description:
+      '<p>When you Charge, you increase your Speed by +Rank. In addition, you gain +1 ED on your attacks when you charge.</p>',
+    requirements: [ requireSpecies('Ork') ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'speed', modifier: 0, rank: 1, condition: 'when charging.' },
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 119, 'Abhor The Witch', 20, ''),
+    snippet: 'Psykers targeting you suffer +Rank to Psychic Mastery DN. You do not consider Psykers your ally. ',
+    description:
+      '<p>When a psyker attempts to target you with a psychic power, increase the difficulty of their Psychic Mastery test by +Rank. This applies to both friendly and enemy psykers, as you consider no psyker your ally.</p>',
+    requirements: [ requireKeyword('BLACK TEMPLAR') ],
+  },
+  {
+    ...talent(source.aaoa.key, 119, 'Acolyte of Ynnead', 15, ''),
+    snippet: 'Spend 1 soul token to add +Rank to Psychic Mastery tests. ',
+    description:
+      '<p>When you attempt a Psychic Mastery test, you may spend 1 Soul token to add +Rank bonus dice to the test.</p>',
+    requirements: [
+      requireSpecies('Aeldari'),
+      requireKeyword('PSYKER'),
+      requireKeyword('YNNARI'),
+    ],
+    modifications: [
+      { targetGroup: 'skills', targetValue: 'psychicMastery', modifier: 0, rank: 1, condition: 'when spending a soul token.' },
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 119, 'Anathema', 30, ''),
+    snippet: 'Deal additional +Rank mortal wounds in melee against DAEMON and PSYKERs. DAEMONs within your WILLPOWER meters may not roll for Determination.',
+    description:
+      '<p>Whenever you succeed at a melee attack against a creature with the DAEMON or PSYKER keywords, your attack inflicts mortal wounds equal to your Rank in addition to any other damage inflicted. In addition, creatures with the DAEMON keyword within a number of metres of you equal to your Willpower may not attempt to roll Determination.</p>',
+    requirements: [
+      requireSpecies('Pariah'),
+      requireAttribute('willpower', 4),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 119, 'And They Shall Know No Fear', 5, ''),
+    snippet: 'You may re-roll any failures on any Resolve test you make.',
+    description:
+      '<p>You may re-roll any failures on any Resolve test you make.</p>',
+    requirements: [
+      { condition: 'must', type: 'species', value: [ 'Adeptus Astartes','Primaris Astartes' ] },
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 119, 'Armour of Contempt', 20, ''),
+    snippet: 'When you roll Determination, you add +Double Rank bonus dice to the roll.',
+    description:
+      '<p>When you roll Determination, you add +Double Rank bonus dice to the roll.</p>',
+    requirements: [
+      { condition: 'must', type: 'species', value: [ 'Adeptus Astartes','Primaris Astartes' ] },
+      requireAttribute('toughness', 5),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 119, 'Armour-Monger', 20, ''),
+    snippet: 'Increase Armour Rating by +Rank for your special suit of armour.',
+    description:
+      '<p>Select a single suit of armour you possess when you choose this Talent. When you wear that armour, increase the Armour Rating by +Rank. You must be able to spend at least an hour a day maintaining and adjusting the armour in order to gain this bonus.</p>',
+    requirements: [
+      requireKeyword('ADEPTUS MECHANICUS'),
+    ],
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'resilience', rank: 1, condition: 'when wearing YOUR armour.' },
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 119, 'A Taste for Death', 10, ''),
+    snippet: 'You may spend a Soul token to add +Rank bonus dice to your next attack.',
+    description:
+      '<p>You may spend a Soul token to add +Rank bonus dice to your next attack.</p>',
+    requirements: [
+      { condition: 'must', type: 'species', value: [ 'Aeldari', 'Drukhari' ] },
+      requireKeyword('YNNARI'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 120, 'Avatar of Blood', 20, ''),
+    snippet: 'Whenever you inflict a Critical Hit with a melee attack, you immediately recover Double Rank Shock.',
+    description:
+      '<p>Whenever you inflict a Critical Hit with a melee attack, you immediately recover Double Rank Shock.</p>',
+    requirements: [
+      requireSkill('weaponSkill', 3),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 120, 'Back from the Brink', 20, ''),
+    snippet: 'When you start Dying, you may immediately spend a Soul token to heal 1 Wound.',
+    description:
+      '<p>When you start Dying, you may immediately spend a Soul token to heal 1 Wound.</p>',
+    requirements: [
+      { condition: 'must', type: 'species', value: [ 'Aeldari', 'Drukhari' ] },
+      requireKeyword('YNNARI'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 120, 'Battle Focus', 10, ''),
+    snippet: 'Whenever you inflict a Critical Hit with a melee attack, you immediately recover Double Rank Shock.',
+    description:
+      '<p>Whenever you inflict a Critical Hit with a melee attack, you immediately recover Double Rank Shock.</p>',
+    requirements: [
+      requireSkill('weaponSkill', 3),
+    ],
+  },
+
+  // Excarch Powers
+  {
     ...talent('aaoa2',147,'Ambush',30,'','', 1 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
@@ -1433,4 +1545,5 @@ const aaoa = [
 
 module.exports = [
   ...core,
+  ...aaoa,
 ];
