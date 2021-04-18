@@ -748,10 +748,12 @@ export default {
         name: talent.name,
         selected: selectedValue,
       };
+      /*
       const selectedOption = talent.options.find((o) => o.key === selectedValue);
       if(selectedOption && selectedOption.modifications) {
         this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: selectedOption.modifications, source: `talent.${talent.id}` } });
       }
+      */
       this.$store.commit('characters/setCharacterTalentSelected', { id, talent: talentPayload });
     },
     talentAugmeticImplantsUpdateImplantChoice(gear, itemKey, talent) {
