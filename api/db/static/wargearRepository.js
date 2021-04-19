@@ -1158,34 +1158,37 @@ const core = [
     ...gear(source.core.key,244,'Mechadendrites (Ballistic)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'Functions as a Laspistol (p.217). Your biology powers the weapon, so it does not use Ammo or need to be Reloaded.',
+    meta: [ metaRange(7,1,0,12,1,['Pistol,Reliable']) ],
   },
   {
     ...gear(source.core.key,245,'Mechadendrites (Exploration)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'Functions as an Auspex (p.236). +1 bonus die to Survival (Wil) Tests to navigate or track.',
+    modifications: [ { targetGroup: 'skills', targetValue: SKILLS.SURVIVAL, modifier: 1, condition: 'when navigation or tacking.' } ],
   },
   {
     ...gear(source.core.key,245,'Mechadendrites (Medicae)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
-    snippet: 'Functions as a Medikit and a Diagnostor (p.238 & p.237). +1 bonus die to Medicae (Int) Tests. Can be used to inject toxins, sedatives, and stimulants in combat as a Simple Injecting an unwilling target requires an Opposed Initiative Test.',
+    snippet: 'Functions as a Medikit (p.238) and a Diagnostor (p.237). +1 bonus die to Medicae (Int) Tests. Can be used to inject toxins, sedatives, and stimulants in combat as a Simple Injecting an unwilling target requires an Opposed Initiative Test.',
+    modifications: [ { targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 1 } ],
   },
   {
     ...gear(source.core.key,245,'Mechadendrites (Optical)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
-    snippet: 'Functions as a Pict Recorder and Magnoculars (p.237). +1 bonus die to Awareness (Int) Tests; allows you to make microscopic examinations.',
+    snippet: 'Functions as a Magnocular Scope (p.228) and Preysense Goggles (p.237). +1 bonus die to Awareness (Int) Tests; allows you to make microscopic examinations.',
+    modifications: [ { targetGroup: 'skills', targetValue: SKILLS.AWARENESS, modifier: 1 } ],
   },
   {
     ...gear(source.core.key,245,'Mechadendrites (Servo-Arm)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'You gain +4 Strength when using the arm. In combat, the arm allows you to Brace (p.189) as a Free Action. You can use the arm as a melee weapon with the following profile: Damage 6+2ED, AP-3, Unwieldy(2)',
-    meta: [
-      metaMelee(6,2,-3,1,['Unwieldy(2)']),
-    ],
+    meta: [ metaMelee(6,2,-3,1,['Unwieldy(2)']) ],
   },
   {
     ...gear(source.core.key,245,'Mechadendrites (Utility)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
     snippet: 'Functions as a Combi-Tool (p.236). +1 bonus die to Tech (Int) Tests.',
+    modifications: [ { targetGroup: 'skills', targetValue: SKILLS.TECH, modifier: 1 } ],
   },
   {
     ...gear(source.core.key,245,'Mind Impulse Unit','6R','[Any]'),
@@ -1197,9 +1200,9 @@ const core = [
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'You gain +1 Intellect and +1 Willpower but suffer −2 Fellowship.',
     modifications: [
-      { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1 },
-      { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1 },
-      { targetGroup: 'attributes', targetValue: 'fellowship', modifier: -2 },
+      { targetGroup: 'attributes', targetValue: ATTRIBUTES.INTELLECT, modifier: 1 },
+      { targetGroup: 'attributes', targetValue: ATTRIBUTES.WILLPOWER, modifier: 1 },
+      { targetGroup: 'attributes', targetValue: ATTRIBUTES.FELLOWSHIP, modifier: -2 },
     ],
   },
   {
