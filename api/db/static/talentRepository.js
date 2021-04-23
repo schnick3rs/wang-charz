@@ -1357,7 +1357,7 @@ const aaoa = [
     ],
   },
   {
-    ...talent(source.aaoa.key, 120, 'Bulging Biceps', 10, ''),
+    ...talent(source.aaoa.key, 120, 'Bull Charge', 10, ''),
     snippet: 'When you Charge, your melee weapons gain the Inflict (Prone) trait for that attack. This has no effect on enemies who are larger than you.',
     description:
       '<p>When you Charge, your melee weapons gain the Inflict (Prone) trait for that attack. This has no effect on enemies who are larger than you.</p>',
