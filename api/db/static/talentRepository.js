@@ -365,7 +365,7 @@ const core = [
   {
     ...talent('core',132,'Die Hard',20,'Survival'),
     hint: 'You’re hard to kill.',
-    snippet: 'When reaching max Wounds, roll for a Memorable Injurie, heal 1 Wound. Use once per Long Rest.',
+    snippet: 'When reaching max Wounds, roll for a Memorable Injurie, heal 1 Wound. Use once per Short Rest.',
     description:
       '<p>You’re hard to kill.</p>' +
       '<p>When you suffer your maximum Wounds, you are not Dying. Roll once on the Memorable Injuries table and heal 1 Wound.</p>' +
@@ -538,7 +538,7 @@ const core = [
   },
   {
     ...talent('core',134,'Hardy',30,'Survival'),
-    snippet: 'As a Combat Action, roll Toughness (DN 3): Recover 1+Double Rank shock or only 1 on a failure. Shift for 1 additional shock. Use once per Long Rest.',
+    snippet: 'As a Combat Action, roll Toughness (DN 3): Recover 1+Double Rank shock or only 1 on a failure. Shift for 1 additional shock. Use once per Short Rest.',
     description:
       '<p>You are innately durable, or have undergone harrowing endurance training.</p>' +
       '<p>As a Combat Action, you can make a DN 3 Toughness Test. On a failure you recover 1 Shock. On a success you recover 1 + Double Rank Shock. Each Shifted Exalted Icon recovers an additional point of Shock.</p>' +
@@ -741,7 +741,7 @@ const core = [
   },
   {
     ...talent('core',137,'Orthopraxy',20),
-    snippet: 'As an ongoing Simple Action, you gain +1 to Willpower for up to Double Rank turns. Use once per Respite (Short Rest).',
+    snippet: 'As an ongoing Simple Action, you gain +1 to Willpower for up to Double Rank turns. Use once per Respite (Long Rest).',
     description:
       '<p>The litanies of His holy word have burned themselves deep in your memory. You can recite hymns and prayers to the Emperor by rote, and can use them to bolster your mind.</p>' +
       '<p>As a Simple Action you can begin mentally reciting Ecclesiastical liturgies. As long as you sacrifice your Simple Action in this way, you gain +1 bonus Willpower, for a maximum of Double Rank Rounds.</p>' +
