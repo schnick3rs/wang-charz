@@ -1011,7 +1011,7 @@ const core = [
   },
   {
     ...gear(source.core.key,239,'Rule Of The Sororitas','2U','[Any]'),
-    ...toolz('Imperial Equipment','If you have the ADEPTA SORORITAS Keyword, you can read the Rule of Sororitas as part of a Regroup (Long Rest) to recover 1d3 Shock.'),
+    ...toolz('Imperial Equipment','If you have the ADEPTA SORORITAS Keyword, you can read the Rule of Sororitas as part of a Regroup (Short Rest) to recover 1d3 Shock.'),
   },
   {
     ...gear(source.core.key,239,'Sacred Machine Oil','3U','Imperium,Adeptus Mechanicus'),
