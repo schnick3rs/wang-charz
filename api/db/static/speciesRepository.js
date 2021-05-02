@@ -1,5 +1,5 @@
 import { source } from './_sourcesRepository';
-import { SKILLS } from './_statUtils';
+import { SKILLS, ATTRIBUTES, TRAITS } from './_statUtils';
 
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
@@ -13,6 +13,16 @@ const stringToKebabToCamel = function (text) {
   const slug = stringToKebab(text);
   return kebabToCamel(slug);
 };
+
+const addModifier = function(targetGroup, targetValue, modifier = 0, rank = 0, condition = undefined) {
+  return {
+    targetGroup,
+    targetValue,
+    modifier,
+    rank,
+    condition,
+  };
+}
 
 const background = function (text, plusOne, type) {
   const parts = text.split(': ');
@@ -516,97 +526,97 @@ const fspg = [
           {
             name: 'Maneater (Strength)',
             snippet: '+1 to your lowest Attribute (Strength).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.STRENGTH, 1) ],
           },
           {
             name: 'Maneater (Toughness)',
             snippet: '+1 to your lowest Attribute (Toughness).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.TOUGHNESS, 1) ],
           },
           {
             name: 'Maneater (Agility)',
             snippet: '+1 to your lowest Attribute (Agility).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'agility', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.AGILITY, 1) ],
           },
           {
             name: 'Maneater (Initiative)',
             snippet: '+1 to your lowest Attribute (Initiative).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'initiative', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.INITIATIVE, 1) ],
           },
           {
             name: 'Maneater (Willpower)',
             snippet: '+1 to your lowest Attribute (Willpower).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.WILLPOWER, 1) ],
           },
           {
             name: 'Maneater (Intellect)',
             snippet: '+1 to your lowest Attribute (Intellect).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'intellect', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.INTELLECT, 1) ],
           },
           {
             name: 'Maneater (Fellowship)',
             snippet: '+1 to your lowest Attribute (Fellowship).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'fellowship', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.FELLOWSHIP, 1) ],
           },
           {
             name: 'Astartes Eater (Strength)',
             snippet: '+2 to any Attribute (Strength).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 2  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.STRENGTH, 2) ],
           },
           {
             name: 'Astartes Eater (Toughness)',
             snippet: '+2 to any Attribute (Toughness).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 2  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.TOUGHNESS, 2) ],
           },
           {
             name: 'Astartes Eater (Agility)',
             snippet: '+2 to any Attribute (Agility).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'agility', modifier: 2  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.AGILITY, 2) ],
           },
           {
             name: 'Astartes Eater (Initiative)',
             snippet: '+2 to any Attribute (Initiative).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'initiative', modifier: 2  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.INITIATIVE, 2) ],
           },
           {
             name: 'Astartes Eater (Willpower)',
             snippet: '+2 to any Attribute (Willpower).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'willpower', modifier: 2  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.WILLPOWER, 2) ],
           },
           {
             name: 'Astartes Eater (Intellect)',
             snippet: '+2 to any Attribute (Intellect).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'intellect', modifier: 2  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.INTELLECT, 2) ],
           },
           {
             name: 'Astartes Eater (Fellowship)',
             snippet: '+2 to any Attribute (Fellowship).',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'fellowship', modifier: 2  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.FELLOWSHIP, 2) ],
           },
           {
             name: 'Aeldari Eater (Agility)',
             snippet: '+1 to Agility.',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'agility', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.AGILITY, 1) ],
           },
           {
             name: 'Aeldari Eater (Willpower)',
             snippet: '+1 to Willpower.',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'willpower', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.WILLPOWER, 1) ],
           },
           {
             name: 'Ork Eater (Strength)',
             snippet: '+1 to Strength.',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'strength', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.STRENGTH, 1) ],
           },
           {
             name: 'Ork Eater (Toughness)',
             snippet: '+1 to Toughness.',
-            modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1  } ],
+            modifications: [ addModifier('attributes', ATTRIBUTES.TOUGHNESS, 1) ],
           },
           {
             name: 'Armoured Hide',
             snippet: 'You gain +Rank to your Base Resilience.',
-            modifications: [ { targetGroup: 'traits', targetValue: 'resilience', modifier: 0, rank: 1  } ],
+            modifications: [ addModifier('traits', TRAITS.RESILIENCE, 0, 1) ],
           },
           {
             name: 'Bioluminescence',
@@ -619,7 +629,7 @@ const fspg = [
           {
             name: 'Facultative Bipedalism',
             snippet: 'You may Sprint twice as fast as normal and make Athletics (S) Tests to jump or climb with +Double Rank Bonus Dice.',
-            modifications: [ { targetGroup: 'skills', targetValue: 'athletics', rank: 2, condition: 'when jumping or climbing.'  } ],
+            modifications: [ addModifier('skills', SKILLS.ATHLETICS, 0, 2, 'when jumping or climbing.') ],
           },
           {
             name: 'Hypersensetive Quills',
