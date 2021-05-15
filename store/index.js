@@ -3,11 +3,13 @@ import axios from 'axios';
 export const state = () => ({
   version: 1,
   builderVersion: 11,
+  theme: 'light',
 });
 
 export const getters = {
   version: (state) => state.version || 0,
   builderVersion: (state) => 11,
+  theme: (state) => state.theme,
   /*
   isAuthenticated(state) {
     return state.auth.loggedIn
@@ -31,6 +33,9 @@ export const mutations = {
     state.setting = payload.setting;
     state.settingSelected = true;
   },
+  setTheme(state, theme) {
+    state.theme = theme;
+  }
 };
 
 const baseApiUrl = 'http://localhost:3000';
