@@ -744,7 +744,7 @@ const core = [
     snippet: 'You can carry 10 additional Reloads.',
   },
   {
-    ...gear(source.core.key,229,'Bandolier','5C','[Any]'),
+    ...gear(source.core.key,229,'Bandolier','2C','[Any]'),
     type: 'Ammo',
     subtype: 'Ammo Container',
     snippet: 'You can carry 2 additional Reloads.',
@@ -1123,7 +1123,7 @@ const core = [
   {
     ...gear(source.core.key,244,'Augmetic Viscera','5V','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Enhancements',
-    snippet: 'You gain +2 Toughness.',
+    snippet: 'You gain +1 Toughness.',
     modifications: [ { targetGroup: 'attributes', targetValue: 'toughness', modifier: 1 } ],
   },
   {
@@ -2690,13 +2690,6 @@ const aaoav2 = [
     snippet: 'Weapon gains AP -2, and the Fire keyword.',
   },
   {
-    ...simpleStub(31262, 'aaoa2',126,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
-    ...armour('Astartes Armour', 5, 'Bulk (1), Powered (4)'),
-    snippet: 'Reinforced: The wearer adds +2 to their Toughness while wearing this armour.',
-    description:
-      '<p>Mark X power armour comes in a number of varieties, as the underlying armour system is designed to be modular and customisable according to battlefield role. The heavier variant is known as Gravis armour, which incorporates additional cowling, and ablative armour layers to increase the wearer’s durability in battle, at the cost of reduced mobility.</p>',
-  },
-  {
     ...simpleStub(31263, 'aaoa2',126,'Phobos Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
     ...armour('Astartes Armour', 5, 'Powered (3)'),
     snippet: 'Silenced: The wearer may re-roll up to two dice when making a Stealth test.',
@@ -2713,13 +2706,6 @@ const aaoav2 = [
   {
     ...simpleStub(31301, 'aaoa2',130,'Aspect Armour', '5V', 'Aeldari, Asuryani, Aspect Warrior', ''),
     ...armour('Aeldari Armour', 4),
-  },
-  {
-    ...simpleStub(31222, 'aaoa2',131,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris', ''),
-    ...armour('Astartes Armour', 5, 'Bulk (1), Powered (4)'),
-    snippet: 'Reinforced: The wearer adds +2 to their Toughness while wearing this armour.',
-    description:
-      '<p>Mark X power armour comes in a number of varieties, as the underlying armour system is designed to be modular and customisable according to battlefield role. The heavier variant is known as Gravis armour, which incorporates additional cowling, and ablative armour layers to increase the wearer’s durability in battle, at the cost of reduced mobility.</p>',
   },
   {
     ...simpleStub(31333, 'aaoa2',133,'Ionclad Carapace Armour', '6R', 'Heavy, Squat', ''),

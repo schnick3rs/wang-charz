@@ -2,6 +2,7 @@
 
   <div>
 
+    <!-- Keyword editor -->
     <v-dialog
       v-model="keywordsEditorDialog"
       width="600px"
@@ -44,6 +45,7 @@
       </v-form>
     </v-dialog>
 
+    <!-- Custom Skills -->
     <v-dialog
       v-model="skillsEditorDialog"
       width="600px"
@@ -74,6 +76,7 @@
       </v-card>
     </v-dialog>
 
+    <!-- Corruption -->
     <v-dialog
       v-model="showCorruptionManagerDialog"
       width="800px"
