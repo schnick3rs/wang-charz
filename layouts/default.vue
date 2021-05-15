@@ -207,7 +207,7 @@ export default {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
       let theme = this.$vuetify.theme.dark ? 'dark' : 'light';
       this.$store.commit('setTheme', theme);
-      this.$ga.event('Settings', 'Change Theme', theme);
+      this.$ga.event('Settings', 'Change Theme', theme, 1);
     },
     toggleDrawer() {
       if (this.drawer.permanent) {
