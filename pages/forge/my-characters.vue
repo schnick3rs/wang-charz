@@ -623,7 +623,7 @@ export default {
 
     &__content-container {
       flex: 1 1 auto;
-      color: rgba(0, 0, 0, 0.54);
+      //color: rgba(0, 0, 0, 0.54);
     }
 
     &__campaign-container {

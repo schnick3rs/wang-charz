@@ -579,7 +579,7 @@ export default {
   }
 
   .text--keyword {
-    color: darkred;
+    color: rgb(244 64 52);
     font-weight: 600;
     font-family: serif;
     text-transform: uppercase;

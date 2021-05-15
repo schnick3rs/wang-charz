@@ -107,6 +107,9 @@
             </g>
           </svg>
           </v-btn>
+          <v-btn icon @click="toggleDarkTheme">
+            <v-icon>mdi-brightness-6</v-icon>
+          </v-btn>
         </v-toolbar-items>
 
         <v-app-bar-nav-icon @click.stop="toggleDrawer" class="d-md-none" />
@@ -121,7 +124,7 @@
           <v-btn
             v-for="item in navigation"
             :key="item.to"
-            small
+            smallt
             text
             nuxt
             :to="item.to"
@@ -159,6 +162,7 @@ export default {
   },
   data() {
     return {
+      darkTheme: false,
       navigation: [
         { to: '/vault', title: 'Vault', subtitle: 'Browse Homebrews', icon: '' },
         { to: '/forge/my-characters', title: 'Forge', subtitle: 'Create Characters', icon: '' },
@@ -204,7 +208,25 @@ export default {
       },
     };
   },
+  computed: {
+    theme() {
+      return this.$store.getters['theme'];
+    },
+  },
+  watch: {
+    theme: {
+      handler(newTheme, oldTheme) {
+        console.info(`handle ${newTheme}`);
+        this.$vuetify.theme.dark = newTheme !== 'light';
+      },
+      immediate: true, // make this watch function is called when component created
+    }
+  },
   methods: {
+    toggleDarkTheme() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+      this.$store.commit('setTheme', this.$vuetify.theme.dark ? 'dark' : 'light');
+    },
     toggleDrawer() {
       if (this.drawer.permanent) {
         this.drawer.permanent = !this.drawer.permanent;

@@ -68,7 +68,7 @@ export default {
     border-left: 0.5px solid hsl(194, 90%, 90%);
     border-right: 0.5px solid hsl(194, 90%, 90%);
     border-bottom: 2px solid hsl(195, 16%, 90%);
-    background: white;
+    //background: white;
     padding: 20px 10px;
     margin-bottom: 20px;
 
