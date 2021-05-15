@@ -181,7 +181,7 @@
          <v-col :cols="12" class="pa-1">
           <v-card>
             <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
-              Attributes
+              <h2 class="subtitle-1">Attributes</h2>
             </v-card-title>
 
             <v-simple-table dense>
@@ -222,7 +222,7 @@
           <v-col :cols="12" class="pa-1">
           <v-card>
             <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
-              Traits
+              <h2 class="subtitle-1">Traits</h2>
             </v-card-title>
 
             <v-simple-table
@@ -301,7 +301,7 @@
           <v-col :cols="12" class="pa-1">
           <v-card style="height: 755px; display: flex; flex-flow: column;">
             <v-card-title style="background-color: hsl(4, 90%, 58%); color: #fff;" class="body-1 pt-1 pb-1">
-              Skills
+              <h2 class="subtitle-1">Skills</h2>
             </v-card-title>
 
             <v-simple-table
@@ -419,11 +419,11 @@
 
             -->
 
-            <v-tab class="caption" key="actions" :href="`#tab-actions`">Weapons</v-tab>
-            <v-tab class="caption" key="wargear" :href="`#tab-wargear`">Wargear</v-tab>
-            <v-tab class="caption" key="abilities-talents" :href="`#tab-abilities-talents`">Abilities</v-tab>
-            <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`" v-if="psychicPowers.length > 0">Powers</v-tab>
-            <v-tab class="caption" key="objectives" :href="`#tab-objectives`">Description</v-tab>
+            <v-tab class="caption" key="actions" :href="`#tab-actions`"><h2 class="subtitle-2">Weapons</h2></v-tab>
+            <v-tab class="caption" key="wargear" :href="`#tab-wargear`"><h2 class="subtitle-2">Wargear</h2></v-tab>
+            <v-tab class="caption" key="abilities-talents" :href="`#tab-abilities-talents`"><h2 class="subtitle-2">Abilities</h2></v-tab>
+            <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`" v-if="psychicPowers.length > 0"><h2 class="subtitle-2">Powers</h2></v-tab>
+            <v-tab class="caption" key="objectives" :href="`#tab-objectives`"><h2 class="subtitle-2">Description</h2></v-tab>
 
             <!-- actions (all, weapons, powers, other) -->
             <v-tab-item
