@@ -188,7 +188,7 @@ export default {
 <style scoped lang="scss">
 
   .bg--red {
-    background-color: darkred;
+    background-color: #F44336;
     color: white;
   }
 

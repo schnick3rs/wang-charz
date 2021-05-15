@@ -23,7 +23,7 @@
 
       <v-divider/>
 
-      <div class="mt-2 body-2 text-lg-justify" style="color: rgba(0,0,0,0.6)">
+      <div class="mt-2 body-2 text-lg-justify">
 
         <p>
           <strong>XP Cost:</strong> {{ species.cost }}, incl. Stats ({{ species.costs.stats }} XP)
@@ -43,7 +43,7 @@
 
       </div>
 
-      <div v-if="species.speciesFeatures" class="body-2" style="color: rgba(0,0,0,0.6)">
+      <div v-if="species.speciesFeatures" class="body-2">
         <span class="subtitle-1 mt-2">Abilities</span>
         <p><v-divider /></p>
 

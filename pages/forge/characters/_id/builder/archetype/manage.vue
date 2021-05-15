@@ -27,7 +27,7 @@
 
       <v-divider></v-divider>
 
-      <div class="mt-2 body-2 text-justify" style="color: rgba(0,0,0,0.6)">
+      <div class="mt-2 body-2 text-justify">
 
         <v-alert
           v-if="item.alerts"
@@ -78,7 +78,7 @@
 
         <p>
           <strong>Keywords: </strong>
-          <span style="text-transform: uppercase; color: darkred;" v-if="item.keywords">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
+          <span style="text-transform: uppercase; color: #F44336;" v-if="item.keywords">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
           <span v-else>none</span>
         </p>
 

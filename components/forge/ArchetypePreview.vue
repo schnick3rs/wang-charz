@@ -42,7 +42,7 @@
 
       <p class="text-lg-justify">
         <strong>Keywords: </strong>
-        <span style="text-transform: uppercase; color: darkred;">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
+        <span style="text-transform: uppercase; color: #F44336;">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
       </p>
 
       <div

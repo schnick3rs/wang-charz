@@ -21,7 +21,7 @@
 
         <v-container class="caption">
 
-          <v-row style="background-color: darkred; color: white;">
+          <v-row style="background-color: #F44336; color: white;">
             <v-col>{{ item.name }}</v-col>
           </v-row>
 
@@ -65,7 +65,7 @@
           </v-row>
 
           <v-row v-show="false">
-            <v-col :cols="8" style="background-color: darkred; color: white;">Suggested Attributes</v-col>
+            <v-col :cols="8" style="background-color: #F44336; color: white;">Suggested Attributes</v-col>
             <v-col :cols="3" style="background-color: #424242; color: white;">XP Cost</v-col>
             <v-col :cols="1" style="background-color: lightgray;">13</v-col>
           </v-row>
@@ -91,14 +91,14 @@
           </v-row>
 
           <v-row v-show="false" v-if="suggestedSkills">
-            <v-col :cols="8" style="background-color: darkred; color: white;">Suggested Skills</v-col>
+            <v-col :cols="8" style="background-color: #F44336; color: white;">Suggested Skills</v-col>
             <v-col :cols="3" style="background-color: #424242; color: white;">XP Cost</v-col>
             <v-col :cols="1" style="background-color: lightgray;">13</v-col>
             <v-col :cols="12" >{{ suggestedSkills }}</v-col>
           </v-row>
 
           <v-row v-show="false" v-if="suggestedTalents && suggestedTalents.length > 0">
-            <v-col :cols="12" style="background-color: darkred; color: white;">Suggested Talents</v-col>
+            <v-col :cols="12" style="background-color: #F44336; color: white;">Suggested Talents</v-col>
             <v-col :cols="12">
               {{ suggestedTalents.map((t) => `${t.name} (${t.source.key}, pg. ${t.source.page})`).join(', ') }}
             </v-col>
@@ -233,15 +233,15 @@ export default {
 <style scoped lang="scss">
 
 .text--keyword {
-  color: darkred;
+  color: #F44336;
   font-weight: 600;
   font-family: serif;
   text-transform: uppercase;
 }
 
 .zigzag {
-  background: linear-gradient(135deg, #fff 5px, transparent 0) 0 5px, linear-gradient(-135deg, #fff 5px, darkred 0) 0 5px;
-  background-color: darkred;
+  background: linear-gradient(135deg, #fff 5px, transparent 0) 0 5px, linear-gradient(-135deg, #fff 5px, #F44336 0) 0 5px;
+  background-color: #F44336;
   background-position: left top;
   background-repeat: repeat-x;
   background-size: 10px 10px;
