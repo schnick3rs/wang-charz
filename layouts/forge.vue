@@ -507,7 +507,9 @@ export default {
     },
     toggleDarkTheme() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
-      this.$store.commit('setTheme', this.$vuetify.theme.dark ? 'dark' : 'light');
+      let theme = this.$vuetify.theme.dark ? 'dark' : 'light';
+      this.$store.commit('setTheme', theme);
+      this.$ga.event('Settings', 'Change Theme', theme);
     },
     // toggles the drawer type (permanent vs temporary) or shows/hides the drawer
     toggleDrawer() {
