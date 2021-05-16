@@ -140,7 +140,7 @@ export default {
         },
         {
           key: 'eather',
-          title: 'Breadcasting <strong>Ether</strong>',
+          title: 'Broadcasting <strong>Ether</strong>',
           subtitle: 'A browsable list of Lets Plays',
           imageSrc: '/img/artwork_ether.jpg',
           imageCredit: 'Artwork from Pixabay',
