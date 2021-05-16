@@ -945,7 +945,13 @@
                       </span>
                     </div>
                     <div v-if="characterNotesShowEditor">
-                      <v-textarea v-model="characterNotesEditorModel"></v-textarea>
+                      <v-textarea
+                          v-model="characterNotesEditorModel"
+                          hint="Use markdown, e.g. **bold** _italic_"
+                          persistent-hint
+                          filled
+                          auto-grow
+                      ></v-textarea>
                       <v-btn @click="characterNotesSave" small color="success">Save</v-btn>
                     </div>
                     <div v-else-if="characterNotes" class="caption" v-html="characterNotes">
