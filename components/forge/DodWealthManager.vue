@@ -2,7 +2,7 @@
   <v-card>
 
     <v-card-title style="background-color: #262e37; color: #fff;" class="mb-4">
-      Wealth & Asset Manager
+      Customize Trait: {{trait.name}}
       <v-spacer />
       <v-icon dark @click="$emit('cancel')">
         close
@@ -10,9 +10,8 @@
     </v-card-title>
 
     <v-card-text>
-
-      <h3 class="mt-4">A history of wealth</h3>
-      <p>Shows the modifiers and thus history of your wealth and assets.</p>
+      <h3 class="mt-4">A history of {{ trait.name }}</h3>
+      <p>Shows the modifiers and thus history of your changes.</p>
       <div class="mt-1" v-show="modifiers && modifiers.length > 0">
         <ul>
           <li v-for="item in modifiers">
@@ -21,7 +20,7 @@
             <v-btn
                 v-if="item.id"
                 icon x-small
-                @click="removeWealth(item.id)"
+                @click="removeModifier(item.id)"
             >
               <v-icon>delete</v-icon>
             </v-btn>
@@ -29,17 +28,17 @@
         </ul>
       </div>
 
-      <h3 class="mt-4">Add Wealth</h3>
-      <p>In case some event or the GM causes some additional (or substraction thereoff) Wealth, you can add it here.</p>
+      <h3 class="mt-4">Add {{ trait.name }} modifier</h3>
+      <p>In case some event or the GM causes some additional (or substraction thereoff) {{ trait.name }}, you can add it here.</p>
       <v-row>
         <v-col :cols="12" :md="4">
           <v-text-field
               v-model="newValue"
               type="number"
               dense outlined required
-              label="Wealth Points"
+              :label="`${trait.name} Points`"
               persistent-hint
-              hint="Number of Wealth Points to gain"
+              :hint="`Number of ${trait.name} to gain or lose`"
           ></v-text-field>
         </v-col>
         <v-col :cols="12" :md="8">
@@ -49,7 +48,7 @@
               dense outlined required
               label="Source"
               persistent-hint
-              hint="A hint how you got this wealth"
+              hint="A hint how you got this modifier"
               @click:append-outer="addWealth"
               append-outer-icon="mdi-plus-circle"
           ></v-text-field>
@@ -68,12 +67,18 @@
 </template>
 
 <script>
+import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
+
 export default {
   name: 'WealthManager',
+  mixins: [
+      StatRepositoryMixin,
+  ],
   props: {
     characterId: { type: String, required: true },
     characterTraits: Array,
     characterModifiers: Array,
+    traitKey: { type: String, required: true },
   },
   data() {
     return {
@@ -82,14 +87,14 @@ export default {
     };
   },
   computed: {
-    characterWealth() {
-      return this.$store.getters['characters/characterWealthPointsById'](this.characterId);
+    trait() {
+      return this.getTraitByKey(this.traitKey);
     },
     traitWealth() {
-      return this.characterTraits.find((t)=>t.key==='wealth');
+      return this.characterTraits.find((t)=>t.key === this.traitKey);
     },
     modifiers() {
-      return this.characterModifiers.filter((e) => e.targetValue === 'wealth');
+      return this.characterModifiers.filter((e) => e.targetValue === this.traitKey);
     },
   },
   methods: {
@@ -97,9 +102,9 @@ export default {
       const id = this.characterId;
       const content = {
         modifications: [{
-          name: 'Wealth',
+          name: this.trait.name,
           targetGroup: 'traits',
-          targetValue: 'wealth',
+          targetValue: this.trait.key,
           modifier: parseInt(this.newValue),
           hint: this.newHint,
         }],
@@ -109,7 +114,7 @@ export default {
       this.newValue = 0;
       this.newHint = '';
     },
-    removeWealth(modificationId) {
+    removeModifier(modificationId) {
       const id = this.characterId;
       this.$store.commit('characters/removeCharacterModificationById', { id, modificationId });
     },

@@ -105,6 +105,7 @@
             :character-id="characterId"
             :character-traits="traits"
             :character-modifiers="characterEnhancements"
+            :trait-key="contextDialogTraitKey"
             @cancel="hideContextDialog"
         ></component>
       </v-card>
@@ -245,8 +246,8 @@
                         </v-hover>
                       </v-btn>
                     </span>
-                    <span v-if="['Wealth'].includes(item.name)">
-                      <v-btn x-small icon @click="showContext('wealth')">
+                    <span v-if="['Wealth', 'Influence'].includes(item.name)">
+                      <v-btn x-small icon @click="showContext(item.key)">
                         <v-hover>
                           <v-icon
                               slot-scope="{ hover }"
@@ -1118,6 +1119,7 @@ export default {
       //
       showContextDialog: false,
       contextDialogComponent: undefined,
+      contextDialogTraitKey: undefined,
       //
       objectiveEditorShow: false,
       objectiveEditorValue: '',
@@ -2290,6 +2292,8 @@ export default {
     showContext(type) {
       switch (type) {
         case 'wealth':
+        default:
+          this.contextDialogTraitKey = type;
           this.contextDialogComponent = () => import('~/components/forge/DodWealthManager.vue');
           this.showContextDialog = true;
       }
@@ -2298,6 +2302,7 @@ export default {
     hideContextDialog() {
       this.showContextDialog = false;
       this.contextDialogComponent = null;
+      this.contextDialogTraitKey = null;
     },
 
     valueHintColor(item) {
