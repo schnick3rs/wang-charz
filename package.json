@@ -40,6 +40,7 @@
     "lodash": "^4.17.21",
     "lodash.merge": "^4.6.2",
     "lodash.template": "^4.5.0",
+    "marked": "^2.0.3",
     "nuxt": "^2.15.6",
     "pg": "^8.5.1",
     "redirect-ssl": "^2.0.1",

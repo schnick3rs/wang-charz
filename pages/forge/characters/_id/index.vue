@@ -939,17 +939,16 @@
                   <!-- objectives < description -->
                   <div v-show="['all', 'notes'].some(i=>i===descriptionSection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-                      <span class="body-2 red--text">Notes</span>
+                      <span class="body-2 red--text">
+                        Notes
+                        <v-icon v-if="!characterNotesShowEditor" small @click="characterNotesOpenEditor">edit</v-icon>
+                      </span>
                     </div>
                     <div v-if="characterNotesShowEditor">
                       <v-textarea v-model="characterNotesEditorModel"></v-textarea>
                       <v-btn @click="characterNotesSave" small color="success">Save</v-btn>
                     </div>
-                    <div v-else-if="characterNotes" class="caption" >
-                      <p>
-                        {{characterNotes}}
-                        <v-icon small @click="characterNotesOpenEditor">edit</v-icon>
-                      </p>
+                    <div v-else-if="characterNotes" class="caption" v-html="characterNotes">
                     </div>
                     <span v-else class="caption" @click="characterNotesOpenEditor">+ Add Notes</span>
                   </div>
@@ -1034,6 +1033,7 @@ import MutationsMixin from '~/mixins/MutationsMixin';
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import DodCorruptionManager from '~/components/forge/DodCorruptionManager';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
+import marked from 'marked';
 
 export default {
   name: 'in-app-view',
@@ -2180,7 +2180,8 @@ export default {
       return [];
     },
     characterNotes() {
-      return this.$store.getters['characters/characterFluffNotesById'](this.characterId);
+      const notes = this.$store.getters['characters/characterFluffNotesById'](this.characterId) || '';
+      return marked(notes);
     },
     weaponsTraitSet() {
       let weaponsTraitSet = [];
