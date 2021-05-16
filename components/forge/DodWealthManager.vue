@@ -11,10 +11,13 @@
 
     <v-card-text>
 
+      <h3 class="mt-4">A history of wealth</h3>
+      <p>Shows the modifiers and thus history of your wealth and assets.</p>
       <div class="mt-1" v-show="modifiers && modifiers.length > 0">
         <ul>
           <li v-for="item in modifiers">
-            <strong>{{item.modifier}}</strong>, <em>{{item.hint ? item.hint : item.source}}</em>
+            <strong>{{item.modifier}}</strong>,
+            <em>{{item.hint ? item.hint : item.source}}</em>
             <v-btn
                 v-if="item.id"
                 icon x-small
@@ -27,7 +30,7 @@
       </div>
 
       <h3 class="mt-4">Add Wealth</h3>
-      <p>In case some event or the GM causes some additional Wealth, you can add it here.</p>
+      <p>In case some event or the GM causes some additional (or substraction thereoff) Wealth, you can add it here.</p>
       <v-row>
         <v-col :cols="12" :md="4">
           <v-text-field
@@ -48,7 +51,7 @@
               persistent-hint
               hint="A hint how you got this wealth"
               @click:append-outer="addWealth"
-              append-outer-icon="add"
+              append-outer-icon="mdi-plus-circle"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -91,6 +94,7 @@ export default {
   },
   methods: {
     addWealth(){
+      const id = this.characterId;
       const content = {
         modifications: [{
           name: 'Wealth',
@@ -101,12 +105,13 @@ export default {
         }],
         source: `custom`,
       };
-      this.$store.commit('characters/addCharacterModifications', { id: this.characterId, content });
+      this.$store.commit('characters/addCharacterModifications', { id, content });
       this.newValue = 0;
       this.newHint = '';
     },
-    removeWealth() {
-
+    removeWealth(modificationId) {
+      const id = this.characterId;
+      this.$store.commit('characters/removeCharacterModificationById', { id, modificationId });
     },
   }
 }

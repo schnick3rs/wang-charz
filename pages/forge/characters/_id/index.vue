@@ -91,30 +91,26 @@
       ></dod-corruption-manager>
     </v-dialog>
 
-    <v-row justify="center">
-      <v-col :cols="12" class="elevation-4 mb-2 pa-0 ma-0">
-        <v-breadcrumbs
-          :items="breadcrumbItems"
-          class="pa-2"
-        >
-          <template v-slot:item="{ item }">
-            <v-breadcrumbs-item
-              :nuxt="true"
-              :to="item.to"
-              :disabled="item.disabled"
-              :exact="item.exact"
-            >
-              <img v-if="item.to == '/'" src="/favicon-16x16.png">
-              {{ item.text }}
-            </v-breadcrumbs-item>
-          </template>
+    <!-- Wealth -->
+    <v-dialog
+        v-model="showContextDialog"
+        width="800px"
+        scrollable
+        :fullscreen="$vuetify.breakpoint.xsOnly"
+    >
+      <v-card>
+        <component
+            v-if="contextDialogComponent"
+            :is="contextDialogComponent"
+            :character-id="characterId"
+            :character-traits="traits"
+            :character-modifiers="characterEnhancements"
+            @cancel="hideContextDialog"
+        ></component>
+      </v-card>
+    </v-dialog>
 
-          <template v-slot:divider>
-            <v-icon>mdi-chevron-right</v-icon>
-          </template>
-        </v-breadcrumbs>
-      </v-col>
-    </v-row>
+    <dod-default-breadcrumbs :items="breadcrumbItems" />
 
     <v-row justify="center" align="center">
 
@@ -245,6 +241,16 @@
                           <v-icon
                             slot-scope="{ hover }"
                             :color="`${ hover ? 'primary' : '' }`"
+                          >settings</v-icon>
+                        </v-hover>
+                      </v-btn>
+                    </span>
+                    <span v-if="['Wealth'].includes(item.name)">
+                      <v-btn x-small icon @click="showContext('wealth')">
+                        <v-hover>
+                          <v-icon
+                              slot-scope="{ hover }"
+                              :color="`${ hover ? 'primary' : '' }`"
                           >settings</v-icon>
                         </v-hover>
                       </v-btn>
@@ -1026,6 +1032,7 @@ import WargearTraitRepositoryMixin from '~/mixins/WargearTraitRepositoryMixin';
 import MutationsMixin from '~/mixins/MutationsMixin';
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import DodCorruptionManager from '~/components/forge/DodCorruptionManager';
+import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 
 export default {
   name: 'in-app-view',
@@ -1039,6 +1046,7 @@ export default {
     MutationsMixin,
   ],
   components: {
+    DodDefaultBreadcrumbs,
     DodCorruptionManager,
   },
   props: [],
@@ -1063,12 +1071,9 @@ export default {
       psychicAbilitiesRepository: psychicAbilitiesResponse.data,
       talentRepository: talentResponse.data,
       breadcrumbItems: [
-        { text: '', nuxt: true, exact: true, to: '/',
-        },
-        { text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters',
-        },
-        { text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}`,
-        },
+        { text: '', nuxt: true, exact: true, to: '/' },
+        { text: 'Forge', nuxt: true, exact: true, to: '/forge/my-characters' },
+        { text: 'Character', nuxt: true, exact: true, to: `/forge/characters/${params.id}` },
       ],
     };
   },
@@ -1110,6 +1115,9 @@ export default {
       ],
       descriptionSection: { selection: 'all' },
       abilitySection: { filter: 'all' },
+      //
+      showContextDialog: false,
+      contextDialogComponent: undefined,
       //
       objectiveEditorShow: false,
       objectiveEditorValue: '',
@@ -2278,6 +2286,20 @@ export default {
       //this.wargearRepository = data.filter((i) => i.stub === undefined || i.stub === false);
       this.wargearRepository = data;
     },
+
+    showContext(type) {
+      switch (type) {
+        case 'wealth':
+          this.contextDialogComponent = () => import('~/components/forge/DodWealthManager.vue');
+          this.showContextDialog = true;
+      }
+    },
+
+    hideContextDialog() {
+      this.showContextDialog = false;
+      this.contextDialogComponent = null;
+    },
+
     valueHintColor(item) {
       const value = item.adjustment + item.conditionalAdjustment;
       if (value > 0 ) return 'success';
