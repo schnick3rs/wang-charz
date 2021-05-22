@@ -716,7 +716,7 @@ const core = [
     ...gear(source.core.key,228,'Percussive Muzzle Brake','3U','[Any]'),
     type: 'Weapon Upgrade',
     upgradeType: 'Muzzle',
-    snippet: 'The weapon gains +1 Salvo. This upgrade can only be applied to a weapon with the Heavy Trait.',
+    snippet: 'The weapon gains +1 Salvo. This upgrade can only be applied to a weapon without the Heavy Trait.',
   },
   {
     ...gear(source.core.key,228,'Preysense Sight','6R','Imperium,Scum,[Any]'),
