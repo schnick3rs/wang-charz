@@ -885,7 +885,7 @@ const core = [
   {
     ...talent('core',140,'Supreme Presence [Skill]',30),
     key: 'core-supreme-presence',
-    snippet: 'Your Interaction attacks may target 1+Double Rank Troops within a Mob.',
+    snippet: 'Your Interaction attacks may either affect 1+Double Rank targets or any number of Troops within a Mob.',
     description:
       '<p></p>',
     requirements: [], // 4+
