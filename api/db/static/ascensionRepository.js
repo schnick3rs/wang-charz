@@ -564,7 +564,10 @@ const core = [
           {
             key: 'memorableInjury',
             name: 'Memorable Injury (+1 die to Intimidation)',
-            modifications: [ { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' }],
+            modifications: [
+              { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
+              { name: 'Memorable Injury', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
+            ],
           },
         ],
       },
