@@ -1310,7 +1310,7 @@ const fspg = [
     ...meleez('Adeptus Mechanicus Melee',3,4,0,0,'Rending(4)'),
   },
   {
-    ...gear(source.fspg.key,121,'Bulgryn Maul','3U','Imperium,Astra Militarum,Militarum Auxilla'),
+    ...gear(source.fspg.key,121,'Bullgryn Maul','3U','Imperium,Astra Militarum,Militarum Auxilla'),
     ...meleez('Ogryn Melee',4,4,-1,0,'Brutal'),
   },
   {
