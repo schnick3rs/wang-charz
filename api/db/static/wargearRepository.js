@@ -2304,6 +2304,12 @@ const aaoaArmour = [
       '<p>Sicarian Battle-Armour has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
   },
   // Astartes
+  {
+    ...gear(source.aaoa.key,174,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris'),
+    ...armour('Astartes Armour', 5, 'Powered (4), Bulk (1)'),
+    description:
+      '<p><strong>Reinforced:</strong> The wearer adds +2 to their Toughness while wearing this armour.</p>'
+  },
   // Force Shields
   {
     ...gear(source.aaoa.key,174,'Voltagheist Field Generator', '6R', 'Force Field, Cult Mechanicus'),
