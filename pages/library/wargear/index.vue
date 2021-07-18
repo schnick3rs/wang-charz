@@ -175,6 +175,7 @@
                       Show Details Page
                     </v-btn>
                     <v-btn
+                        v-if="['core','fspg'].includes(item.key)"
                         :href="`/api/wargear/${item.key}?format=foundry`"
                         download
                         small
