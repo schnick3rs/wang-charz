@@ -211,7 +211,7 @@ router.get('/:slug', async (request, response) => {
 
   let item = wargearRepository.find((gear) => gear.key === slug);
 
-  if (request.query.format === 'foundry') {
+  if (request.query.format === 'foundry' && item) {
     item = toFoundry(item);
   }
 
