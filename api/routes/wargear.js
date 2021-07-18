@@ -187,7 +187,7 @@ function toFoundry(item) {
           "salvo": rangedWeapon.salvo || 0,
           "traits": rangedWeapon.traits.join(', '),
           "value": parseInt(item.value) || 0,
-          "rarity": item.rarity,
+          "rarity": item.rarity.toLowerCase().replace(/\W/gm, '-'),
           "keywords": item.keywords.map(k => k.toUpperCase()).join(', '),
           "upgrades": ""
         },
@@ -287,7 +287,7 @@ function toFoundry(item) {
           "salvo": 0,
           "traits": meleeWeapon.traits.join(', '),
           "value": parseInt(item.value) || 0,
-          "rarity": item.rarity,
+          "rarity": item.rarity.toLowerCase().replace(/\W/gm, '-'),
           "keywords": item.keywords.map(k => k.toUpperCase()).join(', '),
           "upgrades": ""
         },
@@ -354,7 +354,7 @@ function toFoundry(item) {
           "rating": armour.armourRating,
           "traits": armour.traits.join(', '),
           "value": parseInt(item.value) || 0,
-          "rarity": item.rarity,
+          "rarity": item.rarity.toLowerCase().replace(/\W/gm, '-'),
           "keywords": item.keywords.map(k => k.toUpperCase()).join(', '),
           "upgrades": ""
         },
