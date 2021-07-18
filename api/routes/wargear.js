@@ -100,10 +100,120 @@ router.get('/', async (request, response) => {
   response.status(200).json(merged);
 });
 
+function toFoundry(item) {
+  switch (item.type) {
+    case 'Ranged Weapon':
+      const weapon = item.meta.find(i => i.type === 'ranged-weapon');
+      return {
+        "name": item.name,
+        "type": "weapon",
+        "img": "icons/svg/mystery-man.svg",
+        "data": {
+          "bonus": {
+            "attributes": {
+              "strength": 0,
+              "toughness": 0,
+              "agility": 0,
+              "initiative": 0,
+              "willpower": 0,
+              "intellect": 0,
+              "fellowship": 0
+            },
+            "skills": {
+              "athletics": 0,
+              "awareness": 0,
+              "ballisticSkill": 0,
+              "cunning": 0,
+              "deception": 0,
+              "insight": 0,
+              "intimidation": 0,
+              "investigation": 0,
+              "leadership": 0,
+              "medicae": 0,
+              "persusasion": 0,
+              "pilot": 0,
+              "psychicMastery": 0,
+              "scholar": 0,
+              "stealth": 0,
+              "survival": 0,
+              "tech": 0,
+              "weaponSkill": 0
+            },
+            "combat": {
+              "defense": 0,
+              "resilence": 0,
+              "wounds": 0,
+              "determination": 0,
+              "shock": 0,
+              "resolve": 0,
+              "passiveAwareness": 0
+            }
+          },
+          "description": item.hint,
+          "attack": {
+            "base": 0,
+            "bonus": 0,
+            "rank": "none"
+          },
+          "damage": {
+            "base": weapon.damage.static,
+            "bonus": 0,
+            "rank": "none"
+          },
+          "ed": {
+            "base": weapon.damage.ed,
+            "bonus": 0,
+            "die": {
+              "one": 0,
+              "two": 0,
+              "three": 0,
+              "four": 1,
+              "five": 1,
+              "six": 2
+            },
+            "rank": "none"
+          },
+          "ap": {
+            "base": weapon.ap,
+            "bonus": 0,
+            "rank": "none"
+          },
+          "category": "ranged",
+          "range": {
+            "short": weapon.range/2,
+            "medium": weapon.range,
+            "long": weapon.range*1.5,
+          },
+          "salvo": weapon.salvo || 0,
+          "traits": weapon.traits.join(', '),
+          "value": parseInt(item.value) || 0,
+          "rarity": weapon.rarity,
+          "keywords": item.keywords.map(k => k.toUpperCase()).join(', '),
+          "upgrades": ""
+        },
+        "effects": [],
+        "sort": 0,
+        "flags": {
+          "exportSource": {
+            "world": "wrath-and-glory",
+            "system": "wrath-and-glory",
+            "coreVersion": "0.8.6",
+            "systemVersion": "2.1.0"
+          }
+        }
+      };
+      break;
+  }
+}
+
 router.get('/:slug', async (request, response) => {
   const { slug } = request.params;
 
-  const item = wargearRepository.find((gear) => gear.key === slug);
+  let item = wargearRepository.find((gear) => gear.key === slug);
+
+  if (request.query.format === 'foundry') {
+    item = toFoundry(item);
+  }
 
   response.set('Cache-Control', 'public, max-age=3600'); // one hour
   response.status(200).json(item);

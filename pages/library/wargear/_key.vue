@@ -57,6 +57,13 @@
               </div>
             </v-col>
           </v-row>
+
+          <v-row>
+            <v-col>
+              <v-btn :href="`/api/wargear/${key}?format=foundry`" download type="info">foundry (.json)</v-btn>
+            </v-col>
+          </v-row>
+
         </ColorfulEntry>
       </v-col>
     </v-row>
