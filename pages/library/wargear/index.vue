@@ -174,6 +174,12 @@
                     >
                       Show Details Page
                     </v-btn>
+                    <v-btn
+                        :href="`/api/wargear/${item.key}?format=foundry`"
+                        download
+                        small
+                        color="warning"
+                    >foundry (.json)</v-btn>
                   </div>
                 </div>
               </td>

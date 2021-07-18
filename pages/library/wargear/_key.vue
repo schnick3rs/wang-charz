@@ -60,7 +60,12 @@
 
           <v-row>
             <v-col>
-              <v-btn :href="`/api/wargear/${key}?format=foundry`" download type="info">foundry (.json)</v-btn>
+              <v-btn
+                  :href="`/api/wargear/${key}?format=foundry`"
+                  download
+                  small
+                  color="warning"
+              >foundry (.json)</v-btn>
             </v-col>
           </v-row>
 
