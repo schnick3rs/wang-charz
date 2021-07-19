@@ -3767,7 +3767,7 @@ const aaoaPrimarisAstartes = [
     wargear: wargearz('Tacticus Mk X/Mark X Tacticus Power Armour, Absolvor Bolt Pistol, Narthecium, Reductor, 3 Frag Grenade, 3 Krak Grenade'),
   },
   {
-    ...archetype(source.aaoa.key, 108,  'Adeptus Astartes', 'Primaris Techmarine', 4,'Primaris Techmarine'),
+    ...archetype(source.aaoa.key, 118,  'Adeptus Astartes', 'Primaris Techmarine', 5, 'Primaris Astartes'),
     ...costz(403, [
       reqAttribute(ATTRIBUTES.STRENGTH, 6),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 6),
@@ -3787,7 +3787,7 @@ const aaoaPrimarisAstartes = [
     hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
     keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus, Primaris',
     archetypeFeatures: [
-      simpleAbility('Rite of Repair: You receive +Double Rank to Tech tests to repair damaged machinery. All Tech tests you make take half the standard time..'),
+      simpleAbility('Hymn of Reforging: You receive +Double Rank to Tech tests to repair damaged machinery. All Tech tests you make take half the standard time.'),
     ],
     influence: 2,
     wargearString:
