@@ -718,7 +718,7 @@ const core = [
       '<p></p>',
     requirements: [ requireSkill('deception',3) ],
     modifications: [
-      { targetGroup: 'skilla', targetValue: 'deception', modifier: 0, rank: 2, condition: 'when mimicing voices your studied before.' },
+      { targetGroup: 'skilla', targetValue: 'deception', modifier: 0, rank: 2, condition: 'when mimicking voices your studied before.' },
     ],
   },
   {
