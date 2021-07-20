@@ -717,6 +717,9 @@ const core = [
     description:
       '<p></p>',
     requirements: [ requireSkill('deception',3) ],
+    modifications: [
+      { targetGroup: 'skilla', targetValue: 'deception', modifier: 0, rank: 2, condition: 'when mimicing voices your studied before.' },
+    ],
   },
   {
     ...talent('core',137,'Mob Rule',20),
