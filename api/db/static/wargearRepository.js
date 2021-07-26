@@ -1275,8 +1275,8 @@ const fspg = [
     type: 'Ranged Weapon',
     subtype: undefined,
     meta: [
+      metaRange(8, 1, 0, 24, 2, ['Rapid Fire(1)']),
       metaMelee(4, 4, 0, 1,[]),
-      metaRange(8, 1, 0, 24,2,['Rapid Fire(1)']),
     ],
   },
   {

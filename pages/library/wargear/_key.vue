@@ -65,7 +65,7 @@
                   :href="`/api/wargear/${item.key}?format=foundry`"
                   download
                   small
-                  color="warning"
+                  color="info"
               >foundry (.json)</v-btn>
             </v-col>
           </v-row>

@@ -94,9 +94,20 @@
           :search="searchQuery"
           :items-per-page="-1"
           sort-by="name"
-          item-key="name"
+          item-key="key"
           hide-default-footer
         >
+          <template v-slot:item.source.key="{ item }">
+            <v-chip
+                :color="item.source && ['fspg'].includes(item.source.key) ? 'success' : 'info'"
+                outlined
+                tags
+                x-small
+                label
+            >
+              {{item.source.key.toUpperCase()}}
+            </v-chip>
+          </template>
           <template v-slot:item.learn="{ item }">
             <span>
               <v-btn
@@ -149,6 +160,12 @@ export default {
         {
           text: 'Name',
           value: 'name',
+          align: 'left',
+          sortable: true,
+        },
+        {
+          text: 'Source',
+          value: 'source.key',
           align: 'left',
           sortable: true,
         },

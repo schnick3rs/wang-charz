@@ -23,6 +23,8 @@
             <td class="text-center">
               <span v-if="['*','-'].includes(stats.range)">*</span>
               <span v-else-if="stats.range === 0">melee</span>
+              <span v-else-if="stats.range === 1">melee</span>
+              <span v-else-if="stats.range === 2">2</span>
               <span v-else>{{ stats.range/2 }} | {{ stats.range }} | {{ stats.range*1.5 }}</span>
             </td>
             <td class="text-center">
