@@ -655,7 +655,7 @@ export const mutations = {
     const hasPower = character.psychicPowers.find((t) => t.name === payload.name) !== undefined;
     if (!hasPower) {
       console.info(`Adding '${payload.name}' by '${payload.source}'`);
-      character.psychicPowers.push({ name: payload.name, cost: payload.cost, source: payload.source || undefined });
+      character.psychicPowers.push({ key: payload.key, name: payload.name, cost: payload.cost, source: payload.source || undefined });
     }
   },
   removeCharacterPsychicPower(state, payload) {

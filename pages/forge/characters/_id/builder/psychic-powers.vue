@@ -164,12 +164,6 @@ export default {
           sortable: true,
         },
         {
-          text: 'Source',
-          value: 'source.key',
-          align: 'left',
-          sortable: true,
-        },
-        {
           text: 'Cost',
           value: 'cost',
           align: 'center',
@@ -366,7 +360,7 @@ export default {
       this.psychicPowersList = data;
     },
     addPower(power) {
-      this.$store.commit('characters/addCharacterPsychicPower', { id: this.characterId, name: power.name, cost: power.cost });
+      this.$store.commit('characters/addCharacterPsychicPower', { id: this.characterId, key: power.key, name: power.name, cost: power.cost });
     },
     removePower(powerName) {
       this.$store.commit('characters/removeCharacterPsychicPower', { id: this.characterId, name: powerName });
