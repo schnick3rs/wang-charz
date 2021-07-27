@@ -101,6 +101,55 @@ router.get('/', async (request, response) => {
 });
 
 function toFoundry(item) {
+  const bonus = {
+    "attributes": {
+      "strength": 0,
+      "toughness": 0,
+      "agility": 0,
+      "initiative": 0,
+      "willpower": 0,
+      "intellect": 0,
+      "fellowship": 0
+    },
+    "skills": {
+      "athletics": 0,
+      "awareness": 0,
+      "ballisticSkill": 0,
+      "cunning": 0,
+      "deception": 0,
+      "insight": 0,
+      "intimidation": 0,
+      "investigation": 0,
+      "leadership": 0,
+      "medicae": 0,
+      "persusasion": 0,
+      "pilot": 0,
+      "psychicMastery": 0,
+      "scholar": 0,
+      "stealth": 0,
+      "survival": 0,
+      "tech": 0,
+      "weaponSkill": 0
+    },
+    "combat": {
+      "defense": 0,
+      "resilence": 0,
+      "wounds": 0,
+      "determination": 0,
+      "shock": 0,
+      "resolve": 0,
+      "passiveAwareness": 0
+    }
+  };
+  const flags = {
+    "exportSource": {
+      "world": "wrath-and-glory",
+      "system": "wrath-and-glory",
+      "coreVersion": "0.8.6",
+      "systemVersion": "2.1.0"
+    }
+  };
+
   switch (item.type) {
     case 'Ranged Weapon':
       const rangedWeapon = item.meta.find(i => i.type === 'ranged-weapon');
@@ -109,46 +158,7 @@ function toFoundry(item) {
         "type": "weapon",
         "img": "icons/svg/mystery-man.svg",
         "data": {
-          "bonus": {
-            "attributes": {
-              "strength": 0,
-              "toughness": 0,
-              "agility": 0,
-              "initiative": 0,
-              "willpower": 0,
-              "intellect": 0,
-              "fellowship": 0
-            },
-            "skills": {
-              "athletics": 0,
-              "awareness": 0,
-              "ballisticSkill": 0,
-              "cunning": 0,
-              "deception": 0,
-              "insight": 0,
-              "intimidation": 0,
-              "investigation": 0,
-              "leadership": 0,
-              "medicae": 0,
-              "persusasion": 0,
-              "pilot": 0,
-              "psychicMastery": 0,
-              "scholar": 0,
-              "stealth": 0,
-              "survival": 0,
-              "tech": 0,
-              "weaponSkill": 0
-            },
-            "combat": {
-              "defense": 0,
-              "resilence": 0,
-              "wounds": 0,
-              "determination": 0,
-              "shock": 0,
-              "resolve": 0,
-              "passiveAwareness": 0
-            }
-          },
+          bonus,
           "description": item.hint,
           "attack": {
             "base": 0,
@@ -193,14 +203,7 @@ function toFoundry(item) {
         },
         "effects": [],
         "sort": 0,
-        "flags": {
-          "exportSource": {
-            "world": "wrath-and-glory",
-            "system": "wrath-and-glory",
-            "coreVersion": "0.8.6",
-            "systemVersion": "2.1.0"
-          }
-        }
+        flags,
       };
     case 'Melee Weapon':
       const meleeWeapon = item.meta.find(i => i.type === 'melee-weapon');
@@ -209,46 +212,7 @@ function toFoundry(item) {
         "type": "weapon",
         "img": "icons/svg/mystery-man.svg",
         "data": {
-          "bonus": {
-            "attributes": {
-              "strength": 0,
-              "toughness": 0,
-              "agility": 0,
-              "initiative": 0,
-              "willpower": 0,
-              "intellect": 0,
-              "fellowship": 0
-            },
-            "skills": {
-              "athletics": 0,
-              "awareness": 0,
-              "ballisticSkill": 0,
-              "cunning": 0,
-              "deception": 0,
-              "insight": 0,
-              "intimidation": 0,
-              "investigation": 0,
-              "leadership": 0,
-              "medicae": 0,
-              "persusasion": 0,
-              "pilot": 0,
-              "psychicMastery": 0,
-              "scholar": 0,
-              "stealth": 0,
-              "survival": 0,
-              "tech": 0,
-              "weaponSkill": 0
-            },
-            "combat": {
-              "defense": 0,
-              "resilence": 0,
-              "wounds": 0,
-              "determination": 0,
-              "shock": 0,
-              "resolve": 0,
-              "passiveAwareness": 0
-            }
-          },
+          bonus,
           "description": item.hint,
           "attack": {
             "base": 0,
@@ -293,14 +257,7 @@ function toFoundry(item) {
         },
         "effects": [],
         "sort": 0,
-        "flags": {
-          "exportSource": {
-            "world": "wrath-and-glory",
-            "system": "wrath-and-glory",
-            "coreVersion": "0.8.6",
-            "systemVersion": "2.1.0"
-          }
-        }
+        flags,
       };
     case 'Armour':
       const armour = item.meta.find(i => i.type === 'armour');
@@ -309,46 +266,7 @@ function toFoundry(item) {
         "type": "armour",
         "img": "icons/svg/mystery-man.svg",
         "data": {
-          "bonus": {
-            "attributes": {
-              "strength": 0,
-              "toughness": 0,
-              "agility": 0,
-              "initiative": 0,
-              "willpower": 0,
-              "intellect": 0,
-              "fellowship": 0
-            },
-            "skills": {
-              "athletics": 0,
-              "awareness": 0,
-              "ballisticSkill": 0,
-              "cunning": 0,
-              "deception": 0,
-              "insight": 0,
-              "intimidation": 0,
-              "investigation": 0,
-              "leadership": 0,
-              "medicae": 0,
-              "persusasion": 0,
-              "pilot": 0,
-              "psychicMastery": 0,
-              "scholar": 0,
-              "stealth": 0,
-              "survival": 0,
-              "tech": 0,
-              "weaponSkill": 0
-            },
-            "combat": {
-              "defense": 0,
-              "resilence": 0,
-              "wounds": 0,
-              "determination": 0,
-              "shock": 0,
-              "resolve": 0,
-              "passiveAwareness": 0
-            }
-          },
+          bonus,
           "description": item.hint,
           "category": "armour",
           "rating": armour.armourRating,
@@ -360,14 +278,55 @@ function toFoundry(item) {
         },
         "effects": [],
         "sort": 0,
-        "flags": {
-          "exportSource": {
-            "world": "wrath-and-glory",
-            "system": "wrath-and-glory",
-            "coreVersion": "0.8.6",
-            "systemVersion": "2.1.0"
-          }
-        }
+        flags,
+      };
+    case 'Tools & Equipment':
+      return {
+        "name": item.name,
+        "type": "gear",
+        "img": "icons/svg/mystery-man.svg",
+        "data": {
+          bonus,
+          "description": item.hint,
+          "value": parseInt(item.value) || 0,
+          "rarity": item.rarity.toLowerCase().replace(/\W/gm, '-'),
+          "keywords": item.keywords.map(k => k.toUpperCase()).join(', '),
+        },
+        "effects": [],
+        "sort": 0,
+        flags,
+      };
+    case 'Ammo':
+      return {
+        "name": item.name,
+        "type": "ammo",
+        "img": "icons/svg/mystery-man.svg",
+        "data": {
+          bonus,
+          "description": item.hint,
+          "value": parseInt(item.value) || 0,
+          "rarity": item.rarity.toLowerCase().replace(/\W/gm, '-'),
+          "keywords": item.keywords.map(k => k.toUpperCase()).join(', '),
+        },
+        "effects": [],
+        "sort": 0,
+        flags,
+      };
+    case 'Augmetics':
+      return {
+        "name": item.name,
+        "type": "augmentic",
+        "img": "icons/svg/mystery-man.svg",
+        "data": {
+          bonus,
+          "description": item.hint,
+          "value": parseInt(item.value) || 0,
+          "rarity": item.rarity.toLowerCase().replace(/\W/gm, '-'),
+          "keywords": item.keywords.map(k => k.toUpperCase()).join(', '),
+        },
+        "effects": [],
+        "sort": 0,
+        flags,
       };
     default:
       return [];
