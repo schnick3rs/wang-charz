@@ -67,9 +67,9 @@
                     <tr v-for="item in groupedTraits">
                       <td class="text-left pa-1 small">
                         <span>{{ item.name }}</span>
-                        <span v-if="item.name === 'Max Wounds'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
-                        <span v-if="item.name === 'Max Shock'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
-                        <span v-if="item.name === 'Wealth'" style="float: right;">{{ '☐'.repeat(item.enhancedValue) }}</span>
+                        <span v-if="item.name === 'Max Wounds'" style="float: right;">{{ '☐'.repeat(item.adjustedRating) }}</span>
+                        <span v-if="item.name === 'Max Shock'" style="float: right;">{{ '☐'.repeat(item.adjustedRating) }}</span>
+                        <span v-if="item.name === 'Wealth'" style="float: right;">{{ '☐'.repeat(item.adjustedRating) }}</span>
                         <em v-if="item.name==='Resilience' && armour.length>0">
                           @{{ armour[0].name }} ({{ armour[0].meta[0].armourRating }})
                         </em>
@@ -552,6 +552,7 @@ export default {
   async asyncData({ params, $axios }) {
 
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
+    const psychicAbilitiesResponse = await $axios.get('/api/psychic-powers/universal-abilities');
     const factionResponse = await $axios.get('/api/factions/');
     const chaptersResponse = await $axios.get('/api/species/chapters/');
     const talentResponse = await $axios.get('/api/talents/');
@@ -560,6 +561,7 @@ export default {
       characterId: params.id,
       astartesChapterRepository: chaptersResponse.data,
       psychicPowersRepository: psychicPowersResponse.data,
+      psychicAbilitiesRepository: psychicAbilitiesResponse.data,
       factionRepository: factionResponse.data,
       talentRepository: talentResponse.data,
     };
@@ -1449,6 +1451,12 @@ export default {
         const power = this.psychicPowersRepository.find((power) => power.name === name);
         items.push(power);
       });
+      if (
+          ( this.keywords && this.keywords.includes('Psyker') ) ||
+          items.length > 0
+      ) {
+        items.push(...this.psychicAbilitiesRepository);
+      }
       return items;
     },
     objectives() {

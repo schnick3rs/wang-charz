@@ -1178,7 +1178,6 @@ export default {
     campaignCustomXp() {
       return this.$store.getters['characters/characterCampaignCustomXpById'](this.characterId);
     },
-
     speciesKey() {
       return this.$store.getters['characters/characterSpeciesKeyById'](this.characterId);
     },
@@ -2156,7 +2155,10 @@ export default {
           items.push(power);
         }
       });
-      if (items.length > 0) {
+      if (
+          (this.keywords && this.keywords.find(k => k.name === 'Psyker') )
+          || items.length > 0
+      ) {
         items.push(...this.psychicAbilitiesRepository);
       }
       return items;
