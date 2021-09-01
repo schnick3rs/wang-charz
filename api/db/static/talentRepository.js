@@ -1237,16 +1237,6 @@ const aaoa = [
     ],
   },
   {
-    ...talent(source.aaoa.key, 119, 'Anathema', 30, ''),
-    snippet: 'Deal additional +Rank mortal wounds in melee against DAEMON and PSYKERs. DAEMONs within your WILLPOWER meters may not roll for Determination.',
-    description:
-      '<p>Whenever you succeed at a melee attack against a creature with the DAEMON or PSYKER keywords, your attack inflicts mortal wounds equal to your Rank in addition to any other damage inflicted. In addition, creatures with the DAEMON keyword within a number of metres of you equal to your Willpower may not attempt to roll Determination.</p>',
-    requirements: [
-      requireSpecies('Pariah'),
-      requireAttribute('willpower', 4),
-    ],
-  },
-  {
     ...talent(source.aaoa.key, 119, 'And They Shall Know No Fear', 5, ''),
     snippet: 'You may re-roll any failures on any Resolve test you make.',
     description:
@@ -1457,6 +1447,35 @@ const aaoa = [
     requirements: [
       requireKeyword('CHAOS'),
       requireKeyword('NURGLE'),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 130, 'Anathema', 30, ''),
+    snippet: 'Whenever you succeed at a melee attack against a creature with the DAEMON or PSYKER keywords, your attack inflicts mortal wounds equal to your Rank in addition to any other damage inflicted. In addition, creatures with the DAEMON keyword within a number of metres of you equal to your Willpower may not attempt to roll Determination.',
+    description:
+      '<p>Whenever you succeed at a melee attack against a creature with the DAEMON or PSYKER keywords, your attack inflicts mortal wounds equal to your Rank in addition to any other damage inflicted. In addition, creatures with the DAEMON keyword within a number of metres of you equal to your Willpower may not attempt to roll Determination.</p>',
+    requirements: [
+      requireSpecies('Pariah'),
+      requireAttribute('willpower', 4),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 138, 'Quell the Warp', 10, ''),
+    snippet: 'You gain the ability to Deny the Witch (Core, pg. 267) even though you are not a psyker. Instead of a Psychic Mastery test, you make a Willpower test with a bonus of +Double Rank.',
+    description:
+      '<p>You gain the ability to Deny the Witch (Core, pg. 267) even though you are not a psyker. Instead of a Psychic Mastery test, you make a Willpower test with a bonus of +Double Rank.</p>',
+    requirements: [
+      requireSpecies('Pariah'),
+      requireAttribute('willpower', 5),
+    ],
+  },
+  {
+    ...talent(source.aaoa.key, 140, 'Witch’s Nightmare', 30, ''),
+    snippet: 'Creatures possessing the DAEMON or PSYKER keywords must make a Terror test with a DN equal to 2+Rank when they encounter you, even if they’re normally immune to terror. As you cause terror to them, you are immune to fear, terror, or Intimidation Interaction attacks caused by daemons and psykers.',
+    description:
+      '<p>Creatures possessing the DAEMON or PSYKER keywords must make a Terror test with a DN equal to 2+Rank when they encounter you, even if they’re normally immune to terror. As you cause terror to them, you are immune to fear, terror, or Intimidation Interaction attacks caused by daemons and psykers.</p>',
+    requirements: [
+      requireSpecies('Pariah'),
     ],
   },
 

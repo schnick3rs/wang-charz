@@ -2079,6 +2079,13 @@ const aaoaRanged = [
       description:
         '<p><strong>Special: </strong>Smoke Grenades do not inflict damage. Rather, to use a Smoke Grenade, make a Ballistic Skill test to target a specific location; if it hits, that is where the smoke emerges, filling the blast area. Attempts to see, or make ranged attacks, through the smoke suffer +4 DN. The smoke dissipates over time, reducing the DN penalty by 1 at the end of each round. Strong winds may make the smoke dissipate more quickly, at GM’s discretion.</p>',
     },
+    {
+      ...gear(source.aaoa.key, 168, 'Psyk-Out Grenades', '8L', 'Exotic, Silent Sisterhood, Grey Knights, Templum Culexus'),
+      ...rangez('Grenades & Grenade Launcher', 7, 4, '-', 'STRx4', '-', 'Blast (6)'),
+      triptype: 'Grenade',
+      description:
+        '<p><strong>Special: </strong>Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.</p>',
+    },
   ],
   // Chaos Ranged
   ...[
@@ -2296,13 +2303,17 @@ const aaoaArmour = [
       description:
         '<p><strong>Cameleoline:</strong> The photoreactive mimic - fibres in the suit blur’s the wearer’s outline, granting a +2d bonus to Stealth tests and a +2 bonus to Defence when in shadow or in cover.</p>',
     },
+    {
+      ...gear(source.aaoa.key,189,'Vratine armour', '7V', 'Powered, Imperium, Silent Sisterhood'),
+      ...armour('Astartes Armour', 5, 'Powered (2)'),
+    },
+    {
+      ...gear(source.aaoa.key,167,'Sicarian Battle-Armour', '6V', 'Heavy, Imperium, Adeptus Mechanicus, Skitarii'),
+      ...armour('Basic Armour', 4),
+      description:
+        '<p>Sicarian Battle-Armour has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
+    },
   ],
-  {
-    ...gear(source.aaoa.key,167,'Sicarian Battle-Armour', '6V', 'Heavy, Imperium, Adeptus Mechanicus, Skitarii'),
-    ...armour('Basic Armour', 4),
-    description:
-      '<p>Sicarian Battle-Armour has an Armour Rating of 4, plus an invulnerable Armour Rating of *1, which do not stack.</p>'
-  },
   // Astartes
   {
     ...gear(source.aaoa.key,174,'Gravis Mark X', '9V', 'Powered, Imperium, Adeptus Astartes, Primaris'),
@@ -2479,7 +2490,7 @@ const aaoaAugmetics = [
     type: 'Augmetics', subtype: 'Augmetic Implants',
     snippet: 'Hand mounted scalpel like blade. Good for medic or killer.',
     description:
-      '<p>Blade-tines  grant  the  recipient  +1d  on  all  Medicae tests, and they can be used as a Mono-Knife in melee. </p>',
+      '<p>Blade-tines  grant  the  recipient  +1d  on  all  Medicae tests, and they can be used as a Mono Knife in melee. </p>',
 	modifications: [
 		{ targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 1, rank: 0},
     ],
@@ -2639,13 +2650,6 @@ const aaoav2 = [
     ...rangeAaoa('15+1ED; AP -4; Range 60m; Salvo 2; Rapid Fire [1], Supercharge', 'Plasma Weapon', ''),
     description:
       '<p>A more advanced version of the standard plasma gun, the Mark III Belisarius-pattern plasma incinerator is the primary weapon of Primaris Hellblasters, used to deliver death and destruction to armoured targets from afar.</p>',
-  },
-  {
-    ...simpleStub(30936, 'aaoa2', 93, 'Psyk-Out Grenades', '8L', 'Explosive, Imperium, Inquisition, Grey Knights, Silent Sisterhood, Templum Culexus', ''),
-    ...rangeAaoa('8+1ED; AP 0; Range Strength x 4 metres [T] or as launcher [R]; Salvo –; Blast [Medium]', 'Grenades and Grenade Launchers', 'Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.'),
-    snippet: 'Against a character with the Psyker or Daemon keywords, a Psyk-Out Grenade inflicts an automatic 1d3 Mortal Wounds.',
-    description:
-      '<p>Psyk-out grenades are anti-psyker weapons. When they detonate, they release fine dust particles which are heavily impregnated with negative psychic energy. This form of energy is extremely rare; in all of human space it can be obtained only as a by-product of the Emperor\'s metabolism. Using the material to create anti-psyker weapons is considered by many to be a great waste, and their issue is strictly controlled. Psyk-out weapons are nigh-useless against non-psychic targets. Against psychic creatures such as daemons and psykers, however, their effects are devastating.</p>',
   },
   {
     ...simpleStub(30941, 'aaoa2',94,'Shock Grenade', '7V','Explosive, Imperium, Adeptus Astartes, Primaris', ''),
