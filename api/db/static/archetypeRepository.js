@@ -5663,6 +5663,7 @@ const aaoaAdeptusAstraTelephatica = [
       { name: 'Translator Servo-Skull' },
       { name: 'Bolt Pistol' },
       { name: 'Executioner Greatblade', variant: 'Master-Crafted Executioner Greatblade' },
+      { name: 'Mastercrafted' },
     ],
   },
 ];
