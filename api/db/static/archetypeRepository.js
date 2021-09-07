@@ -2500,7 +2500,7 @@ const aaoaOrks = [
   {
     name: 'Weirdboy',
     ...archetype(source.aaoa.key, 86,'Orks','Weirdboy',3,'Ork'),
-    ...cost(66,[
+    ...costz(66,[
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 4),
