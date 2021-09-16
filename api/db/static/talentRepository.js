@@ -1204,6 +1204,11 @@ const core = [
   },
 ];
 
+// Redacted Records volume 1
+const red1 = [
+
+];
+
 const aaoa = [
   {
     ...talent(source.aaoa.key, 119, '`Ere We Go!', 20, ''),
@@ -1711,5 +1716,6 @@ const aaoa = [
 
 module.exports = [
   ...core,
+  ...red1,
   ...aaoa,
 ];
