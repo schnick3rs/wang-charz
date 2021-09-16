@@ -839,10 +839,10 @@ const aaoa = [
   },
   // Aeldarie
   {
-    ...species('aaoa', 11,'Drukhari','Drukhari','The Sinister Kin',20,8),
+    ...species('aaoa', 13,'Drukhari','Drukhari','The Sinister Kin',20,8),
     ...cost(20,20,0, 0),
     ...commonNames('Akhirion, Anarkyss, Anielyn, Bekliel, Ethrilliac, Grendett, Grevyth, Kylos, Laelanyel, Madrax, Melikka, Mellyx, Monsatos, Narlek, Nyktos, Peiythia, Phyrix, Selithrian, Theskril, Thessa, Thraed, Thresyn, Thrixxesh, Quaez, Uless, Vrexith, Vylekh, Vypus, Xela, Xurul'),
-    ...statMax(7,7,12,12,12,10,6,10),
+    ...statMax(7,7,12,12,12,10,6,8),
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
       { group: 'attributes', value: 'strength', threshold: 2 },
@@ -850,8 +850,8 @@ const aaoa = [
     ],
     speciesFeatures: [
       {
-        name: 'Outsider',
-        snippet: '+2DN to all Interaction tests with members of the Imperium.',
+        name: 'Blade Artist',
+        snippet: 'When you make an attack with a melee weapon, increase the weapon’s AP by 1 (i.e., from -1 to -2) if you shift one or more Icons on the attack. This stacks with effects such as the Rending weapon trait.',
       },
       {
         name: 'The Thirst',
