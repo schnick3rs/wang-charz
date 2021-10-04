@@ -738,14 +738,13 @@ const core = [
   },
   {
     ...archetype(source.core.key, 109,'Adeptus Mechanicus','Tech-Priest',3,'Human'),
-    ...cost(44,20,24, 0, 0),
-    hint: 'A priest of the Omnissiah, able to commune with the machine-spirits.',
-    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World]',
-    prerequisites: [
+    ...costz(44,[
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqSkill(SKILLS.SCHOLAR, 1),
       reqSkill(SKILLS.TECH, 3),
-    ],
+    ]),
+    hint: 'A priest of the Omnissiah, able to commune with the machine-spirits.',
+    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World]',
     archetypeFeatures: [
       {
         name: 'Rite of Repair',
@@ -1125,14 +1124,13 @@ const core = [
   },
   {
     ...archetype(source.core.key, 109,'Chaos','Heretek',3,'Human'),
-    ...cost(84,60,24, 0, 0),
-    hint: 'A fallen priest, able to commune with the heretic machine-spirits.',
-    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World],Chaos,Dark Mechanicus',
-    prerequisites: [
+    ...costz(44,[
       reqAttribute(ATTRIBUTES.INTELLECT, 3),
       reqSkill(SKILLS.SCHOLAR, 1),
       reqSkill(SKILLS.TECH, 3),
-    ],
+    ]),
+    hint: 'A fallen priest, able to commune with the heretic machine-spirits.',
+    keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World],Chaos,Dark Mechanicus',
     archetypeFeatures: [
       {
         name: 'Rite of Repair',
