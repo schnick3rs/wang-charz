@@ -95,15 +95,6 @@ export default {
       ],
       assets: [
         {
-          name: 'Skill Challenges in Wrath & Glory',
-          type: 'PDF on Google Drive',
-          author: 'Bill Gant',
-          text: 'Use skill challenges to create dramatic moments for your agents to overcome through creative actions.',
-          parts: [
-            { title: 'Skill Challenges' , url: 'https://drive.google.com/file/d/1HGA-ZBZbUVF5CeDqgoimLz4ZMUpcWeFM/view' },
-          ],
-        },
-        {
           name: 'Vehicle Sheet',
           type: 'PDF on Google Drive',
           author: 'Darth Venrir',
