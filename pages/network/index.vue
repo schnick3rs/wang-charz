@@ -138,7 +138,7 @@ export default {
           author: 'mikev37',
           text: 'mikev37 produced a condensed rules reference that helps the DM (and players) in their Wrath & Glory Campaigns.',
           parts: [
-            { title: 'Condensed Rules', url: 'https://docs.google.com/document/d/0B9hL1gAseGFMeGFrWkZQa1d1T1AwaFhTSl9MbURFMldxcFQ0/edit?resourcekey=0-8y-HPnKkXAixqGW6emlyBw' },
+            { title: 'Condensed Rules', url: 'https://docs.google.com/document/d/0B9hL1gAseGFMeGFrWkZQa1d1T1AwaFhTSl9MbURFMldxcFQ0/view' },
           ],
         },
         {
