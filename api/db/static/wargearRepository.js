@@ -3144,8 +3144,8 @@ const tea = [
 
 const glhe = [
   {
-    ...gear(source.gohe.key,4,'Boltgun','5V','Tau,Pulse,Plasma'),
-    ...rangez('Pulse Rifle (Heathen Pattern)',12,1,1,36,2,'Rapid Fire(1)'),
+    ...gear(source.gohe.key,4,'Pulse Rifle (Heathen Pattern)','5V','Tau,Pulse,Plasma'),
+    ...rangez('Pulse Weapons',12,1,1,36,2,'Rapid Fire(1)'),
   },
 ];
 
