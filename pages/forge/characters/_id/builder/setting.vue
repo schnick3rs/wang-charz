@@ -454,6 +454,15 @@ export default {
         },
         {
           active: true,
+          key: 'gohe',
+          name: '\'Godless Heathens\' content',
+          hint: 'Add Kroot Archetypes.',
+          enabled: true,
+          nuxt: undefined,
+          source: '',
+        },
+        {
+          active: true,
           key: 'soti',
           name: '\'Shadow of the Imperium Sandbox\' content',
           hint: 'Highly experimental!',

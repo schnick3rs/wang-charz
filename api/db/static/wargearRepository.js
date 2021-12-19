@@ -3142,6 +3142,13 @@ const tea = [
   },
 ];
 
+const glhe = [
+  {
+    ...gear(source.gohe.key,4,'Boltgun','5V','Tau,Pulse,Plasma'),
+    ...rangez('Pulse Rifle (Heathen Pattern)',12,1,1,36,2,'Rapid Fire(1)'),
+  },
+];
+
 module.exports = [
   ...core,
   ...doctorsOfDoom,
@@ -3151,6 +3158,7 @@ module.exports = [
   ...pax,
   ...lotn,
   ...tea,
+  ...glhe,
 ];
 
 /*

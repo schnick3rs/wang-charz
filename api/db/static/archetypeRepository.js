@@ -2,6 +2,16 @@ import { source } from './_sourcesRepository';
 import { stringToKebab } from './_stringUtils';
 import { ATTRIBUTES, SKILLS, TRAITS } from './_statUtils';
 
+const addModifier = function(targetGroup, targetValue, modifier = 0, rank = 0, condition = undefined) {
+  return {
+    targetGroup,
+    targetValue,
+    modifier,
+    rank,
+    condition,
+  };
+}
+
 const _statCosts = {
   attributes: [0, 0, 4, 10, 20, 35, 55, 80, 110, 145, 185, 230, 280],
   skills: [0, 2, 6, 12, 20, 30, 42, 56, 72],
@@ -7454,6 +7464,245 @@ const ambRep = [
   archetype(source.amb.key, 6, 'Astra Militarum', 'Field Medicae', 2, 'Human', true),
 ];
 
+const goheRep = [
+  {
+    ...archetype(source.gohe.key,2,'Tau Empire','Kroot Shaper',2,'fspg/Kroot'),
+    ...costz(56,[
+      reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+      reqSkill(SKILLS.ATHLETICS, 1),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.LEADERSHIP, 1),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.STEALTH, 2),
+      reqSkill(SKILLS.SURVIVAL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'Shepherd of Cannibals',
+    factionKey: 'fspg-tau-empire',
+    keywords: 'Kroot,Tau Empire,Xenos',
+    archetypeFeatures: [
+      {
+        name: 'Guiding Hand',
+        snippet: 'Kroot subordinates gain a Kroot mutation and you add +Rank to Leadership, Insight, Cunning, Deception and Medicae with KROOT.',
+        description:
+          '<p>Any Kroot under the Shaper`s command gains a mutation from the list of Kroot Mutations (see FSPG), so long as they could have reasonable eaten the living creature required.</p>' +
+          '<p>Furthermore, the Shaper gains +Rank bonus dice to Leadership, Insight, Cunning, Deception, and Medicae tests when dealing with anyone with the KROOT Keayword.</p>',
+        modifications: [
+          { targetGroup: 'skills', targetValue: SKILLS.LEADERSHIP, modifier: 0, rank: 1, condition: 'when dealing with KROOT' },
+          { targetGroup: 'skills', targetValue: SKILLS.INSIGHT, modifier: 0, rank: 1, condition: 'when dealing with KROOT' },
+          { targetGroup: 'skills', targetValue: SKILLS.CUNNING, modifier: 0, rank: 1, condition: 'when dealing with KROOT' },
+          { targetGroup: 'skills', targetValue: SKILLS.DECEPTION, modifier: 0, rank: 1, condition: 'when dealing with KROOT' },
+          { targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 0, rank: 1, condition: 'when dealing with KROOT' },
+        ],
+      },
+    ],
+    wargear: [
+      { name: 'Pulse Rifle (Heathen Pattern)' },
+      { name: 'Laud Hailer' },
+      { name: 'Knife', variant: 'Ritual Knife' },
+      { name: 'Medikit' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [  ],
+    },
+    suggestedStats: [
+      ...suggestedAttributes(3,2,3,2,2,1,1),
+      reqSkill(SKILLS.ATHLETICS, 1),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.LEADERSHIP, 1),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.STEALTH, 2),
+      reqSkill(SKILLS.SURVIVAL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 4),
+    ],
+    influence: 1,
+  },
+  {
+    ...archetype(source.gohe.key,3,'Tau Empire','Kroot Master Shaper',3,'fspg/Kroot'),
+    ...costz(149,[
+      reqAttribute(ATTRIBUTES.WILLPOWER, 5),
+      reqAttribute(ATTRIBUTES.INTELLECT, 4),
+      reqAttribute(ATTRIBUTES.FELLOWSHIP, 3),
+      reqSkill(SKILLS.ATHLETICS, 1),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.LEADERSHIP, 4),
+      reqSkill(SKILLS.PERSUASION, 1),
+      reqSkill(SKILLS.PSYCHIC_MASTERY, 4),
+      reqSkill(SKILLS.STEALTH, 2),
+      reqSkill(SKILLS.SURVIVAL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ]),
+    hint: 'Lead the tribe',
+    factionKey: 'fspg-tau-empire',
+    keywords: 'Kroot,Tau Empire,Xenos,Psyker',
+    archetypeFeatures: [
+      {
+        name: 'Psyker',
+        snippet: 'You know the Smite psychic power. You may purchase additional psychic powers, following the rules in Chapter 11.',
+        description:
+          '<p>You know the Smite psychic power. You may purchase additional psychic powers from the Divination Discipline, following the rules in Chapter 11.</p>',
+        psychicPowers: [
+          { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+        ],
+        psychicDisciplines: [
+          'Universal',
+          'Divination',
+        ],
+      },
+      {
+        name: 'Additional Mutation',
+        snippet: 'You gain one additional mutation as your Tier usually allows.',
+        selected: [''],
+        options: [
+          {
+            name: 'Maneater (Strength)',
+            snippet: '+1 to your lowest Attribute (Strength).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.STRENGTH, 1) ],
+          },
+          {
+            name: 'Maneater (Toughness)',
+            snippet: '+1 to your lowest Attribute (Toughness).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.TOUGHNESS, 1) ],
+          },
+          {
+            name: 'Maneater (Agility)',
+            snippet: '+1 to your lowest Attribute (Agility).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.AGILITY, 1) ],
+          },
+          {
+            name: 'Maneater (Initiative)',
+            snippet: '+1 to your lowest Attribute (Initiative).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.INITIATIVE, 1) ],
+          },
+          {
+            name: 'Maneater (Willpower)',
+            snippet: '+1 to your lowest Attribute (Willpower).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.WILLPOWER, 1) ],
+          },
+          {
+            name: 'Maneater (Intellect)',
+            snippet: '+1 to your lowest Attribute (Intellect).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.INTELLECT, 1) ],
+          },
+          {
+            name: 'Maneater (Fellowship)',
+            snippet: '+1 to your lowest Attribute (Fellowship).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.FELLOWSHIP, 1) ],
+          },
+          {
+            name: 'Astartes Eater (Strength)',
+            snippet: '+2 to any Attribute (Strength).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.STRENGTH, 2) ],
+          },
+          {
+            name: 'Astartes Eater (Toughness)',
+            snippet: '+2 to any Attribute (Toughness).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.TOUGHNESS, 2) ],
+          },
+          {
+            name: 'Astartes Eater (Agility)',
+            snippet: '+2 to any Attribute (Agility).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.AGILITY, 2) ],
+          },
+          {
+            name: 'Astartes Eater (Initiative)',
+            snippet: '+2 to any Attribute (Initiative).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.INITIATIVE, 2) ],
+          },
+          {
+            name: 'Astartes Eater (Willpower)',
+            snippet: '+2 to any Attribute (Willpower).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.WILLPOWER, 2) ],
+          },
+          {
+            name: 'Astartes Eater (Intellect)',
+            snippet: '+2 to any Attribute (Intellect).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.INTELLECT, 2) ],
+          },
+          {
+            name: 'Astartes Eater (Fellowship)',
+            snippet: '+2 to any Attribute (Fellowship).',
+            modifications: [ addModifier('attributes', ATTRIBUTES.FELLOWSHIP, 2) ],
+          },
+          {
+            name: 'Aeldari Eater (Agility)',
+            snippet: '+1 to Agility.',
+            modifications: [ addModifier('attributes', ATTRIBUTES.AGILITY, 1) ],
+          },
+          {
+            name: 'Aeldari Eater (Willpower)',
+            snippet: '+1 to Willpower.',
+            modifications: [ addModifier('attributes', ATTRIBUTES.WILLPOWER, 1) ],
+          },
+          {
+            name: 'Ork Eater (Strength)',
+            snippet: '+1 to Strength.',
+            modifications: [ addModifier('attributes', ATTRIBUTES.STRENGTH, 1) ],
+          },
+          {
+            name: 'Ork Eater (Toughness)',
+            snippet: '+1 to Toughness.',
+            modifications: [ addModifier('attributes', ATTRIBUTES.TOUGHNESS, 1) ],
+          },
+          {
+            name: 'Armoured Hide',
+            snippet: 'You gain +Rank to your Base Resilience.',
+            modifications: [ addModifier('traits', TRAITS.RESILIENCE, 0, 1) ],
+          },
+          {
+            name: 'Bioluminescence',
+            snippet: 'You may cause any part of your body to glow with light. If your entire body is emitting light, it sheds enough light to see in a 10m radius.',
+          },
+          {
+            name: 'Camouflage',
+            snippet: 'As a Simple Action you can control the appearance of your hide, with the same effects as a Cameleoline Cloak (core, pg. 237).',
+          },
+          {
+            name: 'Facultative Bipedalism',
+            snippet: 'You may Sprint twice as fast as normal and make Athletics (S) Tests to jump or climb with +Double Rank Bonus Dice.',
+            modifications: [ addModifier('skills', SKILLS.ATHLETICS, 0, 2, 'when jumping or climbing.') ],
+          },
+          {
+            name: 'Hypersensetive Quills',
+            snippet: 'Your quills act as an Auspex (core, pg. 236) with a range of 30m.',
+          },
+          {
+            name: 'Wings',
+            snippet: 'You can Fly at Speed 7',
+          },
+          {
+            name: 'Weaponised Biology',
+            snippet: '',
+            description: '<p>Your Unarmed Strikes deal (S)+4 Damage / +3 ED, and have one of the following Traits:</p>' +
+              '<ul>' +
+              '<li>Brutal</li>' +
+              '<li>Rending (Rank)</li>' +
+              '<li>Inflict (Poison (Rank))</li>' +
+              '<li>Parry</li>' +
+              '</ul>',
+          },
+        ],
+      },
+    ],
+    wargear: [
+      { name: 'Force Axe' },
+      { name: 'Cameleoline Cloak' },
+      { name: 'Symbol of Authority' },
+    ],
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ ],
+    },
+    suggestedStats: [
+    ],
+    influence: 1,
+  },
+];
+
 const archetypeRepository = [
   ...core,
   ...fspg,
@@ -7470,6 +7719,7 @@ const archetypeRepository = [
   ...sotahRep,
   ...thaotRep,
   ...ambRep,
+  ...goheRep,
 ];
 
 module.exports = archetypeRepository;
