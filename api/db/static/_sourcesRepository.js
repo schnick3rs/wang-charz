@@ -10,7 +10,7 @@ const source = {
   gohe: { book: 'Godless Heathens', key: 'gohe', version: 'v0.1', path: '' },
   soti: { book: 'Shadow of the Imperium Sandbox', key: 'soti', version: 'v0.1' },
   // Homebrews (Up to date)
-  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v6.0', path: '/vault/an-abundance-of-apocrypha' },
+  aaoa: { book: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v7.0', path: '/vault/an-abundance-of-apocrypha' },
   aaoa2: { book: 'An Abundance of Apocrypha', key: 'aaoa2', version: 'v2.0', path: '/vault/an-abundance-of-apocrypha' },
   tog: { book: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory' },
   amb: { book: 'Astra Militarum Brew', key: 'amb', version: '', path: '/vault/astra-militarum-brew' },
