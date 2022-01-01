@@ -3255,6 +3255,25 @@ const aaoaSquat = [
 
 const aaoaAdeptusArbites = [
   {
+    name: 'Enforcer',
+    ...archetype(source.aaoa.key, 43, 'Adeptus Arbites', 'Enforcer', 1, 'Human'),
+    ...costz(18, [
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 2),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.INVESTIGATION, 1),
+      reqSkill(SKILLS.INTIMIDATION, 1),
+    ]),
+    hint: 'Local law enforcement, often aligned with or deputised by the Arbites',
+    keywords: 'Imperium,Adeptus Arbites',
+    influence: 0,
+    archetypeFeatures: [
+      simpleAbility('Freez!',
+        'At the start of the first round of combat, before anyone has taken a turn, you may make an Intimidate Interaction Attack against a single enemy within range.'),
+    ],
+    wargear: wargearz('Flak Armour, Combat Shotgun, Stubber, Magnacles'),
+  },
+  {
     name: 'Arbitrator',
     ...archetype(source.aaoa.key, 45, 'Adeptus Arbites', 'Arbitrator', 2, 'Human'),
     ...costz(58, [
