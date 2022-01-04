@@ -1475,6 +1475,18 @@ const aaoa = [
     ],
   },
   {
+    ...talent(source.aaoa.key, 135, 'Luminen Blast', 20, ''),
+    snippet: 'You may make a ranged attack using this talent. The attack has a range of 10m, and inflicts damage equal to twice your Willpower, plus Rank ED, with the Agonizing and Spread traits, and a Salvo rating of –. Instead of reloads, this attack uses charges from your Luminen Capacitor.',
+    description:
+      '<p><strong>Additional prerequisite: Luminen Capacitor augmetic</strong></p>' +
+      '<p>You may make a ranged attack using this talent. The attack has a range of 10m, and inflicts damage equal to twice your Willpower, plus Rank ED, with the Agonizing and Spread traits, and a Salvo rating of –. Instead of reloads, this attack uses charges from your Luminen Capacitor.</p>',
+    requirements: [
+      requireKeyword('ADEPTUS MECHANICUS'),
+      requireKeyword('CULT MECHANICUS'),
+      { condition: 'must', type: 'wargear', key: 'Luminen Capacitor augmetic' },
+    ],
+  },
+  {
     ...talent(source.aaoa.key, 140, 'Witch’s Nightmare', 30, ''),
     snippet: 'Creatures possessing the DAEMON or PSYKER keywords must make a Terror test with a DN equal to 2+Rank when they encounter you, even if they’re normally immune to terror. As you cause terror to them, you are immune to fear, terror, or Intimidation Interaction attacks caused by daemons and psykers.',
     description:
