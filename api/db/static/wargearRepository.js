@@ -1621,12 +1621,6 @@ const aaoaMelee = [
         '<p><strong>Special: </strong>Only a character with a Luminen Capacitor may wield an Electroleech Staff – in the hands of anyone else, it counts as a normal staff. Each point of Shock inflicted by an Electroleech Staff adds 1 point of charge to the user’s Luminen Capacitor..</p>',
     },
     {
-      ...gear(source.aaoa.key,135,'Electrostatic Staff', '6R', 'Luminen, 2-Handed, Adeptus Mechanicus'),
-      ...meleez('Exotic Melee Weapon', 6, 3, -2, 2,  'Agonizing, Mortal(d3), Special'),
-      description:
-        '<p><strong>Special: </strong>Only a character with a Luminen Capacitor may wield an Electroleech Staff – in the hands of anyone else, it counts as a normal staff. Each point of Shock inflicted by an Electroleech Staff adds 1 point of charge to the user’s Luminen Capacitor..</p>',
-    },
-    {
       ...gear(source.aaoa.key,135,'Electrostatic Gauntlets', '6R', 'Luminen, 2-Handed, Adeptus Mechanicus'),
       ...meleez('Exotic Melee Weapon', 6, 3, 0, 1,  'Tesla'),
       //...rangez('Projectile Range Weapon', 12, 1, 0, 12, 3, 'Assault, Tesla, Special'),
