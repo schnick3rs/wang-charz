@@ -4691,10 +4691,10 @@ const aaoaAdeptusMechanicus = [
     archetypeFeatures: [
       simpleAbility('Fanatical Devotion', 'You add +Double Rank bonus dice to Determination rolls, and you do not suffer any Shock when you roll Determination.'),
     ],
-    wargearString: 'Luminen capacitor, electroleech staff, Voltagheist field generator, any two augmetics.',
+    wargearString: 'Luminen capacitor, Electroleech staff, Voltagheist field generator, any two augmetics.',
     wargear: [
       { name: 'Luminen capacitor' },
-      { name: 'electroleech staff' },
+      { name: 'Electroleech staff' },
       { name: 'Voltagheist field generator' },
       {
         name: 'One augmetic of your choice.',
