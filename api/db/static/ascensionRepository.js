@@ -51,6 +51,15 @@ const core = [
         ],
       },
       {
+        key: 'memorableInjury',
+        name: 'Memorable Injury',
+        snippet: 'Grants +1 die to Intimidation when revealed.',
+        modifications: [
+          { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
+          { name: 'Memorable Injury', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1, condition: 'when revealed' },
+        ],
+      },
+      {
         key: 'traumatic-injury-one',
         name: 'Traumatic Injury',
         snippet: 'Your roll on the Traumatic Injury Table',
