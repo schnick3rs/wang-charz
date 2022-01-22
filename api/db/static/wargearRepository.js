@@ -1533,6 +1533,17 @@ const fspg = [
   },
 ];
 
+const afas = [
+  {
+    ...gear(source.afas.key,25,'Crux Terminatus','10V','Adeptus Astartes,Imperium'),
+    snippet: 'Cast in stone and mounted on the bearer’s Power Armour, the Crux Terminatus is the ultimate symbol of valour in the Imperium.',
+    modifications: [
+      { targetGroup: 'traits', targetValue: 'influence', modifier: 1 },
+      { targetGroup: 'traits', targetValue: 'resolve', modifier: 1 },
+    ],
+  },
+];
+
 const aaoaMelee = [
   // Ordinary Melee Weapons
   ...[
@@ -1611,7 +1622,7 @@ const aaoaMelee = [
   // Exotic Melee Weapons
   ...[
     {
-      ...gear(source.aaoa.key,135,'Chordclaw', '6R', 'Transonic,Adeptus Mechanicus,Skitarii'),
+      ...gear(source.aaoa.key,135,'Chordclaw (Apocrypha Pattern)', '6R', 'Transonic,Adeptus Mechanicus,Skitarii'),
       ...meleez('Exotic Melee Weapon',4,3,0,1,'Careful, Mortal (d3)'),
     },
     {
@@ -3153,6 +3164,7 @@ module.exports = [
   ...core,
   ...doctorsOfDoom,
   ...fspg,
+  ...afas,
   ...aaoa,
   ...aaoav2,
   ...pax,

@@ -1206,7 +1206,22 @@ const core = [
 
 // Redacted Records volume 1
 const red1 = [
-
+  {
+    ...talent(source.red1.key, 60, 'Anatomical Scourge', 20, ''),
+    snippet: 'When you use a weapon with the Melta Trait at Short Range, increase both the ED and AP by +Rank.',
+    description:
+      '<p>When you use a weapon with the <em>Melta</em> Trait at Short Range, increase both the ED and AP by +Rank.</p>',
+    requirements: [],
+    modifications: [],
+  },
+  {
+    ...talent(source.red1.key, 60, 'Angel Of Mercy', 10, ''),
+    snippet: 'When you use a weapon with the Melta Trait at Short Range, increase both the ED and AP by +Rank.',
+    description:
+      '<p>Add +Rank to your Medicae (Int) dice pool to determine how many Wounds you can remove in a Regroup of an hour or longer. You can split the number of Wounds you remove between multiple characters, rather than a single target.</p>',
+    requirements: [],
+    modifications: [],
+  },
 ];
 
 const aaoa = [
