@@ -1039,7 +1039,7 @@ import MutationsMixin from '~/mixins/MutationsMixin';
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import DodCorruptionManager from '~/components/forge/DodCorruptionManager';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
-import marked from 'marked';
+import { marked } from 'marked';
 
 export default {
   name: 'in-app-view',
@@ -2189,7 +2189,7 @@ export default {
     },
     characterNotes() {
       const notes = this.$store.getters['characters/characterFluffNotesById'](this.characterId) || '';
-      return marked(notes);
+      return marked.parse(notes);
     },
     weaponsTraitSet() {
       let weaponsTraitSet = [];
