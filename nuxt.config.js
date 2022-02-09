@@ -259,14 +259,6 @@ module.exports = {
       // Include the compiler version of Vue so that wp-content works
       config.resolve.alias["vue$"] = "vue/dist/vue.esm.js"
 
-      // add frontmatter-markdown-loader
-      config.module.rules.push(
-        {
-          test: /\.md$/,
-          include: path.resolve(__dirname, "posts"),
-          loader: "frontmatter-markdown-loader",
-        },
-      );
     },
   },
 };

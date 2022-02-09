@@ -33,7 +33,6 @@
     "dotenv": "^8.6.0",
     "express": "^4.17.2",
     "express-promise-router": "^4.1.1",
-    "frontmatter-markdown-loader": "^3.6.3",
     "fs": "0.0.1-security",
     "js-cookie": "^2.2.1",
     "jsonwebtoken": "^8.5.1",
