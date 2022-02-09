@@ -830,7 +830,7 @@ const core = [
   },
   {
     ...talent('core',139,'Silent',20),
-    snippet: 'You may Move at full Speed while Moving Stealthily. Moving out of Hiding does not reduce your Stealth Score.',
+    snippet: 'You may Move at full Speed while Moving Stealthily. Whenever your Stealth Score would be reduced, reduce it by 1 fewer.',
     description:
       '<p></p>',
     requirements: [],
