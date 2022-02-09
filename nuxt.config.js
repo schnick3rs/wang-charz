@@ -196,9 +196,6 @@ module.exports = {
   axios: {
     browserBaseURL: '/',
   },
-  proxy: {
-    // '/api/': 'https://www.doctors-of-doom.com', // only for development
-  },
 
   /* auth: {
     strategies: {
