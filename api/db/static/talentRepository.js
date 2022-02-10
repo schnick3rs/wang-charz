@@ -577,6 +577,7 @@ const core = [
       { key: 'ballistic-skill', name: 'Ballistic Skill' },
       { key: 'medicae', name: 'Medicae' },
       { key: 'pilot', name: 'Pilot' },
+      { key: 'scholar', name: 'Scholar' },
       { key: 'survival', name: 'Survival' },
       { key: 'tech', name: 'Tech' },
       { key: 'weapon-skill', name: 'Weapon Skill' },
