@@ -577,7 +577,6 @@ const core = [
       { key: 'ballistic-skill', name: 'Ballistic Skill' },
       { key: 'medicae', name: 'Medicae' },
       { key: 'pilot', name: 'Pilot' },
-      { key: 'scholar', name: 'Scholar' },
       { key: 'survival', name: 'Survival' },
       { key: 'tech', name: 'Tech' },
       { key: 'weapon-skill', name: 'Weapon Skill' },
@@ -1249,6 +1248,52 @@ const red1 = [
       ],
     
   },
+    
+  {
+    ...talent(source.red1.key, 66, 'Identify Weakness [Awareness]', 20, ''),
+    snippet: 'As a Combat Action: Make a Awareness(int) vs an Elite or Adversary to give your allys + Double Rank ED against it',
+    description:
+      '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
+      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
+    requirements: [
+    requireSkill('awareness', 3),
+      ],
+  },
+    
+     {
+    ...talent(source.red1.key, 66, 'Identify Weakness [Insight]', 20, ''),
+    snippet: 'Make an Insight(Fel) test vs an Elite or Adversary you talk to, to give your allys + Double Rank ED against them',
+    description:
+      '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
+      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
+    requirements: [
+    requireSkill('insight', 3),
+      ],
+  },
+   {
+    ...talent(source.red1.key, 66, 'Identify Weakness [Investigation]', 20, ''),
+    snippet: 'Make an Investigation(Int) Test vs an Elite or Adversary who you surveiled or investigated for a day, to give your allys + Double Rank ED against them',
+    description:
+      '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
+      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
+    requirements: [
+    requireSkill('investigation', 3),
+      ],
+  },
+     {
+    ...talent(source.red1.key, 66, 'Identify Weakness [Scholar]', 20, ''),
+    snippet: 'As a Combat Action: Make a Scholar(Int) Test an Elite or Adversary to give your allys + Double Rank ED against them',
+    description:
+      '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
+      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
+    requirements: [
+    requireSkill('scholar', 3),
+      ],
+    
+  },
+    
+    
+
     
     
     
