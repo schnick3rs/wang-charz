@@ -524,7 +524,7 @@ const core = [
   },
   {
     ...gear(source.core.key,224,'Hand Flamer','5U','Fire,Imperium'),
-    ...rangez('Flame Weapon',10,1,0,6,1,'Flamer,Pistol'),
+    ...rangez('Flame Weapon',7,1,0,6,1,'Flamer,Pistol'),
   },
   {
     ...gear(source.core.key,224,'Flamer','5U','Fire,Imperium'),
