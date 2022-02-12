@@ -1246,7 +1246,7 @@ const red1 = [
     snippet: 'As a Combat Action: Make a Awareness(int) vs an Elite or Adversary to give your allys + Double Rank ED against it',
     description:
       '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
-      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
+      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.',
     requirements: [
       requireSkill('awareness', 3),
     ],
@@ -1276,7 +1276,7 @@ const red1 = [
     snippet: 'As a Combat Action: Make a Scholar(Int) Test an Elite or Adversary to give your allys + Double Rank ED against them',
     description:
       '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
-      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
+      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.',
     requirements: [
       requireSkill('scholar', 3),
     ],
