@@ -1207,12 +1207,12 @@ const core = [
 // Redacted Records volume 1
 const red1 = [
   {
-    ...talent('red1',60,'Absolute Incineration',20,'Combat,Melta,Damage'),
+    ...talent(source.red1.key,60,'Absolute Incineration',20,'Combat,Melta,Damage'),
     snippet: 'When you use a weapon with the Melta Trait at Short Range, increase both the ED and AP by +Rank.',
     description: '<p>When you use a weapon with the <em>Melta</em> Trait at Short Range, increase both the ED and AP by +Rank.</p>',
   },
   {
-    ...talent('red1',60,'Anatomical Scourge',20,'Combat,Melta,Damage'),
+    ...talent(source.red1.key,60,'Anatomical Scourge',20,'Combat,Melta,Damage'),
     snippet: 'You gain +2ED when making Called Shots.',
     description: '<p>When you use a weapon with the <em>Melta</em> Trait at Short Range, increase both the ED and AP by +Rank.</p>',
     requirements: [
