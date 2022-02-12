@@ -703,7 +703,7 @@ const core = [
   },
   {
     ...talent('core',136,'Mastered Paths',20),
-    snippet: 'Select one of your Aeldari Paths. You gain additionaly +Rank bonus from that park.',
+    snippet: 'Pick one of your Aeldari Paths. You gain additionaly +Rank bonus from that park.',
     description:
       '<p></p>',
     requirements: [
@@ -1206,50 +1206,41 @@ const core = [
 
 // Redacted Records volume 1
 const red1 = [
-         
-   {
+  {
     ...talent('red1',60,'Absolute Incineration',20,'Combat,Melta,Damage'),
     snippet: 'When you use a weapon with the Melta Trait at Short Range, increase both the ED and AP by +Rank.',
-    description:
-     '<p>When you use a weapon with the <em>Melta</em> Trait at Short Range, increase both the ED and AP by +Rank.</p>',
-   },
+    description: '<p>When you use a weapon with the <em>Melta</em> Trait at Short Range, increase both the ED and AP by +Rank.</p>',
+  },
   {
     ...talent('red1',60,'Anatomical Scourge',20,'Combat,Melta,Damage'),
     snippet: 'You gain +2ED when making Called Shots.',
-    description:
-      '<p></p>',
-    
-    <p>When you use a weapon with the <em>Melta</em> Trait at Short Range, increase both the ED and AP by +Rank.</p>',
+    description: '<p>When you use a weapon with the <em>Melta</em> Trait at Short Range, increase both the ED and AP by +Rank.</p>',
     requirements: [
       requireSkill('medicae', 2),
     ],
-   },
-
+  },
   {
     ...talent(source.red1.key, 60, 'Angel Of Mercy', 10, ''),
     snippet: 'Add +Rank to your Medicae (Int) dice pool to determine how many Wounds you can remove in a Regroup of an hour or longer. ',
     description:
       '<p>Add +Rank to your Medicae (Int) dice pool to determine how many Wounds you can remove in a Regroup of an hour or longer. You can split the number of Wounds you remove between multiple characters, rather than a single target.</p>',
     requirements: [
-    requireSkill('medicae', 2),
-      ],
+      requireSkill('medicae', 2),
+    ],
     modifications: [
-      { targetGroup: 'skills', targetValue: 'medicae', modifier: 2, condition: 'During a Regroup'  },
-      ],
+      { targetGroup: 'skills', targetValue: 'medicae', modifier: 2, condition: 'When determining wound removal during a Regroup'  },
+    ],
   },
-   
-      {
+  {
     ...talent(source.red1.key, 60, 'Animal Wrangler', 10, ''),
     snippet: 'You gain +Double Rank bonus dice on any social Skill Test against a target with the BEAST Keyword. ',
     description:
       '<p>You gain +Double Rank bonus dice on any social Skill Test against a target with the BEAST Keyword. ' +
       '<p> You may choose to use the Survival (Wil) Skill for any social Skill Tests against these targets..</p>',
     requirements: [
-    requireSkill('survival', 2),
-      ],
-    
+      requireSkill('survival', 2),
+    ],
   },
-    
   {
     ...talent(source.red1.key, 66, 'Identify Weakness [Awareness]', 20, ''),
     snippet: 'As a Combat Action: Make a Awareness(int) vs an Elite or Adversary to give your allys + Double Rank ED against it',
@@ -1257,47 +1248,39 @@ const red1 = [
       '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
       '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
     requirements: [
-    requireSkill('awareness', 3),
-      ],
+      requireSkill('awareness', 3),
+    ],
   },
-    
-     {
+  {
     ...talent(source.red1.key, 66, 'Identify Weakness [Insight]', 20, ''),
     snippet: 'Make an Insight(Fel) test vs an Elite or Adversary you talk to, to give your allys + Double Rank ED against them',
     description:
       '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
-      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
+      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.',
     requirements: [
-    requireSkill('insight', 3),
-      ],
+      requireSkill('insight', 3),
+    ],
   },
-   {
+  {
     ...talent(source.red1.key, 66, 'Identify Weakness [Investigation]', 20, ''),
     snippet: 'Make an Investigation(Int) Test vs an Elite or Adversary who you surveiled or investigated for a day, to give your allys + Double Rank ED against them',
     description:
       '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
-      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
+      '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.',
     requirements: [
-    requireSkill('investigation', 3),
-      ],
+      requireSkill('investigation', 3),
+    ],
   },
-     {
+  {
     ...talent(source.red1.key, 66, 'Identify Weakness [Scholar]', 20, ''),
     snippet: 'As a Combat Action: Make a Scholar(Int) Test an Elite or Adversary to give your allys + Double Rank ED against them',
     description:
       '<p>The DN of the Skill Test is usually 3, but may vary; for example, a target may make an Opposed Test' +
       '<p>against Insight (Fel) using their Deception (Fel) Skill. You can only track one enemy’s weakness at a time.'
     requirements: [
-    requireSkill('scholar', 3),
-      ],
-    
+      requireSkill('scholar', 3),
+    ],
   },
-    
-    
-
-    
-    
-    
 ];
 
 const aaoa = [
@@ -1587,8 +1570,8 @@ const aaoa = [
     ],
   },
 
- 
-  
+
+
   // Excarch Powers
   {
     ...talent('aaoa2',147,'Ambush',30,'','', 1 ),
@@ -1811,14 +1794,12 @@ const aaoa = [
     ...talent('aaoa2',150,'Intercept',20,'','', 1 ),
     talentGroup: 'Exarch Powers',
     talentGroupKey: 'aaoa-exarch-powers',
-    requirementsString: 'None',
+    requirementsString: 'Agility 6+, Swooping Hawk',
     snippet: 'When the Exarch, or a member of their squad, makes an attack against a flying enemy, they may re-roll any failures on their skill test.',
     description:
       '<p>The Exarch is a peerless aerial combatant, effortlessly proficient at fighting opponents in the sky.</p>' +
       '<p>When the Exarch, or a member of their squad, makes an attack against a flying enemy, they may re-roll any failures on their skill test.</p>',
   },
-  
-
 ];
 
 module.exports = [
