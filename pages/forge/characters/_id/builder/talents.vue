@@ -381,6 +381,7 @@ export default {
       return [
         'core',
         'fspg',
+        'red',
         ...this.settingHomebrews,
       ];
     },

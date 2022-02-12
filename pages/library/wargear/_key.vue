@@ -61,7 +61,7 @@
           <v-row>
             <v-col>
               <v-btn
-                  v-if="!['core','fspg'].includes(item.source.key)"
+                  v-if="!['core','fspg','red1'].includes(item.source.key)"
                   :href="`/api/wargear/${item.key}?format=foundry`"
                   download
                   small
