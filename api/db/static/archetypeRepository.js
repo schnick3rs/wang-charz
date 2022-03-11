@@ -523,7 +523,7 @@ const core = [
   },
   {
     ...archetype(source.core.key, 100,'Adeptus Astra Telephatica','Sanctioned Psyker',2,'Human'),
-    ...cost(32,10,22, 0, 0),
+    ...cost(32, 10, 22, 0, 0),
     hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
     keywords: 'Imperium,Adeptus Astra Telepathica,Psyker,Scholastica Psykana',
     prerequisites: [
@@ -1079,7 +1079,7 @@ const core = [
   },
   {
     ...archetype(source.core.key, 100,'Chaos','Rogue Psyker',2,'Human'),
-    ...cost(72,50,22, 0, 0),
+    ...cost(32,10,22, 0, 0),
     hint: 'How could you...',
     keywords: 'Chaos,Psyker,Scholastica Psykana',
     prerequisites: [
@@ -1099,8 +1099,8 @@ const core = [
       },
       {
         name: 'Unlock Disciplines',
-        snippet: 'You gain access to the Minor, Universal and Maleficarum disciplines. You unlock an additional single Psychic Discipline.',
-        description: '<p>You gain access to the Minor, Universal and Maleficarum disciplines. You unlock an additional single Psychic Discipline, following the rules in Chapter 11.</p>',
+        snippet: 'You gain access to the Minor and Universal disciplines. You may unlock the Maleficarum discipline. You unlock an additional single Psychic Discipline.',
+        description: '<p>You gain access to the Minor and Universal disciplines. You unlock an additional single Psychic Discipline, following the rules in Chapter 11.</p>',
         selected: [''],
         options: [
           // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
@@ -1110,13 +1110,13 @@ const core = [
           { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
           { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
           { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
-          //{ key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
           { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
         ],
         psychicDisciplines: [
           'Minor',
           'Universal',
-          'Maleficarum',
+          //'Maleficarum',
         ],
       },
       {
