@@ -3460,7 +3460,7 @@ const aaoaAdeptusArbites = [
 const aaoaAstraMilitarum = [
   {
     name: 'Beastman Auxiliary',
-    ...archetype(source.aaoa.key, 33, 'Astra Militarum', 'Beastman Auxiliary', 1, 'aaoa/Beastman'),
+    ...archetype(source.aaoa.key, 42, 'Astra Militarum', 'Beastman Auxiliary', 1, 'aaoa/Beastman'),
     ...costz(28, [
       reqAttribute(ATTRIBUTES.STRENGTH, 3),
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -3468,18 +3468,18 @@ const aaoaAstraMilitarum = [
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
     hint: 'You have been drafted to serve alongside Astra Militarum forces as an auxiliary.',
-    keywords: 'Imperium,Astra Militarum,[Regiment]',
+    keywords: 'Imperium,Astra Militarum,Abhuman',
     influence: 0,
     archetypeFeatures: [
       {
-        ...simpleAbility('Bestial Zealotry','When you are able to see an enemy (either an obvious foe, or a creature identified as an enemy by an ally or superior), you add +Rank to your Resolve, and add +Rank bonus dice to any melee attacks you make when you charge.'),
+        ...simpleAbility('Bestial Zealotry','When you can see an enemy (either an obvious foe, or a creature identified as an enemy by an ally or superior), you add +Rank to your Resolve, and add +Rank bonus dice to any melee attacks you make when you charge.'),
         modifications: [
           { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 0, rank: 1, condition: 'when you can see your enemy.' },
           // XXX { targetGroup: 'combat', targetValue: 'meleeAttacks', modifier: 0, rank: 1, condition: 'when you can see charge.' },
         ],
       }
     ],
-    wargearString: 'Two melee weapons each of Value 3 or less of up to Common rarity, primitive armour',
+    wargearString: 'Two melee weapon s each of Value 3 or less of up to Common rarity, primitive armour',
     wargear: [
       { name: 'Primitive Armour' },
       {
