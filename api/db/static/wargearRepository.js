@@ -1181,8 +1181,8 @@ const core = [
   {
     ...gear(source.core.key,245,'Mechadendrites (Servo-Arm)','5V','Adeptus Mechanicus'),
     type: 'Augmetics', subtype: 'Augmetic Implants', triptype: 'Mechadendrites',
-    snippet: 'You gain +4 Strength when using the arm. In combat, the arm allows you to Brace (p.189) as a Free Action. You can use the arm as a melee weapon with the following profile: Damage 6+2ED, AP-3, Unwieldy(2)',
-    meta: [ metaMelee(6,2,-3,1,['Unwieldy(2)']) ],
+    snippet: 'You gain +4 Strength when using the arm. In combat, the arm allows you to Brace (p.189) as a Free Action. You can use the arm as a melee weapon with the following profile: Damage 4+2ED, AP-3, Unwieldy(2)',
+    meta: [ metaMelee(4,2,-3,1,['Unwieldy(2)']) ],
   },
   {
     ...gear(source.core.key,245,'Mechadendrites (Utility)','5V','Adeptus Mechanicus'),
