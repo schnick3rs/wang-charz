@@ -84,13 +84,19 @@ export default {
 
     const { idslug } = params;
 
-    const { id, slug } = regex.exec(idslug).groups;
+    let regExpExecArray = regex.exec(idslug);
+    if (regExpExecArray === null) {
+      error({ statusCode: 404, message: 'Wargear not found' });
+      return;
+    }
+    const { id, slug } = regExpExecArray.groups;
 
     const response = await $axios.get(`/api/talents/${id}`);
     const item = response.data;
 
     if (item === undefined || item.length <= 0) {
       error({ statusCode: 404, message: 'Wargear not found' });
+      return;
     }
 
     return {
