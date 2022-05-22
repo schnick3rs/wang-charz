@@ -3532,28 +3532,28 @@ const aaoaAstraMilitarum = [
   },
   {
     name: 'Imperial Guard Officer',
-    ...archetype(source.aaoa.key, 37, 'Astra Militarum', 'Imperial Guard Officer', 1, 'Human'),
+    ...archetype(source.aaoa.key, 64, 'Astra Militarum', 'Imperial Guard Officer', 1, 'Human'),
     ...costz(22,[
       reqAttribute(ATTRIBUTES.FELLOWSHIP, 3),
-      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
       reqSkill(SKILLS.LEADERSHIP, 2),
     ]),
     hint: 'A stern commander trained to inspire and lead others into the fray.',
-    keywords: 'Imperium,Astra Militarum,[Regiment],Officer',
+    keywords: 'Imperium,Astra Militarum,[Regiment]',
     influence: 1,
     archetypeFeatures: [
       {
         name: 'Voice of Command',
         description:
-          '<p>An Officer may spend an action giving an order to a character with the Astra Militarum keyword who is within hearing range and subordinate to the officer. This requires a Leadership test (DN 3). A successful test allows the ordered character to gain one of the following benefits (Officer’s choice, see pg. 37) on their next turn:</p>' +
+          '<p>As a Combat Action, you may issue an order to allies with the ASTRA MILITARUM keyword who are able to hear you. Issuing orders requires a DN 1 Leadership test to order a single ally, adding +2 DN for each additional ally . Orders can be found on the sidebar below:</p>' +
           '<ul>' +
-          '<li>The ally may re-roll Double Rank dice on their next aimed ranged attack.</li>' +
-          '<li>The officer chooses a single enemy, and the ally adds +Rank ED to their next ranged attack against that target..</li>' +
-          '<li>The ally may shoot as part of a run action as if their weapon had the Assault trait.</li>' +
-          '<li>The ally adds +Rank to their Speed if they Run or Sprint in their next turn.</li>' +
-          '<li>The ally adds +Rank bonus dice to their next melee attack.</li>' +
+          '<li><strong>TAKE AIM!</strong> The ally may re - roll Double Rank dice on their next aimed ranged attack.</li>' +
+          '<li><strong>BRING IT DOWN!</strong> The officer chooses a single enemy, and the ally adds +Rank ED to their next ranged attack against that target.</li>' +
+          '<li><strong>FORWARDS, FOR THE EMPEROR!</strong> The ally may shoot as part of a run action as if their weapon had the Assault trait.</li>' +
+          '<li><strong>MOVE! MOVE! MOVE!</strong> The ally adds +Rank to their Speed if they Run or Sprint in their next turn</li>' +
+          '<li><strong>FIX BAYONETS!</strong> The ally adds +Rank bonus dice t o their next melee attack</li>' +
           '</ul>' +
-          '<p>An officer may issue orders to multiple characters, adding +2 to the DN of the leadership test for each character after the first being orders. All character ordered must receive the same benefit.</p>'
+          '<p>All references to Rank in the orders below refer to the Rank of the character giving the order. A character may only benefit from one order at a time , and an order’s effects last only until the start of the officer’s next turn.</p>'
       },
     ],
     wargear: wargearz('Flak armour, Refractor Field, Laspistol, chainsword, knife, Munitorum-Issue Mess Kit/guard issue mess kit, blanket, grooming kit, Uplifting Primer, 3 ration packs'),
