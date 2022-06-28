@@ -1711,7 +1711,7 @@ const aaoaMelee = [
       ...meleez('Aeldari Melee Weapon', 5, 3, -3, 1, 'Force, Mortal (1), Parry'),
     },
     {
-      ...gear(source.aaoa.key,138,'Executioner', '9L','Power Field, 2-Handed, Ancient, Aeldari, Asuryani'),
+      ...gear(source.aaoa.key,182,'Executioner', '9L','Power Field, 2-Handed, Ancient, Aeldari, Asuryani'),
       ...meleez('Aeldari Melee Weapon', 7, 4, -3, 2, 'Parry, Special'),
       description:
         '<p><strong>Special: </strong>The Parry trait of an Executioner adds +2 to the wielder’s Defence in melee, rather than +1.</p>',
@@ -1970,7 +1970,7 @@ const aaoaRanged = [
         '<p><strong>Special: </strong>When firing a Deathwatch frag cannon, select either shrapnel or solid shell mode. When the solid shell mode is used, add +2ED to the damage, and increase the AP to -3 when the target is within short range.</p>',
     },
     {
-      ...gear(source.aaoa.key,145,'Executioner', '9L', 'Bolt, Needle, Officio Assasinorum, Tempus Eversor'),
+      ...gear(source.aaoa.key,145,'Executioner Pistol', '9L', 'Bolt, Needle, Officio Assasinorum, Tempus Eversor'),
       type: 'Ranged Weapon',
       subtype: 'Exotic Weapon',
       meta: [
