@@ -1970,7 +1970,7 @@ const aaoaRanged = [
         '<p><strong>Special: </strong>When firing a Deathwatch frag cannon, select either shrapnel or solid shell mode. When the solid shell mode is used, add +2ED to the damage, and increase the AP to -3 when the target is within short range.</p>',
     },
     {
-      ...gear(source.aaoa.key,145,'Executioner Pistol', '9L', 'Bolt, Needle, Officio Assasinorum, Tempus Eversor'),
+      ...gear(source.aaoa.key,193,'Executioner Pistol', '9L', 'Bolt, Needle, Officio Assasinorum, Tempus Eversor'),
       type: 'Ranged Weapon',
       subtype: 'Exotic Weapon',
       meta: [
