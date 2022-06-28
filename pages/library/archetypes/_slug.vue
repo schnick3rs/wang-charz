@@ -32,7 +32,7 @@ export default {
   ],
   head() {
     const title = `${this.item.name} - Archetypes`;
-    let isOfficial = ['core','fspg','red1'].includes(this.item.source.key);
+    let isOfficial = ['core','fspg','red1','cos'].includes(this.item.source.key);
     const description = isOfficial
         ? `The ${this.item.name} from the ${this.item.faction} Faction is an official archetype described in the ${this.item.source.book}.`
         : `The ${this.item.name} from the ${this.item.faction} Faction is a homebrew archetype provided by ${this.item.source.book}.`;

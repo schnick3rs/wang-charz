@@ -4,6 +4,7 @@ const source = {
   fspg: { book: 'Forsaken System Player`s Guide', key: 'fspg', version: 'v2.0', link: 'https://www.drivethrurpg.com/product/303930/Wrath--Glory--Forsaken-System-Players-Guide?affiliate_id=466959' },
   red1: { book: 'Redacted Records I', key: 'red1', version: 'v1.0', link: 'https://www.drivethrurpg.com/product/343896/Wrath--Glory--Redacted-Records?affiliate_id=466959' },
   afas: { book: 'Affliction Ascendant', key: 'afas', version: 'v1.0', link: 'https://www.drivethrurpg.com/product/343904/Wrath--Glory--Affliction-Ascendant?affiliate_id=466959' },
+  cos: { book: 'Church of Steel', key: 'cos', version: 'v1.0', link: 'https://www.drivethrurpg.com/product/343889/Wrath--Glory--Church-of-Steel?affiliate_id=466959' },
   coreab: { book: 'Abhumans (Beta)', key: 'coreab', version: 'v0.5' },
   core10: { book: 'Core Rules', key: 'core10', version: 'v1' },
   // Doctors of Doom
