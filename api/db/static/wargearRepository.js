@@ -151,7 +151,7 @@ const metaMelee = function(staticPart, ed, ap, range, traits) {
   };
 }
 
-const meleez = function (subtype, damage, ed, ap, range, traits) {
+const meleez = function (subtype, damage, ed, ap, range, traits = undefined) {
   return {
     type: 'Melee Weapon',
     subtype: subtype ? subtype : undefined,
@@ -1555,6 +1555,22 @@ const cos = [
     ...rangez('Ork Range Weapon',14,4,1,'*','-','Blast(4)'),
     snippet: 'For running Squig as a combatant, see Churf of Steel, pg. 138.',
   },
+];
+
+const tnh = [
+  {
+    ...gear(source.tnh.key,9,'Executioner Greatblade', '10L', 'Anathema Psykana, Power Field'),
+    ...meleez('Power Weapon',7,5,-3,'-'),
+  },
+  {
+    ...gear(source.tnh.key,9,'Psyk-Out Grenade', '10L', 'Anathema Psykana'),
+    ...rangez('Sister of Silence Range Weapon','*','*','*','*', '-', 'Blast(3),Thrown(STRx4)'),
+    snippet: 'They do no damage but any target with the PSYKER Keyword must immediately make a Perils of the Warp roll if struck',
+    },
+    {
+      ...gear(source.tnh.key,9,'Witchseeker Flamer', '8E', 'Anathema Psykana,Fire,Imperium'),
+      ...rangez('Sister of Silence Range Weapon',10,1,-1,8, 1, 'Assault,Flamer'),
+    },
 ];
 
 const afas = [
@@ -3189,6 +3205,7 @@ module.exports = [
   ...doctorsOfDoom,
   ...fspg,
   ...cos,
+  ...tnh,
   ...afas,
   ...aaoa,
   ...aaoav2,
