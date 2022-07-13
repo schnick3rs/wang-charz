@@ -196,6 +196,7 @@ export default {
         'fspg',
         'red1',
         'cos',
+        'tnh',
         ...this.settingHomebrews
       ];
     },
