@@ -1887,6 +1887,7 @@ const aaoaRanged = [
     },
     {
       ...gear(source.aaoa.key,186,'Auto-Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
+      type: 'Ranged Weapon',
       subtype: 'Bolt Weapon',
       meta: [
         metaRange(10, 1, 0, 18, 3, ['Assault','Brutal','Paired','Rapid Fire (3)']),
@@ -1906,6 +1907,7 @@ const aaoaRanged = [
     },
     {
       ...gear(source.aaoa.key,186,'Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
+      type: 'Ranged Weapon',
       subtype: 'Bolt Weapon',
       meta: [
         metaRange(10, 1, 0, 18, 3, ['Brutal','Pistol']),
