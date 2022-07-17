@@ -2362,8 +2362,8 @@ const afas = [
 
 const tnh = [
   {
-    ...archetype(source.tnh.key, 8,'Adeptus Astra Telephatica','Sister of Silence',3,'Human'),
-    ...costz(80,[
+    ...archetype(source.tnh.key, 8,'Adeptus Astra Telephatica','Sister of Silence Prosecutor',3,'Human'),
+    ...costz(100,[
       reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
       reqAttribute(ATTRIBUTES.INITIATIVE, 3),
       reqAttribute(ATTRIBUTES.WILLPOWER, 4),
@@ -2377,7 +2377,7 @@ const tnh = [
       reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
     hint: 'A silent sister.',
-    keywords: 'Imperium,Anathema Psykana,[Order]',
+    keywords: 'Imperium,Anathema Psykana,[Enclave]',
     archetypeFeatures: [
       {
         name: 'Master of Warfare',

@@ -1559,8 +1559,8 @@ const cos = [
 
 const tnh = [
   {
-    ...gear(source.tnh.key,9,'Executioner Greatblade', '10L', 'Anathema Psykana, Power Field'),
-    ...meleez('Power Weapon',7,5,-3,'-'),
+    ...gear(source.tnh.key,9,'Executioner Greatblade', '10L', 'Anathema Psykana,Power Field,2-Handed'),
+    ...meleez('Power Weapon',7,5,-3,'-', 'Brutal'),
   },
   {
     ...gear(source.tnh.key,9,'Psyk-Out Grenade', '10L', 'Anathema Psykana'),
@@ -1568,8 +1568,12 @@ const tnh = [
     snippet: 'They do no damage but any target with the PSYKER Keyword must immediately make a Perils of the Warp roll if struck',
     },
     {
-      ...gear(source.tnh.key,9,'Witchseeker Flamer', '8E', 'Anathema Psykana,Fire,Imperium'),
-      ...rangez('Sister of Silence Range Weapon',10,1,-1,8, 1, 'Assault,Flamer'),
+      ...gear(source.tnh.key,9,'Witchseeker Flamer', '8V', 'Anathema Psykana,Fire,Imperium'),
+      ...rangez('Sister of Silence Range Weapon',10,1,-1,8, 1, 'Assault,Blessed,Flamer'),
+    },
+    {
+      ...gear(source.tnh.key,9,'Vratine Power Armour', '8L', 'Anathema Psykana,Power Field'),
+      ...armour('Power Armour',5,'Powered(3)'),
     },
 ];
 
