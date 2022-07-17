@@ -1320,11 +1320,11 @@ const fspg = [
   // Ranged Weapons
   {
     ...gear(source.fspg.key,123,'Bolt Carbine','6V','Bolt,Imperium,Adeptus Astartes,Astartes Primaris'),
-    ...rangez(undefined,12,1,0,24,2, 'Assault,Brutal(2),Rapid Fire(2)'),
+    ...rangez(undefined,12,1,0,24,2, 'Assault,Brutal,Rapid Fire(2)'),
   },
   {
     ...gear(source.fspg.key,123,'Condemnor Boltgun','6L','Bolt,Imperium,Adepta Sororitas'),
-    ...rangez(undefined,10,1,0,24,2, 'Assault,Brutal(2),Rapid Fire(2)'),
+    ...rangez(undefined,10,1,0,24,2, 'Blessed(3),Brutal,Rapid Fire(2)'),
   },
   {
     ...gear(source.fspg.key,123,'Eradication Ray','8V','Adeptus Mechanicus'),
@@ -1893,8 +1893,8 @@ const aaoaRanged = [
         '<p>May be used as Power Fist (Core pg. 212).</p>',
     },
     {
-      ...gear(source.aaoa.key,142,'Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
-      ...rangez('Bolt Weapon',10,1,0,14,2,'Assault, Brutal, Steadfast'),
+      ...gear(source.aaoa.key,186,'Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,24,2,'Assault, Brutal, Reliable, Rapid Fire (1)'),
     },
     {
       ...gear(source.aaoa.key,142,'Bolt Sniper Rifle','8V','Bolt, Adeptus Astartes, Primaris'),
@@ -2675,11 +2675,6 @@ const aaoa = [
 ];
 
 const aaoav2 = [
-  // AAOA v2
-  {
-    ...simpleStub(30904, 'aaoa2',90,'Bolt Carbine', '6R', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
-    ...rangeAaoa('10+1ED; AP 0; Range 40m; Salvo 2; Assault, Brutal, Steadfast', 'Bolt Weapon', ''),
-  },
   {
     ...simpleStub(30905, 'aaoa2',90,'Bolt Sniper Rifle', '8V', 'Bolt, Imperium, Adeptus Astartes, Primaris', ''),
     ...rangeAaoa('12+1ED; AP 0; Range 75m; Salvo 1; Heavy [6], Sniper [2]', 'Bolt Weapon','When firing a Bolt Sniper Rifle, choose a single ammo type: Executioner (AP -1, +2d to the attack roll and ignore cover), Hyperfrag (add the Blast [Small] trait), or Mortis (+1ED, AP -2, add Toxic [5] trait)'),
