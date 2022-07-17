@@ -1614,7 +1614,6 @@ const aaoaMelee = [
   ],
   // Force Melee Weapon
   ...[
-
     {
       ...gear(source.aaoa.key,133,'Nemesis Falchion', '6V','Force, Grey Knights'),
       ...meleez('Force Weapon', 5, 4, -2, 1, 'Force, Nemesis, Paired, Parry'),
@@ -1877,62 +1876,68 @@ const aaoaRanged = [
   // Bolt Weapons
   ...[
     {
-      ...gear(source.aaoa.key,142,'Absolvor Bolt Pistol','8V','Bolt, Adeptus Astartes, Primaris'),
+      ...gear(source.aaoa.key,186,'Absolvor Bolt Pistol','8V','Bolt, Adeptus Astartes, Primaris'),
       ...rangez('Bolt Weapon',12,2,-1,16,1,'Brutal,Pistol'),
     },
     {
-      ...gear(source.aaoa.key,142,'Auto Bolt Rifle','7V','Bolt, Adeptus Astartes, Primaris'),
-      ...rangez('Bolt Weapon',10,1,0,24,3,'Assault,Brutal'),
+      ...gear(source.aaoa.key,186,'Auto Bolt Rifle','7V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,1,0,24,3,'Assault,Brutal,Rapid Fire (3)'),
       description:
         '<p><em>An Auto Bolt Rifle is fitted with an Ammunition Drum as standard.</em></p>',
     },
     {
-      ...gear(source.aaoa.key,142,'Auto-Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
-      ...rangez('Bolt Weapon',10,1,0,18,3,'Assault, Brutal, Paired'),
-      description:
-        '<p>May be used as Power Fist (Core pg. 212).</p>',
+      ...gear(source.aaoa.key,186,'Auto-Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
+      subtype: 'Bolt Weapon',
+      meta: [
+        metaRange(10, 1, 0, 18, 3, ['Assault','Brutal','Paired','Rapid Fire (3)']),
+        metaMelee(5, 5, -3, 1,['Brutal', 'Unwieldy(2)', 'Paired']),
+      ],
     },
     {
       ...gear(source.aaoa.key,186,'Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
       ...rangez('Bolt Weapon',10,1,0,24,2,'Assault, Brutal, Reliable, Rapid Fire (1)'),
     },
     {
-      ...gear(source.aaoa.key,142,'Bolt Sniper Rifle','8V','Bolt, Adeptus Astartes, Primaris'),
+      ...gear(source.aaoa.key,186,'Bolt Sniper Rifle','8V','Bolt, Adeptus Astartes, Primaris'),
       ...rangez('Bolt Weapon',12,1,0,36,1,'Brutal, Heavy (6), Sniper (2), Special'),
       description:
         '<p><strong>Special: </strong>When firing a Bolt Sniper Rifle, choose a single ammo type: Executioner (AP -1, +2d to the attack roll and ignore cover), Hyperfrag (add the Blast [Small] trait), or Mortis (+1ED, AP -2, add Inflict [Poisoned 5] trait)</p>' +
-        '<p><em>A Bolt Sniper Rifle includes a Monoscope, Preysense Sight, and Silencer as standard.</em></p>',
+        '<p><em>A Bolt Sniper Rifle includes a Monoscope, Preysense Sight and Silencer as standard.</em></p>',
     },
     {
-      ...gear(source.aaoa.key,142,'Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
-      ...rangez('Bolt Weapon',10,1,0,12,3,'Brutal, Pistol'),
-      description:
-        '<p>May be used as Power Fist (Core pg. 212).</p>',
+      ...gear(source.aaoa.key,186,'Boltstorm Gauntlet','8V','Bolt, Power Field, Adeptus Astartes, Primaris'),
+      subtype: 'Bolt Weapon',
+      meta: [
+        metaRange(10, 1, 0, 18, 3, ['Brutal','Pistol']),
+        metaMelee(5, 5, -3, 1,['Brutal', 'Unwieldy(2)']),
+      ],
     },
     {
       ...gear(source.aaoa.key,142,'Instigator Bolt Carbine','7R','Bolt, Adeptus Astartes, Primaris'),
       ...rangez('Bolt Weapon',10,2,-1,24,1,'Assault, Brutal, Silent, Sniper (1)'),
     },
     {
-      ...gear(source.aaoa.key,142,'Marksman Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...gear(source.aaoa.key,186,'Marksman Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
       ...rangez('Bolt Weapon',10,1,0,24,1,'Brutal, Rapid Fire (1), Sniper (1)'),
+      description:
+        '<p><em>Marksman Bolt Carbines are fitted with a Monoscope as standard.</em></p>',
     },
     {
-      ...gear(source.aaoa.key,142,'Occulus Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
+      ...gear(source.aaoa.key,186,'Occulus Bolt Carbine','6R','Bolt, Adeptus Astartes, Primaris'),
       ...rangez('Bolt Weapon',10,1,0,24,1,'Brutal, Rapid Fire (1), Special'),
       description:
         '<p><strong>Special: </strong>If used by a character equipped with a Divinator-class Auspex, attacks with an Occulus Bolt Carbine ignore all modifiers for the target being in cover.</p>' +
-        '<p><em>Marksman Bolt Carbines are fitted with a Preysense Sight as standard.</em></p>',
+        '<p><em>Occulus Bolt Carbines are fitted with a Preysense Sight as standard.</em></p>',
     },
     {
-      ...gear(source.aaoa.key,142,'Stalker Bolt Rifle','7V','Bolt, Adeptus Astartes, Primaris'),
-      ...rangez('Bolt Weapon',10,2,-2,36,1,'Brutal, Heavy (4), Sniper (1)'),
+      ...gear(source.aaoa.key,186,'Stalker Bolt Rifle','7V','Bolt, Adeptus Astartes, Primaris'),
+      ...rangez('Bolt Weapon',10,2,-2,36,1,'Brutal, Heavy (4), Rapid Fire (1), Sniper (1)'),
       description:
         '<p><em>A Stalker Bolt Rifle comes with a Monoscope as standard.</em></p>',
     },
     {
-      ...gear(source.aaoa.key,142,'Stalker-Pattern Boltgun','7V','Bolt, Adeptus Astartes, Deathwatch'),
-      ...rangez('Bolt Weapon',10,1,-1,30,2,'Brutal, Heavy (4), Sniper (1)'),
+      ...gear(source.aaoa.key,186,'Stalker-Pattern Boltgun','7V','Bolt, Adeptus Astartes, Deathwatch'),
+      ...rangez('Bolt Weapon',10,1,-1,30,2,'Brutal, Heavy (4), Rapid Fire (1), Sniper (1)'),
       description:
         '<p><em>A Stalker-pattern Boltgun comes with a Monoscope as standard.</em></p>',
     },
