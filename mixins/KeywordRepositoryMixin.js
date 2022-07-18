@@ -155,6 +155,9 @@ export default {
         name: 'Scholastica Psykana', type: 'Imperium', parentKeyword: undefined, description: 'A subset of the Adeptus Astra Telepathica, they train psykers in the use of their powers.',
       },
       {
+        name: 'Anathema Psykana', type: 'Imperium', parentKeyword: undefined, description: 'A subset of the Adeptus Astra Telepathica, they train the Psychic Blanks into the Sisters of Silence.', source: 'tnh',
+      },
+      {
         name: 'Scum', type: 'Imperium', parentKeyword: undefined, description: 'Those who live upon the fringes of Imperial society, often in the underhive or criminal syndicates.',
       },
       {
