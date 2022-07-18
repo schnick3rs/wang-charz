@@ -1564,8 +1564,8 @@ const tnh = [
   },
   {
     ...gear(source.tnh.key,9,'Psyk-Out Grenade', '10L', 'Anathema Psykana'),
-    ...rangez('Sister of Silence Range Weapon','*','*','*','*', '-', 'Blast(3),Thrown(STRx4)'),
-    snippet: 'They do no damage but any target with the PSYKER Keyword must immediately make a Perils of the Warp roll if struck',
+    ...rangez('Sister of Silence Range Weapon','*','*','*','*', '-', 'Blast(3),Thrown(STRx4),Special'),
+    description: '<p><strong>Special:</strong> They do no damage but any target with the PSYKER Keyword must immediately make a Perils of the Warp roll if struck</p>',
     },
     {
       ...gear(source.tnh.key,9,'Witchseeker Flamer', '8V', 'Anathema Psykana,Fire,Imperium'),
