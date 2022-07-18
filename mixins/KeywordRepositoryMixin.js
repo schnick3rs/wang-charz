@@ -83,6 +83,13 @@ export default {
       {
         name: '[Order]', type: 'Imperium', parentKeyword: 'Adepta Sororitas', description: 'A specific Adepta Sororitas Order (replaces this keyword when chosen).',
       },
+      {
+        name: '[Enclave]',
+        type: 'Imperium',
+        parentKeyword: undefined,
+        description: 'A specific Sisters of Silence Enclave (replaces this keyword when chosen).',
+        source: 'tnh',
+      },
       { name: 'Adeptus Astartes', type: 'Imperium', parentKeyword: undefined, description: 'The Space Marines, superhuman elite warriors of the Imperium.' },
       {
         name: '[Chapter]', type: 'Imperium', parentKeyword: 'Adeptus Astartes', description: 'A specific Adeptus Astartes Chapter (replaces this keyword when chosen).',
@@ -501,6 +508,13 @@ export default {
       { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '[Legion]', name: 'Emperor`s Children', description: '' },
       { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '[Legion]', name: 'Thousand Suns', description: '' },
       { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '[Legion]', name: 'World Eaters', description: '' },
+
+      // [Enclave] -> The Null Hypothese
+      { source: 'tnh', type: 'Enclave of the Sisters of Silence', placeholder: '[Enclave]', name: 'Raptor Guard', description: '' },
+      { source: 'tnh', type: 'Enclave of the Sisters of Silence', placeholder: '[Enclave]', name: 'Storm Dagger', description: '' },
+      { source: 'tnh', type: 'Enclave of the Sisters of Silence', placeholder: '[Enclave]', name: 'White Talon', description: '' },
+      { source: 'tnh', type: 'Enclave of the Sisters of Silence', placeholder: '[Enclave]', name: 'Brazen Sabre', description: '' },
+      { source: 'tnh', type: 'Enclave of the Sisters of Silence', placeholder: '[Enclave]', name: 'Vigil of Gilead', description: '' },
 
       // Marks of the Chaos Goods
       { type: 'Mark of Chaos', placeholder: '[Mark of Chaos]', name: 'Mark of Khorne', description: '' },
