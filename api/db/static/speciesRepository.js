@@ -937,6 +937,114 @@ const aaoa = [
       },
     ],
   },
+  // T'au
+  {
+    ...species('aaoa', 19, 'T’au','Shas','The Warrior',4,6),
+    ...cost(4,4,0, 0),
+    ...commonNames(''),
+    prerequisites: [
+      { group: 'skills', value: 'ballisticSkill', threshold: 1 },
+      { group: 'skills', value: 'tech', threshold: 1 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'For the Greater Good (Shas)',
+        snippet: 'When you assist an ally using Awareness, Ballistic Skill, or Stealth, you may halve the number of dice you would add and add that many Icons to the test you are assisting.',
+      },
+      {
+        name: 'Dull Soul',
+        snippet: 'You cannot gain the PSYKER keyword under any circumstances.',
+      },
+    ],
+  },
+  {
+    ...species('aaoa', 21, 'T’au', 'Fio', 'The Builder', 14, 5),
+    ...cost(14, 14, 0, 0),
+    ...commonNames(''),
+    prerequisites: [
+      { group: 'attributes', value: 'intellect', threshold: 3 },
+      { group: 'skills', value: 'scholar', threshold: 1 },
+      { group: 'skills', value: 'tech', threshold: 1 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'For the Greater Good (Fio)',
+        snippet: 'When you assist an ally using Medicae, Scholar, or Tech , you may halve the number of dice you would add and add that many Icons to the test you are assisting.',
+      },
+      {
+        name: 'Dull Soul',
+        snippet: 'You cannot gain the PSYKER keyword under any circumstances.',
+      },
+    ],
+  },
+  {
+    ...species('aaoa', 21, 'T’au', 'Kor', 'The Flyer', 14, 6),
+    ...cost(14, 14, 0, 0),
+    ...commonNames(''),
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'skills', value: 'awareness', threshold: 1 },
+      { group: 'skills', value: 'pilot', threshold: 1 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'For the Greater Good (Kor)',
+        snippet: 'When you assist an ally using Awareness, Pilot, or Tech, you may halve the number of dice you would add and add that many Icons to the test you are assisting.',
+      },
+      {
+        name: 'Grav-Adapted',
+        snippet: 'You ignore all DN increases for high, low, or zero-gravity, and you gain a Flying Speed equal to your normal Speed when in zero gravity.',
+      },
+      {
+        name: 'Dull Soul',
+        snippet: 'You cannot gain the PSYKER keyword under any circumstances.',
+      },
+    ],
+  },
+  {
+    ...species('aaoa', 21, 'T’au', 'Por', 'The Diplomat', 14, 6),
+    ...cost(14, 14, 0, 0),
+    ...commonNames(''),
+    prerequisites: [
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'insight', threshold: 1 },
+      { group: 'skills', value: 'persuasion', threshold: 1 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'For the Greater Good (Por)',
+        snippet: 'When you assist an ally using Cunning, Deception, or Persuasion, you may halve the number of dice you would add and add that many Icons to the test you are assisting.',
+      },
+      {
+        name: 'Polyglot',
+        snippet: 'You know additional languages equal to your Scholar rank. When you encounter an unfamiliar language, you gain +Double Rank on Scholar tests to learn or translate that language.',
+      },
+      {
+        name: 'Dull Soul',
+        snippet: 'You cannot gain the PSYKER keyword under any circumstances.',
+      },
+    ],
+  },
+  {
+    ...species('aaoa', 21, 'T’au', 'Aun', 'The Leader', 40, 6),
+    ...cost(40, 40, 0, 0),
+    ...commonNames(''),
+    prerequisites: [
+      { group: 'attributes', value: 'fellowship', threshold: 3 },
+      { group: 'skills', value: 'insight', threshold: 1 },
+      { group: 'skills', value: 'persuasion', threshold: 1 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Ethereal Presence',
+        snippet: 'T’AU characters within 12m always add bonus dice equal to twice the Ethereal’s Rank to their Resolve and Conviction tests. T’AU characters cannot willingly harm an Ethereal, and must pass a DN 5 Resolve test or become Pinned if their actions allow an Ethereal to be harmed.',
+      },
+      {
+        name: 'Dull Soul',
+        snippet: 'You cannot gain the PSYKER keyword under any circumstances.',
+      },
+    ],
+  },
 ];
 
 const dod = [
