@@ -5759,6 +5759,30 @@ const aaoaAdeptusAstraTelephatica = [
   },
 ];
 
+const aaoaTauEmpire = [
+  {
+    ...archetype(source.aaoa.key, 59,'Shas T´au','Fire Cast Warrior',1,'aaoa/Shas'),
+    ...costz(
+      8,
+      [
+        reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+        reqSkill(SKILLS.TECH, 1),
+      ],
+    ),
+    hint: 'A well-maintained warrior is an effective warrior.',
+    keywords: 'T´au Empire,Fire Cast, [Sept]',
+    modifications: [],
+    archetypeFeatures: [
+      {
+        name: 'Disciplined Volley',
+        snippet: 'You are used to laying down consistent, deadly volleys of fire. When you make a ranged attack with a PULSE weapon, and did not move during your turn, you may increase the weapon’s Salvo rating by +Rank.',
+        modifications: [],
+      },
+    ],
+    wargear: wargearz('T’au Body Armour, Pulse Rifle or Pulse Carbine, 3 Photon Grenades'),
+  },
+];
+
 const aaoaRep = [
   ...aaoaAeldari,
   ...aaoaOrks,
@@ -5772,6 +5796,7 @@ const aaoaRep = [
   ...aaoaAdeptusMechanicus,
   ...aaoaChaos,
   ...aaoaAdeptusAstraTelephatica,
+  ...aaoaTauEmpire,
 ];
 
 const aotgtRep = [

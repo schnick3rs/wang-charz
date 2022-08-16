@@ -485,6 +485,33 @@ const aaoa = [
     ],
     advancedCreationKeywords: ['Squat'],
   },
+  {
+    name: 'T´au',
+    ...faction('aaoa',29,'T’au','T’au'),
+    backgroundSection: [
+      // Origin
+      background('FIRST-SPHERE SEPT: You hail from one of the original Septs settled by the T’au, or possibly from the T’au homeworld itself.','Influence', 'Origin'),
+      background('SECOND-SPHERE SEPT: Your ancestors braved the unknown to colonise a Sept during the second-sphere expansion phase','Resolve','Origin'),
+      background('THIRD-SPHERE SEPT: Your forebears faced extreme resistance to settle a Sept during the third-sphere expansion phase.','Determination','Origin'),
+      // Accomplishment
+      background('DISCOVERY: You aided in finding, securing, or creating something valuable to the ongoing expansion of the T’au Empire.','Wealth','Accomplishment'),
+      background('PROTECTION: You helped to protect some territory, resource, or other vital asset from being lost to outsiders.','Resolve','Accomplishment'),
+      background('SACRIFICE: You willingly gave of yourself in the name of the Greater Good, suffering some form of loss or injury for the betterment of the T’au Empire.','Conviction','Accomplishment'),
+      // Goal
+      background('ADVANCEMENT: You know that you will be able to further the tau’va if you can gain power and status within the Empire.','Influence','Goal'),
+      background('DUTY: You will do whatever the Ethereals will to ensure the T’au Empire grows and prospers and all are brought within the protection of the Greater Good.','Max Shock','Goal'),
+      background('SUPREMACY: The galaxy is full of misguided species who need to be shown the error of their ways, and you will do your part to show them.','Resolve','Goal'),
+    ],
+    objectives: [
+      'When you seek to apply the wisdom of the Ethereals to a situation.',
+      'Extol the virtues of the Greater Good to someone who does not belong to the T’au Empire',
+      'Reminisce about the wonders and glories of your home Sept and other worlds within the T’au Empire',
+      'Describe a previous triumph or achievement of the T’au Empire',
+      'Reflect on your bond with your team-mates (especially if you Ta’lissera bonded)',
+      'Ponder the differences or similarities between the Castes, or between the T’au and another species',
+    ],
+    advancedCreationKeywords: ['Squat'],
+  },
 ];
 
 const factionRepository = [

@@ -939,7 +939,7 @@ const aaoa = [
   },
   // T'au
   {
-    ...species('aaoa', 19, 'T’au','Shas','The Warrior',4,6),
+    ...species('aaoa', 19, 'T’au','Shas T’au','The Warrior',4,6),
     ...cost(4,4,0, 0),
     ...commonNames(''),
     prerequisites: [
@@ -958,7 +958,7 @@ const aaoa = [
     ],
   },
   {
-    ...species('aaoa', 21, 'T’au', 'Fio', 'The Builder', 14, 5),
+    ...species('aaoa', 21, 'T’au', 'Fio T’au', 'The Builder', 14, 5),
     ...cost(14, 14, 0, 0),
     ...commonNames(''),
     prerequisites: [
@@ -978,7 +978,7 @@ const aaoa = [
     ],
   },
   {
-    ...species('aaoa', 21, 'T’au', 'Kor', 'The Flyer', 14, 6),
+    ...species('aaoa', 21, 'T’au', 'Kor T’au', 'The Flyer', 14, 6),
     ...cost(14, 14, 0, 0),
     ...commonNames(''),
     prerequisites: [
@@ -1002,7 +1002,7 @@ const aaoa = [
     ],
   },
   {
-    ...species('aaoa', 21, 'T’au', 'Por', 'The Diplomat', 14, 6),
+    ...species('aaoa', 21, 'T’au', 'Por T’au', 'The Bureaucrat', 14, 6),
     ...cost(14, 14, 0, 0),
     ...commonNames(''),
     prerequisites: [
@@ -1026,13 +1026,15 @@ const aaoa = [
     ],
   },
   {
-    ...species('aaoa', 21, 'T’au', 'Aun', 'The Leader', 40, 6),
+    ...species('aaoa', 21, 'T’au', 'Aun T’au', 'The Lord', 40, 6),
     ...cost(40, 40, 0, 0),
     ...commonNames(''),
     prerequisites: [
-      { group: 'attributes', value: 'fellowship', threshold: 3 },
-      { group: 'skills', value: 'insight', threshold: 1 },
-      { group: 'skills', value: 'persuasion', threshold: 1 },
+      { group: 'attributes', value: 'agility', threshold: 3 },
+      { group: 'attributes', value: 'willpower', threshold: 3 },
+      { group: 'skills', value: 'leadership', threshold: 2 },
+      { group: 'skills', value: 'scholar', threshold: 3 },
+      { group: 'skills', value: 'weaponSkill', threshold: 1 },
     ],
     speciesFeatures: [
       {
