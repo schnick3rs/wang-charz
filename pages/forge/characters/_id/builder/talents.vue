@@ -104,6 +104,20 @@
                 />
               </div>
 
+              <div v-if="talent.key === 'red1-devastator-doctrine'">
+                <v-select
+                  v-if="wargearList"
+                  :value="talent.selected"
+                  :items="wargearList.filter((gear) => ['Heavy Bolter','Heavy Flamer','Lascannon','Missile Launcher','Multi-Melta','Plasma Cannon'].includes(gear.name))"
+                  item-text="name"
+                  item-value="key"
+                  label="Select your big big heretic purging tool"
+                  filled
+                  dense
+                  @input="talentDevastatorDoctrineWeaponChoiceLabel($event, talent)"
+                />
+              </div>
+
               <div v-if="talent.key === 'core-special-weapons-trooper'">
                 <v-select
                   v-if="wargearList"
@@ -487,6 +501,16 @@ export default {
           }
         }
 
+        if (['red1-devastator-doctrine'].includes(aggregatedTalent.key)) {
+          const sourceKey = `talent.${aggregatedTalent.id}`;
+          const charGear = this.characterWargear.filter((gear) => gear.source && gear.source.startsWith(sourceKey));
+          if (charGear && charGear.length > 0 && this.wargearList) {
+            const wargear = this.wargearList.find((g) => g.name === charGear[0].name);
+            aggregatedTalent.selected = wargear.key;
+            aggregatedTalent.label = `${aggregatedTalent.name} <em>(${wargear.name})</em>`;
+          }
+        }
+
         // Fetch gear for selected augmetis
         if (aggregatedTalent.key.startsWith('core-augmetic')) {
           console.info(`[${aggregatedTalent.id}] Check if gear exists for ...`)
@@ -807,6 +831,21 @@ export default {
         extraCost: parseInt(wargear.value),
       };
       this.$store.commit('characters/setCharacterTalentExtraCost', talentPayload);
+    },
+    talentDevastatorDoctrineWeaponChoiceLabel(key, talent) {
+      const wargear = this.wargearList.find((gear) => gear.key === key);
+      this.talentDevastatorDoctrineUpdateWeaponChoice(wargear, talent);
+    },
+    talentDevastatorDoctrineUpdateWeaponChoice(wargear, talent) {
+      const payload = {
+        id: this.characterId,
+        name: wargear.name,
+        source: `talent.${talent.id}.weapon`,
+      };
+      this.$store.commit('characters/removeCharacterWargearBySource', payload);
+      this.$store.commit('characters/addCharacterWargear', payload);
+
+      this.talentUpdateSelected(wargear.name, talent);
     },
     toggleTalentGroupsFilter(name) {
       if (this.selectedTalentGroups.includes(name)) {
