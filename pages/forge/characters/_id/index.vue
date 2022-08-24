@@ -268,7 +268,7 @@
                     </div>
                   </td>
                   <td class="text-center pa-1 small">
-                    {{ item.adjustedRating }}<span v-if="item.alternativeRating">/{{ item.alternativeRating }}</span>
+                    {{ item.adjustedRating }}<span v-if="item.alternativeRating">/{{ item.alternativeRating }}</span><span v-if="item.conditionalAdjustment !== 0">/{{ item.adjustedRating+item.conditionalAdjustment }}</span>
                   </td>
                   <td>
                     <!-- each modifier contains the BASE of the compution, thus we begin at > 1 -->
