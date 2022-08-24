@@ -5776,7 +5776,6 @@ const aaoaTauEmpire = [
       {
         name: 'Disciplined Volley',
         snippet: 'You are used to laying down consistent, deadly volleys of fire. When you make a ranged attack with a PULSE weapon, and did not move during your turn, you may increase the weapon’s Salvo rating by +Rank.',
-        modifications: [],
       },
     ],
     wargear: wargearz('T’au Body Armour, Pulse Rifle or Pulse Carbine, 3 Photon Grenades'),

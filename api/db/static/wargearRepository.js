@@ -934,6 +934,10 @@ const core = [
   {
     ...gear(source.core.key,236,'Cameleoline Cloak','5R','[Any]'),
     ...toolz('Universal Equipment','+1 bonus die to Stealth (A) Tests and +1 to Defence when in shadow or cover.'),
+    modifications: [
+      { targetGroup: 'skills', targetValue: 'stealth', modifier: 1, condition: 'when in shadow or cover' },
+      { targetGroup: 'traits', targetValue: 'defense', modifier: 1, condition: 'when in shadow or cover' },
+    ],
   },
   {
     ...gear(source.core.key,237,'Chaplet Ecclesiasticus','3U','Imperium,Adeptus Ministorum,Adepta Sororitas'),
@@ -2458,6 +2462,12 @@ const aaoaArmour = [
   ],
   // Ork
   // Squat
+  // tau
+  {
+    ...gear(source.aaoa.key, 221, 'T´au Body Armour', '5U', 'Light,T´au Empire, Fire Caste'),
+    ...armour('T´au Empire Armour', 4),
+    snippet: 'Build in: Mag Boots, Preysense Goggles, Respirator, Vox-Bead, and Void Suit.'
+  },
 ];
 
 const aaoaToolsEquipment = [
