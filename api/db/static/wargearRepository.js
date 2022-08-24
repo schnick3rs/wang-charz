@@ -936,7 +936,7 @@ const core = [
     ...toolz('Universal Equipment','+1 bonus die to Stealth (A) Tests and +1 to Defence when in shadow or cover.'),
     modifications: [
       { targetGroup: 'skills', targetValue: 'stealth', modifier: 1, condition: 'when in shadow or cover' },
-      { targetGroup: 'traits', targetValue: 'defense', modifier: 1, condition: 'when in shadow or cover' },
+      { targetGroup: 'traits', targetValue: 'defence', modifier: 1, condition: 'when in shadow or cover' },
     ],
   },
   {
