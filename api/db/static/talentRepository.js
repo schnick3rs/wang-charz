@@ -1265,21 +1265,21 @@ const red1 = [
   {
     ...talent(source.red1.key, 61, 'Assault Doctrine', 30, ''),
     snippet: 'Receive Bolt Pistol, Astartes Chainsword (page 49), Aquilla Mark VII armour, and Jump Pack. Gain +Rank AP on any melee, or any ranged weapon with the Pistol Trait.',
-    description: 
+    description:
       '<p>You fight at the vanguard of any advance, shrieking across the battlefield to bring the might of your Astartes physiology to bear.</p>' +
       '<p>You receive a Bolt Pistol, Astartes Chainsword (page 49), Aquilla Mark VII armour, and Jump Pack, if you don’t already have them.</p>' +
       '<p>You gain additional +Rank AP on any melee weapon you wield, or any ranged weapons with the Pistol Trait.</p>' +
       '<p>An Agent Ascending from Tier 2 to Tier 3 may purchase this Talent instead of an Ascension Package.</p>',
     requirements: [
       requireTier(3),
-      requireSpecies('Primaris Astartes', true)
+      requireSpecies('Primaris Astartes', true),
       requireSpecies('Adeptus Astartes'),
     ],
   },
   {
     ...talent(source.red1.key, 61, 'A Feast in Famine', 10, ''),
     snippet: 'During Regroup: anyone eating food you cooked, besides yourself, removes all Shock.',
-    description: 
+    description:
       '<p>You are a talented and resourceful cook, able to make a satisfying repast from meagre ration packs, hunted local fauna, or scavenged scraps, raising the spirits of your comrades.</p>' +
       '<p>When you prepare food for your allies during a Regroup, anyone who partakes in the meal besides yourself removes all Shock.</p>',
   },
@@ -1296,7 +1296,7 @@ const red1 = [
   {
     ...talent(source.red1.key, 61, 'Blademaster', 20, ''),
     snippet: 'Every weapon you use with BLADE keyword gains the Parry Trait, gain additional +Rank Defence against melee attacks.',
-    description: 
+    description:
       '<p>You have mastered the art of blocking and riposting, giving you the edge when you clash swords with an opponent. Any weapons you use with the BLADE Keyword gain the Parry Trait.</p>' +
       '<p>When using a weapon that already has the Parry Trait (whether it has the BLADE Keyword or not), you gain additional +Rank Defence against melee attacks.</p>',
     requirements: [
@@ -1434,8 +1434,8 @@ const red1 = [
         '<li>Lascannon</li>' +
         '<li>Missile Launcher</li>' +
         '<li>Multi-Melta</li>' +
-        '<li>Plasma Cannon</li>' + 
-      '</ul>' + 
+        '<li>Plasma Cannon</li>' +
+      '</ul>' +
       '<p>You gain additional +Rank AP when using this weapon.</p>' +
       '<p>An Agent Ascending from Tier 2 to Tier 3 may purchase this Talent instead of an Ascension Package.</p>',
     requirements: [
@@ -1461,7 +1461,7 @@ const red1 = [
       '<p>You take a three-dimensional approach to every battle, searching for higher ground you can quickly scale and drop down from.</p>' +
       '<p>You gain +Rank bonus dice to attack Tests made from higher ground.</p>' +
       '<p>You can climb vertically at the same Speed as horizontal Movement without an Athletics (S) Test.</p>' +
-      '<p>You can roll Determination against Mortal Wounds from falling ( Wrath & Glory, page 201).', 
+      '<p>You can roll Determination against Mortal Wounds from falling ( Wrath & Glory, page 201).',
     requirements: [
       requireSkill('athletics', 3) ,
     ],
@@ -1491,7 +1491,7 @@ const red1 = [
     ...talent(source.red1.key, 64, 'Disciple Of The Holy Trinity', 30, ''),
     snippet: 'You add +Rank to the Damage of any weapons you use with the BOLT, FIRE or MELTA Keywords',
     description:
-      '<p>The Sisters of Battle venerate the Holy Trinity of bolter, flamer and melta above all other weapons, and veterans of their Order are rewarded with the most exceptional versions of such sacred tools.</p>' + 
+      '<p>The Sisters of Battle venerate the Holy Trinity of bolter, flamer and melta above all other weapons, and veterans of their Order are rewarded with the most exceptional versions of such sacred tools.</p>' +
       '<p>You add +Rank to the Damage of any weapons you use with the BOLT, FIRE or MELTA Keywords</p>' ,
     requirements: [
       requireKeyword('ADEPTA SORORITAS'),
@@ -1501,7 +1501,7 @@ const red1 = [
     ...talent(source.red1.key, 64, 'Disruptive Launch', 10, ''),
     snippet: 'Spend Shifts to inflict Hindered(1) in Melee when equipped with a Jump Pack. Spend more Shifts to target more enemies (1 per Shift).',
     description:
-      '<p>You employ short bursts of your Jump Pack as suppressive fire, protecting you from retaliatory assaults.</p>' + 
+      '<p>You employ short bursts of your Jump Pack as suppressive fire, protecting you from retaliatory assaults.</p>' +
       '<p>When equipped with a Jump Pack, you can spend a Shift on successful melee attack Tests to inflict the Hindered (1) Condition on an enemy you’re engaged with. Additional Shifts can be spent to target 1 additional enemy per Shift, or increase the DN penalty of a victim’s Hindered Condition by 1 per Shift.</p>' ,
     requirements: [
       requireKeyword('ADEPTA SORORITAS,ADEPTUS ASTARTES,AELDARI,HERETIC ASTARTES,ORK'),
@@ -1511,9 +1511,9 @@ const red1 = [
     ...talent(source.red1.key, 64, 'Enviable Grace', 10, ''),
     snippet: 'Difficult terrain does not reduce speed. Fall Back is now a Move. Immune to Staggered. No restrictions on replacement Movement options when you remove the Prone Condition as a Free Action. +Double Rank bonus dice to remove restrained. May be able to insert yourself into otherwise  impassable spaces',
     description:
-      '<p>You are a dextrous contortionist, twirling around restrictions to navigate your environment with enviable grace.</p>' + 
+      '<p>You are a dextrous contortionist, twirling around restrictions to navigate your environment with enviable grace.</p>' +
       '<p>Difficult terrain does not reduce your Speed. You may Fall Back as a Move instead of a Combat Action.</p>' +
-      '<p>You are immune to the Staggered Condition. You suffer no restrictions on replacement Movement options when you remove the Prone Condition as a Free Action. You gain +Double Rank bonus dice on Tests to remove the Restrained Condition.</p>' + 
+      '<p>You are immune to the Staggered Condition. You suffer no restrictions on replacement Movement options when you remove the Prone Condition as a Free Action. You gain +Double Rank bonus dice on Tests to remove the Restrained Condition.</p>' +
       '<p>At the GM’s discretion, you may be able to insert yourself into otherwise impassable spaces.</p>' ,
     requirements: [
         requireAttribute('agility', 3),
@@ -1523,7 +1523,7 @@ const red1 = [
     ...talent(source.red1.key, 65, 'Fashionista', 10, ''),
     snippet: 'When requisitioning clothing: For a single mission gain bonus dice on social Skill Tests equal to the Rarity of the Clothing.',
     description:
-      '<p>You remain on the cutting edge of Gothic fashion, delighting in any opportunity to make a memorable entrance.</p>' + 
+      '<p>You remain on the cutting edge of Gothic fashion, delighting in any opportunity to make a memorable entrance.</p>' +
       '<p>When you requisition Clothing (Wrath & Glory, pages 236-237), you gain bonus dice on social Skill Tests equal to the Rarity of the Clothing, in situations where your appearance would make a positive impression. You only gain this benefit for the duration of a single mission — after that reappearing in the same outfit again provides no advantage, and you must requisition new Clothing to regain the bonus.</p>',
     requirementsString: 'Wealth 2+',
   },
@@ -1531,14 +1531,14 @@ const red1 = [
     ...talent(source.red1.key, 65, 'Fast Draw', 10, ''),
     snippet: 'Draw a weapon as a Free Action or Reaction. In combat, any attacks you make against enemies who have not yet taken a Turn gain +Double Rank bonus dice on the attack Test',
     description:
-      '<p>You blindside your enemies by drawing and firing whilst they are still preparing for combat.</p>' + 
+      '<p>You blindside your enemies by drawing and firing whilst they are still preparing for combat.</p>' +
       '<p>You may draw a weapon as a Free Action or Reaction. In combat, any attacks you make against enemies who have not yet taken a Turn gain +Double Rank bonus dice on the attack Test.</p>',
   },
   {
     ...talent(source.red1.key, 65, 'Feint Attack', 10, ''),
     snippet: 'You can use Weapon Skill to make Interaction Attacks against enemies you are Engaged with',
     description:
-      '<p>You disorient enemies with distraction attacks, setting them up for follow-up hits.</p>' + 
+      '<p>You disorient enemies with distraction attacks, setting them up for follow-up hits.</p>' +
     '<p>You can use Weapon Skill to make Interaction Attacks against enemies you are Engaged with (Wrath & Glory, page 190).</p>',
     requirements: [
       requireSkill('weaponSkill', 2) ,
@@ -1700,7 +1700,7 @@ const red1 = [
   {
     ...talent(source.red1.key, 66, 'Investigative Omophagy', 10, ''),
     snippet: 'When eating flesh of a sentient creature, you may ask the GM one question. The GM will answer as honest as the consumed creature\'s memories can provide.',
-    description: 
+    description:
       '<p>Through flesh-tasting rituals and psycho- conditioning, you have learned to reliably extract useful intelligence by absorbing the memories of what you consume.</p>' +
       '<p>When you eat the flesh of a sentient creature, you may ask the GM one question. The GM will provide as honest an answer as the consumed creature’s memories can provide, but be aware that this answer may be skewed by the target’s personal perspective.' +
       'In addition, you may choose a Skill. Until the next Regroup, when Testing that Skill, you use the Attribute+Skill dice pool of the creature you consumed instead of your own. Consuming the flesh of a Heretic requires a Corruption Test with a DN of at least 4 (higher at the GM’s discretion).</p>' +
