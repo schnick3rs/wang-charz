@@ -29,7 +29,7 @@ const requireSkill = function(key, value) {
 };
 
 const requireRank = function(value) {
-  return { condition: 'must', type: 'character', key: 'Rank', value };
+  return { condition: 'must', type: 'character', key: 'Rank', value: value };
 };
 
 const requireSpecies = function(species, not = false) {
@@ -49,7 +49,7 @@ const requireKeyword = function(keywords, not = false) {
 };
 
 const requireTier = function(value) {
-  return { condition: 'must', type: 'cahracter', key: 'Tier', value };
+  return { condition: 'must', type: 'character', key: 'Tier', value: value };
 }
 
 
@@ -1272,7 +1272,6 @@ const red1 = [
       '<p>An Agent Ascending from Tier 2 to Tier 3 may purchase this Talent instead of an Ascension Package.</p>',
     requirements: [
       requireTier(3),
-      requireSpecies('Primaris Astartes', true),
       requireSpecies('Adeptus Astartes'),
     ],
   },
@@ -1440,7 +1439,6 @@ const red1 = [
       '<p>An Agent Ascending from Tier 2 to Tier 3 may purchase this Talent instead of an Ascension Package.</p>',
     requirements: [
       requireTier(3),
-      requireSpecies('Primaris Astartes', true),
       requireSpecies('Adeptus Astartes'),
     ],
   },

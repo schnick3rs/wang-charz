@@ -602,7 +602,7 @@ export default {
               case 'character':
                 switch (requirement.key) {
                   case 'Tier':
-                    fulfilled = (this.effectiveCharacterTier <= requirement.value.split('+')[0])
+                    fulfilled = (this.effectiveCharacterTier <= requirement.value)
                     break;
                   case 'Rank':
                     fulfilled = (this.characterRank <= requirement.value)
@@ -746,15 +746,21 @@ export default {
           case 'attribute':
             text = `${this.getAttributeByKey(p.key).name} Rating ${p.value}+`;
             break;
+
           case 'skill':
             text = `${this.getSkillByKey(p.key).name} Rating ${p.value}+`;
             break;
+
           case 'character':
             text = `${p.key} ${p.value}+`;
             break;
 
           case 'species':
-            text = `${p.value} Species`
+            if (p.condition === 'mustNot') {
+              text = `<strong>must not</strong> ${p.value} Species`;
+            } else {
+              text = `${p.value} Species`
+            }
             break;
 
           default:
