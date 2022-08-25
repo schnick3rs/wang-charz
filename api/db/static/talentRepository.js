@@ -1244,6 +1244,9 @@ const red1 = [
     requirements: [
       requireSkill('survival', 2),
     ],
+    modifications: [
+      { targetGroup: 'skills', targetValue: 'survival', modifier: 0, rank: 2, condition: 'when rolling social against BEASTS' },
+    ],
   },
   {
     ...talent(source.red1.key, 61, 'Arch-Perfromer', 10, ''),
