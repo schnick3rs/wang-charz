@@ -1277,6 +1277,9 @@ const core = [
       {
         name: 'From the Shadows',
         snippet: 'You are adept at exploiting any form of concealment. Whenever a Vision Penalty (p.191) or Cover (p.181) impose a penalty on someone trying to attack or detect you, the penalty is increased by +Rank DN.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1, condition: 'when obscured (vision penalty) or in cover' },
+        ],
       },
     ],
     wargear: wargearz('Cameleoline Cloak, Aeldari Mesh Armour, Ranger Long Rifle, Shuriken Pistol, Knife, Spirit Stone, Bedroll, Blanket, Magnocular Scope'),
