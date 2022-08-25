@@ -1332,7 +1332,7 @@ const red1 = [
   },
   {
     ...talent(source.red1.key, 62, 'Born Survivor', 10, ''),
-    snippet: 'You can use Survival (Wil) to remove your own Wounds, Shock or Conditions. You do not suffer the usual DN penalties for using this ability on yourself.',
+    snippet: 'You can use Survival (Wil) instead of Medicae (Int) to remove your own Wounds, Shock or Conditions. You do not suffer the usual DN penalties for using this ability on yourself.',
     description:
       '<p>You are aggressively self-reliant, substituting your culture’s folk remedies for formal medical training.</p>' +
       '<p>You can use Survival (Wil) instead of Medicae (Int) to remove your own Wounds, Shock, or Conditions (Wrath & Glory, page 124). You do not suffer the usual DN penalties for using this ability on yourself.</p>',
