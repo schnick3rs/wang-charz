@@ -1250,7 +1250,7 @@ const red1 = [
   },
   {
     ...talent(source.red1.key, 61, 'Arch-Perfromer', 10, ''),
-    snippet: 'Perform art before an enthusiast, gain +Rank bonus dice to social skills targeting them fro the rest of the scene. Gain +Double Rank for a skill Test for a perfromance. Performing during Regroup reduces Shok to zero.',
+    snippet: 'Perform art before an enthusiast, gain +Rank bonus dice to social skills targeting them fro the rest of the scene. Gain +Double Rank for a skill Test for a performance itself. Performing during Regroup reduces Shock to zero.',
     description:
       '<p>You have devoted your body to a creative endeavour you perform live before an audience. As well as providing personal fulfilment, it occasionally provides an excellent distraction.</p>' +
       '<p> Choose a type of performance appropriate for the 41st Millennium — choral singing, organ playing, hagiographic recital, ritual dance, etc. You excel at this art form or craft.</p>' +
