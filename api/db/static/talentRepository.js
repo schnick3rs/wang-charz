@@ -1233,10 +1233,10 @@ const red1 = [
   },
   {
     ...talent(source.red1.key, 60, 'Animal Wrangler', 10, ''),
-    snippet: 'You gain +Double Rank bonus dice on any social Skill Test against a target with the BEAST Keyword. ',
+    snippet: 'You gain +Double Rank bonus dice on any social Skill Test against a target with the BEAST Keyword. You may use Survival for those social skill tests.',
     description:
       '<p>You gain +Double Rank bonus dice on any social Skill Test against a target with the BEAST Keyword. ' +
-      '<p> You may choose to use the Survival (Wil) Skill for any social Skill Tests against these targets..</p>',
+      '<p> You may choose to use the Survival (Wil) Skill for any social Skill Tests against these targets.</p>',
     requirements: [
       requireSkill('survival', 2),
     ],
