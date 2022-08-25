@@ -1564,7 +1564,7 @@ const red1 = [
       '<p>Your forbidden knowledge may increase the DN on resistance Tests to learn more tantalising truths about the subject, such as social Skills used by individuals with the relevant Keyword, or Corruption Tests.</p>' +
       '<p>Whilst your knowledge makes you a useful asset to some, it makes you a dangerous liability to others. Caveat emptor!</p>',
     requirements: [
-      requireKeyword('[IMPERIUM]'),
+      requireKeyword('IMPERIUM'),
     ],
   },
   {
