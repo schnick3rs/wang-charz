@@ -854,7 +854,7 @@
                 </div>
                 <div v-if="speciesKey.startsWith('core-aeldari') && keywordStrings.includes('Asuryani')" class="caption mb-2">
                   <strong>Asuryani Psyker</strong><em> • core, pg. 282</em>
-                  <div>If you are an Aeldari with the ASURYANI Keyword you may reroll a single Wrath Dice that rolled a Complication once per Test.</div>
+                  <div>You may reroll a single Wrath Dice that rolled a Complication once per Test.</div>
                 </div>
               </div>
             </v-tab-item>
