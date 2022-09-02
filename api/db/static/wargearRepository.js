@@ -707,7 +707,7 @@ const core = [
     snippet: 'The weapon gains +2 Damage. The weapon loses the Reliable Trait.',
   },
   {
-    ...gear(source.core.key,228,'Magnocular Scope','4R','Imperium,Astra Militarum'),
+    ...gear(source.core.key,228,'Magnocular Scope','2U','Imperium,Astra Militarum'),
     type: 'Weapon Upgrade',
     upgradeType: 'Scope',
     snippet: 'Awareness (Int) Tests no penalties due to distance. Any Range penalties are reduced by 2.',

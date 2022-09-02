@@ -172,10 +172,10 @@ const core = [
     objectives: [
       'Express confidence (or the opposite) in the virtue of overwhelming numbers and firepower.',
       'Apply a lesson from the Imperial Infantryman’s Uplifting Primer to the current situation.',
-      'Recant a holy litany applicable to the current situation.',
       'Compare the protection given by faith in the Emperor to a piece of armour or cover.',
       'Cite the logistical use of hatred for the enemy.',
       'Obey an order without question or doubt.',
+      'Make a tactically sound plan to achieve an objective.',
     ],
     advancedCreationKeywords: ['Imperium','Astra Militarum'],
     // [Regiment]
