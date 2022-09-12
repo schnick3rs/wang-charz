@@ -7577,15 +7577,10 @@ const ambRep = [
 const goheRep = [
   {
     ...archetype(source.gohe.key,2,'Tau Empire','Kroot Shaper',2,'fspg/Kroot'),
-    ...costz(56,[
+    ...costz(44,[
       reqAttribute(ATTRIBUTES.WILLPOWER, 4),
-      reqSkill(SKILLS.ATHLETICS, 1),
-      reqSkill(SKILLS.AWARENESS, 1),
       reqSkill(SKILLS.LEADERSHIP, 1),
       reqSkill(SKILLS.SCHOLAR, 1),
-      reqSkill(SKILLS.STEALTH, 2),
-      reqSkill(SKILLS.SURVIVAL, 2),
-      reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
     hint: 'Shepherd of Cannibals',
     factionKey: 'fspg-tau-empire',
@@ -7612,6 +7607,7 @@ const goheRep = [
       { name: 'Knife', variant: 'Ritual Knife' },
       { name: 'Medikit' },
     ],
+    influence: 1,
     suggested: {
       attributes: [],
       skills: [],
@@ -7628,7 +7624,6 @@ const goheRep = [
       reqSkill(SKILLS.SURVIVAL, 2),
       reqSkill(SKILLS.WEAPON_SKILL, 4),
     ],
-    influence: 1,
   },
   {
     ...archetype(source.gohe.key,3,'Tau Empire','Kroot Master Shaper',3,'fspg/Kroot'),
@@ -7636,14 +7631,9 @@ const goheRep = [
       reqAttribute(ATTRIBUTES.WILLPOWER, 5),
       reqAttribute(ATTRIBUTES.INTELLECT, 4),
       reqAttribute(ATTRIBUTES.FELLOWSHIP, 3),
-      reqSkill(SKILLS.ATHLETICS, 1),
-      reqSkill(SKILLS.AWARENESS, 1),
       reqSkill(SKILLS.LEADERSHIP, 4),
       reqSkill(SKILLS.PERSUASION, 1),
       reqSkill(SKILLS.PSYCHIC_MASTERY, 4),
-      reqSkill(SKILLS.STEALTH, 2),
-      reqSkill(SKILLS.SURVIVAL, 2),
-      reqSkill(SKILLS.WEAPON_SKILL, 2),
     ]),
     hint: 'Lead the tribe',
     factionKey: 'fspg-tau-empire',
@@ -7802,6 +7792,7 @@ const goheRep = [
       { name: 'Cameleoline Cloak' },
       { name: 'Symbol of Authority' },
     ],
+    influence: 1,
     suggested: {
       attributes: [],
       skills: [],
@@ -7809,7 +7800,6 @@ const goheRep = [
     },
     suggestedStats: [
     ],
-    influence: 1,
   },
 ];
 
