@@ -1113,7 +1113,7 @@ const gohe = [
         description:
           'You gain +Rank to tech tests when building new machines or operating existing ones.',
         modifications: [
-          { targetGroup: 'skills', targetValue: 'tech', rank: 1, condition: 'when building new machines or operating existing ones' },
+          { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 1, condition: 'when building new machines or operating existing ones' },
         ],
       },
     ],
