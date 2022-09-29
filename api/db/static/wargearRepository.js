@@ -3220,7 +3220,7 @@ const glhe = [
   },
   {
     ...gear(source.gohe.key,7,'Jokaero Scattershot','L9','Xenos,Jokaero,Digi'),
-    ...rangez('Jokaero Weapons',83,3,1,2, 2,'Assault,Spread,Digital'),
+    ...rangez('Jokaero Weapons',8,3,1,2, 2,'Assault,Spread,Digital'),
   },
 ];
 
