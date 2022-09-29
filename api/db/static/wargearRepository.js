@@ -3214,6 +3214,14 @@ const glhe = [
     ...gear(source.gohe.key,4,'Pulse Rifle (Heathen Pattern)','5V','Tau,Pulse,Plasma'),
     ...rangez('Pulse Weapons',12,1,1,36,2,'Rapid Fire(1)'),
   },
+  {
+    ...gear(source.gohe.key,7,'Jokaero Defense Orbs','L9','Xenos,Jokaero'),
+    ...armour('Jokaro Armour',4, 'Power Field'),
+  },
+  {
+    ...gear(source.gohe.key,7,'Jokaero Scattershot','L9','Xenos,Jokaero,Digi'),
+    ...rangez('Jokaero Weapons',83,3,1,2, 2,'Assault,Spread,Digital'),
+  },
 ];
 
 module.exports = [

@@ -456,7 +456,7 @@ export default {
           active: true,
           key: 'gohe',
           name: '\'Godless Heathens\' content',
-          hint: 'Add Kroot Archetypes.',
+          hint: 'Add Kroot and Jokaero Archetypes.',
           enabled: true,
           nuxt: undefined,
           source: '',

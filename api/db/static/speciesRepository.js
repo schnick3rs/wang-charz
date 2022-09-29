@@ -1091,7 +1091,7 @@ const dod = [
 
 const gohe = [
   {
-    ...species('gohe', 5, 'Tau Empire', 'Shas T\'au', 'The Offspring of Fire', 10, 6),
+    ...species('gohe', 5, 'Mankind', 'Jokaero', 'Simian Forgers', 10, 6),
     ...cost(58,48,10,0),
     description:
       '<p>Born into the Fire Caste. Your life is determined by war and combat.</p>',

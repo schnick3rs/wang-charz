@@ -7801,6 +7801,42 @@ const goheRep = [
     suggestedStats: [
     ],
   },
+  {
+    ...archetype(source.gohe.key,6,'The Inquisition','Jokaero Weaponsmith',2,'gohe/Jokaero'),
+    ...costz(110,[
+      reqAttribute(ATTRIBUTES.INTELLECT, 5),
+      reqAttribute(ATTRIBUTES.FELLOWSHIP, 4),
+      reqSkill(SKILLS.TECH, 5),
+      reqSkill(SKILLS.SCHOLAR, 3),
+    ]),
+    hint: 'Build the ... stuff?',
+    keywords: 'Xenos,Jokaero,Inquisition',
+    archetypeFeatures: [
+      {
+        name: 'Inconceivable Customizazion',
+        snippet: '',
+        description:
+          '<p>Once per regroup, you may customize one allies weapon using advanced and obscure Jokaero methods. When you do so, roll a D6 and consult the table below. The allies weapon retains this ability until the next regroup.</p>' +
+          '<ul>' +
+          '<li><strong>1-2 Targeting:</strong> Weapon gains +Rank dice when attacking</li>' +
+          '<li><strong>3-4 Penetration:</strong> Weapon can reroll Rank ED</li>' +
+          '<li><strong>5-6 Composition</strong> Weapon adds +Rank to AP</li>' +
+          '</ul>',
+      },
+    ],
+    wargear: [
+      { name: 'Jokaero Defense Orbs' },
+      { name: 'Jokaero Scattershot' },
+    ],
+    influence: 0,
+    suggested: {
+      attributes: [],
+      skills: [],
+      talents: [ ],
+    },
+    suggestedStats: [
+    ],
+  },
 ];
 
 const archetypeRepository = [
