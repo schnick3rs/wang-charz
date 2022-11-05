@@ -5764,7 +5764,7 @@ const aaoaAdeptusAstraTelephatica = [
 
 const aaoaTauEmpire = [
   {
-    ...archetype(source.aaoa.key, 59,'Shas T´au','Fire Cast Warrior',1,'aaoa/Shas'),
+    ...archetype(source.aaoa.key, 59,'T´au','Fire Cast Warrior',1,'aaoa/Shas T´au'),
     ...costz(
       8,
       [
