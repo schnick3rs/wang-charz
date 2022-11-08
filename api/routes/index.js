@@ -1,7 +1,7 @@
 const homebrews = require('./homebrews');
 const wargear = require('./wargear');
 const psychicPowers = require('./psychicPowers');
-//const talents = require('./talents.js_');
+const talents = require('./talents.js');
 
 const factions = require('./factions');
 const species = require('./species');
@@ -16,7 +16,7 @@ const actualPlays = require('./actualPlays');
 //const characters = require('./characters.js_');
 
 module.exports = (app) => {
-  //app.use('/talents', talents);
+  app.use('/talents', talents);
   app.use('/wargear', wargear);
   app.use('/psychic-powers', psychicPowers);
 

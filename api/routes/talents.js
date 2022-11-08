@@ -1,8 +1,5 @@
 const Router = require('express-promise-router');
 
-const db = require('../db');
-const { sourceSql } = require('./_sqlSnippets');
-
 const repository = require('../db/static/talentRepository');
 
 const router = new Router();
