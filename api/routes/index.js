@@ -12,7 +12,7 @@ const threats = require('./threats');
 const posts = require('./posts');
 const actualPlays = require('./actualPlays');
 
-const users = require('./users');
+//const users = require('./users.js_');
 const characters = require('./characters');
 
 module.exports = (app) => {
@@ -32,6 +32,6 @@ module.exports = (app) => {
   app.use('/actual-plays', actualPlays);
 
   // Users
-  app.use('/users', users);
+  //app.use('/users', users);
   app.use('/characters', characters);
 };
