@@ -2,7 +2,8 @@
   "name": "doctors-of-doom",
   "version": "7.0.0",
   "engines": {
-    "node": "16.x"
+    "node": "16.x",
+    "npm": "6.x"
   },
   "description": "The Doctors of Doom exist to serve the Wrath and Glory Community",
   "author": "Brother Lucius",

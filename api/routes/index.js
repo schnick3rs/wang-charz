@@ -16,7 +16,7 @@ const actualPlays = require('./actualPlays');
 //const characters = require('./characters.js_');
 
 module.exports = (app) => {
-  app.use('/talents', talents);
+  //app.use('/talents', talents);
   app.use('/wargear', wargear);
   app.use('/psychic-powers', psychicPowers);
 
