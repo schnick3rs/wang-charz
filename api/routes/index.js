@@ -1,7 +1,7 @@
 const homebrews = require('./homebrews');
 const wargear = require('./wargear');
 const psychicPowers = require('./psychicPowers');
-const talents = require('./talents');
+//const talents = require('./talents.js_');
 
 const factions = require('./factions');
 const species = require('./species');
@@ -13,7 +13,7 @@ const posts = require('./posts');
 const actualPlays = require('./actualPlays');
 
 //const users = require('./users.js_');
-const characters = require('./characters');
+//const characters = require('./characters.js_');
 
 module.exports = (app) => {
   app.use('/talents', talents);
@@ -33,5 +33,5 @@ module.exports = (app) => {
 
   // Users
   //app.use('/users', users);
-  app.use('/characters', characters);
+  //app.use('/characters', characters);
 };

@@ -6,8 +6,6 @@ const { NUXT_ENV_CTF_SPACE_ID, NUXT_ENV_CTF_CD_ACCESS_TOKEN } = process.env;
 
 const Router = require('express-promise-router');
 
-const db = require('../db');
-
 const router = new Router();
 
 const TABLE_FIELDS = ['id', 'title', 'subtitle', 'slug', 'version', 'author'];

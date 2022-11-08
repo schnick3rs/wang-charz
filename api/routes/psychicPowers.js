@@ -1,6 +1,5 @@
 const Router = require('express-promise-router');
 
-const db = require('../db');
 const { sourceSql } = require('./_sqlSnippets');
 
 const { powers, abilities } = require('../db/static/psychicPowersRepository');
