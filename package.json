@@ -35,7 +35,7 @@
     "express-promise-router": "^4.1.1",
     "fs": "0.0.1-security",
     "js-cookie": "^2.2.1",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "lodash": "^4.17.21",
     "lodash.merge": "^4.6.2",
     "lodash.template": "^4.5.0",
