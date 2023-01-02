@@ -682,6 +682,9 @@ const core = [
     snippet: '+1 bonus die to Intimidation (Wil) Tests when you brandish this weapon.',
     description:
       '<p>+1 bonus die to Intimidation (Wil) Tests when you brandish this weapon. Distinction does not count toward a weapon’s maximum number of upgrades.</p>',
+    modifications: [
+      { targetGroup: 'skills', targetValue: 'intimidation', modifier: 1, rank: 0, condition: 'when brandishing that weapon' },
+    ],
   },
   {
     ...gear(source.core.key,228,'Duelling Grip','3U','[Any]'),

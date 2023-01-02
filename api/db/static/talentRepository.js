@@ -1633,6 +1633,9 @@ const red1 = [
       '<p>You leverage your sheer physical size and weight as an implicit threat if you don’t get your way. You can substitute your Willpower Attribute rating for' +
       'your Strength Attribute rating on Intimidation (Wil) Tests. You also gain +Rank bonus dice to Intimidation (Wil) Tests if wearing armour with the HEAVY' +
       'Keyword. These effects only apply when the target of your Intimidation can see you.</p>',
+    modifications: [
+      { targetGroup: 'skills', targetValue: 'intimidation', modifier: 0, rank: 1, condition: 'when wearing HEAVY armour' },
+    ],
   },
   {
     ...talent(source.red1.key, 66, 'Improvised Weaponry', 10, ''),
