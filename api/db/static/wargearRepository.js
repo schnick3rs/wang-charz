@@ -1651,8 +1651,8 @@ const aaoaMelee = [
       ...meleez('Power Weapon',5,5,-1,1,'Brutal'),
     },
     {
-      ...gear(source.aaoa.key,134,'Executioner Greatblade', '6V', 'Power Field, 2-Handed, Silent Sisterhood'),
-      ...meleez('Power Weapon',6,4,-3,2,'Parry'),
+      ...gear(source.aaoa.key,177,'Executioner Greatblade', '7V', 'Power Field, 2-Handed, Anathma Psykana'),
+      ...meleez('Power Weapon',6,5,-3,2,'Parry, Rending(2)'),
     },
     {
       ...gear(source.aaoa.key,134,'Lightning Claw', '7V', 'Power Field, Adeptus Astartes'),

@@ -1178,7 +1178,7 @@ export default {
         'fspg',
         'red1',
         'cos',
-        'tnh',
+        // 'tnh',
         ...this.settingHomebrews
       ];
     },
@@ -1566,6 +1566,11 @@ export default {
         if (attribute) {
           skill.attributeObject = attribute;
           skill.adjustedAttributeValue = attribute.adjustedRating;
+        }
+        if (skill.name === 'Intimidation' && this.talents.includes('Imposing Presence')) {
+          const strength = this.attributes.find((a) => a.name === 'Strength');
+          skill.attributeObject = strength;
+          skill.adjustedAttributeValue = strength.adjustedRating;
         }
         return skill;
       });
