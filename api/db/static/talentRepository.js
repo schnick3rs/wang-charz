@@ -1075,7 +1075,10 @@ const core = [
     snippet: '+1 Faith. Spend 1 Faith to tripple the Bonus Dice when helping an IMPERIUM individual.',
     description:
       '<p></p>',
-    requirements: [ requireKeyword('IMPERIUM'), requireKeyword('CHAOS',true), ],
+    requirements: [
+      requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
+      requireKeyword('CHAOS',true),
+    ],
   },
   {
     ...talent('core',143,'Consecrated Light',20,'Faith'),
@@ -1093,7 +1096,10 @@ const core = [
     snippet: '+1 Faith. As a Combat Action, spend 1 Faith to grant yourself or an IMPERIUM individual in hearing range +Double Rank dice to Ballistic Skill tests for 1 Round.',
     description:
       '<p></p>',
-    requirements: [ requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),requireKeyword('CHAOS',true), ],
+    requirements: [
+      requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
+      requireKeyword('CHAOS',true),
+    ],
   },
   {
     ...talent('core',143,'In His Name',20,'Faith'),
@@ -1103,7 +1109,7 @@ const core = [
     description:
       '<p></p>',
     requirements: [
-      requireKeyword('IMPERIUM'),
+      requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
       requireKeyword('CHAOS',true),
       requireSkill('scholar', 1),
     ],
@@ -1163,7 +1169,7 @@ const core = [
     description:
       '<p></p>',
     requirements: [
-      requireKeyword('IMPERIUM'),
+      requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
       requireKeyword('CHAOS',true),
       requireAttribute('willpower', 3),
     ],
@@ -1176,7 +1182,7 @@ const core = [
     description:
       '<p></p>',
     requirements: [
-      requireKeyword('IMPERIUM'),
+      requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
       requireKeyword('CHAOS',true),
       requireAttribute('willpower', 3),
     ],
