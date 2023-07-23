@@ -668,7 +668,7 @@ const core = [
   },
   {
     ...archetype(source.core.key, 113,'Adeptus Astartes','Tactical Space Marine',3,'Adeptus Astartes'),
-    ...costz(252,[
+    ...costz(257,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4), // 18
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
       reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
