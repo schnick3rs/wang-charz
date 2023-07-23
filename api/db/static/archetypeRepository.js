@@ -1204,7 +1204,7 @@ const core = [
   },
   {
     ...archetype(source.core.key, 113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
-    ...costz(252,[
+    ...costz(257,[
       reqAttribute(ATTRIBUTES.STRENGTH, 4), // 20
       reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
       reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
