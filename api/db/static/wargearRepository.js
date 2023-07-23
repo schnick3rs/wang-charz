@@ -1534,7 +1534,7 @@ const fspg = [
     ],
   },
   {
-    ...gear(source.fspg.key,129,'Princeps Limb Rig','5R','Imperium,Adeptus Mechanicus'),
+    ...gear(source.fspg.key,129,'Princeps Limb Rig','3V','Imperium,Adeptus Mechanicus'),
     type: 'Augmetics',
     snippet: 'Additional limb that can operate equipment (pass a Tech test) or wield a melee weapon. Reduce Multi-Action/-Attack DN penalty by 1 when you use your additional limp.',
   },
