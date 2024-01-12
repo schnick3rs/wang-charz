@@ -2434,7 +2434,7 @@ const red2 = [
             'You have 1 Faith. You can spend 1 Faith at any time to activate Fury of the Righteous until the start of your next Turn. ' +
             'While Fury of the Righteous is active, any allies with the ADEPTUS MINISTORUM Keyword within 6m of you gain +Rank bonus dice to melee attack Tests.',
         modifications: [
-          { targetGroup: 'resource', targetValue: 'faith', modifier: 1 },
+          { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
       },
     ],

@@ -1055,7 +1055,7 @@ import MutationsMixin from '~/mixins/MutationsMixin';
 import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import DodCorruptionManager from '~/components/forge/DodCorruptionManager';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
-import { marked } from 'marked';
+import {marked} from 'marked';
 
 export default {
   name: 'in-app-view',
@@ -1527,17 +1527,16 @@ export default {
     characterFaith() {
       //const points = this.$store.getters['characters/characterFaithPointsById'](this.characterId);
       const spend = this.$store.getters['characters/characterFaithSpendById'](this.characterId);
+
       let points = 0;
-      this.talentsForFaith.forEach((t)=>{
-          points += 1;
-      });
+      this.enhancements
+          .filter((enhancement) => enhancement.targetGroup==='resources')
+          .filter((enhancement) => enhancement.targetValue==='faith')
+          .forEach((enhancement) => {
+            points += enhancement.modifier;
+          });
 
       return { points, spend };
-    },
-    characterResources() {
-      return {
-        faith: this.characterFaith,
-      };
     },
     skills() {
       const customSkills = this.$store.getters['characters/characterCustomSkillsById'](this.characterId);
