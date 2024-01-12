@@ -110,6 +110,9 @@ export default {
     sources() {
       return [
         'core',
+        'fspg',
+        'red1',
+        'cos',
         ...this.settingHomebrews
       ];
     },

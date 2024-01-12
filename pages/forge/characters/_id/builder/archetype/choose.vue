@@ -241,7 +241,7 @@
 </template>
 
 <script>
-import { mapMutations } from 'vuex';
+import {mapMutations} from 'vuex';
 import ArchetypePreview from '~/components/forge/ArchetypePreview';
 import KeywordRepositoryMixin from '~/mixins/KeywordRepositoryMixin';
 
@@ -383,6 +383,7 @@ export default {
         },
       };
       const { data } = await this.$axios.get('/api/archetypes/', config);
+      // only those that have a HINT indicating they are not only stubs
       this.itemList = data.filter((i) => i.hint);
     },
     async loadSpecies(key) {
@@ -506,6 +507,29 @@ export default {
         });
 
       this.$store.commit('characters/setCharacterModifications', { id: this.characterId, content: { modifications: mods, source: 'archetype' } });
+
+
+      this.$store.commit('characters/clearCharacterTalentsBySource', { id: this.characterId, source: 'archetype', cascade: true });
+      item.archetypeFeatures
+          // get all features with modifications
+          .filter((feature) => feature.modifications)
+          // for each of those features
+          .forEach((feature) => {
+            feature.modifications
+                // get all modifications that affect talents
+                .filter( (m) => m.targetGroup === 'talents' )
+                .forEach( (t) => {
+                  const talent = {
+                    name: t.meta.name,
+                    key: t.targetValue,
+                    cost: 0,
+                    placeholder: undefined,
+                    selected: undefined,
+                    source: `archetype.${item.key}.${t.key}`,
+                  };
+                  this.$store.commit('characters/addCharacterTalent', { id, talent });
+                });
+          });
 
       this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: 'archetype', cascade: true });
       // keywords = String[]

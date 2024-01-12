@@ -1,6 +1,6 @@
-import { source } from './_sourcesRepository';
-import { stringToKebab } from './_stringUtils';
-import { ATTRIBUTES, SKILLS, TRAITS } from './_statUtils';
+import {source} from './_sourcesRepository';
+import {stringToKebab} from './_stringUtils';
+import {ATTRIBUTES, SKILLS, TRAITS} from './_statUtils';
 
 const rarity = {
   'C': 'Common',
@@ -1537,6 +1537,36 @@ const fspg = [
     ...gear(source.fspg.key,129,'Princeps Limb Rig','3V','Imperium,Adeptus Mechanicus'),
     type: 'Augmetics',
     snippet: 'Additional limb that can operate equipment (pass a Tech test) or wield a melee weapon. Reduce Multi-Action/-Attack DN penalty by 1 when you use your additional limp.',
+  },
+];
+
+const aioe = [
+  {
+    ...gear(source.aioe.key, 84, 'Splinter Rifle', 'U5', 'Aeldari,Drukhari'),
+    ...rangez('Splinter Weapon',7,1,0,24,2,'Assault,Inflict(Poison 4),Rapid Fire(2)'),
+  },
+  {
+    ...gear(source.aioe.key, 92, 'Kabalite Armour', 'U4', 'Aeldari,Drukhari'),
+    ...armour('Aeldari Armour', 3, ''),
+  },
+  {
+    ...gear(source.aioe.key, 96, 'Chains', 'C4', 'Aeldari,Drukhari,Kabal'),
+    ...toolz('Drukhari Equipment','May be used as a Whip, +1 to Grapple attacks.'),
+    meta: [
+      metaMelee(1,1,0,4,['Agonising', '+1 to Grapple'], 'Whip'),
+    ],
+  },
+  {
+    ...gear(source.aioe.key, 96, 'Blades', 'C4', 'Aeldari,Drukhari,Kabal'),
+    ...toolz('Drukhari Equipment','Successful melee attacks also inflict 1 Bleeding Condition.'),
+  },
+  {
+    ...gear(source.aioe.key, 96, 'Hooks', 'C4', 'Aeldari,Drukhari,Kabal'),
+    ...toolz('Drukhari Equipment','All attempts to grapple the Drukhari increase their DN by 1.'),
+  },
+  {
+    ...gear(source.aioe.key, 96, 'Initiation Token', 'U4', 'Aeldari,Drukhari,Kabal'),
+    ...toolz('Drukhari Equipment','When taking damage, the owner may instead choose another character with the same KABAL Keyword to take the hit. The new target must be within the owner’s move distance.'),
   },
 ];
 
@@ -3231,6 +3261,7 @@ const glhe = [
 
 module.exports = [
   ...core,
+  ...aioe,
   ...doctorsOfDoom,
   ...fspg,
   ...cos,

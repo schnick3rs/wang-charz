@@ -235,6 +235,50 @@
     <v-col :cols="12">
       <div>
 
+        <h3 class="subtitle-1"><strong>Official Publications</strong></h3>
+
+        <p class="body-2">Enable specific content from official publications.</p>
+
+        <div
+            v-for="homebrew in settingOfficialOptions"
+            :key="homebrew.key"
+        >
+          <template v-if="homebrew.enabled">
+            <v-switch
+                v-model="enabledHomebrews"
+                :value="homebrew.key"
+                :hint="homebrew.hint"
+                persistent-hint
+                color="primary"
+                dense
+                :disabled="!homebrew.enabled"
+                @change="updateHomebrew(homebrew)"
+            >
+              <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
+            </v-switch>
+          </template>
+          <v-switch
+              v-else
+              value
+              input-value="true"
+              :hint="homebrew.hint"
+              persistent-hint
+              color="primary"
+              dense
+              disabled
+
+              @change="updateHomebrew(homebrew)"
+          >
+            <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
+          </v-switch>
+
+        </div>
+      </div>
+    </v-col>
+
+    <v-col :cols="12">
+      <div>
+
         <h3 class="subtitle-1"><strong>Homebrews</strong></h3>
 
         <p class="body-2">Allow specific homebrew content to be used for this character.</p>
@@ -370,6 +414,71 @@ export default {
         { name: 'Deathwatch', recommendedTiers: '3-4', cover: 'https://i.pinimg.com/originals/be/09/17/be0917ae8414dbfde3f973d8ba2956bb.jpg' },
         { name: 'Black Crusade', recommendedTiers: '3-4', cover: 'https://warhammerart.com/wp-content/uploads/2018/11/13TH-BLACK-CRUSADE-04.jpg' },
       ],
+      settingOfficialOptions: [
+        {
+          active: true,
+          key: 'core',
+          name: 'Wrath & Glory Core Rules',
+          hint: 'Core Factions',
+          enabled: false,
+          nuxt: '',
+          source: 'https://www.drivethrurpg.com/en/product/249388/warhammer-40-000-wrath-glory-core-rulebook?affiliate_id=466959',
+        },
+        {
+          active: true,
+          key: 'fspg',
+          name: 'Forsaken System Player Guide',
+          hint: 'Imperial Archeytypes',
+          enabled: false,
+          nuxt: 'https://www.drivethrurpg.com/en/product/303930/warhammer-40-000-wrath-glory-forsaken-system-player-s-guide?affiliate_id=466959',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'red1',
+          name: 'Redacted Records I',
+          hint: 'Some Talents',
+          enabled: false,
+          nuxt: 'https://www.drivethrurpg.com/en/product/343896/warhammer-40-000-wrath-glory-redacted-records?affiliate_id=466959',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'red2',
+          name: 'Redacted Records II',
+          hint: 'More Talents',
+          enabled: true,
+          nuxt: 'https://www.drivethrurpg.com/en/product/388102/warhammer-40-000-wrath-glory-redacted-records-2?affiliate_id=466959',
+          source: '',
+        },
+        {
+          active: true,
+          key: 'aioe',
+          name: 'Aeldari - Inheritance of Ember',
+          hint: 'Aledari & Drukhari Content',
+          enabled: true,
+          nuxt: 'https://www.drivethrurpg.com/en/product/305327/warhammer-40-000-wrath-and-glory-aeldari-inheritance-of-embers?affiliate_id=466959',
+          source: '',
+        },
+        /*{
+          active: true,
+          key: 'afas',
+          name: 'Affliction Ascendant',
+          hint: '1st Company Veteran',
+          enabled: true,
+          nuxt: 'https://www.drivethrurpg.com/en/product/343904/Wrath--Glory--Affliction-Ascendant?affiliate_id=466959',
+          source: '',
+        },*/
+        {
+          active: true,
+          key: 'tnh',
+          name: 'The Null Hypothesis',
+          hint: 'Add Sisters of Silence and gear.',
+          enabled: true,
+          nuxt: 'https://www.drivethrurpg.com/product/343894/Wrath--Glory--The-Null-Hypothesis?affiliate_id=466959',
+          source: '',
+        },
+      ],
       settingHomebrewOptions: [
         {
           active: true,
@@ -378,15 +487,6 @@ export default {
           hint: 'You homebrew species.',
           enabled: true,
           nuxt: '',
-          source: '',
-        },
-        {
-          active: true,
-          key: 'tnh',
-          name: '\'The Null Hypothesis\' official content',
-          hint: 'Add Sisters of Silence and gear.',
-          enabled: true,
-          nuxt: 'https://www.drivethrurpg.com/product/343894/Wrath--Glory--The-Null-Hypothesis?affiliate_id=466959',
           source: '',
         },
         {

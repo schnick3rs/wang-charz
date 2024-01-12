@@ -1,6 +1,6 @@
-import { source } from './_sourcesRepository';
-import { stringToKebab } from './_stringUtils';
-import { ATTRIBUTES, SKILLS, TRAITS } from './_statUtils';
+import {source} from './_sourcesRepository';
+import {stringToKebab} from './_stringUtils';
+import {ATTRIBUTES, SKILLS, TRAITS} from './_statUtils';
 
 const addModifier = function(targetGroup, targetValue, modifier = 0, rank = 0, condition = undefined) {
   return {
@@ -2325,6 +2325,223 @@ const fspg = [
       reqSkill(SKILLS.SURVIVAL, 3),
       reqSkill(SKILLS.WEAPON_SKILL, 5),
     ],
+  },
+];
+
+const red2 = [
+  {
+    ...archetype(source.red2.key, 34,'Adepta Sororitas','Novitiate Militant',1,'Human'),
+    ...costz(24,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ]),
+    hint: 'A determined warrior, filled with purity and faith.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Impetuous Fervour',
+        snippet: 'When you Charge you reduce the Multi-Attack penalty by 2.',
+      },
+    ],
+    wargear: wargearz('Novitiate Armour and Vestments, a copy of Rule of the Sororitas, 1 Frag Grenade, 1 Krak Grenade, an Autopistol, Novitiate Melee Weapon'),
+    influence: 1,
+  },
+  {
+    ...archetype(source.red2.key, 35,'Adepta Sororitas','Celestian Sacresant',3,'Human'),
+    ...costz(142,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 4),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 5),
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.ATHLETICS, 1),
+      reqSkill(SKILLS.AWARENESS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.SCHOLAR, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 4),
+    ]),
+    hint: 'A determined warrior, filled with purity and faith.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Keeper of the Faith',
+        snippet:
+            'You have 1 Faith. ' +
+            'Once per Round, you may spend 1 point of Faith, Wrath, or Glory to move up to your Speed and increase your Defence by +1 until the start of your next Turn. ' +
+            'You can use this movement to interpose yourself between an attack and its target, making you the target',
+      },
+    ],
+    wargear: wargearz('Sororitas Power Armour, Sacresant Shield, Bolt Pistol, Hallowed Mace, 3 Frag Grenades, 3 Krak Grenades, Chaplet Ecclesiasticus, a copy of the Rule of the Sororitas'),
+    influence: 0,
+  },
+  {
+    ...archetype(source.red2.key, 35,'Adepta Sororitas','Sister Dogmata',4,'Human'),
+    ...costz(236,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 6),
+      reqAttribute(ATTRIBUTES.FELLOWSHIP, 3),
+      reqSkill(SKILLS.AWARENESS, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.INSIGHT, 3),
+      reqSkill(SKILLS.INTIMIDATION, 2),
+      reqSkill(SKILLS.LEADERSHIP, 3),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'A determined warrior, filled with purity and faith.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Bolstering Light',
+        snippet:
+            'You have the Bolstering Purity and Consecrated Light Faith Talents (Wrath & Glory Rulebook, pages 142–143).',
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-bolstering-purity', meta: { name: 'Bolstering Purity' } },
+          { targetGroup: 'talents', targetValue: 'core-consecrated-light', meta: { name: 'Consecrated Light' } },
+        ],
+      },
+    ],
+    wargear: wargearz('Sororitas Power Armour, Bolt Pistol, Mace of the Righteous, 3 Frag Grenades, 3 Krak Grenades, Chaplet Ecclesiasticus, a copy of the Rule of the Sororitas'),
+    influence: 0,
+  },
+  {
+    ...archetype(source.red2.key, 37,'Adepta Sororitas','Palatine',3,'Human'),
+    ...costz(167,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 3),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
+      reqAttribute(ATTRIBUTES.AGILITY, 4),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 4),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 5),
+      reqAttribute(ATTRIBUTES.INTELLECT, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.LEADERSHIP, 3),
+      reqSkill(SKILLS.SCHOLAR, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'A determined warrior, filled with purity and faith.',
+    keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+    archetypeFeatures: [
+      {
+        name: 'Fury of the Righteous',
+        snippet:
+            'You have 1 Faith. You can spend 1 Faith at any time to activate Fury of the Righteous until the start of your next Turn. ' +
+            'While Fury of the Righteous is active, any allies with the ADEPTUS MINISTORUM Keyword within 6m of you gain +Rank bonus dice to melee attack Tests.',
+        modifications: [
+          { targetGroup: 'resource', targetValue: 'faith', modifier: 1 },
+        ],
+      },
+    ],
+    wargear: wargearz('Rosarius, Sororitas Power Armour, Chaplet Ecclesiasticus, copy of the Rule of the Sororitas, Power Sword, 3 Frag Grenades, 3 Krak Grenades, Bolt Pistol or Plasma Pistol'),
+    influence: 0,
+  },
+];
+
+const aioe = [
+  // Asuryani
+  {
+    ...archetype(source.aioe.key, 22,'Asuryani','Guardian',2,'aioe/Aeldari'),
+    ...cost(42,10,32, 0, 0),
+    hint: 'Militia but with pointy ears.',
+    keywords: 'Aeldari,Asyrianí,[Craftworld]',
+    prerequisites: [
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Martial Citizenry',
+        snippet: 
+            'You are drilled in using basic Asuryani weaponry. ' +
+            'When attacking whilst in cover, gain +Rank to the Rending rating of any SHURIKEN weapons. ' +
+            'When attacking an enemy in cover, gain +Rank ED on any melee attacks.',
+      },
+    ],
+    wargear: wargearz('Aeldari Mesh Armour, Civilian Clothing, 3 Plasma Grenades, Ritual Tools, Shuriken Catapult or Shuriken Pistol and Guardian Chainsword, War Mask'),
+  },
+  {
+    ...archetype(source.aioe.key, 23,'Asuryani','Ranger',2,'aioe/Aeldari'),
+    ...cost(34,10,24, 0, 0),
+    hint: 'A wanderer, a scout, and tracker for the good of their people.',
+    keywords: 'Aeldari,Asyrianí,[Craftworld]',
+    prerequisites: [
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.STEALTH, 1),
+      reqSkill(SKILLS.SURVIVAL, 2),
+    ],
+    archetypeFeatures: [
+      {
+        name: 'From the Shadows',
+        snippet:
+            'You are adept at exploiting any form of concealment. ' +
+            'Whenever a Vision Penalty (Wrath & Glory page 191) or Cover (Wrath & Glory page 181) ' +
+            'imposes a penalty on someone trying to attack or detect you, the penalty is increased by +Rank DN.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'defence', modifier: 0, rank: 1, condition: 'when obscured (vision penalty) or in cover' },
+        ],
+      },
+    ],
+    wargear: wargearz('Ranger Long Rifle, Shuriken Pistol, Knife, Aeldari Mesh Armour, Cameleoline Cloak, Magnocular Scope, Spirit Stone, Bedroll, Blanket.'),
+  },
+  {
+    ...archetype(source.aioe.key, 32,'Asuryani','Wraithguard',4,'Wraith Construct/aioe-wraith-construct'),
+    ...cost(164,30,134, 0, 0),
+    hint: 'A guardian of bone and soul',
+    keywords: 'Aeldari,Asuryan,Wraith-Construct,[Craftworld]',
+    prerequisites: [
+      reqAttribute(ATTRIBUTES.STRENGTH, 5),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 6),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ],
+    archetypeFeatures: [
+      {
+        name: 'War Construct',
+        snippet:
+            'Your new body weathers the strains of battle better than any living creature could. ' +
+            'Any ranged weapons you wield without the Heavy Trait gain the Pistol Trait. ' +
+            'When wielding two melee weapons, you reduce the DN penalty for making Multi-Attacks by 2. ' +
+            'You gain +Rank Determination.',
+        modifications: [
+          { targetGroup: 'traits', targetValue: 'determination', modifier: 0, rank: 1 },
+        ],
+      },
+    ],
+    wargear: wargearz('Wraithcannon or 2 Ghostswords, Spirit Stone'),
+  },
+  // Drukhaei
+
+  {
+    ...archetype(source.aioe.key, 36,'Drukhari','Kabalite Warrior',2,'aioe/Drukhari'),
+    ...cost(42,10,32, 0, 0),
+    hint: 'A power-hungry killer with dark ambitions.',
+    keywords: 'Aeldari,Drukhari,[Kabal]',
+    prerequisites: [
+      reqAttribute(ATTRIBUTES.AGILITY, 3),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 2),
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Prey on the Weak',
+        snippet:
+            'Your mind is focussed by the scent of fear and suffering. ' +
+            'You gain +Rank bonus dice on attack Tests against enemies that have suffered Wounds, ' +
+            'or Mobs of Troops that have suffered casualties.',
+      },
+    ],
+    wargear: wargearz('Splinter Rifle, Knife, Kabalite Armour, Hooks, Chains, Initiation Token'),
   },
 ];
 
@@ -7842,6 +8059,8 @@ const goheRep = [
 const archetypeRepository = [
   ...core,
   ...fspg,
+  ...red2,
+  ...aioe,
   ...afas,
   ...tnh,
   ...dodScumPsyker,

@@ -1,5 +1,5 @@
-import { source } from './_sourcesRepository';
-import { SKILLS, ATTRIBUTES, TRAITS } from './_statUtils';
+import {source} from './_sourcesRepository';
+import {ATTRIBUTES, SKILLS, TRAITS} from './_statUtils';
 
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
@@ -90,7 +90,7 @@ const species = function (sourceKey, sourcePage, group, name, hint, costy, speed
 
 const commonNames = function (namesString) {
   return { commonNames: namesString.split(',').map(part => part.trim()) };
-}
+};
 
 const coreRep = [
   {
@@ -681,6 +681,106 @@ const fspg = [
   },
 ];
 
+const aioe = [
+  {
+    ...species('aioe',10,'Aeldari','Aeldari','The Mysterious Aeldari',10,8),
+    ...cost(10,10,0, 0),
+    ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
+    ...statMax(7,7,12,12,12,10,6,10),
+    replaces: 'core-aeldari',
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Intense Emotion',
+        snippet: '+1DN to all Resolve Tests. If you fail a Willpower based test in a scene involving emotion, the GM gains +1 Ruin.',
+      },
+      {
+        name: 'Psychosensitive',
+        snippet: 'You may choose to take the PSYKER Keyword.',
+        description: '<p>You may choose to take the <strong>PSYKER</strong> Keyword.</p>',
+        selected: '',
+        options: [
+          { key: 'mundane', name: 'Mundane', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          { key: 'psyker', name: 'Sensitive', unlocks: 'Psychosensitive Psyker' },
+        ],
+      },
+      {
+        condition: 'psychosensitive.psyker',
+        name: 'Psychosensitive Psyker',
+        snippet: 'You have the PSYKER Keyword. You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. You also gain access to on additional Discipline.',
+        description: '<p>You have the <strong>PSYKER</strong> Keyword. You gain access to the <em>Minor</em>, <em>Universal</em>, <em>Divination</em> and <em>Runes of Battle</em> Disciplines. You also gain access to on additional Discipline.</p>',
+        modifications: [
+          { targetGroup: 'keywords', targetValue: 'Psyker' },
+        ],
+        selected: [''],
+        options: [
+          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+          // { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+          // { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
+          { key: 'aaoa-runes-of-shaping', name: 'Runes of Shaping', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Shaping' }] },
+        ],
+        psychicDisciplines: [
+          'Minor',
+          'Universal',
+          'Divination',
+          'Runes of Battle',
+        ],
+      },
+    ],
+  },
+  {
+    ...species('aioe',10,'Aeldari','Drukhari','The Mysterious Drukhari',10,8),
+    ...cost(10,10,0, 0),
+    ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
+    ...statMax(7,7,12,12,12,10,6,10),
+    prerequisites: [
+      { group: 'attributes', value: 'agility', threshold: 3 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Intense Emotion',
+        snippet: '+1DN to all Resolve Tests. If you fail a Willpower based test in a scene involving emotion, the GM gains +1 Ruin.',
+      },
+      {
+        name: 'Night Vision',
+        snippet: 'You do not suffer vision penalties for low-light or darkness.',
+      },
+      {
+        name: 'Soul Debt',
+        snippet: 'Make a DN Tier+1 Corruption Test at the end of any session in which you did not inflict Wounds on an unwilling creature. You never make Corruption Tests for inflicting pain. Drukhari with the ASURYANI, HARLEQUIN, or YNNARI Keyword lose this ability.',
+      },
+    ],
+  },
+  {
+    ...species('aioe',10,'Aeldari','Wraith Construct','The Constructed Souls',90,8),
+    ...cost(90,90,0, 0),
+    ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
+    ...statMax(7,7,12,12,12,10,6,10),
+    prerequisites: [
+      { group: 'attributes', value: 'strength', threshold: 5 },
+      { group: 'attributes', value: 'toughness', threshold: 6 },
+    ],
+    speciesFeatures: [
+      {
+        name: 'Wraithbone Form',
+        snippet: 'Wraith Constructs are immune to the Blinded, Bleeding, and Poisoned Conditions, and cannot Suffocate. They cannot wear armour, but always count as having an Armour Rating (AR) of 5',
+      },
+      {
+        name: 'Wraithsight',
+        snippet: 'Wraith Constructs can communicate telepathically with Spiritseers and other psychically attuned Aeldari, and perceive the presence of psychic powers and warp phenomena, as well as strong thoughts and feelings at the GM’s discretion. Unless a living Aeldari character is within line of sight, they suffer from the Hindered Condition.',
+      },
+    ],
+  },
+];
+
 const aaoa = [
   // Human Origins
   {
@@ -1123,6 +1223,7 @@ const gohe = [
 module.exports = [
   ...coreRep,
   ...fspg,
+  ...aioe,
   ...aaoa,
   ...dod,
   ...gohe,

@@ -1,4 +1,4 @@
-import { source } from './_sourcesRepository';
+import {source} from './_sourcesRepository';
 
 const stringToKebab = function (text) {
   return text.toLowerCase().replace(/\W/gm, '-');
@@ -41,8 +41,8 @@ const background = function (text, plusOne, type) {
     plusOne,
     type,
     modification,
-  }
-}
+  };
+};
 
 const core = [
   {
@@ -376,6 +376,35 @@ const fspg = [
   },
 ];
 
+const aioe = [
+  {
+    name: 'Asuryani',
+    ...faction(source.aioe.key,10,'Aeldari','Asuryani'),
+    advancedCreationKeywords: ['Asuryani', '[Craftworld]'],
+  },
+  {
+    name: 'Corsairs',
+    ...faction(source.aioe.key,10,'Aeldari','Corsairs'),
+    advancedCreationKeywords: ['Asuryani', '[Coterie]'],
+  },
+  {
+    name: 'Drukhari',
+    ...faction(source.aioe.key,10,'Aeldari','Drukhari'),
+    advancedCreationKeywords: ['Drukhari', 'Blades for Hire'],
+  },
+  {
+    name: 'Harlequins',
+    ...faction(source.aioe.key,10,'Aeldari','Harlequins'),
+    advancedCreationKeywords: ['Harlequins', '[Mask]'],
+  },
+  {
+    name: 'Ynnari',
+    ...faction(source.aioe.key,10,'Aeldari','Ynnari'),
+    advancedCreationKeywords: ['Ynnari'],
+  },
+];
+
+
 const aaoa = [
   {
     name: 'Adeptus Arbites',
@@ -518,6 +547,7 @@ const factionRepository = [
   ...core,
   ...fspg,
   ...aaoa,
+  ...aioe,
 ];
 
 module.exports = factionRepository;
