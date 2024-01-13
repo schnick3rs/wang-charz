@@ -2441,6 +2441,219 @@ const red2 = [
     wargear: wargearz('Rosarius, Sororitas Power Armour, Chaplet Ecclesiasticus, copy of the Rule of the Sororitas, Power Sword, 3 Frag Grenades, 3 Krak Grenades, Bolt Pistol or Plasma Pistol'),
     influence: 0,
   },
+  // Ministorum
+  {
+    ...archetype(source.red2.key, 48,'Adeptus Mechanicus','Corpuscarii Electro-Priest',2,'Human'),
+    ...costz(72,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+      reqAttribute(ATTRIBUTES.INTELLECT, 4),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 2),
+    ]),
+    hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
+    keywords: 'Imperium,Adeptus Mechanicus',
+    archetypeFeatures: [
+      {
+        name: 'Voltagheist Field',
+        snippet:
+            'You can roll Determination against Mortal Wounds. Whenever you inflict a Wrath Critical, you can choose to activate a Voltagheist Burst, inflicting Mortal Wounds equal to your Rank on everyone within 5m that doesn’t have this ability',
+      },
+      {
+        name: 'Omnissiah’s Tears',
+        snippet:
+            'You are immune to the Blinded Condition.',
+      },
+      {
+        name: 'Omnissian Proliferation',
+        snippet:
+            'You can sacrifice half of your Maximum Shock to fully restore electrical power to technology of Huge or smaller Size. At the Gamemaster’s discretion, this ability can also be used to repair weaponry, recharge ammo packs, or be used for Tech Interaction Attacks.',
+      },
+    ],
+    wargear: wargearz('Corpuscarii Robes, Electrostatic Gauntlets'),
+    influence: 0,
+  },
+  {
+    ...archetype(source.red2.key, 48,'Adeptus Mechanicus','Fulgrite Electro-Priest',2,'Human'),
+    ...costz(72,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+      reqAttribute(ATTRIBUTES.INTELLECT, 4),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 2),
+    ]),
+    hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
+    keywords: 'Imperium,Adeptus Mechanicus',
+    archetypeFeatures: [
+      {
+        name: 'Voltagheist Field',
+        snippet:
+            'You can roll Determination against Mortal Wounds. Whenever you inflict a Wrath Critical, you can choose to activate a Voltagheist Burst, inflicting Mortal Wounds equal to your Rank on everyone within 5m that doesn’t have this ability',
+      },
+      {
+        name: 'Omnissiah’s Tears',
+        snippet:
+            'You are immune to the Blinded Condition.',
+      },
+      {
+        name: 'Syphoned Vigour',
+        snippet:
+            'Whenever you deal one or more Wounds with your Electroleech Stave, you may recover an amount of Shock equal to the number of Wounds you dealt.',
+      },
+    ],
+    wargear: wargearz('Fulgrite Robes,  Electroleech Stave'),
+    influence: 0,
+  },
+  {
+    ...archetype(source.red2.key, 49,'Adeptus Mechanicus','Pteraxii Skystalker',2,'Human'),
+    ...costz(112,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 5),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 5),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.PILOT, 2),
+      reqSkill(SKILLS.TECH, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ]),
+    hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
+    keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Heavily Augmented',
+        snippet:
+            'Your body has been redesigned to withstand the rigours of war. ' +
+            'You do not bleed (making you immune to the Bleeding Condition) and gain +Rank bonus dice to Determination rolls.',
+      },
+      {
+        name: 'Fleeting Barrage',
+        snippet:
+            'When you Fall Back, you can make a ranged attack as a Free Action.',
+      },
+    ],
+    wargear: wargearz('Pteraxii Flight Pack, Pteraxii Talons, Flechette Carbine, Skitarii Auto-cuirass'),
+    influence: 0,
+  },
+  {
+    ...archetype(source.red2.key, 49,'Adeptus Mechanicus','Pteraxii Sterylizor',2,'Human'),
+    ...costz(112,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 5),
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
+      reqAttribute(ATTRIBUTES.AGILITY, 5),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 1),
+      reqSkill(SKILLS.PILOT, 2),
+      reqSkill(SKILLS.TECH, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ]),
+    hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
+    keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Heavily Augmented',
+        snippet:
+            'Your body has been redesigned to withstand the rigours of war. ' +
+            'You do not bleed (making you immune to the Bleeding Condition) and gain +Rank bonus dice to Determination rolls.',
+      },
+      {
+        name: 'Darting Hunter',
+        snippet:
+            'When you Fall Back, you can Charge as a Free Action.',
+      },
+    ],
+    wargear: wargearz('Pteraxii Flight Pack, Pteraxii Talons, Phosphor Torch, Skitarii Auto-cuirass'),
+    influence: 0,
+  },
+  {
+    ...archetype(source.red2.key, 50,'Adeptus Mechanicus','Serberys Raider',2,'Human'),
+    ...costz(121,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+      reqAttribute(ATTRIBUTES.AGILITY, 4),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.PILOT, 2),
+      reqSkill(SKILLS.SURVIVAL, 1),
+      reqSkill(SKILLS.TECH, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ]),
+    hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
+    keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Heavily Augmented',
+        snippet:
+            'Your body has been redesigned to withstand the rigours of war. ' +
+            'You do not bleed (making you immune to the Bleeding Condition) and gain +Rank bonus dice to Determination rolls.',
+      },
+      {
+        name: 'Eye of Serberys',
+        snippet:
+            'You have the Deadshot Talent (Wrath & Glory Rulebook, page 131).',
+      },
+      {
+        name: 'Skirmisher',
+        snippet:
+            'If you are not surprised at the start of combat you may immediately Move or command your mount to Move.',
+      },
+    ],
+    wargear: wargearz('Raider Cyber-beast, Galvanic Carbine, Cavalry Sabre (Sword), Skitarii Auto-cuirass'),
+    influence: 0,
+  },
+  {
+    ...archetype(source.red2.key, 50,'Adeptus Mechanicus','Serberys Sulphurhound',2,'Human'),
+    ...costz(121,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+      reqAttribute(ATTRIBUTES.AGILITY, 4),
+      reqSkill(SKILLS.AWARENESS, 1),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.PILOT, 2),
+      reqSkill(SKILLS.SURVIVAL, 1),
+      reqSkill(SKILLS.TECH, 1),
+      reqSkill(SKILLS.WEAPON_SKILL, 1),
+    ]),
+    hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
+    keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Heavily Augmented',
+        snippet:
+            'Your body has been redesigned to withstand the rigours of war. ' +
+            'You do not bleed (making you immune to the Bleeding Condition) and gain +Rank bonus dice to Determination rolls.',
+      },
+      {
+        name: 'Pistoleer',
+        snippet:
+            'You have the Dual Wield Talent (Wrath & Glory Rulebook, page 133).',
+      },
+      {
+        name: 'Rad-saturated',
+        snippet:
+            'Whenever an individual enters Engagement with you or starts their Turn Engaged with you they must make a Toughness Test with a DN equal to your Rank x2. If they fail, they are Hindered until the start of their next Turn.',
+      },
+    ],
+    wargear: wargearz('Sulphurhound Cyber-beast, 2 Phosphor Pistols, Skitarii Auto-cuirass'),
+    influence: 0,
+  },
+  {
+    ...archetype(source.red2.key, 51,'Adeptus Mechanicus','Cybernetica Datasmith',3,'Human'),
+    ...costz(101,[
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
+      reqAttribute(ATTRIBUTES.INTELLECT, 5),
+      reqSkill(SKILLS.SCHOLAR, 2),
+      reqSkill(SKILLS.TECH, 4),
+    ]),
+    hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
+    keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+    archetypeFeatures: [
+      {
+        name: 'Reprogrammer',
+        snippet:
+            'The DN of any Tech Test you make with a target that has the ROBOT Keyword is halved. ' +
+            'Additionally, you can attempt a Tech Test to repair a target with the ROBOT Keyword, ' +
+            'restoring their Wounds as though you were making a Medicae Test (Wrath & Glory Rulebook, page 124).',
+      },
+    ],
+    wargear: wargearz('Refractor Field, Power Fist, Gamma Pistol, Datasmith Robes, a Comb i Tool, a Mind Impulse Unit, and any 1 Augmetic Enhancement'),
+    influence: 0,
+  },
 ];
 
 const aioe = [
@@ -2520,7 +2733,6 @@ const aioe = [
     wargear: wargearz('Wraithcannon or 2 Ghostswords, Spirit Stone'),
   },
   // Drukhaei
-
   {
     ...archetype(source.aioe.key, 36,'Drukhari','Kabalite Warrior',2,'aioe/Drukhari'),
     ...cost(42,10,32, 0, 0),
@@ -2542,6 +2754,102 @@ const aioe = [
       },
     ],
     wargear: wargearz('Splinter Rifle, Knife, Kabalite Armour, Hooks, Chains, Initiation Token'),
+  },
+  // Harlequin
+  {
+    ...archetype(source.aioe.key, 47,'Harlequin','Troupe Player',3,'aioe/Aeldari'),
+    species:  [
+      { name: 'Aeldari', key: `aioe-aeldari}`, sourceKey: 'aioe' },
+      { name: 'Drukhari', key: `aioe-drukhari}`, sourceKey: 'aioe' },
+    ],
+    ...costz(94, [
+      reqAttribute(ATTRIBUTES.AGILITY, 4),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 4),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 2),
+      reqSkill(SKILLS.ATHLETICS, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'A warrior-artist serving the Laughing god (lol).',
+    keywords: 'Aeldari,Harleqin,[Masque]',
+    archetypeFeatures: [
+      {
+        name: 'War Dancer',
+        snippet:
+            'You fight best as part of a chorus, the strikes of your allies blurring into your own as a storm of blades. ' +
+            'You gain +Double Rank bonus dice on melee attacks against an enemy engaged with an ally.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'weaponSkill', modifier: 0, rank: 2, condition: 'when target is engaged with an ally' },
+        ],
+      },
+    ],
+    wargear: wargearz('Harlequin’s Blade or Harlequin’s Kiss or Harlequin’s Caress or Harlequin’s Embrace, Shuriken Pistol, 3 Plasma Grenades, Holo-Suit, False Face, Flip-Belt'),
+    influence: 2,
+  },
+  {
+    ...archetype(source.aioe.key, 48,'Harlequin','Death Jester',3,'aioe/Aeldari'),
+    species:  [
+      { name: 'Aeldari', key: `aioe-aeldari}`, sourceKey: 'aioe' },
+      { name: 'Drukhari', key: `aioe-drukhari}`, sourceKey: 'aioe' },
+    ],
+    ...costz(176, [
+      reqAttribute(ATTRIBUTES.STRENGTH, 4),
+      reqAttribute(ATTRIBUTES.AGILITY, 5),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+      reqSkill(SKILLS.ATHLETICS, 2),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+      reqSkill(SKILLS.INTIMIDATION, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'A warrior-artist serving the Laughing god (lol).',
+    keywords: 'Aeldari,Harleqin,[Masque]',
+    archetypeFeatures: [
+      {
+        name: 'Death Is Not Enough ',
+        snippet:
+            'You delight in brutal volleys of firepower that demoralise and terrify your enemies. ' +
+            'When you succeed on a ranged attack, any targets of the attack must make a Fear Test, with a DN of 1 + Double Rank. ' +
+            'If none of your targets survived the attack, you can choose another character who witnessed the attack to make the Fear Test instead.',
+      },
+    ],
+    wargear: wargearz('Shrieker Cannon with Jester’s Blade attachment, Holo-Suit, Rictus Mask, Flip-Belt'),
+    influence: 2,
+  },
+  // Corsairs
+  {
+    ...archetype(source.aioe.key, 47,'Corsairs','Voidreaver',3,'aioe/Aeldari'),
+    species:  [
+      { name: 'Aeldari', key: `aioe-aeldari}`, sourceKey: 'aioe' },
+      { name: 'Drukhari', key: `aioe-drukhari}`, sourceKey: 'aioe' },
+    ],
+    ...costz(94, [
+      reqAttribute(ATTRIBUTES.AGILITY, 4),
+      reqAttribute(ATTRIBUTES.INITIATIVE, 4),
+      reqAttribute(ATTRIBUTES.WILLPOWER, 2),
+      reqSkill(SKILLS.ATHLETICS, 3),
+      reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+      reqSkill(SKILLS.WEAPON_SKILL, 3),
+    ]),
+    hint: 'A warrior-artist serving the Laughing god (lol).',
+    keywords: 'Aeldari,Anhrathe,[Coterie]',
+    archetypeFeatures: [
+      {
+        name: 'Raiders of the Void',
+        snippet:
+            'You are a raider, experienced at operating in the vacuum of space. ' +
+            'Used to zero gravity, and engaging in lighting strike raids, you use speed and guile to your advantage in battle. ' +
+            'You gain +Rank bonus dice to melee or ranged attacks when you Seize the Initiative. ' +
+            'You gain a further +1 die bonus if this ability is used when fighting in zero gravity',
+        modifications: [
+          { targetGroup: 'skills', targetValue: 'weaponSkill', modifier: 0, rank: 1, condition: 'when you Seize the Initiative' },
+          { targetGroup: 'skills', targetValue: 'weaponSkill', modifier: 1, rank: 0, condition: 'when you Seize the Initiative in 0g' },
+          { targetGroup: 'skills', targetValue: 'ballisticSkill', modifier: 0, rank: 1, condition: 'when you Seize the Initiative' },
+          { targetGroup: 'skills', targetValue: 'ballisticSkill', modifier: 1, rank: 0, condition: 'when you Seize the Initiative in 0g' },
+        ],
+      },
+    ],
+    wargear: wargearz('Shuriken Rifle or Shuriken Pistol and Void Sabre, 3 Plasma Grenades, Corsair Armour, Void Suit, Spirit Stone, 1 extra random trinket'),
   },
 ];
 
