@@ -2587,6 +2587,9 @@ const red2 = [
         name: 'Eye of Serberys',
         snippet:
             'You have the Deadshot Talent (Wrath & Glory Rulebook, page 131).',
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-deadshot', meta: { name: 'Deadshot' } },
+        ],
       },
       {
         name: 'Skirmisher',
@@ -2594,7 +2597,7 @@ const red2 = [
             'If you are not surprised at the start of combat you may immediately Move or command your mount to Move.',
       },
     ],
-    wargear: wargearz('Raider Cyber-beast, Galvanic Carbine, Cavalry Sabre (Sword), Skitarii Auto-cuirass'),
+    wargear: wargearz('Raider Cybercanid, Galvanic Carbine, Cavalry Sabre or Sword, Skitarii Auto-cuirass'),
     influence: 0,
   },
   {
@@ -2622,6 +2625,9 @@ const red2 = [
         name: 'Pistoleer',
         snippet:
             'You have the Dual Wield Talent (Wrath & Glory Rulebook, page 133).',
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-dual-wield', meta: { name: 'Dual Wield' } },
+        ],
       },
       {
         name: 'Rad-saturated',
@@ -2629,7 +2635,7 @@ const red2 = [
             'Whenever an individual enters Engagement with you or starts their Turn Engaged with you they must make a Toughness Test with a DN equal to your Rank x2. If they fail, they are Hindered until the start of their next Turn.',
       },
     ],
-    wargear: wargearz('Sulphurhound Cyber-beast, 2 Phosphor Pistols, Skitarii Auto-cuirass'),
+    wargear: wargearz('Sulphurhound Cybercanid, 2 Phosphor Pistols, Skitarii Auto-cuirass'),
     influence: 0,
   },
   {
@@ -8136,7 +8142,7 @@ const goheRep = [
     suggested: {
       attributes: [],
       skills: [],
-      talents: [  ],
+      talents: [],
     },
     suggestedStats: [
       ...suggestedAttributes(3,2,3,2,2,1,1),
