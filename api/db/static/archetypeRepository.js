@@ -2346,7 +2346,7 @@ const red2 = [
         snippet: 'When you Charge you reduce the Multi-Attack penalty by 2.',
       },
     ],
-    wargear: wargearz('Novitiate Armour and Vestments, a copy of Rule of the Sororitas, 1 Frag Grenade, 1 Krak Grenade, an Autopistol, Novitiate Melee Weapon'),
+    wargear: wargearz('Novitiate Armour, Novitiate Vestments, Rule of the Sororitas, 1 Frag Grenade, 1 Krak Grenade, Autopistol, Novitiate Melee Weapon'),
     influence: 1,
   },
   {
@@ -2375,7 +2375,7 @@ const red2 = [
             'You can use this movement to interpose yourself between an attack and its target, making you the target',
       },
     ],
-    wargear: wargearz('Sororitas Power Armour, Sacresant Shield, Bolt Pistol, Hallowed Mace, 3 Frag Grenades, 3 Krak Grenades, Chaplet Ecclesiasticus, a copy of the Rule of the Sororitas'),
+    wargear: wargearz('Sororitas Power Armour, Sacresant Shield, Bolt Pistol, Hallowed Mace, 3 Frag Grenades, 3 Krak Grenades, Chaplet Ecclesiasticus, Rule of the Sororitas'),
     influence: 0,
   },
   {
@@ -2408,7 +2408,7 @@ const red2 = [
         ],
       },
     ],
-    wargear: wargearz('Sororitas Power Armour, Bolt Pistol, Mace of the Righteous, 3 Frag Grenades, 3 Krak Grenades, Chaplet Ecclesiasticus, a copy of the Rule of the Sororitas'),
+    wargear: wargearz('Sororitas Power Armour, Bolt Pistol, Mace of the Righteous, 3 Frag Grenades, 3 Krak Grenades, Chaplet Ecclesiasticus, Rule of the Sororitas'),
     influence: 0,
   },
   {
