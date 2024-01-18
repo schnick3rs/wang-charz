@@ -590,6 +590,48 @@ export default {
         effect: '+1 bonus Wrath Die on Psychic Mastery (Wil) Tests',
       },
 
+      // Anrathe Corties / CORSAIRS
+      {
+        source: 'aioe',
+        type: 'Corsair Coterie',
+        placeholder: '[Coterie]',
+        name: 'Eldritch Raiders',
+        description: 'Under the renowned Prince Yriel of Iyanden, the Eldritch Raiders have bound other Corsair fleets to their banner and formed a disciplined corps of warrior privateers.',
+        effect: 'Spend Shifts on Leadership (Wil) Tests to gain Wrath. Up to RANK times per session',
+      },
+      {
+        source: 'aioe',
+        type: 'Corsair Coterie',
+        placeholder: '[Coterie]',
+        name: 'Greensteel Warriors',
+        description: 'Operating out of the Gilead System, the Greensteel Warriors delight in brokering alliances with other factions, if only for the thrill of betraying them later.',
+        effect: 'Spend Shifts on Deception (Fel) Tests to gain Wrath. Up to RANK times per session',
+      },
+      {
+        source: 'aioe',
+        type: 'Corsair Coterie',
+        placeholder: '[Coterie]',
+        name: 'Steeleye Reavers',
+        description: 'The Steeleye Reavers cultivate an aura of dread and menace by physically marking their victims with a sigil — the sign of an elongated iris, with a pointing arrowhead.',
+        effect: 'Spend Shifts on Intimidation (Wil) Tests to gain Wrath. Up to RANK times per session',
+      },
+      {
+        source: 'aioe',
+        type: 'Corsair Coterie',
+        placeholder: '[Coterie]',
+        name: 'Sunblitz Brotherhood',
+        description: 'The triplet siblings who rule the Sunblitz Brotherhood treat the ‘lesser species’ of the galaxy with scorn, and yearn for the extermination of all non-Aeldari.',
+        effect: 'Spend Shifts on Weapon Skill (I) Tests to gain Wrath. Up to RANK times per session',
+      },
+      {
+        source: 'aioe',
+        type: 'Corsair Coterie',
+        placeholder: '[Coterie]',
+        name: 'Void Dragons',
+        description: 'The fickle and ubiquitous Void Dragons are a plague on the galaxy at large, venturing into the farthest reaches of the void with their raids, ambushing unpredictably and ruthlessly.',
+        effect: 'Spend Shifts on Pilot (A) Tests Tests to gain Wrath. Up to RANK times per session',
+      },
+
       // Drukhari KABALS
       {
         source: 'aioe',
