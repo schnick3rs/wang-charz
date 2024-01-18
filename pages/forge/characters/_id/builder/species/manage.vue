@@ -74,7 +74,7 @@
                   v-model="feature.selected[inx-1]"
                   item-value="name"
                   item-text="name"
-                  @change="setSpeciesTraitOption(feature, inx-1)"
+                  @change="setSpeciesFeatureOptionSelection(feature, inx-1)"
                   dense
                   solo
               ></v-select>
@@ -86,7 +86,7 @@
                     v-if="feature.options.find((o)=>o.name === feature.selected[inx-1]).description"
                     v-html="feature.options.find((o)=>o.name === feature.selected[inx-1]).description"
                 ></div>
-                <p v-else>{{feature.options.find((o)=>o.name === feature.selected[inx-1]).snippet}}</p>
+                <p>{{feature.options.find((o)=>o.name === feature.selected[inx-1]).snippet}}</p>
               </div>
             </div>
           </div>
@@ -330,11 +330,17 @@ export default {
      *
      * @param speciesTrait
      */
-    setSpeciesTraitOption(speciesTrait, inx) {
+    setSpeciesFeatureOptionSelection(speciesTrait, index) {
       const id = this.characterId;
-      const selectedOption =  speciesTrait.options.find( (o) => o.name === speciesTrait.selected[inx] );
+      let selectedValue = speciesTrait.selected[index]; // the NAME property of the option
+      const selectedOption =  speciesTrait.options.find((o) => o.name === selectedValue);
 
-      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `species.${speciesTrait.name}.${inx}` });
+      if (!selectedOption) {
+        console.warn(`No option found for index ${index} for ${selectedValue}`, speciesTrait.options);
+        return;
+      }
+
+      this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `species.${speciesTrait.name}.${index}` });
       // the option has a snippet, that is thus added as a custom ability
       if ( selectedOption.snippet ) {
         const content = {
@@ -344,16 +350,28 @@ export default {
             targetValue: '',
             effect: selectedOption.snippet,
           }],
-          source: `species.${speciesTrait.name}.${inx}.${selectedOption.name}`,
+          source: `species.${speciesTrait.name}.${index}.${selectedOption.name}`,
         };
         this.$store.commit('characters/addCharacterModifications', { id, content });
       }
 
+      this.$store.commit('characters/clearCharacterKeywordsBySource', { id: this.characterId, source: `species.${speciesTrait.name}`, cascade: true });
+
       // the selected option has modifications that are saved as such
       if ( selectedOption.modifications ) {
+        selectedOption.modifications.filter( (m) => m.targetGroup === 'keywords' ).forEach( (k) => {
+          const payload = {
+            name: k.targetValue,
+            source: `species.${speciesTrait.name}.${index}`,
+            type: 'keyword',
+            replacement: undefined,
+          };
+          this.$store.commit('characters/addCharacterKeyword', { id: this.characterId, keyword: payload });
+        });
+
         const content = {
           modifications: selectedOption.modifications,
-          source: `species.${speciesTrait.name}.${inx}.${selectedOption.name}`,
+          source: `species.${speciesTrait.name}.${index}.${selectedOption.name}`,
         };
         this.$store.commit('characters/addCharacterModifications', { id, content });
       }

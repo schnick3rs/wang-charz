@@ -848,11 +848,11 @@
                   <strong>Power Levels</strong><em> • core, pg. 260</em>
                   <div>You may cast <em>Bound</em>, <em>Unbound</em> or <em>Transcendent</em>.</div>
                 </div>
-                <div v-if="speciesKey && speciesKey.startsWith('core-aeldari')" class="caption mb-2">
+                <div v-if="speciesKey && speciesKey.endsWith('aeldari')" class="caption mb-2">
                   <strong>Aeldari Psyker</strong><em> • core, pg. 282</em>
                   <div>If you trigger Perils of the Warp you must roll 2d6; the highest is always the ‘tens’ digit of the d66 roll, and the lower result is the units digit.</div>
                 </div>
-                <div v-if="speciesKey && speciesKey.startsWith('core-aeldari') && keywordStrings && keywordStrings.includes('Asuryani')" class="caption mb-2">
+                <div v-if="speciesKey && speciesKey.endsWith('aeldari') && keywordStrings && keywordStrings.includes('Asuryani')" class="caption mb-2">
                   <strong>Asuryani Psyker</strong><em> • core, pg. 282</em>
                   <div>You may reroll a single Wrath Dice that rolled a Complication once per Test.</div>
                 </div>

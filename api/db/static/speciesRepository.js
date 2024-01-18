@@ -201,7 +201,7 @@ const coreRep = [
           {
             name: 'Path of Awakening', snippet: 'You gain +Rank bonus dice to Awareness (Int) Tests.',
             modifications: [
-              { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 1 },
+              { targetGroup: 'skills', targetValue: SKILLS.AWARENESS, modifier: 0, rank: 1 },
             ]
           },
           {
@@ -700,46 +700,34 @@ const aioe = [
         name: 'Psychosensitive',
         snippet: 'You may choose to take the PSYKER Keyword.',
         description: '<p>You may choose to take the <strong>PSYKER</strong> Keyword.</p>',
-        selected: '',
+        selected: ['Mundane'],
         options: [
-          { key: 'mundane', name: 'Mundane', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
-          { key: 'psyker', name: 'Sensitive', unlocks: 'Psychosensitive Psyker' },
-        ],
-      },
-      {
-        condition: 'psychosensitive.psyker',
-        name: 'Psychosensitive Psyker',
-        snippet: 'You have the PSYKER Keyword. You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. You also gain access to on additional Discipline.',
-        description: '<p>You have the <strong>PSYKER</strong> Keyword. You gain access to the <em>Minor</em>, <em>Universal</em>, <em>Divination</em> and <em>Runes of Battle</em> Disciplines. You also gain access to on additional Discipline.</p>',
-        modifications: [
-          { targetGroup: 'keywords', targetValue: 'Psyker' },
-        ],
-        selected: [''],
-        options: [
-          // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
-          // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
-          { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
-          // { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
-          { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
-          { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
-          { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
-          { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
-          // { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
-          { key: 'aaoa-runes-of-shaping', name: 'Runes of Shaping', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Shaping' }] },
-        ],
-        psychicDisciplines: [
-          'Minor',
-          'Universal',
-          'Divination',
-          'Runes of Battle',
+          {
+            key: 'mundane',
+            name: 'Mundane',
+            snippet: 'Your Psyker potential did not manifest.'
+          },
+          {
+            key: 'psyker',
+            name: 'Psyker',
+            unlocks: 'Psychosensitive Psyker',
+            snippet: 'You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. ',
+            modifications: [
+              { targetGroup: 'keywords', targetValue: 'Psyker' },
+              { targetGroup: 'psychicDisciplines', targetValue: 'Minor' },
+              { targetGroup: 'psychicDisciplines', targetValue: 'Universal' },
+              { targetGroup: 'psychicDisciplines', targetValue: 'Divination' },
+              { targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' },
+            ]
+          },
         ],
       },
     ],
   },
   {
-    ...species('aioe',10,'Aeldari','Drukhari','The Mysterious Drukhari',10,8),
+    ...species('aioe',10,'Aeldari','Drukhari','The Sinister Drukhari',10,8),
     ...cost(10,10,0, 0),
-    ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
+    ...commonNames('Aestra, Araqir, Atreixes, Barakhar, Drekarth, Drisella, Iridivyst, Jalaxlar, Korai, Kruellagh, Maelik, Melandyr, Mydilian, Orinth, Salaine, Skechara, Tarsidhe, Vhane, Vorl, Xethis, Xynariis, Yesyr, Zharokh, Zuol'),
     ...statMax(7,7,12,12,12,10,6,10),
     prerequisites: [
       { group: 'attributes', value: 'agility', threshold: 3 },
@@ -762,7 +750,7 @@ const aioe = [
   {
     ...species('aioe',10,'Aeldari','Wraith Construct','The Constructed Souls',90,8),
     ...cost(90,90,0, 0),
-    ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
+    ...commonNames('Adamant, Bastion, Contender, Diligence, Endurance, Eternity, Gatekeeper, Gravitas, Hereafter, Immutable, Infinity, Intransigence, Mirthless, Monument, Penumbra, Pinnacle, Profundity, Rampart, Sentinel, Severity, Steadfast, Solace, Vengeance, Vigilance, Warden, Zenith'),
     ...statMax(7,7,12,12,12,10,6,10),
     prerequisites: [
       { group: 'attributes', value: 'strength', threshold: 5 },

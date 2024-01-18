@@ -2668,7 +2668,7 @@ const aioe = [
     ...archetype(source.aioe.key, 22,'Asuryani','Guardian',2,'aioe/Aeldari'),
     ...cost(42,10,32, 0, 0),
     hint: 'Militia but with pointy ears.',
-    keywords: 'Aeldari,Asyrianí,[Craftworld]',
+    keywords: 'Aeldari,Asuryani,[Craftworld]',
     prerequisites: [
       reqAttribute(ATTRIBUTES.AGILITY, 3),
       reqAttribute(ATTRIBUTES.INITIATIVE, 3),
@@ -2690,7 +2690,7 @@ const aioe = [
     ...archetype(source.aioe.key, 23,'Asuryani','Ranger',2,'aioe/Aeldari'),
     ...cost(34,10,24, 0, 0),
     hint: 'A wanderer, a scout, and tracker for the good of their people.',
-    keywords: 'Aeldari,Asyrianí,[Craftworld]',
+    keywords: 'Aeldari,Asuryani,[Craftworld]',
     prerequisites: [
       reqAttribute(ATTRIBUTES.AGILITY, 3),
       reqSkill(SKILLS.BALLISTIC_SKILL, 2),
