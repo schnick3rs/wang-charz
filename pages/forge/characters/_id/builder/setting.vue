@@ -1,5 +1,5 @@
 <template lang="html">
-  <v-row justify="left">
+  <v-row >
 
     <v-dialog
       v-model="selectAvatarDialog"

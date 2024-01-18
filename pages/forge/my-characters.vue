@@ -3,7 +3,7 @@
 
     <dod-default-breadcrumbs :items="breadcrumbItems" />
 
-    <v-row justify="center">
+    <v-row>
 
       <v-col :cols="12" v-if="false">
         <v-alert type="info" outlined text>
@@ -111,7 +111,7 @@
           <p>Alternatively, just rebuild the character using the new revision. Or, hit delete and never look back.</p>
         </v-alert>
 
-        <v-row justify="center" v-if="hasUnmigratedCharacters">
+        <v-row v-if="hasUnmigratedCharacters">
 
           <v-col
             :cols="12"
@@ -146,7 +146,7 @@
 
         </v-row>
 
-        <v-row justify="left">
+        <v-row >
           <v-col
             v-for="character in characterSets.filter(i=>i !== undefined)"
             v-if="characterSets"
@@ -368,7 +368,7 @@
 </template>
 
 <script lang="js">
-import { mapGetters } from 'vuex';
+import {mapGetters} from 'vuex';
 import SluggerMixin from '~/mixins/SluggerMixin';
 import DodDefaultBreadcrumbs from '../../components/DodDefaultBreadcrumbs';
 

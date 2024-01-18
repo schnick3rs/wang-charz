@@ -98,13 +98,21 @@
             solo
             dense
             @change="updateKeyword(placeholder, placeholder.selected)"
-          />
+          >
+            <template v-slot:item="data">
+              <v-list-item-content>
+                <v-list-item-title v-html="data.item.name"></v-list-item-title>
+                <v-list-item-subtitle v-if="data.item.description">{{data.item.description}}</v-list-item-subtitle>
+                <v-list-item-subtitle v-if="data.item.effect">{{data.item.effect}}</v-list-item-subtitle>
+              </v-list-item-content>
+            </template>
+          </v-select>
 
           <p
-            v-if="selectedKeywords[placeholder.name]"
+            v-if="selectedKeywords[placeholder.name] && keywordEffect(selectedKeywords[placeholder.name])"
             class="ma-4"
           >
-            {{ keywordEffect(selectedKeywords[placeholder.name]) }}
+            <strong>Effect: </strong>{{ keywordEffect(selectedKeywords[placeholder.name]) }}
           </p>
         </div>
 
@@ -366,7 +374,7 @@ export default {
           const levelOneKeywords = this.keywordRepository.filter((k) => k.name.toLowerCase() !== placeholder.toLowerCase());
           wordy = { name: placeholder, options: levelOneKeywords, selected: '' };
         } else {
-          const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder.toLowerCase() === placeholder.toLowerCase());
+          const subKeywords = this.keywordSubwordRepository.filter((k) => k.placeholder?.toLowerCase() === placeholder.toLowerCase());
           wordy = { name: placeholder, options: subKeywords, selected: '' };
         }
         if (this.selectedKeywords[placeholder]) {

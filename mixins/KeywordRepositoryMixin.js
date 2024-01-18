@@ -1,3 +1,5 @@
+import {SKILLS, TRAITS} from '../api/db/static/_statUtils';
+
 export default {
   data() {
     const keywordRepository = [
@@ -527,11 +529,11 @@ export default {
       { type: 'Mark of Chaos', placeholder: '[Mark of Chaos]', name: 'Chaos Undivided', description: '' },
 
       // Eldar Craftworlds
-      { type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Alaitoc', description: 'The Starstriders: The Eldar of Alaitoc have spread further afi eld than other Craftworlds, acting as their people’s eyes and ears as they wander the galaxy. The warriors of Alaitoc favour stealth and misdirection over brute force.' },
-      { type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Biel-Tan', description: 'The Swordwind: This is the most militant of all Craftworlds. Those who strive hardest to return to the glory of their people before the Fall, the Eldar of Biel-Tan mourn the shattering of their Craftworld during an invasion by the forces of Slaanesh.' },
-      { type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Iyanden', description: 'The Ghost Warriors: Once a thriving Craftworld, Iyanden was invaded by Tyranids of Hive Fleet Kraken. The Eldar fought off this brutal assault at great cost. Now, most of the Craftworld is empty, forcing the Iyanden Farseers to call upon their fallen to fight for survival.' },
-      { type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Saim-Hann', description: 'The Wild Host: The Eldar of Saim-Hann are renowned for their fast, mobile warfare. They are a Craftworld of ancient tradition and a proud warrior culture. They observe many rituals that are unique to their Craftworld, including special races and duels.' },
-      { type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Ulthwé', description: 'The Damned: This Craftworld has fought an unending war around the Eye of Terror. Ulthwé tends to involve itself in the events of the galaxy far more than other Craftworlds. It is also home to many of the most powerful psykers in the galaxy. Some Eldar believe this Craftworld is cursed due to its proximity to the Eye of Terror.' },
+      //{ type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Alaitoc', description: 'The Starstriders: The Eldar of Alaitoc have spread further afi eld than other Craftworlds, acting as their people’s eyes and ears as they wander the galaxy. The warriors of Alaitoc favour stealth and misdirection over brute force.' },
+      //{ type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Biel-Tan', description: 'The Swordwind: This is the most militant of all Craftworlds. Those who strive hardest to return to the glory of their people before the Fall, the Eldar of Biel-Tan mourn the shattering of their Craftworld during an invasion by the forces of Slaanesh.' },
+      //{ type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Iyanden', description: 'The Ghost Warriors: Once a thriving Craftworld, Iyanden was invaded by Tyranids of Hive Fleet Kraken. The Eldar fought off this brutal assault at great cost. Now, most of the Craftworld is empty, forcing the Iyanden Farseers to call upon their fallen to fight for survival.' },
+      //{ type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Saim-Hann', description: 'The Wild Host: The Eldar of Saim-Hann are renowned for their fast, mobile warfare. They are a Craftworld of ancient tradition and a proud warrior culture. They observe many rituals that are unique to their Craftworld, including special races and duels.' },
+      //{ type: 'Aeldari Craftsworld', placeholder: '[Craftworld]', name: 'Ulthwé', description: 'The Damned: This Craftworld has fought an unending war around the Eye of Terror. Ulthwé tends to involve itself in the events of the galaxy far more than other Craftworlds. It is also home to many of the most powerful psykers in the galaxy. Some Eldar believe this Craftworld is cursed due to its proximity to the Eye of Terror.' },
 
       // Asuryani Craftworlds
       {
@@ -540,6 +542,7 @@ export default {
         placeholder: '[Craftworld]',
         name: 'Alaitoc',
         description: 'The Rangers alienated by Alaitoc’s puritanical interpretation of the Asuryani Path maintain a galaxy-wide intelligence network in support of their kin.',
+        effect: '+1 bonus die on Cunning (Fel) Tests',
         modifications: [ { targetGroup: 'skills', targetValue: SKILLS.CUNNING, modifier: 1 } ],
       },
       {
@@ -548,6 +551,7 @@ export default {
         placeholder: '[Craftworld]',
         name: 'Biel-Tan',
         description: 'Daemonic invasion, and the first summoning of the Yncarne, have fractured the craftworld of Biel-Tan. The survivors are aggressively militant, determined to defy their culture’s extinction by rebuilding the Aeldari empire.',
+        effect: '+1 bonus die on Intimidation (Wil) Tests',
         modifications: [ { targetGroup: 'skills', targetValue: SKILLS.INTIMIDATION, modifier: 1 } ],
 
       },
@@ -557,6 +561,7 @@ export default {
         placeholder: '[Craftworld]',
         name: 'Iyanden',
         description: 'The ravages of the Tyranid hive fleets have reduced Iyanden to a craftworld of ghosts — but those who still live are determined to keep doing so.',
+        effect: '+1 Resolve',
         modifications: [ { targetGroup: 'traits', targetValue: TRAITS.RESOLVE, modifier: 1 } ],
       },
       {
@@ -565,6 +570,7 @@ export default {
         placeholder: '[Craftworld]',
         name: 'Saim-Hann',
         description: 'Saim-Hann is divided into Wild Rider tribes, bold warriors who wage war from the saddles of anti-grav vehicles, and leave no insult to their honour unchallenged.',
+        effect: '+1 bonus die on Pilot (A) Tests',
         modifications: [ { targetGroup: 'skills', targetValue: SKILLS.PILOT, modifier: 1 } ],
       },
       {
