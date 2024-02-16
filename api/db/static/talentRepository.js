@@ -2133,7 +2133,7 @@ const red2 = [
         '<p>Whenever a creature enters Engagement with you or starts a Turn Engaged with you they make a Toughness Test with a DN equal to your Rank x2. If they fail, they are Hindered until the start of their next Turn.</p>',
   },
   {
-    ...talent(source.red2.key, 71, 'Rad-Saturated', 20, ''),
+    ...talent(source.red2.key, 71, 'Reclamator', 20, ''),
     requirements: [
       requireSkill(SKILLS.TECH, 2),
     ],
