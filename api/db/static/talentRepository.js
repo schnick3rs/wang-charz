@@ -2107,7 +2107,7 @@ const red2 = [
     ],
   },
   {
-    ...talent(source.red2.key, 70, 'Unshakable Vengeance', 10, ''),
+    ...talent(source.red2.key, 70, 'Verse of Holy Piety', 10, ''),
     requirements: [
       requireKeyword('ADEPTA SORORITAS'),
       requireKeyword('CHAOS',true),
