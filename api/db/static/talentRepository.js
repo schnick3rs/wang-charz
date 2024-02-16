@@ -2129,6 +2129,7 @@ const red2 = [
     requirements: [
       requireKeyword('ADEPTUS MECHANICUS'),
     ],
+    snippet: 'Whenever a creature enters Engagement with you or starts a Turn Engaged with you they make a Toughness Test with a DN equal to your Rank x2. If they fail, they are Hindered until the start of their next Turn.',
     description:
         '<p>Whenever a creature enters Engagement with you or starts a Turn Engaged with you they make a Toughness Test with a DN equal to your Rank x2. If they fail, they are Hindered until the start of their next Turn.</p>',
   },
@@ -2137,6 +2138,7 @@ const red2 = [
     requirements: [
       requireSkill(SKILLS.TECH, 2),
     ],
+    snippet: 'When you requisition Wargear you can choose to reduce the Value by Double Rank to a minimum of 1 (Rarity is unaffected). More on Red 2, pg. 71.',
     description:
         '<p>When you requisition Wargear you can choose to reduce the Value by Double Rank to a minimum of 1 (Rarity is unaffected). ' +
         'However, if you do so, the item cannot be used until you repair it. ' +
@@ -2149,6 +2151,7 @@ const red2 = [
     requirements: [
       requireKeyword('ADEPTUS MECHANICUS'),
     ],
+    snippet: 'When you are hit by a melee attack, or a Complication is rolled on an attack Test that targets you, your attacker suffers Shock damage equal to your Rank. More on Red 2, pg. 71.',
     description:
         '<p>When you are hit by a melee attack, or a Complication is rolled on an attack Test that targets you, your attacker suffers Shock damage equal to your Rank. ' +
         'In addition, your attacker must pass a DN3 Toughness Test or be Restrained for one Round, and be knocked Prone on a Complication.</p>',
@@ -2158,6 +2161,7 @@ const red2 = [
     requirements: [
       requireKeyword('ADEPTUS MECHANICUS'),
     ],
+    snippet: 'While the Talent is active, you do not register on auspices, pict-thieves, monoscopes, or other forms of scanning or recording equipment (see Red 2, pg. 71).',
     description:
         '<p>You may activate or deactivate this Talent as a Free Action. While the Talent is active, you do not register on auspices, pict-thieves, monoscopes, or other forms of scanning or recording equipment. ' +
         'Anyone attempting to identify your presence uses their own unmodified Awareness (Int), without any bonuses from Wargear.</p>',
@@ -2168,6 +2172,7 @@ const red2 = [
       requireKeyword('ADEPTUS MECHANICUS'),
       requireSkill(SKILLS.TECH, 2),
     ],
+    snippet: 'Increase Tech Interaction Attack range by x5, shifts for effect are doubled (see Red 2, pg. 71).',
     description:
         '<p>You are equipped to interact with machines at a greater distance, manipulating their spirits to startle and demoralise your foes. ' +
         'The range at which you can make Interaction Attacks using Tech is increased to 5 times your Intellect attribute in metres (Wrath & Glory Rulebook, page 190).</p>' +
@@ -2179,6 +2184,7 @@ const red2 = [
       requireKeyword('ADEPTUS MECHANICUS'),
       requireSkill(SKILLS.TECH, 3),
     ],
+    snippet: 'You can use Tech (Int) instead of Medicae (Int) to remove Wounds, Shock, and Conditions from targets with the ADEPTUS MECHANICUS Keyword (see Red 2, pg. 71).',
     description:
         '<p>Your skill in repairing augmetics and cyberimplants can restore servitors and the techno-faithful to functionality. ' +
         'You can use Tech (Int) instead of Medicae (Int) to remove Wounds, Shock, and Conditions from targets with the ADEPTUS MECHANICUS Keyword (Wrath & Glory Rulebook, page 124).</p>',
