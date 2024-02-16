@@ -718,6 +718,7 @@ const aioe = [
               { targetGroup: 'psychicDisciplines', targetValue: 'Universal' },
               { targetGroup: 'psychicDisciplines', targetValue: 'Divination' },
               { targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' },
+              { targetGroup: 'psychicPowers', targetValue: 'Smite' },
             ]
           },
         ],

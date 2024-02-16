@@ -237,26 +237,25 @@
 
         <h3 class="subtitle-1"><strong>Official Publications</strong></h3>
 
-        <p class="body-2">Enable specific content from official publications.</p>
+        <p class="body-2">Enable specific content from official publications. (Some are auto-enabled)</p>
 
         <div
-            v-for="homebrew in settingOfficialOptions"
+            v-for="homebrew in settingOfficialOptions.filter(i => i.show === true)"
             :key="homebrew.key"
         >
-          <template v-if="homebrew.enabled">
-            <v-switch
-                v-model="enabledHomebrews"
-                :value="homebrew.key"
-                :hint="homebrew.hint"
-                persistent-hint
-                color="primary"
-                dense
-                :disabled="!homebrew.enabled"
-                @change="updateHomebrew(homebrew)"
-            >
-              <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
-            </v-switch>
-          </template>
+          <v-switch
+              v-if="homebrew.optional"
+              v-model="enabledHomebrews"
+              :value="homebrew.key"
+              :hint="homebrew.hint"
+              persistent-hint
+              color="primary"
+              dense
+              :disabled="homebrew.disabled"
+              @change="updateHomebrew(homebrew)"
+          >
+            <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
+          </v-switch>
           <v-switch
               v-else
               value
@@ -266,7 +265,6 @@
               color="primary"
               dense
               disabled
-
               @change="updateHomebrew(homebrew)"
           >
             <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
@@ -416,65 +414,72 @@ export default {
       ],
       settingOfficialOptions: [
         {
-          active: true,
+          show: true,
+          disabled: true,
+          optional: false, // always active
           key: 'core',
           name: 'Wrath & Glory Core Rules',
           hint: 'Core Factions',
-          enabled: false,
           nuxt: '',
           source: 'https://www.drivethrurpg.com/en/product/249388/warhammer-40-000-wrath-glory-core-rulebook?affiliate_id=466959',
         },
         {
-          active: true,
+          show: true,
+          disabled: true,
+          optional: false, // always active
           key: 'fspg',
           name: 'Forsaken System Player Guide',
           hint: 'Imperial Archeytypes',
-          enabled: false,
           nuxt: 'https://www.drivethrurpg.com/en/product/303930/warhammer-40-000-wrath-glory-forsaken-system-player-s-guide?affiliate_id=466959',
           source: '',
         },
         {
-          active: true,
+          show: true,
+          disabled: true,
+          optional: false, // always active
           key: 'red1',
           name: 'Redacted Records I',
           hint: 'Some Talents',
-          enabled: false,
           nuxt: 'https://www.drivethrurpg.com/en/product/343896/warhammer-40-000-wrath-glory-redacted-records?affiliate_id=466959',
           source: '',
         },
         {
-          active: true,
+          show: true,
+          disabled: false,
+          optional: true,
           key: 'red2',
           name: 'Redacted Records II',
           hint: 'More Talents',
-          enabled: true,
           nuxt: 'https://www.drivethrurpg.com/en/product/388102/warhammer-40-000-wrath-glory-redacted-records-2?affiliate_id=466959',
           source: '',
         },
         {
-          active: true,
+          show: true,
+          disabled: true, // do not allow for now, but tease
+          optional: true,
           key: 'aioe',
           name: 'Aeldari - Inheritance of Ember',
           hint: 'Aledari & Drukhari Content',
-          enabled: true,
           nuxt: 'https://www.drivethrurpg.com/en/product/305327/warhammer-40-000-wrath-and-glory-aeldari-inheritance-of-embers?affiliate_id=466959',
           source: '',
         },
-        /*{
-          active: true,
+        {
+          show: false,
+          disabled: true,
+          optional: true,
           key: 'afas',
           name: 'Affliction Ascendant',
           hint: '1st Company Veteran',
-          enabled: true,
           nuxt: 'https://www.drivethrurpg.com/en/product/343904/Wrath--Glory--Affliction-Ascendant?affiliate_id=466959',
           source: '',
-        },*/
+        },
         {
-          active: true,
+          show: true,
+          disabled: false,
+          optional: true,
           key: 'tnh',
           name: 'The Null Hypothesis',
           hint: 'Add Sisters of Silence and gear.',
-          enabled: true,
           nuxt: 'https://www.drivethrurpg.com/product/343894/Wrath--Glory--The-Null-Hypothesis?affiliate_id=466959',
           source: '',
         },
