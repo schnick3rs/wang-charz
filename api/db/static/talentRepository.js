@@ -1833,7 +1833,7 @@ const red2 = [
   },
   {
     ...talent(source.red2.key, 66, 'Rumoursmith', 10, ''),
-    snippet: 'Add +Rank dice to cunnin when spreading rumors. Shift for more Rumors.',
+    snippet: 'Add +Rank dice to cunning when spreading rumors. Shift for more Rumors.',
     description:
         '<p>You gain +Rank bonus dice to Cunning (Fel) Tests to hear the word on the street.</p>' +
         '<p>Any Shifts you generate on this Test can be spent to insert a new rumour into circulation. The rumour does not have to be true, but is widely believed as such, and cannot be traced back to you.</p>',
@@ -1854,13 +1854,13 @@ const red2 = [
   },
   {
     ...talent(source.red2.key, 66, 'Shield Bash', 10, ''),
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'If you are carrying armour with the Shield Trait, you can use it as a melee weapon with the following profile: STR+AR +1ED, Inflict(Hindered)',
     description:
         '<p>If you are carrying armour with the Shield Trait, you can use it as a melee weapon with the following profile: STR+AR +1ED, Inflict(Hindered)</p>',
   },
   {
     ...talent(source.red2.key, 67, 'Shrewd Investments', 10, ''),
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'When you spend Wealth as part of a Requisition Test, roll a number of dice equal to the Wealth spent. You regain Wealth equal to the number of Exalted Icons rolled, up to the amount of Wealth spent on the Test.',
     description:
         '<p>When you spend Wealth as part of a Requisition Test, roll a number of dice equal to the Wealth spent. You regain Wealth equal to the number of Exalted Icons rolled, up to the amount of Wealth spent on the Test.</p>',
   },
@@ -1870,7 +1870,7 @@ const red2 = [
         requireAttribute(ATTRIBUTES.FELLOWSHIP, 4),
         requireTrait(TRAITS.INFLUENCE, 2),
     ],
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'Use Glory to gain Keyword Features, see Red 2, pg 67 for details',
     description:
         '<p>At any time, you may spend 1 Glory to nominate a Faction Keyword (Wrath & Glory Rulebook, pages 375–377). ' +
         'Subject to the GM’s approval, you may detail a junior member of the Faction in your approximate vicinity. ' +
@@ -1881,7 +1881,7 @@ const red2 = [
   {
     ...talent(source.red2.key, 67, 'Statue Still', 10, ''),
     requirements: [ requireSkill(SKILLS.STEALTH, 2) ],
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'You gain +Rank to your Stealth Score whenever you are perfectly still. (See Red 2, pg 67 for more)',
     description:
         '<p>You gain +Rank to your Stealth Score whenever you are perfectly still. ' +
         'You lose this benefit when moving silently. While using this ability, you can only whisper or use vox, potentially allowing you to Help allies. ' +
@@ -1890,7 +1890,7 @@ const red2 = [
   {
     ...talent(source.red2.key, 67, 'Survivalist', 10, ''),
     requirements: [ requireSkill(SKILLS.SURVIVAL, 3) ],
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'You gain +Rank to Passive Awareness with regard to BEASTs. (more at Red2, pg. 67)',
     description:
         '<p>Whether metaphorically or literally, you are at home in nature. ' +
         'You gain +Rank to your Passive Awareness when detecting the presence of creatures with the BEAST Keyword. ' +
@@ -1913,31 +1913,32 @@ const red2 = [
   {
     ...talent(source.red2.key, 67, 'Trip Attack', 10, ''),
     requirements: [ requireSkill(SKILLS.ATHLETICS, 2) ],
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'When you succeed on an Interaction Attack using Athletics (Wrath & Glory Rulebook, page 190), your enemy gains the Prone Condition, in addition to other effects. (more at Red2, pg. 67)',
     description:
-        '<p>When you succeed on an Interaction Attack using Athletics (Wrath & Glory Rulebook, page 190), your enemy gains the Prone Condition, in addition to other effects. Prone enemies Engaged with you can only remove the Condition on their turn by spending a Combat Action. Allies may still help them stand with a Simple Action.</p>',
+        '<p>When you succeed on an Interaction Attack using Athletics (Wrath & Glory Rulebook, page 190), your enemy gains the Prone Condition, in addition to other effects. ' +
+        'Prone enemies Engaged with you can only remove the Condition on their turn by spending a Combat Action. Allies may still help them stand with a Simple Action.</p>',
   },
   {
     ...talent(source.red2.key, 68, 'Unbreakable Guard', 10, ''),
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'When you benefit from a Full Defence (Wrath & Glory Rulebook, page 187), your Defence is further increased by +Rank.',
     description:
         '<p>When you benefit from a Full Defence (Wrath & Glory Rulebook, page 187), your Defence is further increased by +Rank.</p>',
   },
   {
     ...talent(source.red2.key, 68, 'Whatever The Cost', 10, ''),
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'You gain 2 Icons for every point of Wealth you spend on Requisition Tests, instead of the usual 1. However, if you roll a Complication on a Requisition Test you lose 2 Wealth instead of the usual 1.',
     description:
         '<p>You gain 2 Icons for every point of Wealth you spend on Requisition Tests, instead of the usual 1. However, if you roll a Complication on a Requisition Test you lose 2 Wealth instead of the usual 1.</p>',
   },
   {
     ...talent(source.red2.key, 68, 'White-Hot Death', 10, ''),
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'When you fire a weapon using Supercharge (Wrath & Glory Rulebook, page 210) you add an additional +Rank ED.',
     description:
         '<p>When you fire a weapon using Supercharge (Wrath & Glory Rulebook, page 210) you add an additional +Rank ED.</p>',
   },
   {
     ...talent(source.red2.key, 68, 'Wild Attack', 10, ''),
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'Whenever you make an All-Out Attack; you gain +Rank bonus dice and you may trade shock 1:1 for +1 ED.',
     description:
         '<p>Whenever you make an All-Out Attack you gain +Rank bonus dice. Additionally, you can choose to sacrifice Shock equal to your Rank. ' +
         'The All-Out Attack gains +ED equal to the amount of Shock sacrificed.</p>',
@@ -1945,7 +1946,7 @@ const red2 = [
   {
     ...talent(source.red2.key, 68, 'Wings Of Fire', 10, ''),
     requirements: [ requireAttribute(ATTRIBUTES.AGILITY, 5) ],
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'You fly with such confidence that jump packs are like extensions of your own body. You ignore the first Complication per scene related to moving by Jump Pack (Wrath & Glory Rulebook, page 237).',
     description:
         '<p>You fly with such confidence that jump packs are like extensions of your own body. You ignore the first Complication per scene related to moving by Jump Pack (Wrath & Glory Rulebook, page 237).</p>',
   },
@@ -2023,7 +2024,7 @@ const red2 = [
     ],
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '+1 Faith. XXX.',
+    snippet: '+1 Faith. As a Simple Action, spend 1 faith to remove Prone from IMPERIUM characters in hearing range (see Red 2, pg 69).',
     description:
         '<p>You gain +1 Faith. As a Simple Action, you may spend 1 Faith to recite last rites. ' +
         'Select one IMPERIUM character within hearing range. ' +
@@ -2043,7 +2044,7 @@ const red2 = [
     ],
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '+1 Faith. XXX.',
+    snippet: '+1 Faith. As a Simple Action, spend 1 faith to cast a light hindering CHAOS and DAEMON (see Red 2, pg 69).',
     description:
         '<p>You gain +1 Faith. As a Simple Action, you may spend 1 Faith to emit divine light. ' +
         'You cast this light as most people cast a shadow — whatever you look upon becomes fully illuminated for you and your allies, negating all vision penalties.</p>' +
@@ -2064,7 +2065,7 @@ const red2 = [
     ],
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '+1 Faith. XXX.',
+    snippet: '+1 Faith. Once per Turn, whenever you suffer one or more Wounds, roll a Wrath Die. If you roll an Exalted Icon, you gain +1 Wrath Point. (see Red 2, pg 69).',
     description:
         '<p>You gain +1 Faith. Once per Turn, whenever you suffer one or more Wounds, roll a Wrath Die. If you roll an Exalted Icon, you gain +1 Wrath Point.</p>',
     modifications: [
@@ -2079,9 +2080,11 @@ const red2 = [
     ],
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '+1 Faith. XXX.',
+    snippet: '+1 Faith. As a Simple Action, spend 1 Faith to reduce all AP against allies in 10m by Double Rank (see Red 2, pg 70).',
     description:
-        '<p>You gain +1 Faith. As a Simple Action, you may spend 1 Faith to activate your Shield of Aversion. For the remainder of the encounter, the AP value of any attack that targets you or an ally within 10m is reduced by Double your Rank.</p>',
+        '<p>You gain +1 Faith. ' +
+        'As a Simple Action, you may spend 1 Faith to activate your Shield of Aversion. ' +
+        'For the remainder of the encounter, the AP value of any attack that targets you or an ally within 10m is reduced by Double your Rank.</p>',
     modifications: [
       { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
     ],
@@ -2094,7 +2097,7 @@ const red2 = [
     ],
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '+1 Faith. XXX.',
+    snippet: '+1 Faith. When you suffer a Wound, as a Reflexive Action, spend 1 Faith to Bolterattack the culprit (see Red 2, pg 70).',
     description:
         '<p>You gain +1 Faith. Whenever you suffer one or more Wounds, ' +
         'you may spend 1 Faith as a Reflexive Action to immediately make a Bolter attack against the target that dealt you damage, ' +
@@ -2111,7 +2114,7 @@ const red2 = [
     ],
     group: 'Faith',
     groupKey: 'core-faith',
-    snippet: '+1 Faith. XXX.',
+    snippet: '+1 Faith. As a Simple Action, spend 1 Faith to make IMPERIUM characters fail Deception and suffer Double Rank shock (see Red 2, pg 70).',
     description:
         '<p>You gain +1 Faith. As a Simple Action you may spend 1 Faith to utter the verse of holy piety. ' +
         'Any character with the IMPERIUM Keyword hearing the verse automatically fails any Fellowship (Deception) Tests ' +
