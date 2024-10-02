@@ -1770,9 +1770,9 @@ const red1 = [
 ];
 
 const red2 = [
-  {
+  {//needed snippet correction
     ...talent(source.red2.key, 64, 'Journeyman Craftsworker', 10, ''),
-    snippet: 'When eating flesh of a sentient creature, you may ask the GM one question. The GM will answer as honest as the consumed creature\'s memories can provide.',
+    snippet: 'Bonus Rank dice related to your selected trade skill and can reduce Shock if you practice your craft during your Regroup',
     description:
         '<p>Choose a type of trade appropriate for the 41st Millennium that does not involve the creation of Wargear — carpentry, cartography, jewellery, masonry, painting, sculpture etc. You excel at this craft.</p>' +
         '<p>If an enthusiast of the craft witnesses your creations, you gain +Rank bonus dice to social Skills targeting them for the rest of the scene.</p>' +
@@ -1787,10 +1787,12 @@ const red2 = [
         '<p>Once per combat, your character can Seize The Initiative (Wrath & Glory Rulebook, page 177) without spending Glory.</p>' +
         '<p>Additionally, once per combat, when the GM spends 1 Ruin to Seize The Initiative, you can spend 1 Glory to cancel the effect. The Ruin is still spent. You can only use this option if you have not yet taken your Turn, and must now take your Turn immediately</p>',
   },
-  {
+  {//shifted longer text to description and updated the snippet
     ...talent(source.red2.key, 65, 'Longshot', 10, ''),
     requirements: [ requireSkill('ballisticSkill', 2) ],
-    snippet: 'If you spend a Full Round Action setting up a static firing position, the Long Range of your ranged weapons are tripled for as long as you remain in that spot. Weapons with the Sniper (X) Trait instead increase their Long Range to one kilometre.',
+    snippet: 'Use your Full Round Action to increase your range',
+    description:
+      '<p>If you spend a Full Round Action setting up a static firing position, the Long Range of your ranged weapons are tripled for as long as you remain in that spot. Weapons with the Sniper (X) Trait instead increase their Long Range to one kilometre.</p>'
   },
   {
     ...talent(source.red2.key, 65, 'Manual Labourer', 10, ''),
@@ -1852,11 +1854,13 @@ const red2 = [
     description:
         '<p>You have excellent night vision, navigating darkness almost as easily as daylight. All DN penalties due to darkness are reduced by -1.</p>',
   },
-  {
+  {//expanded description
     ...talent(source.red2.key, 66, 'Shield Bash', 10, ''),
     snippet: 'If you are carrying armour with the Shield Trait, you can use it as a melee weapon with the following profile: STR+AR +1ED, Inflict(Hindered)',
     description:
-        '<p>If you are carrying armour with the Shield Trait, you can use it as a melee weapon with the following profile: STR+AR +1ED, Inflict(Hindered)</p>',
+        '<p>If you are carrying armour with the Shield Trait, you can use it as a melee weapon with the following profile: STR+AR +1ED, Inflict(Hindered)</p>' +
+        '<p>AP is 0, unless the shield has the Power Field Trait, in which case the AP is equal to the shield’s AR. </p>' +
+        '<p>On a successful melee attack Test, Shifts can be spent to increase the DN penalty of Hindered by 1 per Shift.</p>',
   },
   {
     ...talent(source.red2.key, 67, 'Shrewd Investments', 10, ''),
@@ -1899,13 +1903,13 @@ const red2 = [
         'You always know how to find the nearest shelter to protect yourself from environmental hazards.</p>' +
         '<p>While you can easily fend for yourself this way, you must take Survival (Wil) Tests to find food and shelter for other Agents less proficient in wilderness survival.</p>',
   },
-  {
+  {//fixed snippet
     ...talent(source.red2.key, 67, 'Telecryptographer', 10, ''),
     requirements: [
         requireSkill(SKILLS.SCHOLAR, 2),
         requireSkill(SKILLS.TECH, 2),
     ],
-    snippet: 'Bash your shield with STR+AR +1ED, Inflict(Hindered)',
+    snippet: 'You gain +Double Rank bonus dice on Tests to jam, intercept or decode enemy vox traffic (or the equivalent)',
     description:
         '<p>You gain +Double Rank bonus dice on Tests to jam, intercept or decode enemy vox traffic (or the equivalent).</p>' +
         '<p>If any of your allies are equipped with a vox unit, you can spend a Respite to encrypt their communications to prevent unauthorised access. Enemies can only intercept the vox traffic by succeeding in an Opposed Tech (Int) Test against you, and you gain +Double Rank bonus dice on that Test.</p>',
