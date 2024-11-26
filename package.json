@@ -37,7 +37,7 @@
     "lodash.merge": "^4.6.2",
     "lodash.template": "^4.5.0",
     "marked": "^4.3.0",
-    "nuxt": "^2.16.3",
+    "nuxt": "^3.4.3",
     "pg": "^8.8.0",
     "redirect-ssl": "^2.0.1",
     "uuid": "^8.3.2",
