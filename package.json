@@ -25,6 +25,7 @@
     "@nuxtjs/sitemap": "^2.4.0",
     "@nuxtjs/vuetify": "^1.12.3",
     "bcrypt": "^5.1.0",
+    "buffer": "^6.0.3",
     "contentful": "^9.3.7",
     "cross-env": "^7.0.3",
     "dotenv": "^16.4.7",
