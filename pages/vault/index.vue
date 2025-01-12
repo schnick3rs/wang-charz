@@ -429,14 +429,6 @@ export default {
         console.info('no share api found');
       }
     },
-    trackExpand(event) {
-      if (event.value === true) {
-        this.$ga.event('Vault Row', 'expand', event.item.title, 1);
-      }
-    },
-    trackEvent(url) {
-      this.$ga.event('Outbound Link', 'click', url, 10);
-    },
   },
 };
 </script>

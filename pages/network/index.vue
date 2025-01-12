@@ -65,6 +65,7 @@
 
 <script>
 import DodDefaultBreadcrumbs from '../../components/DodDefaultBreadcrumbs';
+
 export default {
   components: { DodDefaultBreadcrumbs },
   head() {
@@ -158,7 +159,6 @@ export default {
   },
   methods: {
     trackEvent(url) {
-      this.$ga.event('Outbound Asset Link', 'click', url, 10);
       window.open(url);
     },
   },

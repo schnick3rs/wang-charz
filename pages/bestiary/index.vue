@@ -404,11 +404,6 @@ export default {
         this.factionFilterSelections.push(name);
       }
     },
-    trackExpand(event) {
-      if (event.value === true) {
-        this.$ga.event('Bestiary Row', 'expand', this.camelToKebab(event.item.key), 1);
-      }
-    },
     getClassificationColor(classification) {
       switch (classification) {
         case 'Troops': return 'green';

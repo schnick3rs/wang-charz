@@ -325,14 +325,6 @@ export default {
         console.info('no share api found');
       }
     },
-    trackExpand(event) {
-      if (event.value === true) {
-        this.$ga.event('Lets Play Row', 'expand', event.item.campaignName, 1);
-      }
-    },
-    trackEvent(url) {
-      this.$ga.event('Outbound Link', 'click', url, 10);
-    },
     itemImage(url) {
       const match = url.match(/.*v=(.+)/);
       const youtubeId = match[1];

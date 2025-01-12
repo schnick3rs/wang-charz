@@ -217,11 +217,6 @@ export default {
       ];
     },
   },
-  methods: {
-    trackEvent(url) {
-      this.$ga.event('Outbound Link', 'click', url, 10);
-    },
-  },
 };
 </script>
 

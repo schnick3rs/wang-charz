@@ -564,7 +564,6 @@ export default {
     newCharacter() {
       const newCharId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
       this.$store.commit('characters/create', newCharId);
-      this.$ga.event('New Character', 'click', newCharId, 10);
     },
     openDeleteDialog(id){
       this.deleteId = id;
@@ -574,7 +573,6 @@ export default {
       const id = this.deleteId;
       this.$store.commit('characters/remove', id);
       this.deleteDialog = false;
-      this.$ga.event('Delete Character', 'click', id, 1);
     },
     openExportDialog(id) {
       const characterJsonString = this.$store.getters['characters/characterStateJsonById'](id);
@@ -594,7 +592,6 @@ export default {
       this.$store.commit('characters/import', payload);
       this.importSnippet = '';
       this.importDialog = false;
-      this.$ga.event('Import Character', 'click', newCharId, 1);
     }
   },
 };
