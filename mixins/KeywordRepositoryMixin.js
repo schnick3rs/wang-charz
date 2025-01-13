@@ -500,8 +500,11 @@ export default {
       { type: 'Chapter of the Adeptus Astartes', placeholder: '[Chapter]', name: 'Other Chapter', description: 'An unkown chapter in the vast space.' },
 
       // Doctors of Doom
-      { source: 'dod', type: 'Chapter House of the Adeptus Astartes', placeholder: '[Chapter]', name: 'Doctors of Doom (House Isenwell)', description: 'Thrive for excellence.' },
-      { source: 'dod', type: 'Chapter House of the Adeptus Astartes', placeholder: '[Chapter]', name: 'Doctors of Doom (House Hironiat)', description: 'Break the Tide.' },
+
+      { type: 'Chapter of the Adeptus Astartes', name: 'Doctors of Doom', description: 'A Iron Hand Successor Chapter, specialised in executing small operations.' },
+      { name: '[House Latveria]', type: 'Imperium', parentKeyword: 'Doctors of Doom', description: 'A specific House from Latveria IV (replaces this keyword when chosen).' },
+      { source: 'dod', type: 'Faction House from Latveria IV', placeholder: '[House Latveria]', name: 'House Isenwell', description: 'Thrive for excellence.' },
+      { source: 'dod', type: 'Faction House from Latveria IV', placeholder: '[House Latveria]', name: 'House Hironiat', description: 'Break the Tide.' },
 
       // [Legion] -> Let the Galaxy Burn
       { source: 'ltgb', type: 'Legion of the Heretic Astartes', placeholder: '[Legion]', name: 'Black Legion', description: '' },

@@ -3337,7 +3337,7 @@ const tnh = [
   },
 ];
 
-const dodScumPsyker = [
+const dod = [
   {
     name: 'Scum Psyker',
     ...archetype(source.dod.key, '','Scum','Scum Psyker',2,'Human'),
@@ -3383,6 +3383,85 @@ const dodScumPsyker = [
       }
     ],
     description: null,
+  },
+  {
+    ...archetype(source.dod.key, '','Adeptus Astartes','Aspiring Assault Marine',3,'Adeptus Astartes'),
+    ...costz(257,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 4), // 18
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
+      reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
+      reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3), // 10
+      reqAttribute(ATTRIBUTES.INTELLECT, 3), // 10
+      reqSkill(SKILLS.ATHLETICS, 3), // 12
+      reqSkill(SKILLS.AWARENESS, 3), // 12
+      reqSkill(SKILLS.BALLISTIC_SKILL, 5), // 12
+      reqSkill(SKILLS.LEADERSHIP, 1), // 12
+      reqSkill(SKILLS.SCHOLAR, 1), // 12
+      reqSkill(SKILLS.STEALTH, 3), // 12
+      reqSkill(SKILLS.SURVIVAL, 1), // 12
+      reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
+    ]),
+    hint: 'A versatile warrior, veteran of a hundred battles.',
+    keywords: 'Imperium,Adeptus Astartes,Doctors of Doom,[House Latveria]',
+    alerts: [
+      { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
+    ],
+    archetypeFeatures: [
+      {
+        name: 'Tactical Versatility',
+        snippet: 'Your training has prepared you for any circumstance. When you make a Critical Hit you may roll twice on the Critical Hit Table and choose either result.',
+      },
+      {
+        name: 'Wrath of Doom',
+        snippet:
+            'You have the Angel of Death Talent (Wrath & Glory Rulebook).',
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-angel-of-death', meta: { name: 'Angel of Death' } },
+        ],
+      },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Chainsword, Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade, Jump Pack'),
+    influence: 2,
+  },
+  {
+    ...archetype(source.dod.key, '','Adeptus Astartes','Aspiring Techmarine',3,'Adeptus Astartes'),
+    ...costz(277,[
+      reqAttribute(ATTRIBUTES.STRENGTH, 4), // 18
+      reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
+      reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
+      reqAttribute(ATTRIBUTES.INITIATIVE, 4), // 20
+      reqAttribute(ATTRIBUTES.WILLPOWER, 3), // 10
+      reqAttribute(ATTRIBUTES.INTELLECT, 5), // 10
+      reqSkill(SKILLS.ATHLETICS, 3), // 12
+      reqSkill(SKILLS.AWARENESS, 3), // 12
+      reqSkill(SKILLS.BALLISTIC_SKILL, 4), // 12
+      reqSkill(SKILLS.SCHOLAR, 2), // 12
+      reqSkill(SKILLS.STEALTH, 3), // 12
+      reqSkill(SKILLS.TECH, 4), // 12
+      reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
+    ]),
+    hint: 'A versatile warrior, veteran of a hundred battles.',
+    keywords: 'Imperium,Adeptus Astartes,Doctors of Doom,[House Latveria],Adeptus Mechanicus',
+    archetypeFeatures: [
+      {
+        name: 'Rite of Repair',
+        snippet: 'You receive +Double Rank to Tech (Int) Tests to repair damaged machinery. All Tech (Int) Tests you make take half the standard time.',
+        modifications: [
+          { targetGroup: 'skills', targetValue: SKILLS.TECH, modifier: 0, rank: 2, condition: 'when repairing damaged machinery' },
+        ],
+      },
+      {
+        name: 'Wrath of Doom',
+        snippet:
+            'You have the Angel of Death Talent (Wrath & Glory Rulebook, pg. 129).',
+        modifications: [
+          { targetGroup: 'talents', targetValue: 'core-angel-of-death', meta: { name: 'Angel of Death' } },
+        ],
+      },
+    ],
+    wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Boltgun, Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade'),
+    influence: 2,
   },
 ];
 
@@ -8791,7 +8870,7 @@ const archetypeRepository = [
   ...aioe,
   ...afas,
   ...tnh,
-  ...dodScumPsyker,
+  ...dod,
   ...aaoaRep,
   ...ltgbRep,
   ...aotgtRep,
