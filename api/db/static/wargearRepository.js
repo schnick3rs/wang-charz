@@ -1200,7 +1200,9 @@ const core = [
   {
     ...gear(source.core.key,245,'Mind Impulse Unit','6R','[Any]'),
     type: 'Augmetics', subtype: 'Augmetic Implants',
-    snippet: 'You can converse with a machine spirit as an Action; this may require a Tech (Int) Test for unruly spirits. If you succeed, you gain +Double Rank bonus dice to all Tests to operate the machine.',
+    snippet:
+        'You can converse with a machine spirit as an Action; this may require a Tech (Int) Test for unruly spirits. ' +
+        'If you succeed, you gain +Double Rank bonus dice to all Tests to operate the machine.',
   },
   {
     ...gear(source.core.key,245,'Neuroplastic Psychosectemy','7L','[Any]'),
