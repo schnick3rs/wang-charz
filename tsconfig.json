@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "ES2019",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "lib": ["ESNext", "ESNext.AsyncIterable", "DOM"],
+    "esModuleInterop": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "noEmit": true,
+    "baseUrl": ".",
+    "paths": {
+      "~/*": ["./*"],
+      "@/*": ["./*"]
+    },
+    "types": ["@types/node", "@nuxt/types"]
+  },
+  "exclude": [
+    "node_modules",
+    ".nuxt",
+    "dist"
+  ]
+}
