@@ -12,6 +12,32 @@
           label="Search"
         />
 
+        <v-combobox
+          v-model="keywordFilters"
+          :items="keywordFilterOptions"
+          multiple
+          chips
+          clearable
+          small-chips
+          filled
+          dense
+          prepend-inner-icon="mdi-filter"
+          label="Filter by keywords (press Enter after each)"
+          class="mt-2"
+          hide-selected
+        >
+          <template v-slot:selection="{ item, index }">
+            <v-chip
+              :key="item"
+              small
+              class="ma-1"
+              @click.stop="removeKeywordChip(index)"
+            >
+              {{ item }}
+            </v-chip>
+          </template>
+        </v-combobox>
+
         <v-chip
           v-for="filter in typeFilters"
           v-if="typeFilters.length > 1"
@@ -45,6 +71,14 @@
 
         <template v-slot:item.value="{ item }">
           {{ item.value }} {{ item.rarity }}
+        </template>
+
+        <template v-slot:item.keywords="{ item }">
+          {{
+            Array.isArray(item.keywords)
+              ? item.keywords.map(k => k.toUpperCase()).join(', ')
+              : ''
+          }}
         </template>
 
         <template v-slot:item.action-add="{ item }">
@@ -100,8 +134,9 @@ export default {
     repository: Array,
   },
   data() {
-    return {
+      return {
       searchQuery: '',
+      keywordFilters: [],
       selectedTypeFilters: [],
       pagination: {
         page: 1,
@@ -112,6 +147,7 @@ export default {
       headers: [
         { text: 'Name', align: 'left', value: 'name', class: '' },
         { text: 'Value', align: 'left', value: 'value', class: '' },
+        { text: 'Keywords', align: 'left', value: 'keywords', class: '' },
         { text: '', align: 'right', value: 'action-add', class: '' },
       ],
     };
@@ -126,6 +162,14 @@ export default {
       const types = distinctTypes.map((t) => ({ name: t }));
       return types;
     },
+    keywordFilterOptions() {
+      if (this.repository === undefined) {
+        return [];
+      }
+      const reduceToKeyword = this.repository.flatMap(item => item.keywords.map(k => k.toUpperCase()));
+      const distinctKeywords = [...new Set(reduceToKeyword)];
+      return distinctKeywords;
+    },
     searchResult() {
       if (this.repository === undefined) {
         return [];
@@ -134,6 +178,27 @@ export default {
 
       if (this.selectedTypeFilters.length > 0) {
         searchResult = searchResult.filter((item) => this.selectedTypeFilters.includes(item.type));
+      }
+
+      if (this.keywordFilters && this.keywordFilters.length > 0) {
+        const filters = this.keywordFilters.map(k => k.trim().toLowerCase()).filter(Boolean);
+        searchResult = searchResult.filter(item => {
+          if (!item.keywords) return false;
+          // Support both array and string keywords
+          const itemKeywords = Array.isArray(item.keywords)
+            ? item.keywords.map(k => k.toLowerCase())
+            : typeof item.keywords === 'string'
+              ? item.keywords.toLowerCase()
+              : '';
+          // All filters must match (AND)
+          return filters.every(f => {
+            if (Array.isArray(itemKeywords)) {
+              return itemKeywords.some(k => k.includes(f));
+            } else {
+              return itemKeywords.includes(f);
+            }
+          });
+        });
       }
 
       return searchResult;
@@ -157,6 +222,9 @@ export default {
         return tags.filter((t) => t !== undefined).join(' • ');
       }
       return '';
+    },
+    removeKeywordChip(index) {
+      this.keywordFilters.splice(index, 1);
     },
   },
 };

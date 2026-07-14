@@ -282,6 +282,7 @@ export default {
         'core',
         'fspg',
         'red1',
+        // 'voab',
         'cos',
         // 'tnh',
         ...this.settingHomebrews
@@ -687,7 +688,7 @@ export default {
     setFeatureOptionChoice(ascension, feature, type = 'ascension') {
       const id = this.characterId;
       const sourcePrefix = `${type}.${ascension.key}.${feature.key}`;
-      const selectedOption =  feature.options.find( (o) => o.key === feature.selected );
+      const selectedOption = feature.options.find((o) => o.key === feature.selected);
 
       console.log(`Set choice for ${feature.name} -> ${selectedOption.name}`);
 
@@ -698,44 +699,64 @@ export default {
         ascensionPackageFeatureName: feature.name,
         ascensionPackageFeatureOptionChoiceKey: selectedOption.key,
       };
-      this.$store.commit('characters/setCharacterAscensionPackageWargearOption', ascensionFeatureOptionChoicePayload);
-
       this.$store.commit('characters/clearCharacterEnhancementsBySource', { id, source: `${sourcePrefix}` });
+      if (
+        selectedOption.modifications &&
+        selectedOption.modifications.some(mod => mod.targetGroup === 'talents')
+      ) {
+        this.$store.commit('characters/setCharacterAscensionPackageTalentOption', ascensionFeatureOptionChoicePayload);
 
-      // the option has a snippet, that is thus added as a custom ability
-      if ( selectedOption.snippet ) {
-        const content = {
-          modifications: [{
-            name: selectedOption.name,
-            targetGroup: 'abilities',
-            targetValue: '',
-            effect: selectedOption.snippet,
-          }],
-          source: `${sourcePrefix}.${selectedOption.key}`,
-        };
-        this.$store.commit('characters/addCharacterModifications', { id, content });
-      }
-
-      // the selected option has modifications that are saved as such
-      if ( selectedOption.modifications ) {
-        const ascendedTiers = ascension.targetTier - ascension.sourceTier;
-        const modz = selectedOption.modifications
-          .filter((mod) => {
-            if (mod.requiredAscendedTiers === undefined) return true;
-            if (mod.requiredAscendedTiers <= ascendedTiers) return true;
-          })
-          .map((mod) => {
-            return {
-              name: `${feature.name} • ${selectedOption.name}`,
-              ascendedTiers,
-              ...mod,
-            }
+        selectedOption.modifications
+          .filter(mod => mod.targetGroup === 'talents')
+          .forEach(mod => {
+            const talent = {
+              name: mod.meta.name,
+              key: mod.targetValue,
+              cost: 0,
+              placeholder: undefined,
+              selected: undefined,
+              source: `${sourcePrefix}`,
+            };
+            this.$store.commit('characters/addCharacterAscensionOptionTalent', { id, talent });
           });
-        const content = {
-          modifications: modz,
-          source: `${sourcePrefix}.${selectedOption.key}`,
-        };
-        this.$store.commit('characters/addCharacterModifications', { id, content });
+      } else if (feature.wargear) {
+        this.$store.commit('characters/setCharacterAscensionPackageWargearOption', ascensionFeatureOptionChoicePayload);
+
+        // Add snippet as a custom ability if present
+        if (selectedOption.snippet) {
+          const content = {
+            modifications: [{
+              name: selectedOption.name,
+              targetGroup: 'abilities',
+              targetValue: '',
+              effect: selectedOption.snippet,
+            }],
+            source: `${sourcePrefix}.${selectedOption.key}`,
+          };
+          this.$store.commit('characters/addCharacterModifications', { id, content });
+        }
+
+        // Add modifications if present
+        if (selectedOption.modifications) {
+          const ascendedTiers = ascension.targetTier - ascension.sourceTier;
+          const modz = selectedOption.modifications
+            .filter((mod) => {
+              if (mod.requiredAscendedTiers === undefined) return true;
+              if (mod.requiredAscendedTiers <= ascendedTiers) return true;
+            })
+            .map((mod) => {
+              return {
+                name: `${feature.name} • ${selectedOption.name}`,
+                ascendedTiers,
+                ...mod,
+              }
+            });
+          const content = {
+            modifications: modz,
+            source: `${sourcePrefix}.${selectedOption.key}`,
+          };
+          this.$store.commit('characters/addCharacterModifications', { id, content });
+        }
       }
     },
     featureOptionChoice(feature){

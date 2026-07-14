@@ -55,7 +55,7 @@ export default {
             '<li>Rating 20m, ~10 Targets</li>' +
             '<li>Rating 30m, ~15 Targets</li>' +
             '</ul>' +
-            '<p><ou can not shift for damage/p>' +
+            '<p>you can not shift for damage</p>' +
             '<p>If a weapon with the Blast Trait misses, it Scatters (p.186).</p>',
         },
         {

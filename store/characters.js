@@ -543,6 +543,17 @@ export const mutations = {
     //if (!hasTalent) {
     //}
   },
+  addCharacterAscensionOptionTalent(state, payload) {
+    const character = state.characters[payload.id];
+    const { talent } = payload;
+    const talentUniqueId = Math.random().toString(36).replace(/[^a-z]+/g, '').substr(0, 8);
+    console.info(`Adding Talent [${talentUniqueId}] ${talent.name}.`);
+    talent.id = talent.id || talentUniqueId;
+
+    character.talents = character.talents.filter((t) => t.source !== talent.source);
+
+    character.talents.push(talent);
+  },
   removeCharacterTalent(state, payload) {
     const character = state.characters[payload.id];
     character.talents = character.talents.filter((t) => t); // cleanup
@@ -697,6 +708,23 @@ export const mutations = {
     ));
     if (index >= 0) {
       character.ascensionPackages[index].storyElementChoice = payload.ascensionPackageStoryElementKey;
+    }
+  },
+  setCharacterAscensionPackageTalentOption(state, payload) {
+    const character = state.characters[payload.id];
+    console.info(`Set Ascension TalentOption to ${payload.ascensionPackageFeatureOptionChoiceKey}`);
+    // find package by payload.ascensionPackageKey and payload.ascensionPackage
+    const index = character.ascensionPackages.findIndex((a) => (
+      a.key === payload.ascensionPackageKey
+      && a.targetTier === payload.ascensionPackageTargetTier
+    ));
+    if (index >= 0) {
+      if (character.ascensionPackages[index].featureChoices === undefined)
+        character.ascensionPackages[index] = {
+          ...character.ascensionPackages[index],
+          featureChoices: {},
+        };
+      character.ascensionPackages[index].featureChoices[payload.ascensionPackageFeatureName] = payload.ascensionPackageFeatureOptionChoiceKey;
     }
   },
   setCharacterAscensionPackageWargearOption(state, payload) {

@@ -5,6 +5,7 @@ const source = {
   red1: { book: 'Redacted Records I', key: 'red1', version: 'v1.0', link: 'https://www.drivethrurpg.com/product/343896/Wrath--Glory--Redacted-Records?affiliate_id=466959' },
   red2: { book: 'Redacted Records II', key: 'red2', version: 'v1.0', link: 'https://www.drivethrurpg.com/de/product/388102/warhammer-40-000-wrath-glory-redacted-records-2?affiliate_id=466959' },
   aioe: { book: 'Aeldari - Inheritance of Embers', key: 'aioe', version: 'v1.0', link: 'https://www.drivethrurpg.com/de/product/305327/warhammer-40-000-wrath-and-glory-aeldari-inheritance-of-embers?affiliate_id=466959' },
+  voab: { book: 'Vow of Absolution', key: 'voab', version: 'v1.0', link: 'https://www.drivethrurpg.com/en/product/416203/warhammer-40-000-wrath-glory-vow-of-absolution' },
   // Small books
   afas: { book: 'Affliction Ascendant', key: 'afas', version: 'v1.0', link: 'https://www.drivethrurpg.com/product/343904/Wrath--Glory--Affliction-Ascendant?affiliate_id=466959' },
   cos: { book: 'Church of Steel', key: 'cos', version: 'v1.0', link: 'https://www.drivethrurpg.com/product/343889/Wrath--Glory--Church-of-Steel?affiliate_id=466959' },
