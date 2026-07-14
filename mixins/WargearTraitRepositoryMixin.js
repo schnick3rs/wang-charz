@@ -55,15 +55,15 @@ export default {
             '<li>Rating 20m, ~10 Targets</li>' +
             '<li>Rating 30m, ~15 Targets</li>' +
             '</ul>' +
-            '<p><ou can not shift for damage/p>' +
+            '<p>you can not shift for damage</p>' +
             '<p>If a weapon with the Blast Trait misses, it Scatters (p.186).</p>',
         },
         {
           key: 'core-brutal',
           name: 'Brutal',
-          hint: 'Add +1 to the die result of Extra Damage dice.',
+          hint: '5 also counts as 2 damage in the result of Extra Damage dice.',
           fluff: 'Brutal weapons inflict appalling, traumatic wounds.',
-          crunch: 'When rolling damage dice, add +1 to the result of each Extra Damage Die.',
+          crunch: 'When rolling Extra Damage dice, 5 also counts as 2 Damage',
           description:
             '<p>When you roll Extra Damage Dice for a Brutal weapon:</p>' +
             '<ul>' +

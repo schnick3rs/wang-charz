@@ -446,6 +446,16 @@ export default {
         {
           show: true,
           disabled: false,
+          optional: true, // always active
+          key: 'voab',
+          name: 'Vow of Absolution',
+          hint: 'Add new options for the Astartes.',
+          nuxt: 'https://www.drivethrurpg.com/en/product/416203/warhammer-40-000-wrath-glory-vow-of-absolution?affiliate_id=466959',
+          source: '',
+        },
+        {
+          show: true,
+          disabled: false,
           optional: true,
           key: 'red2',
           name: 'Redacted Records II',
