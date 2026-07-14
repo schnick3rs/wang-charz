@@ -20,6 +20,7 @@ const gear = function (sourceKey, sourcePage, name, value, keywords, stub = fals
   const rarityMatch = value.match(/[a-zA-Z]+/g);
   const valuePart = valueMatch ? valueMatch[0] : '-';
   const rarityPart = rarityMatch ? rarityMatch[0].toUpperCase() : 'Unique';
+
   return {
     source: {
       ...source[sourceKey],

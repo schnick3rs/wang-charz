@@ -61,9 +61,9 @@ export default {
         {
           key: 'core-brutal',
           name: 'Brutal',
-          hint: '5 also counts as 2 damage in the result of Extra Damage dice.',
+          hint: 'Add +1 to the die result of Extra Damage dice.',
           fluff: 'Brutal weapons inflict appalling, traumatic wounds.',
-          crunch: 'When rolling Extra Damage dice, 5 also counts as 2 Damage',
+          crunch: 'When rolling damage dice, add +1 to the result of each Extra Damage Die.',
           description:
             '<p>When you roll Extra Damage Dice for a Brutal weapon:</p>' +
             '<ul>' +
