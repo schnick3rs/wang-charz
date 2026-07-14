@@ -2978,8 +2978,8 @@ const voab = [
     requirementsString: 'Adeptus Astartes Keyword, Athletics Rating 2+, Ballistic Skill 3+',
     requirements: [
       requireKeyword('Adeptus Astartes'),
-      requireAttribute('athletics', 2),
-      requireSkill('ballistic', 3)
+      requireSkill('athletics', 2),
+      requireSkill('ballisticSkill', 3)
     ],
   },
   {
@@ -3027,7 +3027,7 @@ const voab = [
     requirementsString: 'Adeptus Astartes Keyword, Space Wolves Chapter or Space Wolves Sucessor Chapter, Survival Rating 3+',
     requirements: [
       requireKeyword('Adeptus Astartes'),
-      requireAttribute('survival', 3)
+      requireSkill('survival', 3)
     ],
   },
   {
@@ -3076,7 +3076,7 @@ const voab = [
     requirementsString: 'Adeptus Astartes Keyword, Athletics Rating 4+',
     requirements: [
       requireKeyword('Adeptus Astartes'),
-      requireAttribute('athletics', 4)
+      requireSkill('athletics', 4)
     ],
   },
   {
@@ -3089,7 +3089,7 @@ const voab = [
     requirementsString: 'Adeptus Astartes Keyword, Leadership Rating 4+',
     requirements: [
       requireKeyword('Adeptus Astartes'),
-      requireAttribute('leadership', 4)
+      requireSkill  ('leadership', 4)
     ],
   },
   {
@@ -3134,7 +3134,9 @@ const voab = [
       '<p>When you begin reciting this Litany, you designate the threat closest to you. Affected targets within 20m gain an additional +2 ED for damage for each hit applied to the designated threat when making ranged attacks.</p>' +
       '<p>By spending an additional point of Faith, the affected targets instead gain +3ED to damage for each hit applied to the threat.</p>',
     requirementsString: 'Adeptus Astartes, Leadership 4+',
-    requirements: [ requireKeyword('Adeptus Astartes'), requireAttribute('leadership', 4) 
+    requirements: [
+        requireKeyword('Adeptus Astartes'),
+        requireSkill('leadership', 4)
     ],
   },
   {

@@ -745,7 +745,8 @@ export default {
             break;
 
           case 'attribute':
-            text = `${this.getAttributeByKey(p.key).name} Rating ${p.value}+`;
+            let attributeByKey = this.getAttributeByKey(p.key);
+            text = `${attributeByKey.name} Rating ${p.value}+`;
             break;
 
           case 'skill':
