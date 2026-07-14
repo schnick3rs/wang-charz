@@ -238,7 +238,7 @@ const core = [
   {
     ...archetype(source.core.key, 110,'Adeptus Ministorum','Crusader',3,'Human'),
     ...cost(54,20,34, 0, 0),
-    hint: 'A holy warrior with unfl agging devotion to the God-Emperor.',
+    hint: 'A holy warrior with unflagging devotion to the God-Emperor.',
     keywords: 'Imperium,Adeptus Ministorum',
     prerequisites: [
       reqAttribute(ATTRIBUTES.INITIATIVE, 3),
