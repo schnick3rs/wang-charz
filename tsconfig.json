@@ -17,9 +17,6 @@
     },
     "types": ["@types/node", "@nuxt/types"]
   },
-  "exclude": [
-    "node_modules",
-    ".nuxt",
-    "dist"
-  ]
+  "include": ["pages/**/*", "components/**/*", "layouts/**/*", "store/**/*", "plugins/**/*", "middleware/**/*", "nuxt.config.js"],
+  "exclude": ["node_modules", ".nuxt", "dist", "server", "api"]
 }

@@ -2079,8 +2079,3 @@ export const rawArchetypeRepository = [
 ];
 
 export const archetypeRepository: Archetype[] = ArchetypeRepositorySchema.parse(rawArchetypeRepository);
-
-export default archetypeRepository;
-
-module.exports = archetypeRepository;
-module.exports.default = archetypeRepository;
