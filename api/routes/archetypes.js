@@ -1,6 +1,7 @@
 const Router = require('express-promise-router');
 
-const archetypeRepository = require('../db/static/archetypeRepository');
+const archetypeRepository = require("../data/archetypes");
+const {rawArchetypeRepository} = require("../data/archetypes");
 
 const router = new Router();
 
@@ -8,7 +9,7 @@ module.exports = router;
 
 router.get('/', (request, response) => {
   let items = [];
-  items = archetypeRepository;
+  items = rawArchetypeRepository;
 
   const filter = {};
 

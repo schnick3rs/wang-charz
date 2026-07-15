@@ -1,0 +1,303 @@
+import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
+import {aaoaPrimarisAstartes} from "../../../../data/archetypes/books/apocrypha/apocryphaPrimaris";
+import {ATTRIBUTES, SKILLS} from "../../../../db/static/_statUtils";
+
+
+export const aaoaAdeptusAstartes = [
+    {
+        ...archetype('aaoa', 61, 'Adeptus Astartes', 'Assault Space Marine',3, 'Adeptus Astartes'),
+        ...costz(270, [
+            reqAttribute(ATTRIBUTES.STRENGTH, 5),
+            reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            reqAttribute(ATTRIBUTES.AGILITY, 5),
+            reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+            reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+            reqAttribute(ATTRIBUTES.INTELLECT, 3),
+            reqSkill(SKILLS.ATHLETICS, 3),
+            reqSkill(SKILLS.AWARENESS, 3),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+            reqSkill(SKILLS.PILOT, 4),
+            reqSkill(SKILLS.SCHOLAR, 1),
+            reqSkill(SKILLS.STEALTH, 3),
+            reqSkill(SKILLS.WEAPON_SKILL, 4),
+        ]),
+        hint: 'A deadly shock trooper, taking the fight to the enemy.',
+        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        influence: 1,
+        archetypeFeatures: [
+            {
+                name: 'Hammer of Wrath',
+                description:
+                    '<p>When you charge into melee using your jump pack, all enemies 2 metres of the point where you land must pass an Agility test (DN 2 +Rank) or be knocked <em>Prone</em>.</p>',
+            },
+        ],
+        wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Chainsword, Jump Pack, 3 Frag Grenade, 3 Krak Grenade'),
+    },
+    {
+        ...archetype('aaoa', 69, 'Adeptus Astartes', 'Devastator Space Marine', 3, 'Adeptus Astartes'),
+        ...costz(270, [
+            reqAttribute(ATTRIBUTES.STRENGTH, 5),
+            reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            reqAttribute(ATTRIBUTES.AGILITY, 5),
+            reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+            reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+            reqAttribute(ATTRIBUTES.INTELLECT, 3),
+            reqSkill(SKILLS.ATHLETICS, 3),
+            reqSkill(SKILLS.AWARENESS, 3),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 5),
+            reqSkill(SKILLS.SCHOLAR, 1),
+            reqSkill(SKILLS.STEALTH, 3),
+            reqSkill(SKILLS.TECH, 1),
+            reqSkill(SKILLS.WEAPON_SKILL, 4),
+        ]),
+        hint: 'A ruthless heavy weapons specialist, delivering death at a distance.',
+        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        influence: 1,
+        archetypeFeatures: [
+            {
+                name: 'Unrelenting Devastation',
+                description:
+                    'When you sacrifice your Move to Brace a Heavy weapon, you may add +Rank bonus dice to all attacks with that weapon, and +Rank ED to that weapon’s damage.',
+            },
+        ],
+        wargearString:
+            'Aquila Power Armour, Bolt Pistol, Astartes combat knife, 3 Frag Grenades, 3 Krak Grenades, ammunition backpack, and one heavy weapon from the following list: heavy bolter, missile launcher with 6 frag and 6 krak missiles, lascannon, multi-melta, plasma cannon, or grav-cannon.',
+        wargear: [
+            { name: 'Aquila Mk VII' },
+            { name: 'Bolt Pistol' },
+            { name: 'Astartes Combat Knife' },
+            { name: 'Frag Grenade', amount: 3 },
+            { name: 'Krak Grenade', amount: 3 },
+            { name: 'Ammunition backpack' },
+            {
+                name: 'One of the following heavy weapons: heavy bolter, missile launcher with 6 frag and 6 krak missiles, lascannon, multi-melta, plasma cannon, or grav-cannon.',
+                options: [
+                    { name: 'Heavy Bolter' },
+                    { name: 'Missile Launcher' },
+                    { name: 'Lascannon' },
+                    { name: 'Multi-Melta' },
+                    { name: 'Plasma Cannon' },
+                    { name: 'Grav-cannon' },
+                ]
+            }
+        ],
+    },
+    {
+        ...archetype('aaoa', 92, 'Adeptus Astartes', 'Grey Knight', 4, 'Adeptus Astartes'),
+        ...costz(340,[
+            reqAttribute(ATTRIBUTES.STRENGTH, 5),
+            reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            reqAttribute(ATTRIBUTES.AGILITY, 5),
+            reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+            reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+            reqAttribute(ATTRIBUTES.INTELLECT, 4),
+            reqSkill(SKILLS.ATHLETICS, 3),
+            reqSkill(SKILLS.AWARENESS, 4),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 5),
+            reqSkill(SKILLS.PSYCHIC_MASTERY, 4),
+            reqSkill(SKILLS.SCHOLAR, 2),
+            reqSkill(SKILLS.STEALTH, 3),
+            reqSkill(SKILLS.WEAPON_SKILL, 5),
+        ]),
+        hint: 'A member of a secretive order of elite psychic daemon-hunters',
+        keywords: 'Imperium,Adeptus Astartes,Grey Knights,Psyker,Inquisition, Ordo Malleus',
+        influence: 1,
+        archetypeFeatures: [
+            {
+                name: 'Psyker',
+                snippet: 'You are a Psyker; you begin play with the Rites of Banishment psychic power. You may purchase additional powers from the Sanctic discipline.',
+                description:
+                    '<p>A Grey Knight begins play with the Rites of Banishment psychic power. You may purchase additional powers from the Sanctic discipline.</p>',
+                psychicPowers: [
+                    { name: 'psykerRitesOfBanishment', selected: 'Rites of Banishment', query: { name: 'Rites of Banishment' }, options: [], free: true },
+                    { name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+                ],
+                psychicDisciplines: [
+                    'Minor',
+                    'Biomancy',
+                    'Divination',
+                    'Pyromancy',
+                    'Telekinesis',
+                    'Telepathy',
+                    'Universal',
+                    'Sanctic',
+                ],
+            },
+        ],
+        wargearString:
+            'Aquila power armour, aegis, nemesis force sword, storm bolter, 3 psyk-out grenades, armoured copy of the liber daemonica.',
+        wargear: [
+            { name: 'Aegis Power Armour' },
+            { name: 'Nemesis Force Sword' },
+            { name: 'Storm Bolter' },
+            { name: 'Psyk-out Grenade', amount: 3 },
+            { name: 'Liber Daemonica', variant: 'Armoured copy of the liber daemonica' },
+        ],
+    },
+    {
+        ...archetype('aaoa', 60, 'Adeptus Astartes', 'Apothecary', 3, 'Adeptus Astartes'),
+        ...costz(276, [
+            reqAttribute(ATTRIBUTES.STRENGTH, 5),
+            reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            reqAttribute(ATTRIBUTES.AGILITY, 4),
+            reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+            reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+            reqAttribute(ATTRIBUTES.INTELLECT, 5),
+            reqSkill(SKILLS.ATHLETICS, 3),
+            reqSkill(SKILLS.AWARENESS, 3),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+            reqSkill(SKILLS.SCHOLAR, 2),
+            reqSkill(SKILLS.MEDICAE, 4),
+            reqSkill(SKILLS.STEALTH, 3),
+            reqSkill(SKILLS.WEAPON_SKILL, 3),
+        ]),
+        hint: 'A warrior-healer, guardian of his brothers’ lives.',
+        keywords: 'Imperium, Adeptus Astartes,[Chapter]',
+        influence: 2,
+        archetypeFeatures: [
+            simpleAbility('Guard Thy Brethren: Whenever you succeed at a Medicae test upon a Dying ally with the ADEPTUS ASTARTES keyword, gain 1 Wrath. In addition, you gain +Rank to Resolve and Determination while you can see or hear one or more Dying Adeptus Astartes allies.'),
+        ],
+        wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Chainsword, Narthecium, Reductor, 3 Frag Grenade, 3 Krak Grenade'),
+    },
+    {
+        ...archetype('aaoa', 108,  'Adeptus Astartes', 'Techmarine',3, 'Adeptus Astartes'),
+        ...costz(329, [
+            reqAttribute(ATTRIBUTES.STRENGTH, 5),
+            reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            reqAttribute(ATTRIBUTES.AGILITY, 5),
+            reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+            reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+            reqAttribute(ATTRIBUTES.INTELLECT, 5),
+            reqSkill(SKILLS.ATHLETICS, 3),
+            reqSkill(SKILLS.AWARENESS, 3),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 4),
+            reqSkill(SKILLS.PILOT, 2),
+            reqSkill(SKILLS.SCHOLAR, 3),
+            reqSkill(SKILLS.STEALTH, 3),
+            reqSkill(SKILLS.TECH, 4),
+            reqSkill(SKILLS.WEAPON_SKILL, 4),
+        ]),
+        hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
+        keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus',
+        archetypeFeatures: [
+            simpleAbility('Rite of Repair: You receive +Double Rank to Tech tests to repair damaged machinery. All Tech tests you make take half the standard time.'),
+        ],
+        wargearString:
+            'Artificer Armour, Bolt Pistol, Omnissian Axe, 3 Frag Grenades, 3 Krak Grenades, Augmetic Servo-arm, and any 2 augmetics.',
+        influence: 2,
+        wargear: [
+            { name: 'Artificer Armour' },
+            { name: 'Bolt Pistol' },
+            { name: 'Omnissian Axe' },
+            { name: 'Frag Grenade', amount: 3 },
+            { name: 'Krak Grenade', amount: 3 },
+            { name: 'Mechadendrites (Servo-Arm)' },
+            {
+                name: 'One augmetics of your choice.',
+                selected: '',
+                options: [
+                    {
+                        filter: true,
+                        subtypeFilter: ['Augmetics'],
+                    },
+                ],
+            },
+            {
+                name: 'One augmetics of your choice.',
+                selected: '',
+                options: [
+                    {
+                        filter: true,
+                        subtypeFilter: ['Augmetics'],
+                    },
+                ],
+            },
+        ],
+    },
+    {
+        ...archetype('aaoa', 106,'Adeptus Astartes','Space Marine Chaplain',4,'Adeptus Astartes'),
+        ...costz(312,[
+            reqAttribute(ATTRIBUTES.STRENGTH, 5),
+            reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            reqAttribute(ATTRIBUTES.AGILITY, 5),
+            reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+            reqAttribute(ATTRIBUTES.WILLPOWER, 4),
+            reqAttribute(ATTRIBUTES.INTELLECT, 3),
+            reqAttribute(ATTRIBUTES.FELLOWSHIP, 3),
+            reqSkill(SKILLS.ATHLETICS, 3),
+            reqSkill(SKILLS.AWARENESS, 3),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+            reqSkill(SKILLS.INTIMIDATION, 2),
+            reqSkill(SKILLS.LEADERSHIP, 1),
+            reqSkill(SKILLS.PERSUASION, 4),
+            reqSkill(SKILLS.SCHOLAR, 2),
+            reqSkill(SKILLS.STEALTH, 3),
+            reqSkill(SKILLS.WEAPON_SKILL, 4),
+        ]),
+        hint: 'A devout warrior, who tends to the spirits of his comrades.',
+        keywords: 'Imperium,Adeptus Astartes,[Chapter],Priest',
+        influence: 3,
+        archetypeFeatures: [
+            simpleAbility('Spiritual Leaders', 'You, and all allies with the IMPERIUM keyword within 15+Rank metres add +Rank to Resolve. This increases to +Double Rank if they share your [CHAPTER] keyword.'),
+        ],
+        wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Crozius Arcanum, 3 Frag Grenade, 3 Krak Grenade, Rosarius'),
+    },
+    {
+        ...archetype('aaoa', 107, 'Adeptus Astartes', 'Space Marine Librarian', 4,'Adeptus Astartes'),
+        ...costz(367,[
+            reqAttribute(ATTRIBUTES.STRENGTH, 5),
+            reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            reqAttribute(ATTRIBUTES.AGILITY, 5),
+            reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+            reqAttribute(ATTRIBUTES.WILLPOWER, 6),
+            reqAttribute(ATTRIBUTES.INTELLECT, 4),
+            reqSkill(SKILLS.ATHLETICS, 3),
+            reqSkill(SKILLS.AWARENESS, 3),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 3),
+            reqSkill(SKILLS.LEADERSHIP, 1),
+            reqSkill(SKILLS.PSYCHIC_MASTERY, 4),
+            reqSkill(SKILLS.SCHOLAR, 3),
+            reqSkill(SKILLS.STEALTH, 3),
+            reqSkill(SKILLS.WEAPON_SKILL, 4),
+        ]),
+        hint: 'A warrior-sage of the Adeptus Astartes.',
+        keywords: 'Imperium, Adeptus Astartes, [Chapter], Psyker',
+        influence: 2,
+        archetypeFeatures: [
+            {
+                name: 'Psyker',
+                snippet: 'You know the Smite psychic power.',
+                description:
+                    '<p>You are a psyker; you know the Smite psychic power.</p>',
+                psychicPowers: [
+                    { name: 'psykerSmite', selected: 'Smite', query: { name: 'Smite' }, options: [], free: true },
+                    //{ name: 'psykerMinor', selected: '', query: { discipline: 'Minor' }, options: [], free: true },
+                ],
+            },
+            {
+                name: 'Unlock Disciplines',
+                snippet: 'You gain access to the Minor and Universal Disciplines. You unlock an addtional single Psychic Discipline: Divination, Pyromancy, Telekinesis, Telepathy, Maleficarum, Librarius, or a discipline unique to your Chapter',
+                description: '<p>You gain access to the Minor and Universal Disciplines. You unlock an additional single Psychic Discipline: Divination, Pyromancy, Telekinesis, Telepathy, Maleficarum, Librarius, or a discipline unique to your Chapter.</p>',
+                selected: [''],
+                options: [
+                    // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
+                    // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
+                    { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
+                    { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
+                    { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
+                    { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
+                    { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
+                    { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
+                    { key: 'aaoa-librarius', name: 'Librarius', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Librarius' }] },
+                    // TODO Chapter Disciplines
+                ],
+                psychicDisciplines: [
+                    'Minor',
+                    'Universal',
+                ],
+            },
+        ],
+        wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Bolt Pistol, Force Staff, 3 Frag Grenade, 3 Krak Grenade, Psychic Hood'),
+    },
+    ...aaoaPrimarisAstartes,
+];
