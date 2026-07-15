@@ -2,7 +2,7 @@ import {Book, BookRepositorySchema} from "../shared/schemas/book";
 
 const books: Book[] = [
     // Official
-    { title: 'Core Rules', key: 'core', version: 'v2.1', link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959' },
+    { title: 'Core Rules', key: 'core', version: 'v3.0', link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959' },
     { title: 'Forsaken System Player`s Guide', key: 'fspg', version: 'v2.0', link: 'https://www.drivethrurpg.com/product/303930/Wrath--Glory--Forsaken-System-Players-Guide?affiliate_id=466959' },
     { title: 'Redacted Records I', key: 'red1', version: 'v1.0', link: 'https://www.drivethrurpg.com/product/343896/Wrath--Glory--Redacted-Records?affiliate_id=466959' },
     { title: 'Redacted Records II', key: 'red2', version: 'v1.0', link: 'https://www.drivethrurpg.com/de/product/388102/warhammer-40-000-wrath-glory-redacted-records-2?affiliate_id=466959' },

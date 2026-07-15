@@ -4,13 +4,12 @@ import {archetype, cost, costz, reqAttribute, reqSkill, suggestedAttributes, war
 export const core = [
     {
         ...archetype('core',92,'Adeptus Ministorum','Ministorum Priest',1,'Human'),
-        ...cost(12,0,12, 0, 0),
-        hint: 'A zealous preacher of the Imperial Creed.',
-        keywords: 'Imperium,Adeptus Ministorum',
-        prerequisites: [
+        ...costz(12, [
             reqAttribute(ATTRIBUTES.WILLPOWER, 3),
             reqSkill(SKILLS.SCHOLAR, 1),
-        ],
+        ]),
+        hint: 'A zealous preacher of the Imperial Creed.',
+        keywords: 'Imperium,Adeptus Ministorum',
         archetypeFeatures: [
             {
                 name: 'Fiery Invective',
@@ -85,20 +84,22 @@ export const core = [
     // Adepta Sororitas
     {
         ...archetype('core', 91,'Adepta Sororitas','Sister Hospitaller',1,'Human'),
-        ...cost(24,0,24,0,0),
-        hint: 'A pious healer dedicated to care of both body and soul.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
-        prerequisites: [
+        ...costz(24, [
             reqAttribute(ATTRIBUTES.INTELLECT, 3),
             reqAttribute(ATTRIBUTES.WILLPOWER, 3),
             reqSkill(SKILLS.MEDICAE, 1),
             reqSkill(SKILLS.SCHOLAR, 1),
-        ],
+        ]),
+        hint: 'A pious healer dedicated to care of both body and soul.',
+        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
         archetypeFeatures: [
             {
                 name: 'Loyal Compassion',
                 snippet: 'Add +Double Rank bonus dice for Medicae (Int) Test on an IMPERIUM character.',
                 description: '<p>+Double Rank bonus dice whenever you make a Medicae (Int) Test on a character with the <strong>IMPERIUM</strong> Keyword</p>',
+                modifications: [
+                    { targetGroup: 'skills', targetValue: SKILLS.MEDICAE, modifier: 0, rank: 2, condition: 'for tests on IMPERIUM characters' },
+                ],
             },
         ],
         wargear: [
@@ -150,18 +151,25 @@ export const core = [
     // Adeptus Militarum
     {
         ...archetype('core', 93,'Astra Militarum','Imperial Guardsman',1,'Human'),
-        ...cost(6,0,6, 0, 0),
+        ...costz(6,[
+            reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+        ]),
         hint: 'A disciplined soldier, used to fighting amid multitudes',
         keywords: 'Imperium,Astra Militarum,[Regiment]',
-        prerequisites: [
-            reqSkill(SKILLS.BALLISTIC_SKILL, 2),
-        ],
         archetypeFeatures: [
             {
                 name: 'Look Out, Sir!',
-                snippet: 'Once per combat, as a Reflexive Action, move up to half your Speed to intercept an attack that hit an ally. You Resilience is increased by +Rank.',
-                description: '<p>You have been drilled in sacrificing yourself to save your allies. Once per combat, you may take a Reflexive Action to move up to half your Speed to get in the way of any attack that hit an ally. The attacker then rolls against your Resilience instead of your ally’s, and may deal Wounds to you. Your Resilience increases by +Rank for the purpose of calculating damage.</p>'
-                // TODO conditional modifier
+                snippet:
+                    'Once per combat, as a Reflexive Action, move up to half your Speed to intercept an attack that hit an ally. ' +
+                    'You Resilience is increased by +Rank for this damage.',
+                description:
+                    '<p>You have been drilled in sacrificing yourself to save your allies. ' +
+                    'Once per combat, you may take a Reflexive Action to move up to half your Speed to get in the way of any attack that hit an ally. ' +
+                    'The attacker then rolls against your Resilience instead of your ally’s, and may deal Wounds to you. ' +
+                    'Your Resilience increases by +Rank for the purpose of calculating damage.</p>',
+                modifications: [
+                    { targetGroup: 'traits', targetValue: TRAITS.RESILIENCE, modifier: 0, rank: 1, condition: 'when you Lock Out! yourself for an ally' },
+                ],
             },
         ],
         wargear: wargearz('Flak Armour, Lasgun, Knife, Munitorum-Issue Mess Kit, Grooming kit, Uplifting Primer/A copy of the Imperial Infantryman’s Uplifting Primer, 3 ration packs'),
@@ -169,7 +177,7 @@ export const core = [
             ...suggestedAttributes(3,3,3,3,2,1,2),
             reqSkill(SKILLS.ATHLETICS, 2),
             reqSkill(SKILLS.AWARENESS, 1),
-            reqSkill(SKILLS.BALLISTIC_SKILL, 2),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 3),
             reqSkill(SKILLS.SURVIVAL, 1),
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ],
