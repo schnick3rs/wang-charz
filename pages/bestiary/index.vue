@@ -18,7 +18,7 @@
                   <v-slide-item
                     v-for="faction in filterFactionOptions"
                     :key="faction.key"
-                    v-slot:default="{ active, toggle }"
+                    v-slot="{ active, toggle }"
                   >
                     <v-avatar
                       size="86"
@@ -101,7 +101,7 @@
             @item-expanded="trackExpand"
             @page-count="pagination.pageCount = $event"
           >
-            <template v-slot:item.classification="{ item }">
+            <template #item.classification="{ item }">
               <div v-if="item.classification">
                 <v-chip
                   v-if="item.classification.length === 1"
@@ -134,7 +134,7 @@
               </div>
             </template>
 
-            <template v-slot:item.name="{ item }">
+            <template #item.name="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.name }}
@@ -145,7 +145,7 @@
               </v-row>
             </template>
 
-            <template v-slot:item.source.book="{ item }">
+            <template #item.source.book="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.source.book }}
@@ -162,13 +162,13 @@
             </template>
 
             <!-- Detail Page link -->
-            <template v-slot:item.actions="{ item }">
+            <template #item.actions="{ item }">
               <v-btn v-if="item.key && (item.stub === undefined || !item.stub)" small icon nuxt :to="`/bestiary/${camelToKebab(item.key)}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
 
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <div class="pa-4">
                   <dod-threat-details :item="item" />
@@ -229,6 +229,71 @@ export default {
   mixins: [
     SluggerMixin,
   ],
+  async asyncData({
+    $axios, query, params, error,
+  }) {
+    const response = await $axios.get('/api/threats/');
+    const items = response.data;
+
+    if (items === undefined || items.length <= 0) {
+      error({ statusCode: 404, message: 'Threat not found' });
+    }
+
+    const factionFilterSelections = [];
+    if (query['filter-faction']) {
+      factionFilterSelections.push(query['filter-faction']);
+    }
+
+    let filterTier = 0;
+    if (query['filter-tier']) {
+      filterTier = query['filter-tier'];
+    }
+
+    const filtersSourceModel = [];
+    if (query['filter-source']) {
+      filtersSourceModel.push(query['filter-source']);
+    }
+
+    return {
+      items,
+      factionFilterSelections,
+      filterTier,
+      filtersSourceModel,
+    };
+  },
+  data() {
+    return {
+      searchQuery: '',
+      settingFilter: [],
+      contentFilter: [],
+      factionFilterSelections: [],
+      pagination: {
+        page: 1,
+        pageCount: 0,
+        sortBy: 'name',
+        rowsPerPage: 25,
+      },
+      headers: [
+        {
+          text: 'Classification', align: 'center', value: 'classification', class: '',
+        },
+        // { text: '',               align: 'center',  value: 'avatar',          class: '' },
+        {
+          text: 'Name', align: 'start', value: 'name', class: '',
+        },
+        {
+          text: 'Faction', align: 'start', value: 'faction', class: '',
+        },
+        {
+          text: 'Source', align: 'start', value: 'source.book', class: '',
+        },
+        {
+          text: '', align: 'end', value: 'actions', class: '', sortable: false,
+        },
+      ],
+      expanded: [],
+    };
+  },
   head() {
     const breadcrumbListSchema = {
       '@context': 'https://schema.org',
@@ -267,39 +332,6 @@ export default {
       script: [
         { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
       ],
-    };
-  },
-  data() {
-    return {
-      searchQuery: '',
-      settingFilter: [],
-      contentFilter: [],
-      factionFilterSelections: [],
-      pagination: {
-        page: 1,
-        pageCount: 0,
-        sortBy: 'name',
-        rowsPerPage: 25,
-      },
-      headers: [
-        {
-          text: 'Classification', align: 'center', value: 'classification', class: '',
-        },
-        // { text: '',               align: 'center',  value: 'avatar',          class: '' },
-        {
-          text: 'Name', align: 'start', value: 'name', class: '',
-        },
-        {
-          text: 'Faction', align: 'start', value: 'faction', class: '',
-        },
-        {
-          text: 'Source', align: 'start', value: 'source.book', class: '',
-        },
-        {
-          text: '', align: 'end', value: 'actions', class: '', sortable: false,
-        },
-      ],
-      expanded: [],
     };
   },
   computed: {
@@ -349,38 +381,6 @@ export default {
 
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
-  },
-  async asyncData({
-    $axios, query, params, error,
-  }) {
-    const response = await $axios.get('/api/threats/');
-    const items = response.data;
-
-    if (items === undefined || items.length <= 0) {
-      error({ statusCode: 404, message: 'Threat not found' });
-    }
-
-    const factionFilterSelections = [];
-    if (query['filter-faction']) {
-      factionFilterSelections.push(query['filter-faction']);
-    }
-
-    let filterTier = 0;
-    if (query['filter-tier']) {
-      filterTier = query['filter-tier'];
-    }
-
-    const filtersSourceModel = [];
-    if (query['filter-source']) {
-      filtersSourceModel.push(query['filter-source']);
-    }
-
-    return {
-      items,
-      factionFilterSelections,
-      filterTier,
-      filtersSourceModel,
-    };
   },
   methods: {
     getAvatar(factionLabel) {

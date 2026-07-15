@@ -45,15 +45,15 @@
         <strong>Minimum Campaign Tier:</strong> {{ item.minimumCampaignTier }}+
       </p>
 
-      <ul class="text-lg-justify pb-2" v-for="prerequisite in item.prerequisites">
+      <ul v-for="prerequisite in item.prerequisites" class="text-lg-justify pb-2">
         <li>{{prerequisite}}</li>
       </ul>
 
-      <p class="text-lg-justify" v-if="false">
+      <p v-if="false" class="text-lg-justify">
         <strong>Attribute:</strong> {{ item.attributePrerequisites && item.attributePrerequisites.length > 0 ? item.attributePrerequisites.join(', ') : 'none' }}
       </p>
 
-      <p class="text-lg-justify" v-if="false">
+      <p v-if="false" class="text-lg-justify">
         <strong>Skill:</strong> {{ item.skillPrerequisites && item.skillPrerequisites.length > 0 ? item.skillPrerequisites.join(', ') : 'none' }}
       </p>
 
@@ -111,7 +111,7 @@
         </v-col>
       </v-row>
 
-      <v-alert dense text type="warning" class="caption" style="width: 100%" v-if="alertText">
+      <v-alert v-if="alertText" dense text type="warning" class="caption" style="width: 100%">
         {{alertText}}
       </v-alert>
 
@@ -122,7 +122,7 @@
         Cancel
       </v-btn>
       <v-spacer />
-      <v-btn right color="green" @click="$emit('select', item, targetTier)" :disabled="alertText">
+      <v-btn right color="green" :disabled="alertText" @click="$emit('select', item, targetTier)">
         Select Package
       </v-btn>
     </v-card-actions>

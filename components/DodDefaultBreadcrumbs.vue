@@ -5,7 +5,7 @@
         :items="items"
         class="elevation-4 pa-2"
       >
-        <template v-slot:item="{ item }">
+        <template #item="{ item }">
           <v-breadcrumbs-item
             :nuxt="true"
             :to="item.to"
@@ -17,7 +17,7 @@
           </v-breadcrumbs-item>
         </template>
 
-        <template v-slot:divider>
+        <template #divider>
           <v-icon>mdi-chevron-right</v-icon>
         </template>
       </v-breadcrumbs>

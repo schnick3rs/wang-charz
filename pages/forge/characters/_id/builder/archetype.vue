@@ -9,15 +9,18 @@ import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
   name: 'Archetype',
-  layout: 'forge',
   components: { ArchetypePreview },
   mixins: [
     SluggerMixin,
   ],
+  layout: 'forge',
   props: [],
-  head() {
+  async asyncData({ params, $axios }) {
+    // const archetypeResponse = await $axios.get(`/api/archetypes/`, config);
     return {
-      title: 'Select Archetype',
+      characterId: params.id,
+      // psychicPowersRepository: psychicPowersResponse.data,
+      // archetypeRepository: archetypeResponse.data,
     };
   },
   data() {
@@ -29,12 +32,9 @@ export default {
       selectedArchetype: undefined,
     };
   },
-  async asyncData({ params, $axios }) {
-    // const archetypeResponse = await $axios.get(`/api/archetypes/`, config);
+  head() {
     return {
-      characterId: params.id,
-      // psychicPowersRepository: psychicPowersResponse.data,
-      // archetypeRepository: archetypeResponse.data,
+      title: 'Select Archetype',
     };
   },
   methods: {

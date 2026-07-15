@@ -30,11 +30,11 @@
             :items="backgroundsByType(type)"
             outlined
             dense
-            @change="changeBackground"
             item-value="key"
             item-text="label"
             persistent-hint
             :hint="backgroundHint(selectedBackgrounds[type.toLowerCase()])"
+            @change="changeBackground"
         ></v-select>
         <v-btn
             small
@@ -78,8 +78,8 @@
             persistent-hint
             hint="Enter a custom language and hit enter or click the [+] icon. Toggle the [$] for 0/1 XP."
             :prepend-icon="languageCostMarker ? 'attach_money' : 'money_off'"
-            @click:prepend="languageCostMarker = !languageCostMarker"
             append-outer-icon="add_box"
+            @click:prepend="languageCostMarker = !languageCostMarker"
             @click:append-outer="addLanguage(languageInput)"
             @keypress.enter="addLanguage(languageInput)"
           ></v-text-field>
@@ -97,9 +97,9 @@ import IssueList from '~/components/IssueList.vue';
 
 export default {
   name: 'Background',
-  layout: 'forge',
   components: { BackgroundPreview, IssueList },
   mixins: [],
+  layout: 'forge',
   props: [],
   asyncData({ params }) {
     return {

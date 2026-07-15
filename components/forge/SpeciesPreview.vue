@@ -33,11 +33,11 @@
 
       <p><v-divider /></p>
 
-      <p class="text-lg-justify" v-if="attributes">
+      <p v-if="attributes" class="text-lg-justify">
         <strong>Attributes:</strong> {{attributes}}
       </p>
 
-      <p class="text-lg-justify" v-if="skills">
+      <p v-if="skills" class="text-lg-justify">
         <strong>Skills:</strong> {{skills}}
       </p>
 

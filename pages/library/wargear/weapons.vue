@@ -19,7 +19,7 @@
                 />
               </v-col>
 
-              <v-col :cols="4" v-if="false">
+              <v-col v-if="false" :cols="4">
                 <v-select
                     v-model="filters.subtype.model"
                     :items="filtersSubtypeOptions"
@@ -34,7 +34,7 @@
                 />
               </v-col>
 
-              <v-col :cols="4" v-if="false">
+              <v-col v-if="false" :cols="4">
                 <v-select
                     v-model="filters.traits.model"
                     :items="filterTraitsOptions"
@@ -49,7 +49,7 @@
                 />
               </v-col>
 
-              <v-col :cols="4" v-if="false">
+              <v-col v-if="false" :cols="4">
                 <v-select
                     v-model="filters.keywords.model"
                     :items="filterKeywordsOptions"
@@ -83,7 +83,7 @@
               @page-count="pageCount = $event"
           >
 
-            <template v-slot:item.name="{ item }">
+            <template #item.name="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.name }}
@@ -94,11 +94,11 @@
               </v-row>
             </template>
 
-            <template v-slot:item.range="{ item }">
+            <template #item.range="{ item }">
               <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].range }} m</span>
             </template>
 
-            <template v-slot:item.damage="{ item }">
+            <template #item.damage="{ item }">
               <div v-if="item.meta && item.meta.length > 0 && item.meta[0].damage">
                 <span v-if="item.type==='Melee Weapon'">{{ item.meta[0].damage.static }}*</span>
                 <span v-else>{{ item.meta[0].damage.static }}</span>
@@ -107,19 +107,19 @@
               </div>
             </template>
 
-            <template v-slot:item.ap="{ item }">
+            <template #item.ap="{ item }">
               <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].ap }}</span>
             </template>
 
-            <template v-slot:item.salvo="{ item }">
+            <template #item.salvo="{ item }">
               <span v-if="item.meta && item.meta.length > 0">{{ item.meta[0].salvo }}</span>
             </template>
 
-            <template v-slot:item.traits="{ item }">
+            <template #item.traits="{ item }">
               <span v-if="item.meta && item.meta.length > 0 && item.meta[0].traits && item.meta[0].traits.length >0">{{ item.meta[0].traits.join(', ') }}</span>
             </template>
 
-            <template v-slot:item.source.book="{ item }">
+            <template #item.source.book="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.source.book }}
@@ -160,19 +160,13 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 
 export default {
   components: { DodDefaultBreadcrumbs },
-  head() {
+  layout: 'library',
+  async asyncData({ app }) {
+    const response = await app.$axios.get('/api/wargear/');
     return {
-      title: 'Weapons - Wrath & Glory Wargear Reference | Library',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '',
-        },
-      ],
+      wargearRepository: response.data,
     };
   },
-  layout: 'library',
   data() {
     return {
       searchQuery: '',
@@ -205,6 +199,18 @@ export default {
         { text: 'Source', align: 'left', value: 'source.book', class: '' },
       ],
       expand: false,
+    };
+  },
+  head() {
+    return {
+      title: 'Weapons - Wrath & Glory Wargear Reference | Library',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: '',
+        },
+      ],
     };
   },
   computed: {
@@ -276,12 +282,6 @@ export default {
 
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
-  },
-  async asyncData({ app }) {
-    const response = await app.$axios.get('/api/wargear/');
-    return {
-      wargearRepository: response.data,
-    };
   },
   methods: {
     changeSort(column) {

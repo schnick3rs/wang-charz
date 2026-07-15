@@ -53,17 +53,17 @@
             hide-default-footer
             @item-expanded="trackExpand"
           >
-            <template v-slot:header.supplements="{ header }">
+            <template #header.supplements="{ header }">
               {{ header.text }}
               <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
+                <template #activator="{ on }">
                   <v-icon small v-on="on">help</v-icon>
                 </template>
                 <span>Indicate the version, the homebrew was originaly designed for.</span>
               </v-tooltip>
             </template>
 
-            <template v-slot:item.title="{ item }">
+            <template #item.title="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.title }}
@@ -74,7 +74,7 @@
               </v-row>
             </template>
 
-            <template v-slot:item.version="{ item }">
+            <template #item.version="{ item }">
               <v-chip
                 v-if="item.version === 'Draft' || item.version.startsWith('v0')"
                 tags x-small label
@@ -91,7 +91,7 @@
               </v-chip>
             </template>
 
-            <template v-slot:item.supplements="{ item }">
+            <template #item.supplements="{ item }">
               <v-chip
                 v-if="item.supplements.startsWith('Core v2')"
                 color="green"
@@ -108,20 +108,20 @@
               </v-chip>
             </template>
 
-            <template v-slot:item.keywordTags="{ item }">
+            <template #item.keywordTags="{ item }">
               <v-chip v-for="keyword in item.keywordTags" :key="keyword" small class="mr-2 mb-1 mt-1">
                 {{ keyword }}
               </v-chip>
             </template>
 
-            <template v-slot:item.actions="{ item }">
+            <template #item.actions="{ item }">
               <v-btn small icon nuxt :to="`/vault/${item.urlSlug}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
 
             <!-- expand view -->
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <v-row>
                   <v-col :cols="12">
@@ -241,6 +241,59 @@ export default {
   name: 'Vault',
   components: { DodDefaultBreadcrumbs },
   mixins: [SluggerMixin],
+  async asyncData({ app }) {
+    const { data } = await app.$axios.get('/api/homebrews/');
+    return {
+      vaultItems: data.map((item) => item.fields),
+    };
+  },
+  data() {
+    return {
+      searchQuery: '',
+      settingFilter: [],
+      contentFilter: [],
+      pagination: {
+        sortBy: 'supplements',
+        rowsPerPage: -1,
+      },
+      headers: [
+        {
+          text: 'Title', align: 'start', value: 'title', class: '',
+        },
+        {
+          text: 'Version', align: 'start', value: 'version', class: '',
+        },
+        {
+          text: 'Build for', align: 'start', value: 'supplements', class: '',
+        },
+        {
+          text: 'Hint', align: 'start', value: 'hint', class: '',
+        },
+        {
+          text: 'Author', align: 'start', value: 'author', class: '',
+        },
+        {
+          text: '', sortable: false, align: 'end', value: 'actions', class: '',
+        },
+      ],
+      expanded: [],
+      faqItems: [
+        {
+          q: 'Which homebrew supports my migration from Fantasy Flight Games to Wrath and Glory?',
+          a: 'Multiple fan supplements exist to extend the Wrath & Glory Core Rules. '
+          + 'When you are coming from <strong>Dark Heresy</strong>, '
+          + 'the <a href="https://www.doctors-of-doom.com/vault/agents-of-the-golden-throne">Agents of the Golden Throne</a> supplement '
+          + 'provides your with archetypes wargear and more.</p>',
+        },
+        {
+          q: 'Can I play a Deathwatch Campaign with Wrath and Glory?',
+          a: 'Yes, there are <strong>multiple homebrews</strong> to support this campaign style. '
+          + 'Most notably are the <a href="https://www.doctors-of-doom.com/vault/the-deathwatch---slayers-of-the-alien-horde">Slayers of the Alien Horde</a> '
+          + 'and <a href="https://www.doctors-of-doom.com/vault/the-emperors-angels">The Emperor’s Angels</a>.',
+        },
+      ],
+    };
+  },
   head() {
     const itemSchemaArray = this.vaultItems
       .map((item) => {
@@ -308,53 +361,6 @@ export default {
       ],
     };
   },
-  data() {
-    return {
-      searchQuery: '',
-      settingFilter: [],
-      contentFilter: [],
-      pagination: {
-        sortBy: 'supplements',
-        rowsPerPage: -1,
-      },
-      headers: [
-        {
-          text: 'Title', align: 'start', value: 'title', class: '',
-        },
-        {
-          text: 'Version', align: 'start', value: 'version', class: '',
-        },
-        {
-          text: 'Build for', align: 'start', value: 'supplements', class: '',
-        },
-        {
-          text: 'Hint', align: 'start', value: 'hint', class: '',
-        },
-        {
-          text: 'Author', align: 'start', value: 'author', class: '',
-        },
-        {
-          text: '', sortable: false, align: 'end', value: 'actions', class: '',
-        },
-      ],
-      expanded: [],
-      faqItems: [
-        {
-          q: 'Which homebrew supports my migration from Fantasy Flight Games to Wrath and Glory?',
-          a: 'Multiple fan supplements exist to extend the Wrath & Glory Core Rules. '
-          + 'When you are coming from <strong>Dark Heresy</strong>, '
-          + 'the <a href="https://www.doctors-of-doom.com/vault/agents-of-the-golden-throne">Agents of the Golden Throne</a> supplement '
-          + 'provides your with archetypes wargear and more.</p>',
-        },
-        {
-          q: 'Can I play a Deathwatch Campaign with Wrath and Glory?',
-          a: 'Yes, there are <strong>multiple homebrews</strong> to support this campaign style. '
-          + 'Most notably are the <a href="https://www.doctors-of-doom.com/vault/the-deathwatch---slayers-of-the-alien-horde">Slayers of the Alien Horde</a> '
-          + 'and <a href="https://www.doctors-of-doom.com/vault/the-emperors-angels">The Emperor’s Angels</a>.',
-        },
-      ],
-    };
-  },
   computed: {
     breadcrumbItems() {
       return [
@@ -400,12 +406,6 @@ export default {
 
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
-  },
-  async asyncData({ app }) {
-    const { data } = await app.$axios.get('/api/homebrews/');
-    return {
-      vaultItems: data.map((item) => item.fields),
-    };
   },
   methods: {
     changeSort(column) {

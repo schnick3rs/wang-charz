@@ -19,16 +19,16 @@
           <v-card-text class="pt-4">
 
             <v-text-field
-              label="Keyword Name"
               v-model="customKeyword.name"
+              label="Keyword Name"
               dense required
               class="mb-4"
               :rules="[v => !!v || 'A name is required']"
             ></v-text-field>
 
             <v-textarea
-              label="Description"
               v-model="customKeyword.description"
+              label="Description"
               dense
               class="mb-2"
               :required="!keywordCombinedRepository.find(k=>k.name===customKeyword.name)"
@@ -39,7 +39,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer />
-            <v-btn small right color="success" @click="saveCustomKeyword" :disabled="!keywordFormValid">Save</v-btn>
+            <v-btn small right color="success" :disabled="!keywordFormValid" @click="saveCustomKeyword">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -100,8 +100,8 @@
     >
       <v-card>
         <component
-            v-if="contextDialogComponent"
             :is="contextDialogComponent"
+            v-if="contextDialogComponent"
             :character-id="characterId"
             :character-traits="traits"
             :character-modifiers="characterEnhancements"
@@ -138,9 +138,9 @@
 
       <!-- actions -->
       <v-col :cols="12" :sm="4" :md="5" align="right">
-        <v-btn small outlined color="success" v-if="false">share</v-btn>
-        <v-btn small outlined color="success" v-if="false">campaign</v-btn>
-        <v-btn small outlined color="primary" v-if="false">
+        <v-btn v-if="false" small outlined color="success">share</v-btn>
+        <v-btn v-if="false" small outlined color="success">campaign</v-btn>
+        <v-btn v-if="false" small outlined color="primary">
           <v-icon left small>group</v-icon> Regroup
         </v-btn>
         <v-btn
@@ -198,8 +198,8 @@
                 <td class="text-center pa-1 small">{{ item.rating }}</td>
                 <td class="text-center pa-1 small">{{ item.adjustedRating }}</td>
                 <td class="text-center pa-1 small">
-                  <v-tooltip bottom v-if="item.modifiers.length > 0">
-                    <template v-slot:activator="{ on }">
+                  <v-tooltip v-if="item.modifiers.length > 0" bottom>
+                    <template #activator="{ on }">
                       <v-avatar
                         :color="valueHintColor(item)"
                         size="12"
@@ -257,7 +257,7 @@
                       </v-btn>
                     </span>
                     <div v-if="['Wealth','Max Shock','Max Wounds'].includes(item.name)" style="float: right;">
-                      <div style="flex-wrap: wrap; display: flex;" v-if="item.adjustedRating > 0">
+                      <div v-if="item.adjustedRating > 0" style="flex-wrap: wrap; display: flex;">
                           <div
                             v-for="pointIndex in item.adjustedRating"
                             class="resource-box"
@@ -272,8 +272,8 @@
                   </td>
                   <td>
                     <!-- each modifier contains the BASE of the compution, thus we begin at > 1 -->
-                    <v-tooltip bottom v-if="item.modifiers.length > 0 || item.alternativeRating">
-                      <template v-slot:activator="{ on }">
+                    <v-tooltip v-if="item.modifiers.length > 0 || item.alternativeRating" bottom>
+                      <template #activator="{ on }">
                         <v-avatar
                           :color="valueHintColor(item)"
                           size="12"
@@ -332,10 +332,10 @@
                   <span v-if="item.custom">
                     <v-hover>
                       <v-icon
-                        small
-                        @click="removeCustomSkill(item.key)"
                         slot-scope="{ hover }"
+                        small
                         :color="`${ hover ? 'error' : '' }`"
+                        @click="removeCustomSkill(item.key)"
                       >delete</v-icon>
                     </v-hover>
                   </span>
@@ -352,8 +352,8 @@
                   {{ computeSkillPool(item) }}<span v-if="item.conditionalAdjustment !== 0">/{{ computeSkillPool(item)+item.conditionalAdjustment }}</span>
                 </td>
                 <td class="text-center pa-1 small">
-                  <v-tooltip bottom v-if="item.modifiers.length > 0">
-                    <template v-slot:activator="{ on }">
+                  <v-tooltip v-if="item.modifiers.length > 0" bottom>
+                    <template #activator="{ on }">
                       <v-avatar
                         :color="valueHintColor(item)"
                         size="12"
@@ -429,16 +429,16 @@
 
             -->
 
-            <v-tab class="caption" key="actions" :href="`#tab-actions`"><h2 class="subtitle-2">Weapons</h2></v-tab>
-            <v-tab class="caption" key="wargear" :href="`#tab-wargear`"><h2 class="subtitle-2">Wargear</h2></v-tab>
-            <v-tab class="caption" key="abilities-talents" :href="`#tab-abilities-talents`"><h2 class="subtitle-2">Abilities</h2></v-tab>
-            <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`" v-if="psychicPowers.length > 0"><h2 class="subtitle-2">Powers</h2></v-tab>
-            <v-tab class="caption" key="objectives" :href="`#tab-objectives`"><h2 class="subtitle-2">Description</h2></v-tab>
+            <v-tab key="actions" class="caption" :href="`#tab-actions`"><h2 class="subtitle-2">Weapons</h2></v-tab>
+            <v-tab key="wargear" class="caption" :href="`#tab-wargear`"><h2 class="subtitle-2">Wargear</h2></v-tab>
+            <v-tab key="abilities-talents" class="caption" :href="`#tab-abilities-talents`"><h2 class="subtitle-2">Abilities</h2></v-tab>
+            <v-tab v-if="psychicPowers.length > 0" key="psychic-powers" class="caption" :href="`#tab-psychic-powers`"><h2 class="subtitle-2">Powers</h2></v-tab>
+            <v-tab key="objectives" class="caption" :href="`#tab-objectives`"><h2 class="subtitle-2">Description</h2></v-tab>
 
             <!-- actions (all, weapons, powers, other) -->
             <v-tab-item
-              class="my-tab-item"
               key="actions"
+              class="my-tab-item"
               :value="`tab-actions`"
             >
               <div class="pa-2">
@@ -448,10 +448,10 @@
                   :items="weapons"
                   hide-default-footer
                 >
-                  <template v-slot:item="{ item }">
+                  <template #item="{ item }">
                     <tr
-                        v-if="item.meta"
                         v-for="(meta, metaIndex) in item.meta.filter(m => m.type.indexOf('-weapon') > 0)"
+                        v-if="item.meta"
                         :key="`${item.name}-${metaIndex}`"
                     >
 
@@ -504,15 +504,15 @@
                 <div class="mb-1 mt-2">
                   <span class="body-2 red--text">Reloads:</span>
                   <span class="body-2">{{ characterReloads.points - characterReloads.spend }} remaining.</span>
-                  <div class="pl-2" style="flex-wrap: wrap; display: flex;" v-if="characterReloads.points > 0">
+                  <div v-if="characterReloads.points > 0" class="pl-2" style="flex-wrap: wrap; display: flex;">
                     <v-btn
-                      text icon
-                      v-for="pointIndex in characterReloads.points"
-                      :key="pointIndex"
+                      v-for="pointIndex in characterReloads.points" :key="pointIndex"
+                      text
+                      icon
                       @click="toggleResourceReloads(pointIndex)"
                     >
-                      <v-icon color="error" v-if="pointIndex <= characterReloads.spend">signal_cellular_no_sim</v-icon>
-                      <v-icon color="primary" v-else>sd_storage</v-icon>
+                      <v-icon v-if="pointIndex <= characterReloads.spend" color="error">signal_cellular_no_sim</v-icon>
+                      <v-icon v-else color="primary">sd_storage</v-icon>
                     </v-btn>
                   </div>
                 </div>
@@ -535,8 +535,8 @@
 
             <!-- wargear (All, Weapons, Armour, Gear, Other Possessions) -->
             <v-tab-item
-              class="my-tab-item"
               key="wargear"
+              class="my-tab-item"
               :value="`tab-wargear`"
             >
               <div class="pa-2 pt-1 pb-1">
@@ -551,17 +551,17 @@
                     <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
                   </span>
 
-                  <p class="mb-1" v-if="gearItem.snippet">{{ gearItem.snippet }}</p>
-                  <div class="mb-1" v-else v-html="gearItem.description"></div>
+                  <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
+                  <div v-else class="mb-1" v-html="gearItem.description"></div>
 
                   <div
                     v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
                   >
                     <p
-                      class="ml-1 pl-2 mb-1" style="border-left: solid 3px lightgrey;"
-                      v-for="trait in gearItem.meta[0].traits"
-                      v-if="traitByName(trait, true)"
+                      v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
                       :key="trait"
+                      class="ml-1 pl-2 mb-1"
+                      style="border-left: solid 3px lightgrey;"
                     >
                       <strong>{{ trait }}: </strong>
                       {{ traitByName(trait, true).crunch }}
@@ -575,18 +575,18 @@
 
             <!-- abilities (All, Race, Archetype, Talents, Faith?, Other) -->
             <v-tab-item
-              class="my-tab-item"
               key="abilities-talents"
+              class="my-tab-item"
               :value="`tab-abilities-talents`"
             >
               <div class="pa-2">
 
-                <v-chip-group mandatory active-class="red--text" v-model="abilitySection.selection">
+                <v-chip-group v-model="abilitySection.selection" mandatory active-class="red--text">
                   <v-chip
-                    label
-                    small
                     v-for="item in [`All`,`Species`, `Archetype`, `Ascension`, `Talents`, `Other`]"
                     :key="item.toLowerCase()"
+                    label
+                    small
                     :value="item.toLowerCase()"
                   >
                     {{item}}
@@ -605,8 +605,8 @@
                       <div v-html="computeFormatedText(ability.effect)" />
 
                       <div
-                          v-if="ability.selectedOptions"
                           v-for="selectedOption in ability.selectedOptions"
+                          v-if="ability.selectedOptions"
                           class="ml-1 pl-2"
                           style="border-left: solid 3px lightgrey;"
                       >
@@ -636,8 +636,8 @@
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
 
                       <div
-                        v-if="ability.selectedOptions"
                         v-for="selectedOption in ability.selectedOptions"
+                        v-if="ability.selectedOptions"
                         class="ml-1 pl-2"
                         style="border-left: solid 3px lightgrey;"
                       >
@@ -678,7 +678,7 @@
 
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
                       <span class="body-2 red--text" style="flex: 1;">Talents</span>
-                      <div style="flex-wrap: wrap; display: flex;" v-if="characterFaith.points > 0">
+                      <div v-if="characterFaith.points > 0" style="flex-wrap: wrap; display: flex;">
                         <div
                           v-for="pointIndex in characterFaith.points"
                           class="faith-box"
@@ -689,7 +689,7 @@
                       </div>
                     </div>
 
-                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption mb-2">
+                    <div v-for="talent in talents" v-if="talents.length > 0" :key="talent.name" class="caption mb-2">
 
                       <strong>{{ talent.name }}</strong>
                       <em> • Talent</em>
@@ -700,8 +700,8 @@
                       <div v-else v-html="computeFormatedText(talent.description)"></div>
 
                       <div
-                        v-if="talent.selectedOptions"
                         v-for="selectedOption in talent.selectedOptions"
+                        v-if="talent.selectedOptions"
                         class="ml-1 pl-2"
                         style="border-left: solid 3px lightgrey;"
                       >
@@ -741,7 +741,7 @@
                         <span class="body-2 ml-2">Faith Points</span>
                       </div>
                     </div>
-                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" >
+                    <div v-for="talent in talentsForFaith" v-if="talentsForFaith.length > 0" :key="talent.name" >
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
                       <p v-html="computeFormatedText(talent.description)" />
                     </div>
@@ -764,10 +764,10 @@
                       <span v-if="ability.source === 'Mutation'">
                         <v-hover>
                           <v-icon
-                            small
-                            @click="removeMutation(ability.id)"
                             slot-scope="{ hover }"
+                            small
                             :color="`${ hover ? 'error' : '' }`"
+                            @click="removeMutation(ability.id)"
                           >delete</v-icon>
                         </v-hover>
                       </span>
@@ -781,8 +781,8 @@
                       </div>
 
                       <div
-                        v-if="ability.selectedOptions"
                         v-for="selectedOption in ability.selectedOptions"
+                        v-if="ability.selectedOptions"
                         class="ml-1 pl-2"
                         style="border-left: solid 3px lightgrey;"
                       >
@@ -803,8 +803,8 @@
 
             <!-- powers -->
             <v-tab-item
-              class="my-tab-item"
               key="psychic-powers"
+              class="my-tab-item"
               :value="`tab-psychic-powers`"
             >
               <div class="pa-2">
@@ -814,7 +814,7 @@
                   hide-default-footer
                   :items-per-page="-1"
                 >
-                  <template v-slot:item="{ item }">
+                  <template #item="{ item }">
                     <tr>
                       <td class="text-left pa-1 small">
                         {{ item.name }}
@@ -861,18 +861,18 @@
 
             <!-- objectives -->
             <v-tab-item
-              class="my-tab-item"
               key="objectives"
+              class="my-tab-item"
               :value="`tab-objectives`"
             >
               <div class="pa-2">
 
-                <v-chip-group mandatory active-class="red--text" v-model="descriptionSection.selection">
+                <v-chip-group v-model="descriptionSection.selection" mandatory active-class="red--text">
                   <v-chip
-                    label
-                    small
                     v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`,`Notes`]"
                     :key="item.toLowerCase()"
+                    label
+                    small
                     :value="item.toLowerCase()"
                   >
                     {{item}}
@@ -885,7 +885,7 @@
                   <div v-show="['all', 'objectives'].some(i=>i===descriptionSection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Objectives</span>
-                      <v-icon small v-if="false" @click="objectiveEditorOpen">edit</v-icon>
+                      <v-icon v-if="false" small @click="objectiveEditorOpen">edit</v-icon>
                     </div>
                     <div
                       v-for="(objective, index) in objectives"
@@ -897,12 +897,12 @@
                     <div v-if="false">
                       <span class="caption" @click="objectiveEditorOpen">+ Add/edit objectives</span>
                     </div>
-                    <div style="display: flex;" justify="center" align v-if="objectiveEditorShow">
+                    <div v-if="objectiveEditorShow" style="display: flex;" justify="center" align>
                       <v-textarea
+                        v-model="objectiveEditorValue"
                         flat
                         single-lined
                         dense
-                        v-model="objectiveEditorValue"
                       ></v-textarea>
                     </div>
                   </div>
@@ -935,10 +935,10 @@
                       <span v-if="keyword.custom">
                         <v-hover>
                           <v-icon
-                            small
-                            @click="removeCustomKeyword(keyword.name)"
                             slot-scope="{ hover }"
+                            small
                             :color="`${ hover ? 'error' : '' }`"
+                            @click="removeCustomKeyword(keyword.name)"
                           >delete</v-icon>
                         </v-hover>
                       </span>
@@ -968,7 +968,7 @@
                           filled
                           auto-grow
                       ></v-textarea>
-                      <v-btn @click="characterNotesSave" small color="success">Save</v-btn>
+                      <v-btn small color="success" @click="characterNotesSave">Save</v-btn>
                     </div>
                     <div v-else-if="characterNotes" class="caption" v-html="characterNotes">
                     </div>
@@ -1058,7 +1058,11 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import {marked} from 'marked';
 
 export default {
-  name: 'in-app-view',
+  name: 'InAppView',
+  components: {
+    DodDefaultBreadcrumbs,
+    DodCorruptionManager,
+  },
   //layout: '',
   mixins: [
     BackgroundRepositoryMixin,
@@ -1068,16 +1072,7 @@ export default {
     KeywordRepository,
     MutationsMixin,
   ],
-  components: {
-    DodDefaultBreadcrumbs,
-    DodCorruptionManager,
-  },
   props: [],
-  head() {
-    return {
-      title: this.characterName,
-    };
-  },
   async asyncData({ params, $axios }) {
 
     const factionResponse = await $axios.get('/api/factions/');
@@ -1169,6 +1164,11 @@ export default {
       characterArchetype: undefined,
       ascensionPackagesRepository: undefined,
       wargearRepository: undefined,
+    };
+  },
+  head() {
+    return {
+      title: this.characterName,
     };
   },
   computed: {

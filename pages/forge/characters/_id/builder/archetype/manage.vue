@@ -30,8 +30,8 @@
       <div class="mt-2 body-2 text-justify">
 
         <v-alert
-          v-if="item.alerts"
           v-for="(alert, index) in item.alerts"
+          v-if="item.alerts"
           :key="index"
           :type="alert.type"
           class="caption"
@@ -78,7 +78,7 @@
 
         <p>
           <strong>Keywords: </strong>
-          <span style="text-transform: uppercase; color: #F44336;" v-if="item.keywords">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
+          <span v-if="item.keywords" style="text-transform: uppercase; color: #F44336;">{{ item.keywords.split(',').map((i)=>i.trim()).join(', ') }}</span>
           <span v-else>none</span>
         </p>
 
@@ -99,7 +99,7 @@
             dense
             @change="updateKeyword(placeholder, placeholder.selected)"
           >
-            <template v-slot:item="data">
+            <template #item="data">
               <v-list-item-content>
                 <v-list-item-title v-html="data.item.name"></v-list-item-title>
                 <v-list-item-subtitle v-if="data.item.description">{{data.item.description}}</v-list-item-subtitle>
@@ -125,8 +125,8 @@
             <div v-if="feature.description" v-html="feature.description"></div>
             <p v-else>{{ feature.snippet }}</p>
             <v-alert
-              v-if="feature.alerts"
               v-for="(alert, index) in feature.alerts"
+              v-if="feature.alerts"
               :key="index"
               :type="alert.type"
               dense
@@ -140,13 +140,13 @@
           >
             <div v-for="inx in feature.selected.length">
               <v-select
-                :items="feature.options"
                 v-model="feature.selected[inx-1]"
+                :items="feature.options"
                 item-value="name"
                 item-text="name"
-                @change="changeSelectedOption(feature, inx-1)"
                 dense
                 solo
+                @change="changeSelectedOption(feature, inx-1)"
               ></v-select>
               <div
                 v-if="feature.selected[inx-1] && feature.selected[inx-1].length > 0"
@@ -192,8 +192,8 @@
               />
               <v-checkbox
                 v-else
-                class="ml-2 mr-2"
                 v-model="selections.query.name"
+                class="ml-2 mr-2"
                 :label="selections.query.name"
                 :hint="psychicPowerHint(selections.query.name)"
                 persistent-hint
@@ -214,12 +214,12 @@
           You can add your (starting) equipment in the <em>6. Wargear</em> section.
         </v-alert>
 
-        <v-divider class="mb-4" v-if="suggestedSkills"></v-divider>
+        <v-divider v-if="suggestedSkills" class="mb-4"></v-divider>
 
         <div v-if="suggestedSkills">
           <p><strong>Suggested Skills:</strong>
             <span v-for="(skill, index) in suggestedSkills">
-            {{ skill.name }} {{ skill.threshold }}<v-icon x-small color="success" v-if="skill.fulfilled">check_circle</v-icon>{{ index < suggestedSkills.length-1 ? ', ' : '' }}
+            {{ skill.name }} {{ skill.threshold }}<v-icon v-if="skill.fulfilled" x-small color="success">check_circle</v-icon>{{ index < suggestedSkills.length-1 ? ', ' : '' }}
             </span>
           </p>
           <v-btn :disabled="!suggestedSkills.find((s) => s.fulfilled === false)" x-small @click="learnSuggestedSkills">Learn suggested Skills.</v-btn>
@@ -241,7 +241,7 @@ import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import StatRepository from '~/mixins/StatRepositoryMixin';
 
 export default {
-  name: 'archetype-manage',
+  name: 'ArchetypeManage',
   components: { ArchetypePreview },
   mixins: [
     CharacterCreationMixin,

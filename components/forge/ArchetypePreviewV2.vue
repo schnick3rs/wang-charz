@@ -43,8 +43,8 @@
     </p>
 
     <div
-      v-if="item.archetypeFeatures"
       v-for="feature in item.archetypeFeatures"
+      v-if="item.archetypeFeatures"
       class="text-lg-justify"
     >
       <strong>{{ feature.name }}</strong>

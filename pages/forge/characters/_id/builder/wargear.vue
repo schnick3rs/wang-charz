@@ -71,19 +71,19 @@
           <div v-if="characterWargear.filter(g => g.source.startsWith('archetype.advanced')).length <= 0">
 
             <v-alert
-              color="warning"
-              border="left"
-              dense text
               v-if="advancedShoppingChart.length <= 0"
+              color="warning"
+              border="left" dense
+              text
             >
-              {{getAdvancedWargearOptionByTier(this.characterArchetypeTier).wargearString}}
+              {{getAdvancedWargearOptionByTier(characterArchetypeTier).wargearString}}
             </v-alert>
 
             <v-alert
-              color="success"
-              border="left"
-              dense text
               v-if="advancedShoppingChart.length > 0 && advancedWargearViolations.length <= 0"
+              color="success"
+              border="left" dense
+              text
             >
               You spend {{advancedWargearSpend}} / {{advancedWargearRestrictions.total}} points.
             </v-alert>
@@ -109,9 +109,9 @@
                 dense
               >
                 <v-list-item
-                  three-line
                   v-for="(gear, index) in advancedShoppingChart"
                   :key="index"
+                  three-line
                 >
                   <v-list-item-avatar tile>
                     <img :src="getAvatar(gear.type)">
@@ -209,8 +209,8 @@
               small
               dense
               color="green"
-              @click="addWargearToCharacter(startingWargear, 'archetype')"
               dark
+              @click="addWargearToCharacter(startingWargear, 'archetype')"
             >
               Add starting wargear
             </v-btn>
@@ -263,7 +263,6 @@ import WargearMixin from '~/mixins/WargearMixin';
 
 export default {
   name: 'Wargear',
-  layout: 'forge',
   components: {
     WargearSelect,
     WargearSearch,
@@ -273,12 +272,8 @@ export default {
     SluggerMixin,
     WargearMixin,
   ],
+  layout: 'forge',
   props: [],
-  head() {
-    return {
-      title: 'Select Wargear',
-    };
-  },
   asyncData({ params }) {
     return {
       characterId: params.id,
@@ -293,6 +288,11 @@ export default {
       archetype: undefined,
       wargearList: undefined,
       advancedShoppingChart: [],
+    };
+  },
+  head() {
+    return {
+      title: 'Select Wargear',
     };
   },
   computed: {

@@ -39,33 +39,33 @@
           >Advanced Character Creation is described on CORE pg. 38 and allows for more influence on Keywords and Wargear at the cost of a dedicated archetype ability.</v-alert>
 
           <v-select
-            dense outlined
+            v-model="advancedTier" dense
+            outlined
             label="Select the tier, defining your access to wargear"
-            v-model="advancedTier"
             :items="advancedTierOptions"
           />
 
           <v-select
-            dense outlined
+            v-model="advancedFaction" dense
+            outlined
             label="Select a faction or stay unaligned"
-            v-model="advancedFaction"
             :items="allArchetypeFactions"
           ></v-select>
 
           <v-autocomplete
+            v-model="advancedKeywords"
             outlined
             label="Select fitting keywords"
             persistent-hint
             class="mb-4"
             hint="Work with your GM/Group to define keywords"
-            v-model="advancedKeywords"
             :items="keywordCombinedRepository.filter((k) => !k.name.startsWith('['))"
             item-text="name"
             item-value="key"
             multiple
             chips
           >
-            <template v-slot:selection="data">
+            <template #selection="data">
               <v-chip
                 v-bind="data.attrs"
                 :input-value="data.selected"
@@ -76,7 +76,7 @@
                 {{ data.item.name }}
               </v-chip>
             </template>
-            <template v-slot:item="data">
+            <template #item="data">
               <v-list-item-content>
                 <v-list-item-title v-html="data.item.name"></v-list-item-title>
                 <v-list-item-subtitle>{{data.item.type}}</v-list-item-subtitle>
@@ -85,27 +85,27 @@
           </v-autocomplete>
 
           <v-text-field
-            dense outlined
+            v-model="advancedName" dense
+            outlined
             placeholder="Unaligned Rascal"
-            v-model="advancedName"
             label="A short name, describing this 'Archetype'"
           >
           </v-text-field>
 
           <v-autocomplete
+            v-model="advancedArchetype"
             outlined
             label="Select Archetype Ability (optional)"
             persistent-hint
             class="mb-4"
             hint="You may buy (ask your GM) one Archetype Ability for it`s tier x 10 XP"
-            v-model="advancedArchetype"
             :items="itemList"
             item-text="name"
             item-value="key"
             return-object
             clearable
           >
-            <template v-slot:item="data">
+            <template #item="data">
               <v-list-item-content>
                 <v-list-item-title>{{data.item.name}} {{data.item.tier*10}} XP</v-list-item-title>
                 <v-list-item-subtitle>{{data.item.archetypeFeatures.map((f) => f.name).join(' • ')}}</v-list-item-subtitle>

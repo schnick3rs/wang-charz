@@ -58,8 +58,8 @@
             <div v-if="feature.description" v-html="feature.description"></div>
             <p v-else>{{ feature.snippet }}</p>
             <v-alert
-                v-if="feature.alerts"
                 v-for="(alert, index) in feature.alerts"
+                v-if="feature.alerts"
                 :key="index"
                 :type="alert.type"
                 dense
@@ -70,13 +70,13 @@
           <div v-if="feature.options && feature.options.length > 0">
             <div v-for="inx in feature.selected.length">
               <v-select
-                  :items="feature.options"
                   v-model="feature.selected[inx-1]"
+                  :items="feature.options"
                   item-value="name"
                   item-text="name"
-                  @change="setSpeciesFeatureOptionSelection(feature, inx-1)"
                   dense
                   solo
+                  @change="setSpeciesFeatureOptionSelection(feature, inx-1)"
               ></v-select>
               <div
                   v-if="feature.selected[inx-1] && feature.selected[inx-1].length > 0"
@@ -119,7 +119,7 @@
               <em>Some homebrews contain additional chapters. Click on the (+) after the homebrew to enable it's rules for this character:
                 An Abundane of Aphocrypha
                 <v-icon v-if="settingHomebrews.includes('aaoa')" small color="success">check_circle</v-icon>
-                <v-icon v-else @click="enableHomebrew('aaoa')" small color="primary">add_circle</v-icon>
+                <v-icon v-else small color="primary" @click="enableHomebrew('aaoa')">add_circle</v-icon>
                 <!--or
                 Let the Galaxy Burn
                 <v-icon v-if="settingHomebrews.includes('ltgb')" small color="success">check_circle</v-icon>
@@ -170,6 +170,11 @@ export default {
     SluggerMixin,
     StatRepositoryMixin,
   ],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       loading: false,
@@ -234,11 +239,6 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
-  },
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
   },
   methods: {
     async getChapterList(sources) {

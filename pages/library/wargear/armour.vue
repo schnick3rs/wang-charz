@@ -34,7 +34,7 @@
             hide-default-footer
             @page-count="pageCount = $event"
           >
-            <template v-slot:item="{ item }">
+            <template #item="{ item }">
               <tr>
                 <td>{{ item.name }}</td>
                 <td>{{ item.subtype }}</td>
@@ -70,19 +70,13 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 
 export default {
   components: { DodDefaultBreadcrumbs },
-  head() {
+  layout: 'library',
+  async asyncData({ app }) {
+    const response = await app.$axios.get('/api/wargear/');
     return {
-      title: 'Armour - Wrath & Glory Wargear Reference | Library',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: '',
-        },
-      ],
+      wargearRepository: response.data,
     };
   },
-  layout: 'library',
   data() {
     return {
       searchQuery: '',
@@ -112,6 +106,18 @@ export default {
         },
       ],
       expand: false,
+    };
+  },
+  head() {
+    return {
+      title: 'Armour - Wrath & Glory Wargear Reference | Library',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: '',
+        },
+      ],
     };
   },
   computed: {
@@ -148,12 +154,6 @@ export default {
 
       return filteredResults;
     },
-  },
-  async asyncData({ app }) {
-    const response = await app.$axios.get('/api/wargear/');
-    return {
-      wargearRepository: response.data,
-    };
   },
   methods: {
     toTraitString(item) {

@@ -86,7 +86,7 @@
             hide-default-footer
             @page-count="pagination.pageCount = $event"
           >
-            <template v-slot:item.species="{ item }">
+            <template #item.species="{ item }">
               <span v-for="species in item.species">
                 {{ species.name }}
                 <v-chip
@@ -100,7 +100,7 @@
               </span>
             </template>
 
-            <template v-slot:item.source.book="{ item }">
+            <template #item.source.book="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.source.book }}
@@ -117,13 +117,13 @@
             </template>
 
             <!-- Detail Page link -->
-            <template v-slot:item.actions="{ item }">
+            <template #item.actions="{ item }">
               <v-btn v-if="item.key && (item.stub === undefined || !item.stub)" small icon nuxt :to="`/library/archetypes/${camelToKebab(item.key)}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
 
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <archetype-preview
                   :item="item"
@@ -157,24 +157,33 @@ export default {
     BreadcrumbSchemaMixin,
     SluggerMixin,
   ],
-  head() {
-    const title = 'Archetypes - Wrath & Glory Reference | Library';
-    const description = 'Oh there are way to many archetypes written by fans. Filter a little and then pick the one you want.'
-      + ' Check the linked homebrews for details.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+  async asyncData({ $axios, query, error }) {
+    const archetypeResponse = await $axios.get('/api/archetypes/');
+    const items = archetypeResponse.data;
+
+    if (items === undefined || items.length <= 0) {
+      error({ statusCode: 404, message: 'No Archetypes found!' });
+    }
+
+    // TODO
+    const factionGroupSelections = [];
+    if (query['filter-group']) {
+      factionGroupSelections.push(query['filter-group']);
+    }
+
+    const filtersSourceModel = [];
+    if (query['filter-source']) {
+      filtersSourceModel.push(query['filter-source']);
+    }
 
     return {
-      title,
-      meta: [
-        { hid: 'description', name: 'description', content: description },
-        { hid: 'og:title', name: 'og:title', content: title },
-        { hid: 'og:description', name: 'og:description', content: description },
-        { hid: 'og:image', name: 'og:image', content: image },
-      ],
-      __dangerouslyDisableSanitizers: ['script'],
-      script: [
-        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-      ],
+      items,
+      filters: {
+        settingTier: { model: 6, label: 'Filter by Archetype-Group' },
+        species: { model: [], label: 'Filter by Species' },
+        faction: { model: factionGroupSelections, label: 'Filter by Faction' },
+        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
+      },
     };
   },
   data() {
@@ -222,6 +231,26 @@ export default {
         },
       ],
       expand: false,
+    };
+  },
+  head() {
+    const title = 'Archetypes - Wrath & Glory Reference | Library';
+    const description = 'Oh there are way to many archetypes written by fans. Filter a little and then pick the one you want.'
+      + ' Check the linked homebrews for details.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
+    return {
+      title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
+      ],
     };
   },
   computed: {
@@ -291,35 +320,6 @@ export default {
       const distinct = [...new Set(reduce)];
       return distinct.filter((d) => d !== null && d !== undefined).sort();
     },
-  },
-  async asyncData({ $axios, query, error }) {
-    const archetypeResponse = await $axios.get('/api/archetypes/');
-    const items = archetypeResponse.data;
-
-    if (items === undefined || items.length <= 0) {
-      error({ statusCode: 404, message: 'No Archetypes found!' });
-    }
-
-    // TODO
-    const factionGroupSelections = [];
-    if (query['filter-group']) {
-      factionGroupSelections.push(query['filter-group']);
-    }
-
-    const filtersSourceModel = [];
-    if (query['filter-source']) {
-      filtersSourceModel.push(query['filter-source']);
-    }
-
-    return {
-      items,
-      filters: {
-        settingTier: { model: 6, label: 'Filter by Archetype-Group' },
-        species: { model: [], label: 'Filter by Species' },
-        faction: { model: factionGroupSelections, label: 'Filter by Faction' },
-        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
-      },
-    };
   },
   methods: {
   },

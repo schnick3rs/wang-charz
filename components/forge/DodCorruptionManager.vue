@@ -40,7 +40,7 @@
           {{ showCorruptionModifiers ? 'Hide' : 'Show' }} details
         </v-btn>
       </span>
-      <div class="mt-1" v-show="showCorruptionModifiers">
+      <div v-show="showCorruptionModifiers" class="mt-1">
         <ul>
           <li v-for="item in modifiers">
             <strong>{{item.modifier}}</strong>, <em>{{item.hint ? item.hint : item.source}}</em>
@@ -76,8 +76,8 @@
             label="Source"
             persistent-hint
             hint="A hint how you got this corruption"
-            @click:append-outer="addCorruption"
             append-outer-icon="add"
+            @click:append-outer="addCorruption"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -86,23 +86,23 @@
       <p><strong>Roll</strong> (somewhat random) or <strong>select</strong> a new mutations if it´s appropriate, aka the Corruption is <em>to damn high</em> (see core, pg. 287).</p>
 
       <v-autocomplete
+        v-model="rolledMutation"
         outlined
         label="Search Mutation"
         persistent-hint
         class="mb-4"
         :hint="`D3 = ${rolledD3} -> D66 + ${mutationCount*10} = ${rolledD66}`"
-        v-model="rolledMutation"
         :items="mutationsRepository"
         item-text="name"
         item-value="key"
         return-object
         clearable
         prepend-icon="casino"
-        @click:prepend="rollRandomMutation"
         append-outer-icon="add"
+        @click:prepend="rollRandomMutation"
         @click:append-outer="addMutation(rolledMutation, rolledMutation.selected)"
       >
-        <template v-slot:item="data">
+        <template #item="data">
           <v-list-item-content>
             <v-list-item-title v-html="data.item.name"></v-list-item-title>
             <v-list-item-subtitle>{{data.item.snippet}}</v-list-item-subtitle>
@@ -136,7 +136,7 @@
 
     <v-card-actions>
       <v-spacer />
-      <v-btn @click="$emit('cancel')" color="success">Close</v-btn>
+      <v-btn color="success" @click="$emit('cancel')">Close</v-btn>
     </v-card-actions>
 
   </v-card>
@@ -170,9 +170,6 @@ export default {
       showCorruptionModifiers: false,
     };
   },
-  mounted() {
-
-  },
   computed: {
     corruptionLevel() {
       const corruptionValue = this.corruption;
@@ -187,6 +184,9 @@ export default {
     corruptionLevelProgress() {
       return this.corruptionLevel.level * 20;
     },
+  },
+  mounted() {
+
   },
   methods: {
     addCorruption(){

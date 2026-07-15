@@ -36,6 +36,32 @@ export default {
     BreadcrumbSchemaMixin,
     SluggerMixin,
   ],
+  async asyncData({ params, $axios, error }) {
+    const { slug } = params;
+
+    const response = await $axios.get(`/api/threats/${slug}`);
+    const item = response.data;
+
+    if (item === undefined || item.length <= 0) {
+      error({ statusCode: 404, message: 'Threat not found' });
+    }
+
+    return {
+      item,
+      slug,
+      breadcrumbItems: [
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Bestiary', nuxt: true, exact: true, to: '/bestiary',
+        },
+        {
+          text: item.name, disabled: true, nuxt: true, to: `/bestiary/${slug}`,
+        },
+      ],
+    };
+  },
   head() {
     const title = `${this.item.name} - ${this.item.faction} Threat`;
     const description = this.item.description
@@ -77,32 +103,6 @@ export default {
     };
   },
   computed: {
-  },
-  async asyncData({ params, $axios, error }) {
-    const { slug } = params;
-
-    const response = await $axios.get(`/api/threats/${slug}`);
-    const item = response.data;
-
-    if (item === undefined || item.length <= 0) {
-      error({ statusCode: 404, message: 'Threat not found' });
-    }
-
-    return {
-      item,
-      slug,
-      breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Bestiary', nuxt: true, exact: true, to: '/bestiary',
-        },
-        {
-          text: item.name, disabled: true, nuxt: true, to: `/bestiary/${slug}`,
-        },
-      ],
-    };
   },
 };
 </script>

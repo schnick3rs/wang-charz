@@ -100,7 +100,7 @@
                   hide-footer
                   hide-actions
                 >
-                  <template v-slot:items="props">
+                  <template #items="props">
                     <tr>
                       <td class="text-left pa-1 small">
                         {{ item.name }}
@@ -119,7 +119,7 @@
                   hide-footer
                   hide-actions
                 >
-                  <template v-slot:items="props">
+                  <template #items="props">
                     <tr>
                       <td class="text-left pa-1 small">
                         {{ item.name }}
@@ -138,7 +138,7 @@
                   hide-footer
                   hide-actions
                 >
-                  <template v-slot:items="props">
+                  <template #items="props">
                     <tr>
                       <td class="text-left pa-1 small">
                         {{ item.name }}
@@ -211,7 +211,7 @@
                 </v-card>
               </v-col>
 
-              <v-col :cols="12" class="pa-1" v-show="false">
+              <v-col v-show="false" :cols="12" class="pa-1">
                 <v-card >
                   <v-card-text class="pa-1 pl-2 pr-2">
                     <p class="caption mb-1">
@@ -285,11 +285,11 @@
                 hide-default-footer
                 dense
               >
-                <template v-slot:item="{ item }">
+                <template #item="{ item }">
 
                   <tr
-                      v-if="item.meta"
                       v-for="(meta, metaIndex) in item.meta.filter(m => m.type.indexOf('-weapon') > 0)"
+                      v-if="item.meta"
                       :key="`${item.name}-${metaIndex}`"
                   >
 
@@ -379,7 +379,7 @@
                     hide-default-footer
                     :items-per-page="-1"
                   >
-                    <template v-slot:item="{ item }">
+                    <template #item="{ item }">
                       <tr>
                         <td class="text-left pa-1 small">
                           {{ item.name }}
@@ -432,8 +432,8 @@
                       </div>
 
                       <div
-                          v-if="ability.selectedOptions"
                           v-for="selectedOption in ability.selectedOptions"
+                          v-if="ability.selectedOptions"
                           class="ml-1 pl-2 mt-1"
                           style="border-left: solid 3px lightgrey;"
                       >
@@ -462,8 +462,8 @@
                         <div v-if="talent.snippet"><p class="mb-1" v-html="computeFormatedText(talent.snippet)"></p></div>
                         <div v-else v-html="computeFormatedText(talent.description)"></div>
                         <div
-                          v-if="talent.selectedOptions"
                           v-for="selectedOption in talent.selectedOptions"
+                          v-if="talent.selectedOptions"
                           class="ml-1 pl-2"
                           style="border-left: solid 3px lightgrey;"
                         >
@@ -498,11 +498,11 @@
                         v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
                       >
                           <p
-                            class="ml-1 pl-2 mb-1"
-                            style="border-left: solid 3px lightgrey;"
                             v-for="trait in gearItem.meta[0].traits"
                             v-if="traitByName(trait, true)"
                             :key="trait"
+                            class="ml-1 pl-2 mb-1"
+                            style="border-left: solid 3px lightgrey;"
                           >
                             <strong>{{ trait }}: </strong>
                             {{ traitByName(trait, true).crunch }}
@@ -534,7 +534,6 @@ import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 
 export default {
   name: 'Print',
-  layout: 'print',
   components: {},
   mixins: [
     BackgroundRepositoryMixin,
@@ -543,12 +542,8 @@ export default {
     KeywordRepository,
     WargearTraitRepositoryMixin,
   ],
+  layout: 'print',
   props: [],
-  head() {
-    return {
-      title: this.characterName,
-    };
-  },
   async asyncData({ params, $axios }) {
 
     const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
@@ -606,6 +601,11 @@ export default {
       characterArchetype: undefined,
       ascensionPackagesRepository: undefined,
       wargearRepository: undefined,
+    };
+  },
+  head() {
+    return {
+      title: this.characterName,
     };
   },
   computed: {

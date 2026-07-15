@@ -50,7 +50,7 @@
             hide-default-footer
             @page-count="pagination.pageCount = $event"
           >
-            <template v-slot:item.source.book="{ item }">
+            <template #item.source.book="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.source.book }}
@@ -66,7 +66,7 @@
               </v-row>
             </template>
 
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <archetype-preview
                   :item="item"
@@ -96,20 +96,29 @@ export default {
     DodDefaultBreadcrumbs,
   },
   mixins: [],
-  head() {
-    const title = 'Ascension Packages - Wrath & Glory Reference | Library';
-    const description = 'Tired of staying the course and wizzarding around? Search the Library for Ascension Packages. '
-      + 'Check out the respective linked Homebrews for detailed informations.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+  async asyncData({ $axios, query, params, error }) {
+    const response = await $axios.get('/api/ascension-packages/');
+    const items = response.data;
+
+    if (items === undefined || items.length <= 0) {
+      error({ statusCode: 404, message: 'No Ascension Packages found!' });
+    }
+
+    const groupFilterSelections = [];
+    if (query['filter-group']) {
+      // factionFilterSelections.push(query['filter-faction']);
+    }
+
+    const filtersSourceModel = [];
+    if (query['filter-source']) {
+      filtersSourceModel.push(query['filter-source']);
+    }
 
     return {
-      title,
-      meta: [
-        { hid: 'description', name: 'description', content: description },
-        { hid: 'og:title', name: 'og:title', content: title },
-        { hid: 'og:description', name: 'og:description', content: description },
-        { hid: 'og:image', name: 'og:image', content: image },
-      ],
+      items,
+      filters: {
+        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
+      },
     };
   },
   data() {
@@ -145,6 +154,22 @@ export default {
         },
       ],
       expand: false,
+    };
+  },
+  head() {
+    const title = 'Ascension Packages - Wrath & Glory Reference | Library';
+    const description = 'Tired of staying the course and wizzarding around? Search the Library for Ascension Packages. '
+      + 'Check out the respective linked Homebrews for detailed informations.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
+    return {
+      title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+      ],
     };
   },
   computed: {
@@ -193,31 +218,6 @@ export default {
       const distinct = [...new Set(reduce)];
       return distinct.filter((d) => d !== null).sort();
     },
-  },
-  async asyncData({ $axios, query, params, error }) {
-    const response = await $axios.get('/api/ascension-packages/');
-    const items = response.data;
-
-    if (items === undefined || items.length <= 0) {
-      error({ statusCode: 404, message: 'No Ascension Packages found!' });
-    }
-
-    const groupFilterSelections = [];
-    if (query['filter-group']) {
-      // factionFilterSelections.push(query['filter-faction']);
-    }
-
-    const filtersSourceModel = [];
-    if (query['filter-source']) {
-      filtersSourceModel.push(query['filter-source']);
-    }
-
-    return {
-      items,
-      filters: {
-        source: { model: filtersSourceModel, label: 'Filter by Homebrew' },
-      },
-    };
   },
   methods: {
   },

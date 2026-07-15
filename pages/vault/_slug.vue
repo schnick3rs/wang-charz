@@ -129,6 +129,28 @@ export default {
   mixins: [
     SluggerMixin,
   ],
+  validate({}) {
+    return true;
+  },
+  async asyncData({ params, $axios, error }) {
+    const { slug } = params;
+
+    try {
+      // fetch all blog posts sorted by creation date
+      const { data } = await $axios.get(`/api/homebrews/${slug}`);
+      const item = data[0].fields;
+
+      return {
+        item,
+        slug,
+      };
+    } catch(err) {
+      error({ statusCode: 404, message: 'Post not found' });
+    }
+  },
+  data() {
+    return {};
+  },
   head() {
     const item = this.item;
     const itemSchema = {
@@ -185,28 +207,6 @@ export default {
         { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
       ],
     };
-  },
-  validate({}) {
-    return true;
-  },
-  async asyncData({ params, $axios, error }) {
-    const { slug } = params;
-
-    try {
-      // fetch all blog posts sorted by creation date
-      const { data } = await $axios.get(`/api/homebrews/${slug}`);
-      const item = data[0].fields;
-
-      return {
-        item,
-        slug,
-      };
-    } catch(err) {
-      error({ statusCode: 404, message: 'Post not found' });
-    }
-  },
-  data() {
-    return {};
   },
   computed: {
     breadcrumbItems() {

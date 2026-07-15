@@ -30,6 +30,35 @@ export default {
   mixins: [
     BreadcrumbSchemaMixin,
   ],
+  async asyncData({ params, $axios, error }) {
+    const { slug } = params;
+
+    const response = await $axios.get(`/api/archetypes/${slug}`);
+    const item = response.data;
+
+    if (item === undefined || item.length <= 0) {
+      error({ statusCode: 404, message: 'Archetype not found' });
+    }
+
+    return {
+      item,
+      slug,
+      breadcrumbItems: [
+        {
+          text: '', nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Library', nuxt: true, exact: true, to: '/library',
+        },
+        {
+          text: 'Archetypes', nuxt: true, exact: true, to: '/library/archetypes',
+        },
+        {
+          text: item.name, disabled: true, nuxt: true, to: `/library/archetypes/${slug}`,
+        },
+      ],
+    };
+  },
   head() {
     const title = `${this.item.name} - Archetypes`;
     let isOfficial = ['core','fspg','red1','cos'].includes(this.item.source.key);
@@ -57,35 +86,6 @@ export default {
       __dangerouslyDisableSanitizers: ['script'],
       script: [
         { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-      ],
-    };
-  },
-  async asyncData({ params, $axios, error }) {
-    const { slug } = params;
-
-    const response = await $axios.get(`/api/archetypes/${slug}`);
-    const item = response.data;
-
-    if (item === undefined || item.length <= 0) {
-      error({ statusCode: 404, message: 'Archetype not found' });
-    }
-
-    return {
-      item,
-      slug,
-      breadcrumbItems: [
-        {
-          text: '', nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Library', nuxt: true, exact: true, to: '/library',
-        },
-        {
-          text: 'Archetypes', nuxt: true, exact: true, to: '/library/archetypes',
-        },
-        {
-          text: item.name, disabled: true, nuxt: true, to: `/library/archetypes/${slug}`,
-        },
       ],
     };
   },

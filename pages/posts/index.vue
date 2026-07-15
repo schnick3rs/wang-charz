@@ -88,18 +88,42 @@ import ColorfulPage from '~/components/shared/ColorfulPage';
 const fixedTime = new Date();
 
 export default {
-  name: 'posts',
+  name: 'Posts',
   components: {
     ColorfulPage,
     DodDefaultBreadcrumbs,
   },
+  filters: {
+    timeSince(value) {
+      const date = new Date(value);
+      const seconds = Math.floor((fixedTime - date) / 1000);
+
+      let interval = Math.floor(seconds / 31536000);
+
+      interval = Math.floor(seconds / 86400);
+
+      if (interval > 7) {
+        let options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString("en-US", options);
+      }
+
+      if (interval > 1) {
+        return interval + " days ago";
+      }
+      interval = Math.floor(seconds / 3600);
+      if (interval > 1) {
+        return interval + " hours ago";
+      }
+      interval = Math.floor(seconds / 60);
+      if (interval > 1) {
+        return interval + " minutes ago";
+      }
+      return Math.floor(seconds) + " seconds ago";
+    },
+  },
   mixins: [
     BreadcrumbSchemaMixin,
   ],
-  async fetch() {
-    const { data } = await this.$axios.get('/api/posts');
-    this.posts = data;
-  },
   /*async asyncData({ app }) {
 
     const { data } = await app.$axios.get('/api/posts');
@@ -125,6 +149,10 @@ export default {
       },
       hintBoxItem: { title: '', description: '', type: '' },
     };
+  },
+  async fetch() {
+    const { data } = await this.$axios.get('/api/posts');
+    this.posts = data;
   },
   head() {
     const { title, description } = this.page;
@@ -161,34 +189,6 @@ export default {
           text: 'Posts', disabled: false, nuxt: true, exact: true, to: '/posts',
         },
       ];
-    },
-  },
-  filters: {
-    timeSince(value) {
-      const date = new Date(value);
-      const seconds = Math.floor((fixedTime - date) / 1000);
-
-      let interval = Math.floor(seconds / 31536000);
-
-      interval = Math.floor(seconds / 86400);
-
-      if (interval > 7) {
-        let options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return date.toLocaleDateString("en-US", options);
-      }
-
-      if (interval > 1) {
-        return interval + " days ago";
-      }
-      interval = Math.floor(seconds / 3600);
-      if (interval > 1) {
-        return interval + " hours ago";
-      }
-      interval = Math.floor(seconds / 60);
-      if (interval > 1) {
-        return interval + " minutes ago";
-      }
-      return Math.floor(seconds) + " seconds ago";
     },
   },
 };

@@ -12,7 +12,7 @@
     <v-card-text>
       <h3 class="mt-4">A history of {{ trait.name }}</h3>
       <p>Shows the modifiers and thus history of your changes.</p>
-      <div class="mt-1" v-show="modifiers && modifiers.length > 0">
+      <div v-show="modifiers && modifiers.length > 0" class="mt-1">
         <ul>
           <li v-for="item in modifiers">
             <strong>{{item.modifier}}</strong>,
@@ -49,8 +49,8 @@
               label="Source"
               persistent-hint
               hint="A hint how you got this modifier"
-              @click:append-outer="addWealth"
               append-outer-icon="mdi-plus-circle"
+              @click:append-outer="addWealth"
           ></v-text-field>
         </v-col>
       </v-row>
@@ -61,7 +61,7 @@
 
     <v-card-actions>
       <v-spacer />
-      <v-btn @click="$emit('cancel')" color="success">Close</v-btn>
+      <v-btn color="success" @click="$emit('cancel')">Close</v-btn>
     </v-card-actions>
   </v-card>
 </template>

@@ -33,18 +33,18 @@
         <!--  -->
         <v-row>
           <v-col
-            :cols="1"
             v-for="(value, key) in item.attributes"
             :key="key"
+            :cols="1"
           >
             <span>{{ getAttributeByKey(key).short }}</span>
           </v-col>
         </v-row>
         <v-row>
           <v-col
-            :cols="1"
             v-for="(value, key) in item.attributes"
             :key="key"
+            :cols="1"
           >
             <span>{{ value }}</span>
           </v-col>
@@ -76,8 +76,8 @@
         </v-row>
         <v-row v-if="item.specialAbilities">
           <v-col
-            :cols="12" class="zebra"
             v-for="ability in item.specialAbilities" :key="ability.name"
+            :cols="12" class="zebra"
           >
             <p class="body-2 mb-2">
               <strong>{{ ability.name }}:</strong> {{ ability.effect }}

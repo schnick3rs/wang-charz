@@ -28,15 +28,15 @@
 
       <p><v-divider /></p>
 
-      <p class="text-lg-justify" v-if="attributePrerequisites">
+      <p v-if="attributePrerequisites" class="text-lg-justify">
         <strong>Attributes:</strong> {{ attributePrerequisites }}
       </p>
 
-      <p class="text-lg-justify" v-if="skillPrerequisites">
+      <p v-if="skillPrerequisites" class="text-lg-justify">
         <strong>Skills:</strong> {{ skillPrerequisites }}
       </p>
 
-      <p class="text-lg-justify" v-if="item.prerequisiteText">
+      <p v-if="item.prerequisiteText" class="text-lg-justify">
         <strong>Others:</strong> {{ item.prerequisiteText }}
       </p>
 
@@ -75,7 +75,7 @@
         </blockquote>
       </div>
 
-      <p class="text-lg-justify" v-if="item.influence && item.influence != 0">
+      <p v-if="item.influence && item.influence != 0" class="text-lg-justify">
         <strong>Influence Bonus: </strong>
         {{ `${item.influence > 0 ? '+' : ''}${item.influence}` }}
       </p>
