@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "Node",
+    "lib": ["ES2022"],
+    "esModuleInterop": true,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": false,
+    "outDir": "dist",
+    "rootDir": ".",
+    "baseUrl": ".",
+    "types": ["@types/node", "@types/express"]
+  },
+  "include": ["server/**/*.ts", "api/**/*.ts", "api/**/*.js"],
+  "exclude": ["node_modules", ".nuxt", "dist"]
+}
