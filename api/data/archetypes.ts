@@ -11,15 +11,16 @@ import {
 } from "./archetypes/utils";
 import {Archetype, ArchetypeRepositorySchema} from "../shared/schemas/archetype";
 
-import {afas} from "../data/archetypes/books/afflictionAscendant";
-import {fspg} from "../data/archetypes/books/forsakenSystemPlayersGuide";
-import {core} from "../data/archetypes/books/core";
-import {voab} from "../data/archetypes/books/voab";
-import {red2} from "../data/archetypes/books/redactedRecordsTwo";
-import {aioe} from "../data/archetypes/books/inheritanceOfEmbers";
-import {tnh} from "../data/archetypes/books/theNullHypothesis";
-import {dod} from "../data/archetypes/books/doctorsOfDoom";
-import {aaoaRep} from "../data/archetypes/books/apocrypha";
+import {afas} from "./archetypes/books/afflictionAscendant";
+import {fspg} from "./archetypes/books/forsakenSystemPlayersGuide";
+import {core} from "./archetypes/books/core";
+import {voab} from "./archetypes/books/voab";
+import {red2} from "./archetypes/books/redactedRecordsTwo";
+import {aioe} from "./archetypes/books/inheritanceOfEmbers";
+import {tnh} from "./archetypes/books/theNullHypothesis";
+import {dod} from "./archetypes/books/doctorsOfDoom";
+import {aaoaRep} from "./archetypes/books/apocrypha";
+import {sonr} from "./archetypes/books/sonsOfRuss";
 
 const aotgtRep = [
     archetype('aotgt', '', 'Agents of the Imperium', 'Callidus Assassin', 4, 'Human', true),
@@ -2058,6 +2059,7 @@ export const rawArchetypeRepository = [
     ...core,
     ...fspg,
     ...voab,
+    ...sonr,
     ...red2,
     ...aioe,
     ...afas,
