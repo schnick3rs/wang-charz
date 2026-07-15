@@ -4,7 +4,7 @@ import {ATTRIBUTES, SKILLS} from "../../../db/static/_statUtils";
 
 export const dod = [
     {
-        ...archetype('dod', '','Scum','Scum Psyker',2,'Human'),
+        ...archetype('dod', null,'Scum','Scum Psyker',2,'Human'),
         ...costz(20,[
             reqAttribute(ATTRIBUTES.WILLPOWER, 4),
             reqSkill(SKILLS.PSYCHIC_MASTERY, 1),
@@ -49,7 +49,7 @@ export const dod = [
         description: null,
     },
     {
-        ...archetype('dod', '','Adeptus Astartes','Aspiring Assault Marine',3,'Adeptus Astartes'),
+        ...archetype('dod', null,'Adeptus Astartes','Aspiring Assault Marine',3,'Adeptus Astartes'),
         ...costz(257,[
             reqAttribute(ATTRIBUTES.STRENGTH, 4), // 18
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
@@ -89,7 +89,7 @@ export const dod = [
         influence: 2,
     },
     {
-        ...archetype('dod', '','Adeptus Astartes','Aspiring Techmarine',3,'Adeptus Astartes'),
+        ...archetype('dod', null,'Adeptus Astartes','Aspiring Techmarine',3,'Adeptus Astartes'),
         ...costz(277,[
             reqAttribute(ATTRIBUTES.STRENGTH, 4), // 18
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20

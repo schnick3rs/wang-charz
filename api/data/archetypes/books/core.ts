@@ -1,7 +1,6 @@
 import {ATTRIBUTES, SKILLS, TRAITS} from "../../../db/static/_statUtils";
 import {archetype, cost, costz, reqAttribute, reqSkill, suggestedAttributes, wargearz} from "../utils";
 
-
 export const core = [
     {
         ...archetype('core',92,'Adeptus Ministorum','Ministorum Priest',1,'Human'),

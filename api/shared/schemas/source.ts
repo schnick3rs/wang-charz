@@ -17,6 +17,6 @@ export const LegacySourceSchema = z.object({
 export type LegacySource = z.infer<typeof LegacySourceSchema>;
 
 export const PagedLegacySourceSchema = LegacySourceSchema.extend({
-    page: z.number(),
+    page: z.union([z.number(), z.string()]).nullable().optional(),
 });
 export type PagedLegacySource = z.infer<typeof PagedLegacySourceSchema>;

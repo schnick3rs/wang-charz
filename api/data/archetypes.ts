@@ -29,7 +29,7 @@ const aotgtRep = [
 ];
 
 const ltgbRep = [
-    archetype('ltgb', '9', 'Renegades', 'Apostate', 1, 'Human', true),
+    archetype('ltgb', 9, 'Renegades', 'Apostate', 1, 'Human', true),
     archetype('ltgb', 10, 'Renegades', 'Cultist', 1, 'Human', true),
     archetype('ltgb', 11, 'Renegades', 'Renegade', 1, 'Human', true),
     archetype('ltgb', 11, 'Renegades', 'Heretek', 2, 'Human', true),
@@ -2055,9 +2055,9 @@ const goheRep = [
 
 
 export const rawArchetypeRepository = [
-    ...core,/*
-    ...voab,
+    ...core,
     ...fspg,
+    ...voab,
     ...red2,
     ...aioe,
     ...afas,
@@ -2075,9 +2075,12 @@ export const rawArchetypeRepository = [
     ...sotahRep,
     ...thaotRep,
     ...ambRep,
-    ...goheRep,*/
+    ...goheRep,
 ];
 
 export const archetypeRepository: Archetype[] = ArchetypeRepositorySchema.parse(rawArchetypeRepository);
 
 export default archetypeRepository;
+
+module.exports = archetypeRepository;
+module.exports.default = archetypeRepository;

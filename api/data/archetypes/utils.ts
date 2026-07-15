@@ -45,7 +45,7 @@ export const cost = function (total = 0, archetypeCost = 0, statsCost = 0, speci
  */
 export function archetype(
     bookKey: string,
-    sourcePage: string | number,
+    sourcePage: string | number | null,
     faction: string,
     name: string,
     tier: number,
@@ -78,7 +78,7 @@ export function archetype(
     return {
         source: {
             ...getLegacySource(bookKey),
-            page: sourcePage,
+            page: sourcePage || null,
         },
         key: `${stringToKebab(`${bookKey} ${name}`)}`,
             name,
