@@ -465,6 +465,16 @@ export default {
         },
         {
           show: true,
+          disabled: true,
+          optional: true, // always active
+          key: 'sonr',
+          name: 'Sons of Russ [WIP]',
+          hint: 'Add new wolf options for the Astartes from Fenris.',
+          nuxt: 'https://www.drivethrurpg.com/en/product/532635/warhammer-40-000-wrath-glory-sons-of-russ?affiliate_id=466959',
+          source: '',
+        },
+        {
+          show: true,
           disabled: true, // do not allow for now, but tease
           optional: true,
           key: 'aioe',
