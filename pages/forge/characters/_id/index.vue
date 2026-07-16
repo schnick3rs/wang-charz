@@ -869,7 +869,7 @@
 
                 <v-chip-group v-model="descriptionSection.selection" mandatory active-class="red--text">
                   <v-chip
-                    v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`,`Notes`]"
+                    v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`,'Appearance', `Notes`]"
                     :key="item.toLowerCase()"
                     label
                     small
@@ -952,7 +952,22 @@
                   </div>
 
 
-                  <!-- objectives < description -->
+                  <!-- notes < appearance -->
+                  <div v-show="['all', 'appearance'].some(i=>i===descriptionSection.selection)">
+                    <div class="mb-2" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Appearance</span>
+                    </div>
+                    <div>
+                      <div v-for="(entry, index) in Object.entries(appearance)" :key="index">
+                        <strong>{{entry[0]}}:</strong> {{entry[1]}}
+                      </div>
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                      <v-btn x-small text @click="generateAppearance()">Gnerate Rancom Apperance <v-icon small>settings</v-icon></v-btn>
+                    </div>
+                  </div>
+
+                  <!-- notes < description -->
                   <div v-show="['all', 'notes'].some(i=>i===descriptionSection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">
@@ -1164,6 +1179,14 @@ export default {
       characterArchetype: undefined,
       ascensionPackagesRepository: undefined,
       wargearRepository: undefined,
+      // appearance
+      appearance: {
+        age: undefined,
+        eyes: [],
+        hair: undefined,
+        height: undefined,
+        features: [],
+      }
     };
   },
   head() {
@@ -2519,6 +2542,304 @@ export default {
     removeCustomSkill(key) {
       const id = this.characterId;
       this.$store.commit('characters/removeCharacterCustomSkill', { id, key });
+    },
+    generateAppearance() {
+      function randomAge(speciesKey, campaignTier) {
+        // Helper: roll N six-sided dice and sum them
+        function rollDice(count, sides = 6) {
+          let total = 0;
+          for (let i = 0; i < count; i++) {
+            total += Math.floor(Math.random() * sides) + 1;
+          }
+          return total;
+        }
+
+        const species = speciesKey.toLowerCase();
+        let baseAge;
+        let finalAge;
+
+        switch (species) {
+          case 'core-human':
+            // 4d6 + 14, then multiply by Tier
+            baseAge = rollDice(4) + 14;
+            finalAge = baseAge * campaignTier;
+            break;
+
+          case 'core-adeptus-astartes':
+          case 'core-primaris-astartes':
+            // 4d6 x 5, then multiply by Tier
+            baseAge = rollDice(4) * 5;
+            finalAge = baseAge * campaignTier;
+            break;
+
+          case 'core-aeldari':
+            // 3d6 x 50, then add 3d6 centuries (x100 years) per Tier
+            baseAge = rollDice(3) * 50;
+            finalAge = baseAge + (rollDice(3) * 100) * campaignTier;
+            break;
+
+          case 'core-ork':
+            // 1d6 x 1d6, then add 1d6 years per Tier
+            baseAge = rollDice(1) * rollDice(1);
+            finalAge = baseAge + rollDice(1) * campaignTier;
+            break;
+
+          default:
+            return `Unknown species: ${speciesKey}`;
+        }
+
+        console.info('random age generated', finalAge)
+
+        return finalAge;
+      }
+      this.appearance.age = randomAge(this.speciesKey, this.characterSettingTier);
+
+
+      function randomEyeColour() {
+        // Helper: roll N six-sided dice and sum them
+        function rollDice(count, sides = 6) {
+          let total = 0;
+          for (let i = 0; i < count; i++) {
+            total += Math.floor(Math.random() * sides) + 1;
+          }
+          return total;
+        }
+
+        const eyeColours = {
+          2: 'Black',
+          3: 'Dark Brown',
+          4: 'Speckled Brown',
+          5: 'Pale Blue',
+          6: 'Murky Blue',
+          7: 'Icy Blue',
+          8: 'Grey',
+          9: 'Sickly Green',
+          10: 'Dull Amber',
+          11: 'Purple'
+        };
+
+        const roll = rollDice(2);
+
+        if (roll === 12) {
+          // Mismatched - roll twice on the table (excluding another 12)
+          const firstEye = randomEyeColour();
+          const secondEye = randomEyeColour();
+          return `Mismatched (${firstEye} / ${secondEye})`;
+        }
+
+        return eyeColours[roll];
+      }
+      this.appearance.eyes = randomEyeColour()
+
+      function randomHairColour(speciesKey) {
+        // Helper: roll a single six-sided die
+        function rollD6() {
+          return Math.floor(Math.random() * 6) + 1;
+        }
+
+        // Helper: roll d66 (roll two d6, first die = tens, second die = units)
+        function rollD66() {
+          const tens = rollD6();
+          const units = rollD6();
+          return tens * 10 + units;
+        }
+
+        const hairTable = {
+          'core-human': [
+            { min: 11, max: 16, value: 'Mud Brown' },
+            { min: 21, max: 26, value: 'Sandy Brown' },
+            { min: 31, max: 36, value: 'Black' },
+            { min: 41, max: 43, value: 'Dirty Blonde' },
+            { min: 44, max: 46, value: 'Ashy Blonde' },
+            { min: 51, max: 53, value: 'Grey' },
+            { min: 54, max: 56, value: 'White' },
+            { min: 61, max: 63, value: 'Burnt Auburn' },
+            { min: 64, max: 66, value: 'Brick Red' }
+          ],
+          'core-adeptus-astartes': [
+            { min: 11, max: 16, value: 'Mud Brown' },
+            { min: 21, max: 26, value: 'Sandy Brown' },
+            { min: 31, max: 36, value: 'Black' },
+            { min: 41, max: 43, value: 'Dirty Blonde' },
+            { min: 44, max: 46, value: 'Bald' },
+            { min: 51, max: 53, value: 'Grey' },
+            { min: 54, max: 56, value: 'White' },
+            { min: 61, max: 63, value: 'Burnt Auburn' },
+            { min: 64, max: 66, value: 'Brick Red' }
+          ],
+          'core-primaris-astartes': [
+            { min: 11, max: 16, value: 'Mud Brown' },
+            { min: 21, max: 26, value: 'Sandy Brown' },
+            { min: 31, max: 36, value: 'Black' },
+            { min: 41, max: 43, value: 'Dirty Blonde' },
+            { min: 44, max: 46, value: 'Bald' },
+            { min: 51, max: 53, value: 'Grey' },
+            { min: 54, max: 56, value: 'White' },
+            { min: 61, max: 63, value: 'Burnt Auburn' },
+            { min: 64, max: 66, value: 'Brick Red' }
+          ],
+          'core-aeldari': [
+            { min: 11, max: 16, value: 'Jet Black' },
+            { min: 21, max: 26, value: 'Blue-Black' },
+            { min: 31, max: 36, value: 'Mahogany' },
+            { min: 41, max: 43, value: 'Auburn' },
+            { min: 44, max: 46, value: 'Chestnut' },
+            { min: 51, max: 53, value: 'White' },
+            { min: 54, max: 56, value: 'Silver' },
+            { min: 61, max: 63, value: 'Fire Red' },
+            { min: 64, max: 66, value: 'Platinum' }
+          ]
+        };
+
+        const species = speciesKey.toLowerCase();
+        const table = hairTable[species];
+
+        if (!table) {
+          return`No hair colour table for species: ${speciesKey}`
+        }
+
+        const roll = rollD66();
+        const entry = table.find(row => roll >= row.min && roll <= row.max);
+
+        return entry ? entry.value : 'Unknown';
+      }
+      this.appearance.hair = randomHairColour(this.speciesKey)
+
+      function randomHeight(speciesKey, campaignTier) {
+        // Helper: roll N six-sided dice and sum them
+        function rollDice(count, sides = 6) {
+          let total = 0;
+          for (let i = 0; i < count; i++) {
+            total += Math.floor(Math.random() * sides) + 1;
+          }
+          return total;
+        }
+
+        const species = speciesKey.toLowerCase();
+        let totalInches;
+
+        switch (species) {
+          case 'core-human':
+            // 4' + 6d6"
+            totalInches = (4 * 12) + rollDice(6);
+            break;
+
+          case 'core-astartes':
+          case 'core-adeptus-astartes':
+            // 7' + 1d6"
+            totalInches = (7 * 12) + rollDice(1);
+            break;
+
+          case 'core-primaris-astartes':
+            // 8' + 1d6"
+            totalInches = (8 * 12) + rollDice(1);
+            break;
+
+          case 'core-aeldari':
+            // 6' + 2d6"
+            totalInches = (6 * 12) + rollDice(2);
+            break;
+
+          case 'core-ork':
+            // 5'6" + 2d6" per Tier
+            totalInches = (5 * 12 + 6) + rollDice(2) * campaignTier;
+            break;
+
+          default:
+            return `Unknown species: ${speciesKey}`;
+        }
+
+        const feet = Math.floor(totalInches / 12);
+        const inches = totalInches % 12;
+        const meters = totalInches * 0.0254;
+
+        return {
+          totalInches,
+          feet,
+          inches,
+          formatted: `${feet}'${inches}"`,
+          formatedMetrics: `${meters.toFixed(2)} m`
+        };
+      }
+      this.appearance.height = randomHeight(this.speciesKey).formatedMetrics
+
+      function randomCharacterTrait() {
+        // Helper: roll a single six-sided die
+        function rollD6() {
+          return Math.floor(Math.random() * 6) + 1;
+        }
+
+        const columns = ['augmetic', 'modification', 'speech', 'habit', 'tell', 'detail'];
+
+        const labels = {
+          augmetic: 'Augmetic',
+          modification: 'Modification',
+          speech: 'Speech',
+          habit: 'Habit',
+          tell: 'Tell',
+          detail: 'Detail'
+        };
+
+        const table = {
+          augmetic: {
+            1: 'Augmetic Hand',
+            2: 'Augmetic Arm',
+            3: 'Augmetic Foot',
+            4: 'Augmetic Leg',
+            5: 'Augmetic Torso',
+            6: 'Augmetic Eye'
+          },
+          modification: {
+            1: 'Warpaint with sentimental value',
+            2: 'Tattoos linked to important memories',
+            3: 'Piercings that are makeshift weapons when removed',
+            4: 'Holographic electoo designating allegiance',
+            5: 'Enochian skinplant of glowing religious symbols',
+            6: 'Subdermally implanted keepsake'
+          },
+          speech: {
+            1: 'Speaks every thought out loud',
+            2: 'Talks from the corner of their mouth',
+            3: 'Soft, whispery voice',
+            4: 'Intense and deliberate enunciation',
+            5: 'Raspy, rough and rattling voice',
+            6: 'Never asks questions, always commands'
+          },
+          habit: {
+            1: 'Prays constantly under their breath',
+            2: 'Always carries a lit candle',
+            3: 'Collects skulls',
+            4: 'Makes notes on everyone they meet',
+            5: 'Whistles or hums hymns',
+            6: 'Constantly curses under their breath'
+          },
+          tell: {
+            1: 'Fidgets with their weapon',
+            2: 'Trembling hands',
+            3: 'Intense eye contact',
+            4: 'Covers their mouth',
+            5: 'Incessant chatterbox',
+            6: 'Laughs uncontrollably'
+          },
+          detail: {
+            1: 'Heavily-lidded eyes',
+            2: 'Severely broken nose',
+            3: 'A smattering of freckles',
+            4: 'Deep-frown lines',
+            5: 'Sharp, prominent incisors',
+            6: 'Never blinks'
+          }
+        };
+
+        const column = columns[rollD6() - 1]; // picks which of the 6 columns (1-6)
+        const row = rollD6();                  // picks which row (1-6)
+
+        const category = labels[column];
+        const value = table[column][row];
+
+        return `${value}`;
+      }
+      this.appearance.features = randomCharacterTrait()
     },
 
     /**
