@@ -28,7 +28,8 @@ export const fspg = [
         wargear: [
             { name: 'Eviscerator' },
             { name: 'Clothing', variant: 'Rags' },
-            { name: 'Purity Seals' },
+            { name: 'Purity Seal', amount: 2 },
+            { name: 'Chaplet Ecclesiasticus' },
             { name: 'Rule Of The Sororitas', variant: 'Copy of the Rule Of The Sororitas' },
         ],
         suggestedStats: [

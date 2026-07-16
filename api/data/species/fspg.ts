@@ -38,6 +38,10 @@ export const fspg = [
                 snippet: 'There are no recorded instances of Ogryns with psychic abilities. You cannot have the PSYKER Keyword.',
             },
             {
+                name: 'Weapons for Ogryns',
+                snippet: 'You treat any weapon designed for a smaller size as heaving the Unwieldy(3) Weapon Trait.',
+            },
+            {
                 name: 'Armour for Abhumans',
                 snippet: 'For abhumans like Ogryns, the Rarity of any Armour is increased by +1.',
             },
@@ -91,6 +95,10 @@ export const fspg = [
             {
                 name: 'No recored Psykers',
                 snippet: 'There are no recorded instances of Ratlings with psychic abilities. You cannot have the PSYKER Keyword.',
+            },
+            {
+                name: 'Weapons for Ratlings',
+                snippet: 'You can wield most Human-sized Weapons, but the GM might rule that some might have a Unwieldy(w) Weapon Trait.',
             },
             {
                 name: 'Armour for Abhumans',
@@ -269,6 +277,10 @@ export const fspg = [
                             '</ul>',
                     },
                 ],
+            },
+            {
+                name: 'Primitive Preferences',
+                snippet: 'Weapons without thee PRIMITIVE or a shared keyword with the character are treated as having the Unwieldy(2) Weapon Trait.',
             },
             {
                 name: 'Despise for Armour',
