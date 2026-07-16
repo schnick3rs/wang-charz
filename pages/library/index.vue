@@ -121,6 +121,16 @@ export default {
           isActive: true,
           classes: [],
         },
+        {
+          key: 'factions',
+          title: 'Factions',
+          subtitle: 'Browse Factions',
+          imageSrc: '/img/artwork_vault_bright.jpg',
+          htmlText: '',
+          link: { text: 'Browse Factions', route: '/library/factions' },
+          isActive: true,
+          classes: [],
+        },
       ],
     };
   },
