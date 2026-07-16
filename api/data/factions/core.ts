@@ -138,7 +138,6 @@ export const core = [
         // [Regiment]
     },
     {
-        name: 'The Inquisition',
         ...faction('core',65,'Imperium','The Inquisition'),
         backgroundSection: [
             background('Chosen: You were hand-picked to join the Inquisition; an Inquisitor saw your potential or specific skill set and hired you, or employed you for your contacts or resources.','Wealth','Origin'),
