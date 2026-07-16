@@ -197,7 +197,7 @@ export default {
     };
   },
   head() {
-    const title = 'Species - Wrath & Glory Reference | Library';
+    const title = 'Factions - Wrath & Glory Reference | Library';
     const description = 'There are some homebrew factions and human variants in addition to some Xenos options. '
       + 'Check out the respective linked Homebrews for detailed informations.';
     const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
