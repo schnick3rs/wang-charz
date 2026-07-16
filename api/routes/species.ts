@@ -1,6 +1,7 @@
 import Router from 'express-promise-router';
 import type { Request, Response } from 'express';
 import { speciesRepository } from '../data/species';
+import {speciesChaptersRepository} from "../db/static/speciesChaptersRepository";
 
 const router = Router();
 export default router;
@@ -51,7 +52,19 @@ router.get('/chapters/', (request, response) => {
 });
  */
 router.get('/chapters/', (request: Request, response: Response) => {
-    const items = filterBySource(speciesRepository, request.query.source);
+    let items =  filterBySource(speciesChaptersRepository, request.query.source);
+
+    items = items.map( (chapter) => {
+        const label = chapter.source.key === 'core' ? chapter.name : `${chapter.name} [${chapter.source.book}]` ;
+        return {
+            ...chapter,
+            label,
+        }
+    });
+
+    items = items.sort((a, b) => a.name.localeCompare(b.name));
+
+
     response.set('Cache-Control', ONE_HOUR);
     response.status(200).json(items);
 });

@@ -467,7 +467,7 @@ const dod = [
   },
 ];
 
-module.exports = [
+export const speciesChaptersRepository = [
   ...core,
   ...aaoa,
   ...dod,
