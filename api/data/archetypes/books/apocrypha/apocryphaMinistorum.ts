@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
+import {archetype, costz, reqAttribute, reqSkill, simpleAbility} from "../../utils";
 import {ATTRIBUTES, SKILLS, TRAITS} from "../../../../db/static/_statUtils";
 
 

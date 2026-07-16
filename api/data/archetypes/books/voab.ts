@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, suggestedAttributes, wargearz} from "../utils";
+import {archetype, costz, reqAttribute, reqSkill, suggestedAttributes} from "../utils";
 import {ATTRIBUTES, SKILLS} from "../../../db/static/_statUtils";
 
 export const voab = [

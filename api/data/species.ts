@@ -7,7 +7,6 @@ import {dod} from "./species/dod";
 import {gohe} from "./species/gohe";
 
 
-
 export const rawRepository = [
     ...core,
     ...fspg,

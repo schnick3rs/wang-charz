@@ -1,5 +1,5 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
-import {ATTRIBUTES, SKILLS} from "../../../../db/static/_statUtils";
+import {archetype, costz, reqSkill, wargearz} from "../../utils";
+import {SKILLS} from "../../../../db/static/_statUtils";
 
 
 export const aaoaTauEmpire = [

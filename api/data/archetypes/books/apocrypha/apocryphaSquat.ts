@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
+import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../../utils";
 import {ATTRIBUTES, SKILLS} from "../../../../db/static/_statUtils";
 
 export const aaoaSquat = [
