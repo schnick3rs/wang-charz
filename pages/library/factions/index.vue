@@ -44,7 +44,7 @@
             :items="searchResult"
             :page.sync="pagination.page"
             :search="searchQuery"
-            :items-per-page="15"
+            :items-per-page="35"
             item-key="key"
             sort-by="name"
             show-expand
@@ -52,11 +52,18 @@
             @page-count="pagination.pageCount = $event"
           >
 
+            <template #item.avatar="{ item }">
+                <v-avatar size="32">
+                  <img :src="`/img/avatars/factions/${item.key}.png`">
+                </v-avatar>
+            </template>
+
             <template #item.advancedCreationKeywords="{ item }">
               <v-chip v-for="keyword in item.advancedCreationKeywords" :key="keyword" class="ma-1" label>
                 {{ keyword }}
               </v-chip>
             </template>
+
             <!-- Source Book -->
             <template #item.source.book="{ item }">
               <v-row no-gutters>
@@ -177,6 +184,9 @@ export default {
         rowsPerPage: 25,
       },
       headers: [
+        {
+          text: '', align: 'center', value: 'avatar', class: '',
+        },
         {
           text: 'Name', align: 'start', value: 'name', class: '',
         },
