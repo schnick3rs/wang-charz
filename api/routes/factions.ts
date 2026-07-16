@@ -1,20 +1,12 @@
 import Router from 'express-promise-router';
 import type { Request, Response } from 'express';
 import { factionRepository } from '../data/factions';
+import {filterBySource} from "./utils";
 
 const router = Router();
 export default router;
 
 const ONE_HOUR = 'public, max-age=3600';
-
-function filterBySource<T extends { source: { key: string } }>(
-    items: T[],
-    sourceQuery: unknown
-): T[] {
-  if (typeof sourceQuery !== 'string' || !sourceQuery) return items;
-  const sources = sourceQuery.split(',');
-  return items.filter((item) => sources.includes(item.source.key));
-}
 
 router.get('/', (request: Request, response: Response) => {
   const items = filterBySource(factionRepository, request.query.source);
