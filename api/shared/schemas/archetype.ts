@@ -1,5 +1,6 @@
 import {z} from 'zod';
 import {PagedLegacySourceSchema} from "./source";
+import {ModificationSchema} from "./core";
 
 // ---------------------------------------------------------------------------
 // Archetype schema
@@ -24,14 +25,6 @@ export const PrerequisiteSchema = z.object({
   group: z.enum(['attributes', 'skills']),
   value: z.string(),
   threshold: z.number(),
-});
-
-export const ModificationSchema = z.object({
-  targetGroup: z.string(),
-  targetValue: z.string(),
-  modifier: z.number().default(0).optional(),
-  rank: z.number().default(0).optional(),
-  condition: z.string().nullable().optional(),
 });
 
 export const SpeciesRefSchema = z.object({
