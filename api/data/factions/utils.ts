@@ -1,5 +1,5 @@
-import {getLegacySource} from "../legacySources";
 import {stringToKebab, stringToKebabToCamel} from "../utils";
+import {getLegacySource} from "../legacy-sources";
 
 
 export function faction(bookKey, sourcePage, group, name) {

@@ -1,5 +1,5 @@
-import {getLegacySource} from "../legacySources";
 import {stringToKebab} from "../utils";
+import {getLegacySource} from "../legacy-sources";
 
 export function talent(bookKey: string, sourcePage, name, cost, tags = '') {
     return {

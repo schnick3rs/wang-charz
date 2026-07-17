@@ -1,5 +1,5 @@
 import {stringToKebab, stringToKebabToCamel} from "../utils";
-import {getLegacySource} from "../legacySources";
+import {getLegacySource} from "../legacy-sources";
 
 export const addModifier = function(targetGroup, targetValue, modifier = 0, rank = 0, condition = undefined) {
     return {
