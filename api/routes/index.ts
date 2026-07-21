@@ -6,12 +6,10 @@ import talents from './talents';
 import factions from './factions';
 import species from './species';
 import archetypes from './archetypes';
-import ascensionPackages from './ascensionPackages';
 import threats from './threats';
 import posts from './posts';
 import actualPlays from './actualPlays';
-// import users from './users';
-// import characters from './characters';
+import ascensionPackages from "./ascensionPackages";
 
 export default (app: Express) => {
   app.use('/talents', talents);
