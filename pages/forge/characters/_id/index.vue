@@ -457,6 +457,7 @@
 
                       <td class="text-left pa-1 small">
                         {{ item.name }}
+                        <v-icon small>build</v-icon>
                         <template v-if="item.meta.length > 1">
                           <span v-if="meta.type === 'melee-weapon'">(Melee)</span>
                           <span v-else-if="meta.type === 'ranged-weapon'">(Ranged)</span>
@@ -1540,11 +1541,13 @@ export default {
     characterReloads() {
       const spend = this.$store.getters['characters/characterReloadsSpendById'](this.characterId);
       let points = 3;
-      this.wargear.forEach((w)=>{
-        points += w.key === 'core-ammo-backpack' ? 10 : 0;
-        points += w.key === 'core-bandolier' ? 2 : 0;
-        points += w.key === 'core-ammo-drum' ? 1 : 0;
-      });
+      this.enhancements
+          .filter((enhancement) => enhancement.targetGroup==='resources')
+          .filter((enhancement) => enhancement.targetValue==='reloads')
+          .forEach((enhancement) => {
+            console.info('adjusting reloads', enhancement.modifier, enhancement)
+            points += enhancement.modifier;
+          });
 
       return { points, spend };
     },

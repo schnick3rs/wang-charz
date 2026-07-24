@@ -402,9 +402,16 @@ export const core: Wargear[]  = [
     },
     // Weapon Upgrades
     {
-        ...gear('core',227,'Ammo Drum','3C','Imperium,Scum'),
+        ...gear('core',227,'Ammo Drum','3C','Imperium,Ork,Scum'),
         type: 'Weapon Upgrade',
         snippet: 'You can carry 1 additional Reload.',
+        modifications: [
+            {
+                targetGroup: 'resources',
+                targetValue: 'reloads',
+                modifier: 1,
+            },
+        ],
     },
     {
         ...gear('core',227,'Autoloader','5R','Imperium'),
@@ -502,12 +509,26 @@ export const core: Wargear[]  = [
         type: 'Ammo',
         subtype: 'Ammo Container',
         snippet: 'You can carry 10 additional Reloads.',
+        modifications: [
+            {
+                targetGroup: 'resources',
+                targetValue: 'reloads',
+                modifier: 10,
+            },
+        ],
     },
     {
         ...gear('core',229,'Bandolier','2C','[Any]'),
         type: 'Ammo',
         subtype: 'Ammo Container',
         snippet: 'You can carry 2 additional Reloads.',
+        modifications: [
+            {
+                targetGroup: 'resources',
+                targetValue: 'reloads',
+                modifier: 2,
+            },
+        ],
     },
     {
         ...gear('core',230,'Dragonfire Bolt Rounds','6V','Imperium,Adeptus Astartes'),
