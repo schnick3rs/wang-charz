@@ -543,7 +543,7 @@
 
                 <v-chip-group v-model="wargearSection.selection" mandatory active-class="red--text">
                   <v-chip
-                      v-for="item in [`All`, `Weapons`, `Armour`, `Tools`, `Augmetics`, `Other`]"
+                      v-for="item in [`All`, `Weapons`, `Upgrades`, `Ammo`, `Armour`, `Tools`, `Augmetics`, `Other`]"
                       :key="item.toLowerCase()"
                       label
                       small
@@ -555,210 +555,61 @@
 
                 <div class="caption">
 
-                  <!-- weapons < wargear -->
-                  <div v-show="['all', 'weapons'].some(i => i === wargearSection.selection)">
+                  <wargear-tab-content
+                      tab-name="weapons"
+                      header="Weapons"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                  />
 
-                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-                      <span class="body-2 red--text">Weapons, Upgrades & Ammo</span>
-                    </div>
+                  <wargear-tab-content
+                      tab-name="upgrades"
+                      header="Weapon Upgrades"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Weapon Upgrade'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                  />
 
-                    <div
-                        v-for="gearItem in wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon', 'Weapon Upgrade', 'Ammo'].some(i => i === wg.type))"
-                        :key="gearItem.id"
-                    >
-                      <div v-if="gearItem.variant" style="display: inline;">
-                        <strong >{{ gearItem.variant }}</strong>
-                        <span> ({{ gearItem.name }})</span>
-                      </div>
-                      <strong v-else>{{ gearItem.name }}</strong>
-                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
-                      <span v-if="gearItem.source">
-                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
-                      </span>
+                  <wargear-tab-content
+                      tab-name="ammo"
+                      header="Ammo"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Ammo'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                  />
 
-                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
-                      <div v-else class="mb-1" v-html="gearItem.description"></div>
+                  <wargear-tab-content
+                      tab-name="armour"
+                      header="Armour & Upgrades"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Armour', 'Armour Upgrade'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                  />
 
-                      <div
-                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
-                      >
-                        <p
-                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
-                            :key="trait"
-                            class="ml-1 pl-2 mb-1"
-                            style="border-left: solid 3px lightgrey;"
-                        >
-                          <strong>{{ trait }}: </strong>
-                          {{ traitByName(trait, true).crunch }}
-                        </p>
-                      </div>
-                    </div>
+                  <wargear-tab-content
+                      tab-name="tools"
+                      header="Tools & Equipment"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Tools & Equipment', 'Tool'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                  />
 
-                  </div>
+                  <wargear-tab-content
+                      tab-name="augmetics"
+                      header="Augmetics"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Augmetics'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                  />
 
-                  <!-- armour < wargear -->
-                  <div v-show="['all', 'armour'].some(i => i === wargearSection.selection)">
-
-                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-                      <span class="body-2 red--text">Armour</span>
-                    </div>
-
-                    <div
-                        v-for="gearItem in wargear.filter(wg => ['Armour'].some(i => i === wg.type))"
-                        :key="gearItem.id"
-                    >
-                      <div v-if="gearItem.variant" style="display: inline;">
-                        <strong >{{ gearItem.variant }}</strong>
-                        <span> ({{ gearItem.name }})</span>
-                      </div>
-                      <strong v-else>{{ gearItem.name }}</strong>
-                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
-                      <span v-if="gearItem.source">
-                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
-                      </span>
-
-                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
-                      <div v-else class="mb-1" v-html="gearItem.description"></div>
-
-                      <div
-                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
-                      >
-                        <p
-                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
-                            :key="trait"
-                            class="ml-1 pl-2 mb-1"
-                            style="border-left: solid 3px lightgrey;"
-                        >
-                          <strong>{{ trait }}: </strong>
-                          {{ traitByName(trait, true).crunch }}
-                        </p>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <!-- tools < wargear -->
-                  <div v-show="['all', 'tools'].some(i => i === wargearSection.selection)">
-
-                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-                      <span class="body-2 red--text">Tools & Equipment</span>
-                    </div>
-
-                    <div
-                        v-for="gearItem in wargear.filter(wg => ['Tools & Equipment'].some(i => i === wg.type))"
-                        :key="gearItem.id"
-                    >
-                      <div v-if="gearItem.variant" style="display: inline;">
-                        <strong >{{ gearItem.variant }}</strong>
-                        <span> ({{ gearItem.name }})</span>
-                      </div>
-                      <strong v-else>{{ gearItem.name }}</strong>
-                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
-                      <span v-if="gearItem.source">
-                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
-                      </span>
-
-                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
-                      <div v-else class="mb-1" v-html="gearItem.description"></div>
-
-                      <div
-                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
-                      >
-                        <p
-                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
-                            :key="trait"
-                            class="ml-1 pl-2 mb-1"
-                            style="border-left: solid 3px lightgrey;"
-                        >
-                          <strong>{{ trait }}: </strong>
-                          {{ traitByName(trait, true).crunch }}
-                        </p>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <!-- Augmetics < wargear -->
-                  <div v-show="['all', 'augmetics'].some(i => i === wargearSection.selection)">
-
-                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-                      <span class="body-2 red--text">Augmetics</span>
-                    </div>
-
-                    <div
-                        v-for="gearItem in wargear.filter(wg => ['Augmetics'].some(i => i === wg.type))"
-                        :key="gearItem.id"
-                    >
-                      <div v-if="gearItem.variant" style="display: inline;">
-                        <strong >{{ gearItem.variant }}</strong>
-                        <span> ({{ gearItem.name }})</span>
-                      </div>
-                      <strong v-else>{{ gearItem.name }}</strong>
-                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
-                      <span v-if="gearItem.source">
-                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
-                      </span>
-
-                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
-                      <div v-else class="mb-1" v-html="gearItem.description"></div>
-
-                      <div
-                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
-                      >
-                        <p
-                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
-                            :key="trait"
-                            class="ml-1 pl-2 mb-1"
-                            style="border-left: solid 3px lightgrey;"
-                        >
-                          <strong>{{ trait }}: </strong>
-                          {{ traitByName(trait, true).crunch }}
-                        </p>
-                      </div>
-                    </div>
-
-                  </div>
-
-                  <!-- other / Remaining < wargear -->
-                  <div v-show="['all', 'other'].some(i => i === wargearSection.selection)">
-
-                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
-                      <span class="body-2 red--text">Others & Misc</span>
-                    </div>
-
-                    <div
-                        v-for="gearItem in wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon', 'Weapon Upgrade', 'Ammo', 'Armour', 'Tools & Equipment', 'Augmetics'].every(i => i !== wg.type))"
-                        :key="gearItem.id"
-                    >
-                      <div v-if="gearItem.variant" style="display: inline;">
-                        <strong >{{ gearItem.variant }}</strong>
-                        <span> ({{ gearItem.name }})</span>
-                      </div>
-                      <strong v-else>{{ gearItem.name }}</strong>
-                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
-                      <span v-if="gearItem.source">
-                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
-                      </span>
-
-                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
-                      <div v-else class="mb-1" v-html="gearItem.description"></div>
-
-                      <div
-                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
-                      >
-                        <p
-                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
-                            :key="trait"
-                            class="ml-1 pl-2 mb-1"
-                            style="border-left: solid 3px lightgrey;"
-                        >
-                          <strong>{{ trait }}: </strong>
-                          {{ traitByName(trait, true).crunch }}
-                        </p>
-                      </div>
-                    </div>
-
-                  </div>
+                  <wargear-tab-content
+                      tab-name="other"
+                      header="Others & Misc"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon', 'Weapon Upgrade', 'Ammo', 'Armour', 'Armour Upgrade', 'Tools & Equipment', 'Augmetics', 'Tool'].every(i => i !== wg.type))"
+                      :wargear="wargear"
+                  />
 
                 </div>
 
@@ -1263,10 +1114,12 @@ import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import DodCorruptionManager from '~/components/forge/DodCorruptionManager';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import {marked} from 'marked';
+import WargearTabContent from "~/components/forge/WargearTabContent.vue";
 
 export default {
   name: 'InAppView',
   components: {
+    WargearTabContent,
     DodDefaultBreadcrumbs,
     DodCorruptionManager,
   },
@@ -2362,7 +2215,7 @@ export default {
           }
         });
       }
-      return wargear;
+      return wargear.sort((a, b) => a.name.localeCompare(b.name));
     },
     weapons() {
       return this.wargear.filter((wargear) => {
