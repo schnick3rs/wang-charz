@@ -741,6 +741,14 @@ export const core: Wargear[]  = [
     {
         ...gear('core',237,'Diagnostor','5R','Imperium'),
         ...toolz('Imperial Equipment','+1 bonus die to Medicae (Int) Tests to detect and diagnose diseases, injuries, and ailments, and to determine cause of death.'),
+        modifications: [
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.MEDICAE,
+                modifier: 1,
+                condition: 'to detect and diagnose diseases, injuries, and ailments, and to determine cause of death'
+            }
+        ]
     },
     {
         ...gear('core',237,'Grav-Chute','5R','Imperium,Astra Militarum'),
@@ -779,6 +787,14 @@ export const core: Wargear[]  = [
     {
         ...gear('core',238,'Munitorum-Issue Mess Kit','5R','Imperium,Astra Militarum'),
         ...toolz('Imperial Equipment','+1 bonus die to Survival (Wil) tests made to find food and water.'),
+        modifications: [
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.SURVIVAL,
+                modifier: 1,
+                condition: 'when searching food or water'
+            }
+        ]
     },
     {
         ...gear('core',238,'Periculum Kit','5R','Imperium,[Any]'),
@@ -791,6 +807,13 @@ export const core: Wargear[]  = [
     {
         ...gear('core',238,'Psychic Focus','3R','[Any]'),
         ...toolz('Universal Equipment','+1 bonus die to Psychic Mastery (Wil) Tests.'),
+        modifications: [
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.PSYCHIC_MASTERY,
+                modifier: 1,
+            }
+        ]
     },
     {
         ...gear('core',238,'Ration Packs','1C','[Any]'),
@@ -811,6 +834,14 @@ export const core: Wargear[]  = [
     {
         ...gear('core',239,'Slate Monitron','5R','Imperium,Astra Militarum'),
         ...toolz('Imperial Equipment','+2 bonus dice to Medicae (Int) Tests made to heal your Wounds.'),
+        modifications: [
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.MEDICAE,
+                modifier: 2,
+                condition: 'when healing your wounds'
+            }
+        ]
     },
     {
         ...gear('core',239,'Stimm','3U','Imperium,Scum'),
@@ -819,14 +850,42 @@ export const core: Wargear[]  = [
     {
         ...gear('core',239,'Survival Kit','3U','[Any]'),
         ...toolz('Universal Equipment','+1 bonus die to all Survival (Wil) Tests.'),
+        modifications: [
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.SURVIVAL,
+                modifier: 1,
+            }
+        ]
     },
     {
         ...gear('core',240,'Symbol Of Authority','3U','[Any]'),
         ...toolz('Universal Equipment','+1 bonus die to Leadership (Wil) and Intimidation (Wil) Tests versus targets who would respect your position.'),
+        modifications: [
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.LEADERSHIP,
+                modifier: 1,
+                condition: 'when targeting characters who would respect your position'
+            },
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.INTIMIDATION,
+                modifier: 1,
+                condition: 'when targeting characters who would respect your position'
+            },
+        ]
     },
     {
         ...gear('core',240,'Uplifting Primer','2C','Imperium,Astra Militarum'),
         ...toolz('Imperial Equipment','+1 bonus die to Scholar (Int) Test. A Complication on the Test means that the user learns potentially dangerous misinformation as determined by the GM.'),
+        modifications: [
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.SCHOLAR,
+                modifier: 1,
+            },
+        ]
     },
     {
         ...gear('core',240,'Void Suit','5R','[Any]'),
@@ -879,6 +938,14 @@ export const core: Wargear[]  = [
         ...gear('core',243,'Augmetic Eye (Auger)','6U','[Any]'),
         type: 'Augmetics', subtype: 'Augmetic Enhancements',
         snippet: '+1 bonus die to sight-based Awareness (Int) Tests.',
+        modifications: [
+            {
+                targetGroup: 'skills',
+                targetValue: SKILLS.AWARENESS,
+                modifier: 1,
+                condition: 'when sight-based'
+            },
+        ]
     },
     {
         ...gear('core',243,'Augmetic Eye (Night)','6U','[Any]'),
@@ -910,6 +977,14 @@ export const core: Wargear[]  = [
         ...gear('core',244,'Augmetic Respirator','5R','[Any]'),
         type: 'Augmetics', subtype: 'Augmetic Enhancements',
         snippet: 'You gain +1 bonus die to Toughness Tests to resist toxic gasses and airborne poisons or diseases. You can hold your breath for twice as long, which doubles how long the air in a Void Suit or similar equipment lasts.',
+        modifications: [
+            {
+                targetGroup: 'attributes',
+                targetValue: 'toughness',
+                modifier: 1,
+                condition: 'when resisting toxic gasses or airborne poisons or diseases'
+            }
+        ],
     },
     {
         ...gear('core',244,'Augmetic Viscera','5V','[Any]'),
