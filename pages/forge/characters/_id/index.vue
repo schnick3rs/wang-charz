@@ -539,33 +539,225 @@
               class="my-tab-item"
               :value="`tab-wargear`"
             >
-              <div class="pa-2 pt-1 pb-1">
-                <div v-for="gearItem in wargear" :key="gearItem.id" class="caption mb-2">
-                  <div v-if="gearItem.variant" style="display: inline;">
-                    <strong >{{ gearItem.variant }}</strong>
-                    <span> ({{ gearItem.name }})</span>
-                  </div>
-                  <strong v-else>{{ gearItem.name }}</strong>
-                  <em v-if="gearItem.type"> • {{gearItem.type}}</em>
-                  <span v-if="gearItem.source">
-                    <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
-                  </span>
+              <div class="pa-2">
 
-                  <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
-                  <div v-else class="mb-1" v-html="gearItem.description"></div>
-
-                  <div
-                    v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                <v-chip-group v-model="wargearSection.selection" mandatory active-class="red--text">
+                  <v-chip
+                      v-for="item in [`All`, `Weapons`, `Armour`, `Tools`, `Augmetics`, `Other`]"
+                      :key="item.toLowerCase()"
+                      label
+                      small
+                      :value="item.toLowerCase()"
                   >
-                    <p
-                      v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
-                      :key="trait"
-                      class="ml-1 pl-2 mb-1"
-                      style="border-left: solid 3px lightgrey;"
+                    {{item}}
+                  </v-chip>
+                </v-chip-group>
+
+                <div class="caption">
+
+                  <!-- weapons < wargear -->
+                  <div v-show="['all', 'weapons'].some(i => i === wargearSection.selection)">
+
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Weapons, Upgrades & Ammo</span>
+                    </div>
+
+                    <div
+                        v-for="gearItem in wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon', 'Weapon Upgrade', 'Ammo'].some(i => i === wg.type))"
+                        :key="gearItem.id"
                     >
-                      <strong>{{ trait }}: </strong>
-                      {{ traitByName(trait, true).crunch }}
-                    </p>
+                      <div v-if="gearItem.variant" style="display: inline;">
+                        <strong >{{ gearItem.variant }}</strong>
+                        <span> ({{ gearItem.name }})</span>
+                      </div>
+                      <strong v-else>{{ gearItem.name }}</strong>
+                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                      <span v-if="gearItem.source">
+                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                      </span>
+
+                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
+                      <div v-else class="mb-1" v-html="gearItem.description"></div>
+
+                      <div
+                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                      >
+                        <p
+                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
+                            :key="trait"
+                            class="ml-1 pl-2 mb-1"
+                            style="border-left: solid 3px lightgrey;"
+                        >
+                          <strong>{{ trait }}: </strong>
+                          {{ traitByName(trait, true).crunch }}
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- armour < wargear -->
+                  <div v-show="['all', 'armour'].some(i => i === wargearSection.selection)">
+
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Armour</span>
+                    </div>
+
+                    <div
+                        v-for="gearItem in wargear.filter(wg => ['Armour'].some(i => i === wg.type))"
+                        :key="gearItem.id"
+                    >
+                      <div v-if="gearItem.variant" style="display: inline;">
+                        <strong >{{ gearItem.variant }}</strong>
+                        <span> ({{ gearItem.name }})</span>
+                      </div>
+                      <strong v-else>{{ gearItem.name }}</strong>
+                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                      <span v-if="gearItem.source">
+                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                      </span>
+
+                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
+                      <div v-else class="mb-1" v-html="gearItem.description"></div>
+
+                      <div
+                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                      >
+                        <p
+                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
+                            :key="trait"
+                            class="ml-1 pl-2 mb-1"
+                            style="border-left: solid 3px lightgrey;"
+                        >
+                          <strong>{{ trait }}: </strong>
+                          {{ traitByName(trait, true).crunch }}
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- tools < wargear -->
+                  <div v-show="['all', 'tools'].some(i => i === wargearSection.selection)">
+
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Tools & Equipment</span>
+                    </div>
+
+                    <div
+                        v-for="gearItem in wargear.filter(wg => ['Tools & Equipment'].some(i => i === wg.type))"
+                        :key="gearItem.id"
+                    >
+                      <div v-if="gearItem.variant" style="display: inline;">
+                        <strong >{{ gearItem.variant }}</strong>
+                        <span> ({{ gearItem.name }})</span>
+                      </div>
+                      <strong v-else>{{ gearItem.name }}</strong>
+                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                      <span v-if="gearItem.source">
+                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                      </span>
+
+                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
+                      <div v-else class="mb-1" v-html="gearItem.description"></div>
+
+                      <div
+                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                      >
+                        <p
+                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
+                            :key="trait"
+                            class="ml-1 pl-2 mb-1"
+                            style="border-left: solid 3px lightgrey;"
+                        >
+                          <strong>{{ trait }}: </strong>
+                          {{ traitByName(trait, true).crunch }}
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- Augmetics < wargear -->
+                  <div v-show="['all', 'augmetics'].some(i => i === wargearSection.selection)">
+
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Augmetics</span>
+                    </div>
+
+                    <div
+                        v-for="gearItem in wargear.filter(wg => ['Augmetics'].some(i => i === wg.type))"
+                        :key="gearItem.id"
+                    >
+                      <div v-if="gearItem.variant" style="display: inline;">
+                        <strong >{{ gearItem.variant }}</strong>
+                        <span> ({{ gearItem.name }})</span>
+                      </div>
+                      <strong v-else>{{ gearItem.name }}</strong>
+                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                      <span v-if="gearItem.source">
+                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                      </span>
+
+                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
+                      <div v-else class="mb-1" v-html="gearItem.description"></div>
+
+                      <div
+                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                      >
+                        <p
+                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
+                            :key="trait"
+                            class="ml-1 pl-2 mb-1"
+                            style="border-left: solid 3px lightgrey;"
+                        >
+                          <strong>{{ trait }}: </strong>
+                          {{ traitByName(trait, true).crunch }}
+                        </p>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <!-- other / Remaining < wargear -->
+                  <div v-show="['all', 'other'].some(i => i === wargearSection.selection)">
+
+                    <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Others & Misc</span>
+                    </div>
+
+                    <div
+                        v-for="gearItem in wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon', 'Weapon Upgrade', 'Ammo', 'Armour', 'Tools & Equipment', 'Augmetics'].every(i => i !== wg.type))"
+                        :key="gearItem.id"
+                    >
+                      <div v-if="gearItem.variant" style="display: inline;">
+                        <strong >{{ gearItem.variant }}</strong>
+                        <span> ({{ gearItem.name }})</span>
+                      </div>
+                      <strong v-else>{{ gearItem.name }}</strong>
+                      <em v-if="gearItem.type"> • {{gearItem.type}}</em>
+                      <span v-if="gearItem.source">
+                        <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
+                      </span>
+
+                      <p v-if="gearItem.snippet" class="mb-1">{{ gearItem.snippet }}</p>
+                      <div v-else class="mb-1" v-html="gearItem.description"></div>
+
+                      <div
+                          v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                      >
+                        <p
+                            v-for="trait in gearItem.meta[0].traits" v-if="traitByName(trait, true)"
+                            :key="trait"
+                            class="ml-1 pl-2 mb-1"
+                            style="border-left: solid 3px lightgrey;"
+                        >
+                          <strong>{{ trait }}: </strong>
+                          {{ traitByName(trait, true).crunch }}
+                        </p>
+                      </div>
+                    </div>
+
                   </div>
 
                 </div>
@@ -1148,6 +1340,7 @@ export default {
       ],
       descriptionSection: { selection: 'all' },
       abilitySection: { filter: 'all' },
+      wargearSection: { filter: 'all' },
       //
       showContextDialog: false,
       contextDialogComponent: undefined,
