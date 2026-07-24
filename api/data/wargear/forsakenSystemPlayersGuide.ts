@@ -9,7 +9,7 @@ export const fspg: Wargear[] = [
         subtype: undefined,
         meta: [
             metaRange(8, 1, 0, 24, 2, ['Rapid Fire(1)']),
-            metaMelee(4, 4, 0, 1,[]),
+            metaMelee(4, 4, 0, 1,[], 'Melee'),
         ],
     },
     {

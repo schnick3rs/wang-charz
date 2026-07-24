@@ -424,13 +424,19 @@ export const core: Wargear[]  = [
         type: 'Weapon Upgrade',
         upgradeType: 'Bayonet',
         snippet: 'You can use this weapon as a Knife (p. 211).',
+        meta: [
+          metaMelee(2,2,0, 1, [], 'Bayonet'),
+        ],
     },
     {
-        ...gear('core',227,'Chain Bayonet','4R','Imperium,Chaos'),
+        ...gear('core',227,'Chain Bayonet Lug','4R','Imperium,Chaos'),
         key: 'core-weapon-upgrade-chain-bayonet',
         type: 'Weapon Upgrade',
         upgradeType: 'Bayonet',
         snippet: 'You can use this weapon as a Chain Bayonet (p. 213).',
+        meta: [
+            metaMelee(4,1,0, undefined, ['Brutal'], 'Chain Bayonet'),
+        ],
     },
     {
         ...gear('core',227,'Combi Weapon','6R','Imperium,Chaos,Scum'),

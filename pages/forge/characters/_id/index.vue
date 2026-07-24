@@ -456,12 +456,11 @@
                     >
 
                       <td class="text-left pa-1 small">
-                        {{ item.name }}
-                        <v-icon small>build</v-icon>
-                        <template v-if="item.meta.length > 1">
-                          <span v-if="meta.type === 'melee-weapon'">(Melee)</span>
-                          <span v-else-if="meta.type === 'ranged-weapon'">(Ranged)</span>
-                        </template>
+                        <div v-if="meta.label">
+                          <span>{{ meta.label}}</span><span> ({{ item.name }})</span>
+                        </div>
+                        <span v-else>{{ item.name }}</span>
+                        <v-icon v-show="false" small>build</v-icon>
                       </td>
 
                       <td class="text-center pa-1 small">
