@@ -164,7 +164,7 @@ export default {
           text: 'Patron', align: 'start', value: 'patron.name', class: '',
         },
         {
-          text: 'X', align: 'start', value: 'patron.agents', class: '',
+          text: 'Purpose', align: 'start', value: 'patron.agents', class: '',
         },
         {
           text: 'Source', align: 'start', value: 'source.book', class: '',

@@ -13,7 +13,7 @@ export const core: Framework[] = [
 
         patron: {
             name: 'Rogue Trader Jakel Varonius',
-            agents: 'Agents of theFlotilla',
+            agents: 'Agents of the Flotilla',
         },
 
         hint: 'The Varonius Flotilla is a discreet problem-solving force operating across the Gilead System.',
@@ -60,7 +60,7 @@ export const core: Framework[] = [
 
         patron: {
             name: 'Rogue Trader Jakel Varonius',
-            agents: 'Agents of theFlotilla',
+            agents: 'Agents of the Flotilla',
         },
 
         hint: 'You are a Flotilla operative, expendable and controlled by Varonius.',
@@ -100,7 +100,7 @@ export const core: Framework[] = [
 
         patron: {
             name: 'Lord-Militant Taleria Flyamon',
-            agents: 'Agents of theMilitant',
+            agents: 'Agents of the Militant',
         },
 
         hint: 'Fylamon recruits untrained volunteers for dangerous frontline duties to test their potential for promotion.',
@@ -138,7 +138,7 @@ export const core: Framework[] = [
 
         patron: {
             name: 'Lord-Militant Taleria Flyamon',
-            agents: 'Agents of theMilitant',
+            agents: 'Agents of the Militant',
         },
 
         hint: 'As an Imperial hammer, you crush rebellion and enforce justice in the Gilead System for the Astra Militarum.',
