@@ -9,6 +9,11 @@ export const FrameworkSchema = z.object({
     key: z.string().describe('A kebab-cased identifier derived from source and name.'),
     name: z.string(),
 
+    patron: z.object({
+        name: z.string(),
+        agents: z.string(),
+    }).optional(),
+
     hint: z.string().describe('A single catchy sentence.'),
 
     description: z.string().optional().describe('Your characters as a group, define who you are and what you want to archive.'),

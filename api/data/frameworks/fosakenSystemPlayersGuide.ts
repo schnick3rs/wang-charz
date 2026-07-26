@@ -2,6 +2,53 @@ import {Framework} from "../../shared/schemas/framework.schema";
 import {getLegacySource} from "../legacy-sources";
 import {SKILLS, TRAITS} from "../../shared/constants";
 
+const PATRONS = {
+    CLADE: {
+        name: 'Archdeacon Merramar Clade',
+        agents: 'Agents of the Ecclesiarchy',
+    },
+    ARCHDOMINA: {
+        name: 'Archdomina Axekra Vakuul',
+        agents: 'Agents of the Mechanicus',
+    },
+    ADMINISTRATUM: {
+        name: 'Master Eshgar Quintus Lorae',
+        agents: 'Agents of the Administratum',
+    },
+    NAVIGATOR: {
+        name: 'Novator Octavia',
+        agents: 'Agents of the Navigator',
+    },
+    ORDO_MALLEUS: {
+        name: 'Ordo Malleus Inquisitor Tytrona Dikaisune',
+        agents: 'Agents of the Inquisitor-Lord',
+    },
+    ASTARTES_CAPTAIN: {
+        name: 'Brevet Captain Akahir',
+        agents: 'Agents of the Astartes Captain',
+    },
+    CANONESS: {
+        name: 'Canoness Jeanne Grace D\'emysa',
+        agents: 'Agents of the Sororitas',
+    },
+    FARSEER: {
+        name: 'Farseer Lanriel Taranlys',
+        agents: 'Agents of the Craftworld',
+    },
+    EMERALD_PRINCESS: {
+        name: 'Ferianwyr, The emerald Princess',
+        agents: 'Agents of the Coterie',
+    },
+    WAAAGH: {
+        name: 'Warboss Vazdrok Spikey-Smasha',
+        agents: 'Agents of the WAAAAGH!',
+    },
+    Traitor: {
+        name: 'Chaos Lord Maloquence',
+        agents: 'Agents of the Traitor',
+    },
+}
+
 export const fspg: Framework[] = [
     {
         name: 'Sinful Tools',
@@ -10,6 +57,7 @@ export const fspg: Framework[] = [
             page: 66,
         },
         key: 'fspg-sinful-tools',
+        patron: PATRONS.CLADE,
 
         hint: 'You are a deniable asset for Archdeacon Clade, performing covert missions as penance and expected to die before revealing his secrets.',
 
@@ -56,6 +104,7 @@ export const fspg: Framework[] = [
             page: 67,
         },
         key: 'fspg-blessed-exemplars',
+        patron: PATRONS.CLADE,
 
         hint: 'Imperial agents of the Ecclesiarchy, you enforce the Emperor’s will, punishing heresy within political limits while embodying Imperial ideals to inspire the masses.',
 
@@ -104,6 +153,7 @@ export const fspg: Framework[] = [
             page: 69,
         },
         key: 'fspg-mechavangelists',
+        patron: PATRONS.ARCHDOMINA,
 
         hint: 'A motley team secretly spreads the Omnissiah’s word and undermines Adeptus Ministorum faith across the system for Archdomina Vakuul.',
 
@@ -145,6 +195,7 @@ export const fspg: Framework[] = [
             page: 69,
         },
         key: 'fspg-hammer-and-or-anvil',
+        patron: PATRONS.ARCHDOMINA,
 
         hint: 'Elite cybernetic warriors enforcing the Omnissiah\'s will through brutal efficiency in reclaiming tech and crushing heresy.',
 
@@ -186,6 +237,7 @@ export const fspg: Framework[] = [
             page: 71,
         },
         key: 'fspg-paper-punishers',
+        patron: PATRONS.ADMINISTRATUM,
 
         hint: 'You are undercover auditors extremis, authorized by Master Lorae to discreetly investigate and punish bureaucratic heresy and crimes within the Sortium.',
 
@@ -238,6 +290,7 @@ export const fspg: Framework[] = [
             page: 71,
         },
         key: 'fspg-troubleshooters',
+        patron: PATRONS.ADMINISTRATUM,
 
         hint: 'Undertake covert missions for Master Lorae across Ostia, often serving her personal interests.',
 
@@ -279,6 +332,7 @@ export const fspg: Framework[] = [
             page: 73,
         },
         key: 'fspg-in-plain-sight',
+        patron: PATRONS.NAVIGATOR,
 
         hint: 'Openly serve House Omincara as trusted agents, protecting Navigators on dangerous missions while representing the House\'s honour.',
 
@@ -320,6 +374,7 @@ export const fspg: Framework[] = [
             page: 74,
         },
         key: 'fspg-third-eye-blind',
+        patron: PATRONS.NAVIGATOR,
 
         hint: 'A covert House Omincara operative who conducts espionage, sabotage, theft, and assassination with absolute loyalty to protect the House\'s interests and eliminate its enemies.',
 
@@ -369,6 +424,7 @@ export const fspg: Framework[] = [
             page: 76,
         },
         key: 'fspg-shadow-warriors',
+        patron: PATRONS.ORDO_MALLEUS,
 
         hint: 'Covert agents of Inquisitor Dikaisune who relentlessly investigate and eliminate heresy, daemonic, xenos, and other threats across Gilead, ' +
             'calling on the Inquisition only when a danger exceeds their own capabilities.',
@@ -415,6 +471,7 @@ export const fspg: Framework[] = [
             page: 76,
         },
         key: 'fspg-kill-team',
+        patron: PATRONS.ORDO_MALLEUS,
 
         hint: 'An elite Inquisitorial strike force undertakes the Imperium\'s most dangerous missions against threats too' +
             ' powerful or secret for conventional forces to handle.',
@@ -455,6 +512,7 @@ export const fspg: Framework[] = [
             page: 79,
         },
         key: 'fspg-eye-ear-and-blade',
+        patron: PATRONS.ASTARTES_CAPTAIN,
 
         hint: 'A covert Imperial intelligence team gathers secrets, hunts threats, and survives deadly missions without waiting for Space Marine aid.',
 
@@ -497,6 +555,7 @@ export const fspg: Framework[] = [
             page: 79,
         },
         key: 'fspg-angels-of-death',
+        patron: PATRONS.ASTARTES_CAPTAIN,
 
         hint: 'Elite warriors of Captain Akahir, you undertake impossible special operations across Gilead, ' +
             'striking behind enemy lines and sacrificing all to secure victory.',
@@ -548,6 +607,7 @@ export const fspg: Framework[] = [
             page: 81,
         },
         key: 'fspg-lay-servants',
+        patron: PATRONS.CANONESS,
 
         hint: 'Lay Servants are faithful agents of the Ecclesiarchy who serve Canoness d’Emysa by gathering information, rooting out heresy, ' +
             'strengthening faith, and investigating signs of the Emperor’s presence in Gilead.',
@@ -585,6 +645,7 @@ export const fspg: Framework[] = [
             page: 81,
         },
         key: 'fspg-holy-warriors',
+        patron: PATRONS.CANONESS,
 
         hint: 'Holy warriors of the Emperor, you carry out sacred missions across the Gilead System, purging heretics, ' +
             'mutants, and xenos in the name of the Adepta Sororitas.',

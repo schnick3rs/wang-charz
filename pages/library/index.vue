@@ -131,6 +131,16 @@ export default {
           isActive: true,
           classes: [],
         },
+        {
+          key: 'frameworks',
+          title: 'Frameworks',
+          subtitle: 'Browse Campaign Frameworks',
+          imageSrc: '/img/artwork_vault_bright.jpg',
+          htmlText: '',
+          link: { text: 'Browse Frameworks', route: '/library/frameworks' },
+          isActive: true,
+          classes: [],
+        },
       ],
     };
   },

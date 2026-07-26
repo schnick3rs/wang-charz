@@ -11,10 +11,15 @@ export const core: Framework[] = [
         },
         key: 'core-varonius-vanguard',
 
+        patron: {
+            name: 'Rogue Trader Jakel Varonius',
+            agents: 'Agents of theFlotilla',
+        },
+
         hint: 'The Varonius Flotilla is a discreet problem-solving force operating across the Gilead System.',
 
         limitationsString: 'Any character with the IMPERIUM Keyword, and possibly an Aeldari mercenary — provided they are discreet.',
-        wargearString: 'Each member of the group receives a Periculum Kit (p.238) and a Symbol of Authority (p.240) marking them as an agent of the Varonius Flotilla.',
+        wargearString: 'Each member of thegroup receives a Periculum Kit (p.238) and a Symbol of Authority (p.240) marking them as an agent of theVaronius Flotilla.',
         bonusString: '+1 bonus die to Influence Tests made when requesting Wargear from the Varonius Flotilla.',
 
         limitations: [
@@ -27,7 +32,7 @@ export const core: Framework[] = [
 
         wargear: [
             { name: 'Periculum Kit' },
-            { name: 'Symbol of authority', variant: 'Agent of the Varonius Flotilla' },
+            { name: 'Symbol of authority', variant: 'Agent of theVaronius Flotilla' },
         ],
 
         features: [
@@ -53,16 +58,21 @@ export const core: Framework[] = [
         },
         key: 'core-the-deniables',
 
+        patron: {
+            name: 'Rogue Trader Jakel Varonius',
+            agents: 'Agents of theFlotilla',
+        },
+
         hint: 'You are a Flotilla operative, expendable and controlled by Varonius.',
 
         limitationsString: 'None — if you can convince the pragmatic Varonius Dynasty you could be useful, you’re in',
-        wargearString: 'A Frag Grenade Weapon Implant (p.246) with a remote detonator controlled by a Scion of the Varonius Dynasty.',
+        wargearString: 'A Frag Grenade Weapon Implant (p.246) with a remote detonator controlled by a Scion of theVaronius Dynasty.',
         bonusString: '+1 bonus dice to Deception (Fel) Tests against characters with the IMPERIUM Keyword',
 
         limitations: [],
 
         wargear: [
-            { name: 'Frag Grenade Weapon Implant (Remote controlled by a Scion of the Varonius Dynasty.' },
+            { name: 'Frag Grenade Weapon Implant (Remote controlled by a Scion of theVaronius Dynasty.' },
         ],
 
         features: [
@@ -87,6 +97,11 @@ export const core: Framework[] = [
             page: 313,
         },
         key: 'core-cannon-fodder',
+
+        patron: {
+            name: 'Lord-Militant Taleria Flyamon',
+            agents: 'Agents of theMilitant',
+        },
 
         hint: 'Fylamon recruits untrained volunteers for dangerous frontline duties to test their potential for promotion.',
 
@@ -120,6 +135,11 @@ export const core: Framework[] = [
             page: 313,
         },
         key: 'core-fylamon-s-finest',
+
+        patron: {
+            name: 'Lord-Militant Taleria Flyamon',
+            agents: 'Agents of theMilitant',
+        },
 
         hint: 'As an Imperial hammer, you crush rebellion and enforce justice in the Gilead System for the Astra Militarum.',
 
