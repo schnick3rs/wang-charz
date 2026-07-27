@@ -91,7 +91,7 @@ export const WargearSchema = z.object({
     upgradeType: z.string().optional(),
     subtype: z.string().optional(),
     triptype: z.string().optional(),
-    value: z.union([z.number(), z.string()]),
+    value: z.coerce.number(),
     rarity: z.enum(['Common', 'Uncommon', 'Rare', 'Very Rare', 'Unique']),
     keywords: z.array(z.string()),
 

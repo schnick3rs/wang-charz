@@ -13,7 +13,7 @@ const rarity = {
 export function gear(bookKey: string, sourcePage, name, value, keywords, stub = false) {
     const valueMatch = value.match(/\d+/g);
     const rarityMatch = value.match(/[a-zA-Z]+/g);
-    const valuePart = valueMatch ? valueMatch[0] : '-';
+    const valuePart = valueMatch ? valueMatch[0] : 0;
     const rarityPart = rarityMatch ? rarityMatch[0].toUpperCase() : 'L';
 
     return {
