@@ -213,6 +213,7 @@ module.exports = {
    * Build configuration
    */
   build: {
+    transpile: ['zod'],
     /*
     ** You can extend webpack config here
     */

@@ -9,6 +9,7 @@ const books: Book[] = [
     { title: 'Aeldari - Inheritance of Embers', key: 'aioe', version: 'v1.0', link: 'https://www.drivethrurpg.com/de/product/305327/warhammer-40-000-wrath-and-glory-aeldari-inheritance-of-embers?affiliate_id=466959' },
     { title: 'Vow of Absolution', key: 'voab', version: 'v1.0', link: 'https://www.drivethrurpg.com/en/product/416203/warhammer-40-000-wrath-glory-vow-of-absolution?affiliate_id=466959' },
     { title: 'Sons of Russ', key: 'sonr', version: 'v1.0', link: 'https://www.drivethrurpg.com/en/product/532635/warhammer-40-000-wrath-glory-sons-of-russ?affiliate_id=466959' },
+    { title: 'Lex Imperialis', key: 'lex', version: 'v1.0', link: 'https://www.drivethrurpg.com/en/product/552043/warhammer-40-000-wrath-glory-lex-imperialis?affiliate_id=466959' },
 
     // Small books
     { title: 'Affliction Ascendant', key: 'afas', version: 'v1.0', link: 'https://www.drivethrurpg.com/product/343904/Wrath--Glory--Affliction-Ascendant?affiliate_id=466959' },
