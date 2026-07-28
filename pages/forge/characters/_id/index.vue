@@ -2262,7 +2262,7 @@ export default {
       if (this.characterSpecies && this.characterSpecies.objectives) {
         return this.characterSpecies.objectives.map((objective) => ({ text: objective }));
       } else if (this.characterArchetype && this.factionRepository) {
-        const faction = this.factionRepository.find((faction) => faction.name === this.characterArchetype.faction);
+        const faction = this.factionRepository.find((faction) => faction.key === this.characterArchetype.factionKey);
         if (faction) {
           const objectiveList = faction.objectives;
           if (objectiveList) {
