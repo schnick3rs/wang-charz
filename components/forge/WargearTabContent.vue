@@ -53,8 +53,8 @@ export default defineComponent({
   ],
   props: {
     header: String,
-    tabName: Array,
-    myFilter: Function,
+    tabName: String,
+    myFilter: Array,
     selection: String,
     wargear: Array,
   },
