@@ -1,9 +1,13 @@
 import {ATTRIBUTES, SKILLS} from "../../../db/static/_statUtils";
 import {archetype, costz, reqAttribute, reqSkill} from "../utils";
+import {stringToKebab} from "../../utils";
+
+let faction = 'Adeptus Arbites';
 
 export const lex = [
     {
-        ...archetype('lex',8,'Adeptus Arbites','Arbites Arbitrator',2,'Human'),
+        ...archetype('lex',8, faction,'Arbites Arbitrator',2,'Human'),
+        factionKey: `lex-${stringToKebab(faction)}`,
         ...costz(70, [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -35,7 +39,8 @@ export const lex = [
         influence: 1,
     },
     {
-        ...archetype('lex',9,'Adeptus Arbites','Arbites Castigator',2,'Human'),
+        ...archetype('lex',9,faction,'Arbites Castigator',2,'Human'),
+        factionKey: `lex-${stringToKebab(faction)}`,
         ...costz(70, [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -69,7 +74,8 @@ export const lex = [
         influence: 1,
     },
     {
-        ...archetype('lex',10,'Adeptus Arbites','Arbites Chirurgant',2,'Human'),
+        ...archetype('lex',10,faction,'Arbites Chirurgant',2,'Human'),
+        factionKey: `lex-${stringToKebab(faction)}`,
         ...costz(76, [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -107,7 +113,8 @@ export const lex = [
         influence: 1,
     },
     {
-        ...archetype('lex',11,'Adeptus Arbites','Arbites Revelatum',2,'Human'),
+        ...archetype('lex',11,faction,'Arbites Revelatum',2,'Human'),
+        factionKey: `lex-${stringToKebab(faction)}`,
         ...costz(70, [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -144,7 +151,8 @@ export const lex = [
         influence: 1,
     },
     {
-        ...archetype('lex',12,'Adeptus Arbites','Arbites Leashmaster',2,'Human'),
+        ...archetype('lex',12,faction,'Arbites Leashmaster',2,'Human'),
+        factionKey: `lex-${stringToKebab(faction)}`,
         ...costz(70, [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
@@ -176,7 +184,8 @@ export const lex = [
         influence: 1,
     },
     {
-        ...archetype('lex',13,'Adeptus Arbites','Arbites Proctor-Exactant',4,'Human'),
+        ...archetype('lex',13,faction,'Arbites Proctor-Exactant',4,'Human'),
+        factionKey: `lex-${stringToKebab(faction)}`,
         ...costz(174, [
             reqAttribute(ATTRIBUTES.STRENGTH, 4),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
