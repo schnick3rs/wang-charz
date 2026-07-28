@@ -10,6 +10,7 @@ import {afas} from "./wargear/aflictionAscended";
 import {tnh} from "./wargear/theNullHepothesis";
 import {doctorsOfDoom} from "./wargear/doctorsOfDoom";
 import {gohe} from "./wargear/legacy/gohe";
+import {lex} from "./wargear/lex";
 
 export const rawRepository = [
     // official
@@ -22,6 +23,7 @@ export const rawRepository = [
     ...red2Mechanicus,
     ...tnh,
     ...afas,
+    ...lex,
     // homebrew
     ...aaoa,
     ...doctorsOfDoom,
