@@ -561,6 +561,7 @@
                       :selection="wargearSection.selection"
                       :my-filter="wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon'].some(i => i === wg.type))"
                       :wargear="wargear"
+                      :rank="characterRank"
                   />
 
                   <wargear-tab-content
@@ -569,6 +570,7 @@
                       :selection="wargearSection.selection"
                       :my-filter="wargear.filter(wg => ['Weapon Upgrade'].some(i => i === wg.type))"
                       :wargear="wargear"
+                      :rank="characterRank"
                   />
 
                   <wargear-tab-content
@@ -577,6 +579,7 @@
                       :selection="wargearSection.selection"
                       :my-filter="wargear.filter(wg => ['Ammo'].some(i => i === wg.type))"
                       :wargear="wargear"
+                      :rank="characterRank"
                   />
 
                   <wargear-tab-content
@@ -585,6 +588,7 @@
                       :selection="wargearSection.selection"
                       :my-filter="wargear.filter(wg => ['Armour', 'Armour Upgrade'].some(i => i === wg.type))"
                       :wargear="wargear"
+                      :rank="characterRank"
                   />
 
                   <wargear-tab-content
@@ -593,6 +597,7 @@
                       :selection="wargearSection.selection"
                       :my-filter="wargear.filter(wg => ['Tools & Equipment', 'Tool'].some(i => i === wg.type))"
                       :wargear="wargear"
+                      :rank="characterRank"
                   />
 
                   <wargear-tab-content
@@ -601,6 +606,7 @@
                       :selection="wargearSection.selection"
                       :my-filter="wargear.filter(wg => ['Augmetics'].some(i => i === wg.type))"
                       :wargear="wargear"
+                      :rank="characterRank"
                   />
 
                   <wargear-tab-content
@@ -609,6 +615,7 @@
                       :selection="wargearSection.selection"
                       :my-filter="wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon', 'Weapon Upgrade', 'Ammo', 'Armour', 'Armour Upgrade', 'Tools & Equipment', 'Augmetics', 'Tool'].every(i => i !== wg.type))"
                       :wargear="wargear"
+                      :rank="characterRank"
                   />
 
                 </div>

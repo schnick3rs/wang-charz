@@ -209,7 +209,7 @@ export const lex = [
         wargear: [
             { name: 'Arbites Carapace Armour' },
             { name: 'Excruciator Maul' },
-            { name: 'Nuncio Aquilla' },
+            { name: 'Nuncio Aquila' },
             { name: 'Chastisor Auto-Vox' },
             { name: 'Arbites Combat Shotgun' },
             { name: 'Data-Slate' },
