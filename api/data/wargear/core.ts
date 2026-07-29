@@ -636,6 +636,10 @@ export const core: Wargear[]  = [
         ...armour('Astartes Armour',5,'Powered(3)'),
     },
     {
+        ...gear('core',234,'Aquila Mk VII Power Armour','8V','Powered,Imperium,Adeptus Astartes'),
+        ...armour('Astartes Armour',5,'Powered(3)'),
+    },
+    {
         ...gear('core',235,'Tacticus Mk X','9V','Powered,Imperium,Adeptus Astartes,Adeptus Primaris'),
         ...armour('Astartes Armour',5,'Powered(4)'),
     },
