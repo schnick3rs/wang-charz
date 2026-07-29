@@ -948,7 +948,7 @@
                     <div
                       v-for="(objective, index) in objectives"
                       :key="objective.name"
-                      class="pl-2 pr-2 pt-1 pb-1 caption"
+                      class="pl-2 pr-2 mb-1 caption"
                     >
                       <strong>{{ index+1 }}:</strong> {{ objective.text }}
                     </div>
