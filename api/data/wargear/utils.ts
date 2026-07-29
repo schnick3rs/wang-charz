@@ -132,12 +132,13 @@ export function metaMelee(
     ap,
     range,
     traits: string[],
-    label = undefined
+    label = undefined,
+    ignoreStrength: boolean = false
 ): MeleeProfile {
     return {
         type: 'melee-weapon',
         range,
-        damage: { static: staticPart, ed },
+        damage: { static: staticPart, ed, ignoreStrength },
         ap,
         traits,
         label,

@@ -48,6 +48,7 @@ export const MeleeProfileSchema = z.object({
     type: z.enum(['melee-weapon']),
     range: z.union([z.number(), z.string()]).default(1),
     damage: z.object({
+        ignoreStrength: z.boolean().optional(),
         static: z.union([z.number(), z.string()]),
         ed: z.union([z.number(), z.string()]),
     }),

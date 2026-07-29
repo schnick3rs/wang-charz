@@ -177,7 +177,7 @@ export const lex = [
             { name: 'Arbites Assault Shield' },
             { name: 'Arbites Combat Shotgun' },
             { name: 'Shock Maul' },
-            { name: 'Cyber-Mastiff' },
+            { name: 'Cyber Mastiff' },
             { name: 'Data-Slate' },
             { name: 'Vox Bead' },
         ],

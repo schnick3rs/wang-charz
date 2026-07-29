@@ -1,4 +1,4 @@
-import {armour, gear, meleez, rangez, toolz} from "./utils";
+import {armour, gear, meleez, metaMelee, rangez, toolz} from "./utils";
 import {Wargear} from "../../shared/schemas/wargear.schema";
 import { SKILLS, TRAITS} from "../../shared/constants";
 
@@ -6,6 +6,9 @@ export const lex: Wargear[]  = [
     {
         ...gear('lex',12,'Cyber Mastiff','2C','Imperium,Adeptus Arbites'),
         ...toolz('Familiar', 'A cyber familiar to aid your wims (see Lex Imperialis pg 12 for details).'),
+        meta: [
+            metaMelee(6,4,0,0, ['Rending(3)'], 'Plasteel Bite', true)
+        ],
     },
     {
         ...gear('lex',17,'Arbites Shotpistol','5C','Projectile,Adeptus Arbites'),

@@ -476,10 +476,18 @@
                         <div v-if="meta.damage">
                           <div v-if="meta.damage.static === '*'">*</div>
                           <div v-else>
-                            <span v-if="meta.type==='melee-weapon'">{{ meta.damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
+                            <span v-if="meta.type==='melee-weapon'">
+                              <span v-if="meta.damage.ignoreStrength == true">{{ meta.damage.static }}</span>
+                              <span
+                                  v-else
+                                  :title="`STR ${ attributes.find((a)=>a.key==='strength').adjustedRating } + ${ meta.damage.static } = ${ meta.damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }`"
+                                  style="text-decoration: underline; text-decoration-style: dotted;"
+                              >{{ meta.damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
+                            </span>
                             <span v-else>{{ meta.damage.static }}</span>
                             <span> + </span>
                             <span>{{ meta.damage.ed }} ED</span>
+
                           </div>
                         </div>
                       </td>
@@ -524,7 +532,7 @@
                     :key="trait"
                     class="body-2 mb-2 caption"
                   >
-                    <p v-if="traitByName(trait).crunch">
+                    <p v-if="traitByName(trait).crunch" class="mb-1">
                       <strong>{{ traitByName(trait).name }}: </strong> {{ traitByName(trait).crunch }}
                     </p>
                     <p v-else>{{ traitByName(trait).description }}</p>
@@ -3009,4 +3017,5 @@ export default {
     }
 
   }
+
 </style>
