@@ -188,7 +188,7 @@ export const red2 = [
     },
     // Faith Talents
     {
-        ...talent('red2', 68, 'Aegis of the Emperor', 20, ''),
+        ...talent('red2', 68, 'Aegis of the Emperor', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -204,7 +204,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 68, 'Castigate the Witch', 20, ''),
+        ...talent('red2', 68, 'Castigate the Witch', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -220,7 +220,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 68, 'Deliverance from the Daemonic', 20, ''),
+        ...talent('red2', 68, 'Deliverance from the Daemonic', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -237,7 +237,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 69, 'Hand Of The Emperor', 20, ''),
+        ...talent('red2', 69, 'Hand Of The Emperor', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -252,7 +252,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 69, 'Martyr’s Rites', 20, ''),
+        ...talent('red2', 69, 'Martyr’s Rites', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -273,7 +273,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 69, 'Sacred Radiance', 20, ''),
+        ...talent('red2', 69, 'Sacred Radiance', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -294,7 +294,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 69, 'Righteous Suffering', 20, ''),
+        ...talent('red2', 69, 'Righteous Suffering', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -309,7 +309,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 70, 'Shield of Aversion', 20, ''),
+        ...talent('red2', 70, 'Shield of Aversion', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -326,7 +326,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 70, 'Unshakable Vengeance', 20, ''),
+        ...talent('red2', 70, 'Unshakable Vengeance', 20, 'Faith'),
         requirements: [
             requireKeyword('ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -343,7 +343,7 @@ export const red2 = [
         ],
     },
     {
-        ...talent('red2', 70, 'Verse of Holy Piety', 10, ''),
+        ...talent('red2', 70, 'Verse of Holy Piety', 10, 'Faith'),
         requirements: [
             requireKeyword('ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
