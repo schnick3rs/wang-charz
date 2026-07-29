@@ -1,8 +1,12 @@
 import {armour, gear, meleez, rangez, toolz} from "./utils";
 import {Wargear} from "../../shared/schemas/wargear.schema";
-import {ATTRIBUTES, SKILLS, TRAITS} from "../../shared/constants";
+import { SKILLS, TRAITS} from "../../shared/constants";
 
 export const lex: Wargear[]  = [
+    {
+        ...gear('lex',12,'Cyber Mastiff','2C','Imperium,Adeptus Arbites'),
+        ...toolz('Familiar', 'A cyber familiar to aid your wims (see Lex Imperialis pg 12 for details).'),
+    },
     {
         ...gear('lex',17,'Arbites Shotpistol','5C','Projectile,Adeptus Arbites'),
         ...rangez('Arbitrator Ranged Weapons', 6, 1 ,0, 12, 1, 'Brutal,Pistol')
