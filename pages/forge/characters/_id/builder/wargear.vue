@@ -420,7 +420,7 @@ export default {
   watch: {
     characterArchetypeKey: {
       handler(newVal) {
-        if (newVal) {
+        if (newVal && newVal !== 'advanced') {
           this.getArchetype(newVal);
         }
       },
