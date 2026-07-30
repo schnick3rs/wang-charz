@@ -1,5 +1,5 @@
-import {ATTRIBUTES, SKILLS, TRAITS} from "../../db/static/_statUtils";
 import {requireAttribute, requireKeyword, requireSkill, requireTrait, talent} from "./utils";
+import {ATTRIBUTES, SKILLS, TRAITS} from "../../shared/constants";
 
 export const red2 = [
     {//needed snippet correction

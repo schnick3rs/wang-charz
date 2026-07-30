@@ -6,7 +6,7 @@ import {
     skillRating,
     threatBuilder
 } from "./utils";
-import {SKILLS} from "../../db/static/_statUtils";
+import {SKILLS} from "../../shared/constants";
 
 export const core: Threat[] = [
     {

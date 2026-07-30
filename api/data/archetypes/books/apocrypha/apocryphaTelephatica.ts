@@ -1,5 +1,5 @@
 import {archetype, costz, reqAttribute, reqSkill} from "../../utils";
-import {ATTRIBUTES, SKILLS} from "../../../../db/static/_statUtils";
+import {ATTRIBUTES, SKILLS} from "../../../../shared/constants";
 
 export const aaoaAdeptusAstraTelephatica = [
     archetype('aaoa', 46,'Adeptus Astra Telephatica','Astropath',2,'Human',true),

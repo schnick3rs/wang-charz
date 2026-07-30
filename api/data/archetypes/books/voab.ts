@@ -1,5 +1,5 @@
 import {archetype, costz, reqAttribute, reqSkill, suggestedAttributes} from "../utils";
-import {ATTRIBUTES, SKILLS} from "../../../db/static/_statUtils";
+import {ATTRIBUTES, SKILLS} from "../../../shared/constants";
 
 export const voab = [
     {

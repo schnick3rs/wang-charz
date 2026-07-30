@@ -14,13 +14,13 @@ const rawPowersRepository = [
     ...core,
     ...fspg,
     ...voabPowers,
-    ...paxNavigatorPowers,
     // Abundance
     ...aaoaAeldariPowers,
     ...aaoaWaaaghPowers,
     ...aaoaSancticPowers,
     ...aaoaLibrariusPowers,
-    ...aaoaAncestrialRites,
+    ...aaoaAncestrialRites,    // outdated
+    ...paxNavigatorPowers,
 ];
 
 export const psychicPowersRepository: PsychicPower[] = PsychicPowerRepositorySchema.parse(rawPowersRepository);

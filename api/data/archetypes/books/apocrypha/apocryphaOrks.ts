@@ -1,5 +1,5 @@
 import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../../utils";
-import {ATTRIBUTES, SKILLS} from "../../../../db/static/_statUtils";
+import {ATTRIBUTES, SKILLS} from "../../../../shared/constants";
 
 export const aaoaOrks = [
     {

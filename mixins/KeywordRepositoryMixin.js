@@ -1,4 +1,3 @@
-import {SKILLS, TRAITS} from '../api/db/static/_statUtils';
 
 export default {
   data() {

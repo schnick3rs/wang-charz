@@ -1,5 +1,5 @@
-import {SKILLS} from "../../db/static/_statUtils";
 import {simpleStub} from "./utils";
+import {SKILLS} from "../../shared/constants";
 
 export const red2 = [
     {

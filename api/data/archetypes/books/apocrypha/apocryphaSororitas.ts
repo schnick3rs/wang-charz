@@ -1,5 +1,5 @@
 import {archetype, costz, reqAttribute, reqSkill, simpleAbility} from "../../utils";
-import {ATTRIBUTES, SKILLS, TRAITS} from "../../../../db/static/_statUtils";
+import {ATTRIBUTES, SKILLS, TRAITS} from "../../../../shared/constants";
 
 export const aaoaAdeptaSororitas = [
     {

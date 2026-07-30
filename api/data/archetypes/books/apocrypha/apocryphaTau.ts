@@ -1,5 +1,5 @@
 import {archetype, costz, reqSkill, wargearz} from "../../utils";
-import {SKILLS} from "../../../../db/static/_statUtils";
+import {SKILLS} from "../../../../shared/constants";
 
 
 export const aaoaTauEmpire = [

@@ -1,5 +1,5 @@
-import {SKILLS} from "../../db/static/_statUtils";
 import {commonNames, cost, species, statMax} from "./utils";
+import {SKILLS} from "../../shared/constants";
 
 export const core = [
     {

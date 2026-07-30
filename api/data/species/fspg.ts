@@ -1,6 +1,6 @@
-import {ATTRIBUTES, SKILLS, TRAITS} from "../../db/static/_statUtils";
 import {background, commonNames, cost, species, statMax} from "./utils";
 import {addModifier} from "../archetypes/utils";
+import {ATTRIBUTES, SKILLS, TRAITS} from "../../shared/constants";
 
 export const fspg = [
     {

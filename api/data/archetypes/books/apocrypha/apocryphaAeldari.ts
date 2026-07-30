@@ -1,5 +1,5 @@
 import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
-import {ATTRIBUTES, SKILLS, TRAITS} from "../../../../db/static/_statUtils";
+import {SKILLS, TRAITS, ATTRIBUTES} from "../../../../shared/constants";
 
 export const aaoaAeldari = [
     // Craftsworld

@@ -1,6 +1,6 @@
 import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
 import {aaoaPrimarisAstartes} from "../../../../data/archetypes/books/apocrypha/apocryphaPrimaris";
-import {ATTRIBUTES, SKILLS} from "../../../../db/static/_statUtils";
+import {ATTRIBUTES, SKILLS} from "../../../../shared/constants";
 
 
 export const aaoaAdeptusAstartes = [

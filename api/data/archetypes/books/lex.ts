@@ -1,6 +1,6 @@
-import {ATTRIBUTES, SKILLS} from "../../../db/static/_statUtils";
 import {archetype, costz, reqAttribute, reqSkill} from "../utils";
 import {stringToKebab} from "../../utils";
+import {ATTRIBUTES, SKILLS} from "../../../shared/constants";
 
 let faction = 'Adeptus Arbites';
 

@@ -1,4 +1,3 @@
-import {ATTRIBUTES, SKILLS, TRAITS} from "../db/static/_statUtils";
 import {
     addModifier,
     archetype,
@@ -22,6 +21,7 @@ import {dod} from "./archetypes/books/doctorsOfDoom";
 import {aaoaRep} from "./archetypes/books/apocrypha";
 import {sonr} from "./archetypes/books/sonsOfRuss";
 import {lex} from "./archetypes/books/lex";
+import {ATTRIBUTES, SKILLS, TRAITS} from "../shared/constants";
 
 const aotgtRep = [
     archetype('aotgt', '', 'Agents of the Imperium', 'Callidus Assassin', 4, 'Human', true),

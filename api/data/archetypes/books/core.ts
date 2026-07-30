@@ -1,5 +1,5 @@
-import {ATTRIBUTES, SKILLS, TRAITS} from "../../../db/static/_statUtils";
 import {archetype, cost, costz, reqAttribute, reqSkill, suggestedAttributes, wargearz} from "../utils";
+import {ATTRIBUTES, TRAITS, SKILLS} from "../../../shared/constants";
 
 export const core = [
     {
