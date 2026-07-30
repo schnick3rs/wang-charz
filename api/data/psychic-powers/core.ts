@@ -174,7 +174,7 @@ export const core = [
     },
     {
         ...powerz('core',276,'Flame Breath','Pyromancy',5),
-        ...simpleCrunch(5, ACTIVATION.ACTION, DURATION.INSTANT,'30 m',false),
+        ...simpleCrunch(5, ACTIVATION.ACTION, DURATION.INSTANT,'5 m',false),
         keywords: ['Fire','Psychic'],
         effect: 'Anything within Blast(Medium) suffers 14 +2 ED and is On Fire.',
     },
