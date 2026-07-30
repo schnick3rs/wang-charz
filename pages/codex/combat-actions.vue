@@ -49,7 +49,7 @@
             :key="item.key"
           >
             <v-expansion-panel-header class="pa-4 pt-2 pb-2">
-              <template v-slot:default="{ open }">
+              <template #default="{ open }">
                 <v-row no-gutters>
                   <v-col :cols="12">
                     <h3 class="subtitle-1">
@@ -92,21 +92,6 @@ export default {
   mixins: [
     RulesCombatActionsMixin,
   ],
-  head() {
-    const title = 'Combat Actions - Wrath & Glory Reference | Codex';
-    const description = 'This Quick Reference for Wrath and Glory shows the various combat actions and options.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_codex_book.jpg';
-
-    return {
-      title,
-      meta: [
-        { hid: 'description', name: 'description', content: description },
-        { hid: 'og:title', name: 'og:title', content: title },
-        { hid: 'og:description', name: 'og:description', content: description },
-        { hid: 'og:image', name: 'og:image', content: image },
-      ],
-    };
-  },
   data() {
     return {
       breadcrumbItems: [
@@ -152,6 +137,21 @@ export default {
         },
       ],
       expand: false,
+    };
+  },
+  head() {
+    const title = 'Combat Actions - Wrath & Glory Reference | Codex';
+    const description = 'This Quick Reference for Wrath and Glory shows the various combat actions and options.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_codex_book.jpg';
+
+    return {
+      title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+      ],
     };
   },
   computed: {

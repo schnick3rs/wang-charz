@@ -118,12 +118,12 @@
 
         <!-- custom avatar -->
         <v-badge
+          v-show="characterAvatarUrl"
           bordered
           overlap
           color="error"
-          v-show="characterAvatarUrl"
         >
-          <template v-slot:badge>
+          <template #badge>
             <v-icon color="white" @click.stop="setCharacterAvatar(undefined)">close</v-icon>
           </template>
           <v-avatar
@@ -137,10 +137,10 @@
 
         <!-- placeholder -->
         <v-avatar
+          v-show="!characterAvatarUrl"
           size="86"
           tile
           @click="selectAvatarDialog = true"
-          v-show="!characterAvatarUrl"
         >
           <v-img src="/img/avatar_placeholder_grey.png" ></v-img>
         </v-avatar>
@@ -254,7 +254,7 @@
               :disabled="homebrew.disabled"
               @change="updateHomebrew(homebrew)"
           >
-            <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
+            <template #label><span class="body-2">{{ homebrew.name }}</span></template>
           </v-switch>
           <v-switch
               v-else
@@ -267,7 +267,7 @@
               disabled
               @change="updateHomebrew(homebrew)"
           >
-            <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
+            <template #label><span class="body-2">{{ homebrew.name }}</span></template>
           </v-switch>
 
         </div>
@@ -305,7 +305,7 @@
             :disabled="!homebrew.enabled"
             @change="updateHomebrew(homebrew)"
           >
-            <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
+            <template #label><span class="body-2">{{ homebrew.name }}</span></template>
           </v-switch>
         </div>
 
@@ -329,7 +329,7 @@
             :disabled="!homebrew.enabled"
             @change="updateHomebrew(homebrew)"
           >
-            <template v-slot:label><span class="body-2">{{ homebrew.name }}</span></template>
+            <template #label><span class="body-2">{{ homebrew.name }}</span></template>
           </v-switch>
         </div>
       </div>
@@ -368,8 +368,8 @@
 
 export default {
   name: 'Setting',
-  layout: 'forge',
   mixins: [],
+  layout: 'forge',
   props: [],
   asyncData({ params }) {
     return {
@@ -446,6 +446,16 @@ export default {
         {
           show: true,
           disabled: false,
+          optional: true,
+          key: 'red2',
+          name: 'Redacted Records II',
+          hint: 'More Talents',
+          nuxt: 'https://www.drivethrurpg.com/en/product/388102/warhammer-40-000-wrath-glory-redacted-records-2?affiliate_id=466959',
+          source: '',
+        },
+        {
+          show: true,
+          disabled: false,
           optional: true, // always active
           key: 'voab',
           name: 'Vow of Absolution',
@@ -456,11 +466,11 @@ export default {
         {
           show: true,
           disabled: false,
-          optional: true,
-          key: 'red2',
-          name: 'Redacted Records II',
-          hint: 'More Talents',
-          nuxt: 'https://www.drivethrurpg.com/en/product/388102/warhammer-40-000-wrath-glory-redacted-records-2?affiliate_id=466959',
+          optional: true, // always active
+          key: 'lex',
+          name: 'Lex Imperialis',
+          hint: 'Add Adeptus Arbites Archetypes, Talents and Wargear.',
+          nuxt: 'https://www.drivethrurpg.com/en/product/552043/warhammer-40-000-wrath-glory-lex-imperialis?affiliate_id=466959',
           source: '',
         },
         {

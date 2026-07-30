@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-simple-table dense>
-      <template v-slot:default>
+      <template #default>
         <thead>
           <tr>
             <th

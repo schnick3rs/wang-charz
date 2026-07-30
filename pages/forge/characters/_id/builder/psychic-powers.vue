@@ -5,15 +5,15 @@
         Manage Powers
         <span>
           <v-icon v-if="alerts && alerts.length <= 0">error_outline</v-icon>
-          <v-btn color="warning" v-else-if="showAlerts" @click="showAlerts = !showAlerts" small><v-icon small left>error</v-icon> Hide warnings</v-btn>
-          <v-btn color="warning" v-else @click="showAlerts = !showAlerts" outlined small>
+          <v-btn v-else-if="showAlerts" color="warning" small @click="showAlerts = !showAlerts"><v-icon small left>error</v-icon> Hide warnings</v-btn>
+          <v-btn v-else color="warning" outlined small @click="showAlerts = !showAlerts">
             <v-icon small left>error_outline</v-icon>show {{alerts.length}} warning{{ alerts.length > 1 ? 's' : '' }}
           </v-btn>
         </span>
       </h1>
     </v-col>
 
-    <v-col :cols="12" v-if="showAlerts">
+    <v-col v-if="showAlerts" :cols="12">
       <v-alert
         v-for="alert in alerts"
         :key="alert.key"
@@ -97,7 +97,7 @@
           item-key="key"
           hide-default-footer
         >
-          <template v-slot:item.source.key="{ item }">
+          <template #item.source.key="{ item }">
             <v-chip
                 :color="item.source && ['fspg'].includes(item.source.key) ? 'success' : 'info'"
                 outlined
@@ -108,7 +108,7 @@
               {{item.source.key.toUpperCase()}}
             </v-chip>
           </template>
-          <template v-slot:item.learn="{ item }">
+          <template #item.learn="{ item }">
             <span>
               <v-btn
                 :disabled="characterPowers.map(i=>i.name).includes(item.name)"
@@ -122,7 +122,7 @@
             </span>
           </template>
 
-          <template v-slot:no-results>
+          <template #no-results>
             <div class="text-lg-center">
               Your search for "{{ searchQuery }}" found no results.
             </div>
@@ -138,16 +138,11 @@ import PsychicDisciplineMixin from '~/mixins/PsychicDisciplineMixin';
 
 export default {
   name: 'PsychicPowers',
-  layout: 'forge',
   mixins: [
     PsychicDisciplineMixin,
   ],
+  layout: 'forge',
   props: [],
-  head() {
-    return {
-      title: 'Select Psychic Powers',
-    };
-  },
   asyncData({ params }) {
     return {
       characterId: params.id,
@@ -193,6 +188,11 @@ export default {
       psychicPowersList: undefined,
       loading: false,
       showAlerts: false,
+    };
+  },
+  head() {
+    return {
+      title: 'Select Psychic Powers',
     };
   },
   computed: {

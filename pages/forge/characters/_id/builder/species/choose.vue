@@ -65,7 +65,7 @@
               </v-chip>
             </v-list-item-action>
 
-            <v-list-item-action class="d-none d-sm-inline" v-if="false">
+            <v-list-item-action v-if="false" class="d-none d-sm-inline">
               <v-chip pill color="red" text-color="white">
                 <v-avatar left class="red darken-4">
                   {{ item.baseTier }}
@@ -100,6 +100,11 @@ export default {
   mixins: [
     SluggerMixin,
   ],
+  asyncData({ params }) {
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       speciesList: undefined,
@@ -141,11 +146,6 @@ export default {
       },
       immediate: true, // make this watch function is called when component created
     },
-  },
-  asyncData({ params }) {
-    return {
-      characterId: params.id,
-    };
   },
   methods: {
     async getSpeciesList(sources) {

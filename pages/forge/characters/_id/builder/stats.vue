@@ -5,18 +5,18 @@
         Select Attributes and Skills
         <span>
           <v-icon v-if="alerts && alerts.length <= 0">error_outline</v-icon>
-          <v-btn color="warning" v-else-if="showAlerts" @click="showAlerts = !showAlerts" small><v-icon small left>error</v-icon> Hide warnings</v-btn>
-          <v-btn color="warning" v-else @click="showAlerts = !showAlerts" outlined small>
+          <v-btn v-else-if="showAlerts" color="warning" small @click="showAlerts = !showAlerts"><v-icon small left>error</v-icon> Hide warnings</v-btn>
+          <v-btn v-else color="warning" outlined small @click="showAlerts = !showAlerts">
             <v-icon small left>error_outline</v-icon>show {{alerts.length}} warning{{ alerts.length > 1 ? 's' : '' }}
           </v-btn>
-          <v-btn color="primary" @click="resetStats" outlined small>reset Stats</v-btn>
+          <v-btn color="primary" outlined small @click="resetStats">reset Stats</v-btn>
         </span>
       </h1>
     </v-col>
 
     <v-progress-circular v-if="!archetype" indeterminate color="success" size="128" width="12" />
 
-    <v-col :cols="12" v-if="showAlerts">
+    <v-col v-if="showAlerts" :cols="12">
       <v-alert
         v-for="alert in alerts"
         :key="alert.key"
@@ -27,7 +27,7 @@
         border="left"
       >
         {{ alert.text }}
-        <v-btn v-if="alert.key === 'prerequisites'" color="primary" @click="ensurePrerequisites" small>
+        <v-btn v-if="alert.key === 'prerequisites'" color="primary" small @click="ensurePrerequisites">
           Increase stats to fit the archetype.
           <v-icon right small>
             library_add
@@ -36,10 +36,10 @@
       </v-alert>
     </v-col>
 
-    <v-col :cols="12" :md="6" v-if="archetype">
+    <v-col v-if="archetype" :cols="12" :md="6">
       <v-card>
         <v-simple-table dense>
-          <template v-slot:default>
+          <template #default>
             <tbody>
               <tr
                 v-for="attribute in attributeRepository"
@@ -85,10 +85,10 @@
       </v-card>
     </v-col >
 
-    <v-col :cols="12" :md="6" v-if="archetype">
+    <v-col v-if="archetype" :cols="12" :md="6">
       <v-card>
         <v-simple-table dense>
-          <template v-slot:default>
+          <template #default>
             <tbody>
               <tr
                 v-for="skill in finalSkillRepository"
@@ -130,10 +130,10 @@ import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Stats',
-  layout: 'forge',
   mixins: [
     StatRepositoryMixin,
   ],
+  layout: 'forge',
   props: [],
   async asyncData({ params }) {
     return {

@@ -90,7 +90,7 @@
 import AscensionPreview from '~/components/forge/AscensionPreview.vue';
 
 export default {
-  name: 'ascension-choose',
+  name: 'AscensionChoose',
   components: {
     AscensionPreview,
   },

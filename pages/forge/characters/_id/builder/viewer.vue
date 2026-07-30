@@ -18,6 +18,13 @@
 export default {
   name: 'Viewer',
   layout: 'print',
+  async asyncData({ params }) {
+    const sourceFilter = '?source=core,coreab';
+
+    return {
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       activeComponent: 'attributes',
@@ -31,13 +38,6 @@ export default {
     active() {
       return this.children[this.activeComponent];
     },
-  },
-  async asyncData({ params }) {
-    const sourceFilter = '?source=core,coreab';
-
-    return {
-      characterId: params.id,
-    };
   },
   methods: {
     prev() {

@@ -19,16 +19,16 @@
           <v-card-text class="pt-4">
 
             <v-text-field
-              label="Keyword Name"
               v-model="customKeyword.name"
+              label="Keyword Name"
               dense required
               class="mb-4"
               :rules="[v => !!v || 'A name is required']"
             ></v-text-field>
 
             <v-textarea
-              label="Description"
               v-model="customKeyword.description"
+              label="Description"
               dense
               class="mb-2"
               :required="!keywordCombinedRepository.find(k=>k.name===customKeyword.name)"
@@ -39,7 +39,7 @@
           <v-divider></v-divider>
           <v-card-actions>
             <v-spacer />
-            <v-btn small right color="success" @click="saveCustomKeyword" :disabled="!keywordFormValid">Save</v-btn>
+            <v-btn small right color="success" :disabled="!keywordFormValid" @click="saveCustomKeyword">Save</v-btn>
           </v-card-actions>
         </v-card>
       </v-form>
@@ -100,8 +100,8 @@
     >
       <v-card>
         <component
-            v-if="contextDialogComponent"
             :is="contextDialogComponent"
+            v-if="contextDialogComponent"
             :character-id="characterId"
             :character-traits="traits"
             :character-modifiers="characterEnhancements"
@@ -138,9 +138,9 @@
 
       <!-- actions -->
       <v-col :cols="12" :sm="4" :md="5" align="right">
-        <v-btn small outlined color="success" v-if="false">share</v-btn>
-        <v-btn small outlined color="success" v-if="false">campaign</v-btn>
-        <v-btn small outlined color="primary" v-if="false">
+        <v-btn v-if="false" small outlined color="success">share</v-btn>
+        <v-btn v-if="false" small outlined color="success">campaign</v-btn>
+        <v-btn v-if="false" small outlined color="primary">
           <v-icon left small>group</v-icon> Regroup
         </v-btn>
         <v-btn
@@ -198,8 +198,8 @@
                 <td class="text-center pa-1 small">{{ item.rating }}</td>
                 <td class="text-center pa-1 small">{{ item.adjustedRating }}</td>
                 <td class="text-center pa-1 small">
-                  <v-tooltip bottom v-if="item.modifiers.length > 0">
-                    <template v-slot:activator="{ on }">
+                  <v-tooltip v-if="item.modifiers.length > 0" bottom>
+                    <template #activator="{ on }">
                       <v-avatar
                         :color="valueHintColor(item)"
                         size="12"
@@ -257,7 +257,7 @@
                       </v-btn>
                     </span>
                     <div v-if="['Wealth','Max Shock','Max Wounds'].includes(item.name)" style="float: right;">
-                      <div style="flex-wrap: wrap; display: flex;" v-if="item.adjustedRating > 0">
+                      <div v-if="item.adjustedRating > 0" style="flex-wrap: wrap; display: flex;">
                           <div
                             v-for="pointIndex in item.adjustedRating"
                             class="resource-box"
@@ -272,8 +272,8 @@
                   </td>
                   <td>
                     <!-- each modifier contains the BASE of the compution, thus we begin at > 1 -->
-                    <v-tooltip bottom v-if="item.modifiers.length > 0 || item.alternativeRating">
-                      <template v-slot:activator="{ on }">
+                    <v-tooltip v-if="item.modifiers.length > 0 || item.alternativeRating" bottom>
+                      <template #activator="{ on }">
                         <v-avatar
                           :color="valueHintColor(item)"
                           size="12"
@@ -332,10 +332,10 @@
                   <span v-if="item.custom">
                     <v-hover>
                       <v-icon
-                        small
-                        @click="removeCustomSkill(item.key)"
                         slot-scope="{ hover }"
+                        small
                         :color="`${ hover ? 'error' : '' }`"
+                        @click="removeCustomSkill(item.key)"
                       >delete</v-icon>
                     </v-hover>
                   </span>
@@ -352,8 +352,8 @@
                   {{ computeSkillPool(item) }}<span v-if="item.conditionalAdjustment !== 0">/{{ computeSkillPool(item)+item.conditionalAdjustment }}</span>
                 </td>
                 <td class="text-center pa-1 small">
-                  <v-tooltip bottom v-if="item.modifiers.length > 0">
-                    <template v-slot:activator="{ on }">
+                  <v-tooltip v-if="item.modifiers.length > 0" bottom>
+                    <template #activator="{ on }">
                       <v-avatar
                         :color="valueHintColor(item)"
                         size="12"
@@ -429,16 +429,16 @@
 
             -->
 
-            <v-tab class="caption" key="actions" :href="`#tab-actions`"><h2 class="subtitle-2">Weapons</h2></v-tab>
-            <v-tab class="caption" key="wargear" :href="`#tab-wargear`"><h2 class="subtitle-2">Wargear</h2></v-tab>
-            <v-tab class="caption" key="abilities-talents" :href="`#tab-abilities-talents`"><h2 class="subtitle-2">Abilities</h2></v-tab>
-            <v-tab class="caption" key="psychic-powers" :href="`#tab-psychic-powers`" v-if="psychicPowers.length > 0"><h2 class="subtitle-2">Powers</h2></v-tab>
-            <v-tab class="caption" key="objectives" :href="`#tab-objectives`"><h2 class="subtitle-2">Description</h2></v-tab>
+            <v-tab key="actions" class="caption" :href="`#tab-actions`"><h2 class="subtitle-2">Weapons</h2></v-tab>
+            <v-tab key="wargear" class="caption" :href="`#tab-wargear`"><h2 class="subtitle-2">Wargear</h2></v-tab>
+            <v-tab key="abilities-talents" class="caption" :href="`#tab-abilities-talents`"><h2 class="subtitle-2">Abilities</h2></v-tab>
+            <v-tab v-if="psychicPowers.length > 0" key="psychic-powers" class="caption" :href="`#tab-psychic-powers`"><h2 class="subtitle-2">Powers</h2></v-tab>
+            <v-tab key="objectives" class="caption" :href="`#tab-objectives`"><h2 class="subtitle-2">Description</h2></v-tab>
 
             <!-- actions (all, weapons, powers, other) -->
             <v-tab-item
-              class="my-tab-item"
               key="actions"
+              class="my-tab-item"
               :value="`tab-actions`"
             >
               <div class="pa-2">
@@ -448,19 +448,19 @@
                   :items="weapons"
                   hide-default-footer
                 >
-                  <template v-slot:item="{ item }">
+                  <template #item="{ item }">
                     <tr
-                        v-if="item.meta"
                         v-for="(meta, metaIndex) in item.meta.filter(m => m.type.indexOf('-weapon') > 0)"
+                        v-if="item.meta"
                         :key="`${item.name}-${metaIndex}`"
                     >
 
                       <td class="text-left pa-1 small">
-                        {{ item.name }}
-                        <template v-if="item.meta.length > 1">
-                          <span v-if="meta.type === 'melee-weapon'">(Melee)</span>
-                          <span v-else-if="meta.type === 'ranged-weapon'">(Ranged)</span>
-                        </template>
+                        <div v-if="meta.label">
+                          <span>{{ meta.label}}</span><span> ({{ item.name }})</span>
+                        </div>
+                        <span v-else>{{ item.name }}</span>
+                        <v-icon v-show="false" small>build</v-icon>
                       </td>
 
                       <td class="text-center pa-1 small">
@@ -476,10 +476,18 @@
                         <div v-if="meta.damage">
                           <div v-if="meta.damage.static === '*'">*</div>
                           <div v-else>
-                            <span v-if="meta.type==='melee-weapon'">{{ meta.damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
+                            <span v-if="meta.type==='melee-weapon'">
+                              <span v-if="meta.damage.ignoreStrength == true">{{ meta.damage.static }}</span>
+                              <span
+                                  v-else
+                                  :title="`STR ${ attributes.find((a)=>a.key==='strength').adjustedRating } + ${ meta.damage.static } = ${ meta.damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }`"
+                                  style="text-decoration: underline; text-decoration-style: dotted;"
+                              >{{ meta.damage.static + attributes.find((a)=>a.key==='strength').adjustedRating }}*</span>
+                            </span>
                             <span v-else>{{ meta.damage.static }}</span>
                             <span> + </span>
                             <span>{{ meta.damage.ed }} ED</span>
+
                           </div>
                         </div>
                       </td>
@@ -504,15 +512,15 @@
                 <div class="mb-1 mt-2">
                   <span class="body-2 red--text">Reloads:</span>
                   <span class="body-2">{{ characterReloads.points - characterReloads.spend }} remaining.</span>
-                  <div class="pl-2" style="flex-wrap: wrap; display: flex;" v-if="characterReloads.points > 0">
+                  <div v-if="characterReloads.points > 0" class="pl-2" style="flex-wrap: wrap; display: flex;">
                     <v-btn
-                      text icon
-                      v-for="pointIndex in characterReloads.points"
-                      :key="pointIndex"
+                      v-for="pointIndex in characterReloads.points" :key="pointIndex"
+                      text
+                      icon
                       @click="toggleResourceReloads(pointIndex)"
                     >
-                      <v-icon color="error" v-if="pointIndex <= characterReloads.spend">signal_cellular_no_sim</v-icon>
-                      <v-icon color="primary" v-else>sd_storage</v-icon>
+                      <v-icon v-if="pointIndex <= characterReloads.spend" color="error">signal_cellular_no_sim</v-icon>
+                      <v-icon v-else color="primary">sd_storage</v-icon>
                     </v-btn>
                   </div>
                 </div>
@@ -524,7 +532,7 @@
                     :key="trait"
                     class="body-2 mb-2 caption"
                   >
-                    <p v-if="traitByName(trait).crunch">
+                    <p v-if="traitByName(trait).crunch" class="mb-1">
                       <strong>{{ traitByName(trait).name }}: </strong> {{ traitByName(trait).crunch }}
                     </p>
                     <p v-else>{{ traitByName(trait).description }}</p>
@@ -535,38 +543,88 @@
 
             <!-- wargear (All, Weapons, Armour, Gear, Other Possessions) -->
             <v-tab-item
-              class="my-tab-item"
               key="wargear"
+              class="my-tab-item"
               :value="`tab-wargear`"
             >
-              <div class="pa-2 pt-1 pb-1">
-                <div v-for="gearItem in wargear" :key="gearItem.id" class="caption mb-2">
-                  <div v-if="gearItem.variant" style="display: inline;">
-                    <strong >{{ gearItem.variant }}</strong>
-                    <span> ({{ gearItem.name }})</span>
-                  </div>
-                  <strong v-else>{{ gearItem.name }}</strong>
-                  <em v-if="gearItem.type"> • {{gearItem.type}}</em>
-                  <span v-if="gearItem.source">
-                    <em v-if="gearItem.source.key"> • {{ gearItem.source.key }}</em><em v-if="!isNaN(gearItem.source.page)">, pg. {{ gearItem.source.page }}</em>
-                  </span>
+              <div class="pa-2">
 
-                  <p class="mb-1" v-if="gearItem.snippet">{{ gearItem.snippet }}</p>
-                  <div class="mb-1" v-else v-html="gearItem.description"></div>
-
-                  <div
-                    v-if="gearItem.meta !== undefined && gearItem.meta.length > 0 && ['armour'].includes(gearItem.meta[0].type)"
+                <v-chip-group v-model="wargearSection.selection" mandatory active-class="red--text">
+                  <v-chip
+                      v-for="item in [`All`, `Weapons`, `Upgrades`, `Ammo`, `Armour`, `Tools`, `Augmetics`, `Other`]"
+                      :key="item.toLowerCase()"
+                      label
+                      small
+                      :value="item.toLowerCase()"
                   >
-                    <p
-                      class="ml-1 pl-2 mb-1" style="border-left: solid 3px lightgrey;"
-                      v-for="trait in gearItem.meta[0].traits"
-                      v-if="traitByName(trait, true)"
-                      :key="trait"
-                    >
-                      <strong>{{ trait }}: </strong>
-                      {{ traitByName(trait, true).crunch }}
-                    </p>
-                  </div>
+                    {{item}}
+                  </v-chip>
+                </v-chip-group>
+
+                <div class="caption">
+
+                  <wargear-tab-content
+                      tab-name="weapons"
+                      header="Weapons"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                      :rank="characterRank"
+                  />
+
+                  <wargear-tab-content
+                      tab-name="upgrades"
+                      header="Weapon Upgrades"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Weapon Upgrade'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                      :rank="characterRank"
+                  />
+
+                  <wargear-tab-content
+                      tab-name="ammo"
+                      header="Ammo"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Ammo'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                      :rank="characterRank"
+                  />
+
+                  <wargear-tab-content
+                      tab-name="armour"
+                      header="Armour & Upgrades"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Armour', 'Armour Upgrade'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                      :rank="characterRank"
+                  />
+
+                  <wargear-tab-content
+                      tab-name="tools"
+                      header="Tools & Equipment"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Tools & Equipment', 'Tool'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                      :rank="characterRank"
+                  />
+
+                  <wargear-tab-content
+                      tab-name="augmetics"
+                      header="Augmetics"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Augmetics'].some(i => i === wg.type))"
+                      :wargear="wargear"
+                      :rank="characterRank"
+                  />
+
+                  <wargear-tab-content
+                      tab-name="other"
+                      header="Others & Misc"
+                      :selection="wargearSection.selection"
+                      :my-filter="wargear.filter(wg => ['Melee Weapon', 'Ranged Weapon', 'Weapon Upgrade', 'Ammo', 'Armour', 'Armour Upgrade', 'Tools & Equipment', 'Augmetics', 'Tool'].every(i => i !== wg.type))"
+                      :wargear="wargear"
+                      :rank="characterRank"
+                  />
 
                 </div>
 
@@ -575,18 +633,18 @@
 
             <!-- abilities (All, Race, Archetype, Talents, Faith?, Other) -->
             <v-tab-item
-              class="my-tab-item"
               key="abilities-talents"
+              class="my-tab-item"
               :value="`tab-abilities-talents`"
             >
               <div class="pa-2">
 
-                <v-chip-group mandatory active-class="red--text" v-model="abilitySection.selection">
+                <v-chip-group v-model="abilitySection.selection" mandatory active-class="red--text">
                   <v-chip
-                    label
-                    small
                     v-for="item in [`All`,`Species`, `Archetype`, `Ascension`, `Talents`, `Other`]"
                     :key="item.toLowerCase()"
+                    label
+                    small
                     :value="item.toLowerCase()"
                   >
                     {{item}}
@@ -605,8 +663,8 @@
                       <div v-html="computeFormatedText(ability.effect)" />
 
                       <div
-                          v-if="ability.selectedOptions"
                           v-for="selectedOption in ability.selectedOptions"
+                          v-if="ability.selectedOptions"
                           class="ml-1 pl-2"
                           style="border-left: solid 3px lightgrey;"
                       >
@@ -636,8 +694,8 @@
                       <div v-else v-html="computeFormatedText(ability.description)"></div>
 
                       <div
-                        v-if="ability.selectedOptions"
                         v-for="selectedOption in ability.selectedOptions"
+                        v-if="ability.selectedOptions"
                         class="ml-1 pl-2"
                         style="border-left: solid 3px lightgrey;"
                       >
@@ -678,7 +736,7 @@
 
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12); display: flex;">
                       <span class="body-2 red--text" style="flex: 1;">Talents</span>
-                      <div style="flex-wrap: wrap; display: flex;" v-if="characterFaith.points > 0">
+                      <div v-if="characterFaith.points > 0" style="flex-wrap: wrap; display: flex;">
                         <div
                           v-for="pointIndex in characterFaith.points"
                           class="faith-box"
@@ -689,7 +747,7 @@
                       </div>
                     </div>
 
-                    <div v-if="talents.length > 0" v-for="talent in talents" :key="talent.name" class="caption mb-2">
+                    <div v-for="talent in talents" v-if="talents.length > 0" :key="talent.name" class="caption mb-2">
 
                       <strong>{{ talent.name }}</strong>
                       <em> • Talent</em>
@@ -700,8 +758,8 @@
                       <div v-else v-html="computeFormatedText(talent.description)"></div>
 
                       <div
-                        v-if="talent.selectedOptions"
                         v-for="selectedOption in talent.selectedOptions"
+                        v-if="talent.selectedOptions"
                         class="ml-1 pl-2"
                         style="border-left: solid 3px lightgrey;"
                       >
@@ -741,7 +799,7 @@
                         <span class="body-2 ml-2">Faith Points</span>
                       </div>
                     </div>
-                    <div v-if="talentsForFaith.length > 0" v-for="talent in talentsForFaith" :key="talent.name" >
+                    <div v-for="talent in talentsForFaith" v-if="talentsForFaith.length > 0" :key="talent.name" >
                       <strong>{{ talent.name }}</strong><em> • Talent</em>
                       <p v-html="computeFormatedText(talent.description)" />
                     </div>
@@ -764,10 +822,10 @@
                       <span v-if="ability.source === 'Mutation'">
                         <v-hover>
                           <v-icon
-                            small
-                            @click="removeMutation(ability.id)"
                             slot-scope="{ hover }"
+                            small
                             :color="`${ hover ? 'error' : '' }`"
+                            @click="removeMutation(ability.id)"
                           >delete</v-icon>
                         </v-hover>
                       </span>
@@ -781,8 +839,8 @@
                       </div>
 
                       <div
-                        v-if="ability.selectedOptions"
                         v-for="selectedOption in ability.selectedOptions"
+                        v-if="ability.selectedOptions"
                         class="ml-1 pl-2"
                         style="border-left: solid 3px lightgrey;"
                       >
@@ -803,8 +861,8 @@
 
             <!-- powers -->
             <v-tab-item
-              class="my-tab-item"
               key="psychic-powers"
+              class="my-tab-item"
               :value="`tab-psychic-powers`"
             >
               <div class="pa-2">
@@ -814,7 +872,7 @@
                   hide-default-footer
                   :items-per-page="-1"
                 >
-                  <template v-slot:item="{ item }">
+                  <template #item="{ item }">
                     <tr>
                       <td class="text-left pa-1 small">
                         {{ item.name }}
@@ -861,18 +919,18 @@
 
             <!-- objectives -->
             <v-tab-item
-              class="my-tab-item"
               key="objectives"
+              class="my-tab-item"
               :value="`tab-objectives`"
             >
               <div class="pa-2">
 
-                <v-chip-group mandatory active-class="red--text" v-model="descriptionSection.selection">
+                <v-chip-group v-model="descriptionSection.selection" mandatory active-class="red--text">
                   <v-chip
+                    v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`,'Appearance', `Notes`]"
+                    :key="item.toLowerCase()"
                     label
                     small
-                    v-for="item in [`All`,`Objectives`,`Languages`,`Keywords`,`Notes`]"
-                    :key="item.toLowerCase()"
                     :value="item.toLowerCase()"
                   >
                     {{item}}
@@ -885,24 +943,24 @@
                   <div v-show="['all', 'objectives'].some(i=>i===descriptionSection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">Objectives</span>
-                      <v-icon small v-if="false" @click="objectiveEditorOpen">edit</v-icon>
+                      <v-icon v-if="false" small @click="objectiveEditorOpen">edit</v-icon>
                     </div>
                     <div
                       v-for="(objective, index) in objectives"
                       :key="objective.name"
-                      class="pl-2 pr-2 pt-1 pb-1 caption"
+                      class="pl-2 pr-2 mb-1 caption"
                     >
                       <strong>{{ index+1 }}:</strong> {{ objective.text }}
                     </div>
                     <div v-if="false">
                       <span class="caption" @click="objectiveEditorOpen">+ Add/edit objectives</span>
                     </div>
-                    <div style="display: flex;" justify="center" align v-if="objectiveEditorShow">
+                    <div v-if="objectiveEditorShow" style="display: flex;" justify="center" align>
                       <v-textarea
+                        v-model="objectiveEditorValue"
                         flat
                         single-lined
                         dense
-                        v-model="objectiveEditorValue"
                       ></v-textarea>
                     </div>
                   </div>
@@ -935,10 +993,10 @@
                       <span v-if="keyword.custom">
                         <v-hover>
                           <v-icon
-                            small
-                            @click="removeCustomKeyword(keyword.name)"
                             slot-scope="{ hover }"
+                            small
                             :color="`${ hover ? 'error' : '' }`"
+                            @click="removeCustomKeyword(keyword.name)"
                           >delete</v-icon>
                         </v-hover>
                       </span>
@@ -952,7 +1010,22 @@
                   </div>
 
 
-                  <!-- objectives < description -->
+                  <!-- notes < appearance -->
+                  <div v-show="['all', 'appearance'].some(i=>i===descriptionSection.selection)">
+                    <div class="mb-2" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
+                      <span class="body-2 red--text">Appearance</span>
+                    </div>
+                    <div>
+                      <div v-for="(entry, index) in Object.entries(appearance)" :key="index">
+                        <strong>{{entry[0]}}:</strong> {{entry[1]}}
+                      </div>
+                    </div>
+                    <div style="display: flex; justify-content: center;">
+                      <v-btn x-small text @click="generateAppearance()">Gnerate Rancom Apperance <v-icon small>settings</v-icon></v-btn>
+                    </div>
+                  </div>
+
+                  <!-- notes < description -->
                   <div v-show="['all', 'notes'].some(i=>i===descriptionSection.selection)">
                     <div class="mb-1" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12);">
                       <span class="body-2 red--text">
@@ -968,7 +1041,7 @@
                           filled
                           auto-grow
                       ></v-textarea>
-                      <v-btn @click="characterNotesSave" small color="success">Save</v-btn>
+                      <v-btn small color="success" @click="characterNotesSave">Save</v-btn>
                     </div>
                     <div v-else-if="characterNotes" class="caption" v-html="characterNotes">
                     </div>
@@ -1056,9 +1129,15 @@ import KeywordRepository from '~/mixins/KeywordRepositoryMixin';
 import DodCorruptionManager from '~/components/forge/DodCorruptionManager';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import {marked} from 'marked';
+import WargearTabContent from "~/components/forge/WargearTabContent.vue";
 
 export default {
-  name: 'in-app-view',
+  name: 'InAppView',
+  components: {
+    WargearTabContent,
+    DodDefaultBreadcrumbs,
+    DodCorruptionManager,
+  },
   //layout: '',
   mixins: [
     BackgroundRepositoryMixin,
@@ -1068,16 +1147,7 @@ export default {
     KeywordRepository,
     MutationsMixin,
   ],
-  components: {
-    DodDefaultBreadcrumbs,
-    DodCorruptionManager,
-  },
   props: [],
-  head() {
-    return {
-      title: this.characterName,
-    };
-  },
   async asyncData({ params, $axios }) {
 
     const factionResponse = await $axios.get('/api/factions/');
@@ -1138,6 +1208,7 @@ export default {
       ],
       descriptionSection: { selection: 'all' },
       abilitySection: { filter: 'all' },
+      wargearSection: { filter: 'all' },
       //
       showContextDialog: false,
       contextDialogComponent: undefined,
@@ -1169,6 +1240,19 @@ export default {
       characterArchetype: undefined,
       ascensionPackagesRepository: undefined,
       wargearRepository: undefined,
+      // appearance
+      appearance: {
+        age: undefined,
+        eyes: [],
+        hair: undefined,
+        height: undefined,
+        features: [],
+      }
+    };
+  },
+  head() {
+    return {
+      title: this.characterName,
     };
   },
   computed: {
@@ -1517,11 +1601,13 @@ export default {
     characterReloads() {
       const spend = this.$store.getters['characters/characterReloadsSpendById'](this.characterId);
       let points = 3;
-      this.wargear.forEach((w)=>{
-        points += w.key === 'core-ammo-backpack' ? 10 : 0;
-        points += w.key === 'core-bandolier' ? 2 : 0;
-        points += w.key === 'core-ammo-drum' ? 1 : 0;
-      });
+      this.enhancements
+          .filter((enhancement) => enhancement.targetGroup==='resources')
+          .filter((enhancement) => enhancement.targetValue==='reloads')
+          .forEach((enhancement) => {
+            console.info('adjusting reloads', enhancement.modifier, enhancement)
+            points += enhancement.modifier;
+          });
 
       return { points, spend };
     },
@@ -2144,7 +2230,7 @@ export default {
           }
         });
       }
-      return wargear;
+      return wargear.sort((a, b) => a.name.localeCompare(b.name));
     },
     weapons() {
       return this.wargear.filter((wargear) => {
@@ -2191,7 +2277,7 @@ export default {
       if (this.characterSpecies && this.characterSpecies.objectives) {
         return this.characterSpecies.objectives.map((objective) => ({ text: objective }));
       } else if (this.characterArchetype && this.factionRepository) {
-        const faction = this.factionRepository.find((faction) => faction.name === this.characterArchetype.faction);
+        const faction = this.factionRepository.find((faction) => faction.key === this.characterArchetype.factionKey);
         if (faction) {
           const objectiveList = faction.objectives;
           if (objectiveList) {
@@ -2520,6 +2606,304 @@ export default {
       const id = this.characterId;
       this.$store.commit('characters/removeCharacterCustomSkill', { id, key });
     },
+    generateAppearance() {
+      function randomAge(speciesKey, campaignTier) {
+        // Helper: roll N six-sided dice and sum them
+        function rollDice(count, sides = 6) {
+          let total = 0;
+          for (let i = 0; i < count; i++) {
+            total += Math.floor(Math.random() * sides) + 1;
+          }
+          return total;
+        }
+
+        const species = speciesKey.toLowerCase();
+        let baseAge;
+        let finalAge;
+
+        switch (species) {
+          case 'core-human':
+            // 4d6 + 14, then multiply by Tier
+            baseAge = rollDice(4) + 14;
+            finalAge = baseAge * campaignTier;
+            break;
+
+          case 'core-adeptus-astartes':
+          case 'core-primaris-astartes':
+            // 4d6 x 5, then multiply by Tier
+            baseAge = rollDice(4) * 5;
+            finalAge = baseAge * campaignTier;
+            break;
+
+          case 'core-aeldari':
+            // 3d6 x 50, then add 3d6 centuries (x100 years) per Tier
+            baseAge = rollDice(3) * 50;
+            finalAge = baseAge + (rollDice(3) * 100) * campaignTier;
+            break;
+
+          case 'core-ork':
+            // 1d6 x 1d6, then add 1d6 years per Tier
+            baseAge = rollDice(1) * rollDice(1);
+            finalAge = baseAge + rollDice(1) * campaignTier;
+            break;
+
+          default:
+            return `Unknown species: ${speciesKey}`;
+        }
+
+        console.info('random age generated', finalAge)
+
+        return finalAge;
+      }
+      this.appearance.age = randomAge(this.speciesKey, this.characterSettingTier);
+
+
+      function randomEyeColour() {
+        // Helper: roll N six-sided dice and sum them
+        function rollDice(count, sides = 6) {
+          let total = 0;
+          for (let i = 0; i < count; i++) {
+            total += Math.floor(Math.random() * sides) + 1;
+          }
+          return total;
+        }
+
+        const eyeColours = {
+          2: 'Black',
+          3: 'Dark Brown',
+          4: 'Speckled Brown',
+          5: 'Pale Blue',
+          6: 'Murky Blue',
+          7: 'Icy Blue',
+          8: 'Grey',
+          9: 'Sickly Green',
+          10: 'Dull Amber',
+          11: 'Purple'
+        };
+
+        const roll = rollDice(2);
+
+        if (roll === 12) {
+          // Mismatched - roll twice on the table (excluding another 12)
+          const firstEye = randomEyeColour();
+          const secondEye = randomEyeColour();
+          return `Mismatched (${firstEye} / ${secondEye})`;
+        }
+
+        return eyeColours[roll];
+      }
+      this.appearance.eyes = randomEyeColour()
+
+      function randomHairColour(speciesKey) {
+        // Helper: roll a single six-sided die
+        function rollD6() {
+          return Math.floor(Math.random() * 6) + 1;
+        }
+
+        // Helper: roll d66 (roll two d6, first die = tens, second die = units)
+        function rollD66() {
+          const tens = rollD6();
+          const units = rollD6();
+          return tens * 10 + units;
+        }
+
+        const hairTable = {
+          'core-human': [
+            { min: 11, max: 16, value: 'Mud Brown' },
+            { min: 21, max: 26, value: 'Sandy Brown' },
+            { min: 31, max: 36, value: 'Black' },
+            { min: 41, max: 43, value: 'Dirty Blonde' },
+            { min: 44, max: 46, value: 'Ashy Blonde' },
+            { min: 51, max: 53, value: 'Grey' },
+            { min: 54, max: 56, value: 'White' },
+            { min: 61, max: 63, value: 'Burnt Auburn' },
+            { min: 64, max: 66, value: 'Brick Red' }
+          ],
+          'core-adeptus-astartes': [
+            { min: 11, max: 16, value: 'Mud Brown' },
+            { min: 21, max: 26, value: 'Sandy Brown' },
+            { min: 31, max: 36, value: 'Black' },
+            { min: 41, max: 43, value: 'Dirty Blonde' },
+            { min: 44, max: 46, value: 'Bald' },
+            { min: 51, max: 53, value: 'Grey' },
+            { min: 54, max: 56, value: 'White' },
+            { min: 61, max: 63, value: 'Burnt Auburn' },
+            { min: 64, max: 66, value: 'Brick Red' }
+          ],
+          'core-primaris-astartes': [
+            { min: 11, max: 16, value: 'Mud Brown' },
+            { min: 21, max: 26, value: 'Sandy Brown' },
+            { min: 31, max: 36, value: 'Black' },
+            { min: 41, max: 43, value: 'Dirty Blonde' },
+            { min: 44, max: 46, value: 'Bald' },
+            { min: 51, max: 53, value: 'Grey' },
+            { min: 54, max: 56, value: 'White' },
+            { min: 61, max: 63, value: 'Burnt Auburn' },
+            { min: 64, max: 66, value: 'Brick Red' }
+          ],
+          'core-aeldari': [
+            { min: 11, max: 16, value: 'Jet Black' },
+            { min: 21, max: 26, value: 'Blue-Black' },
+            { min: 31, max: 36, value: 'Mahogany' },
+            { min: 41, max: 43, value: 'Auburn' },
+            { min: 44, max: 46, value: 'Chestnut' },
+            { min: 51, max: 53, value: 'White' },
+            { min: 54, max: 56, value: 'Silver' },
+            { min: 61, max: 63, value: 'Fire Red' },
+            { min: 64, max: 66, value: 'Platinum' }
+          ]
+        };
+
+        const species = speciesKey.toLowerCase();
+        const table = hairTable[species];
+
+        if (!table) {
+          return`No hair colour table for species: ${speciesKey}`
+        }
+
+        const roll = rollD66();
+        const entry = table.find(row => roll >= row.min && roll <= row.max);
+
+        return entry ? entry.value : 'Unknown';
+      }
+      this.appearance.hair = randomHairColour(this.speciesKey)
+
+      function randomHeight(speciesKey, campaignTier) {
+        // Helper: roll N six-sided dice and sum them
+        function rollDice(count, sides = 6) {
+          let total = 0;
+          for (let i = 0; i < count; i++) {
+            total += Math.floor(Math.random() * sides) + 1;
+          }
+          return total;
+        }
+
+        const species = speciesKey.toLowerCase();
+        let totalInches;
+
+        switch (species) {
+          case 'core-human':
+            // 4' + 6d6"
+            totalInches = (4 * 12) + rollDice(6);
+            break;
+
+          case 'core-astartes':
+          case 'core-adeptus-astartes':
+            // 7' + 1d6"
+            totalInches = (7 * 12) + rollDice(1);
+            break;
+
+          case 'core-primaris-astartes':
+            // 8' + 1d6"
+            totalInches = (8 * 12) + rollDice(1);
+            break;
+
+          case 'core-aeldari':
+            // 6' + 2d6"
+            totalInches = (6 * 12) + rollDice(2);
+            break;
+
+          case 'core-ork':
+            // 5'6" + 2d6" per Tier
+            totalInches = (5 * 12 + 6) + rollDice(2) * campaignTier;
+            break;
+
+          default:
+            return `Unknown species: ${speciesKey}`;
+        }
+
+        const feet = Math.floor(totalInches / 12);
+        const inches = totalInches % 12;
+        const meters = totalInches * 0.0254;
+
+        return {
+          totalInches,
+          feet,
+          inches,
+          formatted: `${feet}'${inches}"`,
+          formatedMetrics: `${meters.toFixed(2)} m`
+        };
+      }
+      this.appearance.height = randomHeight(this.speciesKey).formatedMetrics
+
+      function randomCharacterTrait() {
+        // Helper: roll a single six-sided die
+        function rollD6() {
+          return Math.floor(Math.random() * 6) + 1;
+        }
+
+        const columns = ['augmetic', 'modification', 'speech', 'habit', 'tell', 'detail'];
+
+        const labels = {
+          augmetic: 'Augmetic',
+          modification: 'Modification',
+          speech: 'Speech',
+          habit: 'Habit',
+          tell: 'Tell',
+          detail: 'Detail'
+        };
+
+        const table = {
+          augmetic: {
+            1: 'Augmetic Hand',
+            2: 'Augmetic Arm',
+            3: 'Augmetic Foot',
+            4: 'Augmetic Leg',
+            5: 'Augmetic Torso',
+            6: 'Augmetic Eye'
+          },
+          modification: {
+            1: 'Warpaint with sentimental value',
+            2: 'Tattoos linked to important memories',
+            3: 'Piercings that are makeshift weapons when removed',
+            4: 'Holographic electoo designating allegiance',
+            5: 'Enochian skinplant of glowing religious symbols',
+            6: 'Subdermally implanted keepsake'
+          },
+          speech: {
+            1: 'Speaks every thought out loud',
+            2: 'Talks from the corner of their mouth',
+            3: 'Soft, whispery voice',
+            4: 'Intense and deliberate enunciation',
+            5: 'Raspy, rough and rattling voice',
+            6: 'Never asks questions, always commands'
+          },
+          habit: {
+            1: 'Prays constantly under their breath',
+            2: 'Always carries a lit candle',
+            3: 'Collects skulls',
+            4: 'Makes notes on everyone they meet',
+            5: 'Whistles or hums hymns',
+            6: 'Constantly curses under their breath'
+          },
+          tell: {
+            1: 'Fidgets with their weapon',
+            2: 'Trembling hands',
+            3: 'Intense eye contact',
+            4: 'Covers their mouth',
+            5: 'Incessant chatterbox',
+            6: 'Laughs uncontrollably'
+          },
+          detail: {
+            1: 'Heavily-lidded eyes',
+            2: 'Severely broken nose',
+            3: 'A smattering of freckles',
+            4: 'Deep-frown lines',
+            5: 'Sharp, prominent incisors',
+            6: 'Never blinks'
+          }
+        };
+
+        const column = columns[rollD6() - 1]; // picks which of the 6 columns (1-6)
+        const row = rollD6();                  // picks which row (1-6)
+
+        const category = labels[column];
+        const value = table[column][row];
+
+        return `${value}`;
+      }
+      this.appearance.features = randomCharacterTrait()
+    },
 
     /**
      * Respite, aka Long Rest, see pg. 196
@@ -2633,4 +3017,5 @@ export default {
     }
 
   }
+
 </style>

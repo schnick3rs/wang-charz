@@ -87,10 +87,10 @@
             :items-per-page="25"
             @page-count="pagination.pageCount = $event"
           >
-            <template v-slot:item.type="{ item }">
+            <template #item.type="{ item }">
               {{ toTypeString(item) }}
             </template>
-            <template v-slot:item.value="{ item }">
+            <template #item.value="{ item }">
               {{ item.value }} {{ item.rarity }}
             </template>
             <!--
@@ -98,7 +98,7 @@
               {{ item.keywords.join(', ') }}
             </template>
             -->
-            <template v-slot:item.source.book="{ item }">
+            <template #item.source.book="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.source.book }}
@@ -115,7 +115,7 @@
             </template>
 
             <!-- detail preview -->
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <div class="pt-4 pb-4">
                   <div>
@@ -218,7 +218,6 @@
   import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
-  layout: 'library',
   components: {
     DodDefaultBreadcrumbs,
     DodSimpleArmourStats,
@@ -228,25 +227,7 @@ export default {
     BreadcrumbSchemaMixin,
     SluggerMixin,
   ],
-  head() {
-    const title = 'Wargear - Wrath & Glory Reference | Library';
-    const description = 'Aha! The armoury. Check out those juicy items for you characters.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
-
-    return {
-      title,
-      meta: [
-        { hid: 'description', name: 'description', content: description },
-        { hid: 'og:title', name: 'og:title', content: title },
-        { hid: 'og:description', name: 'og:description', content: description },
-        { hid: 'og:image', name: 'og:image', content: image },
-      ],
-      __dangerouslyDisableSanitizers: ['script'],
-      script: [
-        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-      ],
-    };
-  },
+  layout: 'library',
   async asyncData({ $axios, query, params, error }) {
     const response = await $axios.get('/api/wargear/');
     const { data } = response;
@@ -284,6 +265,25 @@ export default {
         { text: 'Value', align: 'left', value: 'value', class: '' },
         //{ text: 'Keywords', align: 'left', value: 'keywords', class: '' },
         { text: 'Source', align: 'start', value: 'source.book', class: '' },
+      ],
+    };
+  },
+  head() {
+    const title = 'Wargear - Wrath & Glory Reference | Library';
+    const description = 'Aha! The armoury. Check out those juicy items for you characters.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
+    return {
+      title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
       ],
     };
   },

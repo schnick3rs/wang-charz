@@ -13,7 +13,7 @@
       v-if="false"
       bottom
     >
-      <template v-slot:activator="{ on }">
+      <template #activator="{ on }">
         <v-btn
           icon
           color="success"

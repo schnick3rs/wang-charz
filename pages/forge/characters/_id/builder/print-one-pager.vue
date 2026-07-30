@@ -59,7 +59,7 @@
                 :items="weapons"
                 hide-default-footer
               >
-                <template v-slot:item="{ item }">
+                <template #item="{ item }">
                   <tr>
                     <td class="text-left pa-1 small">
                       {{ item.name }}
@@ -145,7 +145,7 @@
                 :items="psychicPowers"
                 hide-default-footer
               >
-                <template v-slot:item="{ item }">
+                <template #item="{ item }">
                   <tr>
                     <td class="text-left pa-1 small">
                       {{ item.name }}
@@ -256,12 +256,24 @@ import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 
 export default {
   name: 'Print',
-  layout: 'print',
   mixins: [
     BackgroundRepositoryMixin,
     StatRepositoryMixin,
   ],
+  layout: 'print',
   props: [],
+  async asyncData({ params, $axios, error }) {
+    const talentResponse = await $axios.get('/api/talents/');
+    const wargearResponse = await $axios.get('/api/wargear/');
+    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
+
+    return {
+      wargearRepository: wargearResponse.data,
+      talentRepository: talentResponse.data,
+      psychicPowersRepository: psychicPowersResponse.data,
+      characterId: params.id,
+    };
+  },
   data() {
     return {
       attributeHeaders: [
@@ -340,6 +352,13 @@ export default {
           text: 'Effect', sortable: false, align: 'left', class: 'small pa-1',
         },
       ],
+    };
+  },
+  head() {
+    return {
+      // title: [this.name, this.species, this.archetype].join(' • '),
+      title: this.characterName,
+      // titleTemplate: '%s | W&G Character Sheet',
     };
   },
   computed: {
@@ -520,25 +539,6 @@ export default {
       }
       return [];
     },
-  },
-  async asyncData({ params, $axios, error }) {
-    const talentResponse = await $axios.get('/api/talents/');
-    const wargearResponse = await $axios.get('/api/wargear/');
-    const psychicPowersResponse = await $axios.get('/api/psychic-powers/');
-
-    return {
-      wargearRepository: wargearResponse.data,
-      talentRepository: talentResponse.data,
-      psychicPowersRepository: psychicPowersResponse.data,
-      characterId: params.id,
-    };
-  },
-  head() {
-    return {
-      // title: [this.name, this.species, this.archetype].join(' • '),
-      title: this.characterName,
-      // titleTemplate: '%s | W&G Character Sheet',
-    };
   },
   methods: {
     skillsByAttribute(attributeName) {

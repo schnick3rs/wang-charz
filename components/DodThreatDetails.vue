@@ -1,7 +1,7 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <v-row justify="center">
     <v-col :cols="12">
-      <h3 class="headline" v-show="false">
+      <h3 v-show="false" class="headline">
         {{ item.name }}
       </h3>
       <h5 class="subtitle-2">
@@ -56,7 +56,7 @@
 
     <v-col v-if="item.attributes" :cols="12" :md="3">
       <v-simple-table dense>
-        <template v-slot:default>
+        <template #default>
           <thead>
             <tr>
               <th>Name</th>
@@ -78,7 +78,7 @@
     </v-col>
     <v-col v-if="item.traits" :cols="12" :md="6">
       <v-simple-table dense>
-        <template v-slot:default>
+        <template #default>
           <thead>
             <tr>
               <th>Name</th>
@@ -105,7 +105,7 @@
     </v-col>
     <v-col v-if="item.skills" :cols="12" :md="3">
       <v-simple-table dense>
-        <template v-slot:default>
+        <template #default>
           <thead>
             <tr>
               <th>Name</th>
@@ -143,7 +143,7 @@
 
       <div>
         <v-simple-table dense>
-          <template v-slot:default>
+          <template #default>
             <thead>
               <tr>
                 <th

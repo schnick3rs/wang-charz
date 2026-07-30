@@ -186,23 +186,6 @@ module.exports = {
     browserBaseURL: '/',
   },
 
-  /* auth: {
-    strategies: {
-      local: {
-        endpoints: {
-          login: { url: 'api/users/login', method: 'post', propertyName: 'token' },
-          logout: false,
-          user: { url: 'api/users/me', mthod: 'get', propertyName: 'data'},
-        },
-        // tokenRequired: true,
-        // tokenType: 'Bearer'
-      },
-    },
-    plugins: [
-      '~/plugins/auth.js'
-    ]
-  }, */
-
   /*
   ** vuetify module configuration
   ** https://github.com/nuxt-community/vuetify-module
@@ -223,16 +206,14 @@ module.exports = {
   },
 
   serverMiddleware: [
-    //'redirect-ssl',
-    //redirectSSL.create({enabled: process.env.NODE_ENV === 'production'}),
     '~/api/express', // handles /api/** calls
-    // '~/serverMiddleware/forcedomain'
   ],
 
   /**
    * Build configuration
    */
   build: {
+    transpile: ['zod'],
     /*
     ** You can extend webpack config here
     */

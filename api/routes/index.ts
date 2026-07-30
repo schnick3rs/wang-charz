@@ -6,12 +6,11 @@ import talents from './talents';
 import factions from './factions';
 import species from './species';
 import archetypes from './archetypes';
-import ascensionPackages from './ascensionPackages';
 import threats from './threats';
 import posts from './posts';
 import actualPlays from './actualPlays';
-// import users from './users';
-// import characters from './characters';
+import ascensionPackages from "./ascensionPackages";
+import frameworks from "./frameworks";
 
 export default (app: Express) => {
   app.use('/talents', talents);
@@ -22,6 +21,7 @@ export default (app: Express) => {
   app.use('/archetypes', archetypes);
   app.use('/ascension-packages', ascensionPackages);
   app.use('/threats', threats);
+  app.use('/frameworks', frameworks);
   // via contentfull
   app.use('/homebrews', homebrews);
   app.use('/posts', posts);

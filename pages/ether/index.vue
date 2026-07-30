@@ -44,17 +44,17 @@
             hide-default-footer
             @item-expanded="trackExpand"
           >
-            <template v-slot:header.publishedBy="{ header }">
+            <template #header.publishedBy="{ header }">
               {{ header.text }}
               <v-tooltip bottom>
-                <template v-slot:activator="{ on }">
+                <template #activator="{ on }">
                   <v-icon small v-on="on">help</v-icon>
                 </template>
                 <span>The channel owner, publisher or distributor.</span>
               </v-tooltip>
             </template>
 
-            <template v-slot:item.title="{ item }">
+            <template #item.title="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.title }}
@@ -65,11 +65,11 @@
               </v-row>
             </template>
 
-            <template v-slot:item.language="{ item }">
+            <template #item.language="{ item }">
               <img height="19" width="35" :src="`/img/icon/language_${item.language.toLowerCase()}.svg`"></img>
             </template>
 
-            <template v-slot:item.version="{ item }">
+            <template #item.version="{ item }">
               <v-chip
                 v-if="item.version === 'Draft' || item.version.startsWith('v0')"
                 tags x-small label
@@ -86,7 +86,7 @@
               </v-chip>
             </template>
 
-            <template v-slot:item.supplements="{ item }">
+            <template #item.supplements="{ item }">
               <v-chip
                 v-if="item.supplements === 'Core v1.5'"
                 color="green"
@@ -103,20 +103,20 @@
               </v-chip>
             </template>
 
-            <template v-slot:item.tags="{ item }">
+            <template #item.tags="{ item }">
               <v-chip v-for="keyword in item.tags" :key="keyword" small class="mr-2 mb-1 mt-1" label>
                 {{ keyword }}
               </v-chip>
             </template>
 
-            <template v-slot:item.actions="{ item }">
+            <template #item.actions="{ item }">
               <v-btn small icon nuxt :to="`/ether/${item.slug}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
 
             <!-- expand view -->
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <v-row>
                   <v-col :cols="12">
@@ -156,7 +156,7 @@
                       launch
                     </v-icon>
                   </v-btn>
-                  <v-btn color="success" nuxt :to="'/ether/'+item.slug" v-if="false">
+                  <v-btn v-if="false" color="success" nuxt :to="'/ether/'+item.slug">
                     Show Details
                   </v-btn>
                 </v-card-actions>
@@ -191,7 +191,65 @@ import DodDefaultBreadcrumbs from '../../components/DodDefaultBreadcrumbs';
 export default {
   name: 'Vault',
   components: { DodDefaultBreadcrumbs },
+  filters: {
+    timeSince(value) {
+      const date = new Date(value);
+      const seconds = Math.floor((fixedTime - date) / 1000);
+
+      let interval = Math.floor(seconds / 31536000);
+
+      interval = Math.floor(seconds / 86400);
+
+      if (interval > 7) {
+        let options = { year: 'numeric', month: 'short', day: 'numeric' };
+        return date.toLocaleDateString("en-US", options);
+      }
+
+      if (interval > 1) {
+        return interval + " days ago";
+      }
+      interval = Math.floor(seconds / 3600);
+      if (interval > 1) {
+        return interval + " hours ago";
+      }
+      interval = Math.floor(seconds / 60);
+      if (interval > 1) {
+        return interval + " minutes ago";
+      }
+      return Math.floor(seconds) + " seconds ago";
+    },
+  },
   mixins: [SluggerMixin],
+  async asyncData({ app }) {
+    const { data } = await app.$axios.get('/api/actual-plays/');
+    return {
+      actualPlayItems: data.map((item) => item.fields),
+    };
+  },
+  data() {
+    return {
+      searchQuery: '',
+      settingFilter: [],
+      contentFilter: [],
+      pagination: {
+        sortBy: 'supplements',
+        rowsPerPage: -1,
+      },
+      headers: [
+        { text: 'Title', align: 'start', value: 'campaignName', class: '' },
+        { text: 'Language', align: 'center', value: 'language', class: '' },
+        { text: 'Tier', align: 'center', value: 'campaignTier', class: '' },
+        { text: 'Core Version', align: 'center', value: 'coreRulesVersion', class: '' },
+        { text: 'Type', align: 'start', value: 'type', class: '' },
+        // { text: '# Players', align: 'start', value: 'numberOfPlayers', class: '' },
+        { text: 'Tags', align: 'start', value: 'tags', class: '' },
+        { text: 'Published By', align: 'start', value: 'publishedBy', class: '' },
+        { text: 'Started at', align: 'start', value: 'entryLinkCreatedAt', class: '' },
+        // { text: '', sortable: false, align: 'end', value: 'actions', class: '' },
+      ],
+      expanded: [],
+    };
+  },
   head() {
     const itemSchemaArray = this.actualPlayItems
       .map((item) => {
@@ -244,30 +302,6 @@ export default {
       ],
     };
   },
-  data() {
-    return {
-      searchQuery: '',
-      settingFilter: [],
-      contentFilter: [],
-      pagination: {
-        sortBy: 'supplements',
-        rowsPerPage: -1,
-      },
-      headers: [
-        { text: 'Title', align: 'start', value: 'campaignName', class: '' },
-        { text: 'Language', align: 'center', value: 'language', class: '' },
-        { text: 'Tier', align: 'center', value: 'campaignTier', class: '' },
-        { text: 'Core Version', align: 'center', value: 'coreRulesVersion', class: '' },
-        { text: 'Type', align: 'start', value: 'type', class: '' },
-        // { text: '# Players', align: 'start', value: 'numberOfPlayers', class: '' },
-        { text: 'Tags', align: 'start', value: 'tags', class: '' },
-        { text: 'Published By', align: 'start', value: 'publishedBy', class: '' },
-        { text: 'Started at', align: 'start', value: 'entryLinkCreatedAt', class: '' },
-        // { text: '', sortable: false, align: 'end', value: 'actions', class: '' },
-      ],
-      expanded: [],
-    };
-  },
   computed: {
     breadcrumbItems() {
       return [
@@ -297,12 +331,6 @@ export default {
       return Math.ceil(this.pagination.totalItems / this.pagination.rowsPerPage);
     },
   },
-  async asyncData({ app }) {
-    const { data } = await app.$axios.get('/api/actual-plays/');
-    return {
-      actualPlayItems: data.map((item) => item.fields),
-    };
-  },
   methods: {
     changeSort(column) {
       if (this.pagination.sortBy === column) {
@@ -329,34 +357,6 @@ export default {
       const match = url.match(/.*v=(.+)/);
       const youtubeId = match[1];
       return `https://img.youtube.com/vi/${youtubeId}/mqdefault.jpg`;
-    },
-  },
-  filters: {
-    timeSince(value) {
-      const date = new Date(value);
-      const seconds = Math.floor((fixedTime - date) / 1000);
-
-      let interval = Math.floor(seconds / 31536000);
-
-      interval = Math.floor(seconds / 86400);
-
-      if (interval > 7) {
-        let options = { year: 'numeric', month: 'short', day: 'numeric' };
-        return date.toLocaleDateString("en-US", options);
-      }
-
-      if (interval > 1) {
-        return interval + " days ago";
-      }
-      interval = Math.floor(seconds / 3600);
-      if (interval > 1) {
-        return interval + " hours ago";
-      }
-      interval = Math.floor(seconds / 60);
-      if (interval > 1) {
-        return interval + " minutes ago";
-      }
-      return Math.floor(seconds) + " seconds ago";
     },
   },
 };

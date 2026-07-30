@@ -164,7 +164,7 @@
           </v-col>
         </v-row>
 
-        <v-row justify="center" v-if="!isOutdated">
+        <v-row v-if="!isOutdated" justify="center">
           <v-col
             :cols="12"
             :sm="10"
@@ -226,6 +226,10 @@ export default {
     DefaultFooter,
     ToolbarAccountActions,
   },
+  asyncData({ params }) {
+    return {
+    };
+  },
   data() {
     return {
       drawer: {
@@ -253,6 +257,25 @@ export default {
         clippedLeft: true,
       },
       characterFaction: undefined,
+    };
+  },
+  head() {
+    return {
+      titleTemplate: '%s | Character Builder',
+      title: 'Create your Character',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'Build you Wrath & Glory Character and explore the Warhammer 40k Universe. '
+            + 'Select Species and Archetype, learn some Talents, acquire Wargear and (if needed) '
+            + 'tap into the warp powers.',
+        },
+        { hid: 'robots', name: 'robots', content: 'noindex,nofollow' },
+      ],
+      link: [
+        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
+      ],
     };
   },
   computed: {
@@ -446,29 +469,6 @@ export default {
     characterPsychicPowerCost() {
       return this.$store.getters['characters/characterPsychicPowerCostsById'](this.$route.params.id);
     },
-  },
-  asyncData({ params }) {
-    return {
-    };
-  },
-  head() {
-    return {
-      titleTemplate: '%s | Character Builder',
-      title: 'Create your Character',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'Build you Wrath & Glory Character and explore the Warhammer 40k Universe. '
-            + 'Select Species and Archetype, learn some Talents, acquire Wargear and (if needed) '
-            + 'tap into the warp powers.',
-        },
-        { hid: 'robots', name: 'robots', content: 'noindex,nofollow' },
-      ],
-      link: [
-        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
-      ],
-    };
   },
   watch: {
     theme: {

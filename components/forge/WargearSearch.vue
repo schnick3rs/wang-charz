@@ -26,7 +26,7 @@
           class="mt-2"
           hide-selected
         >
-          <template v-slot:selection="{ item, index }">
+          <template #selection="{ item, index }">
             <v-chip
               :key="item"
               small
@@ -64,16 +64,16 @@
         show-expand
         @page-count="pagination.pageCount = $event"
       >
-        <template v-slot:item.name="{ item }">
+        <template #item.name="{ item }">
           {{ item.name }} <br>
           <span class="grey--text caption">{{ wargearSubtitle(item) }}</span>
         </template>
 
-        <template v-slot:item.value="{ item }">
+        <template #item.value="{ item }">
           {{ item.value }} {{ item.rarity }}
         </template>
 
-        <template v-slot:item.keywords="{ item }">
+        <template #item.keywords="{ item }">
           {{
             Array.isArray(item.keywords)
               ? item.keywords.map(k => k.toUpperCase()).join(', ')
@@ -81,13 +81,13 @@
           }}
         </template>
 
-        <template v-slot:item.action-add="{ item }">
+        <template #item.action-add="{ item }">
           <v-btn color="success" x-small @click="$emit('select', item)">
             add
           </v-btn>
         </template>
 
-        <template v-slot:expanded-item="{ headers, item }">
+        <template #expanded-item="{ headers, item }">
           <td :colspan="headers.length">
             <div class="pa-2 pt-4 pb-4">
               <span>{{ item.hint }}</span>

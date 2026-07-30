@@ -18,7 +18,7 @@
             :key="talent.id"
           >
             <v-expansion-panel-header>
-              <template v-slot:default="{ open }">
+              <template #default="{ open }">
                 <v-row no-gutters>
                   <v-col :cols="8" :sm="10" class="subtitle-1">
                     <span v-html="talent.label" />
@@ -94,8 +94,8 @@
 
               <div v-if="talent.key && talent.key.startsWith('core-augmetic')">
                 <wargear-select
-                  v-if="wargearList"
                   v-for="(gearOptions, index) in talent.wargear"
+                  v-if="wargearList"
                   :key="index"
                   :item="gearOptions.selected"
                   :repository="computeWargearOptionsByFilter(gearOptions.options[0])"
@@ -139,14 +139,14 @@
         </v-expansion-panels>
       </v-col>
 
-      <v-col :cols="12" v-if="visibleTalentGroups.length > 1">
+      <v-col v-if="visibleTalentGroups.length > 1" :cols="12">
         <h3>
           Filter by Talent Group
           <span>
           <v-btn
             icon
-            @click="talentGroupFilterHelp = !talentGroupFilterHelp"
             :color="talentGroupFilterHelp ? 'info' : ''"
+            @click="talentGroupFilterHelp = !talentGroupFilterHelp"
           >
             <v-icon>{{talentGroupFilterHelp ? 'help' : 'help_outline'}}</v-icon>
           </v-btn>
@@ -160,7 +160,7 @@
           >
             <strong>{{group.name}}</strong>
             <em class="caption"> • <abbr :title="group.source.book">{{ group.source.key }}</abbr> • pg. {{ group.source.page }}</em>
-            <div v-html="group.description" class="caption"></div>
+            <div class="caption" v-html="group.description"></div>
           </v-alert>
         </div>
         <v-chip
@@ -208,13 +208,13 @@
             loading-text="Loading Talents... Please Wait"
             @page-count="pagination.pageCount = $event"
           >
-            <template v-slot:no-data />
+            <template #no-data />
 
-            <template v-slot:item.name="{ item }">
+            <template #item.name="{ item }">
               <span>{{ item.name }}</span>
             </template>
 
-            <template v-slot:item.cost="{ item }">
+            <template #item.cost="{ item }">
               <v-chip v-if="isAffordable(item.cost)" label x-small>
                 {{ item.cost }}
               </v-chip>
@@ -223,15 +223,15 @@
               </v-chip>
             </template>
 
-            <template v-slot:item.prerequisitesHtml="{ item }">
+            <template #item.prerequisitesHtml="{ item }">
               <span v-html="item.prerequisitesHtml" />
             </template>
 
-            <template v-slot:item.effect="{ item }">
+            <template #item.effect="{ item }">
               <span>{{ item.effect }}</span>
             </template>
 
-            <template v-slot:item.buy="{ item }">
+            <template #item.buy="{ item }">
               <v-btn
                 :color="'success'"
                 :disabled="characterTalentLabels.includes(item.name) && !item.allowedMultipleTimes"
@@ -242,14 +242,14 @@
               </v-btn>
             </template>
 
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <div class="pt-4 pb-2" v-html="item.snippet">
                 </div>
               </td>
             </template>
 
-            <template v-slot:no-results>
+            <template #no-results>
               <span class="text-center">Your search for "{{ searchQuery }}" found no results.</span>
             </template>
           </v-data-table>
@@ -273,7 +273,6 @@ import WargearSelect from '~/components/forge/WargearSelect.vue';
 
 export default {
   name: 'Talents',
-  layout: 'forge',
   components: {
     WargearSelect,
     IssueList,
@@ -283,12 +282,8 @@ export default {
     StatRepositoryMixin,
     WargearMixin,
   ],
+  layout: 'forge',
   props: [],
-  head() {
-    return {
-      title: 'Select Talents',
-    };
-  },
   async asyncData({ params, error }) {
     return {
       characterId: params.id,
@@ -385,6 +380,11 @@ export default {
         },
         */
       ],
+    };
+  },
+  head() {
+    return {
+      title: 'Select Talents',
     };
   },
   computed: {

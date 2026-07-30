@@ -41,8 +41,8 @@
         <p><v-divider /></p>
 
         <div
-          v-if="item.speciesFeatures"
           v-for="feature in item.speciesFeatures"
+          v-if="item.speciesFeatures"
           class="text-lg-justify"
         >
           <strong>{{ feature.name }}</strong>

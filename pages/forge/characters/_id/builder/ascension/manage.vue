@@ -75,8 +75,8 @@
           </p>
 
           <div
-            v-if="characterAscension.ascensionFeatures"
             v-for="feature in characterAscension.ascensionFeatures"
+            v-if="characterAscension.ascensionFeatures"
             class="text-lg-justify"
           >
             <strong>{{ feature.name }}</strong>
@@ -85,10 +85,10 @@
 
             <!-- keyword with <> Keyword choice -->
             <div
-              class="ml-2 mr-2"
-              v-if="keywordPlaceholders(feature).length > 0"
               v-for="placeholder in keywordPlaceholders(feature)"
+              v-if="keywordPlaceholders(feature).length > 0"
               :key="placeholder.key"
+              class="ml-2 mr-2"
             >
               <v-select
                 v-model="placeholder.selected"
@@ -110,7 +110,7 @@
             </div>
 
             <!-- feature with spells -->
-            <div class="ml-2 mr-2" v-if="feature.psychicPowers">
+            <div v-if="feature.psychicPowers" class="ml-2 mr-2">
 
               <div
                 v-for="powerOption in feature.psychicPowers"
@@ -118,21 +118,21 @@
               >
                 <v-select
                   v-if="powerOption.query && !powerOption.query.name"
+                  v-show="!(powerOption.requiredAscendedTiers && (characterAscension.targetTier - characterAscension.sourceTier) < powerOption.requiredAscendedTiers)"
                   v-model="powerOption.selected"
                   :items="computeSpellOptions(powerOption)"
                   item-value="name"
                   item-text="name"
                   :hint="psychicPowerHint(powerOption.selected)"
                   persistent-hint
-                  @change="setFeaturePowersChoice($event, characterAscension, feature, powerOption)"
-                  v-show="!(powerOption.requiredAscendedTiers && (characterAscension.targetTier - characterAscension.sourceTier) < powerOption.requiredAscendedTiers)"
                   dense
                   solo
+                  @change="setFeaturePowersChoice($event, characterAscension, feature, powerOption)"
                 />
                 <v-checkbox
                   v-else
-                  class="mb-4"
                   v-model="powerOption.query.name"
+                  class="mb-4"
                   :label="powerOption.query.name"
                   :hint="psychicPowerHint(powerOption.query.name)"
                   persistent-hint
@@ -162,17 +162,17 @@
             </div>
 
             <!-- Feature with Options -->
-            <div class="ml-2 mr-2" v-if="feature.options && feature.options.length > 0">
+            <div v-if="feature.options && feature.options.length > 0" class="ml-2 mr-2">
 
               <v-select
-                :items="feature.options"
                 v-model="feature.selected"
+                :items="feature.options"
                 item-value="key"
                 item-text="name"
-                @change="setFeatureOptionChoice(characterAscension, feature)"
                 :placeholder="feature.optionsPlaceholder"
                 dense
                 solo
+                @change="setFeatureOptionChoice(characterAscension, feature)"
               ></v-select>
 
               <div
@@ -187,7 +187,7 @@
                 <p v-else>{{featureOptionChoice(feature).snippet}}</p>
 
                 <!-- feature options selection -->
-                <div class="ml-2 mr-2" v-if="featureOptionChoice(feature)">
+                <div v-if="featureOptionChoice(feature)" class="ml-2 mr-2">
 
                   <div
                     v-if="featureOptionChoice(feature).wargear && featureOptionChoice(feature).wargear.length > 0"
@@ -228,10 +228,10 @@
         {{ alert.text }}
       </v-alert>
       <v-btn
-        @click="choosePackage"
         color="success"
         text
         :disabled="effectiveCharacterTier >= settingTier"
+        @click="choosePackage"
       >
         <v-icon>add</v-icon>
         Add an Ascension Package
@@ -250,7 +250,7 @@ import StatRepositoryMixin from '~/mixins/StatRepositoryMixin';
 import WargearMixin from '~/mixins/WargearMixin';
 
 export default {
-  name: 'ascension-manage',
+  name: 'AscensionManage',
   components: { KeywordSelect, WargearSelect },
   mixins: [
     KeywordRepositoryMixin,

@@ -50,34 +50,6 @@ import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 
 export default {
   components: { DodDefaultBreadcrumbs },
-  head() {
-    const breadcrumbListSchema = {
-      '@context': 'https://schema.org',
-      '@type': 'BreadcrumbList',
-      itemListElement: this.breadcrumbItems.map((item, index) => ({
-        '@type': 'ListItem',
-        position: index + 1,
-        name: (index === 0 ? 'Doctors of Doom' : item.text),
-        item: `https://www.doctors-of-doom.com${item.to}`,
-      })),
-    };
-
-    return {
-      title: 'Rules Reference Overview - Wrath & Glory Reference | Library',
-      meta: [
-        {
-          hid: 'description',
-          name: 'description',
-          content: 'The Doctors of Doom Library contains holds vast information about the wargear '
-            + 'used by friends and foes. Enter the library and search for weapons, armour and tools.',
-        },
-      ],
-      __dangerouslyDisableSanitizers: ['script'],
-      script: [
-        { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
-      ],
-    };
-  },
   data() {
     return {
       breadcrumbItems: [
@@ -149,6 +121,54 @@ export default {
           isActive: true,
           classes: [],
         },
+        {
+          key: 'factions',
+          title: 'Factions',
+          subtitle: 'Browse Factions',
+          imageSrc: '/img/artwork_vault_bright.jpg',
+          htmlText: '',
+          link: { text: 'Browse Factions', route: '/library/factions' },
+          isActive: true,
+          classes: [],
+        },
+        {
+          key: 'frameworks',
+          title: 'Frameworks',
+          subtitle: 'Browse Campaign Frameworks',
+          imageSrc: '/img/artwork_vault_bright.jpg',
+          htmlText: '',
+          link: { text: 'Browse Frameworks', route: '/library/frameworks' },
+          isActive: true,
+          classes: [],
+        },
+      ],
+    };
+  },
+  head() {
+    const breadcrumbListSchema = {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: this.breadcrumbItems.map((item, index) => ({
+        '@type': 'ListItem',
+        position: index + 1,
+        name: (index === 0 ? 'Doctors of Doom' : item.text),
+        item: `https://www.doctors-of-doom.com${item.to}`,
+      })),
+    };
+
+    return {
+      title: 'Rules Reference Overview - Wrath & Glory Reference | Library',
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: 'The Doctors of Doom Library contains holds vast information about the wargear '
+            + 'used by friends and foes. Enter the library and search for weapons, armour and tools.',
+        },
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(breadcrumbListSchema), type: 'application/ld+json' },
       ],
     };
   },

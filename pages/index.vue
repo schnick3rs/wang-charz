@@ -49,28 +49,6 @@
 <script lang="js">
 export default {
   components: {},
-  head() {
-    const title = 'Doctors of Doom | A Wrath & Glory fan page';
-    const description = 'Within the Warhammer 40k Universe, the Doctors of Doom are serving the Wrath & Glory roleplaying game community. '
-      + 'Here you find homebrews and a character creator & manager.';
-    const image = 'https://www.doctors-of-doom.com/img/background_abstract_green.jpg';
-
-    return {
-      title,
-      meta: [
-        { hid: 'description', name: 'description', content: description },
-        // Open Graph
-        { hid: 'og:title', name: 'og:title', content: title },
-        { hid: 'og:description', name: 'og:description', content: description },
-        { hid: 'og:image', name: 'og:image', content: image },
-        // Twitter Card
-        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'twitter:title', name: 'twitter:title', content: title },
-        { hid: 'twitter:description', name: 'twitter:description', content: description },
-        { hid: 'twitter:image', name: 'twitter:image', content: image },
-      ],
-    };
-  },
   data() {
     return {
       sections: [
@@ -171,6 +149,28 @@ export default {
           isActive: true,
           classes: [],
         },
+      ],
+    };
+  },
+  head() {
+    const title = 'Doctors of Doom | A Wrath & Glory fan page';
+    const description = 'Within the Warhammer 40k Universe, the Doctors of Doom are serving the Wrath & Glory roleplaying game community. '
+      + 'Here you find homebrews and a character creator & manager.';
+    const image = 'https://www.doctors-of-doom.com/img/background_abstract_green.jpg';
+
+    return {
+      title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        // Open Graph
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+        // Twitter Card
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+        { hid: 'twitter:title', name: 'twitter:title', content: title },
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
+        { hid: 'twitter:image', name: 'twitter:image', content: image },
       ],
     };
   },

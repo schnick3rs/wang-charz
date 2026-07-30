@@ -19,8 +19,8 @@
           </v-card-title>
           <v-card-text class="pt-4">
             <v-select
-              dense outlined
-              v-model="statKey"
+              v-model="statKey" dense
+              outlined
               :items="attributeRepository"
               item-text="name"
               item-value="key"
@@ -56,8 +56,8 @@
           </v-card-title>
           <v-card-text class="pt-4">
             <v-select
-              dense outlined
-              v-model="statKey"
+              v-model="statKey" dense
+              outlined
               :items="skillRepository"
               item-text="name"
               item-value="key"
@@ -115,9 +115,9 @@
               <v-col :cols="12" :sm="4"><v-text-field v-model="species.name" label="Species Name" dense outlined></v-text-field></v-col>
               <v-col :cols="12" :sm="4">
                 <v-select
-                  label="Species Variant"
-                  dense outlined
                   v-model="species.variant"
+                  label="Species Variant" dense
+                  outlined
                   :items="speciesVariants"
                   item-text="name"
                   item-value="key"
@@ -127,9 +127,9 @@
               </v-col>
               <v-col :cols="12" :sm="4">
                 <v-select
-                  label="Group / Faction"
-                  dense outlined
                   v-model="species.group"
+                  label="Group / Faction" dense
+                  outlined
                   :items="groupOptions"
                   item-text="name"
                   item-value="name"

@@ -56,29 +56,6 @@ export default {
   mixins: [
     BreadcrumbSchemaMixin,
   ],
-  head() {
-    const title = `${this.item.name} - Talent`;
-    const description = ''; /* this.item.source.key.indexOf('core') >= 0
-      ? `The ${this.item.name} from ${this.item.group} is an official Species described in the ${this.item.source.book}.`
-      : `The ${this.item.name} from ${this.item.group} is a homebrew Species provided by ${this.item.source.book}.`; */
-    const image = this.item.thumbnail
-      ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
-      : undefined;
-
-    return {
-      titleTemplate: '%s | Wrath & Glory Library',
-      title,
-      meta: [
-        { hid: 'description', name: 'description', content: description },
-        { hid: 'og:title', name: 'og:title', content: title },
-        { hid: 'og:description', name: 'og:description', content: description },
-      ],
-      __dangerouslyDisableSanitizers: ['script'],
-      script: [
-        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-      ],
-    };
-  },
   async asyncData({ params, $axios, error }) {
     const regex = /(?<id>\d+)-(?<slug>[\w-]*)/;
 
@@ -115,6 +92,29 @@ export default {
         {
           text: item.name, disabled: true, nuxt: true, to: `/library/talents/${id}-${slug}`,
         },
+      ],
+    };
+  },
+  head() {
+    const title = `${this.item.name} - Talent`;
+    const description = ''; /* this.item.source.key.indexOf('core') >= 0
+      ? `The ${this.item.name} from ${this.item.group} is an official Species described in the ${this.item.source.book}.`
+      : `The ${this.item.name} from ${this.item.group} is a homebrew Species provided by ${this.item.source.book}.`; */
+    const image = this.item.thumbnail
+      ? `https://www.doctors-of-doom.com${this.item.thumbnail}`
+      : undefined;
+
+    return {
+      titleTemplate: '%s | Wrath & Glory Library',
+      title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
       ],
     };
   },

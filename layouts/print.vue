@@ -7,14 +7,14 @@
 <script>
 export default {
   components: { },
+  data() {
+    return {};
+  },
   head() {
     return {
       link: [
       ],
     };
-  },
-  data() {
-    return {};
   },
   computed: {
   },

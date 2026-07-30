@@ -7,13 +7,13 @@ export default {
   name: 'Ascension',
   layout: 'forge',
   props: [],
+  data() {
+    return {
+    };
+  },
   head() {
     return {
       title: 'Select Ascension Package',
-    };
-  },
-  data() {
-    return {
     };
   },
 };

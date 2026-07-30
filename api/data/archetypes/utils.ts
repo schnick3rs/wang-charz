@@ -1,6 +1,6 @@
 import {Modification, Prerequisite, WargearOption} from "../../shared/schemas/archetype";
-import {stringToKebab} from "../../db/static/_stringUtils";
-import {getLegacySource} from "../../data/legacySources";
+import {getLegacySource} from "../legacy-sources";
+import {stringToKebab} from "../utils";
 
 export const addModifier = function(targetGroup: string, targetValue: string, modifier = 0, rank = 0, condition: string | undefined = undefined): Modification {
     return {

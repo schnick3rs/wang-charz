@@ -52,7 +52,7 @@
             @page-count="pagination.pageCount = $event"
           >
             <!-- Source Book -->
-            <template v-slot:item.source.book="{ item }">
+            <template #item.source.book="{ item }">
               <v-row no-gutters>
                 <v-col :cols="12">
                   {{ item.source.book }}
@@ -69,14 +69,14 @@
             </template>
 
             <!-- Detail Page link -->
-            <template v-slot:item.actions="{ item }">
+            <template #item.actions="{ item }">
               <v-btn v-if="item.stub === undefined || !item.stub" small icon nuxt :to="`/library/species/${textToKebab(item.key)}`">
                 <v-icon>chevron_right</v-icon>
               </v-btn>
             </template>
 
             <!-- Expand -->
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <div class="pa-4">
                   <dod-species-details
@@ -124,26 +124,6 @@ export default {
     BreadcrumbSchemaMixin,
     SluggerMixin,
   ],
-  head() {
-    const title = 'Species - Wrath & Glory Reference | Library';
-    const description = 'There are some homebrew species and human variants in addition to some Xenos options. '
-      + 'Check out the respective linked Homebrews for detailed informations.';
-    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
-
-    return {
-      title,
-      meta: [
-        { hid: 'description', name: 'description', content: description },
-        { hid: 'og:title', name: 'og:title', content: title },
-        { hid: 'og:description', name: 'og:description', content: description },
-        { hid: 'og:image', name: 'og:image', content: image },
-      ],
-      __dangerouslyDisableSanitizers: ['script'],
-      script: [
-        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
-      ],
-    };
-  },
   async asyncData({ $axios, query, params, error }) {
     const response = await $axios.get('/api/species/');
     const { data } = response;
@@ -211,6 +191,26 @@ export default {
         },
       ],
       expand: false,
+    };
+  },
+  head() {
+    const title = 'Species - Wrath & Glory Reference | Library';
+    const description = 'There are some homebrew species and human variants in addition to some Xenos options. '
+      + 'Check out the respective linked Homebrews for detailed informations.';
+    const image = 'https://www.doctors-of-doom.com/img/artwork_library.jpg';
+
+    return {
+      title,
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+      ],
+      __dangerouslyDisableSanitizers: ['script'],
+      script: [
+        { innerHTML: JSON.stringify(this.breadcrumbJsonLdSchema(this.breadcrumbItems)), type: 'application/ld+json' },
+      ],
     };
   },
   computed: {

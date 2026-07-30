@@ -22,14 +22,14 @@
           >
 
             <!-- Detail Page link -->
-            <template v-slot:item.actions="{ item }">
+            <template #item.actions="{ item }">
               <v-btn x-small color="success" nuxt :to="`/forge/species/${textToKebab(item.key)}/edit`">
                 Edit
               </v-btn>
             </template>
 
             <!-- Expand -->
-            <template v-slot:expanded-item="{ headers, item }">
+            <template #expanded-item="{ headers, item }">
               <td :colspan="headers.length">
                 <div class="pa-4">
                   <dod-species-details
@@ -72,7 +72,7 @@ import DodSpeciesDetails from '~/components/DodSpeciesDetails';
 import SluggerMixin from '~/mixins/SluggerMixin';
 
 export default {
-  name: 'forge-species',
+  name: 'ForgeSpecies',
   components: {
     DodDefaultBreadcrumbs,
     DodSpeciesDetails,

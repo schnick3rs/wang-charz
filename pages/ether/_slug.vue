@@ -37,7 +37,7 @@
           <v-row>
             <v-col :cols="12" :md="10">
               <p>{{ item.fields.description }}</p>
-              <div v-html="toHtml(item.fields.content)" class="markdown-html"></div>
+              <div class="markdown-html" v-html="toHtml(item.fields.content)"></div>
             </v-col>
           </v-row>
         </ColorfulEntry>

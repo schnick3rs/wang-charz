@@ -3,7 +3,7 @@
 
     <v-row no-gutters>
 
-      <v-col :cols="12" v-if="item.source">
+      <v-col v-if="item.source" :cols="12">
         <p>
           <strong>Source:</strong>
           <nuxt-link v-if="item.source.path" :to="item.source.path">{{ item.source.book }}</nuxt-link>
@@ -48,7 +48,7 @@
 
           <v-row style="background-color: lightgray;">
             <v-col :cols="12">
-              <div :cols="12" v-for="feature in item.archetypeFeatures">
+              <div v-for="feature in item.archetypeFeatures" :cols="12">
                 <strong>{{ feature.name }}</strong>
                 <div v-if="feature.description" v-html="feature.description"></div>
                 <p v-else>{{ feature.snippet }}</p>
@@ -60,7 +60,7 @@
             <v-col><strong>Wargear:</strong> {{ wargearText }}</v-col>
           </v-row>
 
-          <v-row style="background-color: lightgray;" v-if="item.influence && item.influence != 0">
+          <v-row v-if="item.influence && item.influence != 0" style="background-color: lightgray;">
             <v-col><strong>Influence:</strong> {{ `${item.influence > 0 ? '+' : ''}${item.influence}` }}</v-col>
           </v-row>
 
@@ -140,17 +140,6 @@ export default {
       suggestedTalents: [],
     };
   },
-  async mounted() {
-    if (this.item.suggested && this.item.suggested.talents) {
-      for(const talentKey of this.item.suggested.talents) {
-        const response = await this.$axios.get(`/api/talents/${talentKey}`);
-        const { data } = response;
-        if (data !== undefined && data !== '') {
-          this.suggestedTalents.push(data);
-        }
-      }
-    }
-  },
   computed: {
     attributePrerequisites() {
       if (this.item.prerequisites) {
@@ -221,6 +210,17 @@ export default {
       }
       return '';
     },
+  },
+  async mounted() {
+    if (this.item.suggested && this.item.suggested.talents) {
+      for(const talentKey of this.item.suggested.talents) {
+        const response = await this.$axios.get(`/api/talents/${talentKey}`);
+        const { data } = response;
+        if (data !== undefined && data !== '') {
+          this.suggestedTalents.push(data);
+        }
+      }
+    }
   },
   methods: {
     getAvatar(key) {

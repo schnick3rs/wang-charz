@@ -27,16 +27,16 @@
           <v-list-group
             v-if="item.children"
           >
-            <template v-slot:activator>
+            <template #activator>
               <v-list-item-content>
                 <v-list-item-title>{{ item.title }}</v-list-item-title>
                 <v-list-item-subtitle>{{ item.subtitle }}</v-list-item-subtitle>
               </v-list-item-content>
             </template>
               <v-list-item
-                class="ml-4"
                 v-for="child in item.children"
                 :key="child.to"
+                class="ml-4"
                 :to="child.to"
                 nuxt
               >
@@ -71,7 +71,7 @@
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
-      <v-container class="pa-0 fill-height" :class="{ 'pl-2 pr-2': this.$vuetify.breakpoint.mdAndUp }">
+      <v-container class="pa-0 fill-height" :class="{ 'pl-2 pr-2': $vuetify.breakpoint.mdAndUp }">
         <v-toolbar-title>
           <nuxt-link to="/" class="title brand-logo brand-logo__text">
             Doctors of Doom
@@ -92,14 +92,14 @@
           </v-btn>
         </v-toolbar-items>
 
-        <v-app-bar-nav-icon @click.stop="toggleDrawer" class="d-md-none" />
+        <v-app-bar-nav-icon class="d-md-none" @click.stop="toggleDrawer" />
       </v-container>
     </v-app-bar>
 
     <v-main>
 
       <v-toolbar dense class="d-none d-md-block">
-        <v-container  class="pa-0 fill-height" :class="{ 'pl-2 pr-2': this.$vuetify.breakpoint.mdAndUp }">
+        <v-container  class="pa-0 fill-height" :class="{ 'pl-2 pr-2': $vuetify.breakpoint.mdAndUp }">
         <v-toolbar-items>
           <v-btn
             v-for="item in navigation"
@@ -132,13 +132,6 @@ export default {
   components: {
     DefaultFooter,
     ToolbarAccountActions,
-  },
-  head() {
-    return {
-      link: [
-        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
-      ],
-    };
   },
   data() {
     return {
@@ -186,6 +179,13 @@ export default {
         // sets if the footer is full width (true) or gives space to the drawer (false)
         clippedLeft: true,
       },
+    };
+  },
+  head() {
+    return {
+      link: [
+        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
+      ],
     };
   },
   computed: {

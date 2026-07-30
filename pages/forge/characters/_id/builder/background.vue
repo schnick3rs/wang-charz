@@ -23,18 +23,18 @@
       >
         No fitting associated faction found for <strong>{{characterFactionKey}}</strong>. Check with your GM what background options are available.
       </v-alert>
-      <div v-for="type in backgroundSectionTypes" class="mt-2 mb-4">
+      <div v-for="type in backgroundSectionTypes" :key="type" class="mt-2 mb-4">
         <h3>{{type}}</h3>
         <v-select
             v-model="selectedBackgrounds[type.toLowerCase()]"
             :items="backgroundsByType(type)"
             outlined
             dense
-            @change="changeBackground"
             item-value="key"
             item-text="label"
             persistent-hint
             :hint="backgroundHint(selectedBackgrounds[type.toLowerCase()])"
+            @change="changeBackground"
         ></v-select>
         <v-btn
             small
@@ -42,6 +42,21 @@
             :color="selectedPlusOne && selectedPlusOne.key === selectedBackgrounds[type.toLowerCase()] ? 'success' : ''"
             @click="selectPlusOne(selectedBackgrounds[type.toLowerCase()])"
         >Use this bonus</v-btn>
+        <v-item-group v-if="false">
+          <v-item v-for="item in backgroundsByType(type)" :key="item.key">
+            <v-card
+                slot-scope="{ active, toggle }"
+                :color="active ? 'green lighten-2' : ''" @click="toggle"
+                @change="console.info(event)"
+            >
+              <v-card-title>{{item.title}}</v-card-title>
+              <v-card-text>{{item.snippet}}</v-card-text>
+              <v-card-actions>
+                <v-btn @click="selectPlusOne(item.key)">{{ item.plusOne }}</v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-item>
+        </v-item-group>
       </div>
     </v-col>
 
@@ -78,8 +93,8 @@
             persistent-hint
             hint="Enter a custom language and hit enter or click the [+] icon. Toggle the [$] for 0/1 XP."
             :prepend-icon="languageCostMarker ? 'attach_money' : 'money_off'"
-            @click:prepend="languageCostMarker = !languageCostMarker"
             append-outer-icon="add_box"
+            @click:prepend="languageCostMarker = !languageCostMarker"
             @click:append-outer="addLanguage(languageInput)"
             @keypress.enter="addLanguage(languageInput)"
           ></v-text-field>
@@ -97,9 +112,9 @@ import IssueList from '~/components/IssueList.vue';
 
 export default {
   name: 'Background',
-  layout: 'forge',
   components: { BackgroundPreview, IssueList },
   mixins: [],
+  layout: 'forge',
   props: [],
   asyncData({ params }) {
     return {

@@ -5,9 +5,9 @@
 <script lang="js">
 export default {
   name: 'SpeciesSelection',
-  layout: 'forge',
   components: {},
   mixins: [],
+  layout: 'forge',
   props: [],
   head() {
     return {

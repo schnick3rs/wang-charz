@@ -21,6 +21,7 @@ import {tnh} from "./archetypes/books/theNullHypothesis";
 import {dod} from "./archetypes/books/doctorsOfDoom";
 import {aaoaRep} from "./archetypes/books/apocrypha";
 import {sonr} from "./archetypes/books/sonsOfRuss";
+import {lex} from "./archetypes/books/lex";
 
 const aotgtRep = [
     archetype('aotgt', '', 'Agents of the Imperium', 'Callidus Assassin', 4, 'Human', true),
@@ -2066,6 +2067,7 @@ export const rawArchetypeRepository = [
     ...tnh,
     ...dod,
     ...aaoaRep,
+    ...lex,
     ...ltgbRep,
     ...aotgtRep,
     ...teaRep,

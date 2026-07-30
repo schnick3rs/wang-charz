@@ -5,7 +5,7 @@
 
     <v-row>
 
-      <v-col :cols="12" v-if="false">
+      <v-col v-if="false" :cols="12">
         <v-alert type="info" outlined text>
           On Januar 2021, <a href="https://www.cubicle7games.com/">Cubicle7</a> <a href="https://www.cubicle7games.com/40k-forsaken-system-players-guide-pdf-out-now/">posted about their newest PDF</a> for Wrath and Glory. The can get the <a href="https://www.drivethrurpg.com/product/303930/Wrath--Glory--Forsaken-System-Players-Guide?affiliate_id=466959" title="Wrath & Glory Forsaken System Player´s Guide (Affiliate Link)">Forsaken System Player´s Guide on e.g. drivethrurpg.com</a> (affiliate link). It contains Abhuman Species and new archetypes for the Imperium, covering Sororitas, Inquisition, Mechanicus and Astartes.
         </v-alert>
@@ -44,15 +44,15 @@
             </v-card-title>
             <v-card-text>
               <v-textarea
-                class="mt-4"
                 v-model="importSnippet"
+                class="mt-4"
                 persistent-hint
                 dense
                 hint="Paste the exported character string into the field and hit the 'import' button."
               ></v-textarea>
             </v-card-text>
             <v-card-actions>
-              <v-btn block color="success" @click="importCharacter(importSnippet)" :disabled="!importSnippet">import</v-btn>
+              <v-btn block color="success" :disabled="!importSnippet" @click="importCharacter(importSnippet)">import</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
@@ -128,9 +128,9 @@
               </v-card-text>
               <v-card-actions>
                 <v-btn
+                  color="success"
+                    block
                   @click="migrateAllCharacters"
-                    color="success"
-                  block
                 >
                   <v-icon left small>
                     cloud_upload
@@ -176,9 +176,9 @@
                       v-if="isLegacyVersion(character.id)"
                     >
                       <v-btn
-                        @click="openExportDialog(character.id)"
                         color="warning"
                         small
+                        @click="openExportDialog(character.id)"
                       >
                         <v-icon left small>cloud_download</v-icon>
                         Export Legacy
@@ -188,9 +188,9 @@
                       v-else-if="characterVersion(character.id) < builderVersion"
                     >
                       <v-btn
-                        @click="migrateCharacter(character.id)"
                         color="warning"
                         x-small
+                        @click="migrateCharacter(character.id)"
                       >
                         <v-icon left small>
                           cloud_upload
@@ -246,6 +246,7 @@
                   View
                 </v-btn>
                 <v-btn
+                  v-if="false"
                   nuxt
                   :to="`/forge/characters/${character.id}/builder/print`"
                   target="_blank"
@@ -253,7 +254,6 @@
                   class="d-none d-md-flex"
                   text
                   x-small
-                  v-if="false"
                   :disabled="characterVersion(character.id) < builderVersion"
                 >
                   <v-icon small left>print</v-icon>Print
@@ -300,13 +300,13 @@
               <v-card-text>
                 <v-textarea
                   id="exportSnippetId"
+                  v-model="exportSnippet"
                   rows="10"
                   readonly
                   class="mt-4"
                   persistent-hint
                   dense
                   hint="The character is exported without his custom image."
-                  v-model="exportSnippet"
                 ></v-textarea>
               </v-card-text>
               <v-divider></v-divider>

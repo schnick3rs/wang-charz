@@ -130,6 +130,21 @@ export default {
       ],
     };
   },
+  computed: {
+    breadcrumbItems() {
+      return [
+        {
+          text: '', disabled: false, nuxt: true, exact: true, to: '/',
+        },
+        {
+          text: 'Posts', disabled: false, nuxt: true, exact: true, to: '/posts',
+        },
+        {
+          text: this.post.fields.shortTitle, disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.fields.slug}`,
+        },
+      ];
+    },
+  },
   mounted() {
     this.$root.$on('hoverHint', (payload) => {
       const { event, endpoint } = payload;
@@ -148,21 +163,6 @@ export default {
       this.tooltip.position.y = `${event.pageY}px`;
     });
     this.$root.$on('hideHint', () => this.showTooltip = false );
-  },
-  computed: {
-    breadcrumbItems() {
-      return [
-        {
-          text: '', disabled: false, nuxt: true, exact: true, to: '/',
-        },
-        {
-          text: 'Posts', disabled: false, nuxt: true, exact: true, to: '/posts',
-        },
-        {
-          text: this.post.fields.shortTitle, disabled: false, nuxt: true, exact: true, to: `/posts/${this.post.fields.slug}`,
-        },
-      ];
-    },
   },
   methods: {
     toHtml(rich) {

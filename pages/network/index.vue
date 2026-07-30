@@ -68,26 +68,6 @@ import DodDefaultBreadcrumbs from '../../components/DodDefaultBreadcrumbs';
 
 export default {
   components: { DodDefaultBreadcrumbs },
-  head() {
-    const title = 'Wrath & Glory Assets | Network';
-    const description = 'Searching for fillable character sheets for Wrath and Glory? ' +
-        'Then check out the network section for downloads and links to valuable stuff.';
-    const image = '/img/artwork_network_tile.jpg';
-    return {
-      meta: [
-        { hid: 'description', name: 'description', content: description },
-        // Open Graph
-        { hid: 'og:title', name: 'og:title', content: title },
-        { hid: 'og:description', name: 'og:description', content: description },
-        { hid: 'og:image', name: 'og:image', content: image },
-        // Twitter Card
-        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
-        { hid: 'twitter:title', name: 'twitter:title', content: title },
-        { hid: 'twitter:description', name: 'twitter:description', content: description },
-        { hid: 'twitter:image', name: 'twitter:image', content: image },
-      ],
-    };
-  },
   data() {
     return {
       breadcrumbItems: [
@@ -154,6 +134,26 @@ export default {
             { title: 'Psychic Powers Only sheet', url: 'https://drive.google.com/open?id=1LlHLeGdb2h3DRd_qWAaroD07pEZzPDmB' },
           ],
         },
+      ],
+    };
+  },
+  head() {
+    const title = 'Wrath & Glory Assets | Network';
+    const description = 'Searching for fillable character sheets for Wrath and Glory? ' +
+        'Then check out the network section for downloads and links to valuable stuff.';
+    const image = '/img/artwork_network_tile.jpg';
+    return {
+      meta: [
+        { hid: 'description', name: 'description', content: description },
+        // Open Graph
+        { hid: 'og:title', name: 'og:title', content: title },
+        { hid: 'og:description', name: 'og:description', content: description },
+        { hid: 'og:image', name: 'og:image', content: image },
+        // Twitter Card
+        { hid: 'twitter:card', name: 'twitter:card', content: 'summary_large_image' },
+        { hid: 'twitter:title', name: 'twitter:title', content: title },
+        { hid: 'twitter:description', name: 'twitter:description', content: description },
+        { hid: 'twitter:image', name: 'twitter:image', content: image },
       ],
     };
   },

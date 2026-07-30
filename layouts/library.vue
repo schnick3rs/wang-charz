@@ -8,7 +8,7 @@
       :fixed="toolbar.fixed"
       :clipped-left="toolbar.clippedLeft"
     >
-      <v-container class="pa-0 fill-height" :class="{ 'pl-2 pr-2': this.$vuetify.breakpoint.mdAndUp }">
+      <v-container class="pa-0 fill-height" :class="{ 'pl-2 pr-2': $vuetify.breakpoint.mdAndUp }">
       <v-toolbar-items>
         <v-btn icon nuxt to="/">
           <v-icon>home</v-icon>
@@ -31,7 +31,7 @@
 
     <v-main>
       <v-toolbar dense style="overflow: auto">
-        <v-container class="pa-0 fill-height" :class="{ 'pl-2 pr-2': this.$vuetify.breakpoint.mdAndUp }">
+        <v-container class="pa-0 fill-height" :class="{ 'pl-2 pr-2': $vuetify.breakpoint.mdAndUp }">
         <v-toolbar-items>
           <v-btn text small nuxt to="/library/wargear/weapons">
             Weapons
@@ -64,13 +64,6 @@ import DefaultFooter from '~/components/DefaultFooter';
 
 export default {
   components: { DefaultFooter },
-  head() {
-    return {
-      link: [
-        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
-      ],
-    };
-  },
   data() {
     return {
       drawer: {
@@ -97,6 +90,13 @@ export default {
         // sets if the footer is full width (true) or gives space to the drawer (false)
         clippedLeft: true,
       },
+    };
+  },
+  head() {
+    return {
+      link: [
+        { rel: 'canonical', href: `https://www.doctors-of-doom.com${this.$route.path}` },
+      ],
     };
   },
 };
