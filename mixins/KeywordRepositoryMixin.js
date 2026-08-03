@@ -1,3 +1,4 @@
+import {SKILLS, TRAITS} from "../api/shared/constants";
 
 export default {
   data() {
