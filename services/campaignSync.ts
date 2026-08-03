@@ -30,9 +30,9 @@ async function kvDelete(key) {
 // The client itself invents the campaignId now — nothing stops two people
 // from picking the same one by chance, and nothing stops a stranger from
 // writing to a campaignId they guessed.
-export async function createCampaign(id, champaign) {
-    const meta = { champaign, createdAt: Date.now(), updatedAt: Date.now() };
-    await kvPut(`campaign:${id}:meta`, meta);
+export async function createCampaign(id: string, campaign: any) {
+    const meta = { campaign: campaign, owner: id, createdAt: Date.now(), updatedAt: Date.now() };
+    await kvPut(`campaign:${campaign.id}:meta`, meta);
     return { id, ...meta };
 }
 
@@ -60,6 +60,20 @@ export async function pushCharacter(campaignId, charId, character) {
 // it whenever a new player joins.
 export async function fetchCharacter(campaignId, charId) {
     return kvGet(`campaign:${campaignId}:char:${charId}`);
+}
+
+// Fetch every character under a campaign using the /?prefix= endpoint.
+export async function fetchAllCharacters(campaignId) {
+    const res = await fetch(
+        `${WORKER_URL}/?prefix=${encodeURIComponent(`campaign:${campaignId}:char:`)}`
+    );
+    const { values } = await res.json();
+    return values
+        .filter((v) => v.value !== null)
+        .map((v) => ({
+            charId: v.key.split(":char:")[1],
+            ...JSON.parse(v.value),
+        }));
 }
 
 export function mergeCharacters(localChars, remoteChars) {

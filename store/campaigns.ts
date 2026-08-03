@@ -1,11 +1,34 @@
 import {z} from "zod";
 
- 
-const CampaignSchema = z.object({
+
+const CampaignReward = z.object({
+  targetGroup: z.string(),
+  targetValue: z.string(),
+  modifier: z.number().default(0)
+})
+
+export const ChronicEntrySchema = z.object({
+  id: z.string().default(() => crypto.randomUUID()),
+  createdAt: z.coerce.date().default(() => new Date()),
+
+  timestamp: z.coerce.date().default(() => new Date()),
+  text: z.string(),
+
+  xpReward: z.coerce.number().default(0),
+  rankIncrement: z.boolean().default(false),
+  tierIncrement: z.boolean().default(false),
+
+  rewards: z.array(CampaignReward).default([]),
+})
+export type ChronicEntry = z.infer<typeof ChronicEntrySchema>
+
+export const CampaignSchema = z.object({
   id: z.string(),
   name: z.string(),
   tier: z.number(),
   hint: z.string().optional(),
+
+  chronic: z.array(ChronicEntrySchema).default([]),
 
   createdAt: z.coerce.date().default(() => new Date()),
   updatedAt: z.coerce.date().default(() => new Date()),
@@ -38,6 +61,10 @@ export const mutations = {
       ...state.campaigns,
       [id]: newCampaign,
     };
+  },
+
+  addChronicEntry(state: CampaignsState, payload: { id: string, entry: ChronicEntry}) {
+    state.campaigns[payload.id].chronic.push(payload.entry);
   },
 
   update(state: CampaignsState, payload: { id: string; campaign: Campaign }) {
