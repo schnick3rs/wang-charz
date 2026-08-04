@@ -14,7 +14,7 @@ export default defineComponent({
     console.info('joind chars', characters)
     return {
       campaignId: campaignJoinId,
-      cloudCampaign: container.campaign,
+      cloudCampaign: container?.campaign,
       characters: characters.map((c) => c.character),
       owner: container.owner,
       createdAt: container.createdAt,

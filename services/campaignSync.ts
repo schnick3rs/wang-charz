@@ -30,10 +30,10 @@ async function kvDelete(key) {
 // The client itself invents the campaignId now — nothing stops two people
 // from picking the same one by chance, and nothing stops a stranger from
 // writing to a campaignId they guessed.
-export async function createCampaign(id: string, campaign: any) {
-    const meta = { campaign: campaign, owner: id, createdAt: Date.now(), updatedAt: Date.now() };
+export async function createCampaign(ownerId: string, campaign: any) {
+    const meta = { campaign: campaign, owner: ownerId, createdAt: Date.now(), updatedAt: Date.now() };
     await kvPut(`campaign:${campaign.id}:meta`, meta);
-    return { id, ...meta };
+    return { ...meta };
 }
 
 

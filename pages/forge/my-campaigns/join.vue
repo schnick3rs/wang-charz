@@ -41,7 +41,7 @@ export default defineComponent({
     <ul>
       <li v-for="character in characters" :key="character.id" class="mb-2">
         {{ character.name }}, the Tier {{ effectiveTier(character.id)}} {{ character.archetype.value }} of the {{ character.faction.label}}
-        <v-btn v-if="campaign.tier === effectiveTier(character.id)" small color="success" @click="join(character)">Join</v-btn>
+        <v-btn small color="success" @click="join(character)">Join</v-btn>
       </li>
     </ul>
   </div>
