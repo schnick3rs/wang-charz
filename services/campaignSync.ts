@@ -1,6 +1,3 @@
-// Minimal campaignSync — assumes the "dumb" worker that just does raw KV get/put by key.
-// Everything the worker used to guard is now purely the client's responsibility.
-
 const WORKER_URL = 'https://campaign-sync.moritz-orth.workers.dev';
 
 

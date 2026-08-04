@@ -1,8 +1,10 @@
 <script lang="ts">
 import {defineComponent, type PropType} from 'vue'
 import {Campaign, CampaignSchema} from "~/store/campaigns";
-import {createCampaign, deleteCampaign, fetchAllCharacters} from "~/services/campaignSync";
+import {createCampaign, deleteCampaign, fetchAllCharacters, fetchCampaignMeta} from "~/services/campaignSync";
 import {mapGetters} from "vuex";
+
+const MAX_VISIBLE = 6;
 
 export default defineComponent({
   name: "CampaignPreviewCard",
@@ -16,9 +18,12 @@ export default defineComponent({
   data() {
     return {
       chars: [],
+      cloudCampaignWrapper: null,
     };
   },
   async fetch() {
+    this.cloudCampaignWrapper = await fetchCampaignMeta(this.campaign.id)
+
     const characterContainer = await fetchAllCharacters(this.campaign.id);
     this.chars = characterContainer.map((item) => item.character)
   },
@@ -31,6 +36,22 @@ export default defineComponent({
     },
     currentRank() {
       return this.campaign.chronic.filter((c) => c.rankIncrement === true).length + 1;
+    },
+    visibleChars() {
+      if (this.chars.length <= MAX_VISIBLE) {
+        return this.chars;
+      }
+      // reserve one slot for the "+N" tile
+      return this.chars.slice(0, MAX_VISIBLE - 1);
+    },
+    extraCount() {
+      return Math.max(0, this.chars.length - (MAX_VISIBLE - 1));
+    },
+    overflowNames() {
+      return this.chars.slice(MAX_VISIBLE - 1).map(c => c.name).join(', ');
+    },
+    yourRole() {
+      return this.cloudCampaignWrapper?.owner === this.userId ? 'GM' : 'Agent'
     },
   },
   methods: {
@@ -76,84 +97,79 @@ export default defineComponent({
 <template>
   <v-card>
     <v-card-title>{{campaign.name}}</v-card-title>
-    <v-card-subtitle>Updated {{formatDate(campaign.updatedAt)}}</v-card-subtitle>
+    <v-card-subtitle>
+      Updated {{formatDate(campaign.updatedAt)}}
+      <v-icon v-if="cloudCampaignWrapper?.updatedAt" small :title="new Date(cloudCampaignWrapper.updatedAt)">mdi-refresh</v-icon>
+    </v-card-subtitle>
     <v-card-text style="height: 280px; text-align: center;">
+
       <div class="mb-2">
-        <v-progress-circular size="75" width="10" color="success" :value="currentXp">{{currentXp}} XP</v-progress-circular>
-        <v-progress-circular size="75" width="10" color="success" :value="100 / 3 * currentRank">Rank {{currentRank}}</v-progress-circular>
-        <v-progress-circular size="75" width="10" color="success" :value="100 / 5 * campaign.tier">Tier {{campaign.tier}}</v-progress-circular>
+        <v-progress-circular size="75" width="8" color="success" :value="100 / 5 * campaign.tier">Tier {{campaign.tier}}</v-progress-circular>
+        <v-progress-circular size="75" width="8" color="success" :value="currentXp">{{currentXp}} XP</v-progress-circular>
+        <v-progress-circular size="75" width="8" color="success" :value="100 / 3 * currentRank">Rank {{currentRank}}</v-progress-circular>
       </div>
 
-      <div>{{ chars.length}}</div>
-      <strong>Agents</strong>
+      <div class="mb-2">
+        <span class="display-2 d-block font-weight-bold">{{ chars.length }}</span>
+        <span class="font-weight-bold">Agents</span>
+      </div>
 
-      <v-container
-          grid-list-sm
-          fluid
-      >
-        <v-layout row wrap justify-center>
-          <v-flex
-              v-for="character in chars"
-              :key="character.id"
-              xs2
-              d-flex
-          >
-            <v-avatar
-                tile
-                :title="character.name"
-                class="d-flex"
+      <div class="avatar-row mb-4">
+        <v-avatar
+            v-for="character in visibleChars"
+            :key="character.id"
+            tile
+            :title="character.name"
+            class="avatar-item"
+        >
+          <img :src="characterAvatar(character.id)"  :alt="character.name"/>
+        </v-avatar>
 
-            >
-              <img :src="characterAvatar(character.id)" />
-            </v-avatar>
-          </v-flex>
-        </v-layout>
-      </v-container>
+        <v-avatar
+            v-if="extraCount > 0"
+            tile
+            class="avatar-item avatar-more"
+            :title="overflowNames"
+        >
+          <span>+{{ extraCount }}</span>
+        </v-avatar>
+      </div>
 
-      <div>{{ campaign.chronic.length }}</div>
-      <div>Chronic Entries</div>
+      <div>
+        <span class="font-weight-bold">Role: {{ yourRole }}</span>
+      </div>
+
     </v-card-text>
-
-
     <v-divider></v-divider>
     <v-card-actions>
-      <v-btn
-          color="primary"
-          text
-          small
-          :to="`/forge/my-campaigns/${campaign.id}`"
-      >
-        View
-      </v-btn>
-      <v-btn
-          color="primary"
-          text
-          small
-          @click="publishCampaign()"
-      >
-        Publish
-      </v-btn>
-      <v-btn
-          color="primary"
-          text
-          small
-          :to="`/forge/my-campaigns/join?c=${campaign.id}`"
-      >
-        Join
-      </v-btn>
-      <v-btn
-          color="error"
-          text
-          small
-          @click="deleteCampaign()"
-      >
-        <v-icon small>delete</v-icon>Delete
-      </v-btn>
+      <v-btn color="primary" text small :to="`/forge/my-campaigns/${campaign.id}`">View</v-btn>
+      <v-btn color="primary" text small :disabled="yourRole !== 'GM'" @click="publishCampaign()">Publish</v-btn>
+      <v-btn color="primary" text small :to="`/forge/my-campaigns/join?c=${campaign.id}`">Join</v-btn>
+      <v-spacer></v-spacer>
+      <v-btn color="error" text small @click="deleteCampaign()"><v-icon small>delete</v-icon>Delete</v-btn>
     </v-card-actions>
   </v-card>
-
 </template>
 
-<style scoped lang="css">
+<style scoped>
+.avatar-row {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  overflow-x: auto;
+  padding: 4px 0;
+}
 
+.avatar-item {
+  flex: 0 0 auto;
+}
+
+.avatar-more {
+  background-color: #e0e0e0;
+  color: #616161;
+  font-weight: 600;
+  font-size: 13px;
+}
 </style>

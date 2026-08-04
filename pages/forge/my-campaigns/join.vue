@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
-import {fetchCampaignMeta, pushCharacter} from '~/services/campaignSync'
+import {createCampaign, fetchCampaignMeta, pushCharacter} from '~/services/campaignSync'
 import {mapGetters} from "vuex";
 
 export default defineComponent({
@@ -28,7 +28,12 @@ export default defineComponent({
     },
     join(character: any) {
       pushCharacter(this.campaign.id, character.id, character)
-    }
+      this.saveCampaign()
+    },
+    async saveCampaign(){
+      const response = await createCampaign(this.userId, this.campaign);
+      console.info('campaign pushed in KV store', response)
+    },
   },
 })
 </script>

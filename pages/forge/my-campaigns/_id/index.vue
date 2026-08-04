@@ -1,6 +1,6 @@
 <script lang="ts">
 import {defineComponent} from 'vue'
-import {createCampaign, fetchAllCharacters, fetchCampaignMeta} from "~/services/campaignSync";
+import {fetchAllCharacters, fetchCampaignMeta} from "~/services/campaignSync";
 import {mapGetters} from "vuex";
 import {ChronicEntry, ChronicEntrySchema} from "~/store/campaigns";
 
@@ -66,12 +66,8 @@ export default defineComponent({
       });
       console.info('new entry created, adding and update store', entry)
       this.$store.commit('campaigns/addChronicEntry', { id: this.campaign.id, entry: entry})
+      this.$store.dispatch('campaigns/save', { id: this.campaign.id })
       this.newChronicEntryDialog = false;
-      this.saveCampaign()
-    },
-    async saveCampaign(){
-      const response = await createCampaign(this.userId, this.campaign);
-      console.info('campaign pushed in KV store', response)
     },
   },
 })

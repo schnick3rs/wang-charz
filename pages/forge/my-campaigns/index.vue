@@ -2,7 +2,7 @@
   <div>
     <dod-default-breadcrumbs :items="breadcrumbItems" />
 
-    <v-row justify="center">
+    <v-row>
 
       <v-col :cols="12">
         <v-btn :disabled="!userId" color="success" @click.stop="createCampaign">Create campaign</v-btn>
@@ -15,7 +15,8 @@
           :cols="12"
           :sm="12"
           :md="6"
-          :lg="4" :xl="4"
+          :lg="4"
+          :xl="4"
       >
         <campaign-preview-card :campaign="campaign"></campaign-preview-card>
 
@@ -29,7 +30,6 @@
 import {mapGetters} from 'vuex';
 import DodDefaultBreadcrumbs from '~/components/DodDefaultBreadcrumbs';
 import SluggerMixin from '~/mixins/SluggerMixin';
-import {createCampaign, deleteCampaign, fetchAllCharacters} from '~/services/campaignSync'
 
 import { v4 } from 'uuid'
 import CampaignPreviewCard from "~/components/forge/CampaignPreviewCard.vue";
@@ -42,7 +42,7 @@ function randomId(length = 8) {
 }
 
 export default {
-  name: 'ForgeSpecies',
+  name: 'ForgeCampaign',
   components: {
     CampaignPreviewCard,
     DodDefaultBreadcrumbs,
@@ -80,15 +80,6 @@ export default {
       const name = 'Some name';
       const tier = 2;
       this.$store.commit('campaigns/create', { id, name, tier });
-    },
-    async publishCampaign(id){
-      const campaign = this.$store.getters['campaigns/getCampaign'](id);
-      const response = await createCampaign(this.userId, campaign);
-      console.info('campaign created in KV store', response)
-    },
-    async deleteCampaign(id) {
-      this.$store.commit('campaigns/delete', { id });
-      await deleteCampaign(id);
     },
     async createUserIdentity() {
       this.$store.commit('user/setUuid', v4());

@@ -1,5 +1,6 @@
 import {z} from "zod";
-
+import {createCampaign} from '~/services/campaignSync'
+import {ActionContext} from "vuex";
 
 const CampaignReward = z.object({
   targetGroup: z.string(),
@@ -78,3 +79,19 @@ export const mutations = {
     delete state.campaigns[id];
   },
 };
+
+export const actions = {
+
+  async save({ state, commit, rootGetters }: ActionContext<CampaignsState, RootState>, payload: { id: string }) {
+    const { id } = payload;
+    const campaign = state.campaigns[id];
+    if (!campaign) throw new Error(`Campaign ${id} not found`);
+
+    const userId = rootGetters['user/getUuid'];
+    const updatedCampaign: Campaign = { ...campaign, updatedAt: new Date() };
+
+    await createCampaign(userId, updatedCampaign);
+    commit('update', { id, campaign: updatedCampaign });
+  }
+
+}
