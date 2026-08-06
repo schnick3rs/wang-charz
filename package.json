@@ -1,0 +1,24 @@
+{
+  "name": "wang-charz-v4",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "postinstall": "nuxt prepare"
+  },
+  "dependencies": {
+    "@nuxt/eslint": "^1.17.0",
+    "@nuxt/image": "^2.1.0",
+    "@nuxtjs/supabase": "^2.0.9",
+    "@pinia/nuxt": "^1.0.1",
+    "@vueuse/nuxt": "^14.4.0",
+    "eslint": "^10.8.0",
+    "nuxt": "^4.5.2",
+    "pinia": "^4.0.2",
+    "vue": "^3.5.40",
+    "vue-router": "^5.2.0"
+  }
+}
