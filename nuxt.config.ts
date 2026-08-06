@@ -8,5 +8,13 @@ export default defineNuxtConfig({
     '@nuxtjs/supabase',
     '@vueuse/nuxt',
     '@nuxt/eslint'
-  ]
+  ],
+
+  supabase: {
+    redirectOptions: {
+      login: '/login',
+      callback: '/confirm',
+      include: ['/forge(/.*)?'],
+    },
+  },
 })
