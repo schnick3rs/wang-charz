@@ -82,7 +82,7 @@ export const mutations = {
 
 export const actions = {
 
-  async save({ state, commit, rootGetters }: ActionContext<CampaignsState, RootState>, payload: { id: string }) {
+  async save({ state, commit, rootGetters }: ActionContext<CampaignsState, CampaignsState>, payload: { id: string }) {
     const { id } = payload;
     const campaign = state.campaigns[id];
     if (!campaign) throw new Error(`Campaign ${id} not found`);
