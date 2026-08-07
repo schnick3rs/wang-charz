@@ -22,11 +22,27 @@ async function signInWithGoogle() {
 </script>
 
 <template>
-  <form @submit.prevent="signIn">
-    <input v-model="email" type="email" placeholder="Email" />
-    <input v-model="password" type="password" placeholder="Password" />
-    <button type="submit">Log in</button>
-    <p v-if="errorMsg">{{ errorMsg }}</p>
-  </form>
-  <button @click="signInWithGoogle">Continue with Google</button>
+  <UContainer>
+
+    <UForm @submit="signIn">
+
+      <UFormField label="Email" type="email" required >
+        <UInput v-model="email" label="EMail" type="email" />
+      </UFormField>
+
+      <UFormField label="Password" type="password" required >
+        <UInput v-model="password" label="Password" type="password" />
+      </UFormField>
+
+      <UButton type="submit" color="neutral">Sign in</UButton>
+    </UForm>
+
+    <USeparator />
+
+    <UButton @click="signInWithGoogle" variant="outline" color="neutral" icon="i-mdi-google">Continue with Google</UButton>
+
+    <UAlert v-if="errorMsg">{{ errorMsg }}</UAlert>
+
+  </UContainer>
+
 </template>

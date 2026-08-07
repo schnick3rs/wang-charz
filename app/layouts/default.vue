@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import type {DropdownMenuItem, NavigationMenuItem} from '@nuxt/ui'
+
 const user = useSupabaseUser()
 const supabase = useSupabaseClient()
 
@@ -17,50 +19,152 @@ const avatarUrl = computed(() =>
     || null
 )
 
-const initials = computed(() =>
-    displayName.value.slice(0, 2).toUpperCase()
-)
-
 async function logout() {
   showMenu.value = false
   await supabase.auth.signOut()
   await navigateTo('/')
 }
+
+const navItems = ref<NavigationMenuItem[]>([
+  {
+    label: 'Create',
+    icon: 'i-game-icons-gear-hammer',
+    to: '/forge',
+    children: [
+      {
+        label: 'Characters',
+        description: 'Create your charater',
+      }
+    ]
+  },
+  {
+    label: 'Vault',
+    icon: 'i-game-icons-gear-hammer',
+    to: '/vault',
+    children: [
+      {
+        label: 'Broadcasting Eather',
+        description: 'Find worthy Let Plays',
+        icons: 'i-mdi-broadcast',
+      }
+    ]
+  },
+  {
+    label: 'Library',
+    icon: 'i-game-icons-bookshelf',
+    to: '/library',
+    children: [
+      {
+        label: 'Archetypes',
+        description: 'Weapons items and such',
+      },
+      {
+        label: 'Ascension Packages',
+        description: 'Weapons items and such',
+        icon: 'i-game-icons-upgrade'
+      },
+      {
+        label: 'Factions',
+        description: 'Weapons items and such',
+        icon: 'i-game-icons-tattered-banner'
+      },
+      {
+        label: 'Psychic Powers',
+        description: 'Weapons items and such',
+        icon: 'i-game-icons-spell-book'
+      },
+      {
+        label: 'Species',
+        description: 'Weapons items and such',
+      },
+      {
+        label: 'Talents',
+        description: 'Weapons items and such',
+        icon: 'i-game-icons-skills',
+        to: '/library/talents',
+      },
+      {
+        label: 'Wargear',
+        description: 'Weapons items and such',
+        icon: 'i-game-icons-battle-gear',
+        to: '/library/wargear',
+      },
+    ]
+  },
+])
+
+const items = ref<DropdownMenuItem[]>([
+  {
+    label: 'Profile',
+    icon: 'i-lucide-user',
+    to: '/profile',
+  },
+  {
+    label: 'Log out',
+    icon: 'i-mdi-logout',
+    onSelect: () => logout()
+  },
+])
 </script>
 
 <template>
-  <div>
 
-    <header class="site-header">
-      <NuxtLink to="/" class="logo">Doctors of Doom</NuxtLink>
+  <UApp>
 
-      <nav>
-        <template v-if="user">
-          <div class="user-menu" @click="showMenu = !showMenu">
-            <img v-if="avatarUrl" :src="avatarUrl" :alt="displayName" class="avatar" />
-            <div v-else class="avatar avatar-fallback">{{ initials }}</div>
-            <span class="name">{{ displayName }}</span>
+    <UHeader>
+      <template #title>
+        Doctors of Doom
+      </template>
 
-            <div v-if="showMenu" class="dropdown">
-              <NuxtLink to="/forge" @click="showMenu = false">The Forge</NuxtLink>
-              <button @click="logout">Log out</button>
-            </div>
-          </div>
-        </template>
+      <UNavigationMenu :items="navItems" />
 
-        <template v-else>
-          <NuxtLink to="/login">Log in</NuxtLink>
-        </template>
-      </nav>
-    </header>
-    <slot />
-  </div>
+      <template #right>
+        <UButton
+            to="https://discordapp.com/channels/256930339878993920/600107858486493193"
+            icon="mdi-discord"
+            color="neutral"
+            variant="ghost"
+            targer="_blank"
+            aria-label="Discord"
+        />
+
+        <UButton
+            to="https://twitter.com/doctors_of_doom"
+            icon="mdi-twitter"
+            color="neutral"
+            variant="ghost"
+            targer="_blank"
+            aria-label="Twitter"
+        />
+
+        <UButton
+            to="https://github.com/schnick3rs/wang-charz"
+            icon="mdi-github"
+            color="neutral"
+            variant="ghost"
+            targer="_blank"
+            aria-label="GitHub"
+        />
+
+        <UColorModeButton />
+
+        <UDropdownMenu :items="items"     :content="{     align: 'start',     side: 'bottom',     sideOffset: 8}" :ui="{ content: 'w-48' }" v-if="user">
+          <UUser :avatar="{ src: avatarUrl }" :name="displayName" />
+        </UDropdownMenu>
+
+        <UButton v-else to="/login" icon="i-lucide-user" variant="subtle" color="neutral">Sign in</UButton>
+
+      </template>
+    </UHeader>
+
+    <UMain>
+      <slot />
+    </UMain>
+
+    <UFooter>
+      ackack
+    </UFooter>
+  </UApp>
+
 </template>
 
-<style scoped>
-.site-header { display: flex; justify-content: space-between; align-items: center; padding: 1rem; }
-.user-menu { position: relative; display: flex; align-items: center; gap: 0.5rem; cursor: pointer; }
-.avatar { width: 32px; height: 32px; border-radius: 50%; object-fit: cover; }
-.avatar-fallback { background: #444; color: white; display: flex; align-items: center; justify-content: center; font-size: 0.75rem; }
-.dropdown { position: absolute; top: 100%; right: 0; background: white; border: 1px solid #ddd; padding: 0.5rem; display: flex; flex-direction: column; min-width: 150px; }
-</style>

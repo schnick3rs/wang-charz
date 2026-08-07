@@ -7,8 +7,11 @@ export default defineNuxtConfig({
     '@pinia/nuxt',
     '@nuxtjs/supabase',
     '@vueuse/nuxt',
-    '@nuxt/eslint'
+    '@nuxt/eslint',
+    '@nuxt/ui',
   ],
+
+  css: ['~/assets/css/main.css'],
 
   supabase: {
     redirectOptions: {
