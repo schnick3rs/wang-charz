@@ -25,6 +25,8 @@ async function logout() {
   await navigateTo('/')
 }
 
+const route = useRoute()
+
 const navItems = ref<NavigationMenuItem[]>([
   {
     label: 'Forge',
@@ -58,11 +60,13 @@ const navItems = ref<NavigationMenuItem[]>([
     label: 'Library',
     icon: 'i-game-icons-bookshelf',
     to: '/library',
+    active: route.path.startsWith('/library'),
     children: [
       {
         label: 'Archetypes',
         description: 'Weapons items and such',
         icon: 'i-game-icons-duality-mask',
+        to: '/library/archetypes',
       },
       {
         label: 'Ascension Packages',
@@ -107,7 +111,6 @@ const navItems = ref<NavigationMenuItem[]>([
   {
     label: 'Aid',
     icon: 'i-game-icons-bookshelf',
-    to: '/library',
     children: [
       {
         label: 'Community Network',
@@ -190,7 +193,9 @@ const items = ref<DropdownMenuItem[]>([
     </UHeader>
 
     <UMain>
-      <slot />
+      <UContainer class="mt-4" >
+        <slot />
+      </UContainer>
     </UMain>
 
     <UFooter>

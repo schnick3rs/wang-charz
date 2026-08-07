@@ -101,49 +101,48 @@ const sections = [
 </script>
 
 <template>
-  <UContainer >
-    <div class="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
-      <UPageCard
-          v-for="section in sections"
-          :key="section.title"
-          class="overflow-hidden"
-          :ui="{ root: 'hover:shadow-lg/30', container: 'p-0 sm:p-0'}"
-          :to="section.link.route"
-      >
-        <div class="flex">
-          <img
-              :src="section.imageSrc"
-              :alt="section.title"
-              class="h-32 w-21 sm:h-64 sm:w-28 lg:h-78 object-cover"
+
+  <div class="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+    <UPageCard
+        v-for="section in sections"
+        :key="section.title"
+        class="overflow-hidden"
+        :ui="{ root: 'hover:shadow-lg/30', container: 'p-0 sm:p-0'}"
+        :to="section.link.route"
+    >
+      <div class="flex">
+        <img
+            :src="section.imageSrc"
+            :alt="section.title"
+            class="h-32 w-21 sm:h-64 sm:w-28 lg:h-78 object-cover"
+        />
+
+        <div class="flex flex-1 flex-col p-4">
+          <h2
+              class="text-3xl"
+              v-html="section.title"
           />
 
-          <div class="flex flex-1 flex-col p-4">
-            <h2
-                class="text-3xl"
-                v-html="section.title"
-            />
+          <p class="mt-2 text-sm text-muted">
+            {{ section.subtitle }}
+          </p>
 
-            <p class="mt-2 text-sm text-muted">
-              {{ section.subtitle }}
-            </p>
+          <div
+              class="mt-4 flex-1 text-sm leading-6 hidden sm:block"
+              v-html="section.htmlText"
+          />
 
-            <div
-                class="mt-4 flex-1 text-sm leading-6 hidden sm:block"
-                v-html="section.htmlText"
-            />
-
-            <UButton
-                class="mt-6 hidden sm:block"
-                :link="section.link.route"
-                size="xl"
-            >
-              {{ section.link.text }}
-            </UButton>
-          </div>
+          <UButton
+              class="mt-6 hidden sm:block"
+              :link="section.link.route"
+              size="xl"
+          >
+            {{ section.link.text }}
+          </UButton>
         </div>
-      </UPageCard>
-    </div>
-  </UContainer>
+      </div>
+    </UPageCard>
+  </div>
 </template>
 
 <style scoped>
