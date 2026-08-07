@@ -114,7 +114,7 @@ const sections = [
           <img
               :src="section.imageSrc"
               :alt="section.title"
-              class="h-32 w-21 sm:h-64 sm:w-28 object-cover"
+              class="h-32 w-21 sm:h-64 sm:w-28 lg:h-78 object-cover"
           />
 
           <div class="flex flex-1 flex-col p-4">
