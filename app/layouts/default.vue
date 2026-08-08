@@ -87,6 +87,7 @@ const navItems = ref<NavigationMenuItem[]>([
         label: 'Species',
         description: 'Weapons items and such',
         icon: 'i-game-icons-dna1',
+        to: '/library/species',
       },
       {
         label: 'Talents',

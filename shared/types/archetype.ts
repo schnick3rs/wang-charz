@@ -2,16 +2,6 @@ import {z} from 'zod';
 import {PagedLegacySourceSchema} from "./source";
 import {ModificationSchema} from "./core";
 
-// ---------------------------------------------------------------------------
-// Archetype schema
-//
-// archetypeRepository.ts is a ~9k line, hand-authored dataset, so this
-// schema is intentionally permissive (`.passthrough()`) rather than a
-// strict/closed model: it documents and validates the fields every consumer
-// relies on while tolerating the long tail of one-off fields particular
-// entries add (wargear filters, loadout choices, psychic power slots, ...).
-// ---------------------------------------------------------------------------
-
 
 export const CostBreakdownSchema = z.object({
   total: z.number(),
@@ -37,7 +27,7 @@ export const ValueFilterSchema = z.object({
   useCharacterTier: z.boolean(),
   useSettingTier: z.boolean(),
   fixedValue: z.number(),
-}).passthrough();
+});
 
 export type WargearOption = {
   name?: string;
@@ -72,13 +62,13 @@ export const WargearOptionSchema: z.ZodType<WargearOption> = z.lazy(() => z.obje
   subtypeFilter: z.array(z.string()).optional(),
   triptypeFilter: z.array(z.string()).optional(),
   keywordFilter: z.union([z.string(), z.array(z.string())]).optional(),
-}).passthrough());
+}));
 
 export const FeatureOptionSchema = z.object({
   key: z.string().optional(),
   name: z.string(),
   modifications: z.array(ModificationSchema).optional(),
-}).passthrough();
+});
 
 export const PsychicPowerSlotSchema = z.object({
   name: z.string(),
@@ -86,12 +76,12 @@ export const PsychicPowerSlotSchema = z.object({
   query: z.record(z.string(), z.any()).optional(),
   options: z.array(z.any()).optional(),
   free: z.boolean().optional(),
-}).passthrough();
+});
 
 export const AlertSchema = z.object({
   type: z.string(),
   text: z.string(),
-}).passthrough();
+});
 
 export const ArchetypeFeatureSchema = z.object({
   name: z.string(),
@@ -102,13 +92,13 @@ export const ArchetypeFeatureSchema = z.object({
   options: z.array(FeatureOptionSchema).optional(),
   psychicPowers: z.array(PsychicPowerSlotSchema).optional(),
   psychicDisciplines: z.array(z.string()).optional(),
-}).passthrough();
+});
 
 export const SuggestedSchema = z.object({
   attributes: z.array(z.any()).optional(),
   skills: z.array(z.any()).optional(),
   talents: z.array(z.string()).optional(),
-}).passthrough();
+});
 
 export const ArchetypeSchema = z.object({
   source: PagedLegacySourceSchema,
@@ -133,7 +123,7 @@ export const ArchetypeSchema = z.object({
   suggested: SuggestedSchema.optional(),
   suggestedStats: z.array(z.any()).optional(),
   alerts: z.array(AlertSchema).optional(),
-}).passthrough();
+});
 
 export const ArchetypeRepositorySchema = z.array(ArchetypeSchema);
 

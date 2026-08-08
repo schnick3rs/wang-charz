@@ -20,4 +20,9 @@ export default defineNuxtConfig({
       include: ['/forge(/.*)?'],
     },
   },
+
+  runtimeConfig: {
+    ctfSpaceId: process.env.CTF_SPACE_ID,
+    ctfCdAccessToken: process.env.CTF_CD_ACCESS_TOKEN,
+  },
 })
