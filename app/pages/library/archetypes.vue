@@ -160,8 +160,8 @@ const pagination = ref({
 
 <template>
 
-  <div class="flex px-4 py-3.5 border-b border-accented">
-    <UInput v-model="globalFilter" class="max-w-sm" placeholder="Filter..." />
+  <div class="grid grid-cols-1 gap-2 px-4 py-3.5 border-b border-accented sm:grid-cols-2 lg:grid-cols-4">
+    <UInput v-model="globalFilter" placeholder="Filter..." />
     <USelectMenu
         :items="speciesItems"
         :model-value="table?.tableApi?.getColumn('name')?.getFilterValue()"
@@ -169,7 +169,6 @@ const pagination = ref({
         placeholder="Filter Species..."
         multiple
         clear
-        class="w-64"
     />
     <USelectMenu
         :items="factionItems"
@@ -178,7 +177,6 @@ const pagination = ref({
         placeholder="Filter Factions..."
         multiple
         clear
-        class="w-64"
     />
     <USelectMenu
         :items="sourceItems"
@@ -189,7 +187,6 @@ const pagination = ref({
         placeholder="Filter Books..."
         multiple
         clear
-        class="w-64"
     />
   </div>
 
@@ -223,7 +220,7 @@ const pagination = ref({
 
     <template #source-cell="{ row }">
       <div>
-        <div class="font-medium text-highlighted text-sm">{{ row.original.source.book }}</div>
+        <a class="font-medium text-highlighted text-sm" :href="row.original.source.link" target="_blank">{{ row.original.source.book }}</a>
         <div class="text-muted text-xs italic" v-if="row.original.source.page">pg. {{ row.original.source.page}}</div>
       </div>
     </template>
