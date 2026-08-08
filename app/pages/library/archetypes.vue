@@ -21,7 +21,7 @@ const crumbs = ref<BreadcrumbItem[]>([
   }
 ])
 
-const { data, status, pending, error, refresh, clear } = await useAsyncData(
+const { data, pending } = await useAsyncData(
     'archetypes',
     (_nuxtApp, { signal }) => $fetch('/api/archetypes', { signal }),
 )
@@ -122,7 +122,8 @@ const columns: TableColumn<Archetype>[] = [
     header: 'Source',
     filterFn: (row, columnId, filterValue: string[]) => {
       if (!filterValue || filterValue.length === 0) return true
-      return filterValue.includes(row.getValue(columnId).key)
+      const source = row.getValue(columnId) as LegacySource;
+      return filterValue.includes(source.key)
     },
   },
 ];
@@ -166,10 +167,10 @@ const factionItems = computed(() => {
 
 const sourceItems = computed(() => {
   if (!data.value) return []
-  const options = data.value.map((i) => (
+  const options = data.value.map((item) => (
       {
-        value: i.source.key,
-        text: `${i.source.book}${i.source.version ? ' ('+i.source.version+')' : ''}`,
+        value: item.source.key,
+        text: `${item.source.book}`,
       }
   ));
   const distinct = [...new Map(options.map((o) => [o.value, o])).values()];
