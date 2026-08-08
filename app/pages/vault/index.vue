@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type {BreadcrumbItem, TableColumn} from "@nuxt/ui";
-import {getPaginationRowModel} from "@tanstack/vue-table";
 
 const crumbs = ref<BreadcrumbItem[]>([
   {
@@ -43,6 +42,16 @@ const columns: TableColumn<Species>[] = [
     },
     cell: ({ row }) => {
       return h(UBadge, { variant: 'subtle', color: 'neutral' }, row.original.version)
+    },
+  },
+  {
+    accessorKey: 'modifiedAt',
+    header: 'Modiefied at',
+    meta: {
+      class: {
+        th: 'text-right',
+        td: 'text-right',
+      }
     },
   },
   {
@@ -95,7 +104,7 @@ const columnFilters = ref([
 
   <h1 class="text-3xl sm:text-4xl text-pretty font-bold text-highlighted border-b-4 pb-2 border-b-green-600">Hombebrew Documents</h1>
 
-  <div class="grid grid-cols-1 gap-2 px-4 py-3.5 border-b border-accented sm:grid-cols-2 bg-gray-100">
+  <div class="grid grid-cols-1 gap-2 px-4 py-3.5 border-b border-accented sm:grid-cols-2 bg-gray-100 dark:bg-gray-800">
     <UInput v-model="globalFilter" placeholder="Fulltext Search..." />
 
     <USelectMenu
