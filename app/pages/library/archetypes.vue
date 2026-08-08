@@ -118,6 +118,14 @@ const columnFilters = ref([
     id: 'source',
     value:  []
   },
+  {
+    id: 'species',
+    value:  []
+  },
+  {
+    id: 'tier',
+    value:  [0,5]
+  },
 ])
 
 const speciesItems = computed(() => {
@@ -188,6 +196,15 @@ const pagination = ref({
         multiple
         clear
     />
+    <UFormField label="Filter Tier range...">
+      <USlider
+          :model-value="table?.tableApi?.getColumn('tier')?.getFilterValue()"
+          @update:model-value="table?.tableApi?.getColumn('tier')?.setFilterValue($event)"
+          :min="1"
+          :max="5"
+          tooltip
+      />
+    </UFormField>
   </div>
 
   <UTable
