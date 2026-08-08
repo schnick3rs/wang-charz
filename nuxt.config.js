@@ -119,6 +119,9 @@ module.exports = {
     ['@nuxtjs/pwa', {
       manifest: false,
     }],
+    ['@nuxtjs/google-gtag', {
+      id: 'G-W9L5ET369D'
+    }],
   ],
 
   /*
