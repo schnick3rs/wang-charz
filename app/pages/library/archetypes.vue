@@ -204,6 +204,7 @@ const pagination = ref({
       :pagination-options="{
         getPaginationRowModel: getPaginationRowModel()
       }"
+      :ui="{ td: 'p-2'}"
   >
 
     <template #name-cell="{ row }">
