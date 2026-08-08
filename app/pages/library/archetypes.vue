@@ -1,10 +1,140 @@
 <script setup lang="ts">
 import { getPaginationRowModel } from '@tanstack/vue-table'
-const table = useTemplateRef('table')
+import type { TableColumn } from '@nuxt/ui'
+import {UButton} from "#components";
+
 const { data, status, pending, error, refresh, clear } = await useAsyncData(
-    'mountains',
+    'archetypes',
     (_nuxtApp, { signal }) => $fetch('/api/archetypes', { signal }),
 )
+
+const table = useTemplateRef('table')
+
+const columns: TableColumn<Archetype>[] = [
+  {
+    accessorKey: 'name',
+    header: ({ column }) => {
+      const isSorted = column.getIsSorted()
+
+      return h(UButton, {
+        color: 'neutral',
+        variant: 'ghost',
+        label: 'Name',
+        icon: isSorted
+            ? isSorted === 'asc'
+                ? 'i-lucide-arrow-up-narrow-wide'
+                : 'i-lucide-arrow-down-wide-narrow'
+            : 'i-lucide-arrow-up-down',
+        class: '-mx-2.5',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+      })
+    },
+  },
+  {
+    accessorKey: 'faction',
+    header: ({ column }) => {
+      const isSorted = column.getIsSorted()
+
+      return h(UButton, {
+        color: 'neutral',
+        variant: 'ghost',
+        label: 'Faction',
+        icon: isSorted
+            ? isSorted === 'asc'
+                ? 'i-lucide-arrow-up-narrow-wide'
+                : 'i-lucide-arrow-down-wide-narrow'
+            : 'i-lucide-arrow-up-down',
+        class: '-mx-2.5',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+      })
+    },
+    filterFn: (row, columnId, filterValue: string[]) => {
+      if (!filterValue || filterValue.length === 0) return true
+      return filterValue.includes(row.getValue(columnId))
+    },
+    sortingFn: (rowA, rowB) => {
+      if (rowA.original.faction && rowB.original.faction) {
+        return rowA.original.faction.localeCompare(rowB.original.faction);
+      }
+      return 0;
+    }
+  },
+  {
+    accessorKey: 'tier',
+    header: ({ column }) => {
+      const isSorted = column.getIsSorted()
+
+      return h(UButton, {
+        color: 'neutral',
+        variant: 'ghost',
+        label: 'Tier',
+        icon: isSorted
+            ? isSorted === 'asc'
+                ? 'i-lucide-arrow-up-narrow-wide'
+                : 'i-lucide-arrow-down-wide-narrow'
+            : 'i-lucide-arrow-up-down',
+        class: '-mx-2.5',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+      })
+    },
+    meta: {
+      class: {
+        th: 'text-right',
+        td: 'text-right',
+      },
+    },
+  },
+  {
+    accessorKey: 'cost',
+    header: 'Cost',
+    meta: {
+      class: {
+        th: 'text-right',
+        td: 'text-right',
+      },
+    },
+  },
+  {
+    accessorKey: 'source',
+    header: 'Source',
+    filterFn: (row, columnId, filterValue: string[]) => {
+      if (!filterValue || filterValue.length === 0) return true
+      return filterValue.includes(row.getValue(columnId).key)
+    },
+  },
+];
+
+const columnFilters = ref([
+  {
+    id: 'faction',
+    value:  []
+  },
+  {
+    id: 'source',
+    value:  []
+  },
+])
+
+const factionItems = computed(() => {
+  if (!data.value) return []
+  const reduce = data.value.map((item) => item.faction);
+  const distinct = [...new Set(reduce)];
+  return distinct.filter((d) => d !== null && d !== undefined).sort();
+})
+
+const sourceItems = computed(() => {
+  if (!data.value) return []
+  const options = data.value.map((i) => (
+      {
+        value: i.source.key,
+        text: `${i.source.book}${i.source.version ? ' ('+i.source.version+')' : ''}`,
+      }
+  ));
+  const distinct = [...new Map(options.map((o) => [o.value, o])).values()];
+  return distinct.sort((a, b) => a.text.localeCompare(b.text));
+})
+
+const globalFilter = ref('')
 
 const pagination = ref({
   pageIndex: 0,
@@ -13,21 +143,67 @@ const pagination = ref({
 </script>
 
 <template>
+
+  <div class="flex px-4 py-3.5 border-b border-accented">
+    <UInput v-model="globalFilter" class="max-w-sm" placeholder="Filter..." />
+
+    <USelectMenu
+        :items="factionItems"
+        :model-value="table?.tableApi?.getColumn('faction')?.getFilterValue()"
+        @update:model-value="table?.tableApi?.getColumn('faction')?.setFilterValue($event)"
+        placeholder="Filter Factions..."
+        multiple
+        clear
+        class="w-64"
+    />
+    <USelectMenu
+        :items="sourceItems"
+        label-key="text"
+        value-key="value"
+        :model-value="table?.tableApi?.getColumn('source')?.getFilterValue()"
+        @update:model-value="table?.tableApi?.getColumn('source')?.setFilterValue($event)"
+        placeholder="Filter Books..."
+        multiple
+        clear
+        class="w-64"
+    />
+  </div>
+
+
   <UTable
       ref="table"
+      :loading="pending"
+      v-model:global-filter="globalFilter"
+      v-model:column-filters="columnFilters"
       v-model:pagination="pagination"
+      :columns="columns"
       :data="data"
       :pagination-options="{
         getPaginationRowModel: getPaginationRowModel()
       }"
   >
+
     <template #name-cell="{ row }">
       <UUser
           :avatar="{ src: `/img/avatars/archetype/${row.original.key}.png`}"
           :name="row.original.name"
-          :description="row.original.faction"
+          :description="row.original.species.map((s) => s.name).join(' / ')"
       ></UUser>
     </template>
+
+    <template #faction-cell="{ row }">
+      <UUser
+          :name="row.original.faction"
+      ></UUser>
+    </template>
+
+    <template #source-cell="{ row }">
+      <div>
+        <div class="font-medium text-highlighted text-sm">{{ row.original.source.book }}</div>
+        <div class="text-muted text-xs italic" v-if="row.original.source.page">pg. {{ row.original.source.page}}</div>
+      </div>
+    </template>
+
   </UTable>
 
   <div class="flex justify-center border-t border-default pt-4 px-4">
