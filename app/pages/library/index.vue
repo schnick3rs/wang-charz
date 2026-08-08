@@ -1,4 +1,20 @@
 <script setup lang="ts">
+import type {BreadcrumbItem} from "@nuxt/ui";
+
+const crumbs = ref<BreadcrumbItem[]>([
+  {
+    label: '',
+    icon: 'i-lucide-home',
+    to: '/'
+  },
+  {
+    label: 'Library',
+    icon: 'i-game-icons-bookshelf',
+    to: '/library',
+    exact: true
+  },
+])
+
 const sections = [
       {
         key: 'species',
@@ -84,6 +100,9 @@ const sections = [
 </script>
 
 <template>
+
+  <DoomBreadcrumb :items="crumbs" />
+
   <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
     <UPageCard
         v-for="section in sections"
