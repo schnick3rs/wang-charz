@@ -29,6 +29,11 @@ const columns: TableColumn<Archetype>[] = [
         onClick: () => column.toggleSorting(column.getIsSorted() === 'asc')
       })
     },
+    filterFn: (row, columnId, filterValue: string[]) => {
+      if (!filterValue || filterValue.length === 0) return true
+      const speciesNames = row.original.species.map((i) => i.name)
+      return speciesNames.some((name) => filterValue.includes(name))
+    },
   },
   {
     accessorKey: 'faction',
@@ -115,6 +120,17 @@ const columnFilters = ref([
   },
 ])
 
+const speciesItems = computed(() => {
+  if (!data.value) return []
+  const array = [];
+  data.value.forEach((item) => {
+    const speciesNames = item.species.map((s)=>s.name);
+    array.push(...speciesNames);
+  });
+  const distinct = [...new Set(array)];
+  return distinct.filter((d) => d !== null && d !== undefined).sort();
+})
+
 const factionItems = computed(() => {
   if (!data.value) return []
   const reduce = data.value.map((item) => item.faction);
@@ -146,7 +162,15 @@ const pagination = ref({
 
   <div class="flex px-4 py-3.5 border-b border-accented">
     <UInput v-model="globalFilter" class="max-w-sm" placeholder="Filter..." />
-
+    <USelectMenu
+        :items="speciesItems"
+        :model-value="table?.tableApi?.getColumn('name')?.getFilterValue()"
+        @update:model-value="table?.tableApi?.getColumn('name')?.setFilterValue($event)"
+        placeholder="Filter Species..."
+        multiple
+        clear
+        class="w-64"
+    />
     <USelectMenu
         :items="factionItems"
         :model-value="table?.tableApi?.getColumn('faction')?.getFilterValue()"
@@ -168,7 +192,6 @@ const pagination = ref({
         class="w-64"
     />
   </div>
-
 
   <UTable
       ref="table"
