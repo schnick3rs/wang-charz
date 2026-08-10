@@ -102,7 +102,7 @@ const sections = [
 
 <template>
 
-  <div class="grid gap-6 lg:grid-cols-2 xl:grid-cols-3">
+  <div class="grid gap-6 lg:grid-cols-2 xl:grid-cols-3 justify-center">
     <UPageCard
         v-for="section in sections"
         :key="section.title"
@@ -114,7 +114,7 @@ const sections = [
         <img
             :src="section.imageSrc"
             :alt="section.title"
-            class="h-32 w-21 sm:h-64 sm:w-28 lg:h-78 object-cover"
+            class="h-32 w-21 sm:h-60 sm:w-28 object-cover"
         />
 
         <div class="flex flex-1 flex-col p-4">
@@ -133,7 +133,7 @@ const sections = [
           />
 
           <UButton
-              class="mt-6 hidden sm:block"
+              class="mt-2 hidden sm:block"
               :link="section.link.route"
               size="xl"
           >
