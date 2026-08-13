@@ -3,7 +3,7 @@ const user = useSupabaseUser()
 
 watch(user, () => {
   if (user.value) {
-    navigateTo('/forge/characters')
+    navigateTo('/forge/my-characters')
   }
 }, { immediate: true })
 </script>

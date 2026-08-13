@@ -35,7 +35,7 @@ const navItems = ref<NavigationMenuItem[]>([
       {
         label: 'Characters',
         description: 'Create your charater',
-        to: '/forge/characters',
+        to: '/forge/my-characters',
       },
       {
         label: 'Species',

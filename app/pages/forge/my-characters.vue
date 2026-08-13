@@ -5,6 +5,7 @@ import {CharacterSchema} from "#shared/types/character.schema.ts";
 
 import { storeToRefs } from 'pinia'
 import { nameByRace } from "fantasy-name-generator";
+import type {Database, Json, TablesInsert} from "~~/types/database.types.ts";
 
 const crumbs = ref<BreadcrumbItem[]>([
   {
@@ -20,7 +21,7 @@ const crumbs = ref<BreadcrumbItem[]>([
   },
   {
     label: 'Agents',
-    to: '/forge/characters',
+    to: '/forge/my-characters',
     exact: true
   },
 ])
@@ -31,15 +32,39 @@ const characterStore = useCharacterStore()
 const { characters } = storeToRefs(characterStore)
 const { addCharacter } = characterStore
 
-function newChar() {
+async function newChar() {
   const user = useSupabaseUser()
   if (!user.value) {
     return
   }
+
+  const supabase = useSupabaseClient<Database>()
+
   const char = CharacterSchema.parse({
     ownerId: user.value.sub,
     name: nameByRace('human')
   })
+
+  const payload: TablesInsert<'characters'> = {
+    id: crypto.randomUUID(),
+    data: char as unknown as Json, // Zod's Character type isn't structurally Json — safe cast, it's plain JSON-serializable data
+    // created_at, updated_at, is_deleted, user_id all have DB defaults — omit them
+  }
+
+  const { data, error } = await supabase
+      .from('characters')
+      .insert(payload)
+      .select()
+      .single()
+
+  if (error) {
+    console.error(error)
+    return
+  }
+
+  console.log(data)
+
+
   addCharacter(char)
 }
 
