@@ -167,6 +167,27 @@ const items = ref<DropdownMenuItem[]>([
     onSelect: () => logout()
   },
 ])
+
+const id = computed(() => route.params.id as string)
+
+const forgeNavs = computed(() => {
+  if (!id.value) return []
+  return [
+    [
+      { label: 'Setting', to: `/forge/characters/${id.value}/builder/setting` },
+      { label: '1. Species', to: `/forge/characters/${id.value}/builder/species/choose` },
+      { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype` },
+      { label: '3. Ascension', to: `/forge/characters/${id.value}/builder/ascension` },
+      { label: '4. Stats', to: `/forge/characters/${id.value}/builder/stats` },
+      { label: '5. Talents', to: `/forge/characters/${id.value}/builder/talents` },
+      { label: '6. Wargear', to: `/forge/characters/${id.value}/builder/wargear` },
+      { label: '7. Powers', to: `/forge/characters/${id.value}/builder/powers` },
+      { label: '8. Background', to: `/forge/characters/${id.value}/builder/background` },
+      { label: '', to: `/forge/characters/${id.value}/builder/setting` },
+    ]
+  ];
+})
+
 </script>
 
 <template>
@@ -195,6 +216,11 @@ const items = ref<DropdownMenuItem[]>([
     </UHeader>
 
     <UMain>
+      <UContainer v-if="id" >
+        <div class="mx-auto py-2 flex gap-4 text-white justify-center">
+          <UNavigationMenu :items="forgeNavs" color="info" variant="link"></UNavigationMenu>
+        </div>
+      </UContainer>
       <UContainer class="mt-4" >
         <slot />
       </UContainer>

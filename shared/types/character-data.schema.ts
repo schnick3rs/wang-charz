@@ -8,6 +8,8 @@ export const CharacterDataSchema = z.object({
     enabledBooks: z.array(z.string()).default(['core']),
     enabledHomebrews: z.array(z.string()).default([]),
 
+    settingTier: z.number().default(2),
+
     // character
     speciesKey: z.string().optional(),
     archetypeKey: z.string().optional(),

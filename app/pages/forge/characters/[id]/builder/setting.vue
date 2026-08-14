@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
-import type {CheckboxGroupItem} from "@nuxt/ui/components/CheckboxGroup.vue";
-
+import type {RadioGroupItem} from "@nuxt/ui/components/RadioGroup.vue";
+definePageMeta({ layout: 'forge' })
 const route = useRoute()
 const id = computed(() => route.params.id as string)
 const store = useCharacterStore()
@@ -24,6 +24,14 @@ watch(
 onBeforeRouteLeave(async () => {
   if (entity.value) await store.saveNow(id.value)
 })
+
+const tierOptions = ref<RadioGroupItem[]>([
+  { label: 'One among billions', value: 1 },
+  { label: 'Stalwart Defenders', value: 2 },
+  { label: 'Elite Guardians', value: 3 },
+  { label: 'Heroic Operatives', value: 4 },
+  { label: 'Agents of Fate', value: 5 },
+])
 
 const { data: books } = await useAsyncData(
     'books',
@@ -48,17 +56,24 @@ const { data: homebrews } = await useAsyncData(
     'homebrews',
     (_nuxtApp, { signal }) => $fetch('/api/books', { signal }), {
       transform: (data) => {
-        return data
-            .filter((book: Book) => !book.isOfficial)
-            .filter((book: Book) => book.builder?.visible ?? false)
-            .map((book: Book) => ({
-              key: book.key,
-              label: book.title,
-              description: book.description,
-              link: book.link,
-              badge: book.builder?.badge,
-              disabled: book.builder?.disabled,
-            }))
+        return [
+          {
+            key: 'custom',
+            label: 'Your Custom Local Content',
+            description: 'You homebrew species',
+          },
+            ...data
+              .filter((book: Book) => !book.isOfficial)
+              .filter((book: Book) => book.builder?.visible ?? false)
+              .map((book: Book) => ({
+                key: book.key,
+                label: book.title,
+                description: book.description,
+                link: book.link,
+                badge: book.builder?.badge,
+                disabled: book.builder?.disabled,
+              }))
+        ]
       }
     }
 )
@@ -66,14 +81,38 @@ const { data: homebrews } = await useAsyncData(
 </script>
 
 <template>
-  <div v-if="entity" class="mx-auto max-w-xl">
+  <div v-if="entity" class="mx-auto max-w-xl flex flex-col gap-4">
 
     <section>
-      <h2>Character Basics</h2>
-
-      <UFormField label="Name" class="w-full w-min-full">
+      <UFormField label="Name" class="w-full w-min-full" :ui="{ label: 'text-lg font-semibold' }">
         <UInput v-model="entity.data.name" placeholder="Enter your name" />
       </UFormField>
+    </section>
+
+    <section class="mt-2">
+      <h2 class="text-2xl font-bold ">Campaign Framework</h2>
+      <p>Define the Tier of the Campaign, defining your starting XP and available Archetypes</p>
+
+      <div class="mt-2">
+        <URadioGroup
+            v-model="entity.data.settingTier"
+            :items="tierOptions"
+            orientation="horizontal"
+            legend="Tier"
+            variant="card"
+            indicator="hidden"
+            :ui="{ legend: 'text-lg font-semibold' }"
+        >
+        </URadioGroup>
+      </div>
+    </section>
+
+    <section class="mt-2">
+      <h2 class="text-2xl font-bold ">Table Rules</h2>
+      <p>Decide house rules, optional rules and hacks.</p>
+
+      <div class="mt-2">
+      </div>
     </section>
 
     <section class="mt-2">
