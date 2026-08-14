@@ -1,11 +1,9 @@
 <script setup lang="ts">
 import type {BreadcrumbItem} from "@nuxt/ui";
 import {useCharacterStore} from "~~/stores/characters.ts";
-import {CharacterSchema} from "#shared/types/character.schema.ts";
 
 import { storeToRefs } from 'pinia'
 import { nameByRace } from "fantasy-name-generator";
-import type {Database, Json, TablesInsert} from "~~/types/database.types.ts";
 
 const crumbs = ref<BreadcrumbItem[]>([
   {
@@ -20,7 +18,7 @@ const crumbs = ref<BreadcrumbItem[]>([
     exact: true
   },
   {
-    label: 'Agents',
+    label: 'Characters',
     to: '/forge/my-characters',
     exact: true
   },
@@ -29,43 +27,22 @@ const crumbs = ref<BreadcrumbItem[]>([
 const numberOfCharacters = ref(3)
 
 const characterStore = useCharacterStore()
-const { characters } = storeToRefs(characterStore)
-const { addCharacter } = characterStore
+const { characterList, hydrated } = storeToRefs(characterStore)
+const { createCharacter, hydrate } = characterStore
+
+onMounted(() => {
+  hydrate()
+})
 
 async function newChar() {
   const user = useSupabaseUser()
-  if (!user.value) {
-    return
-  }
+  if (!user.value) return
 
-  const supabase = useSupabaseClient<Database>()
-
-  const char = CharacterSchema.parse({
-    ownerId: user.value.sub,
+  const char = CharacterDataSchema.parse({
     name: nameByRace('human')
   })
 
-  const payload: TablesInsert<'characters'> = {
-    id: crypto.randomUUID(),
-    data: char as unknown as Json, // Zod's Character type isn't structurally Json — safe cast, it's plain JSON-serializable data
-    // created_at, updated_at, is_deleted, user_id all have DB defaults — omit them
-  }
-
-  const { data, error } = await supabase
-      .from('characters')
-      .insert(payload)
-      .select()
-      .single()
-
-  if (error) {
-    console.error(error)
-    return
-  }
-
-  console.log(data)
-
-
-  addCharacter(char)
+  createCharacter(char)
 }
 
 </script>
@@ -75,7 +52,7 @@ async function newChar() {
   <DoomBreadcrumb :items="crumbs" />
 
   <div class="border-b-4 pb-2 border-b-orange-600 mb-4">
-    <h1 class="text-3xl sm:text-4xl text-pretty font-bold text-highlighted inline">My Agents</h1>
+    <h1 class="text-3xl sm:text-4xl text-pretty font-bold text-highlighted inline">My Characters</h1>
     <span>{{ numberOfCharacters }} Slots</span>
   </div>
 
@@ -84,16 +61,27 @@ async function newChar() {
     <UButton>Import Agent</UButton>
   </div>
 
+  <div v-if="!hydrated">
+    <div class="flex items-center gap-4">
+      <USkeleton class="size-12 rounded-full" />
+
+      <div class="grid gap-2">
+        <USkeleton class="h-4 w-[250px]" />
+        <USkeleton class="h-4 w-[200px]" />
+      </div>
+    </div>
+  </div>
+
   <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
     <UCard
-        v-for="c in characters" :key="c.id"
-        :title="c.name"
-        :description="c.speciesKey"
+        v-for="c in characterList" :key="c.id"
+        :title="c.data.name"
+        :description="c.data.speciesKey"
         :ui="{ footer: 'flex flex-row flex-nowrap justify-between' }"
     >
       <template #footer>
         <UButton variant="ghost" color="info" :to="`/forge/characters/${c.id}`">View</UButton>
-        <UButton variant="ghost" color="info" :to="`/forge/characters/${c.id}/builder`">Edit</UButton>
+        <UButton variant="ghost" color="info" :to="`/forge/characters/${c.id}/builder/setting`">Edit</UButton>
         <UButton variant="ghost" color="info">Share</UButton>
         <UButton variant="ghost" color="error">Delete</UButton>
       </template>

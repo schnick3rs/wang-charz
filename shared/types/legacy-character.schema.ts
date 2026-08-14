@@ -133,7 +133,7 @@ const FluffSchema = z.object({ notes: z.string() })
 
 // ---------- Top-level character schema ----------
 
-export const CharacterSchema = z.object({
+export const LegacyCharacterSchema = z.object({
     id: z.string(),
     version: z.number(), // bump on breaking shape changes; drives migrations, see below
     settingSelected: z.boolean(),
@@ -179,12 +179,12 @@ export const CharacterSchema = z.object({
     fluff: FluffSchema,
 })
 
-export type Character = z.infer<typeof CharacterSchema>
+export type LegacyCharacterType = z.infer<typeof LegacyCharacterSchema>
 
 // ---------- Import helper ----------
 
 export type ImportResult =
-    | { success: true; data: Character }
+    | { success: true; data: LegacyCharacterType }
     | { success: false; error: z.ZodError; raw: unknown }
 
 /**
@@ -210,7 +210,7 @@ export function parseImportedCharacter(base64: string): ImportResult {
         }
     }
 
-    const result = CharacterSchema.safeParse(raw)
+    const result = LegacyCharacterSchema.safeParse(raw)
     if (!result.success) {
         return { success: false, error: result.error, raw }
     }

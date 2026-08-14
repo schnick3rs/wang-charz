@@ -10,7 +10,7 @@ export type Source = z.infer<typeof SourceSchema>;
 export const LegacySourceSchema = z.object({
     book: z.string(),
     key: z.string(),
-    version: z.string(),
+    version: z.string().optional(),
     link: z.string().optional(),
     path: z.string().optional(),
 });

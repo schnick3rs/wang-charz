@@ -1,9 +1,19 @@
 import { z } from 'zod';
 
 export const BookSchema = z.object({
-    title: z.string(),
     key: z.string(),
-    version: z.string(),
+    title: z.string(),
+    version: z.string().optional(),
+
+    isOfficial: z.boolean().default(true),
+
+    description: z.string().optional(),
+    builder: z.object({
+        visible: z.boolean().default(false).describe('Define if this option should be shown'),
+        disabled: z.boolean().default(true),
+        badge: z.string().optional(),
+    }).optional(),
+
     link: z.string().optional(),
     path: z.string().optional(),
 });
