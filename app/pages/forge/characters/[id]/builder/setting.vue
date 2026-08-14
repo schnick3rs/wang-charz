@@ -25,12 +25,31 @@ onBeforeRouteLeave(async () => {
   if (entity.value) await store.saveNow(id.value)
 })
 
-const { data: books, pending } = await useAsyncData(
+const { data: books } = await useAsyncData(
     'books',
     (_nuxtApp, { signal }) => $fetch('/api/books', { signal }), {
       transform: (data) => {
         return data
             .filter((book: Book) => book.isOfficial)
+            .filter((book: Book) => book.builder?.visible ?? false)
+            .map((book: Book) => ({
+              key: book.key,
+              label: book.title,
+              description: book.description,
+              link: book.link,
+              badge: book.builder?.badge,
+              disabled: book.builder?.disabled,
+            }))
+      }
+    }
+)
+
+const { data: homebrews } = await useAsyncData(
+    'homebrews',
+    (_nuxtApp, { signal }) => $fetch('/api/books', { signal }), {
+      transform: (data) => {
+        return data
+            .filter((book: Book) => !book.isOfficial)
             .filter((book: Book) => book.builder?.visible ?? false)
             .map((book: Book) => ({
               key: book.key,
@@ -63,6 +82,22 @@ const { data: books, pending } = await useAsyncData(
 
       <div class="mt-2">
         <UCheckboxGroup v-model="entity.data.enabledBooks" :items="books" value-key="key" :ui="{ fieldset: 'gap-4'}">
+          <template #label="{ item }">
+            {{ item.label }} <UBadge v-if="item.badge" variant="subtle" size="md" color="warning">{{item.badge}}</UBadge>
+          </template>
+          <template #description="{ item }">
+            {{ item.description }}<a v-if="item.link" :href="item.link" target="_blank" class="ml-1 underline hover:text-primary">(affiliate link)</a>
+          </template>
+        </UCheckboxGroup>
+      </div>
+    </section>
+
+    <section class="mt-2">
+      <h2 class="text-2xl font-bold ">Enable Homebrews</h2>
+      <p>Enable content from various homebrews.</p>
+
+      <div class="mt-2">
+        <UCheckboxGroup v-model="entity.data.enabledHomebrews" :items="homebrews" value-key="key" :ui="{ fieldset: 'gap-4'}">
           <template #label="{ item }">
             {{ item.label }} <UBadge v-if="item.badge" variant="subtle" size="md" color="warning">{{item.badge}}</UBadge>
           </template>

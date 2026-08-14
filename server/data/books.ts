@@ -9,7 +9,7 @@ const books : Book[] = [
         link: 'https://www.drivethrurpg.com/product/249388/Wrath--Glory-Core-Rules?affiliate_id=466959',
         builder: {
             visible: true,
-            disabled: false,
+            disabled: true,
         },
     },
     {
@@ -140,6 +140,7 @@ const books : Book[] = [
     // Doctors of Doom
     {
         title: 'Doctors of Doom Compendium', key: 'dod',
+        description: 'Add Chapter Houses and Roguish Archetypes.',
         isOfficial: false,
         builder: {
             visible: true,
@@ -148,7 +149,12 @@ const books : Book[] = [
     },
     {
         title: 'Godless Heathens', key: 'gohe', version: 'v0.2',
-        isOfficial: false
+        description: 'Add Kroot and Jokaero Archetypes.',
+        isOfficial: false,
+        builder: {
+            visible: true,
+            disabled: false,
+        }
     },
     {
         title: 'Shadow of the Imperium Sandbox', key: 'soti', version: 'v0.1',
@@ -158,6 +164,7 @@ const books : Book[] = [
     {
         title: 'An Abundance of Apocrypha', key: 'aaoa', version: 'v7.0', path: '/vault/an-abundance-of-apocrypha',
         isOfficial: false,
+        description: 'Add Human Homeworlds, Squad, Pariah, more is on the way.',
         builder: {
             visible: true,
             disabled: false,
@@ -170,6 +177,7 @@ const books : Book[] = [
     {
         title: 'Tome of Glory', key: 'tog', version: '', path: '/vault/tome-of-glory',
         isOfficial: false,
+        description: 'Add Chaos Archetypes',
         builder: {
             visible: true,
             disabled: false,

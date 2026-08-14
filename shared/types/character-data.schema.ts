@@ -6,6 +6,7 @@ export const CharacterDataSchema = z.object({
 
     // setting
     enabledBooks: z.array(z.string()).default(['core']),
+    enabledHomebrews: z.array(z.string()).default([]),
 
     // character
     speciesKey: z.string().optional(),
