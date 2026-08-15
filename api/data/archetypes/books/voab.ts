@@ -3,7 +3,14 @@ import {ATTRIBUTES, SKILLS} from "../../../shared/constants";
 
 export const voab = [
     {
-        ...archetype('voab', 26, 'Adeptus Astartes', 'Space Marine Scout', 2, 'Adeptus Astartes'),
+        ...archetype(
+            'voab',
+            26,
+            'Adeptus Astartes',
+            'Space Marine Scout',
+            2,
+            'Adeptus Astartes'
+        ),
         ...costz(170, [
             reqAttribute(ATTRIBUTES.STRENGTH, 4),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
@@ -47,8 +54,15 @@ export const voab = [
 
     },
     {
-        ...archetype('voab', 27, 'Adeptus Astartes', 'Tactical Space Marine', 3, 'Adeptus Astartes'),
-        ...costz(277, [
+        ...archetype(
+            'voab',
+            27,
+            'Adeptus Astartes',
+            'Tactical Space Marine',
+            3,
+            'Adeptus Astartes'
+        ),
+        ...costz(257, [
             reqAttribute(ATTRIBUTES.STRENGTH, 4),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
             reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -83,7 +97,13 @@ export const voab = [
         influence: 2,
     },
     {
-        ...archetype('voab', 28, 'Adeptus Astartes', '1st Company Veteran', 4, 'Adeptus Astartes'),
+        ...archetype(
+            'voab',
+            29,
+            'Adeptus Astartes',
+            '1st Company Veteran',
+            4, 'Adeptus Astartes'
+        ),
         ...costz(380, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -129,7 +149,14 @@ export const voab = [
         influence: 4,
     },
     {
-        ...archetype('voab', 29, 'Adeptus Astartes', 'Astartes Apothecary', 4, 'Adeptus Astartes'),
+        ...archetype(
+            'voab',
+            30,
+            'Adeptus Astartes',
+            'Astartes Apothecary',
+            4,
+            'Adeptus Astartes'
+        ),
         ...costz(357, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -167,7 +194,14 @@ export const voab = [
         influence: 2,
     },
     {
-        ...archetype('voab', 31, 'Adeptus Astartes', 'Astartes Chaplain', 4, 'Adeptus Astartes'),
+        ...archetype(
+            'voab',
+            31,
+            'Adeptus Astartes',
+            'Astartes Chaplain',
+            4,
+            'Adeptus Astartes'
+        ),
         ...costz(392, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -209,8 +243,15 @@ export const voab = [
         influence: 2,
     },
     {
-        ...archetype('voab', 30, 'Adeptus Astartes', 'Primaris Eliminator', 4, 'Primaris Astartes'),
-        ...costz(276, [
+        ...archetype(
+            'voab',
+            32,
+            'Adeptus Astartes',
+            'Primaris Eliminator',
+            4,
+            'Primaris Astartes'
+        ),
+        ...costz(286, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
             reqAttribute(ATTRIBUTES.AGILITY, 4),
@@ -257,8 +298,15 @@ export const voab = [
         },
     },
     {
-        ...archetype('voab', 31, 'Adeptus Astartes', 'Primaris Incursor', 4, 'Primaris Astartes'),
-        ...costz(273, [
+        ...archetype(
+            'voab',
+            33,
+            'Adeptus Astartes',
+            'Primaris Incursor',
+            4,
+            'Primaris Astartes'
+        ),
+        ...costz(297, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
             reqAttribute(ATTRIBUTES.AGILITY, 4),
@@ -313,7 +361,14 @@ export const voab = [
         },
     },
     {
-        ...archetype('voab', 34, 'Adeptus Astartes', '  Primaris Intercessor', 4, 'Primaris Astartes'),
+        ...archetype(
+            'voab',
+            34,
+            'Adeptus Astartes',
+            '  Primaris Intercessor',
+            4,
+            'Primaris Astartes'
+        ),
         ...costz(268, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -360,7 +415,14 @@ export const voab = [
         },
     },
     {
-        ...archetype('voab', 33, 'Adeptus Astartes', 'Astartes Librarian', 4, 'Adeptus Astartes'),
+        ...archetype(
+            'voab',
+            36,
+            'Adeptus Astartes',
+            'Astartes Librarian',
+            4,
+            'Adeptus Astartes'
+        ),
         ...costz(359, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -420,7 +482,14 @@ export const voab = [
         influence: 2,
     },
     {
-        ...archetype('voab', 34, 'Adeptus Astartes', 'Primaris Reiver', 4, 'Primaris Astartes'),
+        ...archetype(
+            'voab',
+            37,
+            'Adeptus Astartes',
+            'Primaris Reiver',
+            4,
+            'Primaris Astartes'
+        ),
         ...costz(288, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -472,8 +541,15 @@ export const voab = [
         },
     },
     {
-        ...archetype('voab', 35, 'Adeptus Astartes', 'Terminator', 4, 'Adeptus Astartes'),
-        ...costz(365, [
+        ...archetype(
+            'voab',
+            38,
+            'Adeptus Astartes',
+            'Terminator',
+            4,
+            'Adeptus Astartes'
+        ),
+        ...costz(377, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
             reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -532,7 +608,14 @@ export const voab = [
         },
     },
     {
-        ...archetype('voab', 36, 'Adeptus Astartes', 'Astartes Techmarine', 4, 'Adeptus Astartes'),
+        ...archetype(
+            'voab',
+            39,
+            'Adeptus Astartes',
+            'Astartes Techmarine',
+            4,
+            'Adeptus Astartes'
+        ),
         ...costz(357, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
@@ -585,8 +668,15 @@ export const voab = [
         influence: 2,
     },
     {
-        ...archetype('voab', 37, 'Adeptus Astartes', 'Primaris Lieutenant', 5, 'Primaris Astartes'),
-        ...costz(365, [
+        ...archetype(
+            'voab',
+            40,
+            'Adeptus Astartes',
+            'Primaris Lieutenant',
+            5,
+            'Primaris Astartes'
+        ),
+        ...costz(387, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
             reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -663,8 +753,15 @@ export const voab = [
         },
     },
     {
-        ...archetype('voab', 38, 'Adeptus Astartes', 'Primaris Bladeguard Veteran', 5, 'Primaris Astartes'),
-        ...costz(365, [
+        ...archetype(
+            'voab',
+            41,
+            'Adeptus Astartes',
+            'Primaris Bladeguard Veteran',
+            5,
+            'Primaris Astartes'
+        ),
+        ...costz(383, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
             reqAttribute(ATTRIBUTES.AGILITY, 5),
@@ -715,8 +812,15 @@ export const voab = [
         },
     },
     {
-        ...archetype('voab', 39, 'Adeptus Astartes', 'Primaris Company Ancient', 5, 'Primaris Astartes'),
-        ...costz(315, [
+        ...archetype(
+            'voab',
+            42,
+            'Adeptus Astartes',
+            'Primaris Company Ancient',
+            5,
+            'Primaris Astartes'
+        ),
+        ...costz(353, [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
             reqAttribute(ATTRIBUTES.AGILITY, 5),
