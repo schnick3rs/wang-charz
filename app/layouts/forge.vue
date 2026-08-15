@@ -176,7 +176,7 @@ const forgeNavs = computed(() => {
     [
       { label: 'Setting', to: `/forge/characters/${id.value}/builder/setting` },
       { label: '1. Species', to: `/forge/characters/${id.value}/builder/species/choose` },
-      { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype` },
+      { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype/choose` },
       { label: '3. Ascension', to: `/forge/characters/${id.value}/builder/ascension` },
       { label: '4. Stats', to: `/forge/characters/${id.value}/builder/stats` },
       { label: '5. Talents', to: `/forge/characters/${id.value}/builder/talents` },
