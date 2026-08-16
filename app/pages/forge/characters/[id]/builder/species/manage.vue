@@ -20,7 +20,7 @@ const { data: chapters } = await useAsyncData(
 )
 
 const selectedOptionKey = ref<string>()
-const mutation2 = ref<string>()
+const selectedFeatureOption = ref<string>()
 
 </script>
 
@@ -63,7 +63,7 @@ const mutation2 = ref<string>()
                 description-key="snippet"
                 class="w-full mb-2"
                 placeholder="Select Mutation..."
-                @change="mutation2 = ''"
+                @change="selectedFeatureOption = ''"
                 @update:model-value="(data) => console.info(`update-model ${feature.key}`, data)"
             />
               <div v-if="selectedOptionKey" class="mb-2">
@@ -71,16 +71,21 @@ const mutation2 = ref<string>()
               </div>
               <div v-if="selectedOptionKey && feature.options.find(i => i.key === selectedOptionKey)" class="mt-2">
                 <USelect
-                    v-model="mutation2"
+                    v-model="selectedFeatureOption"
                     :items="feature.options.find(i => i.key === selectedOptionKey)?.options"
-                    value-key="name"
+                    value-key="key"
                     label-key="name"
                     description-key="snippet"
-                    class="w-full"
+                    class="w-full mb-2"
                     placeholder="Select Mutation..."
                     @select="console.info('select')"
                     @update:model-value="(data) => console.info('update-model', data)"
                 />
+                <div v-if="selectedFeatureOption" class="mb-2">
+                  <p>
+                    {{ feature.options.find(i => i.key === selectedOptionKey)?.options.find(i => i.key === selectedFeatureOption)?.snippet }}
+                  </p>
+                </div>
               </div>
             </div>
 
@@ -94,7 +99,7 @@ const mutation2 = ref<string>()
                   description-key="snippet"
                   class="w-full mb-2"
                   placeholder="Select your Chapter..."
-                  @change="mutation2 = ''"
+                  @change="selectedFeatureOption = ''"
                   @update:model-value="(data) => console.info(`update-model ${feature.key}`, data)"
               />
               <div v-if="entity.data.speciesAstartesChapterKey">

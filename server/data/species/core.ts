@@ -80,7 +80,7 @@ export const core = [
         ],
     },
     {
-        ...species('core',29,'Aeldari','Aeldari','The Mysterious Aeldari',10,8),
+        ...species('core',29,'Aeldari','Aeldari','The mysterious Aeldari',10,8),
         ...cost(10,10,0, 0),
         ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
         ...statMax(7,7,12,12,12,10,6,10),
@@ -93,177 +93,58 @@ export const core = [
                 snippet: '+1DN to all Resolve Tests. If you fail a Willpower based test in a scene involving emotion, the GM gains +1 Ruin.',
             },
             {
+                key: 'psychosensitive',
                 name: 'Psychosensitive',
-                snippet: 'You may choose to take the PSYKER Keyword.',
-                description: '<p>You may choose to take the <strong>PSYKER</strong> Keyword.</p>',
-                // TODO options to select beeing a psyker
-                alerts: [
-                    { type: 'warning', text: 'For the PSYKER variant choose the Aeldari (Psychosensitive) species variant.', },
-                ],
-            },
-            {
-                name: 'Asuryani Paths',
-                snippet: 'You walked a path of the Asuryani.',
-                selected: [''],
+                snippet: 'You can choose to have the PSYKER keyword.',
                 options: [
                     {
-                        name: 'Path of Awakening', snippet: 'You gain +Rank bonus dice to Awareness (Int) Tests.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: SKILLS.AWARENESS, modifier: 0, rank: 1 },
-                        ]
+                        key: 'mundane',
+                        name: 'Mundane',
+                        snippet: 'Your psychic potential has not awaken.'
                     },
                     {
-                        name: 'Path of The Artisan',
-                        snippet: 'You gain +Double Rank bonus dice to Scholar (Int) Tests related to the AELDARI Keyword.',
+                        key: 'sensitive',
+                        name: 'Psychosensitive',
+                        snippet: 'You have the PSYKER Keyword. You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. You also gain access to on additional Discipline.',
+                        description: '<p>You have the <strong>PSYKER</strong> Keyword. You gain access to the <em>Minor</em>, <em>Universal</em>, <em>Divination</em> and <em>Runes of Battle</em> Disciplines. You also gain access to on additional Discipline.</p>',
                         modifications: [
-                            { targetGroup: 'skills', targetValue: 'scholar', modifier: 0, rank: 2, condition: 'related to AELDARI' },
-                        ]
-                    },
-                    {
-                        name: 'Path of The Bonesinger',
-                        snippet: 'You gain +Double Rank bonus dice to Tech (Int) Tests on targets with the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'targets with the AELDARI Keyword' },
+                            { targetGroup: 'keywords', targetValue: 'Psyker' },
+                            { targetGroup: 'psychicDisciplines', targetValue: 'Minor' },
+                            { targetGroup: 'psychicDisciplines', targetValue: 'Universal' },
+                            { targetGroup: 'psychicDisciplines', targetValue: 'Divination' },
+                            { targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' },
                         ],
-                    },
-                    {
-                        name: 'Path of The Dreamer',
-                        snippet: 'You gain +Rank bonus dice to Corruption Tests',
-                        modifications: [
-                            { targetGroup: 'traits', targetValue: 'conviction', modifier: 0, rank: 1, condition: 'to corruption tests' },
-                        ],
-                    },
-                    {
-                        name: 'Path of The Mourner',
-                        snippet: 'You gain +Rank Maximum Shock.',
-                        modifications: [
-                            { targetGroup: 'traits', targetValue: 'maxShock', modifier: 0, rank: 1 },
-                        ],
-                    },
-                    {
-                        name: 'Path of The Healer',
-                        snippet: 'You gain +Double Rank bonus dice to Medicae (Int) Tests on targets with the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'medicae', modifier: 0, rank: 2, condition: 'on AELDARI targets' },
-                        ],
-                    },
-                    {
-                        name: 'Path of Service',
-                        snippet: 'You gain +Double Rank bonus dice to Insight (Fel) Tests on targets with the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'insight', modifier: 0, rank: 2, condition: 'on AELDARI targets' },
-                        ],
-                    },
-                    {
-                        name: 'Path of The Mariner',
-                        snippet: 'You gain +Double Rank bonus dice to Pilot (A) Tests using vehicles with the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'pilot', modifier: 0, rank: 2, condition: 'when using AELDARI vehicles' },
-                        ],
-                    },
-                ],
-            },
-        ],
-    },
-    {
-        ...species('core',29,'Aeldari','Aeldari (Psychosensitive)','The Psychosensitive Aeldari',10,8),
-        variant: 'core-aeldari',
-        ...cost(10,10,0, 0),
-        ...commonNames('Aethon, Anthrillien, Ashkalla, Aulirel, Auran, Avenelle, Baharroth, Caerys, Culyan, Elashbel, Elarique, Eldorath, Elessar, Erandel, Gilead, Gilvas, Hrythar, Hyrne, Idranel, Illic, Iyanna, Kaelith, Kelmon, Micha, Meliniel, Mirehn, Morwyn, Naudhu, Naguan, Quillindral, Requiel, Salaine, Sylandri, Taladin, Taldeer, Talyesin, Ullarion, Ulthos, Yriel'),
-        ...statMax(7,7,12,12,12,10,6,10),
-        prerequisites: [
-            { group: 'attributes', value: 'agility', threshold: 3 },
-        ],
-        speciesFeatures: [
-            {
-                name: 'Intense Emotion',
-                snippet: '+1DN to all Resolve Tests. If you fail a Willpower based test in a scene involving emotion, the GM gains +1 Ruin.',
-            },
-            {
-                name: 'Psychosensitive',
-                snippet: 'You have the PSYKER Keyword. You gain access to the Minor, Universal, Divination and Runes of Battle Disciplines. You also gain access to on additional Discipline.',
-                description: '<p>You have the <strong>PSYKER</strong> Keyword. You gain access to the <em>Minor</em>, <em>Universal</em>, <em>Divination</em> and <em>Runes of Battle</em> Disciplines. You also gain access to on additional Discipline.</p>',
-                modifications: [
-                    { targetGroup: 'keywords', targetValue: 'Psyker' },
-                ],
-                selected: [''],
-                options: [
-                    // { key: 'core-minor', name: 'Minor', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Minor' }] },
-                    // { key: 'core-universal', name: 'Universal', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Universal' }] },
-                    { key: 'core-biomancy', name: 'Biomancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }] },
-                    // { key: 'core-divination', name: 'Divination', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Divination' }] },
-                    { key: 'core-pyromancy', name: 'Pyromancy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }] },
-                    { key: 'core-telekinesis', name: 'Telekinesis', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }] },
-                    { key: 'core-telepathy', name: 'Telepathy', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }] },
-                    { key: 'core-maleficarum', name: 'Maleficarum', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }] },
-                    // { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
-                    { key: 'aaoa-runes-of-shaping', name: 'Runes of Shaping', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Shaping' }] },
-                ],
-                psychicDisciplines: [
-                    'Minor',
-                    'Universal',
-                    'Divination',
-                    'Runes of Battle',
-                ],
-            },
-            {
-                name: 'Asuryani Paths',
-                snippet: 'You walked a path of the Asuryani.',
-                selected: [''],
-                options: [
-                    {
-                        name: 'Path of Awakening', snippet: 'You gain +Rank bonus dice to Awareness (Int) Tests.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'awareness', modifier: 0, rank: 1 },
-                        ]
-                    },
-                    {
-                        name: 'Path of The Artisan',
-                        snippet: 'You gain +Double Rank bonus dice to Scholar (Int) Tests related to the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'scholar', modifier: 0, rank: 2, condition: 'related to AELDARI' },
-                        ]
-                    },
-                    {
-                        name: 'Path of The Bonesinger',
-                        snippet: 'You gain +Double Rank bonus dice to Tech (Int) Tests on targets with the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 2, condition: 'targets with the AELDARI Keyword' },
-                        ],
-                    },
-                    {
-                        name: 'Path of The Dreamer',
-                        snippet: 'You gain +Rank bonus dice to Corruption Tests',
-                        modifications: [
-                            { targetGroup: 'traits', targetValue: 'conviction', modifier: 0, rank: 1, condition: 'to corruption tests' },
-                        ],
-                    },
-                    {
-                        name: 'Path of The Mourner',
-                        snippet: 'You gain +Rank Maximum Shock.',
-                        modifications: [
-                            { targetGroup: 'traits', targetValue: 'maxShock', modifier: 0, rank: 1 },
-                        ],
-                    },
-                    {
-                        name: 'Path of The Healer',
-                        snippet: 'You gain +Double Rank bonus dice to Medicae (Int) Tests on targets with the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'medicae', modifier: 0, rank: 2, condition: 'on AELDARI targets' },
-                        ],
-                    },
-                    {
-                        name: 'Path of Service',
-                        snippet: 'You gain +Double Rank bonus dice to Insight (Fel) Tests on targets with the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'insight', modifier: 0, rank: 2, condition: 'on AELDARI targets' },
-                        ],
-                    },
-                    {
-                        name: 'Path of The Mariner',
-                        snippet: 'You gain +Double Rank bonus dice to Pilot (A) Tests using vehicles with the AELDARI Keyword.',
-                        modifications: [
-                            { targetGroup: 'skills', targetValue: 'pilot', modifier: 0, rank: 2, condition: 'when using AELDARI vehicles' },
+                        options: [
+                            {
+                                key: 'core-biomancy',
+                                name: 'Biomancy',
+                                snippet: 'Manipulating a biological form',
+                                modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Biomancy' }]
+                            },
+                            {
+                                key: 'core-pyromancy',
+                                name: 'Pyromancy',
+                                snippet: 'Manipulating or producing fire',
+                                modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Pyromancy' }]
+                            },
+                            {
+                                key: 'core-telekinesis',
+                                name: 'Telekinesis',
+                                snippet: 'Exerting kinetic force through thought',
+                                modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telekinesis' }]
+                            },
+                            {
+                                key: 'core-telepathy',
+                                name: 'Telepathy',
+                                snippet: 'Manipulating a mind',
+                                modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Telepathy' }]
+                            },
+                            {
+                                key: 'core-maleficarum',
+                                name: 'Maleficarum',
+                                snippet: 'Unleashing the unholy powers of Chaos',
+                                modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Maleficarum' }]
+                            },
                         ],
                     },
                 ],
