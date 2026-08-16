@@ -9,14 +9,9 @@ const store = useCharacterStore()
 
 const entity = computed(() => store.byId[id.value])
 
-const { data: species } = await useAsyncData(
-    'species/manage',
-    (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.speciesKey}`, { signal }),
-)
-
-const { data: chapters } = await useAsyncData(
-    'chapters',
-    (_nuxtApp, { signal }) => $fetch(`/api/species/chapters`, { signal }),
+const { data: archetype } = await useAsyncData(
+    'archetype',
+    (_nuxtApp, { signal }) => $fetch(`/api/archetypes/${entity.value.data.archetypeKey}`, { signal }),
 )
 
 const selectedOptionKey = ref<string>()
@@ -26,29 +21,51 @@ const selectedFeatureOption = ref<string>()
 
 <template>
 
-  <div v-if="species" class="mx-auto max-w-3xl">
+  <div v-if="archetype" class="mx-auto max-w-3xl">
 
     <div class="flex flex-row justify-between mb-2">
       <div class="flex flex-col">
-        <span class="text-2xl font-bold mb-2">{{ species.name }}</span>
-        <span>{{ species.hint }}</span>
+        <span class="text-2xl font-bold mb-2">{{ archetype.name }}</span>
+        <span>{{ archetype.hint }}</span>
 
       </div>
       <div>
-        <NuxtImg :src="`/img/avatars/species/${species.key}.png`" class="w-30 h-30 object-contain rounded-lg" />
-        <UButton variant="ghost" color="info" :to="`/forge/characters/${id}/builder/species/choose`">Change Species</UButton>
+        <NuxtImg :src="`/img/avatars/archetype/${archetype.key}.png`" class="w-30 h-30 object-contain rounded-lg" />
+        <UButton variant="ghost" color="info" :to="`/forge/characters/${id}/builder/archetype/choose`">Change Archetype</UButton>
       </div>
     </div>
 
+    <!-- header -->
+    <div class="flex flex-row gap-4">
+      <UFieldGroup>
+        <UBadge color="info" variant="subtle">Tier</UBadge>
+        <UBadge color="info">{{ archetype.tier }}</UBadge>
+      </UFieldGroup>
+      <UFieldGroup>
+        <UBadge color="info" variant="subtle">Species</UBadge>
+        <UBadge color="info">{{ archetype.species.map(i => i.name).join(', ') }}</UBadge>
+      </UFieldGroup>
+      <UFieldGroup>
+        <UBadge color="info" variant="subtle">XP Cost</UBadge>
+        <UBadge color="info">{{ archetype.cost }}</UBadge>
+      </UFieldGroup>
+    </div>
+
+    <USeparator class="mb-2"/>
+
+    <!-- Keywords -->
+    <div class="mb-2">
+      <strong class="mr-2">Keywords:</strong>
+      <span v-for="k in archetype.keywords.split(',')" :key="k" class="text-error-800 font-semibold uppercase">{{k}}, </span>
+    </div>
+
     <!-- features -->
-    <template v-if="species.speciesFeatures.length > 0">
+    <template v-if="archetype.archetypeFeatures.length > 0">
 
       <div class="mb-4">
-        <h3 class="font-light text-sm">Species Abilities</h3>
-        <USeparator class="mb-2" />
 
         <div class="flex flex-col gap-2">
-          <div v-for="feature in species.speciesFeatures" :key="feature.name">
+          <div v-for="feature in archetype.archetypeFeatures" :key="feature.name">
             <strong>{{ feature.name }}</strong>
             <div v-if="feature.description" v-html="feature.description" />
             <div v-else><p>{{ feature.snippet}}</p></div>
@@ -85,30 +102,6 @@ const selectedFeatureOption = ref<string>()
                   <p>
                     {{ feature.options.find(i => i.key === selectedOptionKey)?.options.find(i => i.key === selectedFeatureOption)?.snippet }}
                   </p>
-                </div>
-              </div>
-            </div>
-
-            <!-- Special Astartes Chapter Genseed -->
-            <div v-if="chapters && entity && entity.data && feature.name === 'Honour the Chapter'" class="border-l-4 border-l-red-600 mt-2 pl-4">
-              <USelect
-                  v-model="entity.data.speciesAstartesChapterKey"
-                  :items="chapters"
-                  value-key="key"
-                  label-key="name"
-                  description-key="snippet"
-                  class="w-full mb-2"
-                  placeholder="Select your Chapter..."
-                  @change="selectedFeatureOption = ''"
-                  @update:model-value="(data) => console.info(`update-model ${feature.key}`, data)"
-              />
-              <div v-if="entity.data.speciesAstartesChapterKey">
-                <div
-                    v-for="feature in chapters.find(c => c.key === entity.data.speciesAstartesChapterKey)?.features"
-                    :key="feature.name"
-                    class="mb-2"
-                >
-                  <strong>{{ feature.name }}<span v-if="feature.origin" class="ml-1">({{feature.origin}})</span>: </strong>{{ feature.effect }}
                 </div>
               </div>
             </div>

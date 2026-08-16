@@ -9,7 +9,7 @@ const store = useCharacterStore()
 
 const entity = computed(() => store.byId[id.value])
 
-const { data: species } = await useAsyncData(
+const { data: archetypes } = await useAsyncData(
     'archetypes',
     (_nuxtApp, { signal }) => $fetch('/api/archetypes', {
       signal,
@@ -26,11 +26,29 @@ const { data: species } = await useAsyncData(
 
 const search = ref('')
 const filteredArchetypes = computed(() => {
-  if (!species.value) return []
+  if (!archetypes.value) return []
   const q = search.value.trim().toLowerCase()
-  if (!q) return species.value
-  return species.value.filter(item => item.name.toLowerCase().includes(q))
+  if (!q) return archetypes.value
+  return archetypes.value.filter(item => item.name.toLowerCase().includes(q))
 })
+
+const showArchetypeModal = ref(false)
+const previewArchetype = ref<Archetype|null>(null)
+
+function selectArchetype(archetypeKey: string) {
+  console.info('Set Character Archetype', archetypeKey)
+  entity.value.data.archetypeKey = archetypeKey
+  store.scheduleSave(entity.value.id)
+  showArchetypeModal.value = false
+  navigateTo(`/forge/characters/${id.value}/builder/archetype/manage`)
+}
+
+function updateAndShowArchetypePreview(species: Archetype) {
+  console.info('Archetype Selected, open preview', species)
+  previewArchetype.value = species
+  showArchetypeModal.value = true
+}
+
 </script>
 
 <template>
@@ -59,8 +77,32 @@ const filteredArchetypes = computed(() => {
       </template>
     </UInput>
 
+    <UModal
+        v-if="previewArchetype"
+        v-model:open="showArchetypeModal"
+        title="Confirm Species"
+        :overlay="false"
+        :ui="{ content: 'max-w-2xl'}"
+    >
+      <template #body>
+        <ForgeArchetypePreview
+            :archetype="previewArchetype"
+            :ui="{ footer: 'justify-between' }"
+        />
+      </template>
+      <template #footer>
+        <UButton color="error" variant="subtle" @click="showArchetypeModal = false">Cancel</UButton>
+        <UButton color="primary" @click="selectArchetype(previewArchetype.key)">Select Species</UButton>
+      </template>
+    </UModal>
+
     <UCard :ui="{ body: 'flex flex-col gap-2 p-0 sm:p-0 ' }" class="mt-4">
-      <div v-for="item in filteredArchetypes" :key="item.key" class="hover:bg-black/10 w-min-full px-2 py-1 flex flex-row justify-between items-center">
+      <div
+          v-for="item in filteredArchetypes"
+          :key="item.key"
+          class="hover:bg-black/10 w-min-full px-2 py-1 flex flex-row justify-between items-center"
+          @click="updateAndShowArchetypePreview(item)"
+      >
         <UUser
             size="2xl"
             :avatar="{ src: `/img/avatars/archetype/${item.key}.png`}"
