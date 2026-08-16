@@ -36,7 +36,7 @@ export const SpeciesSchema = z.object({
     commonNames: z.array(z.string()).optional(),
 
     description: z.string().optional(),
-    prerequisites: z.array(PrerequisiteSchema).optional(),
+    prerequisites: z.array(PrerequisiteSchema).default([]),
 });
 
 export type Species = z.infer<typeof SpeciesSchema>;

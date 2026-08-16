@@ -26,10 +26,22 @@ const filteredSpecies = computed(() => {
 })
 
 function selectSpecies(speciesKey: string) {
-  console.info('Species Selected', speciesKey)
+  console.info('Set Character Species', speciesKey)
   entity.value.data.speciesKey = speciesKey
   store.scheduleSave(entity.value.id)
+  showSpeciesModal.value = false
+  navigateTo(`/forge/characters/${id.value}/builder/species/manage`)
 }
+
+const showSpeciesModal = ref(false)
+const previewSpecies = ref<Species|null>(null)
+
+function updateAndShowSpeciesPreview(species: Species) {
+  console.info('Species Selected, open preview', species)
+  previewSpecies.value = species
+  showSpeciesModal.value = true
+}
+
 </script>
 
 <template>
@@ -56,8 +68,32 @@ function selectSpecies(speciesKey: string) {
       </template>
     </UInput>
 
+    <UModal
+        v-if="previewSpecies"
+        v-model:open="showSpeciesModal"
+        title="Confirm Species"
+        :overlay="false"
+        :ui="{ content: 'max-w-2xl'}"
+    >
+      <template #body>
+        <ForgeSpeciesPreview
+            :species="previewSpecies"
+            :ui="{ footer: 'justify-between' }"
+        />
+      </template>
+      <template #footer>
+        <UButton color="error" variant="subtle" @click="showSpeciesModal = false">Cancel</UButton>
+        <UButton color="primary" @click="selectSpecies(previewSpecies.key)">Select Species</UButton>
+      </template>
+    </UModal>
+
     <UCard :ui="{ body: 'flex flex-col gap-2 p-0 sm:p-0 ' }" class="mt-4" >
-      <div v-for="item in filteredSpecies" :key="item.key" class="hover:bg-black/10 w-min-full px-2 py-1 flex flex-row justify-between items-center" @click="selectSpecies(item.key)">
+      <div
+          v-for="item in filteredSpecies"
+          :key="item.key"
+          class="hover:bg-black/10 w-min-full px-2 py-1 flex flex-row justify-between items-center"
+          @click="updateAndShowSpeciesPreview(item)"
+      >
         <UUser
             size="2xl"
             :avatar="{ src: `/img/avatars/species/${item.key}.png`}"

@@ -170,8 +170,10 @@ const items = ref<DropdownMenuItem[]>([
 
 const id = computed(() => route.params.id as string)
 
+
 const forgeNavs = computed(() => {
   if (!id.value) return []
+
   return [
     [
       { label: 'Setting', to: `/forge/characters/${id.value}/builder/setting` },
