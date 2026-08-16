@@ -17,7 +17,9 @@ const { data: species } = await useAsyncData(
     }),
     {
       transform: (data) => {
-        return data.filter(item => item.tier <= entity.value.data.settingTier)
+        return data
+            .filter(item => item.tier <= entity.value.data.settingTier)
+            .filter(item => item.species.some((s) => s.key.includes(entity.value.data.speciesKey) ))
       }
     }
 )
