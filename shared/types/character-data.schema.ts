@@ -12,6 +12,7 @@ export const CharacterDataSchema = z.object({
 
     // character
     speciesKey: z.string().optional(),
+    speciesAstartesChapterKey: z.string(),
     archetypeKey: z.string().optional(),
 
 })

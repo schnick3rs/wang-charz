@@ -10,9 +10,18 @@ const store = useCharacterStore()
 const entity = computed(() => store.byId[id.value])
 
 const { data: species } = await useAsyncData(
-    'specie',
+    'species/manage',
     (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.speciesKey}`, { signal }),
 )
+
+const { data: chapters } = await useAsyncData(
+    'chapters',
+    (_nuxtApp, { signal }) => $fetch(`/api/species/chapters`, { signal }),
+)
+
+const selectedOptionKey = ref<string>()
+const mutation2 = ref<string>()
+
 </script>
 
 <template>
@@ -44,13 +53,65 @@ const { data: species } = await useAsyncData(
             <div v-if="feature.description" v-html="feature.description" />
             <div v-else><p>{{ feature.snippet}}</p></div>
 
-            <pre>{{feature}}</pre>
+            <!-- an option to be selected is identified by <species-key>.<feature-key> fspg-kroot.kroot-mutations.x -->
+            <div v-if="feature.options" class=" border-l border-l-4 border-l-red-600  mt-2 pl-4 mb-4">
+              <USelect
+                v-model="selectedOptionKey"
+                :items="feature.options"
+                value-key="key"
+                label-key="name"
+                description-key="snippet"
+                class="w-full mb-2"
+                placeholder="Select Mutation..."
+                @change="mutation2 = ''"
+                @update:model-value="(data) => console.info(`update-model ${feature.key}`, data)"
+            />
+              <div v-if="selectedOptionKey" class="mb-2">
+                <p>{{ feature.options.find(i => i.key === selectedOptionKey)?.snippet }}</p>
+              </div>
+              <div v-if="selectedOptionKey && feature.options.find(i => i.key === selectedOptionKey)" class="mt-2">
+                <USelect
+                    v-model="mutation2"
+                    :items="feature.options.find(i => i.key === selectedOptionKey)?.options"
+                    value-key="name"
+                    label-key="name"
+                    description-key="snippet"
+                    class="w-full"
+                    placeholder="Select Mutation..."
+                    @select="console.info('select')"
+                    @update:model-value="(data) => console.info('update-model', data)"
+                />
+              </div>
+            </div>
+
+            <!-- Special Astartes Chapter Genseed -->
+            <div v-if="chapters && entity && entity.data && feature.name === 'Honour the Chapter'" class="border-l-4 border-l-red-600 mt-2 pl-4">
+              <USelect
+                  v-model="entity.data.speciesAstartesChapterKey"
+                  :items="chapters"
+                  value-key="key"
+                  label-key="name"
+                  description-key="snippet"
+                  class="w-full mb-2"
+                  placeholder="Select your Chapter..."
+                  @change="mutation2 = ''"
+                  @update:model-value="(data) => console.info(`update-model ${feature.key}`, data)"
+              />
+              <div v-if="entity.data.speciesAstartesChapterKey">
+                <div
+                    v-for="feature in chapters.find(c => c.key === entity.data.speciesAstartesChapterKey)?.features"
+                    :key="feature.name"
+                    class="mb-2"
+                >
+                  <strong>{{ feature.name }}<span v-if="feature.origin" class="ml-1">({{feature.origin}})</span>: </strong>{{ feature.effect }}
+                </div>
+              </div>
+            </div>
+
           </div>
         </div>
       </div>
     </template>
-
-    {{species}}
   </div>
 </template>
 

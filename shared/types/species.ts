@@ -34,6 +34,7 @@ export const SpeciesSchema = z.object({
     speciesFeatures: z.array(ArchetypeFeatureSchema).default([]),
 
     commonNames: z.array(z.string()).optional(),
+    backgroundSection: z.array(z.object()).optional(),
 
     description: z.string().optional(),
     prerequisites: z.array(PrerequisiteSchema).default([]),

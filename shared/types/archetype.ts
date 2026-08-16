@@ -64,10 +64,22 @@ export const WargearOptionSchema: z.ZodType<WargearOption> = z.lazy(() => z.obje
   keywordFilter: z.union([z.string(), z.array(z.string())]).optional(),
 }));
 
-export const FeatureOptionSchema = z.object({
+type FeatureOption = {
+  key?: string;
+  name: string;
+  snippet?: string;
+  description?: string;
+  modifications?: Modification[];
+  options?: FeatureOption[];
+};
+
+export const FeatureOptionSchema: z.ZodType<FeatureOption> = z.object({
   key: z.string().optional(),
   name: z.string(),
+  snippet: z.string().optional(),
+  description: z.string().optional(),
   modifications: z.array(ModificationSchema).optional(),
+  options: z.array(z.lazy(() => FeatureOptionSchema)).optional(),
 });
 
 export const PsychicPowerSlotSchema = z.object({
@@ -84,8 +96,10 @@ export const AlertSchema = z.object({
 });
 
 export const ArchetypeFeatureSchema = z.object({
+  key: z.string().optional(), // TODO ensure via builder
   name: z.string(),
   snippet: z.string().optional(),
+  alerts: z.array(AlertSchema).optional(),
   description: z.string().optional(),
   modifications: z.array(ModificationSchema).optional(),
   selected: z.union([z.string(), z.array(z.string())]).optional(),
@@ -132,7 +146,7 @@ export type CostBreakdown = z.infer<typeof CostBreakdownSchema>;
 export type Prerequisite = z.infer<typeof PrerequisiteSchema>;
 export type Modification = z.infer<typeof ModificationSchema>;
 export type SpeciesRef = z.infer<typeof SpeciesRefSchema>;
-export type FeatureOption = z.infer<typeof FeatureOptionSchema>;
+export type FeatureOptionType = z.infer<typeof FeatureOptionSchema>;
 export type PsychicPowerSlot = z.infer<typeof PsychicPowerSlotSchema>;
 export type Alert = z.infer<typeof AlertSchema>;
 export type ArchetypeFeature = z.infer<typeof ArchetypeFeatureSchema>;
