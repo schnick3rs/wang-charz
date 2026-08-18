@@ -943,5 +943,92 @@ export const core = [
             }
         ],
     },
-
+    // [ORDO]
+    {
+        ...keywordBuilder(
+            'core',
+            62,
+            'ORDO HERETICUS',
+            '[ORDO]',
+            'The Witch Hunters. Largest of the Ordos, tasked with hunting the enemy within; mutants, rebels, heretics, and Psykers. They police the other Adeptas of the Imperium, rooting out dissidence in all organisations. Their most common ally is the Order Militant of the Ecclesiarchy, the Sisters of Battle.',
+            '[ORDO]',
+        ),
+        features: [
+            {
+                key: 'the-witch-hunters',
+                name: 'The Witch Hunters',
+                snippet: 'Choose one: You gain +2 bonus dice to resist psychic powers, or you gain +2 bonus dice to Corruption tests.',
+                options: [
+                    {
+                        key: 'deny-the-witch',
+                        name: 'Deny The Witch',
+                        snippet: 'You gain +2 bonus dice to resist psychic powers.',
+                    },
+                    {
+                        key: 'resist-the-warp',
+                        name: 'Resist the Warp',
+                        snippet: 'You gain +2 bonus dice to Corruption tests.',
+                    },
+                ],
+            }
+        ],
+    },
+    {
+        ...keywordBuilder(
+            'core',
+            62,
+            'ORDO XENOS',
+            '[ORDO]',
+            'The Alien Hunters. Fighting the varied vile forms of the alien on the frontiers of the galaxy, the Ordo Xenos investigate and eliminate extra terrestrial threats before they can threaten Humanity. Their operations often see them working alongside the Space Marines of the Deathwatch.',
+            '[ORDO]',
+        ),
+        features: [
+            {
+                key: 'the-alien-hunters',
+                name: 'The Alien Hunters',
+                snippet: 'You are fluent in one alien language, and gain +2 bonus dice on any Scholar (Int) and Investigation (Int) Tests related to any known xenos.',
+                modifications: [
+                    { targetGroup: 'skills', targetValue: 'scholar', modifier: 2, condition: 'when related to any known xenos.' },
+                    { targetGroup: 'skills', targetValue: 'investigation', modifier: 2, condition: 'when related to any known xenos.' },
+                ],
+            },
+        ],
+    },
+    {
+        ...keywordBuilder(
+            'core',
+            62,
+            'ORDO MALLEUS',
+            '[ORDO]',
+            'The Daemon Hunters. Smallest amongst the Ordos, duty bound to battle daemons and the corrupting influence of Chaos. Every encounter with their foe, every scrap of arcane lore learnt, degrades body and soul. The Chamber Militant of the Ordo Malleus are the Grey Knights, making rare and terrible crusades together',
+            '[ORDO]',
+        ),
+        features: [
+            {
+                key: 'the-daemon-hunters',
+                name: 'The Daemon Hunters',
+                snippet: 'Either the character gains +3 Corruption and +1 Conviction, or gain +2 bonus dice for any Scholar (Int) and Investigation (Int) tests related to daemons and the warp.',
+                options: [
+                    {
+                        name: 'Strength through Exposure',
+                        snippet: 'You gain +3 Corruption and +1 Conviction.',
+                        description: '',
+                        modifications: [
+                            { targetGroup: 'traits', targetValue: 'corruption', modifier: 3 },
+                            { targetGroup: 'traits', targetValue: 'conviction', modifier: 1 },
+                        ],
+                    },
+                    {
+                        name: 'Know your foe',
+                        snippet: 'You gain +2 bonus dice to Scholar (Int) and Investigation (Int) tests related to daemons and the warp.',
+                        description: '',
+                        modifications: [
+                            { targetGroup: 'skills', targetValue: 'scholar', modifier: 2, condition: 'when related to daemons and the warp' },
+                            { targetGroup: 'skills', targetValue: 'investigation', modifier: 2, condition: 'when related to daemons and the warp' },
+                        ],
+                    },
+                ],
+            },
+        ],
+    },
 ]
