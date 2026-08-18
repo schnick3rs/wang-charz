@@ -59,13 +59,18 @@ const skills = computed(() => {
 
     <USeparator class="mb-2"/>
 
-    <div v-if="attributes" class="mb-1"><strong>Attributes: </strong><span>{{ attributes }}</span></div>
-    <div v-if="skills" class="mb-1"><strong>Skills: </strong><span>{{ skills }}</span></div>
+    <div v-if="attributes" class="mb-2"><strong>Attributes: </strong><span>{{ attributes }}</span></div>
+    <div v-if="skills" class="mb-4"><strong>Skills: </strong><span>{{ skills }}</span></div>
 
     <!-- Keywords -->
-    <div class="mb-2">
+    <div v-if="archetype.keywords" class="mb-4">
       <strong class="mr-2">Keywords:</strong>
       <span v-for="k in archetype.keywords" :key="k" class="text-error-800 font-semibold uppercase">{{k}}, </span>
+
+      <USelect>
+
+      </USelect>
+
     </div>
 
     <!-- features -->
