@@ -734,11 +734,13 @@ export const core = [
             'Growing the Teef that are Orkish currency faster than any other Clan, the Bad Moons are the wealthiest, and thus have the best food and flashiest weaponry — traits they are incredibly proud of.',
             '[Clan]',
         ),
-        features: {
-            key: 'growing-teef',
-            name: 'Growing Teef',
-            snippet: 'Gain +1 Wealth at the end of every session.',
-        },
+        features: [
+            {
+                key: 'growing-teef',
+                name: 'Growing Teef',
+                snippet: 'Gain +1 Wealth at the end of every session.',
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -749,15 +751,17 @@ export const core = [
             'Considered \'un-Orky\' by other Clans, the Blood Axes use unorthodox \'taktiks\' like planning, strategy, and even trading with the Imperium to get better Wargear.',
             '[Clan]',
         ),
-        features: {
-            key: 'unorthodox-taktiks',
-            name: 'Unorthodox Taktiks',
-            snippet: '+Rank bonus dice to Leadership (Wil) and Stealth (A) Tests.',
-            modifications: [
-                { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1 },
-                { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1 },
-            ],
-        },
+        features: [
+            {
+                key: 'unorthodox-taktiks',
+                name: 'Unorthodox Taktiks',
+                snippet: '+Rank bonus dice to Leadership (Wil) and Stealth (A) Tests.',
+                modifications: [
+                    { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1 },
+                    { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1 },
+                ],
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -768,15 +772,17 @@ export const core = [
             'Scheming scavengers, the Deathskulls steal, loot, or scrounge whatever they can. Known to hoard, they \'trade\' and customise gear more frequently than other Clans.',
             '[Clan]',
         ),
-        features: {
-            key: 'scheming-scavengers',
-            name: 'Scheming Scavengers',
-            snippet: '+Rank bonus dice to Tech (Int) and Influence Tests.',
-            modifications: [
-                { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 1 },
-                { targetGroup: 'traits', targetValue: 'influence', modifier: 0, rank: 1 },
-            ],
-        },
+        features: [
+            {
+                key: 'scheming-scavengers',
+                name: 'Scheming Scavengers',
+                snippet: '+Rank bonus dice to Tech (Int) and Influence Tests.',
+                modifications: [
+                    { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 1 },
+                    { targetGroup: 'traits', targetValue: 'influence', modifier: 0, rank: 1 },
+                ],
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -787,14 +793,16 @@ export const core = [
             'Obsessed with speed, Evil Sunz revel in the roar of engines, the smell of burning promethium, and the feeling of going as fast as possible.',
             '[Clan]',
         ),
-        features: {
-            key: 'obsessed-with-speed',
-            name: 'Obsessed with Speed',
-            snippet: 'You gain +1 Speed, and +Rank bonus dice to all Tests whenever you are in a vehicle moving at top speed.',
-            modifications: [
-                { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
-            ],
-        },
+        features: [
+            {
+                key: 'obsessed-with-speed',
+                name: 'Obsessed with Speed',
+                snippet: 'You gain +1 Speed, and +Rank bonus dice to all Tests whenever you are in a vehicle moving at top speed.',
+                modifications: [
+                    { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
+                ],
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -805,11 +813,13 @@ export const core = [
             'Massive and multitudinous, Goffs example typical Ork warfare; all tough, large, loutish brutes looking for any excuse to charge headlong into battle in as big a mob as possible.',
             '[Clan]',
         ),
-        features: {
-            key: 'headlong-charge',
-            name: 'Headlong Charge',
-            snippet: '+Rank bonus dice to melee attack Tests when you Charge (p.189).',
-        },
+        features: [
+            {
+                key: 'headlong-charge',
+                name: 'Headlong Charge',
+                snippet: '+Rank bonus dice to melee attack Tests when you Charge (p.189).',
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -820,14 +830,16 @@ export const core = [
             'Deliberately primitive, the tribal Snakebites prefer their thick skin to crafted armour, proud of their ability to live off the land.',
             '[Clan]',
         ),
-        features: {
-            key: 'living-off-the-land',
-            name: 'Living off the Land',
-            snippet: '+Double Rank bonus dice to Survival (Wil) Tests.',
-            modifications: [
-                { targetGroup: 'skills', targetValue: 'survival', modifier: 0, rank: 2 },
-            ],
-        },
+        features: [
+            {
+                key: 'living-off-the-land',
+                name: 'Living off the Land',
+                snippet: '+Double Rank bonus dice to Survival (Wil) Tests.',
+                modifications: [
+                    { targetGroup: 'skills', targetValue: 'survival', modifier: 0, rank: 2 },
+                ],
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -838,11 +850,13 @@ export const core = [
             'The Sisters of Battle are the army of the Ecclesiarchy, and are split into different Orders each with their own traditions and strategies. The Order of Our Martyred Lady have perfected the application of purifying flame to cleanse and purge their enemies, whilst the Order of the Sanctified Shield of Enoch prefer to counterattack against heretics that crash against their unyielding defensive formations.',
             '[Order]',
         ),
-        features: {
-            key: 'pious-action',
-            name: 'Pious Action',
-            snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
-        },
+        features: [
+            {
+                key: 'pious-action',
+                name: 'Pious Action',
+                snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -853,11 +867,13 @@ export const core = [
             'Linguists and scholars, the Dialogus study and interpret ancient scriptures both holy and blasphemous. Experts in communication, they ensure the prayers and orders of the Sororitas are heard and decode messages in alien languages.',
             '[Order]',
         ),
-        features: {
-            key: 'pious-action',
-            name: 'Pious Action',
-            snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
-        },
+        features: [
+            {
+                key: 'pious-action',
+                name: 'Pious Action',
+                snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -868,11 +884,13 @@ export const core = [
             'Facilitating diplomatic alliances between Imperial nobles, the Famulous ensure the wheels of feudal society turn to benefit the Emperor. They act as undercover operatives whilst advising others, unravelling heretical plots in high society.',
             '[Order]',
         ),
-        features: {
-            key: 'pious-action',
-            name: 'Pious Action',
-            snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
-        },
+        features: [
+            {
+                key: 'pious-action',
+                name: 'Pious Action',
+                snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -883,11 +901,13 @@ export const core = [
             'Providing medical aid to all arms of the military save the Adeptus Astartes, Hospitallers heal the bodies and souls of their allies.',
             '[Order]',
         ),
-        features: {
-            key: 'pious-action',
-            name: 'Pious Action',
-            snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
-        },
+        features: [
+            {
+                key: 'pious-action',
+                name: 'Pious Action',
+                snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -898,11 +918,13 @@ export const core = [
             'Collaborating with the Missionarus Galaxia, the Sabine can transform a semi-heretical primitive world into a population that sings the praises of the Emperor. Their prophets permeate societies and privately preach the Emperor\'s holy word, inciting righteous uprisings.',
             '[Order]',
         ),
-        features: {
-            key: 'pious-action',
-            name: 'Pious Action',
-            snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
-        },
+        features: [
+            {
+                key: 'pious-action',
+                name: 'Pious Action',
+                snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
+            }
+        ],
     },
     {
         ...keywordBuilder(
@@ -913,11 +935,13 @@ export const core = [
             'Defenders, rescuers, and preservers of the holiest of Imperial relics, the Pronatus ensure hallowed artefacts do not fall into the foul hands of the enemy. They are known for their determination on crusades to retrieve ancient heirlooms.',
             '[Order]',
         ),
-        features: {
-            key: 'pious-action',
-            name: 'Pious Action',
-            snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
-        },
+        features: [
+            {
+                key: 'pious-action',
+                name: 'Pious Action',
+                snippet: 'When attempting an action associated with your order, the GM may grant you bonus dice.',
+            }
+        ],
     },
 
 ]
