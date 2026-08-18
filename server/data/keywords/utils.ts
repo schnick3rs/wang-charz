@@ -18,7 +18,7 @@ export function keywordBuilder(
         name: name.toLocaleUpperCase(),
         type,
         description,
-        parentKeyword,
+        parentKeyword: parentKeyword?.toLocaleUpperCase(),
     };
 }
 

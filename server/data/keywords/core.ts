@@ -1031,4 +1031,73 @@ export const core = [
             },
         ],
     },
+    {
+        ...keywordBuilder(
+            'core',
+            62,
+            'OTHER ORDOS',
+            '[ORDO]',
+            'Inquisitors are as varied in appearance, manner, and method as the worlds of the Imperium they strive to protect.',
+            '[ORDO]',
+        ),
+        features: [
+            {
+                key: 'unorthodox-methods',
+                name: 'Unorthodox Methods',
+                snippet: 'Choose one of the following Skills: You gain +Rank bonus dice to Tests with the selected Skill.',
+                options: [
+                    {
+                        name: 'Cunning',
+                        snippet: 'Gain +Rank bonus dice to Cunning Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.CUNNING, rank: 1}]
+                    },
+                    {
+                        name: 'Deception',
+                        snippet: 'Gain +Rank bonus dice to Deception Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.DECEPTION, rank: 1}]
+                    },
+                    {
+                        name: 'Insight',
+                        snippet: 'Gain +Rank bonus dice to Insight Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.INSIGHT, rank: 1}]
+                    },
+                    {
+                        name: 'Intimidation',
+                        snippet: 'Gain +Rank bonus dice to Intimidation Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.INTIMIDATION, rank: 1}]
+                    },
+                    {
+                        name: 'Persuasion',
+                        snippet: 'Gain +Rank bonus dice to Persuasion Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.PERSUASION, rank: 1}]
+                    },
+                    {
+                        name: 'Psychic Mastery',
+                        snippet: 'Gain +Rank bonus dice to Psychic Mastery Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.PSYCHIC_MASTERY, rank: 1}]
+                    },
+                    {
+                        name: 'Scholar',
+                        snippet: 'Gain +Rank bonus dice to Scholar Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.SCHOLAR, rank: 1}]
+                    },
+                    {
+                        name: 'Stealth',
+                        snippet: 'Gain +Rank bonus dice to Stealth Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.STEALTH, rank: 1}]
+                    },
+                    {
+                        name: 'Survival',
+                        snippet: 'Gain +Rank bonus dice to Survival Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.SURVIVAL, rank: 1}]
+                    },
+                    {
+                        name: 'Tech',
+                        snippet: 'Gain +Rank bonus dice to Tech Tests.',
+                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.TECH, rank: 1}]
+                    },
+                ],
+            },
+        ],
+    },
 ]
