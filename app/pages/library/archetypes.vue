@@ -22,7 +22,7 @@ const crumbs = ref<BreadcrumbItem[]>([
 ])
 
 const { data, pending } = await useAsyncData(
-    'archetypes',
+    'library-archetypes',
     (_nuxtApp, { signal }) => $fetch('/api/archetypes', { signal }),
 )
 

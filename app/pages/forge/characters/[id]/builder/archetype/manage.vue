@@ -70,11 +70,11 @@ const skills = computed(() => {
     <!-- Keywords -->
     <div v-if="archetype.keywords" class="mb-4">
       <strong class="mr-2">Keywords:</strong>
-      <span v-for="k in archetype.keywords" :key="k" class="text-error-800 font-semibold uppercase">{{k}}, </span>
+      <span v-for="k in archetype.keywords.filter((i) => !i.startsWith('['))" :key="k" class="text-error-800 font-semibold uppercase">{{k}}, </span>
     </div>
 
     <div v-if="archetype.keywords && keywords">
-      <div v-for="k in archetype.keywords" :key="k">
+      <div v-for="k in archetype.keywords.filter((i) => i.startsWith('['))" :key="k">
         <ForgeKeywordDetails :keyword-name="k"/>
       </div>
     </div>
@@ -82,54 +82,18 @@ const skills = computed(() => {
     <!-- features -->
     <template v-if="archetype.archetypeFeatures.length > 0">
 
-      <div class="mb-4">
+      <div class="mt-4 mb-4">
+        <h3 class="font-light text-sm">Archetype Abilities</h3>
+        <USeparator class="mb-2" />
 
         <div class="flex flex-col gap-2">
           <div v-for="feature in archetype.archetypeFeatures" :key="feature.name">
-            <strong>{{ feature.name }}</strong>
-            <div v-if="feature.description" v-html="feature.description" />
-            <div v-else><p>{{ feature.snippet}}</p></div>
-
-            <!-- an option to be selected is identified by <species-key>.<feature-key> fspg-kroot.kroot-mutations.x -->
-            <div v-if="feature.options" class="border-l-4 border-l-red-600  mt-2 pl-4 mb-4">
-              <USelect
-                v-model="selectedOptionKey"
-                :items="feature.options"
-                value-key="key"
-                label-key="name"
-                description-key="snippet"
-                class="w-full mb-2"
-                placeholder="Select Mutation..."
-                @change="selectedFeatureOption = ''"
-                @update:model-value="(data) => console.info(`update-model ${feature.key}`, data)"
-            />
-              <div v-if="selectedOptionKey" class="mb-2">
-                <p>{{ feature.options.find(i => i.key === selectedOptionKey)?.snippet }}</p>
-              </div>
-              <div v-if="selectedOptionKey && feature.options.find(i => i.key === selectedOptionKey)" class="mt-2">
-                <USelect
-                    v-model="selectedFeatureOption"
-                    :items="feature.options.find(i => i.key === selectedOptionKey)?.options"
-                    value-key="key"
-                    label-key="name"
-                    description-key="snippet"
-                    class="w-full mb-2"
-                    placeholder="Select Mutation..."
-                    @select="console.info('select')"
-                    @update:model-value="(data) => console.info('update-model', data)"
-                />
-                <div v-if="selectedFeatureOption" class="mb-2">
-                  <p>
-                    {{ feature.options.find(i => i.key === selectedOptionKey)?.options.find(i => i.key === selectedFeatureOption)?.snippet }}
-                  </p>
-                </div>
-              </div>
-            </div>
-
+            <ForgeFeatureDetails :feature="feature"></ForgeFeatureDetails>
           </div>
         </div>
       </div>
     </template>
+
   </div>
 </template>
 

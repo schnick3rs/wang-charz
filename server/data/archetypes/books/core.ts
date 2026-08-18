@@ -356,7 +356,7 @@ export const core = [
         ...archetype('core', 100,'Adeptus Astra Telephatica','Sanctioned Psyker',2,'Human'),
         ...cost(32, 10, 22, 0, 0),
         hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
-        keywords: keywords('Imperium,Adeptus Astra Telepathica,Psyker,Scholastica Psykana'),
+        keywords: keywords('Imperium,Adeptus Astra Telepathica,Psyker,SCHOLASTIA PSYKANA'),
         prerequisites: [
             reqAttribute(ATTRIBUTES.WILLPOWER, 4),
             reqSkill(SKILLS.PSYCHIC_MASTERY, 1),
@@ -1036,32 +1036,34 @@ export const core = [
     {
         ...archetype('core', 113,'Chaos','Chaos Space Marine',3,'Adeptus Astartes'),
         ...costz(257,[
-            reqAttribute(ATTRIBUTES.STRENGTH, 4), // 20
-            reqAttribute(ATTRIBUTES.TOUGHNESS, 5), // 20
-            reqAttribute(ATTRIBUTES.AGILITY, 5), // 20
-            reqAttribute(ATTRIBUTES.INITIATIVE, 5), // 20
-            reqAttribute(ATTRIBUTES.WILLPOWER, 3), // 10
-            reqAttribute(ATTRIBUTES.INTELLECT, 3), // 10
-            reqSkill(SKILLS.ATHLETICS, 3), // 12
-            reqSkill(SKILLS.AWARENESS, 3), // 12
-            reqSkill(SKILLS.BALLISTIC_SKILL, 5), // 12
-            reqSkill(SKILLS.LEADERSHIP, 1), // 12
-            reqSkill(SKILLS.SCHOLAR, 1), // 12
-            reqSkill(SKILLS.STEALTH, 3), // 12
-            reqSkill(SKILLS.SURVIVAL, 1), // 12
-            reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
+            reqAttribute(ATTRIBUTES.STRENGTH, 4),
+            reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            reqAttribute(ATTRIBUTES.AGILITY, 5),
+            reqAttribute(ATTRIBUTES.INITIATIVE, 5),
+            reqAttribute(ATTRIBUTES.WILLPOWER, 3),
+            reqAttribute(ATTRIBUTES.INTELLECT, 3),
+            reqSkill(SKILLS.ATHLETICS, 3),
+            reqSkill(SKILLS.AWARENESS, 3),
+            reqSkill(SKILLS.BALLISTIC_SKILL, 5),
+            reqSkill(SKILLS.LEADERSHIP, 1),
+            reqSkill(SKILLS.SCHOLAR, 1),
+            reqSkill(SKILLS.STEALTH, 3),
+            reqSkill(SKILLS.SURVIVAL, 1),
+            reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A dark warrior, veteran of a thousand years.',
-        keywords: keywords('Imperium,Adeptus Astartes,[Legion],Chaos,[Mark of Chaos],Heretic Astartes'),
+        keywords: keywords('Imperium,Adeptus Astartes,Chaos,[Mark of Chaos],Heretic Astartes,[Legion]'),
         alerts: [
             { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
         ],
         archetypeFeatures: [
             {
+                key: 'tactical-versatility',
                 name: 'Tactical Versatility',
                 snippet: 'Your training has prepared you for any circumstance. When you make a Critical Hit you may roll twice on the Critical Hit Table and choose either result.',
             },
             {
+                key: 'corruption',
                 name: 'Corruption',
                 snippet: 'You gain 1d3 x3 corruption.',
                 selected: [''],

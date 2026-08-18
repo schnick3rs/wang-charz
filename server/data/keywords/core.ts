@@ -728,6 +728,36 @@ export const core = [
     {
         ...keywordBuilder(
             'core',
+            74,
+            'Salamanders',
+            '[Chapter]',
+            'Born of fire, the burning inferno of hope suffuses the soul of every Astartes of the Salamanders Chapter. Their indoctrination differs from most Astartes, placing utmost importance on education in craftsmanship, honour, and above all the protection of the citizens of the Imperium. Following the traditions laid down by Primarch Vulkan, every Space Marine crafts his own armaments and armour.',
+            '[Chapter]',
+        ),
+    },
+    {
+        ...keywordBuilder(
+            'core',
+            74,
+            'Space Wolves',
+            '[Chapter]',
+            'Courageous and savage, the Space Wolves embrace the bold and brash warrior traditions of their homeworld Fenris. Inheriting the fierce charisma and aggressive mindset of their Primarch Leman Russ, the Space Wolves place great value in their ritualistic traditions, hunting glory in battle to build a heroic legacy. Though utterly loyal to the Imperium they have little taste for its conservative strictures, preferring the feral practices of their icy homeworld.',
+            '[Chapter]',
+        ),
+    },
+    {
+        ...keywordBuilder(
+            'core',
+            74,
+            'Ultramarines',
+            '[Chapter]',
+            'Disciplined and proud, the courage of the Ultramarines has been proven repeatedly throughout the tumultuous history of the Imperium. Roboute Guilliman, Primarch of the Ultramarines, authored the Codex Astartes; his Chapter exemplifies its strictures, waging war with tactical flexibility and strategic restraint.',
+            '[Chapter]',
+        ),
+    },
+    {
+        ...keywordBuilder(
+            'core',
             82,
             'Bad Moons',
             '[Clan]',
@@ -1100,4 +1130,5 @@ export const core = [
             },
         ],
     },
+    // SELF MADE INJECTED LEGOINS
 ]

@@ -114,6 +114,7 @@ export const core = [
                             { targetGroup: 'psychicDisciplines', targetValue: 'Divination' },
                             { targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' },
                         ],
+                        // choice: { type: 'psychicDisciplines' }
                         options: [
                             {
                                 key: 'core-biomancy',
@@ -162,10 +163,12 @@ export const core = [
         ],
         speciesFeatures: [
             {
+                key: 'orky',
                 name: 'Orky',
                 snippet: '+1 bonus dice to Intimidation Tests.',
             },
             {
+                key: 'bigger-is-better',
                 name: 'Bigger is Better',
                 snippet: 'You calculate Influence using Strength instead of Fellowship.',
             },

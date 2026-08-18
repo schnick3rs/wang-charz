@@ -96,7 +96,7 @@ function updateAndShowArchetypePreview(species: Archetype) {
       </template>
     </UModal>
 
-    <UCard :ui="{ body: 'flex flex-col gap-2 p-0 sm:p-0 ' }" class="mt-4">
+    <UCard :ui="{ body: 'flex flex-col gap-2 p-0 sm:p-0' }" class="mt-4">
       <div
           v-for="item in filteredArchetypes"
           :key="item.key"
