@@ -1,5 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../utils";
-
+import {archetype, costz, keywords, reqAttribute, reqSkill, wargearz} from "../utils";
 
 
 export const tnh = [
@@ -19,7 +18,7 @@ export const tnh = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A silent sister.',
-        keywords: 'Imperium,Anathema Psykana,[Enclave]',
+        keywords: keywords('Imperium,Anathema Psykana,[Enclave]'),
         archetypeFeatures: [
             {
                 name: 'Master of Warfare',

@@ -1,6 +1,5 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
 import {aaoaPrimarisAstartes} from "../../../../data/archetypes/books/apocrypha/apocryphaPrimaris";
-
 
 
 export const aaoaAdeptusAstartes = [
@@ -22,7 +21,7 @@ export const aaoaAdeptusAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A deadly shock trooper, taking the fight to the enemy.',
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -51,7 +50,7 @@ export const aaoaAdeptusAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A ruthless heavy weapons specialist, delivering death at a distance.',
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -100,7 +99,7 @@ export const aaoaAdeptusAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'A member of a secretive order of elite psychic daemon-hunters',
-        keywords: 'Imperium,Adeptus Astartes,Grey Knights,Psyker,Inquisition, Ordo Malleus',
+        keywords: keywords('Imperium,Adeptus Astartes,Grey Knights,Psyker,Inquisition, Ordo Malleus'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -152,7 +151,7 @@ export const aaoaAdeptusAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A warrior-healer, guardian of his brothers’ lives.',
-        keywords: 'Imperium, Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium, Adeptus Astartes,[Chapter]'),
         influence: 2,
         archetypeFeatures: [
             simpleAbility('Guard Thy Brethren: Whenever you succeed at a Medicae test upon a Dying ally with the ADEPTUS ASTARTES keyword, gain 1 Wrath. In addition, you gain +Rank to Resolve and Determination while you can see or hear one or more Dying Adeptus Astartes allies.'),
@@ -178,7 +177,7 @@ export const aaoaAdeptusAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
-        keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus',
+        keywords: keywords('Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus'),
         archetypeFeatures: [
             simpleAbility('Rite of Repair: You receive +Double Rank to Tech tests to repair damaged machinery. All Tech tests you make take half the standard time.'),
         ],
@@ -235,7 +234,7 @@ export const aaoaAdeptusAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A devout warrior, who tends to the spirits of his comrades.',
-        keywords: 'Imperium,Adeptus Astartes,[Chapter],Priest',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter],Priest'),
         influence: 3,
         archetypeFeatures: [
             simpleAbility('Spiritual Leaders', 'You, and all allies with the IMPERIUM keyword within 15+Rank metres add +Rank to Resolve. This increases to +Double Rank if they share your [CHAPTER] keyword.'),
@@ -261,7 +260,7 @@ export const aaoaAdeptusAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A warrior-sage of the Adeptus Astartes.',
-        keywords: 'Imperium, Adeptus Astartes, [Chapter], Psyker',
+        keywords: keywords('Imperium, Adeptus Astartes, [Chapter], Psyker'),
         influence: 2,
         archetypeFeatures: [
             {

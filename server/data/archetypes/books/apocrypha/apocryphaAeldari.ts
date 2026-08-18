@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
 
 
 export const aaoaAeldari = [
@@ -12,7 +12,7 @@ export const aaoaAeldari = [
             // OR reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A Cratsworld Last Line of Defence.',
-        keywords: 'Aeldari, Asuryani, [Craftworld]',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld]'),
         archetypeFeatures: [
             {
                 name: 'The Last Line',
@@ -32,7 +32,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.TECH, 2),
         ]),
         hint: 'Shapers of Bone.',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Psyker',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Psyker'),
         archetypeFeatures: [
             {
                 name: 'Path of the Shaper',
@@ -82,7 +82,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.AWARENESS, 3),
         ]),
         hint: 'Aspect warriors, merciless and deadly at range.',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Aspect Warrior'),
         archetypeFeatures: [
             simpleAbility('Inescapable Aim: You may reroll up to Double Rank dice on any Ranged Attack you make.'),
         ],
@@ -100,7 +100,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'Aspect warriors, skilled in the arts of aggressive defence.',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Aspect Warrior'),
         archetypeFeatures: [
             simpleAbility('Defensive Tactics: You add +Rank to your Defence. In addition, when an enemy Charges you, you may make a ranged attack against them as a Reflexive Action, adding +2 to the DN of the attack. This attack is resolved before the enemy moves.'),
         ],
@@ -118,7 +118,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.TECH, 3),
         ]),
         hint: 'Aspect warriors, turning all in their path to molten ruin.',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Aspect Warrior'),
         modifications: [],
         archetypeFeatures: [
             simpleAbility('Assured Destruction: When you attack a vehicle, structure, or monstrous creature, add +Rank ED to the attack. In addition, add +Rank to your resilience against attacks with the FIRE or MELTA keywords.'),
@@ -137,7 +137,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'Aspect warriors, swift shock troops whose shriek freezes the hearts of their foes.',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Aspect Warrior'),
         archetypeFeatures: [
             simpleAbility('Swift Death: When you Run, Charge, or Sprint, increase your Speed by +Rank. In addition, you may use Agility instead of Strength for your Athletics skill tests.'),
         ],
@@ -155,7 +155,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'Aspect warriors, jetbike-mounted lancers who slay the mightiest foes',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Aspect Warrior'),
         archetypeFeatures: [
             simpleAbility('Ride the Wind: You may reroll Double Rank dice on any Pilot test you make when operating an Aeldari Jetbike'),
         ],
@@ -173,7 +173,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'Aspect warriors, stealthy killers who strike with unseen power.',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Aspect Warrior'),
         archetypeFeatures: [
             simpleAbility('Hunt in the Shadows: You may reroll up to Double Rank dice when making a Stealth test. In addition, you add +Rank bonus dice when you make a Surprise Attack.'),
         ],
@@ -189,7 +189,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 5),
         ]),
         hint: 'Aspect warriors, flitting across the skies to deal vengeance.',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Aspect Warrior'),
         archetypeFeatures: [
             simpleAbility('Skyleap: So long as you are able to Fly, you may Fall Back as a Simple action, rather than a Combat Action. In addition, when you take the Full Defence action, you immediately move twice your Flying Speed (instead of halving your Speed) away from the enemy and add +Rank bonus dice to the Initiative test to increase your Defence. Naturally, these abilities require that you be able to fly, and have room to do so.'),
         ],
@@ -207,7 +207,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.TECH, 2),
         ]),
         hint: 'Aspect warriors, appearing from nowhere to cut down their prey.',
-        keywords: 'Aeldari, Asuryani, [Craftworld], Aspect Warrior',
+        keywords: keywords('Aeldari, Asuryani, [Craftworld], Aspect Warrior'),
         archetypeFeatures: [
             simpleAbility('Flickerjump: As a Reflexive Action when a ranged attack is made against you, you may add +Double Rank to your Defence, as you use your Warp Jump Generator to flicker in and out of reality.'),
         ],
@@ -229,7 +229,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'You are a performer upon a galactic stage, playing your part in a performance that shapes worlds and lives. Your existence is enigma, but there can be no doubting your skill or your lethality.',
-        keywords: 'Aeldari, Harlequin, [Masque]',
+        keywords: keywords('Aeldari, Harlequin, [Masque]'),
         archetypeFeatures: [
             {
                 name: 'We Dance the Dance of Death',
@@ -258,7 +258,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'Your soul is forfeit, for you portray the Great Enemy in the grimmest of performances, and none can do so without cost. But you pay that price willingly, to defend your people from the horror that awaits you.',
-        keywords: 'Aeldari, Harlequin, [Masque]',
+        keywords: keywords('Aeldari, Harlequin, [Masque]'),
         archetypeFeatures: [
             {
                 name: 'We Dance the Dance of Death',
@@ -342,7 +342,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'You personify Fate, and all who look upon your mirrored face see something different; what was, what might be, what could have been, or what must be.',
-        keywords: 'Aeldari, Harlequin, [Masque], Psyker',
+        keywords: keywords('Aeldari, Harlequin, [Masque], Psyker'),
         archetypeFeatures: [
             {
                 ...simpleAbility('We Dance the Dance of Death', 'You add +Rank to Speed, and enemies may never attempt a Reflexive Attack against you when you move out of Engagement.'),
@@ -409,7 +409,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'Upon the stage and the battlefield alike, you portray Death itself—aloof, bold, inescapable, cruel, and often ironic.',
-        keywords: 'Aeldari, Harlequin, [Masque]',
+        keywords: keywords('Aeldari, Harlequin, [Masque]'),
         archetypeFeatures: [
             {
                 name: 'We Dance the Dance of Death',
@@ -468,7 +468,7 @@ export const aaoaAeldari = [
             reqSkill(SKILLS.WEAPON_SKILL, 6),
         ]),
         hint: 'Your soul is forfeit, for you portray the Great Enemy in the grimmest of performances, and none can do so without cost. But you pay that price willingly, to defend your people from the horror that awaits you.',
-        keywords: 'Aeldari, Harlequin, [Masque]',
+        keywords: keywords('Aeldari, Harlequin, [Masque]'),
         archetypeFeatures: [
             {
                 name: 'Impossible Grace',
@@ -529,7 +529,7 @@ export const aaoaAeldari = [
         ]),
         factionKey: 'aaoa-drukhari',
         hint: 'A dark hunter from the noble houses.',
-        keywords: 'Aeldari,Drukhari,[Cabal]',
+        keywords: keywords('Aeldari,Drukhari,[Cabal]'),
         archetypeFeatures: [
             {
                 name: 'Tormentor',
@@ -551,7 +551,7 @@ export const aaoaAeldari = [
         ]),
         factionKey: 'aaoa-drukhari',
         hint: 'A deadly cult gladiator.',
-        keywords: 'Aeldari,Drukhari,[Cult]',
+        keywords: keywords('Aeldari,Drukhari,[Cult]'),
         archetypeFeatures: [
             {
                 name: 'Hekatarii Prowess',
@@ -572,7 +572,7 @@ export const aaoaAeldari = [
         ]),
         factionKey: 'aaoa-drukhari',
         hint: 'A deadly cult gladiator.',
-        keywords: 'Drukhari',
+        keywords: keywords('Drukhari'),
         archetypeFeatures: [
             {
                 name: 'Lethal Precision',

@@ -126,7 +126,7 @@ export const ArchetypeSchema = z.object({
   species: z.array(SpeciesRefSchema),
   stub: z.boolean().optional(),
   hint: z.string().optional(),
-  keywords: z.string().optional(),
+  keywords: z.array(z.string()).default([]),
   influence: z.number().default(0),
   prerequisites: z.array(PrerequisiteSchema).default([]),
   prerequisiteText: z.string().optional(),

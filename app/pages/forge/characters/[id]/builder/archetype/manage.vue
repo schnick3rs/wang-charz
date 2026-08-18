@@ -17,6 +17,12 @@ const { data: archetype } = await useAsyncData(
 const selectedOptionKey = ref<string>()
 const selectedFeatureOption = ref<string>()
 
+const attributes = computed(() => {
+  return archetype.value?.prerequisites.filter(pre => pre.group === 'attributes').map(pre => `${pre.value} ${pre.threshold}`).join(', ');
+})
+const skills = computed(() => {
+  return archetype.value?.prerequisites.filter(pre => pre.group === 'skills').map(pre => `${pre.value} ${pre.threshold}`).join(', ');
+})
 </script>
 
 <template>
@@ -43,7 +49,7 @@ const selectedFeatureOption = ref<string>()
       </UFieldGroup>
       <UFieldGroup>
         <UBadge color="info" variant="subtle">Species</UBadge>
-        <UBadge color="info">{{ archetype.species.map(i => i.name).join(', ') }}</UBadge>
+        <UBadge color="info">{{ archetype.species.map(i => i.name).join(' / ') }}</UBadge>
       </UFieldGroup>
       <UFieldGroup>
         <UBadge color="info" variant="subtle">XP Cost</UBadge>
@@ -53,10 +59,13 @@ const selectedFeatureOption = ref<string>()
 
     <USeparator class="mb-2"/>
 
+    <div v-if="attributes" class="mb-1"><strong>Attributes: </strong><span>{{ attributes }}</span></div>
+    <div v-if="skills" class="mb-1"><strong>Skills: </strong><span>{{ skills }}</span></div>
+
     <!-- Keywords -->
     <div class="mb-2">
       <strong class="mr-2">Keywords:</strong>
-      <span v-for="k in archetype.keywords.split(',')" :key="k" class="text-error-800 font-semibold uppercase">{{k}}, </span>
+      <span v-for="k in archetype.keywords" :key="k" class="text-error-800 font-semibold uppercase">{{k}}, </span>
     </div>
 
     <!-- features -->

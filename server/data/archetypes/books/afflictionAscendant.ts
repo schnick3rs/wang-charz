@@ -1,5 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../utils";
-
+import {archetype, costz, keywords, reqAttribute, reqSkill, wargearz} from "../utils";
 
 
 export const afas = [
@@ -22,7 +21,7 @@ export const afas = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'A veteran of centuries of war.',
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         alerts: [
             { type: 'info', text: 'This archetype has multiple weapon loadouts. See Affliction Ascendet, pg. 25.', },
         ],

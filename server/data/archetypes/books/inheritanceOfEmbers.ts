@@ -1,4 +1,4 @@
-import {archetype, cost, costz, reqAttribute, reqSkill, wargearz} from "../utils";
+import {archetype, cost, costz, keywords, reqAttribute, reqSkill, wargearz} from "../utils";
 
 export const aioe = [
     // Asuryani
@@ -6,7 +6,7 @@ export const aioe = [
         ...archetype('aioe', 22,'Asuryani','Guardian',2,'aioe/Aeldari'),
         ...cost(42,10,32, 0, 0),
         hint: 'Militia but with pointy ears.',
-        keywords: 'Aeldari,Asuryani,[Craftworld]',
+        keywords: keywords('Aeldari,Asuryani,[Craftworld]'),
         prerequisites: [
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqAttribute(ATTRIBUTES.INITIATIVE, 3),
@@ -28,7 +28,7 @@ export const aioe = [
         ...archetype('aioe', 23,'Asuryani','Ranger',2,'aioe/Aeldari'),
         ...cost(34,10,24, 0, 0),
         hint: 'A wanderer, a scout, and tracker for the good of their people.',
-        keywords: 'Aeldari,Asuryani,[Craftworld]',
+        keywords: keywords('Aeldari,Asuryani,[Craftworld]'),
         prerequisites: [
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqSkill(SKILLS.BALLISTIC_SKILL, 2),
@@ -53,7 +53,7 @@ export const aioe = [
         ...archetype('aioe', 31,'Asuryani','Warlock',3,'aioe/Aeldari'),
         ...cost(56,20,36, 0, 0),
         hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
-        keywords: 'Aeldari,Asuryani,Psyker,[Craftworld]',
+        keywords: keywords('Aeldari,Asuryani,Psyker,[Craftworld]'),
         prerequisites: [
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqAttribute(ATTRIBUTES.WILLPOWER, 4),
@@ -105,7 +105,7 @@ export const aioe = [
         ...archetype('aioe', 32,'Asuryani','Wraithguard',4,'Wraith Construct/aioe-wraith-construct'),
         ...cost(164,30,134, 0, 0),
         hint: 'A guardian of bone and soul',
-        keywords: 'Aeldari,Asuryan,Wraith-Construct,[Craftworld]',
+        keywords: keywords('Aeldari,Asuryan,Wraith-Construct,[Craftworld]'),
         prerequisites: [
             reqAttribute(ATTRIBUTES.STRENGTH, 5),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 6),
@@ -138,7 +138,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A power-hungry killer with dark ambitions.',
-        keywords: 'Aeldari,Drukhari,[Kabal]',
+        keywords: keywords('Aeldari,Drukhari,[Kabal]'),
         archetypeFeatures: [
             {
                 name: 'Prey on the Weak',
@@ -160,7 +160,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A lightning-fast slayer and gladiatorial performer.',
-        keywords: 'Aeldari,Drukhari,[Wych Cult]',
+        keywords: keywords('Aeldari,Drukhari,[Wych Cult]'),
         archetypeFeatures: [
             {
                 name: 'Lightning Dodge',
@@ -183,7 +183,7 @@ export const aioe = [
             reqSkill(SKILLS.PILOT, 2),
         ]),
         hint: 'An adrenaline junkie and anarchist street racer.',
-        keywords: 'Aeldari,Drukhari,[Wych Cult]',
+        keywords: keywords('Aeldari,Drukhari,[Wych Cult]'),
         archetypeFeatures: [
             {
                 name: 'Hit and Run',
@@ -213,7 +213,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A commander of the deadliest animals in the galaxy.',
-        keywords: 'Aeldari,Drukhari,[Wych Cult]',
+        keywords: keywords('Aeldari,Drukhari,[Wych Cult]'),
         archetypeFeatures: [
             {
                 name: 'Beast Handler',
@@ -240,7 +240,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A formidable disciple of an elite warrior creed.',
-        keywords: 'Aeldari,Drukhari,Blades for Hire',
+        keywords: keywords('Aeldari,Drukhari,Blades for Hire'),
         archetypeFeatures: [
             {
                 name: 'Lethal Precision',
@@ -265,7 +265,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A formidable disciple of an elite warrior creed.',
-        keywords: 'Aeldari,Drukhari,Blades for Hire',
+        keywords: keywords('Aeldari,Drukhari,Blades for Hire'),
         archetypeFeatures: [
             {
                 name: 'Shadow Resilience',
@@ -302,7 +302,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A formidable disciple of an elite warrior creed.',
-        keywords: 'Aeldari,Drukhari,Blades for Hire',
+        keywords: keywords('Aeldari,Drukhari,Blades for Hire'),
         archetypeFeatures: [
             {
                 name: 'Surgerieal Wings',
@@ -341,7 +341,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A master of a warrior Kabal, seeking bounties in realspace.',
-        keywords: 'Aeldari,Drukhari,[Kabal]',
+        keywords: keywords('Aeldari,Drukhari,[Kabal]'),
         archetypeFeatures: [
             {
                 name: 'Overlord',
@@ -375,7 +375,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A warrior-artist serving the Laughing god (lol).',
-        keywords: 'Aeldari,Harleqin,[Masque]',
+        keywords: keywords('Aeldari,Harleqin,[Masque]'),
         archetypeFeatures: [
             {
                 name: 'War Dancer',
@@ -407,7 +407,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A masked killer with a heavy weapon.',
-        keywords: 'Aeldari,Harleqin,[Masque]',
+        keywords: keywords('Aeldari,Harleqin,[Masque]'),
         archetypeFeatures: [
             {
                 name: 'Death Is Not Enough ',
@@ -435,7 +435,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A recent recruit to a Corsair Fleet.',
-        keywords: 'Aeldari,Anhrathe,[Coterie]',
+        keywords: keywords('Aeldari,Anhrathe,[Coterie]'),
         archetypeFeatures: [
             {
                 name: 'Raiders of the Void',
@@ -471,7 +471,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A hardened veteran of the pirating profession.',
-        keywords: 'Aeldari,Anhrathe,[Coterie]',
+        keywords: keywords('Aeldari,Anhrathe,[Coterie]'),
         archetypeFeatures: [
             {
                 name: 'Wrath of the Stars ',
@@ -497,7 +497,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: 'A powerful psyker, wielding devastating energies.',
-        keywords: 'Aeldari,Anhrathe,[Coterie],Psyker',
+        keywords: keywords('Aeldari,Anhrathe,[Coterie],Psyker'),
         archetypeFeatures: [
             {
                 name: 'Void Dreamer',
@@ -554,7 +554,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A veteran Corsair, inspiring those in your command.',
-        keywords: 'Aeldari,Anhrathe,[Coterie]',
+        keywords: keywords('Aeldari,Anhrathe,[Coterie]'),
         archetypeFeatures: [
             {
                 name: 'Captain of the Stars',
@@ -594,7 +594,7 @@ export const aioe = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A leader of a Corsair fleet, strategic and ruthless.',
-        keywords: 'Aeldari,Anhrathe,[Coterie]',
+        keywords: keywords('Aeldari,Anhrathe,[Coterie]'),
         archetypeFeatures: [
             {
                 name: 'Lord of the Galaxy',

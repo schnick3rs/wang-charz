@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility} from "../../utils";
 
 
 export const aaoaAdeptaSororitas = [
@@ -12,7 +12,7 @@ export const aaoaAdeptaSororitas = [
             reqSkill(SKILLS.SCHOLAR, 1),
         ]),
         hint: 'A devout scholar of language, ensuring that the Emperor’s Word is understood by all.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -44,7 +44,7 @@ export const aaoaAdeptaSororitas = [
             reqSkill(SKILLS.PERSUASION, 1),
         ]),
         hint: 'A pious advisor to those of noble birth and ancient bloodlines.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -81,7 +81,7 @@ export const aaoaAdeptaSororitas = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
             reqSkill(SKILLS.PILOT, 4),
         ],
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -117,7 +117,7 @@ export const aaoaAdeptaSororitas = [
             reqSkill(SKILLS.SCHOLAR, 2),
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ],
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         influence: -2,
         archetypeFeatures: [
             {

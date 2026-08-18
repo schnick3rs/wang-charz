@@ -2,6 +2,7 @@ import {
     addModifier,
     archetype,
     costz,
+    keywords,
     reqAttribute,
     reqSkill,
     simpleAbility,
@@ -57,7 +58,7 @@ const teaRep = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 4),
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ],
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -88,7 +89,7 @@ const teaRep = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ],
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -122,7 +123,7 @@ const teaRep = [
             reqSkill(SKILLS.TECH, 4),
             reqSkill(SKILLS.PILOT, 3),
         ],
-        keywords: 'Imperium,Adeptus Astartes,Adeptus Mechanicus,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Adeptus Mechanicus,[Chapter]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -161,7 +162,7 @@ const teaRep = [
             reqSkill(SKILLS.MEDICAE, 4),
             reqSkill(SKILLS.SCHOLAR, 3),
         ],
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -202,7 +203,7 @@ const teaRep = [
             reqSkill(SKILLS.PSYCHIC_MASTERY, 4),
             reqSkill(SKILLS.SCHOLAR, 4),
         ],
-        keywords: 'Imperium,Adeptus Astartes,Psyker,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Psyker,[Chapter]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -282,7 +283,7 @@ const togRep = [
             reqSkill(SKILLS.PILOT, 1),
         ]),
         hint: 'A corrupted thug for lightning strikes',
-        keywords: '[Any],Chaos,[Mark of Chaos]',
+        keywords: keywords('[Any],Chaos,[Mark of Chaos]'),
         archetypeFeatures: [
             {
                 ...simpleAbility('Take Everything!', 'The Raider gains +Rank to all Pilot tests. They also begin each game session with one additional Reload.'),
@@ -305,7 +306,7 @@ const togRep = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A champion for the dark gods',
-        keywords: 'Chaos,Heretic,[Mark of Chaos]',
+        keywords: keywords('Chaos,Heretic,[Mark of Chaos]'),
         archetypeFeatures: [
             {
                 ...simpleAbility('Favour of the Gods', 'You start each session with an additional point of Wrath. You also gain a Wrath point when you kill a creature with the IMPERIUM Keyword.'),
@@ -327,7 +328,7 @@ const togRep = [
             reqSkill(SKILLS.SCHOLAR, 2),
         ]),
         hint: 'A demagoge of the forbidden words',
-        keywords: 'Chaos,Heretic,[Mark of Chaos]',
+        keywords: keywords('Chaos,Heretic,[Mark of Chaos]'),
         archetypeFeatures: [
             {
                 ...simpleAbility('Demagogue', 'You gain +Rank on all Leadership and Persuasion tests.'),
@@ -361,7 +362,7 @@ const togRep = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A bloated harbinger of plagues',
-        keywords: 'Chaos,Heretic Astartes,[Legion],[Nurgle]',
+        keywords: keywords('Chaos,Heretic Astartes,[Legion],[Nurgle]'),
         archetypeFeatures: [
             {
                 ...simpleAbility('Abnormal Physiology', 'The marine is immune to all diseases, poisons, and automatically passes any test that would case FEAR. You also gain +Rank bonus when using Intimidation or any effect that instills FEAR.'),
@@ -394,7 +395,7 @@ const togRep = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A raging berserker in search for worthy prey',
-        keywords: 'Chaos,Heretic Astartes,[Legion],[Khorne]',
+        keywords: keywords('Chaos,Heretic Astartes,[Legion],[Khorne]'),
         archetypeFeatures: [
             {
                 ...simpleAbility('More Blood!', 'Increase the berserkers speed by 2 when they charge. You do not suffer a penalty when wounded and instead gain +Rank bonus to all Weapon Skill and Resolve tests'),
@@ -427,7 +428,7 @@ const togRep = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A sound addicted follower of slaanesh',
-        keywords: 'Chaos,Heretic Astartes,[Legion],[Slaanesh]',
+        keywords: keywords('Chaos,Heretic Astartes,[Legion],[Slaanesh]'),
         archetypeFeatures: [
             {
                 ...simpleAbility('New Sensations', 'The Gamemaster must spend 2 Ruin o Seize the initative while you are in the necounter. In Addition, once per combat encounter the Noise Marine may seize the initiative without spending a point of Glory.'),
@@ -457,7 +458,7 @@ const togRep = [
             reqSkill(SKILLS.PSYCHIC_MASTERY, 3),
         ]),
         hint: 'A weaver of the corrupted warp magic',
-        keywords: 'Chaos,Heretic Astartes,[Legion],[Mark of Chaos],Psyker',
+        keywords: keywords('Chaos,Heretic Astartes,[Legion],[Mark of Chaos],Psyker'),
         archetypeFeatures: [
             {
                 ...simpleAbility('Arcane Secrets', 'The Character gains the PSYKER keyword and starts the game with one minor Psychic Power and Smite. When performing a Ritual they may reroll a number of failed dice equal to Rank. Complications cannot be rerolled. If they already posses the PSYKER keyword, the start with an additional minor power.'),
@@ -509,7 +510,7 @@ const lotnRep = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 4),
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ],
-        keywords: 'Necron,[Dynasty]',
+        keywords: keywords('Necron,[Dynasty]'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -542,7 +543,7 @@ const lotnRep = [
             reqSkill(SKILLS.STEALTH, 4),
             reqSkill(SKILLS.AWARENESS, 3),
         ],
-        keywords: 'Necron,[Dynasty]',
+        keywords: keywords('Necron,[Dynasty]'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -575,7 +576,7 @@ const lotnRep = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 4),
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ],
-        keywords: 'Necron,[Dynasty]',
+        keywords: keywords('Necron,[Dynasty]'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -606,7 +607,7 @@ const lotnRep = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
             reqSkill(SKILLS.AWARENESS, 4),
         ],
-        keywords: 'Necron,[Dynasty]',
+        keywords: keywords('Necron,[Dynasty]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -644,7 +645,7 @@ const lotnRep = [
             reqSkill(SKILLS.SCHOLAR, 5),
             reqSkill(SKILLS.PERSUASION, 3),
         ],
-        keywords: 'Necron, Triarch',
+        keywords: keywords('Necron, Triarch'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -681,7 +682,7 @@ const lotnRep = [
             reqSkill(SKILLS.LEADERSHIP, 5),
             reqSkill(SKILLS.PERSUASION, 3),
         ],
-        keywords: 'Necron,[Dynasty]',
+        keywords: keywords('Necron,[Dynasty]'),
         influence: 3,
         archetypeFeatures: [
             {
@@ -715,7 +716,7 @@ const lotnRep = [
             reqSkill(SKILLS.TECH, 5),
             reqSkill(SKILLS.SCHOLAR, 4),
         ],
-        keywords: 'Necron,[Dynasty]',
+        keywords: keywords('Necron,[Dynasty]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -745,7 +746,7 @@ const lotnRep = [
             reqSkill(SKILLS.LEADERSHIP, 5),
             reqSkill(SKILLS.PERSUASION, 4),
         ],
-        keywords: 'Necron,[Dynasty]',
+        keywords: keywords('Necron,[Dynasty]'),
         influence: 3,
         archetypeFeatures: [
             {
@@ -780,7 +781,7 @@ const paxRep = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
             reqSkill(SKILLS.INTIMIDATION, 2),
         ],
-        keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
+        keywords: keywords('Imperium,Adeptus Arbites,[Predict],Military'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -832,7 +833,7 @@ const paxRep = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 2),
             reqSkill(SKILLS.INTIMIDATION, 3),
         ],
-        keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
+        keywords: keywords('Imperium,Adeptus Arbites,[Predict],Military'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -887,7 +888,7 @@ const paxRep = [
             reqSkill(SKILLS.SURVIVAL, 2),
             reqSkill(SKILLS.STEALTH, 2),
         ],
-        keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
+        keywords: keywords('Imperium,Adeptus Arbites,[Predict],Military'),
         influence: 3,
         archetypeFeatures: [
             {
@@ -933,7 +934,7 @@ const paxRep = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 2),
             reqSkill(SKILLS.INTIMIDATION, 4),
         ],
-        keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
+        keywords: keywords('Imperium,Adeptus Arbites,[Predict],Military'),
         influence: 3,
         archetypeFeatures: [
             {
@@ -991,7 +992,7 @@ const paxRep = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 2),
             reqSkill(SKILLS.INTIMIDATION, 5),
         ],
-        keywords: 'Imperium,Adeptus Arbites,[Predict],Military',
+        keywords: keywords('Imperium,Adeptus Arbites,[Predict],Military'),
         influence: 3,
         archetypeFeatures: [
             {
@@ -1089,7 +1090,7 @@ const paxRep = [
         hint: 'An inexperienced youth, eager for chance to prove themselves.',
         prerequisites: [],
         prerequisiteText: 'The respective <Gang> Skill at (1).',
-        keywords: 'Imperium,Scum,[Gang],Outcast',
+        keywords: keywords('Imperium,Scum,[Gang],Outcast'),
         influence: -1,
         archetypeFeatures: [
             {
@@ -1139,7 +1140,7 @@ const paxRep = [
             reqSkill(SKILLS.CUNNING, 1),
         ],
         prerequisiteText: 'The respective <Gang> Skill at (3).',
-        keywords: 'Imperium,Scum,[Gang],Outcast',
+        keywords: keywords('Imperium,Scum,[Gang],Outcast'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -1199,7 +1200,7 @@ const paxRep = [
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
         ],
         prerequisiteText: 'The respective <Gang> Skill at (1).',
-        keywords: 'Imperium,Scum,[Gang],Outcast',
+        keywords: keywords('Imperium,Scum,[Gang],Outcast'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -1245,7 +1246,7 @@ const paxRep = [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
         ],
         prerequisiteText: 'The respective <Gang> Skill at (4).',
-        keywords: 'Imperium,Scum,[Gang],Outcast',
+        keywords: keywords('Imperium,Scum,[Gang],Outcast'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -1345,7 +1346,7 @@ const paxRep = [
             reqSkill(SKILLS.PERSUASION, 2),
             reqSkill(SKILLS.DECEPTION, 2),
         ],
-        keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
+        keywords: keywords('Imperium,Navis Nobilite,[Navis House],Nobility'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -1386,7 +1387,7 @@ const paxRep = [
             reqSkill(SKILLS.PERSUASION, 1),
             reqSkill(SKILLS.DECEPTION, 1),
         ],
-        keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
+        keywords: keywords('Imperium,Navis Nobilite,[Navis House],Nobility'),
         influence: 1,
         archetypeFeatures: [
             {
@@ -1425,7 +1426,7 @@ const paxRep = [
             reqSkill(SKILLS.PILOT, 2),
             reqSkill(SKILLS.PERSUASION, 2),
         ],
-        keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
+        keywords: keywords('Imperium,Navis Nobilite,[Navis House],Nobility'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -1467,7 +1468,7 @@ const paxRep = [
             reqSkill(SKILLS.INTIMIDATION, 3),
             reqSkill(SKILLS.INSIGHT, 3),
         ],
-        keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
+        keywords: keywords('Imperium,Navis Nobilite,[Navis House],Nobility'),
         influence: 3,
         archetypeFeatures: [
             {
@@ -1514,7 +1515,7 @@ const paxRep = [
             reqSkill(SKILLS.INTIMIDATION, 4),
             reqSkill(SKILLS.LEADERSHIP, 4),
         ],
-        keywords: 'Imperium,Navis Nobilite,[Navis House],Nobility',
+        keywords: keywords('Imperium,Navis Nobilite,[Navis House],Nobility'),
         influence: 3,
         archetypeFeatures: [
             {
@@ -1590,7 +1591,7 @@ const paxRep = [
             reqAttribute(ATTRIBUTES.WILLPOWER, 2),
             reqSkill(SKILLS.SURVIVAL, 2),
         ],
-        keywords: 'Imperium,Untouchable',
+        keywords: keywords('Imperium,Untouchable'),
         influence: -1,
         archetypeFeatures: [
             {
@@ -1648,7 +1649,7 @@ const paxRep = [
             reqAttribute(ATTRIBUTES.WILLPOWER, 3),
             reqSkill(SKILLS.SURVIVAL, 2),
         ],
-        keywords: 'Imperium,Untouchable',
+        keywords: keywords('Imperium,Untouchable'),
         influence: -2,
         archetypeFeatures: [
             {
@@ -1703,7 +1704,7 @@ const paxRep = [
             reqAttribute(ATTRIBUTES.WILLPOWER, 4),
             reqSkill(SKILLS.SURVIVAL, 3),
         ],
-        keywords: 'Imperium,Untouchable',
+        keywords: keywords('Imperium,Untouchable'),
         influence: -3,
         archetypeFeatures: [
             {
@@ -1796,7 +1797,7 @@ const goheRep = [
         ]),
         hint: 'Shepherd of Cannibals',
         factionKey: 'fspg-tau-empire',
-        keywords: 'Kroot,Tau Empire,Xenos',
+        keywords: keywords('Kroot,Tau Empire,Xenos'),
         archetypeFeatures: [
             {
                 name: 'Guiding Hand',
@@ -1849,7 +1850,7 @@ const goheRep = [
         ]),
         hint: 'Lead the tribe',
         factionKey: 'fspg-tau-empire',
-        keywords: 'Kroot,Tau Empire,Xenos,Psyker',
+        keywords: keywords('Kroot,Tau Empire,Xenos,Psyker'),
         archetypeFeatures: [
             {
                 name: 'Psyker',
@@ -2022,7 +2023,7 @@ const goheRep = [
             reqSkill(SKILLS.SCHOLAR, 3),
         ]),
         hint: 'Build the ... stuff?',
-        keywords: 'Xenos,Jokaero,Inquisition',
+        keywords: keywords('Xenos,Jokaero,Inquisition'),
         archetypeFeatures: [
             {
                 name: 'Inconceivable Customizazion',

@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill} from "../../utils";
 
 
 export const aaoaAdeptusAstraTelephatica = [
@@ -17,7 +17,7 @@ export const aaoaAdeptusAstraTelephatica = [
             ],
         ),
         hint: 'A pariah trained and honed as a deadly hunter of witches.',
-        keywords: 'Imperium, Adeptus Astra Telepathica, Silent Sisterhood, Talons of the Emperor',
+        keywords: keywords('Imperium, Adeptus Astra Telepathica, Silent Sisterhood, Talons of the Emperor'),
         influence: 2,
         modifications: [],
         archetypeFeatures: [
@@ -63,7 +63,7 @@ export const aaoaAdeptusAstraTelephatica = [
             ],
         ),
         hint: 'Elite warriors of the Silent Sisterhood, hunting the mightiest of witches and daemonic foes.',
-        keywords: 'Imperium, Adeptus Astra Telepathica, Silent Sisterhood, Talons of the Emperor',
+        keywords: keywords('Imperium, Adeptus Astra Telepathica, Silent Sisterhood, Talons of the Emperor'),
         influence: 3,
         modifications: [],
         archetypeFeatures: [

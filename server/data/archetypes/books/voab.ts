@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, suggestedAttributes} from "../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, suggestedAttributes} from "../utils";
 
 
 export const voab = [
@@ -17,7 +17,7 @@ export const voab = [
             reqSkill(SKILLS.STEALTH, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         hint: 'A stealthy warrior adept at reconnaissance and infiltration, striking from the shadows before the enemy knows they are there.',
         archetypeFeatures: [
             {
@@ -64,7 +64,7 @@ export const voab = [
             reqSkill(SKILLS.SURVIVAL, 1),
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         hint: 'A versatile and battle-hardened warrior, trained to adapt to any battlefield and execute the Emperor’s will.',
         archetypeFeatures: [
             {
@@ -100,7 +100,7 @@ export const voab = [
             reqSkill(SKILLS.SURVIVAL, 2),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         hint: 'A grizzled veteran of countless battles, master of war and survivor of the deadliest campaigns.',
         archetypeFeatures: [
             {
@@ -147,7 +147,7 @@ export const voab = [
             reqSkill(SKILLS.SURVIVAL, 1),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         hint: 'A skilled battlefield medic, guardian of the gene-seed and savior of fallen battle-brothers.',
         archetypeFeatures: [
             {
@@ -186,7 +186,7 @@ export const voab = [
             reqSkill(SKILLS.SURVIVAL, 1),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         hint: 'A spiritual leader and fierce warrior, inspiring Space Marines to acts of faith and heroism.',
         archetypeFeatures: [
             {
@@ -223,7 +223,7 @@ export const voab = [
             reqSkill(SKILLS.STEALTH, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         hint: 'A master marksman and silent killer, eliminating high-value targets from afar with deadly precision.',
         archetypeFeatures: [
             {
@@ -273,7 +273,7 @@ export const voab = [
             reqSkill(SKILLS.TECH, 4),
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         hint: 'A forward scout and saboteur, skilled in infiltration, demolition, and disrupting enemy lines.',
         archetypeFeatures: [
             {
@@ -331,7 +331,7 @@ export const voab = [
             reqSkill(SKILLS.TECH, 5),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         hint: 'A stalwart line trooper, bringing the Emperor’s wrath to the enemy with disciplined firepower.',
         archetypeFeatures: [
             {
@@ -381,7 +381,7 @@ export const voab = [
             reqSkill(SKILLS.SURVIVAL, 1),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,[Chapter],Psyker',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter],Psyker'),
         hint: 'A powerful psyker and keeper of forbidden lore, wielding the might of the warp in service to the Chapter.',
         archetypeFeatures: [
             {
@@ -439,7 +439,7 @@ export const voab = [
             reqSkill(SKILLS.STEALTH, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         hint: 'A terror troop, expert in shock tactics and psychological warfare, sowing fear among the enemy.',
         archetypeFeatures: [
             {
@@ -491,7 +491,7 @@ export const voab = [
             reqSkill(SKILLS.LEADERSHIP, 4),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         hint: 'A walking tank, encased in Tactical Dreadnought Armour and leading the charge against the deadliest foes.',
         archetypeFeatures: [
             {
@@ -554,7 +554,7 @@ export const voab = [
             reqSkill(SKILLS.TECH, 5),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         hint: 'A master of machines and battlefield repairs, maintaining the Chapter’s wargear and vehicles in the heat of battle.',
         archetypeFeatures: [
             {
@@ -605,7 +605,7 @@ export const voab = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'A skilled battlefield commander, leading Primaris Space Marines with tactical acumen and inspiring presence.',
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         archetypeFeatures: [
             {
                 name: 'Tactical Master',
@@ -682,7 +682,7 @@ export const voab = [
             reqSkill(SKILLS.LEADERSHIP, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         hint: 'An elite swordsman and shield-bearer, standing at the forefront of battle and holding the line against all odds.',
         archetypeFeatures: [
             {
@@ -734,7 +734,7 @@ export const voab = [
             reqSkill(SKILLS.LEADERSHIP, 4),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         hint: 'A revered standard-bearer, inspiring Space Marines to acts of valor and restoring hope in the darkest hours.',
         archetypeFeatures: [
             {

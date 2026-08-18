@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
 
 
 export const aaoaAdeptusArbites = [
@@ -13,7 +13,7 @@ export const aaoaAdeptusArbites = [
             reqSkill(SKILLS.INTIMIDATION, 1),
         ]),
         hint: 'Local law enforcement, often aligned with or deputised by the Arbites',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         influence: 0,
         archetypeFeatures: [
             simpleAbility('Freez!',
@@ -34,7 +34,7 @@ export const aaoaAdeptusArbites = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'An armoured enforcer of the Emperor’s Law, unyielding in their devotion',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('I am the Law!',
@@ -68,7 +68,7 @@ export const aaoaAdeptusArbites = [
             reqSkill(SKILLS.SCHOLAR, 2),
         ]),
         hint: 'A scholar of the Law, passing judgement upon the guilty',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Cast Judgement',
@@ -98,7 +98,7 @@ export const aaoaAdeptusArbites = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A dogged pursuer of those who would flee the Emperor’s judgement',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         influence: 2,
         archetypeFeatures: [
             simpleAbility('Subdue and Interrogate',
@@ -121,7 +121,7 @@ export const aaoaAdeptusArbites = [
             reqSkill(SKILLS.STEALTH, 2),
         ]),
         hint: 'A specialised investigator, assigned to solve more complex crimes',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         influence: 2,
         archetypeFeatures: [
             simpleAbility('Undercover Agent',
@@ -160,7 +160,7 @@ export const aaoaAdeptusArbites = [
             reqSkill(SKILLS.TECH, 2),
         ]),
         hint: 'A technician who studies the scenes of crimes to uncover evidence',
-        keywords: 'Imperium, Adeptus Arbites, Adeptus Mechanicus',
+        keywords: keywords('Imperium, Adeptus Arbites, Adeptus Mechanicus'),
         influence: 2,
         archetypeFeatures: [
             simpleAbility('Crime Scene Investigation',

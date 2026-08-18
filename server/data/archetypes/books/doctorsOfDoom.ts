@@ -1,5 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../utils";
-
+import {archetype, costz, keywords, reqAttribute, reqSkill, wargearz} from "../utils";
 
 
 export const dod = [
@@ -12,7 +11,7 @@ export const dod = [
         ]),
         hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
         influence: 0,
-        keywords: 'Imperium,Scum,Psyker',
+        keywords: keywords('Imperium,Scum,Psyker'),
         archetypeFeatures: [
             {
                 name: 'Psyker',
@@ -67,7 +66,7 @@ export const dod = [
             reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
         ]),
         hint: 'A versatile warrior, veteran of a hundred battles.',
-        keywords: 'Imperium,Adeptus Astartes,Doctors of Doom,[House Latveria]',
+        keywords: keywords('Imperium,Adeptus Astartes,Doctors of Doom,[House Latveria]'),
         alerts: [
             { type: 'info', text: 'The errata states the cost as 277 but this is probably an error. Thus, we use 272 XP as the cost.', },
         ],
@@ -106,7 +105,7 @@ export const dod = [
             reqSkill(SKILLS.WEAPON_SKILL, 4), // 12
         ]),
         hint: 'A versatile warrior, veteran of a hundred battles.',
-        keywords: 'Imperium,Adeptus Astartes,Doctors of Doom,[House Latveria],Adeptus Mechanicus',
+        keywords: keywords('Imperium,Adeptus Astartes,Doctors of Doom,[House Latveria],Adeptus Mechanicus'),
         archetypeFeatures: [
             {
                 name: 'Rite of Repair',

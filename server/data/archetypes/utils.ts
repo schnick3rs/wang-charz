@@ -29,6 +29,10 @@ export const cost = function (total = 0, archetypeCost = 0, statsCost = 0, speci
     };
 }
 
+export function keywords(csvString: string) {
+    return csvString.split(",").map(i => i.trim())
+}
+
 /**
  * Creates an archetype object with specified attributes, including source information,
  * faction, species details, and other properties.
@@ -49,8 +53,8 @@ export function archetype(
     name: string,
     tier: number,
     species: string,
-    stub = false
-) {
+    stub: boolean = false
+): object {
     let speciesSourceKey = 'core';
     let speciesName = 'Human';
     let split: string[] = [];

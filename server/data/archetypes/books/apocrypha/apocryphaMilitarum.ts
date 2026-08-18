@@ -1,5 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
-
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
 
 
 export const aaoaAstraMilitarum = [
@@ -13,7 +12,7 @@ export const aaoaAstraMilitarum = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'You have been drafted to serve alongside Astra Militarum forces as an auxiliary.',
-        keywords: 'Imperium,Astra Militarum,Abhuman',
+        keywords: keywords('Imperium,Astra Militarum,Abhuman'),
         influence: 0,
         archetypeFeatures: [
             {
@@ -62,7 +61,7 @@ export const aaoaAstraMilitarum = [
             reqSkill(SKILLS.MEDICAE, 2),
         ]),
         hint: 'A disciplined soldier trained to treat the injuries of their comrades.',
-        keywords: 'Imperium,Astra Militarum,[Regiment]',
+        keywords: keywords('Imperium,Astra Militarum,[Regiment]'),
         influence: 0,
         archetypeFeatures: [
             {
@@ -84,7 +83,7 @@ export const aaoaAstraMilitarum = [
             reqSkill(SKILLS.LEADERSHIP, 2),
         ]),
         hint: 'A stern commander trained to inspire and lead others into the fray.',
-        keywords: 'Imperium,Astra Militarum,[Regiment]',
+        keywords: keywords('Imperium,Astra Militarum,[Regiment]'),
         influence: 1,
         archetypeFeatures: [
             {

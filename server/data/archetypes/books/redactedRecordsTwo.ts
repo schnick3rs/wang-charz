@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, wargearz} from "../utils";
 
 
 export const red2 = [
@@ -12,7 +12,7 @@ export const red2 = [
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: 'A determined warrior, filled with purity and faith.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Impetuous Fervour',
@@ -38,7 +38,7 @@ export const red2 = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A determined warrior, filled with purity and faith.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Keeper of the Faith',
@@ -69,7 +69,7 @@ export const red2 = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A determined warrior, filled with purity and faith.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Bolstering Light',
@@ -99,7 +99,7 @@ export const red2 = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A determined warrior, filled with purity and faith.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Fury of the Righteous',
@@ -125,7 +125,7 @@ export const red2 = [
             reqSkill(SKILLS.TECH, 2),
         ]),
         hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
-        keywords: 'Imperium,Adeptus Mechanicus',
+        keywords: keywords('Imperium,Adeptus Mechanicus'),
         archetypeFeatures: [
             {
                 name: 'Voltagheist Field',
@@ -156,7 +156,7 @@ export const red2 = [
             reqSkill(SKILLS.TECH, 2),
         ]),
         hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
-        keywords: 'Imperium,Adeptus Mechanicus',
+        keywords: keywords('Imperium,Adeptus Mechanicus'),
         archetypeFeatures: [
             {
                 name: 'Voltagheist Field',
@@ -189,7 +189,7 @@ export const red2 = [
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
-        keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,Skitarii,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Heavily Augmented',
@@ -218,7 +218,7 @@ export const red2 = [
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
-        keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,Skitarii,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Heavily Augmented',
@@ -248,7 +248,7 @@ export const red2 = [
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
-        keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,Skitarii,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Heavily Augmented',
@@ -286,7 +286,7 @@ export const red2 = [
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
-        keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,Skitarii,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Heavily Augmented',
@@ -320,7 +320,7 @@ export const red2 = [
             reqSkill(SKILLS.TECH, 4),
         ]),
         hint: 'A fanatical warrior, fighting at the forefront of the Adeptus Mechanicus forces.',
-        keywords: 'Imperium,Adeptus Mechanicus,Skitarii,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,Skitarii,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Reprogrammer',

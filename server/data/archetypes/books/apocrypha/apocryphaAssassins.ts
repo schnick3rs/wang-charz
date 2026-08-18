@@ -1,5 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../../utils";
-
+import {archetype, costz, keywords, reqAttribute, reqSkill, wargearz} from "../../utils";
 
 
 export const aaoaOfficioAssassinorum = [
@@ -30,7 +29,7 @@ export const aaoaOfficioAssassinorum = [
         ]),
         factionKey: 'aaoa-officio-assassinorum',
         hint: 'The second skinned assassin.',
-        keywords: 'Imperium,Officio Assassinorum,Templum Callidus',
+        keywords: keywords('Imperium,Officio Assassinorum,Templum Callidus'),
         archetypeFeatures: [
             {
                 name: 'Assassinorum Conditioning',
@@ -71,7 +70,7 @@ export const aaoaOfficioAssassinorum = [
         ]),
         factionKey: 'aaoa-officio-assassinorum',
         hint: 'Witch-slayer, wyrd-bane, living nightmare to all psykers.',
-        keywords: 'Imperium,Officio Assassinorum,Templum Culexus',
+        keywords: keywords('Imperium,Officio Assassinorum,Templum Culexus'),
         archetypeFeatures: [
             {
                 name: 'Assassinorum Conditioning',
@@ -116,7 +115,7 @@ export const aaoaOfficioAssassinorum = [
         ]),
         factionKey: 'aaoa-officio-assassinorum',
         hint: 'Hunter, killer, bane.',
-        keywords: 'Imperium,Officio Assassinorum,Templum Eversor',
+        keywords: keywords('Imperium,Officio Assassinorum,Templum Eversor'),
         archetypeFeatures: [
             {
                 name: 'Assassinorum Conditioning',
@@ -154,7 +153,7 @@ export const aaoaOfficioAssassinorum = [
         ]),
         factionKey: 'aaoa-officio-assassinorum',
         hint: 'Stalker, patience, death.',
-        keywords: 'Imperium,Officio Assassinorum,Templum Vindicare',
+        keywords: keywords('Imperium,Officio Assassinorum,Templum Vindicare'),
         archetypeFeatures: [
             {
                 name: 'Assassinorum Conditioning',

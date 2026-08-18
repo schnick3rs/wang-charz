@@ -1,5 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility} from "../../utils";
-
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility} from "../../utils";
 
 
 export const aaoaAdeptusMinistorum=  [
@@ -12,7 +11,7 @@ export const aaoaAdeptusMinistorum=  [
             // or reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: 'A faithful citizen whipped into a fervour and eager to slay in the Emperor’s name.',
-        keywords: 'Imperium',
+        keywords: keywords('Imperium'),
         influence: 0,
         archetypeFeatures: [
             {
@@ -52,7 +51,7 @@ export const aaoaAdeptusMinistorum=  [
             reqSkill(SKILLS.SCHOLAR, 2),
         ]),
         hint: 'A high-ranking priest whose rhetoric inspires zeal and piety wherever they go.',
-        keywords: 'Imperium,Adeptus Ministorum,Priest',
+        keywords: keywords('Imperium,Adeptus Ministorum,Priest'),
         influence: 3,
         archetypeFeatures: [
             {

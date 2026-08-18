@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, wargearz} from "../../utils";
 
 
 export const aaoaSquat = [
@@ -13,7 +13,7 @@ export const aaoaSquat = [
         ]),
         factionKey: 'aaoa-the-squat-remnant',
         hint: 'The rank and file of a Squat Stronghold.',
-        keywords: 'Squat, [League]',
+        keywords: keywords('Squat, [League]'),
         influence: 0,
         archetypeFeatures: [
             {
@@ -36,7 +36,7 @@ export const aaoaSquat = [
         ]),
         factionKey: 'aaoa-the-squat-remnant',
         hint: 'Masterful artisans, creating the devices necessary for survival.',
-        keywords: 'Squat, [League]',
+        keywords: keywords('Squat, [League]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -62,7 +62,7 @@ export const aaoaSquat = [
         ]),
         factionKey: 'aaoa-the-squat-remnant',
         hint: 'Doughty elite warriors pledged to defend hearth and home.',
-        keywords: 'Squat, [League]',
+        keywords: keywords('Squat, [League]'),
         influence: 2,
         archetypeFeatures: [
             {
@@ -89,7 +89,7 @@ export const aaoaSquat = [
         ]),
         factionKey: 'aaoa-the-squat-remnant',
         hint: 'Ancient sages, wise enough to tap into the Warp with care and listen to the voices of the dead.',
-        keywords: 'Squat [League], Psyker',
+        keywords: keywords('Squat [League], Psyker'),
         influence: 4,
         archetypeFeatures: [
             {

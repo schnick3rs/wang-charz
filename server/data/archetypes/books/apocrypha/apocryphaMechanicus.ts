@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
 
 
 export const aaoaAdeptusMechanicus = [
@@ -14,7 +14,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: 'Devotee of the Motive Force that flows through the universe.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 0,
         archetypeFeatures: [
             simpleAbility('Fanatical Devotion', 'You add +Double Rank bonus dice to Determination rolls, and you do not suffer any Shock when you roll Determination.'),
@@ -57,7 +57,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'Devotee of the Motive Force that flows through the universe.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 0,
         archetypeFeatures: [
             simpleAbility('Fanatical Devotion', 'You add +Double Rank bonus dice to Determination rolls, and you do not suffer any Shock when you roll Determination.'),
@@ -98,7 +98,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.TECH, 1),
         ]),
         hint: 'Devotee of the Motive Force that flows through the universe.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 0,
         archetypeFeatures: [
             simpleAbility('Irradiated and Augmented','You do not bleed (making you immune to Bleeding), and gain +Rank bonus dice to Determination rolls. In addition, any living creature without the ADEPTUS MECHANICUS keyword within 2 metres of you at the start of their turn must pass a DN 3 Toughness Test or suffer the Poisoned condition. This poison is radiation poisoning, inflicting 1 Mortal Wound and Rank Shock at the start of each of the Poisoned character’s turns.'),
@@ -117,7 +117,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'You are an assassin, a blade turned towards those who would blaspheme against the Machine God.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('More Machine Than Man','You do not bleed (making you immune to Bleeding), and you add +Rank to your Maximum Wounds and Maximum Shock.'),
@@ -153,7 +153,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'You have had the weakness of flesh cast away to hone your body into a living weapon in the Omnissiah’s arsenal.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World], Skitarii',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World], Skitarii'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('More Machine Than Man','You do not bleed (making you immune to Bleeding), and you add +Rank to your Maximum Wounds and Maximum Shock.'),
@@ -171,7 +171,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.TECH, 2),
         ]),
         hint: 'You are attuned to wavelengths and signals that flesh cannot discern.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Vox Communion','You can silently communicate with any vox or similar communications device within Rank x100 kilometres. You may also make Awareness or Investigation tests to detect concealed signals and study intercepted signals. You add +Rank bonus dice to any Investigation or Scholar test to decipher a code, translate a language, or create a new cipher.'),
@@ -215,7 +215,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.TECH, 2),
         ]),
         hint: 'You are a voracious consumer of information, collating and compiling vast quantities of data.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Infovore', 'You may reroll up to Double Rank dice on Investigation and Scholar tests, and such tests take you only half as long to perform.'),
@@ -266,7 +266,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.TECH, 4),
         ]),
         hint: 'A devotee of the biological sciences.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 3,
         archetypeFeatures: [
             simpleAbility('Magos Biologis','You add +Rank bonus dice to any Medicae test you attempt and take only half as long to perform a Medicae test. In addition, your bioengineered and genetic augmentations increase your Max Wounds and Max Shock by +Rank.'),
@@ -332,7 +332,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.TECH, 4),
         ]),
         hint: 'Through mathemantic rite and numerological prophecy, you discern the future from the raw data of today.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 3,
         archetypeFeatures: [
             simpleAbility('Technoprophet', 'You may purchase psychic powers from the Divination discipline even though you are not a Psyker. Using these powers requires an Investigation test in place of a Psychic Mastery test, and you do not choose a power level. Use of these abilities is not considered a psychic power. A Complication that results from one of these abilities inflicts 1d3+1 Shock, due to logic errors and paradoxical outcomes.'),
@@ -408,7 +408,7 @@ export const aaoaAdeptusMechanicus = [
             reqSkill(SKILLS.TECH, 4),
         ]),
         hint: 'The High-Priest of the Omnissiah.',
-        keywords: 'Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]',
+        keywords: keywords('Imperium, Adeptus Mechanicus, Cult Mechanicus, [Forge World]'),
         influence: 4,
         archetypeFeatures: [
             simpleAbility('Forge-Lord', 'You halve the time it takes to attempt any Tech test, and you add +Double Rank bonus dice to interact with machinery. In addition, as a Simple Action you may invoke one of the Canticles of the Omnissiah (see AAOA, pg. 96).'),

@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill} from "../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill} from "../utils";
 import {stringToKebab} from "../../utils";
 
 
@@ -18,7 +18,7 @@ export const lex = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A judgment, arbitrary given.',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         archetypeFeatures: [
             {
                 name: 'The Eye of the Lex',
@@ -51,7 +51,7 @@ export const lex = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A shield and mace, to calm the riot.',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         archetypeFeatures: [
             {
                 name: 'Summary Execution',
@@ -87,7 +87,7 @@ export const lex = [
             reqSkill(SKILLS.MEDICAE, 2),
         ]),
         hint: 'A bringer of mercy.',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         archetypeFeatures: [
             {
                 name: 'Ruthless Triage',
@@ -125,7 +125,7 @@ export const lex = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A hunter of criminals.',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         archetypeFeatures: [
             {
                 name: 'Recidivist Hunter',
@@ -163,7 +163,7 @@ export const lex = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'A beast on a leash.',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         archetypeFeatures: [
             {
                 name: 'Watchdog',
@@ -198,7 +198,7 @@ export const lex = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A bringer of authority.',
-        keywords: 'Imperium,Adeptus Arbites',
+        keywords: keywords('Imperium,Adeptus Arbites'),
         archetypeFeatures: [
             {
                 name: 'Dictat Authoritas',

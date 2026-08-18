@@ -1,5 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility} from "../../utils";
-
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility} from "../../utils";
 
 
 export const aaoaChaos = [
@@ -14,7 +13,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ],
-        keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
+        keywords: keywords('Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]'),
         influence: 2,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -51,7 +50,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.PILOT, 3),
             reqSkill(SKILLS.INTIMIDATION, 3),
         ],
-        keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
+        keywords: keywords('Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]'),
         influence: 2,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -82,7 +81,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 4),
             reqSkill(SKILLS.TECH, 3),
         ],
-        keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]',
+        keywords: keywords('Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion]'),
         influence: 2,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -121,7 +120,7 @@ export const aaoaChaos = [
             reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ],
-        keywords: 'Heretic, Chaos, Khorne, Heretic Astartes, [Legion]',
+        keywords: keywords('Heretic, Chaos, Khorne, Heretic Astartes, [Legion]'),
         influence: 1,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -154,7 +153,7 @@ export const aaoaChaos = [
             reqAttribute(ATTRIBUTES.TOUGHNESS, 5),
             reqSkill(SKILLS.BALLISTIC_SKILL, 4),
         ],
-        keywords: 'Heretic, Chaos, Nurgle, Heretic Astartes, [Legion]',
+        keywords: keywords('Heretic, Chaos, Nurgle, Heretic Astartes, [Legion]'),
         influence: 1,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -188,7 +187,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 4),
             reqSkill(SKILLS.AWARENESS, 4),
         ],
-        keywords: 'Heretic, Chaos, Slaanesh, Heretic Astartes, [Legion]',
+        keywords: keywords('Heretic, Chaos, Slaanesh, Heretic Astartes, [Legion]'),
         influence: 1,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -225,7 +224,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.SCHOLAR, 2),
             reqSkill(SKILLS.PSYCHIC_MASTERY, 3),
         ],
-        keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Psyker',
+        keywords: keywords('Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Psyker'),
         influence: 3,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -279,7 +278,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.SCHOLAR, 1),
             reqSkill(SKILLS.TECH, 3),
         ],
-        keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Dark Mechanicus',
+        keywords: keywords('Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Dark Mechanicus'),
         influence: 1,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -331,7 +330,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.SCHOLAR, 4),
             reqSkill(SKILLS.INTIMIDATION, 4),
         ],
-        keywords: 'Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Priest',
+        keywords: keywords('Heretic, Chaos, [Mark of Chaos], Heretic Astartes, [Legion], Priest'),
         influence: 3,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -358,7 +357,7 @@ export const aaoaChaos = [
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ],
-        keywords: 'Heretic, Chaos, Khorne',
+        keywords: keywords('Heretic, Chaos, Khorne'),
         influence: 0,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -388,7 +387,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
             reqSkill(SKILLS.INTIMIDATION, 1),
         ],
-        keywords: 'Heretic, Chaos, Nurgle',
+        keywords: keywords('Heretic, Chaos, Nurgle'),
         influence: 1,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -412,7 +411,7 @@ export const aaoaChaos = [
             reqSkill(SKILLS.PERSUASION, 1),
         ]),
         hint: 'Beastmen who glory in the name of the Prince of Pleasure',
-        keywords: 'Heretic, Chaos, Slaanesh',
+        keywords: keywords('Heretic, Chaos, Slaanesh'),
         influence: 1,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
@@ -441,7 +440,7 @@ export const aaoaChaos = [
             ],
         ),
         hint: 'Twisted, cunning Beastmen who serve sorcerous masters',
-        keywords: 'Chaos, Abhuman, Heretic, Tzeentch',
+        keywords: keywords('Chaos, Abhuman, Heretic, Tzeentch'),
         influence: 1,
         modifications: [
             { targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },

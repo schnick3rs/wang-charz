@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, wargearz} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, wargearz} from "../../utils";
 
 
 export const aaoaOrks = [
@@ -13,7 +13,7 @@ export const aaoaOrks = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'Pyromaniacal Greenskins whose desire to burn and destroy grows to consume them entirely.',
-        keywords: 'Ork,[Clan]',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'Da Burna Dance',
@@ -31,7 +31,7 @@ export const aaoaOrks = [
             reqSkill(SKILLS.TECH, 3),
         ]),
         hint: 'A type of Ork Oddboy who build all the weapons, vehicles, and other advanced technology used by the Greenskins.',
-        keywords: 'Ork,[Clan]',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'Fix It Proppa',
@@ -51,7 +51,7 @@ export const aaoaOrks = [
             reqSkill(SKILLS.MEDICAE, 3),
         ]),
         hint: 'Responsible for fixing injuries even the highly regenerative Ork physiology cannot repair.',
-        keywords: 'Ork,[Clan]',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'Make It All Betta',
@@ -72,7 +72,7 @@ export const aaoaOrks = [
             reqSkill(SKILLS.LEADERSHIP, 2),
         ]),
         hint: 'Oddboyz who exhibit a trait extremely uncommon amongst Orks: patience.',
-        keywords: 'Ork,[Clan]',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'Slaver',
@@ -93,7 +93,7 @@ export const aaoaOrks = [
             reqSkill(SKILLS.TECH, 1),
         ]),
         hint: 'A Tankbusta (pl. Tankbustaz) has become completely addicted to the thrill of destroying the armoured fighting vehicles of his foes.',
-        keywords: 'Ork,[Clan]',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'Tank Hunters',
@@ -115,7 +115,7 @@ export const aaoaOrks = [
             reqSkill(SKILLS.INTIMIDATION, 2),
         ]),
         hint: 'An elite breed of Ork Nobz who are obsessed with their lovingly customised, ostentatiously polished and painted weapons known as Snazzguns.',
-        keywords: 'Ork,[Clan]',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'Gun Crazy Show-Offs',
@@ -135,7 +135,7 @@ export const aaoaOrks = [
             reqSkill(SKILLS.PSYCHIC_MASTERY, 2),
         ]),
         hint: 'Capable of vomiting blasts of Warp energy that can reduce foes to molten goop in seconds.',
-        keywords: 'Ork,Psyker,[Clan]',
+        keywords: keywords('Ork,Psyker,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'The Power of the WAAAGH!',

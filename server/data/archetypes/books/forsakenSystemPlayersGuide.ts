@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, suggestedAttributes, wargearz} from "../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, suggestedAttributes, wargearz} from "../utils";
 
 
 export const fspg = [
@@ -15,7 +15,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'The sinfull zealot.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Solace in Anguish',
@@ -56,7 +56,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'The word of the emperor.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Polyglot Superior',
@@ -91,7 +91,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'Bearer of your martyrs image.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Litany of Deeds',
@@ -126,7 +126,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'Wings of fire and flames.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Angelic Presence',
@@ -169,7 +169,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'The seasoned matriarch.',
-        keywords: 'Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]',
+        keywords: keywords('Imperium,Adeptus Ministorum,Adepta Sororitas,[Order]'),
         archetypeFeatures: [
             {
                 name: 'Lead the Righteous',
@@ -244,7 +244,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 5), // 12
         ]),
         hint: 'The medical specialist.',
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         archetypeFeatures: [
             {
                 name: 'Prime helix',
@@ -275,7 +275,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 5), // 12
         ]),
         hint: 'Chapters beliefs incarnated.',
-        keywords: 'Imperium,Adeptus Astartes,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
         archetypeFeatures: [
             {
                 name: 'Chapter Cult',
@@ -312,7 +312,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 5), // 12
         ]),
         hint: 'Invoke the librarian powers.',
-        keywords: 'Imperium,Adeptus Astartes,[Chapter],Psyker',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter],Psyker'),
         archetypeFeatures: [
             {
                 name: 'Psyker',
@@ -367,7 +367,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'Shock and awe... aweeeeee.',
-        keywords: 'Imperium, Adeptus Astartes, Primaris, [Chapter]',
+        keywords: keywords('Imperium, Adeptus Astartes, Primaris, [Chapter]'),
         archetypeFeatures: [
             {
                 name: 'Terror Tactics',
@@ -386,7 +386,7 @@ export const fspg = [
             reqSkill(SKILLS.TECH, 3),
         ]),
         hint: 'The mechanical admin.',
-        keywords: 'Imperium,Adeptus Mechanicus,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Admin Access',
@@ -439,7 +439,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'The transonic scout',
-        keywords: 'Imperium,Adeptus Mechanicus,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Mechanical Build',
@@ -475,7 +475,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'The mechanical assassin',
-        keywords: 'Imperium,Adeptus Mechanicus,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Mechanical Build',
@@ -510,7 +510,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'Behold! I roll Tech vs DN 13.',
-        keywords: 'Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,Cult Mechanicus,[Forge World]'),
         prerequisites: [
             reqAttribute(ATTRIBUTES.INTELLECT, 3),
             reqSkill(SKILLS.SCHOLAR, 1),
@@ -603,7 +603,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'The spiritual companion',
-        keywords: 'Imperium,Adeptus Ministorum',
+        keywords: keywords('Imperium,Adeptus Ministorum'),
         archetypeFeatures: [
             {
                 name: 'Spiritual Administration',
@@ -631,7 +631,7 @@ export const fspg = [
             reqSkill(SKILLS.STEALTH, 3),
         ]),
         hint: 'An uncatchable sniper.',
-        keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
+        keywords: keywords('Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman'),
         archetypeFeatures: [
             {
                 name: 'Shoot Sharp and Scarper',
@@ -680,7 +680,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 2),
         ]),
         hint: 'Fire at will!',
-        keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
+        keywords: keywords('Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman'),
         archetypeFeatures: [
             {
                 name: 'Let It Rip',
@@ -722,7 +722,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'The handy bullwark',
-        keywords: 'Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman',
+        keywords: keywords('Imperium,Astra Militarum,Militarum Auxilla,[Regiment],Abhuman'),
         archetypeFeatures: [
             {
                 name: 'Shieldwall',
@@ -765,7 +765,7 @@ export const fspg = [
             reqSkill(SKILLS.TECH, 3),
         ]),
         hint: 'The human prozessor.',
-        keywords: 'Imperium,Adeptus Mechanicus,[Forge World],Inquisition,[Ordo]',
+        keywords: keywords('Imperium,Adeptus Mechanicus,[Forge World],Inquisition,[Ordo]'),
         archetypeFeatures: [
             {
                 name: 'Statistical Certainty',
@@ -835,7 +835,7 @@ export const fspg = [
             reqSkill(SKILLS.WEAPON_SKILL, 1),
         ]),
         hint: '"Maybe if I clip another finger....".',
-        keywords: 'Imperium,Inquisition,[Ordo],[Any]',
+        keywords: keywords('Imperium,Inquisition,[Ordo],[Any]'),
         archetypeFeatures: [
             {
                 name: 'Extract the Truth',
@@ -897,7 +897,7 @@ export const fspg = [
         ]),
         hint: 'Gourmet for hire',
         factionKey: 'fspg-tau-empire',
-        keywords: 'Kroot,[Any]',
+        keywords: keywords('Kroot,[Any]'),
         archetypeFeatures: [
             {
                 name: 'Adaptive Loyalty',

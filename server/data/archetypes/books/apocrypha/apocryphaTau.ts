@@ -1,4 +1,4 @@
-import {archetype, costz, reqSkill, wargearz} from "../../utils";
+import {archetype, costz, keywords, reqSkill, wargearz} from "../../utils";
 
 
 export const aaoaTauEmpire = [
@@ -12,7 +12,7 @@ export const aaoaTauEmpire = [
             ],
         ),
         hint: 'A well-maintained warrior is an effective warrior.',
-        keywords: 'T´au Empire,Fire Cast, [Sept]',
+        keywords: keywords('T´au Empire,Fire Cast, [Sept]'),
         modifications: [],
         archetypeFeatures: [
             {

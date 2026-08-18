@@ -1,4 +1,4 @@
-import {archetype, costz, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
+import {archetype, costz, keywords, reqAttribute, reqSkill, simpleAbility, wargearz} from "../../utils";
 
 
 export const aaoaPrimarisAstartes = [
@@ -18,7 +18,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A specialised warrior, armed with sophisticated, powerful weapons to deal with the toughest foes.',
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Hellblaster Focus: When you make an attack with a Plasma weapon, you may re-roll up to Double Rank dice.'),
@@ -42,7 +42,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'An airborne warrior, dealing death from above.',
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Meteoric Descent','You run, sprint, or charge using your jump pack, any enemy within 2m of the point where you landed must pass an Agility test (DN 2+Rank) or be knocked prone and suffer a Mortal Wound.'),
@@ -80,7 +80,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A cunning warrior, spreading death and terror to the enemy.',
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Terror Troops', 'When you charge an enemy who was unaware of you before you charged, they must make a Fear test with a DN equal to your Stealth Score.'),
@@ -115,7 +115,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'Aggressive, close-assault shock troops, wearing advanced sensors that expose enemies.',
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Close Quarters Assault: When making a melee attack, or a ranged attack at short range, against an enemy in cover, an Incursor may re-roll up to Rank dice.'),
@@ -149,7 +149,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'Saboteurs and marksmen, used to operating far from support',
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         archetypeFeatures: [
             simpleAbility('Voxbane: When you make a Tech interaction attack against an enemy, the range of the attack is increased by 1+Double Rank.'),
         ],
@@ -182,7 +182,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A mighty warrior, overwhelming foes at close range.',
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Relentless Advance: When you Run, you ignore the DN increase for firing an Assault weapon as part of your move.'),
@@ -219,7 +219,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A mighty warrior, executing foes at long range.',
-        keywords: 'Imperium,Adeptus Astartes,Primaris,[Chapter]',
+        keywords: keywords('Imperium,Adeptus Astartes,Primaris,[Chapter]'),
         influence: 1,
         archetypeFeatures: [
             simpleAbility('Precision Shots: When you aim, you add +Rank bonus dice onto the following ranged attack, in addition to the other benefits of aiming.'),
@@ -262,7 +262,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 3),
         ]),
         hint: 'A warrior-healer, guardian of his brothers’ lives.',
-        keywords: 'Imperium, Adeptus Astartes,[Chapter],Primaris',
+        keywords: keywords('Imperium, Adeptus Astartes,[Chapter],Primaris'),
         influence: 2,
         archetypeFeatures: [
             simpleAbility('Guard Thy Brethren: Whenever you succeed at a Medicae test upon a Dying ally with the ADEPTUS ASTARTES keyword, gain 1 Wrath. In addition, you gain +Rank to Resolve and Determination while you can see or hear one or more Dying Adeptus Astartes allies.'),
@@ -288,7 +288,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A warrior-savant initiated into the mysteries of the Machine Cult.',
-        keywords: 'Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus, Primaris',
+        keywords: keywords('Imperium, Adeptus Astartes,[Chapter], Adeptus Mechanicus, Cult Mechanicus, Primaris'),
         archetypeFeatures: [
             simpleAbility('Hymn of Reforging: You receive +Double Rank to Tech tests to repair damaged machinery. All Tech tests you make take half the standard time.'),
         ],
@@ -346,7 +346,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 5),
         ]),
         hint: 'A devout warrior, who tends to the spirits of his comrades.',
-        keywords: 'Imperium,Adeptus Astartes,[Chapter],Primaris,Priest',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter],Primaris,Priest'),
         influence: 3,
         archetypeFeatures: [
             simpleAbility('Spiritual Leaders', 'You, and all allies with the IMPERIUM keyword within 15+Rank metres add +Rank to Resolve. This increases to +Double Rank if they share your [CHAPTER] keyword.'),
@@ -373,7 +373,7 @@ export const aaoaPrimarisAstartes = [
             reqSkill(SKILLS.WEAPON_SKILL, 4),
         ]),
         hint: 'A warrior-sage of the Adeptus Astartes.',
-        keywords: 'Imperium, Adeptus Astartes, [Chapter], Psyker',
+        keywords: keywords('Imperium, Adeptus Astartes, [Chapter], Psyker'),
         influence: 2,
         archetypeFeatures: [
             {
