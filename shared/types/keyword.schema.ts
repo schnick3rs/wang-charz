@@ -1,7 +1,7 @@
 import {z} from "zod";
 
 export const KeywordSchema = z.object({
-    source: LegacySourceSchema,
+    source: PagedLegacySourceSchema,
     key: z.string(),
     name: z.string(),
     description: z.string(),

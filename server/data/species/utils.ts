@@ -61,7 +61,16 @@ export const cost = function (cost, stats = 0, species = 0, other = 0) {
     };
 }
 
-export const species = function (bookKey, sourcePage, group, name, hint, costy, speed, stub = false) {
+export function species(
+    bookKey:string,
+    sourcePage: number,
+    group:string,
+    name:string,
+    hint:string,
+    costy: number,
+    speed: number,
+    stub = false
+): Partial<Species> {
     return {
         source: {
             ...getLegacySource(bookKey),

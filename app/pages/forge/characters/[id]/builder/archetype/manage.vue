@@ -14,6 +14,11 @@ const { data: archetype } = await useAsyncData(
     (_nuxtApp, { signal }) => $fetch(`/api/archetypes/${entity.value.data.archetypeKey}`, { signal }),
 )
 
+const { data: keywords } = await useAsyncData(
+    'keywords',
+    (_nuxtApp, { signal }) => $fetch(`/api/keywords`, { signal }),
+)
+
 const selectedOptionKey = ref<string>()
 const selectedFeatureOption = ref<string>()
 
@@ -66,11 +71,12 @@ const skills = computed(() => {
     <div v-if="archetype.keywords" class="mb-4">
       <strong class="mr-2">Keywords:</strong>
       <span v-for="k in archetype.keywords" :key="k" class="text-error-800 font-semibold uppercase">{{k}}, </span>
+    </div>
 
-      <USelect>
-
-      </USelect>
-
+    <div v-if="archetype.keywords && keywords">
+      <div v-for="k in archetype.keywords" :key="k">
+        <ForgeKeywordDetails :keyword-name="k"/>
+      </div>
     </div>
 
     <!-- features -->
@@ -85,7 +91,7 @@ const skills = computed(() => {
             <div v-else><p>{{ feature.snippet}}</p></div>
 
             <!-- an option to be selected is identified by <species-key>.<feature-key> fspg-kroot.kroot-mutations.x -->
-            <div v-if="feature.options" class=" border-l border-l-4 border-l-red-600  mt-2 pl-4 mb-4">
+            <div v-if="feature.options" class="border-l-4 border-l-red-600  mt-2 pl-4 mb-4">
               <USelect
                 v-model="selectedOptionKey"
                 :items="feature.options"

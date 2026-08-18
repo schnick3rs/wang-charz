@@ -8,7 +8,7 @@ export function keywordBuilder(
     type: string,
     description: string,
     parentKeyword: string | undefined = undefined,
-): object {
+): Partial<KeywordType> {
     return {
         source: {
             ...getLegacySource(bookKey),

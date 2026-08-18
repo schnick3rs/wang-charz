@@ -757,8 +757,8 @@ export const core = [
                 name: 'Unorthodox Taktiks',
                 snippet: '+Rank bonus dice to Leadership (Wil) and Stealth (A) Tests.',
                 modifications: [
-                    { targetGroup: 'skills', targetValue: 'leadership', modifier: 0, rank: 1 },
-                    { targetGroup: 'skills', targetValue: 'stealth', modifier: 0, rank: 1 },
+                    { targetGroup: 'skills', targetValue: SKILLS.LEADERSHIP, modifier: 0, rank: 1 },
+                    { targetGroup: 'skills', targetValue: SKILLS.STEALTH, modifier: 0, rank: 1 },
                 ],
             }
         ],
@@ -778,8 +778,8 @@ export const core = [
                 name: 'Scheming Scavengers',
                 snippet: '+Rank bonus dice to Tech (Int) and Influence Tests.',
                 modifications: [
-                    { targetGroup: 'skills', targetValue: 'tech', modifier: 0, rank: 1 },
-                    { targetGroup: 'traits', targetValue: 'influence', modifier: 0, rank: 1 },
+                    { targetGroup: 'skills', targetValue: SKILLS.TECH, modifier: 0, rank: 1 },
+                    { targetGroup: 'traits', targetValue: TRAITS.INFLUENCE, modifier: 0, rank: 1 },
                 ],
             }
         ],
@@ -799,7 +799,7 @@ export const core = [
                 name: 'Obsessed with Speed',
                 snippet: 'You gain +1 Speed, and +Rank bonus dice to all Tests whenever you are in a vehicle moving at top speed.',
                 modifications: [
-                    { targetGroup: 'traits', targetValue: 'speed', modifier: 1 },
+                    { targetGroup: 'traits', targetValue: TRAITS.SPEED, modifier: 1 },
                 ],
             }
         ],
@@ -836,7 +836,7 @@ export const core = [
                 name: 'Living off the Land',
                 snippet: '+Double Rank bonus dice to Survival (Wil) Tests.',
                 modifications: [
-                    { targetGroup: 'skills', targetValue: 'survival', modifier: 0, rank: 2 },
+                    { targetGroup: 'skills', targetValue: SKILLS.SURVIVAL, modifier: 0, rank: 2 },
                 ],
             }
         ],
@@ -988,8 +988,8 @@ export const core = [
                 name: 'The Alien Hunters',
                 snippet: 'You are fluent in one alien language, and gain +2 bonus dice on any Scholar (Int) and Investigation (Int) Tests related to any known xenos.',
                 modifications: [
-                    { targetGroup: 'skills', targetValue: 'scholar', modifier: 2, condition: 'when related to any known xenos.' },
-                    { targetGroup: 'skills', targetValue: 'investigation', modifier: 2, condition: 'when related to any known xenos.' },
+                    { targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, modifier: 2, condition: 'when related to any known xenos.' },
+                    { targetGroup: 'skills', targetValue: SKILLS.INVESTIGATION, modifier: 2, condition: 'when related to any known xenos.' },
                 ],
             },
         ],
@@ -1049,52 +1049,52 @@ export const core = [
                     {
                         name: 'Cunning',
                         snippet: 'Gain +Rank bonus dice to Cunning Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.CUNNING, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.CUNNING, rank: 1}]
                     },
                     {
                         name: 'Deception',
                         snippet: 'Gain +Rank bonus dice to Deception Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.DECEPTION, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.DECEPTION, rank: 1}]
                     },
                     {
                         name: 'Insight',
                         snippet: 'Gain +Rank bonus dice to Insight Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.INSIGHT, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.INSIGHT, rank: 1}]
                     },
                     {
                         name: 'Intimidation',
                         snippet: 'Gain +Rank bonus dice to Intimidation Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.INTIMIDATION, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.INTIMIDATION, rank: 1}]
                     },
                     {
                         name: 'Persuasion',
                         snippet: 'Gain +Rank bonus dice to Persuasion Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.PERSUASION, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.PERSUASION, rank: 1}]
                     },
                     {
                         name: 'Psychic Mastery',
                         snippet: 'Gain +Rank bonus dice to Psychic Mastery Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.PSYCHIC_MASTERY, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.PSYCHIC_MASTERY, rank: 1}]
                     },
                     {
                         name: 'Scholar',
                         snippet: 'Gain +Rank bonus dice to Scholar Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.SCHOLAR, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.SCHOLAR, rank: 1}]
                     },
                     {
                         name: 'Stealth',
                         snippet: 'Gain +Rank bonus dice to Stealth Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.STEALTH, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.STEALTH, rank: 1}]
                     },
                     {
                         name: 'Survival',
                         snippet: 'Gain +Rank bonus dice to Survival Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.SURVIVAL, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.SURVIVAL, rank: 1}]
                     },
                     {
                         name: 'Tech',
                         snippet: 'Gain +Rank bonus dice to Tech Tests.',
-                        modifications: [{ targetGroup: 'skills', tagetValue: SKILLS.TECH, rank: 1}]
+                        modifications: [{ targetGroup: 'skills', targetValue: SKILLS.TECH, rank: 1}]
                     },
                 ],
             },
