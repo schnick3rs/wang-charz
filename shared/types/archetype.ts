@@ -1,6 +1,4 @@
 import {z} from 'zod';
-import {PagedLegacySourceSchema} from "./source";
-import {ModificationSchema} from "./core";
 
 
 export const CostBreakdownSchema = z.object({
@@ -64,50 +62,6 @@ export const WargearOptionSchema: z.ZodType<WargearOption> = z.lazy(() => z.obje
   keywordFilter: z.union([z.string(), z.array(z.string())]).optional(),
 }));
 
-type FeatureOption = {
-  key?: string;
-  name: string;
-  snippet?: string;
-  description?: string;
-  modifications?: Modification[];
-  options?: FeatureOption[];
-};
-
-export const FeatureOptionSchema: z.ZodType<FeatureOption> = z.object({
-  key: z.string().optional(),
-  name: z.string(),
-  snippet: z.string().optional(),
-  description: z.string().optional(),
-  modifications: z.array(ModificationSchema).optional(),
-  options: z.array(z.lazy(() => FeatureOptionSchema)).optional(),
-});
-
-export const PsychicPowerSlotSchema = z.object({
-  name: z.string(),
-  selected: z.union([z.string(), z.array(z.string())]).optional(),
-  query: z.record(z.string(), z.any()).optional(),
-  options: z.array(z.any()).optional(),
-  free: z.boolean().optional(),
-});
-
-export const AlertSchema = z.object({
-  type: z.string(),
-  text: z.string(),
-});
-
-export const ArchetypeFeatureSchema = z.object({
-  key: z.string().optional(), // TODO ensure via builder
-  name: z.string(),
-  snippet: z.string().optional(),
-  alerts: z.array(AlertSchema).optional(),
-  description: z.string().optional(),
-  modifications: z.array(ModificationSchema).optional(),
-  selected: z.union([z.string(), z.array(z.string())]).optional(),
-  options: z.array(FeatureOptionSchema).optional(),
-  psychicPowers: z.array(PsychicPowerSlotSchema).optional(),
-  psychicDisciplines: z.array(z.string()).optional(),
-});
-
 export const SuggestedSchema = z.object({
   attributes: z.array(z.any()).optional(),
   skills: z.array(z.any()).optional(),
@@ -131,7 +85,7 @@ export const ArchetypeSchema = z.object({
   prerequisites: z.array(PrerequisiteSchema).default([]),
   prerequisiteText: z.string().optional(),
   prerequisitesSkillString: z.string().optional(),
-  archetypeFeatures: z.array(ArchetypeFeatureSchema).default([]),
+  archetypeFeatures: z.array(GenericFeatureSchema).default([]),
   wargear: z.array(WargearOptionSchema).default([]),
   wargearString: z.string().optional(),
   suggested: SuggestedSchema.optional(),
@@ -147,8 +101,5 @@ export type Prerequisite = z.infer<typeof PrerequisiteSchema>;
 export type Modification = z.infer<typeof ModificationSchema>;
 export type SpeciesRef = z.infer<typeof SpeciesRefSchema>;
 export type FeatureOptionType = z.infer<typeof FeatureOptionSchema>;
-export type PsychicPowerSlot = z.infer<typeof PsychicPowerSlotSchema>;
-export type Alert = z.infer<typeof AlertSchema>;
-export type ArchetypeFeature = z.infer<typeof ArchetypeFeatureSchema>;
 export type Suggested = z.infer<typeof SuggestedSchema>;
 export type Archetype = z.infer<typeof ArchetypeSchema>;

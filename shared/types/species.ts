@@ -1,6 +1,4 @@
-import {PagedLegacySourceSchema} from "./source";
 import {z} from "zod";
-import {ArchetypeFeatureSchema, PrerequisiteSchema} from "./archetype";
 
 export const StatValuesSchema = z.object({
     name: z.string(),
@@ -31,7 +29,7 @@ export const SpeciesSchema = z.object({
 
     attributeMaximums: z.array(StatValuesSchema).default([]),
     traitMaximums: z.array(StatValuesSchema).default([]),
-    speciesFeatures: z.array(ArchetypeFeatureSchema).default([]),
+    speciesFeatures: z.array(GenericFeatureSchema).default([]),
 
     commonNames: z.array(z.string()).optional(),
     backgroundSection: z.array(z.object()).optional(),

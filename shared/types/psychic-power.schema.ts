@@ -1,4 +1,3 @@
-import {PagedLegacySourceSchema} from "./source";
 import z from "zod";
 
 export const PsychicPowerSchema = z.object({

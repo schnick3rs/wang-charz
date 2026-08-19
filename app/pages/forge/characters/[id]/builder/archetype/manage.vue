@@ -94,6 +94,13 @@ const skills = computed(() => {
       </div>
     </template>
 
+    <!-- Wargear -->
+    <div class="mt-4 mb-4">
+      <h3 class="font-light text-sm">Wargear</h3>
+      <USeparator class="mb-2" />
+       <ForgeWargearDetail :wargear-name="gear" v-for="gear in archetype.wargear" :key="gear.name" />
+    </div>
+
   </div>
 </template>
 

@@ -1,5 +1,4 @@
-import { z } from "zod";
-import {LegacySourceSchema} from "./source";
+import {z} from "zod";
 
 const ThreatAttributesSchema = z.object({
     strength: z.number(),

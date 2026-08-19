@@ -1,6 +1,4 @@
-import {PagedLegacySourceSchema} from "./source";
 import z from "zod";
-import {ModificationSchema} from "./core";
 
 export const ComplexRequirementSchema = z.object({
     condition: z.enum(['must', 'mustNot']).optional(),

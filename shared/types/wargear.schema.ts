@@ -1,6 +1,4 @@
-import {PagedLegacySourceSchema} from "./source";
 import {z} from "zod";
-import {ModificationSchema} from "./core";
 
 /** taxonomy
  *
@@ -81,7 +79,6 @@ export const ArmourProfileSchema = z.object({
     traits: z.array(z.string()).default([]),
 })
 export type ArmourProfile = z.infer<typeof ArmourProfileSchema>
-
 
 export const WargearSchema = z.object({
     source: PagedLegacySourceSchema,

@@ -6,7 +6,7 @@ export const KeywordSchema = z.object({
     name: z.string(),
     description: z.string(),
     type: z.string(),
-    features: z.array(ArchetypeFeatureSchema).default([]),
+    features: z.array(GenericFeatureSchema).default([]),
 
     parentKeyword: z.string().optional().default(''),
     examples: z.array(z.string()).default([]),

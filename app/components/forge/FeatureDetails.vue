@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const { feature } = defineProps<{
-  feature: ArchetypeFeature
+  feature: GenericeFeatureType
 }>()
 
 

@@ -1,6 +1,4 @@
-import { z } from "zod";
-import {PagedLegacySourceSchema} from "./source";
-import {ModificationSchema} from "./core";
+import {z} from "zod";
 
 const BackgroundSectionEntrySchema = z.object({
     key: z.string(),

@@ -1,5 +1,4 @@
 import z from "zod";
-import {BookSchema} from "./book";
 
 export const SourceSchema = z.object({
     book: BookSchema,
