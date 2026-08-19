@@ -1,6 +1,15 @@
 <script setup lang="ts">
 const { archetype } = defineProps<{ archetype: Archetype }>();
 
+const wargearString = computed(() => {
+  if (archetype.wargearString) return archetype.wargearString;
+
+  if (archetype.wargear) {
+    return archetype.wargear.map((gear) => `${gear.amount ? gear.amount + ' ' : '' }${gear.name}`).join(', ');
+  }
+
+  return 'something something error';
+})
 
 </script>
 
@@ -39,6 +48,16 @@ const { archetype } = defineProps<{ archetype: Archetype }>();
             <div v-else><p>{{ feature.snippet}}</p></div>
           </div>
         </div>
+      </div>
+    </template>
+
+    <!-- wargear -->
+    <template v-if="wargearString">
+
+      <div class="mb-4">
+        <h3 class="font-light text-sm">Wargear</h3>
+        <USeparator class="mb-2" />
+        <div>{{ wargearString }}</div>
       </div>
     </template>
 
