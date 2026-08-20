@@ -17,9 +17,9 @@ const columns: TableColumn<WeaponProfile>[] = [
     header: '',
     cell: ({ getValue }) => {
       if (getValue() === 'ranged-weapon')
-        return h(UIcon, { name: getWargearTypeIcon('Ranged Weapon') });
+        return h(UIcon, { class: 'size-6', name: getWargearTypeIcon('Ranged Weapon') });
       if (getValue() === 'melee-weapon')
-        return h(UIcon, { name: getWargearTypeIcon('Melee Weapon') });
+        return h(UIcon, { class: 'size-6', name: getWargearTypeIcon('Melee Weapon') });
 
       return '?'
     }
@@ -51,7 +51,11 @@ const columns: TableColumn<WeaponProfile>[] = [
     meta: { class: { th: 'text-center', td: 'text-center' } },
     cell: ({ row, getValue }) => {
       const range = (getValue() || 0) as number;
+
       if (row.original.type === 'ranged-weapon')
+        if (row.original.thrownX) {
+          return getValue()
+        }
         return `${range/2} | ${range} | ${range*1.5}`
 
       if (row.original.type === 'melee-weapon')
@@ -67,7 +71,11 @@ const columns: TableColumn<WeaponProfile>[] = [
   },
   {
     accessorKey: "traits",
-    header: 'Traits'
+    header: 'Traits',
+    cell: ({ getValue }) => {
+      const value = getValue() as string[];
+      return value.join(', ')
+    }
   },
 ]
 

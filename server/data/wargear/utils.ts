@@ -123,7 +123,8 @@ export function metaRange(
     range,
     salvo,
     traits,
-    label = undefined
+    label = undefined,
+    thrownX: number | undefined = undefined,
 ): RangedProfile {
     return {
         type: 'ranged-weapon',
@@ -133,10 +134,19 @@ export function metaRange(
         salvo,
         traits,
         label,
+        thrownX,
     };
 }
 
-export function rangez(subtype, damage, ed, ap, range, salvo, traits) {
+export function rangez(
+    subtype: string,
+    damage: number | string,
+    ed: number,
+    ap: number,
+    range: number | string,
+    salvo: number | string,
+    traits: string | undefined = undefined,
+) {
     return {
         type: 'Ranged Weapon',
         subtype: subtype ? subtype : undefined,
@@ -144,7 +154,25 @@ export function rangez(subtype, damage, ed, ap, range, salvo, traits) {
             metaRange(damage, ed, ap, range < 1 ? 1 : range, salvo, traits ? traits.split(',').map((k)=>k.trim()) : []),
         ],
     };
-};
+}
+
+export function thrownWeaponBuilder(
+    subtype: string,
+    damage: number,
+    ed: number,
+    ap: number,
+    thrownX: number,
+    salvo: number | string,
+    traits: string | undefined = undefined,
+) {
+    return {
+        type: 'Ranged Weapon',
+        subtype: subtype ? subtype : undefined,
+        meta: [
+            metaRange(damage, ed, ap, `Thrown(Sx${thrownX})`, salvo, traits ? traits.split(',').map((k)=>k.trim()) : [], undefined, thrownX),
+        ],
+    };
+}
 
 export function metaMelee(
     staticPart: string | number,

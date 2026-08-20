@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import WargearIcon from "~/components/WargearIcon.vue";
 import WeaponTable from "~/components/lookup/WeaponTable.vue";
 import ArmourTable from "~/components/lookup/ArmourTable.vue";
 import {useWargearIcon} from "~/composables/useWargearIcon.ts";
@@ -41,7 +40,7 @@ const { getWargearTypeIcon } = useWargearIcon()
           <span class="italic text-sm font-medium">{{ wargear.source.book }}, pg. {{ wargear.source.page}}</span>
           <span class="text-muted">{{ subtitle }}</span>
         </div>
-        <UIcon :name="getWargearTypeIcon(wargear.type, wargear.subtype)" />
+        <UIcon :name="getWargearTypeIcon(wargear.type, wargear.subtype)" class="size-12" />
       </div>
 
       <p class="w-160">

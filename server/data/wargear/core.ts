@@ -1,4 +1,4 @@
-import {armour, gear, meleez, metaMelee, metaRange, rangez, toolz} from "./utils";
+import {armour, gear, meleez, metaMelee, metaRange, rangez, thrownWeaponBuilder, toolz} from "./utils";
 
 export const core = [
     {
@@ -111,7 +111,12 @@ export const core = [
     },
     {
         ...gear('core',215,'Singing Spear','11L','Force,Aeldari,Asuryani'),
-        ...meleez('Aeldari Weapon',6,5,0,2, 'Assault,Force,Warp Weapon,Thrown(STRx5)'),
+        type: 'Ranged Weapon',
+        subtype: 'Aeldari Weapon',
+        meta: [
+            metaMelee(6,5,0,2, ['Assault','Force','Warp Weapon'], 'Melee'),
+            metaRange(6,5,0, 'Thrown(Sx5)', '-', ['Assault','Force','Warp Weapon'], 'Throw', 5),
+        ],
     },
     {
         ...gear('core',215,'Witchblade','9V','Force,Aeldari,Asuryani'),
@@ -315,15 +320,15 @@ export const core = [
     },
     {
         ...gear('core',224,'Frag Grenade','2C','Explosive,Imperium'),
-        ...rangez('Grenade & Missile Weapon',10,4,0,'*','-','Blast(Medium),Thrown(STRx4),Launcher'),
+        ...thrownWeaponBuilder('Grenade & Missile Weapon',10,4,0,4,'-','Blast(Medium),Launcher'),
     },
     {
         ...gear('core',225,'Plasma Grenade','5V','Explosive,Aeldari'),
-        ...rangez('Grenade & Missile Weapon',10,5,-1,'*','-','Blast(Medium),Thrown(STRx4),Launcher'),
+        ...thrownWeaponBuilder('Grenade & Missile Weapon',10,5,-1,4,'-','Blast(Medium),Launcher'),
     },
     {
         ...gear('core',225,'Krak Grenade','4U','Explosive,Imperium'),
-        ...rangez('Grenade & Missile Weapon',14,5,-2,'*','-','Blast(Small),Thrown(STRx4),Launcher'),
+        ...thrownWeaponBuilder('Grenade & Missile Weapon',14,5,-2,4,'-','Blast(Small),Launcher'),
     },
     {
         ...gear('core',225,'Militarum Tempestus Grenade Launcher','6U','Explosive,Imperium,Astra Militarum'),

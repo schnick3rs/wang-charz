@@ -59,7 +59,10 @@ export type MeleeProfile = z.infer<typeof MeleeProfileSchema>
 
 export const RangedProfileSchema = z.object({
     type: z.enum(['ranged-weapon']),
+
     range: z.union([z.number(), z.string()]),
+    thrownX: z.number().optional(),
+
     damage: z.object({
         static: z.union([z.number(), z.string()]),
         ed: z.union([z.number(), z.string()]),

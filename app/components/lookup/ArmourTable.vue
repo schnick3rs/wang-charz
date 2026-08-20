@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import type {TableColumn} from "@nuxt/ui";
 import type {ArmourProfile} from "#shared/types/wargear.schema.ts";
-import {WargearIcon} from "#components";
+import {UIcon} from "#components";
+import {useWargearIcon} from "~/composables/useWargearIcon.ts";
 
 const props = defineProps<{
   name: string;
@@ -10,12 +11,14 @@ const props = defineProps<{
 
 const data = ref<ArmourProfile[]>();
 
+const { getWargearTypeIcon } = useWargearIcon()
+
 const columns: TableColumn<ArmourProfile>[] = [
   {
     accessorKey: "type",
     header: '',
     cell: () => {
-      return h(WargearIcon, { type: 'Armour' })
+      return h(UIcon, { class: 'size-6', name: getWargearTypeIcon('Armour') });
     }
   },
   {
