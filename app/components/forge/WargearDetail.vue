@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import WargearIcon from "~/components/WargearIcon.vue";
+
+import {useWargearIcon} from "~/composables/useWargearIcon.ts";
 
 const props = defineProps<{
   wargearName: string
@@ -28,11 +29,12 @@ const subtitle = computed(() => {
   return '';
 })
 
+const { getWargearTypeIcon } = useWargearIcon()
 </script>
 
 <template>
   <div v-if="wargear" class="flex flex-row gap-4">
-    <WargearIcon :type="wargear.type" :subtype="wargear.subtype" />
+    <UIcon :name="getWargearTypeIcon(wargear.type, wargear.subtype)" />
     <div>
       <UPopover>
         <div>

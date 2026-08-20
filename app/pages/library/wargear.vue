@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { getPaginationRowModel } from '@tanstack/vue-table'
 import type {BreadcrumbItem, TableColumn} from '@nuxt/ui'
-import {UButton} from "#components";
+import {UBadge, UButton} from "#components";
+import {useWargearIcon} from "~/composables/useWargearIcon.ts";
 
 const crumbs = ref<BreadcrumbItem[]>([
   {
@@ -73,7 +74,22 @@ const columns: TableColumn<Wargear>[] = [
   },
   {
     accessorKey: 'value',
-    header: 'Value',
+    header: ({ column }) => {
+      const isSorted = column.getIsSorted()
+
+      return h(UButton, {
+        color: 'neutral',
+        variant: 'ghost',
+        label: 'Value',
+        icon: isSorted
+            ? isSorted === 'asc'
+                ? 'i-lucide-arrow-up-narrow-wide'
+                : 'i-lucide-arrow-down-wide-narrow'
+            : 'i-lucide-arrow-up-down',
+        class: '-mx-2.5',
+        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc')
+      })
+    },
     meta: {
       class: {
         th: 'text-center',
@@ -86,11 +102,19 @@ const columns: TableColumn<Wargear>[] = [
     header: 'Rarity',
     cell: ({ getValue }) => {
       return h(UBadge, { variant: 'subtle' }, getValue())
-    }
+    },
   },
   {
     accessorKey: 'keywords',
     header: 'Keywords',
+    cell: ({ getValue }) => {
+      const keywords = getValue() as string[];
+      return keywords.map((k) => k.toLocaleUpperCase()).join(', ')
+    },
+    filterFn: (row, columnId, filterValue: string[]) => {
+      if (!filterValue || filterValue.length === 0) return true
+      return row.original.keywords.some((keyword) => filterValue.includes(keyword.toLocaleUpperCase()))
+    },
   },
   {
     accessorKey: 'source',
@@ -108,8 +132,23 @@ const columnFilters = ref([
     id: 'source',
     value:  []
   },
+  {
+    id: 'keywords',
+    value:  []
+  },
 ])
 
+
+const keywordItems = computed(() => {
+  if (!data.value) return []
+  const array = [];
+  data.value.forEach((item) => {
+    const uppercasedkeywords = item.keywords.map((i) => i.toLocaleUpperCase());
+    array.push(...uppercasedkeywords);
+  });
+  const distinct = [...new Set(array)];
+  return distinct.filter((d) => d !== null && d !== undefined).sort();
+})
 
 const sourceItems = computed(() => {
   if (!data.value) return []
@@ -129,6 +168,7 @@ const pagination = ref({
   pageIndex: 0,
   pageSize: 25
 })
+const { getWargearTypeIcon } = useWargearIcon()
 </script>
 
 <template>
@@ -144,16 +184,11 @@ const pagination = ref({
     <UInput v-model="globalFilter" placeholder="Fulltext Search..." />
 
     <USelectMenu
+        :items="keywordItems"
         label-key="text"
         value-key="value"
-        placeholder="Filter Type..."
-        multiple
-        clear
-    />
-
-    <USelectMenu
-        label-key="text"
-        value-key="value"
+        :model-value="table?.tableApi?.getColumn('keywords')?.getFilterValue()"
+        @update:model-value="table?.tableApi?.getColumn('keywords')?.setFilterValue($event)"
         placeholder="Filter Keywords..."
         multiple
         clear
@@ -161,14 +196,13 @@ const pagination = ref({
 
     <USelectMenu
         :items="sourceItems"
-        label-key="text"
-        value-key="value"
         :model-value="table?.tableApi?.getColumn('source')?.getFilterValue()"
         @update:model-value="table?.tableApi?.getColumn('source')?.setFilterValue($event)"
         placeholder="Filter Books..."
         multiple
         clear
     />
+
   </div>
 
   <UTable
@@ -186,7 +220,7 @@ const pagination = ref({
   >
     <template #name-cell="{ row }">
       <UUser
-          :avatar="{ icon: 'i-game-icons-bolter-gun'}"
+          :avatar="{ icon: getWargearTypeIcon(row.original.type, row.original.subtype) }"
           :name="row.original.name"
           :description="row.original.type"
       ></UUser>

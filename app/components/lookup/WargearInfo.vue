@@ -2,6 +2,7 @@
 import WargearIcon from "~/components/WargearIcon.vue";
 import WeaponTable from "~/components/lookup/WeaponTable.vue";
 import ArmourTable from "~/components/lookup/ArmourTable.vue";
+import {useWargearIcon} from "~/composables/useWargearIcon.ts";
 
 const props = defineProps<{
   wargearKey: string
@@ -23,6 +24,8 @@ const subtitle = computed(() => {
   return '';
 })
 const value = ref(null)
+
+const { getWargearTypeIcon } = useWargearIcon()
 </script>
 
 <template>
@@ -38,7 +41,7 @@ const value = ref(null)
           <span class="italic text-sm font-medium">{{ wargear.source.book }}, pg. {{ wargear.source.page}}</span>
           <span class="text-muted">{{ subtitle }}</span>
         </div>
-        <WargearIcon :type="wargear.type" :subtype="wargear.subtype" />
+        <UIcon :name="getWargearTypeIcon(wargear.type, wargear.subtype)" />
       </div>
 
       <p class="w-160">

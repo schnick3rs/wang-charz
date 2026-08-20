@@ -1,14 +1,15 @@
 <script setup lang="ts">
 import type {WeaponProfile} from "#shared/types/wargear.schema.ts";
 import type {TableColumn} from "@nuxt/ui";
-import {WargearIcon} from "#components";
+import {UIcon} from "#components";
+import {useWargearIcon} from "~/composables/useWargearIcon.ts";
 
 const props = defineProps<{
   name: string;
   profiles: WeaponProfile[],
 }>()
 
-const data = ref<WeaponProfile[]>();
+const { getWargearTypeIcon } = useWargearIcon()
 
 const columns: TableColumn<WeaponProfile>[] = [
   {
@@ -16,9 +17,9 @@ const columns: TableColumn<WeaponProfile>[] = [
     header: '',
     cell: ({ getValue }) => {
       if (getValue() === 'ranged-weapon')
-        return h(WargearIcon, { type: 'Ranged Weapon' })
+        return h(UIcon, { name: getWargearTypeIcon('Ranged Weapon') });
       if (getValue() === 'melee-weapon')
-        return h(WargearIcon, { type: 'Melee Weapon' })
+        return h(UIcon, { name: getWargearTypeIcon('Melee Weapon') });
 
       return '?'
     }
