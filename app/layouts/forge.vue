@@ -192,7 +192,7 @@ const forgeNavs = computed(() => {
     ]
   ];
 })
-
+const { locale, locales, setLocale } = useI18n()
 </script>
 
 <template>
@@ -211,7 +211,18 @@ const forgeNavs = computed(() => {
 
         <UColorModeButton />
 
-        <UDropdownMenu :items="items"     :content="{     align: 'start',     side: 'bottom',     sideOffset: 8}" :ui="{ content: 'w-48' }" v-if="user">
+        <ULocaleSelect
+            :model-value="locale"
+            :locales="locales"
+            @update:model-value="setLocale"
+        />
+
+        <UDropdownMenu
+            v-if="user"
+            :items="items"
+            :content="{ align: 'start', side: 'bottom', sideOffset: 8}"
+            :ui="{ content: 'w-48' }"
+        >
           <UUser :avatar="{ src: avatarUrl }" :name="displayName" />
         </UDropdownMenu>
 

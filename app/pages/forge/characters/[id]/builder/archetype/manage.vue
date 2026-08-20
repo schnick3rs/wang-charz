@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
-
+const { t } = useI18n()
 definePageMeta({ layout: 'forge' })
 
 const route = useRoute()
@@ -19,14 +19,12 @@ const { data: keywords } = await useAsyncData(
     (_nuxtApp, { signal }) => $fetch(`/api/keywords`, { signal }),
 )
 
-const selectedOptionKey = ref<string>()
-const selectedFeatureOption = ref<string>()
 
 const attributes = computed(() => {
-  return archetype.value?.prerequisites.filter(pre => pre.group === 'attributes').map(pre => `${pre.value} ${pre.threshold}`).join(', ');
+  return archetype.value?.prerequisites.filter(pre => pre.group === 'attributes').map(pre => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`).join(', ');
 })
 const skills = computed(() => {
-  return archetype.value?.prerequisites.filter(pre => pre.group === 'skills').map(pre => `${pre.value} ${pre.threshold}`).join(', ');
+  return archetype.value?.prerequisites.filter(pre => pre.group === 'skills').map(pre => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`).join(', ');
 })
 </script>
 

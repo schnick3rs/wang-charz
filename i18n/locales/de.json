@@ -1,0 +1,42 @@
+{
+  "stats": {
+    "strength": "Stärke",
+    "toughness": "Widerstand",
+    "agility": "Gewandtheit",
+    "initiative": "Initiative",
+    "willpower": "Willenskraft",
+    "fellowship": "Charisma",
+    "intellect": "Intelligenz",
+
+    "athletics": "Athletik",
+    "awareness": "Wahrnehmung",
+    "ballisticSkill": "Ballistische Fertigkeit",
+    "stealth": "Verstohlenheit",
+    "medicae": "Medicae",
+    "scholar": "Scholar",
+    "survival": "Überlebenskunst",
+    "intimidation": "Einschüchtern",
+    "investigation": "Nachforschen",
+    "leadership": "Führung",
+    "deception": "Täuschen",
+    "cunning": "Gerissenheit",
+    "insight": "Einsicht",
+    "persuasion": "Überreden",
+    "tech": "Tech",
+    "pilot": "Steuern",
+    "psychicMastery": "Psimeisterschaft",
+    "weaponSkill": "Kampfgeschick",
+
+    "passiveAwareness": "Passive Wahrnehmung",
+    "resolve": "Entschlossenheit",
+    "conviction": "Überzeugung",
+    "defence": "Verteidigung",
+    "resilience": "Zähigkeit",
+    "maxShock": "Schock",
+    "maxWounds": "Lebenspunkte",
+    "determination": "Entschlossenheit",
+    "speed": "Geschwindigkeit",
+    "corruption": "Verderbnis",
+    "influence": "Einfluss"
+  }
+}

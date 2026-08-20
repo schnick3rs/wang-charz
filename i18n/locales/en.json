@@ -1,0 +1,42 @@
+{
+  "stats": {
+    "strength": "Strength",
+    "toughness": "Toughness",
+    "agility": "Agility",
+    "initiative": "Initiative",
+    "willpower": "Willpower",
+    "fellowship": "Fellowship",
+    "intellect": "Intellect",
+
+    "athletics": "Athletics",
+    "awareness": "Awareness",
+    "ballisticSkill": "Ballistic Skill",
+    "stealth": "Stealth",
+    "medicae": "Medicae",
+    "scholar": "Scholar",
+    "survival": "Survival",
+    "intimidation": "Intimidation",
+    "investigation": "Investigation",
+    "leadership": "Leadership",
+    "deception": "Deception",
+    "cunning": "Cunning",
+    "insight": "Insight",
+    "persuasion": "Persuasion",
+    "tech": "Tech",
+    "pilot": "Pilot",
+    "psychicMastery": "Psychic Mastery",
+    "weaponSkill": "Weapon Skill",
+
+    "passiveAwareness": "Passive Awareness",
+    "resolve": "Resolve",
+    "conviction": "Conviction",
+    "defence": "Defence",
+    "resilience": "Resilience",
+    "maxShock": "Max Shock",
+    "maxWounds": "Max Wounds",
+    "determination": "Determination",
+    "speed": "Speed",
+    "corruption": "Corruption",
+    "influence": "Influence"
+  }
+}
