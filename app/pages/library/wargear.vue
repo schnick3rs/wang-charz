@@ -129,11 +129,11 @@ const columns: TableColumn<Wargear>[] = [
 
 const columnFilters = ref([
   {
-    id: 'source',
+    id: 'keywords',
     value:  []
   },
   {
-    id: 'keywords',
+    id: 'source',
     value:  []
   },
 ])
@@ -185,8 +185,6 @@ const { getWargearTypeIcon } = useWargearIcon()
 
     <USelectMenu
         :items="keywordItems"
-        label-key="text"
-        value-key="value"
         :model-value="table?.tableApi?.getColumn('keywords')?.getFilterValue()"
         @update:model-value="table?.tableApi?.getColumn('keywords')?.setFilterValue($event)"
         placeholder="Filter Keywords..."
@@ -196,6 +194,8 @@ const { getWargearTypeIcon } = useWargearIcon()
 
     <USelectMenu
         :items="sourceItems"
+        label-key="text"
+        value-key="value"
         :model-value="table?.tableApi?.getColumn('source')?.getFilterValue()"
         @update:model-value="table?.tableApi?.getColumn('source')?.setFilterValue($event)"
         placeholder="Filter Books..."
