@@ -1,0 +1,83 @@
+<script setup lang="ts">
+import type {WeaponProfile} from "#shared/types/wargear.schema.ts";
+import type {TableColumn} from "@nuxt/ui";
+import {WargearIcon} from "#components";
+
+const props = defineProps<{
+  name: string;
+  profiles: WeaponProfile[],
+}>()
+
+const data = ref<WeaponProfile[]>();
+
+const columns: TableColumn<WeaponProfile>[] = [
+  {
+    accessorKey: "type",
+    header: '',
+    cell: ({ getValue }) => {
+      if (getValue() === 'ranged-weapon')
+        return h(WargearIcon, { type: 'Ranged Weapon' })
+      if (getValue() === 'melee-weapon')
+        return h(WargearIcon, { type: 'Melee Weapon' })
+
+      return '?'
+    }
+  },
+  {
+    accessorKey: "damage.static",
+    header: 'Damage',
+    meta: { class: { th: 'text-center', td: 'text-center' } },
+    cell: ({ row, getValue }) => {
+      if (row.original.type === 'melee-weapon')
+        return `${row.original.damage.ignoreStrength === true ? '' : '(S)+'}${getValue()}`
+
+      return getValue()
+    }
+  },
+  {
+    accessorKey: "damage.ed",
+    header: 'ED',
+    meta: { class: { th: 'text-center', td: 'text-center' } },
+  },
+  {
+    accessorKey: "ap",
+    header: 'AP',
+    meta: { class: { th: 'text-center', td: 'text-center' } },
+  },
+  {
+    accessorKey: "range",
+    header: 'Range',
+    meta: { class: { th: 'text-center', td: 'text-center' } },
+    cell: ({ row, getValue }) => {
+      const range = (getValue() || 0) as number;
+      if (row.original.type === 'ranged-weapon')
+        return `${range/2} | ${range} | ${range*1.5}`
+
+      if (row.original.type === 'melee-weapon')
+        return range > 1 ? range : '-'
+
+      return '?'
+    }
+  },
+  {
+    accessorKey: "salvo",
+    header: 'Salvo',
+    meta: { class: { th: 'text-center', td: 'text-center' } },
+  },
+  {
+    accessorKey: "traits",
+    header: 'Traits'
+  },
+]
+
+</script>
+
+<template>
+  <UTable
+      :columns="columns" :data="profiles"
+  />
+</template>
+
+<style scoped>
+
+</style>

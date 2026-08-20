@@ -1,5 +1,7 @@
 <script setup lang="ts">
 import WargearIcon from "~/components/WargearIcon.vue";
+import WeaponTable from "~/components/lookup/WeaponTable.vue";
+import ArmourTable from "~/components/lookup/ArmourTable.vue";
 
 const props = defineProps<{
   wargearKey: string
@@ -25,9 +27,7 @@ const value = ref(null)
 
 <template>
   <UCard>
-    {{pending}}
     <div v-if="pending">
-      AKAKAK
       <UProgress v-model="value"/>
     </div>
     <div v-else-if="wargear">
@@ -41,9 +41,24 @@ const value = ref(null)
         <WargearIcon :type="wargear.type" :subtype="wargear.subtype" />
       </div>
 
-      <!-- -->
-      <template v-if="wargear.meta">
+      <p class="w-160">
+        {{ wargear.snippet }}
+      </p>
 
+      <!-- -->
+      <template v-if="wargear.meta && wargear.meta.length > 0">
+        <WeaponTable
+            :key="wargear.key"
+            v-if=" wargear.meta.filter((i) => ['ranged-weapon', 'melee-weapon'].includes(i.type)).length > 0"
+            :name="wargear.name"
+            :profiles="wargear.meta.filter((i) => ['ranged-weapon', 'melee-weapon'].includes(i.type))"
+        />
+        <ArmourTable
+            :key="wargear.key"
+            v-if=" wargear.meta.filter((i) => i.type === 'armour').length > 0"
+            :name="wargear.name"
+            :profiles="wargear.meta.filter((i) => i.type === 'armour')"
+        />
       </template>
     </div>
   </UCard>

@@ -72,6 +72,22 @@ export const RangedProfileSchema = z.object({
 });
 export type RangedProfile = z.infer<typeof RangedProfileSchema>
 
+export const WeaponProfileSchema = z.object({
+    type: z.enum(['ranged-weapon', 'melee-weapon']),
+    range: z.union([z.number(), z.string()]),
+    damage: z.object({
+        ignoreStrength: z.boolean().optional(),
+        static: z.union([z.number(), z.string()]),
+        ed: z.union([z.number(), z.string()]),
+    }),
+    ap: z.union([z.number(), z.string()]).default(0),
+    salvo: z.union([z.number(), z.string()]),
+    traits: z.array(z.string()).default([]),
+
+    label: z.string().optional().describe('A custom name for this profile')
+});
+export type WeaponProfile = z.infer<typeof WeaponProfileSchema>
+
 export const ArmourProfileSchema = z.object({
     type: z.enum(['armour']),
     armourRating: z.number().optional(),

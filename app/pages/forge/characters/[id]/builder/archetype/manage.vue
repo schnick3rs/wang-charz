@@ -99,10 +99,10 @@ const skills = computed(() => {
       <h3 class="font-light text-sm">Wargear</h3>
       <USeparator class="mb-2" />
       <div class="flex flex-col gap-2">
-        <template v-for="gear in archetype.wargear" :key="gear.name" >
+        <div v-for="gear in archetype.wargear" :key="gear.name" class="hover:bg-black/10 p-2">
           <div v-if="gear.options">{{ gear.name }}</div>
           <ForgeWargearDetail v-else :wargear-name="gear.name" :variant="gear.variant" :amount="gear.amount"/>
-        </template>
+        </div>
       </div>
     </div>
   </div>
