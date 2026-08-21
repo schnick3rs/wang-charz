@@ -182,7 +182,7 @@ const forgeNavs = computed(() => {
       { label: 'Setting', to: `/forge/characters/${id.value}/builder/setting` },
       { label: '1. Species', to: `/forge/characters/${id.value}/builder/species/${entityData.value.speciesKey ? 'manage' : 'choose'}` },
       { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype/${entityData.value.archetypeKey ? 'manage' : 'choose'}` },
-      { label: '3. Ascension', to: `/forge/characters/${id.value}/builder/ascension` },
+      { label: '3. Ascension', to: `/forge/characters/${id.value}/builder/ascension/manage` },
       { label: '4. Stats', to: `/forge/characters/${id.value}/builder/stats` },
       { label: '5. Talents', to: `/forge/characters/${id.value}/builder/talents` },
       { label: '6. Wargear', to: `/forge/characters/${id.value}/builder/wargear` },
