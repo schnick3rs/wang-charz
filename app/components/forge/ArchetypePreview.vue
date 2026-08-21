@@ -24,7 +24,7 @@ const wargearString = computed(() => {
         <span class="italic text-sm font-medium">{{ archetype.source.book }}, pg. {{ archetype.source.page}}</span>
         <span>{{ archetype.hint }}</span>
       </div>
-      <NuxtImg :src="`/img/avatars/archetype/${archetype.key}.png`" class="w-24 h-24 object-contain rounded-lg" />
+      <NuxtImg :src="`/img/avatars/archetype/${archetype.key}.png`" class="w-24 h-24 object-cover rounded-lg" />
     </div>
 
     <!-- cost -->

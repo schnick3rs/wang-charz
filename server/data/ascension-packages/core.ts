@@ -16,7 +16,7 @@ export const core = [
         ascensionFeatures: [
             {
                 key: 'keywords',
-                name: 'Keywords',
+                name: 'A grateful saviour',
                 snippet: 'You gain the [Any] keyword, representing the Faction who saved you.',
                 modifications: [
                     { targetGroup: 'keywords', targetValue: '[ANY]' },

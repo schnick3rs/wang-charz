@@ -39,7 +39,7 @@ const skills = computed(() => {
 
       </div>
       <div>
-        <NuxtImg :src="`/img/avatars/archetype/${archetype.key}.png`" class="w-30 h-30 object-contain rounded-lg" />
+        <NuxtImg :src="`/img/avatars/archetype/${archetype.key}.png`" class="w-30 h-30 object-cover rounded-lg" />
         <UButton variant="ghost" color="info" :to="`/forge/characters/${id}/builder/archetype/choose`">Change Archetype</UButton>
       </div>
     </div>

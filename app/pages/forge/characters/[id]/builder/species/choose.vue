@@ -73,7 +73,7 @@ function updateAndShowSpeciesPreview(species: Species) {
         v-model:open="showSpeciesModal"
         title="Confirm Species"
         :overlay="false"
-        :ui="{ content: 'max-w-2xl'}"
+        :ui="{ content: 'max-w-2xl', footer: 'justify-between' }"
     >
       <template #body>
         <ForgeSpeciesPreview

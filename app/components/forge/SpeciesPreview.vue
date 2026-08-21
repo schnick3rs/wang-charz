@@ -21,7 +21,7 @@ const skills = computed(() => {
         <span class="italic text-sm font-medium">{{ species.source.book }}, pg. {{ species.source.page}}</span>
         <span>{{ species.hint }}</span>
       </div>
-      <NuxtImg :src="`/img/avatars/species/${species.key}.png`" class="w-24 h-24 object-contain rounded-lg" />
+      <NuxtImg :src="`/img/avatars/species/${species.key}.png`" class="w-24 h-24 object-cover rounded-lg" />
     </div>
 
     <!-- cost -->

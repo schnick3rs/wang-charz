@@ -82,7 +82,7 @@ function updateAndShowArchetypePreview(species: Archetype) {
         v-model:open="showArchetypeModal"
         title="Confirm Species"
         :overlay="false"
-        :ui="{ content: 'max-w-2xl'}"
+        :ui="{ content: 'max-w-2xl', footer: 'justify-between' }"
     >
       <template #body>
         <ForgeArchetypePreview

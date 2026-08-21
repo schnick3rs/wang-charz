@@ -19,7 +19,7 @@ export const AscensionPackageSchema = z.object({
     influencePerTier: z.number().optional(),
     keywordString: z.string().optional().optional(),
     storyElementDescription: z.string().optional(),
-    ascensionFeatures: z.array(GenericFeatureSchema).optional(),
+    ascensionFeatures: z.array(GenericFeatureSchema).default([]),
 });
 
 export type AscensionPackage = z.infer<typeof AscensionPackageSchema>;

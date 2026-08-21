@@ -35,7 +35,7 @@ const selectedFeatureOption = ref<string>()
 
       </div>
       <div>
-        <NuxtImg :src="`/img/avatars/species/${species.key}.png`" class="w-30 h-30 object-contain rounded-lg" />
+        <NuxtImg :src="`/img/avatars/species/${species.key}.png`" class="w-30 h-30 object-cover rounded-lg" />
         <UButton variant="ghost" color="info" :to="`/forge/characters/${id}/builder/species/choose`">Change Species</UButton>
       </div>
     </div>
