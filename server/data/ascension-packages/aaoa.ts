@@ -1,4 +1,11 @@
 import {simpleStub} from "./utils";
+import {
+    requireAttribute,
+    requireFreetext,
+    requireKeyword,
+    requireSkill,
+    requireSpecies,
+} from "#server/data/utils.ts";
 
 export const aaoa = [
     {
@@ -8,8 +15,8 @@ export const aaoa = [
         costPerTier: 10,
         minimumCampaignTier: 2,
         prerequisites: [
-            'Willpower 3',
-            'Persuasion 2 or Awareness 2',
+            requireAttribute(ATTRIBUTES.WILLPOWER, 3),
+            requireFreetext('Persuasion 2 or Awareness 2'),
         ],
         // Benefits
         influenceBonus: 0,
@@ -130,10 +137,10 @@ export const aaoa = [
         costPerTier: 10,
         minimumCampaignTier: 4,
         prerequisites: [
-            'Willpower 4',
-            'Ballistic Skill 5 OR Weapon Skill 5',
-            'Scholar 2',
-            'You must be Adeptus Astartes or Primaris Astartes.'
+            requireAttribute(ATTRIBUTES.WILLPOWER, 4),
+            requireFreetext('Ballistic Skill 5 OR Weapon Skill 5'),
+            requireSkill(SKILLS.SCHOLAR, 2),
+            requireKeyword('ADEPTUS ASTARTES,PRIMARIS ASTARTES'),
         ],
         // Benefits
         influenceBonus: 0,
@@ -206,7 +213,7 @@ export const aaoa = [
         costPerTier: 0,
         minimumCampaignTier: 2,
         prerequisites: [
-            'Ballistic Skill 5 or Weapon Skill 5',
+            requireFreetext('Ballistic Skill 5 OR Weapon Skill 5'),
         ],
         // Benefits
         influenceBonus: 0,
@@ -258,12 +265,12 @@ export const aaoa = [
         // Prerequisites
         minimumCampaignTier: 2,
         prerequisites: [
-            'Strength 5',
-            'Toughness 5',
-            'Ballistic Skill 4',
-            'Weapon Skill 4',
-            'ADEPTUS ASTARTES Keyword',
-            'NOT PIRMARIS ASTARTES Keyword',
+            requireAttribute(ATTRIBUTES.STRENGTH, 5),
+            requireAttribute(ATTRIBUTES.TOUGHNESS, 5),
+            requireSkill(SKILLS.BALLISTIC_SKILL, 4),
+            requireSkill(SKILLS.WEAPON_SKILL, 4),
+            requireKeyword('ADEPTUS ASTARTES'),
+            requireKeyword('PRIMARIS ASTARTES', true),
         ],
         // Benefits
         influenceBonus: 1,
@@ -310,8 +317,8 @@ export const aaoa = [
         // Prerequisites
         minimumCampaignTier: 2,
         prerequisites: [
-            'Aeldari Species',
-            'ASPECT WARRIOR Keyword',
+            requireSpecies('Aeldari'),
+            requireKeyword('ASPECT WARRIOR'),
         ],
         // Benefits
         alert: 'Excarch powers are not yet implemented',
@@ -397,12 +404,12 @@ export const aaoa = [
         // Prerequisites
         minimumCampaignTier: 2,
         prerequisites: [
-            'Willpower 6',
-            'Insight 6',
-            'Psychic Mastery 6',
-            'Aeldari Species',
-            'ASURYANI Keyword',
-            'PSYKER Keyword',
+            requireAttribute(ATTRIBUTES.WILLPOWER, 6),
+            requireSkill(SKILLS.INSIGHT, 6),
+            requireSkill(SKILLS.PSYCHIC_MASTERY, 6),
+            requireSpecies('Aeldari'),
+            requireKeyword('ASURYANI'),
+            requireKeyword('PSYKER'),
         ],
         // Benefits
         alert: 'The Special path Psychic powers not yet implemented.',
@@ -469,8 +476,8 @@ export const aaoa = [
         // Prerequisites
         minimumCampaignTier: 2,
         prerequisites: [
-            'Willpower 3',
-            'Aeldari or Drukhari Species',
+            requireAttribute(ATTRIBUTES.WILLPOWER, 3),
+            { condition: 'must', type: 'species', value: [ 'Aeldari', 'Drukhari' ] },
         ],
         // Benefits
         influenceBonus: 2,
@@ -528,8 +535,8 @@ export const aaoa = [
         minimumCampaignTier: 3,
         alert: 'Corruption is not added correctly currently. Also, no mutaiton selection.',
         prerequisites: [
-            'Willpower 4',
-            'CHAOS Keyword',
+            requireAttribute(ATTRIBUTES.WILLPOWER, 4),
+            requireKeyword('CHAOS'),
         ],
         // Benefits
         influenceBonus: 3,

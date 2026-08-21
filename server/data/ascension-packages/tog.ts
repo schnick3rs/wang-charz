@@ -1,4 +1,5 @@
 import {simpleStub} from "./utils";
+import {requireFreetext, requireKeyword} from "#server/data/utils.ts";
 
 export const tog = [
     {
@@ -14,9 +15,9 @@ export const tog = [
         // Prerequisites
         minimumCampaignTier: 4,
         prerequisites: [
-            'Required Skills +1',
-            'Heretic Astartes',
-            'Hatred IMPERIUM',
+            requireFreetext('Required Skills +1'),
+            requireKeyword('HERETIC ASTARTES', false),
+            requireFreetext('Hatred IMPERIUM'),
         ],
         // Benefits
         influenceBonus: 0,

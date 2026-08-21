@@ -1,17 +1,11 @@
 import {simpleStub} from "./utils";
+import {requireSkill} from "#server/data/utils.ts";
 
 export const core = [
     {
-        name: 'Back From The Brink',
         ...simpleStub('core',150,'Back From The Brink','Dead, forgotten, found, rebuild.',false),
         cost: 0,
         costPerTier: 10,
-        minimumCampaignTier: 2,
-        prerequisites: [],
-        // Benefits
-        influenceBonus: 0,
-        influencePerTier: 1,
-        keywordString: '[Any] (representing the Faction who saved you)',
         storyElementDescription:
             '<p>After a horrific encounter, you were somehow reconstructed by the marvels of holy (or unholy) technology.</p>' +
             '<ol>' +
@@ -274,16 +268,9 @@ export const core = [
         ],
     },
     {
-        name: 'Dauntless Reputation',
         ...simpleStub('core', 151,'Dauntless Reputation','Acknowledged, praised, wellcomed, hated.', false),
         cost: 0,
         costPerTier: 30,
-        minimumCampaignTier: 2,
-        prerequisites: [],
-        // Benefits
-        influenceBonus: 0,
-        influencePerTier: 2,
-        keywordString: '[Any]',
         storyElementDescription:
             '<p>You gain:</p>' +
             '<ul>' +
@@ -295,9 +282,17 @@ export const core = [
             {
                 key: 'keywords',
                 name: 'Keywords',
-                snippet: 'You gain the [Any] keyword. And a tremendous reputation with that faction.',
+                snippet: 'You gain the [Any] keyword. And a tremendous reputation with a/that faction.',
                 modifications: [
                     { targetGroup: 'keywords', targetValue: '[Any]' },
+                ],
+            },
+            {
+                key: 'influence',
+                name: 'Influence through your Reputation',
+                snippet: 'You gain two influence per tier ascended.',
+                modifications: [
+                    { targetGroup: 'traits', targetValue: 'influence', modifier: 0, modifierPerAscendedTier: 2 },
                 ],
             },
             {
@@ -318,18 +313,13 @@ export const core = [
         ],
     },
     {
-        name: 'Demanding Patron',
         ...simpleStub('core', 151,'Demanding Patron','Watched, promoted, demanded.', false),
         cost: 0,
         costPerTier: 10,
-        minimumCampaignTier: 2,
         prerequisites: [
-            'Persuasion 3',
+            requireSkill(SKILLS.PERSUASION, 3),
         ],
-        // Benefits
-        influenceBonus: 0,
         influencePerTier: 0,
-        keywordString: '[Any] (the Faction of your patron)',
         storyElementDescription:
             '<p>You now report to a demanding patron between every adventure.</p>' +
             '<p>When you take this Ascension Package, choose to gain one of the following:</p>' +
@@ -345,6 +335,14 @@ export const core = [
                 snippet: 'You gain the [Any] keyword, the Faction of your now patron.',
                 modifications: [
                     { targetGroup: 'keywords', targetValue: '[Any]' },
+                ],
+            },
+            {
+                key: 'influence',
+                name: 'Influence through your Patron',
+                snippet: 'You gain two influence per tier ascended.',
+                modifications: [
+                    { targetGroup: 'traits', targetValue: 'influence', modifier: 0, modifierPerAscendedTier: 2 },
                 ],
             },
             {
@@ -383,7 +381,7 @@ export const core = [
                     {
                         key: 'influence',
                         name: 'Influence',
-                        snippet: 'You gain 2 influence per tier ascended.',
+                        snippet: 'You gain additional two influence per tier ascended.',
                         modifications: [
                             { targetGroup: 'traits', targetValue: 'influence', modifier: 0, modifierPerAscendedTier: 2 },
                         ],
@@ -393,18 +391,12 @@ export const core = [
         ],
     },
     {
-        name: 'Perfidious Wretch',
         ...simpleStub('core', 152,'Perfidious Wretch','Overseen, baited, convinced, turned.', false),
         cost: 0,
         costPerTier: 5,
-        minimumCampaignTier: 2,
         prerequisites: [
-            'Cunning 3',
+            requireSkill(SKILLS.CUNNING, 3)
         ],
-        // Benefits
-        influenceBonus: -2,
-        influencePerTier: 0,
-        keywordString: '[Any]',
         storyElementDescription:
             '<p>Your new allies gift you the following:</p>' +
             '<ul>' +
@@ -413,11 +405,25 @@ export const core = [
             '</ul>',
         ascensionFeatures: [
             {
-                key: 'keywords',
-                name: 'Keywords',
+                key: 'keywords-betrayer',
+                name: 'Betrayer',
+                snippet: 'You lose the Keyword of the Faction you betrayed.',
+                // TODO ensure you cen deselect/remove a gained keyword
+            },
+            {
+                key: 'keywords-a-new-home',
+                name: 'A new Home',
                 snippet: 'You gain the [Any] keyword, remove the Keyword you betrayed (not yet implemented).',
                 modifications: [
                     { targetGroup: 'keywords', targetValue: '[Any]' },
+                ],
+            },
+            {
+                key: 'influence',
+                name: 'Influence loss from your betrail',
+                snippet: 'You lose two Influence.',
+                modifications: [
+                    { targetGroup: 'traits', targetValue: 'influence', modifier: -2 },
                 ],
             },
             {
@@ -449,17 +455,9 @@ export const core = [
         ],
     },
     {
-        name: 'Psychic Revelations',
         ...simpleStub('core', 152, 'Psychic Revelations', 'Tap into the warp, awaken powers, lure the Immaterium.', false),
         cost: 0,
         costPerTier: 10,
-        // Prerequisites
-        minimumCampaignTier: 2,
-        prerequisites: [],
-        // Benefits
-        influenceBonus: 0,
-        influencePerTier: 1,
-        keywordString: 'Psyker',
         storyElementDescription :
             '<p>You gain:</p>' +
             '<ul>' +
@@ -475,6 +473,14 @@ export const core = [
                 snippet: 'You gain the Psyker Keyword.',
                 modifications: [
                     { targetGroup: 'keywords', targetValue: 'Psyker' },
+                ],
+            },
+            {
+                key: 'influence',
+                name: 'Influence through awakening',
+                snippet: 'You gain one influence per tier ascended.',
+                modifications: [
+                    { targetGroup: 'traits', targetValue: 'influence', modifier: 0, modifierPerAscendedTier: 1 },
                 ],
             },
             {
@@ -497,9 +503,6 @@ export const core = [
                     { key: 'core-runes-of-battle', name: 'Runes of Battle', modifications: [{ targetGroup: 'psychicDisciplines', targetValue: 'Runes of Battle' }] },
                     // todo, handle homebrew disciplines
                 ],
-                modifications: [
-                    // { targetGroup: 'psychicDisciplines', targetValue: 'Minor' },
-                ],
             },
             {
                 key: 'story-element',
@@ -518,15 +521,10 @@ export const core = [
         ],
     },
     {
-        name: 'Stay The Course',
         ...simpleStub('core', 154, 'Stay The Course', 'Overcome struggles, build alliances, acquire equipment.', false),
         cost: 0,
         costPerTier: 10,
-        minimumCampaignTier: 2,
         prerequisites: [],
-        // Benefits
-        influenceBonus: 0,
-        influencePerTier: 1,
         storyElementDescription:
             '<p>If you do not have a Memorable Injury, roll on the Memorable Injury table (p.194) and decide with your GM how you received the Memorable Injury. You may choose to gain 3 Corruption points instead of, or in addition to, a Memorable Injury.</p>',
         wargearString:
@@ -534,26 +532,42 @@ export const core = [
             'equal or lesser than 3 + the new Tier. This may include augmetics.',
         ascensionFeatures: [
             {
-                key: 'story-element',
-                name: 'Story Element',
-                snippet: 'You gain 3 points Corruption or a Memorable Injury.',
+                key: 'influence',
+                name: 'Influence through dedication',
+                snippet: 'You gain one influence per tier ascended.',
+                modifications: [
+                    { targetGroup: 'traits', targetValue: 'influence', modifier: 0, modifierPerAscendedTier: 1 },
+                ],
+            },
+            {
+                key: 'memorable-injury',
+                name: 'Memorable Injury',
+                snippet: 'You gain a Memorable Injury.',
                 description:
-                    '<p>The character gains their choice of either 3 Corruption points or ' +
-                    'a Memorable Injury (see page 233) of their choice and the +1D Bonus to ' +
-                    'Intimidation that comes with it from the Table 4-4: Memorable Injury.</p>',
+                    '<p>Your character gains a Memorable Injury (see page 233) of their choice and the +1D Bonus to ' +
+                    'Intimidation that comes with it (see pg. 194).</p>',
+                modifications: [
+                    { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
+                    { name: 'Memorable Injury', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
+                ],
+            },
+            {
+                key: 'potential-corruption',
+                name: 'Potential Corruption',
+                snippet: 'You may gain three corruption points.',
+                description:
+                    '<p>You can decide to gain three Corruption Points</p>',
                 selected: '',
                 options: [
                     {
-                        key: 'corruption',
-                        name: '3 Corruption Points',
-                        modifications: [ { name: 'Corruption', targetGroup: 'traits', targetValue: 'corruption', modifier: 3 } ],
+                        key: 'clean',
+                        name: 'Corruption averted',
                     },
                     {
-                        key: 'memorableInjury',
-                        name: 'Memorable Injury (+1 die to Intimidation)',
+                        key: 'corrupted',
+                        name: 'Corruption gained',
                         modifications: [
-                            { name: 'Memorable Injury', targetGroup: 'abilities', targetValue: '', effect: 'You add +1 die to Intimidation Tests.' },
-                            { name: 'Memorable Injury', targetGroup: 'skills', targetValue: 'intimidation', modifier: 1 },
+                            { name: 'Corruption', targetGroup: 'traits', targetValue: TRAITS.CORRUPTION, modifier: 3 },
                         ],
                     },
                 ],

@@ -1,4 +1,5 @@
 import {simpleStub} from "./utils";
+import {requireAttribute, requireFreetext, requireKeyword, requireSkill} from "#server/data/utils.ts";
 
 export const aotgt = [
     {
@@ -10,12 +11,12 @@ export const aotgt = [
         // Prerequisites
         minimumCampaignTier: 4,
         prerequisites: [
-            'Intellect 4',
-            'Willpower 4',
-            'Required Skills +1',
-            'Insight 2',
-            'Intimidation 2',
-            'Imperium Keyword',
+            requireAttribute(ATTRIBUTES.INTELLECT, 4),
+            requireAttribute(ATTRIBUTES.WILLPOWER, 4),
+            requireFreetext('Required Skills +1'),
+            requireSkill(SKILLS.INSIGHT, 2),
+            requireSkill(SKILLS.INTIMIDATION, 2),
+            requireKeyword('IMPERIUN'),
         ],
         // Benefits
         influenceBonus: -1, // workaround

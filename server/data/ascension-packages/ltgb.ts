@@ -1,4 +1,5 @@
 import {simpleStub} from "./utils";
+import {requireKeyword} from "#server/data/utils.ts";
 
 export const ltgb = [
     {
@@ -9,7 +10,7 @@ export const ltgb = [
         // Prerequisites
         minimumCampaignTier: 2,
         prerequisites: [
-            '<Imperium> Keyword',
+            requireKeyword('IMPERIUM'),
         ],
         // Benefits
         influenceBonus: 2,

@@ -1,13 +1,15 @@
 import {simpleStub} from "./utils";
+import {requireFreetext, requireSpecies} from "#server/data/utils.ts";
 
 export const voab = [
     {
-        name: 'Battle Company Doctrine',
         ...simpleStub('voab', 43, 'Battle Company Doctrine', '', false),
         cost: 60,
         costPerTier: 0,
         minimumCampaignTier: 3,
-        prerequisites: ['Adeptus Astartes Species'],
+        prerequisites: [
+            requireSpecies('Adeptus Astartes'),
+        ],
         influenceBonus: 2,
         influencePerTier: 0,
         storyElementDescription:
@@ -74,13 +76,12 @@ export const voab = [
         ],
     },
     {
-        name: 'Crux Terminatus',
         ...simpleStub('voab', 43, 'Crux Terminatus', 'Veteran of the 1st Company, bearer of the Crux Terminatus.', false),
         cost: 60,
         costPerTier: 0,
         minimumCampaignTier: 3,
         prerequisites: [
-            '1st Company Veteran, Chaplain or Librarian Archetype',
+            requireFreetext('1st Company Veteran, Chaplain or Librarian Archetype'),
         ],
         influenceBonus: 0,
         influencePerTier: 0,
@@ -243,7 +244,9 @@ export const voab = [
         cost: 80,
         costPerTier: 0,
         minimumCampaignTier: 3,
-        prerequisites: ['Adeptus Astartes Species'],
+        prerequisites: [
+            requireSpecies('Adeptus Astartes'),
+        ],
         influenceBonus: 2,
         influencePerTier: 0,
         storyElementDescription:

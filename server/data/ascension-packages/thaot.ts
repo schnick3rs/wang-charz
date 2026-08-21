@@ -1,4 +1,5 @@
 import {simpleStub} from "./utils";
+import {requireAttribute, requireSkill} from "#server/data/utils.ts";
 
 export const thaot = [
     {
@@ -9,8 +10,8 @@ export const thaot = [
         // Prerequisites
         minimumCampaignTier: 3,
         prerequisites: [
-            'Intellect 3',
-            'Tech 2',
+            requireAttribute(ATTRIBUTES.INTELLECT, 3),
+            requireSkill(SKILLS.TECH, 2)
         ],
         // Benefits
         influenceBonus: 2,

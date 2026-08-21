@@ -2,7 +2,7 @@ import z from "zod";
 
 export const ComplexRequirementSchema = z.object({
     condition: z.enum(['must', 'mustNot']).optional(),
-    type: z.enum(['species', 'keyword', 'attribute', 'skill', 'trait', 'character', 'wargear']).optional(),
+    type: z.enum(['species', 'keyword', 'attribute', 'skill', 'trait', 'character', 'wargear', 'text', 'tier']).optional(),
     key: z.union([z.string(), z.array(z.string())]).optional(),
     value: z.union([z.string(), z.number(), z.array(z.string())]).optional(),
 })

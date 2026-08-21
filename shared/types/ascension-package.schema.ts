@@ -1,4 +1,6 @@
 import {z} from "zod";
+import {PrerequisiteSchema} from "#shared/types/archetype.ts";
+import {ComplexRequirementSchema} from "#shared/types/talent.ts";
 
 
 // --- Top-level story element -------------------------------------------------
@@ -12,7 +14,7 @@ export const AscensionPackageSchema = z.object({
     cost: z.number().optional(),
     costPerTier: z.number().optional(),
     minimumCampaignTier: z.number().optional(),
-    prerequisites: z.array(z.unknown()).default([]),
+    prerequisites: z.array(ComplexRequirementSchema).default([]),
     influenceBonus: z.number().optional(),
     influencePerTier: z.number().optional(),
     keywordString: z.string().optional().optional(),
