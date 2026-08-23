@@ -70,16 +70,20 @@ export const voab: Wargear[] = [
     },
     // RANGED WEAPONS
     {
-        ...gear('voab', 67, 'Accelerator Autocannon', '8R', 'Imperium,Adeptus Astartes'),
+        ...gear('voab', 67, 'Accelerator Autocannon', '8R', 'Primaris,Imperium,Projectile'),
         ...rangez('Bolt Weapon', 16, 2, -1, 48, 3, 'Brutal,Heavy(8)')
     },
     {
-        ...gear('voab', 67, 'Astartes Grenade Launcher', '6U', 'Explosive,Imperium,Adeptus Astartes'),
+        ...gear('voab', 67, 'Astartes Grenade Launcher', '6U', 'Imperium'),
         ...rangez('Grenade & Missile Weapon', '*', '*', '*', 30, '-', 'Assault')
     },
     {
-        ...gear('voab', 67, 'Auto Bolt Rifle', '8V', 'Bolt,Imperium,Adeptus Astartes,Primaris'),
+        ...gear('voab', 67, 'Auto Bolt Rifle', '8V', 'Bolt,Imperium,Primaris'),
         ...rangez('Bolt Weapon', 10, 1, 0, 24, 3, 'Assault,Brutal,Rapid Fire(3)')
+    },
+    {
+        ...gear('voab', 67, 'Bolt Sniper Rifle', '7V', 'Bolt,Primaris'),
+        ...rangez('Bolt Weapon', 12, 1, -1, 36, 0, 'Brutal,Sniper(2),Silent')
     },
     {
         ...gear('voab', 67, 'Centurion Missile Launcher', '6U', 'Explosive,Imperium,Adeptus Astartes'),
