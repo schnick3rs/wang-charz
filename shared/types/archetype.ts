@@ -49,7 +49,7 @@ export type WargearOption = {
 export const WargearOptionSchema: z.ZodType<WargearOption> = z.lazy(() => z.object({
   name: z.string().optional(),
   variant: z.string().optional(),
-  amount: z.union([z.string(), z.number()]).optional(),
+  amount: z.coerce.number().optional(),
   selected: z.union([z.string(), z.array(z.string())]).optional(),
   options: z.array(WargearOptionSchema).optional(),
   items: z.array(WargearOptionSchema).optional(),

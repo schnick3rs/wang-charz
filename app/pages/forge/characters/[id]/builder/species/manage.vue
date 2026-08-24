@@ -11,7 +11,7 @@ const entity = computed(() => store.byId[id.value])
 
 const { data: species } = await useAsyncData(
     'species/manage',
-    (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.speciesKey}`, { signal }),
+    (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.species.key}`, { signal }),
 )
 
 const { data: chapters } = await useAsyncData(

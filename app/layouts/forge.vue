@@ -172,7 +172,7 @@ const items = ref<DropdownMenuItem[]>([
 const id = computed(() => route.params.id as string)
 const store = useCharacterStore()
 const entity = computed(() => store.byId[id.value])
-const entityData = computed(() => entity.value?.data || { speciesKey: undefined, archetypeKey: undefined })
+const entityData = computed(() => entity.value?.data || { species: {key: undefined}, archetype: {key: undefined} })
 
 const forgeNavs = computed(() => {
   if (!id.value) return []
@@ -180,8 +180,8 @@ const forgeNavs = computed(() => {
   return [
     [
       { label: 'Setting', to: `/forge/characters/${id.value}/builder/setting` },
-      { label: '1. Species', to: `/forge/characters/${id.value}/builder/species/${entityData.value.speciesKey ? 'manage' : 'choose'}` },
-      { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype/${entityData.value.archetypeKey ? 'manage' : 'choose'}` },
+      { label: '1. Species', to: `/forge/characters/${id.value}/builder/species/${entityData.value?.species?.key ? 'manage' : 'choose'}` },
+      { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype/${entityData.value?.archetype?.key ? 'manage' : 'choose'}` },
       { label: '3. Ascension', to: `/forge/characters/${id.value}/builder/ascension/manage` },
       { label: '4. Stats', to: `/forge/characters/${id.value}/builder/stats` },
       { label: '5. Talents', to: `/forge/characters/${id.value}/builder/talents` },

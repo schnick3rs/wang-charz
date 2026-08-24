@@ -11,7 +11,7 @@ const entity = computed(() => store.byId[id.value])
 
 const { data: archetype } = await useAsyncData(
     'archetype',
-    (_nuxtApp, { signal }) => $fetch(`/api/archetypes/${entity.value.data.archetypeKey}`, { signal }),
+    (_nuxtApp, { signal }) => $fetch(`/api/archetypes/${entity.value.data.archetype.key}`, { signal }),
 )
 
 const { data: keywords } = await useAsyncData(

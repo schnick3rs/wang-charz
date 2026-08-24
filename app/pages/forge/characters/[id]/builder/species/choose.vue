@@ -25,9 +25,14 @@ const filteredSpecies = computed(() => {
   return species.value.filter(item => item.name.toLowerCase().includes(q))
 })
 
-function selectSpecies(speciesKey: string) {
-  console.info('Set Character Species', speciesKey)
-  entity.value.data.speciesKey = speciesKey
+function selectSpecies(species: Species) {
+  if (!entity.value) return
+  console.info('Set Character Species', species.name)
+  entity.value.data.species = {
+    key: species.key,
+    label: species.name,
+    cost: species.cost,
+  }
   store.scheduleSave(entity.value.id)
   showSpeciesModal.value = false
   navigateTo(`/forge/characters/${id.value}/builder/species/manage`)
@@ -83,7 +88,7 @@ function updateAndShowSpeciesPreview(species: Species) {
       </template>
       <template #footer>
         <UButton color="error" variant="subtle" @click="showSpeciesModal = false">Cancel</UButton>
-        <UButton color="primary" @click="selectSpecies(previewSpecies.key)">Select Species</UButton>
+        <UButton color="primary" @click="selectSpecies(previewSpecies)">Select Species</UButton>
       </template>
     </UModal>
 

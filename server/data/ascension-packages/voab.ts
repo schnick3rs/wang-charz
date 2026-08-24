@@ -3,7 +3,7 @@ import {requireFreetext, requireSpecies} from "#server/data/utils.ts";
 
 export const voab = [
     {
-        ...simpleStub('voab', 43, 'Battle Company Doctrine', '', false),
+        ...simpleStub('voab', 43, 'Battle Company Doctrine', 'Proven, praised, mastered.', false),
         cost: 60,
         costPerTier: 0,
         minimumCampaignTier: 3,
@@ -13,7 +13,8 @@ export const voab = [
         influenceBonus: 2,
         influencePerTier: 0,
         storyElementDescription:
-            '<p>You have battled across countless worlds and faced all manner of heretics and xenos threats. You have mastered numerous weapons and your skills and conviction have earned you a place amongst a Battle Company of the Chapter.</p>',
+            '<p>You have battled across countless worlds and faced all manner of heretics and xenos threats. ' +
+            'You have mastered numerous weapons and your skills and conviction have earned you a place amongst a Battle Company of the Chapter.</p>',
         ascensionFeatures: [
             {
                 key: 'talent-choice',
@@ -76,7 +77,7 @@ export const voab = [
         ],
     },
     {
-        ...simpleStub('voab', 43, 'Crux Terminatus', 'Veteran of the 1st Company, bearer of the Crux Terminatus.', false),
+        ...simpleStub('voab', 43, 'Crux Terminatus', 'Anointed, Armourclad, Hellbringer.', false),
         cost: 60,
         costPerTier: 0,
         minimumCampaignTier: 3,
@@ -239,8 +240,7 @@ export const voab = [
         ],
     },
     {
-        name: 'Rubicon Primaris',
-        ...simpleStub('voab', 43, 'Rubicon Primaris', '', false),
+        ...simpleStub('voab', 43, 'Rubicon Primaris', 'Chosen, Tested, Reborn.', false),
         cost: 80,
         costPerTier: 0,
         minimumCampaignTier: 3,
@@ -250,7 +250,10 @@ export const voab = [
         influenceBonus: 2,
         influencePerTier: 0,
         storyElementDescription:
-            '<p>Few Space Marines could refuse the prospect of being remade, stronger and faster, more capable of waging war against the enemies of the Imperium. You have undergone the extensive and agonising operation required to be implanted with the three additional organs needed to join your Primaris brethren and now count yourself among those who have crossed the Rubicon Primaris.</p>',
+            '<p>Few Space Marines could refuse the prospect of being remade, stronger and faster, ' +
+            'more capable of waging war against the enemies of the Imperium. ' +
+            'You have undergone the extensive and agonising operation required to be implanted with the three additional ' +
+            'organs needed to join your Primaris brethren and now count yourself among those who have crossed the Rubicon Primaris.</p>',
         ascensionFeatures: [
             {
                 key: 'bolter-discipline',

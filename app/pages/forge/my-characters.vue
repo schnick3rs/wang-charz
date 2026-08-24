@@ -76,7 +76,7 @@ async function newChar() {
     <UCard
         v-for="c in characterList" :key="c.id"
         :title="c.data.name"
-        :description="c.data.speciesKey"
+        :description="c.data.species?.label + ' · ' + c.data.archetype?.label"
         :ui="{ footer: 'flex flex-row flex-nowrap justify-between' }"
     >
       <template #footer>

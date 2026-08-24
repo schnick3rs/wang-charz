@@ -11,9 +11,25 @@ export const CharacterDataSchema = z.object({
     settingTier: z.number().default(2),
 
     // character
-    speciesKey: z.string().optional(),
-    speciesAstartesChapterKey: z.string(),
-    archetypeKey: z.string().optional(),
+    speciesAstartesChapterKey: z.string().optional(),
+
+    species: z.object({
+       key: z.string(),
+       label: z.string(),
+       cost: z.number().default(0),
+    }).optional(),
+
+    faction: z.object({
+        key: z.string(),
+        label: z.string(),
+    }).optional(),
+
+    archetype: z.object({
+        key: z.string(),
+        label: z.string(),
+        cost: z.number().default(0),
+        tier: z.number().default(1),
+    }).optional(),
 
 })
 export type CharacterDataType = z.infer<typeof CharacterDataSchema>

@@ -18,7 +18,7 @@ const { ascensionPackage } = defineProps<{ ascensionPackage: AscensionPackage }>
     </div>
 
     <!-- cost -->
-    <div class="mb-4" v-if="ascensionPackage.prerequisites.length > 0">
+    <div v-if="ascensionPackage.prerequisites.length > 0" class="mb-4">
       <h3 class="font-light text-sm">Requirement</h3>
       <USeparator class="mb-4" />
       <ul>

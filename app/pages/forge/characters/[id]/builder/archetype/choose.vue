@@ -19,7 +19,7 @@ const { data: archetypes } = await useAsyncData(
       transform: (data) => {
         return data
             .filter(item => item.tier <= entity.value.data.settingTier)
-            .filter(item => item.species.some((s) => s.key.includes(entity.value.data.speciesKey) ))
+            .filter(item => item.species.some((s) => s.key.includes(entity.value.data.species.key) ))
       }
     }
 )
@@ -35,9 +35,15 @@ const filteredArchetypes = computed(() => {
 const showArchetypeModal = ref(false)
 const previewArchetype = ref<Archetype|null>(null)
 
-function selectArchetype(archetypeKey: string) {
-  console.info('Set Character Archetype', archetypeKey)
-  entity.value.data.archetypeKey = archetypeKey
+function selectArchetype(archetype: Archetype) {
+  if (!entity.value) return
+  console.info('Set Character Archetype', archetype.key)
+  entity.value.data.archetype = {
+    key: archetype.key,
+    label: archetype.name,
+    cost: archetype.cost,
+    tier: archetype.tier,
+  }
   store.scheduleSave(entity.value.id)
   showArchetypeModal.value = false
   navigateTo(`/forge/characters/${id.value}/builder/archetype/manage`)
@@ -55,7 +61,7 @@ function updateAndShowArchetypePreview(species: Archetype) {
   <div class="mx-auto max-w-3xl">
     <h1 class="font-bold text-2xl">Select an Archetype</h1>
 
-    <UAlert color="warning" v-if="!entity.data.speciesKey" variant="subtle" title="Select a species first!" class="mb-2" />
+    <UAlert color="warning" v-if="!entity.data.species.key" variant="subtle" title="Select a species first!" class="mb-2" />
 
     <UInput 
         v-model="search"
@@ -92,7 +98,7 @@ function updateAndShowArchetypePreview(species: Archetype) {
       </template>
       <template #footer>
         <UButton color="error" variant="subtle" @click="showArchetypeModal = false">Cancel</UButton>
-        <UButton color="primary" @click="selectArchetype(previewArchetype.key)">Select Species</UButton>
+        <UButton color="primary" @click="selectArchetype(previewArchetype)">Select Species</UButton>
       </template>
     </UModal>
 

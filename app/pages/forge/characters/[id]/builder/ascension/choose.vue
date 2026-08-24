@@ -39,8 +39,8 @@ const targetTierOptions = computed(() => {
       : [];
 })
 
-function selectArchetype(archetypeKey: string) {
-  console.info('Add Acension Package', archetypeKey)
+function selectArchetype(archetype.key: string) {
+  console.info('Add Acension Package', archetype.key)
   store.scheduleSave(entity.value.id)
   showArchetypeModal.value = false
   navigateTo(`/forge/characters/${id.value}/builder/ascension/manage`)
@@ -120,8 +120,12 @@ function updateAndShowArchetypePreview(species: AscensionPackage) {
 
         <div class="text-nowrap">
           <UFieldGroup class="ml-2">
-            <UBadge variant="subtle" color="primary">New Tier x</UBadge>
-            <UBadge color="primary">{{ item.costPerTier }}</UBadge>
+            <UBadge color="primary" variant="subtle">
+              <span v-if="item.cost">{{item.cost}}</span>
+              <span v-if="item.cost && item.costPerTier"> + </span>
+              <span v-if="item.costPerTier">New Tier x {{item.costPerTier}}</span>
+            </UBadge>
+            <UBadge color="primary">XP</UBadge>
           </UFieldGroup>
         </div>
       </div>
