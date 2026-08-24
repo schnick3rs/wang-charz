@@ -2,15 +2,15 @@
 import type {FeatureOptionType} from "#shared/types/archetype.ts";
 
 const { options } = defineProps<{
-  options: FeatureOptionType
+  options: FeatureOptionType[]
 }>()
 
 const selected = ref<string>()
 
 const selectedItem = computed(() => {
-  if (selected.value && options.value) {
+  if (selected.value && options) {
     console.info('feature option selected', selected.value)
-    return options.value.find((v) => v.key === selected.value)
+    return options.find((v) => v.key === selected.value)
   }
   return undefined
 })

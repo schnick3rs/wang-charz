@@ -69,7 +69,7 @@ export const GenericFeatureSchema = z.object({
     description: z.string().optional(),
     modifications: z.array(ModificationSchema).optional(),
     selected: z.union([z.string(), z.array(z.string())]).optional(),
-    options: z.array(FeatureOptionSchema).optional(),
+    options: z.array(FeatureOptionSchema).default([]),
     psychicPowers: z.array(PsychicPowerSlotSchema).optional(),
     psychicDisciplines: z.array(z.string()).optional(),
 
