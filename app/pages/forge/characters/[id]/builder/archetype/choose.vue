@@ -58,10 +58,10 @@ function updateAndShowArchetypePreview(species: Archetype) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-3xl">
+  <div v-if="entity" class="mx-auto max-w-3xl">
     <h1 class="font-bold text-2xl">Select an Archetype</h1>
 
-    <UAlert color="warning" v-if="!entity.data.species.key" variant="subtle" title="Select a species first!" class="mb-2" />
+    <UAlert v-if="!entity.data.species?.key" color="warning" variant="subtle" title="Select a species first!" class="mb-2" />
 
     <UInput 
         v-model="search"

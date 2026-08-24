@@ -31,5 +31,13 @@ export const CharacterDataSchema = z.object({
         tier: z.number().default(1),
     }).optional(),
 
+    ascensions: z.array(z.object({
+        key: z.string(),
+        label: z.string(),
+        cost: z.number().default(0),
+        sourceTier: z.number().default(1),
+        targetTier: z.number().default(2),
+    })).default([])
+
 })
 export type CharacterDataType = z.infer<typeof CharacterDataSchema>

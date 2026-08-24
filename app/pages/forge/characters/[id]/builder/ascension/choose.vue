@@ -39,8 +39,18 @@ const targetTierOptions = computed(() => {
       : [];
 })
 
-function selectArchetype(archetype.key: string) {
-  console.info('Add Acension Package', archetype.key)
+function selectAscensionPackage(ascensionPackage: AscensionPackage) {
+  if (!entity.value) return
+  console.info('Add Ascension Package', ascensionPackage.name, ascensionPackage.key)
+
+  entity.value.data.ascensions.push({
+    key: ascensionPackage.key,
+    label: ascensionPackage.name,
+    cost: 10,
+    sourceTier: 1,
+    targetTier: 2,
+  })
+
   store.scheduleSave(entity.value.id)
   showArchetypeModal.value = false
   navigateTo(`/forge/characters/${id.value}/builder/ascension/manage`)
@@ -94,7 +104,7 @@ function updateAndShowArchetypePreview(species: AscensionPackage) {
           <UBadge icon="i-mdi-arrow-right-bold" variant="soft"></UBadge>
           <USelect :items="targetTierOptions" :model-value="entity.data.settingTier" />
         </UFieldGroup>
-        <UButton color="primary" @click="selectArchetype(previewAscensionPackage.key)">Select Ascension Package</UButton>
+        <UButton color="primary" @click="selectAscensionPackage(previewAscensionPackage)">Select Ascension Package</UButton>
       </template>
     </UModal>
 

@@ -13,6 +13,7 @@ const entity = computed(() => store.byId[id.value])
 
 <template>
   <div v-if="entity" class="mx-auto max-w-3xl">
+
     <UAlert v-if="!entity.data.species.key" color="warning" variant="subtle" title="Select a species first!" class="mb-2" />
     <UAlert v-if="!entity.data.archetype.key" color="warning" variant="subtle" title="Select an archetype first!" class="mb-2" />
 
@@ -20,7 +21,12 @@ const entity = computed(() => store.byId[id.value])
     {{ entity.data.settingTier }}
     {{ entity.data.settingTier }}
 
-  <UButton :to="`/forge/characters/${id}/builder/ascension/choose`">Select 1 packet</UButton>
+    <UCard v-for="item in entity.data.ascensions" :key="item.key" :title="item.label">
+      {{ item }}
+    </UCard>
+
+    <UButton :to="`/forge/characters/${id}/builder/ascension/choose`">Select 1 packet</UButton>
+
   </div>
 </template>
 

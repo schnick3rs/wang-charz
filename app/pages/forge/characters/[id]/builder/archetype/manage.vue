@@ -21,10 +21,16 @@ const { data: keywords } = await useAsyncData(
 
 
 const attributes = computed(() => {
-  return archetype.value?.prerequisites.filter(pre => pre.group === 'attributes').map(pre => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`).join(', ');
+  return archetype.value?.prerequisites
+      .filter((pre: { group: string; }) => pre.group === 'attributes')
+      .map((pre: { value: number; threshold: never; }) => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`)
+      .join(', ');
 })
 const skills = computed(() => {
-  return archetype.value?.prerequisites.filter(pre => pre.group === 'skills').map(pre => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`).join(', ');
+  return archetype.value?.prerequisites
+      .filter((pre: { group: string; }) => pre.group === 'skills')
+      .map((pre: { value: number; threshold: never; }) => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`)
+      .join(', ');
 })
 </script>
 
