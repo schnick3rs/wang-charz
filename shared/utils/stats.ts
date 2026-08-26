@@ -1,3 +1,5 @@
+import { z } from 'zod';
+
 export type CharacterAttributes = {
     strength: number;
     toughness: number;
@@ -181,6 +183,37 @@ export const skillRepository = [
     },
 ];
 
+
+export const traitTypeSchema = z.enum(['Combat', 'Mental', 'Social']);
+
+export const traitComputeSchema = z.object({
+    static: z.number(),
+    multi: z.number(),
+    tier: z.number(),
+    min: z.number(),
+});
+
+export const traitSchema = z.object({
+    key: z.string(),
+    name: z.string(),
+    attribute: z.string().optional(),
+    skill: z.string().optional(),
+    description: z.string().optional(),
+    type: traitTypeSchema,
+    compute: traitComputeSchema,
+    calculate: z
+        .function({
+            input: [z.number()],
+            output: z.number(),
+        })
+        .optional(),
+});
+
+export const traitRepositorySchema = z.array(traitSchema);
+
+export type TraitType = z.infer<typeof traitTypeSchema>;
+export type TraitCompute = z.infer<typeof traitComputeSchema>;
+export type Trait = z.infer<typeof traitSchema>;
 
 // https://api.sheety.co/2d702477-7a22-4d71-9c25-6119ee216253
 export const traitRepository = [

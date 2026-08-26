@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
-import {attributeRepository, skillRepository, traitRepository} from "#shared/utils/stats.ts";
+import {
+  attributeRepository,
+  skillRepository,
+  type Trait,
+  traitRepository,
+} from "#shared/utils/stats.ts";
 
 definePageMeta({ layout: 'forge' })
 
@@ -10,21 +15,32 @@ const store = useCharacterStore()
 
 const entity = computed(() => store.byId[id.value])
 
-//TODO load species and apply max values
-function effectiveTrait(trait: any) {
+const { data: species } = await useAsyncData(
+    `species-${entity.value.data.species.key}`,
+    (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.species.key}`, { signal }),
+)
 
-  if (trait.key === 'speed') return 'X'
+//TODO load species and apply max values
+function effectiveTrait(trait: Trait) {
+  if (!entity.value) return '?'
+  if (!species.value) return '?'
+
+  if (trait.key === 'speed') return species.value.speed
 
   let baseValue = 0
 
   if (trait.attribute) {
     const associatedAttribute = attributeRepository.find((a) => a.name === trait.attribute)
-    baseValue = entity.value.data.attributes[associatedAttribute.key]
+    if (associatedAttribute) {
+      baseValue = entity.value.data.attributes[associatedAttribute.key]
+    }
   }
 
   if (trait.skill) {
     const associatedSkill = skillRepository.find((a) => a.name === trait.skill)
-    baseValue = entity.value.data.skills[associatedSkill.key]
+    if (associatedSkill) {
+      baseValue = entity.value.data.skills[associatedSkill.key]
+    }
   }
 
   const { static: statik, multi, tier, min } = trait.compute
@@ -33,34 +49,66 @@ function effectiveTrait(trait: any) {
 
   return Math.ceil(Math.max(computedValue, min))
 }
+
+function maxAttributeValue(attribute: { name: string }) {
+  if (!species.value) return 8
+
+  const attributeMax = species.value.attributeMaximums.find((max) => max.name === attribute.name)
+  if (attributeMax) {
+    return attributeMax.value
+  }
+
+  return 8 //the default fallback value
+}
+
+function skillDicePool(skill: { key: string }) {
+  if (!entity.value) return '?'
+
+  const skillValue = entity.value.data.skills[skill.key] || 0
+
+  let characterAttributeValue = 0
+
+  const associatedAttribute = attributeRepository.find((a) => a.name === skill.attribute)
+  if (associatedAttribute) {
+    characterAttributeValue = entity.value.data.attributes[associatedAttribute.key]
+  }
+
+  return skillValue + characterAttributeValue
+}
+
+function resetStats() {
+  Object.keys(entity.value.data.attributes).forEach((key, index) => { entity.value.data.attributes[key] = 1; });
+  Object.keys(entity.value.data.skills).forEach((key, index) => { entity.value.data.skills[key] = 0; });
+}
+
 </script>
 
 <template>
   <div class="mx-auto max-w-3xl">
 
-    <h1 class="font-bold text-2xl">Select Attributes & Skills</h1>
+    <h1 class="font-bold text-2xl mb-2">Select Attributes & Skills</h1>
 
-    <div v-if="entity" class="grid grid-cols-1 md:grid-cols-2 gap-4">
+    <UButton color="info" variant="subtle" class="cursor-pointer" icon="i-game-icons-return-arrow" @click="resetStats()">Reset Stats</UButton>
+
+    <div v-if="entity" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 
       <UCard :ui="{ body: 'flex flex-col gap-2' }">
 
         <div v-for="attribute in attributeRepository" :key="attribute.key" class="flex items-center justify-between">
-          <span>{{ $t(`stats.${attribute.key}`, attribute.name) }}</span>
-          <UInputNumber
-              v-model="entity.data.attributes[attribute.key]"
-              :min="1"
-              :increment="{
-              color: 'primary',
-              variant: 'subtle',
-              size: 'xs'
-            }"
-              :decrement="{
-              color: 'error',
-              variant: 'subtle',
-              size: 'xs'
-            }"
-              class="w-32"
-          />
+          <span :title="attribute.description">{{ $t(`stats.${attribute.key}`, attribute.name) }}</span>
+          <div>
+            <UInputNumber
+                v-model="entity.data.attributes[attribute.key]"
+                :min="1"
+                :max="maxAttributeValue(attribute)"
+                :decrement="{ color: entity.data.attributes[attribute.key] <= 1 ? 'neutral' : 'error', variant: 'subtle', size: 'xs' }"
+                :increment="{ color: entity.data.attributes[attribute.key] >= maxAttributeValue(attribute) ? 'neutral' : 'primary', variant: 'subtle', size: 'xs' }"
+                class="w-28"
+            />
+            <UBadge variant="subtle" color="neutral" class="ml-4 flex-none w-8  justify-end">
+              {{ entity.data.attributes[attribute.key] }}
+            </UBadge>
+          </div>
         </div>
 
         <USeparator></USeparator>
@@ -78,22 +126,20 @@ function effectiveTrait(trait: any) {
 
         <div v-for="skill in skillRepository" :key="skill.key" class="flex items-center justify-between">
           <span>{{ $t(`stats.${skill.key}`, skill.name) }}</span>
-          <UInputNumber
-              v-model="entity.data.skills[skill.key]"
-              :min="1"
-              :max="6"
-              :increment="{
-              color: 'primary',
-              variant: 'subtle',
-              size: 'xs',
-            }"
-              :decrement="{
-              color: 'error',
-              variant: 'subtle',
-              size: 'xs',
-            }"
-              class="w-32"
-          />
+          <div>
+            <UInputNumber
+                v-model="entity.data.skills[skill.key]"
+                :min="1"
+                :max="6"
+                :decrement="{ color: entity.data.skills[skill.key] <= 1 ? 'neutral' : 'error', variant: 'subtle', size: 'xs' }"
+                :increment="{ color: entity.data.skills[skill.key] >= 6 ? 'neutral' : 'primary', variant: 'subtle', size: 'xs' }"
+                class="w-24"
+
+            />
+            <UBadge variant="subtle" color="neutral" class="ml-4 flex-none w-12 justify-end" trailing-icon="i-heroicons-cube">
+              {{ skillDicePool(skill) }}
+            </UBadge>
+          </div>
         </div>
       </UCard>
 

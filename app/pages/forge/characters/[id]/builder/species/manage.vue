@@ -10,7 +10,7 @@ const store = useCharacterStore()
 const entity = computed(() => store.byId[id.value])
 
 const { data: species } = await useAsyncData(
-    'species/manage',
+    `species-${entity.value.data.species.key}`,
     (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.species.key}`, { signal }),
 )
 

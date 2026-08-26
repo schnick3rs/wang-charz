@@ -1,6 +1,7 @@
 import {z} from "zod";
 
 export const StatValuesSchema = z.object({
+    key: z.string().optional(),
     name: z.string(),
     value: z.number(),
 })
