@@ -25,7 +25,6 @@ const { data: archetype } = await useAsyncData(
     (_nuxtApp, { signal }) => $fetch(`/api/archetypes/${entity.value.data.archetype.key}`, { signal }),
 )
 
-//TODO load species and apply max values
 function effectiveTrait(trait: Trait) {
   if (!entity.value) return '?'
   if (!species.value) return '?'
@@ -173,7 +172,7 @@ function resetStats() {
                 :increment="{ color: entity.data.attributes[attribute.key] >= maxAttributeValue(attribute) ? 'neutral' : 'primary', variant: 'subtle', size: 'xs' }"
                 class="w-28"
             />
-            <UBadge variant="subtle" color="neutral" class="ml-4 flex-none w-8  justify-end">
+            <UBadge variant="subtle" color="neutral" class="ml-4 flex-none w-8 justify-end">
               {{ entity.data.attributes[attribute.key] }}
             </UBadge>
           </div>
@@ -181,11 +180,9 @@ function resetStats() {
 
         <USeparator></USeparator>
 
-        <div>
-          <div v-for="trait in traitRepository" :key="trait.key" class="flex items-center justify-between gap-2">
-            <span>{{ $t(`stats.${trait.key}`, trait.name) }}</span>
-            <span class="mx-15 my-1">{{ effectiveTrait(trait) }}</span>
-          </div>
+        <div v-for="trait in traitRepository" :key="trait.key" class="flex items-center justify-between">
+          <span>{{ $t(`stats.${trait.key}`, trait.name) }}</span>
+          <UBadge variant="subtle" color="neutral" class="flex-none w-8 justify-end">{{ effectiveTrait(trait) }}</UBadge>
         </div>
 
       </UCard>

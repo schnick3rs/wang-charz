@@ -54,7 +54,7 @@ const selectedFeatureOption = ref<string>()
             <div v-else><p>{{ feature.snippet}}</p></div>
 
             <!-- an option to be selected is identified by <species-key>.<feature-key> fspg-kroot.kroot-mutations.x -->
-            <div v-if="feature.options" class=" border-l border-l-4 border-l-red-600  mt-2 pl-4 mb-4">
+            <div v-if="feature.options.length > 0" class=" border-l border-l-4 border-l-red-600  mt-2 pl-4 mb-4">
               <USelect
                 v-model="selectedOptionKey"
                 :items="feature.options"
@@ -62,7 +62,7 @@ const selectedFeatureOption = ref<string>()
                 label-key="name"
                 description-key="snippet"
                 class="w-full mb-2"
-                placeholder="Select Mutation..."
+                placeholder="Select..."
                 @change="selectedFeatureOption = ''"
                 @update:model-value="(data) => console.info(`update-model ${feature.key}`, data)"
             />

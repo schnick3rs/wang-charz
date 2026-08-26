@@ -24,7 +24,7 @@ export const ModificationSchema = z.object({
     // from ascensions
     name: z.string().optional(),
     effect: z.string().optional(),
-    meta: z.object({name: z.string()}).optional(),
+    meta: z.object({name: z.string().optional()}).optional(),
 });
 
 

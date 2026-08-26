@@ -280,9 +280,6 @@ export const traitRepository = [
         description: undefined,
         type: 'Social',
         compute: { static: -1, multi: 1, tier: 0, min: 1 },
-        calculate: (base: number) => {
-            return base-1;
-        },
     },
     {
         key: 'wealth',
