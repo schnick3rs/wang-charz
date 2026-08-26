@@ -6,6 +6,7 @@ import {
   type Trait,
   traitRepository,
 } from "#shared/utils/stats.ts";
+import {type Prerequisite, PrerequisiteSchema} from "#shared/types/archetype.ts";
 
 definePageMeta({ layout: 'forge' })
 
@@ -18,6 +19,10 @@ const entity = computed(() => store.byId[id.value])
 const { data: species } = await useAsyncData(
     `species-${entity.value.data.species.key}`,
     (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.species.key}`, { signal }),
+)
+const { data: archetype } = await useAsyncData(
+    `archetype-${entity.value.data.archetype.key}`,
+    (_nuxtApp, { signal }) => $fetch(`/api/archetypes/${entity.value.data.archetype.key}`, { signal }),
 )
 
 //TODO load species and apply max values
@@ -76,6 +81,59 @@ function skillDicePool(skill: { key: string }) {
   return skillValue + characterAttributeValue
 }
 
+const arePrerequisitesFullfilled = computed(() => {
+
+  function isFulfilled(prerequisite: Prerequisite) {
+    const { group, value, threshold } = prerequisite
+    return entity.value.data[group][value] >= threshold
+  }
+
+  if (archetype.value) {
+    return archetype.value.prerequisites.every((prerequisite: Prerequisite) => isFulfilled(prerequisite))
+  }
+
+  return true
+})
+
+const toast = useToast()
+const { t } = useI18n()
+
+function applyRequirements() {
+  console.info('Apply requirements')
+  if (!entity.value) return
+
+  const log: string[] = []
+
+  function apply(prerequisite: Prerequisite) {
+    const { group, value, threshold } = prerequisite
+    switch (group) {
+      case 'attributes':
+      case 'skills':
+        if (entity.value.data[group][value] < threshold) {
+          entity.value.data[group][value] = threshold
+          log.push(`Increased ${t(`stats.${value}`)} to ${threshold}`)
+        }
+        break;
+
+      default:
+        console.warn('Unknown prerequisite group', group)
+    }
+  }
+
+  if (archetype.value) {
+    archetype.value.prerequisites.forEach((prerequisite: Prerequisite) => apply(prerequisite))
+  }
+
+  if (species.value) {
+    species.value.prerequisites.forEach((prerequisite: Prerequisite) => apply(prerequisite))
+  }
+
+
+  if (log.length > 0) {
+    toast.add({ title: 'Set Attributes & Skills requirements', description: h('ul', {}, log.map(item => h('li', {}, item))) })
+  }
+}
+
 function resetStats() {
   Object.keys(entity.value.data.attributes).forEach((key, index) => { entity.value.data.attributes[key] = 1; });
   Object.keys(entity.value.data.skills).forEach((key, index) => { entity.value.data.skills[key] = 0; });
@@ -89,6 +147,16 @@ function resetStats() {
     <h1 class="font-bold text-2xl mb-2">Select Attributes & Skills</h1>
 
     <UButton color="info" variant="subtle" class="cursor-pointer" icon="i-game-icons-return-arrow" @click="resetStats()">Reset Stats</UButton>
+    <UButton
+        :color="arePrerequisitesFullfilled ? 'neutral' : 'info'"
+        variant="subtle"
+        class="cursor-pointer ml-2"
+        icon="i-game-icons-up-card"
+        :disabled="arePrerequisitesFullfilled"
+        @click="applyRequirements()"
+    >
+      Ensure Requirements
+    </UButton>
 
     <div v-if="entity" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 

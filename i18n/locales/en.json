@@ -37,6 +37,9 @@
     "determination": "Determination",
     "speed": "Speed",
     "corruption": "Corruption",
-    "influence": "Influence"
+    "influence": "Influence",
+
+    "wealth": "Wealth",
+    "reloads": "Reloads"
   }
 }
