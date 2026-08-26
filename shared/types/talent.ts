@@ -2,10 +2,11 @@ import z from "zod";
 
 export const ComplexRequirementSchema = z.object({
     condition: z.enum(['must', 'mustNot']).optional(),
-    type: z.enum(['species', 'keyword', 'attribute', 'skill', 'trait', 'character', 'wargear', 'text', 'tier']).optional(),
+    type: z.enum(['species', 'keyword', 'attribute', 'skill', 'trait', 'character', 'wargear', 'text', 'tier','talent']).optional(),
     key: z.union([z.string(), z.array(z.string())]).optional(),
     value: z.union([z.string(), z.number(), z.array(z.string())]).optional(),
 })
+export type ComplexRequirement = z.infer<typeof ComplexRequirementSchema>
 
 export const TalentSchema = z.object({
 
@@ -19,7 +20,7 @@ export const TalentSchema = z.object({
     hint: z.string().default(''),
     tags: z.array(z.string()).default([]).describe('Brother Lucius provides some tags for sorting'),
 
-    requirements: z.array(ComplexRequirementSchema).optional(),
+    requirements: z.array(ComplexRequirementSchema).default([]),
     allowedMultipleTimes: z.boolean().default(false),
 
     snippet: z.string().optional().describe('A short rules focused summary'),

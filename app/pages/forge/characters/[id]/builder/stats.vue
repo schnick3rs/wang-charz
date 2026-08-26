@@ -127,7 +127,6 @@ function applyRequirements() {
     species.value.prerequisites.forEach((prerequisite: Prerequisite) => apply(prerequisite))
   }
 
-
   if (log.length > 0) {
     toast.add({ title: 'Set Attributes & Skills requirements', description: h('ul', {}, log.map(item => h('li', {}, item))) })
   }

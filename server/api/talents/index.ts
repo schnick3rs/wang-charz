@@ -9,5 +9,7 @@ export default defineEventHandler((event) => {
 
     setResponseHeader(event, 'Cache-Control', ONE_HOUR);
 
-    return items;
+    return items.toSorted((a, b) =>
+        a.name.localeCompare(b.name)
+    )
 });
