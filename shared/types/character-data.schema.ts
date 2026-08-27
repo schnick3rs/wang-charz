@@ -109,5 +109,12 @@ export const CharacterDataSchema = z.object({
         // label
     })).default([]),
 
+    psychicPowers: z.array(z.object({
+        name: z.string(),
+        key: z.string(),
+        cost: z.number().default(0).describe('The actual cost, might differ, due to being granted or similar'),
+        source: z.string().optional().describe('source of the granting effect, if empty, it was bought'),
+    })).default([]),
+
 })
 export type CharacterDataType = z.infer<typeof CharacterDataSchema>
