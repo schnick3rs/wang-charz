@@ -78,7 +78,7 @@ function remove(psychicPower: never) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-3xl">
+  <div class="mx-auto max-w-4xl">
 
     <h1 class="font-bold text-2xl mb-2">Select Psychic Powers</h1>
 
@@ -113,7 +113,7 @@ function remove(psychicPower: never) {
       </template>
     </UInput>
 
-    <div class="flex flex-wrap gap-2 mt-4">
+    <div class="flex flex-wrap gap-1 mt-4">
       <UBadge
           v-for="discipline in psychicDisciplines"
           :key="discipline.key"
