@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
 import type {ComplexRequirement} from "#shared/types/talent.ts";
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallScreen = breakpoints.smallerOrEqual('sm') // Returns a reactive boolean
 
 definePageMeta({ layout: 'forge' })
 
@@ -49,12 +53,20 @@ const showTalentModal = ref(false)
 const previewTalent = ref<Talent|null>(null)
 
 function updateAndShowTalentPreview(talent: Talent) {
-  console.info('Species Selected, open preview', talent)
   previewTalent.value = talent
   showTalentModal.value = true
 }
 
 function addTalent(talent: Talent) {
+  if (!entity.value) return
+  const characterTalent = {
+    id: crypto.randomUUID().replaceAll('-', '').slice(0, 8),
+    key: talent.key,
+    name: talent.name,
+    cost: talent.cost,
+  }
+  entity.value.data.talents.push(characterTalent)
+  showTalentModal.value = false
 }
 
 const { t } = useI18n()
@@ -99,7 +111,7 @@ function requirementsString(talent: Talent) {
       default:
         text = `${requirement.key}`;
     }
-    console.info('Stringify requirement', requirement, text)
+
     return text
   }
 
@@ -110,12 +122,19 @@ function requirementsString(talent: Talent) {
 
   return []
 }
+
 </script>
 
 <template>
   <div class="mx-auto max-w-3xl">
 
     <h1 class="font-bold text-2xl mb-2">Select Talents</h1>
+
+    <div v-if="entity" class="flex flex-col gap-2 mb-4">
+      <UCard v-for="charTalent in entity.data.talents" :key="charTalent.id" :title="charTalent.name">
+        {{charTalent}}
+      </UCard>
+    </div>
 
     <UInput
         v-model="search"
@@ -142,7 +161,8 @@ function requirementsString(talent: Talent) {
         v-if="previewTalent"
         v-model:open="showTalentModal"
         title="Confirm Talent"
-        :overlay="false"
+        :overlay="true"
+        :fullscreen="isSmallScreen"
         :ui="{ content: 'max-w-2xl', footer: 'justify-between' }"
     >
       <template #body>
@@ -185,7 +205,7 @@ function requirementsString(talent: Talent) {
             <UBadge v-if="item.source.key !== 'core'" variant="subtle" color="info" class="ml-1 uppercase" size="sm">{{ item.source.key }}</UBadge>
           </template>
           <template #description>
-            <div v-html="requirementsString(item).join(', ')"></div>
+            <div v-html="requirementsString(item).join(', ')" />
           </template>
         </UUser>
 

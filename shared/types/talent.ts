@@ -15,7 +15,7 @@ export const TalentSchema = z.object({
     key: z.string(),
     name: z.string(),
 
-    cost: z.number().nullable().describe('The total or base cost'),
+    cost: z.number().default(0).describe('The total or base cost'),
 
     hint: z.string().default(''),
     tags: z.array(z.string()).default([]).describe('Brother Lucius provides some tags for sorting'),

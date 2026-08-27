@@ -96,7 +96,18 @@ export const CharacterDataSchema = z.object({
         cost: z.number().default(0),
         sourceTier: z.number().default(1),
         targetTier: z.number().default(2),
-    })).default([])
+    })).default([]),
+
+    talents: z.array(z.object({
+        id: z.string().describe('A character unique identifier, because some talents can be taken multiple times'),
+        name: z.string(),
+        key: z.string(),
+        cost: z.number().default(0).describe('The actual cost, might differ, due to being granted or similar'),
+        source: z.string().optional().describe('source of the granting effect, if empty, it was bought'),
+
+        // selected
+        // label
+    })).default([]),
 
 })
 export type CharacterDataType = z.infer<typeof CharacterDataSchema>
