@@ -8,7 +8,7 @@ export const PsychicPowerSchema = z.object({
     key: z.string(),
     name: z.string(),
 
-    cost: z.number().optional(),
+    cost: z.number().default(0),
     discipline: z.string().optional(),
 
     hint: z.string().optional(),

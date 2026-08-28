@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
-import type {ComplexRequirement} from "#shared/types/talent.ts";
 import {breakpointsTailwind, useBreakpoints} from '@vueuse/core'
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
@@ -63,16 +62,28 @@ const filteredPsychicPowers = computed(() => {
   )
 })
 
-const characterPsychicPowersKeys: string[] = computed(() => {
+const characterPsychicPowersKeys = computed(() => {
   if (!entity.value) return []
   return entity.value.data.psychicPowers.map((t) => t.key)
 })
 
 function add(psychicPower: PsychicPower) {
-  console.info('add', psychicPower)
+  console.info('add Psychic Power', psychicPower.name)
+  if (!entity.value) return
+  const charPsychicPower = {
+    key: psychicPower.key,
+    name: psychicPower.name,
+    cost: psychicPower.cost,
+  }
+  entity.value.data.psychicPowers.push(charPsychicPower)
 }
-function remove(psychicPower: never) {
+function remove(psychicPower: { key: string }) {
   console.info('remove', psychicPower)
+  if (!entity.value) return
+
+  entity.value.data.psychicPowers = entity.value.data.psychicPowers.filter(
+      p => p.key !== psychicPower.key
+  )
 }
 
 </script>
@@ -80,18 +91,24 @@ function remove(psychicPower: never) {
 <template>
   <div class="mx-auto max-w-4xl">
 
-    <h1 class="font-bold text-2xl mb-2">Select Psychic Powers</h1>
+    <h1 class="font-bold text-2xl mb-2">Manage Psychic Powers</h1>
 
-    <div v-if="entity" class="flex flex-col gap-2 mb-4">
-      <UCard
-          v-for="charPsychicPower in entity.data.psychicPowers"
-          :key="charPsychicPower.key"
-          :title="charPsychicPower.name"
-      >
-        <UButton color="error" @click="remove(charPsychicPower)">remove</UButton>
-        <pre>{{charPsychicPower}}</pre>
-      </UCard>
-    </div>
+    <UCard v-if="entity" class=" mb-4">
+      <div class="flex flex-row flex-wrap gap-2">
+        <UBadge
+            v-for="charPsychicPower in entity.data.psychicPowers"
+            :key="charPsychicPower.key"
+            variant="subtle"
+            color="info"
+            size="lg"
+            trailing-icon="i-mdi-close"
+            @click="remove(charPsychicPower)"
+        >
+          {{charPsychicPower.name}}
+        </UBadge>
+      </div>
+
+    </UCard>
 
     <UInput
         v-model="search"
