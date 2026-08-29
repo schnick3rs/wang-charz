@@ -1,10 +1,46 @@
 <script setup lang="ts">
+import type {AuthFormField, FormSubmitEvent} from '@nuxt/ui'
+import {z} from "zod";
+
 const supabase = useSupabaseClient()
 const email = ref('')
 const password = ref('')
 const errorMsg = ref('')
 
-async function signIn() {
+const fields: AuthFormField[] = [{
+  name: 'email',
+  type: 'email',
+  label: 'Email',
+  placeholder: 'Enter your email',
+  required: true
+}, {
+  name: 'password',
+  label: 'Password',
+  type: 'password',
+  placeholder: 'Enter your password',
+  required: true
+}, {
+  name: 'remember',
+  label: 'Remember me',
+  type: 'checkbox'
+}]
+
+const providers = [{
+  label: 'Google',
+  icon: 'i-simple-icons-google',
+  onClick: () => {
+    signInWithGoogle()
+  }
+}]
+
+const schema = z.object({
+  email: z.email('Invalid email'),
+  password: z.string('Password is required').min(8, 'Must be at least 8 characters')
+})
+type Schema = z.output<typeof schema>
+
+async function signIn(payload: FormSubmitEvent<Schema>) {
+  console.log('Submitted', payload)
   const { error } = await supabase.auth.signInWithPassword({
     email: email.value,
     password: password.value,
@@ -22,27 +58,23 @@ async function signInWithGoogle() {
 </script>
 
 <template>
-  <UContainer>
+  <div class="flex justify-center">
 
-    <UForm @submit="signIn">
+    <UPageCard class="w-full max-w-md">
+      <UAuthForm
+          :schema="schema"
+          title="Login"
+          description="Enter your credentials to access your account."
+          icon="i-lucide-user"
+          :fields="fields"
+          :providers="providers"
+          @submit="signIn"
+      />
+    </UPageCard>
 
-      <UFormField label="Email" type="email" required >
-        <UInput v-model="email" label="EMail" type="email" />
-      </UFormField>
-
-      <UFormField label="Password" type="password" required >
-        <UInput v-model="password" label="Password" type="password" />
-      </UFormField>
-
-      <UButton type="submit" color="neutral">Sign in</UButton>
-    </UForm>
-
-    <USeparator />
-
-    <UButton @click="signInWithGoogle" variant="outline" color="neutral" icon="i-mdi-google">Continue with Google</UButton>
 
     <UAlert v-if="errorMsg">{{ errorMsg }}</UAlert>
 
-  </UContainer>
+  </div>
 
 </template>

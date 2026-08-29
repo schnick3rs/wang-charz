@@ -91,7 +91,10 @@ function remove(psychicPower: { key: string }) {
 <template>
   <div class="mx-auto max-w-4xl">
 
-    <h1 class="font-bold text-2xl mb-2">Manage Psychic Powers</h1>
+    <h1 class="font-bold text-2xl mb-2">
+      Manage Psychic Powers
+      <UButton variant="ghost" color="info" icon="i-heroicons-question-mark-circle" :to="`/forge/characters/${entity.id}/builder/psychic/disciplines`" />
+    </h1>
 
     <UCard v-if="entity" class=" mb-4">
       <div class="flex flex-row flex-wrap gap-2">

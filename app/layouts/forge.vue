@@ -179,6 +179,7 @@ const forgeNavs = computed(() => {
 
   return [
     [
+      { label: '', icon: 'i-heroicons-question-mark-circle',  to: `help` },
       { label: 'Setting', to: `/forge/characters/${id.value}/builder/setting` },
       { label: '1. Species', to: `/forge/characters/${id.value}/builder/species/${entityData.value?.species?.key ? 'manage' : 'choose'}` },
       { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype/${entityData.value?.archetype?.key ? 'manage' : 'choose'}` },
@@ -186,10 +187,10 @@ const forgeNavs = computed(() => {
       { label: '4. Stats', to: `/forge/characters/${id.value}/builder/stats` },
       { label: '5. Talents', to: `/forge/characters/${id.value}/builder/talents` },
       { label: '6. Wargear', to: `/forge/characters/${id.value}/builder/wargear` },
-      { label: '7. Powers', to: `/forge/characters/${id.value}/builder/powers` },
+      { label: '7. Powers', to: `/forge/characters/${id.value}/builder/psychic/powers` },
       { label: '8. Background', to: `/forge/characters/${id.value}/builder/background` },
       { label: '', to: `/forge/characters/${id.value}/builder/setting` },
-    ]
+    ] as NavigationMenuItem[]
   ];
 })
 const { locale, locales, setLocale } = useI18n()
@@ -215,6 +216,7 @@ const { locale, locales, setLocale } = useI18n()
             :model-value="locale"
             :locales="locales"
             @update:model-value="setLocale"
+            :ui="{ base: 'hidden lg:block'}"
         />
 
         <UDropdownMenu
@@ -232,10 +234,10 @@ const { locale, locales, setLocale } = useI18n()
     </UHeader>
 
     <UMain>
-      <UContainer v-if="id" >
-        <div class="mx-auto py-2 flex gap-4 text-white justify-center">
+      <UContainer v-if="id">
+        <UDashboardToolbar class="lg:justify-center">
           <UNavigationMenu :items="forgeNavs" color="info" variant="link"></UNavigationMenu>
-        </div>
+        </UDashboardToolbar>
       </UContainer>
       <UContainer class="mt-4" >
         <slot />

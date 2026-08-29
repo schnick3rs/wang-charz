@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
 import type {RadioGroupItem} from "@nuxt/ui/components/RadioGroup.vue";
+
 definePageMeta({ layout: 'forge' })
+
 const route = useRoute()
 const id = computed(() => route.params.id as string)
 const store = useCharacterStore()
@@ -26,11 +28,11 @@ onBeforeRouteLeave(async () => {
 })
 
 const tierOptions = ref<RadioGroupItem[]>([
-  { label: 'One among billions', value: 1 },
-  { label: 'Stalwart Defenders', value: 2 },
-  { label: 'Elite Guardians', value: 3 },
-  { label: 'Heroic Operatives', value: 4 },
-  { label: 'Agents of Fate', value: 5 },
+  { label: 'One among billions', value: 1, icon: 'i-pinhead-roman-numeral-i' },
+  { label: 'Stalwart Defenders', value: 2, icon: 'i-pinhead-roman-numeral-ii' },
+  { label: 'Elite Guardians', value: 3, icon: 'i-pinhead-roman-numeral-iii' },
+  { label: 'Heroic Operatives', value: 4, icon: 'i-pinhead-roman-numeral-iv' },
+  { label: 'Agents of Fate', value: 5, icon: 'i-pinhead-roman-numeral-v' },
 ])
 
 const { data: books } = await useAsyncData(
@@ -81,7 +83,7 @@ const { data: homebrews } = await useAsyncData(
 </script>
 
 <template>
-  <div v-if="entity" class="mx-auto max-w-xl flex flex-col gap-4">
+  <div v-if="entity" class="mx-auto md:max-w-2xl flex flex-col gap-4">
 
     <section>
       <UFormField label="Name" class="w-full w-min-full" :ui="{ label: 'text-lg font-semibold' }">
@@ -95,13 +97,15 @@ const { data: homebrews } = await useAsyncData(
 
       <div class="mt-2">
         <URadioGroup
+            indicator="hidden"
+            size="xl"
             v-model="entity.data.settingTier"
             :items="tierOptions"
             orientation="horizontal"
             legend="Tier"
             variant="card"
-            indicator="hidden"
-            :ui="{ legend: 'text-lg font-semibold' }"
+            :ui="{ legend: 'text-lg font-semibold', label: 'hidden md:block' }"
+            class="overflow-x-auto"
         >
         </URadioGroup>
       </div>

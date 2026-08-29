@@ -18,6 +18,8 @@ const disableAdditionalAscensions = computed(() => {
 <template>
   <div v-if="entity" class="mx-auto max-w-3xl flex flex-col gap-4">
 
+    <h1 class="font-bold text-2xl mb-2">Ascensions</h1>
+
     <UAlert v-if="!entity.data.species?.key" color="warning" variant="subtle" title="Select a species first!" class="mb-2" />
     <UAlert v-if="!entity.data.archetype?.key" color="warning" variant="subtle" title="Select an archetype first!" class="mb-2" />
 

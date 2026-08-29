@@ -167,6 +167,8 @@ const items = ref<DropdownMenuItem[]>([
     onSelect: () => logout()
   },
 ])
+
+const { locale, locales, setLocale } = useI18n()
 </script>
 
 <template>
