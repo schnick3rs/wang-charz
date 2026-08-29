@@ -179,7 +179,7 @@ const forgeNavs = computed(() => {
 
   return [
     [
-      { label: '', icon: 'i-heroicons-question-mark-circle',  to: `help` },
+      { label: '', icon: 'i-heroicons-question-mark-circle' },
       { label: 'Setting', to: `/forge/characters/${id.value}/builder/setting` },
       { label: '1. Species', to: `/forge/characters/${id.value}/builder/species/${entityData.value?.species?.key ? 'manage' : 'choose'}` },
       { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype/${entityData.value?.archetype?.key ? 'manage' : 'choose'}` },

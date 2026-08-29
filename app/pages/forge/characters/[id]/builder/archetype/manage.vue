@@ -109,6 +109,7 @@ const skills = computed(() => {
         </div>
       </div>
     </div>
+
   </div>
 </template>
 

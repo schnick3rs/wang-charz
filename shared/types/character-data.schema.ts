@@ -9,6 +9,7 @@ export const CharacterDataSchema = z.object({
     enabledHomebrews: z.array(z.string()).default([]),
 
     settingTier: z.number().default(2),
+    rank: z.number().default(1),
 
     // character
     speciesAstartesChapterKey: z.string().optional(),
@@ -71,7 +72,6 @@ export const CharacterDataSchema = z.object({
         weaponSkill: 0,
     }),
 
-
     species: z.object({
        key: z.string(),
        label: z.string(),
@@ -107,6 +107,15 @@ export const CharacterDataSchema = z.object({
 
         // selected
         // label
+    })).default([]),
+
+    wargear: z.array(z.object({
+        id: z.string().describe('A character unique identifier, because some talents can be taken multiple times'),
+        label: z.string(),
+        key: z.string(),
+        source: z.string().optional().describe('source of the granting effect, if empty, it was bought'),
+
+        equipped: z.boolean().default(true),
     })).default([]),
 
     psychicPowers: z.array(z.object({
