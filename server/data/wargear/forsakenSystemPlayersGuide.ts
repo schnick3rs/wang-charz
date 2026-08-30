@@ -1,4 +1,4 @@
-import {armour, gear, meleez, metaMelee, metaRange, rangez} from "./utils";
+import {armour, gear, meleez, metaMelee, metaRange, rangez, thrownWeaponBuilder} from "./utils";
 
 export const fspg = [
     {
@@ -91,19 +91,19 @@ export const fspg = [
     },
     {
         ...gear('fspg',124,'Frag Bomb','5U','Explosive,Imperium'),
-        ...rangez('Grenades & Grenade Launcher',12,4,0,'STRx4','-', 'Blast(8)'),
+        ...thrownWeaponBuilder('Grenade & Missile Weapon',12,4,0,4,'-', 'Blast(8)'),
     },
     {
         ...gear('fspg',124,'Melta Bomb','5V','Explosive,Imperium'),
-        ...rangez('Grenades & Grenade Launcher',16,4,-4,'STRx4','-', 'Blast(4)'),
+        ...thrownWeaponBuilder('Grenade & Missile Weapon',16,4,-4,4,'-', 'Blast(4)'),
     },
     {
         ...gear('fspg',124,'Mindscrambler Grenade','5R','Explosive,Adeptus Mechanicus'),
-        ...rangez('Grenades & Grenade Launcher',10,4,0,'STRx4','-', 'Agonising,Arc(4),Blast(6)'),
+        ...thrownWeaponBuilder('Grenade & Missile Weapon',10,4,0,4,'-', 'Agonising,Arc(4),Blast(6)'),
     },
     {
         ...gear('fspg',124,'Shock Grenade','2U','Explosive,Imperium'),
-        ...rangez('Grenades & Grenade Launcher',3,4,0,'STRx4','-', 'Blast(6),Inflict(Blinded 1),Inflict(Vulnerable 1)'),
+        ...thrownWeaponBuilder('Grenade & Missile Weapon',3,4,0,4,'-', 'Blast(6),Inflict(Blinded 1),Inflict(Vulnerable 1)'),
         snippet: 'Deals shock damage instead of wounds. Those that suffer shock are affected by Blinded and Vulnerable.'
         // does SHOCK damage
     },

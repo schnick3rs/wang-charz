@@ -6,7 +6,7 @@ import {
   type Trait,
   traitRepository,
 } from "#shared/utils/stats.ts";
-import {type Prerequisite } from "#shared/types/archetype.ts";
+import type {Prerequisite } from "#shared/types/archetype.ts";
 
 definePageMeta({ layout: 'forge' })
 
@@ -158,19 +158,34 @@ function resetStats() {
 <template>
   <div class="mx-auto max-w-3xl">
 
-    <h1 class="font-bold text-2xl mb-2">Select Attributes & Skills</h1>
+    <h1 class="font-bold text-2xl mb-2 flex flex-row justify-between">
+      Attributes & Skills
+      <span class="shrink-0">
+            <UButton
+                color="info"
+                title="Reset all stats to 1 and 0"
+                variant="subtle"
+                class="cursor-pointer"
+                icon="i-game-icons-return-arrow"
+                label="Reset Stats"
+                :ui="{ label: 'hidden md:block'}"
+                @click="resetStats()"
+            />
+            <UButton
+                :color="arePrerequisitesFullfilled ? 'neutral' : 'info'"
+                label="Ensure Requirements"
+                title="Increase all Stats so that Archetype and Species requirements are met"
+                variant="subtle"
+                class="cursor-pointer ml-2"
+                icon="i-game-icons-up-card"
+                :disabled="arePrerequisitesFullfilled"
+                :ui="{ label: 'hidden md:block'}"
+                @click="applyRequirements()"
+            />
+      </span>
+    </h1>
 
-    <UButton color="info" variant="subtle" class="cursor-pointer" icon="i-game-icons-return-arrow" @click="resetStats()">Reset Stats</UButton>
-    <UButton
-        :color="arePrerequisitesFullfilled ? 'neutral' : 'info'"
-        variant="subtle"
-        class="cursor-pointer ml-2"
-        icon="i-game-icons-up-card"
-        :disabled="arePrerequisitesFullfilled"
-        @click="applyRequirements()"
-    >
-      Ensure Requirements
-    </UButton>
+
 
     <div v-if="entity" class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
 

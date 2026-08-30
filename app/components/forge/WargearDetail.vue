@@ -44,6 +44,7 @@ const { getWargearTypeIcon } = useWargearIcon()
 <template>
   <div v-if="wargear" class="flex flex-row gap-4">
     <UModal
+        :ui="{ content: 'md:max-w-3xl'}"
     >
       <UUser
           :avatar="{ icon: getWargearTypeIcon(wargear.type, wargear.subtype) }"
