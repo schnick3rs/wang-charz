@@ -18,6 +18,7 @@ useSeoMeta({
   twitterCard: 'summary_large_image',
   twitterImage: 'https://primaris.doctors-of-doom.com/img/artwork_forge_twitter.jpg',
   twitterTitle: 'Character Builder for Wrath & Glory | Forge',
+  twitterDescription: description,
 })
 
 const crumbs = ref<BreadcrumbItem[]>([
