@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
 import {breakpointsTailwind, useBreakpoints} from '@vueuse/core'
+import {stringToKebab} from "#server/data/utils.ts";
 
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isSmallScreen = breakpoints.smallerOrEqual('sm') // Returns a reactive boolean
@@ -39,27 +40,69 @@ const { data: psychicPowers } = await useAsyncData(
 )
 
 
+const characterKnownDisciplines = computed(() => {
+  return ['Minor', 'Biomancy', 'Pyromancy', 'Telekinesis']
+})
+
 const { data: psychicDisciplines } = await useAsyncData(
     'psychic-disciplines-sourced',
     (_nuxtApp, { signal }) => $fetch('/api/psychic-disciplines', {
       signal,
       query: { source: entity.value?.data.enabledBooks.join(',') || '' }
     }),
+    {
+      transform: (data) => {
+        const merged = new Map()
+
+        for (const i of data) {
+          const key = i.name as string
+          if (merged.has(key)) {
+            merged.set(key, { ...merged.get(key), ...i })
+          } else {
+            merged.set(key, { ...i })
+          }
+        }
+
+        return Array.from(merged.values())
+            .map((i) => ({
+              ...i,
+              disabled: !characterKnownDisciplines.value.includes(i.name as string),
+            }))
+            .sort((a, b) => {
+              // 'Minor' always first
+              if (a.name === 'Minor' && b.name !== 'Minor') return -1
+              if (b.name === 'Minor' && a.name !== 'Minor') return 1
+
+              // then non-disabled before disabled
+              if (a.disabled !== b.disabled) return a.disabled ? 1 : -1
+
+              // optional: alphabetical tiebreaker
+              return a.name.localeCompare(b.name)
+            })
+      }
+    }
 )
 
 
 const search = ref('')
+const disciplineFilter = ref(['Minor'])
+
 
 const filteredPsychicPowers = computed(() => {
   if (!psychicPowers.value) return []
 
   const q = search.value.trim().toLowerCase()
 
-  if (!q) return psychicPowers.value
+  return psychicPowers.value.filter(item => {
+    const matchesDiscipline =
+        disciplineFilter.value.length === 0 ||
+        disciplineFilter.value.includes(item.discipline)
 
-  return psychicPowers.value.filter(item =>
-      item.name.toLowerCase().includes(q)
-  )
+    const matchesSearch =
+        !q || item.name.toLowerCase().includes(q)
+
+    return matchesDiscipline && matchesSearch
+  })
 })
 
 const characterPsychicPowersKeys = computed(() => {
@@ -102,7 +145,6 @@ function remove(psychicPower: { key: string }) {
             v-for="charPsychicPower in entity.data.psychicPowers"
             :key="charPsychicPower.key"
             variant="subtle"
-            color="info"
             size="lg"
             trailing-icon="i-mdi-close"
             @click="remove(charPsychicPower)"
@@ -134,15 +176,16 @@ function remove(psychicPower: { key: string }) {
     </UInput>
 
     <div class="flex flex-wrap gap-1 mt-4">
-      <UBadge
-          v-for="discipline in psychicDisciplines"
-          :key="discipline.key"
-          size="lg"
-          color="neutral"
-          variant="subtle"
-      >
-        {{ discipline.name }}<span v-if="discipline.source.key !== 'core'" class="ml-1 italic">({{discipline.source.key}})</span>
-      </UBadge>
+      <UCheckboxGroup
+          v-model="disciplineFilter"
+          :items="psychicDisciplines"
+          orientation="horizontal"
+          label-key="name"
+          value-key="name"
+          variant="card"
+          color="info"
+          :ui="{ fieldset: 'flex-wrap', item: 'py-1' }"
+      />
     </div>
 
     <UCard :ui="{ body: 'flex flex-col gap-2 p-0 sm:p-0 ' }" class="mt-4" >
@@ -153,6 +196,7 @@ function remove(psychicPower: { key: string }) {
       >
         <UUser
             size="2xl"
+            :avatar="{ src: `/img/avatars/psychic-disciplines/${stringToKebab(item.discipline)}.png`}"
             :name="item.name"
             :description="item.effect"
             :ui="{ description: 'text-sm' }"

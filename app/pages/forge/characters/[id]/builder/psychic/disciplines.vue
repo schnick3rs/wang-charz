@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
+import {stringToKebab} from "#server/data/utils.ts";
 
 definePageMeta({ layout: 'forge' })
 
@@ -51,7 +52,7 @@ const { data: psychicDisciplines } = await useAsyncData(
           class="hover:bg-black/10 w-min-full px-2 py-1 flex flex-row justify-between items-center"
       >
         <UUser
-
+            :avatar="{ src: `/img/avatars/psychic-disciplines/${stringToKebab(discipline.name)}.png`}"
             size="lg"
             color="neutral"
             variant="subtle"
