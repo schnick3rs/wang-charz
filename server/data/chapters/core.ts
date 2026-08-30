@@ -20,6 +20,7 @@ export const core = [
     },
     {
         ...chapterz('core',95,'Dark Angels','Lion El`Jonson','Imperium','First Founding (I Legion)'),
+        snippet: 'Unerring marksmen bound by a secret shame they will kill to protect.',
         features: [
             {
                 name: 'Grim Resolve',
@@ -34,6 +35,7 @@ export const core = [
     },
     {
         ...chapterz('core',95,'Imperial Fists','Regal Dorn','Imperium','First Founding (VII Legion)'),
+        snippet: 'Unbreakable siege-breakers, built on a foundation of flawed gene-seed.',
         features: [
             {
                 name: 'Siege Masters',
@@ -48,6 +50,7 @@ export const core = [
     },
     {
         ...chapterz('core',96,'Iron Hands','Ferrus Manus','Imperium','First Founding (X Legion)'),
+        snippet: 'Contemptuous of weak flesh, they replace it piece by piece with unyielding machine.',
         features: [
             {
                 name: 'The Flesh is Weak',
@@ -62,6 +65,7 @@ export const core = [
     },
     {
         ...chapterz('core',96,'Raven Guard','Corvus Corax','Imperium','First Founding (XIX Legion)'),
+        snippet: 'Silent shadow-hunters whose gaunt visage unsettles friend and foe alike.',
         features: [
             {
                 name: 'Master of Shadows',
@@ -76,6 +80,7 @@ export const core = [
     },
     {
         ...chapterz('core',96,'Salamander','Vulkan','Imperium','First Founding (XVIII Legion)'),
+        snippet: 'Fire-forged protectors who burn brightest defending their brothers.',
         features: [
             {
                 name: 'Promethian Cult',
@@ -90,6 +95,7 @@ export const core = [
     },
     {
         ...chapterz('core',96,'Space Wolves','Lemon Russ','Imperium','First Founding (VI Legion)'),
+        snippet: 'Feral hunter-brothers who fight in pairs and never know retreat.',
         features: [
             {
                 name: 'Hunters Unleashed',
@@ -108,6 +114,7 @@ export const core = [
     },
     {
         ...chapterz('core',96,'Ultramarines','Roboute Guilliman','Imperium','First Founding (XIII Legion)'),
+        snippet: 'Disciplined tacticians who lead by the book, and by unwavering example.',
         features: [
             {
                 name: 'Tactical Versatility',
@@ -122,6 +129,7 @@ export const core = [
     },
     {
         ...chapterz('core',97,'White Scars','Jaghatai Khan','Imperium','First Founding (V Legion)'),
+        snippet: 'Lightning-fast riders whose scarred faces mark a life spent at speed.',
         features: [
             {
                 name: 'Lightning Assault',
