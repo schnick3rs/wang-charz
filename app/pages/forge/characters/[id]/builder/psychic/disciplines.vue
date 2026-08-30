@@ -39,9 +39,9 @@ const { data: psychicDisciplines } = await useAsyncData(
 <template>
   <div class="mx-auto max-w-4xl">
 
-    <h1 class="font-bold text-2xl mb-2">
+    <h1 class="font-bold text-2xl mb-2 flex flex-row justify-between">
       Review Psychic Disciplines
-      <UButton variant="ghost" color="info" icon="i-heroicons-question-mark-circle" :to="`/forge/characters/${entity.id}/builder/psychic/powers`" />
+      <UButton variant="subtle" color="info" icon="i-game-icons-card-exchange" :to="`/forge/characters/${entity.id}/builder/psychic/powers`" />
     </h1>
 
     <UCard :ui="{ body: 'flex flex-col gap-2 p-0 sm:p-0 ' }" class="mt-4" >

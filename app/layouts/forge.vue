@@ -156,7 +156,7 @@ watch(currentStepIndex, scrollActiveStepIntoView, { immediate: true })
     </UMain>
 
     <UFooter
-        class="sticky bottom-0 bg-info-200 "
+        class="sticky bottom-0 bg-info-50 text-info-800 dark:bg-info-950 dark:text-info-200"
         :ui="{
           root: 'mt-4',
           container: 'grid grid-cols-3 items-center p-2',
@@ -172,7 +172,7 @@ watch(currentStepIndex, scrollActiveStepIntoView, { immediate: true })
       <UButton
           size="sm"
           :to="prevStep?.to"
-          :color="prevStep ? 'primary' : 'neutral'"
+          :color="prevStep ? 'info' : 'neutral'"
           :variant="prevStep ? 'solid' : 'subtle'"
           :disabled="!prevStep"
           icon="i-heroicons-chevron-left-16-solid"
@@ -183,7 +183,7 @@ watch(currentStepIndex, scrollActiveStepIntoView, { immediate: true })
           size="sm"
           :to="nextStep?.to"
           :disabled="!nextStep"
-          :color="nextStep ? 'primary' : 'neutral'"
+          :color="nextStep ? 'info' : 'neutral'"
           :variant="nextStep ? 'solid' : 'subtle'"
           trailing-icon="i-heroicons-chevron-right-16-solid"
       >

@@ -188,7 +188,7 @@ const { locale, locales, setLocale } = useI18n()
         <UColorModeButton />
 
         <UDropdownMenu :items="items"     :content="{     align: 'start',     side: 'bottom',     sideOffset: 8}" :ui="{ content: 'w-48' }" v-if="user">
-          <UUser :avatar="{ src: avatarUrl }" :name="displayName" />
+          <UUser :avatar="{ src: avatarUrl }" :name="displayName" :ui="{ name: 'hidden md:block'}" />
         </UDropdownMenu>
 
         <UButton v-else to="/login" icon="i-lucide-user" variant="subtle" color="neutral">Sign in</UButton>

@@ -56,7 +56,7 @@ const books : Book[] = [
         link: 'https://www.drivethrurpg.com/de/product/305327/warhammer-40-000-wrath-and-glory-aeldari-inheritance-of-embers?affiliate_id=466959',
         builder: {
             visible: true,
-            disabled: true,
+            disabled: false,
             badge: 'WIP'
         },
         description: 'A vast amount of options for Aeldari and Drukhari',
