@@ -160,7 +160,7 @@ function remove(psychicPower: { key: string }) {
         icon="i-lucide-search"
         placeholder="Search by name"
         :ui="{ base: 'w-full' }"
-        class="w-full"
+        class="w-full mb-4"
 
     >
       <template v-if="search?.length" #trailing>
@@ -175,18 +175,26 @@ function remove(psychicPower: { key: string }) {
       </template>
     </UInput>
 
-    <div class="flex flex-wrap gap-1 mt-4">
-      <UCheckboxGroup
-          v-model="disciplineFilter"
-          :items="psychicDisciplines"
-          orientation="horizontal"
-          label-key="name"
-          value-key="name"
-          variant="card"
-          color="info"
-          :ui="{ fieldset: 'flex-wrap', item: 'py-1' }"
-      />
-    </div>
+    <USelect
+        v-model="disciplineFilter"
+        :items="psychicDisciplines.filter((i) => !i.disabled)"
+        label-key="name"
+        value-key="name"
+        class="w-full mb-4 md:hidden"
+        multiple
+    ></USelect>
+
+    <UCheckboxGroup
+        v-model="disciplineFilter"
+        :items="psychicDisciplines.filter((i) => !i.disabled)"
+        orientation="horizontal"
+        label-key="name"
+        value-key="name"
+        variant="card"
+        color="info"
+        :ui="{ fieldset: 'flex-wrap', item: 'py-1' }"
+        class="hidden md:block"
+    />
 
     <UCard :ui="{ body: 'flex flex-col gap-2 p-0 sm:p-0 ' }" class="mt-4" >
       <div

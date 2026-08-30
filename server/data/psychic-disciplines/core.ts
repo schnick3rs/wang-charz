@@ -16,6 +16,15 @@ export const core = [
             ...getLegacySource('core'),
             page: 257,
         },
+        key: 'core-universal',
+        name: 'Universal',
+        snippet: 'More or less, it is only smite',
+    },
+    {
+        source: {
+            ...getLegacySource('core'),
+            page: 257,
+        },
         key: 'core-biomancy',
         name: 'Biomancy',
         snippet: 'Manipulating a biological form',
