@@ -19,7 +19,7 @@ export default defineNuxtConfig({
     redirectOptions: {
       login: '/login',
       callback: '/confirm',
-      include: ['/forge(/.*)?'],
+      include: ['/forge/characters(/.*)?'],
     },
   },
 

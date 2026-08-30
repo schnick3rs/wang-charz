@@ -72,9 +72,6 @@ async function signInWithGoogle() {
       />
     </UPageCard>
 
-
-    <UAlert v-if="errorMsg">{{ errorMsg }}</UAlert>
-
   </div>
 
 </template>
