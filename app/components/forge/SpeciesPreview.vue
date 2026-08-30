@@ -60,7 +60,7 @@ const skills = computed(() => {
       <h3 class="font-light text-sm">Attribute Ratings Maximums</h3>
       <USeparator class="mb-2" />
 
-      <div class="flex flex-row justify-between gap-2 text-xs text-center">
+      <div class="flex flex-row justify-around md:justify-between gap-4 md:gap-2 text-xs text-center overflow-x-auto flex-wrap">
         <div v-for="n in [...species.attributeMaximums, ...species.traitMaximums]" :key="n.name" >
           <strong>{{n.name}}</strong>
           <div class="text-lg">{{n.value}}</div>

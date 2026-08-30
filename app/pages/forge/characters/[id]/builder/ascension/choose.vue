@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
+import {breakpointsTailwind, useBreakpoints} from "@vueuse/core";
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallScreen = breakpoints.smallerOrEqual('sm') // Returns a reactive boolean
 
 definePageMeta({ layout: 'forge' })
 
@@ -92,6 +95,7 @@ function updateAndShowArchetypePreview(species: AscensionPackage) {
         v-if="previewAscensionPackage"
         v-model:open="showArchetypeModal"
         title="Confirm Ascension Package"
+        :fullscreen="isSmallScreen"
         :ui="{ content: 'max-w-2xl', footer: 'justify-between' }"
     >
       <template #body>

@@ -1,5 +1,9 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
+import {breakpointsTailwind, useBreakpoints} from "@vueuse/core";
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallScreen = breakpoints.smallerOrEqual('sm') // Returns a reactive boolean
 
 definePageMeta({ layout: 'forge' })
 
@@ -77,7 +81,8 @@ function updateAndShowSpeciesPreview(species: Species) {
         v-if="previewSpecies"
         v-model:open="showSpeciesModal"
         title="Confirm Species"
-        :overlay="false"
+        :overlay="true"
+        :fullscreen="isSmallScreen"
         :ui="{ content: 'max-w-2xl', footer: 'justify-between' }"
     >
       <template #body>
