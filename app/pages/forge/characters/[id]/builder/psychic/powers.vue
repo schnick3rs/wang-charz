@@ -154,7 +154,7 @@ function remove(psychicPower: { key: string }) {
         <UUser
             size="2xl"
             :name="item.name"
-            :description="item.hint"
+            :description="item.effect"
             :ui="{ description: 'text-sm' }"
         >
           <template #name>

@@ -43,7 +43,7 @@ const { getWargearTypeIcon } = useWargearIcon()
         <UIcon :name="getWargearTypeIcon(wargear.type, wargear.subtype)" class="size-12" />
       </div>
 
-      <p class="w-160">
+      <p class="w-full">
         {{ wargear.snippet }}
       </p>
 

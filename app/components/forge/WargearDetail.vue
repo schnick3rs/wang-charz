@@ -1,5 +1,8 @@
 <script setup lang="ts">
 import {useWargearIcon} from "~/composables/useWargearIcon.ts";
+import {breakpointsTailwind, useBreakpoints} from "@vueuse/core";
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallScreen = breakpoints.smallerOrEqual('sm') // Returns a reactive boolean
 
 const props = defineProps<{
   wargearName: string
@@ -40,10 +43,12 @@ const { getWargearTypeIcon } = useWargearIcon()
 
 <template>
   <div v-if="wargear" class="flex flex-row gap-4">
-    <UPopover>
+    <UModal
+    >
       <UUser
           :avatar="{ icon: getWargearTypeIcon(wargear.type, wargear.subtype) }"
           :description="subtitle"
+          class="w-full"
       >
         <template #name>
           <span v-if="props.amount" class="mr-2">{{amount}}x</span>
@@ -56,7 +61,7 @@ const { getWargearTypeIcon } = useWargearIcon()
       <template #content>
         <LookupWargearInfo :wargear-key="wargear.key" />
       </template>
-    </UPopover>
+    </UModal>
   </div>
   <div v-else class="flex flex-row gap-4">
     <UUser

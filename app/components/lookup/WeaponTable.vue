@@ -52,11 +52,12 @@ const columns: TableColumn<WeaponProfile>[] = [
     cell: ({ row, getValue }) => {
       const range = (getValue() || 0) as number;
 
-      if (row.original.type === 'ranged-weapon')
+      if (row.original.type === 'ranged-weapon') {
         if (row.original.thrownX) {
           return getValue()
         }
         return `${range/2} | ${range} | ${range*1.5}`
+      }
 
       if (row.original.type === 'melee-weapon')
         return range > 1 ? range : '-'

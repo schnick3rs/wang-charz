@@ -1,9 +1,24 @@
 <script setup lang="ts">
 import type {BreadcrumbItem} from "@nuxt/ui";
 import {useCharacterStore} from "~~/stores/characters.ts";
-
 import { storeToRefs } from 'pinia'
 import { nameByRace } from "fantasy-name-generator";
+
+
+const description = 'The Forge allows you to create and organize multiple characters for the Wrath and GloryRoleplaying game. Create, manage and view your characters online.'
+
+useSeoMeta({
+  title: "Character Builder for Wrath & Glory",
+  titleTemplate: '%s | Forge',
+  description: description,
+  ogImage: 'https://primaris.doctors-of-doom.com/img/artwork_abstract.jpg',
+  ogTitle: 'Character Builder for Wrath & Glory',
+  ogDescription: description,
+
+  twitterCard: 'summary_large_image',
+  twitterImage: 'https://primaris.doctors-of-doom.com/img/artwork_forge_twitter.jpg',
+  twitterTitle: 'Character Builder for Wrath & Glory | Forge',
+})
 
 const crumbs = ref<BreadcrumbItem[]>([
   {
