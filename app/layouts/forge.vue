@@ -174,25 +174,42 @@ const store = useCharacterStore()
 const entity = computed(() => store.byId[id.value])
 const entityData = computed(() => entity.value?.data || { species: {key: undefined}, archetype: {key: undefined} })
 
-const forgeNavs = computed(() => {
+type ForgeStep = NavigationMenuItem & { matchKey?: string }
+
+const forgeSteps = computed<ForgeStep[]>(() => {
   if (!id.value) return []
 
+  const base = `/forge/characters/${id.value}/builder`
+
   return [
-    [
-      { label: '', icon: 'i-heroicons-question-mark-circle' },
-      { label: 'Setting', to: `/forge/characters/${id.value}/builder/setting` },
-      { label: '1. Species', to: `/forge/characters/${id.value}/builder/species/${entityData.value?.species?.key ? 'manage' : 'choose'}` },
-      { label: '2. Archetype', to: `/forge/characters/${id.value}/builder/archetype/${entityData.value?.archetype?.key ? 'manage' : 'choose'}` },
-      { label: '3. Ascension', to: `/forge/characters/${id.value}/builder/ascension/manage` },
-      { label: '4. Stats', to: `/forge/characters/${id.value}/builder/stats` },
-      { label: '5. Talents', to: `/forge/characters/${id.value}/builder/talents` },
-      { label: '6. Wargear', to: `/forge/characters/${id.value}/builder/wargear` },
-      { label: '7. Powers', to: `/forge/characters/${id.value}/builder/psychic/powers` },
-      { label: '8. Background', to: `/forge/characters/${id.value}/builder/background` },
-      { label: '', to: `/forge/characters/${id.value}/builder/setting` },
-    ] as NavigationMenuItem[]
-  ];
+    { label: 'Setting', to: `${base}/setting`, matchKey: 'setting' },
+    { label: '1. Species', to: `${base}/species/${entityData.value?.species?.key ? 'manage' : 'choose'}`, matchKey: 'species' },
+    { label: '2. Archetype', to: `${base}/archetype/${entityData.value?.archetype?.key ? 'manage' : 'choose'}`, matchKey: 'archetype' },
+    { label: '3. Ascension', to: `${base}/ascension/manage`, matchKey: 'ascension' },
+    { label: '4. Stats', to: `${base}/stats`, matchKey: 'stats' },
+    { label: '5. Talents', to: `${base}/talents`, matchKey: 'talents' },
+    { label: '6. Wargear', to: `${base}/wargear`, matchKey: 'wargear' },
+    { label: '7. Powers', to: `${base}/psychic/powers`, matchKey: 'psychic' },
+    { label: '8. Background', to: `${base}/background`, matchKey: 'background' },
+  ]
 })
+
+const forgeNavs = computed(() => [forgeSteps.value] as NavigationMenuItem[][])
+
+const currentStepIndex = computed(() =>
+    forgeSteps.value.findIndex(step => step.matchKey && route.path.includes(`/builder/${step.matchKey}`))
+)
+
+const prevStep = computed(() => {
+  const i = currentStepIndex.value
+  return i > 0 ? forgeSteps.value[i - 1] : null
+})
+
+const nextStep = computed(() => {
+  const i = currentStepIndex.value
+  return i !== -1 && i < forgeSteps.value.length - 1 ? forgeSteps.value[i + 1] : null
+})
+
 const { locale, locales, setLocale } = useI18n()
 </script>
 
@@ -234,18 +251,58 @@ const { locale, locales, setLocale } = useI18n()
     </UHeader>
 
     <UMain>
+
       <UContainer v-if="id">
         <UDashboardToolbar class="lg:justify-center">
           <UNavigationMenu :items="forgeNavs" color="info" variant="link"></UNavigationMenu>
         </UDashboardToolbar>
       </UContainer>
       <UContainer class="mt-4" >
+
+
         <slot />
       </UContainer>
     </UMain>
 
-    <UFooter>
-      ackack
+    <UFooter
+        class="sticky bottom-0 bg-info-200 "
+        :ui="{
+          root: 'mt-4',
+          container: 'grid grid-cols-3 items-center p-2',
+          left: 'mt-0 order-1 justify-start text-sm',
+          center: 'mt-0 order-2 gap-2',
+          right: 'mt-0 order-3 justify-end text-sm'
+    }"
+    >
+      <template #left>
+        15 / {{ entity.data.settingTier * 100 }} XP
+      </template>
+
+      <UButton
+          size="sm"
+          :to="prevStep?.to"
+          :color="prevStep ? 'primary' : 'neutral'"
+          :variant="prevStep ? 'solid' : 'subtle'"
+          :disabled="!prevStep"
+          icon="i-heroicons-chevron-left-16-solid"
+      >
+        {{ 'prev' }}
+      </UButton>
+      <UButton
+          size="sm"
+          :to="nextStep?.to"
+          :disabled="!nextStep"
+          :color="nextStep ? 'primary' : 'neutral'"
+          :variant="nextStep ? 'solid' : 'subtle'"
+          trailing-icon="i-heroicons-chevron-right-16-solid"
+      >
+        {{ 'next' }}
+      </UButton>
+
+      <template #right>
+        © {{ new Date().getFullYear() }}
+      </template>
+
     </UFooter>
   </UApp>
 

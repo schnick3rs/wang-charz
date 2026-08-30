@@ -69,9 +69,15 @@ export const SuggestedSchema = z.object({
 });
 
 export const ArchetypeSchema = z.object({
+
   source: PagedLegacySourceSchema,
+
   key: z.string(),
   name: z.string(),
+
+  hint: z.string().optional().describe('A few word hint to give the vibe'),
+  snippet: z.string().optional().describe('A few word hint to give the vibe'),
+
   cost: z.number().default(0),
   costs: CostBreakdownSchema.optional(),
   tier: z.number(),
@@ -79,7 +85,7 @@ export const ArchetypeSchema = z.object({
   factionKey: z.string(),
   species: z.array(SpeciesRefSchema),
   stub: z.boolean().optional(),
-  hint: z.string().optional(),
+
   keywords: z.array(z.string()).default([]),
   influence: z.number().default(0),
   prerequisites: z.array(PrerequisiteSchema).default([]),

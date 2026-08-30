@@ -80,6 +80,14 @@ const { data: homebrews } = await useAsyncData(
     }
 )
 
+const optionalRules = [
+  {
+    key: 'legacy-stat-costs',
+    label: 'Legacy Skill Cost',
+    description: 'Use the V1 stat costs which favour skills',
+  },
+]
+
 </script>
 
 <template>
@@ -96,16 +104,20 @@ const { data: homebrews } = await useAsyncData(
       <p>Define the Tier of the Campaign, defining your starting XP and available Archetypes</p>
 
       <div class="mt-2">
+        <h3 class="font-semibold text-xl">Tier</h3>
         <URadioGroup
             indicator="hidden"
             size="xl"
             v-model="entity.data.settingTier"
             :items="tierOptions"
             orientation="horizontal"
-            legend="Tier"
             variant="card"
-            :ui="{ legend: 'text-lg font-semibold', label: 'hidden md:block' }"
-            class="overflow-x-auto"
+            :ui="{
+              root: 'overflow-x-auto',
+              label: 'hidden md:block',
+              fieldset: 'flex flex-nowrap justify-between gap-2 w-full',
+              item: 'flex-1 min-w-0 '
+            }"
         >
         </URadioGroup>
       </div>
@@ -116,6 +128,14 @@ const { data: homebrews } = await useAsyncData(
       <p>Decide house rules, optional rules and hacks.</p>
 
       <div class="mt-2">
+        <UCheckboxGroup v-model="entity.data.enabledHouseRules" :items="optionalRules" value-key="key" :ui="{ fieldset: 'gap-4'}">
+          <template #label="{ item }">
+            {{ item.label }} <UBadge v-if="item.badge" variant="subtle" size="md" color="warning">{{item.badge}}</UBadge>
+          </template>
+          <template #description="{ item }">
+            {{ item.description }}<a v-if="item.link" :href="item.link" target="_blank" class="ml-1 underline hover:text-primary">(affiliate link)</a>
+          </template>
+        </UCheckboxGroup>
       </div>
     </section>
 

@@ -42,6 +42,7 @@ export const core = [
         ...archetype('core', 102,'Adeptus Ministorum','Death Cult Assassin',2,'Human'),
         ...cost(36,10,26, 0, 0),
         hint: 'An agile killer, expressing worship through the art of death.',
+        snippet: 'A zealot of an extremist sect, you honour the Emperor’s sacrifice for humanity through the ritual slaughter of His enemies.',
         keywords: keywords('Imperium,Adeptus Ministorum'),
         prerequisites: [
             reqAttribute(ATTRIBUTES.AGILITY, 4),

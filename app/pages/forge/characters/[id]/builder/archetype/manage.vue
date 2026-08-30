@@ -44,9 +44,9 @@ const skills = computed(() => {
         <span>{{ archetype.hint }}</span>
 
       </div>
-      <div>
+      <div class="shrink-0">
         <NuxtImg :src="`/img/avatars/archetype/${archetype.key}.png`" class="w-30 h-30 object-cover rounded-lg" />
-        <UButton variant="ghost" color="info" :to="`/forge/characters/${id}/builder/archetype/choose`">Change Archetype</UButton>
+        <UButton variant="ghost" color="info" :to="`/forge/characters/${id}/builder/archetype/choose`">Change</UButton>
       </div>
     </div>
 
