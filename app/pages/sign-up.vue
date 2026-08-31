@@ -17,10 +17,6 @@ const fields: AuthFormField[] = [{
   type: 'password',
   placeholder: 'Enter your password',
   required: true
-}, {
-  name: 'remember',
-  label: 'Remember me',
-  type: 'checkbox'
 }]
 
 const providers = [{
@@ -37,14 +33,17 @@ const schema = z.object({
 })
 type Schema = z.output<typeof schema>
 
-async function signIn(payload: FormSubmitEvent<Schema>) {
+async function signUp(payload: FormSubmitEvent<Schema>) {
   console.log('Submitted', payload)
-  const { error } = await supabase.auth.signInWithPassword({
+  const { error } = await supabase.auth.signUp({
     email: payload.data.email,
     password: payload.data.password,
+    options: {
+      emailRedirectTo: 'https://primaris.doctors-of-doom/',
+    },
   })
   if (error) errorMsg.value = error.message
-  else await navigateTo('/')
+  else await navigateTo('/login')
 }
 
 async function signInWithGoogle() {
@@ -61,13 +60,16 @@ async function signInWithGoogle() {
     <UPageCard class="w-full max-w-md">
       <UAuthForm
           :schema="schema"
-          title="Login"
-          description="Enter your credentials to access your account."
-          icon="i-lucide-user"
           :fields="fields"
           :providers="providers"
-          @submit="signIn"
+          title="Sign Up"
+          description="Enter your credentials to access your account."
+          icon="i-lucide-user"
+          @submit="signUp"
       />
+      <template #validation>
+        <UAlert color="error" icon="i-lucide-info" title="Error signing in" :description="errorMsg" />
+      </template>
     </UPageCard>
 
   </div>

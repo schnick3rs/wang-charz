@@ -190,7 +190,10 @@ const items = ref<DropdownMenuItem[]>([
           <UUser :avatar="{ src: avatarUrl }" :name="displayName" :ui="{ name: 'hidden md:block'}" />
         </UDropdownMenu>
 
-        <UButton v-else to="/login" icon="i-lucide-user" variant="subtle" color="neutral">Sign in</UButton>
+        <div v-else >
+          <UButton to="/login" icon="i-lucide-user" variant="subtle" color="neutral">Sign in</UButton>
+          <UButton to="/sign-up" icon="i-lucide-user" variant="solid" color="neutral">Sign Up</UButton>
+        </div>
 
       </template>
     </UHeader>
