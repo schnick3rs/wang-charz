@@ -75,14 +75,14 @@ const books : Book[] = [
     },
     {
         title: 'Sons of Russ',
-        key: 'sonr',
+        key: 'sofr',
         version: 'v1.0',
         isOfficial: true,
         description: 'Space Wolves Archetypes, Talents, Powers and Wargear',
         link: 'https://www.drivethrurpg.com/en/product/532635/warhammer-40-000-wrath-glory-sons-of-russ?affiliate_id=466959',
         builder: {
             visible: true,
-            disabled: true,
+            disabled: false,
             badge: 'WIP'
         },
     },

@@ -1,8 +1,9 @@
-import {core} from "./factions/core";
-import {aioe} from "./factions/aioe";
-import {aaoa} from "./factions/aaoa";
-import {fspg} from "./factions/fspg";
-import {lex} from "./factions/lex";
+import {core} from "#server/data/factions/core";
+import {aioe} from "#server/data/factions/aioe";
+import {aaoa} from "#server/data/factions/aaoa";
+import {fspg} from "#server/data/factions/fspg";
+import {lex} from "#server/data/factions/lex";
+import {sofr} from "#server/data/factions/sofr.ts";
 
 export const rawFactionRepository = [
     ...core,
@@ -10,6 +11,7 @@ export const rawFactionRepository = [
     ...aaoa,
     ...aioe,
     ...lex,
+    ...sofr,
 ];
 
 export const factionRepository: Faction[] = FactionRepositorySchema.parse(rawFactionRepository);
