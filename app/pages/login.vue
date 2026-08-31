@@ -37,12 +37,6 @@ const providers = [
       signInWithProvider('github')
     }
   },
-  {
-    label: 'Discord',
-    onClick: () => {
-      signInWithProvider('discord')
-    }
-  },
 ]
 
 const schema = z.object({

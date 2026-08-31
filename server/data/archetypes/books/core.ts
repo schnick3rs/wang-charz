@@ -652,7 +652,9 @@ export const core = [
                 name: 'Scrounger',
                 snippet: 'You add +Rank dice to Cunning Tests. Once per session you may make an Influence or Cunning Test to acquire an item, representing something you have prepared in advance.',
                 description:
-                    '<p>Your life with less has made you adept at finding spares and supplies in the most unlikely of places. You gain +Rank bonus dice to Cunning (Fel) Tests. Once per session you may make an Influence or Cunning Test to acquire an item, representing something you have prepared in advance.</p>',
+                    '<p><em>Your life with less has made you adept at finding spares and supplies in the most unlikely of places.</em></p>' +
+                    '<p> You gain +Rank bonus dice to Cunning (Fel) Tests.</p>' +
+                    '<p>Once per session you may make an Influence or Cunning Test to acquire an item, representing something you have prepared in advance.</p>',
                 modifications: [
                     { targetGroup: 'skills', targetValue: SKILLS.CUNNING, modifier: 0, rank: 1, condition: null },
                 ],
