@@ -2,7 +2,6 @@ import {background, faction} from "./utils";
 
 export const aaoa = [
     {
-        name: 'Adeptus Arbites',
         ...faction('aaoa',25,'Imperium','Adeptus Arbites'),
         backgroundSection: [
             // Origin
@@ -29,7 +28,6 @@ export const aaoa = [
         advancedCreationKeywords: ['Imperium'],
     },
     {
-        name: 'Officio Assassinorum',
         ...faction('aaoa',28,'Imperium','Officio Assassinorum'),
         backgroundSection: [
             // Origin
@@ -56,7 +54,6 @@ export const aaoa = [
         advancedCreationKeywords: ['Imperium'],
     },
     {
-        name: 'Drukhari',
         ...faction('aaoa',29,'Aeldari','Drukhari'),
         backgroundSection: [
             // Origin
@@ -83,7 +80,6 @@ export const aaoa = [
         advancedCreationKeywords: ['Aeldari','Drukhari'], // [Cabal], [Cult], [Coven]
     },
     {
-        name: 'The Squat Remnant',
         ...faction('aaoa',29,'Squats','The Squat Remnant'),
         backgroundSection: [
             // Origin
@@ -110,7 +106,6 @@ export const aaoa = [
         advancedCreationKeywords: ['Squat'],
     },
     {
-        name: 'T´au',
         ...faction('aaoa',29,'T’au','T’au'),
         backgroundSection: [
             // Origin
