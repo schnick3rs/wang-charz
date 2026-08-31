@@ -23,13 +23,27 @@ const fields: AuthFormField[] = [{
   type: 'checkbox'
 }]
 
-const providers = [{
-  label: 'Google',
-  icon: 'i-simple-icons-google',
-  onClick: () => {
-    signInWithGoogle()
-  }
-}]
+const providers = [
+  {
+    label: 'Google',
+    icon: 'i-simple-icons-google',
+    onClick: () => {
+      signInWithProvider('google')
+    }
+  },
+  {
+    label: 'GitHub',
+    onClick: () => {
+      signInWithProvider('github')
+    }
+  },
+  {
+    label: 'Discord',
+    onClick: () => {
+      signInWithProvider('discord')
+    }
+  },
+]
 
 const schema = z.object({
   email: z.email('Invalid email'),
@@ -47,9 +61,9 @@ async function signIn(payload: FormSubmitEvent<Schema>) {
   else await navigateTo('/')
 }
 
-async function signInWithGoogle() {
+async function signInWithProvider(provider) {
   await supabase.auth.signInWithOAuth({
-    provider: 'google',
+    provider: provider,
     options: { redirectTo: `${location.origin}/confirm` },
   })
 }

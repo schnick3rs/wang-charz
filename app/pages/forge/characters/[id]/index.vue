@@ -1,14 +1,297 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
+import {attributeRepository, skillRepository, type Trait, traitRepository} from "#shared/utils/stats.ts";
 
-const route = useRoute();
-const characterStore = useCharacterStore();
+const route = useRoute()
+const id = computed(() => route.params.id as string)
+const store = useCharacterStore()
+
+const entity = computed(() => store.byId[id.value])
+
+const { data: species } = await useAsyncData(
+    `species-${entity.value.data.species.key}`,
+    (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.species.key}`, { signal }),
+)
+
+const { data: archetype } = await useAsyncData(
+    `archetype-${entity.value.data.archetype.key}`,
+    (_nuxtApp, { signal }) => $fetch(`/api/archetypes/${entity.value.data.archetype.key}`, { signal }),
+)
+
+function effectiveTrait(trait: Trait) {
+  if (!entity.value) return '?'
+  if (!species.value) return '?'
+
+  if (trait.key === 'speed') return species.value.speed
+
+  let baseValue = 0
+
+  if (trait.attribute) {
+    const associatedAttribute = attributeRepository.find((a) => a.name === trait.attribute)
+    if (associatedAttribute) {
+      baseValue = entity.value.data.attributes[associatedAttribute.key]
+    }
+  }
+
+  if (trait.skill) {
+    const associatedSkill = skillRepository.find((a) => a.name === trait.skill)
+    if (associatedSkill) {
+      baseValue = entity.value.data.skills[associatedSkill.key]
+    }
+  }
+
+  const { static: statik, multi, tier, min } = trait.compute
+
+  const computedValue = statik + ( baseValue * multi ) + (tier * entity.value.data.settingTier )
+
+  return Math.ceil(Math.max(computedValue, min))
+}
+
+
+function skillDicePool(skill: { key: string }) {
+  if (!entity.value) return '?'
+
+  const skillValue = entity.value.data.skills[skill.key] || 0
+
+  let characterAttributeValue = 0
+
+  const associatedAttribute = attributeRepository.find((a) => a.name === skill.attribute)
+  if (associatedAttribute) {
+    characterAttributeValue = entity.value.data.attributes[associatedAttribute.key]
+  }
+
+  return skillValue + characterAttributeValue
+}
+
+const tabs = [
+  {
+    label: 'Weapons',
+    slot: 'weapons'
+  },
+  {
+    label: 'Wargear',
+    slot: 'wargear'
+  },
+  {
+    label: 'Abilities',
+    slot: 'abilities'
+  },
+  {
+    label: 'Powers',
+    slot: 'powers'
+  },
+  {
+    label: 'Description',
+    slot: 'description'
+  },
+]
+
 </script>
 
 <template>
-  <pre>
-    {{character}}
-  </pre>
+
+  <div class="w-full flex flex-row gap-4">
+    <NuxtImg v-if="entity.data.archetype?.key" :src="`/img/avatars/archetype/${entity.data.archetype.key}.png`" class="w-24 h-24 shrink-0 object-cover object-center rounded-lg" />
+    <NuxtImg v-else-if="entity.data.species?.key" :src="`/img/avatars/species/${entity.data.species.key}.png`" class="w-24 h-24 shrink-0 object-cover object-center rounded-lg" />
+    <NuxtImg v-else :src="`/img/avatar_placeholder.png`" class="w-24 h-24 shrink-0 object-cover object-center rounded-lg" />
+    <div>
+      <div class="text-highlighted font-semibol">{{ entity.data.name }}</div>
+      <div class="mt-1 text-muted text-s">{{ (entity.data.species?.label || '?') + ' · ' + (entity.data.archetype?.label || '?') }}</div>
+      <div class="mt-1 text-muted text-s">Tier {{entity.data.settingTier}} · Rank  {{ entity.data.rank }} · 0 / {{ entity.data.settingTier * 100 }} XP</div>
+    </div>
+  </div>
+
+  <div class="w-full mt-4 grid grid-cols-1 lg:grid-cols-[1fr_1fr_2fr] gap-4">
+
+    <!-- Column 1: Attributes + Traits, stacked -->
+    <div class="flex flex-col gap-4">
+
+        <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+
+          <!-- Header -->
+          <div class="bg-amber-700 px-4 py-2">
+            <h2 class="text-white font-semibold text-lg">Attributes</h2>
+          </div>
+
+          <!-- Table -->
+          <table class="w-full text-sm">
+            <thead>
+            <tr class="text-gray-500 uppercase text-xs tracking-wide">
+              <th class="text-left font-medium px-2 py-2">Attribute</th>
+              <th class="text-center font-medium px-2 py-2">Rating</th>
+              <th class="text-center font-medium px-2 py-2">Enhanced</th>
+              <th class="text-center font-medium px-2 py-2">Notes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr
+                v-for="attribute in attributeRepository"
+                :key="attribute.key"
+                class="border-t border-gray-100"
+            >
+              <td class="px-1.5 py-1.5 ">{{ $t(`stats.${attribute.key}`, attribute.name) }}</td>
+              <td class="px-1.5 py-1.5 text-center ">{{ entity.data.attributes[attribute.key] }}</td>
+              <td class="px-1.5 py-1.5 text-center ">{{ entity.data.attributes[attribute.key] }}</td>
+              <td class="px-1.5 py-1.5 text-center">
+              <span
+                  class="text-error"
+              >
+                {{ 'up' === 'up' ? '▲' : '▼' }}
+              </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+      </div>
+
+        <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+          <!-- Header -->
+          <div class="bg-amber-700 px-4 py-2">
+            <h2 class="text-white font-semibold text-lg">Traits</h2>
+          </div>
+
+          <!-- Table -->
+          <table class="w-full text-sm">
+            <tbody>
+            <tr
+                v-for="trait in traitRepository"
+                :key="trait.key"
+                class="border-t border-gray-100"
+            >
+              <td class="px-1.5 py-1.5 text-gray-800">{{ $t(`stats.${trait.key}`, trait.name) }}</td>
+              <td class="px-1.5 py-1.5 text-right text-gray-400 truncate">
+                <template v-if="['maxWounds', 'maxShock', 'wealth'].includes(trait.key)">
+                  <span v-if="effectiveTrait(trait) > 10">{{effectiveTrait(trait)-5}} / </span>
+                  <span v-else>{{ '☐'.repeat(effectiveTrait(trait)) }}</span>
+                </template>
+              </td>
+              <td class="px-1.5 py-1.5 text-center text-gray-700">{{ effectiveTrait(trait) }}</td>
+              <td class="px-1.5 py-1.5 text-center">
+              <span
+                  class="text-error"
+              >
+                {{ 'up' === 'up' ? '▲' : '▼' }}
+              </span>
+              </td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+    </div>
+
+    <!-- Right column: Skills -->
+    <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+        <!-- Header -->
+        <div class="bg-amber-700 px-4 py-2">
+          <h2 class="text-white font-semibold text-lg">Skills</h2>
+        </div>
+
+        <!-- Table -->
+        <table class="w-full text-sm">
+          <thead>
+          <tr class="text-gray-500 uppercase text-xs tracking-wide">
+            <th class="text-left font-medium px-2 py-2">Attribute</th>
+            <th class="text-center font-medium px-2 py-2">Rating</th>
+            <th class="text-center font-medium px-2 py-2">Att</th>
+            <th class="text-center font-medium px-2 py-2">Total</th>
+            <th class="text-center font-medium px-2 py-2">Notes</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr
+              v-for="skill in skillRepository"
+              :key="skill.key"
+              class="border-t border-gray-100"
+          >
+            <td class="px-1.5 py-1.5 text-gray-800">{{ $t(`stats.${skill.key}`, skill.name) }}</td>
+            <td class="px-1.5 py-1.5 text-center text-gray-700">{{ entity.data.skills[skill.key] }}</td>
+            <td class="px-1.5 py-1.5 text-center text-gray-700">{{ skill.attribute.substring(0,3) }}</td>
+            <td class="px-1.5 py-1.5 text-center text-gray-700">{{ skillDicePool(skill) }}</td>
+            <td class="px-1.5 py-1.5 text-center">
+              <span class="text-error">{{ 'up' === 'up' ? '▲' : '▼' }}</span>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+    </div>
+
+    <!-- Ability Tabs -->
+    <section title="extras" class="border rounded-lg border-gray-200 shadow-sm">
+      <UTabs
+          :items="tabs"
+          color="error"
+          variant="link"
+          :ui="{ content: 'p-2'}"
+      >
+
+        <template #weapons>
+          WEAP
+        </template>
+
+        <template #wargear>
+          <div v-for="item in entity.data.wargear">{{item}}</div>
+        </template>
+
+        <!-- All, Species, Archetype, Ascension, Talents, Other (e.g. keywords ) -->
+        <template #abilities>
+
+          <template v-if="species.speciesFeatures.length > 0">
+            <h3 class="font-light text-sm text-error mt-4">Species<span class="text-muted font-light"> • {{ species.name }}</span></h3>
+            <USeparator class="mb-2" />
+            <div class="flex flex-col gap-2">
+              <div v-for="feature in species.speciesFeatures" :key="feature.key" class="text-sm">
+                <strong>{{ feature.name }}</strong>
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <div v-if="feature.description" v-html="feature.description"/>
+                <div v-else><p>{{ feature.snippet}}</p></div>
+              </div>
+            </div>
+          </template>
+
+          <template v-if="archetype.archetypeFeatures.length > 0">
+            <h3 class="font-light text-sm text-error mt-4">Archetype<span class="text-muted font-light"> • {{ archetype.name }}</span></h3>
+            <USeparator class="mb-2" />
+            <div class="flex flex-col gap-2">
+              <div v-for="feature in archetype.archetypeFeatures" :key="feature.key" class="text-sm">
+                <strong>{{ feature.name }}</strong>
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <div v-if="feature.description" v-html="feature.description"/>
+                <div v-else><p>{{ feature.snippet}}</p></div>
+              </div>
+            </div>
+          </template>
+
+          <template v-if="entity.data.talents.length > 0">
+            <h3 class="font-light text-sm text-error mt-4">Talents</h3>
+            <USeparator class="mb-2" />
+            <div class="flex flex-col gap-2">
+              <div v-for="talent in entity.data.talents" :key="talent.id">
+                <strong>{{ talent.name }}</strong><span class="text-muted font-light"> • {{ talent.source }}</span>
+                <!-- eslint-disable-next-line vue/no-v-html -->
+                <div v-if="talent.description" v-html="talent.description"/>
+                <div v-else><p>{{ talent.snippet}}</p></div>
+              </div>
+            </div>
+          </template>
+
+        </template>
+
+        <template #powers>
+          <div v-for="psychicPower in entity.data.psychicPowers">
+            {{psychicPower.name}}
+          </div>
+        </template>
+
+        <template #description>
+          DESC
+        </template>
+
+      </UTabs>
+    </section>
+
+  </div>
+
 </template>
 
 <style scoped>
