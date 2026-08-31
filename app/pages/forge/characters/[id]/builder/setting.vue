@@ -91,7 +91,7 @@ const optionalRules = [
 </script>
 
 <template>
-  <div v-if="entity" class="mx-auto md:max-w-2xl flex flex-col gap-4">
+  <div v-if="entity" class="mx-auto md:max-w-3xl flex flex-col gap-4">
 
     <section>
       <UFormField label="Name" class="w-full w-min-full" :ui="{ label: 'text-lg font-semibold' }">

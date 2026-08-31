@@ -132,7 +132,7 @@ function remove(psychicPower: { key: string }) {
 </script>
 
 <template>
-  <div class="mx-auto max-w-4xl">
+  <div class="mx-auto max-w-3xl">
 
     <h1 class="font-bold text-2xl mb-2 flex flex-row justify-between">
       Manage Psychic Powers

@@ -90,7 +90,7 @@ const selectedFeatureOption = ref<string>()
             </div>
 
             <!-- Special Astartes Chapter Genseed -->
-            <div v-if="chapters && entity && entity.data && feature.name === 'Honour the Chapter'" class="border-l-4 border-l-red-600 mt-2 pl-4">
+            <div v-if="chapters && entity && entity.data && feature.name.startsWith('Honour the Chapter')" class="border-l-4 border-l-red-600 mt-2 pl-4">
               <USelect
                   v-model="entity.data.speciesAstartesChapterKey"
                   :items="chapters"
