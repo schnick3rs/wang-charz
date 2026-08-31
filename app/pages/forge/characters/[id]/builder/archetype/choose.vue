@@ -47,6 +47,11 @@ function selectArchetype(archetype: Archetype) {
     cost: archetype.cost,
     tier: archetype.tier,
   }
+  entity.value.data.faction = {
+    key: archetype.factionKey,
+    label: archetype.faction,
+  }
+
   store.scheduleSave(entity.value.id)
   showArchetypeModal.value = false
   navigateTo(`/forge/characters/${id.value}/builder/archetype/manage`)

@@ -67,7 +67,7 @@ const forgeSteps = computed<ForgeStep[]>(() => {
     { label: '6. Wargear', to: `${base}/wargear`, matchKey: 'wargear' },
     { label: '7. Powers', to: `${base}/psychic/powers`, matchKey: 'psychic' },
     { label: '8. Background', to: `${base}/background`, matchKey: 'background' },
-    { label: '', to: `/forge/characters/${id.value}`, matchKey: 'background' },
+    { label: '', icon: 'i-heroicons-identification',  to: `/forge/characters/${id.value}` },
   ]
 })
 
