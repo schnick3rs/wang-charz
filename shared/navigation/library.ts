@@ -74,7 +74,7 @@ export const library: LibraryItems = [
         subtitle: 'Browse Options to flesh out your Character',
         imageSrc: '/img/artwork_vault_bright.jpg',
         htmlText: '',
-        icon: 'i-game-icons-tag', // no match in source list — guessed
+        icon: 'i-game-icons-skeleton-key',
         link: { text: 'Browse Keywords', route: '/library/keywords' },
         isActive: true,
         classes: [],
@@ -85,7 +85,7 @@ export const library: LibraryItems = [
         subtitle: 'Browse Psychic Powers of various Disciplines',
         imageSrc: '/img/artwork_vault_bright.jpg',
         htmlText: '',
-        icon: 'i-game-icons-spell-book',
+        icon: 'i-game-icons-bolt-spell-cast',
         link: { text: 'Browse Powers', route: '/library/psychic-powers' },
         isActive: true,
         classes: [],
@@ -96,7 +96,7 @@ export const library: LibraryItems = [
         subtitle: 'Browse Psychic Disciplines of various Disciplines',
         imageSrc: '/img/artwork_vault_bright.jpg',
         htmlText: '',
-        icon: 'i-game-icons-third-eye', // no match in source list — guessed
+        icon: 'i-game-icons-spell-book',
         link: { text: 'Browse Disciplines', route: '/library/psychic-disciplines' },
         isActive: true,
         classes: [],

@@ -62,6 +62,7 @@ const navItems = ref<NavigationMenuItem[]>([
     icon: 'i-game-icons-bookshelf',
     to: '/library',
     active: route.path.startsWith('/library'),
+    defaultOpen: true,
     children: library.map((item: LibraryItem) => {
       return {
         label: item.title,
@@ -128,6 +129,7 @@ const items = ref<DropdownMenuItem[]>([
     label: 'Profile',
     icon: 'i-lucide-user',
     to: '/profile',
+    disabled: true,
   },
   {
     label: 'Log out',
@@ -142,7 +144,7 @@ const items = ref<DropdownMenuItem[]>([
 
   <UApp>
 
-    <UHeader>
+    <UHeader mode="slideover">
       <template #title>
         Doctors of Doom
       </template>
@@ -164,6 +166,10 @@ const items = ref<DropdownMenuItem[]>([
         </div>
 
       </template>
+
+      <template #body>
+        <UNavigationMenu :items="navItems" orientation="vertical" class="-mx-2.5" />
+      </template>
     </UHeader>
 
     <UMain>
@@ -173,7 +179,9 @@ const items = ref<DropdownMenuItem[]>([
     </UMain>
 
     <UFooter>
-      ackack
+      <template #right>
+        Copyright © {{ new Date().getFullYear() }}
+      </template>
     </UFooter>
   </UApp>
 

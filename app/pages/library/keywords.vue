@@ -114,7 +114,6 @@ const pagination = ref({
     <template #name-cell="{ row }">
       <UUser
           :name="row.original.name"
-          :description="row.original.description.substr(0, 80)"
       ></UUser>
     </template>
 
@@ -128,7 +127,7 @@ const pagination = ref({
 
   <div class="flex justify-center border-t border-default pt-4 px-4">
     <UPagination
-        show-edges
+        :show-edges="false"
         :sibling-count="3"
         :page="(table?.tableApi?.getState().pagination.pageIndex || 0) + 1"
         :items-per-page="table?.tableApi?.getState().pagination.pageSize"
