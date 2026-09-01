@@ -15,15 +15,15 @@ const crumbs = ref<BreadcrumbItem[]>([
     to: '/library'
   },
   {
-    label: 'Talents',
+    label: 'Factions',
     icon: 'i-game-icons-dna1',
-    to: '/library/talents',
+    to: '/library/factions',
   }
 ])
 
 const { data, pending } = await useAsyncData(
-    'talents',
-    (_nuxtApp, { signal }) => $fetch('/api/talents', { signal }),
+    'factions',
+    (_nuxtApp, { signal }) => $fetch('/api/factions', { signal }),
 )
 
 const table = useTemplateRef('table')
@@ -92,7 +92,7 @@ const pagination = ref({
 
   <DoomBreadcrumb :items="crumbs" />
 
-  <h1 class="text-3xl sm:text-4xl text-pretty font-bold text-highlighted border-b-4 pb-2 border-b-orange-600">Talents</h1>
+  <h1 class="text-3xl sm:text-4xl text-pretty font-bold text-highlighted border-b-4 pb-2 border-b-orange-600">Factions</h1>
 
   <div class="grid grid-cols-1 gap-2 px-4 py-3.5 border-b border-accented sm:grid-cols-2 lg:grid-cols-4 bg-gray-100">
 
@@ -125,8 +125,9 @@ const pagination = ref({
   >
     <template #name-cell="{ row }">
       <UUser
+          :avatar="{ src: `/img/avatars/ascension/${row.original.key}.png`}"
           :name="row.original.name"
-          :description="row.original.tags.join(', ')"
+          :description="row.original.hint"
       ></UUser>
     </template>
 

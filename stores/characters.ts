@@ -41,6 +41,7 @@ function toRow(id: string, data: CharacterDataType): TablesInsert<'characters'> 
         updated_at: new Date().toISOString(),
     }
 }
+
 export const useCharacterStore = defineStore('characters', {
 
     state: () => ({
