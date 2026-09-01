@@ -10,6 +10,9 @@ export const CharacterDataSchema = z.object({
     enabledHomebrews: z.array(z.string()).default([]),
 
     settingTier: z.number().default(2),
+
+    earnedXp: z.number().default(0),
+
     rank: z.number().default(1),
 
     // character

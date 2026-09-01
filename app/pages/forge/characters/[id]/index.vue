@@ -101,14 +101,51 @@ const tabs = [
 
 <template>
 
-  <div class="w-full flex flex-row gap-4">
+  <!-- avatar, name, basics, rank, tier, xp, keywords -->
+  <div class="w-full flex flex-row gap-4 items-center flex-wrap :md:flex-nowrap">
     <NuxtImg v-if="entity.data.archetype?.key" :src="`/img/avatars/archetype/${entity.data.archetype.key}.png`" class="w-24 h-24 shrink-0 object-cover object-center rounded-lg" />
     <NuxtImg v-else-if="entity.data.species?.key" :src="`/img/avatars/species/${entity.data.species.key}.png`" class="w-24 h-24 shrink-0 object-cover object-center rounded-lg" />
     <NuxtImg v-else :src="`/img/avatar_placeholder.png`" class="w-24 h-24 shrink-0 object-cover object-center rounded-lg" />
     <div>
       <div class="text-highlighted font-semibol">{{ entity.data.name }}</div>
       <div class="mt-1 text-muted text-s">{{ (entity.data.species?.label || '?') + ' · ' + (entity.data.archetype?.label || '?') }}</div>
-      <div class="mt-1 text-muted text-s">Tier {{entity.data.settingTier}} · Rank  {{ entity.data.rank }} · {{ calcCharacterCost(entity.data )}} / {{ entity.data.settingTier * 100 }} XP</div>
+      <div class="mt-1 text-muted text-s">Tier {{entity.data.settingTier}} · Rank  {{ entity.data.rank }} · {{ entity.data.earnedXp }} XP</div>
+      <UProgress :model-value="entity.data.earnedXp" :max="100" color="error" :ui="{ base: 'bg-error-100'}" size="xs"/>
+    </div>
+    <div class="grow"></div>
+    <div class="flex gap-1">
+
+      <UModal title="Regroup" description="Core, pg. 196">
+        <UButton color="info" variant="subtle" size="sm">Short Regroup</UButton>
+
+        <template #body>
+          <p>A short period of downtime, aprox. one hour.</p>
+          <ul>
+            <li>Heal a single character, they regain wounds equal to your Medicae dice pool.</li>
+          </ul>
+        </template>
+      </UModal>
+
+      <UModal title="Respite" description="Core, pg. 196">
+        <UButton color="info" variant="subtle" size="sm">Long Respite</UButton>
+
+        <template #body>
+          <p>A long period of downtime, aprox. six hour.</p>
+          <ul>
+            <li>You can perform 1-2 hours of light activities</li>
+            <li>Stressfull activities of 1 or more hours interrupt the Regroup</li>
+            <li>You can't benefit while dying</li>
+            <li>Reduce Wounds to Zero</li>
+            <li>Reduce Shock to Zero</li>
+            <li>Reset Wrath to two</li>
+            <li>Restore all your spend Faith Points</li>
+          </ul>
+        </template>
+      </UModal>
+
+
+      <UButton disabled>Print</UButton>
+      <UButton :to="`/forge/characters/${entity.id}/builder/setting`">Edit</UButton>
     </div>
   </div>
 

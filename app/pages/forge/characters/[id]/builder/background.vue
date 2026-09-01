@@ -75,6 +75,8 @@ function randomName() {
             />
           </template>
         </UInput>
+
+        <UInputNumber v-model="entity.data.earnedXp"></UInputNumber>
       </UFormField>
 
       <!-- backgrounds -->
