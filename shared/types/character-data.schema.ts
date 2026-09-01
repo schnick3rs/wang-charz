@@ -74,10 +74,14 @@ export const CharacterDataSchema = z.object({
     }),
 
     species: z.object({
-       key: z.string(),
-       label: z.string(),
+       key: z.string().optional(),
+       label: z.string().optional(),
        cost: z.number().default(0),
-    }).optional(),
+    }).default({
+        key: undefined,
+        label: '',
+        cost: 0,
+    }),
 
     faction: z.object({
         key: z.string(),
@@ -85,11 +89,16 @@ export const CharacterDataSchema = z.object({
     }).optional(),
 
     archetype: z.object({
-        key: z.string(),
-        label: z.string(),
+        key: z.string().optional(),
+        label: z.string().optional(),
         cost: z.number().default(0),
         tier: z.number().default(1),
-    }).optional(),
+    }).default({
+        key: undefined,
+        label: '',
+        cost: 0,
+        tier: 1,
+    }),
 
     ascensions: z.array(z.object({
         key: z.string(),
@@ -125,6 +134,15 @@ export const CharacterDataSchema = z.object({
         cost: z.number().default(0).describe('The actual cost, might differ, due to being granted or similar'),
         source: z.string().optional().describe('source of the granting effect, if empty, it was bought'),
     })).default([]),
+
+    languages: z.array(z.object({
+        key: z.string().optional(),
+        label: z.string().optional(),
+        cost: z.number().default(0),
+    })).default([]),
+
+    traumaticInjuries: z.array(z.object({})).default([]),
+    mutations: z.array(z.object({})).default([]),
 
 })
 export type CharacterDataType = z.infer<typeof CharacterDataSchema>

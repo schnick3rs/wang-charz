@@ -26,7 +26,7 @@ export const SpeciesSchema = z.object({
 
     stub: z.boolean().default(false),
     cost: z.number().default(0),
-    costs: SpeciesCostSchema.optional(),
+    costs: SpeciesCostSchema,
 
     attributeMaximums: z.array(StatValuesSchema).default([]),
     traitMaximums: z.array(StatValuesSchema).default([]),

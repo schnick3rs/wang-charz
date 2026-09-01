@@ -224,10 +224,10 @@ function resetStats() {
           <div>
             <UInputNumber
                 v-model="entity.data.skills[skill.key]"
-                :min="1"
-                :max="6"
-                :decrement="{ color: entity.data.skills[skill.key] <= 1 ? 'neutral' : 'error', variant: 'subtle', size: 'xs' }"
-                :increment="{ color: entity.data.skills[skill.key] >= 6 ? 'neutral' : 'primary', variant: 'subtle', size: 'xs' }"
+                :min="0"
+                :max="8"
+                :decrement="{ color: entity.data.skills[skill.key] <= 0 ? 'neutral' : 'error', variant: 'subtle', size: 'xs' }"
+                :increment="{ color: entity.data.skills[skill.key] >= 8 ? 'neutral' : 'primary', variant: 'subtle', size: 'xs' }"
                 class="w-24"
 
             />

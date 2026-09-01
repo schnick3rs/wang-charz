@@ -97,6 +97,10 @@ function randomName() {
         </ol>
       </UCard>
 
+      <UCard title="Buy more wealth">
+        Core pg. 38 start with TIER buy up to 4 for 1:1 XP at start
+      </UCard>
+
       <UCard title="Known Languages">
         Low Gothic
       </UCard>

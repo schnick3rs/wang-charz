@@ -44,7 +44,7 @@ function selectArchetype(archetype: Archetype) {
   entity.value.data.archetype = {
     key: archetype.key,
     label: archetype.name,
-    cost: archetype.cost,
+    cost: archetype.costs?.archetype || 999,
     tier: archetype.tier,
   }
   entity.value.data.faction = {

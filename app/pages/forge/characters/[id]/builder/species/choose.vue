@@ -35,7 +35,7 @@ function selectSpecies(species: Species) {
   entity.value.data.species = {
     key: species.key,
     label: species.name,
-    cost: species.cost,
+    cost: species.costs.species,
   }
   store.scheduleSave(entity.value.id)
   showSpeciesModal.value = false

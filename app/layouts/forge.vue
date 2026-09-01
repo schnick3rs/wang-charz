@@ -103,6 +103,11 @@ function scrollActiveStepIntoView() {
 }
 
 watch(currentStepIndex, scrollActiveStepIntoView, { immediate: true })
+
+const hasOverspended = computed(() => {
+  return calcCharacterCost(entity.value.data) >  (entity.value.data.settingTier * 100)
+})
+
 </script>
 
 <template>
@@ -170,7 +175,63 @@ watch(currentStepIndex, scrollActiveStepIntoView, { immediate: true })
     }"
     >
       <template #left>
-        15 / {{ entity.data.settingTier * 100 }} XP
+        <UModal
+            :content="{
+              align: 'start',
+              side: 'top',
+            }"
+        >
+          <UButton variant="ghost" :color="hasOverspended ? 'error' : 'info'" v-if="entity">{{ calcCharacterCost(entity.data) }} / {{ entity.data.settingTier * 100 }} XP</UButton>
+
+          <template #content>
+            <UCard v-if="entity" :ui="{ body: 'flex flex-col gap-4', root: 'shadow-lg' }">
+
+              <template #header>
+                <div class="flex justify-between gap-4 items-center">
+                  <UUser :name="`Tier ${entity.data.settingTier}`" description="Setting"></UUser>
+                  <UBadge :color="hasOverspended ? 'error' : 'info'" variant="subtle">{{ calcCharacterCost(entity.data)}} / {{ entity.data.settingTier * 100 }}</UBadge>
+                </div>
+              </template>
+
+              <div class="flex justify-between gap-4 items-center">
+                <UUser name="Species" :description="entity.data.species.label"></UUser>
+                <UBadge color="info" variant="subtle">{{ calcSpeciesCost(entity.data)}}</UBadge>
+              </div>
+
+              <div class="flex justify-between gap-4 items-center">
+                <UUser name="Archetype" :description="entity.data.archetype.label"></UUser>
+                <UBadge color="info" variant="subtle">{{ calcArchetypeCost(entity.data)}}</UBadge>
+              </div>
+
+              <div class="flex justify-between gap-4 items-center">
+                <UUser name="Ascension Packages" :description="entity.data.ascensions.map((a) => a.label).join(', ')"></UUser>
+                <UBadge color="info" variant="subtle">{{ calcAscensionCost(entity.data)}}</UBadge>
+              </div>
+
+              <div class="flex justify-between gap-4 items-center">
+                <UUser name="Attributes & Skills" description="Stats"></UUser>
+                <UBadge color="info" variant="subtle">{{ calcStatCost(entity.data)}}</UBadge>
+              </div>
+
+              <div class="flex justify-between gap-4 items-center">
+                <UUser name="Talents" :description="`${entity.data.talents.length} Talents`"></UUser>
+                <UBadge color="info" variant="subtle">{{ calcArchetypeCost(entity.data)}}</UBadge>
+              </div>
+
+              <div class="flex justify-between gap-4 items-center">
+                <UUser name="Psychic Powers" :description="`${entity.data.psychicPowers.length} Psychic Powers`"></UUser>
+                <UBadge color="info" variant="subtle">{{ calcArchetypeCost(entity.data)}}</UBadge>
+              </div>
+
+              <div class="flex justify-between gap-4 items-center">
+                <UUser name="Background" description="Wealth & Languages"></UUser>
+                <UBadge color="info" variant="subtle">{{ calcOtherCost(entity.data)}}</UBadge>
+              </div>
+
+            </UCard>
+          </template>
+        </UModal>
+
       </template>
 
       <UButton

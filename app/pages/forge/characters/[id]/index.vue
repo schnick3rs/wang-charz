@@ -97,7 +97,7 @@ const tabs = [
     <div>
       <div class="text-highlighted font-semibol">{{ entity.data.name }}</div>
       <div class="mt-1 text-muted text-s">{{ (entity.data.species?.label || '?') + ' · ' + (entity.data.archetype?.label || '?') }}</div>
-      <div class="mt-1 text-muted text-s">Tier {{entity.data.settingTier}} · Rank  {{ entity.data.rank }} · 0 / {{ entity.data.settingTier * 100 }} XP</div>
+      <div class="mt-1 text-muted text-s">Tier {{entity.data.settingTier}} · Rank  {{ entity.data.rank }} · {{ calcCharacterCost(entity.data )}} / {{ entity.data.settingTier * 100 }} XP</div>
     </div>
   </div>
 
