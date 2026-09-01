@@ -8,6 +8,17 @@ const store = useCharacterStore()
 
 const entity = computed(() => store.byId[id.value])
 
+const bodyStyle = computed(() =>
+    `background: url('https://i.imgur.com/R023gsf.png') no-repeat center bottom / cover, ` +
+    `url('/img/artwork/mark-graham-mordian-hive-city-40k-gallery.jpg') no-repeat center / cover; min-height: 100vh;`
+)
+
+useHead({
+  bodyAttrs: {
+    // style: bodyStyle
+  }
+})
+
 const { data: species } = await useAsyncData(
     `species-${entity.value.data.species.key}`,
     (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.species.key}`, { signal }),
