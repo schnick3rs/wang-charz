@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import type {DropdownMenuItem, NavigationMenuItem} from '@nuxt/ui'
+import {library, type LibraryItem} from "#shared/navigation/library.ts";
 
 const user = useSupabaseUser()
 const supabase = useSupabaseClient()
@@ -61,47 +62,14 @@ const navItems = ref<NavigationMenuItem[]>([
     icon: 'i-game-icons-bookshelf',
     to: '/library',
     active: route.path.startsWith('/library'),
-    children: [
-      {
-        label: 'Archetypes',
-        description: 'Weapons items and such',
-        icon: 'i-game-icons-duality-mask',
-        to: '/library/archetypes',
-      },
-      {
-        label: 'Ascension Packages',
-        description: 'Weapons items and such',
-        icon: 'i-game-icons-upgrade'
-      },
-      {
-        label: 'Factions',
-        description: 'Weapons items and such',
-        icon: 'i-game-icons-tattered-banner'
-      },
-      {
-        label: 'Psychic Powers',
-        description: 'Weapons items and such',
-        icon: 'i-game-icons-spell-book'
-      },
-      {
-        label: 'Species',
-        description: 'Weapons items and such',
-        icon: 'i-game-icons-dna1',
-        to: '/library/species',
-      },
-      {
-        label: 'Talents',
-        description: 'Weapons items and such',
-        icon: 'i-game-icons-skills',
-        to: '/library/talents',
-      },
-      {
-        label: 'Wargear',
-        description: 'Weapons items and such',
-        icon: 'i-game-icons-battle-gear',
-        to: '/library/wargear',
-      },
-    ]
+    children: library.map((item: LibraryItem) => {
+      return {
+        label: item.title,
+        description: item.subtitle,
+        icon: item.icon,
+        to: item.link.route,
+      }
+    }),
   },
   {
     label: 'Threat Beastiary',
