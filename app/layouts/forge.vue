@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import type {DropdownMenuItem, NavigationMenuItem} from '@nuxt/ui'
 import {useCharacterStore} from "~~/stores/characters.ts";
+import {library, type LibraryItem} from "#shared/navigation/library.ts";
 
 const user = useSupabaseUser()
 const supabase = useSupabaseClient()
@@ -29,7 +30,99 @@ async function logout() {
 const route = useRoute()
 
 const navItems = ref<NavigationMenuItem[]>([
-  // ...unchanged, omitted for brevity...
+  {
+    label: 'Vault',
+    icon: 'i-game-icons-locked-chest',
+    to: '/vault',
+  },
+  {
+    label: 'Forge',
+    icon: 'i-game-icons-gear-hammer',
+    children: [
+      {
+        label: 'Characters',
+        description: 'Create your charater',
+        to: '/forge/my-characters',
+      },
+      {
+        label: 'Species',
+        description: 'Create your charater',
+        icon: 'i-game-icons-dna2',
+        to: '/forge/species',
+      },
+      {
+        label: 'Campaigns',
+        description: 'Create your charater',
+        icon: 'i-game-icons-planet-conquest',
+        to: '/forge/campaigns',
+      },
+    ]
+  },
+  {
+    label: 'Library',
+    icon: 'i-game-icons-bookshelf',
+    to: '/library',
+    active: route.path.startsWith('/library'),
+    defaultOpen: true,
+    children: library.map((item: LibraryItem) => {
+      return {
+        label: item.title,
+        description: item.subtitle,
+        icon: item.icon,
+        to: item.link.route,
+      }
+    }),
+  },
+  {
+    label: 'Threat Beastiary',
+    description: 'Repository of player threats for the GM',
+    icon: 'i-game-icons-daemon-skull',
+    to: '/bestiary',
+  },
+  {
+    label: 'Aid',
+    icon: 'i-game-icons-bookshelf',
+    children: [
+      {
+        label: 'Community Network',
+      },
+      {
+        label: 'Roleplaying Articles',
+      },
+      {
+        label: 'Rules Codex',
+      },
+      {
+        label: 'Broadcasting Eather',
+        description: 'Find worthy Let Plays',
+        icons: 'i-mdi-broadcast',
+      },
+    ]
+  },
+  {
+    label: 'Contact',
+    children: [
+      {
+        label: 'Discord',
+        icon: 'i-mdi-discord',
+        to:"https://discordapp.com/channels/256930339878993920/600107858486493193",
+        target: '_blank',
+      },
+      {
+        label: 'Twitter',
+        icon: 'i-mdi-twitter',
+        to: 'https://twitter.com/doctors_of_doom',
+        target: '_blank',
+      },
+      {
+        label: 'GitHub',
+        icon: 'i-mdi-github',
+        to: 'https://github.com/schnick3rs/wang-charz',
+        target: '_blank',
+
+      },
+    ]
+  }
 ])
 
 const items = ref<DropdownMenuItem[]>([
@@ -147,6 +240,10 @@ const hasOverspended = computed(() => {
           <UButton to="/sign-up" icon="i-lucide-user" variant="solid" color="neutral">Sign Up</UButton>
         </div>
 
+      </template>
+
+      <template #body>
+        <UNavigationMenu :items="navItems" orientation="vertical" class="-mx-2.5" />
       </template>
     </UHeader>
 
