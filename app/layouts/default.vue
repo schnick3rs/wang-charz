@@ -30,6 +30,11 @@ const route = useRoute()
 
 const navItems = ref<NavigationMenuItem[]>([
   {
+    label: 'Vault',
+    icon: 'i-game-icons-locked-chest',
+    to: '/vault',
+  },
+  {
     label: 'Forge',
     icon: 'i-game-icons-gear-hammer',
     children: [
@@ -51,11 +56,6 @@ const navItems = ref<NavigationMenuItem[]>([
         to: '/forge/campaigns',
       },
     ]
-  },
-  {
-    label: 'Vault',
-    icon: 'i-game-icons-locked-chest',
-    to: '/vault',
   },
   {
     label: 'Library',

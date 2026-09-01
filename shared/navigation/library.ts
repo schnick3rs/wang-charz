@@ -47,7 +47,7 @@ export const library: LibraryItems = [
         classes: [],
     },
     {
-        key: 'ascensionPackages',
+        key: 'ascension-packages',
         title: 'Ascension Packages',
         subtitle: 'Browse Ascension Options and Packages',
         imageSrc: '/img/artwork_vault_bright.jpg',
@@ -58,7 +58,7 @@ export const library: LibraryItems = [
         classes: [],
     },
     {
-        key: 'keywords',
+        key: 'talents',
         title: 'Talents',
         subtitle: 'Browse Options to flesh out your Character',
         imageSrc: '/img/artwork_vault_bright.jpg',
@@ -80,7 +80,7 @@ export const library: LibraryItems = [
         classes: [],
     },
     {
-        key: 'psychicDisciplines',
+        key: 'psychic-powers',
         title: 'Psychic Powers',
         subtitle: 'Browse Psychic Powers of various Disciplines',
         imageSrc: '/img/artwork_vault_bright.jpg',
@@ -91,7 +91,7 @@ export const library: LibraryItems = [
         classes: [],
     },
     {
-        key: 'psychicDisciplines',
+        key: 'psychic-disciplines',
         title: 'Psychic Disciplines',
         subtitle: 'Browse Psychic Disciplines of various Disciplines',
         imageSrc: '/img/artwork_vault_bright.jpg',

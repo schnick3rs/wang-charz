@@ -1,25 +1,9 @@
 <script setup lang="ts">
-import { getPaginationRowModel } from '@tanstack/vue-table'
-import type {BreadcrumbItem, TableColumn} from '@nuxt/ui'
+import {getPaginationRowModel} from '@tanstack/vue-table'
+import type {TableColumn} from '@nuxt/ui'
 import {UButton} from "#components";
 
-const crumbs = ref<BreadcrumbItem[]>([
-  {
-    label: '',
-    icon: 'i-lucide-home',
-    to: '/'
-  },
-  {
-    label: 'Library',
-    icon: 'i-game-icons-bookshelf',
-    to: '/library'
-  },
-  {
-    label: 'Archetypes',
-    icon: 'i-game-icons-duality-mask',
-    to: '/library/archetypes',
-  }
-])
+const { libItem, crumbs } = useLibraryBreadcrumbs()
 
 const { data, pending } = await useAsyncData(
     'library-archetypes',
@@ -189,7 +173,7 @@ const pagination = ref({
 
   <DoomBreadcrumb :items="crumbs" />
 
-  <h1 class="text-3xl sm:text-4xl text-pretty font-bold text-highlighted border-b-4 pb-2 border-b-orange-600">Archetypes</h1>
+  <h1 class="text-3xl sm:text-4xl text-pretty font-bold text-highlighted border-b-4 pb-2 border-b-orange-600">{{ libItem.title }}</h1>
 
   <div class="grid grid-cols-1 gap-2 px-4 py-3.5 border-b border-accented sm:grid-cols-2 lg:grid-cols-4 bg-gray-100">
 
@@ -272,7 +256,7 @@ const pagination = ref({
   <div class="flex justify-center border-t border-default pt-4 px-4">
     <UPagination
         show-edges
-        :sibling-count="5"
+        :sibling-count="3"
         :page="(table?.tableApi?.getState().pagination.pageIndex || 0) + 1"
         :items-per-page="table?.tableApi?.getState().pagination.pageSize"
         :total="table?.tableApi?.getFilteredRowModel().rows.length"

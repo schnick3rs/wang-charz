@@ -6,8 +6,8 @@ import {UButton} from "#components";
 const { libItem, crumbs } = useLibraryBreadcrumbs()
 
 const { data, pending } = await useAsyncData(
-    'species',
-    (_nuxtApp, { signal }) => $fetch('/api/species', { signal }),
+    'frameworks',
+    (_nuxtApp, { signal }) => $fetch('/api/frameworks', { signal }),
 )
 
 const table = useTemplateRef('table')
@@ -33,39 +33,6 @@ const columns: TableColumn<Species>[] = [
     },
   },
   {
-    accessorKey: 'group',
-    header: ({ column }) => {
-      const isSorted = column.getIsSorted()
-
-      return h(UButton, {
-        color: 'neutral',
-        variant: 'ghost',
-        label: 'Group',
-        icon: isSorted
-            ? isSorted === 'asc'
-                ? 'i-lucide-arrow-up-narrow-wide'
-                : 'i-lucide-arrow-down-wide-narrow'
-            : 'i-lucide-arrow-up-down',
-        class: '-mx-2.5',
-        onClick: () => column.toggleSorting(column.getIsSorted() === 'asc')
-      })
-    },
-    filterFn: (row, columnId, filterValue: string[]) => {
-      if (!filterValue || filterValue.length === 0) return true
-      return filterValue.includes(row.getValue(columnId))
-    },
-  },
-  {
-    accessorKey: 'cost',
-    header: 'Cost',
-    meta: {
-      class: {
-        th: 'text-right',
-        td: 'text-right',
-      },
-    },
-  },
-  {
     accessorKey: 'source',
     header: 'Source',
     filterFn: (row, columnId, filterValue: string[]) => {
@@ -78,22 +45,12 @@ const columns: TableColumn<Species>[] = [
 
 const columnFilters = ref([
   {
-    id: 'group',
-    value:  []
-  },
-  {
     id: 'source',
     value:  []
   },
 ])
 
 
-const groupItems = computed(() => {
-  if (!data.value) return []
-  const reduce = data.value.map((item) => item.group);
-  const distinct = [...new Set(reduce)];
-  return distinct.filter((d) => d !== null && d !== undefined).sort();
-})
 
 const sourceItems = computed(() => {
   if (!data.value) return []
@@ -126,15 +83,6 @@ const pagination = ref({
     <UInput v-model="globalFilter" placeholder="Fulltext Search..." />
 
     <USelectMenu
-        :items="groupItems"
-        :model-value="table?.tableApi?.getColumn('group')?.getFilterValue()"
-        @update:model-value="table?.tableApi?.getColumn('group')?.setFilterValue($event)"
-        placeholder="Filter Groups..."
-        multiple
-        clear
-    />
-
-    <USelectMenu
         :items="sourceItems"
         label-key="text"
         value-key="value"
@@ -161,7 +109,6 @@ const pagination = ref({
   >
     <template #name-cell="{ row }">
       <UUser
-          :avatar="{ src: `/img/avatars/species/${row.original.key}.png`}"
           :name="row.original.name"
           :description="row.original.hint"
       ></UUser>
