@@ -191,41 +191,63 @@ const hasOverspended = computed(() => {
                   <UUser :name="`Tier ${entity.data.settingTier}`" description="Setting"></UUser>
                   <UBadge :color="hasOverspended ? 'error' : 'info'" variant="subtle">{{ calcCharacterCost(entity.data)}} / {{ entity.data.settingTier * 100 }}</UBadge>
                 </div>
+                <UProgress :model-value="calcCharacterCost(entity.data)" :max="entity.data.settingTier * 100" size="sm" class="mt-1"/>
               </template>
 
-              <div class="flex justify-between gap-4 items-center">
-                <UUser name="Species" :description="entity.data.species.label"></UUser>
-                <UBadge color="info" variant="subtle">{{ calcSpeciesCost(entity.data)}}</UBadge>
+              <div>
+                <div class="flex justify-between gap-4 items-center">
+                  <UUser name="Species" :description="entity.data.species.label"></UUser>
+                  <UBadge color="info" variant="subtle">{{ calcSpeciesCost(entity.data)}}</UBadge>
+                </div>
+                <UProgress :model-value="calcSpeciesCost(entity.data)" :max="entity.data.settingTier * 100" size="xs" class="mt-1" color="info"/>
               </div>
 
-              <div class="flex justify-between gap-4 items-center">
-                <UUser name="Archetype" :description="entity.data.archetype.label"></UUser>
-                <UBadge color="info" variant="subtle">{{ calcArchetypeCost(entity.data)}}</UBadge>
+              <div>
+                <div class="flex justify-between gap-4 items-center">
+                  <UUser name="Archetype" :description="entity.data.archetype.label"></UUser>
+                  <UBadge color="info" variant="subtle">{{ calcArchetypeCost(entity.data)}}</UBadge>
+                </div>
+                <UProgress :model-value="calcArchetypeCost(entity.data)" :max="entity.data.settingTier * 100" size="xs" class="mt-1" color="info"/>
               </div>
 
-              <div class="flex justify-between gap-4 items-center">
-                <UUser name="Ascension Packages" :description="entity.data.ascensions.map((a) => a.label).join(', ')"></UUser>
-                <UBadge color="info" variant="subtle">{{ calcAscensionCost(entity.data)}}</UBadge>
+              <div>
+                <div class="flex justify-between gap-4 items-center">
+                  <UUser name="Ascension Packages" :description="entity.data.ascensions.map((a) => a.label).join(', ')"></UUser>
+                  <UBadge color="info" variant="subtle">{{ calcAscensionCost(entity.data)}}</UBadge>
+                </div>
+                <UProgress :model-value="calcAscensionCost(entity.data)" :max="entity.data.settingTier * 100" size="xs" class="mt-1" color="info"/>
               </div>
 
-              <div class="flex justify-between gap-4 items-center">
-                <UUser name="Attributes & Skills" description="Stats"></UUser>
-                <UBadge color="info" variant="subtle">{{ calcStatCost(entity.data)}}</UBadge>
+              <div>
+                <div class="flex justify-between gap-4 items-center">
+                  <UUser name="Attributes & Skills" description="Stats"></UUser>
+                  <UBadge color="info" variant="subtle">{{ calcStatCost(entity.data)}}</UBadge>
+                </div>
+                <UProgress :model-value="calcStatCost(entity.data)" :max="entity.data.settingTier * 100" size="xs" class="mt-1" color="info"/>
               </div>
 
-              <div class="flex justify-between gap-4 items-center">
-                <UUser name="Talents" :description="`${entity.data.talents.length} Talents`"></UUser>
-                <UBadge color="info" variant="subtle">{{ calcArchetypeCost(entity.data)}}</UBadge>
+              <div>
+                <div class="flex justify-between gap-4 items-center">
+                  <UUser name="Talents" :description="`${entity.data.talents.length} Talents`"></UUser>
+                  <UBadge color="info" variant="subtle">{{ calcTalentCost(entity.data)}}</UBadge>
+                </div>
+                <UProgress :model-value="calcTalentCost(entity.data)" :max="entity.data.settingTier * 100" size="xs" class="mt-1" color="info"/>
               </div>
 
-              <div class="flex justify-between gap-4 items-center">
-                <UUser name="Psychic Powers" :description="`${entity.data.psychicPowers.length} Psychic Powers`"></UUser>
-                <UBadge color="info" variant="subtle">{{ calcArchetypeCost(entity.data)}}</UBadge>
+              <div>
+                <div class="flex justify-between gap-4 items-center">
+                  <UUser name="Psychic Powers" :description="`${entity.data.psychicPowers.length} Psychic Powers`"></UUser>
+                  <UBadge color="info" variant="subtle">{{ calcPsychicPowersCost(entity.data)}}</UBadge>
+                </div>
+                <UProgress :model-value="calcPsychicPowersCost(entity.data)" :max="entity.data.settingTier * 100" size="xs" class="mt-1" color="info"/>
               </div>
 
-              <div class="flex justify-between gap-4 items-center">
-                <UUser name="Background" description="Wealth & Languages"></UUser>
-                <UBadge color="info" variant="subtle">{{ calcOtherCost(entity.data)}}</UBadge>
+              <div>
+                <div class="flex justify-between gap-4 items-center">
+                  <UUser name="Background" description="Wealth & Languages"></UUser>
+                  <UBadge color="info" variant="subtle">{{ calcOtherCost(entity.data)}}</UBadge>
+                </div>
+                <UProgress :model-value="calcOtherCost(entity.data)" :max="entity.data.settingTier * 100" size="xs" class="mt-1" color="info"/>
               </div>
 
             </UCard>
@@ -256,7 +278,7 @@ const hasOverspended = computed(() => {
       </UButton>
 
       <template #right>
-        © {{ new Date().getFullYear() }}
+        <UButton color="neutral" variant="ghost">© {{ new Date().getFullYear() }}</UButton>
       </template>
 
     </UFooter>
