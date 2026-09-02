@@ -23,7 +23,6 @@ export const cost = function (total = 0, archetypeCost = 0, statsCost = 0, speci
             total,
             archetype: archetypeCost,
             stats: statsCost,
-            species: speciesCost,
             other: otherCost,
         }
     };

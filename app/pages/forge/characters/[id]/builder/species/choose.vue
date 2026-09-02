@@ -29,14 +29,23 @@ const filteredSpecies = computed(() => {
   return species.value.filter(item => item.name.toLowerCase().includes(q))
 })
 
+const { applyPrerequisites } = useApplyPrerequisites()
+const toast = useToast()
 function selectSpecies(species: Species) {
   if (!entity.value) return
   console.info('Set Character Species', species.name)
+
   entity.value.data.species = {
     key: species.key,
     label: species.name,
     cost: species.costs.species,
   }
+
+  const applications = applyPrerequisites(entity.value.data, species.prerequisites)
+  if (applications.length > 0) {
+    toast.add({ title: 'Set Attributes & Skills requirements', description: h('ul', {}, applications.map(item => h('li', {}, item))) })
+  }
+
   store.scheduleSave(entity.value.id)
   showSpeciesModal.value = false
   navigateTo(`/forge/characters/${id.value}/builder/species/manage`)

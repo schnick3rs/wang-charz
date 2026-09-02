@@ -1,11 +1,10 @@
 import {z} from 'zod';
 
 
-export const CostBreakdownSchema = z.object({
+export const ArchetypeCostBreakdownSchema = z.object({
   total: z.number(),
   archetype: z.number(),
   stats: z.number(),
-  species: z.number(),
   other: z.number(),
 });
 
@@ -78,8 +77,7 @@ export const ArchetypeSchema = z.object({
   hint: z.string().optional().describe('A few word hint to give the vibe'),
   snippet: z.string().optional().describe('A few word hint to give the vibe'),
 
-  cost: z.number().default(0),
-  costs: CostBreakdownSchema.optional(),
+  costs: ArchetypeCostBreakdownSchema,
   tier: z.number(),
   faction: z.string(),
   factionKey: z.string(),
@@ -102,7 +100,7 @@ export const ArchetypeSchema = z.object({
 export const ArchetypeRepositorySchema = z.array(ArchetypeSchema);
 
 
-export type CostBreakdown = z.infer<typeof CostBreakdownSchema>;
+export type ArchetypeCostBreakdown = z.infer<typeof ArchetypeCostBreakdownSchema>;
 export type Prerequisite = z.infer<typeof PrerequisiteSchema>;
 export type Modification = z.infer<typeof ModificationSchema>;
 export type SpeciesRef = z.infer<typeof SpeciesRefSchema>;

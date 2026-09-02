@@ -1,6 +1,9 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
 import {breakpointsTailwind, useBreakpoints} from "@vueuse/core";
+
+const { applyPrerequisites } = useApplyPrerequisites()
+
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isSmallScreen = breakpoints.smallerOrEqual('sm') // Returns a reactive boolean
 
@@ -38,18 +41,26 @@ const filteredArchetypes = computed(() => {
 const showArchetypeModal = ref(false)
 const previewArchetype = ref<Archetype|null>(null)
 
+const toast = useToast()
 function selectArchetype(archetype: Archetype) {
   if (!entity.value) return
   console.info('Set Character Archetype', archetype.key)
+
   entity.value.data.archetype = {
     key: archetype.key,
     label: archetype.name,
     cost: archetype.costs?.archetype || 999,
     tier: archetype.tier,
   }
+
   entity.value.data.faction = {
     key: archetype.factionKey,
     label: archetype.faction,
+  }
+
+  const applications = applyPrerequisites(entity.value.data, archetype.prerequisites)
+  if (applications.length > 0) {
+    toast.add({ title: 'Set Attributes & Skills requirements', description: h('ul', {}, applications.map(item => h('li', {}, item))) })
   }
 
   store.scheduleSave(entity.value.id)
@@ -57,9 +68,9 @@ function selectArchetype(archetype: Archetype) {
   navigateTo(`/forge/characters/${id.value}/builder/archetype/manage`)
 }
 
-function updateAndShowArchetypePreview(species: Archetype) {
-  console.info('Archetype Selected, open preview', species)
-  previewArchetype.value = species
+function updateAndShowArchetypePreview(archetype: Archetype) {
+  console.info('Archetype Selected, open preview', archetype)
+  previewArchetype.value = archetype
   showArchetypeModal.value = true
 }
 
@@ -94,7 +105,7 @@ function updateAndShowArchetypePreview(species: Archetype) {
     <UModal
         v-if="previewArchetype"
         v-model:open="showArchetypeModal"
-        title="Confirm Species"
+        title="Confirm Archetype"
         :overlay="true"
         :fullscreen="isSmallScreen"
         :ui="{ content: 'max-w-2xl', footer: 'justify-between' }"
@@ -107,7 +118,7 @@ function updateAndShowArchetypePreview(species: Archetype) {
       </template>
       <template #footer>
         <UButton color="error" variant="subtle" @click="showArchetypeModal = false">Cancel</UButton>
-        <UButton color="primary" @click="selectArchetype(previewArchetype)">Select Species</UButton>
+        <UButton color="primary" @click="selectArchetype(previewArchetype)">Select Archetype</UButton>
       </template>
     </UModal>
 
@@ -133,7 +144,7 @@ function updateAndShowArchetypePreview(species: Archetype) {
 
         <div class="text-nowrap">
           <UFieldGroup>
-            <UBadge>{{ item.cost }}</UBadge>
+            <UBadge>{{ item.costs.total }}</UBadge>
             <UBadge variant="subtle">XP</UBadge>
           </UFieldGroup>
           <UFieldGroup class="ml-2">

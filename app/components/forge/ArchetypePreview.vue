@@ -33,6 +33,19 @@ const wargearString = computed(() => {
       <strong>XP Cost:</strong> {{ archetype.cost }}, incl. Stats ({{ archetype.costs?.stats || '?' }} XP)
     </div>
 
+    <!-- keywords -->
+    <template v-if="archetype.archetypeFeatures.length > 0">
+
+      <div class="mb-4">
+        <h3 class="font-light text-sm">Keywords</h3>
+        <USeparator class="mb-2" />
+
+        <div v-if="archetype.keywords" class="mb-4">
+          <UBadge v-for="k in archetype.keywords" :key="k" color="error" variant="outline">{{k}}</UBadge>
+        </div>
+      </div>
+    </template>
+    <!-- stats -->
 
     <!-- features -->
     <template v-if="archetype.archetypeFeatures.length > 0">
@@ -58,6 +71,16 @@ const wargearString = computed(() => {
         <h3 class="font-light text-sm">Wargear</h3>
         <USeparator class="mb-2" />
         <div>{{ wargearString }}</div>
+      </div>
+    </template>
+
+    <!-- influence -->
+    <template v-if="wargearString">
+
+      <div class="mb-4">
+        <h3 class="font-light text-sm">Influence</h3>
+        <USeparator class="mb-2" />
+        <div>+{{ archetype.influence }} Influence</div>
       </div>
     </template>
 

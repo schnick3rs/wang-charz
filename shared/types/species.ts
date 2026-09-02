@@ -25,7 +25,6 @@ export const SpeciesSchema = z.object({
     speed: z.number().optional(),
 
     stub: z.boolean().default(false),
-    cost: z.number().default(0),
     costs: SpeciesCostSchema,
 
     attributeMaximums: z.array(StatValuesSchema).default([]),
