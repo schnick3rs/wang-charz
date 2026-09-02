@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
 import {attributeRepository, skillRepository, type Trait, traitRepository} from "#shared/utils/stats.ts";
+import type {TableColumn} from "@nuxt/ui";
+import {UButton, USlideover, UUser} from "#components";
 
 const route = useRoute()
 const id = computed(() => route.params.id as string)
@@ -47,6 +49,38 @@ const { data: characterTalents } = await useAsyncData(
       return await Promise.all(entity.value.data.talents.map((talent) => $fetch(`/api/talents/${talent.key}`, {signal})));
     }
 )
+
+const { data: characterPsychicPowers } = await useAsyncData(
+    `psychic-powers-${entity.value.data.psychicPowers.map((talent) => talent.key).join('-')}`,
+    async (_nuxtApp, { signal }) => {
+      return await Promise.all(entity.value.data.psychicPowers.map((talent) => $fetch(`/api/psychic-powers/${talent.key}`, {signal})));
+    }
+)
+
+const psychicPowersColumns: TableColumn<PsychicPower>[] = [
+  {
+    accessorKey: 'name',
+    header: 'Name',
+    cell: ({ row, getValue }) => {
+      return h(UUser, {
+        name: getValue() as string,
+        description: row.original.discipline
+      })
+    }
+  },
+  {
+    accessorKey: 'crunch_activation',
+    header: 'Activation',
+  },
+  {
+    accessorKey: 'crunch_range',
+    header: 'Range',
+  },
+  {
+    accessorKey: 'actions',
+    header: '',
+  },
+]
 
 
 function effectiveTrait(trait: Trait) {
@@ -357,7 +391,7 @@ const tabs = [
         <!-- All, Species, Archetype, Ascension, Talents, Other (e.g. keywords ) -->
         <template #abilities>
 
-          <template v-if="species.speciesFeatures.length > 0">
+          <template v-if="species && species.speciesFeatures.length > 0">
             <h3 class="font-light text-sm text-error mt-4">Species<span class="text-muted font-light"> • {{ species.name }}</span></h3>
             <USeparator class="mb-2" />
             <div class="flex flex-col gap-2">
@@ -370,7 +404,7 @@ const tabs = [
             </div>
           </template>
 
-          <template v-if="archetype.archetypeFeatures.length > 0">
+          <template v-if="archetype && archetype.archetypeFeatures.length > 0">
             <h3 class="font-light text-sm text-error mt-4">Archetype<span class="text-muted font-light"> • {{ archetype.name }}</span></h3>
             <USeparator class="mb-2" />
             <div class="flex flex-col gap-2">
@@ -383,7 +417,7 @@ const tabs = [
             </div>
           </template>
 
-          <template v-if="characterTalents.length > 0">
+          <template v-if="characterTalents && characterTalents.length > 0">
             <h3 class="font-light text-sm text-error mt-4">Talents</h3>
             <USeparator class="mb-2" />
             <div class="flex flex-col gap-2">
@@ -404,9 +438,49 @@ const tabs = [
         </template>
 
         <template #powers>
-          <div v-for="psychicPower in entity.data.psychicPowers">
-            {{psychicPower.name}}
-          </div>
+            <UTable :columns="psychicPowersColumns" :data="characterPsychicPowers" class="overflow-x-auto">
+              <template #actions-cell="{ row }">
+                <USlideover
+                    :title="row.original.name"
+                    :description="row.original.discipline"
+                >
+                  <UButton
+                      icon="i-lucide-ellipsis-vertical"
+                      color="neutral"
+                      variant="ghost"
+                      aria-label="Actions"
+                  />
+
+                  <template #body>
+
+                    <div><strong>Cast</strong> as a {{ row.original.crunch_activation}}</div>
+
+                    <div><strong>DN:</strong> {{ row.original.crunch_difficulty_number }}</div>
+                    <div><strong>Duration:</strong> {{ row.original.crunch_duration }}</div>
+                    <div><strong>Range:</strong> {{ row.original.crunch_range }}</div>
+                    <div><strong>Multi-Target:</strong> {{ row.original.crunch_multi_target ? 'yes' : 'no' }}</div>
+
+                    <USeparator class="my-2" />
+
+                    <div>{{ row.original.effect }}</div>
+
+                    <div v-if="row.original.crunch_potency"><strong>Potency:</strong> {{ row.original.crunch_potency.join(', ') }}</div>
+
+                    <USeparator class="my-2" />
+
+                    <div>
+                      <strong>Keywords: </strong>
+                      <UBadge v-for="k in row.original.keywords" :key="k" variant="outline" color="error" class="uppercase mr-1" size="sm">{{k}}</UBadge>
+                    </div>
+
+                    <div>
+                      <strong>Source:</strong> <span class="italic">{{ row.original.source.book }}, pg. {{ row.original.source.page }}</span>
+                    </div>
+
+                  </template>
+                </USlideover>
+              </template>
+            </UTable>
         </template>
 
         <template #description>
