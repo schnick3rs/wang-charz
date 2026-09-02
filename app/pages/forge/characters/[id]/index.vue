@@ -7,6 +7,18 @@ const id = computed(() => route.params.id as string)
 const store = useCharacterStore()
 
 const entity = computed(() => store.byId[id.value])
+const saving = computed(() => store.saving[id.value])
+
+// Deep-watch the sheet data and let the store's existing debounce handle
+// persistence — avoids writing an updateCharacter(id, { field }) call for
+// every one of the sheet's many inputs.
+watch(
+    () => entity.value?.data,
+    () => {
+      if (entity.value) store.scheduleSave(id.value)
+    },
+    { deep: true }
+)
 
 const bodyStyle = computed(() =>
     `background: url('https://i.imgur.com/R023gsf.png') no-repeat center bottom / cover, ` +
@@ -117,7 +129,50 @@ const tabs = [
     <div>
       <div class="text-highlighted font-semibol">{{ entity.data.name }}</div>
       <div class="mt-1 text-muted text-s">{{ (entity.data.species?.label || '?') + ' · ' + (entity.data.archetype?.label || '?') }}</div>
-      <div class="mt-1 text-muted text-s">Tier {{entity.data.settingTier}} · Rank  {{ entity.data.rank }} · {{ entity.data.earnedXp }} XP</div>
+
+      <div class="mt-1 text-muted text-s">
+        <span>Tier {{entity.data.settingTier}} · Rank  {{ entity.data.rank }} · {{ entity.data.earnedXp }} XP</span>
+
+        <USlideover title="Manage XP and Rank">
+
+          <UButton icon="i-heroicons-cog-6-tooth-16-solid" color="neutral" variant="ghost" size="sm" />
+
+          <template #body>
+            <p class="mb-4">
+              Manage your earned XP
+            </p>
+
+            <USeparator class="my-4"></USeparator>
+
+            <div class="flex flex-col gap-8">
+              <UFormField
+                  label="Earned XP"
+                  help="Set your total earned XP within the campaign"
+                  size="xl"
+              >
+                <UInput v-model="entity.data.earnedXp" type="number" class="w-full"></UInput>
+              </UFormField>
+
+              <UFormField
+                  label="Rank"
+                  hint="usually increases at 40 and 80 XP"
+                  :help="(Math.floor(entity.data.earnedXp / 40) + 1) > entity.data.rank ? 'Check with your GM if you rank up' : ''"
+                  size="xl"
+              >
+                <UInputNumber v-model="entity.data.rank" class="w-full" :min="1"></UInputNumber>
+              </UFormField>
+            </div>
+
+
+            <USeparator class="my-4"></USeparator>
+
+            <div class="text-center italic mt-4">Changes will be saved automatically..</div>
+            <UProgress v-if="saving" size="xs"></UProgress>
+
+          </template>
+        </USlideover>
+      </div>
+
       <UProgress :model-value="entity.data.earnedXp" :max="100" color="error" :ui="{ base: 'bg-error-100'}" size="xs"/>
     </div>
     <div class="grow"></div>
@@ -214,7 +269,17 @@ const tabs = [
                 :key="trait.key"
                 class="border-t border-gray-100"
             >
-              <td class="px-1.5 py-1.5 text-gray-800">{{ $t(`stats.${trait.key}`, trait.name) }}</td>
+              <td class="px-1.5 py-1.5 text-gray-800">
+                {{ $t(`stats.${trait.key}`, trait.name) }}
+                <UButton
+                    v-if="['corruption', 'influence', 'wealth'].includes(trait.key)"
+                    icon="i-heroicons-cog-6-tooth"
+                    color="neutral"
+                    variant="ghost"
+                    size="xs"
+                    disabled
+                />
+              </td>
               <td class="px-1.5 py-1.5 text-right text-gray-400 truncate">
                 <template v-if="['maxWounds', 'maxShock', 'wealth'].includes(trait.key)">
                   <span v-if="effectiveTrait(trait) > 10">{{effectiveTrait(trait)-5}} / </span>
@@ -323,9 +388,14 @@ const tabs = [
             <USeparator class="mb-2" />
             <div class="flex flex-col gap-2">
               <div v-for="talent in characterTalents" :key="talent.key" class="text-sm">
-                <strong>{{ talent.name }}</strong><span class="text-muted font-light text-xs"> • {{ talent.source.book }}, pg. {{ talent.source.page }}</span>
+
+                <div class="inline-block align-middle">
+                  <strong>{{ talent.name }}</strong>
+                  <span class="text-muted font-light text-xs"> • {{ talent.source.book }}, pg. {{ talent.source.page }}</span>
+                </div>
+
                 <!-- eslint-disable-next-line vue/no-v-html -->
-                <div v-if="talent.description" v-html="talent.description"/>
+                <div v-if="talent.description" v-html="talent.description" class="html-content"/>
                 <div v-else><p>{{ talent.snippet }}</p></div>
               </div>
             </div>
@@ -350,6 +420,110 @@ const tabs = [
 
 </template>
 
-<style scoped>
+<style>
+.html-content {
+  color: var(--ui-text-toned);
+}
 
+.html-content > *:first-child {
+  margin-top: 0;
+}
+
+.html-content ul,
+.html-content ol,
+.html-content p {
+  margin-bottom: 0.5em;
+}
+
+.html-content a {
+  color: var(--ui-primary);
+  text-decoration: underline;
+  text-decoration-color: var(--ui-border-accented);
+  text-underline-offset: 2px;
+}
+
+.html-content a:hover {
+  text-decoration-color: var(--ui-primary);
+}
+
+.html-content ul,
+.html-content ol {
+  padding-left: 1.5em;
+}
+
+.html-content ul {
+  list-style: disc;
+}
+
+.html-content ol {
+  list-style: decimal;
+}
+
+.html-content img {
+  display: block;
+  max-width: 100%;
+  margin: 1.5em auto;
+  border-radius: var(--ui-radius);
+}
+
+.html-content hr {
+  border: none;
+  border-top: 1px solid var(--ui-border);
+  margin: 2em 0;
+}
+
+.html-content code {
+  color: hsl(122 39% 49%);
+  background-color: var(--ui-bg-elevated);
+  padding: 0.15em 0.4em;
+  border-radius: calc(var(--ui-radius) * 0.75);
+}
+
+.html-content pre {
+  background-color: var(--ui-bg-elevated);
+  border: 1px solid var(--ui-border);
+  border-radius: var(--ui-radius);
+  padding: 1em;
+  margin-bottom: 1.25em;
+  overflow-x: auto;
+}
+
+.html-content pre code {
+  color: var(--ui-text);
+  background-color: transparent;
+  padding: 0;
+}
+
+.html-content blockquote {
+  border-left: 3px solid var(--ui-primary);
+  background-color: var(--ui-bg-elevated);
+  color: var(--ui-text-toned);
+  padding: 0.75em 1.25em;
+  margin: 1.25em 0;
+  border-radius: 0 var(--ui-radius) var(--ui-radius) 0;
+}
+
+.html-content blockquote p {
+  font-weight: 300;
+  margin: 0;
+}
+
+.html-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25em;
+}
+
+.html-content th,
+.html-content td {
+  border: 1px solid var(--ui-border);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+
+.html-content th {
+  background-color: var(--ui-bg-elevated);
+  color: var(--ui-text-highlighted);
+  font-weight: 600;
+}
 </style>
