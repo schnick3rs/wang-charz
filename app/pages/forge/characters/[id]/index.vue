@@ -29,6 +29,14 @@ const { data: archetype } = await useAsyncData(
     (_nuxtApp, { signal }) => $fetch(`/api/archetypes/${entity.value.data.archetype.key}`, { signal }),
 )
 
+const { data: characterTalents } = await useAsyncData(
+    `talents-${entity.value.data.talents.map((talent) => talent.key).join('-')}`,
+    async (_nuxtApp, { signal }) => {
+      return await Promise.all(entity.value.data.talents.map((talent) => $fetch(`/api/talents/${talent.key}`, {signal})));
+    }
+)
+
+
 function effectiveTrait(trait: Trait) {
   if (!entity.value) return '?'
   if (!species.value) return '?'
@@ -310,15 +318,15 @@ const tabs = [
             </div>
           </template>
 
-          <template v-if="entity.data.talents.length > 0">
+          <template v-if="characterTalents.length > 0">
             <h3 class="font-light text-sm text-error mt-4">Talents</h3>
             <USeparator class="mb-2" />
             <div class="flex flex-col gap-2">
-              <div v-for="talent in entity.data.talents" :key="talent.id">
-                <strong>{{ talent.name }}</strong><span class="text-muted font-light"> • {{ talent.source }}</span>
+              <div v-for="talent in characterTalents" :key="talent.key" class="text-sm">
+                <strong>{{ talent.name }}</strong><span class="text-muted font-light text-xs"> • {{ talent.source.book }}, pg. {{ talent.source.page }}</span>
                 <!-- eslint-disable-next-line vue/no-v-html -->
                 <div v-if="talent.description" v-html="talent.description"/>
-                <div v-else><p>{{ talent.snippet}}</p></div>
+                <div v-else><p>{{ talent.snippet }}</p></div>
               </div>
             </div>
           </template>

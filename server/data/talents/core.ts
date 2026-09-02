@@ -501,8 +501,7 @@ export const core = [
         ...talent('core',135,'Hatred [Any]',30,'Combat,Melee,Social'),
         key: 'core-hatred',
         snippet: 'You gain +Double Rank dice for Melee Attacks against the Keyword. You suffer +2 DN to interactions with the Keyword.',
-        description:
-            '<p></p>',
+         
         requirements: [],
         allowedMultipleTimes: true,
         // Select a species or faction to hate with the blaze of a thousand suns
@@ -510,16 +509,14 @@ export const core = [
     {
         ...talent('core',135,'Hive Explorer',20),
         snippet: 'You add +Rank dice to Stealth and Survival in Urban environment.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('IMPERIUM') ],
     },
     {
         ...talent('core',135,'Jargon [Skill]',20),
         key: 'core-jargon',
         snippet: 'Talk on and on over a Topic to lock someone in the conversation.',
-        description:
-            '<p></p>',
+         
         requirements: [
             { key: 'A rating of 1+ in the respective skill.' },
         ],
@@ -538,15 +535,13 @@ export const core = [
     {
         ...talent('core',135,'Legacy Of Sorrow',20),
         snippet: 'You do not suffer from Intense Emotion and th Group gains 1 Glory every time you recover from dying.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSpecies('Aeldari') ],
     },
     {
         ...talent('core',136,'Let The Galaxy Burn',20),
         snippet: '+1 Corruption. Incapacitating an Elite or Adversary grants 1 Glory (up to Double Rank per encounter).',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('CHAOS') ],
         modifications: [
             { targetGroup: 'traits', targetValue: 'corruption', modifier: 1 },
@@ -555,31 +550,27 @@ export const core = [
     {
         ...talent('core',136,'Lip Reader',20),
         snippet: 'Read Lips, the GM may ask for an Awareness Test.',
-        description:
-            '<p></p>',
+         
         requirements: [],
     },
     {
         ...talent('core',136,'Lobotomised Efficiency',20),
         snippet: 'You add +Double Rank to Conviction and Resolve. You do not add your Tier to your Shock.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSpecies('Human') ],
     },
     {
         ...talent('core',136,'Loremaster [Keyword]',30),
         key: 'core-loremaster',
         snippet: 'You add +Double Rank to any (fitting) Skill Tests related to [Keyword]. This includes Interaction Attacks.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSkill('scholar',3) ],
         allowedMultipleTimes: true,
     },
     {
         ...talent('core',136,'Mark Of Chaos',30),
         snippet: 'Serve the Dark Gods, well only one of them.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('[MARK OF CHAOS]') ],
     },
     {
@@ -656,8 +647,7 @@ export const core = [
     {
         ...talent('core',136,'Mastered Paths',20),
         snippet: 'Pick one of your Aeldari Paths. You gain additionaly +Rank bonus from that park.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireSpecies('Aeldari'),
             requireKeyword('ASURYANI'),
@@ -666,8 +656,7 @@ export const core = [
     {
         ...talent('core',137,'Mimic Voice',20),
         snippet: 'Study the voice for 1 hour and pass Awareness (DN by GM) to gain +Double Rank to Deception Tests to mimic the voice.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSkill('deception',3) ],
         modifications: [
             { targetGroup: 'skills', targetValue: 'deception', modifier: 0, rank: 2, condition: 'when mimicking voices your studied before.' },
@@ -676,22 +665,19 @@ export const core = [
     {
         ...talent('core',137,'Mob Rule',20),
         snippet: 'When commanding 2+ Orks, all allied Orks within 15+Double Rank metres add +Double Rank to Resolve.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSpecies('Ork') ],
     },
     {
         ...talent('core',137,'More Dakka!',35),
         snippet: 'Add +Rank to your Weapons Salvo Rating.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSpecies('Ork') ],
     },
     {
         ...talent('core',137,'Noble Peer',30),
         snippet: 'When Status plays a factor, add +Double Rank to Influence and fitting tests.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSkill('persuasion',3)],
     },
     {
@@ -706,15 +692,13 @@ export const core = [
     {
         ...talent('core',137,'Paranoid',20),
         snippet: 'Once per session, contact you network and ask one question. A secret Cunning roll determines the Details.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSkill('cunning',3) ],
     },
     {
         ...talent('core',137,'Primaris Perspective',40),
         snippet: 'You add +Rank to Resolve and Corruption Tests. You add +Double Rank to Scholar tests for long (<31k) gone events.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSpecies('Primaris Astartes') ],
         modifications: [
             { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
@@ -734,22 +718,19 @@ export const core = [
     {
         ...talent('core',138,'Rite Of Fear',30),
         snippet: 'As a Combat Action, all creatues within a cone (10m x 3m) must face Fear with DN 2+Double Rank. Disturbing Voice costs you only 10 xp.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('ADEPTUS MECHANICUS') ],
     },
     {
         ...talent('core',138,'Rite Of Magnometrics',20),
         snippet: 'Pick up and Carry metal objects within 3+Double Rank metres without touching. Draw yourself to large metal objects and hover.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('ADEPTUS MECHANICUS') ],
     },
     {
         ...talent('core',139,'Rite Of Pure Thought',20),
         snippet: 'You add +Rank to Resolve and Fear Test and to resist Persuasion and Intimidation Interaction Attacks. You add +Rank to Investigation Tests.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('ADEPTUS MECHANICUS') ],
         modifications: [
             { targetGroup: 'traits', targetValue: 'resolve', modifier: 0, rank: 1 },
@@ -759,8 +740,7 @@ export const core = [
     {
         ...talent('core',139,'Scum Savvy',20),
         snippet: 'You add +Double Rank when resisting chemicals. You add +Rank to Cunning tests.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSpecies('Human') ],
         modifications: [
             { targetGroup: 'skills', targetValue: 'cunning', modifier: 0, rank: 1 },
@@ -769,22 +749,19 @@ export const core = [
     {
         ...talent('core',139,'Secret Identity',20),
         snippet: 'It´s and Identity and it´s a secret one.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('INQUISITION') ],
     },
     {
         ...talent('core',139,'Sidestep',30),
         snippet: 'As a Reflexive Action, you may sidestep a melee attack (before the roll). You add +Double Rank to Defence and Resilience. This also costs you your next Move Action.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireAttribute('initiative',3) ],
     },
     {
         ...talent('core',139,'Silent',20),
         snippet: 'You may Move at full Speed while Moving Stealthily. Whenever your Stealth Score would be reduced, reduce it by 1 fewer.',
-        description:
-            '<p></p>',
+         
         requirements: [],
     },
     {
@@ -802,15 +779,13 @@ export const core = [
     {
         ...talent('core',139,'Smash Attack',20),
         snippet: 'You add +Rank ED to All-Out Attacks.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSkill('weaponSkill',2)],
     },
     {
         ...talent('core',140,'Special Weapons Trooper',20), // + weapon
         snippet: 'You may select a Combat Shotgun, Plasma Gun, Meltagun, Long Las, Flamer, Grenade Launcher or Hot Shot Volley Gun.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireSkill('ballisticSkill',3),
             requireKeyword('ASTRA MILITARUM'),
@@ -819,30 +794,26 @@ export const core = [
     {
         ...talent('core',140,'Stoic',20),
         snippet: 'Insight tests targeting you suffer +Double Rank to DN.',
-        description:
-            '<p></p>',
+         
         requirements: [],
     },
     {
         ...talent('core',140,'Storm of Death',30),
         snippet: 'You reduce the DN for plain Multi-Attacks by Double Rank.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSkill('weaponSkill',4)],
     },
     {
         ...talent('core',140,'Supplicant',20),
         snippet: 'Your fancy @$$-kissing will grant you +Rank dice to respective tests.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSpecies('Human') ],
     },
     {
         ...talent('core',140,'Supreme Presence [Skill]',30),
         key: 'core-supreme-presence',
         snippet: 'Your Interaction attacks may either affect 1+Double Rank targets or any number of Troops within a Mob.',
-        description:
-            '<p></p>',
+         
         requirements: [], // 4+
         selected: '',
         optionsPlaceholder: 'Select an interaction attack Skill',
@@ -860,15 +831,13 @@ export const core = [
     {
         ...talent('core',140,'Tenacious',30),
         snippet: 'You recover 1 Shock for each Exalted Icon rolled during Determination tests.',
-        description:
-            '<p></p>',
+         
         requirements: [],
     },
     {
         ...talent('core',140,'The Flesh Is Weak',30),
         snippet: 'You do not breath or bleed. You add +Rank to Tech and Determination tests. You suffer +2 DN to Persuasion Tests.',
-        description:
-            '<p></p>',
+         
         requirements: [],
         modifications: [
             // immunity (Bleeding)
@@ -880,16 +849,14 @@ export const core = [
     {
         ...talent('core',141,'Touched By Fate',20),
         snippet: 'You start your sessions with +Rank Wrath.',
-        description:
-            '<p></p>',
+         
         requirements: [],
     },
     {
         ...talent('core',141,'Trademark Weapon [Weapon]',30),
         key: 'core-trademark-weapon',
         snippet: 'You add +Double Rank ED when attacking with your Trademark Weapon.',
-        description:
-            '<p></p>',
+         
         requirements: [],
         // some difficult selection to be made usable
     },
@@ -897,8 +864,7 @@ export const core = [
         ...talent('core',141,'Transhuman [Attribute]',60),
         key: 'core-transhuman-attribute',
         snippet: 'You add +Double Rank when rolling tests using [Attribute]',
-        description:
-            '<p></p>',
+         
         requirements: [ { key: 'Attribute 5+'} ],
         selected: '',
         optionsPlaceholder: 'Select an Attribute',
@@ -916,16 +882,14 @@ export const core = [
     {
         ...talent('core',141,'Twin Focus',20),
         snippet: 'You decrease the DN for sustaining multiple powers by 2.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireSkill('psychicMastery',4) ],
     },
     {
         ...talent('core',141,'Uncanny [Trait]',40),
         key: 'core-uncanny-trait',
         snippet: 'Increase a Trait by +Rank.',
-        description:
-            '<p></p>',
+         
         requirements: [],
         selected: '',
         optionsPlaceholder: 'Select a Trait',
@@ -949,8 +913,7 @@ export const core = [
         ...talent('core',141,'Unnatural [Skill]',60),
         key: 'core-unnatural-skill',
         snippet: 'Reduce Penalties to [Skill] tests by Double Rank.',
-        description:
-            '<p></p>',
+         
         requirements: [ { key: 'Skill 4+ '} ],
         selected: '',
         optionsPlaceholder: 'Select a Trait',
@@ -979,16 +942,14 @@ export const core = [
     {
         ...talent('core',141,'Unremarkable',20),
         snippet: '`It´s me! Joe Average!`, Tracking and spotting you in crowds suffer +2 DN.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('IMPERIUM') ],
     },
     {
         ...talent('core',141,'Warped Mind [Discipline]',30),
         snippet: 'You unlock an additional Psychic Discipline. You may reduce the costs by gaining Corruption, reducing cost by 5 for each point of corruption.',
         alert: { type: 'warning', text: 'For reducing the cost for corruption: (a) give yourself custom xp and (b) add corruption in the corruption management in the character view.', },
-        description:
-            '<p></p>',
+         
         requirements: [ requireSkill('psychicMastery',4) ],
         selected: '',
         optionsPlaceholder: 'Pick one discipline',
@@ -1012,8 +973,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Reflexive Action, spend 1 faith to grant one IMPERIUM individual auto-pass for Resolve and Conviction for one Round.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1027,8 +987,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. Spend 1 Faith to tripple the Bonus Dice when helping an IMPERIUM individual.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1042,8 +1001,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Reflexive Action, spend 1 Faith to grant youself and IMPERIUM allies within 15+Double Rank metres +Double Rank to Fear and Conviction tests until the end of the Round.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('ADEPTUS MINISTORUM'), requireKeyword('CHAOS',true), ],
     },
     {
@@ -1054,8 +1012,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Combat Action, spend 1 Faith to grant yourself or an IMPERIUM individual in hearing range +Double Rank dice to Ballistic Skill tests for 1 Round.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1069,8 +1026,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. When targeting a IMPERIUM individual with Persuasion or Leadership, you can spend 1 Faith to add +Double Rank dice.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1085,8 +1041,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Combat Action, spend 1 Faith to restore 1d3 +Double Rank Shock to you and IMPERIUM allies within 15+Double Rank metres.',
-        description:
-            '<p></p>',
+         
         requirements: [ requireKeyword('ADEPTUS MINISTORUM'), requireKeyword('CHAOS',true), ],
     },
     {
@@ -1097,8 +1052,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Simple Action, spend 1 Faith to grant IMPERIUM allies within 10xRank metres your Hatred talent.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1112,8 +1066,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Simple Action, spend 1 Faith and take Wounds up to your Tier. You heal double the amount from a selcted target.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1128,8 +1081,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. Spend 1 Faith and pass a Intimidation Test (with +Rank dice) to force an IMPRIUM inividual to repent an kneel for 10xDouble Rank seconds.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1144,8 +1096,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Combat Action, spend 1 Faith to gain +2 Wrath. You may grant one of those to an IMPERIUM ally you can hear you.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1160,8 +1111,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Reflecive Action, spend 1 Faith to ignore a psychic power or effect for one round. Spend to to grant this bonus to IMPERIUM allies within 15+Double Rank metres.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1176,8 +1126,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As a Combat Action, spend 1 Faith to grant yourself or an IMPERIUM individual in hearing range +Double Rank dice to Weapon Skill tests for 1 Round.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
@@ -1191,8 +1140,7 @@ export const core = [
             { targetGroup: 'resources', targetValue: 'faith', modifier: 1 },
         ],
         snippet: '+1 Faith. As A Reflexive Action, spend 2 Faith to force an attack directed at you to miss.',
-        description:
-            '<p></p>',
+         
         requirements: [
             requireKeyword('ADEPTUS MINISTORUM,ADEPTA SORORITAS'),
             requireKeyword('CHAOS',true),
