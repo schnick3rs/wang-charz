@@ -232,7 +232,12 @@ const hasOverspended = computed(() => {
             :content="{ align: 'start', side: 'bottom', sideOffset: 8}"
             :ui="{ content: 'w-48' }"
         >
-          <UUser :avatar="{ src: avatarUrl }" :name="displayName" :ui="{ name: 'hidden md:block'}" />
+          <UUser
+              :avatar="{ src: avatarUrl }"
+              :chip="{ color: entity ? 'primary' : 'error' }"
+              :name="displayName"
+              :ui="{ name: 'hidden md:block'}"
+          />
         </UDropdownMenu>
 
         <div v-else >

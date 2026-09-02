@@ -53,6 +53,10 @@ const skills = computed(() => {
     <!-- header -->
     <div class="flex flex-row gap-4">
       <UFieldGroup>
+        <UBadge color="info" variant="subtle">Faction</UBadge>
+        <UBadge color="info">{{ archetype.faction }}</UBadge>
+      </UFieldGroup>
+      <UFieldGroup>
         <UBadge color="info" variant="subtle">Tier</UBadge>
         <UBadge color="info">{{ archetype.tier }}</UBadge>
       </UFieldGroup>
@@ -62,11 +66,11 @@ const skills = computed(() => {
       </UFieldGroup>
       <UFieldGroup>
         <UBadge color="info" variant="subtle">XP Cost</UBadge>
-        <UBadge color="info">{{ archetype.cost }}</UBadge>
+        <UBadge color="info">{{ archetype.costs.total }}</UBadge>
       </UFieldGroup>
     </div>
 
-    <USeparator class="mb-2"/>
+    <USeparator class="mt-2 mb-2"/>
 
     <div v-if="attributes" class="mb-2"><strong>Attributes: </strong><span>{{ attributes }}</span></div>
     <div v-if="skills" class="mb-4"><strong>Skills: </strong><span>{{ skills }}</span></div>

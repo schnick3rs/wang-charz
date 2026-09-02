@@ -11,6 +11,20 @@ const wargearString = computed(() => {
   return 'something something error';
 })
 
+const { t } = useI18n();
+const attributes = computed(() => {
+  return archetype.prerequisites
+      .filter((pre) => pre.group === 'attributes')
+      .map((pre) => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`)
+      .join(', ');
+})
+const skills = computed(() => {
+  return archetype.prerequisites
+      .filter((pre) => pre.group === 'skills')
+      .map((pre) => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`)
+      .join(', ');
+})
+
 </script>
 
 <template>
@@ -20,8 +34,8 @@ const wargearString = computed(() => {
     <!-- header -->
     <div class="flex flex-row justify-between mb-2">
       <div class="flex flex-col">
-        <span class="text-2xl font-bold mb-2">{{ archetype.name }}</span>
-        <span class="italic text-sm font-medium">{{ archetype.source.book }}, pg. {{ archetype.source.page}}</span>
+        <span class="text-2xl font-bold">{{ archetype.name }}</span>
+        <span class="italic text-sm font-medium mb-2">{{ archetype.source.book }}, pg. {{ archetype.source.page}}</span>
         <span>{{ archetype.hint }}</span>
       </div>
       <NuxtImg :src="`/img/avatars/archetype/${archetype.key}.png`" class="w-24 h-24 object-cover rounded-lg" />
@@ -30,7 +44,32 @@ const wargearString = computed(() => {
     <!-- cost -->
     <div class="mb-4">
       <USeparator class="mb-4" />
-      <strong>XP Cost:</strong> {{ archetype.cost }}, incl. Stats ({{ archetype.costs?.stats || '?' }} XP)
+
+      <div class="flex flex-row gap-4">
+        <UFieldGroup>
+          <UBadge color="info" variant="subtle">Faction</UBadge>
+          <UBadge color="info">{{ archetype.faction }}</UBadge>
+        </UFieldGroup>
+        <UFieldGroup>
+          <UBadge color="info" variant="subtle">Tier</UBadge>
+          <UBadge color="info">{{ archetype.tier }}</UBadge>
+        </UFieldGroup>
+        <UFieldGroup>
+          <UBadge color="info" variant="subtle">Species</UBadge>
+          <UBadge color="info">{{ archetype.species.map(i => i.name).join(' / ') }}</UBadge>
+        </UFieldGroup>
+        <UFieldGroup>
+          <UBadge color="info" variant="subtle">XP Cost</UBadge>
+          <UBadge color="info">{{ archetype.costs.total }}</UBadge>
+        </UFieldGroup>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <h3 class="font-light text-sm">Requirement</h3>
+      <USeparator class="mb-4" />
+      <div v-if="attributes" class="mb-2"><strong>Attributes: </strong><span>{{ attributes }}</span></div>
+      <div v-if="skills" class="mb-4"><strong>Skills: </strong><span>{{ skills }}</span></div>
     </div>
 
     <!-- keywords -->
@@ -40,7 +79,7 @@ const wargearString = computed(() => {
         <h3 class="font-light text-sm">Keywords</h3>
         <USeparator class="mb-2" />
 
-        <div v-if="archetype.keywords" class="mb-4">
+        <div v-if="archetype.keywords" class="mb-4 flex gap-2">
           <UBadge v-for="k in archetype.keywords" :key="k" color="error" variant="outline">{{k}}</UBadge>
         </div>
       </div>
