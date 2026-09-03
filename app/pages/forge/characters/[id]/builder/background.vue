@@ -35,6 +35,9 @@ onBeforeRouteLeave(async () => {
 const { data: species } = await useAsyncData(
     `species-${entity.value.data.species.key}`,
     (_nuxtApp, { signal }) => $fetch(`/api/species/${entity.value.data.species.key}`, { signal }),
+    {
+      pick: [ 'commonNames' ],
+    }
 )
 
 
@@ -48,7 +51,20 @@ const { data: faction } = await useAsyncData(
     }
 )
 
+const groupedBackgroundSection = computed(() => {
+  if (!faction.value?.backgroundSection) return []
 
+  return Object.entries(
+      faction.value.backgroundSection.reduce((acc, item) => {
+        (acc[item.type] ??= []).push(item)
+        return acc
+      }, {})
+  ).map(([type, items]) => ({ type, items }))
+})
+
+/**
+ * TODO names by faction (e.g. space wolves, harlequinn)
+ */
 function randomName() {
   const names = species.value.commonNames || ['Hansi']
   return names[Math.floor(Math.random() * names.length)]
@@ -76,13 +92,14 @@ function randomName() {
           </template>
         </UInput>
 
-        <UInputNumber v-model="entity.data.earnedXp"></UInputNumber>
       </UFormField>
 
       <!-- backgrounds -->
       <UCard title="Background Options" :description="faction.name" :ui="{ body: 'flex flex-col gap-2'}">
-        <div v-for="item in faction.backgroundSection" >
-          <strong>{{item.title}}</strong> - {{item.snippet}} <span class="text-muted">(+1 {{ item.plusOne }})</span>
+
+        <div v-for="group in groupedBackgroundSection" :key="group.type" class="mb-2">
+          <h3 class="font-bold mb-2">{{ group.type }}</h3>
+          <URadioGroup  :items="group.items" label-key="title" description-key="snippet" value-key="key" />
         </div>
       </UCard>
 
@@ -103,12 +120,13 @@ function randomName() {
         Core pg. 38 start with TIER buy up to 4 for 1:1 XP at start
       </UCard>
 
-      <UCard title="Known Languages">
-        Low Gothic
-      </UCard>
+      <UCard title="Known Languages" description="Can be bought during character creation">
+        <UBadge color="neutral" variant="subtle">Low Gothic</UBadge>
+        <UBadge color="neutral" variant="subtle">Low Gothic</UBadge>
 
-      <UCard title="Apperance">
-        ... one ugly mother funker
+        <UFormField label="Add Language">
+          <USelect :items="[{key:'s', label: 'ss'}]" placeholder="Select language" trailing-icon=""></USelect>
+        </UFormField>
       </UCard>
 
       <UCard title="Notes">

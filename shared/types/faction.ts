@@ -5,7 +5,7 @@ const BackgroundSectionEntrySchema = z.object({
     title: z.string(),
     snippet: z.string(),
     plusOne: z.string(), // e.g. "Resolve", "Determination", "Conviction", "Influence", "Max Wounds", "Max Shock"
-    type: z.enum(["Origin", "Accomplishment", "Goal"]),
+    type: z.string(),
     modification: ModificationSchema,
 });
 

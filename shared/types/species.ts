@@ -31,7 +31,7 @@ export const SpeciesSchema = z.object({
     traitMaximums: z.array(StatValuesSchema).default([]),
     speciesFeatures: z.array(GenericFeatureSchema).default([]),
 
-    commonNames: z.array(z.string()).optional(),
+    commonNames: z.array(z.string()).default([]),
     backgroundSection: z.array(z.object()).optional(),
 
     description: z.string().optional(),

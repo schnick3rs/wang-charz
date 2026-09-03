@@ -524,7 +524,8 @@ export const core = [
         archetypeFeatures: [
             {
                 name: 'Tactical Versatility',
-                snippet: 'Your training has prepared you for any circumstance. When you make a Critical Hit you may roll twice on the Critical Hit Table and choose either result.',
+                // fluff: 'Your training has prepared you for any circumstance.'
+                snippet: 'When you make a Critical Hit you may roll twice on the Critical Hit Table and choose either result.',
             },
         ],
         wargear: wargearz('Aquila Mk VII/Aquila Power Armour, Boltgun, Bolt Pistol, Astartes Combat Knife, 3 Frag Grenade, 3 Krak Grenade'),
