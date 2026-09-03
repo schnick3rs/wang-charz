@@ -158,6 +158,23 @@ const tabs = [
   },
 ]
 
+const WEAPON_TYPES = ['melee-weapon', 'ranged-weapon']
+
+const weaponProfiles = computed(() => {
+  return (characterWargear.value ?? []).flatMap((item: Wargear) =>
+      (item.meta ?? [])
+          .filter(m => WEAPON_TYPES.includes(m.type))
+          .map((m, i) => ({
+            ...m,
+            // stamp parent info onto the profile
+            parentKey: item.key,
+            parentName: item.name,
+            // guaranteed-unique row key, since a weapon can have >1 profile
+            rowKey: `${item.key}-${i}`,
+          }))
+  )
+})
+
 </script>
 
 <template>
@@ -380,6 +397,8 @@ const tabs = [
 
     <!-- Ability Tabs -->
     <section title="extras" class="border rounded-lg border-gray-200 shadow-sm">
+
+
       <UTabs
           :items="tabs"
           color="error"
@@ -388,7 +407,36 @@ const tabs = [
       >
 
         <template #weapons>
-          WEAP
+          <table class="w-full text-sm ">
+            <thead>
+              <tr class="uppercase text-xs tracking-wide">
+                <th class="text-left font-medium px-2 py-2">Name</th>
+                <th class="text-center font-medium px-2 py-2">Range</th>
+                <th class="text-center font-medium px-2 py-2">Damage</th>
+                <th class="text-center font-medium px-2 py-2">AP</th>
+                <th class="text-center font-medium px-2 py-2">Salvo</th>
+                <th class="text-left font-medium px-2 py-2">Traits</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="profile in weaponProfiles" :key="profile.rowKey" class="hover:bg-gray-200 rounded-lg">
+                <td class="px-1.5 py-1.5">{{ profile.parentName }}</td>
+                <td class="px-1.5 py-1.5 text-center">
+                  <span v-if="profile.type === 'melee-weapon'">{{ profile.range > 1 ? `${profile.range} m` : '-'}}</span>
+                  <template v-else-if="profile.type === 'ranged-weapon'">
+                    <span v-if="profile.thrownX">{{ entity.data.attributes.strength * profile.thrownX}} m</span>
+                    <spen v-else>{{ profile.range / 2 }} | {{ profile.range }} | {{ profile.range * 1.5 }}</spen>
+                  </template>
+                </td>
+                <td class="px-1.5 py-1.5 text-center">
+                  {{ profile.damage?.static }}{{ profile.damage?.ed ? `+${profile.damage.ed}ED` : '' }}
+                </td>
+                <td class="px-1.5 py-1.5 text-center">{{ profile.ap ?? 0 }}</td>
+                <td class="px-1.5 py-1.5 text-center">{{ profile.salvo ?? '-' }}</td>
+                <td class="px-1.5 py-1.5">{{ profile.traits?.join(', ') }}</td>
+              </tr>
+            </tbody>
+          </table>
         </template>
 
         <template #wargear>
