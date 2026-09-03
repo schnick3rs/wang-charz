@@ -26,7 +26,8 @@ export const CharacterDataSchema = z.object({
         willpower: z.number().default(1),
         intellect: z.number().default(1),
         fellowship: z.number().default(1),
-    }).default({
+    })
+        .default({
         strength: 1,
         toughness: 1,
         agility: 1,
@@ -55,7 +56,8 @@ export const CharacterDataSchema = z.object({
         pilot: z.number().default(0),
         psychicMastery: z.number().default(0),
         weaponSkill: z.number().default(0),
-    }).default({
+    })
+        .default({
         athletics: 0,
         awareness: 0,
         ballisticSkill: 0,
@@ -74,6 +76,14 @@ export const CharacterDataSchema = z.object({
         pilot: 0,
         psychicMastery: 0,
         weaponSkill: 0,
+    }),
+
+    resources: z.object({
+        ammo: z.number().default(3), // aka reloads
+        faith: z.number().default(0),
+
+        wounds: z.number().default(0),
+        shock: z.number().default(0),
     }),
 
     species: z.object({
@@ -124,8 +134,9 @@ export const CharacterDataSchema = z.object({
 
     wargear: z.array(z.object({
         id: z.string().describe('A character unique identifier, because some talents can be taken multiple times'),
-        label: z.string(),
+
         key: z.string(),
+        label: z.string(), // label you can use and such
         source: z.string().optional().describe('source of the granting effect, if empty, it was bought'),
 
         equipped: z.boolean().default(true),
@@ -145,6 +156,8 @@ export const CharacterDataSchema = z.object({
     })).default([]),
 
     traumaticInjuries: z.array(z.object({})).default([]),
+    memorableInjuries: z.array(z.object({})).default([]),
+
     mutations: z.array(z.object({})).default([]),
 
 })

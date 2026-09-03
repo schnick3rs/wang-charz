@@ -57,6 +57,13 @@ const { data: characterPsychicPowers } = await useAsyncData(
     }
 )
 
+const { data: characterWargear } = await useAsyncData(
+    `wargear-${entity.value.data.wargear.map((talent) => talent.key).join('-')}`,
+    async (_nuxtApp, { signal }) => {
+      return await Promise.all(entity.value.data.wargear.map((wargear) => $fetch(`/api/wargear/${wargear.key}`, {signal})));
+    }
+)
+
 const psychicPowersColumns: TableColumn<PsychicPower>[] = [
   {
     accessorKey: 'name',
@@ -385,7 +392,9 @@ const tabs = [
         </template>
 
         <template #wargear>
-          <div v-for="item in entity.data.wargear">{{item}}</div>
+          <div v-for="item in characterWargear" :key="item.id">
+            {{item.name}}
+          </div>
         </template>
 
         <!-- All, Species, Archetype, Ascension, Talents, Other (e.g. keywords ) -->

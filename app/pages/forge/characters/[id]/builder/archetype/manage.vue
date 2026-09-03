@@ -32,6 +32,25 @@ const skills = computed(() => {
       .map((pre: { value: number; threshold: never; }) => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`)
       .join(', ');
 })
+
+
+async function addArchetypeEquipment() {
+  const collectedGear = await Promise.all(archetype.value.wargear.map((wargear) => $fetch(`/api/wargear/first-by-name`, { query: { name: wargear.name }})))
+  collectedGear.forEach((wargear: Wargear) => {
+    console.info('adding wargear to character', wargear)
+    const charGear = {
+      id: crypto.randomUUID().replaceAll('-', '').slice(0, 8),
+      key: wargear.key,
+      label: wargear.name,
+      source: 'archetype',
+      equipped: true,
+    }
+
+    entity.value.data.wargear.push(charGear)
+  })
+  store.scheduleSave(entity.value.id)
+}
+
 </script>
 
 <template>
@@ -104,14 +123,19 @@ const skills = computed(() => {
 
     <!-- Wargear -->
     <div class="mt-4 mb-4">
+
       <h3 class="font-light text-sm">Wargear</h3>
       <USeparator class="mb-2" />
+
       <div class="flex flex-col gap-2">
         <div v-for="gear in archetype.wargear" :key="gear.name" class="hover:bg-black/10 p-2">
           <div v-if="gear.options">{{ gear.name }}</div>
           <ForgeWargearDetail v-else :wargear-name="gear.name" :variant="gear.variant" :amount="gear.amount"/>
         </div>
       </div>
+
+      <UButton block variant="subtle" class="mt-4" @click="addArchetypeEquipment()">Add to personal wargear</UButton>
+
     </div>
 
   </div>

@@ -38,6 +38,9 @@ onBeforeRouteLeave(async () => {
     <div v-if="entity" class="mt-4 mb-4">
       <h3 class="font-light text-sm">Owned Wargear</h3>
       <USeparator class="mb-2" />
+
+      <pre>{{entity.data.wargear}}</pre>
+
       <div class="flex flex-col gap-2">
         <div v-for="gear in entity.data.wargear" :key="gear.id" class="hover:bg-black/10 p-2">
           <pre>{{gear}}</pre>

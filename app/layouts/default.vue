@@ -151,7 +151,6 @@ const items = ref<DropdownMenuItem[]>([
 
       <UNavigationMenu :items="navItems"  />
 
-
       <template #right>
 
         <UColorModeButton />
