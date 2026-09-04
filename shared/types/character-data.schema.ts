@@ -79,11 +79,15 @@ export const CharacterDataSchema = z.object({
     }),
 
     resources: z.object({
-        ammo: z.number().default(3), // aka reloads
+        ammo: z.number().default(3),
         faith: z.number().default(0),
-
         wounds: z.number().default(0),
         shock: z.number().default(0),
+    }).default({
+        ammo: 3,
+        faith: 0,
+        wounds: 0,
+        shock: 0,
     }),
 
     species: z.object({
@@ -151,7 +155,7 @@ export const CharacterDataSchema = z.object({
 
     languages: z.array(z.object({
         key: z.string().optional(),
-        label: z.string().optional(),
+        label: z.string(),
         cost: z.number().default(0),
     })).default([]),
 
