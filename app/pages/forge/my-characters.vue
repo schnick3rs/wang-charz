@@ -54,11 +54,14 @@ async function newChar() {
   const user = useSupabaseUser()
   if (!user.value) return
 
-  const char = CharacterDataSchema.parse({
-    name: nameByRace('human')
-  })
-
-  createCharacter(char)
+  try {
+    const char = CharacterDataSchema.parse({
+      name: nameByRace('human')
+    })
+    createCharacter(char)
+  } catch (e) {
+    console.error('Could not create character', e)
+  }
 }
 
 </script>

@@ -275,7 +275,7 @@ const weaponProfiles = computed(() => {
     <!-- Column 1: Attributes + Traits, stacked -->
     <div class="flex flex-col gap-4">
 
-        <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+        <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
 
           <!-- Header -->
           <div class="bg-amber-700 px-4 py-2">
@@ -285,7 +285,7 @@ const weaponProfiles = computed(() => {
           <!-- Table -->
           <table class="w-full text-sm">
             <thead>
-            <tr class="text-gray-500 uppercase text-xs tracking-wide">
+            <tr class="text-gray-500 uppercase text-xs tracking-wide ">
               <th class="text-left font-medium px-2 py-2">Attribute</th>
               <th class="text-center font-medium px-2 py-2">Rating</th>
               <th class="text-center font-medium px-2 py-2">Enhanced</th>
@@ -313,7 +313,7 @@ const weaponProfiles = computed(() => {
           </table>
       </div>
 
-        <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+        <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
           <!-- Header -->
           <div class="bg-amber-700 px-4 py-2">
             <h2 class="text-white font-semibold text-lg">Traits</h2>
@@ -360,7 +360,7 @@ const weaponProfiles = computed(() => {
     </div>
 
     <!-- Right column: Skills -->
-    <div class="rounded-lg overflow-hidden border border-gray-200 shadow-sm">
+    <div class="rounded-lg overflow-hidden border border-gray-200 dark:border-gray-700 shadow-sm">
         <!-- Header -->
         <div class="bg-amber-700 px-4 py-2">
           <h2 class="text-white font-semibold text-lg">Skills</h2>
@@ -396,7 +396,7 @@ const weaponProfiles = computed(() => {
     </div>
 
     <!-- Ability Tabs -->
-    <section title="extras" class="border rounded-lg border-gray-200 shadow-sm">
+    <section title="extras" class="border rounded-lg border-gray-200 dark:border-gray-700 shadow-sm">
 
 
       <UTabs
@@ -409,27 +409,29 @@ const weaponProfiles = computed(() => {
         <template #weapons>
           <table class="w-full text-sm ">
             <thead>
-              <tr class="uppercase text-xs tracking-wide">
-                <th class="text-left font-medium px-2 py-2">Name</th>
-                <th class="text-center font-medium px-2 py-2">Range</th>
-                <th class="text-center font-medium px-2 py-2">Damage</th>
-                <th class="text-center font-medium px-2 py-2">AP</th>
-                <th class="text-center font-medium px-2 py-2">Salvo</th>
-                <th class="text-left font-medium px-2 py-2">Traits</th>
+              <tr class="uppercase text-xs tracking-wide border-b border-gray-200 dark:border-gray-700 font-bold" >
+                <th class="text-left px-2 py-2">Name</th>
+                <th class="text-center px-2 py-2">Range</th>
+                <th class="text-center px-2 py-2">Damage</th>
+                <th class="text-center px-2 py-2">AP</th>
+                <th class="text-center px-2 py-2">Salvo</th>
+                <th class="text-left px-2 py-2">Traits</th>
               </tr>
             </thead>
             <tbody>
-              <tr v-for="profile in weaponProfiles" :key="profile.rowKey" class="hover:bg-gray-200 rounded-lg">
+              <tr v-for="profile in weaponProfiles" :key="profile.rowKey" class="hover:bg-gray-200 rounded-lg border-b border-gray-200 dark:border-gray-700">
                 <td class="px-1.5 py-1.5">{{ profile.parentName }}</td>
                 <td class="px-1.5 py-1.5 text-center">
-                  <span v-if="profile.type === 'melee-weapon'">{{ profile.range > 1 ? `${profile.range} m` : '-'}}</span>
+                  <span v-if="profile.type === 'melee-weapon'">{{ (profile.range ?? 0) > 1 ? `${profile.range} m` : '-'}}</span>
                   <template v-else-if="profile.type === 'ranged-weapon'">
                     <span v-if="profile.thrownX">{{ entity.data.attributes.strength * profile.thrownX}} m</span>
                     <spen v-else>{{ profile.range / 2 }} | {{ profile.range }} | {{ profile.range * 1.5 }}</spen>
                   </template>
                 </td>
-                <td class="px-1.5 py-1.5 text-center">
-                  {{ profile.damage?.static }}{{ profile.damage?.ed ? `+${profile.damage.ed}ED` : '' }}
+                <td class="px-1.5 py-1.5 text-center text-nowrap">
+                  <span v-if="profile.type === 'ranged-weapon'">{{ profile.damage?.static }}</span>
+                  <span v-else>{{ profile.damage?.static + (profile.damage?.ignoreStrength ? 0 : entity.data.attributes.strength )}}</span>
+                  {{ profile.damage?.ed ? `+${profile.damage.ed} ED` : '' }}
                 </td>
                 <td class="px-1.5 py-1.5 text-center">{{ profile.ap ?? 0 }}</td>
                 <td class="px-1.5 py-1.5 text-center">{{ profile.salvo ?? '-' }}</td>

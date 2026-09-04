@@ -1,0 +1,66 @@
+<script setup lang="ts">
+import {useWargearIcon} from "~/composables/useWargearIcon.ts";
+import {breakpointsTailwind, useBreakpoints} from "@vueuse/core";
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallScreen = breakpoints.smallerOrEqual('sm') // Returns a reactive boolean
+
+const props = defineProps<{
+  wargearKey: string
+  variant?: string
+  amount?: number
+}>()
+
+const { data: wargear } = await useAsyncData(
+    `wargear-${props.wargearKey}`,
+    (_nuxtApp, { signal }) => $fetch(`/api/wargear/${props.wargearKey}`, { signal } ),
+)
+
+const subtitle = computed(() => {
+  if (wargear.value) {
+    const tags = [wargear.value.type];
+    if (wargear.value.subtype) {
+      tags.push(wargear.value.subtype);
+    }
+    return tags.filter((t) => t !== undefined).join(' • ');
+  }
+  return '';
+})
+
+const { getWargearTypeIcon } = useWargearIcon()
+</script>
+
+<template>
+  <div v-if="wargear" class="flex flex-row gap-4">
+    <UModal
+        :ui="{ content: 'md:max-w-3xl'}"
+    >
+      <UUser
+          :avatar="{ icon: getWargearTypeIcon(wargear.type, wargear.subtype) }"
+          :description="subtitle"
+          class="w-full"
+      >
+        <template #name>
+          <span v-if="props.amount" class="mr-2">{{amount}}x</span>
+          <span v-if="props.variant">{{ props.variant }} [{{ wargear.name }}]</span>
+          <span v-else>{{wargear.name}}</span>
+          <UBadge v-if="wargear.source && wargear.source.key !== 'core'" variant="subtle" color="info" class="ml-1 uppercase" size="sm">{{ wargear.source.key }}</UBadge>
+        </template>
+      </UUser>
+
+      <template #content>
+        <LookupWargearInfo :wargear-key="wargear.key" />
+      </template>
+    </UModal>
+  </div>
+  <div v-else class="flex flex-row gap-4">
+    <UUser
+        :avatar="{ icon: getWargearTypeIcon('Misc') }"
+        :name="wargearName"
+        description="Misc"
+    />
+  </div>
+</template>
+
+<style scoped>
+
+</style>

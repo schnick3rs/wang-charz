@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import {useCharacterStore} from "~~/stores/characters.ts";
+import WargearDetailByKey from "~/components/forge/WargearDetailByKey.vue";
 
 definePageMeta({ layout: 'forge' })
 
@@ -26,6 +27,13 @@ onBeforeRouteLeave(async () => {
   if (entity.value) await store.saveNow(id.value)
 })
 
+const { data: characterWargear } = await useAsyncData(
+    `wargear-${entity.value.data.wargear.map((talent) => talent.key).join('-')}`,
+    async (_nuxtApp, { signal }) => {
+      return await Promise.all(entity.value.data.wargear.map((wargear) => $fetch(`/api/wargear/${wargear.key}`, {signal})));
+    }
+)
+
 </script>
 
 <template>
@@ -39,11 +47,9 @@ onBeforeRouteLeave(async () => {
       <h3 class="font-light text-sm">Owned Wargear</h3>
       <USeparator class="mb-2" />
 
-      <pre>{{entity.data.wargear}}</pre>
-
       <div class="flex flex-col gap-2">
-        <div v-for="gear in entity.data.wargear" :key="gear.id" class="hover:bg-black/10 p-2">
-          <pre>{{gear}}</pre>
+        <div v-for="gear in characterWargear" :key="gear.key" class="hover:bg-black/10 p-2">
+          <WargearDetailByKey :wargear-key="gear.key"></WargearDetailByKey>
         </div>
       </div>
     </div>

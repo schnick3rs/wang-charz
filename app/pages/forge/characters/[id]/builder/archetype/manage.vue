@@ -33,7 +33,6 @@ const skills = computed(() => {
       .join(', ');
 })
 
-
 async function addArchetypeEquipment() {
   const collectedGear = await Promise.all(archetype.value.wargear.map((wargear) => $fetch(`/api/wargear/first-by-name`, { query: { name: wargear.name }})))
   collectedGear.forEach((wargear: Wargear) => {
