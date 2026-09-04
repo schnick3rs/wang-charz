@@ -15,7 +15,7 @@ export const CharacterDataSchema = z.object({
 
     rank: z.number().default(1),
 
-    // character
+    // character TODO move to species object
     speciesAstartesChapterKey: z.string().optional(),
 
     attributes: z.object({
