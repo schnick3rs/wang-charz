@@ -421,8 +421,11 @@ const weaponProfiles = computed(() => {
             <tbody>
               <tr v-for="profile in weaponProfiles" :key="profile.rowKey" class="hover:bg-gray-200 rounded-lg border-b border-gray-200 dark:border-gray-700">
                 <td class="px-1.5 py-1.5">{{ profile.parentName }}</td>
-                <td class="px-1.5 py-1.5 text-center">
-                  <span v-if="profile.type === 'melee-weapon'">{{ (profile.range ?? 0) > 1 ? `${profile.range} m` : '-'}}</span>
+                <td class="px-1.5 py-1.5 text-center text-nowrap">
+                  <template v-if="profile.type === 'melee-weapon'">
+                    <span v-if="(profile.range ?? 0) > 1">{{ profile.range }} m</span>
+                    <span v-else><UIcon name="i-game-icons-crossed-swords"></UIcon></span>
+                  </template>
                   <template v-else-if="profile.type === 'ranged-weapon'">
                     <span v-if="profile.thrownX">{{ entity.data.attributes.strength * profile.thrownX}} m</span>
                     <spen v-else>{{ profile.range / 2 }} | {{ profile.range }} | {{ profile.range * 1.5 }}</spen>
