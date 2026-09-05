@@ -49,7 +49,7 @@ function selectArchetype(archetype: Archetype) {
   entity.value.data.archetype = {
     key: archetype.key,
     label: archetype.name,
-    cost: archetype.costs?.archetype || 999,
+    cost: archetype.costs.archetype ?? 999,
     tier: archetype.tier,
   }
 

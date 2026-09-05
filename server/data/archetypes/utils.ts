@@ -16,9 +16,8 @@ export const _statCosts: Record<'attributes' | 'skills', number[]> = {
     skills: [0, 2, 6, 12, 20, 30, 42, 56, 72],
 };
 
-export const cost = function (total = 0, archetypeCost = 0, statsCost = 0, speciesCost = 0, otherCost = 0) {
+export const archetypeCostBreakdown = function (total = 0, archetypeCost = 0, statsCost = 0, speciesCost = 0, otherCost = 0) {
     return {
-        cost: total,
         costs: {
             total,
             archetype: archetypeCost,
@@ -124,7 +123,7 @@ export const costz = function(total = 0, prerequisites: Prerequisite[] = []) {
     });
     const archetypeCost = total - skillAndAttributeCost;
     return {
-        ...cost(total, archetypeCost, skillAndAttributeCost),
+        ...archetypeCostBreakdown(total, archetypeCost, skillAndAttributeCost),
         prerequisites,
     };
 }

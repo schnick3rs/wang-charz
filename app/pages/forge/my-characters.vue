@@ -42,7 +42,7 @@ const crumbs = ref<BreadcrumbItem[]>([
 
 const characterStore = useCharacterStore()
 const { characterList, hydrated } = storeToRefs(characterStore)
-const { createCharacter, hydrate } = characterStore
+const { createCharacter, hydrate, deleteCharacter } = characterStore
 
 const user = useSupabaseUser()
 
@@ -61,6 +61,21 @@ async function newChar() {
     createCharacter(char)
   } catch (e) {
     console.error('Could not create character', e)
+  }
+}
+
+const deleteConfirmation = ref('')
+async function deleteChar(id: string) {
+  if (deleteConfirmation.value !== 'DELETE') return
+
+  const user = useSupabaseUser()
+  if (!user.value) return
+
+  try {
+    await deleteCharacter(id)
+    deleteConfirmation.value = ''
+  } catch (e) {
+    console.error('Could not delete character', e)
   }
 }
 
@@ -84,7 +99,6 @@ async function newChar() {
   </UCard>
 
   <section v-else>
-
 
     <div class="border-b-4 pb-2 border-b-orange-600 mb-4">
       <h1 class="text-3xl sm:text-4xl text-pretty font-bold text-highlighted inline">My Characters</h1>
@@ -130,7 +144,33 @@ async function newChar() {
           <UButton variant="ghost" color="info" :to="`/forge/characters/${c.id}`">View</UButton>
           <UButton variant="ghost" color="info" :to="`/forge/characters/${c.id}/builder/setting`">Edit</UButton>
           <UButton variant="ghost" color="info">Share</UButton>
-          <UButton variant="ghost" color="error">Delete</UButton>
+
+          <UModal
+              title="Delete this Agent?"
+              :description="`Poor ${c.data.name}, their time has come. Goodbye old friend...`"
+              :ui="{ footer: 'justify-between' }"
+          >
+
+            <UButton variant="ghost" color="error" >Delete</UButton>
+
+            <template #body>
+              <UAlert class="mb-4" color="warning" variant="subtle" :title="`To delete ${c.data.name} type tje word DELETE into the field below`"></UAlert>
+              <UInput v-model="deleteConfirmation" class="w-full" />
+            </template>
+
+            <template #footer="{ close }">
+              <UButton label="Cancel" color="neutral" variant="outline" @click="close" />
+              <UButton
+                  variant="solid"
+                  :color="deleteConfirmation === 'DELETE' ? 'error' : 'neutral'"
+                  :disabled="deleteConfirmation !== 'DELETE'"
+                  @click="deleteChar(c.id)"
+              >
+                Delete
+              </UButton>
+            </template>
+          </UModal>
+
         </template>
       </UCard>
     </div>

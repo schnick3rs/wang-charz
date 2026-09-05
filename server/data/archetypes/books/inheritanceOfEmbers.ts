@@ -1,10 +1,10 @@
-import {archetype, cost, costz, keywords, reqAttribute, reqSkill, wargearz} from "../utils";
+import {archetype, archetypeCostBreakdown, costz, keywords, reqAttribute, reqSkill, wargearz} from "../utils";
 
 export const aioe = [
     // Asuryani
     {
         ...archetype('aioe', 22,'Asuryani','Guardian',2,'aioe/Aeldari'),
-        ...cost(42,10,32, 0, 0),
+        ...archetypeCostBreakdown(42,10,32, 0, 0),
         hint: 'Militia but with pointy ears.',
         keywords: keywords('Aeldari,Asuryani,[Craftworld]'),
         prerequisites: [
@@ -26,7 +26,7 @@ export const aioe = [
     },
     {
         ...archetype('aioe', 23,'Asuryani','Ranger',2,'aioe/Aeldari'),
-        ...cost(34,10,24, 0, 0),
+        ...archetypeCostBreakdown(34,10,24, 0, 0),
         hint: 'A wanderer, a scout, and tracker for the good of their people.',
         keywords: keywords('Aeldari,Asuryani,[Craftworld]'),
         prerequisites: [
@@ -51,7 +51,7 @@ export const aioe = [
     },
     {
         ...archetype('aioe', 31,'Asuryani','Warlock',3,'aioe/Aeldari'),
-        ...cost(56,20,36, 0, 0),
+        ...archetypeCostBreakdown(56,20,36, 0, 0),
         hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
         keywords: keywords('Aeldari,Asuryani,Psyker,[Craftworld]'),
         prerequisites: [
@@ -103,7 +103,7 @@ export const aioe = [
     },
     {
         ...archetype('aioe', 32,'Asuryani','Wraithguard',4,'Wraith Construct/aioe-wraith-construct'),
-        ...cost(164,30,134, 0, 0),
+        ...archetypeCostBreakdown(164,30,134, 0, 0),
         hint: 'A guardian of bone and soul',
         keywords: keywords('Aeldari,Asuryan,Wraith-Construct,[Craftworld]'),
         prerequisites: [

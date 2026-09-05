@@ -36,7 +36,7 @@ const skills = computed(() => {
 async function addArchetypeEquipment() {
   const collectedGear = await Promise.all(archetype.value.wargear.map((wargear) => $fetch(`/api/wargear/first-by-name`, { query: { name: wargear.name }})))
   collectedGear.forEach((wargear: Wargear) => {
-    console.info('adding wargear to character', wargear)
+    console.info('adding wargear to character', wargear.key)
     const charGear = {
       id: crypto.randomUUID().replaceAll('-', '').slice(0, 8),
       key: wargear.key,
