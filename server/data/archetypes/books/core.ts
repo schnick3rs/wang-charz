@@ -40,14 +40,13 @@ export const core = [
     },
     {
         ...archetype('core', 102,'Adeptus Ministorum','Death Cult Assassin',2,'Human'),
-        ...archetypeCostBreakdown(36,10,26, 0, 0),
+        ...costz(36, [
+            reqAttribute(ATTRIBUTES.AGILITY, 4),
+            reqSkill(SKILLS.WEAPON_SKILL, 2),
+        ]),
         hint: 'An agile killer, expressing worship through the art of death.',
         snippet: 'A zealot of an extremist sect, you honour the Emperor’s sacrifice for humanity through the ritual slaughter of His enemies.',
         keywords: keywords('Imperium,Adeptus Ministorum'),
-        prerequisites: [
-            reqAttribute(ATTRIBUTES.AGILITY, 4),
-            reqSkill(SKILLS.WEAPON_SKILL, 2),
-        ],
         archetypeFeatures: [
             {
                 name: 'Glancing Blow',
@@ -60,15 +59,14 @@ export const core = [
     },
     {
         ...archetype('core', 110,'Adeptus Ministorum','Crusader',3,'Human'),
-        ...archetypeCostBreakdown(54,20,34, 0, 0),
-        hint: 'A holy warrior with unflagging devotion to the God-Emperor.',
-        keywords: keywords('Imperium,Adeptus Ministorum'),
-        prerequisites: [
+        ...costz(54, [
             reqAttribute(ATTRIBUTES.INITIATIVE, 3),
             reqAttribute(ATTRIBUTES.WILLPOWER, 3),
             reqSkill(SKILLS.SCHOLAR, 1),
             reqSkill(SKILLS.WEAPON_SKILL, 3),
-        ],
+        ]),
+        hint: 'A holy warrior with unflagging devotion to the God-Emperor.',
+        keywords: keywords('Imperium,Adeptus Ministorum'),
         archetypeFeatures: [
             {
                 name: 'Armour of Faith',
@@ -184,16 +182,15 @@ export const core = [
     },
     {
         ...archetype('core', 103,'Astra Militarum','Tempestus Scion',2,'Human'),
-        ...archetypeCostBreakdown(52,10,42, 0, 0),
-        hint: 'An elite, highly-trained soldier, used to undertaking special missions.',
-        keywords: keywords('Imperium,Astra Militarum,Militarum Tempest'),
-        prerequisites: [
+        ...costz(52, [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqSkill(SKILLS.BALLISTIC_SKILL, 2),
             reqSkill(SKILLS.STEALTH, 2),
-        ],
+        ]),
+        hint: 'An elite, highly-trained soldier, used to undertaking special missions.',
+        keywords: keywords('Imperium,Astra Militarum,Militarum Tempest'),
         archetypeFeatures: [
             {
                 name: 'Elite Soldier',
@@ -276,13 +273,12 @@ export const core = [
     },
     {
         ...archetype('core', 95,'The Inquisition','Inquisitorial Sage',1,'Human'),
-        ...archetypeCostBreakdown(16,0,16, 0, 0),
-        hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
-        keywords: keywords('Adeptus Administratum,Imperium,Inquisition,[Ordo]'),
-        prerequisites: [
+        ...costz(16, [
             reqAttribute(ATTRIBUTES.INTELLECT, 3),
             reqSkill(SKILLS.SCHOLAR, 2),
-        ],
+        ]),
+        hint: 'A learned scholar and scribe, adept at navigating bureaucratic obstacles.',
+        keywords: keywords('Adeptus Administratum,Imperium,Inquisition,[Ordo]'),
         archetypeFeatures: [
             {
                 name: 'Administratum Records',
@@ -297,16 +293,15 @@ export const core = [
     },
     {
         ...archetype('core', 104,'Rogue Trader Dynasties','Rogue Trader',2,'Human'),
-        ...archetypeCostBreakdown(36,10,26,0,0),
-        hint: 'An adventuresome and influential explorer with their own space vessel.',
-        keywords: keywords('Imperium,Rogue Trader,[Dynasty]'),
-        prerequisites: [
+        ...costz(36, [
             reqAttribute(ATTRIBUTES.FELLOWSHIP, 3),
             reqSkill(SKILLS.AWARENESS, 1),
             reqSkill(SKILLS.CUNNING, 1),
             reqSkill(SKILLS.INSIGHT, 2),
             reqSkill(SKILLS.PERSUASION, 2),
-        ],
+        ]),
+        hint: 'An adventuresome and influential explorer with their own space vessel.',
+        keywords: keywords('Imperium,Rogue Trader,[Dynasty]'),
         archetypeFeatures: [
             {
                 name: 'Warrant of Trade',
@@ -355,13 +350,12 @@ export const core = [
     },
     {
         ...archetype('core', 100,'Adeptus Astra Telephatica','Sanctioned Psyker',2,'Human'),
-        ...archetypeCostBreakdown(32, 10, 22, 0, 0),
-        hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
-        keywords: keywords('Imperium,Adeptus Astra Telepathica,Psyker,SCHOLASTIA PSYKANA'),
-        prerequisites: [
+        ...costz(32, [
             reqAttribute(ATTRIBUTES.WILLPOWER, 4),
             reqSkill(SKILLS.PSYCHIC_MASTERY, 1),
-        ],
+        ]),
+        hint: 'Able to focus the warp through their mind, they are blessed or cursed with psychic powers.',
+        keywords: keywords('Imperium,Adeptus Astra Telepathica,Psyker,SCHOLASTIA PSYKANA'),
         archetypeFeatures: [
             {
                 name: 'Psyker',
@@ -399,15 +393,14 @@ export const core = [
     },
     {
         ...archetype('core', 116,'The Inquisition','Inquisitor',4,'Human'),
-        ...archetypeCostBreakdown(110,30,80, 0, 0),
-        hint: 'A bearer of profound Imperial authority, adept at discovering the truth in the shadows.',
-        keywords: keywords('Imperium,Inquisition,[Ordo],[Any]'),
-        prerequisites: [
+        ...costz(110, [
             reqAttribute(ATTRIBUTES.INTELLECT, 4),
             reqAttribute(ATTRIBUTES.WILLPOWER, 4),
             reqSkill(SKILLS.CUNNING, 4),
             reqSkill(SKILLS.INSIGHT, 4),
-        ],
+        ]),
+        hint: 'A bearer of profound Imperial authority, adept at discovering the truth in the shadows.',
+        keywords: keywords('Imperium,Inquisition,[Ordo],[Any]'),
         archetypeFeatures: [
             {
                 name: 'Unchecked Authority',
@@ -455,10 +448,7 @@ export const core = [
     },
     {
         ...archetype('core', 106,'Adeptus Astartes','Space Marine Scout',2,'Adeptus Astartes'),
-        ...archetypeCostBreakdown(170,10,160, 0, 0),
-        hint: 'A stealthy warrior adept at reconnaissance.',
-        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
-        prerequisites: [
+        ...costz(170, [
             reqAttribute(ATTRIBUTES.STRENGTH, 4),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 4),
             reqAttribute(ATTRIBUTES.AGILITY, 4),
@@ -470,7 +460,10 @@ export const core = [
             reqSkill(SKILLS.BALLISTIC_SKILL, 3),
             reqSkill(SKILLS.STEALTH, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 3),
-        ],
+        ]),
+        hint: 'A stealthy warrior adept at reconnaissance.',
+        keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
+        prerequisites: ,
         archetypeFeatures: [
             {
                 name: 'Use the Terrain',
@@ -563,14 +556,13 @@ export const core = [
     // Adeptus Mechanicus
     {
         ...archetype('core', 101,'Adeptus Mechanicus','Skitarius',2,'Human'),
-        ...archetypeCostBreakdown(28,10,18, 0, 0),
-        hint: 'A warrior of the Machine Cult, sturdy and reliable.',
-        keywords: keywords('Imperium,Adeptus Mechanicus,Skitarii,[Forge World]'),
-        prerequisites: [
+        ...costz(28, [
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
             reqSkill(SKILLS.BALLISTIC_SKILL, 2),
             reqSkill(SKILLS.TECH, 1),
-        ],
+        ]),
+        hint: 'A warrior of the Machine Cult, sturdy and reliable.',
+        keywords: keywords('Imperium,Adeptus Mechanicus,Skitarii,[Forge World]'),
         archetypeFeatures: [
             {
                 name: 'Heavily Augmented',
@@ -642,12 +634,11 @@ export const core = [
     // Scum
     {
         ...archetype('core', 96,'Scum','Ganger',1,'Human'),
-        ...archetypeCostBreakdown(2,0,2, 0, 0),
+        ...costz(2, [
+            reqSkill(SKILLS.CUNNING, 1),
+        ]),
         hint: 'A resourceful and tenacious survivor from the depths of enormous industrial cities.',
         keywords: keywords('Scum,[Any]'),
-        prerequisites: [
-            reqSkill(SKILLS.CUNNING, 1),
-        ],
         archetypeFeatures: [
             {
                 name: 'Scrounger',
@@ -689,13 +680,12 @@ export const core = [
     },
     {
         ...archetype('core', 105,'Scum','Scavvy',2,'Human'),
-        ...archetypeCostBreakdown(16,10,6, 0, 0),
-        hint: 'A mutant—cast out and reviled—yet their mutations give them power.',
-        keywords: keywords('Scum,[Any]'),
-        prerequisites: [
+        ...costz(16, [
             reqAttribute(ATTRIBUTES.TOUGHNESS, 2),
             reqSkill(SKILLS.SURVIVAL, 1),
-        ],
+        ]),
+        hint: 'A mutant—cast out and reviled—yet their mutations give them power.',
+        keywords: keywords('Scum,[Any]'),
         archetypeFeatures: [
             {
                 name: 'Mutant',
@@ -812,16 +802,15 @@ export const core = [
     },
     {
         ...archetype('core', 112,'Scum','Desperado',3,'Human'),
-        ...archetypeCostBreakdown(52,20,32, 0, 0),
-        hint: 'A savvy and dangerous bounty hunter, mercenary, and gun for hire.',
-        keywords: keywords('Scum,[Any]'),
-        prerequisites: [
+        ...costz(52, [
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqAttribute(ATTRIBUTES.INTELLECT, 2),
             reqSkill(SKILLS.AWARENESS, 2),
             reqSkill(SKILLS.CUNNING, 2),
             reqSkill(SKILLS.INVESTIGATION, 2),
-        ],
+        ]),
+        hint: 'A savvy and dangerous bounty hunter, mercenary, and gun for hire.',
+        keywords: keywords('Scum,[Any]'),
         archetypeFeatures: [
             {
                 name: 'Valuable Prey',
@@ -862,12 +851,11 @@ export const core = [
     // Renegades
     {
         ...archetype('core', 96,'Chaos','Cultist',1,'Human'),
-        ...archetypeCostBreakdown(2,0,2, 0, 0),
+        ...costz(2, [
+            reqSkill(SKILLS.CUNNING, 1),
+        ]),
         hint: 'A disciple of the Ruinous Powers, eager to gain their capricious favour.',
         keywords: keywords('Scum,[Any],Chaos,[Mark of Chaos]'),
-        prerequisites: [
-            reqSkill(SKILLS.CUNNING, 1),
-        ],
         archetypeFeatures: [
             {
                 name: 'Enemy Within',
@@ -914,13 +902,12 @@ export const core = [
     },
     {
         ...archetype('core', 100,'Chaos','Rogue Psyker',2,'Human'),
-        ...archetypeCostBreakdown(32,10,22, 0, 0),
-        hint: 'How could you...',
-        keywords: keywords('Chaos,Psyker,Scholastica Psykana'),
-        prerequisites: [
+        ...costz(32, [
             reqAttribute(ATTRIBUTES.WILLPOWER, 4),
             reqSkill(SKILLS.PSYCHIC_MASTERY, 1),
-        ],
+        ]),
+        hint: 'How could you...',
+        keywords: keywords('Chaos,Psyker,Scholastica Psykana'),
         archetypeFeatures: [
             {
                 name: 'Psyker',
@@ -1084,13 +1071,12 @@ export const core = [
     // Aeldari
     {
         ...archetype('core', 97,'Aeldari','Corsair',1,'Aeldari'),
-        ...archetypeCostBreakdown(16,0,16, 0, 0),
-        hint: 'A space-faring pirate of an ancient race.',
-        keywords: keywords('Aeldari,Anhrathe,[Corerie]'),
-        prerequisites: [
+        ...costz(16, [
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqSkill(SKILLS.ATHLETICS, 2),
-        ],
+        ]),
+        hint: 'A space-faring pirate of an ancient race.',
+        keywords: keywords('Aeldari,Anhrathe,[Corerie]'),
         archetypeFeatures: [
             {
                 name: 'Dancing the Blade\'s Edge',
@@ -1123,14 +1109,13 @@ export const core = [
     },
     {
         ...archetype('core', 114,'Aeldari','Warlock',3,'Aeldari'),
-        ...archetypeCostBreakdown(56,20,36, 0, 0),
-        hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
-        keywords: keywords('Aeldari,Asuryani,Psyker,[Craftworld]'),
-        prerequisites: [
+        ...costz(56, [
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqAttribute(ATTRIBUTES.WILLPOWER, 4),
             reqSkill(SKILLS.PSYCHIC_MASTERY, 2),
-        ],
+        ]),
+        hint: 'A powerful psyker, wielding strictly-guided powers for the Aeldari cause.',
+        keywords: keywords('Aeldari,Asuryani,Psyker,[Craftworld]'),
         archetypeFeatures: [
             {
                 name: 'Runes of Battle',
@@ -1178,14 +1163,13 @@ export const core = [
     // Orks
     {
         ...archetype('core', 98,'Orks','Boy',1,'Ork'),
-        ...archetypeCostBreakdown(26,0,26, 0, 0),
-        hint: 'A brutish warrior and thug who believes that might makes right.',
-        keywords: keywords('Ork,[Clan]'),
-        prerequisites: [
+        ...costz(26, [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
             reqSkill(SKILLS.WEAPON_SKILL, 2),
-        ],
+        ]),
+        hint: 'A brutish warrior and thug who believes that might makes right.',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'Get Stuck In',
@@ -1196,17 +1180,16 @@ export const core = [
     },
     {
         ...archetype('core', 108,'Orks','Kommando',2,'Ork'),
-        ...archetypeCostBreakdown(54,10,44, 0, 0),
-        hint: 'A stealthy and cunning warrior who knows how to turn almost any battle to his advantage.',
-        keywords: keywords('Ork,[Clan]'),
-        prerequisites: [
+        ...costz(54, [
             reqAttribute(ATTRIBUTES.STRENGTH, 3),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
             reqAttribute(ATTRIBUTES.AGILITY, 3),
             reqSkill(SKILLS.STEALTH, 2),
             reqSkill(SKILLS.SURVIVAL, 1),
             reqSkill(SKILLS.WEAPON_SKILL, 2),
-        ],
+        ]),
+        hint: 'A stealthy and cunning warrior who knows how to turn almost any battle to his advantage.',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'Kunnin\' Plan',
@@ -1221,15 +1204,14 @@ export const core = [
     {
         ...archetype('core', 115,'Orks','Ork Nob',3,'Ork'),
         key: 'core-nob',
-        ...archetypeCostBreakdown(56,20,36, 0, 0),
-        hint: 'A savage warrior and capable leader, using brute force to succeed where others fail.',
-        name: 'Nob',
-        keywords: keywords('Ork,[Clan]'),
-        prerequisites: [
+        ...costz(56, [
             reqAttribute(ATTRIBUTES.STRENGTH, 4),
             reqAttribute(ATTRIBUTES.TOUGHNESS, 3),
             reqSkill(SKILLS.INTIMIDATION, 2),
-        ],
+        ]),
+        hint: 'A savage warrior and capable leader, using brute force to succeed where others fail.',
+        name: 'Nob',
+        keywords: keywords('Ork,[Clan]'),
         archetypeFeatures: [
             {
                 name: 'The Green Tide',
