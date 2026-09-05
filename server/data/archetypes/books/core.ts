@@ -463,7 +463,6 @@ export const core = [
         ]),
         hint: 'A stealthy warrior adept at reconnaissance.',
         keywords: keywords('Imperium,Adeptus Astartes,[Chapter]'),
-        prerequisites: ,
         archetypeFeatures: [
             {
                 name: 'Use the Terrain',
