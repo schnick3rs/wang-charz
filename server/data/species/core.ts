@@ -1,6 +1,6 @@
 import {commonNames, cost, species, statMax} from "./utils";
 
-const GROUPS = {
+export const GROUPS = {
     MANKIND: 'Mankind',
     AELDARI: 'Aeldari',
     ORKS: 'Orks',

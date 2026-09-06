@@ -15,11 +15,19 @@ const store = useCharacterStore()
 
 const entity = computed(() => store.byId[id.value])
 
+const enabledSources = computed(() => {
+  if (!entity.value) return []
+  return [
+      ...entity.value.data.enabledBooks,
+      ...entity.value.data.enabledHomebrews,
+  ]
+})
+
 const { data: archetypes } = await useAsyncData(
     'archetypes',
     (_nuxtApp, { signal }) => $fetch('/api/archetypes', {
       signal,
-      query: { source: entity.value?.data.enabledBooks.join(',') || '' }
+      query: { source: enabledSources.value.join(',') || '' }
     }),
     {
       transform: (data) => {

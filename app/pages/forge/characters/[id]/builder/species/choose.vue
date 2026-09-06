@@ -13,11 +13,19 @@ const store = useCharacterStore()
 
 const entity = computed(() => store.byId[id.value])
 
+const enabledSources = computed(() => {
+  if (!entity.value) return []
+  return [
+    ...entity.value.data.enabledBooks,
+    ...entity.value.data.enabledHomebrews,
+  ]
+})
+
 const { data: species } = await useAsyncData(
-    'species',
+    `species-${enabledSources.value.join('--')}`,
     (_nuxtApp, { signal }) => $fetch('/api/species', {
       signal,
-      query: { source: entity.value?.data.enabledBooks.join(',') || '' }
+      query: { source: enabledSources.value.join(',') || '' }
     }),
 )
 
@@ -127,7 +135,7 @@ function updateAndShowSpeciesPreview(species: Species) {
         </UUser>
 
         <UFieldGroup>
-          <UBadge>{{ item.cost }}</UBadge>
+          <UBadge>{{ item.costs.total }}</UBadge>
           <UBadge variant="subtle">XP</UBadge>
         </UFieldGroup>
       </div>
