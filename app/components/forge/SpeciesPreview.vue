@@ -1,11 +1,18 @@
 <script setup lang="ts">
 const { species } = defineProps<{ species: Species }>();
 
+const { t } = useI18n();
 const attributes = computed(() => {
-  return species.prerequisites.filter(pre => pre.group === 'attributes').map(pre => `${pre.value} ${pre.threshold}`).join(', ');
+  return species.prerequisites
+      .filter((pre) => pre.group === 'attributes')
+      .map((pre) => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`)
+      .join(', ');
 })
 const skills = computed(() => {
-  return species.prerequisites.filter(pre => pre.group === 'skills').map(pre => `${pre.value} ${pre.threshold}`).join(', ');
+  return species.prerequisites
+      .filter((pre) => pre.group === 'skills')
+      .map((pre) => `${t(`stats.${pre.value}`, pre.value)} ${pre.threshold}`)
+      .join(', ');
 })
 
 </script>

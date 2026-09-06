@@ -120,8 +120,8 @@ function randomName() {
         Core pg. 38 start with TIER buy up to 4 for 1:1 XP at start
       </UCard>
 
+      <!-- Lanmguages -  core, pg. 31 -->
       <UCard title="Known Languages" description="Can be bought during character creation">
-        <UBadge color="neutral" variant="subtle">Low Gothic</UBadge>
         <UBadge color="neutral" variant="subtle">Low Gothic</UBadge>
 
         <UFormField label="Add Language">
