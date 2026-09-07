@@ -74,12 +74,20 @@ export default defineNuxtConfig({
          */
         { name: 'twitter:site', content: '@doctors_of_doom' },
         { name: 'twitter:creator', content: '@doctors_of_doom' },
+
+        {
+          name: 'apple-mobile-web-app-title',
+          content: 'Doom'
+        }
       ],
       link: [
         { rel: 'apple-touch-icon', sizes: '180x180', href: '/apple-touch-icon.png' },
         { rel: 'shortcut icon', type: 'image/x-icon', sizes: '192x192', href: '/android-chrome-192x192.png' },
         { rel: 'icon', type: 'image/x-icon', sizes: '32x32', href: '/favicon-32x32.png' },
+
         { rel: 'icon', type: 'image/x-icon', sizes: '16x16', href: '/favicon-16x16.png' },
+        { rel: 'icon', type: 'image/png', href: '/favicon-96x96.png', sizes: '96x96' },
+        { rel: 'icon', type: 'image/svg+xml', href: '/favicon.svg' },
       ],
     },
   }
