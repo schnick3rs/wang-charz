@@ -3,6 +3,10 @@ import type {BreadcrumbItem} from "@nuxt/ui";
 import {useCharacterStore} from "~~/stores/characters.ts";
 import { storeToRefs } from 'pinia'
 import { nameByRace } from "fantasy-name-generator";
+import {breakpointsTailwind, useBreakpoints} from "@vueuse/core";
+
+const breakpoints = useBreakpoints(breakpointsTailwind)
+const isSmallScreen = breakpoints.smallerOrEqual('sm') // Returns a reactive boolean
 
 const description = 'The Forge allows you to create and organize multiple characters for the Wrath and GloryRoleplaying game. Create, manage and view your characters online.'
 
@@ -66,16 +70,19 @@ async function newChar() {
   }
 }
 
-const deleteConfirmation = ref('')
+const deleteTextConfirmation = ref('')
+const deleteBooleanConfirmation = ref(false)
+const deleteEnabled = computed(() => deleteTextConfirmation.value === 'DELETE' || deleteBooleanConfirmation.value)
+
 async function deleteChar(id: string) {
-  if (deleteConfirmation.value !== 'DELETE') return
+  if (!deleteEnabled.value) return
 
   const user = useSupabaseUser()
   if (!user.value) return
 
   try {
     await deleteCharacter(id)
-    deleteConfirmation.value = ''
+    deleteTextConfirmation.value = ''
   } catch (e) {
     console.error('Could not delete character', e)
   }
@@ -156,16 +163,22 @@ async function deleteChar(id: string) {
             <UButton variant="ghost" color="error" >Delete</UButton>
 
             <template #body>
-              <UAlert class="mb-4" color="warning" variant="subtle" :title="`To delete ${c.data.name} type tje word DELETE into the field below`"></UAlert>
-              <UInput v-model="deleteConfirmation" class="w-full" />
+              <template v-if="isSmallScreen">
+                <UAlert class="mb-4" color="warning" variant="subtle" :title="`To delete ${c.data.name} enable the checkbox below`"></UAlert>
+                <UCheckbox v-model="deleteBooleanConfirmation" class="w-full" label="Click here to confirm the deletion" />
+              </template>
+              <template v-else>
+                <UAlert class="mb-4" color="warning" variant="subtle" :title="`To delete ${c.data.name} type the word DELETE into the field below`"></UAlert>
+                <UInput v-model="deleteTextConfirmation" class="w-full" />
+              </template>
             </template>
 
             <template #footer="{ close }">
               <UButton label="Cancel" color="neutral" variant="outline" @click="close" />
               <UButton
                   variant="solid"
-                  :color="deleteConfirmation === 'DELETE' ? 'error' : 'neutral'"
-                  :disabled="deleteConfirmation !== 'DELETE'"
+                  :color="deleteEnabled ? 'error' : 'neutral'"
+                  :disabled="!deleteEnabled"
                   @click="deleteChar(c.id)"
               >
                 Delete
