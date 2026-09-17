@@ -60,6 +60,7 @@ export const useCharacterStore = defineStore('characters', {
     actions: {
 
         async hydrate() {
+            console.log('Hydrating characters')
             const supabase = useSupabaseClient<Database>()
             const { data: rows, error } = await supabase
                 .from('characters')
@@ -78,6 +79,7 @@ export const useCharacterStore = defineStore('characters', {
                 this.order.push(entity.id)
             }
             this.hydrated = true
+            console.log('Characters hydrated')
         },
 
         createCharacter(initial: Partial<CharacterDataType> & { name: string }) {

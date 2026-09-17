@@ -47,7 +47,9 @@ const { createCharacter, hydrate, deleteCharacter } = characterStore
 const user = useSupabaseUser()
 
 onMounted(() => {
-  hydrate()
+  if (!hydrated.value) {
+    hydrate()
+  }
 })
 
 async function newChar() {
@@ -109,15 +111,15 @@ async function deleteChar(id: string) {
       <UButton>Import Agent</UButton>
     </div>
 
-    <div v-if="!hydrated">
-      <div class="flex items-center gap-4">
+    <div v-if="!hydrated" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-4">
+      <UCard class="flex items-center gap-4"  v-for="i in 3" :key="i">
         <USkeleton class="size-12 rounded-full" />
 
         <div class="grid gap-2">
           <USkeleton class="h-4 w-[250px]" />
           <USkeleton class="h-4 w-[200px]" />
         </div>
-      </div>
+      </UCard>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 3xl:grid-cols-4 gap-4">

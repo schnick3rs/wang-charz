@@ -39,6 +39,18 @@ const filteredSpecies = computed(() => {
 
 const { applyPrerequisites } = useApplyPrerequisites()
 const toast = useToast()
+
+/**
+ * Selects a species for the character.
+ * - clear old enhancements
+ * - set species variables
+ * - set direct modifications
+ *
+ * species might grant: keywords, stats, wargear, talents, disciplines, powers
+ * archetypes grant: keywords, wargar, influence, powers
+ *
+ * @param species The species to select.
+ */
 function selectSpecies(species: Species) {
   if (!entity.value) return
   console.info('Set Character Species', species.name)

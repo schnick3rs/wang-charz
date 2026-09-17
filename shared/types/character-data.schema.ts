@@ -6,7 +6,7 @@ export const CharacterDataSchema = z.object({
 
     // setting
     enabledHouseRules: z.array(z.string()).default([]),
-    enabledBooks: z.array(z.string()).default(['core']),
+    enabledBooks: z.array(z.string()).default(['core', 'red1' ,'red2', 'fspg']),
     enabledHomebrews: z.array(z.string()).default([]),
 
     settingTier: z.number().default(2),
